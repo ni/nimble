@@ -1,29 +1,30 @@
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import {
     TreeItem as FoundationTreeItem,
-    type TreeItemOptions,
-    DesignSystem,
     treeItemTemplate as template
 } from '@ni/fast-foundation';
 import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const treeItemTag = 'nimble-tree-item';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tree-item': TreeItem;
+        [treeItemTag]: TreeItem;
     }
 }
 
 /**
- * A function that returns a nimble-tree-item registration for configuring the component with a DesignSystem.
- * Implements {@link @ni/fast-foundation#treeItemTemplate}
- *
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-tree-item\>
- *
+ * A nimble-styled tree item
  */
+@customElement({
+    name: treeItemTag,
+    template: template(elementDefinitionContextMock, {
+        expandCollapseGlyph: arrowExpanderUp16X16.data
+    }),
+    styles
+})
 export class TreeItem extends FoundationTreeItem {
     /**
      * @internal
@@ -31,14 +32,3 @@ export class TreeItem extends FoundationTreeItem {
     @attr({ attribute: 'group-selected', mode: 'boolean' })
     public groupSelected = false;
 }
-
-const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
-    baseName: 'tree-item',
-    baseClass: FoundationTreeItem,
-    template,
-    styles,
-    expandCollapseGlyph: arrowExpanderUp16X16.data
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeItem());
-export const treeItemTag = 'nimble-tree-item';

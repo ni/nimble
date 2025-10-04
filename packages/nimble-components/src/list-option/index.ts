@@ -1,22 +1,29 @@
 import {
-    DesignSystem,
     ListboxOption as FoundationListboxOption
 } from '@ni/fast-foundation';
-import { observable, attr } from '@ni/fast-element';
+import { observable, attr, customElement } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { ListOptionOwner } from '../patterns/dropdown/types';
 import { slotTextContent } from '../utilities/models/slot-text-content';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const listOptionTag = 'nimble-list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-list-option': ListOption;
+        [listOptionTag]: ListOption;
     }
 }
 
 /**
  * A nimble-styled HTML listbox option
  */
+@customElement({
+    name: listOptionTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles
+})
 export class ListOption extends FoundationListboxOption {
     /** @internal */
     public contentSlot!: HTMLSlotElement;
@@ -92,13 +99,3 @@ export class ListOption extends FoundationListboxOption {
         return typeof (parent as ListOptionOwner).registerOption === 'function';
     }
 }
-
-const nimbleListOption = ListOption.compose({
-    baseName: 'list-option',
-    baseClass: FoundationListboxOption,
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleListOption());
-export const listOptionTag = 'nimble-list-option';

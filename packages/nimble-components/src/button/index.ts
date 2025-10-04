@@ -1,8 +1,6 @@
-import { attr, nullableNumberConverter } from '@ni/fast-element';
+import { attr, customElement, nullableNumberConverter } from '@ni/fast-element';
 import {
     Button as FoundationButton,
-    type ButtonOptions,
-    DesignSystem
 } from '@ni/fast-foundation';
 import type {
     ButtonPattern,
@@ -11,16 +9,27 @@ import type {
 import { styles } from './styles';
 import { template } from './template';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const buttonTag = 'nimble-button';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-button': Button;
+        [buttonTag]: Button;
     }
 }
 
 /**
  * A nimble-styled HTML button
  */
+@customElement({
+    name: buttonTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class Button
     extends FoundationButton
     implements ButtonPattern, ButtonAppearanceVariantPattern {
@@ -56,25 +65,3 @@ export class Button
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
 }
-
-/**
- * A function that returns a nimble-button registration for configuring the component with a DesignSystem.
- * Implements {@link @ni/fast-foundation#buttonTemplate}
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-button\>
- *
- */
-const nimbleButton = Button.compose<ButtonOptions>({
-    baseName: 'button',
-    baseClass: FoundationButton,
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
-export const buttonTag = 'nimble-button';

@@ -1,8 +1,7 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, customElement, observable } from '@ni/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
-    DesignSystem,
     FoundationElement
 } from '@ni/fast-foundation';
 import { UserDismissed } from '../patterns/dialog/types';
@@ -10,10 +9,11 @@ import { styles } from './styles';
 import { template } from './template';
 
 export { UserDismissed };
+export const dialogTag = 'nimble-dialog';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-dialog': Dialog;
+        [dialogTag]: Dialog;
     }
 }
 
@@ -21,6 +21,11 @@ declare global {
  * A nimble-styled dialog.
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+@customElement({
+    name: dialogTag,
+    template,
+    styles
+})
 export class Dialog<CloseReason = void> extends FoundationElement {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -149,13 +154,3 @@ export class Dialog<CloseReason = void> extends FoundationElement {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Dialog extends ARIAGlobalStatesAndProperties {}
 applyMixins(Dialog, ARIAGlobalStatesAndProperties);
-
-const nimbleDialog = Dialog.compose({
-    baseName: 'dialog',
-    template,
-    styles,
-    baseClass: Dialog
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDialog());
-export const dialogTag = 'nimble-dialog';

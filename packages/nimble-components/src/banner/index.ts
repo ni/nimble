@@ -1,23 +1,29 @@
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
-    DesignSystem,
     FoundationElement
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { BannerSeverity, type BannerToggleEventDetail } from './types';
 
+export const bannerTag = 'nimble-banner';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-banner': Banner;
+        [bannerTag]: Banner;
     }
 }
 
 /**
  * A nimble-styled notification banner for persistent messages.
  */
+@customElement({
+    name: bannerTag,
+    template,
+    styles
+})
 export class Banner extends FoundationElement {
     /**
      * @public
@@ -73,12 +79,3 @@ export class Banner extends FoundationElement {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Banner extends ARIAGlobalStatesAndProperties {}
 applyMixins(Banner, ARIAGlobalStatesAndProperties);
-
-const nimbleBanner = Banner.compose({
-    baseName: 'banner',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBanner());
-export const bannerTag = 'nimble-banner';

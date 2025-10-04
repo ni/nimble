@@ -1,19 +1,26 @@
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import { observable, attr, volatile, Observable } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
+import { observable, attr, volatile, Observable, customElement } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import { ListOption } from '../list-option';
 import { slotTextContent } from '../utilities/models/slot-text-content';
 
+export const listOptionGroupTag = 'nimble-list-option-group';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-list-option-group': ListOptionGroup;
+        [listOptionGroupTag]: ListOptionGroup;
     }
 }
 
 /**
  * A nimble-styled HTML listbox option group
  */
+@customElement({
+    name: listOptionGroupTag,
+    template,
+    styles
+})
 export class ListOptionGroup extends FoundationElement {
     /**
      * The label for the group.
@@ -135,15 +142,3 @@ export class ListOptionGroup extends FoundationElement {
         this.visuallyHidden = next.length === 0 || allOptionsHidden;
     }
 }
-
-const nimbleListOptionGroup = ListOptionGroup.compose({
-    baseName: 'list-option-group',
-    baseClass: FoundationElement,
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleListOptionGroup());
-export const listOptionGroupTag = 'nimble-list-option-group';

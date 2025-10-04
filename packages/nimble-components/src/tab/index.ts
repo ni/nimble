@@ -1,27 +1,25 @@
+import { customElement } from '@ni/fast-element';
 import {
-    DesignSystem,
     Tab as FoundationTab,
     tabTemplate as template
 } from '@ni/fast-foundation';
 import { styles } from './styles';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const tabTag = 'nimble-tab';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tab': Tab;
+        [tabTag]: Tab;
     }
 }
 
 /**
  * A nimble-styled HTML tab
  */
-export class Tab extends FoundationTab {}
-
-const nimbleTab = Tab.compose({
-    baseName: 'tab',
-    baseClass: FoundationTab,
-    template,
+@customElement({
+    name: tabTag,
+    template: template(elementDefinitionContextMock, {}),
     styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTab());
-export const tabTag = 'nimble-tab';
+})
+export class Tab extends FoundationTab {}

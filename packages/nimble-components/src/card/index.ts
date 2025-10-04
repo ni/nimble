@@ -1,24 +1,22 @@
-import { DesignSystem, Card as FoundationCard } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
+import { Card as FoundationCard } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
+export const cardTag = 'nimble-card';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-card': Card;
+        [cardTag]: Card;
     }
 }
 
 /**
  * A nimble-styled card
  */
-export class Card extends FoundationCard {}
-
-const nimbleCard = Card.compose({
-    baseName: 'card',
-    baseClass: FoundationCard,
+@customElement({
+    name: cardTag,
     template,
     styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCard());
-export const cardTag = 'nimble-card';
+})
+export class Card extends FoundationCard {}

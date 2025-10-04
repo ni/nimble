@@ -1,21 +1,28 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, customElement, observable } from '@ni/fast-element';
 import {
-    DesignSystem,
     Breadcrumb as FoundationBreadcrumb
 } from '@ni/fast-foundation';
 import { breadcrumbTemplate as template } from './template';
 import { styles } from './styles';
 import type { BreadcrumbAppearance } from './types';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const breadcrumbTag = 'nimble-breadcrumb';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-breadcrumb': Breadcrumb;
+        [breadcrumbTag]: Breadcrumb;
     }
 }
 
 /**
  * A nimble-styled breadcrumb
  */
+@customElement({
+    name: breadcrumbTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles
+})
 export class Breadcrumb extends FoundationBreadcrumb {
     @attr
     public appearance: BreadcrumbAppearance;
@@ -89,13 +96,3 @@ export class Breadcrumb extends FoundationBreadcrumb {
         this.listResizeObserver.disconnect();
     }
 }
-
-const nimbleBreadcrumb = Breadcrumb.compose({
-    baseName: 'breadcrumb',
-    baseClass: FoundationBreadcrumb,
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBreadcrumb());
-export const breadcrumbTag = 'nimble-breadcrumb';

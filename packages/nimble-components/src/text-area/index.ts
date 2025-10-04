@@ -1,6 +1,5 @@
-import { attr, DOM, observable } from '@ni/fast-element';
+import { attr, customElement, DOM, observable } from '@ni/fast-element';
 import {
-    DesignSystem,
     TextArea as FoundationTextArea
 } from '@ni/fast-foundation';
 import { mixinErrorPattern } from '../patterns/error/types';
@@ -8,16 +7,27 @@ import { styles } from './styles';
 import { template } from './template';
 import { TextAreaAppearance } from './types';
 import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const textAreaTag = 'nimble-text-area';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-text-area': TextArea;
+        [textAreaTag]: TextArea;
     }
 }
 
 /**
  * A nimble-styed HTML text area
  */
+@customElement({
+    name: textAreaTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class TextArea extends mixinErrorPattern(
     mixinRequiredVisiblePattern(FoundationTextArea)
 ) {
@@ -112,16 +122,3 @@ export class TextArea extends mixinErrorPattern(
         this.scrollbarWidth = this.control.offsetWidth - this.control.clientWidth;
     }
 }
-
-const nimbleTextArea = TextArea.compose({
-    baseName: 'text-area',
-    baseClass: FoundationTextArea,
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextArea());
-export const textAreaTag = 'nimble-text-area';

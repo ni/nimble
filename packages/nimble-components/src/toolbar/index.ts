@@ -1,28 +1,25 @@
+import { customElement } from '@ni/fast-element';
 import {
-    DesignSystem,
     Toolbar as FoundationToolbar,
-    type ToolbarOptions,
     toolbarTemplate as template
 } from '@ni/fast-foundation';
 import { styles } from './styles';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const toolbarTag = 'nimble-toolbar';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-toolbar': Toolbar;
+        [toolbarTag]: Toolbar;
     }
 }
 
 /**
  * A nimble-styled Toolbar
  */
-export class Toolbar extends FoundationToolbar {}
-
-const nimbleToolbar = Toolbar.compose<ToolbarOptions>({
-    baseName: 'toolbar',
-    baseClass: FoundationToolbar,
-    template,
+@customElement({
+    name: toolbarTag,
+    template: template(elementDefinitionContextMock, {}),
     styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToolbar());
-export const toolbarTag = 'nimble-toolbar';
+})
+export class Toolbar extends FoundationToolbar {}

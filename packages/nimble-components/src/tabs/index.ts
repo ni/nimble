@@ -1,22 +1,28 @@
-import { observable } from '@ni/fast-element';
+import { customElement, observable } from '@ni/fast-element';
 import {
-    DesignSystem,
     Tabs as FoundationTabs,
-    type TabsOptions
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from '../patterns/tabs/template';
 import type { TabsOwner } from '../patterns/tabs/types';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const tabsTag = 'nimble-tabs';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tabs': Tabs;
+        [tabsTag]: Tabs;
     }
 }
 
 /**
  * A nimble-styled tabs control
  */
+@customElement({
+    name: tabsTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles
+})
 export class Tabs extends FoundationTabs implements TabsOwner {
     /**
      * @internal
@@ -102,13 +108,3 @@ export class Tabs extends FoundationTabs implements TabsOwner {
         });
     }
 }
-
-const nimbleTabs = Tabs.compose<TabsOptions>({
-    baseName: 'tabs',
-    baseClass: FoundationTabs,
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTabs());
-export const tabsTag = 'nimble-tabs';

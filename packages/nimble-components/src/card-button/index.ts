@@ -1,20 +1,30 @@
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import {
     Button as FoundationButton,
     buttonTemplate as template,
-    DesignSystem
 } from '@ni/fast-foundation';
 import { styles } from './styles';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const cardButtonTag = 'nimble-card-button';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-card-button': CardButton;
+        [cardButtonTag]: CardButton;
     }
 }
 
 /**
  * A nimble-styled card button
  */
+@customElement({
+    name: cardButtonTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class CardButton extends FoundationButton {
     /**
      * @public
@@ -24,24 +34,3 @@ export class CardButton extends FoundationButton {
     @attr({ mode: 'boolean' })
     public selected = false;
 }
-
-/**
- * A function that returns a nimble-card-button registration for configuring the component with a DesignSystem.
- * Implements {@link @ni/fast-foundation#buttonTemplate}
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-card-button\>
- *
- */
-const nimbleCardButton = CardButton.compose({
-    baseName: 'card-button',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCardButton());
-export const cardButtonTag = 'nimble-card-button';

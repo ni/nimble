@@ -1,27 +1,25 @@
+import { customElement } from '@ni/fast-element';
 import {
-    DesignSystem,
     TabPanel as FoundationTabPanel,
     tabPanelTemplate as template
 } from '@ni/fast-foundation';
 import { styles } from './styles';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const tabPanelTag = 'nimble-tab-panel';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tab-panel': TabPanel;
+        [tabPanelTag]: TabPanel;
     }
 }
 
 /**
  * A nimble-styled tab panel
  */
-export class TabPanel extends FoundationTabPanel {}
-
-const nimbleTabPanel = TabPanel.compose({
-    baseName: 'tab-panel',
-    baseClass: FoundationTabPanel,
-    template,
+@customElement({
+    name: tabPanelTag,
+    template: template(elementDefinitionContextMock, {}),
     styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTabPanel());
-export const tabPanelTag = 'nimble-tab-panel';
+})
+export class TabPanel extends FoundationTabPanel {}

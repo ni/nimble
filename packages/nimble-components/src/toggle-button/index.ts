@@ -1,9 +1,7 @@
-import { attr, nullableNumberConverter } from '@ni/fast-element';
+import { attr, customElement, nullableNumberConverter } from '@ni/fast-element';
 import {
     applyMixins,
-    type ButtonOptions,
     DelegatesARIAButton,
-    DesignSystem,
     StartEnd,
     Switch as FoundationSwitch
 } from '@ni/fast-foundation';
@@ -11,16 +9,27 @@ import { styles } from './styles';
 import { template } from './template';
 import type { ButtonPattern } from '../patterns/button/types';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const toggleButtonTag = 'nimble-toggle-button';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-toggle-button': ToggleButton;
+        [toggleButtonTag]: ToggleButton;
     }
 }
 
 /**
  * A nimble-styled toggle button control.
  */
+@customElement({
+    name: toggleButtonTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class ToggleButton extends FoundationSwitch implements ButtonPattern {
     /**
      * @public
@@ -67,15 +76,3 @@ export class ToggleButton extends FoundationSwitch implements ButtonPattern {
 }
 applyMixins(ToggleButton, StartEnd, DelegatesARIAButton);
 export interface ToggleButton extends StartEnd, DelegatesARIAButton {}
-
-const nimbleToggleButton = ToggleButton.compose<ButtonOptions>({
-    baseName: 'toggle-button',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToggleButton());
-export const toggleButtonTag = 'nimble-toggle-button';

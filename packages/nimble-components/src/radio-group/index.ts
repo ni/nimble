@@ -1,6 +1,6 @@
+import { customElement } from '@ni/fast-element';
 import {
     RadioGroup as FoundationRadioGroup,
-    DesignSystem
 } from '@ni/fast-foundation';
 import { Orientation } from '@ni/fast-web-utilities';
 import { styles } from './styles';
@@ -8,9 +8,11 @@ import { template } from './template';
 import { mixinErrorPattern } from '../patterns/error/types';
 import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
+export const radioGroupTag = 'nimble-radio-group';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-radio-group': RadioGroup;
+        [radioGroupTag]: RadioGroup;
     }
 }
 
@@ -19,19 +21,14 @@ export { Orientation };
 /**
  * A nimble-styled grouping element for radio buttons
  */
-export class RadioGroup extends mixinErrorPattern(
-    mixinRequiredVisiblePattern(FoundationRadioGroup)
-) {}
-
-const nimbleRadioGroup = RadioGroup.compose({
-    baseName: 'radio-group',
-    baseClass: FoundationRadioGroup,
+@customElement({
+    name: radioGroupTag,
     template,
     styles,
     shadowOptions: {
         delegatesFocus: true
     }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRadioGroup());
-export const radioGroupTag = 'nimble-radio-group';
+})
+export class RadioGroup extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationRadioGroup)
+) {}

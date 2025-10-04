@@ -1,11 +1,8 @@
 // Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
-import { attr, html, observable, Observable, volatile } from '@ni/fast-element';
+import { attr, customElement, html, observable, Observable, volatile } from '@ni/fast-element';
 import {
     AnchoredRegion,
-    DesignSystem,
-    Select as FoundationSelect,
     ListboxOption,
-    type SelectOptions,
     SelectPosition,
     applyMixins,
     StartEnd,
@@ -39,10 +36,13 @@ import { FormAssociatedSelect } from './models/select-form-associated';
 import type { ListOptionGroup } from '../list-option-group';
 import { slotTextContent } from '../utilities/models/slot-text-content';
 import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const selectTag = 'nimble-select';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-select': Select;
+        [selectTag]: Select;
     }
 }
 
@@ -65,6 +65,20 @@ const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
 /**
  * A nimble-styled HTML select.
  */
+@customElement({
+    name: selectTag,
+    template: template(elementDefinitionContextMock, {
+        indicator: arrowExpanderDown16X16.data,
+        end: html<Select>`
+            <${iconExclamationMarkTag}
+                severity="error"
+                class="error-icon"
+            ></${iconExclamationMarkTag}>
+            ${errorTextTemplate}
+        `
+    }),
+    styles
+})
 export class Select
     extends mixinErrorPattern(mixinRequiredVisiblePattern(FormAssociatedSelect))
     implements ListOptionOwner {
@@ -1327,21 +1341,5 @@ export class Select
     }
 }
 
-const nimbleSelect = Select.compose<SelectOptions>({
-    baseName: 'select',
-    baseClass: FoundationSelect,
-    template,
-    styles,
-    indicator: arrowExpanderDown16X16.data,
-    end: html<Select>`
-        <${iconExclamationMarkTag}
-            severity="error"
-            class="error-icon"
-        ></${iconExclamationMarkTag}>
-        ${errorTextTemplate}
-    `
-});
-
+// Apply mixins after class definition
 applyMixins(Select, StartEnd, DelegatesARIASelect);
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());
-export const selectTag = 'nimble-select';

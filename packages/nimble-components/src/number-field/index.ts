@@ -1,9 +1,7 @@
-import { attr, html } from '@ni/fast-element';
+import { attr, customElement, html } from '@ni/fast-element';
 import {
-    DesignSystem,
     NumberField as FoundationNumberField,
     type DesignTokenSubscriber,
-    type NumberFieldOptions
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
@@ -20,16 +18,64 @@ import {
 import { template } from './template';
 import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 import { lang } from '../theme-provider';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const numberFieldTag = 'nimble-number-field';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-number-field': NumberField;
+        [numberFieldTag]: NumberField;
     }
 }
 
 /**
  * A nimble-styled HTML number input
  */
+@customElement({
+    name: numberFieldTag,
+    template: template(elementDefinitionContextMock, {
+        stepDownGlyph: html<NumberField>`
+            <${buttonTag}
+                class="step-up-down-button"
+                appearance="ghost"
+                content-hidden
+                tabindex="-1"
+                aria-hidden="true"
+            >
+                ${x => numericDecrementLabel.getValueFor(x)}
+                <${iconMinusWideTag}
+                    slot="start"
+                >
+                </${iconMinusWideTag}>
+            </${buttonTag}>
+        `,
+        stepUpGlyph: html<NumberField>`
+            <${buttonTag}
+                class="step-up-down-button"
+                appearance="ghost"
+                content-hidden
+                tabindex="-1"
+                aria-hidden="true"
+            >
+                ${x => numericIncrementLabel.getValueFor(x)}
+                <${iconAddTag}
+                    slot="start">
+                </${iconAddTag}>
+            </${buttonTag}>
+        `,
+        end: html<NumberField>`
+            <${iconExclamationMarkTag}
+                severity="error"
+                class="error-icon"
+            ></${iconExclamationMarkTag}>
+            ${errorTextTemplate}
+        `
+    }),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class NumberField extends mixinErrorPattern(
     mixinRequiredVisiblePattern(FoundationNumberField)
 ) {
@@ -108,60 +154,3 @@ export class NumberField extends mixinErrorPattern(
         return new RegExp(`[^0-9\\-+e${decimalSeparator}]`, 'g');
     }
 }
-
-/**
- * A function that returns a number-field registration for configuring the component with a DesignSystem.
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-number-field\>
- *
- */
-const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
-    baseName: 'number-field',
-    baseClass: FoundationNumberField,
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    },
-    stepDownGlyph: html<NumberField>`
-        <${buttonTag}
-            class="step-up-down-button"
-            appearance="ghost"
-            content-hidden
-            tabindex="-1"
-            aria-hidden="true"
-        >
-            ${x => numericDecrementLabel.getValueFor(x)}
-            <${iconMinusWideTag}
-                slot="start"
-            >
-            </${iconMinusWideTag}>
-        </${buttonTag}>
-    `,
-    stepUpGlyph: html<NumberField>`
-        <${buttonTag}
-            class="step-up-down-button"
-            appearance="ghost"
-            content-hidden
-            tabindex="-1"
-            aria-hidden="true"
-        >
-            ${x => numericIncrementLabel.getValueFor(x)}
-            <${iconAddTag}
-                slot="start">
-            </${iconAddTag}>
-        </${buttonTag}>
-    `,
-    end: html<NumberField>`
-        <${iconExclamationMarkTag}
-            severity="error"
-            class="error-icon"
-        ></${iconExclamationMarkTag}>
-        ${errorTextTemplate}
-    `
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
-export const numberFieldTag = 'nimble-number-field';

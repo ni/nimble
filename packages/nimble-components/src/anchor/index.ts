@@ -1,23 +1,29 @@
-import { attr, nullableNumberConverter } from '@ni/fast-element';
-import {
-    DesignSystem,
-    Anchor as FoundationAnchor,
-    type AnchorOptions
-} from '@ni/fast-foundation';
+import { attr, customElement, nullableNumberConverter } from '@ni/fast-element';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
 import type { AnchorAppearance } from './types';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const anchorTag = 'nimble-anchor';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor': Anchor;
+        [anchorTag]: Anchor;
     }
 }
 
 /**
  * A nimble-styled anchor
  */
+@customElement({
+    name: anchorTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class Anchor extends AnchorBase {
     /**
      * @public
@@ -56,18 +62,3 @@ export class Anchor extends AnchorBase {
     @attr({ attribute: 'contenteditable' })
     public override contentEditable!: string;
 }
-
-// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
-
-const nimbleAnchor = Anchor.compose<AnchorOptions>({
-    baseName: 'anchor',
-    baseClass: FoundationAnchor,
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchor());
-export const anchorTag = 'nimble-anchor';
