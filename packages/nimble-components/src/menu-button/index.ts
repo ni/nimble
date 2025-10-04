@@ -267,5 +267,3 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         this.toggleButton!.focus();
     };
 }
-
-// FoundationElement already applies the necessary mixins, so we don't need to do it here.

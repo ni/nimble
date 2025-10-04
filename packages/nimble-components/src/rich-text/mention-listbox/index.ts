@@ -12,9 +12,11 @@ import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/str
 import type { ListOption } from '../../list-option';
 import type { MentionListboxShowOptions } from './types';
 
+export const richTextMentionListboxTag = 'nimble-rich-text-mention-listbox';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-mention-listbox': RichTextMentionListbox;
+        [richTextMentionListboxTag]: RichTextMentionListbox;
     }
 }
 
@@ -22,7 +24,7 @@ declare global {
  * A rich text mention listbox which acts as a popup for "@mention" support in editor
  */
 @customElement({
-    name: 'nimble-rich-text-mention-listbox',
+    name: richTextMentionListboxTag,
     template,
     styles
 })
@@ -292,5 +294,3 @@ export class RichTextMentionListbox extends FoundationListbox {
         this.open = value;
     }
 }
-
-export const richTextMentionListboxTag = 'nimble-rich-text-mention-listbox';

@@ -35,9 +35,11 @@ import type { MentionExtensionConfiguration } from '../models/mention-extension-
 import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
 
+export const richTextEditorTag = 'nimble-rich-text-editor';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-editor': RichTextEditor;
+        [richTextEditorTag]: RichTextEditor;
     }
 }
 
@@ -52,7 +54,7 @@ interface RichTextEditorMixins extends ARIAGlobalStatesAndProperties, RichText {
  * A nimble styled rich text editor
  */
 @customElement({
-    name: 'nimble-rich-text-editor',
+    name: richTextEditorTag,
     template,
     styles,
     shadowOptions: {
@@ -731,5 +733,3 @@ export class RichTextEditor extends mixinErrorPattern(RichTextEditorMixins) {
         };
     }
 }
-
-export const richTextEditorTag = 'nimble-rich-text-editor';
