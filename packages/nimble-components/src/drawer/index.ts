@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { attr, customElement } from '@ni/fast-element';
 import {
     applyMixins,
@@ -20,6 +21,13 @@ declare global {
 }
 
 /**
+ * Drawer Mixins Helper
+ */
+class DrawerMixins extends FoundationElement {}
+applyMixins(DrawerMixins, ARIAGlobalStatesAndProperties);
+interface DrawerMixins extends ARIAGlobalStatesAndProperties, FoundationElement {}
+
+/**
  * Drawer control. Shows content in a panel on the left / right side of the screen,
  * which animates to be visible with a slide-in / slide-out animation.
  */
@@ -28,7 +36,7 @@ declare global {
     template,
     styles
 })
-export class Drawer<CloseReason = void> extends FoundationElement {
+export class Drawer<CloseReason = void> extends DrawerMixins {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public static readonly UserDismissed = UserDismissed;
@@ -167,7 +175,3 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         }
     }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Drawer extends ARIAGlobalStatesAndProperties {}
-applyMixins(Drawer, ARIAGlobalStatesAndProperties);

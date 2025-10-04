@@ -8,6 +8,7 @@
 // - Removed support for vertical tab orientation
 // - Removed change event
 // - Conforms to our linter rules
+/* eslint-disable max-classes-per-file */
 import { attr, customElement, observable } from '@ni/fast-element';
 import {
     keyArrowLeft,
@@ -40,6 +41,13 @@ declare global {
 export type TabsOptions = FoundationElementDefinition & StartEndOptions;
 
 /**
+ * AnchorTabs Mixins Helper
+ */
+class AnchorTabsMixins extends FoundationElement {}
+applyMixins(AnchorTabsMixins, StartEnd);
+interface AnchorTabsMixins extends StartEnd, FoundationElement {}
+
+/**
  * A nimble-styled set of anchor tabs
  */
 @customElement({
@@ -50,7 +58,7 @@ export type TabsOptions = FoundationElementDefinition & StartEndOptions;
         delegatesFocus: false
     }
 })
-export class AnchorTabs extends FoundationElement implements TabsOwner {
+export class AnchorTabs extends AnchorTabsMixins implements TabsOwner {
     /**
      * The id of the active tab
      *
@@ -358,6 +366,5 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
         return tab.shadowRoot!.querySelector('a')!;
     }
 }
-applyMixins(AnchorTabs, StartEnd);
 
 export const anchorTabsTag = 'nimble-anchor-tabs';

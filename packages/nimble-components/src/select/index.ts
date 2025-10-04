@@ -1,4 +1,5 @@
 // Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
+/* eslint-disable max-classes-per-file */
 import { attr, customElement, html, observable, Observable, volatile } from '@ni/fast-element';
 import {
     AnchoredRegion,
@@ -63,6 +64,13 @@ const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
 };
 
 /**
+ * Select Mixins Helper
+ */
+class SelectMixins extends FormAssociatedSelect {}
+applyMixins(SelectMixins, StartEnd, DelegatesARIASelect);
+interface SelectMixins extends StartEnd, DelegatesARIASelect, FormAssociatedSelect {}
+
+/**
  * A nimble-styled HTML select.
  */
 @customElement({
@@ -80,7 +88,7 @@ const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
     styles
 })
 export class Select
-    extends mixinErrorPattern(mixinRequiredVisiblePattern(FormAssociatedSelect))
+    extends mixinErrorPattern(mixinRequiredVisiblePattern(SelectMixins))
     implements ListOptionOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
@@ -1340,6 +1348,3 @@ export class Select
         }
     }
 }
-
-// Apply mixins after class definition
-applyMixins(Select, StartEnd, DelegatesARIASelect);

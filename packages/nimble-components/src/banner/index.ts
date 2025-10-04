@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { attr, customElement } from '@ni/fast-element';
 import {
     applyMixins,
@@ -17,6 +18,13 @@ declare global {
 }
 
 /**
+ * Banner Mixins Helper
+ */
+class BannerMixins extends FoundationElement {}
+applyMixins(BannerMixins, ARIAGlobalStatesAndProperties);
+interface BannerMixins extends ARIAGlobalStatesAndProperties, FoundationElement {}
+
+/**
  * A nimble-styled notification banner for persistent messages.
  */
 @customElement({
@@ -24,7 +32,7 @@ declare global {
     template,
     styles
 })
-export class Banner extends FoundationElement {
+export class Banner extends BannerMixins {
     /**
      * @public
      * @description
@@ -75,7 +83,3 @@ export class Banner extends FoundationElement {
         this.open = false;
     }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Banner extends ARIAGlobalStatesAndProperties {}
-applyMixins(Banner, ARIAGlobalStatesAndProperties);

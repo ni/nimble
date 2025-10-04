@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { DOM, Observable, attr, html, observable, ref } from '@ni/fast-element';
 import {
     DesignSystem,
@@ -43,11 +44,18 @@ declare global {
 }
 
 /**
+ * Combobox Mixins Helper
+ */
+class ComboboxMixins extends FormAssociatedCombobox {}
+applyMixins(ComboboxMixins, StartEnd, DelegatesARIACombobox);
+interface ComboboxMixins extends StartEnd, DelegatesARIACombobox, FormAssociatedCombobox {}
+
+/**
  * A nimble-styed HTML combobox
  */
 export class Combobox
     extends mixinErrorPattern(
-        mixinRequiredVisiblePattern(FormAssociatedCombobox)
+        mixinRequiredVisiblePattern(ComboboxMixins)
     )
     implements DropdownPattern {
     @attr
@@ -887,9 +895,6 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
         ${errorTextTemplate}
     `
 });
-
-export interface Combobox extends StartEnd, DelegatesARIACombobox {}
-applyMixins(Combobox, StartEnd, DelegatesARIACombobox);
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCombobox());
 export const comboboxTag = 'nimble-combobox';

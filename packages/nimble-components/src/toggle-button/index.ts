@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { attr, customElement, nullableNumberConverter } from '@ni/fast-element';
 import {
     applyMixins,
@@ -20,6 +21,13 @@ declare global {
 }
 
 /**
+ * ToggleButton Mixins Helper
+ */
+class ToggleButtonMixins extends FoundationSwitch {}
+applyMixins(ToggleButtonMixins, StartEnd, DelegatesARIAButton);
+interface ToggleButtonMixins extends StartEnd, DelegatesARIAButton, FoundationSwitch {}
+
+/**
  * A nimble-styled toggle button control.
  */
 @customElement({
@@ -30,7 +38,7 @@ declare global {
         delegatesFocus: true
     }
 })
-export class ToggleButton extends FoundationSwitch implements ButtonPattern {
+export class ToggleButton extends ToggleButtonMixins implements ButtonPattern {
     /**
      * @public
      * @remarks
@@ -74,5 +82,3 @@ export class ToggleButton extends FoundationSwitch implements ButtonPattern {
         return this.disabled ? undefined : `${tabIndex}`;
     }
 }
-applyMixins(ToggleButton, StartEnd, DelegatesARIAButton);
-export interface ToggleButton extends StartEnd, DelegatesARIAButton {}

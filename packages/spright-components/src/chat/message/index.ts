@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { attr, customElement, observable } from '@ni/fast-element';
 import {
     applyMixins,
@@ -26,6 +27,13 @@ declare global {
 export type ChatMessageOptions = FoundationElementDefinition & StartEndOptions;
 
 /**
+ * ChatMessage Mixins Helper
+ */
+class ChatMessageMixins extends FoundationElement {}
+applyMixins(ChatMessageMixins, StartEnd);
+interface ChatMessageMixins extends StartEnd, FoundationElement {}
+
+/**
  * A Spright component for displaying a chat message
  */
 @customElement({
@@ -33,7 +41,7 @@ export type ChatMessageOptions = FoundationElementDefinition & StartEndOptions;
     template: template(undefined as unknown as ElementDefinitionContext, {}),
     styles
 })
-export class ChatMessage extends FoundationElement {
+export class ChatMessage extends ChatMessageMixins {
     /**
      * @public
      * The message type of this message in the chat conversation
@@ -58,4 +66,3 @@ export class ChatMessage extends FoundationElement {
         this.footerActionsIsEmpty = !next?.length;
     }
 }
-applyMixins(ChatMessage, StartEnd);

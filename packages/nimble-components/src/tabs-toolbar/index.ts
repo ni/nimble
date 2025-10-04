@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { customElement, observable } from '@ni/fast-element';
 import {
     applyMixins,
@@ -17,6 +18,13 @@ declare global {
 }
 
 /**
+ * TabsToolbar Mixins Helper
+ */
+class TabsToolbarMixins extends FoundationElement {}
+applyMixins(TabsToolbarMixins, StartEnd);
+interface TabsToolbarMixins extends StartEnd, FoundationElement {}
+
+/**
  * A nimble-styled container for toolbar content next to tabs.
  */
 @customElement({
@@ -24,10 +32,8 @@ declare global {
     template: template(elementDefinitionContextMock, {}),
     styles
 })
-export class TabsToolbar extends FoundationElement {
+export class TabsToolbar extends TabsToolbarMixins {
     /** @internal */
     @observable
     public defaultSlottedElements: Element[] = [];
 }
-
-applyMixins(TabsToolbar, StartEnd);

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { attr, customElement, observable } from '@ni/fast-element';
 import {
     applyMixins,
@@ -18,6 +19,13 @@ declare global {
 }
 
 /**
+ * Dialog Mixins Helper
+ */
+class DialogMixins extends FoundationElement {}
+applyMixins(DialogMixins, ARIAGlobalStatesAndProperties);
+interface DialogMixins extends ARIAGlobalStatesAndProperties, FoundationElement {}
+
+/**
  * A nimble-styled dialog.
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -26,7 +34,7 @@ declare global {
     template,
     styles
 })
-export class Dialog<CloseReason = void> extends FoundationElement {
+export class Dialog<CloseReason = void> extends DialogMixins {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public static readonly UserDismissed = UserDismissed;
@@ -150,7 +158,3 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         this.resolveShow = undefined;
     }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Dialog extends ARIAGlobalStatesAndProperties {}
-applyMixins(Dialog, ARIAGlobalStatesAndProperties);

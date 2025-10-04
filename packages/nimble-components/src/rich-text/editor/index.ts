@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { observable, attr, DOM, customElement } from '@ni/fast-element';
 import {
     applyMixins,
@@ -41,6 +42,13 @@ declare global {
 }
 
 /**
+ * RichTextEditor Mixins Helper
+ */
+abstract class RichTextEditorMixins extends RichText {}
+applyMixins(RichTextEditorMixins, ARIAGlobalStatesAndProperties);
+interface RichTextEditorMixins extends ARIAGlobalStatesAndProperties, RichText {}
+
+/**
  * A nimble styled rich text editor
  */
 @customElement({
@@ -51,7 +59,7 @@ declare global {
         delegatesFocus: true
     }
 })
-export class RichTextEditor extends mixinErrorPattern(RichText) {
+export class RichTextEditor extends mixinErrorPattern(RichTextEditorMixins) {
     /**
      * @internal
      */
@@ -723,9 +731,5 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
         };
     }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
-applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 
 export const richTextEditorTag = 'nimble-rich-text-editor';
