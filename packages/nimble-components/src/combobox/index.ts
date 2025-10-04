@@ -48,15 +48,16 @@ declare global {
  */
 class ComboboxMixins extends FormAssociatedCombobox {}
 applyMixins(ComboboxMixins, StartEnd, DelegatesARIACombobox);
-interface ComboboxMixins extends StartEnd, DelegatesARIACombobox, FormAssociatedCombobox {}
+interface ComboboxMixins
+    extends StartEnd,
+    DelegatesARIACombobox,
+    FormAssociatedCombobox {}
 
 /**
  * A nimble-styed HTML combobox
  */
 export class Combobox
-    extends mixinErrorPattern(
-        mixinRequiredVisiblePattern(ComboboxMixins)
-    )
+    extends mixinErrorPattern(mixinRequiredVisiblePattern(ComboboxMixins))
     implements DropdownPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;

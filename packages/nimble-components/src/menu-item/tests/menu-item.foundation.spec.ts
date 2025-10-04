@@ -5,7 +5,7 @@ import { fixture } from '../../utilities/tests/fixture';
 import { MenuItem } from '..';
 import { template } from '../template';
 
-const fastMenuItem = (class TestMenuItem extends MenuItem {}).compose({
+const fastMenuItem = class TestMenuItem extends MenuItem {}.compose({
     baseName: 'menu-item',
     template
 });
@@ -197,7 +197,7 @@ describe('Menu item', () => {
             const { element, connect, disconnect } = await setup();
             let wasInvoked = false;
             const event = new KeyboardEvent('keydown', {
-                key: keySpace,
+                key: keySpace
             } as KeyboardEventInit);
 
             await connect();
@@ -221,7 +221,7 @@ describe('Menu item', () => {
             const { element, connect, disconnect } = await setup();
             let wasInvoked = false;
             const event = new KeyboardEvent('keydown', {
-                key: keyEnter,
+                key: keyEnter
             } as KeyboardEventInit);
 
             await connect();

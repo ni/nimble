@@ -11,12 +11,12 @@ import { template } from '../template';
 import { listOptionTag } from '../../list-option';
 
 describe('Combobox', () => {
-    const combobox = (class TestCombobox extends Combobox {}).compose({
+    const combobox = class TestCombobox extends Combobox {}.compose({
         baseName: 'combobox',
         template
     });
 
-    const option = (class TestListboxOption extends ListboxOption {}).compose({
+    const option = class TestListboxOption extends ListboxOption {}.compose({
         baseName: 'option',
         template: listboxOptionTemplate
     });

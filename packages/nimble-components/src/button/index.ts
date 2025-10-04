@@ -1,7 +1,5 @@
 import { attr, customElement, nullableNumberConverter } from '@ni/fast-element';
-import {
-    Button as FoundationButton,
-} from '@ni/fast-foundation';
+import { Button as FoundationButton } from '@ni/fast-foundation';
 import type {
     ButtonPattern,
     ButtonAppearanceVariantPattern

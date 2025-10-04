@@ -1,7 +1,7 @@
 import { attr, customElement } from '@ni/fast-element';
 import {
     Button as FoundationButton,
-    buttonTemplate as template,
+    buttonTemplate as template
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { elementDefinitionContextMock } from '../utilities/models/mock';

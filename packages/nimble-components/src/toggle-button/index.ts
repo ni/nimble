@@ -25,7 +25,10 @@ declare global {
  */
 class ToggleButtonMixins extends FoundationSwitch {}
 applyMixins(ToggleButtonMixins, StartEnd, DelegatesARIAButton);
-interface ToggleButtonMixins extends StartEnd, DelegatesARIAButton, FoundationSwitch {}
+interface ToggleButtonMixins
+    extends StartEnd,
+    DelegatesARIAButton,
+    FoundationSwitch {}
 
 /**
  * A nimble-styled toggle button control.

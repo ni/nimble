@@ -1,4 +1,9 @@
-import { attr, customElement, observable, ViewTemplate } from '@ni/fast-element';
+import {
+    attr,
+    customElement,
+    observable,
+    ViewTemplate
+} from '@ni/fast-element';
 import { FoundationElement } from '@ni/fast-foundation';
 import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';

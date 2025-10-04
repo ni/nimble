@@ -1,7 +1,7 @@
 import { customElement } from '@ni/fast-element';
 import {
     Radio as FoundationRadio,
-    radioTemplate as template,
+    radioTemplate as template
 } from '@ni/fast-foundation';
 import { circleFilled16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';

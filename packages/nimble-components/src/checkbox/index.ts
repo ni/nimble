@@ -1,7 +1,5 @@
 import { attr, customElement, nullableNumberConverter } from '@ni/fast-element';
-import {
-    Checkbox as FoundationCheckbox,
-} from '@ni/fast-foundation';
+import { Checkbox as FoundationCheckbox } from '@ni/fast-foundation';
 import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { template } from './template';

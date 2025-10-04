@@ -1,7 +1,5 @@
 import { attr, customElement } from '@ni/fast-element';
-import {
-    Tooltip as FoundationTooltip
-} from '@ni/fast-foundation';
+import { Tooltip as FoundationTooltip } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TooltipSeverity } from './types';

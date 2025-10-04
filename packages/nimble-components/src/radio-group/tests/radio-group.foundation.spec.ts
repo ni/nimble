@@ -5,7 +5,7 @@ import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 import { Radio, radioTag } from '../../radio';
 
-const fastRadioGroup = (class TestRadioGroup extends RadioGroup {}).compose({
+const fastRadioGroup = class TestRadioGroup extends RadioGroup {}.compose({
     baseName: 'radio-group',
     template
 });
@@ -20,7 +20,7 @@ async function setup(): Promise<{
     radio3: Radio
 }> {
     const { element, connect, disconnect, parent } = await fixture([
-        fastRadioGroup(),
+        fastRadioGroup()
     ]);
     const radio1 = document.createElement(radioTag);
     const radio2 = document.createElement(radioTag);
@@ -209,7 +209,7 @@ describe('Radio Group', () => {
 
     it('should set tabindex of 0 to a child radio with a matching `value`', async () => {
         const { element, connect, disconnect } = await fixture([
-            fastRadioGroup(),
+            fastRadioGroup()
         ]);
 
         element.value = 'baz';
@@ -242,7 +242,7 @@ describe('Radio Group', () => {
 
     it('should NOT set tabindex of 0 to a child radio if its value does not match the radiogroup `value`', async () => {
         const { element, connect, disconnect } = await fixture([
-            fastRadioGroup(),
+            fastRadioGroup()
         ]);
 
         element.value = 'baz';
@@ -278,7 +278,7 @@ describe('Radio Group', () => {
 
     it('should set a child radio with a matching `value` to `checked`', async () => {
         const { element, connect, disconnect } = await fixture([
-            fastRadioGroup(),
+            fastRadioGroup()
         ]);
 
         element.value = 'baz';
@@ -312,7 +312,7 @@ describe('Radio Group', () => {
 
     it('should set a child radio with a matching `value` to `checked` when value changes', async () => {
         const { element, connect, disconnect } = await fixture([
-            fastRadioGroup(),
+            fastRadioGroup()
         ]);
 
         element.value = 'baz';
@@ -350,7 +350,7 @@ describe('Radio Group', () => {
 
     it('should mark the last radio defaulted to checked as checked, the rest should not be checked', async () => {
         const { element, connect, disconnect } = await fixture([
-            fastRadioGroup(),
+            fastRadioGroup()
         ]);
 
         const radio1 = document.createElement(radioTag);
@@ -384,7 +384,7 @@ describe('Radio Group', () => {
 
     it('should mark radio matching value on radio-group over any checked attributes', async () => {
         const { element, connect, disconnect } = await fixture([
-            fastRadioGroup(),
+            fastRadioGroup()
         ]);
 
         element.value = 'bar';
@@ -426,7 +426,7 @@ describe('Radio Group', () => {
 
     it('should NOT set a child radio to `checked` if its value does not match the radiogroup `value`', async () => {
         const { element, connect, disconnect } = await fixture([
-            fastRadioGroup(),
+            fastRadioGroup()
         ]);
 
         element.value = 'baz';

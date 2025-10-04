@@ -1,7 +1,5 @@
 import { attr, customElement, observable } from '@ni/fast-element';
-import {
-    type MenuItemColumnCount
-} from '@ni/fast-foundation';
+import { type MenuItemColumnCount } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';

@@ -3,7 +3,7 @@ import { NumberField } from '..';
 import { template } from '../template';
 import { fixture } from '../../utilities/tests/fixture';
 
-const fastNumberField = (class TestNumberField extends NumberField {}).compose({
+const fastNumberField = class TestNumberField extends NumberField {}.compose({
     baseName: 'number-field',
     template
 });

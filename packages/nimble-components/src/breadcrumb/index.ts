@@ -1,7 +1,5 @@
 import { attr, customElement, observable } from '@ni/fast-element';
-import {
-    Breadcrumb as FoundationBreadcrumb
-} from '@ni/fast-foundation';
+import { Breadcrumb as FoundationBreadcrumb } from '@ni/fast-foundation';
 import { breadcrumbTemplate as template } from './template';
 import { styles } from './styles';
 import type { BreadcrumbAppearance } from './types';

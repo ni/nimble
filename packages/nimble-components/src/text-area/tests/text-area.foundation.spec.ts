@@ -2,7 +2,7 @@ import { TextArea } from '..';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
-const textArea = (class TestTextArea extends TextArea {}).compose({
+const textArea = class TestTextArea extends TextArea {}.compose({
     baseName: 'text-area',
     template
 });

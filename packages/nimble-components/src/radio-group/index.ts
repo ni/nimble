@@ -1,7 +1,5 @@
 import { customElement } from '@ni/fast-element';
-import {
-    RadioGroup as FoundationRadioGroup,
-} from '@ni/fast-foundation';
+import { RadioGroup as FoundationRadioGroup } from '@ni/fast-foundation';
 import { Orientation } from '@ni/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';

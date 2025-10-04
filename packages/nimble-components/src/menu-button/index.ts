@@ -1,4 +1,9 @@
-import { attr, customElement, nullableNumberConverter, observable } from '@ni/fast-element';
+import {
+    attr,
+    customElement,
+    nullableNumberConverter,
+    observable
+} from '@ni/fast-element';
 import { FoundationElement } from '@ni/fast-foundation';
 import {
     eventChange,

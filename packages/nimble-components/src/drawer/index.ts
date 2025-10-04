@@ -25,7 +25,9 @@ declare global {
  */
 class DrawerMixins extends FoundationElement {}
 applyMixins(DrawerMixins, ARIAGlobalStatesAndProperties);
-interface DrawerMixins extends ARIAGlobalStatesAndProperties, FoundationElement {}
+interface DrawerMixins
+    extends ARIAGlobalStatesAndProperties,
+    FoundationElement {}
 
 /**
  * Drawer control. Shows content in a panel on the left / right side of the screen,

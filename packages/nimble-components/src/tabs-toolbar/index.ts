@@ -1,10 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { customElement, observable } from '@ni/fast-element';
-import {
-    applyMixins,
-    FoundationElement,
-    StartEnd
-} from '@ni/fast-foundation';
+import { applyMixins, FoundationElement, StartEnd } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { elementDefinitionContextMock } from '../utilities/models/mock';

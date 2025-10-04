@@ -1,7 +1,5 @@
 import { attr, customElement, DOM, observable } from '@ni/fast-element';
-import {
-    TextArea as FoundationTextArea
-} from '@ni/fast-foundation';
+import { TextArea as FoundationTextArea } from '@ni/fast-foundation';
 import { mixinErrorPattern } from '../patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';

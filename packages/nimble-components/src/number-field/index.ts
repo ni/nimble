@@ -1,7 +1,7 @@
 import { attr, customElement, html } from '@ni/fast-element';
 import {
     NumberField as FoundationNumberField,
-    type DesignTokenSubscriber,
+    type DesignTokenSubscriber
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';

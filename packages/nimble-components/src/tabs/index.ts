@@ -1,7 +1,5 @@
 import { customElement, observable } from '@ni/fast-element';
-import {
-    Tabs as FoundationTabs,
-} from '@ni/fast-foundation';
+import { Tabs as FoundationTabs } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from '../patterns/tabs/template';
 import type { TabsOwner } from '../patterns/tabs/types';

@@ -4,7 +4,7 @@ import { Checkbox } from '..';
 import { template } from '../template';
 import { fixture } from '../../utilities/tests/fixture';
 
-const checkbox = (class TestCheckbox extends Checkbox {}).compose({
+const checkbox = class TestCheckbox extends Checkbox {}.compose({
     baseName: 'checkbox',
     template
 });

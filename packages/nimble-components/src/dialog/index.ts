@@ -23,7 +23,9 @@ declare global {
  */
 class DialogMixins extends FoundationElement {}
 applyMixins(DialogMixins, ARIAGlobalStatesAndProperties);
-interface DialogMixins extends ARIAGlobalStatesAndProperties, FoundationElement {}
+interface DialogMixins
+    extends ARIAGlobalStatesAndProperties,
+    FoundationElement {}
 
 /**
  * A nimble-styled dialog.

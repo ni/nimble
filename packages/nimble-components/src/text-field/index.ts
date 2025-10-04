@@ -1,7 +1,5 @@
 import { attr, customElement, html } from '@ni/fast-element';
-import {
-    TextField as FoundationTextField,
-} from '@ni/fast-foundation';
+import { TextField as FoundationTextField } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';

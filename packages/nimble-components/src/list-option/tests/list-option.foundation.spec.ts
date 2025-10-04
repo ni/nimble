@@ -4,7 +4,7 @@ import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
 describe('ListboxOption', () => {
-    const option = (class TestListOption extends ListOption {}).compose({
+    const option = class TestListOption extends ListOption {}.compose({
         baseName: 'option',
         template
     });

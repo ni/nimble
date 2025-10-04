@@ -1,7 +1,4 @@
-import {
-    DesignToken,
-    FoundationElement
-} from '@ni/fast-foundation';
+import { DesignToken, FoundationElement } from '@ni/fast-foundation';
 import { attr, customElement } from '@ni/fast-element';
 import { Direction } from '@ni/fast-web-utilities';
 import { template } from './template';

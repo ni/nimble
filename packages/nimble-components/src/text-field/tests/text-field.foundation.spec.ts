@@ -3,7 +3,7 @@ import { TextField } from '..';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
-const fastTextField = (class TestTextField extends TextField {}).compose({
+const fastTextField = class TestTextField extends TextField {}.compose({
     baseName: 'text-field',
     template
 });

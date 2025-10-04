@@ -1,7 +1,5 @@
 import { customElement } from '@ni/fast-element';
-import {
-    MenuItem as FoundationMenuItem,
-} from '@ni/fast-foundation';
+import { MenuItem as FoundationMenuItem } from '@ni/fast-foundation';
 import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { elementDefinitionContextMock } from '../utilities/models/mock';

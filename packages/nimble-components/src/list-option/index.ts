@@ -1,6 +1,4 @@
-import {
-    ListboxOption as FoundationListboxOption
-} from '@ni/fast-foundation';
+import { ListboxOption as FoundationListboxOption } from '@ni/fast-foundation';
 import { observable, attr, customElement } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';

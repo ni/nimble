@@ -48,7 +48,9 @@ declare global {
  */
 abstract class RichTextEditorMixins extends RichText {}
 applyMixins(RichTextEditorMixins, ARIAGlobalStatesAndProperties);
-interface RichTextEditorMixins extends ARIAGlobalStatesAndProperties, RichText {}
+interface RichTextEditorMixins
+    extends ARIAGlobalStatesAndProperties,
+    RichText {}
 
 /**
  * A nimble styled rich text editor

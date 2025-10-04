@@ -1,4 +1,9 @@
-import { type Notifier, Observable, observable, customElement } from '@ni/fast-element';
+import {
+    type Notifier,
+    Observable,
+    observable,
+    customElement
+} from '@ni/fast-element';
 import {
     ListboxElement as FoundationListbox,
     ListboxOption

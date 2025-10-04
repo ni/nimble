@@ -1,7 +1,5 @@
 import { customElement } from '@ni/fast-element';
-import {
-    Switch as FoundationSwitch,
-} from '@ni/fast-foundation';
+import { Switch as FoundationSwitch } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 

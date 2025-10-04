@@ -1,7 +1,7 @@
 import { customElement } from '@ni/fast-element';
 import {
     BreadcrumbItem as FoundationBreadcrumbItem,
-    breadcrumbItemTemplate as template,
+    breadcrumbItemTemplate as template
 } from '@ni/fast-foundation';
 import { forwardSlash16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';

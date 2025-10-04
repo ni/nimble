@@ -1,7 +1,5 @@
 import { DOM } from '@ni/fast-element';
-import {
-    MenuItemRole
-} from '@ni/fast-foundation';
+import { MenuItemRole } from '@ni/fast-foundation';
 import { keyArrowDown, keyArrowUp } from '@ni/fast-web-utilities';
 import { Menu } from '..';
 import { MenuItem, menuItemTag } from '../../menu-item';
@@ -9,12 +7,12 @@ import { template as menuItemTemplate } from '../../menu-item/template';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
-const menu = (class TestMenu extends Menu {}).compose({
+const menu = class TestMenu extends Menu {}.compose({
     baseName: 'menu',
     template
 });
 
-const menuItem = (class TestMenuItem extends MenuItem {}).compose({
+const menuItem = class TestMenuItem extends MenuItem {}.compose({
     baseName: 'menu-item',
     template: menuItemTemplate
 });

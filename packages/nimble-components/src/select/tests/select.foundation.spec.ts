@@ -16,12 +16,12 @@ import { ListOption, listOptionTag } from '../../list-option';
 import { template as listOptionTemplate } from '../../list-option/template';
 import { waitTimeout } from '../../utilities/testing/component';
 
-const select = (class TestSelect extends Select {}).compose({
+const select = class TestSelect extends Select {}.compose({
     baseName: 'select',
     template
 });
 
-const option = (class TestListOption extends ListOption {}).compose({
+const option = class TestListOption extends ListOption {}.compose({
     baseName: 'list-option',
     template: listOptionTemplate
 });

@@ -22,7 +22,9 @@ declare global {
  */
 class BannerMixins extends FoundationElement {}
 applyMixins(BannerMixins, ARIAGlobalStatesAndProperties);
-interface BannerMixins extends ARIAGlobalStatesAndProperties, FoundationElement {}
+interface BannerMixins
+    extends ARIAGlobalStatesAndProperties,
+    FoundationElement {}
 
 /**
  * A nimble-styled notification banner for persistent messages.

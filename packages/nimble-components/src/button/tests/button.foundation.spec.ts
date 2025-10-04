@@ -4,7 +4,7 @@ import { fixture } from '../../utilities/tests/fixture';
 import { Button } from '..';
 import { template } from '../template';
 
-const button = (class TestButton extends Button {}).compose({
+const button = class TestButton extends Button {}.compose({
     baseName: 'button',
     template
 });

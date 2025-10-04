@@ -1,5 +1,11 @@
 import { FoundationElement } from '@ni/fast-foundation';
-import { observable, attr, volatile, Observable, customElement } from '@ni/fast-element';
+import {
+    observable,
+    attr,
+    volatile,
+    Observable,
+    customElement
+} from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import { ListOption } from '../list-option';

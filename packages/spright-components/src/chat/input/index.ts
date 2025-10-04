@@ -1,6 +1,11 @@
 import { FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { attr, customElement, nullableNumberConverter, observable } from '@ni/fast-element';
+import {
+    attr,
+    customElement,
+    nullableNumberConverter,
+    observable
+} from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
