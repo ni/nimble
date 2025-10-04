@@ -15,8 +15,8 @@ import { overflow } from '../utilities/directive/overflow';
  * @public
  */
 export const template: FoundationElementTemplate<
-    ViewTemplate<ListOption>,
-    ListboxOptionOptions
+ViewTemplate<ListOption>,
+ListboxOptionOptions
 > = (context, definition) => html`
     <template
         aria-checked="${x => x.ariaChecked}"
@@ -25,8 +25,8 @@ export const template: FoundationElementTemplate<
         aria-selected="${x => x.ariaSelected}"
         aria-setsize="${x => x.ariaSetSize}"
         class="${x => [x.checked && 'checked', x.selected && 'selected', x.disabled && 'disabled']
-            .filter(Boolean)
-            .join(' ')}"
+        .filter(Boolean)
+        .join(' ')}"
         role="option"
         slot="option"
     >

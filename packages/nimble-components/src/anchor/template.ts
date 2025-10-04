@@ -6,8 +6,8 @@ import type {
 import type { Anchor } from '.';
 
 export const template: FoundationElementTemplate<
-    ViewTemplate<Anchor>,
-    AnchorOptions
+ViewTemplate<Anchor>,
+AnchorOptions
 > = (_context, definition) => html<Anchor>`${
     /* top-container div is necessary because setting contenteditable directly on the native anchor instead
        leaves it focusable, unlike the behavior you get when the anchor is _within_ a contenteditable element.
@@ -49,11 +49,11 @@ export const template: FoundationElementTemplate<
         aria-roledescription="${x => x.ariaRoledescription}"
         ${ref('control')}
     >${
-        /* Start and End slot templates inlined to avoid extra whitespace.
+    /* Start and End slot templates inlined to avoid extra whitespace.
        See https://github.com/microsoft/fast/issues/6557
 
        Whitespace intentionally avoided between tags for inline styles */ ''
-    }<span
+}<span
         part="start"
         ${ref('startContainer')}
         class="${_x => (definition.start ? 'start' : null)}"

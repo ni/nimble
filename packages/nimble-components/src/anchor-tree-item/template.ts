@@ -8,8 +8,8 @@ import {
 import type { AnchorTreeItem } from '.';
 
 export const template: FoundationElementTemplate<
-    ViewTemplate<AnchorTreeItem>,
-    AnchorOptions
+ViewTemplate<AnchorTreeItem>,
+AnchorOptions
 > = (context, definition) => html<AnchorTreeItem>`
     <template
         role="treeitem"

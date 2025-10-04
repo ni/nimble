@@ -8,8 +8,8 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { errorTextTemplate } from '../patterns/error/template';
 
 export const template: FoundationElementTemplate<
-    ViewTemplate<Checkbox>,
-    CheckboxOptions
+ViewTemplate<Checkbox>,
+CheckboxOptions
 > = (_context, definition) => html`
     <template
         role="checkbox"
@@ -35,8 +35,8 @@ export const template: FoundationElementTemplate<
                 <label
                     part="label"
                     class="${x => (x.defaultSlottedNodes?.length
-                        ? 'label'
-                        : 'label label__hidden')}"
+        ? 'label'
+        : 'label label__hidden')}"
                 >
                     <slot ${slotted('defaultSlottedNodes')}></slot>
                 </label>
