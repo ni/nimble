@@ -1322,9 +1322,9 @@ export class Table<
 
     private calculateTanStackRowIdFunction():
         | ((
-        originalRow: TableNode<TData>,
-        index: number,
-        parent?: TanStackRow<TableNode<TData>>
+            originalRow: TableNode<TData>,
+            index: number,
+            parent?: TanStackRow<TableNode<TData>>
         ) => string)
         | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
