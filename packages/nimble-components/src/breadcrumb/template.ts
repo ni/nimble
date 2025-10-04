@@ -15,7 +15,6 @@ import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
  * The template for the {@link @ni/fast-foundation#Breadcrumb} component.
  * @public
  */
-// prettier-ignore
 export const breadcrumbTemplate: FoundationElementTemplate<ViewTemplate<Breadcrumb>> = (_context, _definition) => html`
     <template role="navigation">
         ${when(x => x.showScrollButtons, html<Breadcrumb>`

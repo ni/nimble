@@ -123,7 +123,9 @@ describe('Wafermap Data Manager', () => {
         const dies = getWaferMapDies().filter(die => die.tags?.some(dieTag => highlightedTags.some(
             highlightedTag => dieTag === highlightedTag
         )));
-        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
+        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(
+            x => x.fillStyle.endsWith(',1)')
+        );
         expect(dies.length).toEqual(diesWithFullOpacity.length);
     });
 

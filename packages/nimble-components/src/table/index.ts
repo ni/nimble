@@ -1321,12 +1321,12 @@ export class Table<
     }
 
     private calculateTanStackRowIdFunction():
-    | ((
+        | ((
         originalRow: TableNode<TData>,
         index: number,
         parent?: TanStackRow<TableNode<TData>>
-    ) => string)
-    | undefined {
+        ) => string)
+        | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
             ? undefined
             : (record: TableNode<TData>) => record.clientRecord[this.idFieldName!] as string;

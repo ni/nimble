@@ -1077,8 +1077,9 @@ implements Subscriber {
 
     private canFocusColumnHeaders(): boolean {
         return (
-            this.table.columns.find(c => !c.columnInternals.sortingDisabled)
-            !== undefined
+            this.table.columns.find(
+                c => !c.columnInternals.sortingDisabled
+            ) !== undefined
         );
     }
 

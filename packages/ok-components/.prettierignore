@@ -20,3 +20,4 @@ package.json
 CHANGELOG.*
 src/utilities/tests/tests/fixture.spec.ts
 src/utilities/tests/fixture.ts
+template.ts

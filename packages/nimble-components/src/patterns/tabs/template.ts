@@ -17,7 +17,6 @@ import {
     scrollBackwardLabel
 } from '../../label-provider/core/label-tokens';
 
-// prettier-ignore
 export const template: FoundationElementTemplate<
     ViewTemplate<TabsOwner>,
     TabsOptions

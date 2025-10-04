@@ -1,7 +1,6 @@
 import { html } from '@ni/fast-element';
 import type { Spinner } from '.';
 
-// prettier-ignore
 export const template = html<Spinner>`
     <template role="progressbar">
         ${''

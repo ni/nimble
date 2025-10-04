@@ -34,7 +34,7 @@
     "@ni/eslint-config-javascript": "^5.0.0",
     "@ni/eslint-config-typescript": "^5.0.0",
     "eslint": "^9.36.0",
-    "eslint-plugin-jsdoc": "^51.3.4",
+    "eslint-plugin-jsdoc": "^60.7.1",
     "globals": "^14.0.0"
   }
 }

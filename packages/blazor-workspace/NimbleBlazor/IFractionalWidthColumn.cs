@@ -5,7 +5,7 @@ namespace NimbleBlazor;
 /// </summary>
 public interface IFractionalWidthColumn
 {
-    public double FractionalWidth { get; set; }
+    double FractionalWidth { get; set; }
 
-    public double? MinPixelWidth { get; set; }
+    double? MinPixelWidth { get; set; }
 }

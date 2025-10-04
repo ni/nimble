@@ -17,7 +17,6 @@ const validateCellViewTemplate = (cellViewTag: string): void => {
     }
 };
 
-// prettier-ignore
 export const createCellViewTemplate = (
     cellViewTag: string
 ): ViewTemplate<TableCell> => {

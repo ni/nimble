@@ -8,7 +8,6 @@ import type { RequiredVisiblePattern } from './types';
  *
  * This function is intended to be used with components leveraging `mixinRequiredVisiblePattern`.
  */
-
 export function createRequiredVisibleLabelTemplate(
     labelTemplate: ViewTemplate<RequiredVisiblePattern>
 ): ViewTemplate<RequiredVisiblePattern> {

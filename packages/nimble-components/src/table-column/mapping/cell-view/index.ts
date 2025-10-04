@@ -42,8 +42,8 @@ export class TableColumnMappingCellView
 
     @observable
     public visualizationTemplate?:
-    | ViewTemplate<IconView>
-    | ViewTemplate<SpinnerView>;
+        | ViewTemplate<IconView>
+        | ViewTemplate<SpinnerView>;
 
     @observable
     public textHidden = false;

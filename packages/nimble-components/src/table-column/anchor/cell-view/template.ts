@@ -3,7 +3,6 @@ import type { TableColumnAnchorCellView } from '.';
 import { anchorTag } from '../../../anchor';
 import { overflow } from '../../../utilities/directive/overflow';
 
-// prettier-ignore
 export const template = html<TableColumnAnchorCellView>`
     <template
         @click="${(x, c) => {

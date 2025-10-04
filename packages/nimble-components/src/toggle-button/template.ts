@@ -7,8 +7,6 @@ import {
 } from '@ni/fast-foundation';
 import type { ToggleButton } from '.';
 
-/* eslint-disable @stylistic/indent */
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<ToggleButton>,
 ButtonOptions
@@ -64,4 +62,3 @@ ButtonOptions
         ${endSlotTemplate(context, definition)}
     </div>
 `;
-/* eslint-enable @stylistic/indent */

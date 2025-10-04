@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "34.3.1",
+  "version": "34.3.2",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -98,12 +98,13 @@
     "tslib": "^2.2.0"
   },
   "peerDependencies": {
-    "apache-arrow": "21.0.0"
+    "apache-arrow": "21.0.0",
+    "flatbuffers": "25.2.10"
   },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni-private/jasmine-extensions": "^0.0.1",
-    "@ni/jasmine-parameterized": "^1.0.1",
+    "@ni/jasmine-parameterized": "^1.0.2",
     "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.0",
@@ -124,7 +125,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-webkit-launcher": "^2.6.0",
     "karma-webpack": "^5.0.0",
-    "playwright": "1.53.1",
+    "playwright": "1.54.1",
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
     "rollup": "^4.12.0",

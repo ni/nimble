@@ -4,7 +4,6 @@ import type { RichTextMentionListbox } from '.';
 import { anchoredRegionTag } from '../../anchored-region';
 import { filterNoResultsLabel } from '../../label-provider/core/label-tokens';
 
-// prettier-ignore
 export const template = html<RichTextMentionListbox>`
     <template>
         <${anchoredRegionTag}

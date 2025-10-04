@@ -10,7 +10,6 @@ import {
     tableGroupSelectAllLabel
 } from '../../../label-provider/table/label-tokens';
 
-// prettier-ignore
 export const template = html<TableGroupRow>`
     <template
         role="row"

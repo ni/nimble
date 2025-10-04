@@ -6,8 +6,6 @@ import {
 } from '@ni/fast-foundation';
 import type { ChatMessage, ChatMessageOptions } from '.';
 
-/* eslint-disable @stylistic/indent */
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<ChatMessage>,
 ChatMessageOptions
@@ -26,4 +24,3 @@ ChatMessageOptions
         ${endSlotTemplate(context, definition)}
     </div>
 `;
-/* eslint-enable @stylistic/indent */

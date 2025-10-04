@@ -2,6 +2,27 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Fri, 03 Oct 2025 20:31:52 GMT",
+      "version": "4.6.4",
+      "tag": "@ni/spright-blazor_v4.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "a1e13c73b88490ece5522a9c583bb429193217bc",
+            "comment": "dependency update"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.3.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Oct 2025 05:25:42 GMT",
       "version": "4.6.3",
       "tag": "@ni/spright-blazor_v4.6.3",

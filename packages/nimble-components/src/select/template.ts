@@ -41,8 +41,6 @@ const labelTemplate = createRequiredVisibleLabelTemplate(html<Select>`
     </label>
 `);
 
-/* eslint-disable @stylistic/indent */
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Select>,
 SelectOptions
@@ -177,4 +175,3 @@ SelectOptions
         </${anchoredRegionTag}>
     </template>
 `;
-/* eslint-enable @stylistic/indent */

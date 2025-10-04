@@ -19,8 +19,6 @@ const labelTemplate = createRequiredVisibleLabelTemplate(html<Combobox>`
     </label>
 `);
 
-/* eslint-disable @stylistic/indent */
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Combobox>,
 ComboboxOptions

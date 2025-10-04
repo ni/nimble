@@ -48,7 +48,15 @@ describe('Radio Group', () => {
         element.appendChild(radio2);
         element.appendChild(radio3);
 
-        return { element, connect, disconnect, parent, radio1, radio2, radio3 };
+        return {
+            element,
+            connect,
+            disconnect,
+            parent,
+            radio1,
+            radio2,
+            radio3
+        };
     }
 
     it('should have a role of `radiogroup`', async () => {

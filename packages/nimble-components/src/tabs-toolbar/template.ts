@@ -10,8 +10,6 @@ import type { TabsToolbar } from '.';
 
 type TabsToolbarOptions = FoundationElementDefinition & StartEndOptions;
 
-/* eslint-disable @stylistic/indent */
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<TabsToolbar>,
 TabsToolbarOptions

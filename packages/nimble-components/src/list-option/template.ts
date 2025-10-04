@@ -14,7 +14,6 @@ import { overflow } from '../utilities/directive/overflow';
  * The template for the {@link @ni/fast-foundation#(ListboxOption:class)} component.
  * @public
  */
-// prettier-ignore
 export const template: FoundationElementTemplate<
     ViewTemplate<ListOption>,
     ListboxOptionOptions
