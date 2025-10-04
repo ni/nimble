@@ -1,35 +1,35 @@
-import { observable } from '@ni/fast-element';
-import {
-    applyMixins,
-    DesignSystem,
-    FoundationElement,
-    StartEnd
-} from '@ni/fast-foundation';
+/* eslint-disable max-classes-per-file */
+import { customElement, observable } from '@ni/fast-element';
+import { applyMixins, FoundationElement, StartEnd } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const tabsToolbarTag = 'nimble-tabs-toolbar';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tabs-toolbar': TabsToolbar;
+        [tabsToolbarTag]: TabsToolbar;
     }
 }
 
 /**
+ * TabsToolbar Mixins Helper
+ */
+class TabsToolbarMixins extends FoundationElement {}
+applyMixins(TabsToolbarMixins, StartEnd);
+interface TabsToolbarMixins extends StartEnd, FoundationElement {}
+
+/**
  * A nimble-styled container for toolbar content next to tabs.
  */
-export class TabsToolbar extends FoundationElement {
+@customElement({
+    name: tabsToolbarTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles
+})
+export class TabsToolbar extends TabsToolbarMixins {
     /** @internal */
     @observable
     public defaultSlottedElements: Element[] = [];
 }
-
-const nimbleTabsToolbar = TabsToolbar.compose({
-    baseName: 'tabs-toolbar',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTabsToolbar());
-export const tabsToolbarTag = 'nimble-tabs-toolbar';
-
-applyMixins(TabsToolbar, StartEnd);

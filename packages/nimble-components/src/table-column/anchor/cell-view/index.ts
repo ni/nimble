@@ -1,5 +1,4 @@
-import { observable, volatile } from '@ni/fast-element';
-import { DesignSystem } from '@ni/fast-foundation';
+import { customElement, observable, volatile } from '@ni/fast-element';
 import type {
     TableColumnAnchorCellRecord,
     TableColumnAnchorColumnConfig
@@ -9,15 +8,22 @@ import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
 
+export const tableColumnAnchorCellViewTag = 'nimble-table-column-anchor-cell-view';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-anchor-cell-view': TableColumnAnchorCellView;
+        [tableColumnAnchorCellViewTag]: TableColumnAnchorCellView;
     }
 }
 
 /**
  * A cell view for displaying links
  */
+@customElement({
+    name: tableColumnAnchorCellViewTag,
+    template,
+    styles
+})
 export class TableColumnAnchorCellView extends TableCellView<
     TableColumnAnchorCellRecord,
     TableColumnAnchorColumnConfig
@@ -67,11 +73,3 @@ export class TableColumnAnchorCellView extends TableCellView<
         return [];
     }
 }
-
-const anchorCellView = TableColumnAnchorCellView.compose({
-    baseName: 'table-column-anchor-cell-view',
-    template,
-    styles
-});
-DesignSystem.getOrCreate().withPrefix('nimble').register(anchorCellView());
-export const tableColumnAnchorCellViewTag = 'nimble-table-column-anchor-cell-view';

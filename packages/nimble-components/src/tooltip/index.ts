@@ -1,21 +1,25 @@
-import { attr } from '@ni/fast-element';
-import {
-    DesignSystem,
-    Tooltip as FoundationTooltip
-} from '@ni/fast-foundation';
+import { attr, customElement } from '@ni/fast-element';
+import { Tooltip as FoundationTooltip } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TooltipSeverity } from './types';
 
+export const tooltipTag = 'nimble-tooltip';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tooltip': Tooltip;
+        [tooltipTag]: Tooltip;
     }
 }
 
 /**
  * A nimble-styled tooltip control.
  */
+@customElement({
+    name: tooltipTag,
+    template,
+    styles
+})
 export class Tooltip extends FoundationTooltip {
     /**
      * @public
@@ -28,13 +32,3 @@ export class Tooltip extends FoundationTooltip {
     @attr({ attribute: 'icon-visible', mode: 'boolean' })
     public iconVisible = false;
 }
-
-const nimbleTooltip = Tooltip.compose({
-    baseName: 'tooltip',
-    baseClass: FoundationTooltip,
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTooltip());
-export const tooltipTag = 'nimble-tooltip';

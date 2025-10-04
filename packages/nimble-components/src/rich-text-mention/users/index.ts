@@ -1,4 +1,4 @@
-import { DesignSystem } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
 import type { MentionInternalsOptions } from '../base/models/mention-internals';
 import { RichTextMention } from '../base';
 import type { MappingConfig } from '../base/models/mapping-config';
@@ -12,15 +12,22 @@ import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-
 import { richTextMentionUsersViewTag } from './view';
 import { styles } from '../base/styles';
 
+export const richTextMentionUsersTag = 'nimble-rich-text-mention-users';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-mention-users': RichTextMentionUsers;
+        [richTextMentionUsersTag]: RichTextMentionUsers;
     }
 }
 
 /**
  * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
+@customElement({
+    name: richTextMentionUsersTag,
+    template,
+    styles
+})
 export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersValidator> {
     protected override getMentionInternalsOptions(): MentionInternalsOptions<RichTextMentionUsersValidator> {
         return {
@@ -46,13 +53,3 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
         throw new Error('Unsupported mapping');
     }
 }
-const nimbleRichTextMentionUsers = RichTextMentionUsers.compose({
-    baseName: 'rich-text-mention-users',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleRichTextMentionUsers());
-export const richTextMentionUsersTag = 'nimble-rich-text-mention-users';

@@ -1,5 +1,4 @@
-import { attr, observable } from '@ni/fast-element';
-import { DesignSystem } from '@ni/fast-foundation';
+import { attr, customElement, observable } from '@ni/fast-element';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { IconSeverity } from '../../icon-base/types';
@@ -7,9 +6,11 @@ import { Icon } from '../../icon-base';
 import type { MappingKey } from '../base/types';
 import { styles } from '../base/styles';
 
+export const mappingIconTag = 'nimble-mapping-icon';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-mapping-icon': MappingIcon;
+        [mappingIconTag]: MappingIcon;
     }
 }
 
@@ -22,6 +23,11 @@ function isIconClass(elementClass: CustomElementConstructor): boolean {
  * One or more may be added as children of a nimble-table-column-mapping element to define
  * how specific data values should be displayed as icons in that column's cells.
  */
+@customElement({
+    name: mappingIconTag,
+    template,
+    styles
+})
 export class MappingIcon extends Mapping<MappingKey> {
     @attr()
     public icon?: string;
@@ -81,11 +87,3 @@ export class MappingIcon extends Mapping<MappingKey> {
         void this.resolveIconAsync(icon);
     }
 }
-
-const iconMapping = MappingIcon.compose({
-    baseName: 'mapping-icon',
-    template,
-    styles
-});
-DesignSystem.getOrCreate().withPrefix('nimble').register(iconMapping());
-export const mappingIconTag = 'nimble-mapping-icon';

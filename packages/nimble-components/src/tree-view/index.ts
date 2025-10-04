@@ -1,7 +1,6 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, customElement, observable } from '@ni/fast-element';
 import {
     TreeView as FoundationTreeView,
-    DesignSystem,
     isTreeItemElement
 } from '@ni/fast-foundation';
 import { TreeItem } from '../tree-item';
@@ -9,22 +8,22 @@ import { styles } from './styles';
 import { template } from './template';
 import { TreeViewSelectionMode } from './types';
 
+export const treeViewTag = 'nimble-tree-view';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tree-view': TreeView;
+        [treeViewTag]: TreeView;
     }
 }
 
 /**
- * A function that returns a nimble-tree-view registration for configuring the component with a DesignSystem.
- * Implements {@link @ni/fast-foundation#treeViewTemplate}
- *
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-tree-view\>
- *
+ * A nimble-styled tree view
  */
+@customElement({
+    name: treeViewTag,
+    template,
+    styles
+})
 export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
@@ -94,13 +93,3 @@ export class TreeView extends FoundationTreeView {
         }
     }
 }
-
-const nimbleTreeView = TreeView.compose({
-    baseName: 'tree-view',
-    baseClass: FoundationTreeView,
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeView());
-export const treeViewTag = 'nimble-tree-view';

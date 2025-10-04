@@ -1,23 +1,22 @@
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { FoundationElement } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 
+export const rectangleTag = 'spright-rectangle';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-rectangle': Rectangle;
+        [rectangleTag]: Rectangle;
     }
 }
 
 /**
  * A Spright demo component (not for production use)
  */
-export class Rectangle extends FoundationElement {}
-
-const sprightRectangle = Rectangle.compose({
-    baseName: 'rectangle',
+@customElement({
+    name: rectangleTag,
     template,
     styles
-});
-
-DesignSystem.getOrCreate().withPrefix('spright').register(sprightRectangle());
-export const rectangleTag = 'spright-rectangle';
+})
+export class Rectangle extends FoundationElement {}

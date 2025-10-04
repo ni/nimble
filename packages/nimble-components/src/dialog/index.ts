@@ -1,8 +1,8 @@
-import { attr, observable } from '@ni/fast-element';
+/* eslint-disable max-classes-per-file */
+import { attr, customElement, observable } from '@ni/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
-    DesignSystem,
     FoundationElement
 } from '@ni/fast-foundation';
 import { UserDismissed } from '../patterns/dialog/types';
@@ -10,18 +10,33 @@ import { styles } from './styles';
 import { template } from './template';
 
 export { UserDismissed };
+export const dialogTag = 'nimble-dialog';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-dialog': Dialog;
+        [dialogTag]: Dialog;
     }
 }
+
+/**
+ * Dialog Mixins Helper
+ */
+class DialogMixins extends FoundationElement {}
+applyMixins(DialogMixins, ARIAGlobalStatesAndProperties);
+interface DialogMixins
+    extends ARIAGlobalStatesAndProperties,
+    FoundationElement {}
 
 /**
  * A nimble-styled dialog.
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export class Dialog<CloseReason = void> extends FoundationElement {
+@customElement({
+    name: dialogTag,
+    template,
+    styles
+})
+export class Dialog<CloseReason = void> extends DialogMixins {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public static readonly UserDismissed = UserDismissed;
@@ -145,17 +160,3 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         this.resolveShow = undefined;
     }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Dialog extends ARIAGlobalStatesAndProperties {}
-applyMixins(Dialog, ARIAGlobalStatesAndProperties);
-
-const nimbleDialog = Dialog.compose({
-    baseName: 'dialog',
-    template,
-    styles,
-    baseClass: Dialog
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDialog());
-export const dialogTag = 'nimble-dialog';

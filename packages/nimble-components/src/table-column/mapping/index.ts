@@ -1,5 +1,4 @@
-import { DesignSystem } from '@ni/fast-foundation';
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import {
     type MappingConfigs,
     TableColumnEnumBase,
@@ -31,9 +30,11 @@ import { MappingEmptyConfig } from '../enum-base/models/mapping-empty-config';
 import { TableColumnMappingWidthMode } from './types';
 import { mixinSortableColumnAPI } from '../mixins/sortable-column';
 
+export const tableColumnMappingTag = 'nimble-table-column-mapping';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-mapping': TableColumnMapping;
+        [tableColumnMappingTag]: TableColumnMapping;
     }
 }
 
@@ -41,6 +42,11 @@ declare global {
  * Table column that maps number, boolean, or string values to an icon, a spinner,
  * text, or an icon/spinner with text.
  */
+@customElement({
+    name: tableColumnMappingTag,
+    template,
+    styles
+})
 export class TableColumnMapping extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         mixinSortableColumnAPI(
@@ -127,14 +133,3 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
         return defaultMinPixelWidth;
     }
 }
-
-const nimbleTableColumnMapping = TableColumnMapping.compose({
-    baseName: 'table-column-mapping',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleTableColumnMapping());
-export const tableColumnMappingTag = 'nimble-table-column-mapping';

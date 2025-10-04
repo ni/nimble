@@ -1,12 +1,14 @@
-import { attr } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { attr, customElement } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { SpinnerAppearance } from './types';
 
+export const spinnerTag = 'nimble-spinner';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-spinner': Spinner;
+        [spinnerTag]: Spinner;
     }
 }
 
@@ -14,6 +16,11 @@ declare global {
  * A Nimble-styled spinner component.
  * A spinner is an animating indicator that can be placed in a particular region of a page to represent loading progress, or an ongoing operation, of an indeterminate / unknown duration.
  */
+@customElement({
+    name: spinnerTag,
+    template,
+    styles
+})
 export class Spinner extends FoundationElement {
     /**
      * @public
@@ -23,11 +30,3 @@ export class Spinner extends FoundationElement {
     @attr
     public appearance: SpinnerAppearance = SpinnerAppearance.default;
 }
-
-const nimbleSpinner = Spinner.compose({
-    baseName: 'spinner',
-    template,
-    styles
-});
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSpinner());
-export const spinnerTag = 'nimble-spinner';

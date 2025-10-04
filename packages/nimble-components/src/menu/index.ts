@@ -1,34 +1,23 @@
-import { DesignSystem } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
 import { Menu as FoundationMenu } from './menu.foundation';
 import { template } from './template';
 import { styles } from './styles';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const menuTag = 'nimble-menu';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-menu': Menu;
+        [menuTag]: Menu;
     }
 }
 
 /**
  * A nimble-styled menu
  */
-export class Menu extends FoundationMenu {}
-
-/**
- * A function that returns a nimble-menu registration for configuring the component with a DesignSystem.
- * Implements {@link @ni/fast-foundation#menuTemplate}
- *
- * @public
- * @remarks
- * Generates HTML Element: \<nimble-menu\>
- *
- */
-const nimbleMenu = Menu.compose({
-    baseName: 'menu',
-    baseClass: FoundationMenu,
-    template,
+@customElement({
+    name: menuTag,
+    template: template(elementDefinitionContextMock, {}),
     styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenu());
-export const menuTag = 'nimble-menu';
+})
+export class Menu extends FoundationMenu {}

@@ -1,8 +1,8 @@
-import { observable, attr, DOM } from '@ni/fast-element';
+/* eslint-disable max-classes-per-file */
+import { observable, attr, DOM, customElement } from '@ni/fast-element';
 import {
     applyMixins,
-    ARIAGlobalStatesAndProperties,
-    DesignSystem
+    ARIAGlobalStatesAndProperties
 } from '@ni/fast-foundation';
 import { keyEnter, keySpace } from '@ni/fast-web-utilities';
 import {
@@ -35,16 +35,35 @@ import type { MentionExtensionConfiguration } from '../models/mention-extension-
 import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
 
+export const richTextEditorTag = 'nimble-rich-text-editor';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-editor': RichTextEditor;
+        [richTextEditorTag]: RichTextEditor;
     }
 }
 
 /**
+ * RichTextEditor Mixins Helper
+ */
+abstract class RichTextEditorMixins extends RichText {}
+applyMixins(RichTextEditorMixins, ARIAGlobalStatesAndProperties);
+interface RichTextEditorMixins
+    extends ARIAGlobalStatesAndProperties,
+    RichText {}
+
+/**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends mixinErrorPattern(RichText) {
+@customElement({
+    name: richTextEditorTag,
+    template,
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
+export class RichTextEditor extends mixinErrorPattern(RichTextEditorMixins) {
     /**
      * @internal
      */
@@ -716,21 +735,3 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
         };
     }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
-applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
-
-const nimbleRichTextEditor = RichTextEditor.compose({
-    baseName: 'rich-text-editor',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleRichTextEditor());
-export const richTextEditorTag = 'nimble-rich-text-editor';

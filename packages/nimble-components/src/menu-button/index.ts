@@ -1,5 +1,10 @@
-import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import {
+    attr,
+    customElement,
+    nullableNumberConverter,
+    observable
+} from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import {
     eventChange,
     keyArrowDown,
@@ -18,15 +23,25 @@ import { template } from './template';
 import type { ButtonPattern } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
 
+export const menuButtonTag = 'nimble-menu-button';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-menu-button': MenuButton;
+        [menuButtonTag]: MenuButton;
     }
 }
 
 /**
  * A nimble-styled menu button control.
  */
+@customElement({
+    name: menuButtonTag,
+    template,
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class MenuButton extends FoundationElement implements ButtonPattern {
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
@@ -257,15 +272,3 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         this.toggleButton!.focus();
     };
 }
-
-const nimbleMenuButton = MenuButton.compose({
-    baseName: 'menu-button',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuButton());
-export const menuButtonTag = 'nimble-menu-button';

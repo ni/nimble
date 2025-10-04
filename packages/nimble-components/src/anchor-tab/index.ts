@@ -1,16 +1,18 @@
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import {
-    DesignSystem,
     type FoundationElementDefinition,
     type StartEndOptions
 } from '@ni/fast-foundation';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const anchorTabTag = 'nimble-anchor-tab';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor-tab': AnchorTab;
+        [anchorTabTag]: AnchorTab;
     }
 }
 
@@ -19,6 +21,14 @@ export type TabOptions = FoundationElementDefinition & StartEndOptions;
 /**
  * A nimble-styled link tab
  */
+@customElement({
+    name: anchorTabTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class AnchorTab extends AnchorBase {
     /**
      * When true, the control will be immutable by user interaction. See {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled | disabled HTML attribute} for more information.
@@ -40,17 +50,3 @@ export class AnchorTab extends AnchorBase {
     @attr({ attribute: 'aria-selected' })
     public override ariaSelected = 'false';
 }
-
-// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
-
-const nimbleAnchorTab = AnchorTab.compose({
-    baseName: 'anchor-tab',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorTab());
-export const anchorTabTag = 'nimble-anchor-tab';

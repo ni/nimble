@@ -1,5 +1,6 @@
 import {
     attr,
+    customElement,
     Observable,
     observable,
     type Notifier,
@@ -8,7 +9,6 @@ import {
 } from '@ni/fast-element';
 import {
     Checkbox,
-    DesignSystem,
     type DesignTokenSubscriber,
     FoundationElement
 } from '@ni/fast-foundation';
@@ -72,15 +72,22 @@ import { uniquifySlotNameForColumnId } from './models/utilities';
 import { KeyboardNavigationManager } from './models/keyboard-navigation-manager';
 import { borderWidth, controlHeight } from '../theme-provider/design-tokens';
 
+export const tableTag = 'nimble-table';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table': Table;
+        [tableTag]: Table;
     }
 }
 
 /**
  * A nimble-styled table.
  */
+@customElement({
+    name: tableTag,
+    template,
+    styles
+})
 export class Table<
     TData extends TableRecord = TableRecord
 > extends FoundationElement {
@@ -1378,12 +1385,3 @@ export class Table<
         this.virtualizer?.updateRowHeight();
     }
 }
-
-const nimbleTable = Table.compose({
-    baseName: 'table',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTable());
-export const tableTag = 'nimble-table';

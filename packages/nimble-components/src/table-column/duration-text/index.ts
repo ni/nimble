@@ -1,4 +1,5 @@
-import { DesignSystem, type DesignTokenSubscriber } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
+import { type DesignTokenSubscriber } from '@ni/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
@@ -18,15 +19,22 @@ export interface TableColumnDurationTextColumnConfig
     formatter: DurationFormatter;
 }
 
+export const tableColumnDurationTextTag = 'nimble-table-column-duration-text';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-duration-text': TableColumnDurationText;
+        [tableColumnDurationTextTag]: TableColumnDurationText;
     }
 }
 
 /**
  * The table column for displaying a duration value as text.
  */
+@customElement({
+    name: tableColumnDurationTextTag,
+    template,
+    styles
+})
 export class TableColumnDurationText extends mixinTextBase(
     TableColumnTextBase<TableColumnDurationTextColumnConfig>
 ) {
@@ -72,14 +80,3 @@ export class TableColumnDurationText extends mixinTextBase(
         this.columnInternals.columnConfig = columnConfig;
     }
 }
-
-const nimbleTableColumnDurationText = TableColumnDurationText.compose({
-    baseName: 'table-column-duration-text',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleTableColumnDurationText());
-export const tableColumnDurationTextTag = 'nimble-table-column-duration-text';

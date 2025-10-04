@@ -1,10 +1,11 @@
 import {
     DOM,
     attr,
+    customElement,
     nullableNumberConverter,
     observable
 } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { FoundationElement } from '@ni/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { type Table, tableFromIPC } from 'apache-arrow';
 import { template } from './template';
@@ -31,15 +32,22 @@ import { ZoomHandler } from './modules/zoom-handler';
 import { Computations } from './experimental/computations';
 import type { Dimensions, RenderConfig } from './workers/types';
 
+export const waferMapTag = 'nimble-wafer-map';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-wafer-map': WaferMap;
+        [waferMapTag]: WaferMap;
     }
 }
 
 /**
  * A nimble-styled WaferMap
  */
+@customElement({
+    name: waferMapTag,
+    template,
+    styles
+})
 export class WaferMap<
     T extends WaferRequiredFields = WaferRequiredFields
 > extends FoundationElement {
@@ -472,12 +480,3 @@ export class WaferMap<
         return this as WaferMap;
     }
 }
-
-const nimbleWaferMap = WaferMap.compose({
-    baseName: 'wafer-map',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleWaferMap());
-export const waferMapTag = 'nimble-wafer-map';

@@ -1,5 +1,4 @@
-import { attr } from '@ni/fast-element';
-import { DesignSystem, type AnchorOptions } from '@ni/fast-foundation';
+import { attr, customElement } from '@ni/fast-element';
 import { AnchorBase } from '../anchor-base';
 import {
     ButtonAppearance,
@@ -9,16 +8,27 @@ import {
 } from '../patterns/button/types';
 import { styles } from './styles';
 import { template } from './template';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const anchorButtonTag = 'nimble-anchor-button';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor-button': AnchorButton;
+        [anchorButtonTag]: AnchorButton;
     }
 }
 
 /**
  * A nimble-styled anchor button
  */
+@customElement({
+    name: anchorButtonTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class AnchorButton
     extends AnchorBase
     implements ButtonPattern, ButtonAppearanceVariantPattern {
@@ -54,15 +64,3 @@ export class AnchorButton
     @attr({ mode: 'boolean' })
     public disabled = false;
 }
-
-const nimbleAnchorButton = AnchorButton.compose<AnchorOptions>({
-    baseName: 'anchor-button',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorButton());
-export const anchorButtonTag = 'nimble-anchor-button';
