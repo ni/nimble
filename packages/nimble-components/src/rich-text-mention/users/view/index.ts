@@ -1,26 +1,22 @@
-import { DesignSystem } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
 import { RichTextMentionView } from '../../base/view';
 import { template } from './template';
 import { styles } from './styles';
 
+export const richTextMentionUsersViewTag = 'nimble-rich-text-mention-users-view';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-mention-users-view': RichTextMentionUsersView;
+        [richTextMentionUsersViewTag]: RichTextMentionUsersView;
     }
 }
 
 /**
  * A nimble styled rich text mention users view
  */
-export class RichTextMentionUsersView extends RichTextMentionView {}
-
-const nimbleRichTextMentionUsersView = RichTextMentionUsersView.compose({
-    baseName: 'rich-text-mention-users-view',
+@customElement({
+    name: richTextMentionUsersViewTag,
     template,
     styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleRichTextMentionUsersView());
-export const richTextMentionUsersViewTag = 'nimble-rich-text-mention-users-view';
+})
+export class RichTextMentionUsersView extends RichTextMentionView {}

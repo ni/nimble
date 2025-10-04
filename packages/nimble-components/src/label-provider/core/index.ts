@@ -1,5 +1,4 @@
-import { attr } from '@ni/fast-element';
-import { DesignSystem } from '@ni/fast-foundation';
+import { attr, customElement } from '@ni/fast-element';
 import { type DesignTokensFor, LabelProviderBase } from '../base';
 import {
     popupDismissLabel,
@@ -16,9 +15,11 @@ import {
 } from './label-tokens';
 import { styles } from '../base/styles';
 
+export const labelProviderCoreTag = 'nimble-label-provider-core';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-label-provider-core': LabelProviderCore;
+        [labelProviderCoreTag]: LabelProviderCore;
     }
 }
 
@@ -39,6 +40,10 @@ const supportedLabels = {
 /**
  * Core label provider for Nimble
  */
+@customElement({
+    name: labelProviderCoreTag,
+    styles
+})
 export class LabelProviderCore
     extends LabelProviderBase<typeof supportedLabels>
     implements DesignTokensFor<typeof supportedLabels> {
@@ -77,13 +82,3 @@ export class LabelProviderCore
 
     protected override readonly supportedLabels = supportedLabels;
 }
-
-const nimbleLabelProviderCore = LabelProviderCore.compose({
-    baseName: 'label-provider-core',
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleLabelProviderCore());
-export const labelProviderCoreTag = 'nimble-label-provider-core';

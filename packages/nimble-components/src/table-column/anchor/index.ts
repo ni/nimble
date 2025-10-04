@@ -1,5 +1,4 @@
-import { DesignSystem } from '@ni/fast-foundation';
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import { TableColumn } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
@@ -39,6 +38,11 @@ declare global {
 /**
  * A table column for displaying links.
  */
+@customElement({
+    name: 'nimble-table-column-anchor',
+    template,
+    styles
+})
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         mixinColumnWithPlaceholderAPI(
@@ -183,13 +187,4 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     }
 }
 
-const nimbleTableColumnAnchor = TableColumnAnchor.compose({
-    baseName: 'table-column-anchor',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleTableColumnAnchor());
 export const tableColumnAnchorTag = 'nimble-table-column-anchor';

@@ -1,9 +1,8 @@
 import {
-    DesignSystem,
     DesignToken,
     FoundationElement
 } from '@ni/fast-foundation';
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import { Direction } from '@ni/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
@@ -13,9 +12,11 @@ import type { ValidityObject } from '../utilities/models/validator';
 
 export { Direction };
 
+export const themeProviderTag = 'nimble-theme-provider';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-theme-provider': ThemeProvider;
+        [themeProviderTag]: ThemeProvider;
     }
 }
 
@@ -52,6 +53,11 @@ export const theme = DesignToken.create<Theme>({
  * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
  * @internal
  */
+@customElement({
+    name: themeProviderTag,
+    template,
+    styles
+})
 export class ThemeProvider extends FoundationElement {
     @attr()
     public override lang!: string;
@@ -115,14 +121,3 @@ export class ThemeProvider extends FoundationElement {
         }
     }
 }
-
-const nimbleDesignSystemProvider = ThemeProvider.compose({
-    baseName: 'theme-provider',
-    styles,
-    template
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleDesignSystemProvider());
-export const themeProviderTag = 'nimble-theme-provider';

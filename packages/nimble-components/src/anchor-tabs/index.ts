@@ -8,7 +8,7 @@
 // - Removed support for vertical tab orientation
 // - Removed change event
 // - Conforms to our linter rules
-import { attr, observable } from '@ni/fast-element';
+import { attr, customElement, observable } from '@ni/fast-element';
 import {
     keyArrowLeft,
     keyArrowRight,
@@ -19,7 +19,6 @@ import {
     uniqueId
 } from '@ni/fast-web-utilities';
 import {
-    DesignSystem,
     StartEnd,
     applyMixins,
     type StartEndOptions,
@@ -30,6 +29,7 @@ import { styles } from '../patterns/tabs/styles';
 import { template } from '../patterns/tabs/template';
 import type { AnchorTab } from '../anchor-tab';
 import type { TabsOwner } from '../patterns/tabs/types';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -42,6 +42,14 @@ export type TabsOptions = FoundationElementDefinition & StartEndOptions;
 /**
  * A nimble-styled set of anchor tabs
  */
+@customElement({
+    name: 'nimble-anchor-tabs',
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: false
+    }
+})
 export class AnchorTabs extends FoundationElement implements TabsOwner {
     /**
      * The id of the active tab
@@ -352,14 +360,4 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
 }
 applyMixins(AnchorTabs, StartEnd);
 
-const nimbleAnchorTabs = AnchorTabs.compose<TabsOptions>({
-    baseName: 'anchor-tabs',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: false
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorTabs());
 export const anchorTabsTag = 'nimble-anchor-tabs';

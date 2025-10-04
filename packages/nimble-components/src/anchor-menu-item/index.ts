@@ -1,23 +1,32 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, customElement, observable } from '@ni/fast-element';
 import {
-    DesignSystem,
-    type AnchorOptions,
     type MenuItemColumnCount
 } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const anchorMenuItemTag = 'nimble-anchor-menu-item';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor-menu-item': AnchorMenuItem;
+        [anchorMenuItemTag]: AnchorMenuItem;
     }
 }
 
 /**
  * A nimble-styled anchor menu-item
  */
+@customElement({
+    name: anchorMenuItemTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class AnchorMenuItem extends AnchorBase {
     @attr({ mode: 'boolean' })
     public disabled = false;
@@ -86,19 +95,3 @@ export class AnchorMenuItem extends AnchorBase {
         this.anchor.tabIndex = value;
     }
 }
-
-// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
-
-const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
-    baseName: 'anchor-menu-item',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleAnchorMenuItem());
-export const anchorMenuItemTag = 'nimble-anchor-menu-item';

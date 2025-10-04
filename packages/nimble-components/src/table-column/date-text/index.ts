@@ -1,5 +1,5 @@
-import { DesignSystem, type DesignTokenSubscriber } from '@ni/fast-foundation';
-import { attr } from '@ni/fast-element';
+import { type DesignTokenSubscriber } from '@ni/fast-foundation';
+import { attr, customElement } from '@ni/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
@@ -37,15 +37,22 @@ export interface TableColumnDateTextColumnConfig
     formatter: Intl.DateTimeFormat;
 }
 
+export const tableColumnDateTextTag = 'nimble-table-column-date-text';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-date-text': TableColumnDateText;
+        [tableColumnDateTextTag]: TableColumnDateText;
     }
 }
 
 /**
  * The table column for displaying dates/times as text.
  */
+@customElement({
+    name: tableColumnDateTextTag,
+    template,
+    styles
+})
 export class TableColumnDateText extends mixinTextBase(
     TableColumnTextBase<
         TableColumnDateTextColumnConfig,
@@ -288,14 +295,3 @@ export class TableColumnDateText extends mixinTextBase(
         return options;
     }
 }
-
-const nimbleTableColumnDateText = TableColumnDateText.compose({
-    baseName: 'table-column-date-text',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleTableColumnDateText());
-export const tableColumnDateTextTag = 'nimble-table-column-date-text';

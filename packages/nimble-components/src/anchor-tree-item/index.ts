@@ -1,7 +1,5 @@
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import {
-    DesignSystem,
-    type AnchorOptions,
     isTreeItemElement,
     TreeItem as FoundationTreeItem
 } from '@ni/fast-foundation';
@@ -9,16 +7,27 @@ import { keyArrowLeft, keyEnter } from '@ni/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const anchorTreeItemTag = 'nimble-anchor-tree-item';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor-tree-item': AnchorTreeItem;
+        [anchorTreeItemTag]: AnchorTreeItem;
     }
 }
 
 /**
  * A nimble-styled anchor tree item
  */
+@customElement({
+    name: anchorTreeItemTag,
+    template: template(elementDefinitionContextMock, {}),
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class AnchorTreeItem extends AnchorBase {
     /**
      * When true, the control will appear selected by user interaction.
@@ -115,19 +124,3 @@ export class AnchorTreeItem extends AnchorBase {
         }
     }
 }
-
-// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
-
-const nimbleAnchorTreeItem = AnchorTreeItem.compose<AnchorOptions>({
-    baseName: 'anchor-tree-item',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleAnchorTreeItem());
-export const anchorTreeItemTag = 'nimble-anchor-tree-item';

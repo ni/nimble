@@ -1,30 +1,28 @@
-import { DesignSystem } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
 import { celsiusUnitScale } from '../../utilities/unit-format/unit-scale/celsius-unit-scale';
 import { styles } from '../base/styles';
 
+export const unitCelsiusTag = 'nimble-unit-celsius';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-unit-celsius': UnitCelsius;
+        [unitCelsiusTag]: UnitCelsius;
     }
 }
 
 /**
  * Element representing degrees Celsius unit
  */
+@customElement({
+    name: unitCelsiusTag,
+    template,
+    styles
+})
 export class UnitCelsius extends Unit {
     public constructor() {
         super();
         this.resolvedUnitScale = celsiusUnitScale;
     }
 }
-
-const nimbleUnitCelsius = UnitCelsius.compose({
-    baseName: 'unit-celsius',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleUnitCelsius());
-export const unitCelsiusTag = 'nimble-unit-celsius';

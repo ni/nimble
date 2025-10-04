@@ -1,19 +1,25 @@
-import { DesignSystem } from '@ni/fast-foundation';
-import { attr } from '@ni/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichText } from '../base';
 
+export const richTextViewerTag = 'nimble-rich-text-viewer';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-viewer': RichTextViewer;
+        [richTextViewerTag]: RichTextViewer;
     }
 }
 
 /**
  * A nimble styled rich text viewer
  */
+@customElement({
+    name: richTextViewerTag,
+    template,
+    styles
+})
 export class RichTextViewer extends RichText {
     /**
      *
@@ -75,14 +81,3 @@ export class RichTextViewer extends RichText {
         }
     }
 }
-
-const nimbleRichTextViewer = RichTextViewer.compose({
-    baseName: 'rich-text-viewer',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleRichTextViewer());
-export const richTextViewerTag = 'nimble-rich-text-viewer';

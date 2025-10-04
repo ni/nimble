@@ -1,5 +1,5 @@
-import { attr, observable, ViewTemplate } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { attr, customElement, observable, ViewTemplate } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import type { TableColumn } from '../../../table-column/base';
@@ -11,9 +11,11 @@ import { styles } from './styles';
 import { template } from './template';
 import type { TableCellView } from '../../../table-column/base/cell-view';
 
+export const tableCellTag = 'nimble-table-cell';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-cell': TableCell;
+        [tableCellTag]: TableCell;
     }
 }
 
@@ -21,6 +23,11 @@ declare global {
  * A styled cell that is used within the nimble-table-row.
  * @internal
  */
+@customElement({
+    name: tableCellTag,
+    template,
+    styles
+})
 export class TableCell<
     TCellRecord extends TableCellRecord = TableCellRecord
 > extends FoundationElement {
@@ -92,12 +99,3 @@ export class TableCell<
         this.$emit('cell-blur', this);
     }
 }
-
-const nimbleTableCell = TableCell.compose({
-    baseName: 'table-cell',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableCell());
-export const tableCellTag = 'nimble-table-cell';

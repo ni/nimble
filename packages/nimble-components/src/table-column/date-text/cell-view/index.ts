@@ -1,4 +1,4 @@
-import { DesignSystem } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
 import { template } from '../../text-base/cell-view/template';
 import type {
     TableColumnDateTextCellRecord,
@@ -8,15 +8,22 @@ import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 import { formatNumericDate } from '../models/format-helper';
 
+export const tableColumnDateTextCellViewTag = 'nimble-table-column-date-text-cell-view';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-date-text-cell-view': TableColumnDateTextCellView;
+        [tableColumnDateTextCellViewTag]: TableColumnDateTextCellView;
     }
 }
 
 /**
  * A cell view for displaying date/time fields as text
  */
+@customElement({
+    name: tableColumnDateTextCellViewTag,
+    template,
+    styles
+})
 export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
     TableColumnDateTextCellRecord,
     TableColumnDateTextColumnConfig
@@ -32,11 +39,3 @@ export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
         }
     }
 }
-
-const dateTextCellView = TableColumnDateTextCellView.compose({
-    baseName: 'table-column-date-text-cell-view',
-    template,
-    styles
-});
-DesignSystem.getOrCreate().withPrefix('nimble').register(dateTextCellView());
-export const tableColumnDateTextCellViewTag = 'nimble-table-column-date-text-cell-view';

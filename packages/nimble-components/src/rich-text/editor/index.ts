@@ -1,8 +1,7 @@
-import { observable, attr, DOM } from '@ni/fast-element';
+import { observable, attr, DOM, customElement } from '@ni/fast-element';
 import {
     applyMixins,
-    ARIAGlobalStatesAndProperties,
-    DesignSystem
+    ARIAGlobalStatesAndProperties
 } from '@ni/fast-foundation';
 import { keyEnter, keySpace } from '@ni/fast-web-utilities';
 import {
@@ -44,6 +43,14 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
+@customElement({
+    name: 'nimble-rich-text-editor',
+    template,
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class RichTextEditor extends mixinErrorPattern(RichText) {
     /**
      * @internal
@@ -721,16 +728,4 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
 export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
 applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 
-const nimbleRichTextEditor = RichTextEditor.compose({
-    baseName: 'rich-text-editor',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleRichTextEditor());
 export const richTextEditorTag = 'nimble-rich-text-editor';

@@ -1,5 +1,4 @@
-import { attr } from '@ni/fast-element';
-import { DesignSystem } from '@ni/fast-foundation';
+import { attr, customElement } from '@ni/fast-element';
 import { type DesignTokensFor, LabelProviderBase } from '../base';
 import {
     tableCellActionMenuLabel,
@@ -21,9 +20,11 @@ import {
 } from './label-tokens';
 import { styles } from '../base/styles';
 
+export const labelProviderTableTag = 'nimble-label-provider-table';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-label-provider-table': LabelProviderTable;
+        [labelProviderTableTag]: LabelProviderTable;
     }
 }
 
@@ -49,6 +50,10 @@ const supportedLabels = {
 /**
  * Label provider for the Nimble table (and its sub-components and columns)
  */
+@customElement({
+    name: labelProviderTableTag,
+    styles
+})
 export class LabelProviderTable
     extends LabelProviderBase<typeof supportedLabels>
     implements DesignTokensFor<typeof supportedLabels> {
@@ -102,13 +107,3 @@ export class LabelProviderTable
 
     protected override readonly supportedLabels = supportedLabels;
 }
-
-const nimbleLabelProviderTable = LabelProviderTable.compose({
-    baseName: 'label-provider-table',
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleLabelProviderTable());
-export const labelProviderTableTag = 'nimble-label-provider-table';

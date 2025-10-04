@@ -1,6 +1,5 @@
-import { type Notifier, Observable, observable } from '@ni/fast-element';
+import { type Notifier, Observable, observable, customElement } from '@ni/fast-element';
 import {
-    DesignSystem,
     ListboxElement as FoundationListbox,
     ListboxOption
 } from '@ni/fast-foundation';
@@ -22,6 +21,11 @@ declare global {
 /**
  * A rich text mention listbox which acts as a popup for "@mention" support in editor
  */
+@customElement({
+    name: 'nimble-rich-text-mention-listbox',
+    template,
+    styles
+})
 export class RichTextMentionListbox extends FoundationListbox {
     /**
      * @internal
@@ -289,13 +293,4 @@ export class RichTextMentionListbox extends FoundationListbox {
     }
 }
 
-const nimbleRichTextMentionListbox = RichTextMentionListbox.compose({
-    baseName: 'rich-text-mention-listbox',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleRichTextMentionListbox());
 export const richTextMentionListboxTag = 'nimble-rich-text-mention-listbox';

@@ -1,5 +1,4 @@
-import { attr } from '@ni/fast-element';
-import { DesignSystem } from '@ni/fast-foundation';
+import { attr, customElement } from '@ni/fast-element';
 import { type DesignTokensFor, LabelProviderBase } from '../base';
 import {
     richTextToggleBoldLabel,
@@ -9,9 +8,11 @@ import {
 } from './label-tokens';
 import { styles } from '../base/styles';
 
+export const labelProviderRichTextTag = 'nimble-label-provider-rich-text';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-label-provider-rich-text': LabelProviderRichText;
+        [labelProviderRichTextTag]: LabelProviderRichText;
     }
 }
 
@@ -25,6 +26,10 @@ const supportedLabels = {
 /**
  * Label provider for the Nimble rich text component
  */
+@customElement({
+    name: labelProviderRichTextTag,
+    styles
+})
 export class LabelProviderRichText
     extends LabelProviderBase<typeof supportedLabels>
     implements DesignTokensFor<typeof supportedLabels> {
@@ -42,13 +47,3 @@ export class LabelProviderRichText
 
     protected override readonly supportedLabels = supportedLabels;
 }
-
-const nimbleLabelProviderRichText = LabelProviderRichText.compose({
-    baseName: 'label-provider-rich-text',
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleLabelProviderRichText());
-export const labelProviderRichTextTag = 'nimble-label-provider-rich-text';
