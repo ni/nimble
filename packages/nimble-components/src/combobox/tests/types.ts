@@ -3,5 +3,4 @@ export const ExampleOptionsType = {
     wideOptions: 'WideOptions',
     manyOptions: 'ManyOptions'
 } as const;
-export type ExampleOptionsType =
-    (typeof ExampleOptionsType)[keyof typeof ExampleOptionsType];
+export type ExampleOptionsType = (typeof ExampleOptionsType)[keyof typeof ExampleOptionsType];

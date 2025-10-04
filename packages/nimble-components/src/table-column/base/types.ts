@@ -5,7 +5,7 @@ import type { ValidityObject } from '../../utilities/models/validator';
  * An object whose fields are defined by a particular TableColumn, which is used by the column's
  * cellTemplate implementation.
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface TableCellRecord extends TableRecord {}
 
 export interface TableCellState<
@@ -38,10 +38,9 @@ export const TableColumnSortOperation = {
      */
     localeAwareCaseSensitive: 'localeAwareCaseSensitive'
 } as const;
-export type TableColumnSortOperation =
-    (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
+export type TableColumnSortOperation = (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface TableColumnValidity extends ValidityObject {}
 
 const columnIconSize = 16; // `iconSize` token

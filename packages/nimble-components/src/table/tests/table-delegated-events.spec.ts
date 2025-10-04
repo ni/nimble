@@ -22,7 +22,7 @@ const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 class TestTableColumn extends TableColumn {
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {

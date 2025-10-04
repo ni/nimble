@@ -51,7 +51,7 @@ export class NimbleLabelProviderTableDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
+
     @Input('collapse-all') public set collapseAll(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'collapseAll', value);
     }

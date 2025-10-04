@@ -7,8 +7,7 @@ export const WaferMapOriginLocation = {
     topRight: 'top-right'
 } as const;
 
-export type WaferMapOriginLocation =
-    (typeof WaferMapOriginLocation)[keyof typeof WaferMapOriginLocation];
+export type WaferMapOriginLocation = (typeof WaferMapOriginLocation)[keyof typeof WaferMapOriginLocation];
 
 export const WaferMapOrientation = {
     top: 'top',
@@ -17,24 +16,21 @@ export const WaferMapOrientation = {
     right: 'right'
 } as const;
 
-export type WaferMapOrientation =
-    (typeof WaferMapOrientation)[keyof typeof WaferMapOrientation];
+export type WaferMapOrientation = (typeof WaferMapOrientation)[keyof typeof WaferMapOrientation];
 
 export const HoverDieOpacity = {
     show: 'show',
     hide: 'hide'
 } as const;
 
-export type HoverDieOpacity =
-    (typeof HoverDieOpacity)[keyof typeof HoverDieOpacity];
+export type HoverDieOpacity = (typeof HoverDieOpacity)[keyof typeof HoverDieOpacity];
 
 export const WaferMapColorScaleMode = {
     linear: 'linear',
     ordinal: 'ordinal'
 } as const;
 
-export type WaferMapColorScaleMode =
-    (typeof WaferMapColorScaleMode)[keyof typeof WaferMapColorScaleMode];
+export type WaferMapColorScaleMode = (typeof WaferMapColorScaleMode)[keyof typeof WaferMapColorScaleMode];
 
 export interface WaferMapDie {
     value: string;

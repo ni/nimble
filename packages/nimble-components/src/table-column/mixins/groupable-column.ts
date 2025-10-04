@@ -30,12 +30,12 @@ export function mixinGroupableColumnAPI<
         }
     }
     attr({ attribute: 'grouping-disabled', mode: 'boolean' })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
         GroupableColumn.prototype,
         'groupingDisabled'
     );
     attr({ attribute: 'group-index', converter: nullableNumberConverter })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
         GroupableColumn.prototype,
         'groupIndex'
     );

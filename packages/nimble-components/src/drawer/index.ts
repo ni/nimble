@@ -23,7 +23,6 @@ declare global {
  * Drawer control. Shows content in a panel on the left / right side of the screen,
  * which animates to be visible with a slide-in / slide-out animation.
  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export class Drawer<CloseReason = void> extends FoundationElement {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -164,7 +163,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface Drawer extends ARIAGlobalStatesAndProperties {}
 applyMixins(Drawer, ARIAGlobalStatesAndProperties);
 

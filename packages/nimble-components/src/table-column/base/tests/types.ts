@@ -7,8 +7,7 @@ export const ExampleSortType = {
     firstColumnAscendingSecondColumnDisabled:
         'FirstColumnAscendingSecondColumnDisabled'
 } as const;
-export type ExampleSortType =
-    (typeof ExampleSortType)[keyof typeof ExampleSortType];
+export type ExampleSortType = (typeof ExampleSortType)[keyof typeof ExampleSortType];
 
 export const ExampleGroupType = {
     none: 'None',
@@ -17,15 +16,13 @@ export const ExampleGroupType = {
     firstThenLastName: 'FirstThenLastName',
     lastThenFirstName: 'LastThenFirstName'
 } as const;
-export type ExampleGroupType =
-    (typeof ExampleGroupType)[keyof typeof ExampleGroupType];
+export type ExampleGroupType = (typeof ExampleGroupType)[keyof typeof ExampleGroupType];
 
 export const ExampleGroupingDisabledType = {
     firstName: 'FirstName',
     lastName: 'LastName'
 } as const;
-export type ExampleGroupingDisabledType =
-    (typeof ExampleGroupingDisabledType)[keyof typeof ExampleGroupingDisabledType];
+export type ExampleGroupingDisabledType = (typeof ExampleGroupingDisabledType)[keyof typeof ExampleGroupingDisabledType];
 
 export const ExampleColumnFractionalWidthType = {
     default: 'Default',
@@ -33,5 +30,4 @@ export const ExampleColumnFractionalWidthType = {
     firstColumTwiceSize: 'FirstColumnTwiceSize',
     thirdColumnHalfFourthColumnTwice: 'ThirdColumnHalfFourthColumnTwice'
 } as const;
-export type ExampleColumnFractionalWidthType =
-    (typeof ExampleColumnFractionalWidthType)[keyof typeof ExampleColumnFractionalWidthType];
+export type ExampleColumnFractionalWidthType = (typeof ExampleColumnFractionalWidthType)[keyof typeof ExampleColumnFractionalWidthType];

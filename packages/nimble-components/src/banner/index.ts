@@ -70,7 +70,7 @@ export class Banner extends FoundationElement {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface Banner extends ARIAGlobalStatesAndProperties {}
 applyMixins(Banner, ARIAGlobalStatesAndProperties);
 

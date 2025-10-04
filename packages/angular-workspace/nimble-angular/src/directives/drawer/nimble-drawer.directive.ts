@@ -19,7 +19,7 @@ export { DrawerLocation };
 @Directive({
     selector: 'nimble-drawer'
 })
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+
 export class NimbleDrawerDirective<CloseReason = void> {
     public get location(): DrawerLocation {
         return this.elementRef.nativeElement.location;

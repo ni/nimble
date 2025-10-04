@@ -500,11 +500,11 @@ describe('TableColumnMenuButton', () => {
         async function openMenuAndListenForColumnToggleEvents(
             menuButtonToOpen: MenuButtonPageObject
         ): Promise<{
-                column1BeforeToggleEmitCount: number,
-                column1ToggleEmitCount: number,
-                column2BeforeToggleEmitCount: number,
-                column2ToggleEmitCount: number
-            }> {
+            column1BeforeToggleEmitCount: number,
+            column1ToggleEmitCount: number,
+            column2BeforeToggleEmitCount: number,
+            column2ToggleEmitCount: number
+        }> {
             const column1BeforeToggleSpy = jasmine.createSpy();
             elementReferences.column1.addEventListener(
                 'menu-button-column-beforetoggle',

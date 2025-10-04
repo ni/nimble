@@ -9,8 +9,7 @@ export const BannerSeverity = {
     information: 'information'
 } as const;
 
-export type BannerSeverity =
-    (typeof BannerSeverity)[keyof typeof BannerSeverity];
+export type BannerSeverity = (typeof BannerSeverity)[keyof typeof BannerSeverity];
 
 /**
  * The type of the detail associated with the `toggle`
