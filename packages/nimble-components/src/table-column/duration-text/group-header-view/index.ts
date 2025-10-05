@@ -1,25 +1,18 @@
-import { customElement } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
 import type { TableNumberFieldValue } from '../../../table/types';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 import { template } from '../../text-base/group-header-view/template';
 import { styles } from '../../text-base/group-header-view/styles';
 import type { TableColumnDurationTextColumnConfig } from '..';
 
-export const tableColumnDurationTextGroupHeaderViewTag = 'nimble-table-column-duration-text-group-header-view';
-
 declare global {
     interface HTMLElementTagNameMap {
-        [tableColumnDurationTextGroupHeaderViewTag]: TableColumnDurationTextGroupHeaderView;
+        'nimble-table-duration-text-group-header': TableColumnDurationTextGroupHeaderView;
     }
 }
 /**
  * The group header view for displaying duration fields as text.
  */
-@customElement({
-    name: tableColumnDurationTextGroupHeaderViewTag,
-    template,
-    styles
-})
 export class TableColumnDurationTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
     TableNumberFieldValue,
     TableColumnDurationTextColumnConfig
@@ -34,3 +27,13 @@ export class TableColumnDurationTextGroupHeaderView extends TableColumnTextGroup
         }
     }
 }
+
+const tableColumnDurationTextGroupHeaderView = TableColumnDurationTextGroupHeaderView.compose({
+    baseName: 'table-column-duration-text-group-header-view',
+    template,
+    styles
+});
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(tableColumnDurationTextGroupHeaderView());
+export const tableColumnDurationTextGroupHeaderViewTag = 'nimble-table-column-duration-text-group-header-view';

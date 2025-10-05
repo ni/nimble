@@ -1,7 +1,6 @@
-import { type DesignTokenSubscriber } from '@ni/fast-foundation';
+import { DesignSystem, type DesignTokenSubscriber } from '@ni/fast-foundation';
 import {
     attr,
-    customElement,
     type Notifier,
     nullableNumberConverter,
     Observable,
@@ -31,22 +30,16 @@ export interface TableColumnNumberTextColumnConfig
     formatter: UnitFormat;
     alignment: TableColumnAlignment;
 }
-export const tableColumnNumberTextTag = 'nimble-table-column-number-text';
 
 declare global {
     interface HTMLElementTagNameMap {
-        [tableColumnNumberTextTag]: TableColumnNumberText;
+        'nimble-table-column-number-text': TableColumnNumberText;
     }
 }
 
 /**
  * The table column for displaying numbers as text.
  */
-@customElement({
-    name: tableColumnNumberTextTag,
-    template,
-    styles
-})
 export class TableColumnNumberText extends mixinTextBase(
     TableColumnTextBase<
         TableColumnNumberTextColumnConfig,
@@ -222,3 +215,14 @@ export class TableColumnNumberText extends mixinTextBase(
         return TableColumnAlignment.left;
     }
 }
+
+const nimbleTableColumnNumberText = TableColumnNumberText.compose({
+    baseName: 'table-column-number-text',
+    template,
+    styles
+});
+
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleTableColumnNumberText());
+export const tableColumnNumberTextTag = 'nimble-table-column-number-text';

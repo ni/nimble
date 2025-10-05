@@ -1,4 +1,5 @@
-import { customElement, observable, volatile } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { observable, volatile } from '@ni/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type {
     TableColumnMenuButtonCellRecord,
@@ -11,22 +12,15 @@ import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import type { CellViewSlotRequestEventDetail } from '../../../table/types';
 import { cellViewMenuSlotName } from '../types';
 
-export const tableColumnMenuButtonCellViewTag = 'nimble-table-column-menu-button-cell-view';
-
 declare global {
     interface HTMLElementTagNameMap {
-        [tableColumnMenuButtonCellViewTag]: TableColumnMenuButtonCellView;
+        'nimble-table-column-menu-button-cell-view': TableColumnMenuButtonCellView;
     }
 }
 
 /**
  * The cell view base class for displaying a string field as a menu button.
  */
-@customElement({
-    name: tableColumnMenuButtonCellViewTag,
-    template,
-    styles
-})
 export class TableColumnMenuButtonCellView extends TableCellView<
     TableColumnMenuButtonCellRecord,
     TableColumnMenuButtonColumnConfig
@@ -89,3 +83,11 @@ export class TableColumnMenuButtonCellView extends TableCellView<
         e.stopPropagation();
     }
 }
+
+const menuButtonCellView = TableColumnMenuButtonCellView.compose({
+    baseName: 'table-column-menu-button-cell-view',
+    template,
+    styles
+});
+DesignSystem.getOrCreate().withPrefix('nimble').register(menuButtonCellView());
+export const tableColumnMenuButtonCellViewTag = 'nimble-table-column-menu-button-cell-view';

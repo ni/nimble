@@ -114,7 +114,7 @@ export const template = html<Table>`
                                         :alignment="${x => x.columnInternals.headerAlignment}"
                                         :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                     >
-                                        <slot name="${x => x.columnInternals.uniqueId}"></slot>
+                                        <slot name="${x => x.slot}"></slot>
                                     </${tableHeaderTag}>
                                 ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
                                     <div

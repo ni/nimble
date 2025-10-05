@@ -1,4 +1,5 @@
-import { ViewTemplate, customElement, observable } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { ViewTemplate, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
@@ -16,22 +17,15 @@ import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 import { MappingEmptyConfig } from '../../enum-base/models/mapping-empty-config';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 
-export const tableColumnMappingGroupHeaderViewTag = 'nimble-table-column-mapping-group-header-view';
-
 declare global {
     interface HTMLElementTagNameMap {
-        [tableColumnMappingGroupHeaderViewTag]: TableColumnMappingGroupHeaderView;
+        'nimble-table-column-mapping-group-header-view': TableColumnMappingGroupHeaderView;
     }
 }
 
 /**
  * The group header view for the mapping column
  */
-@customElement({
-    name: tableColumnMappingGroupHeaderViewTag,
-    template,
-    styles
-})
 export class TableColumnMappingGroupHeaderView
     extends TableGroupHeaderView<TableFieldValue, TableColumnEnumColumnConfig>
     implements IconView, SpinnerView {
@@ -88,3 +82,13 @@ export class TableColumnMappingGroupHeaderView
         this.severity = IconSeverity.default;
     }
 }
+
+const mappingGroupHeaderView = TableColumnMappingGroupHeaderView.compose({
+    baseName: 'table-column-mapping-group-header-view',
+    template,
+    styles
+});
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(mappingGroupHeaderView());
+export const tableColumnMappingGroupHeaderViewTag = 'nimble-table-column-mapping-group-header-view';

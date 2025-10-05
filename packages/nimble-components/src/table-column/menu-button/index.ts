@@ -1,4 +1,5 @@
-import { attr, customElement } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { attr } from '@ni/fast-element';
 import { template } from './template';
 import { styles } from '../base/styles';
 import type { TableStringField } from '../../table/types';
@@ -29,11 +30,6 @@ declare global {
 /**
  * The table column for displaying string fields as the content within a menu button.
  */
-@customElement({
-    name: 'nimble-table-column-menu-button',
-    template,
-    styles
-})
 export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
     TableColumn<TableColumnMenuButtonColumnConfig>
 ) {
@@ -89,4 +85,13 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
     }
 }
 
+const nimbleTableColumnMenuButton = TableColumnMenuButton.compose({
+    baseName: 'table-column-menu-button',
+    template,
+    styles
+});
+
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleTableColumnMenuButton());
 export const tableColumnMenuButtonTag = 'nimble-table-column-menu-button';

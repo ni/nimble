@@ -1,14 +1,12 @@
-import { attr, customElement, observable } from '@ni/fast-element';
-import { FoundationElement } from '@ni/fast-foundation';
+import { attr, observable } from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { TableColumnAlignment, TableColumnSortDirection } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
 
-export const tableHeaderTag = 'nimble-table-header';
-
 declare global {
     interface HTMLElementTagNameMap {
-        [tableHeaderTag]: TableHeader;
+        'nimble-table-header': TableHeader;
     }
 }
 
@@ -16,11 +14,6 @@ declare global {
  * A styled header that is used within the nimble-table.
  * @internal
  */
-@customElement({
-    name: tableHeaderTag,
-    template,
-    styles
-})
 export class TableHeader extends FoundationElement {
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
@@ -64,3 +57,12 @@ export class TableHeader extends FoundationElement {
         }
     }
 }
+
+const nimbleTableHeader = TableHeader.compose({
+    baseName: 'table-header',
+    template,
+    styles
+});
+
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableHeader());
+export const tableHeaderTag = 'nimble-table-header';

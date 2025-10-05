@@ -1,4 +1,5 @@
-import { ViewTemplate, customElement, observable } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { ViewTemplate, observable } from '@ni/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
@@ -18,22 +19,15 @@ import {
 import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 import { MappingEmptyConfig } from '../../enum-base/models/mapping-empty-config';
 
-export const tableColumnMappingCellViewTag = 'nimble-table-column-mapping-cell-view';
-
 declare global {
     interface HTMLElementTagNameMap {
-        [tableColumnMappingCellViewTag]: TableColumnMappingCellView;
+        'nimble-table-column-mapping-cell-view': TableColumnMappingCellView;
     }
 }
 
 /**
  * The cell view for the mapping column
  */
-@customElement({
-    name: tableColumnMappingCellViewTag,
-    template,
-    styles
-})
 export class TableColumnMappingCellView
     extends TableCellView<
         TableColumnEnumCellRecord,
@@ -102,3 +96,11 @@ export class TableColumnMappingCellView
         this.severity = IconSeverity.default;
     }
 }
+
+const mappingCellView = TableColumnMappingCellView.compose({
+    baseName: 'table-column-mapping-cell-view',
+    template,
+    styles
+});
+DesignSystem.getOrCreate().withPrefix('nimble').register(mappingCellView());
+export const tableColumnMappingCellViewTag = 'nimble-table-column-mapping-cell-view';

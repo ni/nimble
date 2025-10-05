@@ -2,11 +2,10 @@ import {
     type Notifier,
     Observable,
     attr,
-    customElement,
     observable,
     volatile
 } from '@ni/fast-element';
-import { FoundationElement } from '@ni/fast-foundation';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
@@ -29,11 +28,9 @@ import {
 } from '../../../table-column/base/models/column-internals';
 import type { Checkbox } from '../../../checkbox';
 
-export const tableRowTag = 'nimble-table-row';
-
 declare global {
     interface HTMLElementTagNameMap {
-        [tableRowTag]: TableRow;
+        'nimble-table-row': TableRow;
     }
 }
 
@@ -45,11 +42,6 @@ export interface TableDataRecord extends TableRecord {}
  * A styled row that is used within the nimble-table.
  * @internal
  */
-@customElement({
-    name: tableRowTag,
-    template,
-    styles
-})
 export class TableRow<
     TDataRecord extends TableDataRecord = TableDataRecord
 > extends FoundationElement {
@@ -405,3 +397,12 @@ export class TableRow<
         }
     }
 }
+
+const nimbleTableRow = TableRow.compose({
+    baseName: 'table-row',
+    template,
+    styles
+});
+
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableRow());
+export const tableRowTag = 'nimble-table-row';

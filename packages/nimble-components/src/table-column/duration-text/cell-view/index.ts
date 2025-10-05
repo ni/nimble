@@ -1,4 +1,4 @@
-import { customElement } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
 import { template } from '../../text-base/cell-view/template';
 import type {
     TableColumnDurationTextCellRecord,
@@ -7,22 +7,15 @@ import type {
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
-export const tableColumnDurationTextCellViewTag = 'nimble-table-column-duration-text-cell-view';
-
 declare global {
     interface HTMLElementTagNameMap {
-        [tableColumnDurationTextCellViewTag]: TableColumnDurationTextCellView;
+        'nimble-table-column-duration-text-cell-view': TableColumnDurationTextCellView;
     }
 }
 
 /**
  * A cell view for displaying duration fields as text
  */
-@customElement({
-    name: tableColumnDurationTextCellViewTag,
-    template,
-    styles
-})
 export class TableColumnDurationTextCellView extends TableColumnTextCellViewBase<
     TableColumnDurationTextCellRecord,
     TableColumnDurationTextColumnConfig
@@ -31,3 +24,13 @@ export class TableColumnDurationTextCellView extends TableColumnTextCellViewBase
         this.text = this.columnConfig?.formatter.format(this.cellRecord?.value) ?? '';
     }
 }
+
+const durationTextCellView = TableColumnDurationTextCellView.compose({
+    baseName: 'table-column-duration-text-cell-view',
+    template,
+    styles
+});
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(durationTextCellView());
+export const tableColumnDurationTextCellViewTag = 'nimble-table-column-duration-text-cell-view';

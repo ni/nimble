@@ -1,5 +1,5 @@
-import { attr, customElement, observable } from '@ni/fast-element';
-import { FoundationElement } from '@ni/fast-foundation';
+import { attr, observable } from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
@@ -10,11 +10,9 @@ import {
 } from '../../types';
 import type { Checkbox } from '../../../checkbox';
 
-export const tableGroupRowTag = 'nimble-table-group-row';
-
 declare global {
     interface HTMLElementTagNameMap {
-        [tableGroupRowTag]: TableGroupRow;
+        'nimble-table-group-row': TableGroupRow;
     }
 }
 
@@ -22,11 +20,6 @@ declare global {
  * A styled cell that is used within the nimble-table-row.
  * @internal
  */
-@customElement({
-    name: tableGroupRowTag,
-    template,
-    styles
-})
 export class TableGroupRow extends FoundationElement {
     @observable
     public groupRowValue?: unknown;
@@ -154,3 +147,12 @@ export class TableGroupRow extends FoundationElement {
         );
     };
 }
+
+const nimbleTableGroupRow = TableGroupRow.compose({
+    baseName: 'table-group-row',
+    template,
+    styles
+});
+
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableGroupRow());
+export const tableGroupRowTag = 'nimble-table-group-row';
