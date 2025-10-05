@@ -1,4 +1,4 @@
-import { html } from '@ni/fast-element';
+import { customElement, html } from '@ni/fast-element';
 import { MappingIcon, mappingIconTag } from '..';
 import {
     fixture,
@@ -6,11 +6,10 @@ import {
     type Fixture
 } from '../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import { Icon, registerIcon } from '../../../icon-base';
+import { Icon, template, styles } from '../../../icon-base';
 
 describe('Icon Mapping', () => {
     const testIconElementName = uniqueElementName();
-    class TestIcon extends Icon {}
 
     let element: MappingIcon;
     let connect: () => Promise<void>;
@@ -22,7 +21,7 @@ describe('Icon Mapping', () => {
         <${mappingIconTag}
             key="foo"
             text="foo"
-            icon="nimble-${testIconElementName}">
+            icon="${testIconElementName}">
         </${mappingIconTag}>`);
     }
 
@@ -39,7 +38,13 @@ describe('Icon Mapping', () => {
 
         expect(element.resolvedIcon).toBeUndefined();
 
-        registerIcon(testIconElementName, TestIcon);
+        @customElement({
+            name: testIconElementName,
+            template,
+            styles
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        class TestIcon extends Icon {}
         await waitForUpdatesAsync();
 
         expect(element.resolvedIcon).toBeDefined();

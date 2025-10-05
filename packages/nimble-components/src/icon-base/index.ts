@@ -1,9 +1,11 @@
 import { attr } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { FoundationElement } from '@ni/fast-foundation';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
-import { template } from './template';
-import { styles } from './styles';
 import type { IconSeverity } from './types';
+
+export { customElement } from '@ni/fast-element';
+export { template } from './template';
+export { styles } from './styles';
 
 /**
  * The base class for icon components
@@ -21,15 +23,3 @@ export class Icon extends FoundationElement {
         super();
     }
 }
-
-type IconClass = typeof Icon;
-
-export const registerIcon = (baseName: string, iconClass: IconClass): void => {
-    const composedIcon = iconClass.compose({
-        baseName,
-        template,
-        styles
-    });
-
-    DesignSystem.getOrCreate().withPrefix('nimble').register(composedIcon());
-};
