@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "nits",
+  "comment": "Switch to customElement decorator",
   "packageName": "@ni/ok-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"

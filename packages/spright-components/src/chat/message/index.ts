@@ -4,13 +4,13 @@ import {
     applyMixins,
     FoundationElement,
     StartEnd,
-    type ElementDefinitionContext,
     type FoundationElementDefinition,
     type StartEndOptions
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { ChatMessageType } from './types';
+import { elementDefinitionContextMock } from '../../utilities/models/mock';
 
 export const chatMessageTag = 'spright-chat-message';
 
@@ -38,7 +38,7 @@ interface ChatMessageMixins extends StartEnd, FoundationElement {}
  */
 @customElement({
     name: chatMessageTag,
-    template: template(undefined as unknown as ElementDefinitionContext, {}),
+    template: template(elementDefinitionContextMock, {}),
     styles
 })
 export class ChatMessage extends ChatMessageMixins {
