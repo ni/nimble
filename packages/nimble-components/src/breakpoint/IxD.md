@@ -17,8 +17,7 @@ Use with the Nimble Table when displaying code, especially in environments where
   - In tables not intended for code or debugging workflows.
 
 ### Anatomy
-- *What parts make up this component?*
-- *How should client-users use the component parts?*
+
 ![Breakpoint States](./specs/spec-images/States.png)
 
 ### Related Components
