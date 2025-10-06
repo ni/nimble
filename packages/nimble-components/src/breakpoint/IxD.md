@@ -77,3 +77,4 @@ Use with the Nimble Table when displaying code, especially in environments where
 - Integration with external debuggers
 - Multi-language support for code tables
 - Visual grouping of breakpoints for batch operations
+
