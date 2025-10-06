@@ -6,7 +6,7 @@ A breakpoint is a UI element that visually marks a line or section of code allow
 
 > NOTE: THE VISUAL DESIGN IN THIS DOCUMENT MAY NOT BE ACCURATE
 ### Background
-Requested by TS Web OI team to support code inspection and debugging workflows in Nimble Table.
+Requested by teams wishing to support code inspection and debugging workflows in Nimble Table.
 
 ## Usage
 
