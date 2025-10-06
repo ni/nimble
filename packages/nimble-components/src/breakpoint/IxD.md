@@ -19,7 +19,7 @@ Use with the Nimble Table when displaying code, especially in environments where
 ### Anatomy
 - *What parts make up this component?*
 - *How should client-users use the component parts?*
-![Breakpoint States](./states.png)
+![Breakpoint States](./specs/spec-images/States.png)
 
 ### Related Components
 
