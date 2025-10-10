@@ -127,110 +127,54 @@ import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
-interface ThemeColors {
+interface ThemeColor {
     light: string;
     dark: string;
     color: string;
 }
 
-function hexToRgbaCssColor2(color: ThemeColors, lightAlpha: number, darkAlpha: number, colorAlpha: number): ThemeColors {
-    return {
-        light: hexToRgbaCssColor(color.light, lightAlpha),
-        dark: hexToRgbaCssColor(color.dark, darkAlpha),
-        color: hexToRgbaCssColor(color.color, colorAlpha),
-    };
-}
-
-function hexToRgbPartial(hexValue: string): string {
-    const { r, g, b } = parseColorHexRGB(hexValue)!;
-    return `${r * 255}, ${g * 255}, ${b * 255}`;
-}
-
-function hexToRgbPartial2(color: ThemeColors): ThemeColors {
-    return {
-        light: hexToRgbPartial(color.light),
-        dark: hexToRgbPartial(color.dark),
-        color: hexToRgbPartial(color.color),
-    };
-}
-
 // #region token values
 const alias = {
-    warningColor: {
-        light: Warning100LightUi,
-        dark: Warning100DarkUi,
-        color: White,
-    },
-    failColor: {
-        light: Fail100LightUi,
-        dark: Fail100DarkUi,
-        color: White,
-    },
-    passColor: {
-        light: Pass100LightUi,
-        dark: Pass100DarkUi,
-        color: White,
-    },
-    informationColor: {
-        light: Information100LightUi,
-        dark: Information100DarkUi,
-        color: White,
-    },
-    lineColor: {
-        light: Black91,
-        dark: Black15,
-        color: White,
-    },
-    fontColor: {
-        light: Black91,
-        dark: Black15,
-        color: White,
-    },
-    fillSelectedColor: {
-        light: DigitalGreenLight,
-        dark: PowerGreen,
-        color: White,
-    },
-    fillHoverColor: {
-        light: Black91,
-        dark: Black15,
-        color: White,
-    },
-    fillDownColor: {
-        light: Black91,
-        dark: Black15,
-        color: White,
-    }
+    warningColor: createThemeColor(Warning100LightUi, Warning100DarkUi, White),
+    failColor: createThemeColor(Fail100LightUi, Fail100DarkUi, White),
+    passColor: createThemeColor(Pass100LightUi, Pass100DarkUi, White),
+    informationColor: createThemeColor(Information100LightUi, Information100DarkUi, White),
+    lineColor: createThemeColor(Black91, Black15, White),
+    fontColor: createThemeColor(Black91, Black15, White),
+    fillSelectedColor: createThemeColor(DigitalGreenLight, PowerGreen, White),
+    fillHoverColor: createThemeColor(Black91, Black15, White),
+    fillDownColor: createThemeColor(Black91, Black15, White),
+    defaultFontColor: createThemeColor(Black91, Black15, White)
 } as const;
 
 const tokenValues = {
-    actionRgbPartialColor: hexToRgbPartial2({
-        light: Black91,
-        dark: Black15,
-        color: White,
-    }),
-    applicationBackgroundColor: {
-        light: White,
-        dark: Black85,
-        color: ForestGreen,
-    },
-    headerBackgroundColor: {},
+    actionRgbPartialColor: hexToRgbPartialThemeColor(createThemeColor(Black91, Black15, White)),
+    applicationBackgroundColor: createThemeColor(White, Black85, ForestGreen),
+    headerBackgroundColor: createThemeColor(Black7, Black88, ForestGreen),
     sectionBackgroundColor: {},
-    sectionBackgroundImage: {
-        light: `linear-gradient(${Black15}, ${hexToRgbaCssColor(Black15, 0)})`,
-        dark: `linear-gradient(${Black82}, ${hexToRgbaCssColor(Black82, 0)})`,
-        color: `linear-gradient(${ForestGreen}, ${hexToRgbaCssColor(ForestGreen, 0)})`,
-    },
+    sectionBackgroundImage: createThemeColor(
+        `linear-gradient(${Black15}, ${hexToRgbaCssColor(Black15, 0)})`,
+        `linear-gradient(${Black82}, ${hexToRgbaCssColor(Black82, 0)})`,
+        `linear-gradient(${ForestGreen}, ${hexToRgbaCssColor(ForestGreen, 0)})`,
+    ),
     dividerBackgroundColor: {},
-    fillSelectedColor: hexToRgbaCssColor2(alias.fillSelectedColor, 0.2, 0.2, 0.2),
-    fillSelectedRgbPartialColor: hexToRgbPartial2(alias.fillSelectedColor),
-    fillHoverSelectedColor: hexToRgbaCssColor2(alias.fillSelectedColor, 0.15, 0.15, 0.15),
+    fillSelectedColor: hexToRgbaCssThemeColor(alias.fillSelectedColor, 0.2, 0.2, 0.2),
+    fillSelectedRgbPartialColor: hexToRgbPartialThemeColor(alias.fillSelectedColor),
+    fillHoverSelectedColor: hexToRgbaCssThemeColor(alias.fillSelectedColor, 0.15, 0.15, 0.15),
 
     failColor: alias.failColor,
     warningColor: alias.warningColor,
     passColor: alias.passColor,
     informationColor: alias.informationColor,
-
+    ...createFontTokenValues(
+        'body',
+        alias.defaultFontColor,
+        hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
+        BodyFamily,
+        BodyWeight,
+        BodySize,
+        BodyLineHeight
+    ),
 } as const;
 // #endregion
 
@@ -245,7 +189,7 @@ export const applicationBackgroundColor = DesignToken.create<string>(
 
 export const headerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.headerBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black7, Black88, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.headerBackgroundColor));
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
@@ -927,14 +871,15 @@ export const [
     bodyFontWeight,
     bodyFontSize,
     bodyFontLineHeight
-] = createFontTokens(
+] = createFontTokens2(
     tokenNames.bodyFont,
-    (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
-    BodyFamily,
-    BodyWeight,
-    BodySize,
-    BodyLineHeight
+    tokenValues.bodyFont,
+    tokenValues.bodyFontColor,
+    tokenValues.bodyDisabledFontColor,
+    tokenValues.bodyFontFamily,
+    tokenValues.bodyFontWeight,
+    tokenValues.bodyFontSize,
+    tokenValues.bodyFontLineHeight
 );
 
 export const [
@@ -1137,6 +1082,94 @@ export const largeDelay = DesignToken.create<string>(
 // #endregion
 
 // #region helpers
+type FontTheme<T extends string> =
+    {
+        [K in `${T}Font` | `${T}FontFamily` | `${T}FontWeight` | `${T}FontSize` | `${T}FontLineHeight`]: string;
+    } & {
+        [K in `${T}FontColor` | `${T}DisabledFontColor`]: ThemeColor;
+    };
+
+function createFontTokenValues<T extends string>(
+    token: T,
+    color: ThemeColor,
+    disabledColor: ThemeColor,
+    family: string,
+    weight: string,
+    size: string,
+    lineHeight: string
+): FontTheme<T> {
+    const familyWithFallback = `${family}, ${family} Fallback`;
+    return {
+        [`${token}Font`]: `${weight} ${size}/${lineHeight} ${familyWithFallback}`,
+        [`${token}FontColor`]: color,
+        [`${token}DisabledFontColor`]: disabledColor,
+        [`${token}FontFamily`]: family,
+        [`${token}FontWeight`]: weight,
+        [`${token}FontSize`]: size,
+        [`${token}FontLineHeight`]: lineHeight,
+    } as FontTheme<T>;
+}
+
+function createFontTokens2(
+    fontTokenName: string,
+    font: string,
+    fontColor: ThemeColor,
+    disabledFontColor: ThemeColor,
+    fontFamily: string,
+    fontWeight: string,
+    fontSize: string,
+    fontLineHeight: string
+): readonly [
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>,
+        CSSDesignToken<string>
+    ] {
+    const fontNameParts = fontTokenName.split('-font');
+    const tokenPrefixWithoutFont = fontNameParts[0];
+    const fontFamilyWithFallback = `${fontFamily}, ${fontFamily} Fallback`;
+    const fontToken = DesignToken.create<string>(
+        styleNameFromTokenName(fontTokenName)
+    ).withDefault(font);
+
+    const fontColorToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-color`)
+    ).withDefault((element: HTMLElement) => getColorForTheme2(element, fontColor));
+
+    const fontDisabledColorToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-disabled-font-color`)
+    ).withDefault((element: HTMLElement) => getColorForTheme2(element, disabledFontColor));
+
+    const fontFamilyToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-family`)
+    ).withDefault(fontFamilyWithFallback);
+
+    const fontWeightToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-weight`)
+    ).withDefault(fontWeight);
+
+    const fontSizeToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-size`)
+    ).withDefault(fontSize);
+
+    const fontLineHeightToken = DesignToken.create<string>(
+        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-line-height`)
+    ).withDefault(fontLineHeight);
+
+    return [
+        fontToken,
+        fontColorToken,
+        fontDisabledColorToken,
+        fontFamilyToken,
+        fontWeightToken,
+        fontSizeToken,
+        fontLineHeightToken
+    ] as const;
+}
+
 function createFontTokens(
     fontTokenName: string,
     colorFunction: (element: HTMLElement) => string,
@@ -1268,4 +1301,32 @@ function getFillDownColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
 
+function hexToRgbaCssThemeColor(themeColor: ThemeColor, lightAlpha: number, darkAlpha: number, colorAlpha: number): ThemeColor {
+    return {
+        light: hexToRgbaCssColor(themeColor.light, lightAlpha),
+        dark: hexToRgbaCssColor(themeColor.dark, darkAlpha),
+        color: hexToRgbaCssColor(themeColor.color, colorAlpha),
+    };
+}
+
+function hexToRgbPartial(hexValue: string): string {
+    const { r, g, b } = parseColorHexRGB(hexValue)!;
+    return `${r * 255}, ${g * 255}, ${b * 255}`;
+}
+
+function hexToRgbPartialThemeColor(themeColor: ThemeColor): ThemeColor {
+    return {
+        light: hexToRgbPartial(themeColor.light),
+        dark: hexToRgbPartial(themeColor.dark),
+        color: hexToRgbPartial(themeColor.color),
+    };
+}
+
+function createThemeColor(light: string, dark: string, color: string): ThemeColor {
+    return {
+        light,
+        dark,
+        color
+    };
+}
 // #endregion
