@@ -125,7 +125,6 @@ import {
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 
 // Color Tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
@@ -150,9 +149,9 @@ export const sectionBackgroundImage = DesignToken.create<string>(
     const start = getColorForTheme(element, Black15, Black82, ForestGreen);
     const end = getColorForTheme(
         element,
-        hexToRgbaCssColor(Black15, 0),
-        hexToRgbaCssColor(Black82, 0),
-        hexToRgbaCssColor(ForestGreen, 0)
+        `rgb(from ${Black15} r g b / 0)`,
+        `rgb(from ${Black82} r g b / 0)`,
+        `rgb(from ${ForestGreen} r g b / 0)`
     );
     return `linear-gradient(${start}, ${end})`;
 });
@@ -163,7 +162,7 @@ export const dividerBackgroundColor = DesignToken.create<string>(
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillSelectedColorForTheme(element), 0.2));
+).withDefault((element: HTMLElement) => `rgb(from ${getFillSelectedColorForTheme(element)} r g b / 0.2)`);
 
 export const fillSelectedRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedRgbPartialColor)
@@ -171,11 +170,11 @@ export const fillSelectedRgbPartialColor = DesignToken.create<string>(
 
 export const fillHoverSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverSelectedColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillSelectedColorForTheme(element), 0.15));
+).withDefault((element: HTMLElement) => `rgb(from ${getFillSelectedColorForTheme(element)} r g b / 0.15)`);
 
 export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillHoverColorForTheme(element), 0.1));
+).withDefault((element: HTMLElement) => `rgb(from ${getFillHoverColorForTheme(element)} r g b / 0.1)`);
 
 export const fillHoverRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverRgbPartialColor)
@@ -183,7 +182,7 @@ export const fillHoverRgbPartialColor = DesignToken.create<string>(
 
 export const fillDownColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillDownColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillDownColorForTheme(element), 0.15));
+).withDefault((element: HTMLElement) => `rgb(from ${getFillDownColorForTheme(element)} r g b / 0.15)`);
 
 export const borderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColor)
@@ -224,15 +223,15 @@ export const modalBackdropColor = DesignToken.create<string>(
 
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
+).withDefault((element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.3)`);
 
 export const cardBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.cardBorderColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
+).withDefault((element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.1)`);
 
 export const graphGridlineColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphGridlineColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.2));
+).withDefault((element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.2)`);
 
 export const graphTrace1Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace1Color)
@@ -244,7 +243,7 @@ export const graphTrace2Color = DesignToken.create<string>(
     element,
     NiScarletDark1,
     NiScarlet,
-    hexToRgbaCssColor(White, 0.7)
+    `rgb(from ${White} r g b / 0.7)`
 ));
 
 export const graphTrace3Color = DesignToken.create<string>(
@@ -253,7 +252,7 @@ export const graphTrace3Color = DesignToken.create<string>(
     element,
     NiFernDark1,
     NiFern,
-    hexToRgbaCssColor(White, 0.4)
+    `rgb(from ${White} r g b / 0.4)`
 ));
 
 export const graphTrace4Color = DesignToken.create<string>(
@@ -262,16 +261,16 @@ export const graphTrace4Color = DesignToken.create<string>(
     element,
     NiPlumDark1,
     NiSeaLight,
-    hexToRgbaCssColor(White, 0.25)
+    `rgb(from ${White} r g b / 0.25)`
 ));
 
 export const graphTrace5Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace5Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiSeaDark2, NiSea, hexToRgbaCssColor(White, 0.55)));
+).withDefault((element: HTMLElement) => getColorForTheme(element, NiSeaDark2, NiSea, `rgb(from ${White} r g b / 0.55)`));
 
 export const graphTrace6Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace6Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiTulip, NiTulip, hexToRgbaCssColor(White, 0.85)));
+).withDefault((element: HTMLElement) => getColorForTheme(element, NiTulip, NiTulip, `rgb(from ${White} r g b / 0.85)`));
 
 export const graphTrace7Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace7Color)
@@ -279,7 +278,7 @@ export const graphTrace7Color = DesignToken.create<string>(
     element,
     NiScarletDark3,
     NiHoneyLight,
-    hexToRgbaCssColor(White, 0.325)
+    `rgb(from ${White} r g b / 0.325)`
 ));
 
 export const graphTrace8Color = DesignToken.create<string>(
@@ -288,7 +287,7 @@ export const graphTrace8Color = DesignToken.create<string>(
     element,
     NiIndigo,
     NiIndigo,
-    hexToRgbaCssColor(White, 0.625)
+    `rgb(from ${White} r g b / 0.625)`
 ));
 
 export const tooltipBackgroundColor = DesignToken.create<string>(
@@ -301,15 +300,15 @@ export const tableRowBorderColor = DesignToken.create<string>(
 
 export const tagFillColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tagFillColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
+).withDefault((element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.1)`);
 
 export const buttonFillPrimaryColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonFillPrimaryColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
-    hexToRgbaCssColor(Black91, 0.75),
-    hexToRgbaCssColor(Black15, 0.3),
-    hexToRgbaCssColor(White, 0.3)
+    `rgb(from ${Black91} r g b / 0.75)`,
+    `rgb(from ${Black15} r g b / 0.3)`,
+    `rgb(from ${White} r g b / 0.3)`
 ));
 
 export const buttonPrimaryFontColor = DesignToken.create<string>(
@@ -322,7 +321,7 @@ export const buttonFillAccentColor = DesignToken.create<string>(
     element,
     DigitalGreenDark,
     DigitalGreenLight,
-    hexToRgbaCssColor(White, 0.1)
+    `rgb(from ${White} r g b / 0.1)`
 ));
 
 export const buttonAccentBlockFontColor = DesignToken.create<string>(
@@ -339,7 +338,7 @@ export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
     element,
     DigitalGreenLight,
     PowerGreen,
-    hexToRgbaCssColor(White, 0.3)
+    `rgb(from ${White} r g b / 0.3)`
 ));
 
 export const calendarEventBackgroundStaticColor = DesignToken.create<string>(
@@ -378,8 +377,8 @@ export const calendarEventBorderTransientColor = DesignToken.create<string>(
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     DigitalGreenLight,
-    hexToRgbaCssColor(PowerGreen, 0.85),
-    hexToRgbaCssColor(PowerGreen, 0.85)
+    `rgb(from ${PowerGreen} r g b / 0.85)`,
+    `rgb(from ${PowerGreen} r g b / 0.85)`
 ));
 
 export const calendarEventStaticFontColor = DesignToken.create<string>(
@@ -439,33 +438,33 @@ export const calendarEventOuterBorderHighlightedColor = DesignToken.create<strin
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     Black88,
-    hexToRgbaCssColor(White, 0.85),
-    hexToRgbaCssColor(White, 0.85)
+    `rgb(from ${White} r g b / 0.85)`,
+    `rgb(from ${White} r g b / 0.85)`
 ));
 
 export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarRowBackgroundSelectedColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
-    hexToRgbaCssColor(DigitalGreenLight, 0.2),
-    hexToRgbaCssColor(PowerGreen, 0.2),
-    hexToRgbaCssColor(PowerGreen, 0.2)
+    `rgb(from ${DigitalGreenLight} r g b / 0.2)`,
+    `rgb(from ${PowerGreen} r g b / 0.2)`,
+    `rgb(from ${PowerGreen} r g b / 0.2)`
 ));
 
 export const calendarRowBackgroundConflictColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarRowBackgroundConflictColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
-    hexToRgbaCssColor(Fail100LightUi, 0.2),
-    hexToRgbaCssColor(Fail100DarkUi, 0.2),
-    hexToRgbaCssColor(Fail100DarkUi, 0.2)
+    `rgb(from ${Fail100LightUi} r g b / 0.2)`,
+    `rgb(from ${Fail100DarkUi} r g b / 0.2)`,
+    `rgb(from ${Fail100DarkUi} r g b / 0.2)`
 ));
 
 export const calendarEventFillBlockedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventFillBlockedColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
-    hexToRgbaCssColor(Black91, 0.07),
+    `rgb(from ${Black91} r g b / 0.07)`,
     Black82,
     Black82
 ));
@@ -483,8 +482,8 @@ export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     Black7,
-    hexToRgbaCssColor(Black91, 0.1),
-    hexToRgbaCssColor(Black91, 0.1)
+    `rgb(from ${Black91} r g b / 0.1)`,
+    `rgb(from ${Black91} r g b / 0.1)`
 ));
 
 // Component Sizing Tokens
@@ -566,28 +565,19 @@ export const tableFitRowsHeight = DesignToken.create<string>(
 export const elevation1BoxShadow = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.elevation1BoxShadow)
 ).withDefault(
-    (element: HTMLElement) => `0px 1px 4px ${hexToRgbaCssColor(
-        getColorForTheme(element, Black, Black, Black),
-        0.16
-    )}`
+    (element: HTMLElement) => `0px 1px 4px rgb(from ${getColorForTheme(element, Black, Black, Black)} r g b / 0.16)`
 );
 
 export const elevation2BoxShadow = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.elevation2BoxShadow)
 ).withDefault(
-    (element: HTMLElement) => `0px 2px 4px ${hexToRgbaCssColor(
-        getColorForTheme(element, Black, Black, Black),
-        0.16
-    )}`
+    (element: HTMLElement) => `0px 2px 4px rgb(from ${getColorForTheme(element, Black, Black, Black)} r g b / 0.16)`
 );
 
 export const elevation3BoxShadow = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.elevation3BoxShadow)
 ).withDefault(
-    (element: HTMLElement) => `0px 4px 8px ${hexToRgbaCssColor(
-        getColorForTheme(element, Black, Black, Black),
-        0.3
-    )}`
+    (element: HTMLElement) => `0px 4px 8px rgb(from ${getColorForTheme(element, Black, Black, Black)} r g b / 0.3)`
 );
 
 // Font Tokens
@@ -602,7 +592,7 @@ export const [
 ] = createFontTokens(
     tokenNames.headlineFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     Headline1Family,
     Headline1Weight,
     Headline1Size,
@@ -620,7 +610,7 @@ export const [
 ] = createFontTokens(
     tokenNames.headlinePlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     Headline2Family,
     Headline2Weight,
     Headline2Size,
@@ -638,7 +628,7 @@ export const [
 ] = createFontTokens(
     tokenNames.titlePlus2Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     Title3Family,
     Title3Weight,
     Title3Size,
@@ -656,7 +646,7 @@ export const [
 ] = createFontTokens(
     tokenNames.titlePlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     Title2Family,
     Title2Weight,
     Title2Size,
@@ -674,7 +664,7 @@ export const [
 ] = createFontTokens(
     tokenNames.titleFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     Title1Family,
     Title1Weight,
     Title1Size,
@@ -692,7 +682,7 @@ export const [
 ] = createFontTokens(
     tokenNames.subtitlePlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     Subtitle2Family,
     Subtitle2Weight,
     Subtitle2Size,
@@ -710,7 +700,7 @@ export const [
 ] = createFontTokens(
     tokenNames.subtitleFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     Subtitle1Family,
     Subtitle1Weight,
     Subtitle1Size,
@@ -728,7 +718,7 @@ export const [
 ] = createFontTokens(
     tokenNames.linkFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     LinkLightUiFamily,
     LinkLightUiWeight,
     LinkLightUiSize,
@@ -749,9 +739,9 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        hexToRgbaCssColor(White, 0.75)
+        `rgb(from ${White} r g b / 0.75)`
     ),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     LinkLightUiFamily,
     LinkLightUiWeight,
     LinkLightUiSize,
@@ -769,7 +759,7 @@ export const [
 ] = createFontTokens(
     tokenNames.linkProminentFont,
     (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     LinkLightUiFamily,
     LinkLightUiWeight,
     LinkLightUiSize,
@@ -790,9 +780,9 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        hexToRgbaCssColor(White, 0.75)
+        `rgb(from ${White} r g b / 0.75)`
     ),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     LinkLightUiFamily,
     LinkLightUiWeight,
     LinkLightUiSize,
@@ -809,8 +799,8 @@ export const [
     placeholderFontLineHeight
 ] = createFontTokens(
     tokenNames.placeholderFont,
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.6)`,
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     PlaceholderFamily,
     PlaceholderWeight,
     PlaceholderSize,
@@ -828,7 +818,7 @@ export const [
 ] = createFontTokens(
     tokenNames.bodyFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     BodyFamily,
     BodyWeight,
     BodySize,
@@ -846,7 +836,7 @@ export const [
 ] = createFontTokens(
     tokenNames.bodyEmphasizedFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     BodyEmphasizedFamily,
     BodyEmphasizedWeight,
     BodyEmphasizedSize,
@@ -864,7 +854,7 @@ export const [
 ] = createFontTokens(
     tokenNames.bodyPlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     Body2Family,
     Body2Weight,
     Body2Size,
@@ -882,7 +872,7 @@ export const [
 ] = createFontTokens(
     tokenNames.bodyPlus1EmphasizedFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     BodyEmphasized2Family,
     BodyEmphasized2Weight,
     BodyEmphasized2Size,
@@ -900,7 +890,7 @@ export const [
 ] = createFontTokens(
     tokenNames.groupHeaderFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     GroupLabel1Family,
     GroupLabel1Weight,
     GroupLabel1Size,
@@ -917,8 +907,8 @@ export const [
     controlLabelFontLineHeight
 ] = createFontTokens(
     tokenNames.controlLabelFont,
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.6)`,
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     ControlLabel1Family,
     ControlLabel1Weight,
     ControlLabel1Size,
@@ -936,7 +926,7 @@ export const [
 ] = createFontTokens(
     tokenNames.buttonLabelFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     ButtonLabel1Family,
     ButtonLabel1Weight,
     ButtonLabel1Size,
@@ -954,7 +944,7 @@ export const [
 ] = createFontTokens(
     tokenNames.tooltipCaptionFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     TooltipCaptionFamily,
     TooltipCaptionWeight,
     TooltipCaptionSize,
@@ -972,7 +962,7 @@ export const [
 ] = createFontTokens(
     tokenNames.errorTextFont,
     (element: HTMLElement) => getFailColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getFailColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getFailColorForTheme(element)} r g b / 0.3)`,
     ErrorLightUiFamily,
     ErrorLightUiWeight,
     ErrorLightUiSize,
@@ -989,8 +979,8 @@ export const [
     tableHeaderFontLineHeight
 ] = createFontTokens(
     tokenNames.tableHeaderFont,
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.6)`,
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
@@ -1008,7 +998,7 @@ export const [
 ] = createFontTokens(
     tokenNames.mentionFont,
     (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    (element: HTMLElement) => `rgb(from ${getDefaultFontColorForTheme(element)} r g b / 0.3)`,
     BodyFamily,
     BodyEmphasizedWeight,
     BodySize,
@@ -1181,12 +1171,12 @@ function getFillDownColorForTheme(element: HTMLElement): string {
 function getModalBackdropForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case Theme.light:
-            return hexToRgbaCssColor(Black, 0.3);
+            return `rgb(from ${Black} r g b / 0.3)`;
         case Theme.dark:
-            return hexToRgbaCssColor(Black, 0.6);
+            return `rgb(from ${Black} r g b / 0.6)`;
         case Theme.color:
-            return hexToRgbaCssColor(Black, 0.6);
+            return `rgb(from ${Black} r g b / 0.6)`;
         default:
-            return hexToRgbaCssColor(Black, 0.3);
+            return `rgb(from ${Black} r g b / 0.3)`;
     }
 }
