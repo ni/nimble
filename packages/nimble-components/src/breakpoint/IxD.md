@@ -46,7 +46,12 @@ Use with the Nimble Table when displaying code, especially in environments where
 ### Mouse Interactions
 
 - Click on the breakpoint indicator toggles its state (set/remove).
-- When removed: Hovering shows a tooltip and outline of breakpoint, when set hovering shows a tooltip.
+
+#### Hover behavior
+- When removed: Hovering shows a tooltip and outline of breakpoint
+- When set: hovering shows a tooltip.
+
+In both cases, hovering changes the cursor from default to pointer.
 
 ### Non-Mouse Interactions
 
@@ -56,17 +61,28 @@ Use with the Nimble Table when displaying code, especially in environments where
   - Space/Enter toggles breakpoint
   - Tooltip & breakpoint outline appears on focus
 - **Keyboard Shortcuts:**
+
+    **Navigating the table with breakpoints**
+
+    The breakpoint cell will be within the table so navigation should be the same as existing table navigation.
+
+
   - **Add/Remove breakpoint:**  
+    By default, The breakpoint can be added to any row in the table. Implementers of the table should decide if certain rows should not have breakpoints.
+    When the user is focused on the breakpoint cell Space/Eneter adds the breakpoint in addition to the beyboard shortcuts below
+
+
+    When the user is focused on table row or group header only the keyboard shortcuts add the breakpoint.
+
+
     - On Mac: <kbd>Cmd</kbd> + <kbd>B</kbd>  
     - On Windows/Linux: <kbd>Ctrl</kbd> + <kbd>B</kbd>
-    - Alternatively, pressing <kbd>F9</kbd> when focused on a code line toggles the breakpoint (common in IDEs).
+    - Alternatively, pressing <kbd>F9</kbd> when focused on a table row toggles the breakpoint
 
 
 ## Open Issues
-
-- Should breakpoints support conditional logic (e.g., only break when a condition is met)?
 - Should I also be updating the table spec?
 - Should we consider full nimble debugging guidelines? (Run, pause, step over, etc)
 
 ## Future Considerations
-
+- Should breakpoints support conditional logic (e.g., only break when a condition is met)?
