@@ -22,7 +22,6 @@ import { DropdownAppearance } from './types';
 import { focusVisible } from '../utilities/style/focus';
 import { themeBehavior } from '../utilities/style/theme';
 import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 
 export const styles = css`
     ${dropdownStyles}
@@ -194,7 +193,7 @@ export const styles = css`
             .filter-field,
             .no-results-label,
             .loading-container {
-                background: ${hexToRgbaCssColor(White, 0.15)};
+                background: rgb(from ${White} r g b / 0.15);
             }
         `
     )

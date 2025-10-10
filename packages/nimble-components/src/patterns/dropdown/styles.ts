@@ -25,7 +25,6 @@ import {
 } from '../../theme-provider/design-tokens';
 import { Theme } from '../../theme-provider/types';
 import { appearanceBehavior } from '../../utilities/style/appearance';
-import { hexToRgbaCssColor } from '../../utilities/style/colors';
 import { focusVisible } from '../../utilities/style/focus';
 import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
@@ -337,7 +336,7 @@ export const styles = css`
         Theme.color,
         css`
             .listbox slot {
-                background: ${hexToRgbaCssColor(White, 0.15)};
+                background: rgb(from ${White} r g b / 0.15);
             }
         `
     )

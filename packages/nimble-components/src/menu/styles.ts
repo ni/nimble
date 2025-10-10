@@ -16,7 +16,6 @@ import {
     menuMinWidth
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 import { anchorMenuItemTag } from '../anchor-menu-item';
 
@@ -73,7 +72,7 @@ export const styles = css`
         Theme.color,
         css`
             slot {
-                background: ${hexToRgbaCssColor(White, 0.15)};
+                background: rgb(from ${White} r g b / 0.15);
             }
         `
     )

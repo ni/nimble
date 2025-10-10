@@ -16,7 +16,6 @@ import {
     borderHoverColor
 } from '../theme-provider/design-tokens';
 import { themeBehavior } from '../utilities/style/theme';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { Theme } from '../theme-provider/types';
 
 export const styles = css`
@@ -39,7 +38,7 @@ export const styles = css`
     }
 
     :host(:hover) {
-        box-shadow: 0px 1px 4px ${hexToRgbaCssColor(Black, 0.3)};
+        box-shadow: 0px 1px 4px rgb(from ${Black} r g b / 0.3);
     }
 
     :host(:active) {
@@ -130,19 +129,10 @@ export const styles = css`
         Theme.light,
         css`
             :host {
-                --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                    White,
-                    0.3
-                )};
+                --ni-private-card-button-background-hover-color: rgb(from ${White} r g b / 0.3);
                 --ni-private-card-button-background-active-color: ${White};
-                --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                    Black91,
-                    0.2
-                )};
-                --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(
-                    Black91,
-                    0.6
-                )};
+                --ni-private-card-button-border-active-color: rgb(from ${Black91} r g b / 0.2);
+                --ni-private-card-button-border-selected-color: rgb(from ${Black91} r g b / 0.6);
             }
         `
     ),
@@ -150,18 +140,9 @@ export const styles = css`
         Theme.dark,
         css`
             :host {
-                --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                    Black15,
-                    0.07
-                )};
-                --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(
-                    Black15,
-                    0.15
-                )};
-                --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                    Black15,
-                    0.2
-                )};
+                --ni-private-card-button-background-hover-color: rgb(from ${Black15} r g b / 0.07);
+                --ni-private-card-button-background-active-color: rgb(from ${Black15} r g b / 0.15);
+                --ni-private-card-button-border-active-color: rgb(from ${Black15} r g b / 0.2);
                 --ni-private-card-button-border-selected-color: ${Black15};
             }
         `
@@ -170,22 +151,10 @@ export const styles = css`
         Theme.color,
         css`
             :host {
-                --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
-                    White,
-                    0.07
-                )};
-                --ni-private-card-button-background-active-color: ${hexToRgbaCssColor(
-                    White,
-                    0.15
-                )};
-                --ni-private-card-button-border-active-color: ${hexToRgbaCssColor(
-                    White,
-                    0.2
-                )};
-                --ni-private-card-button-border-selected-color: ${hexToRgbaCssColor(
-                    White,
-                    0.6
-                )};
+                --ni-private-card-button-background-hover-color: rgb(from ${White} r g b / 0.07);
+                --ni-private-card-button-background-active-color: rgb(from ${White} r g b / 0.15);
+                --ni-private-card-button-border-active-color: rgb(from ${White} r g b / 0.2);
+                --ni-private-card-button-border-selected-color: rgb(from ${White} r g b / 0.6);
             }
         `
     )

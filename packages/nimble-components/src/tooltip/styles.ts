@@ -19,7 +19,6 @@ import {
     elevation2BoxShadow
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
@@ -29,7 +28,7 @@ export const styles = css`
         font: ${tooltipCaptionFont};
         color: ${tooltipCaptionFontColor};
         text-align: left;
-        --ni-private-tooltip-border-color: ${hexToRgbaCssColor(Black91, 0.3)};
+        --ni-private-tooltip-border-color: rgb(from ${Black91} r g b / 0.3);
         --ni-private-tooltip-background-color: ${Black15};
     }
 
@@ -81,10 +80,7 @@ export const styles = css`
         Theme.dark,
         css`
             :host {
-                --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
-                    Black15,
-                    0.3
-                )};
+                --ni-private-tooltip-border-color: rgb(from ${Black15} r g b / 0.3);
                 --ni-private-tooltip-background-color: ${Black85};
             }
 
@@ -105,14 +101,8 @@ export const styles = css`
             }
 
             :host {
-                --ni-private-tooltip-border-color: ${hexToRgbaCssColor(
-                    White,
-                    0.3
-                )};
-                --ni-private-tooltip-background-color: ${hexToRgbaCssColor(
-                    White,
-                    0.15
-                )};
+                --ni-private-tooltip-border-color: rgb(from ${White} r g b / 0.3);
+                --ni-private-tooltip-background-color: rgb(from ${White} r g b / 0.15);
             }
 
             :host([severity='error']) {

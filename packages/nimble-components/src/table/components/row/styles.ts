@@ -15,7 +15,6 @@ import {
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
-import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 import { focusVisible } from '../../../utilities/style/focus';
@@ -183,15 +182,15 @@ export const styles = css`
         Theme.color,
         css`
             :host([selectable]:not([selected])[allow-hover]:hover)::before {
-                background-color: ${hexToRgbaCssColor(White, 0.05)};
+                background-color: rgb(from ${White} r g b / 0.05);
             }
 
             :host([selected])::before {
-                background-color: ${hexToRgbaCssColor(White, 0.25)};
+                background-color: rgb(from ${White} r g b / 0.25);
             }
 
             :host([selected][allow-hover]:hover)::before {
-                background-color: ${hexToRgbaCssColor(White, 0.2)};
+                background-color: rgb(from ${White} r g b / 0.2);
             }
         `
     )

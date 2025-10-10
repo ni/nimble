@@ -16,7 +16,6 @@ import {
     borderWidth
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 import { userSelectNone } from '../utilities/style/user-select';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
@@ -243,7 +242,7 @@ export const styles = css`
                 content: '';
                 width: 100%;
                 height: 100%;
-                background-color: ${hexToRgbaCssColor(White, 0.1)};
+                background-color: rgb(from ${White} r g b / 0.1);
                 position: absolute;
             }
         `

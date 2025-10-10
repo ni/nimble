@@ -21,7 +21,6 @@ import {
     standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
-import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 
@@ -147,7 +146,7 @@ export const styles = css`
             }
 
             .container {
-                background: ${hexToRgbaCssColor(White, 0.3)};
+                background: rgb(from ${White} r g b / 0.3);
             }
         `
     )

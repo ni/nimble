@@ -11,7 +11,6 @@ import {
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
-import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { userSelectNone } from '../../../utilities/style/user-select';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
@@ -102,7 +101,7 @@ export const styles = css`
         Theme.color,
         css`
             :host([allow-hover]:hover)::before {
-                background-color: ${hexToRgbaCssColor(White, 0.05)};
+                background-color: rgb(from ${White} r g b / 0.05);
             }
         `
     ),
@@ -110,7 +109,7 @@ export const styles = css`
         Theme.dark,
         css`
             :host([allow-hover]:hover)::before {
-                background-color: ${hexToRgbaCssColor(White, 0.1)};
+                background-color: rgb(from ${White} r g b / 0.1);
             }
         `
     )
