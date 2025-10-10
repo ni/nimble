@@ -164,11 +164,17 @@ export const styles = css`
         Theme.light,
         css`
             :host {
-                --ni-private-switch-background-disabled-color: rgb(from ${Black91} r g b / 0.07);
+                --ni-private-switch-background-disabled-color: rgb(
+                    from ${Black91} r g b / 0.07
+                );
                 --ni-private-switch-indicator-background-color: ${White};
-                --ni-private-switch-indicator-background-disabled-color: rgb(from ${White} r g b / 0.1);
+                --ni-private-switch-indicator-background-disabled-color: rgb(
+                    from ${White} r g b / 0.1
+                );
                 --ni-private-switch-indicator-border-color: ${Black91};
-                --ni-private-switch-indicator-border-disabled-color: rgb(from ${Black91} r g b / 0.3);
+                --ni-private-switch-indicator-border-disabled-color: rgb(
+                    from ${Black91} r g b / 0.3
+                );
             }
         `
     ),
@@ -176,11 +182,19 @@ export const styles = css`
         Theme.dark,
         css`
             :host {
-                --ni-private-switch-background-disabled-color: rgb(from ${Black15} r g b / 0.07);
-                --ni-private-switch-indicator-background-color: rgb(from ${Black91} r g b / 0.3);
-                --ni-private-switch-indicator-background-disabled-color: rgb(from ${Black91} r g b / 0.1);
+                --ni-private-switch-background-disabled-color: rgb(
+                    from ${Black15} r g b / 0.07
+                );
+                --ni-private-switch-indicator-background-color: rgb(
+                    from ${Black91} r g b / 0.3
+                );
+                --ni-private-switch-indicator-background-disabled-color: rgb(
+                    from ${Black91} r g b / 0.1
+                );
                 --ni-private-switch-indicator-border-color: ${Black7};
-                --ni-private-switch-indicator-border-disabled-color: rgb(from ${Black7} r g b / 0.3);
+                --ni-private-switch-indicator-border-disabled-color: rgb(
+                    from ${Black7} r g b / 0.3
+                );
             }
         `
     ),
@@ -188,11 +202,19 @@ export const styles = css`
         Theme.color,
         css`
             :host {
-                --ni-private-switch-background-disabled-color: rgb(from ${White} r g b / 0.07);
-                --ni-private-switch-indicator-background-color: rgb(from ${White} r g b / 0.1);
-                --ni-private-switch-indicator-background-disabled-color: rgb(from ${White} r g b / 0.1);
+                --ni-private-switch-background-disabled-color: rgb(
+                    from ${White} r g b / 0.07
+                );
+                --ni-private-switch-indicator-background-color: rgb(
+                    from ${White} r g b / 0.1
+                );
+                --ni-private-switch-indicator-background-disabled-color: rgb(
+                    from ${White} r g b / 0.1
+                );
                 --ni-private-switch-indicator-border-color: ${White};
-                --ni-private-switch-indicator-border-disabled-color: rgb(from ${White} r g b / 0.3);
+                --ni-private-switch-indicator-border-disabled-color: rgb(
+                    from ${White} r g b / 0.3
+                );
             }
         `
     )

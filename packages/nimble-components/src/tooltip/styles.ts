@@ -80,7 +80,9 @@ export const styles = css`
         Theme.dark,
         css`
             :host {
-                --ni-private-tooltip-border-color: rgb(from ${Black15} r g b / 0.3);
+                --ni-private-tooltip-border-color: rgb(
+                    from ${Black15} r g b / 0.3
+                );
                 --ni-private-tooltip-background-color: ${Black85};
             }
 
@@ -101,8 +103,12 @@ export const styles = css`
             }
 
             :host {
-                --ni-private-tooltip-border-color: rgb(from ${White} r g b / 0.3);
-                --ni-private-tooltip-background-color: rgb(from ${White} r g b / 0.15);
+                --ni-private-tooltip-border-color: rgb(
+                    from ${White} r g b / 0.3
+                );
+                --ni-private-tooltip-background-color: rgb(
+                    from ${White} r g b / 0.15
+                );
             }
 
             :host([severity='error']) {
