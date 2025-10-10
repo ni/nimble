@@ -18,7 +18,13 @@ Use with the Nimble Table when displaying code, especially in environments where
 
 ### Anatomy
 
+**Breakpoint states**
 ![Breakpoint States](./specs/spec-images/States.png)
+
+> Note: Not approved by visual design
+Breakpoints should appear to the left of checkboxes for multiselect
+
+**Breakpoints in a table**
 
 ### Related Components
 
