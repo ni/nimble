@@ -222,7 +222,7 @@ const tokenValues = {
         `0px 4px 8px ${hexToRgbaCssColor(Black, 0.16)}`,
         `0px 4px 8px ${hexToRgbaCssColor(Black, 0.16)}`
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'headline',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -231,7 +231,7 @@ const tokenValues = {
         Headline1Size,
         Headline1LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'headlinePlus1',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -240,7 +240,7 @@ const tokenValues = {
         Headline2Size,
         Headline2LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'titlePlus2',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -249,7 +249,7 @@ const tokenValues = {
         Title3Size,
         Title3LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'titlePlus1',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -258,7 +258,7 @@ const tokenValues = {
         Title2Size,
         Title2LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'title',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -267,7 +267,7 @@ const tokenValues = {
         Title1Size,
         Title1LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'subtitlePlus1',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -276,7 +276,7 @@ const tokenValues = {
         Subtitle2Size,
         Subtitle2LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'subtitle',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -285,7 +285,7 @@ const tokenValues = {
         Subtitle1Size,
         Subtitle1LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'link',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -294,7 +294,7 @@ const tokenValues = {
         LinkLightUiSize,
         LinkLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'linkActive',
         createThemeColor(DigitalGreenLight, DigitalGreenLight, hexToRgbaCssColor(White, 0.75)),
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -303,7 +303,7 @@ const tokenValues = {
         LinkLightUiSize,
         LinkLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'linkProminent',
         createThemeColor(DigitalGreenDark105, PowerGreen, White),
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -312,7 +312,7 @@ const tokenValues = {
         LinkLightUiSize,
         LinkLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'linkActiveProminent',
         createThemeColor(DigitalGreenLight, DigitalGreenLight, hexToRgbaCssColor(White, 0.75)),
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -321,7 +321,7 @@ const tokenValues = {
         LinkLightUiSize,
         LinkLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'placeholder',
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.6, 0.6, 0.6),
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -330,7 +330,7 @@ const tokenValues = {
         PlaceholderSize,
         PlaceholderLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'body',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -339,7 +339,7 @@ const tokenValues = {
         BodySize,
         BodyLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'bodyEmphasized',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -348,7 +348,7 @@ const tokenValues = {
         BodyEmphasizedSize,
         BodyEmphasizedLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'bodyPlus1',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -357,7 +357,7 @@ const tokenValues = {
         Body2Size,
         Body2LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'bodyPlus1Emphasized',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -366,7 +366,7 @@ const tokenValues = {
         BodyEmphasized2Size,
         BodyEmphasized2LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'groupHeader',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -375,7 +375,7 @@ const tokenValues = {
         GroupLabel1Size,
         GroupLabel1LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'controlLabel',
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.6, 0.6, 0.6),
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -384,7 +384,7 @@ const tokenValues = {
         ControlLabel1Size,
         ControlLabel1LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'buttonLabel',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -393,7 +393,7 @@ const tokenValues = {
         ButtonLabel1Size,
         ButtonLabel1LineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'tooltipCaption',
         alias.defaultFontColor,
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -402,7 +402,7 @@ const tokenValues = {
         TooltipCaptionSize,
         TooltipCaptionLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'errorText',
         alias.failColor,
         hexToRgbaCssThemeColor(alias.failColor, 0.3, 0.3, 0.3),
@@ -411,7 +411,7 @@ const tokenValues = {
         ErrorLightUiSize,
         TooltipCaptionLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'tableHeader',
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.6, 0.6, 0.6),
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -420,7 +420,7 @@ const tokenValues = {
         GridHeaderSize,
         TooltipCaptionLineHeight
     ),
-    ...createFontTokenValues(
+    ...createFont(
         'mention',
         createThemeColor(DigitalGreenDark, PowerGreen, PowerGreen),
         hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
@@ -1045,14 +1045,14 @@ export const largeDelay = DesignToken.create<string>(
 // #endregion
 
 // #region helpers
-type FontTheme<T extends string> =
+type Font<T extends string> =
     {
         [K in `${T}Font` | `${T}FontFamily` | `${T}FontWeight` | `${T}FontSize` | `${T}FontLineHeight`]: string;
     } & {
         [K in `${T}FontColor` | `${T}DisabledFontColor`]: ThemeColor;
     };
 
-function createFontTokenValues<T extends string>(
+function createFont<T extends string>(
     token: T,
     color: ThemeColor,
     disabledColor: ThemeColor,
@@ -1060,7 +1060,7 @@ function createFontTokenValues<T extends string>(
     weight: string,
     size: string,
     lineHeight: string
-): FontTheme<T> {
+): Font<T> {
     const familyWithFallback = `${family}, ${family} Fallback`;
     return {
         [`${token}Font`]: `${weight} ${size}/${lineHeight} ${familyWithFallback}`,
@@ -1070,7 +1070,7 @@ function createFontTokenValues<T extends string>(
         [`${token}FontWeight`]: weight,
         [`${token}FontSize`]: size,
         [`${token}FontLineHeight`]: lineHeight,
-    } as FontTheme<T>;
+    } as Font<T>;
 }
 
 function createFontTokens(
