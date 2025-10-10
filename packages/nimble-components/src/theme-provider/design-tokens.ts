@@ -433,251 +433,68 @@ const tokenValues = {
 // #endregion
 
 // #region color tokens
-export const actionRgbPartialColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.actionRgbPartialColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.actionRgbPartialColor));
-
-export const applicationBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.applicationBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.applicationBackgroundColor));
-
-export const headerBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.headerBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.headerBackgroundColor));
-
-export const sectionBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.sectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.sectionBackgroundColor));
-
-export const sectionBackgroundImage = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.sectionBackgroundImage)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.sectionBackgroundImage));
-
-export const dividerBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dividerBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.dividerBackgroundColor));
-
-export const fillSelectedColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillSelectedColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.fillSelectedColor));
-
-export const fillSelectedRgbPartialColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillSelectedRgbPartialColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.fillSelectedRgbPartialColor));
-
-export const fillHoverSelectedColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillHoverSelectedColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.fillHoverSelectedColor));
-
-export const fillHoverColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.fillHoverColor));
-
-export const fillHoverRgbPartialColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillHoverRgbPartialColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.fillHoverRgbPartialColor));
-
-export const fillDownColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.fillDownColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.fillDownColor));
-
-export const borderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.borderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.borderColor));
-
-export const borderRgbPartialColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.borderRgbPartialColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.borderRgbPartialColor));
-
-export const failColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.failColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.failColor));
-
-export const warningColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.warningColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.warningColor));
-
-export const passColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.passColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.passColor));
-
-export const informationColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.informationColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.informationColor));
-
-export const borderHoverColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.borderHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.borderHoverColor));
+export const actionRgbPartialColor = createThemeColorToken(tokenNames.actionRgbPartialColor, tokenValues.actionRgbPartialColor);
+export const applicationBackgroundColor = createThemeColorToken(tokenNames.applicationBackgroundColor, tokenValues.applicationBackgroundColor);
+export const headerBackgroundColor = createThemeColorToken(tokenNames.headerBackgroundColor, tokenValues.headerBackgroundColor);
+export const sectionBackgroundColor = createThemeColorToken(tokenNames.sectionBackgroundColor, tokenValues.sectionBackgroundColor);
+export const sectionBackgroundImage = createThemeColorToken(tokenNames.sectionBackgroundImage, tokenValues.sectionBackgroundImage);
+export const dividerBackgroundColor = createThemeColorToken(tokenNames.dividerBackgroundColor, tokenValues.dividerBackgroundColor);
+export const fillSelectedColor = createThemeColorToken(tokenNames.fillSelectedColor, tokenValues.fillSelectedColor);
+export const fillSelectedRgbPartialColor = createThemeColorToken(tokenNames.fillSelectedRgbPartialColor, tokenValues.fillSelectedRgbPartialColor);
+export const fillHoverSelectedColor = createThemeColorToken(tokenNames.fillHoverSelectedColor, tokenValues.fillHoverSelectedColor);
+export const fillHoverColor = createThemeColorToken(tokenNames.fillHoverColor, tokenValues.fillHoverColor);
+export const fillHoverRgbPartialColor = createThemeColorToken(tokenNames.fillHoverRgbPartialColor, tokenValues.fillHoverRgbPartialColor);
+export const fillDownColor = createThemeColorToken(tokenNames.fillDownColor, tokenValues.fillDownColor);
+export const borderColor = createThemeColorToken(tokenNames.borderColor, tokenValues.borderColor);
+export const borderRgbPartialColor = createThemeColorToken(tokenNames.borderRgbPartialColor, tokenValues.borderRgbPartialColor);
+export const failColor = createThemeColorToken(tokenNames.failColor, tokenValues.failColor);
+export const warningColor = createThemeColorToken(tokenNames.warningColor, tokenValues.warningColor);
+export const passColor = createThemeColorToken(tokenNames.passColor, tokenValues.passColor);
+export const informationColor = createThemeColorToken(tokenNames.informationColor, tokenValues.informationColor);
+export const borderHoverColor = createThemeColorToken(tokenNames.borderHoverColor, tokenValues.borderHoverColor);
 // #endregion
 
 // #region component color tokens
-export const iconColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.iconColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.iconColor));
-
-export const modalBackdropColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.modalBackdropColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.modalBackdropColor));
-
-export const popupBorderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.popupBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.popupBorderColor));
-
-export const cardBorderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.cardBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.cardBorderColor));
-
-export const graphGridlineColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphGridlineColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphGridlineColor));
-
-export const graphTrace1Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace1Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphTrace1Color));
-
-export const graphTrace2Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace2Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphTrace2Color));
-
-export const graphTrace3Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace3Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphTrace3Color));
-
-export const graphTrace4Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace4Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphTrace4Color));
-
-export const graphTrace5Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace5Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphTrace5Color));
-
-export const graphTrace6Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace6Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphTrace6Color));
-
-export const graphTrace7Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace7Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphTrace7Color));
-
-export const graphTrace8Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace8Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.graphTrace8Color));
-
-export const tooltipBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.tooltipBackgroundColor));
-
-export const tableRowBorderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tableRowBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.tableRowBorderColor));
-
-export const tagFillColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tagFillColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.tagFillColor));
-
-export const buttonFillPrimaryColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonFillPrimaryColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.buttonFillPrimaryColor));
-
-export const buttonPrimaryFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonPrimaryFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.buttonPrimaryFontColor));
-
-export const buttonFillAccentColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonFillAccentColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.buttonFillAccentColor));
-
-export const buttonAccentBlockFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonAccentBlockFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.buttonAccentBlockFontColor));
-
-export const buttonAccentOutlineFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonAccentOutlineFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.buttonAccentOutlineFontColor));
-
-export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonBorderAccentOutlineColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.buttonBorderAccentOutlineColor));
-
-export const calendarEventBackgroundStaticColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventBackgroundStaticColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventBackgroundStaticColor));
-
-export const calendarEventBackgroundDynamicColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventBackgroundDynamicColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventBackgroundDynamicColor));
-
-export const calendarEventBackgroundTransientColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventBackgroundTransientColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventBackgroundTransientColor));
-
-export const calendarEventBorderStaticColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventBorderStaticColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventBorderStaticColor));
-
-export const calendarEventBorderTransientColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventBorderTransientColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventBorderTransientColor));
-
-export const calendarEventStaticFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventStaticFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventStaticFontColor));
-
-export const calendarEventDynamicFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventDynamicFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventDynamicFontColor));
-
-export const calendarEventTransientFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventTransientFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventTransientFontColor));
-
-export const calendarEventBackgroundHoverStaticColor = DesignToken.create<string>(
-    styleNameFromTokenName(
-        tokenNames.calendarEventBackgroundHoverStaticColor
-    )
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventBackgroundHoverStaticColor));
-
-export const calendarEventBackgroundHoverDynamicColor = DesignToken.create<string>(
-    styleNameFromTokenName(
-        tokenNames.calendarEventBackgroundHoverDynamicColor
-    )
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventBackgroundHoverDynamicColor));
-
-export const calendarEventBackgroundHoverTransientColor = DesignToken.create<string>(
-    styleNameFromTokenName(
-        tokenNames.calendarEventBackgroundHoverTransientColor
-    )
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventBackgroundHoverTransientColor));
-
-export const calendarEventOuterBorderHighlightedColor = DesignToken.create<string>(
-    styleNameFromTokenName(
-        tokenNames.calendarEventOuterBorderHighlightedColor
-    )
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventOuterBorderHighlightedColor));
-
-export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarRowBackgroundSelectedColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarRowBackgroundSelectedColor));
-
-export const calendarRowBackgroundConflictColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarRowBackgroundConflictColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarRowBackgroundConflictColor));
-
-export const calendarEventFillBlockedColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventFillBlockedColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarEventFillBlockedColor));
-
-export const calendarGrabHandleBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarGrabHandleBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarGrabHandleBackgroundColor));
-
-export const calendarGridBorderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarGridBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarGridBorderColor));
-
-export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarGroupHeaderBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.calendarGroupHeaderBackgroundColor));
+export const iconColor = createThemeColorToken(tokenNames.iconColor, tokenValues.iconColor);
+export const modalBackdropColor = createThemeColorToken(tokenNames.modalBackdropColor, tokenValues.modalBackdropColor);
+export const popupBorderColor = createThemeColorToken(tokenNames.popupBorderColor, tokenValues.popupBorderColor);
+export const cardBorderColor = createThemeColorToken(tokenNames.cardBorderColor, tokenValues.cardBorderColor);
+export const graphGridlineColor = createThemeColorToken(tokenNames.graphGridlineColor, tokenValues.graphGridlineColor);
+export const graphTrace1Color = createThemeColorToken(tokenNames.graphTrace1Color, tokenValues.graphTrace1Color);
+export const graphTrace2Color = createThemeColorToken(tokenNames.graphTrace2Color, tokenValues.graphTrace2Color);
+export const graphTrace3Color = createThemeColorToken(tokenNames.graphTrace3Color, tokenValues.graphTrace3Color);
+export const graphTrace4Color = createThemeColorToken(tokenNames.graphTrace4Color, tokenValues.graphTrace4Color);
+export const graphTrace5Color = createThemeColorToken(tokenNames.graphTrace5Color, tokenValues.graphTrace5Color);
+export const graphTrace6Color = createThemeColorToken(tokenNames.graphTrace6Color, tokenValues.graphTrace6Color);
+export const graphTrace7Color = createThemeColorToken(tokenNames.graphTrace7Color, tokenValues.graphTrace7Color);
+export const graphTrace8Color = createThemeColorToken(tokenNames.graphTrace8Color, tokenValues.graphTrace8Color);
+export const tooltipBackgroundColor = createThemeColorToken(tokenNames.tooltipBackgroundColor, tokenValues.tooltipBackgroundColor);
+export const tableRowBorderColor = createThemeColorToken(tokenNames.tableRowBorderColor, tokenValues.tableRowBorderColor);
+export const tagFillColor = createThemeColorToken(tokenNames.tagFillColor, tokenValues.tagFillColor);
+export const buttonFillPrimaryColor = createThemeColorToken(tokenNames.buttonFillPrimaryColor, tokenValues.buttonFillPrimaryColor);
+export const buttonPrimaryFontColor = createThemeColorToken(tokenNames.buttonPrimaryFontColor, tokenValues.buttonPrimaryFontColor);
+export const buttonFillAccentColor = createThemeColorToken(tokenNames.buttonFillAccentColor, tokenValues.buttonFillAccentColor);
+export const buttonAccentBlockFontColor = createThemeColorToken(tokenNames.buttonAccentBlockFontColor, tokenValues.buttonAccentBlockFontColor);
+export const buttonAccentOutlineFontColor = createThemeColorToken(tokenNames.buttonAccentOutlineFontColor, tokenValues.buttonAccentOutlineFontColor);
+export const buttonBorderAccentOutlineColor = createThemeColorToken(tokenNames.buttonBorderAccentOutlineColor, tokenValues.buttonBorderAccentOutlineColor);
+export const calendarEventBackgroundStaticColor = createThemeColorToken(tokenNames.calendarEventBackgroundStaticColor, tokenValues.calendarEventBackgroundStaticColor);
+export const calendarEventBackgroundDynamicColor = createThemeColorToken(tokenNames.calendarEventBackgroundDynamicColor, tokenValues.calendarEventBackgroundDynamicColor);
+export const calendarEventBackgroundTransientColor = createThemeColorToken(tokenNames.calendarEventBackgroundTransientColor, tokenValues.calendarEventBackgroundTransientColor);
+export const calendarEventBorderStaticColor = createThemeColorToken(tokenNames.calendarEventBorderStaticColor, tokenValues.calendarEventBorderStaticColor);
+export const calendarEventBorderTransientColor = createThemeColorToken(tokenNames.calendarEventBorderTransientColor, tokenValues.calendarEventBorderTransientColor);
+export const calendarEventStaticFontColor = createThemeColorToken(tokenNames.calendarEventStaticFontColor, tokenValues.calendarEventStaticFontColor);
+export const calendarEventDynamicFontColor = createThemeColorToken(tokenNames.calendarEventDynamicFontColor, tokenValues.calendarEventDynamicFontColor);
+export const calendarEventTransientFontColor = createThemeColorToken(tokenNames.calendarEventTransientFontColor, tokenValues.calendarEventTransientFontColor);
+export const calendarEventBackgroundHoverStaticColor = createThemeColorToken(tokenNames.calendarEventBackgroundHoverStaticColor, tokenValues.calendarEventBackgroundHoverStaticColor);
+export const calendarEventBackgroundHoverDynamicColor = createThemeColorToken(tokenNames.calendarEventBackgroundHoverDynamicColor, tokenValues.calendarEventBackgroundHoverDynamicColor);
+export const calendarEventBackgroundHoverTransientColor = createThemeColorToken(tokenNames.calendarEventBackgroundHoverTransientColor, tokenValues.calendarEventBackgroundHoverTransientColor);
+export const calendarEventOuterBorderHighlightedColor = createThemeColorToken(tokenNames.calendarEventOuterBorderHighlightedColor, tokenValues.calendarEventOuterBorderHighlightedColor);
+export const calendarRowBackgroundSelectedColor = createThemeColorToken(tokenNames.calendarRowBackgroundSelectedColor, tokenValues.calendarRowBackgroundSelectedColor);
+export const calendarRowBackgroundConflictColor = createThemeColorToken(tokenNames.calendarRowBackgroundConflictColor, tokenValues.calendarRowBackgroundConflictColor);
+export const calendarEventFillBlockedColor = createThemeColorToken(tokenNames.calendarEventFillBlockedColor, tokenValues.calendarEventFillBlockedColor);
+export const calendarGrabHandleBackgroundColor = createThemeColorToken(tokenNames.calendarGrabHandleBackgroundColor, tokenValues.calendarGrabHandleBackgroundColor);
+export const calendarGridBorderColor = createThemeColorToken(tokenNames.calendarGridBorderColor, tokenValues.calendarGridBorderColor);
+export const calendarGroupHeaderBackgroundColor = createThemeColorToken(tokenNames.calendarGroupHeaderBackgroundColor, tokenValues.calendarGroupHeaderBackgroundColor);
 // #endregion
 
 // #region size tokens
@@ -1314,6 +1131,18 @@ function createFontTokens(
         fontSizeToken,
         fontLineHeightToken
     ] as const;
+}
+
+function createStringToken(tokenName: string, tokenValue: string): DesignToken<string> {
+    return DesignToken.create<string>(
+        styleNameFromTokenName(tokenName)
+    ).withDefault(tokenValue);
+}
+
+function createThemeColorToken(tokenName: string, themeColor: ThemeColor): DesignToken<string> {
+    return DesignToken.create<string>(
+        styleNameFromTokenName(tokenName)
+    ).withDefault((element: HTMLElement) => getColorForTheme(element, themeColor));
 }
 
 function getColorForTheme(
