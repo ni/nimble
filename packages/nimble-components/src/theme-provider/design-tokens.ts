@@ -207,6 +207,29 @@ const tokenValues = {
     calendarGrabHandleBackgroundColor: createThemeColor(DigitalGreenLight, PowerGreen, PowerGreen),
     calendarGridBorderColor: createThemeColor(Black22, Black80, Black80),
     calendarGroupHeaderBackgroundColor: createThemeColor(Black7, hexToRgbaCssColor(Black91, 0.1), hexToRgbaCssColor(Black91, 0.1)),
+    controlHeight: '32px',
+    controlSlimHeight: '24px',
+    smallPadding: '4px',
+    mediumPadding: '8px',
+    standardPadding: '16px',
+    largePadding: '24px',
+    labelHeight: '16px',
+    borderWidth: '1px',
+    dividerWidth: '2px',
+    iconSize: '16px',
+    drawerWidth: '784px',
+    dialogSmallWidth: '400px',
+    dialogSmallHeight: 'fit-content',
+    dialogSmallMaxHeight: '600px',
+    dialogLargeWidth: '1024px',
+    dialogLargeHeight: '680px',
+    dialogLargeMaxHeight: '680px',
+    menuMinWidth: '176px',
+    bannerGapSize: '1px',
+    spinnerSmallHeight: '16px',
+    spinnerMediumHeight: '32px',
+    spinnerLargeHeight: '64px',
+    tableFitRowsHeight: '480px',
     elevation1BoxShadow: createThemeColor(
         `0px 1px 4px ${hexToRgbaCssColor(Black, 0.16)}`,
         `0px 1px 4px ${hexToRgbaCssColor(Black, 0.16)}`,
@@ -429,6 +452,10 @@ const tokenValues = {
         BodySize,
         BodyLineHeight
     ),
+    groupHeaderTextTransform: 'uppercase',
+    smallDelay: SmallDelay,
+    mediumDelay: MediumDelay,
+    largeDelay: LargeDelay
 } as const;
 // #endregion
 
@@ -498,93 +525,35 @@ export const calendarGroupHeaderBackgroundColor = createThemeColorToken(tokenNam
 // #endregion
 
 // #region size tokens
-export const controlHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.controlHeight)
-).withDefault('32px');
-export const controlSlimHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.controlSlimHeight)
-).withDefault('24px');
-export const smallPadding = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.smallPadding)
-).withDefault('4px');
-export const mediumPadding = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.mediumPadding)
-).withDefault('8px');
-export const standardPadding = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.standardPadding)
-).withDefault('16px');
-export const largePadding = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.largePadding)
-).withDefault('24px');
-export const labelHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.labelHeight)
-).withDefault('16px');
-export const borderWidth = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.borderWidth)
-).withDefault('1px');
-export const dividerWidth = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dividerWidth)
-).withDefault('2px');
-export const iconSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.iconSize)
-).withDefault('16px');
-export const drawerWidth = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.drawerWidth)
-).withDefault('784px');
-export const dialogSmallWidth = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dialogSmallWidth)
-).withDefault('400px');
-export const dialogSmallHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dialogSmallHeight)
-).withDefault('fit-content');
-export const dialogSmallMaxHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dialogSmallMaxHeight)
-).withDefault('600px');
-export const dialogLargeWidth = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dialogLargeWidth)
-).withDefault('1024px');
-export const dialogLargeHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dialogLargeHeight)
-).withDefault('680px');
-export const dialogLargeMaxHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.dialogLargeMaxHeight)
-).withDefault('680px');
-export const menuMinWidth = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.menuMinWidth)
-).withDefault('176px');
-export const bannerGapSize = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.bannerGapSize)
-).withDefault('1px');
-
-export const spinnerSmallHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.spinnerSmallHeight)
-).withDefault('16px');
-export const spinnerMediumHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.spinnerMediumHeight)
-).withDefault('32px');
-export const spinnerLargeHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.spinnerLargeHeight)
-).withDefault('64px');
-
-// The token gets a default value of the table's default height (480px)
-// but is given a calculated value in the table styles.
-export const tableFitRowsHeight = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.tableFitRowsHeight)
-).withDefault('480px');
+export const controlHeight = createStringToken(tokenNames.controlHeight, tokenValues.controlHeight);
+export const controlSlimHeight = createStringToken(tokenNames.controlSlimHeight, tokenValues.controlSlimHeight);
+export const smallPadding = createStringToken(tokenNames.smallPadding, tokenValues.smallPadding);
+export const mediumPadding = createStringToken(tokenNames.mediumPadding, tokenValues.mediumPadding);
+export const standardPadding = createStringToken(tokenNames.standardPadding, tokenValues.standardPadding);
+export const largePadding = createStringToken(tokenNames.largePadding, tokenValues.largePadding);
+export const labelHeight = createStringToken(tokenNames.labelHeight, tokenValues.labelHeight);
+export const borderWidth = createStringToken(tokenNames.borderWidth, tokenValues.borderWidth);
+export const dividerWidth = createStringToken(tokenNames.dividerWidth, tokenValues.dividerWidth);
+export const iconSize = createStringToken(tokenNames.iconSize, tokenValues.iconSize);
+export const drawerWidth = createStringToken(tokenNames.drawerWidth, tokenValues.drawerWidth);
+export const dialogSmallWidth = createStringToken(tokenNames.dialogSmallWidth, tokenValues.dialogSmallWidth);
+export const dialogSmallHeight = createStringToken(tokenNames.dialogSmallHeight, tokenValues.dialogSmallHeight);
+export const dialogSmallMaxHeight = createStringToken(tokenNames.dialogSmallMaxHeight, tokenValues.dialogSmallMaxHeight);
+export const dialogLargeWidth = createStringToken(tokenNames.dialogLargeWidth, tokenValues.dialogLargeWidth);
+export const dialogLargeHeight = createStringToken(tokenNames.dialogLargeHeight, tokenValues.dialogLargeHeight);
+export const dialogLargeMaxHeight = createStringToken(tokenNames.dialogLargeMaxHeight, tokenValues.dialogLargeMaxHeight);
+export const menuMinWidth = createStringToken(tokenNames.menuMinWidth, tokenValues.menuMinWidth);
+export const bannerGapSize = createStringToken(tokenNames.bannerGapSize, tokenValues.bannerGapSize);
+export const spinnerSmallHeight = createStringToken(tokenNames.spinnerSmallHeight, tokenValues.spinnerSmallHeight);
+export const spinnerMediumHeight = createStringToken(tokenNames.spinnerMediumHeight, tokenValues.spinnerMediumHeight);
+export const spinnerLargeHeight = createStringToken(tokenNames.spinnerLargeHeight, tokenValues.spinnerLargeHeight);
+export const tableFitRowsHeight = createStringToken(tokenNames.tableFitRowsHeight, tokenValues.tableFitRowsHeight);
 // #endregion
 
 // #region drop shadow tokens
-export const elevation1BoxShadow = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.elevation1BoxShadow)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.elevation1BoxShadow));
-
-export const elevation2BoxShadow = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.elevation2BoxShadow)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.elevation2BoxShadow));
-
-export const elevation3BoxShadow = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.elevation3BoxShadow)
-).withDefault((element: HTMLElement) => getColorForTheme(element, tokenValues.elevation3BoxShadow));
+export const elevation1BoxShadow = createThemeColorToken(tokenNames.elevation1BoxShadow, tokenValues.elevation1BoxShadow);
+export const elevation2BoxShadow = createThemeColorToken(tokenNames.elevation2BoxShadow, tokenValues.elevation2BoxShadow);
+export const elevation3BoxShadow = createThemeColorToken(tokenNames.elevation3BoxShadow, tokenValues.elevation3BoxShadow);
 // #endregion
 
 // #region font tokens
@@ -1027,21 +996,13 @@ export const [
 // #endregion
 
 // #region text transform tokens
-export const groupHeaderTextTransform = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.groupHeaderTextTransform)
-).withDefault('uppercase');
+export const groupHeaderTextTransform = createStringToken(tokenNames.groupHeaderTextTransform, tokenValues.groupHeaderTextTransform);
 // #endregion
 
 // #region animation tokens
-export const smallDelay = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.smallDelay)
-).withDefault(SmallDelay);
-export const mediumDelay = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.mediumDelay)
-).withDefault(MediumDelay);
-export const largeDelay = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.largeDelay)
-).withDefault(LargeDelay);
+export const smallDelay = createStringToken(tokenNames.smallDelay, tokenValues.smallDelay);
+export const mediumDelay = createStringToken(tokenNames.mediumDelay, tokenValues.mediumDelay);
+export const largeDelay = createStringToken(tokenNames.largeDelay, tokenValues.largeDelay);
 // #endregion
 
 // #region helpers
@@ -1094,33 +1055,13 @@ function createFontTokens(
     const fontNameParts = fontTokenName.split('-font');
     const tokenPrefixWithoutFont = fontNameParts[0];
     const fontFamilyWithFallback = `${fontFamily}, ${fontFamily} Fallback`;
-    const fontToken = DesignToken.create<string>(
-        styleNameFromTokenName(fontTokenName)
-    ).withDefault(font);
-
-    const fontColorToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-color`)
-    ).withDefault((element: HTMLElement) => getColorForTheme(element, fontColor));
-
-    const fontDisabledColorToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${tokenPrefixWithoutFont}-disabled-font-color`)
-    ).withDefault((element: HTMLElement) => getColorForTheme(element, disabledFontColor));
-
-    const fontFamilyToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-family`)
-    ).withDefault(fontFamilyWithFallback);
-
-    const fontWeightToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-weight`)
-    ).withDefault(fontWeight);
-
-    const fontSizeToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-size`)
-    ).withDefault(fontSize);
-
-    const fontLineHeightToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-line-height`)
-    ).withDefault(fontLineHeight);
+    const fontToken = createStringToken(fontTokenName, font);
+    const fontColorToken = createThemeColorToken(`${tokenPrefixWithoutFont}-font-color`, fontColor);
+    const fontDisabledColorToken = createThemeColorToken(`${tokenPrefixWithoutFont}-disabled-font-color`, disabledFontColor);
+    const fontFamilyToken = createStringToken(`${tokenPrefixWithoutFont}-font-family`, fontFamilyWithFallback);
+    const fontWeightToken = createStringToken(`${tokenPrefixWithoutFont}-font-weight`, fontWeight);
+    const fontSizeToken = createStringToken(`${tokenPrefixWithoutFont}-font-size`, fontSize);
+    const fontLineHeightToken = createStringToken(`${tokenPrefixWithoutFont}-font-line-height`, fontLineHeight);
 
     return [
         fontToken,
@@ -1133,32 +1074,27 @@ function createFontTokens(
     ] as const;
 }
 
-function createStringToken(tokenName: string, tokenValue: string): DesignToken<string> {
+function createStringToken(tokenName: string, tokenValue: string): CSSDesignToken<string> {
     return DesignToken.create<string>(
         styleNameFromTokenName(tokenName)
     ).withDefault(tokenValue);
 }
 
-function createThemeColorToken(tokenName: string, themeColor: ThemeColor): DesignToken<string> {
+function createThemeColorToken(tokenName: string, themeColor: ThemeColor): CSSDesignToken<string> {
     return DesignToken.create<string>(
         styleNameFromTokenName(tokenName)
-    ).withDefault((element: HTMLElement) => getColorForTheme(element, themeColor));
-}
-
-function getColorForTheme(
-    element: HTMLElement,
-    themeColor: { light: string, dark: string, color: string }
-): string {
-    switch (theme.getValueFor(element)) {
-        case Theme.light:
-            return themeColor.light;
-        case Theme.dark:
-            return themeColor.dark;
-        case Theme.color:
-            return themeColor.color;
-        default:
-            return themeColor.light;
-    }
+    ).withDefault((element: HTMLElement) => {
+        switch (theme.getValueFor(element)) {
+            case Theme.light:
+                return themeColor.light;
+            case Theme.dark:
+                return themeColor.dark;
+            case Theme.color:
+                return themeColor.color;
+            default:
+                return themeColor.light;
+        }
+    });
 }
 
 function hexToRgbaCssThemeColor(themeColor: ThemeColor, lightAlpha: number, darkAlpha: number, colorAlpha: number): ThemeColor {
