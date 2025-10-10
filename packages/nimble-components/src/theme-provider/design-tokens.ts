@@ -147,25 +147,76 @@ const alias = {
     defaultFontColor: createThemeColor(Black91, Black15, White)
 } as const;
 
+// prettier-ignore
 const tokenValues = {
     actionRgbPartialColor: hexToRgbPartialThemeColor(createThemeColor(Black91, Black15, White)),
     applicationBackgroundColor: createThemeColor(White, Black85, ForestGreen),
     headerBackgroundColor: createThemeColor(Black7, Black88, ForestGreen),
-    sectionBackgroundColor: {},
+    sectionBackgroundColor: createThemeColor(Black15, Black80, ForestGreen),
     sectionBackgroundImage: createThemeColor(
         `linear-gradient(${Black15}, ${hexToRgbaCssColor(Black15, 0)})`,
         `linear-gradient(${Black82}, ${hexToRgbaCssColor(Black82, 0)})`,
         `linear-gradient(${ForestGreen}, ${hexToRgbaCssColor(ForestGreen, 0)})`,
     ),
-    dividerBackgroundColor: {},
+    dividerBackgroundColor: createThemeColor(Black15, Black80, ForestGreen),
     fillSelectedColor: hexToRgbaCssThemeColor(alias.fillSelectedColor, 0.2, 0.2, 0.2),
     fillSelectedRgbPartialColor: hexToRgbPartialThemeColor(alias.fillSelectedColor),
     fillHoverSelectedColor: hexToRgbaCssThemeColor(alias.fillSelectedColor, 0.15, 0.15, 0.15),
-
+    fillHoverColor: hexToRgbaCssThemeColor(alias.fillHoverColor, 0.1, 0.1, 0.1),
+    fillHoverRgbPartialColor: hexToRgbPartialThemeColor(alias.fillHoverColor),
+    fillDownColor: hexToRgbaCssThemeColor(alias.fillDownColor, 0.15, 0.15, 0.15),
+    borderColor: alias.lineColor,
+    borderRgbPartialColor: hexToRgbPartialThemeColor(alias.lineColor),
     failColor: alias.failColor,
     warningColor: alias.warningColor,
     passColor: alias.passColor,
     informationColor: alias.informationColor,
+    borderHoverColor: createThemeColor(DigitalGreenLight, PowerGreen, White),
+    iconColor: createThemeColor(Black91, Black15, White),
+    modalBackdropColor: createThemeColor(hexToRgbaCssColor(Black, 0.3), hexToRgbaCssColor(Black, 0.6), hexToRgbaCssColor(Black, 0.6)),
+    popupBorderColor: createThemeColor(hexToRgbaCssColor(Black91, 0.3), hexToRgbaCssColor(Black15, 0.3), hexToRgbaCssColor(White, 0.3)),
+    cardBorderColor: hexToRgbaCssThemeColor(alias.lineColor, 0.1, 0.1, 0.1),
+    graphGridlineColor: createThemeColor(hexToRgbaCssColor(Black91, 0.2), hexToRgbaCssColor(Black15, 0.2), hexToRgbaCssColor(White, 0.2)),
+    graphTrace1Color: createThemeColor(NiIndigoDark2, NiSky, White),
+    graphTrace2Color: createThemeColor(NiScarletDark1, NiScarlet, hexToRgbaCssColor(White, 0.7)),
+    graphTrace3Color: createThemeColor(NiFernDark1, NiFern, hexToRgbaCssColor(White, 0.4)),
+    graphTrace4Color: createThemeColor(NiPlumDark1, NiSeaLight, hexToRgbaCssColor(White, 0.25)),
+    graphTrace5Color: createThemeColor(NiSeaDark2, NiSea, hexToRgbaCssColor(White, 0.55)),
+    graphTrace6Color: createThemeColor(NiTulip, NiTulip, hexToRgbaCssColor(White, 0.85)),
+    graphTrace7Color: createThemeColor(NiScarletDark3, NiHoneyLight, hexToRgbaCssColor(White, 0.325)),
+    graphTrace8Color: createThemeColor(NiIndigo, NiIndigo, hexToRgbaCssColor(White, 0.625)),
+    tooltipBackgroundColor: createThemeColor(Black15, Black85, ForestGreen),
+    tableRowBorderColor: createThemeColor(Black15, Black80, ForestGreen),
+    tagFillColor: hexToRgbaCssThemeColor(alias.lineColor, 0.1, 0.1, 0.1),
+    buttonFillPrimaryColor: createThemeColor(hexToRgbaCssColor(Black91, 0.75), hexToRgbaCssColor(Black15, 0.3), hexToRgbaCssColor(White, 0.3)),
+    buttonPrimaryFontColor: createThemeColor(Black15, Black15, White),
+    buttonFillAccentColor: createThemeColor(DigitalGreenDark, DigitalGreenLight, hexToRgbaCssColor(White, 0.1)),
+    buttonAccentBlockFontColor: createThemeColor(White, Black15, White),
+    buttonAccentOutlineFontColor: createThemeColor(DigitalGreenDark105, PowerGreen, White),
+    buttonBorderAccentOutlineColor: createThemeColor(DigitalGreenLight, PowerGreen, hexToRgbaCssColor(White, 0.3)),
+    calendarEventBackgroundStaticColor: createThemeColor(DigitalGreenLight10, PowerGreen10, PowerGreen10),
+    calendarEventBackgroundDynamicColor: createThemeColor(DigitalGreenDark105, DigitalGreenDark, DigitalGreenDark),
+    calendarEventBackgroundTransientColor: createThemeColor(DigitalGreenDark105, DigitalGreenDark, DigitalGreenDark),
+    calendarEventBorderStaticColor: createThemeColor(DigitalGreenLight, DigitalGreenLight, DigitalGreenLight),
+    calendarEventBorderTransientColor: createThemeColor(DigitalGreenLight, hexToRgbaCssColor(PowerGreen, 0.85), hexToRgbaCssColor(PowerGreen, 0.85)),
+    calendarEventStaticFontColor: createThemeColor(DigitalGreenDark110, PowerGreenDark50, PowerGreenDark50),
+    calendarEventDynamicFontColor: createThemeColor(White, White, White),
+    calendarEventTransientFontColor: createThemeColor(White, White, White),
+    calendarEventBackgroundHoverStaticColor: createThemeColor(DigitalGreenLight30, PowerGreen30, PowerGreen30),
+    calendarEventBackgroundHoverDynamicColor: createThemeColor(DigitalGreenDark110, DigitalGreenDark105, DigitalGreenDark105),
+    calendarEventBackgroundHoverTransientColor: createThemeColor(DigitalGreenDark110, DigitalGreenDark105, DigitalGreenDark105),
+    calendarEventOuterBorderHighlightedColor: createThemeColor(Black88, hexToRgbaCssColor(White, 0.85), hexToRgbaCssColor(White, 0.85)),
+    calendarRowBackgroundSelectedColor: createThemeColor(hexToRgbaCssColor(DigitalGreenLight, 0.2), hexToRgbaCssColor(PowerGreen, 0.2), hexToRgbaCssColor(PowerGreen, 0.2)),
+    calendarRowBackgroundConflictColor: createThemeColor(hexToRgbaCssColor(Fail100LightUi, 0.2), hexToRgbaCssColor(Fail100DarkUi, 0.2), hexToRgbaCssColor(Fail100DarkUi, 0.2)),
+    calendarEventFillBlockedColor: createThemeColor(hexToRgbaCssColor(Black91, 0.07), Black82, Black82),
+    calendarGrabHandleBackgroundColor: createThemeColor(DigitalGreenLight, PowerGreen, PowerGreen),
+    calendarGridBorderColor: createThemeColor(Black22, Black80, Black80),
+    calendarGroupHeaderBackgroundColor: createThemeColor(Black7, hexToRgbaCssColor(Black91, 0.1), hexToRgbaCssColor(Black91, 0.1)),
+    // elevation1BoxShadowColor: createThemeColor(Black, Black, Black),
+    // elevation2BoxShadowColor: createThemeColor(Black, Black, Black),
+    // elevation3BoxShadowColor: createThemeColor(Black, Black, Black),
+    linkProminentFontColor: createThemeColor(DigitalGreenDark105, PowerGreen, White),
+    mentionFontColor: createThemeColor(DigitalGreenDark, PowerGreen, PowerGreen),
     ...createFontTokenValues(
         'body',
         alias.defaultFontColor,
@@ -177,6 +228,8 @@ const tokenValues = {
     ),
 } as const;
 // #endregion
+
+console.log(tokenValues);
 
 // #region color tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
@@ -193,7 +246,7 @@ export const headerBackgroundColor = DesignToken.create<string>(
 
 export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.sectionBackgroundColor));
 
 export const sectionBackgroundImage = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundImage)
@@ -201,7 +254,7 @@ export const sectionBackgroundImage = DesignToken.create<string>(
 
 export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.dividerBackgroundColor));
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
@@ -217,23 +270,23 @@ export const fillHoverSelectedColor = DesignToken.create<string>(
 
 export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillHoverColorForTheme(element), 0.1));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.fillHoverColor));
 
 export const fillHoverRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverRgbPartialColor)
-).withDefault((element: HTMLElement) => hexToRgbPartial(getFillHoverColorForTheme(element)));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.fillHoverRgbPartialColor));
 
 export const fillDownColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillDownColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillDownColorForTheme(element), 0.15));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.fillDownColor));
 
 export const borderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColor)
-).withDefault((element: HTMLElement) => getDefaultLineColorForTheme(element));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.borderColor));
 
 export const borderRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderRgbPartialColor)
-).withDefault((element: HTMLElement) => hexToRgbPartial(getDefaultLineColorForTheme(element)));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.borderRgbPartialColor));
 
 export const failColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.failColor)
@@ -253,282 +306,177 @@ export const informationColor = DesignToken.create<string>(
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, White));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.borderHoverColor));
 // #endregion
 
 // #region component color tokens
 export const iconColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.iconColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black91, Black15, White));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.iconColor));
 
 export const modalBackdropColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.modalBackdropColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(Black, 0.3), hexToRgbaCssColor(Black, 0.6), hexToRgbaCssColor(Black, 0.6)));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.modalBackdropColor));
 
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(Black91, 0.3), hexToRgbaCssColor(Black15, 0.3), hexToRgbaCssColor(White, 0.3)));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.popupBorderColor));
 
 export const cardBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.cardBorderColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.cardBorderColor));
 
 export const graphGridlineColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphGridlineColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(Black91, 0.2), hexToRgbaCssColor(Black15, 0.2), hexToRgbaCssColor(White, 0.2)));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphGridlineColor));
 
 export const graphTrace1Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace1Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiIndigoDark2, NiSky, White));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphTrace1Color));
 
 export const graphTrace2Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace2Color)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    NiScarletDark1,
-    NiScarlet,
-    hexToRgbaCssColor(White, 0.7)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphTrace2Color));
 
 export const graphTrace3Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace3Color)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    NiFernDark1,
-    NiFern,
-    hexToRgbaCssColor(White, 0.4)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphTrace3Color));
 
 export const graphTrace4Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace4Color)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    NiPlumDark1,
-    NiSeaLight,
-    hexToRgbaCssColor(White, 0.25)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphTrace4Color));
 
 export const graphTrace5Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace5Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiSeaDark2, NiSea, hexToRgbaCssColor(White, 0.55)));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphTrace5Color));
 
 export const graphTrace6Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace6Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiTulip, NiTulip, hexToRgbaCssColor(White, 0.85)));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphTrace6Color));
 
 export const graphTrace7Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace7Color)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    NiScarletDark3,
-    NiHoneyLight,
-    hexToRgbaCssColor(White, 0.325)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphTrace7Color));
 
 export const graphTrace8Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace8Color)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    NiIndigo,
-    NiIndigo,
-    hexToRgbaCssColor(White, 0.625)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.graphTrace8Color));
 
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.tooltipBackgroundColor));
 
 export const tableRowBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableRowBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.tableRowBorderColor));
 
 export const tagFillColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tagFillColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.tagFillColor));
 
 export const buttonFillPrimaryColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonFillPrimaryColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    hexToRgbaCssColor(Black91, 0.75),
-    hexToRgbaCssColor(Black15, 0.3),
-    hexToRgbaCssColor(White, 0.3)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.buttonFillPrimaryColor));
 
 export const buttonPrimaryFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonPrimaryFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.buttonPrimaryFontColor));
 
 export const buttonFillAccentColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonFillAccentColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark,
-    DigitalGreenLight,
-    hexToRgbaCssColor(White, 0.1)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.buttonFillAccentColor));
 
 export const buttonAccentBlockFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonAccentBlockFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black15, White));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.buttonAccentBlockFontColor));
 
 export const buttonAccentOutlineFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonAccentOutlineFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.buttonAccentOutlineFontColor));
 
 export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonBorderAccentOutlineColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenLight,
-    PowerGreen,
-    hexToRgbaCssColor(White, 0.3)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.buttonBorderAccentOutlineColor));
 
 export const calendarEventBackgroundStaticColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventBackgroundStaticColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight10, PowerGreen10, PowerGreen10));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventBackgroundStaticColor));
 
 export const calendarEventBackgroundDynamicColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventBackgroundDynamicColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark105,
-    DigitalGreenDark,
-    DigitalGreenDark
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventBackgroundDynamicColor));
 
 export const calendarEventBackgroundTransientColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventBackgroundTransientColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark105,
-    DigitalGreenDark,
-    DigitalGreenDark
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventBackgroundTransientColor));
 
 export const calendarEventBorderStaticColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventBorderStaticColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenLight,
-    DigitalGreenLight,
-    DigitalGreenLight
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventBorderStaticColor));
 
 export const calendarEventBorderTransientColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventBorderTransientColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenLight,
-    hexToRgbaCssColor(PowerGreen, 0.85),
-    hexToRgbaCssColor(PowerGreen, 0.85)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventBorderTransientColor));
 
 export const calendarEventStaticFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventStaticFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark110,
-    PowerGreenDark50,
-    PowerGreenDark50
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventStaticFontColor));
 
 export const calendarEventDynamicFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventDynamicFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, White, White));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventDynamicFontColor));
 
 export const calendarEventTransientFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventTransientFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, White, White));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventTransientFontColor));
 
 export const calendarEventBackgroundHoverStaticColor = DesignToken.create<string>(
     styleNameFromTokenName(
         tokenNames.calendarEventBackgroundHoverStaticColor
     )
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenLight30,
-    PowerGreen30,
-    PowerGreen30
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventBackgroundHoverStaticColor));
 
 export const calendarEventBackgroundHoverDynamicColor = DesignToken.create<string>(
     styleNameFromTokenName(
         tokenNames.calendarEventBackgroundHoverDynamicColor
     )
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark110,
-    DigitalGreenDark105,
-    DigitalGreenDark105
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventBackgroundHoverDynamicColor));
 
 export const calendarEventBackgroundHoverTransientColor = DesignToken.create<string>(
     styleNameFromTokenName(
         tokenNames.calendarEventBackgroundHoverTransientColor
     )
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark110,
-    DigitalGreenDark105,
-    DigitalGreenDark105
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventBackgroundHoverTransientColor));
 
 export const calendarEventOuterBorderHighlightedColor = DesignToken.create<string>(
     styleNameFromTokenName(
         tokenNames.calendarEventOuterBorderHighlightedColor
     )
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Black88,
-    hexToRgbaCssColor(White, 0.85),
-    hexToRgbaCssColor(White, 0.85)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventOuterBorderHighlightedColor));
 
 export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarRowBackgroundSelectedColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    hexToRgbaCssColor(DigitalGreenLight, 0.2),
-    hexToRgbaCssColor(PowerGreen, 0.2),
-    hexToRgbaCssColor(PowerGreen, 0.2)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarRowBackgroundSelectedColor));
 
 export const calendarRowBackgroundConflictColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarRowBackgroundConflictColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    hexToRgbaCssColor(Fail100LightUi, 0.2),
-    hexToRgbaCssColor(Fail100DarkUi, 0.2),
-    hexToRgbaCssColor(Fail100DarkUi, 0.2)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarRowBackgroundConflictColor));
 
 export const calendarEventFillBlockedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventFillBlockedColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    hexToRgbaCssColor(Black91, 0.07),
-    Black82,
-    Black82
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarEventFillBlockedColor));
 
 export const calendarGrabHandleBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarGrabHandleBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, PowerGreen));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarGrabHandleBackgroundColor));
 
 export const calendarGridBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarGridBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black22, Black80, Black80));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarGridBorderColor));
 
 export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarGroupHeaderBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Black7,
-    hexToRgbaCssColor(Black91, 0.1),
-    hexToRgbaCssColor(Black91, 0.1)
-));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.calendarGroupHeaderBackgroundColor));
 // #endregion
 
 // #region size tokens
@@ -1285,19 +1233,7 @@ function getFailColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Fail100LightUi, Fail100DarkUi, White);
 }
 
-function getDefaultLineColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White);
-}
-
 function getDefaultFontColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White);
-}
-
-function getFillHoverColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, Black91, Black15, White);
-}
-
-function getFillDownColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
 }
 
