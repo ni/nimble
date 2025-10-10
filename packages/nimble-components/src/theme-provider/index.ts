@@ -25,7 +25,7 @@ function isValidLang(value: string): boolean {
         // eslint-disable-next-line no-new
         new Intl.Locale(value);
         return true;
-    } catch (e) {
+    } catch (_e) {
         return false;
     }
 }

@@ -12,8 +12,8 @@ export interface NumberTextUnitFormatOptions extends UnitFormatOptions {
     decimalDigits?: number;
     decimalMaximumDigits?: number;
 }
-type ResolvedNumberTextUnitFormatOptions = NumberTextUnitFormatOptions &
-    Required<UnitFormatOptions>;
+type ResolvedNumberTextUnitFormatOptions = NumberTextUnitFormatOptions
+    & Required<UnitFormatOptions>;
 
 /**
  * Format for numbers (with optional units) in a number-text table column.

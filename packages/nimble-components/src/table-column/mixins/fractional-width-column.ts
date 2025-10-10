@@ -32,12 +32,12 @@ export function mixinFractionalWidthColumnAPI<
     }
 
     attr({ attribute: 'fractional-width', converter: nullableNumberConverter })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
         FractionalWidthColumn.prototype,
         'fractionalWidth'
     );
     attr({ attribute: 'min-pixel-width', converter: nullableNumberConverter })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
         FractionalWidthColumn.prototype,
         'minPixelWidth'
     );

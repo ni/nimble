@@ -18,22 +18,22 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterModeStates = Object.values(FilterMode);
 type FilterModeState = (typeof filterModeStates)[number];
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const loadingVisibleStates = [false, true] as const;
 type LoadingVisibleState = (typeof loadingVisibleStates)[number];
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const placeholderStates = [false, true] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const groupedStates = [false, true] as const;
 type GroupedState = (typeof groupedStates)[number];
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const optionsOutsideGroupStates = [false, true] as const;
 type OptionsOutsideGroupState = (typeof optionsOutsideGroupStates)[number];
 

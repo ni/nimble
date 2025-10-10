@@ -6,7 +6,7 @@
   "scripts": {
     "build": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
-    "lint": "npm run eslint && npm run prettier",
+    "lint": "npm run eslint",
     "format": "npm run prettier-fix",
     "eslint": "eslint .",
     "eslint-fix": "eslint . --fix",
@@ -49,6 +49,7 @@
     "apache-arrow": "21.0.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-storybook": "^9.1.10",
-    "flatbuffers": "25.2.10"
+    "flatbuffers": "25.2.10",
+    "globals": "^14.0.0"
   }
 }

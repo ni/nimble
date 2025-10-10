@@ -8,5 +8,4 @@ export const TooltipSeverity = {
     information: 'information'
 } as const;
 
-export type TooltipSeverity =
-    (typeof TooltipSeverity)[keyof typeof TooltipSeverity];
+export type TooltipSeverity = (typeof TooltipSeverity)[keyof typeof TooltipSeverity];

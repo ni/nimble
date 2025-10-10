@@ -1,8 +1,11 @@
-module.exports = {
-    extends: '../.eslintrc.js',
-    overrides: [
-        {
-            files: ['*.ts'],
+const { defineConfig } = require('eslint/config');
+const baseConfig = require('../eslint.config.js');
+
+module.exports = defineConfig([
+    baseConfig,
+    {
+        files: ['**/*.ts'],
+        languageOptions: {
             parserOptions: {
                 project: [
                     './tsconfig.lib.json',
@@ -11,5 +14,5 @@ module.exports = {
                 tsconfigRootDir: __dirname
             }
         }
-    ]
-};
+    }
+]);

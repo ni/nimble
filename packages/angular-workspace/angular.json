@@ -38,6 +38,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "nimble-angular/eslint.config.js",
             "lintFilePatterns": [
               "nimble-angular/**/*.ts",
               "nimble-angular/**/*.js",
@@ -79,6 +80,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "ok-angular/eslint.config.js",
             "lintFilePatterns": [
               "ok-angular/**/*.ts",
               "ok-angular/**/*.js",
@@ -120,6 +122,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "spright-angular/eslint.config.js",
             "lintFilePatterns": [
               "spright-angular/**/*.ts",
               "spright-angular/**/*.js",
@@ -246,6 +249,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "example-client-app/eslint.config.js",
             "lintFilePatterns": [
               "example-client-app/**/*.ts",
               "example-client-app/**/*.js",

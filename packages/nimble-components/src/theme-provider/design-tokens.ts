@@ -1046,14 +1046,14 @@ function createFontTokens(
     size: string,
     lineHeight: string
 ): readonly [
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>
-    ] {
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>
+] {
     if (
         fontTokenName === ''
         || family === ''

@@ -13,8 +13,7 @@ export const DropdownPosition = {
     above: 'above',
     below: 'below'
 } as const;
-export type DropdownPosition =
-    (typeof DropdownPosition)[keyof typeof DropdownPosition];
+export type DropdownPosition = (typeof DropdownPosition)[keyof typeof DropdownPosition];
 
 export const DropdownAppearance = {
     underline: 'underline',
@@ -22,8 +21,7 @@ export const DropdownAppearance = {
     block: 'block',
     frameless: 'frameless'
 } as const;
-export type DropdownAppearance =
-    (typeof DropdownAppearance)[keyof typeof DropdownAppearance];
+export type DropdownAppearance = (typeof DropdownAppearance)[keyof typeof DropdownAppearance];
 
 /**
  * @internal
