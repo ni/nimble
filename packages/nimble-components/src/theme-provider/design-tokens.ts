@@ -127,95 +127,121 @@ import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
+interface ThemeColors {
+    light: string;
+    dark: string;
+    color: string;
+}
+
+function hexToRgbaCssColor2(color: ThemeColors, lightAlpha: number, darkAlpha: number, colorAlpha: number): ThemeColors {
+    return {
+        light: hexToRgbaCssColor(color.light, lightAlpha),
+        dark: hexToRgbaCssColor(color.dark, darkAlpha),
+        color: hexToRgbaCssColor(color.color, colorAlpha),
+    };
+}
+
+function hexToRgbPartial(hexValue: string): string {
+    const { r, g, b } = parseColorHexRGB(hexValue)!;
+    return `${r * 255}, ${g * 255}, ${b * 255}`;
+}
+
+function hexToRgbPartial2(color: ThemeColors): ThemeColors {
+    return {
+        light: hexToRgbPartial(color.light),
+        dark: hexToRgbPartial(color.dark),
+        color: hexToRgbPartial(color.color),
+    };
+}
+
 // #region token values
-const tokenValues = {
-    alias: {
-        warning: {
-            light: Warning100LightUi,
-            dark: Warning100DarkUi,
-            color: White,
-        },
-        fail: {
-            light: Fail100LightUi,
-            dark: Fail100DarkUi,
-            color: White,
-        },
-        pass: {
-            light: Pass100LightUi,
-            dark: Pass100DarkUi,
-            color: White,
-        },
-        information: {
-            light: Information100LightUi,
-            dark: Information100DarkUi,
-            color: White,
-        },
-        lineColor: {
-            light: Black91,
-            dark: Black15,
-            color: White,
-        },
-        fontColor: {
-            light: Black91,
-            dark: Black15,
-            color: White,
-        },
-        fillSelectedColor: {
-            light: DigitalGreenLight,
-            dark: PowerGreen,
-            color: White,
-        },
-        fillHoverColor: {
-            light: Black91,
-            dark: Black15,
-            color: White,
-        },
-        fillDownColor: {
-            light: Black91,
-            dark: Black15,
-            color: White,
-        }
+const alias = {
+    warningColor: {
+        light: Warning100LightUi,
+        dark: Warning100DarkUi,
+        color: White,
     },
-    color: {
-        actionRgbPartialColor: {
-            light: hexToRgbPartial(Black91),
-            dark: hexToRgbPartial(Black15),
-            color: hexToRgbPartial(White),
-        },
-        applicationBackgroundColor: {
-            light: White,
-            dark: Black85,
-            color: ForestGreen,
-        },
-        sectionBackgroundImage: {
-            light: `linear-gradient(${Black15}, ${hexToRgbaCssColor(Black15, 0)})`,
-            dark: `linear-gradient(${Black82}, ${hexToRgbaCssColor(Black82, 0)})`,
-            color: `linear-gradient(${ForestGreen}, ${hexToRgbaCssColor(ForestGreen, 0)})`,
-        }
+    failColor: {
+        light: Fail100LightUi,
+        dark: Fail100DarkUi,
+        color: White,
     },
-    size: {
-
+    passColor: {
+        light: Pass100LightUi,
+        dark: Pass100DarkUi,
+        color: White,
     },
-    font: {
-
+    informationColor: {
+        light: Information100LightUi,
+        dark: Information100DarkUi,
+        color: White,
     },
-    textTransform: {
-
+    lineColor: {
+        light: Black91,
+        dark: Black15,
+        color: White,
     },
-    animation: {
-
+    fontColor: {
+        light: Black91,
+        dark: Black15,
+        color: White,
+    },
+    fillSelectedColor: {
+        light: DigitalGreenLight,
+        dark: PowerGreen,
+        color: White,
+    },
+    fillHoverColor: {
+        light: Black91,
+        dark: Black15,
+        color: White,
+    },
+    fillDownColor: {
+        light: Black91,
+        dark: Black15,
+        color: White,
     }
+} as const;
+
+const tokenValues = {
+    actionRgbPartialColor: hexToRgbPartial2({
+        light: Black91,
+        dark: Black15,
+        color: White,
+    }),
+    applicationBackgroundColor: {
+        light: White,
+        dark: Black85,
+        color: ForestGreen,
+    },
+    headerBackgroundColor: {},
+    sectionBackgroundColor: {},
+    sectionBackgroundImage: {
+        light: `linear-gradient(${Black15}, ${hexToRgbaCssColor(Black15, 0)})`,
+        dark: `linear-gradient(${Black82}, ${hexToRgbaCssColor(Black82, 0)})`,
+        color: `linear-gradient(${ForestGreen}, ${hexToRgbaCssColor(ForestGreen, 0)})`,
+    },
+    dividerBackgroundColor: {},
+    fillSelectedColor: hexToRgbaCssColor2(alias.fillSelectedColor, 0.2, 0.2, 0.2),
+    fillSelectedRgbPartialColor: hexToRgbPartial2(alias.fillSelectedColor),
+    fillHoverSelectedColor: hexToRgbaCssColor2(alias.fillSelectedColor, 0.15, 0.15, 0.15),
+
+    failColor: alias.failColor,
+    warningColor: alias.warningColor,
+    passColor: alias.passColor,
+    informationColor: alias.informationColor,
+
 } as const;
 // #endregion
 
 // #region color tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.actionRgbPartialColor)
-).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.color.actionRgbPartialColor));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.actionRgbPartialColor));
 
 export const applicationBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.applicationBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.color.applicationBackgroundColor));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.applicationBackgroundColor));
 
 export const headerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.headerBackgroundColor)
@@ -227,7 +253,7 @@ export const sectionBackgroundColor = DesignToken.create<string>(
 
 export const sectionBackgroundImage = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundImage)
-).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.color.sectionBackgroundImage));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.sectionBackgroundImage));
 
 export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
@@ -235,15 +261,15 @@ export const dividerBackgroundColor = DesignToken.create<string>(
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillSelectedColorForTheme(element), 0.2));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.fillSelectedColor));
 
 export const fillSelectedRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedRgbPartialColor)
-).withDefault((element: HTMLElement) => hexToRgbPartial(getFillSelectedColorForTheme(element)));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.fillSelectedRgbPartialColor));
 
 export const fillHoverSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverSelectedColor)
-).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillSelectedColorForTheme(element), 0.15));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.fillHoverSelectedColor));
 
 export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
@@ -267,19 +293,19 @@ export const borderRgbPartialColor = DesignToken.create<string>(
 
 export const failColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.failColor)
-).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.alias.fail));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.failColor));
 
 export const warningColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.warningColor)
-).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.alias.warning));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.warningColor));
 
 export const passColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.passColor)
-).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.alias.pass));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.passColor));
 
 export const informationColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.informationColor)
-).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.alias.information));
+).withDefault((element: HTMLElement) => getColorForTheme2(element, tokenValues.informationColor));
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
@@ -1111,11 +1137,6 @@ export const largeDelay = DesignToken.create<string>(
 // #endregion
 
 // #region helpers
-function hexToRgbPartial(hexValue: string): string {
-    const { r, g, b } = parseColorHexRGB(hexValue)!;
-    return `${r * 255}, ${g * 255}, ${b * 255}`;
-}
-
 function createFontTokens(
     fontTokenName: string,
     colorFunction: (element: HTMLElement) => string,
@@ -1237,10 +1258,6 @@ function getDefaultLineColorForTheme(element: HTMLElement): string {
 
 function getDefaultFontColorForTheme(element: HTMLElement): string {
     return getColorForTheme(element, Black91, Black15, White);
-}
-
-function getFillSelectedColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(element, DigitalGreenLight, PowerGreen, White);
 }
 
 function getFillHoverColorForTheme(element: HTMLElement): string {
