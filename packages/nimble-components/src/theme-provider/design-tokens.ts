@@ -162,7 +162,9 @@ export const dividerBackgroundColor = DesignToken.create<string>(
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
-).withDefault((element: HTMLElement) => `rgb(from ${getFillSelectedColorForTheme(element)} r g b / 0.2)`);
+).withDefault(
+    (element: HTMLElement) => `rgb(from ${getFillSelectedColorForTheme(element)} r g b / 0.2)`
+);
 
 export const fillSelectedRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedRgbPartialColor)
@@ -170,11 +172,15 @@ export const fillSelectedRgbPartialColor = DesignToken.create<string>(
 
 export const fillHoverSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverSelectedColor)
-).withDefault((element: HTMLElement) => `rgb(from ${getFillSelectedColorForTheme(element)} r g b / 0.15)`);
+).withDefault(
+    (element: HTMLElement) => `rgb(from ${getFillSelectedColorForTheme(element)} r g b / 0.15)`
+);
 
 export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
-).withDefault((element: HTMLElement) => `rgb(from ${getFillHoverColorForTheme(element)} r g b / 0.1)`);
+).withDefault(
+    (element: HTMLElement) => `rgb(from ${getFillHoverColorForTheme(element)} r g b / 0.1)`
+);
 
 export const fillHoverRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverRgbPartialColor)
@@ -182,7 +188,9 @@ export const fillHoverRgbPartialColor = DesignToken.create<string>(
 
 export const fillDownColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillDownColor)
-).withDefault((element: HTMLElement) => `rgb(from ${getFillDownColorForTheme(element)} r g b / 0.15)`);
+).withDefault(
+    (element: HTMLElement) => `rgb(from ${getFillDownColorForTheme(element)} r g b / 0.15)`
+);
 
 export const borderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderColor)
@@ -223,15 +231,21 @@ export const modalBackdropColor = DesignToken.create<string>(
 
 export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
-).withDefault((element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.3)`);
+).withDefault(
+    (element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.3)`
+);
 
 export const cardBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.cardBorderColor)
-).withDefault((element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.1)`);
+).withDefault(
+    (element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.1)`
+);
 
 export const graphGridlineColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphGridlineColor)
-).withDefault((element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.2)`);
+).withDefault(
+    (element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.2)`
+);
 
 export const graphTrace1Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace1Color)
@@ -266,11 +280,21 @@ export const graphTrace4Color = DesignToken.create<string>(
 
 export const graphTrace5Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace5Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiSeaDark2, NiSea, `rgb(from ${White} r g b / 0.55)`));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiSeaDark2,
+    NiSea,
+    `rgb(from ${White} r g b / 0.55)`
+));
 
 export const graphTrace6Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace6Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiTulip, NiTulip, `rgb(from ${White} r g b / 0.85)`));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiTulip,
+    NiTulip,
+    `rgb(from ${White} r g b / 0.85)`
+));
 
 export const graphTrace7Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace7Color)
@@ -300,7 +324,9 @@ export const tableRowBorderColor = DesignToken.create<string>(
 
 export const tagFillColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tagFillColor)
-).withDefault((element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.1)`);
+).withDefault(
+    (element: HTMLElement) => `rgb(from ${getColorForTheme(element, Black91, Black15, White)} r g b / 0.1)`
+);
 
 export const buttonFillPrimaryColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonFillPrimaryColor)
