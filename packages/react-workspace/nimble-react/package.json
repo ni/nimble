@@ -38,6 +38,6 @@
   "peerDependencies": {
     "@lit/react": "^1.0.8",
     "@ni/nimble-components": "^34.3.3",
-    "react": "^16 || ^17 || ^18"
+    "react": "^17 || ^18 || ^19"
   }
 }

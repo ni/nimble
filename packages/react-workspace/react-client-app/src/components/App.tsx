@@ -67,8 +67,9 @@ import { OkButton } from '@ni/ok-react/dist/esm/button';
 
 import './App.scss';
 import { useRef, useState } from 'react';
+import React from 'react';
 
-export function App(): JSX.Element {
+export function App(): React.JSX.Element {
     const [bannerOpen, setBannerOpen] = useState(true);
     const [selectedRadio, setSelectedRadio] = useState('mango');
     const dialogRef = useRef<Dialog<string>>(null);
