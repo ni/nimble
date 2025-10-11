@@ -1,11 +1,11 @@
 import { Combobox } from '@ni/nimble-components/dist/esm/combobox';
-import { wrap } from '../utilities/react-wrapper';
+import { wrap, type EventName } from '../utilities/react-wrapper';
 
 export { type Combobox };
 export const NimbleCombobox = wrap(Combobox, {
     events: {
-        onChange: 'change',
-        onInput: 'input'
+        onChange: 'change' as EventName<ComboboxChangeEvent>,
+        onInput: 'input' as EventName<ComboboxInputEvent>
     }
 });
 export interface ComboboxChangeEvent extends CustomEvent {

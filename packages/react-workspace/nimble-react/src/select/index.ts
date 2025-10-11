@@ -1,12 +1,12 @@
 import { Select } from '@ni/nimble-components/dist/esm/select';
 import { type SelectFilterInputEventDetail } from '@ni/nimble-components/dist/esm/select/types';
-import { wrap } from '../utilities/react-wrapper';
+import { wrap, type EventName } from '../utilities/react-wrapper';
 
 export { type Select };
 export const NimbleSelect = wrap(Select, {
     events: {
-        onChange: 'change',
-        onFilterInput: 'filter-input',
+        onChange: 'change' as EventName<SelectChangeEvent>,
+        onFilterInput: 'filter-input' as EventName<SelectFilterInputEvent>,
     }
 });
 export interface SelectChangeEvent extends CustomEvent {
