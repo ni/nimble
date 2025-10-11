@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 03 Oct 2025 20:31:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 11 Oct 2025 04:58:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.3.3
+
+Sat, 11 Oct 2025 04:58:50 GMT
+
+### Patches
+
+- Create design-token-values static token definitions ([ni/nimble@ce05a06](https://github.com/ni/nimble/commit/ce05a06c9bb985d57e57b882a9ac356212ef9eaf))
 
 ## 34.3.2
 
