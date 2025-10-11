@@ -4,17 +4,11 @@ import { tokenNames as tokens } from '@ni/nimble-components/dist/esm/theme-provi
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
-import { component } from './tokens.stories';
+import { component, type TokenArgs } from './template';
 
 type TokenName = keyof typeof tokens;
 const tokenNames = Object.keys(tokens) as TokenName[];
 tokenNames.sort((a, b) => a.localeCompare(b));
-
-interface TokenArgs {
-    metaTitle: string;
-    tokenNames: TokenName[];
-    propertyFormat: PropertyFormat;
-}
 
 const metadata: Meta<TokenArgs> = {
     title: 'Tests/Tokens',
