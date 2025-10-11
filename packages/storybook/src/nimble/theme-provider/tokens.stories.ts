@@ -130,6 +130,7 @@ const templateForTokenName = (
     return template;
 };
 
+// prettier-ignore
 export const component = html<TokenArgs>`
         <style>
             table {
@@ -173,7 +174,6 @@ export const component = html<TokenArgs>`
         </table>
 `;
 
-// prettier-ignore
 const metadata: Meta<TokenArgs> = {
     title: 'Tokens/Theme-aware Tokens',
     parameters: {

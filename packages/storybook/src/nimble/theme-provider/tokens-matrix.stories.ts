@@ -1,8 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { PropertyFormat } from '@ni/nimble-components/dist/esm/theme-provider/tests/types';
-import {
-    tokenNames as tokens,
-} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
+import { tokenNames as tokens } from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
@@ -26,7 +24,7 @@ const metadata: Meta<TokenArgs> = {
     args: {
         tokenNames,
         propertyFormat: PropertyFormat.scss
-    },
+    }
 };
 
 export default metadata;
