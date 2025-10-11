@@ -1,6 +1,6 @@
 import { NimbleAnchor } from '@ni/nimble-react/dist/esm/anchor';
 import { NimbleButton } from '@ni/nimble-react/dist/esm/button';
-import { NimbleBanner, type BannerToggleEvent } from '@ni/nimble-react/dist/esm/banner';
+import { NimbleBanner } from '@ni/nimble-react/dist/esm/banner';
 import { NimbleBreadcrumb } from '@ni/nimble-react/dist/esm/breadcrumb';
 import { NimbleBreadcrumbItem } from '@ni/nimble-react/dist/esm/breadcrumb-item';
 import { NimbleToggleButton } from '@ni/nimble-react/dist/esm/toggle-button';
@@ -102,7 +102,7 @@ export function App(): JSX.Element {
                         <div className="container-label">Banner</div>
                         <NimbleBanner
                             open={bannerOpen}
-                            onToggle={e => setBannerOpen((e as BannerToggleEvent).detail.newState)}
+                            onToggle={e => setBannerOpen(e.detail.newState)}
                             severity="information">
                             <span slot="title">Title of the banner</span>
                             This is the message text of this banner. It tells you something interesting.

@@ -28,7 +28,7 @@
     "typescript": "~5.4.5"
   },
   "peerDependencies": {
-    "@ni/fast-react-wrapper": "^10.1.2",
+    "@lit/react": "^1.0.8",
     "@ni/ok-components": "^0.0.5",
     "react": "^16 || ^17 || ^18"
   }
