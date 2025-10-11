@@ -11,11 +11,11 @@ import { NimbleSelect } from '@ni/nimble-react/dist/esm/select';
 import { NimbleListOption } from '@ni/nimble-react/dist/esm/list-option';
 import { NimbleListOptionGroup } from '@ni/nimble-react/dist/esm/list-option-group';
 import { NimbleCardButton } from '@ni/nimble-react/dist/esm/card-button';
-import { NimbleCheckbox, type CheckboxChangeEvent } from '@ni/nimble-react/dist/esm/checkbox';
-import { NimbleRadioGroup, type RadioGroupChangeEvent } from '@ni/nimble-react/dist/esm/radio-group';
+import { NimbleCheckbox } from '@ni/nimble-react/dist/esm/checkbox';
+import { NimbleRadioGroup } from '@ni/nimble-react/dist/esm/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/dist/esm/radio';
 import { NimbleTextField } from '@ni/nimble-react/dist/esm/text-field';
-import { NimbleDialog, type Dialog, UserDismissed } from '@ni/nimble-react/dist/esm/dialog';
+import { NimbleDialog, type DialogRef, type Dialog, UserDismissed } from '@ni/nimble-react/dist/esm/dialog';
 import { NimbleDrawer } from '@ni/nimble-react/dist/esm/drawer';
 import { NimbleMenu } from '@ni/nimble-react/dist/esm/menu';
 import { NimbleMenuItem } from '@ni/nimble-react/dist/esm/menu-item';
@@ -109,7 +109,7 @@ export function App(): JSX.Element {
                         </NimbleBanner>
                         <NimbleCheckbox
                             checked={bannerOpen}
-                            onChange={e => setBannerOpen((e as CheckboxChangeEvent).target.checked)}
+                            onChange={e => setBannerOpen(e.target.checked)}
                         >Show banner</NimbleCheckbox>
                     </div>
                     <div className="sub-container">
@@ -179,7 +179,7 @@ export function App(): JSX.Element {
                         <div className="container-label">Radio Buttons</div>
                         <NimbleRadioGroup
                             value={selectedRadio}
-                            onChange={e => setSelectedRadio((e as RadioGroupChangeEvent).target.value)}
+                            onChange={e => setSelectedRadio(e.target.value)}
                         >
                             <span slot="label">Fruit</span>
                             <NimbleRadio name="fruit" value="apple"
@@ -196,8 +196,7 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Dialog</div>
                         <NimbleDialog
-                            /* @ts-expect-error See: https://github.com/ni/nimble/issues/2617 */
-                            ref={dialogRef}
+                            ref={dialogRef as unknown as DialogRef}
                         >
                             <span slot="title">This is a dialog</span>
                             <div>It opened when you pushed the button</div>
