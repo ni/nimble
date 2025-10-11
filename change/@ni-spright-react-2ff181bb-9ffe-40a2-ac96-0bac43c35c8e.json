@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Migrate to the `@lit/react` library",
-  "packageName": "@ni/spright-react",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

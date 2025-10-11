@@ -2,6 +2,21 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Sat, 11 Oct 2025 22:38:51 GMT",
+      "version": "0.4.0",
+      "tag": "@ni/nimble-react_v0.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "a51fde8baec7d112a585a8da9303b0c0d06752ff",
+            "comment": "Migrate to the `@lit/react` library"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 11 Oct 2025 04:58:50 GMT",
       "version": "0.3.3",
       "tag": "@ni/nimble-react_v0.3.3",

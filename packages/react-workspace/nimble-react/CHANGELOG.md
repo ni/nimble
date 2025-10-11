@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Sat, 11 Oct 2025 04:58:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 11 Oct 2025 22:38:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.4.0
+
+Sat, 11 Oct 2025 22:38:51 GMT
+
+### Minor changes
+
+- Migrate to the `@lit/react` library ([ni/nimble@a51fde8](https://github.com/ni/nimble/commit/a51fde8baec7d112a585a8da9303b0c0d06752ff))
 
 ## 0.3.3
 
