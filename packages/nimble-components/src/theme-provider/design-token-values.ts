@@ -122,6 +122,7 @@ import {
     PowerGreenDark50
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
+import { tokenNames, cssPropertyFromTokenName } from './design-token-names';
 
 export interface ThemeColor {
     light: string;
@@ -510,3 +511,18 @@ function createFont<T extends string>(
         [`${token}FontLineHeight`]: lineHeight,
     } as Font<T>;
 }
+
+const lightTokens = Object.fromEntries(Array.from(Object.entries(tokenValues)).map(([name, value]) => {
+    const propName = cssPropertyFromTokenName(tokenNames[name]);
+    const propValue = value.light? value.light : value;
+    return [propName, propValue];
+}));
+
+const darkTokens = Object.fromEntries(Array.from(Object.entries(tokenValues)).map(([name, value]) => {
+    const propName = cssPropertyFromTokenName(tokenNames[name]);
+    const propValue = value.dark? value.dark : value;
+    return [propName, propValue];
+}).filter(([name, value]) => lightTokens[name] !== value));
+
+console.log(Object.entries(lightTokens).map(([name, value]) => `${name}: ${value};`).join('\n'));
+console.log(Object.entries(darkTokens).map(([name, value]) => `${name}: ${value};`).join('\n'));
