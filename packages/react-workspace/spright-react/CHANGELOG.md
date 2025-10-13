@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Fri, 03 Oct 2025 20:31:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 11 Oct 2025 22:38:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.5.0
+
+Sat, 11 Oct 2025 22:38:51 GMT
+
+### Minor changes
+
+- Migrate to the `@lit/react` library ([ni/nimble@a51fde8](https://github.com/ni/nimble/commit/a51fde8baec7d112a585a8da9303b0c0d06752ff))
+
+## 0.4.5
+
+Sat, 11 Oct 2025 04:58:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.3.3
 
 ## 0.4.4
 

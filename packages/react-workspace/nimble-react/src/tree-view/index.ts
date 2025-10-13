@@ -1,12 +1,12 @@
 import { TreeView } from '@ni/nimble-components/dist/esm/tree-view';
-import { wrap } from '../utilities/react-wrapper';
+import { wrap, type EventName } from '../utilities/react-wrapper';
 import type { TreeItemExpandedChangeEvent, TreeItemSelectedChangeEvent } from '../tree-item';
 
 export { type TreeView };
 export const NimbleTreeView = wrap(TreeView, {
     events: {
-        onExpandedChange: 'expanded-change',
-        onSelectedChange: 'selected-change',
+        onExpandedChange: 'expanded-change' as EventName<TreeViewExpandedChangeEvent>,
+        onSelectedChange: 'selected-change' as EventName<TreeViewSelectedChangeEvent>,
     }
 });
 /**

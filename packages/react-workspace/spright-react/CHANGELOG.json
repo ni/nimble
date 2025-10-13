@@ -2,6 +2,36 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Sat, 11 Oct 2025 22:38:51 GMT",
+      "version": "0.5.0",
+      "tag": "@ni/spright-react_v0.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-react",
+            "commit": "a51fde8baec7d112a585a8da9303b0c0d06752ff",
+            "comment": "Migrate to the `@lit/react` library"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 11 Oct 2025 04:58:50 GMT",
+      "version": "0.4.5",
+      "tag": "@ni/spright-react_v0.4.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.3.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Oct 2025 20:31:52 GMT",
       "version": "0.4.4",
       "tag": "@ni/spright-react_v0.4.4",
