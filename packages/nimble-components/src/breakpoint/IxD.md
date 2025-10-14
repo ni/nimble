@@ -48,10 +48,12 @@ Breakpoints should appear to the left of checkboxes for multiselect
   - Show tooltip on hover/focus
   - Visually indicate active/inactive state
   - Optionally highlight code line when active
+  - Ability to set breakpoints from a context menu
+  - Ability to upload a file containing breakpoints
 
 ### Mouse Interactions
 
-- Click on the breakpoint indicator toggles its state (set/remove).
+- Click on the breakpoint indicator toggles its state (set/remove). The breakpoint itself will likely be a 12x12 vector in a 16x16 icon. The hit target should be a minimum of 24x24 pixels for web use. Mobile use is not a current requirement but this should expand to 48x48 for touch if it ever becomes one.
 
 #### Hover behavior
 - When removed: Hovering shows a tooltip and outline of breakpoint
