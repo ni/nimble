@@ -55,6 +55,17 @@ Breakpoints should appear to the left of checkboxes for multiselect
 
 - Click on the breakpoint indicator toggles its state (set/remove). The breakpoint itself will likely be a 12x12 vector in a 16x16 icon. The hit target should be a minimum of 24x24 pixels for web use. Mobile use is not a current requirement but this should expand to 48x48 for touch if it ever becomes one.
 
+#### State Transitions
+- **Off → Enabled:** Click on empty breakpoint area sets the breakpoint
+- **Enabled → Off:** Click on active breakpoint removes it
+- **Enabled → Disabled:** Right-click context menu with item "Disable breakpoint" (remains visible but inactive)
+- **Disabled → Enabled:** Right-click context menu with menu item "Enable breakpoint"
+- **Disabled → Off:** Right-click context menu with item "Remove breakpoint" or click to remove
+- **Enabled → Hit:** Automatic transition when debugger pauses at this breakpoint's row during execution
+- **Hit → Enabled:** Automatic transition when debugger continues away from the breakpoint's row during execution
+- **Hit → Off:** Right-click context menu with item "Remove breakpoint" or click to remove while hit
+- **Hit → Disabled:** Right-click context menu with item "Disable breakpoint" while hit
+
 #### Hover behavior
 - When removed: Hovering shows a tooltip and outline of breakpoint
 - When set: hovering shows a tooltip.
@@ -68,6 +79,18 @@ In both cases, hovering changes the cursor from default to pointer.
   - Tab to breakpoint indicator
   - Space/Enter toggles breakpoint
   - Tooltip & breakpoint outline appears on focus
+
+#### State Transitions (Keyboard)
+- **Off → Enabled:** Space/Enter on empty breakpoint area or keyboard shortcuts (Ctrl/Cmd+B, F9) sets the breakpoint
+- **Enabled → Off:** Space/Enter on active breakpoint or keyboard shortcuts removes it
+- **Enabled → Disabled:** Context menu accessed via keyboard (Shift+F10 or Menu key) provides disable option
+- **Disabled → Enabled:** Context menu accessed via keyboard provides enable option
+- **Disabled → Off:** Context menu accessed via keyboard provides remove option or Space/Enter to remove
+- **Enabled → Hit:** Automatic transition when debugger pauses at this breakpoint during execution
+- **Hit → Enabled:** Automatic transition when debugger continues execution
+- **Hit → Off:** Context menu accessed via keyboard provides remove option or Space/Enter to remove while hit
+- **Hit → Disabled:** Context menu accessed via keyboard provides disable option while hit
+
 - **Keyboard Shortcuts:**
 
     **Navigating the table with breakpoints**
