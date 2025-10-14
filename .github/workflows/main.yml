@@ -62,6 +62,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci
+        timeout-minutes: 10
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes

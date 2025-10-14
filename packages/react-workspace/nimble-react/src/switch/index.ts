@@ -1,10 +1,10 @@
 import { Switch } from '@ni/nimble-components/dist/esm/switch';
-import { wrap } from '../utilities/react-wrapper';
+import { wrap, type EventName } from '../utilities/react-wrapper';
 
 export { type Switch };
 export const NimbleSwitch = wrap(Switch, {
     events: {
-        onChange: 'change',
+        onChange: 'change' as EventName<SwitchChangeEvent>,
     }
 });
 export interface SwitchChangeEvent extends CustomEvent {
