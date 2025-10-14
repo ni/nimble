@@ -7,7 +7,7 @@ A breakpoint is a UI element that visually marks a line or section of code allow
 > NOTE: THE VISUAL DESIGN IN THIS DOCUMENT MAY NOT BE ACCURATE
 ### Background
 Requested by teams wishing to support code inspection and debugging workflows in Nimble Table.
-
+See internal rationale [here](https://emerson-my.sharepoint.com/:w:/p/alice_darrow/EUyUN2MwIVZKnzUm0MNHSw0BFfTMtxGMTpEupWpMPbD-og?e=z8UyoJ)
 ## Usage
 
 Use with the Nimble Table when displaying code, especially in environments where debugging is required.
