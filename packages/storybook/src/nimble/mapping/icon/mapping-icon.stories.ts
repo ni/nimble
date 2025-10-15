@@ -43,7 +43,8 @@ export const iconMapping: StoryObj = {
         },
         text: {
             control: false,
-            description: 'A textual description of the value. The text will be displayed next to the icon in a cell if `text-hidden` is not set, or as the tooltip and accessible  name of the icon if `text-hidden` is set. The text is also displayed next to the icon in a group header. This attribute is required.',
+            description:
+                'A textual description of the value. The text will be displayed next to the icon in a cell if `text-hidden` is not set, or as the tooltip and accessible  name of the icon if `text-hidden` is set. The text is also displayed next to the icon in a group header. This attribute is required.',
             table: { category: apiCategory.attributes }
         },
         textHidden: {
