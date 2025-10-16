@@ -99,7 +99,7 @@ In both cases, hovering changes the cursor from default to pointer.
 
 
   - **Add/Remove breakpoint:**  
-    By default, The breakpoint can be added to any row in the table. Implementers of the table should decide if certain rows should not have breakpoints.
+    By default, The breakpoint can be added to any data row in the table (including hierarchy rows and leaf rows but not including the table header row). Implementers of the table should decide if certain rows should not have breakpoints.
     When the user is focused on the breakpoint cell Space/Eneter adds the breakpoint in addition to the beyboard shortcuts below
 
 
