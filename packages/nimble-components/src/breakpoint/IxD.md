@@ -112,8 +112,14 @@ In both cases, hovering changes the cursor from default to pointer.
 
 
 ## Open Issues
-- Should I also be updating the table spec?
-- Should we consider full nimble debugging guidelines? (Run, pause, step over, etc)
+
+
+## For Implementation 
+If breakpoints are implemented as a column for the table, the following should be considered
+- Columns should not be resizable
+- It is not sortable/groupable 
+- breakpoints should all appear in the same column regardless of hierachy in the table
+- breakpoints should be the leftmost column, further left than checkboxes
 
 ## Future Considerations
 - Should breakpoints support conditional logic (e.g., only break when a condition is met)?
