@@ -1,4 +1,4 @@
-# High Level Design: Table Action Menu Selection Control
+# Table Selection Mode for Action Menus HLD
 
 ## Problem Statement
 
