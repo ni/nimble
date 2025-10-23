@@ -21,8 +21,7 @@ Use with the Nimble Table when displaying code, especially in environments where
 **Breakpoint states**
 ![Breakpoint States](./specs/spec-images/States.png)
 
-> Note: Not approved by visual design
-Breakpoints should appear to the left of checkboxes for multiselect
+> Note, not yet approved by visual design: Breakpoints should appear to the left of checkboxes for multiselect
 
 **Breakpoints in a table**
 
@@ -39,7 +38,8 @@ Breakpoints should appear to the left of checkboxes for multiselect
 ## Design
 
 ### Configuration
-*What types of options need to be available on the component to support client-user use cases?*
+
+An application should be able to configure a breakpoint in any row in any state programmatically. See below for interaction details.
 
 ### Behavior
 
@@ -53,7 +53,7 @@ Breakpoints should appear to the left of checkboxes for multiselect
 
 ### Mouse Interactions
 
-- Click on the breakpoint indicator toggles its state (set/remove). The breakpoint itself will likely be a 12x12 vector in a 16x16 icon. The hit target should be a minimum of 24x24 pixels for web use. Mobile use is not a current requirement but this should expand to 48x48 for touch if it ever becomes one.
+- Clicking on the breakpoint indicator toggles its state (set/remove). The breakpoint itself will likely be a 12x12 vector in a 16x16 icon. The hit target should be a minimum of 24x24 pixels for web use. Mobile use is not a current requirement but this should expand to 48x48 for touch if it ever becomes one.
 
 #### State Transitions
 - **Off → Enabled:** Click on empty breakpoint area sets the breakpoint
@@ -91,19 +91,20 @@ In both cases, hovering changes the cursor from default to pointer.
 - **Hit → Off:** Context menu accessed via keyboard provides remove option or Space/Enter to remove while hit
 - **Hit → Disabled:** Context menu accessed via keyboard provides disable option while hit
 
-- **Keyboard Shortcuts:**
+#### Keyboard Shortcuts
 
-    **Navigating the table with breakpoints**
+**Navigating the table with breakpoints**
 
-    The breakpoint cell will be within the table so navigation should be the same as existing table navigation.
-
-
-  - **Add/Remove breakpoint:**  
-    By default, The breakpoint can be added to any data row in the table (including hierarchy rows and leaf rows but not including the table header row). Implementers of the table should decide if certain rows should not have breakpoints.
-    When the user is focused on the breakpoint cell Space/Eneter adds the breakpoint in addition to the beyboard shortcuts below
+The breakpoint cell will be within the table so navigation should be the same as existing table navigation.
 
 
-    When the user is focused on table row or group header only the keyboard shortcuts add the breakpoint.
+ **Add/Remove breakpoint:**  
+ 
+By default, The breakpoint can be added to any data row in the table (including hierarchy rows and leaf rows but not including the table header row). Implementers of the table should decide if certain rows should not have breakpoints.
+
+When the user is focused on the breakpoint cell Space/Enter adds the breakpoint in addition to the keyboard shortcuts below.
+
+When the user is focused on table row or group header only the keyboard shortcuts add the breakpoint.
 
 
     - On Mac: <kbd>Cmd</kbd> + <kbd>B</kbd>  
