@@ -41,30 +41,32 @@ Use with the Nimble Table when displaying code, especially in environments where
 
 An application should be able to configure a breakpoint in any row in any state programmatically. See below for interaction details.
 
+#### State Transitions
+- **Off → Enabled:** Click on empty breakpoint area sets the breakpoint
+- **Enabled → Off:** Click on active breakpoint removes it
+- **Enabled → Disabled:** Context menu with item "Disable breakpoint" (remains visible but inactive)
+- **Disabled → Enabled:** Context menu with menu item "Enable breakpoint"
+- **Disabled → Off:** Context menu with item "Remove breakpoint" or click to remove
+- **Enabled → Hit:** Automatic transition when debugger pauses at this breakpoint's row during execution
+- **Hit → Enabled:** Automatic transition when debugger continues away from the breakpoint's row during execution
+- **Hit → Off:** Context menu with item "Remove breakpoint" or click to remove while hit
+- **Hit → Disabled:** Context menu with item "Disable breakpoint" while hit
+
 ### Behavior
 
 - **Built-in behaviors:**
   - Toggle breakpoint on click/tap
   - Show tooltip on hover/focus
+    - When Added: "Remove breakpoint"
+    - Else: "Add breakpoint"
   - Visually indicate active/inactive state
-  - Optionally highlight code line when active
+  - Highlight code line when active
   - Ability to set breakpoints from a context menu
   - Ability to upload a file containing breakpoints
 
 ### Mouse Interactions
 
 - Clicking on the breakpoint indicator toggles its state (set/remove). The breakpoint itself will likely be a 12x12 vector in a 16x16 icon. The hit target should be a minimum of 24x24 pixels for web use. Mobile use is not a current requirement but this should expand to 48x48 for touch if it ever becomes one.
-
-#### State Transitions
-- **Off → Enabled:** Click on empty breakpoint area sets the breakpoint
-- **Enabled → Off:** Click on active breakpoint removes it
-- **Enabled → Disabled:** Right-click context menu with item "Disable breakpoint" (remains visible but inactive)
-- **Disabled → Enabled:** Right-click context menu with menu item "Enable breakpoint"
-- **Disabled → Off:** Right-click context menu with item "Remove breakpoint" or click to remove
-- **Enabled → Hit:** Automatic transition when debugger pauses at this breakpoint's row during execution
-- **Hit → Enabled:** Automatic transition when debugger continues away from the breakpoint's row during execution
-- **Hit → Off:** Right-click context menu with item "Remove breakpoint" or click to remove while hit
-- **Hit → Disabled:** Right-click context menu with item "Disable breakpoint" while hit
 
 #### Hover behavior
 - When removed: Hovering shows a tooltip and outline of breakpoint
