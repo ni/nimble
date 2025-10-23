@@ -17,6 +17,7 @@ This design proposes adding a configurable `action-menus-preserve-selection` att
 #### New Table Attribute
 
 **`action-menus-preserve-selection`** (boolean):
+
 - **Default**: `false` (preserves existing behavior)
 - **When `false`**: Opening action menus changes selection to include the clicked record
 - **When `true`**: Opening action menus preserves existing selection state
@@ -26,20 +27,19 @@ This design proposes adding a configurable `action-menus-preserve-selection` att
 <nimble-table selection-mode="multiple"></nimble-table>
 
 <!-- Preserve selection when opening action menus -->
-<nimble-table 
-    selection-mode="multiple" 
-    action-menus-preserve-selection="true">
+<nimble-table selection-mode="multiple" action-menus-preserve-selection="true">
 </nimble-table>
 ```
 
 #### Event Data
 
 **New `operatingRecord` field** added to `TableActionMenuToggleEventDetail`:
+
 ```typescript
 interface TableActionMenuToggleEventDetail {
-    recordIds: string[];        // Current selection state
-    operatingRecord: string;    // NEW: Record that triggered the action menu
-    newState: boolean;          // Menu open/close state
+    recordIds: string[]; // Current selection state
+    operatingRecord: string; // NEW: Record that triggered the action menu
+    newState: boolean; // Menu open/close state
     // ... other existing fields
 }
 ```
@@ -49,29 +49,35 @@ This ensures applications always know both the current selection and which speci
 ### Code Changes
 
 #### Selection Manager Updates
+
 - **SelectionManagerBase**: Add `actionMenuChangesSelection` parameter and update method
 - **InteractiveSelectionManager**: Manage the flag and propagate to concrete managers
 - **MultiSelectionManager**: Conditionally select unselected rows in `handleActionMenuOpening()`
 - **SingleSelectionManager**: Use flag to determine if action menu opening should change selection
 
 #### Table Component
+
 - Add boolean `action-menus-preserve-selection` attribute to table component
 - Pass attribute value to selection manager during initialization and updates
 
 ## Alternative Implementations / Designs
 
 These alternatives were pulled from the original issue.
+
 ### Alternative 1: Add configurable option to each table column for selection behavior from action menus
 
 **Approach**: Configure selection behavior at the column level rather than table level
+
 - Each column with an action menu could have its own `action-menus-preserve-selection` setting
 - Allow mixed behavior across columns in the same table
 
 **Pros**:
+
 - More granular control than table-wide setting
 - Could conceptually separate "main" columns (coupled to selection) from "operational" columns (independent of selection)
 
 **Cons**:
+
 - Creates potential inconsistencies between columns within tables and between tables in UIs
 - May confuse users when different action menus operate on different contexts (selection vs specific row)
 - Adds complexity to API and mental model
@@ -81,14 +87,17 @@ These alternatives were pulled from the original issue.
 ### Alternative 2: Modify the existing menu button column for this use-case
 
 **Approach**: Enhance the existing menu-button column to not change selection
+
 - Update menu-button column to never affect table selection
 - Use this column type for non-intrusive action menus
 
 **Pros**:
+
 - Isolated change with narrow scope
 - Existing column type could be enhanced
 
 **Cons**:
+
 - Current use cases desire fixed-width icon columns, which would require new menu-button column behavior
 - Would likely need icon mapping capabilities, essentially requiring a new column type anyway
 - Doesn't address action menus on existing column types
@@ -98,14 +107,17 @@ These alternatives were pulled from the original issue.
 ### Alternative 3: Create new column type based on menu-button column
 
 **Approach**: Clone menu-button column as new column type that doesn't change selection
+
 - Duplicate menu-button functionality with non-intrusive selection behavior
 - Use as specialized column for this use case
 
 **Pros**:
+
 - Could be tailored specifically to the use case
 - Good for rapid prototyping and isolated testing
 
 **Cons**:
+
 - Creates duplicate/workaround functionality instead of addressing core issue
 - Tables using this column unlikely to also use standard action menus
 - Requires exposing hover state to cells to duplicate action menu behavior
@@ -116,14 +128,17 @@ These alternatives were pulled from the original issue.
 ### Alternative 4: Change behavior altogether in one go (breaking change)
 
 **Approach**: Globally change action menu behavior to never affect selection
+
 - Remove selection-changing behavior from all action menus
 - Rely on applications to provide toolbar actions for bulk operations
 
 **Pros**:
+
 - Eliminates need to manage multiple selection behaviors
 - Simplifies mental model - action menus always operate on single records
 
 **Cons**:
+
 - Breaking change affecting all existing applications
 - Some applications may rely on action menu selection behavior for bulk actions and lack toolbar alternatives
 - No migration path for applications that need the existing behavior
