@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 23 Oct 2025 23:06:47 GMT",
+      "version": "34.3.3",
+      "tag": "@ni/nimble-components_v34.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "alice.darrow@emerson.com",
+            "package": "@ni/nimble-components",
+            "commit": "07b9041acb908200df200557081bbdc7586d41a9",
+            "comment": "added spec for table breakpoints"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 11 Oct 2025 04:58:50 GMT",
       "version": "34.3.3",
       "tag": "@ni/nimble-components_v34.3.3",
