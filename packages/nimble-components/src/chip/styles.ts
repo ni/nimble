@@ -32,15 +32,12 @@ export const styles = css`
         border-radius: 4px;
         justify-content: center;
         align-items: center;
-        background-repeat: no-repeat;
     }
 
     :host([disabled]) {
         cursor: default;
         color: ${bodyDisabledFontColor};
         border-color: rgba(${borderRgbPartialColor}, 0.3);
-        background-image: none;
-        background-size: 100% 100%;
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {
@@ -76,17 +73,9 @@ export const styles = css`
     appearanceBehavior(
         ChipAppearance.block,
         css`
-            :host {
+            :host, :host([disabled]) {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 border-color: transparent;
-            }
-
-            :host([disabled]) {
-                background-image: linear-gradient(
-                    rgba(${borderRgbPartialColor}, 0.1),
-                    rgba(${borderRgbPartialColor}, 0.1)
-                );
-                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     )
