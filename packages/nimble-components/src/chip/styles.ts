@@ -73,6 +73,10 @@ export const styles = css`
         width: ${iconSize};
         margin-right: calc(-1 * ${smallPadding});
     }
+
+    [part='end'] {
+        display: none;
+    }
 `.withBehaviors(
     appearanceBehavior(
         ChipAppearance.block,

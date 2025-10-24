@@ -4,6 +4,7 @@ import {
     DesignSystem,
     FoundationElement,
     StartEnd,
+    type EndOptions,
     type FoundationElementDefinition,
     type StartOptions
 } from '@ni/fast-foundation';
@@ -19,7 +20,7 @@ declare global {
     }
 }
 
-export type ChipOptions = FoundationElementDefinition & StartOptions;
+export type ChipOptions = FoundationElementDefinition & StartOptions & EndOptions;
 
 /**
  * A Nimble chip component

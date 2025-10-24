@@ -41,4 +41,5 @@ ChipOptions
             ${x => x.removeButtonContent}
         </${buttonTag}>
     `)}
+    ${endSlotTemplate(context, definition)}
 `;
