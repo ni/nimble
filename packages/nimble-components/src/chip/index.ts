@@ -60,7 +60,7 @@ export class Chip extends FoundationElement {
 
     /** @internal */
     public get removeButtonContent(): string {
-        return `${itemRemoveLabel.getValueFor(this)} ${this.elementTextContent}`;
+        return itemRemoveLabel.getValueFor(this);
     }
 
     /** @internal */
