@@ -41,7 +41,7 @@ const metadata: Meta<ChipArgs> = {
         },
         removable: {
             name: 'removable',
-            description: 'When the `removable` attribute is set, a remove button is displayed on the chip. When the remove button is pressed a `remove` event is dispatched.',
+            description: 'When the `removable` attribute is set, a remove button is displayed on the chip. When the remove button is pressed a `remove` event is dispatched. The client application is responsible for performing the actual removal.',
             table: { category: apiCategory.attributes }
         },
         disabled: {
