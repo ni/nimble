@@ -35,7 +35,7 @@ const supportedLabels = {
     loading: loadingLabel,
     scrollBackward: scrollBackwardLabel,
     scrollForward: scrollForwardLabel,
-    remove: itemRemoveLabel
+    itemRemove: itemRemoveLabel
 } as const;
 
 /**
