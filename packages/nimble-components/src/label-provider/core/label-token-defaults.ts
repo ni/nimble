@@ -14,5 +14,5 @@ export const coreLabelDefaults: { readonly [key in TokenName]: string } = {
     loadingLabel: 'Loading…',
     scrollBackwardLabel: 'Scroll backward',
     scrollForwardLabel: 'Scroll forward',
-    chipRemoveLabel: 'Remove'
+    removeLabel: 'Remove'
 };
