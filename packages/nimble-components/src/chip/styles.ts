@@ -39,13 +39,8 @@ export const styles = css`
         cursor: default;
         color: ${bodyDisabledFontColor};
         border-color: rgba(${borderRgbPartialColor}, 0.3);
-        box-shadow: none;
         background-image: none;
         background-size: 100% 100%;
-    }
-
-    :host([disabled])::before {
-        box-shadow: none;
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {
