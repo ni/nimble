@@ -116,6 +116,9 @@ package-lock.json
 !.vscode/extensions.json
 !.vscode/tasks.json
 
+# visual studio
+.vs
+
 # macOS
 .DS_Store
 

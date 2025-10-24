@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 import { html, ref, when } from '@ni/fast-element';
 import type { TableGroupRow } from '.';
 import { buttonTag } from '../../../button';
@@ -11,7 +10,6 @@ import {
     tableGroupSelectAllLabel
 } from '../../../label-provider/table/label-tokens';
 
-// prettier-ignore
 export const template = html<TableGroupRow>`
     <template
         role="row"
@@ -52,4 +50,3 @@ export const template = html<TableGroupRow>`
         </div>
     </template>
 `;
-/* eslint-enable @typescript-eslint/indent */

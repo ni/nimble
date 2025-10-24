@@ -2,6 +2,138 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 23 Oct 2025 23:06:47 GMT",
+      "version": "34.3.3",
+      "tag": "@ni/nimble-components_v34.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "alice.darrow@emerson.com",
+            "package": "@ni/nimble-components",
+            "commit": "07b9041acb908200df200557081bbdc7586d41a9",
+            "comment": "added spec for table breakpoints"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 11 Oct 2025 04:58:50 GMT",
+      "version": "34.3.3",
+      "tag": "@ni/nimble-components_v34.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ce05a06c9bb985d57e57b882a9ac356212ef9eaf",
+            "comment": "Create design-token-values static token definitions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Oct 2025 20:31:52 GMT",
+      "version": "34.3.2",
+      "tag": "@ni/nimble-components_v34.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a1e13c73b88490ece5522a9c583bb429193217bc",
+            "comment": "dependency update"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Oct 2025 23:36:47 GMT",
+      "version": "34.3.1",
+      "tag": "@ni/nimble-components_v34.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "348042d959bd5b1043e91c7e521fabd6cf3a0af6",
+            "comment": "Test only change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Oct 2025 05:25:42 GMT",
+      "version": "34.3.1",
+      "tag": "@ni/nimble-components_v34.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "853e186871678080ae0cfb476fbcf8de8c73c7db",
+            "comment": "Scrollable breadcrumb"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Sep 2025 23:07:19 GMT",
+      "version": "34.3.0",
+      "tag": "@ni/nimble-components_v34.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fee4e57878a1505d07db8ae320de6989e8dd463f",
+            "comment": "Test only change enabling retries"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Sep 2025 16:32:48 GMT",
+      "version": "34.3.0",
+      "tag": "@ni/nimble-components_v34.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "108b03a39520fe996e920c83989a57d2fe0aad41",
+            "comment": "rollup config alignment notice"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Aug 2025 21:52:25 GMT",
+      "version": "34.3.0",
+      "tag": "@ni/nimble-components_v34.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "12396505dddd43d6aa08547150f2d818540894b7",
+            "comment": "New icons for print and QR code scan"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.12.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 18 Aug 2025 15:41:13 GMT",
       "version": "34.2.0",
       "tag": "@ni/nimble-components_v34.2.0",

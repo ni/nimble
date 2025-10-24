@@ -18,8 +18,8 @@ declare global {
  * A cell view for displaying number fields as text
  */
 export class TableColumnNumberTextCellView extends TableColumnTextCellViewBase<
-TableColumnNumberTextCellRecord,
-TableColumnNumberTextColumnConfig
+    TableColumnNumberTextCellRecord,
+    TableColumnNumberTextColumnConfig
 > {
     protected override columnConfigChanged(): void {
         super.columnConfigChanged();

@@ -1,0 +1,91 @@
+{
+  "name": "@ni/ok-components",
+  "version": "0.0.5",
+  "description": "NI Ok Components",
+  "scripts": {
+    "build": "npm run build-components && npm run bundle-components",
+    "lint": "npm run eslint && npm run prettier",
+    "format": "npm run prettier-fix",
+    "eslint": "eslint .",
+    "eslint-fix": "eslint . --fix",
+    "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",
+    "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore",
+    "pack": "npm pack",
+    "invoke-publish": "npm publish",
+    "build-components": "tsc -p ./tsconfig.json",
+    "build-components:watch": "tsc -p ./tsconfig.json -w",
+    "bundle-components": "rollup --bundleConfigAsCjs --config",
+    "tdd": "npm run build-components && npm run test-chrome",
+    "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
+    "tdd-firefox": "npm run build-components && npm run test-firefox",
+    "tdd-firefox:watch": "npm run build-components:watch & npm run test-firefox:watch",
+    "tdd-webkit": "npm run build-components && npm run test-webkit",
+    "tdd-webkit:watch": "npm run build-components:watch & npm run test-webkit:watch",
+    "test-chrome:debugger": "karma start karma.conf.js --browsers=ChromeDebugging --skip-tags SkipChrome",
+    "test-chrome:watch": "karma start karma.conf.headless.js --browsers=ChromeHeadlessOpt --skip-tags SkipChrome --watch-extensions js",
+    "test-chrome": "karma start karma.conf.headless.js --browsers=ChromeHeadlessOpt --single-run --skip-tags SkipChrome",
+    "test-firefox:debugger": "karma start karma.conf.js --browsers=FirefoxDebugging --skip-tags SkipFirefox",
+    "test-firefox:watch": "karma start karma.conf.headless.js --browsers=FirefoxHeadless --skip-tags SkipFirefox --watch-extensions js",
+    "test-firefox": "karma start karma.conf.headless.js --browsers=FirefoxHeadless --single-run --skip-tags SkipFirefox",
+    "test-webkit:debugger": "karma start karma.conf.js --browsers=WebkitDebugging --skip-tags SkipWebkit",
+    "test-webkit:watch": "karma start karma.conf.headless.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
+    "test-webkit": "karma start karma.conf.headless.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
+    "test": "npm run test-chrome && npm run test-firefox && npm run test-webkit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git",
+    "directory": "packages/ok-components"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "National Instruments"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ni/nimble/issues"
+  },
+  "homepage": "https://github.com/ni/nimble#readme",
+  "dependencies": {
+    "@ni/fast-element": "^10.0.0",
+    "@ni/fast-foundation": "^10.1.2",
+    "@ni/fast-web-utilities": "^10.0.0",
+    "@ni/nimble-components": "^34.3.3",
+    "@ni/spright-components": "^6.3.3",
+    "tslib": "^2.2.0"
+  },
+  "devDependencies": {
+    "@ni-private/jasmine-extensions": "^0.0.1",
+    "@ni/jasmine-parameterized": "^1.0.2",
+    "@ni-private/eslint-config-nimble": "*",
+    "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-replace": "^6.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@types/jasmine": "^5.1.4",
+    "@types/webpack-env": "^1.15.2",
+    "jasmine-core": "^5.1.2",
+    "karma": "^6.3.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-firefox-launcher": "^2.1.0",
+    "karma-jasmine": "^5.1.0",
+    "karma-jasmine-html-reporter": "^2.0.0",
+    "karma-jasmine-spec-tags": "^2.0.0",
+    "karma-source-map-support": "^1.4.0",
+    "karma-sourcemap-loader": "^0.4.0",
+    "karma-spec-reporter": "^0.0.36",
+    "karma-webkit-launcher": "^2.6.0",
+    "karma-webpack": "^5.0.0",
+    "playwright": "1.54.1",
+    "prettier-eslint": "^16.3.0",
+    "prettier-eslint-cli": "^8.0.1",
+    "rollup": "^4.12.0",
+    "rollup-plugin-sourcemaps2": "^0.5.0",
+    "source-map-loader": "^5.0.0",
+    "typescript": "~5.4.5",
+    "webpack": "^5.75.0",
+    "webpack-dev-middleware": "^7.0.0"
+  }
+}

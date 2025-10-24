@@ -45,8 +45,8 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             mixinSortableColumnAPI(
                 mixinCustomSortOrderColumnAPI(
                     TableColumn<
-                    TableColumnAnchorColumnConfig,
-                    TableColumnAnchorValidator
+                        TableColumnAnchorColumnConfig,
+                        TableColumnAnchorValidator
                     >
                 )
             )

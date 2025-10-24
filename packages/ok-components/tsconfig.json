@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "outDir": "dist/esm",
+        "strict": true,
+        "experimentalDecorators": true,
+        "target": "ES2020",
+        "module": "ES2020",
+        "allowJs": true,
+        "importHelpers": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "inlineSources": true,
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ES2015",
+            "ES2016.Array.Include",
+            "ES2017.Object"
+        ],
+        // Whitelist imported @types instead of using them all
+        "types": ["jasmine", "webpack-env"],
+        "verbatimModuleSyntax": true,
+        "noImplicitOverride": true,
+        "noUncheckedIndexedAccess": true,
+        "noPropertyAccessFromIndexSignature": false,
+        "jsx": "preserve"
+    },
+    "include": ["src"]
+}

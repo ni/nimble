@@ -1,8 +1,58 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 13 Aug 2025 22:39:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 11 Oct 2025 04:58:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.3.3
+
+Sat, 11 Oct 2025 04:58:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.3.3
+
+## 6.3.2
+
+Fri, 03 Oct 2025 20:31:52 GMT
+
+### Patches
+
+- dependency update ([ni/nimble@a1e13c7](https://github.com/ni/nimble/commit/a1e13c73b88490ece5522a9c583bb429193217bc))
+- Bump @ni/nimble-components to v34.3.2
+- Bump @ni/jasmine-parameterized to v1.0.2
+
+## 6.3.1
+
+Wed, 01 Oct 2025 05:25:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.3.1
+
+## 6.3.0
+
+Tue, 09 Sep 2025 16:30:01 GMT
+
+### Minor changes
+
+- Add API to hide background visual for chat conversation. ([ni/nimble@6fcca9e](https://github.com/ni/nimble/commit/6fcca9e8d1299b319977ab98adc23d8cd12017b7))
+
+## 6.2.1
+
+Tue, 09 Sep 2025 14:52:54 GMT
+
+### Patches
+
+- Add hover and focus styling to spright-chat-input ([ni/nimble@a14a55f](https://github.com/ni/nimble/commit/a14a55f8c59b9be5c6c01d5d732222837974e5ca))
+
+## 6.2.0
+
+Tue, 26 Aug 2025 21:52:25 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v34.3.0
 
 ## 6.1.0
 

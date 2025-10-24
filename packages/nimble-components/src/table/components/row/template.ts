@@ -20,7 +20,6 @@ import { SpinnerAppearance } from '../../../spinner/types';
 import type { CellViewSlotRequestEventDetail } from '../../types';
 import { uniquifySlotNameForColumn } from '../../models/utilities';
 
-// prettier-ignore
 export const template = html<TableRow>`
     <template 
         role="row"

@@ -1,6 +1,6 @@
 import { NimbleAnchor } from '@ni/nimble-react/dist/esm/anchor';
 import { NimbleButton } from '@ni/nimble-react/dist/esm/button';
-import { NimbleBanner, type BannerToggleEvent } from '@ni/nimble-react/dist/esm/banner';
+import { NimbleBanner } from '@ni/nimble-react/dist/esm/banner';
 import { NimbleBreadcrumb } from '@ni/nimble-react/dist/esm/breadcrumb';
 import { NimbleBreadcrumbItem } from '@ni/nimble-react/dist/esm/breadcrumb-item';
 import { NimbleToggleButton } from '@ni/nimble-react/dist/esm/toggle-button';
@@ -11,11 +11,11 @@ import { NimbleSelect } from '@ni/nimble-react/dist/esm/select';
 import { NimbleListOption } from '@ni/nimble-react/dist/esm/list-option';
 import { NimbleListOptionGroup } from '@ni/nimble-react/dist/esm/list-option-group';
 import { NimbleCardButton } from '@ni/nimble-react/dist/esm/card-button';
-import { NimbleCheckbox, type CheckboxChangeEvent } from '@ni/nimble-react/dist/esm/checkbox';
-import { NimbleRadioGroup, type RadioGroupChangeEvent } from '@ni/nimble-react/dist/esm/radio-group';
+import { NimbleCheckbox } from '@ni/nimble-react/dist/esm/checkbox';
+import { NimbleRadioGroup } from '@ni/nimble-react/dist/esm/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/dist/esm/radio';
 import { NimbleTextField } from '@ni/nimble-react/dist/esm/text-field';
-import { NimbleDialog, type Dialog, UserDismissed } from '@ni/nimble-react/dist/esm/dialog';
+import { NimbleDialog, type DialogRef, type Dialog, UserDismissed } from '@ni/nimble-react/dist/esm/dialog';
 import { NimbleDrawer } from '@ni/nimble-react/dist/esm/drawer';
 import { NimbleMenu } from '@ni/nimble-react/dist/esm/menu';
 import { NimbleMenuItem } from '@ni/nimble-react/dist/esm/menu-item';
@@ -58,9 +58,12 @@ import { NimbleRichTextViewer } from '@ni/nimble-react/dist/esm/rich-text/viewer
 import { SprightChatConversation } from '@ni/spright-react/dist/esm/chat/conversation';
 import { SprightChatInput } from '@ni/spright-react/dist/esm/chat/input';
 import { SprightChatMessage } from '@ni/spright-react/dist/esm/chat/message';
-import { SprightRectangle } from '@ni/spright-react/dist/esm/rectangle';
 import { NimbleIconCopyText } from '@ni/nimble-react/dist/esm/icons/copy-text';
 import { NimbleIconWebviCustom } from '@ni/nimble-react/dist/esm/icons/webvi-custom';
+
+import { SprightRectangle } from '@ni/spright-react/dist/esm/rectangle';
+
+import { OkButton } from '@ni/ok-react/dist/esm/button';
 
 import './App.scss';
 import { useRef, useState } from 'react';
@@ -87,7 +90,7 @@ export function App(): JSX.Element {
                 <p>
                     Explore the components below to see the Nimble components in action. See the <a
                         href="https://ni.github.io/nimble/storybook/">Nimble
-                    component docs</a> for additional usage details.
+                        component docs</a> for additional usage details.
                     Navigate to the <a href="../index.html">parent page</a>.
                 </p>
                 <div className="container">
@@ -99,14 +102,14 @@ export function App(): JSX.Element {
                         <div className="container-label">Banner</div>
                         <NimbleBanner
                             open={bannerOpen}
-                            onToggle={e => setBannerOpen((e as BannerToggleEvent).detail.newState)}
+                            onToggle={e => setBannerOpen(e.detail.newState)}
                             severity="information">
                             <span slot="title">Title of the banner</span>
                             This is the message text of this banner. It tells you something interesting.
                         </NimbleBanner>
                         <NimbleCheckbox
                             checked={bannerOpen}
-                            onChange={e => setBannerOpen((e as CheckboxChangeEvent).target.checked)}
+                            onChange={e => setBannerOpen(e.target.checked)}
                         >Show banner</NimbleCheckbox>
                     </div>
                     <div className="sub-container">
@@ -176,7 +179,7 @@ export function App(): JSX.Element {
                         <div className="container-label">Radio Buttons</div>
                         <NimbleRadioGroup
                             value={selectedRadio}
-                            onChange={e => setSelectedRadio((e as RadioGroupChangeEvent).target.value)}
+                            onChange={e => setSelectedRadio(e.target.value)}
                         >
                             <span slot="label">Fruit</span>
                             <NimbleRadio name="fruit" value="apple"
@@ -193,8 +196,7 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Dialog</div>
                         <NimbleDialog
-                            /* @ts-expect-error See: https://github.com/ni/nimble/issues/2617 */
-                            ref={dialogRef}
+                            ref={dialogRef as unknown as DialogRef}
                         >
                             <span slot="title">This is a dialog</span>
                             <div>It opened when you pushed the button</div>
@@ -677,7 +679,7 @@ export function App(): JSX.Element {
                                 </NimbleButton>
                                 <NimbleIconWebviCustom style={{ height: '100px', width: '100px' }}></NimbleIconWebviCustom>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
                                 <NimbleButton slot="end" appearance="block">Order a tab</NimbleButton>
                                 <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
                             </SprightChatMessage>
@@ -690,6 +692,10 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Rectangle (Spright)</div>
                         <SprightRectangle>Spright!</SprightRectangle>
+                    </div>
+                    <div className="sub-container">
+                        <div className="container-label">Button (Ok)</div>
+                        <OkButton>Ok</OkButton>
                     </div>
                 </div>
             </div>

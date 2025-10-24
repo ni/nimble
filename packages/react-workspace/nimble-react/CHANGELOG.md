@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Wed, 13 Aug 2025 22:39:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 11 Oct 2025 22:38:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.4.0
+
+Sat, 11 Oct 2025 22:38:51 GMT
+
+### Minor changes
+
+- Migrate to the `@lit/react` library ([ni/nimble@a51fde8](https://github.com/ni/nimble/commit/a51fde8baec7d112a585a8da9303b0c0d06752ff))
+
+## 0.3.3
+
+Sat, 11 Oct 2025 04:58:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.3.3
+
+## 0.3.2
+
+Fri, 03 Oct 2025 20:31:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.3.2
+
+## 0.3.1
+
+Wed, 01 Oct 2025 05:25:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.3.1
+
+## 0.3.0
+
+Tue, 26 Aug 2025 21:52:25 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.12.0
+- Bump @ni/nimble-components to v34.3.0
 
 ## 0.2.0
 

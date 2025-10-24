@@ -1,4 +1,4 @@
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, StoryObj, Meta } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
 import { html } from '@ni/fast-element';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';

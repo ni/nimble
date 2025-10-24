@@ -339,7 +339,7 @@ describe('RichTextMentionUsers', () => {
         });
 
         async function setupInvalidMappings(): Promise<
-        Fixture<RichTextMentionUsers>
+            Fixture<RichTextMentionUsers>
         > {
             return await fixture<RichTextMentionUsers>(html`
                 <${richTextMentionUsersTag} pattern="">
@@ -357,7 +357,7 @@ describe('RichTextMentionUsers', () => {
         });
 
         async function setupMissingPattern(): Promise<
-        Fixture<RichTextMentionUsers>
+            Fixture<RichTextMentionUsers>
         > {
             return await fixture<RichTextMentionUsers>(html`
                 <${richTextMentionUsersTag}>

@@ -1,8 +1,42 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 13 Aug 2025 22:39:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 11 Oct 2025 04:58:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.3.3
+
+Sat, 11 Oct 2025 04:58:50 GMT
+
+### Patches
+
+- Create design-token-values static token definitions ([ni/nimble@ce05a06](https://github.com/ni/nimble/commit/ce05a06c9bb985d57e57b882a9ac356212ef9eaf))
+
+## 34.3.2
+
+Fri, 03 Oct 2025 20:31:52 GMT
+
+### Patches
+
+- dependency update ([ni/nimble@a1e13c7](https://github.com/ni/nimble/commit/a1e13c73b88490ece5522a9c583bb429193217bc))
+- Bump @ni/jasmine-parameterized to v1.0.2
+
+## 34.3.1
+
+Wed, 01 Oct 2025 05:25:42 GMT
+
+### Patches
+
+- Scrollable breadcrumb ([ni/nimble@853e186](https://github.com/ni/nimble/commit/853e186871678080ae0cfb476fbcf8de8c73c7db))
+
+## 34.3.0
+
+Tue, 26 Aug 2025 21:52:25 GMT
+
+### Minor changes
+
+- New icons for print and QR code scan ([ni/nimble@1239650](https://github.com/ni/nimble/commit/12396505dddd43d6aa08547150f2d818540894b7))
+- Bump @ni/nimble-tokens to v8.12.0
 
 ## 34.2.0
 

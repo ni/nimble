@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 26 Aug 2025 21:52:25 GMT",
+      "version": "8.12.0",
+      "tag": "@ni/nimble-tokens_v8.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "12396505dddd43d6aa08547150f2d818540894b7",
+            "comment": "New icons for print and QR code scan"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Aug 2025 22:39:13 GMT",
       "version": "8.11.0",
       "tag": "@ni/nimble-tokens_v8.11.0",

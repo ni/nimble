@@ -1,11 +1,11 @@
 import { NumberField } from '@ni/nimble-components/dist/esm/number-field';
-import { wrap } from '../utilities/react-wrapper';
+import { wrap, type EventName } from '../utilities/react-wrapper';
 
 export { type NumberField };
 export const NimbleNumberField = wrap(NumberField, {
     events: {
-        onChange: 'change',
-        onInput: 'input'
+        onChange: 'change' as EventName<NumberFieldChangeEvent>,
+        onInput: 'input' as EventName<NumberFieldInputEvent>
     }
 });
 export interface NumberFieldChangeEvent extends CustomEvent {

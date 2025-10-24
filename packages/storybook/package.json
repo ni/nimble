@@ -18,11 +18,12 @@
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-element": "^10.0.0",
     "@ni/fast-foundation": "^10.1.1",
-    "@ni/fast-react-wrapper": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-react": "*",
     "@ni/nimble-tokens": "*",
+    "@ni/ok-components": "*",
+    "@ni/ok-react": "*",
     "@ni/spright-components": "*",
     "@ni/spright-react": "*",
     "@storybook/addon-a11y": "^9.0.5",
@@ -31,8 +32,6 @@
     "@storybook/builder-vite": "^9.0.5",
     "@storybook/cli": "^9.0.5",
     "@storybook/html-vite": "^9.0.5",
-    "apache-arrow": "21.0.0",
-    "eslint-import-resolver-typescript": "^4.4.4",
     "js-beautify": "^1.15.1",
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
@@ -46,6 +45,9 @@
   },
   "peerDependencies": {
     "@types/react": "^18",
-    "eslint-plugin-storybook": "^0.12.0"
+    "apache-arrow": "21.0.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-storybook": "^9.1.10",
+    "flatbuffers": "25.2.10"
   }
 }

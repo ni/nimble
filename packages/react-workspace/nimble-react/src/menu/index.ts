@@ -1,11 +1,11 @@
 import { Menu } from '@ni/nimble-components/dist/esm/menu';
-import { wrap } from '../utilities/react-wrapper';
+import { wrap, type EventName } from '../utilities/react-wrapper';
 import type { MenuItemChangeEvent } from '../menu-item';
 
 export { type Menu };
 export const NimbleMenu = wrap(Menu, {
     events: {
-        onChange: 'change',
+        onChange: 'change' as EventName<MenuChangeEvent>,
     }
 });
 /**

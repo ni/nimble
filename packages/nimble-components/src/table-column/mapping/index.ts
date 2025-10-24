@@ -45,8 +45,8 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         mixinSortableColumnAPI(
             TableColumnEnumBase<
-            TableColumnEnumColumnConfig,
-            TableColumnMappingValidator
+                TableColumnEnumColumnConfig,
+                TableColumnMappingValidator
             >
         )
     )
