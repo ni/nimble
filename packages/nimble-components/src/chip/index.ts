@@ -11,7 +11,7 @@ import { styles } from './styles';
 import { template } from './template';
 import { ChipAppearance } from './types';
 import { slotTextContent } from '../utilities/models/slot-text-content';
-import { removeLabel } from '../label-provider/core/label-tokens';
+import { itemRemoveLabel } from '../label-provider/core/label-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -59,7 +59,7 @@ export class Chip extends FoundationElement {
 
     /** @internal */
     public get removeButtonContent(): string {
-        return `${removeLabel.getValueFor(this)} ${this.elementTextContent}`;
+        return `${itemRemoveLabel.getValueFor(this)} ${this.elementTextContent}`;
     }
 
     /** @internal */

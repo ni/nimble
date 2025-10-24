@@ -13,7 +13,7 @@ import {
     loadingLabel,
     scrollBackwardLabel,
     scrollForwardLabel,
-    removeLabel
+    itemRemoveLabel
 } from './label-tokens';
 import { styles } from '../base/styles';
 
@@ -35,7 +35,7 @@ const supportedLabels = {
     loading: loadingLabel,
     scrollBackward: scrollBackwardLabel,
     scrollForward: scrollForwardLabel,
-    remove: removeLabel
+    remove: itemRemoveLabel
 } as const;
 
 /**
@@ -77,8 +77,8 @@ export class LabelProviderCore
     @attr({ attribute: 'scroll-forward' })
     public scrollForward: string | undefined;
 
-    @attr({ attribute: 'remove' })
-    public remove: string | undefined;
+    @attr({ attribute: 'item-remove' })
+    public itemRemove: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }
