@@ -68,6 +68,7 @@ export class Chip extends FoundationElement {
     /** @internal */
     public contentSlot!: HTMLSlotElement;
 
+    /** @internal */
     public handleRemoveClick(): void {
         if (this.removable) {
             this.$emit('remove');
