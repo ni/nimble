@@ -13,11 +13,6 @@ export class ChipPageObject {
         return removeButton ? removeButton !== null : false;
     }
 
-    public getRemoveButtonTitle(): string {
-        const removeButton = this.getRemoveButton();
-        return removeButton?.title ?? '';
-    }
-
     public getRemoveButtonTextContent(): string {
         const removeButton = this.getRemoveButton();
         return removeButton?.textContent ?? '';

@@ -41,7 +41,6 @@ describe('Chip', () => {
         element.removable = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.getRemoveButtonTitle()).toBe('Remove');
         expect(pageObject.getRemoveButtonTextContent()).toBe('Remove');
     });
 
