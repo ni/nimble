@@ -37,6 +37,14 @@ describe('Chip', () => {
         expect(removeEvent).toHaveBeenCalled();
     });
 
+    it('remove button has title and content', async () => {
+        element.removable = true;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+        expect(pageObject.getRemoveButtonTitle()).toBe('Remove');
+        expect(pageObject.getRemoveButtonTextContent()).toBe('Remove');
+    });
+
     it('remove button is not visible when not removable', async () => {
         element.removable = false;
         await waitForUpdatesAsync();

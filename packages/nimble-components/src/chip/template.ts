@@ -35,6 +35,7 @@ ChipOptions
             content-hidden
             appearance="${ButtonAppearance.ghost}"
             tabindex="${x => x.resolvedTabIndex}"
+            title="${x => x.removeButtonContent}"
             @click="${x => x.handleRemoveClick()}"
         >
             <${iconTimesTag} slot="start"></${iconTimesTag}>
