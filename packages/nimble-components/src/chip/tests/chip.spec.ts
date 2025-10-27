@@ -58,13 +58,11 @@ describe('Chip', () => {
         expect(pageObject.isRemoveButtonVisible()).toBeFalse();
     });
 
-    it('should set a tabindex of 0 on the internal button', async () => {
+    it('should not set a tabindex on the internal button by default', async () => {
         element.removable = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.getRemoveButton()!.getAttribute('tabindex')).toBe(
-            '0'
-        );
+        expect(pageObject.getRemoveButtonTabIndex()).toBeNull();
     });
 
     it('should reflect `tabindex` value to the internal button', async () => {
@@ -75,12 +73,10 @@ describe('Chip', () => {
         element.setAttribute('tabindex', '-1');
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRemoveButton()!.getAttribute('tabindex')).toBe(
-            '-1'
-        );
+        expect(pageObject.getRemoveButtonTabIndex()).toBe('-1');
     });
 
-    it('should set the `tabindex` attribute to 0 on the internal button when removed from host', async () => {
+    it('should clear `tabindex` attribute from the internal button when removed from host', async () => {
         element.removable = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
@@ -88,9 +84,7 @@ describe('Chip', () => {
         element.removeAttribute('tabindex');
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRemoveButton()!.getAttribute('tabindex')).toBe(
-            '0'
-        );
+        expect(pageObject.getRemoveButtonTabIndex()).toBeNull();
     });
 
     describe('title overflow', () => {

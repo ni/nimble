@@ -40,14 +40,6 @@ export class Chip extends FoundationElement {
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
 
-    /**
-     * @internal
-     */
-    public get resolvedTabIndex(): string | undefined {
-        const tabIndex = this.tabIndex ?? 0;
-        return this.disabled ? undefined : `${tabIndex}`;
-    }
-
     /** @internal */
     public readonly content?: HTMLElement[];
 

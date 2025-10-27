@@ -15,7 +15,7 @@ export class ChipPageObject {
 
     public getRemoveButtonTextContent(): string {
         const removeButton = this.getRemoveButton();
-        return removeButton?.textContent ?? '';
+        return removeButton?.textContent?.trim() ?? '';
     }
 
     public clickRemoveButton(): void {
@@ -27,7 +27,15 @@ export class ChipPageObject {
         }
     }
 
-    public getRemoveButton(): Button | null {
+    public getRemoveButtonTabIndex(): string | null {
+        const removeButton = this.getRemoveButton();
+        if (removeButton) {
+            return removeButton.getAttribute('tabindex');
+        }
+        throw new Error('Remove button not found');
+    }
+
+    private getRemoveButton(): Button | null {
         return (
             this.chipElement.shadowRoot?.querySelector<Button>(
                 '.remove-button'
