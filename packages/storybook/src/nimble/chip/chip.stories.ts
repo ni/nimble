@@ -53,7 +53,7 @@ const metadata: Meta<ChipArgs> = {
         icon: {
             name: 'start',
             description:
-                'Set `slot="start"` to show an icon to the left of the chip content.',
+                'To show an icon to the left of the chip text, add the icon as child content and set `slot="start"` on it.',
             table: { category: apiCategory.slots }
         },
         content: {
