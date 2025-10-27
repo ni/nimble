@@ -27,18 +27,18 @@ This design proposes adding a configurable `action-menus-preserve-selection` att
 <nimble-table selection-mode="multiple"></nimble-table>
 
 <!-- Preserve selection when opening action menus -->
-<nimble-table selection-mode="multiple" action-menus-preserve-selection="true">
+<nimble-table selection-mode="multiple" action-menus-preserve-selection>
 </nimble-table>
 ```
 
 #### Event Data
 
-**New `operatingRecord` field** added to `TableActionMenuToggleEventDetail`:
+**New `operatingRecordId` field** added to `TableActionMenuToggleEventDetail`:
 
 ```typescript
 interface TableActionMenuToggleEventDetail {
     recordIds: string[]; // Current selection state
-    operatingRecord: string; // NEW: Record that triggered the action menu
+    operatingRecordId: string; // NEW: Record that triggered the action menu
     newState: boolean; // Menu open/close state
     // ... other existing fields
 }
@@ -50,7 +50,7 @@ This ensures applications always know both the current selection and which speci
 
 #### Selection Manager Updates
 
-- **SelectionManagerBase**: Add `actionMenuChangesSelection` parameter and update method
+- **SelectionManagerBase**: Add `actionMenusPreserveSelection` parameter and update method
 - **InteractiveSelectionManager**: Manage the flag and propagate to concrete managers
 - **MultiSelectionManager**: Conditionally select unselected rows in `handleActionMenuOpening()`
 - **SingleSelectionManager**: Use flag to determine if action menu opening should change selection
@@ -59,6 +59,10 @@ This ensures applications always know both the current selection and which speci
 
 - Add boolean `action-menus-preserve-selection` attribute to table component
 - Pass attribute value to selection manager during initialization and updates
+
+#### Framework Integration
+
+- Update Angular and Blazor wrappers to expose the new attribute and field following existing patterns.  
 
 ## Alternative Implementations / Designs
 
@@ -147,4 +151,4 @@ These alternatives were pulled from the original issue.
 
 ## Open Issues
 
-- TBD
+- None
