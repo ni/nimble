@@ -73,7 +73,8 @@ export const styles = css`
     appearanceBehavior(
         ChipAppearance.block,
         css`
-            :host, :host([disabled]) {
+            :host,
+            :host([disabled]) {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 border-color: transparent;
             }
