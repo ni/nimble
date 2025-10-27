@@ -25,7 +25,7 @@ const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
-        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?start="${x => x.icon}" ?disabled="${x => x.disabled}">
+        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?disabled="${x => x.disabled}">
             ${x => x.content}
             ${when(x => x.icon, html`
                 <nimble-icon-check slot="start"></nimble-icon-check>
