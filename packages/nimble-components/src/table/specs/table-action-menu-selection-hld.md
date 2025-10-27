@@ -62,7 +62,7 @@ This ensures applications always know both the current selection and which speci
 
 #### Framework Integration
 
-- Update Angular and Blazor wrappers to expose the new attribute and field following existing patterns.  
+- Update Angular and Blazor wrappers to expose the new attribute and field following existing patterns.
 
 ## Alternative Implementations / Designs
 
