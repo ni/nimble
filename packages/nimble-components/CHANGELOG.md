@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Sat, 11 Oct 2025 04:58:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 28 Oct 2025 15:26:27 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.4.0
+
+Tue, 28 Oct 2025 15:26:27 GMT
+
+### Minor changes
+
+- Adding Nimble Chip component ([ni/nimble@6164b3e](https://github.com/ni/nimble/commit/6164b3ea08f56709d45ed471914f523618c226bf))
 
 ## 34.3.3
 

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 28 Oct 2025 15:26:27 GMT",
+      "version": "34.4.0",
+      "tag": "@ni/nimble-components_v34.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6164b3ea08f56709d45ed471914f523618c226bf",
+            "comment": "Adding Nimble Chip component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 23 Oct 2025 23:06:47 GMT",
       "version": "34.3.3",
       "tag": "@ni/nimble-components_v34.3.3",
