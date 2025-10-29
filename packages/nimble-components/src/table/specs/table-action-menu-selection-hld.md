@@ -4,7 +4,7 @@
 
 Currently, the Nimble table component automatically changes row selection when users open action menus on rows. This behavior creates usability issues in scenarios where users want to access row-specific actions without changing which rows are currently selected.
 
-This design proposes adding a configurable `action-menus-preserve-selection` attribute to the table component that allows clients to control whether opening action menus automatically selects rows. This is the design for #2708.
+This design proposes adding a configurable `action-menus-preserve-selection` attribute to the table component that allows clients to control whether opening action menus automatically selects rows. This is the design for [issue 2708: Configurable table selection mode for action menus](https://github.com/ni/nimble/issues/2708)
 
 ## Links To Relevant Work Items and Reference Material
 
