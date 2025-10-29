@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 29 Oct 2025 18:33:43 GMT",
+      "version": "30.8.0",
+      "tag": "@ni/nimble-angular_v30.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ea711e91358a9fd06974e5f88bddaa1c997d6e9d",
+            "comment": "Add `disabled` to number field Angular directive"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 28 Oct 2025 15:26:27 GMT",
       "version": "30.7.4",
       "tag": "@ni/nimble-angular_v30.7.4",

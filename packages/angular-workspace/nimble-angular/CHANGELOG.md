@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 28 Oct 2025 15:26:27 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 29 Oct 2025 18:33:43 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.8.0
+
+Wed, 29 Oct 2025 18:33:43 GMT
+
+### Minor changes
+
+- Add `disabled` to number field Angular directive ([ni/nimble@ea711e9](https://github.com/ni/nimble/commit/ea711e91358a9fd06974e5f88bddaa1c997d6e9d))
 
 ## 30.7.4
 
