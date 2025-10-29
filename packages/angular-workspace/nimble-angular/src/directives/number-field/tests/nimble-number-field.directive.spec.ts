@@ -164,6 +164,16 @@ describe('Nimble number field', () => {
             expect(directive.fullBleed).toBeTrue();
             expect(nativeElement.fullBleed).toBeTrue();
         });
+
+        it('has expected defaults for disabled', () => {
+            expect(directive.disabled).toBeFalse();
+            expect(nativeElement.disabled).toBeFalse();
+        });
+
+        it('can use the directive to set disabled', () => {
+            directive.disabled = true;
+            expect(nativeElement.disabled).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -182,6 +192,7 @@ describe('Nimble number field', () => {
                     required-visible
                     appearance-readonly
                     full-bleed
+                    disabled
                 >
                 </nimble-number-field>`
         })
@@ -264,6 +275,11 @@ describe('Nimble number field', () => {
             expect(directive.fullBleed).toBeTrue();
             expect(nativeElement.fullBleed).toBeTrue();
         });
+
+        it('will use template string values for disabled', () => {
+            expect(directive.disabled).toBeTrue();
+            expect(nativeElement.disabled).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -282,6 +298,7 @@ describe('Nimble number field', () => {
                 [required-visible]="requiredVisible"
                 [appearance-readonly]="appearanceReadOnly"
                 [full-bleed]="fullBleed"
+                [disabled]="disabled"
             >
             </nimble-number-field>`
         })
@@ -300,6 +317,7 @@ describe('Nimble number field', () => {
             public requiredVisible = false;
             public appearanceReadOnly = false;
             public fullBleed = false;
+            public disabled = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -448,6 +466,17 @@ describe('Nimble number field', () => {
             expect(directive.fullBleed).toBeTrue();
             expect(nativeElement.fullBleed).toBeTrue();
         });
+
+        it('can be configured with property binding for disabled', () => {
+            expect(directive.disabled).toBeFalse();
+            expect(nativeElement.disabled).toBeFalse();
+
+            fixture.componentInstance.disabled = true;
+            fixture.detectChanges();
+
+            expect(directive.disabled).toBeTrue();
+            expect(nativeElement.disabled).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -466,6 +495,7 @@ describe('Nimble number field', () => {
                     [attr.required-visible]="requiredVisible"
                     [attr.appearance-readonly]="appearanceReadOnly"
                     [attr.full-bleed]="fullBleed"
+                    [attr.disabled]="disabled"
                 >
                 </nimble-number-field>`
         })
@@ -484,6 +514,7 @@ describe('Nimble number field', () => {
             public requiredVisible: BooleanValueOrAttribute = null;
             public appearanceReadOnly: BooleanValueOrAttribute = null;
             public fullBleed: BooleanValueOrAttribute = null;
+            public disabled: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -631,6 +662,17 @@ describe('Nimble number field', () => {
 
             expect(directive.fullBleed).toBeTrue();
             expect(nativeElement.fullBleed).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for disabled', () => {
+            expect(directive.disabled).toBeFalse();
+            expect(nativeElement.disabled).toBeFalse();
+
+            fixture.componentInstance.disabled = '';
+            fixture.detectChanges();
+
+            expect(directive.disabled).toBeTrue();
+            expect(nativeElement.disabled).toBeTrue();
         });
     });
 });
