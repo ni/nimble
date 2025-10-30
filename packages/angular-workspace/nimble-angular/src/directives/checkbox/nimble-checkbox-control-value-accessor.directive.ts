@@ -1,5 +1,6 @@
-import { Directive, forwardRef } from '@angular/core';
+import { Directive, forwardRef, HostListener } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { Checkbox } from '@ni/nimble-angular';
 import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkbox_value_accessor';
 
 /**
@@ -10,9 +11,8 @@ import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkb
 @Directive({
     selector:
       'nimble-checkbox[formControlName],nimble-checkbox[formControl],nimble-checkbox[ngModel]',
-    // The following host metadata is duplicated from CheckboxControlValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
-    host: { '(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()' },
+    host: { '(blur)': 'onTouched()' },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => NimbleCheckboxControlValueAccessorDirective),
@@ -20,4 +20,21 @@ import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkb
     }]
 })
 export class NimbleCheckboxControlValueAccessorDirective extends CheckboxControlValueAccessor {
+    private ignoreChangeEvents = false;
+
+    public override writeValue(value: unknown): void {
+        // Because the 'change' event is emitted from the checkbox when its value is set programmatically,
+        // ignore change events while writing the value.
+        this.ignoreChangeEvents = true;
+        super.writeValue(value);
+        this.ignoreChangeEvents = false;
+    }
+
+    @HostListener('change', ['$event'])
+    public nimbleOnChange(event: Event): void {
+        if (this.ignoreChangeEvents) {
+            return;
+        }
+        this.onChange((event.target as Checkbox).checked);
+    }
 }
