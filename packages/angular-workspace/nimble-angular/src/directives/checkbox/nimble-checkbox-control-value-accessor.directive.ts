@@ -1,7 +1,7 @@
 import { Directive, forwardRef, HostListener } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { Checkbox } from '@ni/nimble-angular';
 import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkbox_value_accessor';
+import type { Checkbox } from './nimble-checkbox.directive';
 
 /**
  * Extension of Angular's CheckboxControlValueAccessor to target the Nimble checkbox control.
