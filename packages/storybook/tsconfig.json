@@ -48,5 +48,10 @@
             "@ni/ok-react/dist/esm/*": ["../react-workspace/ok-react/src/*"]
         }
     },
-    "include": ["src"]
+    "include": [
+        "src",
+        ".storybook/**/*.ts",
+        ".storybook/**/*.tsx",
+        ".storybook/**/*.d.ts"
+    ]
 }
