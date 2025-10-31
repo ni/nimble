@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Fri, 31 Oct 2025 20:33:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 31 Oct 2025 21:40:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.9.1
+
+Fri, 31 Oct 2025 21:40:06 GMT
+
+### Patches
+
+- Fix bug resetting Angular form control bound to a nimble-checkbox ([ni/nimble@8ece3cb](https://github.com/ni/nimble/commit/8ece3cb9dff2d19f9154851962d74434f23beafb))
 
 ## 30.9.0
 

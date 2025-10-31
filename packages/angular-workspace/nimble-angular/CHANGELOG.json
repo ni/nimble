@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 31 Oct 2025 21:40:06 GMT",
+      "version": "30.9.1",
+      "tag": "@ni/nimble-angular_v30.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8ece3cb9dff2d19f9154851962d74434f23beafb",
+            "comment": "Fix bug resetting Angular form control bound to a nimble-checkbox"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 31 Oct 2025 20:33:25 GMT",
       "version": "30.9.0",
       "tag": "@ni/nimble-angular_v30.9.0",

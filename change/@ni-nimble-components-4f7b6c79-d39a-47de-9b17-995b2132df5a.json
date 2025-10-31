@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update comment to point to nimble issue instead of closed FAST issue",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
