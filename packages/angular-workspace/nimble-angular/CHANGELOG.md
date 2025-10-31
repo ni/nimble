@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Sat, 11 Oct 2025 04:58:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 31 Oct 2025 21:40:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.9.1
+
+Fri, 31 Oct 2025 21:40:06 GMT
+
+### Patches
+
+- Fix bug resetting Angular form control bound to a nimble-checkbox ([ni/nimble@8ece3cb](https://github.com/ni/nimble/commit/8ece3cb9dff2d19f9154851962d74434f23beafb))
+
+## 30.9.0
+
+Fri, 31 Oct 2025 20:33:25 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v34.5.0
+
+## 30.8.0
+
+Wed, 29 Oct 2025 18:33:43 GMT
+
+### Minor changes
+
+- Add `disabled` to number field Angular directive ([ni/nimble@ea711e9](https://github.com/ni/nimble/commit/ea711e91358a9fd06974e5f88bddaa1c997d6e9d))
+
+## 30.7.4
+
+Tue, 28 Oct 2025 15:26:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.4.0
 
 ## 30.7.3
 

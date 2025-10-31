@@ -2,6 +2,57 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 31 Oct 2025 21:40:06 GMT",
+      "version": "34.5.0",
+      "tag": "@ni/nimble-components_v34.5.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8ece3cb9dff2d19f9154851962d74434f23beafb",
+            "comment": "Update comment to point to nimble issue instead of closed FAST issue"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 31 Oct 2025 20:33:25 GMT",
+      "version": "34.5.0",
+      "tag": "@ni/nimble-components_v34.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7bc6318cc1a2984d4411936acc6c9adbe0a3c65b",
+            "comment": "Add new icons for camera, scanner gun, DIAdem, calipers"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.13.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Oct 2025 15:26:27 GMT",
+      "version": "34.4.0",
+      "tag": "@ni/nimble-components_v34.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6164b3ea08f56709d45ed471914f523618c226bf",
+            "comment": "Adding Nimble Chip component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 23 Oct 2025 23:06:47 GMT",
       "version": "34.3.3",
       "tag": "@ni/nimble-components_v34.3.3",
