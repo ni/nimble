@@ -158,7 +158,7 @@ export class TableRow<
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
     // the selection checkbox 'checked' value should be ingored.
-    // https://github.com/microsoft/fast/issues/5750
+    // https://github.com/ni/nimble/issues/2739
     private ignoreSelectionChangeEvents = false;
 
     @volatile

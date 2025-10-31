@@ -11,6 +11,7 @@ import type { Checkbox } from './nimble-checkbox.directive';
 @Directive({
     selector:
       'nimble-checkbox[formControlName],nimble-checkbox[formControl],nimble-checkbox[ngModel]',
+    // The following host metadata is duplicated from CheckboxControlValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(blur)': 'onTouched()' },
     providers: [{
@@ -24,10 +25,13 @@ export class NimbleCheckboxControlValueAccessorDirective extends CheckboxControl
 
     public override writeValue(value: unknown): void {
         // Because the 'change' event is emitted from the checkbox when its value is set programmatically,
-        // ignore change events while writing the value.
-        this.ignoreChangeEvents = true;
-        super.writeValue(value);
-        this.ignoreChangeEvents = false;
+        // ignore change events while writing the value. See https://github.com/ni/nimble/issues/2739
+        try {
+            this.ignoreChangeEvents = true;
+            super.writeValue(value);
+        } finally {
+            this.ignoreChangeEvents = false;
+        }
     }
 
     @HostListener('change', ['$event'])
