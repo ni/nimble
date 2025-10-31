@@ -175,6 +175,12 @@ export const iconMetadata: {
     IconCalendarWeek: {
         tags: []
     },
+    IconCalipers: {
+        tags: ['calibrate', 'measure', 'tune', 'adjust', 'gauge']
+    },
+    IconCamera: {
+        tags: ['photo', 'video', 'capture']
+    },
     IconChartDiagram: {
         tags: ['oidc']
     },
@@ -294,6 +300,9 @@ export const iconMetadata: {
     },
     IconDesktop: {
         tags: ['monitor']
+    },
+    IconDiadem: {
+        tags: ['logo', 'product', 'software']
     },
     IconDonutChart: {
         tags: []
@@ -537,6 +546,9 @@ export const iconMetadata: {
     IconRunningArrow: {
         tags: ['status', 'running']
     },
+    IconScannerGun: {
+        tags: ['qr', 'code', 'barcode']
+    },
     IconScreenCheckLines: {
         tags: ['test', 'plan', 'monitor', 'desktop']
     },
@@ -592,7 +604,7 @@ export const iconMetadata: {
         tags: ['quit', 'end']
     },
     IconSystemlink: {
-        tags: ['logo', 'product']
+        tags: ['logo', 'product', 'software']
     },
     IconT: {
         tags: ['text']
