@@ -123,16 +123,11 @@ parameterizeSuite(testCases, (suite, name, value) => {
             });
         });
 
-        beforeEach(fakeAsync(() => {
+        beforeEach(() => {
             fixture = TestBed.createComponent(TestHostComponent);
             testHostComponent = fixture.componentInstance;
             checkbox = testHostComponent.checkbox.nativeElement;
             fixture.detectChanges();
-            tick();
-        }));
-
-        afterEach(() => {
-            processUpdates();
         });
 
         it('updates value when formControl value is changed', () => {
