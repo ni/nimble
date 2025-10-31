@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 31 Oct 2025 22:18:01 GMT",
+      "version": "34.5.0",
+      "tag": "@ni/nimble-components_v34.5.0",
+      "comments": {
+        "none": [
+          {
+            "author": "valerie.gleason@gmail.com",
+            "package": "@ni/nimble-components",
+            "commit": "424d4530b1d0abfc04668bf8a2fd4ea53dfb48ca",
+            "comment": "fix formatting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 31 Oct 2025 21:40:06 GMT",
       "version": "34.5.0",
       "tag": "@ni/nimble-components_v34.5.0",
