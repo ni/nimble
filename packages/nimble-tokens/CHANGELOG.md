@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Tue, 26 Aug 2025 21:52:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 31 Oct 2025 20:33:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.13.0
+
+Fri, 31 Oct 2025 20:33:25 GMT
+
+### Minor changes
+
+- Add new icons for camera, scanner gun, DIAdem, calipers ([ni/nimble@7bc6318](https://github.com/ni/nimble/commit/7bc6318cc1a2984d4411936acc6c9adbe0a3c65b))
 
 ## 8.12.0
 
