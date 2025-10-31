@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 31 Oct 2025 20:33:25 GMT",
+      "version": "8.13.0",
+      "tag": "@ni/nimble-tokens_v8.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "7bc6318cc1a2984d4411936acc6c9adbe0a3c65b",
+            "comment": "Add new icons for camera, scanner gun, DIAdem, calipers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Aug 2025 21:52:25 GMT",
       "version": "8.12.0",
       "tag": "@ni/nimble-tokens_v8.12.0",
