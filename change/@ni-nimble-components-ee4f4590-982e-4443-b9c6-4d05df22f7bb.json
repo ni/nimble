@@ -3,5 +3,5 @@
   "comment": "Add new icons for camera, scanner gun, DIAdem, calipers",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "minor"
 }
