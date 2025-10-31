@@ -3,6 +3,9 @@
  *
  * Iterates through icons provided by nimble-tokens, and generates a Nimble component for each in
  * src/icons. Also generates an all-icons barrel file.
+ *
+ * Note: Multi-color icons should be created manually using the MultiColorIcon base class.
+ * See CONTRIBUTING.md for instructions.
  */
 const { pascalCase, spinalCase } = require('@ni/fast-web-utilities');
 // eslint-disable-next-line import/extensions
@@ -11,8 +14,6 @@ const icons = require('@ni/nimble-tokens/dist/icons/js/index.js');
 const fs = require('fs');
 const path = require('path');
 
-const MAX_LAYERS = 6; // Keep in sync with CSS rules in icon-base/styles.ts
-
 const trimSizeFromName = text => {
     // Remove dimensions from icon name, e.g. "add16X16" -> "add"
     return text.replace(/\d+X\d+$/, '');
@@ -20,131 +21,8 @@ const trimSizeFromName = text => {
 
 const generatedFilePrefix = '// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY\n// See generation source in nimble-components/build/generate-icons\n';
 
-// Multi-color support: always parse TypeScript metadata source first (regex),
-// then fall back to compiled JS metadata only if the TS file is missing or
-// yields zero layer entries. This ensures immediate reflection of edits
-// without needing a TS build between passes.
-const layerMapping = {};
-let multiColorIconCount = 0; // tracked later during generation
-try {
-    const tsSourcePath = path.resolve(
-        __dirname,
-        '../../../src/icon-base/tests/icon-metadata.ts'
-    );
-    let tsParsedCount = 0;
-    if (fs.existsSync(tsSourcePath)) {
-        try {
-            const rawTs = fs.readFileSync(tsSourcePath, 'utf-8');
-            const layerEntryRegex = /(Icon[A-Za-z0-9_]+)\s*:\s*{[^}]*?layers:\s*\[(.*?)\]/gms;
-            for (
-                let execResult = layerEntryRegex.exec(rawTs);
-                execResult;
-                execResult = layerEntryRegex.exec(rawTs)
-            ) {
-                const metaKey = execResult[1];
-                const layersRaw = execResult[2];
-                const tokens = layersRaw
-                    .split(/[,\n]/)
-                    .map(t => t.trim().replace(/['"`]/g, ''))
-                    .filter(t => t.length);
-                if (tokens.length) {
-                    const trimmed = metaKey.replace(/^Icon/, '');
-                    const camel = trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
-                    layerMapping[camel] = tokens;
-                    tsParsedCount += 1;
-                }
-            }
-            console.log(
-                `[generate-icons] parsed multi-color layers from TS metadata: ${tsParsedCount} icons`
-            );
-        } catch (tsErr) {
-            console.warn(
-                '[generate-icons] failed parsing TS metadata for multi-color layers',
-                tsErr
-            );
-        }
-    }
-    if (tsParsedCount === 0) {
-        // Fallback to compiled JS metadata if available
-        const compiledPaths = [
-            path.resolve(
-                __dirname,
-                '../../../dist/esm/icon-base/tests/icon-metadata.js'
-            ),
-            path.resolve(
-                process.cwd(),
-                'packages/nimble-components/dist/esm/icon-base/tests/icon-metadata.js'
-            )
-        ];
-        for (const p of compiledPaths) {
-            if (fs.existsSync(p)) {
-                try {
-                    // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-dynamic-require
-                    const { iconMetadata } = require(p);
-                    let count = 0;
-                    for (const metaKey of Object.keys(iconMetadata)) {
-                        const meta = iconMetadata[metaKey];
-                        if (
-                            meta
-                            && Array.isArray(meta.layers)
-                            && meta.layers.length
-                        ) {
-                            const trimmed = metaKey.replace(/^Icon/, '');
-                            const camel = trimmed.charAt(0).toLowerCase()
-                                + trimmed.slice(1);
-                            layerMapping[camel] = meta.layers;
-                            count += 1;
-                        }
-                    }
-                    console.log(
-                        `[generate-icons] loaded multi-color layers from compiled metadata: ${count} icons`
-                    );
-                    break;
-                } catch (compiledErr) {
-                    console.warn(
-                        '[generate-icons] failed requiring compiled icon-metadata for layers',
-                        compiledErr
-                    );
-                }
-            }
-        }
-        if (Object.keys(layerMapping).length === 0) {
-            console.log(
-                '[generate-icons] no multi-color layers found (TS + compiled metadata missing or empty)'
-            );
-        }
-    }
-} catch (e) {
-    console.warn(
-        '[generate-icons] failed deriving multi-color layers from icon-metadata.',
-        e
-    );
-}
-
-// Collect exported design token names for validation (best-effort; non-fatal if file missing)
-const designTokenNames = new Set();
-try {
-    const designTokensPath = path.resolve(
-        __dirname,
-        '../../../src/theme-provider/design-tokens.ts'
-    );
-    if (fs.existsSync(designTokensPath)) {
-        const dtSource = fs.readFileSync(designTokensPath, 'utf-8');
-        const exportConstRegex = /export const (\w+)/g;
-        for (
-            let m = exportConstRegex.exec(dtSource);
-            m;
-            m = exportConstRegex.exec(dtSource)
-        ) {
-            designTokenNames.add(m[1]);
-        }
-    }
-} catch (dtErr) {
-    console.warn(
-        '[generate-icons] unable to parse design tokens for validation',
-        dtErr
-    );
-}
+// Icons that should not be generated (manually created multi-color icons)
+const manualIcons = new Set(['circlePartialBroken']);
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
@@ -165,71 +43,29 @@ let fileCount = 0;
 for (const key of Object.keys(icons)) {
     const svgName = key; // e.g. "arrowExpanderLeft16X16"
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
+
+    // Skip icons that are manually created (e.g., multi-color icons)
+    if (manualIcons.has(iconName)) {
+        console.log(`[generate-icons] Skipping ${iconName} (manually created)`);
+        continue;
+    }
+
     const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
     const elementBaseName = `icon-${spinalCase(iconName)}`; // e.g. "icon-arrow-expander-left-icon"
     const elementName = `nimble-${elementBaseName}`;
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
     const tagName = `icon${pascalCase(iconName)}Tag`; // e.g. "iconArrowExpanderLeftTag"
 
-    const rawLayerTokens = layerMapping[iconName];
-    const hasLayers = Array.isArray(rawLayerTokens) && rawLayerTokens.length > 0;
-    let layerTokens = rawLayerTokens;
-    if (hasLayers && rawLayerTokens.length > MAX_LAYERS) {
-        console.warn(
-            `[generate-icons] multi-color: ${iconName} specifies ${rawLayerTokens.length} layers (> ${MAX_LAYERS}); layers beyond ${MAX_LAYERS} will be ignored.`
-        );
-        layerTokens = rawLayerTokens.slice(0, MAX_LAYERS);
-    }
-    const uniqueLayerTokens = hasLayers ? [...new Set(layerTokens)] : [];
-    if (hasLayers && uniqueLayerTokens.length !== layerTokens.length) {
-        console.warn(
-            `[generate-icons] multi-color: ${iconName} has duplicate token entries (${layerTokens.join(', ')}). Duplicates are allowed but may indicate metadata noise.`
-        );
-    }
-    if (hasLayers) {
-        const unknown = uniqueLayerTokens.filter(t => !designTokenNames.has(t));
-        if (unknown.length) {
-            console.warn(
-                `[generate-icons] multi-color: ${iconName} references unknown design token(s): ${unknown.join(', ')}.`
-            );
-        }
-    }
-
-    let layerTokenImport = '';
-    if (hasLayers) {
-        layerTokenImport = `import { ${uniqueLayerTokens.join(
-            ', '
-        )} } from '../theme-provider/design-tokens';\n`;
-    }
-
-    if (hasLayers) {
-        multiColorIconCount += 1;
-        console.log(
-            `[generate-icons] multi-color: ${iconName} -> ${layerTokens.join(', ')}`
-        );
-    } else if (layerMapping[iconName]) {
-        console.warn(
-            `[generate-icons] multi-color mapping entry for ${iconName} exists but has no tokens.`
-        );
-    }
-
-    const multiColorConnectedCallback = hasLayers
-        ? `    public override connectedCallback() {\n        super.connectedCallback();\n        // Apply multi-color setup lazily to avoid constructor attribute mutation issues (WebKit)\n        if (!this.hasAttribute('data-multicolor')) {\n            this.setAttribute('data-multicolor', '');\n${layerTokens
-            .map(
-                (tokenName, idx) => `            this.style.setProperty('--ni-nimble-icon-layer-${idx + 1}-color', 'var(' + ${tokenName}.cssCustomProperty + ')');`
-            )
-            .join('\n')}\n        }\n    }\n`
-        : '';
-
     const componentFileContents = `${generatedFilePrefix}
-    import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js/index.js';
+import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
 import { Icon, registerIcon } from '../icon-base';
-${layerTokenImport}
+
 declare global {
     interface HTMLElementTagNameMap {
         '${elementName}': ${className};
     }
 }
+
 /**
  * The icon component for the '${iconName}' icon
  */
@@ -237,7 +73,8 @@ export class ${className} extends Icon {
     public constructor() {
         super(${svgName});
     }
-${multiColorConnectedCallback}}
+}
+
 registerIcon('${elementBaseName}', ${className});
 export const ${tagName} = '${elementName}';
 `;
@@ -251,9 +88,6 @@ export const ${tagName} = '${elementName}';
     );
 }
 console.log(`Finished writing ${fileCount} icon component files`);
-console.log(
-    `[generate-icons] multi-color summary: ${multiColorIconCount} icon(s) with layers (max supported layers per icon: ${MAX_LAYERS}).`
-);
 
 const allIconsFilePath = path.resolve(iconsDirectory, 'all-icons.ts');
 console.log('Writing all-icons file');

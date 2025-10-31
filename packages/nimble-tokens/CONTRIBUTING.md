@@ -67,16 +67,13 @@ These steps require access to Adobe Illustrator and Perforce so will typically b
 
 1. Search for all `<defs>.*</defs>` tags in the exported `.svg` files and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
 
-      <img src="docs/find-replace-5.png" width="1000">
+            <img src="docs/find-replace-5.png" width="1000">
 
       - **Note:** In rare cases, icons will be provided with multiple fixed colors that are not intended to change with the theme or `severity`. These icons should retain the `<defs>` tags.
-   - For icons that need multiple theme colors, assign sequential SVG classes to the regions that should differ: `cls-1`, `cls-2`, … (reuse a class for shapes that share a color; don't skip numbers). Avoid hard‑coded theme fills; colors are applied by the theme.
-
+   - For icons that need multiple theme colors, see the **Creating Multi-Color Icons** section in `/packages/nimble-components/CONTRIBUTING.md`. In the SVG, assign sequential CSS classes (`cls-1`, `cls-2`, etc.) to regions that should use different theme colors.
 2. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
 3. Generate and build icon components by running `npm run build -w @ni/nimble-components`. This step will report an error at this point but is necessary to enable the next step.
 4. Add metadata for the new icons to `nimble-components/src/icon-base/tests/icon-metadata.ts`. If the icon uses multiple color layers, add a `layers: string[]` array to the `Icon<Name>` entry; each string must be a token exported from `theme-provider/design-tokens.ts` in the order matching `cls-1`, `cls-2`, … (maximum 6 layers).
 5. Run `npm run build -w @ni/nimble-components` again. It should now succeed.
 6. Preview the built files by running: `npm run storybook`, and review the **Icons** story. Verify single‑color icons change with **Severity** and multi‑color icons render their layers as intended in light/dark themes.
 7. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.
-
-<!-- Multi-color guidance is incorporated into the steps above to keep a single, concise flow for both single- and multi-color icons. For generator details, see components docs: /packages/nimble-components/CONTRIBUTING.md#icon-components -->

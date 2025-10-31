@@ -326,6 +326,52 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 
 The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
 
+#### Creating multi-color icons
+
+Most icons use a single theme-aware color (controlled by the `severity` attribute). However, some icons require multiple theme colors to effectively convey their meaning. These **multi-color icons** must be created manually using the `MultiColorIcon` base class.
+
+**When to use multi-color icons:**
+- The icon has distinct visual regions that should use different theme colors
+- Theme color variation is essential to the icon's semantics (e.g., a warning indicator on a status icon)
+
+**How to create a multi-color icon:**
+
+1. **Prepare the SVG:** In the icon's SVG file, assign sequential CSS classes to regions that need different colors:
+   - Use `cls-1`, `cls-2`, `cls-3`, etc. (up to 6 layers supported)
+   - Reuse the same class for shapes that should share a color
+   - Don't skip class numbers (e.g., don't jump from `cls-1` to `cls-3`)
+
+2. **Add to skip list:** In `build/generate-icons/source/index.js`, add the icon name (camelCase) to the `manualIcons` Set to prevent code generation:
+   ```js
+   const manualIcons = new Set(['circlePartialBroken', 'yourIconName']);
+   ```
+
+3. **Create the icon component manually** in `src/icons/your-icon-name.ts`:
+   ```ts
+   import { yourIcon16X16 } from '@ni/nimble-tokens/dist/icons/js';
+   import { MultiColorIcon, registerIcon } from '../icon-base';
+   import { colorToken1, colorToken2 } from '../theme-provider/design-tokens';
+
+   export class IconYourIconName extends MultiColorIcon {
+       public constructor() {
+           super(yourIcon16X16, [
+               { layerClass: 'cls-1', colorToken: colorToken1 },
+               { layerClass: 'cls-2', colorToken: colorToken2 }
+           ]);
+       }
+   }
+
+   registerIcon('icon-your-icon-name', IconYourIconName);
+   export const iconYourIconNameTag = 'nimble-icon-your-icon-name';
+   ```
+
+4. **Export from all-icons.ts:** Add an export statement:
+   ```ts
+   export { IconYourIconName } from './your-icon-name';
+   ```
+
+**Example:** See `src/icons/circle-partial-broken.ts` for a complete multi-color icon implementation.
+
 ### Export component tag
 
 Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:

@@ -4,9 +4,6 @@ type IconName = keyof typeof IconsNamespace;
 
 interface IconMetadata {
     tags: string[];
-    // Optional multi-color layer token names in order (layer 1..n)
-    // Each token name must correspond to a named export in '../theme-provider/design-tokens'
-    layers?: string[];
 }
 
 export const iconMetadata: {
@@ -212,8 +209,7 @@ export const iconMetadata: {
         tags: ['not set', 'dash', 'hyphen']
     },
     IconCirclePartialBroken: {
-        tags: ['status', 'partially connected'],
-        layers: ['graphGridlineColor', 'warningColor']
+        tags: ['status', 'partially connected']
     },
     IconCircleSlash: {
         tags: ['status', 'blocked']

@@ -5,6 +5,8 @@ import { template } from './template';
 import { styles } from './styles';
 import type { IconSeverity } from './types';
 
+export { MultiColorIcon, type LayerConfig } from './multi-color-icon';
+
 /**
  * The base class for icon components
  */
