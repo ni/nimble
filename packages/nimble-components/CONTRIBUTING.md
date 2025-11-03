@@ -328,7 +328,7 @@ The project uses a code generation build script to create a Nimble component for
 
 #### Creating multi-color icons
 
-Most icons use a single theme-aware color (controlled by the `severity` attribute). However, some icons require multiple theme colors to effectively convey their meaning. These **multi-color icons** must be created manually using the `MultiColorIcon` base class.
+Most icons use a single theme-aware color (controlled by the `severity` attribute). However, some icons require multiple theme colors to effectively convey their meaning. These **multi-color icons** must be created manually using a configuration passed to `registerIcon()`.
 
 **When to use multi-color icons:**
 - The icon has distinct visual regions that should use different theme colors
@@ -346,31 +346,33 @@ Most icons use a single theme-aware color (controlled by the `severity` attribut
    const manualIcons = new Set(['circlePartialBroken', 'yourIconName']);
    ```
 
-3. **Create the icon component manually** in `src/icons/your-icon-name.ts`:
+3. **Create the icon component manually** in `src/icons-multicolor/your-icon-name.ts`:
    ```ts
    import { yourIcon16X16 } from '@ni/nimble-tokens/dist/icons/js';
-   import { MultiColorIcon, registerIcon } from '../icon-base';
+   import { Icon, registerIcon } from '../icon-base';
    import { colorToken1, colorToken2 } from '../theme-provider/design-tokens';
 
-   export class IconYourIconName extends MultiColorIcon {
+   export class IconYourIconName extends Icon {
        public constructor() {
-           super(yourIcon16X16, [
-               { layerClass: 'cls-1', colorToken: colorToken1 },
-               { layerClass: 'cls-2', colorToken: colorToken2 }
-           ]);
+           super(yourIcon16X16);
        }
    }
 
-   registerIcon('icon-your-icon-name', IconYourIconName);
+   registerIcon('icon-your-icon-name', IconYourIconName, {
+       layerColors: [colorToken1, colorToken2]
+   });
    export const iconYourIconNameTag = 'nimble-icon-your-icon-name';
    ```
 
-4. **Export from all-icons.ts:** Add an export statement:
-   ```ts
-   export { IconYourIconName } from './your-icon-name';
-   ```
+   The array of color tokens corresponds to the SVG classes: the first token colors `cls-1`, the second colors `cls-2`, and so on.
 
-**Example:** See `src/icons/circle-partial-broken.ts` for a complete multi-color icon implementation.
+   **Note:** Multi-color icons are placed in the `src/icons-multicolor/` directory (which is checked into source control) rather than `src/icons/` (which is generated).
+
+4. **The icon will be automatically exported** from `src/icons/all-icons.ts` when the icon generation script runs.
+
+**Example:** See `src/icons-multicolor/circle-partial-broken.ts` for a complete multi-color icon implementation.
+
+**Note:** Multi-color icons do not support the `severity` attribute, as each layer has its own theme color token.
 
 ### Export component tag
 

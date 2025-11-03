@@ -20,12 +20,32 @@ import {
 } from '../../utilities/storybook';
 
 type IconName = keyof typeof nimbleIconComponentsMap;
-const data = Object.entries(nimbleIconComponentsMap).map(
-    ([iconClassName, iconClass]) => ({
-        tag: customElements.getName(iconClass),
+
+// Force evaluation of all icon exports at module load time to trigger registerIcon() calls
+// This ensures icons are registered before any data is created
+Object.values(nimbleIconComponentsMap);
+
+const data = Object.entries(nimbleIconComponentsMap).map(([iconClassName]) => {
+    // For multi-color icons, the actual registered class is a wrapper created by
+    // createMultiColorIconClass, so customElements.getName(iconClass) returns undefined.
+    // Instead, derive the tag name from the class name.
+    // IconCirclePartialBroken -> icon-circle-partial-broken -> nimble-icon-circle-partial-broken
+    const iconName = iconClassName.replace(/^Icon/, ''); // Remove 'Icon' prefix
+    const kebabCase = iconName
+        // Insert hyphen before uppercase letters that follow lowercase/digits: aB -> a-B, 8P -> 8-P
+        .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+        // Insert hyphen before uppercase letters that follow uppercase and precede lowercase: ABc -> A-Bc
+        .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2')
+        // Insert hyphen before digits that follow letters: a8 -> a-8
+        .replace(/([a-zA-Z])(\d)/g, '$1-$2')
+        .toLowerCase();
+    const tag = `nimble-icon-${kebabCase}`;
+
+    return {
+        tag,
         metaphor: iconMetadata[iconClassName as IconName].tags.join(', ')
-    })
-);
+    };
+});
 
 type Data = (typeof data)[number];
 

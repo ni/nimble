@@ -4,7 +4,7 @@
  * Iterates through icons provided by nimble-tokens, and generates a Nimble component for each in
  * src/icons. Also generates an all-icons barrel file.
  *
- * Note: Multi-color icons should be created manually using the MultiColorIcon base class.
+ * Note: Multi-color icons should be created manually in src/icons-multicolor.
  * See CONTRIBUTING.md for instructions.
  */
 const { pascalCase, spinalCase } = require('@ni/fast-web-utilities');
@@ -88,6 +88,15 @@ export const ${tagName} = '${elementName}';
     );
 }
 console.log(`Finished writing ${fileCount} icon component files`);
+
+// Add manual icons to all-icons exports (from icons-multicolor directory)
+for (const iconName of manualIcons) {
+    const fileName = spinalCase(iconName);
+    const className = `Icon${pascalCase(iconName)}`;
+    allIconsFileContents = allIconsFileContents.concat(
+        `export { ${className} } from '../icons-multicolor/${fileName}';\n`
+    );
+}
 
 const allIconsFilePath = path.resolve(iconsDirectory, 'all-icons.ts');
 console.log('Writing all-icons file');
