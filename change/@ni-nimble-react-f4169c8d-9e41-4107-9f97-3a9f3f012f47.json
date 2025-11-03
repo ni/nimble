@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Updates for npm trusted publishing",
-  "packageName": "@ni/nimble-react",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

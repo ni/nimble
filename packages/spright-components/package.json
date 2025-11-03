@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.4.0",
+  "version": "6.4.1",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
@@ -52,12 +52,12 @@
     "@ni/fast-element": "^10.0.0",
     "@ni/fast-foundation": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^34.5.0",
+    "@ni/nimble-components": "^34.5.1",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@ni-private/jasmine-extensions": "^0.0.1",
-    "@ni/jasmine-parameterized": "^1.0.2",
+    "@ni/jasmine-parameterized": "^1.0.3",
     "@ni-private/eslint-config-nimble": "*",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",

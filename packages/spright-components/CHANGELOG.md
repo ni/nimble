@@ -1,8 +1,18 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Fri, 31 Oct 2025 20:33:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 03 Nov 2025 20:20:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.4.1
+
+Mon, 03 Nov 2025 20:20:29 GMT
+
+### Patches
+
+- Updates for npm trusted publishing ([ni/nimble@e0dd3bc](https://github.com/ni/nimble/commit/e0dd3bcd11f980e8ad50d16f9c5898c7d3abdc28))
+- Bump @ni/nimble-components to v34.5.1
+- Bump @ni/jasmine-parameterized to v1.0.3
 
 ## 6.4.0
 
