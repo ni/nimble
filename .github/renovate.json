@@ -52,7 +52,6 @@
       ],
       "enabled": true,
       "matchPackageNames": [
-        "!/Apache.Arrow/",
         "!/Microsoft.Playwright/"
       ]
     },

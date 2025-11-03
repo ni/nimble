@@ -4,9 +4,9 @@
     "net8.0": {
       "Apache.Arrow": {
         "type": "Direct",
-        "requested": "[20.0.0, 20.0.0]",
-        "resolved": "20.0.0",
-        "contentHash": "kagv7fSLVe6i/llNqSeH5g8i7BjbTejolMzsDLNyxrlNy9gGN/G3otpn5YfvrW7xdlZdP43PGvz2Gb/gMYHkPA=="
+        "requested": "[22.1.0, 22.1.0]",
+        "resolved": "22.1.0",
+        "contentHash": "mTdHWGsNCWpKyQxqyNcSS+q4BtBTSOUfhdG+Lwo6eAOznCLSwrZQ5VKtDG2G8VrUp1ul4DwWHefoBS1umjO/VQ=="
       },
       "Microsoft.AspNetCore.Components.Web": {
         "type": "Direct",
