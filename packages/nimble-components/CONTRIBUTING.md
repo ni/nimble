@@ -349,22 +349,21 @@ Most icons use a single theme-aware color (controlled by the `severity` attribut
 3. **Create the icon component manually** in `src/icons-multicolor/your-icon-name.ts`:
    ```ts
    import { yourIcon16X16 } from '@ni/nimble-tokens/dist/icons/js';
-   import { Icon, registerIcon } from '../icon-base';
+   import { registerIcon } from '../icon-base';
+   import { MultiColorIcon } from '../icon-base/mixins/multi-color';
    import { colorToken1, colorToken2 } from '../theme-provider/design-tokens';
 
-   export class IconYourIconName extends Icon {
+   export class IconYourIconName extends MultiColorIcon {
        public constructor() {
-           super(yourIcon16X16);
+           super(yourIcon16X16, [colorToken1, colorToken2]);
        }
    }
 
-   registerIcon('icon-your-icon-name', IconYourIconName, {
-       layerColors: [colorToken1, colorToken2]
-   });
+   registerIcon('icon-your-icon-name', IconYourIconName);
    export const iconYourIconNameTag = 'nimble-icon-your-icon-name';
    ```
 
-   The array of color tokens corresponds to the SVG classes: the first token colors `cls-1`, the second colors `cls-2`, and so on.
+   The array of color tokens passed to `MultiColorIcon` constructor corresponds to the SVG classes: the first token colors `cls-1`, the second colors `cls-2`, and so on.
 
    **Note:** Multi-color icons are placed in the `src/icons-multicolor/` directory (which is checked into source control) rather than `src/icons/` (which is generated).
 
