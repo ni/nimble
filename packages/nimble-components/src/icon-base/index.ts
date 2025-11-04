@@ -18,16 +18,11 @@ export class Icon extends FoundationElement {
     public severity: IconSeverity;
 
     /** @internal */
-    public readonly icon!: NimbleIcon;
+    public readonly icon: NimbleIcon;
 
-    public constructor(icon?: NimbleIcon) {
+    public constructor(icon: NimbleIcon) {
         super();
-        if (icon) {
-            Object.defineProperty(this, 'icon', {
-                value: icon,
-                writable: false
-            });
-        }
+        this.icon = icon;
     }
 }
 

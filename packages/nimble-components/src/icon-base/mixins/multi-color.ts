@@ -1,71 +1,51 @@
 import type { CSSDesignToken } from '@ni/fast-foundation';
-import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
-import { Icon } from '..';
+import type { Icon } from '..';
 
-const MAX_ICON_LAYERS = 6;
+export const MAX_ICON_LAYERS = 6;
+
+export interface MultiColorIcon {
+    layerColors: readonly CSSDesignToken<string>[];
+}
+
+// Pick just the relevant property the mixin depends on
+type IconBase = Pick<Icon, 'icon'>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type IconConstructor = abstract new (...args: any[]) => IconBase;
 
 /**
- * Base class for multi-color icons.
+ * Mixin to add multi-color support to icon components.
  * This allows icons to use multiple theme colors for different visual regions
  * instead of a single severity-based color.
  *
  * @example
  * ```ts
- * export class IconCirclePartialBroken extends MultiColorIcon {
+ * export class IconCirclePartialBroken extends mixinMultiColorIcon(Icon) {
  *     public constructor() {
- *         super(circlePartialBroken16X16, [graphGridlineColor, warningColor]);
+ *         super(circlePartialBroken16X16);
+ *         this.layerColors = [graphGridlineColor, warningColor];
  *     }
  * }
  * ```
+ *
+ * As the returned class is internal to the function, we can't write a signature
+ * that uses it directly, so rely on inference.
  */
-export abstract class MultiColorIcon extends Icon {
-    protected readonly layerColors: readonly CSSDesignToken<string>[];
-
-    protected constructor(
-        icon: NimbleIcon,
-        layerColors: readonly CSSDesignToken<string>[]
-    ) {
-        super(icon);
-        this.layerColors = layerColors;
-
-        // Warn if too many layers are specified
-        if (layerColors.length > MAX_ICON_LAYERS) {
-            /* eslint-disable-next-line no-console */
-            console.warn(
-                `Multi-color icon: ${layerColors.length} layers specified but only ${MAX_ICON_LAYERS} are supported. `
-                    + 'Extra layers will be ignored.'
-            );
-        }
-    }
-
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
+export function mixinMultiColorIcon<TBase extends IconConstructor>(
+    base: TBase
+) {
     /**
-     * @internal
+     * The mixin class that adds multi-color icon support
      */
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.applyLayerColors();
-
-        // Warn if severity is used with multi-color icons
-        if (this.severity !== undefined) {
-            /* eslint-disable-next-line no-console */
-            console.warn(
-                `${this.tagName}: severity attribute has no effect on multi-color icons`
-            );
-        }
+    abstract class MultiColorIconElement
+        extends base
+        implements MultiColorIcon {
+        /**
+         * The design tokens to use for each color layer in the icon.
+         * The array index corresponds to the cls-N class in the SVG (0-indexed).
+         */
+        public layerColors: readonly CSSDesignToken<string>[] = [];
     }
 
-    /**
-     * Applies the configured layer colors as CSS custom properties
-     * @internal
-     */
-    private applyLayerColors(): void {
-        this.layerColors.forEach((token, index) => {
-            if (index < MAX_ICON_LAYERS) {
-                this.style.setProperty(
-                    `--ni-nimble-icon-layer-${index + 1}-color`,
-                    `var(${token.cssCustomProperty})`
-                );
-            }
-        });
-    }
+    return MultiColorIconElement;
 }
