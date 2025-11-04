@@ -7,9 +7,8 @@
  * Note: Multi-color icons should be created manually in src/icons-multicolor.
  * See CONTRIBUTING.md for instructions.
  */
-const { pascalCase, spinalCase } = require('@ni/fast-web-utilities');
-// eslint-disable-next-line import/extensions
-const icons = require('@ni/nimble-tokens/dist/icons/js/index.js');
+import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
+import * as icons from '@ni/nimble-tokens/dist/icons/js';
 
 const fs = require('fs');
 const path = require('path');
@@ -19,7 +18,8 @@ const trimSizeFromName = text => {
     return text.replace(/\d+X\d+$/, '');
 };
 
-const generatedFilePrefix = '// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY\n// See generation source in nimble-components/build/generate-icons\n';
+const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+// See generation source in nimble-components/build/generate-icons\n`;
 
 const {
     getMultiColorIconNames

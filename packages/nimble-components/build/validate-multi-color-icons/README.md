@@ -3,7 +3,7 @@
 ## Behavior
 
 - Validates that manually-created multi-color icons in `src/icons-multicolor/` meet requirements.
-- Validates that the `manualIcons` Set in `generate-icons/source/index.js` matches actual files.
+- Validates that `icon-metadata.ts` entries marked with `multiColor: true` have corresponding files in `src/icons-multicolor/`.
 - Validates that icon layer counts don't exceed `MAX_ICON_LAYERS` (6).
 - Fails the build if any violations are found.
 
@@ -25,16 +25,16 @@ npm run validate-multi-color-icons:run
 
 ## What it validates
 
-1. **File consistency**: All files in `src/icons-multicolor/` must be listed in `manualIcons` Set
-2. **Set consistency**: All entries in `manualIcons` Set must have corresponding files
+1. **File consistency**: All files in `src/icons-multicolor/` must be marked with `multiColor: true` in `icon-metadata.ts`
+2. **Metadata consistency**: All icons marked with `multiColor: true` in `icon-metadata.ts` must have corresponding files in `src/icons-multicolor/`
 3. **Layer count**: All multi-color icons must have ≤ 6 layers (cls-1 through cls-6)
 
 ## Error handling
 
 The script exits with code 1 and provides clear error messages if:
 
-- A file exists but isn't in the `manualIcons` Set
-- The `manualIcons` Set references a non-existent file
+- A file exists in `src/icons-multicolor/` but isn't marked with `multiColor: true` in `icon-metadata.ts`
+- An icon is marked with `multiColor: true` in `icon-metadata.ts` but the file doesn't exist
 - An icon has more than 6 color layers
 
 Error messages include remediation steps to fix the issue.

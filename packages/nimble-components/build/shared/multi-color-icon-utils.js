@@ -1,5 +1,11 @@
 /**
- * Shared utility functions for working with multi-color icons
+ * Shared utility functions for working with multi-color icons.
+ *
+ * This is the canonical CommonJS implementation used by all icon generation scripts
+ * across nimble-components, angular-workspace, and react-workspace.
+ *
+ * Note: There is also a TypeScript version of getMultiColorIconNames() exported from
+ * icon-metadata.ts for use in TypeScript code. Keep both implementations in sync.
  */
 
 const fs = require('fs');
