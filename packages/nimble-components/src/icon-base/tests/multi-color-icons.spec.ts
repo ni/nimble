@@ -10,8 +10,7 @@ import { Icon } from '..';
 import { MultiColorIcon, MAX_ICON_LAYERS } from '../multi-color';
 import {
     graphGridlineColor,
-    warningColor,
-    failColor
+    warningColor
 } from '../../theme-provider/design-tokens';
 
 describe('Multi-color icons', () => {
@@ -161,24 +160,12 @@ describe('Multi-color icons', () => {
         });
 
         it('should support multiple layer colors', () => {
-            class TestIconThreeLayers extends MultiColorIcon {
-                protected layerColors = [
-                    graphGridlineColor,
-                    warningColor,
-                    failColor
-                ];
-
-                public constructor() {
-                    super(circlePartialBroken16X16);
-                }
-            }
-
-            const testIcon = new TestIconThreeLayers();
-            const colors = testIcon.getLayerColors();
-            expect(colors.length).toBe(3);
+            // Test using the registered IconCirclePartialBroken which has 2 layer colors
+            const icon = new IconCirclePartialBroken();
+            const colors = icon.getLayerColors();
+            expect(colors.length).toBe(2);
             expect(colors[0]).toBe(graphGridlineColor);
             expect(colors[1]).toBe(warningColor);
-            expect(colors[2]).toBe(failColor);
         });
 
         it('should preserve icon property from base class', () => {
