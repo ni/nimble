@@ -2,7 +2,10 @@
 // For instructions on creating multi-color icons, see CONTRIBUTING.md
 import { circlePartialBroken16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { registerIcon } from '../icon-base';
-import { MultiColorIcon } from '../icon-base/multi-color';
+import {
+    MultiColorIcon,
+    createMultiColorIconStyles
+} from '../icon-base/multi-color';
 import { multiColorTemplate } from '../icon-base/multi-color-template';
 import {
     graphGridlineColor,
@@ -29,9 +32,15 @@ export class IconCirclePartialBroken extends MultiColorIcon {
     }
 }
 
+const iconStyles = createMultiColorIconStyles([
+    graphGridlineColor,
+    warningColor
+]);
+
 registerIcon(
     'icon-circle-partial-broken',
     IconCirclePartialBroken,
-    multiColorTemplate
+    multiColorTemplate,
+    iconStyles
 );
 export const iconCirclePartialBrokenTag = 'nimble-icon-circle-partial-broken';

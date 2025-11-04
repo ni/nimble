@@ -39,16 +39,6 @@ describe('Multi-color icons', () => {
             ).toBeInstanceOf(IconCirclePartialBroken);
         });
 
-        it('should have layerColors accessible via getLayerColors', async () => {
-            await connect();
-
-            const layerColors = element.getLayerColors();
-            expect(layerColors).toBeDefined();
-            expect(layerColors.length).toBe(2);
-            expect(layerColors[0]).toBe(graphGridlineColor);
-            expect(layerColors[1]).toBe(warningColor);
-        });
-
         it('should apply layer colors as CSS custom properties on host', async () => {
             await connect();
 
@@ -157,15 +147,6 @@ describe('Multi-color icons', () => {
             const icon = new IconCirclePartialBroken();
             expect(icon).toBeInstanceOf(Icon);
             expect(icon).toBeInstanceOf(MultiColorIcon);
-        });
-
-        it('should support multiple layer colors', () => {
-            // Test using the registered IconCirclePartialBroken which has 2 layer colors
-            const icon = new IconCirclePartialBroken();
-            const colors = icon.getLayerColors();
-            expect(colors.length).toBe(2);
-            expect(colors[0]).toBe(graphGridlineColor);
-            expect(colors[1]).toBe(warningColor);
         });
 
         it('should preserve icon property from base class', () => {

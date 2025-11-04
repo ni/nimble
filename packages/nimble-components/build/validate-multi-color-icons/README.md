@@ -32,6 +32,7 @@ npm run validate-multi-color-icons:run
 ## Error handling
 
 The script exits with code 1 and provides clear error messages if:
+
 - A file exists but isn't in the `manualIcons` Set
 - The `manualIcons` Set references a non-existent file
 - An icon has more than 6 color layers

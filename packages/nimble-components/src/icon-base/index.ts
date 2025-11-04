@@ -1,4 +1,4 @@
-import { attr, type ViewTemplate } from '@ni/fast-element';
+import { attr, type ElementStyles, type ViewTemplate } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
 import { template } from './template';
@@ -34,16 +34,18 @@ type IconClass = typeof Icon;
  * @param baseName - The base name for the icon element (e.g., 'icon-check')
  * @param iconClass - The Icon class to register
  * @param customTemplate - Optional custom template to use instead of the default
+ * @param additionalStyles - Optional additional styles to compose with the base styles
  */
 export const registerIcon = (
     baseName: string,
     iconClass: IconClass,
-    customTemplate?: ViewTemplate
+    customTemplate?: ViewTemplate,
+    additionalStyles?: ElementStyles
 ): void => {
     const composedIcon = iconClass.compose({
         baseName,
         template: customTemplate ?? template,
-        styles
+        styles: additionalStyles ? [styles, additionalStyles] : styles
     });
 
     DesignSystem.getOrCreate().withPrefix('nimble').register(composedIcon());
