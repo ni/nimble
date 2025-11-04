@@ -21,8 +21,20 @@ const trimSizeFromName = text => {
 
 const generatedFilePrefix = '// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY\n// See generation source in nimble-components/build/generate-icons\n';
 
+const {
+    getMultiColorIconNames
+} = require('../../shared/multi-color-icon-utils');
+
 // Icons that should not be generated (manually created multi-color icons)
-const manualIcons = new Set(['circlePartialBroken']);
+// This is now automatically populated from icon-metadata.ts
+const manualIconsList = getMultiColorIconNames();
+const manualIcons = new Set(manualIconsList);
+
+if (manualIconsList.length > 0) {
+    console.log(
+        `[generate-icons] Found ${manualIconsList.length} multi-color icon(s) to skip: ${manualIconsList.join(', ')}`
+    );
+}
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
@@ -43,14 +55,13 @@ let fileCount = 0;
 for (const key of Object.keys(icons)) {
     const svgName = key; // e.g. "arrowExpanderLeft16X16"
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
+    const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
 
     // Skip icons that are manually created (e.g., multi-color icons)
-    if (manualIcons.has(iconName)) {
-        console.log(`[generate-icons] Skipping ${iconName} (manually created)`);
+    if (manualIcons.has(fileName)) {
+        console.log(`[generate-icons] Skipping ${fileName} (manually created)`);
         continue;
     }
-
-    const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
     const elementBaseName = `icon-${spinalCase(iconName)}`; // e.g. "icon-arrow-expander-left-icon"
     const elementName = `nimble-${elementBaseName}`;
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"

@@ -4,16 +4,20 @@
  * This script validates that manually-created multi-color icons meet requirements:
  * 1. Icon files exist in src/icons-multicolor/
  * 2. Layer count doesn't exceed MAX_ICON_LAYERS (6)
- * 3. manualIcons Set in generate-icons matches actual files
+ * 3. icon-metadata.ts entries match actual files in src/icons-multicolor/
  */
 
 const fs = require('fs');
 const path = require('path');
+const {
+    getMultiColorIconNames
+} = require('../../shared/multi-color-icon-utils');
 
 const MAX_ICON_LAYERS = 6;
 
-// This should match the Set in generate-icons/source/index.js
-const manualIcons = new Set(['circlePartialBroken']);
+// Get multi-color icons from metadata
+const manualIconsList = getMultiColorIconNames();
+const manualIcons = new Set(manualIconsList);
 
 const iconsMulticolorDirectory = path.resolve(
     __dirname,
@@ -62,55 +66,53 @@ function extractSvgFromIconFile(filePath) {
 
 console.log('[validate-multi-color-icons] Starting validation...\n');
 
-// Validate that manualIcons Set matches actual files
-console.log('[validate-multi-color-icons] Validating manualIcons Set...');
+// Validate that icon-metadata.ts entries match actual files
+console.log(
+    '[validate-multi-color-icons] Validating icon-metadata.ts matches files...'
+);
 const actualFiles = fs.existsSync(iconsMulticolorDirectory)
     ? fs
         .readdirSync(iconsMulticolorDirectory)
         .filter(f => f.endsWith('.ts'))
-        .map(f => {
-            // Convert file name to icon name: circle-partial-broken.ts -> circlePartialBroken
-            const fileName = path.basename(f, '.ts');
-            return fileName.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        })
+        .map(f => path.basename(f, '.ts')) // Keep in spinal-case: circle-partial-broken
     : [];
 
-const missingFromSet = actualFiles.filter(name => !manualIcons.has(name));
+const missingFromMetadata = actualFiles.filter(
+    name => !manualIcons.has(name)
+);
 const missingFiles = Array.from(manualIcons).filter(
     name => !actualFiles.includes(name)
 );
 
-if (missingFromSet.length > 0) {
+if (missingFromMetadata.length > 0) {
     console.error(
-        `[validate-multi-color-icons] ERROR: Files exist but not in manualIcons Set: ${missingFromSet.join(', ')}`
+        `[validate-multi-color-icons] ERROR: Files exist but not marked as multiColor in icon-metadata.ts: ${missingFromMetadata.join(', ')}`
     );
     console.error(
-        '[validate-multi-color-icons] Update manualIcons Set in build/generate-icons/source/index.js'
+        '[validate-multi-color-icons] Add multiColor: true to these icons in src/icon-base/tests/icon-metadata.ts'
     );
     process.exit(1);
 }
 
 if (missingFiles.length > 0) {
     console.error(
-        `[validate-multi-color-icons] ERROR: manualIcons Set includes ${missingFiles.join(', ')} but files don't exist`
+        `[validate-multi-color-icons] ERROR: icon-metadata.ts marks ${missingFiles.join(', ')} as multiColor but files don't exist`
     );
     console.error(
-        '[validate-multi-color-icons] Remove from manualIcons Set in build/generate-icons/source/index.js'
+        '[validate-multi-color-icons] Either create the files in src/icons-multicolor/ or remove multiColor flag from icon-metadata.ts'
     );
     process.exit(1);
 }
 
-console.log('[validate-multi-color-icons] ✓ manualIcons Set matches files\n');
+console.log('[validate-multi-color-icons] ✓ icon-metadata.ts matches files\n');
 
 // Validate layer counts
 console.log('[validate-multi-color-icons] Validating layer counts...');
 let hasErrors = false;
 
 for (const iconName of manualIcons) {
-    const fileName = iconName
-        .replace(/([A-Z])/g, (_match, letter) => `-${letter.toLowerCase()}`)
-        .replace(/^-/, '');
-    const filePath = path.resolve(iconsMulticolorDirectory, `${fileName}.ts`);
+    // iconName is already in spinal-case (e.g., "circle-partial-broken")
+    const filePath = path.resolve(iconsMulticolorDirectory, `${iconName}.ts`);
 
     if (!fs.existsSync(filePath)) {
         continue; // Already reported above
@@ -119,7 +121,7 @@ for (const iconName of manualIcons) {
     const svgData = extractSvgFromIconFile(filePath);
     if (!svgData) {
         console.warn(
-            `[validate-multi-color-icons] WARNING: Could not extract SVG data from ${fileName}.ts`
+            `[validate-multi-color-icons] WARNING: Could not extract SVG data from ${iconName}.ts`
         );
         continue;
     }
