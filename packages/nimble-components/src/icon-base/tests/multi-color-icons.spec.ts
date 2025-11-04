@@ -42,32 +42,32 @@ describe('Multi-color icons', () => {
         it('should apply layer colors as CSS custom properties on host', async () => {
             await connect();
 
-            const hostStyle = element.style;
+            const computedStyle = getComputedStyle(element);
             expect(
-                hostStyle.getPropertyValue('--ni-nimble-icon-layer-1-color')
+                computedStyle.getPropertyValue('--ni-nimble-icon-layer-1-color')
             ).toContain(graphGridlineColor.cssCustomProperty);
             expect(
-                hostStyle.getPropertyValue('--ni-nimble-icon-layer-2-color')
+                computedStyle.getPropertyValue('--ni-nimble-icon-layer-2-color')
             ).toContain(warningColor.cssCustomProperty);
         });
 
         it('should persist layer colors across disconnect/reconnect', async () => {
             await connect();
 
-            const layer1Before = element.style.getPropertyValue(
+            const layer1Before = getComputedStyle(element).getPropertyValue(
                 '--ni-nimble-icon-layer-1-color'
             );
-            const layer2Before = element.style.getPropertyValue(
+            const layer2Before = getComputedStyle(element).getPropertyValue(
                 '--ni-nimble-icon-layer-2-color'
             );
 
             await disconnect();
             await connect();
 
-            const layer1After = element.style.getPropertyValue(
+            const layer1After = getComputedStyle(element).getPropertyValue(
                 '--ni-nimble-icon-layer-1-color'
             );
-            const layer2After = element.style.getPropertyValue(
+            const layer2After = getComputedStyle(element).getPropertyValue(
                 '--ni-nimble-icon-layer-2-color'
             );
 
@@ -124,11 +124,12 @@ describe('Multi-color icons', () => {
         it('should not have layer color CSS properties on host', async () => {
             await connect();
 
+            const computedStyle = getComputedStyle(element);
             expect(
-                element.style.getPropertyValue('--ni-nimble-icon-layer-1-color')
+                computedStyle.getPropertyValue('--ni-nimble-icon-layer-1-color')
             ).toBe('');
             expect(
-                element.style.getPropertyValue('--ni-nimble-icon-layer-2-color')
+                computedStyle.getPropertyValue('--ni-nimble-icon-layer-2-color')
             ).toBe('');
         });
 
@@ -212,10 +213,10 @@ describe('Multi-color icons', () => {
             expect(iconDiv2).toBeDefined();
 
             // Both instances should have layer colors set on host
-            const layer1Color1 = element1.style.getPropertyValue(
+            const layer1Color1 = getComputedStyle(element1).getPropertyValue(
                 '--ni-nimble-icon-layer-1-color'
             );
-            const layer1Color2 = element2.style.getPropertyValue(
+            const layer1Color2 = getComputedStyle(element2).getPropertyValue(
                 '--ni-nimble-icon-layer-1-color'
             );
 
