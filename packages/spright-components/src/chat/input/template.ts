@@ -3,8 +3,6 @@ import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconPaperPlaneTag } from '@ni/nimble-components/dist/esm/icons/paper-plane';
 import type { ChatInput } from '.';
 
-/* eslint-disable @typescript-eslint/indent */
-// prettier-ignore
 export const template = html<ChatInput>`
 <div class="container">
     <textarea
@@ -29,4 +27,3 @@ export const template = html<ChatInput>`
         <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
     </${buttonTag}>    
 </div>`;
-/* eslint-enable @typescript-eslint/indent */

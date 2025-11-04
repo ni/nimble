@@ -372,9 +372,10 @@ describe('AnchorTabs', () => {
             expect(document.activeElement).toBe(tab(0));
         });
     });
+});
 
-    // TODO: Fix tests and enable them - https://github.com/ni/nimble/issues/2603
-    xdescribe('scroll buttons', () => {
+describe('AnchorTabs', () => {
+    describe('scroll buttons', () => {
         async function setup(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
                 html`<${anchorTabsTag} activeid="tab-two">
@@ -389,9 +390,12 @@ describe('AnchorTabs', () => {
         }
 
         let tabsPageObject: AnchorTabsPageObject;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let element: AnchorTabs;
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
+            ({ connect, disconnect, element } = await setup());
             await connect();
             tabsPageObject = new AnchorTabsPageObject(element);
         });

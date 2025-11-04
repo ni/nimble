@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 03 Nov 2025 20:20:29 GMT",
+      "version": "8.13.1",
+      "tag": "@ni/nimble-tokens_v8.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "e0dd3bcd11f980e8ad50d16f9c5898c7d3abdc28",
+            "comment": "Updates for npm trusted publishing"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 31 Oct 2025 20:33:25 GMT",
+      "version": "8.13.0",
+      "tag": "@ni/nimble-tokens_v8.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "7bc6318cc1a2984d4411936acc6c9adbe0a3c65b",
+            "comment": "Add new icons for camera, scanner gun, DIAdem, calipers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Aug 2025 21:52:25 GMT",
       "version": "8.12.0",
       "tag": "@ni/nimble-tokens_v8.12.0",

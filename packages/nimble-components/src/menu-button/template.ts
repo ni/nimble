@@ -3,7 +3,6 @@ import type { MenuButton } from '.';
 import { toggleButtonTag } from '../toggle-button';
 import { anchoredRegionTag } from '../anchored-region';
 
-// prettier-ignore
 export const template = html<MenuButton>`
     <template
         ?open="${x => x.open}"

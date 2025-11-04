@@ -157,9 +157,9 @@ const metadata: Meta<WaferMapArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         ${incubatingWarning({
-        componentName: 'wafer map',
-        statusLink: 'https://github.com/ni/nimble/issues/924'
-    })}
+            componentName: 'wafer map',
+            statusLink: 'https://github.com/ni/nimble/issues/924'
+        })}
         <${waferMapTag} id="wafer-map" colors-scale-mode="${x => x.colorScaleMode}"
             ?die-labels-hidden="${x => x.dieLabelsHidden}" die-labels-suffix="${x => x.dieLabelsSuffix}"
             max-characters="${x => x.maxCharacters}" orientation="${x => x.orientation}"

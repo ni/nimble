@@ -913,8 +913,7 @@ describe('Select', () => {
             return await fixture<Select>(viewTemplate);
         }
 
-        // Intermittent, see: https://github.com/ni/nimble/issues/2269
-        it('should limit dropdown height to viewport #SkipWebkit', async () => {
+        it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             await clickAndWaitForOpen(element);
@@ -932,8 +931,7 @@ describe('Select', () => {
             await disconnect();
         });
 
-        // Intermittent, see: https://github.com/ni/nimble/issues/2274
-        it('should scroll the selected option into view when opened #SkipWebkit', async () => {
+        it('should scroll the selected option into view when opened', async () => {
             const { element, connect, disconnect } = await setup500Options();
             element.value = '300';
             await connect();
@@ -968,8 +966,7 @@ describe('Select', () => {
             return await fixture<Select>(viewTemplate);
         }
 
-        // Intermittent, see: https://github.com/ni/nimble/issues/2272
-        it('should not confine dropdown to div with "overflow: auto" #SkipWebkit', async () => {
+        it('should not confine dropdown to div with "overflow: auto"', async () => {
             const { element, connect, disconnect } = await setupInDiv();
             const select: Select = element.querySelector(selectTag)!;
             await connect();
@@ -1351,7 +1348,6 @@ describe('Select', () => {
                 expect(element.value).toBe('one');
             });
 
-            // Fails on Webkit. Tracked by https://github.com/ni/nimble/issues/2170
             it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
                 await pageObject.openAndSetFilterText('abc');
                 expect(element.ariaActiveDescendant).toBe('');

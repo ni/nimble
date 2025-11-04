@@ -112,5 +112,13 @@ export class NimbleNumberFieldDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fullBleed', toBooleanProperty(value));
     }
 
+    public get disabled(): boolean {
+        return this.elementRef.nativeElement.disabled;
+    }
+
+    @Input() public set disabled(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<NumberField>) {}
 }

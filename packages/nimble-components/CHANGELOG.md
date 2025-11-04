@@ -1,8 +1,60 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 26 Aug 2025 21:52:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 03 Nov 2025 20:20:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.5.1
+
+Mon, 03 Nov 2025 20:20:29 GMT
+
+### Patches
+
+- Updates for npm trusted publishing ([ni/nimble@e0dd3bc](https://github.com/ni/nimble/commit/e0dd3bcd11f980e8ad50d16f9c5898c7d3abdc28))
+- Bump @ni/nimble-tokens to v8.13.1
+- Bump @ni/jasmine-parameterized to v1.0.3
+
+## 34.5.0
+
+Fri, 31 Oct 2025 20:33:25 GMT
+
+### Minor changes
+
+- Add new icons for camera, scanner gun, DIAdem, calipers ([ni/nimble@7bc6318](https://github.com/ni/nimble/commit/7bc6318cc1a2984d4411936acc6c9adbe0a3c65b))
+- Bump @ni/nimble-tokens to v8.13.0
+
+## 34.4.0
+
+Tue, 28 Oct 2025 15:26:27 GMT
+
+### Minor changes
+
+- Adding Nimble Chip component ([ni/nimble@6164b3e](https://github.com/ni/nimble/commit/6164b3ea08f56709d45ed471914f523618c226bf))
+
+## 34.3.3
+
+Sat, 11 Oct 2025 04:58:50 GMT
+
+### Patches
+
+- Create design-token-values static token definitions ([ni/nimble@ce05a06](https://github.com/ni/nimble/commit/ce05a06c9bb985d57e57b882a9ac356212ef9eaf))
+
+## 34.3.2
+
+Fri, 03 Oct 2025 20:31:52 GMT
+
+### Patches
+
+- dependency update ([ni/nimble@a1e13c7](https://github.com/ni/nimble/commit/a1e13c73b88490ece5522a9c583bb429193217bc))
+- Bump @ni/jasmine-parameterized to v1.0.2
+
+## 34.3.1
+
+Wed, 01 Oct 2025 05:25:42 GMT
+
+### Patches
+
+- Scrollable breadcrumb ([ni/nimble@853e186](https://github.com/ni/nimble/commit/853e186871678080ae0cfb476fbcf8de8c73c7db))
 
 ## 34.3.0
 

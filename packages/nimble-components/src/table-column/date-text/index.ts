@@ -48,8 +48,8 @@ declare global {
  */
 export class TableColumnDateText extends mixinTextBase(
     TableColumnTextBase<
-    TableColumnDateTextColumnConfig,
-    TableColumnDateTextValidator
+        TableColumnDateTextColumnConfig,
+        TableColumnDateTextValidator
     >
 ) {
     @attr

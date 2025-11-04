@@ -4,7 +4,6 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { iconInfoTag } from '../icons/info';
 import type { Tooltip } from '.';
 
-// prettier-ignore
 export const template = html<Tooltip>`
             ${when(
         x => x.tooltipVisible,

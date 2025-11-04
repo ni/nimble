@@ -5,5 +5,5 @@
 /// </summary>
 public interface ICustomSortOrderColumn
 {
-    public string? SortByFieldName { get; set; }
+    string? SortByFieldName { get; set; }
 }

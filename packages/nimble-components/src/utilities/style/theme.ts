@@ -37,8 +37,8 @@ class ThemeStyleSheetBehaviorSubscription implements Subscriber {
  */
 class ThemeStyleSheetBehavior implements Behavior {
     private readonly cache: WeakMap<
-    HTMLElement,
-    ThemeStyleSheetBehaviorSubscription
+        HTMLElement,
+        ThemeStyleSheetBehaviorSubscription
     > = new WeakMap();
 
     public constructor(

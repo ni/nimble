@@ -32,7 +32,6 @@ import {
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
 
-// prettier-ignore
 export const template = html<Table>`
     <template
         role="treegrid"

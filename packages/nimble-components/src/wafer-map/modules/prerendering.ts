@@ -23,8 +23,8 @@ export class Prerendering {
     }
 
     public d3ColorScale!:
-    | ScaleOrdinal<string, string>
-    | ScaleLinear<string, string>;
+        | ScaleOrdinal<string, string>
+        | ScaleLinear<string, string>;
 
     private _labelsFontSize!: number;
     private _diesRenderInfo!: DieRenderInfo[];

@@ -4,7 +4,6 @@ import type { TableColumnTextCellViewBase } from '.';
 import { overflow } from '../../../utilities/directive/overflow';
 import { TableColumnAlignment } from '../../../table/types';
 
-// prettier-ignore
 export const template = html<TableColumnTextCellViewBase>`
     <template
         class="

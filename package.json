@@ -12,7 +12,7 @@
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "sync": "beachball sync",
-    "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
+    "invoke-publish": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
     "performance": "npm run performance --workspaces --if-present",
     "validate": "concurrently --pad-prefix --timings --group \"npm:validate:*\"",
     "validate:lint:sequential": "npm run lint --workspaces --if-present",
@@ -40,29 +40,33 @@
   ],
   "workspaces": [
     "packages/eslint-config-nimble",
+    "packages/jasmine-extensions",
     "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
     "packages/nimble-components",
     "packages/spright-components",
+    "packages/ok-components",
     "packages/react-workspace/nimble-react",
     "packages/react-workspace/spright-react",
+    "packages/react-workspace/ok-react",
     "packages/react-workspace/react-client-app",
     "packages/storybook",
     "packages/angular-workspace",
     "packages/angular-workspace/nimble-angular",
     "packages/angular-workspace/spright-angular",
+    "packages/angular-workspace/ok-angular",
     "packages/blazor-workspace",
     "packages/blazor-workspace/NimbleBlazor",
     "packages/blazor-workspace/SprightBlazor",
+    "packages/blazor-workspace/OkBlazor",
     "packages/performance",
     "packages/site"
   ],
   "devDependencies": {
     "beachball": "^2.45.0",
     "concurrently": "^9.0.0",
-    "cross-env": "^7.0.3",
     "patch-package": "^8.0.0",
-    "playwright": "1.53.1"
+    "playwright": "1.54.1"
   }
 }

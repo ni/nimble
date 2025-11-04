@@ -6,6 +6,10 @@ on:
     branches:
       - '**'
 
+permissions:
+  id-token: write
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -20,14 +24,13 @@ env:
   HAS_GITHUBPAGESDEPLOYTOKEN: ${{secrets.GITHUBPAGESDEPLOYTOKEN != ''}}
   HAS_CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN != ''}}
   HAS_LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN != ''}}
-  HAS_NPM_TOKEN: ${{secrets.NPM_TOKEN != ''}}
   HAS_NUGET_TOKEN: ${{secrets.NUGET_TOKEN != ''}}
 
 jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
         with:
           # Required for chromatic change detection
@@ -36,27 +39,31 @@ jobs:
           # Cannot rely on GITHUB_TOKEN with workflow contents permission
           # See: https://github.com/orgs/community/discussions/40971
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'false'
         with:
           # Required for chromatic change detection
           fetch-depth: 0
 
+      # Remove existing dotnet installs, both package managed versions and manual versions
+      # See https://github.com/dotnet/sdk/issues/39635#issuecomment-3075858666
+      - run: dotnet --info
+      - run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
+      - run: sudo rm -rf /usr/share/dotnet/
+
       # Install dependencies
-      - name: Remove pre-existing dotnet installs
-        run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
-        working-directory: packages/blazor-workspace/
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v5
         with:
           global-json-file: packages/blazor-workspace/global.json
-      - uses: actions/setup-node@v4
+      - run: dotnet restore --locked-mode
+        working-directory: packages/blazor-workspace/
+      - uses: actions/setup-node@v5
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci
-      - run: dotnet restore --locked-mode
-        working-directory: packages/blazor-workspace/
+        timeout-minutes: 10
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
@@ -75,7 +82,7 @@ jobs:
             packages/**/*.nupkg
             angular-workspace/**/*.tgz
           if-no-files-found: error
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: 'packages/site/dist'
 
@@ -120,18 +127,13 @@ jobs:
 
       # Release
       - name: Set Git User
-        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
+        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NUGET_TOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
+        env:
+          NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
         run: |
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
-
-      # Update package versions, tag, and publish to npm (only from main)
-      - name: Beachball publish
-        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NPM_TOKEN == 'true' && env.HAS_NUGET_TOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
-        env:
-          NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
-        run: npm run invoke-publish
+          npm run invoke-publish
 
   pages:
     needs: build

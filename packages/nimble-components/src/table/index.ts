@@ -278,13 +278,13 @@ export class Table<
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
     // the selection checkbox 'checked' value should be ingored.
-    // https://github.com/microsoft/fast/issues/5750
+    // https://github.com/ni/nimble/issues/2739
     private ignoreSelectionChangeEvents = false;
     // Map from the external slot name to the record ID of the row that should have the slot
     // and the unique slot name that the slot should be slotted into.
     private readonly requestedSlots: Map<
-    string,
-    { recordId: string, uniqueSlot: string }
+        string,
+        { recordId: string, uniqueSlot: string }
     > = new Map();
 
     private readonly borderWidthSubscriber: DesignTokenSubscriber<
@@ -734,7 +734,7 @@ export class Table<
             this.dataHierarchyManager.parentIdConfigurationValid
         );
         const tanStackUpdates: Partial<
-        TanStackTableOptionsResolved<TableNode<TData>>
+            TanStackTableOptionsResolved<TableNode<TData>>
         > = {
             data: tableNodes
         };
@@ -949,7 +949,7 @@ export class Table<
 
     private updateTanStack(): void {
         const updatedOptions: Partial<
-        TanStackTableOptionsResolved<TableNode<TData>>
+            TanStackTableOptionsResolved<TableNode<TData>>
         > = {};
         updatedOptions.state = {};
 
@@ -1321,12 +1321,12 @@ export class Table<
     }
 
     private calculateTanStackRowIdFunction():
-    | ((
+        | ((
         originalRow: TableNode<TData>,
         index: number,
         parent?: TanStackRow<TableNode<TData>>
-    ) => string)
-    | undefined {
+        ) => string)
+        | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
             ? undefined
             : (record: TableNode<TData>) => record.clientRecord[this.idFieldName!] as string;

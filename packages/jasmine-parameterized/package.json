@@ -1,7 +1,7 @@
 {
   "name": "@ni/jasmine-parameterized",
-  "version": "1.0.1",
-  "description": "A utility to write parameterized jasmine tests",
+  "version": "1.0.3",
+  "description": "Utilities to write parameterized jasmine tests",
   "keywords": [
     "jasmine",
     "parameterised",
@@ -50,7 +50,7 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
     "karma-spec-reporter": "^0.0.36",
-    "playwright": "1.53.1",
+    "playwright": "1.54.1",
     "typescript": "~5.4.5"
   }
 }
