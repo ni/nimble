@@ -1,17 +1,14 @@
 import { Editor, Mark, Node, mergeAttributes } from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
-import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
 import HardBreak from '@tiptap/extension-hard-break';
-import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
 import Link from '@tiptap/extension-link';
-import ListItem from '@tiptap/extension-list-item';
+import { BulletList, ListItem, OrderedList } from '@tiptap/extension-list';
 import Mention from '@tiptap/extension-mention';
-import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
-import Placeholder from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
+import { Placeholder, UndoRedo } from '@tiptap/extensions';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import { PluginKey } from 'prosemirror-state';
 
@@ -76,7 +73,7 @@ export function createTiptapEditor(
             ListItem,
             Bold,
             Italic,
-            History,
+            UndoRedo,
             Placeholder.configure({
                 placeholder,
                 showOnlyWhenEditable: false
@@ -134,7 +131,7 @@ function createCustomLinkExtension(): Mark {
         },
         // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        renderHTML({ HTMLAttributes }) {
+        renderHTML({ HTMLAttributes }: { HTMLAttributes: { [key: string]: unknown } }) {
             // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
             // https://github.com/ni/nimble/issues/1516
             return ['a', HTMLAttributes];
@@ -178,8 +175,8 @@ function createCustomMentionExtension(
             return {
                 href: {
                     default: null,
-                    parseHTML: element => element.getAttribute('mention-href'),
-                    renderHTML: attributes => {
+                    parseHTML: (element: HTMLElement) => element.getAttribute('mention-href'),
+                    renderHTML: (attributes: { [key: string]: unknown }) => {
                         return {
                             'mention-href': attributes.href as string
                         };
@@ -187,8 +184,8 @@ function createCustomMentionExtension(
                 },
                 label: {
                     default: null,
-                    parseHTML: element => element.getAttribute('mention-label'),
-                    renderHTML: attributes => {
+                    parseHTML: (element: HTMLElement) => element.getAttribute('mention-label'),
+                    renderHTML: (attributes: { [key: string]: unknown }) => {
                         return {
                             'mention-label': attributes.label as string
                         };
@@ -196,8 +193,8 @@ function createCustomMentionExtension(
                 },
                 disabled: {
                     default: null,
-                    parseHTML: element => element.getAttribute('disabled'),
-                    renderHTML: attributes => {
+                    parseHTML: (element: HTMLElement) => element.getAttribute('disabled'),
+                    renderHTML: (attributes: { [key: string]: unknown }) => {
                         return {
                             disabled: attributes.disabled as string
                         };
@@ -206,7 +203,7 @@ function createCustomMentionExtension(
             };
         },
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        renderHTML({ node, HTMLAttributes }) {
+        renderHTML({ node, HTMLAttributes }: { node: FragmentNode, HTMLAttributes: { [key: string]: unknown } }) {
             return [
                 config.viewElement,
                 mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),

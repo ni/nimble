@@ -13,7 +13,7 @@ import {
     Editor
 } from '@tiptap/core';
 
-import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
+import type { PlaceholderOptions } from '@tiptap/extensions';
 import HardBreak from '@tiptap/extension-hard-break';
 import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
@@ -372,7 +372,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
-        this.tiptapEditor.commands.setContent(html);
+        this.tiptapEditor.commands.setContent(html, { emitUpdate: false });
         this.disableMentionViewElement();
     }
 
