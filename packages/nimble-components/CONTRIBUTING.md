@@ -392,7 +392,6 @@ Most icons use a single theme-aware color (controlled by the `severity` attribut
 
 ### Export component tag
 
-
 Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
 
 ```ts
