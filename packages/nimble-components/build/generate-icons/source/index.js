@@ -9,6 +9,8 @@
  */
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist/icons/js';
+// eslint-disable-next-line import/extensions
+import { multiColorIcons } from '../../../src/icon-base/tests/icon-multicolor-metadata-data.js';
 
 const fs = require('fs');
 const path = require('path');
@@ -21,18 +23,12 @@ const trimSizeFromName = text => {
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-components/build/generate-icons\n`;
 
-const {
-    getMultiColorIconNames
-} = require('../../shared/multi-color-icon-utils');
-
 // Icons that should not be generated (manually created multi-color icons)
-// This is now automatically populated from icon-metadata.ts
-const manualIconsList = getMultiColorIconNames();
-const manualIcons = new Set(manualIconsList);
+const manualIcons = new Set(multiColorIcons);
 
-if (manualIconsList.length > 0) {
+if (multiColorIcons.length > 0) {
     console.log(
-        `[generate-icons] Found ${manualIconsList.length} multi-color icon(s) to skip: ${manualIconsList.join(', ')}`
+        `[generate-icons] Found ${multiColorIcons.length} multi-color icon(s) to skip: ${multiColorIcons.join(', ')}`
     );
 }
 

@@ -4,20 +4,19 @@
  * This script validates that manually-created multi-color icons meet requirements:
  * 1. Icon files exist in src/icons-multicolor/
  * 2. Layer count doesn't exceed MAX_ICON_LAYERS (6)
- * 3. icon-metadata.ts entries match actual files in src/icons-multicolor/
+ * 3. Metadata in nimble-tokens matches actual files in src/icons-multicolor/
  */
 
 const fs = require('fs');
 const path = require('path');
+
+// Import from local source file
 const {
-    getMultiColorIconNames
-} = require('../../shared/multi-color-icon-utils');
+    multiColorIcons
+    // eslint-disable-next-line import/extensions
+} = require('../../../src/icon-base/tests/icon-multicolor-metadata-data.js');
 
 const MAX_ICON_LAYERS = 6;
-
-// Get multi-color icons from metadata
-const manualIconsList = getMultiColorIconNames();
-const manualIcons = new Set(manualIconsList);
 
 const iconsMulticolorDirectory = path.resolve(
     __dirname,
@@ -66,9 +65,9 @@ function extractSvgFromIconFile(filePath) {
 
 console.log('[validate-multi-color-icons] Starting validation...\n');
 
-// Validate that icon-metadata.ts entries match actual files
+// Validate that nimble-tokens metadata entries match actual files
 console.log(
-    '[validate-multi-color-icons] Validating icon-metadata.ts matches files...'
+    '[validate-multi-color-icons] Validating nimble-tokens metadata matches files...'
 );
 const actualFiles = fs.existsSync(iconsMulticolorDirectory)
     ? fs
@@ -77,40 +76,43 @@ const actualFiles = fs.existsSync(iconsMulticolorDirectory)
         .map(f => path.basename(f, '.ts')) // Keep in spinal-case: circle-partial-broken
     : [];
 
+const multiColorIconsSet = new Set(multiColorIcons);
 const missingFromMetadata = actualFiles.filter(
-    name => !manualIcons.has(name)
+    name => !multiColorIconsSet.has(name)
 );
-const missingFiles = Array.from(manualIcons).filter(
+const missingFiles = multiColorIcons.filter(
     name => !actualFiles.includes(name)
 );
 
 if (missingFromMetadata.length > 0) {
     console.error(
-        `[validate-multi-color-icons] ERROR: Files exist but not marked as multiColor in icon-metadata.ts: ${missingFromMetadata.join(', ')}`
+        `[validate-multi-color-icons] ERROR: Files exist but not in nimble-tokens metadata: ${missingFromMetadata.join(', ')}`
     );
     console.error(
-        '[validate-multi-color-icons] Add multiColor: true to these icons in src/icon-base/tests/icon-metadata.ts'
+        '[validate-multi-color-icons] Remediation: Add these icons to multiColorIcons array in nimble-tokens/source/icon-metadata.ts'
     );
     process.exit(1);
 }
 
 if (missingFiles.length > 0) {
     console.error(
-        `[validate-multi-color-icons] ERROR: icon-metadata.ts marks ${missingFiles.join(', ')} as multiColor but files don't exist`
+        `[validate-multi-color-icons] ERROR: nimble-tokens metadata lists ${missingFiles.join(', ')} but files don't exist`
     );
     console.error(
-        '[validate-multi-color-icons] Either create the files in src/icons-multicolor/ or remove multiColor flag from icon-metadata.ts'
+        '[validate-multi-color-icons] Remediation: Either create the files in src/icons-multicolor/ or remove from nimble-tokens/source/icon-metadata.ts'
     );
     process.exit(1);
 }
 
-console.log('[validate-multi-color-icons] ✓ icon-metadata.ts matches files\n');
+console.log(
+    '[validate-multi-color-icons] ✓ nimble-tokens metadata matches files\n'
+);
 
 // Validate layer counts
 console.log('[validate-multi-color-icons] Validating layer counts...');
 let hasErrors = false;
 
-for (const iconName of manualIcons) {
+for (const iconName of multiColorIcons) {
     // iconName is already in spinal-case (e.g., "circle-partial-broken")
     const filePath = path.resolve(iconsMulticolorDirectory, `${iconName}.ts`);
 
@@ -120,10 +122,13 @@ for (const iconName of manualIcons) {
 
     const svgData = extractSvgFromIconFile(filePath);
     if (!svgData) {
-        console.warn(
-            `[validate-multi-color-icons] WARNING: Could not extract SVG data from ${iconName}.ts`
+        console.error(
+            `[validate-multi-color-icons] ERROR: Could not extract SVG data from ${iconName}.ts`
         );
-        continue;
+        console.error(
+            '[validate-multi-color-icons] Remediation: Ensure the icon file imports a valid SVG from nimble-tokens'
+        );
+        process.exit(1);
     }
 
     const layerCount = countLayersInSvg(svgData);

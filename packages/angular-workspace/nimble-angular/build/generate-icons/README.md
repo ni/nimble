@@ -4,6 +4,7 @@
 
 - Depends on the build output of `nimble-tokens` to generate icon Angular integrations.
 - Generates an icon directive file and module file for each icon, and a barrel file.
+- **Automatically handles multi-color icons** by detecting them from nimble-components metadata and using the appropriate import path (`icons-multicolor` vs `icons`).
 
 ## How to run
 

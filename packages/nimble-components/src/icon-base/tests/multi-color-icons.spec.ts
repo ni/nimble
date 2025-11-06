@@ -159,8 +159,7 @@ describe('Multi-color icons', () => {
 
         it('should respect MAX_ICON_LAYERS limit', () => {
             // Verify the constant is set to expected value
-            // The actual enforcement is tested through updateLayerColors()
-            // which slices the layerColors array to MAX_ICON_LAYERS
+            // The limit is enforced at build time by the validation script
             expect(MAX_ICON_LAYERS).toBe(6);
         });
     });

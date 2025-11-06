@@ -3,6 +3,7 @@
  */
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist/icons/js';
+import { multiColorIcons } from '@ni/nimble-components/dist/esm/icon-base/tests/icon-multicolor-metadata';
 
 const fs = require('fs');
 const path = require('path');
@@ -12,34 +13,15 @@ const trimSizeFromName = text => {
     return text.replace(/\d+X\d+$/, '');
 };
 
-/**
- * Resolves nimble-components package root from react workspace.
- * This allows us to import shared utilities from nimble-components build scripts.
- */
-const getNimbleComponentsRoot = () => {
-    // From react-workspace/nimble-react/build/generate-icons/source/
-    // Navigate to: ../../../../../nimble-components/
-    const scriptDir = path.dirname(fs.realpathSync(__filename));
-    return path.resolve(scriptDir, '../../../../../nimble-components');
-};
-
-// Import shared utility from nimble-components
-const {
-    getMultiColorIconNames
-// eslint-disable-next-line import/no-dynamic-require
-} = require(path.join(getNimbleComponentsRoot(), 'build/shared/multi-color-icon-utils.js'));
-
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-react/build/generate-icons\n`;
 
 // Icons that should not be generated (manually created multi-color icons)
-// This is automatically populated from icon-metadata.ts in nimble-components
-const manualIconsList = getMultiColorIconNames();
-const manualIcons = new Set(manualIconsList);
+const manualIcons = new Set(multiColorIcons);
 
-if (manualIconsList.length > 0) {
+if (multiColorIcons.length > 0) {
     console.log(
-        `[generate-icons] Found ${manualIconsList.length} multi-color icon(s) to skip: ${manualIconsList.join(', ')}`
+        `[generate-icons] Found ${multiColorIcons.length} multi-color icon(s) to skip: ${multiColorIcons.join(', ')}`
     );
 }
 
@@ -62,18 +44,16 @@ for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
     const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
 
-    // Skip icons that are manually created (e.g., multi-color icons)
-    if (manualIcons.has(fileName)) {
-        console.log(`[generate-icons] Skipping ${fileName} (manually created)`);
-        continue;
-    }
+    // Determine if this is a multi-color icon and set the appropriate import path
+    const isMultiColor = manualIcons.has(fileName);
+    const iconSubfolder = isMultiColor ? 'icons-multicolor' : 'icons';
 
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
 
     fileCount += 1;
 
     const iconReactWrapperContent = `${generatedFilePrefix}
-import { ${className} } from '@ni/nimble-components/dist/esm/icons/${fileName}';
+import { ${className} } from '@ni/nimble-components/dist/esm/${iconSubfolder}/${fileName}';
 import { wrap } from '../utilities/react-wrapper';
 
 export { type ${className} };

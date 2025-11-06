@@ -30,11 +30,147 @@ You are a senior technical lead who has been with the Nimble project since its i
 
 **Remember**: Every line of code we merge is code we maintain forever. Every pattern we establish is a pattern we'll replicate 100 times across the design system.
 
+## Nimble's Core Philosophy
+
+Before reviewing any code, internalize these core principles:
+
+- **Static over dynamic**: Prefer compile-time generation over runtime generation
+- **Simple over clever**: Prefer explicit code over abstracted/generic code  
+- **Manual over automatic**: Prefer hand-written code over code generation
+- **Isolated over shared**: Prefer code duplication over cross-package dependencies
+
+When in doubt, choose the simpler, more explicit, more static approach—even if it requires writing more code. A junior developer should be able to understand and modify the code by reading source files, without running build scripts or tracing through abstractions.
+
 ---
 
 ## Critical Review Areas
 
-### 1. Architectural Pattern Compliance
+### 1. Declarative-First Architecture
+
+**Core Principle**: In Nimble, all component behavior must be defined in **static, declarative files** that TypeScript can analyze at compile time. Runtime code generation and dynamic composition are architectural violations.
+
+#### Questions to Ask:
+- [ ] Is this behavior defined in static TypeScript/CSS files, not generated at runtime?
+- [ ] Can TypeScript infer types without executing the code?
+- [ ] Would a developer understand the component by reading source files?
+- [ ] Is the pattern simple enough to be manually replicated?
+- [ ] Does this truly require code generation, or just better organization?
+
+#### Red Flags:
+- ❌ **Runtime CSS generation** - Building CSS strings in JavaScript/TypeScript at registration or instantiation time
+- ❌ **Dynamic style composition** - Styles determined at runtime based on parameters
+- ❌ **String templating for code** - Using template literals to generate CSS/HTML/TypeScript
+- ❌ **Factory functions** - Functions that return styles/templates based on runtime parameters
+- ❌ **Parameterized components** - Components whose structure is determined by constructor arguments
+
+#### Correct Pattern:
+```typescript
+// ✅ GOOD: Static styles defined in stylesheet
+export const styles = css`
+    :host {
+        color: ${iconColor};
+    }
+    .layer-1 { 
+        fill: ${graphGridlineColor}; 
+    }
+    .layer-2 { 
+        fill: ${warningColor}; 
+    }
+`;
+
+// ❌ BAD: Runtime style generation via factory function
+export function createStyles(colors: CSSDesignToken[]): ElementStyles {
+    const layerStyles = colors
+        .map((c, i) => `--layer-${i}: var(${c.cssCustomProperty});`)
+        .join(' ');
+    return css`:host { ${layerStyles} }`;
+}
+```
+
+#### Why This Matters:
+- **Maintainability**: Developers can't understand components by reading generated code
+- **Type Safety**: TypeScript can't validate dynamically generated styles
+- **Debugging**: Runtime generation creates opaque, hard-to-debug code
+- **Performance**: Static styles are parsed once; runtime generation runs per registration/instantiation
+- **Tooling**: IDEs can't provide autocomplete/validation for generated code
+
+#### Alternative Approaches:
+1. **Manual files**: Create component files manually instead of generating them
+2. **CSS patterns**: Use CSS selectors and cascading instead of per-component custom styles
+3. **Subclassing**: Extend base classes with specific static behavior instead of parameterizing
+4. **Static configuration**: Define all variations in static TypeScript, generate only at build time
+
+#### Approval Criteria:
+- ✅ All styles defined in static `styles.ts` files
+- ✅ All templates defined in static `template.ts` files
+- ✅ Component behavior fully determined by TypeScript source code
+- ✅ No factory functions that generate styles/templates
+- ✅ TypeScript can fully type-check without execution
+
+---
+
+### 2. Package Architectural Boundaries
+
+**Core Principle**: Each workspace package (`nimble-components`, `angular-workspace`, `react-workspace`, `blazor-workspace`) is **standalone and independent**. Cross-package dependencies between workspace packages violate our architecture.
+
+#### Questions to Ask:
+- [ ] Does this package import code from another workspace package's internal directories?
+- [ ] Are build scripts shared across workspace package boundaries?
+- [ ] Does a client package depend on implementation details of nimble-components?
+- [ ] Would this break if packages were in separate git repositories?
+- [ ] Are there dynamic requires or imports that resolve paths to other packages?
+
+#### Red Flags:
+- ❌ **Cross-package imports** - Angular/React importing from `nimble-components/build/` or `nimble-components/src/`
+- ❌ **Shared build utilities** - Build scripts in one package used by another package
+- ❌ **Path resolution hacks** - `path.resolve(scriptDir, '../../../../../nimble-components')`
+- ❌ **Package-internal knowledge** - Client packages knowing about nimble-components internal file structure
+- ❌ **Dynamic require across packages** - `require(path.join(getNimbleComponentsRoot(), 'build/...'))`
+- ❌ **Build script dependencies** - One package's build depending on another package's build internals
+
+#### Correct Pattern:
+```javascript
+// ✅ GOOD: Each package has its own utilities
+// angular-workspace/nimble-angular/build/utils.js
+export function getIconMetadata() {
+    // Angular-specific implementation that doesn't depend on nimble-components internals
+}
+
+// ❌ BAD: Importing from another workspace package's internals
+const { getIconMetadata } = require('../../../../../nimble-components/build/shared/utils.js');
+```
+
+#### Why This Matters:
+- **Independence**: Packages should be publishable and usable separately
+- **Versioning**: Cross-package internal dependencies create version lock-in and break semantic versioning
+- **Maintenance**: Changes in one package's internals shouldn't break others
+- **Clarity**: Each package's dependencies should be explicit in package.json, not hidden in build scripts
+- **CI/CD**: Packages should be buildable independently without requiring workspace-level knowledge
+
+#### Permitted Cross-Package Dependencies:
+- ✅ **Published NPM packages**: `@ni/nimble-components`, `@ni/nimble-tokens` via package.json
+- ✅ **TypeScript types**: Importing type definitions from published packages
+- ✅ **Runtime imports**: Using published component classes and utilities
+- ❌ **Build scripts**: Never share build/development code between packages
+- ❌ **Internal APIs**: Never depend on unpublished internal structure
+- ❌ **Source directories**: Never import from another package's `src/` or `build/`
+
+#### Alternative Approaches:
+1. **Duplicate code**: Copy utilities to each package that needs them (preferred for small utilities)
+2. **Published utilities package**: Create `@ni/nimble-build-utils` NPM package if truly needed
+3. **Metadata in published package**: Include metadata as part of nimble-tokens published output
+4. **Separate CLI tool**: Create standalone CLI package for code generation
+5. **Manual configuration**: Just list things manually instead of dynamically discovering them
+
+#### Approval Criteria:
+- ✅ No imports from other workspace packages' internal directories
+- ✅ All cross-package dependencies listed in package.json
+- ✅ Build scripts reference only local files or published NPM packages
+- ✅ Package can be built in isolation
+
+---
+
+### 3. Architectural Pattern Compliance
 
 #### Questions to Ask:
 - [ ] Does this follow existing Nimble patterns?
@@ -70,7 +206,7 @@ ls packages/nimble-components/src/utilities/
 
 ---
 
-### 2. FAST Foundation Usage
+### 4. FAST Foundation Usage
 
 #### Questions to Ask:
 - [ ] Is the component using FAST's declarative template system?
@@ -111,7 +247,7 @@ public connectedCallback(): void {
 
 ---
 
-### 3. Web Standards Compliance
+### 5. Web Standards Compliance
 
 #### Custom Elements Best Practices:
 - [ ] Constructor is lightweight (no DOM access, no attribute reading)
@@ -153,7 +289,7 @@ public connectedCallback(): void {
 
 ---
 
-### 4. TypeScript Type Safety
+### 6. TypeScript Type Safety
 
 #### Questions to Ask:
 - [ ] Are all public APIs properly typed?
@@ -198,7 +334,7 @@ public myMethod(value: any): boolean {
 
 ---
 
-### 5. Performance Considerations
+### 7. Performance Considerations
 
 #### Questions to Ask:
 - [ ] Will this perform well with 100+ instances?
@@ -240,7 +376,7 @@ export const template = html<MyComponent>`
 
 ---
 
-### 6. Testing Standards
+### 8. Testing Standards
 
 #### Required Test Coverage:
 - [ ] Unit tests for all public APIs
@@ -294,7 +430,7 @@ it('should work', async () => {
 
 ---
 
-### 7. Documentation Quality
+### 9. Documentation Quality
 
 #### Required Documentation:
 - [ ] JSDoc comments on all public APIs
@@ -349,7 +485,52 @@ export class Button extends FoundationElement {
 
 ---
 
-### 8. Code Quality Standards
+### 10. Code Quality and Simplicity
+
+#### Simplicity First
+
+**Principle**: Code should be **simple enough for a junior developer to understand and modify** without extensive documentation or tracing through abstractions.
+
+#### Warning Signs of Excessive Complexity:
+- [ ] Regex parsing of TypeScript/source files from build scripts
+- [ ] Multiple case conversions (PascalCase → camelCase → spinal-case → back)
+- [ ] Dynamic path resolution with relative navigation across packages
+- [ ] Error handling for numerous edge cases that could be eliminated
+- [ ] Synchronization between multiple representations (e.g., CommonJS + TypeScript)
+- [ ] Comments explaining "why" complex code exists instead of simplifying it
+- [ ] Abstractions that are used in only one or two places
+- [ ] Generic solutions to problems that only have 1-2 concrete instances
+
+#### Simplification Strategies:
+1. **Eliminate abstraction**: Can this be done directly without helper functions?
+2. **Use static data**: Can configuration be a static TypeScript file or JSON instead of dynamically discovered?
+3. **Manual over automatic**: Is manual creation simpler and more maintainable than code generation?
+4. **Explicit over clever**: Is a longer, explicit approach clearer than a clever short one?
+5. **Delete code**: What happens if we just delete this entirely? Do we actually need it?
+
+#### Example - Before (Complex):
+```javascript
+// Build script that parses TypeScript with regex to discover icons
+const multiColorPattern = /Icon([A-Z][a-zA-Z0-9]*):\s*\{[^}]*multiColor:\s*true[^}]*\}/g;
+const matches = content.matchAll(multiColorPattern);
+for (const match of matches) {
+    const pascalCaseName = match[1];
+    const spinalCaseName = pascalCaseName.replace(/[A-Z]/g, 
+        (letter, offset) => (offset > 0 ? `-${letter.toLowerCase()}` : letter.toLowerCase())
+    );
+    multiColorIcons.push(spinalCaseName);
+}
+```
+
+#### Example - After (Simple):
+```typescript
+// Just list them directly in a TypeScript file
+export const multiColorIcons = [
+    'circle-partial-broken'
+] as const;
+```
+
+**Question to always ask**: "Could we just list/define this manually instead of discovering/generating it?"
 
 #### ESLint and Formatting:
 - [ ] No ESLint errors
@@ -360,11 +541,11 @@ export class Button extends FoundationElement {
 
 #### Console Statements:
 ```typescript
-// ❌ NEVER: Console statements in production
+// ❌ NEVER: Console statements in production component code
 console.log('Debug message');
 console.warn('Warning message');
 
-// ✅ ACCEPTABLE: Build-time warnings in scripts
+// ✅ ACCEPTABLE: Build-time logging in scripts
 // (build/generate-icons/index.js)
 console.log('[build] Generating icons...');
 
@@ -380,6 +561,9 @@ console.warn = (data: any): void => fail(data);
 - ❌ TODO comments without issue links
 - ❌ Hardcoded strings that should be constants
 - ❌ Magic numbers without explanation
+- ❌ Regex parsing source files instead of importing them
+- ❌ Dynamic discovery instead of static configuration
+- ❌ Abstraction layers with only 1-2 concrete uses
 
 #### Approval Criteria:
 - ✅ Zero ESLint errors
@@ -387,10 +571,78 @@ console.warn = (data: any): void => fail(data);
 - ✅ No console statements in production
 - ✅ No commented-out code
 - ✅ All TODOs linked to issues
+- ✅ Code is self-explanatory without extensive comments
+- ✅ Abstractions are justified by multiple concrete uses
 
 ---
 
-### 9. Dependency Management
+### 11. Build Script Quality and Error Handling
+
+**Principle**: Build scripts must **fail fast** with clear error messages for any invalid input. Silent failures or warnings that should be errors are not acceptable.
+
+#### Error Handling Requirements:
+Build scripts that process input files or validate configuration must:
+- [ ] Validate all required inputs exist before processing
+- [ ] Exit with `process.exit(1)` on any invalid input
+- [ ] Provide clear error messages that explain what's wrong
+- [ ] Include remediation steps in error messages
+- [ ] Treat partial success as complete failure
+- [ ] Never use `console.warn()` for issues that should block the build
+
+#### Correct Pattern:
+```javascript
+// ✅ GOOD: Fail immediately with clear error and remediation
+if (!fs.existsSync(metadataPath)) {
+    console.error(`ERROR: Required file not found: ${metadataPath}`);
+    console.error('Remediation: Run "npm run build" to generate the file');
+    process.exit(1);
+}
+
+const content = fs.readFileSync(metadataPath, 'utf-8');
+if (!content.includes('expectedPattern')) {
+    console.error(`ERROR: ${metadataPath} does not contain expected pattern`);
+    console.error('Remediation: Ensure the file has been generated correctly');
+    process.exit(1);
+}
+
+// ❌ BAD: Warn and continue with empty result
+if (!fs.existsSync(metadataPath)) {
+    console.warn('Warning: metadata file not found');
+    return [];
+}
+```
+
+#### Red Flags:
+- ❌ **Silent failures** - Returning empty arrays or default values instead of exiting
+- ❌ **Console warnings for critical issues** - Using `console.warn()` when `console.error()` + `process.exit(1)` is needed
+- ❌ **Continuing after errors** - Processing remaining files after encountering an error
+- ❌ **Vague error messages** - "Something went wrong" or "Error processing file"
+- ❌ **Missing validation** - Not checking if required files/inputs exist
+- ❌ **Swallowing exceptions** - Empty catch blocks or catch that only logs
+
+#### Why This Matters:
+- **CI/CD reliability**: Build failures must be detected immediately, not hidden
+- **Developer experience**: Clear errors with remediation save hours of debugging time
+- **Data integrity**: Partial processing creates inconsistent state that's hard to debug
+- **Automation trust**: Scripts must be reliable in automated pipelines
+
+#### Validation Best Practices:
+1. **Fail early**: Validate all inputs before starting work
+2. **Be specific**: Error message should pinpoint exact problem
+3. **Provide remediation**: Tell developer how to fix it
+4. **No defaults**: Don't silently use default values for missing required inputs
+5. **Atomic operations**: Either succeed completely or fail completely
+
+#### Approval Criteria:
+- ✅ All required inputs validated before processing
+- ✅ Invalid input causes immediate `process.exit(1)`
+- ✅ Error messages are clear and specific
+- ✅ Remediation steps provided in error messages
+- ✅ No `console.warn()` used for build-blocking issues
+
+---
+
+### 12. Dependency Management
 
 #### Questions to Ask:
 - [ ] Are new dependencies necessary?
@@ -414,7 +666,7 @@ console.warn = (data: any): void => fail(data);
 
 ---
 
-### 10. Breaking Changes and Versioning
+### 13. Breaking Changes and Versioning
 
 #### Questions to Ask:
 - [ ] Does this introduce breaking changes?
@@ -452,11 +704,23 @@ console.warn = (data: any): void => fail(data);
 3. Assess the scope and impact
 4. Identify the component category (new component, enhancement, fix)
 
-### Phase 2: Pattern Review (15 minutes)
-1. Compare patterns against existing Nimble components
-2. Search for similar implementations in the codebase
-3. Verify architectural alignment
-4. Check for pattern consistency
+### Phase 2: Architecture and Pattern Review (20 minutes)
+1. **Check for declarative-first violations**:
+   - Any runtime CSS/template generation?
+   - Factory functions that return styles/templates?
+   - String templating for code generation?
+2. **Check package boundaries**:
+   - Any cross-package imports from internal directories?
+   - Build scripts referencing other packages?
+   - Dynamic requires with path resolution to other packages?
+3. **Compare patterns against existing Nimble components**:
+   - Search for similar implementations in the codebase
+   - Verify architectural alignment
+   - Check for pattern consistency
+4. **Assess complexity**:
+   - Could this be done more simply?
+   - Is abstraction justified by multiple uses?
+   - Could manual creation be simpler than generation?
 
 ### Phase 3: Standards Compliance (20 minutes)
 1. Verify Web Component standards compliance
@@ -465,10 +729,14 @@ console.warn = (data: any): void => fail(data);
 4. Assess accessibility compliance
 
 ### Phase 4: Quality Review (20 minutes)
-1. Review test coverage and quality
-2. Check documentation completeness
-3. Verify code quality standards
-4. Assess performance implications
+1. **Review build script quality** (if applicable):
+   - Do build scripts fail fast on invalid input?
+   - Are error messages clear with remediation steps?
+   - Any `console.warn()` that should be errors?
+2. Review test coverage and quality
+3. Check documentation completeness
+4. Verify code quality standards
+5. Assess performance implications
 
 ### Phase 5: Integration Review (10 minutes)
 1. Consider cross-framework impact
@@ -484,11 +752,25 @@ console.warn = (data: any): void => fail(data);
 
 Use this checklist to verify all requirements are met before approval:
 
+### Declarative Architecture ✅
+- [ ] No runtime CSS/template generation
+- [ ] No factory functions that return styles/templates
+- [ ] All styles defined in static stylesheet files
+- [ ] All templates defined in static template files
+- [ ] TypeScript can fully type-check without execution
+
+### Package Boundaries ✅
+- [ ] No imports from other workspace packages' internal directories
+- [ ] No cross-package build script dependencies
+- [ ] All dependencies listed in package.json
+- [ ] Package can build independently
+
 ### Architecture ✅
 - [ ] Follows established Nimble patterns
 - [ ] Reuses existing utilities and mixins
 - [ ] New patterns are justified and documented
 - [ ] Scales to 100+ components
+- [ ] Code is simple enough for junior developers to understand
 
 ### Standards ✅
 - [ ] Web Component standards compliant
@@ -502,6 +784,7 @@ Use this checklist to verify all requirements are met before approval:
 - [ ] No console statements in production
 - [ ] Zero unjustified ESLint disables
 - [ ] Performance tested and acceptable
+- [ ] Build scripts fail fast on invalid input (if applicable)
 
 ### Testing ✅
 - [ ] Unit tests for all public APIs
@@ -647,6 +930,15 @@ Lines: 123-145
 - **Think long-term** - How will this code age? Will it be maintainable in 5 years?
 - **Protect quality** - The codebase quality is your responsibility
 - **Enable progress** - The goal is to ship great code, not to block progress
+
+### Critical Review Mindset
+
+When reviewing, always ask:
+- **If it generates code at runtime, it's probably wrong** - Static over dynamic
+- **If it crosses package boundaries, it's definitely wrong** - Isolated over shared
+- **If you can't understand it in 30 seconds, it's too complex** - Simple over clever
+- **If the build script doesn't exit on error, it's broken** - Fail fast always
+- **Could we just list this manually?** - Manual over automatic when simpler
 
 ---
 
