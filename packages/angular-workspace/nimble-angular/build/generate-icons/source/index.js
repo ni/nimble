@@ -26,14 +26,8 @@ const getRelativeFilePath = (from, to) => {
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-angular/build/generate-icons\n`;
 
-// Icons that should not be generated (manually created multi-color icons)
-const manualIcons = new Set(multiColorIcons);
-
-if (multiColorIcons.length > 0) {
-    console.log(
-        `[generate-icons] Found ${multiColorIcons.length} multi-color icon(s) to skip: ${multiColorIcons.join(', ')}`
-    );
-}
+// Multi-color icons use a different import path (icons-multicolor vs icons)
+const multiColorIconSet = new Set(multiColorIcons);
 
 const packageDirectory = path.resolve(__dirname, '../../../');
 const iconsDirectory = path.resolve(packageDirectory, 'src/directives/icons');
@@ -55,7 +49,7 @@ for (const key of Object.keys(icons)) {
     const directoryName = spinalCase(iconName); // e.g. "arrow-expander-left"
 
     // Determine if this is a multi-color icon and set the appropriate import path
-    const isMultiColor = manualIcons.has(directoryName);
+    const isMultiColor = multiColorIconSet.has(directoryName);
     const iconSubfolder = isMultiColor ? 'icons-multicolor' : 'icons';
 
     const elementName = `nimble-icon-${spinalCase(iconName)}`; // e.g. "nimble-icon-arrow-expander-left"

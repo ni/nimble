@@ -16,14 +16,8 @@ const trimSizeFromName = text => {
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-react/build/generate-icons\n`;
 
-// Icons that should not be generated (manually created multi-color icons)
-const manualIcons = new Set(multiColorIcons);
-
-if (multiColorIcons.length > 0) {
-    console.log(
-        `[generate-icons] Found ${multiColorIcons.length} multi-color icon(s) to skip: ${multiColorIcons.join(', ')}`
-    );
-}
+// Multi-color icons use a different import path (icons-multicolor vs icons)
+const multiColorIconSet = new Set(multiColorIcons);
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
@@ -45,7 +39,7 @@ for (const key of Object.keys(icons)) {
     const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
 
     // Determine if this is a multi-color icon and set the appropriate import path
-    const isMultiColor = manualIcons.has(fileName);
+    const isMultiColor = multiColorIconSet.has(fileName);
     const iconSubfolder = isMultiColor ? 'icons-multicolor' : 'icons';
 
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
