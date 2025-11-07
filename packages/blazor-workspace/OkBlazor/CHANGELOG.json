@@ -2,6 +2,27 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Mon, 03 Nov 2025 20:20:29 GMT",
+      "version": "0.1.1",
+      "tag": "@ni/ok-blazor_v0.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "e0dd3bcd11f980e8ad50d16f9c5898c7d3abdc28",
+            "comment": "Update deps"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v0.1.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 31 Oct 2025 20:33:25 GMT",
       "version": "0.1.0",
       "tag": "@ni/ok-blazor_v0.1.0",

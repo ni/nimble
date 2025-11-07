@@ -1,8 +1,16 @@
 # Change Log - @ni/xliff-to-json-converter
 
-<!-- This log was last generated on Fri, 03 Oct 2025 20:31:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 03 Nov 2025 20:20:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.1.10
+
+Mon, 03 Nov 2025 20:20:29 GMT
+
+### Patches
+
+- Updates for npm trusted publishing ([ni/nimble@e0dd3bc](https://github.com/ni/nimble/commit/e0dd3bcd11f980e8ad50d16f9c5898c7d3abdc28))
 
 ## 1.1.9
 

@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Fri, 31 Oct 2025 20:33:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 03 Nov 2025 20:20:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.1.1
+
+Mon, 03 Nov 2025 20:20:29 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@e0dd3bc](https://github.com/ni/nimble/commit/e0dd3bcd11f980e8ad50d16f9c5898c7d3abdc28))
+- Bump @ni/ok-components to v0.1.1
 
 ## 0.1.0
 

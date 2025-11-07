@@ -1,9 +1,10 @@
 {
   "name": "@ni/ok-react",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React components for NI Ok Components",
   "keywords": [
-    "Ok",
+    "ni",
+    "ok",
     "react"
   ],
   "scripts": {
@@ -29,7 +30,7 @@
   },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/ok-components": "^0.1.0",
+    "@ni/ok-components": "^0.1.1",
     "react": "^16 || ^17 || ^18"
   }
 }
