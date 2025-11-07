@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix race condition when opening/closing action menus in table",
+  "packageName": "@ni/nimble-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
