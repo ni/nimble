@@ -825,6 +825,11 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
+        // Defer slot updates to the next DOM update cycle to ensure any
+        // currently closing menu has fully detached from the DOM before we
+        // attempt to reassign its slots. This prevents "parentNode is null"
+        // errors when rapidly opening/closing multiple action menus.
+        await DOM.nextUpdate();
         this.updateRequestedSlotsForOpeningActionMenu(
             this.openActionMenuRecordId!
         );

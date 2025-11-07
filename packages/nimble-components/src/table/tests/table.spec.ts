@@ -900,6 +900,51 @@ describe('Table', () => {
                 verifyRenderedData(simpleTableData);
             });
 
+            it('can open and close action menus on multiple rows in succession', async () => {
+                const slot = 'my-action-menu';
+                column1.actionMenuSlot = slot;
+                const menu = document.createElement(menuTag);
+                const menuItem1 = document.createElement(menuItemTag);
+                menuItem1.textContent = 'menu item 1';
+                menu.appendChild(menuItem1);
+                menu.slot = slot;
+                element.appendChild(menu);
+                await element.setData(simpleTableData);
+                await connect();
+                await waitForUpdatesAsync();
+
+                // Open menu on first row
+                let toggleListener = waitForEvent(element, 'action-menu-toggle');
+                await pageObject.clickCellActionMenu(0, 0);
+                await toggleListener;
+                expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(true);
+
+                // Close menu on first row
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
+                await pageObject.clickCellActionMenu(0, 0);
+                await toggleListener;
+                expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(false);
+
+                // Open menu on second row
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
+                await pageObject.clickCellActionMenu(1, 0);
+                await toggleListener;
+                expect(pageObject.getCellActionMenu(1, 0)!.open).toBe(true);
+
+                // Close menu on second row
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
+                await pageObject.clickCellActionMenu(1, 0);
+                await toggleListener;
+                expect(pageObject.getCellActionMenu(1, 0)!.open).toBe(false);
+
+                // Open menu on first row again (regression test for issue where
+                // rapidly opening/closing menus could cause a "parentNode is null" error)
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
+                await pageObject.clickCellActionMenu(0, 0);
+                await toggleListener;
+                expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(true);
+            });
+
             it('can update column sort and row IDs', async () => {
                 await element.setData(simpleTableData);
                 column1.sortDirection = TableColumnSortDirection.ascending;
