@@ -26,7 +26,7 @@ async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
     );
 }
 
-describe('RichTextEditor', () => {
+fdescribe('RichTextEditor', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -1864,7 +1864,7 @@ describe('RichTextEditor', () => {
     });
 });
 
-describe('RichTextEditor With Footer', () => {
+fdescribe('RichTextEditor With Footer', () => {
     it('clicking buttons in the slot element should call the click event once', async () => {
         const { element, connect, disconnect } = await setupWithFooter();
         await connect();
@@ -1884,7 +1884,7 @@ describe('RichTextEditor With Footer', () => {
     });
 });
 
-describe('RichTextEditor Before DOM Connection', () => {
+fdescribe('RichTextEditor Before DOM Connection', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;

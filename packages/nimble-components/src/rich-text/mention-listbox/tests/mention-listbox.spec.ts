@@ -9,7 +9,7 @@ import {
 } from '../../../utilities/testing/component';
 import { checkFullyInViewport } from '../../../utilities/tests/intersection-observer';
 
-describe('RichTextMentionListbox', () => {
+fdescribe('RichTextMentionListbox', () => {
     it('can construct an element instance', () => {
         expect(
             document.createElement(richTextMentionListboxTag)

@@ -134,7 +134,7 @@ function createCustomLinkExtension(): Mark {
         },
         // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        renderHTML({ HTMLAttributes }) {
+        renderHTML({ HTMLAttributes }: { HTMLAttributes: unknown }) {
             // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
             // https://github.com/ni/nimble/issues/1516
             return ['a', HTMLAttributes];
@@ -175,38 +175,54 @@ function createCustomMentionExtension(
             ];
         },
         addAttributes() {
+            interface MentionAttributes {
+                href: string | null;
+                label: string | null;
+                disabled: string | null;
+            }
+
+            interface HTMLAttributeResult {
+                'mention-href'?: string;
+                'mention-label'?: string;
+                disabled?: string;
+            }
+
+            interface ParseHTMLElement extends HTMLElement {
+                getAttribute(name: string): string | null;
+            }
+
             return {
                 href: {
-                    default: null,
-                    parseHTML: element => element.getAttribute('mention-href'),
-                    renderHTML: attributes => {
+                    default: null as string | null,
+                    parseHTML: (element: ParseHTMLElement): string | null => element.getAttribute('mention-href'),
+                    renderHTML: (attributes: Partial<MentionAttributes>): HTMLAttributeResult => {
                         return {
-                            'mention-href': attributes.href as string
+                            'mention-href': attributes.href!
                         };
                     }
                 },
                 label: {
-                    default: null,
-                    parseHTML: element => element.getAttribute('mention-label'),
-                    renderHTML: attributes => {
+                    default: null as string | null,
+                    parseHTML: (element: ParseHTMLElement): string | null => element.getAttribute('mention-label'),
+                    renderHTML: (attributes: Partial<MentionAttributes>): HTMLAttributeResult => {
                         return {
-                            'mention-label': attributes.label as string
+                            'mention-label': attributes.label!
                         };
                     }
                 },
                 disabled: {
-                    default: null,
-                    parseHTML: element => element.getAttribute('disabled'),
-                    renderHTML: attributes => {
+                    default: null as string | null,
+                    parseHTML: (element: ParseHTMLElement): string | null => element.getAttribute('disabled'),
+                    renderHTML: (attributes: Partial<MentionAttributes>): HTMLAttributeResult => {
                         return {
-                            disabled: attributes.disabled as string
+                            disabled: attributes.disabled!
                         };
                     }
                 }
             };
         },
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        renderHTML({ node, HTMLAttributes }) {
+        renderHTML({ node, HTMLAttributes }: { node: FragmentNode, HTMLAttributes: { [key: string]: string } }) {
             return [
                 config.viewElement,
                 mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),

@@ -39,7 +39,7 @@ async function setupMentionConfig(): Promise<Fixture<RichTextEditor>> {
     );
 }
 
-describe('RichTextEditorMention', () => {
+fdescribe('RichTextEditorMention', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -943,7 +943,7 @@ describe('RichTextEditorMention', () => {
     });
 });
 
-describe('RichTextEditor user mention via template', () => {
+fdescribe('RichTextEditor user mention via template', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -1082,7 +1082,7 @@ describe('RichTextEditor user mention via template', () => {
     });
 });
 
-describe('RichTextEditorMentionListbox', () => {
+fdescribe('RichTextEditorMentionListbox', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;

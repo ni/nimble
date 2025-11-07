@@ -372,7 +372,9 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
-        this.tiptapEditor.commands.setContent(html);
+        this.tiptapEditor.commands.setContent(html, {
+            emitUpdate: false
+        });
         this.disableMentionViewElement();
     }
 

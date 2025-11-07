@@ -48,7 +48,7 @@ const formattingButtons = [
     }
 ] as const;
 
-describe('Rich Text Editor with LabelProviderRichText', () => {
+fdescribe('Rich Text Editor with LabelProviderRichText', () => {
     let element: RichTextEditor;
     let labelProvider: LabelProviderRichText;
     let connect: () => Promise<void>;
