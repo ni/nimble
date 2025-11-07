@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -155,6 +156,35 @@ public class NimbleNumberFieldTests
         var numberField = RenderWithPropertySet(x => x.FullBleed, true);
 
         Assert.Contains("full-bleed", numberField.Markup);
+    }
+
+    [Fact]
+    public void NumberField_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        // Save the current culture to restore it later
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            // Set the current culture to German, which uses comma as decimal separator
+            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+
+            var context = new TestContext();
+            context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+            // Render the component with a value that has a decimal part
+            var numberField = context.RenderComponent<NimbleNumberField>(
+                p => p.Add(x => x.Value, 1.5));
+
+            // Verify that the value attribute uses period (.) not comma (,)
+            // This is required because the web component expects period regardless of locale
+            Assert.Contains("current-value=\"1.5\"", numberField.Markup);
+            Assert.DoesNotContain("current-value=\"1,5\"", numberField.Markup);
+        }
+        finally
+        {
+            // Restore the original culture
+            CultureInfo.CurrentCulture = originalCulture;
+        }
     }
 
     private IRenderedComponent<NimbleNumberField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)
