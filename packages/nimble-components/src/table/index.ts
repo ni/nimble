@@ -817,22 +817,25 @@ export class Table<
         rowIndex: number,
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): Promise<void> {
-        const selectionChanged = this.selectionManager.handleActionMenuOpening(
-            this.tableData[rowIndex]
-        );
-        if (selectionChanged) {
-            await this.emitSelectionChangeEvent();
-        }
+        // Only update slots and selection when opening a menu
+        if (event.detail.newState) {
+            const selectionChanged = this.selectionManager.handleActionMenuOpening(
+                this.tableData[rowIndex]
+            );
+            if (selectionChanged) {
+                await this.emitSelectionChangeEvent();
+            }
 
-        this.openActionMenuRecordId = event.detail.recordIds[0];
-        // Defer slot updates to the next DOM update cycle to ensure any
-        // currently closing menu has fully detached from the DOM before we
-        // attempt to reassign its slots. This prevents "parentNode is null"
-        // errors when rapidly opening/closing multiple action menus.
-        await DOM.nextUpdate();
-        this.updateRequestedSlotsForOpeningActionMenu(
-            this.openActionMenuRecordId!
-        );
+            this.openActionMenuRecordId = event.detail.recordIds[0];
+            // Defer slot updates to the next DOM update cycle to ensure any
+            // currently closing menu has fully detached from the DOM before we
+            // attempt to reassign its slots. This prevents "parentNode is null"
+            // errors when rapidly opening/closing multiple action menus.
+            await DOM.nextUpdate();
+            this.updateRequestedSlotsForOpeningActionMenu(
+                this.openActionMenuRecordId!
+            );
+        }
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
@@ -845,6 +848,11 @@ export class Table<
         this.$emit('action-menu-toggle', detail);
         if (!event.detail.newState) {
             this.openActionMenuRecordId = undefined;
+            // Clear requested slots when the menu is fully closed
+            for (const actionMenuSlot of this.actionMenuSlots) {
+                this.requestedSlots.delete(actionMenuSlot);
+            }
+            this.refreshRows();
         }
     }
 
