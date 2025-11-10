@@ -587,6 +587,7 @@ describe('TableColumnMenuButton', () => {
                 eventCounts = await openMenuAndListenForColumnToggleEvents(
                     column2MenuButton
                 );
+                await waitForUpdatesAsync();
                 expect(eventCounts.column1BeforeToggleEmitCount).toBe(1);
                 expect(eventCounts.column1ToggleEmitCount).toBe(1);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(1);
@@ -622,6 +623,7 @@ describe('TableColumnMenuButton', () => {
                 eventCounts = await openMenuAndListenForColumnToggleEvents(
                     column2MenuButton
                 );
+                await waitForUpdatesAsync();
                 expect(eventCounts.column1BeforeToggleEmitCount).toBe(0);
                 expect(eventCounts.column1ToggleEmitCount).toBe(0);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(1);
@@ -670,6 +672,7 @@ describe('TableColumnMenuButton', () => {
 
                 // Open column2 menu button
                 await column2MenuButton.openMenu();
+                await waitForUpdatesAsync();
                 expect(column1MenuButton.isOpen()).toBeFalse();
                 expect(column2MenuButton.isOpen()).toBeTrue();
                 expect(actionMenu.isOpen()).toBeFalse();
