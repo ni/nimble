@@ -68,6 +68,10 @@ Tools and utilities hosted in the repository.
 
 The above packages follow [Semantic Versioning](https://semver.org). Consult the `CHANGELOG.md` for each package to see the changes in each version, including instructions for adapting your application in response to breaking changes.
 
+## AI Assistant Documentation
+
+Using GitHub Copilot or other AI code generation tools? Check out our [AI Assistant Documentation](/docs/README.md) for guides that help AI tools generate better Nimble code. These include comprehensive API references and framework-specific guides for web components, Angular, and Blazor.
+
 ## Community
 
 We welcome feedback and contributions!
