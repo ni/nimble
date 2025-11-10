@@ -333,7 +333,8 @@ describe('Table action menu', () => {
             newState: true,
             oldState: false,
             columnId: column1.columnId,
-            recordIds: [simpleTableData[1].stringData]
+            recordIds: [simpleTableData[1].stringData],
+            operatingRecordId: simpleTableData[1].stringData
         };
         const event = beforetoggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
@@ -365,7 +366,8 @@ describe('Table action menu', () => {
             newState: false,
             oldState: true,
             columnId: column1.columnId,
-            recordIds: [simpleTableData[1].stringData]
+            recordIds: [simpleTableData[1].stringData],
+            operatingRecordId: simpleTableData[1].stringData
         };
         const event = spy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
@@ -389,7 +391,8 @@ describe('Table action menu', () => {
             newState: true,
             oldState: false,
             columnId: column1.columnId,
-            recordIds: [simpleTableData[1].stringData]
+            recordIds: [simpleTableData[1].stringData],
+            operatingRecordId: simpleTableData[1].stringData
         };
         const event = toggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
@@ -419,7 +422,8 @@ describe('Table action menu', () => {
             newState: false,
             oldState: true,
             columnId: column1.columnId,
-            recordIds: [simpleTableData[1].stringData]
+            recordIds: [simpleTableData[1].stringData],
+            operatingRecordId: simpleTableData[1].stringData
         };
         const event = toggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
@@ -569,6 +573,68 @@ describe('Table action menu', () => {
             expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
+        });
+    });
+
+    describe('with action-menus-preserve-selection attribute', () => {
+        beforeEach(async () => {
+            const slot = 'my-action-menu';
+            column1.actionMenuSlot = slot;
+            createAndSlotMenu(slot);
+
+            element.selectionMode = TableRowSelectionMode.single;
+            await connect();
+            await waitForUpdatesAsync();
+        });
+
+        it('when false (default), clicking action menu button changes selection (legacy behavior)', async () => {
+            const rowIndex = 0;
+            // Ensure the attribute is false (default value) - means action menus change selection
+            element.actionMenusPreserveSelection = false;
+            
+            // Set initial selection to a different row
+            await element.setSelectedRecordIds([simpleTableData[1].stringData]);
+            
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener;
+
+            // Selection should change to the clicked row
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([simpleTableData[rowIndex].stringData]);
+        });
+
+        it('when true, clicking action menu button does not change selection', async () => {
+            const rowIndex = 0;
+            // Enable preservation - means action menus preserve selection
+            element.actionMenusPreserveSelection = true;
+            await waitForUpdatesAsync();
+            
+            // Set initial selection to a different row
+            await element.setSelectedRecordIds([simpleTableData[1].stringData]);
+            
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener;
+
+            // Selection should remain unchanged
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([simpleTableData[1].stringData]);
+        });        it('when false, clicking action menu on unselected row with no prior selection selects it', async () => {
+            const rowIndex = 0;
+            // Ensure the attribute is false (default value) - action menus change selection
+            element.actionMenusPreserveSelection = false;
+            
+            // Ensure no initial selection
+            await element.setSelectedRecordIds([]);
+            
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener;
+
+            // Selection should occur to the clicked row
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([simpleTableData[rowIndex].stringData]);
         });
     });
 

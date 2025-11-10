@@ -65,6 +65,10 @@ export class MultiSelectionManager<
     }
 
     public override handleActionMenuOpening(rowState: TableRowState): boolean {
+        if (this.actionMenusPreserveSelection) {
+            return false;
+        }
+        
         if (rowState.selectionState === TableRowSelectionState.selected) {
             return false;
         }

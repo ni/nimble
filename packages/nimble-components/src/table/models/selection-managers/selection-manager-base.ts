@@ -15,9 +15,11 @@ import {
  */
 export abstract class SelectionManagerBase<TData extends TableRecord> {
     protected tanStackTable: TanStackTable<TableNode<TData>>;
+    protected actionMenusPreserveSelection: boolean;
 
-    public constructor(tanStackTable: TanStackTable<TableNode<TData>>) {
+    public constructor(tanStackTable: TanStackTable<TableNode<TData>>, actionMenusPreserveSelection = false) {
         this.tanStackTable = tanStackTable;
+        this.actionMenusPreserveSelection = actionMenusPreserveSelection;
     }
 
     public abstract handleRowSelectionToggle(
