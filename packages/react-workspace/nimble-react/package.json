@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-react",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "React components for the NI Nimble Design System",
   "keywords": [
     "ni",
@@ -31,14 +31,14 @@
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-tokens": "^8.13.1",
+    "@ni/nimble-tokens": "^8.13.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "rollup": "^4.12.0",
     "typescript": "~5.4.5"
   },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/nimble-components": "^34.5.1",
+    "@ni/nimble-components": "^34.5.2",
     "react": "^16 || ^17 || ^18"
   }
 }
