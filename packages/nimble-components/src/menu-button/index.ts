@@ -131,7 +131,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
             this.focusLastMenuItem();
             this.focusLastItemWhenOpened = false;
         } else {
-            this.focusMenu();
+            this.focusFirstMenuItem();
         }
 
         const eventDetail: MenuButtonToggleEventDetail = {
@@ -249,6 +249,16 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         if (menuItems?.length) {
             const lastMenuItem = menuItems[menuItems.length - 1] as HTMLElement;
             lastMenuItem.focus();
+        }
+    }
+
+    // Focus the first menu item if present. Returns true if focus was moved.
+    private focusFirstMenuItem(): void {
+        const firstItem = this.getMenu()?.querySelector(
+            '[role=menuitem]'
+        ) as HTMLElement | null;
+        if (firstItem) {
+            firstItem.focus();
         }
     }
 

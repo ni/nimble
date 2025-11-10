@@ -74,6 +74,17 @@ export class TableRow<
     @observable
     public columns: TableColumn[] = [];
 
+    /**
+     * The column whose action menu is currently being displayed in this row.
+     *
+     * @remarks
+     * This property follows a two-phase lifecycle to prevent race conditions:
+     * - Set in `onCellActionMenuBeforeToggle` when opening (newState = true)
+     * - Cleared in `onCellActionMenuToggle` when closing (newState = false)
+     * This timing ensures slots aren't removed while menus are animating closed.
+     *
+     * @internal
+     */
     @observable
     public currentActionMenuColumn?: TableColumn;
 
@@ -201,7 +212,12 @@ export class TableRow<
         event: CustomEvent<MenuButtonToggleEventDetail>,
         column: TableColumn
     ): void {
-        this.currentActionMenuColumn = column;
+        // Only set currentActionMenuColumn when opening the menu (newState = true).
+        // This prevents the slot from being removed while a menu is closing,
+        // which would cause "parentNode is null" errors.
+        if (event.detail.newState) {
+            this.currentActionMenuColumn = column;
+        }
         this.emitActionMenuToggleEvent(
             'row-action-menu-beforetoggle',
             event.detail,
@@ -215,6 +231,11 @@ export class TableRow<
         column: TableColumn
     ): void {
         this.menuOpen = event.detail.newState;
+        // Clear currentActionMenuColumn when the menu is fully closed to allow
+        // the slot to be removed from the DOM safely.
+        if (!event.detail.newState) {
+            this.currentActionMenuColumn = undefined;
+        }
         this.emitActionMenuToggleEvent(
             'row-action-menu-toggle',
             event.detail,
