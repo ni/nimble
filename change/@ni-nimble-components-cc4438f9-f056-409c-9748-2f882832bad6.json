@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add closedby=\"none\" attribute to dialog element",
+  "packageName": "@ni/nimble-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
