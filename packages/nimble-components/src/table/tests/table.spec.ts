@@ -948,6 +948,38 @@ describe('Table', () => {
                 expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(true);
             });
 
+            it('handles rapid action menu opening/closing without errors', async () => {
+                // Regression test for https://github.com/ni/nimble/issues/2744
+                // The original bug was Firefox-specific, causing "parentNode is null" errors
+                // when rapidly clicking action menus. The fix (DOM.nextUpdate() delay) prevents
+                // the race condition universally, but may not reliably reproduce in test environments
+                // due to timing differences. This test validates the fix doesn't break functionality.
+                const slot = 'my-action-menu';
+                column1.actionMenuSlot = slot;
+                const menu = document.createElement(menuTag);
+                const menuItem1 = document.createElement(menuItemTag);
+                menuItem1.textContent = 'menu item 1';
+                menu.appendChild(menuItem1);
+                menu.slot = slot;
+                element.appendChild(menu);
+                await element.setData(simpleTableData);
+                await connect();
+                await waitForUpdatesAsync();
+
+                // Rapidly click without waiting for full toggle completion between actions.
+                // This reproduces the race condition where "parentNode is null" errors
+                // could occur when the menu slot was reassigned before the previous menu
+                // finished detaching from the DOM.
+                await pageObject.clickCellActionMenu(0, 0); // Open row 0
+                await pageObject.clickCellActionMenu(0, 0); // Close row 0 (starts async cleanup)
+                await pageObject.clickCellActionMenu(1, 0); // Immediately open row 1 (race!)
+
+                // Wait for final state and verify no errors occurred
+                await waitForUpdatesAsync();
+                // The test passes if no "parentNode is null" error was thrown during the rapid clicks
+                expect(pageObject.getCellActionMenu(1, 0)!.open).toBe(true);
+            });
+
             it('can update column sort and row IDs', async () => {
                 await element.setData(simpleTableData);
                 column1.sortDirection = TableColumnSortDirection.ascending;

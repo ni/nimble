@@ -852,6 +852,8 @@ export class Table<
             for (const actionMenuSlot of this.actionMenuSlots) {
                 this.requestedSlots.delete(actionMenuSlot);
             }
+            // Refresh rows to update tableData with the cleared slot assignments.
+            // This ensures rows no longer reference slots for the closed menu.
             this.refreshRows();
         }
     }

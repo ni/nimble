@@ -74,6 +74,17 @@ export class TableRow<
     @observable
     public columns: TableColumn[] = [];
 
+    /**
+     * The column whose action menu is currently being displayed in this row.
+     *
+     * @remarks
+     * This property follows a two-phase lifecycle to prevent race conditions:
+     * - Set in `onCellActionMenuBeforeToggle` when opening (newState = true)
+     * - Cleared in `onCellActionMenuToggle` when closing (newState = false)
+     * This timing ensures slots aren't removed while menus are animating closed.
+     *
+     * @internal
+     */
     @observable
     public currentActionMenuColumn?: TableColumn;
 
