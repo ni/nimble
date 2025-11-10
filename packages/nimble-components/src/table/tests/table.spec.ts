@@ -914,7 +914,10 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 // Open menu on first row
-                let toggleListener = waitForEvent(element, 'action-menu-toggle');
+                let toggleListener = waitForEvent(
+                    element,
+                    'action-menu-toggle'
+                );
                 await pageObject.clickCellActionMenu(0, 0);
                 await toggleListener;
                 expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(true);
