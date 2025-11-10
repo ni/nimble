@@ -3,9 +3,14 @@
  *
  * Iterates through icons provided by nimble-tokens, and generates a Nimble component for each in
  * src/icons. Also generates an all-icons barrel file.
+ *
+ * Note: Multi-color icons should be created manually in src/icons-multicolor.
+ * See CONTRIBUTING.md for instructions.
  */
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist/icons/js';
+// eslint-disable-next-line import/extensions
+import { multiColorIcons } from '../../../src/icon-base/tests/icon-multicolor-metadata-data.js';
 
 const fs = require('fs');
 const path = require('path');
@@ -17,6 +22,15 @@ const trimSizeFromName = text => {
 
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-components/build/generate-icons\n`;
+
+// Icons that should not be generated (manually created multi-color icons)
+const manualIcons = new Set(multiColorIcons);
+
+if (multiColorIcons.length > 0) {
+    console.log(
+        `[generate-icons] Found ${multiColorIcons.length} multi-color icon(s) to skip: ${multiColorIcons.join(', ')}`
+    );
+}
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
@@ -38,6 +52,12 @@ for (const key of Object.keys(icons)) {
     const svgName = key; // e.g. "arrowExpanderLeft16X16"
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
     const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
+
+    // Skip icons that are manually created (e.g., multi-color icons)
+    if (manualIcons.has(fileName)) {
+        console.log(`[generate-icons] Skipping ${fileName} (manually created)`);
+        continue;
+    }
     const elementBaseName = `icon-${spinalCase(iconName)}`; // e.g. "icon-arrow-expander-left-icon"
     const elementName = `nimble-${elementBaseName}`;
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
@@ -74,7 +94,16 @@ export const ${tagName} = '${elementName}';
         `export { ${className} } from './${fileName}';\n`
     );
 }
-console.log(`Finshed writing ${fileCount} icon component files`);
+console.log(`Finished writing ${fileCount} icon component files`);
+
+// Add manual icons to all-icons exports (from icons-multicolor directory)
+for (const iconName of manualIcons) {
+    const fileName = spinalCase(iconName);
+    const className = `Icon${pascalCase(iconName)}`;
+    allIconsFileContents = allIconsFileContents.concat(
+        `export { ${className} } from '../icons-multicolor/${fileName}';\n`
+    );
+}
 
 const allIconsFilePath = path.resolve(iconsDirectory, 'all-icons.ts');
 console.log('Writing all-icons file');

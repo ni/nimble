@@ -1,13 +1,33 @@
+/**
+ * Icon metadata for Storybook search tags and testing.
+ *
+ * SINGLE SOURCE OF TRUTH:
+ * - Icon tags are manually maintained in this file
+ * - Multi-color icon list is imported from icon-multicolor-metadata
+ *   to avoid duplication and ensure consistency across build scripts and metadata
+ */
+import { multiColorIcons } from './icon-multicolor-metadata';
 import type * as IconsNamespace from '../../icons/all-icons';
 
 type IconName = keyof typeof IconsNamespace;
 
 interface IconMetadata {
     tags: string[];
+    multiColor?: boolean;
 }
 
-export const iconMetadata: {
-    readonly [key in IconName]: IconMetadata;
+// Helper to determine if an icon is multi-color based on its class name
+const isMultiColorIcon = (iconClassName: string): boolean => {
+    // Convert IconCirclePartialBroken -> circle-partial-broken
+    const iconName = iconClassName
+        .replace(/^Icon/, '') // Remove 'Icon' prefix
+        .replace(/([a-z])([A-Z])/g, '$1-$2') // Insert hyphens: aB -> a-B
+        .toLowerCase();
+    return multiColorIcons.includes(iconName as never);
+};
+
+const iconMetadataBase: {
+    readonly [key in IconName]: Omit<IconMetadata, 'multiColor'>;
 } = {
     /* eslint-disable @typescript-eslint/naming-convention */
     IconAdd: {
@@ -719,3 +739,16 @@ export const iconMetadata: {
     }
     /* eslint-enable @typescript-eslint/naming-convention */
 };
+
+// Add multiColor flags based on nimble-tokens metadata
+export const iconMetadata: {
+    readonly [key in IconName]: IconMetadata;
+} = Object.fromEntries(
+    Object.entries(iconMetadataBase).map(([iconClassName, metadata]) => [
+        iconClassName,
+        {
+            ...metadata,
+            ...(isMultiColorIcon(iconClassName) && { multiColor: true })
+        }
+    ])
+) as { readonly [key in IconName]: IconMetadata };

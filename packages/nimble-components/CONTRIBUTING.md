@@ -326,6 +326,70 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 
 The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
 
+#### Creating multi-color icons
+
+Most icons use a single theme-aware color (controlled by the `severity` attribute). However, some icons require multiple theme colors to effectively convey their meaning. These **multi-color icons** must be created manually with static styles.
+
+**When to use multi-color icons:**
+
+- The icon has distinct visual regions that should use different theme colors
+- Theme color variation is essential to the icon's semantics (e.g., a warning indicator on a status icon)
+
+**How to create a multi-color icon:**
+
+1. **Prepare the SVG:** In the icon's SVG file, assign sequential CSS classes to regions that need different colors:
+    - Use `cls-1`, `cls-2`, `cls-3`, etc. (up to 6 layers supported)
+    - Reuse the same class for shapes that should share a color
+    - Don't skip class numbers (e.g., don't jump from `cls-1` to `cls-3`)
+
+2. **Add to metadata:** In `src/icon-base/tests/icon-multicolor-metadata-data.js`, add the icon name (spinal-case) to the `multiColorIcons` array:
+
+    ```js
+    export const multiColorIcons = ['circle-partial-broken', 'your-icon-name'];
+    ```
+
+3. **Create the icon component manually** in `src/icons-multicolor/your-icon-name.ts`:
+
+    ```ts
+    import { yourIcon16X16 } from '@ni/nimble-tokens/dist/icons/js';
+    import { css } from '@ni/fast-element';
+    import { registerIcon } from '../icon-base';
+    import { MultiColorIcon } from '../icon-base/multi-color';
+    import { multiColorTemplate } from '../icon-base/multi-color-template';
+    import { colorToken1, colorToken2 } from '../theme-provider/design-tokens';
+
+    export class IconYourIconName extends MultiColorIcon {
+        public constructor() {
+            super(yourIcon16X16);
+        }
+    }
+
+    export const yourIconNameStyles = css`
+        :host {
+            --ni-nimble-icon-layer-1-color: ${colorToken1};
+            --ni-nimble-icon-layer-2-color: ${colorToken2};
+        }
+    `;
+
+    registerIcon(
+        'icon-your-icon-name',
+        IconYourIconName,
+        multiColorTemplate,
+        yourIconNameStyles
+    );
+    export const iconYourIconNameTag = 'nimble-icon-your-icon-name';
+    ```
+
+    The CSS custom properties map to SVG classes: `--ni-nimble-icon-layer-1-color` sets the color for `cls-1`, `--ni-nimble-icon-layer-2-color` for `cls-2`, and so on.
+
+    **Note:** Multi-color icons are placed in the `src/icons-multicolor/` directory (which is checked into source control) rather than `src/icons/` (which is generated).
+
+4. **The icon will be automatically exported** from `src/icons/all-icons.ts` when the icon generation script runs.
+
+**Example:** See `src/icons-multicolor/circle-partial-broken.ts` for a complete multi-color icon implementation.
+
+**Note:** Multi-color icons do not support the `severity` attribute, as each layer has its own theme color token.
+
 ### Export component tag
 
 Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
