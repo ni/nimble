@@ -29,7 +29,7 @@ export class SingleSelectionManager<
         if (this.actionMenusPreserveSelection) {
             return false;
         }
-        
+
         return this.handleRowClick(rowState, false, false);
     }
 }

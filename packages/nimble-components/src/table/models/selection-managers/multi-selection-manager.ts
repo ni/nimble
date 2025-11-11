@@ -68,7 +68,7 @@ export class MultiSelectionManager<
         if (this.actionMenusPreserveSelection) {
             return false;
         }
-        
+
         if (rowState.selectionState === TableRowSelectionState.selected) {
             return false;
         }

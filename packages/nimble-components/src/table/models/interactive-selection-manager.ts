@@ -22,7 +22,10 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     ) {
         this.tanStackTable = tanStackTable;
         this.actionMenusPreserveSelection = actionMenusPreserveSelection;
-        this.selectionManager = this.createSelectionManager(selectionMode, actionMenusPreserveSelection);
+        this.selectionManager = this.createSelectionManager(
+            selectionMode,
+            actionMenusPreserveSelection
+        );
     }
 
     public handleRowSelectionToggle(
@@ -70,13 +73,20 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     public handleSelectionModeChanged(
         selectionMode: TableRowSelectionMode
     ): void {
-        this.selectionManager = this.createSelectionManager(selectionMode, this.actionMenusPreserveSelection);
+        this.selectionManager = this.createSelectionManager(
+            selectionMode,
+            this.actionMenusPreserveSelection
+        );
     }
 
     public handleActionMenusPreserveSelectionChanged(
         actionMenusPreserveSelection: boolean
     ): void {
         this.actionMenusPreserveSelection = actionMenusPreserveSelection;
+
+        this.selectionManager.updateActionMenusPreserveSelection(
+            actionMenusPreserveSelection
+        );
     }
 
     public handleSelectionReset(): void {
@@ -106,9 +116,15 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     ): SelectionManagerBase<TData> {
         switch (selectionMode) {
             case TableRowSelectionMode.multiple:
-                return new MultiSelectionManager(this.tanStackTable, actionMenusPreserveSelection);
+                return new MultiSelectionManager(
+                    this.tanStackTable,
+                    actionMenusPreserveSelection
+                );
             case TableRowSelectionMode.single:
-                return new SingleSelectionManager(this.tanStackTable, actionMenusPreserveSelection);
+                return new SingleSelectionManager(
+                    this.tanStackTable,
+                    actionMenusPreserveSelection
+                );
             case TableRowSelectionMode.none:
                 return new DisabledSelectionManager(this.tanStackTable);
             default:
