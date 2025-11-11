@@ -34,6 +34,9 @@ public partial class NimbleTable<TData> : ComponentBase
     public TableRowSelectionMode? SelectionMode { get; set; }
 
     [Parameter]
+    public bool ActionMenusPreserveSelection { get; set; }
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]

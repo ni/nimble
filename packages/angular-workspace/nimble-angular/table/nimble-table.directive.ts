@@ -66,6 +66,14 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
     }
 
+    public get actionMenusPreserveSelection(): boolean {
+        return this.elementRef.nativeElement.actionMenusPreserveSelection;
+    }
+
+    @Input('action-menus-preserve-selection') public set actionMenusPreserveSelection(value: boolean) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenusPreserveSelection', value);
+    }
+
     public get validity(): TableValidity {
         return this.elementRef.nativeElement.validity;
     }
