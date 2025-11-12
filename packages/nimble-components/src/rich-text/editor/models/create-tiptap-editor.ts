@@ -130,8 +130,13 @@ function createCustomLinkExtension(): Mark {
             ];
         },
         // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        renderHTML({ HTMLAttributes }: { HTMLAttributes: { [key: string]: unknown } }) {
+        renderHTML({
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            HTMLAttributes
+        }: {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            HTMLAttributes: { [key: string]: unknown }
+        }) {
             // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
             // https://github.com/ni/nimble/issues/1516
             return ['a', HTMLAttributes];
@@ -202,8 +207,15 @@ function createCustomMentionExtension(
                 }
             };
         },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        renderHTML({ node, HTMLAttributes }: { node: FragmentNode, HTMLAttributes: { [key: string]: unknown } }) {
+        renderHTML({
+            node,
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            HTMLAttributes
+        }: {
+            node: FragmentNode,
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            HTMLAttributes: { [key: string]: unknown }
+        }) {
             return [
                 config.viewElement,
                 mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
