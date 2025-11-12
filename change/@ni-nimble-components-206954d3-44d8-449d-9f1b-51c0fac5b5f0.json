@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Upgrade TipTap version to 3.10.1",
+  "packageName": "@ni/nimble-components",
+  "email": "email not defined",
+  "dependentChangeType": "patch"
+}
