@@ -249,6 +249,17 @@ describe('Dialog', () => {
         await disconnect();
     });
 
+    it('has closedby attribute set to none', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
+            'none'
+        );
+
+        await disconnect();
+    });
+
     it('restores focus to the element that had it before opening', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
