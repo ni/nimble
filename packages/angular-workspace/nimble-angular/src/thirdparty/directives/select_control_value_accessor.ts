@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/select_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/packages/forms/src/directives/select_control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from SelectControlValueAccessor's `@Directive` decorator
@@ -94,7 +94,7 @@ function _extractId(valueString: string): string {
  * const selectedCountriesControl = new FormControl();
  * ```
  *
- * ```
+ * ```html
  * <select [compareWith]="compareFn"  [formControl]="selectedCountriesControl">
  *     <option *ngFor="let country of countries" [ngValue]="country">
  *         {{country.name}}
@@ -114,20 +114,19 @@ function _extractId(valueString: string): string {
  * @ngModule FormsModule
  * @publicApi
  */
-/* [Nimble] Remove all configuration from @Directive decorator
+// [Nimble] Remove configuration from @Directive decorator
 @Directive({
-  selector:
-    'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
-  host: {'(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
-  providers: [SELECT_VALUE_ACCESSOR],
+  // selector:
+  //   'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
+  // host: {'(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
+  // providers: [SELECT_VALUE_ACCESSOR],
+  standalone: false,
 })
-*/
-@Directive()
 export class SelectControlValueAccessor
   extends BuiltInControlValueAccessor
   implements ControlValueAccessor
 {
-  /** @nodoc */
+  /** @docs-private */
   value: any;
 
   /** @internal */
@@ -160,7 +159,7 @@ export class SelectControlValueAccessor
 
   /**
    * Sets the "value" property on the select element.
-   * @nodoc
+   * @docs-private
    */
   writeValue(value: any): void {
     this.value = value;
@@ -171,7 +170,7 @@ export class SelectControlValueAccessor
 
   /**
    * Registers a function called when the control value changes.
-   * @nodoc
+   * @docs-private
    */
   override registerOnChange(fn: (value: any) => any): void {
     this.onChange = (valueString: string) => {
@@ -210,16 +209,16 @@ export class SelectControlValueAccessor
  * @ngModule FormsModule
  * @publicApi
  */
-/* [Nimble] Remove all configuration from @Directive decorator
-@Directive({selector: 'option'})
-*/
-@Directive()
+// [Nimble] Remove configuration from @Directive decorator
+@Directive({
+  //selector: 'option',
+  standalone: false,
+})
 export class NgSelectOption implements OnDestroy {
   /**
    * @description
    * ID of the option element
    */
-  // TODO(issue/24571): remove '!'.
   id!: string;
 
   constructor(
@@ -259,7 +258,7 @@ export class NgSelectOption implements OnDestroy {
     this._renderer.setProperty(this._element.nativeElement, 'value', value);
   }
 
-  /** @nodoc */
+  /** @docs-private */
   ngOnDestroy(): void {
     if (this._select) {
       this._select._optionMap.delete(this.id);

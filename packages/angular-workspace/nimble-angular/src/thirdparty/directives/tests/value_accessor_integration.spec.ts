@@ -27,7 +27,6 @@ import {
   Output,
   Type,
   ViewChild,
-  forwardRef,
 } from '@angular/core';
 import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
 import {
@@ -51,7 +50,9 @@ import {
   SelectControlValueAccessor as AngularSelectControlValueAccessor,
   NgSelectOption as AngularNgSelectOption
 } from '@angular/forms';
+import {forwardRef} from '@angular/core';
 import {By} from '@angular/platform-browser';
+// import {dispatchEvent, isNode} from '@angular/private/testing';
 import {CheckboxControlValueAccessor} from '../checkbox_value_accessor';
 import {DefaultValueAccessor} from '../default_value_accessor';
 import {NumberValueAccessor} from '../number_value_accessor';
@@ -73,7 +74,8 @@ function dispatchEvent(element: any, eventName: string): void {
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => TestCheckboxControlValueAccessor),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 class TestCheckboxControlValueAccessor extends CheckboxControlValueAccessor {}
 
@@ -90,7 +92,8 @@ class TestCheckboxControlValueAccessor extends CheckboxControlValueAccessor {}
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => TestDefaultValueAccessor),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 class TestDefaultValueAccessor extends DefaultValueAccessor {}
 
@@ -102,7 +105,8 @@ class TestDefaultValueAccessor extends DefaultValueAccessor {}
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => TestNumberValueAccessor),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 class TestNumberValueAccessor extends NumberValueAccessor {}
 
@@ -113,7 +117,8 @@ class TestNumberValueAccessor extends NumberValueAccessor {}
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => TestRadioControlValueAccessor),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 class TestRadioControlValueAccessor extends RadioControlValueAccessor {}
 
@@ -127,12 +132,14 @@ class TestRadioControlValueAccessor extends RadioControlValueAccessor {}
     }, {
       provide: SelectControlValueAccessor,
       useExisting: forwardRef(() => TestSelectControlValueAccessor)
-    }]
+    }],
+    standalone: false
 })
 class TestSelectControlValueAccessor extends SelectControlValueAccessor {}
 
 @Directive({
-    selector: 'option'
+    selector: 'option',
+    standalone: false
 })
 class TestNgSelectOption extends NgSelectOption {}
 
@@ -1337,6 +1344,7 @@ describe('value accessors', () => {
           selector: 'parent',
           template: '<child [ngModel]="value"></child>',
           changeDetection: ChangeDetectionStrategy.OnPush,
+          standalone: false,
         })
         class Parent {
           value!: string;
@@ -1355,6 +1363,7 @@ describe('value accessors', () => {
           selector: 'child',
           template: 'Value: {{ value }}',
           providers: [{provide: NG_VALUE_ACCESSOR, useExisting: Child, multi: true}],
+          standalone: false,
         })
         class Child implements ControlValueAccessor {
           value!: string;
@@ -1426,7 +1435,11 @@ describe('value accessors in reactive forms with custom options', () => {
   });
 });
 
-@Component({selector: 'form-control-comp', template: `<input type="text" [formControl]="control">`})
+@Component({
+  selector: 'form-control-comp',
+  template: `<input type="text" [formControl]="control">`,
+  standalone: false,
+})
 export class FormControlComp {
   control!: FormControl;
 }
@@ -1437,6 +1450,7 @@ export class FormControlComp {
     <form [formGroup]="form" (ngSubmit)="event=$event">
       <input type="text" formControlName="login">
     </form>`,
+  standalone: false,
 })
 export class FormGroupComp {
   control!: FormControl;
@@ -1448,6 +1462,7 @@ export class FormGroupComp {
 @Component({
   selector: 'form-control-number-input',
   template: `<input type="number" [formControl]="control">`,
+  standalone: false,
 })
 class FormControlNumberInput {
   control!: FormControl;
@@ -1461,6 +1476,7 @@ class FormControlNumberInput {
         <option *ngFor="let c of cities" [value]="c"></option>
       </select>
     </div>`,
+  standalone: false,
 })
 class FormControlNameSelect {
   cities = ['SF', 'NY'];
@@ -1475,6 +1491,7 @@ class FormControlNameSelect {
         <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
       </select>
     </div>`,
+  standalone: false,
 })
 class FormControlSelectNgValue {
   cities = [
@@ -1492,6 +1509,7 @@ class FormControlSelectNgValue {
         <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
       </select>
     </div>`,
+  standalone: false,
 })
 class FormControlSelectWithCompareFn {
   compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
@@ -1511,6 +1529,7 @@ class FormControlSelectWithCompareFn {
         <option *ngFor="let c of cities" [value]="c">{{c}}</option>
       </select>
     </div>`,
+  standalone: false,
 })
 class FormControlSelectMultiple {
   cities = ['SF', 'NY'];
@@ -1525,6 +1544,7 @@ class FormControlSelectMultiple {
         <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
       </select>
     </div>`,
+  standalone: false,
 })
 class FormControlSelectMultipleNgValue {
   cities = [
@@ -1542,6 +1562,7 @@ class FormControlSelectMultipleNgValue {
         <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
       </select>
     </div>`,
+  standalone: false,
 })
 class FormControlSelectMultipleWithCompareFn {
   compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
@@ -1560,6 +1581,7 @@ class FormControlSelectMultipleWithCompareFn {
       <option *ngFor="let c of cities" [ngValue]="c"> {{c.name}} </option>
     </select>
   `,
+  standalone: false,
 })
 class NgModelSelectForm {
   selectedCity: {[k: string]: string} = {};
@@ -1574,6 +1596,7 @@ class NgModelSelectForm {
       <option [ngValue]="null">Unspecified</option>
     </select>
   `,
+  standalone: false,
 })
 class NgModelSelectWithNullForm {
   selectedCity: {[k: string]: string} | null = {};
@@ -1587,6 +1610,7 @@ class NgModelSelectWithNullForm {
       <option *ngFor="let c of cities" [ngValue]="c"> {{c.name}} </option>
     </select>
   `,
+  standalone: false,
 })
 class NgModelSelectWithCustomCompareFnForm {
   compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
@@ -1602,6 +1626,7 @@ class NgModelSelectWithCustomCompareFnForm {
       <option *ngFor="let c of cities" [ngValue]="c"> {{c.name}} </option>
     </select>
   `,
+  standalone: false,
 })
 class NgModelSelectMultipleWithCustomCompareFnForm {
   compareFn: (o1: any, o2: any) => boolean = (o1: any, o2: any) =>
@@ -1617,6 +1642,7 @@ class NgModelSelectMultipleWithCustomCompareFnForm {
       <option *ngFor="let c of cities" [ngValue]="c"> {{c.name}} </option>
     </select>
   `,
+  standalone: false,
 })
 class NgModelSelectMultipleForm {
   selectedCities!: any[];
@@ -1626,12 +1652,17 @@ class NgModelSelectMultipleForm {
 @Component({
   selector: 'form-control-range-input',
   template: `<input type="range" [formControl]="control">`,
+  standalone: false,
 })
 class FormControlRangeInput {
   control!: FormControl;
 }
 
-@Component({selector: 'ng-model-range-form', template: '<input type="range" [(ngModel)]="val">'})
+@Component({
+  selector: 'ng-model-range-form',
+  template: '<input type="range" [(ngModel)]="val">',
+  standalone: false,
+})
 class NgModelRangeForm {
   val: any;
 }
@@ -1647,6 +1678,7 @@ class NgModelRangeForm {
     </form>
     <input type="radio" [formControl]="showRadio" value="yes">
     <input type="radio" [formControl]="showRadio" value="no">`,
+  standalone: false,
 })
 export class FormControlRadioButtons {
   form!: FormGroup;
@@ -1664,6 +1696,7 @@ export class FormControlRadioButtons {
       <input type="radio" name="drink" [(ngModel)]="drink" value="sprite">
     </form>
   `,
+  standalone: false,
 })
 class NgModelRadioForm {
   food!: string;
@@ -1677,6 +1710,7 @@ class NgModelRadioForm {
     {provide: NG_VALUE_ACCESSOR, multi: true, useExisting: WrappedValue},
     {provide: NG_VALIDATORS, multi: true, useExisting: WrappedValue},
   ],
+  standalone: false,
 })
 class WrappedValue implements ControlValueAccessor {
   value: any;
@@ -1707,6 +1741,7 @@ class WrappedValue implements ControlValueAccessor {
     <div *ngIf="disabled === undefined">UNSET</div>
   `,
   providers: [{provide: NG_VALUE_ACCESSOR, multi: true, useExisting: CvaWithDisabledState}],
+  standalone: false,
 })
 class CvaWithDisabledState implements ControlValueAccessor {
   disabled?: boolean;
@@ -1728,12 +1763,17 @@ class CvaWithDisabledState implements ControlValueAccessor {
     <div [formGroup]="form">
       <cva-with-disabled-state formControlName="login"></cva-with-disabled-state>
     </div>`,
+  standalone: false,
 })
 class CvaWithDisabledStateForm {
   form!: FormGroup;
 }
 
-@Component({selector: 'my-input', template: ''})
+@Component({
+  selector: 'my-input',
+  template: '',
+  standalone: false,
+})
 export class MyInput implements ControlValueAccessor {
   @Output('input') onInput = new EventEmitter();
   value!: string;
@@ -1769,6 +1809,7 @@ export class MyInput implements ControlValueAccessor {
     <div [formGroup]="form">
       <my-input formControlName="login"></my-input>
     </div>`,
+  standalone: false,
 })
 export class MyInputForm {
   form!: FormGroup;
@@ -1781,6 +1822,7 @@ export class MyInputForm {
     <div [formGroup]="form">
       <input type="text" formControlName="login" wrapped-value>
     </div>`,
+  standalone: false,
 })
 class WrappedValueForm {
   form!: FormGroup;
@@ -1792,6 +1834,7 @@ class WrappedValueForm {
     <input name="custom" [(ngModel)]="model" (ngModelChange)="changeFn($event)" [disabled]="isDisabled">
   `,
   providers: [{provide: NG_VALUE_ACCESSOR, multi: true, useExisting: NgModelCustomComp}],
+  standalone: false,
 })
 export class NgModelCustomComp implements ControlValueAccessor {
   model!: string;
@@ -1820,6 +1863,7 @@ export class NgModelCustomComp implements ControlValueAccessor {
       <ng-model-custom-comp name="name" [(ngModel)]="name" [disabled]="isDisabled"></ng-model-custom-comp>
     </form>
   `,
+  standalone: false,
 })
 export class NgModelCustomWrapper {
   name!: string;
