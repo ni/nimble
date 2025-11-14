@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/packages/forms/src/directives/control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Commented out ControlValueAccessor which is exported from @angular/forms
@@ -154,13 +154,13 @@ export class BaseControlValueAccessor {
   /**
    * The registered callback function called when a change or input event occurs on the input
    * element.
-   * @nodoc
+   * @docs-private
    */
   onChange = (_: any) => {};
 
   /**
    * The registered callback function called when a blur event occurs on the input element.
-   * @nodoc
+   * @docs-private
    */
   onTouched = () => {};
 
@@ -172,7 +172,7 @@ export class BaseControlValueAccessor {
   /**
    * Helper method that sets a property on a target element using the current Renderer
    * implementation.
-   * @nodoc
+   * @docs-private
    */
   protected setProperty(key: string, value: any): void {
     this._renderer.setProperty(this._elementRef.nativeElement, key, value);
@@ -180,7 +180,7 @@ export class BaseControlValueAccessor {
 
   /**
    * Registers a function called when the control is touched.
-   * @nodoc
+   * @docs-private
    */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
@@ -188,7 +188,7 @@ export class BaseControlValueAccessor {
 
   /**
    * Registers a function called when the control value changes.
-   * @nodoc
+   * @docs-private
    */
   registerOnChange(fn: (_: any) => {}): void {
     this.onChange = fn;
@@ -196,7 +196,7 @@ export class BaseControlValueAccessor {
 
   /**
    * Sets the "disabled" property on the range input element.
-   * @nodoc
+   * @docs-private
    */
   setDisabledState(isDisabled: boolean): void {
     this.setProperty('disabled', isDisabled);
