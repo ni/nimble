@@ -1830,7 +1830,7 @@ describe('RichTextEditor', () => {
         expect(element.placeholder).toBeUndefined();
     });
 
-    xit('should reflect the "placeholder" value to its internal attribute', () => {
+    it('should reflect the "placeholder" value to its internal attribute', () => {
         expect(pageObject.getPlaceholderValue()).toBe('');
 
         element.placeholder = 'Placeholder text';
@@ -1838,7 +1838,7 @@ describe('RichTextEditor', () => {
         expect(pageObject.getPlaceholderValue()).toBe('Placeholder text');
     });
 
-    xit('should set "placeholder" value to empty when attribute is cleared with an empty string', () => {
+    it('should set "placeholder" value to empty when attribute is cleared with an empty string', () => {
         element.placeholder = 'Placeholder text';
 
         expect(pageObject.getPlaceholderValue()).toBe('Placeholder text');
