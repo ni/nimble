@@ -93,6 +93,9 @@ export class Table<
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
+    @attr({ attribute: 'action-menus-preserve-selection', mode: 'boolean' })
+    public actionMenusPreserveSelection = false;
+
     /**
      * @internal
      */
@@ -344,7 +347,8 @@ export class Table<
         this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
-            this.selectionMode
+            this.selectionMode,
+            this.actionMenusPreserveSelection
         );
         this.expansionManager = new ExpansionManager(this.table);
     }
@@ -766,6 +770,19 @@ export class Table<
         this.tableUpdateTracker.trackSelectionModeChanged();
     }
 
+    protected actionMenusPreserveSelectionChanged(
+        _prev: boolean,
+        _next: boolean
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.selectionManager.handleActionMenusPreserveSelectionChanged(
+            this.actionMenusPreserveSelection
+        );
+    }
+
     protected idFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
@@ -820,13 +837,14 @@ export class Table<
         const selectionChanged = this.selectionManager.handleActionMenuOpening(
             this.tableData[rowIndex]
         );
-        if (selectionChanged) {
+
+        if (selectionChanged && !this.actionMenusPreserveSelection) {
             await this.emitSelectionChangeEvent();
         }
 
-        this.openActionMenuRecordId = event.detail.recordIds[0];
+        this.openActionMenuRecordId = event.detail.operatingRecordId;
         this.updateRequestedSlotsForOpeningActionMenu(
-            this.openActionMenuRecordId!
+            this.openActionMenuRecordId
         );
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
@@ -889,6 +907,12 @@ export class Table<
         this.$fastController.onConnectedCallback();
         this.tableUpdateTracker.trackAllStateChanged();
         this.observeColumns();
+
+        // Ensure the selection manager is updated with the current actionMenusPreserveSelection value
+        // This handles cases where the attribute was set before the component was connected
+        this.selectionManager.handleActionMenusPreserveSelectionChanged(
+            this.actionMenusPreserveSelection
+        );
     }
 
     private async processPendingUpdates(): Promise<void> {

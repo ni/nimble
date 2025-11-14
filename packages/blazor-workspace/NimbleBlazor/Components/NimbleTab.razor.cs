@@ -10,6 +10,9 @@ public partial class NimbleTab : ComponentBase
     [Parameter]
     public bool? Disabled { get; set; }
 
+    [Parameter]
+    public bool ActionMenusPreserveSelection { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

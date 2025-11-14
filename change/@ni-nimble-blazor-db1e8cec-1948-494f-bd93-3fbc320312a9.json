@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Adding table attribute to preserve selection on action menu click",
+  "packageName": "@ni/nimble-blazor",
+  "email": "valerie.gleason@gmail.com",
+  "dependentChangeType": "patch"
+}
