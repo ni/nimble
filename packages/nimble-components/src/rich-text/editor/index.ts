@@ -221,7 +221,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
         // In TipTap v3, extension options cannot be modified after initialization.
         // We need to reinitialize the editor with the new placeholder value.
         // This workaround will be updated once the upstream issue is resolved.
-        // See: https://github.com/ueberdosis/tiptap/issues/6537
+        // See: https://github.com/ni/nimble/issues/2752
         const currentContent = this.getMarkdown();
         const { from, to } = this.tiptapEditor.view.state.selection;
 

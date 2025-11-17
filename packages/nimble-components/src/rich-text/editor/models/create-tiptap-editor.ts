@@ -135,7 +135,7 @@ function createCustomLinkExtension(): Mark {
             HTMLAttributes
         }: {
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            HTMLAttributes: { [key: string]: unknown }
+            HTMLAttributes: { [key: string]: string }
         }) {
             // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
             // https://github.com/ni/nimble/issues/1516
@@ -181,27 +181,27 @@ function createCustomMentionExtension(
                 href: {
                     default: null,
                     parseHTML: (element: HTMLElement) => element.getAttribute('mention-href'),
-                    renderHTML: (attributes: { [key: string]: unknown }) => {
+                    renderHTML: (attributes: { [key: string]: string }) => {
                         return {
-                            'mention-href': attributes.href as string
+                            'mention-href': attributes.href
                         };
                     }
                 },
                 label: {
                     default: null,
                     parseHTML: (element: HTMLElement) => element.getAttribute('mention-label'),
-                    renderHTML: (attributes: { [key: string]: unknown }) => {
+                    renderHTML: (attributes: { [key: string]: string }) => {
                         return {
-                            'mention-label': attributes.label as string
+                            'mention-label': attributes.label
                         };
                     }
                 },
                 disabled: {
                     default: null,
                     parseHTML: (element: HTMLElement) => element.getAttribute('disabled'),
-                    renderHTML: (attributes: { [key: string]: unknown }) => {
+                    renderHTML: (attributes: { [key: string]: string }) => {
                         return {
-                            disabled: attributes.disabled as string
+                            disabled: attributes.disabled
                         };
                     }
                 }
@@ -214,7 +214,7 @@ function createCustomMentionExtension(
         }: {
             node: FragmentNode,
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            HTMLAttributes: { [key: string]: unknown }
+            HTMLAttributes: { [key: string]: string }
         }) {
             return [
                 config.viewElement,
