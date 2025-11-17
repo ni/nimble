@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 17 Nov 2025 17:24:55 GMT",
+      "version": "34.6.0",
+      "tag": "@ni/nimble-components_v34.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "email not defined",
+            "package": "@ni/nimble-components",
+            "commit": "c7543fda6ac01d0ce87c062ce443f0f344945f4b",
+            "comment": "Upgrade TipTap version to 3.10.1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 10 Nov 2025 23:09:19 GMT",
       "version": "34.5.2",
       "tag": "@ni/nimble-components_v34.5.2",
