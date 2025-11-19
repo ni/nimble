@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix bug where dialogs and drawers can closed via ESC when \"preventDismiss\" is true",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
