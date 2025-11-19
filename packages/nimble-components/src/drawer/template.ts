@@ -7,6 +7,7 @@ export const template = html<Drawer>`
         aria-label="${x => x.ariaLabel}"
         @cancel="${(x, c) => x.cancelHandler(c.event)}"
         @close="${(x, c) => x.closeHandler(c.event)}"
+        closedby="${x => (x.preventDismiss ? 'none' : 'any')}"
     >
         <div class="dialog-contents">
             <slot></slot>

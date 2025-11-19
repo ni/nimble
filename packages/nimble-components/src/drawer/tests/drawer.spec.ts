@@ -262,6 +262,20 @@ describe('Drawer', () => {
             expect(secondDrawer.open).toBeTrue();
             expect(document.activeElement).toBe(secondDrawerButton);
         });
+
+        it('should set closedby="none" when preventDismiss is true', () => {
+            element.preventDismiss = true;
+            void element.show();
+            processUpdates();
+            expect(nativeDialogElement(element).getAttribute('closedby')).toBe('none');
+        });
+
+        it('should set closedby="any" when preventDismiss is false', () => {
+            element.preventDismiss = false;
+            void element.show();
+            processUpdates();
+            expect(nativeDialogElement(element).getAttribute('closedby')).toBe('any');
+        });
     });
 
     describe('with custom setup', () => {

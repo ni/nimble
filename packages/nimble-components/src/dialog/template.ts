@@ -10,6 +10,7 @@ export const template = html<Dialog>`
             @cancel="${(x, c) => x.cancelHandler(c.event)}"
             @close="${(x, c) => x.closeHandler(c.event)}"
             aria-labelledby="header"
+            closedby="${x => (x.preventDismiss ? 'none' : 'any')}"
         >
             <header id="header">
                 <div class="title">
