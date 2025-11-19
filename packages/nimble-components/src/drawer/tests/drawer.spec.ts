@@ -267,14 +267,18 @@ describe('Drawer', () => {
             element.preventDismiss = true;
             void element.show();
             processUpdates();
-            expect(nativeDialogElement(element).getAttribute('closedby')).toBe('none');
+            expect(nativeDialogElement(element).getAttribute('closedby')).toBe(
+                'none'
+            );
         });
 
         it('should set closedby="any" when preventDismiss is false', () => {
             element.preventDismiss = false;
             void element.show();
             processUpdates();
-            expect(nativeDialogElement(element).getAttribute('closedby')).toBe('any');
+            expect(nativeDialogElement(element).getAttribute('closedby')).toBe(
+                'any'
+            );
         });
     });
 
