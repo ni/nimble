@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 17 Nov 2025 17:24:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 20 Nov 2025 16:54:41 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.6.1
+
+Thu, 20 Nov 2025 16:54:41 GMT
+
+### Patches
+
+- Fix bug where dialogs and drawers can close via ESC when "preventDismiss" is true ([ni/nimble@2fba1c8](https://github.com/ni/nimble/commit/2fba1c80da7a42ad167bdd325af0963756f2601e))
 
 ## 34.6.0
 
