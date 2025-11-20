@@ -272,12 +272,12 @@ describe('Drawer', () => {
             );
         });
 
-        it('should set closedby="any" when preventDismiss is false', () => {
+        it('should set closedby="closerequest" when preventDismiss is false', () => {
             element.preventDismiss = false;
             void element.show();
             processUpdates();
             expect(nativeDialogElement(element).getAttribute('closedby')).toBe(
-                'any'
+                'closerequest'
             );
         });
     });

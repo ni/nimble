@@ -330,13 +330,13 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('should set closedby="any" when preventDismiss is false', async () => {
+    it('should set closedby="closerequest" when preventDismiss is false', async () => {
         const { element, connect, disconnect } = await setup();
         element.preventDismiss = false;
         await connect();
 
         expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
-            'any'
+            'closerequest'
         );
 
         await disconnect();
