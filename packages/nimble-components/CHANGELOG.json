@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 20 Nov 2025 16:54:41 GMT",
+      "version": "34.6.1",
+      "tag": "@ni/nimble-components_v34.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2fba1c80da7a42ad167bdd325af0963756f2601e",
+            "comment": "Fix bug where dialogs and drawers can close via ESC when \"preventDismiss\" is true"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Nov 2025 17:24:55 GMT",
       "version": "34.6.0",
       "tag": "@ni/nimble-components_v34.6.0",
