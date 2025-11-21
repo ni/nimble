@@ -12,7 +12,7 @@
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "sync": "beachball sync",
-    "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
+    "invoke-publish": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
     "performance": "npm run performance --workspaces --if-present",
     "validate": "concurrently --pad-prefix --timings --group \"npm:validate:*\"",
     "validate:lint:sequential": "npm run lint --workspaces --if-present",
@@ -66,7 +66,6 @@
   "devDependencies": {
     "beachball": "^2.45.0",
     "concurrently": "^9.0.0",
-    "cross-env": "^10.1.0",
     "patch-package": "^8.0.0",
     "playwright": "1.54.1"
   }

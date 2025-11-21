@@ -1,11 +1,11 @@
 import { TextArea } from '@ni/nimble-components/dist/esm/text-area';
-import { wrap } from '../utilities/react-wrapper';
+import { wrap, type EventName } from '../utilities/react-wrapper';
 
 export { type TextArea };
 export const NimbleTextArea = wrap(TextArea, {
     events: {
-        onChange: 'change',
-        onInput: 'input',
+        onChange: 'change' as EventName<TextAreaChangeEvent>,
+        onInput: 'input' as EventName<TextAreaInputEvent>,
     }
 });
 export interface TextAreaChangeEvent extends CustomEvent {

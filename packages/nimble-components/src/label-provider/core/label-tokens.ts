@@ -55,3 +55,8 @@ export const scrollForwardLabel = DesignToken.create<string>({
     name: 'scroll-forward-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.scrollForwardLabel);
+
+export const itemRemoveLabel = DesignToken.create<string>({
+    name: 'item-remove-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.itemRemoveLabel);

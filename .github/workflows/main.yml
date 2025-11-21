@@ -5,8 +5,10 @@ on:
   push:
     branches:
       - '**'
-  schedule:
-    - cron: 0 0-23 * * *
+
+permissions:
+  id-token: write
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -22,7 +24,6 @@ env:
   HAS_GITHUBPAGESDEPLOYTOKEN: ${{secrets.GITHUBPAGESDEPLOYTOKEN != ''}}
   HAS_CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN != ''}}
   HAS_LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN != ''}}
-  HAS_NPM_TOKEN: ${{secrets.NPM_TOKEN != ''}}
   HAS_NUGET_TOKEN: ${{secrets.NUGET_TOKEN != ''}}
 
 jobs:
@@ -62,6 +63,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci
+        timeout-minutes: 10
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
@@ -125,18 +127,13 @@ jobs:
 
       # Release
       - name: Set Git User
-        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
+        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NUGET_TOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
+        env:
+          NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
         run: |
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
-
-      # Update package versions, tag, and publish to npm (only from main)
-      - name: Beachball publish
-        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NPM_TOKEN == 'true' && env.HAS_NUGET_TOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
-        env:
-          NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
-        run: npm run invoke-publish
+          npm run invoke-publish
 
   pages:
     needs: build

@@ -169,6 +169,16 @@ const components = [
         blazorStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Chip',
+        componentHref: './?path=/docs/components-chip--docs',
+        designHref:
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2227-78839&p=f&t=jqn5mzroV2yUvbvC-0',
+        designLabel: 'Figma',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Combobox',
         componentHref: './?path=/docs/components-combobox--docs',
         designHref:
@@ -311,7 +321,7 @@ const components = [
         blazorStatus: ComponentFrameworkStatus.ready
     },
     {
-        componentName: 'Picker (Chip/Pill)',
+        componentName: 'Picker (Chip)',
         designHref:
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/18a0e4f6-6541-4420-a6b5-cb79652a97dc/',
         designLabel: 'XD',

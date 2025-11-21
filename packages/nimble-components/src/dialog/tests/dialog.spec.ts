@@ -317,4 +317,28 @@ describe('Dialog', () => {
 
         await disconnect();
     });
+
+    it('should set closedby="none" when preventDismiss is true', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.preventDismiss = true;
+        await connect();
+
+        expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
+            'none'
+        );
+
+        await disconnect();
+    });
+
+    it('should set closedby="closerequest" when preventDismiss is false', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.preventDismiss = false;
+        await connect();
+
+        expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
+            'closerequest'
+        );
+
+        await disconnect();
+    });
 });

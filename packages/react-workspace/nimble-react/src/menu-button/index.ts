@@ -1,14 +1,14 @@
 import { MenuButton } from '@ni/nimble-components/dist/esm/menu-button';
 import { type MenuButtonToggleEventDetail } from '@ni/nimble-components/dist/esm/menu-button/types';
-import { wrap } from '../utilities/react-wrapper';
+import { wrap, type EventName } from '../utilities/react-wrapper';
 import type { MenuItemChangeEvent } from '../menu-item';
 
 export { type MenuButton };
 export const NimbleMenuButton = wrap(MenuButton, {
     events: {
-        onChange: 'change',
-        onToggle: 'toggle',
-        onBeforeToggle: 'beforetoggle',
+        onChange: 'change' as EventName<MenuButtonChangeEvent>,
+        onToggle: 'toggle' as EventName<MenuButtonToggleEvent>,
+        onBeforeToggle: 'beforetoggle' as EventName<MenuButtonBeforeToggleEvent>,
     }
 });
 /**

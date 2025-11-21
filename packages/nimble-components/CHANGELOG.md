@@ -1,8 +1,67 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 03 Oct 2025 20:31:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 20 Nov 2025 16:54:41 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.6.1
+
+Thu, 20 Nov 2025 16:54:41 GMT
+
+### Patches
+
+- Fix bug where dialogs and drawers can close via ESC when "preventDismiss" is true ([ni/nimble@2fba1c8](https://github.com/ni/nimble/commit/2fba1c80da7a42ad167bdd325af0963756f2601e))
+
+## 34.6.0
+
+Mon, 17 Nov 2025 17:24:55 GMT
+
+### Minor changes
+
+- Upgrade TipTap version to 3.10.1 ([ni/nimble@c7543fd](https://github.com/ni/nimble/commit/c7543fda6ac01d0ce87c062ce443f0f344945f4b))
+
+## 34.5.2
+
+Mon, 10 Nov 2025 23:09:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.13.2
+
+## 34.5.1
+
+Mon, 03 Nov 2025 20:20:29 GMT
+
+### Patches
+
+- Updates for npm trusted publishing ([ni/nimble@e0dd3bc](https://github.com/ni/nimble/commit/e0dd3bcd11f980e8ad50d16f9c5898c7d3abdc28))
+- Bump @ni/nimble-tokens to v8.13.1
+- Bump @ni/jasmine-parameterized to v1.0.3
+
+## 34.5.0
+
+Fri, 31 Oct 2025 20:33:25 GMT
+
+### Minor changes
+
+- Add new icons for camera, scanner gun, DIAdem, calipers ([ni/nimble@7bc6318](https://github.com/ni/nimble/commit/7bc6318cc1a2984d4411936acc6c9adbe0a3c65b))
+- Bump @ni/nimble-tokens to v8.13.0
+
+## 34.4.0
+
+Tue, 28 Oct 2025 15:26:27 GMT
+
+### Minor changes
+
+- Adding Nimble Chip component ([ni/nimble@6164b3e](https://github.com/ni/nimble/commit/6164b3ea08f56709d45ed471914f523618c226bf))
+
+## 34.3.3
+
+Sat, 11 Oct 2025 04:58:50 GMT
+
+### Patches
+
+- Create design-token-values static token definitions ([ni/nimble@ce05a06](https://github.com/ni/nimble/commit/ce05a06c9bb985d57e57b882a9ac356212ef9eaf))
 
 ## 34.3.2
 

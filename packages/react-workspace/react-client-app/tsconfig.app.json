@@ -20,7 +20,17 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "incremental": true
+    "incremental": true,
+
+    "paths": {
+      "@ni/nimble-react/dist/esm/*": [
+          "../../react-workspace/nimble-react/src/*"
+      ],
+      "@ni/spright-react/dist/esm/*": [
+          "../../react-workspace/spright-react/src/*"
+      ],
+      "@ni/ok-react/dist/esm/*": ["../../react-workspace/ok-react/src/*"]
+    }
   },
   "include": ["src"]
 }
