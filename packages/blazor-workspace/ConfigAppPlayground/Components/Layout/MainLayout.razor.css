@@ -1,0 +1,58 @@
+.page {
+   position: relative;
+   display: flex;
+   flex-direction: row;
+}
+
+main {
+    flex: 1;
+}
+
+.sidebar {
+   border-right: 2px solid rgba(var(--ni-nimble-action-rgb-partial-color), 0.1);
+   padding-top: var(--ni-nimble-large-padding);
+   display: flex;
+   flex-direction: column;
+   width: 200px;
+   height: 100vh;
+   position: sticky;
+   top: 0;
+}
+
+.other-links {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   gap: var(--ni-nimble-medium-padding);
+   border-top: 1px solid rgba(var(--ni-nimble-action-rgb-partial-color), 0.1);
+   margin-top: auto;
+   padding: var(--ni-nimble-standard-padding);
+}
+
+.top-row {
+   background-color: #f7f7f7;
+   border-bottom: 2px solid rgba(var(--ni-nimble-action-rgb-partial-color), 0.1);
+   justify-content: flex-end;
+   height: 3.5rem;
+   display: flex;
+   align-items: center;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
