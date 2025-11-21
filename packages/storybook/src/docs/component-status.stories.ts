@@ -174,6 +174,7 @@ const components = [
         designHref:
             'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2227-78839&p=f&t=jqn5mzroV2yUvbvC-0',
         designLabel: 'Figma',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -713,11 +714,14 @@ const metadata: Meta<TableArgs> = {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
+                const libraryComponents = components.filter(
+                    component => component.library === x.library
+                );
                 await customElements.whenDefined(tableTag);
                 await x.tableRef.setData(
-                    components.filter(
-                        component => component.library === x.library
-                    )
+                    libraryComponents.length > 0 ? libraryComponents : [{
+                        componentName: 'No components found for this library'
+                    }]
                 );
             })();
         },
