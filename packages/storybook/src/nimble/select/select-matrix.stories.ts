@@ -19,10 +19,10 @@ import {
     requiredVisibleStates,
     type RequiredVisibleState,
     backgroundStates,
-    type OnlyReadOnlyAbsentState,
+    type ManipulationReadOnlyAbsentState,
     type FullBleedState,
     fullBleedStates,
-    disabledReadOnlyState
+    manipulationState
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -60,7 +60,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: OnlyReadOnlyAbsentState,
+    [manipulationName, _readOnly, disabled, appearanceReadOnly]: ManipulationReadOnlyAbsentState,
     [appearanceName, appearance]: AppearanceState,
     [fullBleedName, fullBleed]: FullBleedState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
@@ -80,7 +80,7 @@ const component = (
         current-value="${() => selectedValue}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => errorName} ${() => disabledReadOnlyName}
+        ${() => errorName} ${() => manipulationName}
         ${() => appearanceName} ${() => fullBleedName}
         ${() => valueName} ${() => requiredVisibleName}
 
@@ -108,7 +108,7 @@ const clearableState = clearableStates[1];
 
 export const lightTheme$DisabledAbsent$AppearanceReadOnlyAbsent$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.none],
+        [manipulationState.none],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -121,7 +121,7 @@ export const lightTheme$DisabledAbsent$AppearanceReadOnlyAbsent$NotClearable: St
 
 export const lightTheme$DisabledAbsent$AppearanceReadOnly$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.appearanceReadOnly],
+        [manipulationState.appearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -134,7 +134,7 @@ export const lightTheme$DisabledAbsent$AppearanceReadOnly$NotClearable: StoryFn 
 
 export const lightTheme$Disabled$AppearanceReadOnlyAbsent$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabled],
+        [manipulationState.disabled],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -147,7 +147,7 @@ export const lightTheme$Disabled$AppearanceReadOnlyAbsent$NotClearable: StoryFn 
 
 export const lightTheme$Disabled$AppearanceReadOnly$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabledAppearanceReadOnly],
+        [manipulationState.disabledAppearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -160,7 +160,7 @@ export const lightTheme$Disabled$AppearanceReadOnly$NotClearable: StoryFn = crea
 
 export const lightTheme$DisabledAbsent$AppearanceReadOnlyAbsent$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.none],
+        [manipulationState.none],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -173,7 +173,7 @@ export const lightTheme$DisabledAbsent$AppearanceReadOnlyAbsent$Clearable: Story
 
 export const lightTheme$DisabledAbsent$AppearanceReadOnly$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.appearanceReadOnly],
+        [manipulationState.appearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -186,7 +186,7 @@ export const lightTheme$DisabledAbsent$AppearanceReadOnly$Clearable: StoryFn = c
 
 export const lightTheme$Disabled$AppearanceReadOnlyAbsent$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabled],
+        [manipulationState.disabled],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -199,7 +199,7 @@ export const lightTheme$Disabled$AppearanceReadOnlyAbsent$Clearable: StoryFn = c
 
 export const lightTheme$Disabled$AppearanceReadOnly$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabledAppearanceReadOnly],
+        [manipulationState.disabledAppearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -212,7 +212,7 @@ export const lightTheme$Disabled$AppearanceReadOnly$Clearable: StoryFn = createF
 
 export const colorTheme$DisabledAbsent$AppearanceReadOnlyAbsent$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.none],
+        [manipulationState.none],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -225,7 +225,7 @@ export const colorTheme$DisabledAbsent$AppearanceReadOnlyAbsent$NotClearable: St
 
 export const colorTheme$DisabledAbsent$AppearanceReadOnly$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.appearanceReadOnly],
+        [manipulationState.appearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -238,7 +238,7 @@ export const colorTheme$DisabledAbsent$AppearanceReadOnly$NotClearable: StoryFn 
 
 export const colorTheme$Disabled$AppearanceReadOnlyAbsent$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabled],
+        [manipulationState.disabled],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -251,7 +251,7 @@ export const colorTheme$Disabled$AppearanceReadOnlyAbsent$NotClearable: StoryFn 
 
 export const colorTheme$Disabled$AppearanceReadOnly$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabledAppearanceReadOnly],
+        [manipulationState.disabledAppearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -264,7 +264,7 @@ export const colorTheme$Disabled$AppearanceReadOnly$NotClearable: StoryFn = crea
 
 export const colorTheme$DisabledAbsent$AppearanceReadOnlyAbsent$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.none],
+        [manipulationState.none],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -277,7 +277,7 @@ export const colorTheme$DisabledAbsent$AppearanceReadOnlyAbsent$Clearable: Story
 
 export const colorTheme$DisabledAbsent$AppearanceReadOnly$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.appearanceReadOnly],
+        [manipulationState.appearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -290,7 +290,7 @@ export const colorTheme$DisabledAbsent$AppearanceReadOnly$Clearable: StoryFn = c
 
 export const colorTheme$Disabled$AppearanceReadOnlyAbsent$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabled],
+        [manipulationState.disabled],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -303,7 +303,7 @@ export const colorTheme$Disabled$AppearanceReadOnlyAbsent$Clearable: StoryFn = c
 
 export const colorTheme$Disabled$AppearanceReadOnly$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabledAppearanceReadOnly],
+        [manipulationState.disabledAppearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -316,7 +316,7 @@ export const colorTheme$Disabled$AppearanceReadOnly$Clearable: StoryFn = createF
 
 export const darkTheme$DisabledAbsent$AppearanceReadOnlyAbsent$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.none],
+        [manipulationState.none],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -329,7 +329,7 @@ export const darkTheme$DisabledAbsent$AppearanceReadOnlyAbsent$NotClearable: Sto
 
 export const darkTheme$DisabledAbsent$AppearanceReadOnly$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.appearanceReadOnly],
+        [manipulationState.appearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -342,7 +342,7 @@ export const darkTheme$DisabledAbsent$AppearanceReadOnly$NotClearable: StoryFn =
 
 export const darkTheme$Disabled$AppearanceReadOnlyAbsent$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabled],
+        [manipulationState.disabled],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -355,7 +355,7 @@ export const darkTheme$Disabled$AppearanceReadOnlyAbsent$NotClearable: StoryFn =
 
 export const darkTheme$Disabled$AppearanceReadOnly$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabledAppearanceReadOnly],
+        [manipulationState.disabledAppearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -368,7 +368,7 @@ export const darkTheme$Disabled$AppearanceReadOnly$NotClearable: StoryFn = creat
 
 export const darkTheme$DisabledAbsent$AppearanceReadOnlyAbsent$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.none],
+        [manipulationState.none],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -381,7 +381,7 @@ export const darkTheme$DisabledAbsent$AppearanceReadOnlyAbsent$Clearable: StoryF
 
 export const darkTheme$DisabledAbsent$AppearanceReadOnly$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.appearanceReadOnly],
+        [manipulationState.appearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -394,7 +394,7 @@ export const darkTheme$DisabledAbsent$AppearanceReadOnly$Clearable: StoryFn = cr
 
 export const darkTheme$Disabled$AppearanceReadOnlyAbsent$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabled],
+        [manipulationState.disabled],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -407,7 +407,7 @@ export const darkTheme$Disabled$AppearanceReadOnlyAbsent$Clearable: StoryFn = cr
 
 export const darkTheme$Disabled$AppearanceReadOnly$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        [disabledReadOnlyState.disabledAppearanceReadOnly],
+        [manipulationState.disabledAppearanceReadOnly],
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
