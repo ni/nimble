@@ -17,12 +17,12 @@ import {
     errorStatesErrorWithMessage,
     type RequiredVisibleState,
     requiredVisibleStates,
-    type DisabledReadOnlyState,
-    disabledReadOnlyStates,
+    type ManipulationState,
+    manipulationStates,
     backgroundStates,
     fullBleedStates,
     type FullBleedState,
-    onlyDisabledAbsentStates
+    manipulationDisabledAbsentStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -60,11 +60,11 @@ export default metadata;
 
 const component = (
     [
-        disabledReadOnlyName,
+        manipulationName,
         readonly,
         disabled,
         appearanceReadOnly
-    ]: DisabledReadOnlyState,
+    ]: ManipulationState,
     [appearanceName, appearance]: AppearanceState,
     [fullBleedName, fullBleed]: FullBleedState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
@@ -93,7 +93,7 @@ const component = (
     >
         ${() => errorName} ${() => appearanceName} ${() => fullBleedName}
         ${() => valueName} ${() => hideStepName}
-        ${() => disabledReadOnlyName} ${() => requiredVisibleName}
+        ${() => manipulationName} ${() => requiredVisibleName}
     </${numberFieldTag}>
 `;
 
@@ -113,7 +113,7 @@ const stepsHiddenState = hideStepStates[1];
 
 export const lightTheme$StepsHidden: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -126,7 +126,7 @@ export const lightTheme$StepsHidden: StoryFn = createFixedThemeStory(
 
 export const lightTheme$StepsVisible: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -139,7 +139,7 @@ export const lightTheme$StepsVisible: StoryFn = createFixedThemeStory(
 
 export const colorTheme$StepsHidden: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -152,7 +152,7 @@ export const colorTheme$StepsHidden: StoryFn = createFixedThemeStory(
 
 export const colorTheme$StepsVisible: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -165,7 +165,7 @@ export const colorTheme$StepsVisible: StoryFn = createFixedThemeStory(
 
 export const darkTheme$StepsHidden: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -178,7 +178,7 @@ export const darkTheme$StepsHidden: StoryFn = createFixedThemeStory(
 
 export const darkTheme$StepsVisible: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         fullBleedStates,
         requiredVisibleStates,
@@ -192,7 +192,7 @@ export const darkTheme$StepsVisible: StoryFn = createFixedThemeStory(
 const notRequiredState = requiredVisibleStates[0];
 
 const interactionStatesHover = cartesianProduct([
-    disabledReadOnlyStates,
+    manipulationStates,
     appearanceStates,
     fullBleedStates,
     [notRequiredState],
@@ -202,7 +202,7 @@ const interactionStatesHover = cartesianProduct([
 ] as const);
 
 const interactionStates = cartesianProduct([
-    onlyDisabledAbsentStates,
+    manipulationDisabledAbsentStates,
     appearanceStates,
     fullBleedStates,
     [notRequiredState],
