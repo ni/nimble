@@ -4,4 +4,8 @@
 
 # Ok React
 
-Work in progress alpha package
+React Components for Nimble web components built using [`@lit/react`](https://lit.dev/docs/frameworks/react/#why-are-wrappers-needed).
+
+## Getting Started
+
+See the [`react-client-app`](/packages/react-workspace/react-client-app/) for an example React application.

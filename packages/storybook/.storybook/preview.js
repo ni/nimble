@@ -46,7 +46,6 @@ const parameters = {
                 'Tests',
                 ['Docs'],
                 'Spright',
-                ['Docs'],
                 'Tests Spright',
                 ['Docs'],
                 'Ok',
