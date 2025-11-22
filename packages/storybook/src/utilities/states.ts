@@ -90,9 +90,11 @@ export const manipulationState = {
 export const manipulationDisabledAbsentStates = manipulationStates.filter(
     (state: (typeof manipulationStates)[number]) => state[2] === false
 );
-export type ManipulationDisabledAbsentState = (typeof manipulationDisabledAbsentStates)[number];
+export type ManipulationDisabledAbsentState =
+    (typeof manipulationDisabledAbsentStates)[number];
 
 export const manipulationReadOnlyAbsentStates = manipulationStates.filter(
     (state: (typeof manipulationStates)[number]) => state[1] === false
 );
-export type ManipulationReadOnlyAbsentState = (typeof manipulationReadOnlyAbsentStates)[number];
+export type ManipulationReadOnlyAbsentState =
+    (typeof manipulationReadOnlyAbsentStates)[number];
