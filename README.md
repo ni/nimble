@@ -47,7 +47,7 @@ The Spright packages contain components that are built using Nimble technology a
 - [`@ni/spright-angular`](/packages/angular-workspace/spright-angular/) - Angular bindings for Spright components.
 - [`SprightBlazor`](/packages/blazor-workspace/SprightBlazor/) - Blazor bindings for Spright components.
 - [`@ni/spright-components`](/packages/spright-components/) - Spright components to be used by [any  type of application](https://custom-elements-everywhere.com/).
-- [`@ni/spright-react`](/packages/react-workspace/spright-react/) - Spright bindings for Nimble components.
+- [`@ni/spright-react`](/packages/react-workspace/spright-react/) - React bindings for Spright components.
 
 ### Ok packages
 
