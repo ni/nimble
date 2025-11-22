@@ -211,13 +211,34 @@ const interactionStates = cartesianProduct([
     [errorStatesNoError, errorStatesErrorWithMessage]
 ] as const);
 
-export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const lightTheme$interactionsThemeMatrix: StoryFn = createFixedThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
         active: interactionStates,
         focus: interactionStates
-    })
+    }),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme$interactionsThemeMatrix: StoryFn = createFixedThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    }),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme$interactionsThemeMatrix: StoryFn = createFixedThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    }),
+    darkThemeBlackBackground
 );
 
 export const hidden: StoryFn = createStory(
