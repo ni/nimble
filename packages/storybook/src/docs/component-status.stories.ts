@@ -719,9 +719,14 @@ const metadata: Meta<TableArgs> = {
                 );
                 await customElements.whenDefined(tableTag);
                 await x.tableRef.setData(
-                    libraryComponents.length > 0 ? libraryComponents : [{
-                        componentName: 'No components found for this library'
-                    }]
+                    libraryComponents.length > 0
+                        ? libraryComponents
+                        : [
+                            {
+                                componentName:
+                                      'No components found for this library'
+                            }
+                        ]
                 );
             })();
         },
