@@ -88,25 +88,11 @@ export const disabledReadOnlyState = {
 } as const;
 
 export const onlyDisabledAbsentStates = disabledReadOnlyStates.filter(
-    (
-        state: readonly [
-            name: string,
-            readOnly: boolean,
-            disabled: boolean,
-            appearanceReadonly: boolean
-        ]
-    ) => state[2] === false
+    (state: (typeof disabledReadOnlyStates)[number]) => state[2] === false
 );
 export type OnlyDisabledAbsentState = (typeof onlyDisabledAbsentStates)[number];
 
 export const onlyReadOnlyAbsentStates = disabledReadOnlyStates.filter(
-    (
-        state: readonly [
-            name: string,
-            readOnly: boolean,
-            disabled: boolean,
-            appearanceReadonly: boolean
-        ]
-    ) => state[1] === false
+    (state: (typeof disabledReadOnlyStates)[number]) => state[1] === false
 );
 export type OnlyReadOnlyAbsentState = (typeof onlyReadOnlyAbsentStates)[number];
