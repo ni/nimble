@@ -68,6 +68,7 @@ const component = (
     [valueName, selectedValue]: ValueState,
     [_clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
+
     <${selectTag}
         ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
