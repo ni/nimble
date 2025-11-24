@@ -69,6 +69,20 @@ describe('Drawer', () => {
             expect(document.createElement(drawerTag)).toBeInstanceOf(Drawer);
         });
 
+        it('has closedby attribute set to closerequest by default', () => {
+            expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
+                'closerequest'
+            );
+        });
+
+        it('has closedby attribute set to none when prevent-dismiss is true', () => {
+            element.preventDismiss = true;
+            processUpdates();
+            expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
+                'none'
+            );
+        });
+
         it('should default the location to right', () => {
             expect(element.location).toBe(DrawerLocation.right);
         });

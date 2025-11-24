@@ -7,7 +7,7 @@ export const template = html<Dialog>`
             ${ref('dialogElement')}
             role="dialog"
             part="control"
-            closedby="none"
+            closedby="${x => (x.preventDismiss ? 'none' : 'closerequest')}"
             @cancel="${(x, c) => x.cancelHandler(c.event)}"
             @close="${(x, c) => x.closeHandler(c.event)}"
             aria-labelledby="header"

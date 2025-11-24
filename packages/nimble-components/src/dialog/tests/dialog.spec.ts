@@ -1,7 +1,10 @@
 import { html } from '@ni/fast-element';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Dialog, dialogTag, UserDismissed } from '..';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { buttonTag } from '../../button';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -249,9 +252,22 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('has closedby attribute set to none', async () => {
+    it('has closedby attribute set to closerequest by default', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
+
+        expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
+            'closerequest'
+        );
+
+        await disconnect();
+    });
+
+    it('has closedby attribute set to none when prevent-dismiss is true', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        element.preventDismiss = true;
+        processUpdates();
 
         expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
             'none'
