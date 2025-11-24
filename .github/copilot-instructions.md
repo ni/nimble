@@ -56,4 +56,3 @@ npm run change
 - CSS guidelines: `../packages/nimble-components/docs/css-guidelines.md`
 - Storybook authoring guide: `../packages/storybook/CONTRIBUTING.md`
 - Specs overview: `../specs/README.md`
-   declare global {
