@@ -24,6 +24,7 @@ const tokensFileHeader = `// Nimble Components Tokens SCSS
 // For more information see https://github.com/ni/nimble/tree/main/packages/nimble-components#theming
 
 @use 'tokens-internal' as *;
+@forward 'tokens-internal';
 `;
 
 const tokensFileContents = Object.entries(tokenNames).map(
