@@ -1,4 +1,4 @@
 // Nimble React Fonts SCSS
-// Only @import once in the global styles.scss
+// Only @forward/@use once in the global styles.scss
 
-@import '@ni/nimble-components/dist/fonts';
+@forward '@ni/nimble-components/dist/fonts';
