@@ -12,218 +12,108 @@ Nimble is a multi-framework design system providing NI-styled web components bui
 
 ## Essential Developer Workflows
 
-### Building & Testing
-```bash
-# Initial setup
-npm install
-npm run build
+For detailed setup and workflow instructions, see [`CONTRIBUTING.md`](../CONTRIBUTING.md).
 
-# Development watch mode (creates multiple terminal tabs)
+### Common Commands
+```bash
+# Build
+npm install && npm run build
+
+# Development (Watch Mode)
 # Open Command Palette → Run Task → Create Watch Terminals
 
-# Component development
-npm run storybook                              # View components (auto-refreshes on save, requires manual refresh for styles)
-npm run tdd:watch -w @ni/nimble-components    # Run unit tests on file changes
+# Storybook (View components)
+npm run storybook
 
-# Test in all browsers (Chrome, Firefox, Safari/WebKit)
-npm run test-webkit -w @ni/nimble-components  # WebKit testing via Playwright
+# Testing
+npm run tdd:watch -w @ni/nimble-components    # Unit tests (watch)
+npm run test-webkit -w @ni/nimble-components  # WebKit testing
 ```
 
-### Change Management (Beachball)
-Every PR affecting published packages **must** include a change file:
+### Change Management
+Every PR affecting published packages **must** include a change file. See [`CONTRIBUTING.md`](../CONTRIBUTING.md#beachball-change-file) for details.
 ```bash
 npm run change  # Run before creating PR
 ```
-- Choose semantic version type (`patch`/`minor`/`major`)
-- Incubating components can use `patch` for breaking changes
-- Write client-facing description (supports markdown, use `\n` for newlines)
-- CI automatically publishes on merge based on change files
-
-### Linting & Formatting
-```bash
-npm run lint    # Check all packages
-npm run format  # Auto-fix issues
-```
-VS Code users: Install recommended extensions for automatic formatting on save.
 
 ## Component Development Patterns
 
-### Web Component Structure (`nimble-components`)
-```
-src/component-name/
-├── index.ts                    # Component class, registration
-├── styles.ts                   # Component styles using design tokens
-├── template.ts                 # HTML template (if not using FAST template)
-├── types.ts                    # Enums/types
-├── models/                     # Classes/interfaces
-├── testing/*.pageobject.ts     # Page object for testing
-└── tests/*.spec.ts            # Jasmine/Karma unit tests
-```
+For detailed component development guidelines, see [`packages/nimble-components/CONTRIBUTING.md`](../packages/nimble-components/CONTRIBUTING.md).
 
-**Import tokens correctly:**
-```typescript
-import { bodyFont, borderHoverColor } from '../theme-provider/design-tokens';
-import { themeBehavior } from '../utilities/style/theme';
-```
+### Web Component Structure
+Standard structure for `src/component-name/`:
+- `index.ts`: Component class & registration
+- `styles.ts`: Styles using design tokens
+- `template.ts`: HTML template
+- `tests/*.spec.ts`: Unit tests
 
-**Register custom elements:**
-```typescript
-declare global {
-    interface HTMLElementTagNameMap {
-        'nimble-button': Button;  // Enables type inference for createElement/querySelector
-    }
-}
-```
+**Critical Patterns:**
 
-### Extending FAST Components
-```typescript
-import { Button as FoundationButton } from '@ni/fast-foundation';
+1. **Import tokens:**
+   ```typescript
+   import { bodyFont } from '../theme-provider/design-tokens';
+   ```
 
-export class Button extends FoundationButton {
-    // Add Nimble-specific functionality
-}
+2. **Register custom elements:**
+   ```typescript
+   declare global {
+       interface HTMLElementTagNameMap {
+           'nimble-button': Button;
+       }
+   }
+   ```
 
-const nimbleButton = Button.compose({
-    baseClass: FoundationButton,  // Only one Nimble component per FAST baseClass
-    styles,
-    template
-});
-```
+3. **Extend FAST Components:**
+   ```typescript
+   import { Button as FoundationButton } from '@ni/fast-foundation';
+
+   export class Button extends FoundationButton { ... }
+
+   const nimbleButton = Button.compose({
+       baseClass: FoundationButton,
+       styles,
+       template
+   });
+   ```
+
+4. **Use const objects instead of TypeScript enums:**
+   ```typescript
+   // types.ts
+   export const ButtonAppearance = {
+       outline: 'outline',
+       ghost: 'ghost',
+       block: 'block'
+   } as const;
+   export type ButtonAppearance = typeof ButtonAppearance[keyof typeof ButtonAppearance];
+   ```
 
 ### Framework Integration
 
-**Angular** (`nimble-angular`):
-- Create directive per component using `@Directive({ selector: 'nimble-button' })`
-- Use `Renderer2` to proxy properties to `nativeElement`
-- Implement `ControlValueAccessor` for form controls (extend Angular's built-in implementations)
-- Test with template bindings: `<my-element>`, `<my-element disabled>`, `[disabled]="value"`, `[attr.disabled]="value"`
+- **Angular**: Directives with `ControlValueAccessor` for form controls
+- **Blazor**: Razor components inheriting `ComponentBase`
+- **React**: Auto-generated wrappers via `@lit/react`
 
-**Blazor** (`NimbleBlazor`):
-- `.razor` template + `.razor.cs` code-behind
-- Inherit from `ComponentBase`, always capture `AdditionalAttributes`
-- Two-way binding: Create `Value` param + `ValueChanged` EventCallback
-- Custom events require JS interop in `NimbleBlazor.lib.module.js`
+See package-specific CONTRIBUTING.md files for wrapper implementation details.
 
-**React** (`nimble-react`):
-- Auto-generated via `@lit/react`'s `createComponent`
-- Icons auto-generated (run `npm run generate-icons`)
-
-### Testing Requirements
-
-**Unit Tests** (Jasmine/Karma):
-```bash
-npm run tdd -w @ni/nimble-components              # Run once
-npm run tdd:watch -w @ni/nimble-components        # Watch mode
-npm run test-chrome:debugger -w @ni/nimble-components  # Interactive debugging
-```
-- Test FAST behaviors + Nimble customizations
-- Angular: Test `ControlValueAccessor`, module imports, property binding modes, use `fakeAsync` with `processUpdates()`
-- Blazor: Use bUnit for Razor tests, Playwright for acceptance tests requiring JS interop
-
-**Chromatic Visual Tests**:
-- Required matrix story: `component-name-matrix.stories.ts` showing all states × themes
-- PR checks: `UI Tests` (approve visual changes), `UI Review` (designer feedback)
+### Testing
+- **Unit tests**: Required, use `fixture` helper. Run with `npm run tdd:watch -w @ni/nimble-components`
+- **Visual tests**: Required matrix stories for Chromatic
+- **Browser testing**: Chrome, Firefox, WebKit (use `npm run test-webkit`)
 
 ## Styling & Design Tokens
 
-### Using Design Tokens
-```typescript
-import {
-    bodyFont,
-    borderHoverColor,
-    fillSelectedColor
-} from '../theme-provider/design-tokens';
+Use design tokens from `theme-provider/design-tokens.ts` for all colors, fonts, and spacing. New components should use CSS Cascade Layers (`@layer base, hover, focusVisible, active, disabled, top`).
 
-export const styles = css`
-    :host {
-        font: ${bodyFont};
-        border-color: ${borderHoverColor};
-    }
-`;
-```
-
-**Theme-aware tokens** return different values per theme (light/dark/color):
-```typescript
-// Design token defined with theme support
-createThemeColorToken('border-color', {
-    light: '#e0e0e0',
-    dark: '#3d3d3d',
-    color: '#ffffff'
-});
-```
-
-**Theme-specific styles:**
-```typescript
-import { themeBehavior } from '../utilities/style/theme';
-import { Theme } from '../theme-provider/types';
-
-const styles = css`...`.withBehaviors(
-    themeBehavior(Theme.light, css`...`),
-    themeBehavior(Theme.dark, css`...`)
-);
-```
-
-### Conventions
-- Use **attributes** (not CSS classes) for component states: `disabled`, `appearance="outline"`
-- Attributes: lower-kebab-case, avoid native HTML attribute names & JS reserved words
-- Each component must use `display()` utility for host styles and box-sizing
-- Reference other Nimble components via imported tags: `import { buttonTag } ...` not hardcoded strings
+See [`packages/nimble-components/docs/css-guidelines.md`](../packages/nimble-components/docs/css-guidelines.md) for complete styling patterns and conventions.
 
 ## Storybook Documentation
 
-Required files in `packages/storybook/src/nimble/component-name/`:
-```
-component-name.stories.ts        # Interactive examples, API controls
-component-name-matrix.stories.ts # All states × themes (Chromatic visual tests)
-component-name.mdx              # User documentation
-```
+All components require:
+- `component-name.stories.ts`: Interactive documentation with API controls
+- `component-name-matrix.stories.ts`: Visual regression tests for Chromatic
+- `component-name.mdx`: Usage guidance and design specs
 
-**Story structure:**
-```typescript
-import { html } from '@ni/fast-element';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
-
-export default {
-    title: 'Components/Button',
-    render: createUserSelectedThemeStory(html`<nimble-button>Click</nimble-button>`)
-};
-```
-
-## Monorepo Package Management
-
-**Install dependencies:**
-```bash
-npm install <package> --workspace=@ni/nimble-components
-npm install <package> --save-peer --workspace=@ni/nimble-angular  # Peer deps
-```
-
-**Cross-package references** use workspace protocol:
-```json
-{
-    "dependencies": {
-        "@ni/nimble-tokens": "^8.13.1"  // Published version in package.json
-    }
-}
-```
-
-## Component Lifecycle
-
-1. **Spec Phase**: Create IxD, ViD, and technical design specs (see `/specs/README.md`)
-2. **Incubating**: Mark component with ⚠️ status, prefix Storybook title with "Incubating/"
-3. **Implementation**:
-   - Web component in `nimble-components`
-   - Framework wrappers (Angular, Blazor, React)
-   - Storybook documentation + matrix stories
-   - Unit tests + Chromatic visual tests
-4. **Release**: Update component status table, remove incubating markers
-
-## PR Guidelines
-
-1. Create draft PR, self-review
-2. Add local peer reviewer (+ Nimble team contact if new contributor)
-3. Mark "Ready for review" to add CODEOWNERS
-4. Include beachball change file (`npm run change`)
-5. Squash merge with PR description as commit message
+See [`packages/storybook/CONTRIBUTING.md`](../packages/storybook/CONTRIBUTING.md) for file structure and story patterns.
 
 ## Common Pitfalls
 
@@ -232,14 +122,12 @@ npm install <package> --save-peer --workspace=@ni/nimble-angular  # Peer deps
 - ❌ Don't hardcode tag names in templates (import tags)
 - ❌ Don't forget to test in Chrome, Firefox, and WebKit
 - ❌ Don't create PR without beachball change file
-- ❌ Don't copy FAST templates without copying tests
-- ❌ Angular: Don't bind form values via `[value]` (use `[ngModel]`/`[formControl]`)
 
 ## Key Files Reference
 
-- Architecture: `/docs/Architecture.md`
-- Component specs: `/specs/README.md`
-- CSS guidelines: `/packages/nimble-components/docs/css-guidelines.md`
-- Coding conventions: `/packages/nimble-components/docs/coding-conventions.md`
-- Design tokens: `/packages/nimble-components/src/theme-provider/design-tokens.ts`
+- Architecture: `../docs/Architecture.md`
+- Component specs: `../specs/README.md`
+- CSS guidelines: `../packages/nimble-components/docs/css-guidelines.md`
+- Coding conventions: `../packages/nimble-components/docs/coding-conventions.md`
+- Design tokens: `../packages/nimble-components/src/theme-provider/design-tokens.ts`
 - Component status: Check Storybook component status table
