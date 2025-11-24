@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Mon, 03 Nov 2025 20:20:29 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 10 Nov 2025 23:09:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.13.2
+
+Mon, 10 Nov 2025 23:09:19 GMT
+
+### Patches
+
+- Update scanner-gun icon ([ni/nimble@567f5d8](https://github.com/ni/nimble/commit/567f5d8c111a73bad7c6f8f76879f6e906c91712))
 
 ## 8.13.1
 

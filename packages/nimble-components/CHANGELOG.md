@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 03 Nov 2025 20:20:29 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 17 Nov 2025 17:24:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.6.0
+
+Mon, 17 Nov 2025 17:24:55 GMT
+
+### Minor changes
+
+- Upgrade TipTap version to 3.10.1 ([ni/nimble@c7543fd](https://github.com/ni/nimble/commit/c7543fda6ac01d0ce87c062ce443f0f344945f4b))
+
+## 34.5.2
+
+Mon, 10 Nov 2025 23:09:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.13.2
 
 ## 34.5.1
 
