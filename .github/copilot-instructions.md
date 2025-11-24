@@ -1,133 +1,59 @@
-# Nimble Design System - AI Coding Agent Instructions
+# Nimble Design System – AI Coding Agent Instructions
 
-## Project Overview
+## Quick Orientation
+- Multi-framework system (Web Components + Angular, Blazor, React wrappers). Core packages live under `packages/`.
+- FAST Foundation is the underlying component model; tokens come from `@ni/nimble-tokens`.
+- Variants: Nimble (general), Spright (specialized), Ok (incubating). Each has its own `copilot-instructions.md` for details.
 
-Nimble is a multi-framework design system providing NI-styled web components built on FAST Foundation. The monorepo delivers components for vanilla JS/TS, Angular, Blazor, and React applications.
+For repo-wide processes and tooling details, see [`CONTRIBUTING.md`](../CONTRIBUTING.md).
 
-**Key architecture:**
-- **Core**: `@ni/nimble-components` - Web components using FAST Element, custom elements, and Shadow DOM
-- **Tokens**: `@ni/nimble-tokens` - Base design tokens (colors, typography, spacing)
-- **Framework wrappers**: Angular directives, Blazor Razor components, React wrappers via `@lit/react`
-- **Variants**: Nimble (general-purpose), Spright (specialized), Ok (experimental)
-
-## Essential Developer Workflows
-
-For detailed setup and workflow instructions, see [`CONTRIBUTING.md`](../CONTRIBUTING.md).
-
-### Common Commands
+## Core Workflows
 ```bash
-# Build
+# Install & build everything
 npm install && npm run build
 
-# Development (Watch Mode)
-# Open Command Palette → Run Task → Create Watch Terminals
+# Watch mode (recommended): Command Palette → "Run Task" → "Create Watch Terminals"
 
-# Storybook (View components)
-npm run storybook
+# Storybook + tests (run from repo root)
 
-# Testing
-npm run tdd:watch -w @ni/nimble-components    # Unit tests (watch)
-npm run test-webkit -w @ni/nimble-components  # WebKit testing
+npm run tdd:watch -w @ni/nimble-components
+npm run test-webkit -w @ni/nimble-components
+
+# Generate change files before PRs that touch published packages
+npm run change
 ```
 
-### Change Management
-Every PR affecting published packages **must** include a change file. See [`CONTRIBUTING.md`](../CONTRIBUTING.md#beachball-change-file) for details.
-```bash
-npm run change  # Run before creating PR
-```
+## Change Management
+- Every PR impacting a published package needs a beachball change file (`npm run change`). See the "Beachball change file" section of [`CONTRIBUTING.md`](../CONTRIBUTING.md).
+- Keep builds/test scripts passing locally before queuing CI.
 
-## Component Development Patterns
+## Component Development
+- **Guidelines**: Follow [`packages/nimble-components/CONTRIBUTING.md`](../packages/nimble-components/CONTRIBUTING.md).
+- **Snippets**: See [`packages/nimble-components/copilot-instructions.md`](../packages/nimble-components/copilot-instructions.md) for registration, styling, and testing templates.
+- **Registration**: Use `DesignSystem.getOrCreate().withPrefix(...)`.
+- **Bundling**: Update `src/all-components.ts`.
 
-For detailed component development guidelines, see [`packages/nimble-components/CONTRIBUTING.md`](../packages/nimble-components/CONTRIBUTING.md).
+## Styling & Storybook
+- **Styling**: Use design tokens (`theme-provider/design-tokens.ts`). See [`docs/css-guidelines.md`](../packages/nimble-components/docs/css-guidelines.md) for cascade layers and utilities.
+- **Storybook**: Required for all components (`.stories.ts`, `-matrix.stories.ts`, `.mdx`). See [`packages/storybook/CONTRIBUTING.md`](../packages/storybook/CONTRIBUTING.md).
 
-### Web Component Structure
-Standard structure for `src/component-name/`:
-- `index.ts`: Component class & registration
-- `styles.ts`: Styles using design tokens
-- `template.ts`: HTML template
-- `tests/*.spec.ts`: Unit tests
-
-**Critical Patterns:**
-
-1. **Import tokens:**
-   ```typescript
-   import { bodyFont } from '../theme-provider/design-tokens';
-   ```
-
-2. **Register custom elements:**
-   ```typescript
-   declare global {
-       interface HTMLElementTagNameMap {
-           'nimble-button': Button;
-       }
-   }
-   ```
-
-3. **Extend FAST Components:**
-   ```typescript
-   import { Button as FoundationButton } from '@ni/fast-foundation';
-
-   export class Button extends FoundationButton { ... }
-
-   const nimbleButton = Button.compose({
-       baseClass: FoundationButton,
-       styles,
-       template
-   });
-   ```
-
-4. **Use const objects instead of TypeScript enums:**
-   ```typescript
-   // types.ts
-   export const ButtonAppearance = {
-       outline: 'outline',
-       ghost: 'ghost',
-       block: 'block'
-   } as const;
-   export type ButtonAppearance = typeof ButtonAppearance[keyof typeof ButtonAppearance];
-   ```
-
-### Framework Integration
-
-- **Angular**: Directives with `ControlValueAccessor` for form controls
-- **Blazor**: Razor components inheriting `ComponentBase`
-- **React**: Auto-generated wrappers via `@lit/react`
-
-See package-specific CONTRIBUTING.md files for wrapper implementation details.
-
-### Testing
-- **Unit tests**: Required, use `fixture` helper. Run with `npm run tdd:watch -w @ni/nimble-components`
-- **Visual tests**: Required matrix stories for Chromatic
-- **Browser testing**: Chrome, Firefox, WebKit (use `npm run test-webkit`)
-
-## Styling & Design Tokens
-
-Use design tokens from `theme-provider/design-tokens.ts` for all colors, fonts, and spacing. New components should use CSS Cascade Layers (`@layer base, hover, focusVisible, active, disabled, top`).
-
-See [`packages/nimble-components/docs/css-guidelines.md`](../packages/nimble-components/docs/css-guidelines.md) for complete styling patterns and conventions.
-
-## Storybook Documentation
-
-All components require:
-- `component-name.stories.ts`: Interactive documentation with API controls
-- `component-name-matrix.stories.ts`: Visual regression tests for Chromatic
-- `component-name.mdx`: Usage guidance and design specs
-
-See [`packages/storybook/CONTRIBUTING.md`](../packages/storybook/CONTRIBUTING.md) for file structure and story patterns.
+## Testing Expectations
+- Unit tests use Karma/Jasmine fixtures (`npm run tdd:watch -w @ni/nimble-components`).
+- Cross-browser coverage: Chrome, Firefox, WebKit (`npm run test-webkit -w @ni/nimble-components`).
+- Disable flaky tests only with an issue link and browser-specific skip tag as outlined in package CONTRIBUTING docs.
 
 ## Common Pitfalls
+- ❌ Forgetting `npm run change` when touching published packages.
+- ❌ Styling component state via classes instead of attributes/behaviors.
+- ❌ Hardcoding tag names inside templates instead of importing tag constants.
+- ❌ Skipping Storybook docs/matrix updates when component APIs change.
+- ❌ Not running formatter/tests before pushing (`npm run format`, `npm run tdd:watch`).
 
-- ❌ Don't edit files without running formatter (`npm run format`)
-- ❌ Don't use CSS classes for component states (use attributes)
-- ❌ Don't hardcode tag names in templates (import tags)
-- ❌ Don't forget to test in Chrome, Firefox, and WebKit
-- ❌ Don't create PR without beachball change file
-
-## Key Files Reference
-
+## Key References
 - Architecture: `../docs/Architecture.md`
-- Component specs: `../specs/README.md`
+- Repo contributing guide: `../CONTRIBUTING.md`
+- Nimble component guide: `../packages/nimble-components/CONTRIBUTING.md`
 - CSS guidelines: `../packages/nimble-components/docs/css-guidelines.md`
-- Coding conventions: `../packages/nimble-components/docs/coding-conventions.md`
-- Design tokens: `../packages/nimble-components/src/theme-provider/design-tokens.ts`
-- Component status: Check Storybook component status table
+- Storybook authoring guide: `../packages/storybook/CONTRIBUTING.md`
+- Specs overview: `../specs/README.md`
+   declare global {

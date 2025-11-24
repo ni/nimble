@@ -1,33 +1,30 @@
-# Spright Components - AI Instructions
+# Spright Components – AI Instructions
 
-## Package Context
-- **Package**: `@ni/spright-components`
-- **Status**: Specialized / Domain-specific
-- **Ownership**: Co-owned by Design System & Contributing Team
-- **Prefix**: `spright-` for custom element tags
+## Context
+- **Package**: `@ni/spright-components` (specialized components that must still align with Nimble quality).
+- **Prefix**: `spright-` (`DesignSystem.getOrCreate().withPrefix('spright')`).
+- **Ownership**: Shared between the Nimble team and the feature team delivering the Spright experience.
 
 ## Development Guidelines
-- Follows the same patterns as `nimble-components`.
-- See `../nimble-components/copilot-instructions.md` for implementation details.
-- **Code Quality**: Must adhere to NI and Nimble standards for quality and test coverage.
+- Build/test/storybook commands mirror Nimble components (see [`../nimble-components/copilot-instructions.md`](../nimble-components/copilot-instructions.md)).
+- Implement the same component skeleton (registration, template, styles, tests, docs). Link to the Nimble instructions rather than duplicating snippets.
+- Document any domain-specific deviations (tokens, behaviors, wrappers) inside the component specs and Storybook docs.
 
 ## Requirements vs Nimble
 
-|                        | nimble-components | spright-components |
-| ---------------------- | :---------------: | :----------------: |
-| Approved spec          |        🟢         |         🟢         |
-| Unit tests             |        🟢         |         🟢         |
-| Storybook visual tests |        🟢         |         🟢         |
-| Storybook API docs     |        🟢         |         🟢         |
-| Storybook usage docs   |        🟢         |         🟡         |
-| Approved VxD/IxD       |        🟢         |         🟡         |
-| Angular/Blazor support |        🟢         |         🟡         |
-| Proper a11y            |        🟢         |         🟡         |
-| Minimal tech debt      |        🟢         |         🟡         |
+| Requirement | Nimble | Spright |
+| --- | --- | --- |
+| Approved IxD/ViD/Tech specs | ✅ | ✅ (can trail by agreement, but gaps must be tracked) |
+| Unit tests + Chromatic matrix | ✅ | ✅ |
+| Storybook API docs | ✅ | ✅ |
+| Storybook usage guidance | ✅ | ⚠️ Optional if domain docs exist elsewhere |
+| Angular/Blazor wrappers | ✅ | ⚠️ Optional unless downstream apps require them |
+| Accessibility polish | ✅ | ⚠️ Temporary gaps allowed but must be logged |
+| Tech debt tolerance | Low | Medium – but issues must have owners and follow-up dates |
 
-🟢 = required | 🟡 = optional
+Legend: ✅ required, ⚠️ optional/negotiated
 
 ## Code Ownership
-- Co-owned by Design System team and Contributing team.
-- Design System team enforces technical quality and provides consulting.
-- Contributing team implements bug fixes and new features.
+- Nimble team reviews for architecture, tokens, accessibility, and repo health.
+- Contributing team owns roadmap delivery, bug fixes, and maintenance for Spright-specific behaviors.
+- Coordinate on design tokens and shared utilities to avoid divergence from Nimble.
