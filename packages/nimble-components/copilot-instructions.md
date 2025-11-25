@@ -1,6 +1,7 @@
 # Nimble Components – AI Instructions
 
 ## Key References
+
 - [`CONTRIBUTING.md`](../../CONTRIBUTING.md) (repo) – build/test/change workflows.
 - [`packages/nimble-components/CONTRIBUTING.md`](CONTRIBUTING.md) – component lifecycle, Storybook, accessibility.
 - [`docs/css-guidelines.md`](docs/css-guidelines.md) – cascade layers, `display()` utility, attribute-driven states.
@@ -9,6 +10,7 @@
 ## Component Skeleton
 
 ### `index.ts`
+
 ```typescript
 import { attr } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
@@ -36,11 +38,13 @@ const nimbleExample = Example.compose({
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleExample());
 export const exampleTag = 'nimble-example';
 ```
+
 - Always export the tag constant and update `src/all-components.ts` so bundles include the component.
 - Extend the FAST base (`baseClass`) whenever one exists; otherwise extend `FoundationElement`.
 - Add `tabIndex` reflection and `shadowOptions.delegatesFocus` when components contain focusable internals.
 
 ### `styles.ts`
+
 ```typescript
 import { css } from '@ni/fast-element';
 import { display } from '../utilities/style/display';
@@ -58,11 +62,13 @@ export const styles = css`
     }
 `;
 ```
+
 - Use design tokens; never hardcode `var(--ni-nimble-*)` names.
 - Organize selectors by document order per `docs/css-guidelines.md`.
 - Prefer attribute selectors/behaviors to drive state instead of classes.
 
 ### `tests/*.spec.ts`
+
 ```typescript
 import { html } from '@ni/fast-element';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
@@ -88,12 +94,15 @@ describe('Example', () => {
     });
 });
 ```
+
 - Use the fixture helpers for lifecycle management; disconnect in tests to prevent leaks.
 - Tag browser-specific skips with `#SkipChrome|Firefox|Webkit` and include an issue link.
 
 ## Development Checklist
+
 - Create `index.ts`, `styles.ts`, `template.ts`, `types.ts` (const-object enums only), `tests/`, and `stories/` as required by the package CONTRIBUTING guide.
 - Register the component with the proper prefix (`nimble`, `spright`, `ok`) and export the tag constant.
 - Add Storybook artifacts: `*.stories.ts`, `*-matrix.stories.ts`, and `*.mdx`.
 - Update label-provider metadata and component status stories when APIs change.
+- **Testing**: Always use `fdescribe` or `fit` to focus on relevant test suites before running `npm run tdd -w @ni/nimble-components`. The full test suite takes too long and may have unrelated failures.
 - Run `npm run tdd:watch -w @ni/nimble-components`, `npm run storybook`, and `npm run format` before sending revisions.
