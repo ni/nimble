@@ -21,6 +21,7 @@ ChipOptions
         aria-pressed="${x => (x.selectionMode === ChipSelectionMode.single ? x.selected : undefined)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         @keyup="${(x, c) => x.keyupHandler(c.event as KeyboardEvent)}"
+        @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
     >
         ${startSlotTemplate(context, definition)}
         <span

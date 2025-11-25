@@ -105,7 +105,7 @@ describe('Chip', () => {
         const changeEvent = jasmine.createSpy();
         element.addEventListener('selected-change', changeEvent);
 
-        element.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
         await waitForUpdatesAsync();
 
         expect(element.selected).toBeTrue();
@@ -288,7 +288,7 @@ describe('Chip', () => {
             const removeEvent = jasmine.createSpy();
             element.addEventListener('remove', removeEvent);
 
-            const event = new KeyboardEvent('keyup', { key: 'Escape' });
+            const event = new KeyboardEvent('keydown', { key: 'Escape' });
             element.dispatchEvent(event);
 
             expect(removeEvent).toHaveBeenCalledTimes(1);
@@ -302,7 +302,7 @@ describe('Chip', () => {
             const removeEvent = jasmine.createSpy();
             element.addEventListener('remove', removeEvent);
 
-            const event = new KeyboardEvent('keyup', { key: 'Escape' });
+            const event = new KeyboardEvent('keydown', { key: 'Escape' });
             element.dispatchEvent(event);
 
             expect(removeEvent).not.toHaveBeenCalled();
@@ -316,7 +316,7 @@ describe('Chip', () => {
             const removeEvent = jasmine.createSpy();
             element.addEventListener('remove', removeEvent);
 
-            const event = new KeyboardEvent('keyup', { key: 'Escape' });
+            const event = new KeyboardEvent('keydown', { key: 'Escape' });
             element.dispatchEvent(event);
 
             expect(removeEvent).not.toHaveBeenCalled();
@@ -331,7 +331,7 @@ describe('Chip', () => {
             const removeEvent = jasmine.createSpy();
             element.addEventListener('remove', removeEvent);
 
-            const event = new KeyboardEvent('keyup', { key: 'Escape' });
+            const event = new KeyboardEvent('keydown', { key: 'Escape' });
             element.dispatchEvent(event);
 
             expect(removeEvent).not.toHaveBeenCalled();

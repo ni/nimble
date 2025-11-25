@@ -100,12 +100,13 @@ export class Chip extends FoundationElement {
     }
 
     /** @internal */
-    public clickHandler(_e: MouseEvent): boolean {
+    public clickHandler(e: MouseEvent): boolean {
         if (this.disabled) {
             return false;
         }
 
         if (this.selectionMode === ChipSelectionMode.single) {
+            e.stopPropagation();
             this.selected = !this.selected;
             this.$emit('selected-change');
             return false;
@@ -120,10 +121,34 @@ export class Chip extends FoundationElement {
         }
         switch (e.key) {
             case keySpace:
-            case keyEnter:
                 if (this.selectionMode === ChipSelectionMode.single) {
+                    e.stopPropagation();
                     this.selected = !this.selected;
                     this.$emit('selected-change');
+                }
+                return true;
+            default:
+                return true;
+        }
+    }
+
+    /** @internal */
+    public keydownHandler(e: KeyboardEvent): boolean {
+        if (this.disabled) {
+            return false;
+        }
+        switch (e.key) {
+            case keySpace:
+                if (this.selectionMode === ChipSelectionMode.single) {
+                    return false;
+                }
+                return true;
+            case keyEnter:
+                if (this.selectionMode === ChipSelectionMode.single) {
+                    e.stopPropagation();
+                    this.selected = !this.selected;
+                    this.$emit('selected-change');
+                    return false;
                 }
                 return true;
             case keyEscape:
@@ -131,6 +156,7 @@ export class Chip extends FoundationElement {
                     this.removable
                     && this.selectionMode === ChipSelectionMode.single
                 ) {
+                    e.stopPropagation();
                     this.$emit('remove');
                     return false;
                 }
