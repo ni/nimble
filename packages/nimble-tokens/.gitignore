@@ -1,5 +1,6 @@
 dist/icons/*
-!dist/icons/svg
+!dist/icons/svg-single
+!dist/icons/svg-multicolor
 
 dist/fonts/scss
 

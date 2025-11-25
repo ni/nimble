@@ -1,0 +1,25 @@
+{
+    "srcFiles": [
+        "./dist/icons/svg-multicolor/*.svg"
+    ],
+    "prefix": "",
+    "svgoConfig": {
+        "plugins": [
+            {
+                "name": "preset-default",
+                "params": {
+                    "overrides": {
+                        "removeUnknownsAndDefaults": {
+                            "keepDataAttrs": false
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "fileName": "index",
+    "outputDirectory": "./dist/icons/ts/multicolor",
+    "interfaceName": "NimbleIcon",
+    "typeName": "NimbleIconName",
+    "exportCompleteIconSet": false
+}

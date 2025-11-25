@@ -40,12 +40,18 @@ export const registerIcon = (
     baseName: string,
     iconClass: IconClass,
     customTemplate?: ViewTemplate,
-    additionalStyles?: ElementStyles
+    additionalStyles?: ElementStyles | ElementStyles[]
 ): void => {
+    const extraStyles = additionalStyles
+        ? Array.isArray(additionalStyles)
+            ? additionalStyles
+            : [additionalStyles]
+        : [];
+
     const composedIcon = iconClass.compose({
         baseName,
         template: customTemplate ?? template,
-        styles: additionalStyles ? [styles, additionalStyles] : styles
+        styles: additionalStyles ? [styles, ...extraStyles] : styles
     });
 
     DesignSystem.getOrCreate().withPrefix('nimble').register(composedIcon());

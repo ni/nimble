@@ -342,20 +342,24 @@ Most icons use a single theme-aware color (controlled by the `severity` attribut
     - Reuse the same class for shapes that should share a color
     - Don't skip class numbers (e.g., don't jump from `cls-1` to `cls-3`)
 
-2. **Add to metadata:** In `src/icon-base/tests/icon-multicolor-metadata-data.js`, add the icon name (spinal-case) to the `multiColorIcons` array:
+2. **Add to metadata:** In `src/icon-base/tests/icon-multicolor-metadata.ts`, add the icon name (spinal-case) to the `multiColorIcons` array:
 
-    ```js
-    export const multiColorIcons = ['circle-partial-broken', 'your-icon-name'];
+    ```ts
+    export const multiColorIcons = [
+        'circle-partial-broken',
+        'your-icon-name'
+    ] as const;
     ```
 
 3. **Create the icon component manually** in `src/icons-multicolor/your-icon-name.ts`:
 
     ```ts
-    import { yourIcon16X16 } from '@ni/nimble-tokens/dist/icons/js';
+    import { yourIcon16X16 } from '@ni/nimble-tokens/dist/icons/js/multicolor';
     import { css } from '@ni/fast-element';
-    import { registerIcon } from '../icon-base';
-    import { MultiColorIcon } from '../icon-base/multi-color';
-    import { multiColorTemplate } from '../icon-base/multi-color-template';
+    import {
+        MultiColorIcon,
+        registerMultiColorIcon
+    } from '../icon-base/multi-color';
     import { colorToken1, colorToken2 } from '../theme-provider/design-tokens';
 
     export class IconYourIconName extends MultiColorIcon {
@@ -371,10 +375,9 @@ Most icons use a single theme-aware color (controlled by the `severity` attribut
         }
     `;
 
-    registerIcon(
+    registerMultiColorIcon(
         'icon-your-icon-name',
         IconYourIconName,
-        multiColorTemplate,
         yourIconNameStyles
     );
     export const iconYourIconNameTag = 'nimble-icon-your-icon-name';

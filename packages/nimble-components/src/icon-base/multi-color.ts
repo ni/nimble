@@ -1,6 +1,10 @@
 import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
-import { Icon } from '.';
+import { type ElementStyles, css } from '@ni/fast-element';
+import { Icon, registerIcon } from '.';
+import { multiColorStyles } from './multi-color-styles';
 
+// Note: This constant is duplicated in packages/nimble-tokens/build/validate-icons.cjs
+// Please ensure both are updated if this value changes.
 export const MAX_ICON_LAYERS = 6;
 
 /**
@@ -27,7 +31,7 @@ export const MAX_ICON_LAYERS = 6;
  *     }
  * `;
  *
- * registerIcon('icon-circle-partial-broken', IconCirclePartialBroken, multiColorTemplate, circlePartialBrokenStyles);
+ * registerMultiColorIcon('icon-circle-partial-broken', IconCirclePartialBroken, circlePartialBrokenStyles);
  * ```
  */
 export class MultiColorIcon extends Icon {
@@ -35,3 +39,21 @@ export class MultiColorIcon extends Icon {
         super(icon);
     }
 }
+
+/**
+ * Register a multi-color icon component
+ *
+ * @param baseName - The base name for the icon element (e.g., 'icon-check')
+ * @param iconClass - The Icon class to register
+ * @param additionalStyles - Optional additional styles to compose with the base styles
+ */
+export const registerMultiColorIcon = (
+    baseName: string,
+    iconClass: typeof MultiColorIcon,
+    additionalStyles?: ElementStyles
+): void => {
+    const styles = additionalStyles
+        ? [multiColorStyles, additionalStyles]
+        : multiColorStyles;
+    registerIcon(baseName, iconClass, undefined, styles);
+};

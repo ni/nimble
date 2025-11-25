@@ -1,7 +1,6 @@
-
 {
     "srcFiles": [
-        "./dist/icons/svg/*.svg"
+        "./dist/icons/svg-single/*.svg"
     ],
     "prefix": "",
     "svgoConfig": {
@@ -19,7 +18,7 @@
         ]
     },
     "fileName": "index",
-    "outputDirectory": "./dist/icons/ts/",
+    "outputDirectory": "./dist/icons/ts/single",
     "interfaceName": "NimbleIcon",
     "typeName": "NimbleIconName",
     "exportCompleteIconSet": false
