@@ -8,8 +8,6 @@ The `nimble-chip` component currently lacks a built-in mechanism to represent a 
 
 - [Nimble Chip Component](../index.ts)
 - [Figma Design - Chip Interactive States](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2227-78839&m=dev)
-- [FAST Toggle Button](https://explore.fast.design/components/toggle-button)
-- [FAST Checkbox](https://explore.fast.design/components/checkbox)
 - [ARIA: button role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role) (specifically `aria-pressed`)
 - [WCAG 4.1.2: Name, Role, Value](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html) (nested interactive controls)
 
@@ -34,8 +32,10 @@ The chip uses the `selection-mode` attribute to control whether the chip is sele
 ### Keyboard Interaction
 
 - **Space/Enter:** Toggles `selected` state (when `selection-mode="single"`).
+    - **Note:** Enter key is handled on `keydown` to match native button behavior. Space key is handled on `keyup` to allow for active state styling.
 - **Escape:** Removes the chip (when `selection-mode="single"`, `removable`, and not `disabled`).
     - This provides keyboard access to the remove functionality without requiring the remove button to be focusable, which would violate WCAG 4.1.2 (nested interactive controls).
+    - **Note:** Escape key is handled on `keydown` to prevent event propagation (e.g., to parent dialogs).
 
 ### Accessibility
 
@@ -89,6 +89,8 @@ Visual states follow the [Figma design specification](https://www.figma.com/desi
     - The `remove-button-active` attribute is set during remove button mousedown to prevent chip active styling from appearing.
     - A document-level mouseup listener clears this state, ensuring it works even if the mouse moves outside the chip.
     - The listener is cleaned up in `disconnectedCallback()` to prevent memory leaks.
+- **Event Propagation:**
+    - `click`, `keydown` (Enter/Escape), and `keyup` (Space) handlers call `stopPropagation()` when they successfully handle an event. This prevents unintended side effects in parent containers (e.g., closing a dialog when removing a chip, or triggering a parent click handler when toggling selection).
 
 ## Alternative Implementations / Designs
 
