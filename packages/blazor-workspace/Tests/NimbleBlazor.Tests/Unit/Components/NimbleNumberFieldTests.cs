@@ -187,6 +187,72 @@ public class NimbleNumberFieldTests
         }
     }
 
+    [Fact]
+    public void NumberFieldStep_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+            var context = new TestContext();
+            context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+            var numberField = context.RenderComponent<NimbleNumberField>(
+                p => p.Add(x => x.Step, 1.5));
+
+            Assert.Contains("step=\"1.5\"", numberField.Markup);
+            Assert.DoesNotContain("step=\"1,5\"", numberField.Markup);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
+    }
+
+    [Fact]
+    public void NumberFieldMin_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+            var context = new TestContext();
+            context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+            var numberField = context.RenderComponent<NimbleNumberField>(
+                p => p.Add(x => x.Min, 1.5));
+
+            Assert.Contains("min=\"1.5\"", numberField.Markup);
+            Assert.DoesNotContain("min=\"1,5\"", numberField.Markup);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
+    }
+
+    [Fact]
+    public void NumberFieldMax_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+            var context = new TestContext();
+            context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+            var numberField = context.RenderComponent<NimbleNumberField>(
+                p => p.Add(x => x.Max, 1.5));
+
+            Assert.Contains("max=\"1.5\"", numberField.Markup);
+            Assert.DoesNotContain("max=\"1,5\"", numberField.Markup);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
+    }
+
     private IRenderedComponent<NimbleNumberField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
