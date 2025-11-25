@@ -2,7 +2,10 @@ import { html, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/internal/actions/decorator';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
-import { ChipAppearance, ChipSelectionMode } from '@ni/nimble-components/dist/esm/chip/types';
+import {
+    ChipAppearance,
+    ChipSelectionMode
+} from '@ni/nimble-components/dist/esm/chip/types';
 import {
     apiCategory,
     appearanceDescription,
