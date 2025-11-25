@@ -2,7 +2,7 @@ import { html, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/internal/actions/decorator';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
-import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
+import { ChipAppearance, ChipSelectionMode } from '@ni/nimble-components/dist/esm/chip/types';
 import {
     apiCategory,
     appearanceDescription,
@@ -13,11 +13,14 @@ import {
 
 interface ChipArgs {
     appearance: keyof typeof ChipAppearance;
+    selectionMode: keyof typeof ChipSelectionMode;
+    selected: boolean;
     removable: boolean;
     content: string;
     icon: boolean;
     disabled?: boolean;
     remove: undefined;
+    selectedChange: undefined;
 }
 
 // prettier-ignore
@@ -25,7 +28,13 @@ const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
-        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?disabled="${x => x.disabled}">
+        <${chipTag}
+            appearance="${x => x.appearance}"
+            selection-mode="${x => x.selectionMode}"
+            ?selected="${x => x.selected}"
+            ?removable="${x => x.removable}"
+            ?disabled="${x => x.disabled}"
+        >
             ${x => x.content}
             ${when(x => x.icon, html`
                 <nimble-icon-check slot="start"></nimble-icon-check>
@@ -37,6 +46,18 @@ const metadata: Meta<ChipArgs> = {
             description: appearanceDescription({ componentName: 'chip' }),
             options: Object.keys(ChipAppearance),
             control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
+        },
+        selectionMode: {
+            name: 'selection-mode',
+            description: 'Controls whether the chip is selectable.',
+            options: Object.keys(ChipSelectionMode),
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
+        },
+        selected: {
+            name: 'selected',
+            description: 'Whether the chip is selected.',
             table: { category: apiCategory.attributes }
         },
         removable: {
@@ -66,9 +87,17 @@ const metadata: Meta<ChipArgs> = {
             table: { category: apiCategory.events },
             control: false
         },
+        selectedChange: {
+            name: 'selected-change',
+            description: 'Emitted when the user toggles the chip.',
+            table: { category: apiCategory.events },
+            control: false
+        }
     },
     args: {
         appearance: 'outline',
+        selectionMode: 'none',
+        selected: false,
         removable: false,
         content: 'Homer Simpson',
         icon: false,
@@ -82,7 +111,7 @@ export const chip: StoryObj<ChipArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['remove']
+            handles: ['remove', 'selected-change']
         }
     }
 };

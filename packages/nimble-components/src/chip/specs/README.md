@@ -145,12 +145,18 @@ We will provide styling for the `disabled` attribute state.
 _Consider the accessibility of the component, including:_
 
 - _Keyboard Navigation and Focus_
-    - when the chip component is removable, the remove button will be focusable, otherwise it will not receive focus (following the `nimble-banner` pattern).
+    - When the chip is selectable (`selection-mode="single"`) and removable:
+        - The chip itself is focusable and receives keyboard events
+        - Space/Enter toggles the selected state
+        - Escape removes the chip (emits `remove` event)
+        - The remove button is **not** focusable (`tabindex="-1"`) to avoid nested interactive controls (violates [WCAG 4.1.2](https://dequeuniversity.com/rules/axe/4.11/nested-interactive))
+    - When the chip is removable but not selectable (`selection-mode="none"`):
+        - The remove button is focusable and can be activated with Space or Enter
 - _Form Input_
     - N/A
 - _Use with Assistive Technology_
+    - When selectable, the chip has `role="button"` and `aria-pressed` to indicate its toggle state
     - a `chip`'s accessible name comes from the element's contents by default
-    - no ARIA `role` seems necessary to define for the chip, as it isn't interactive itself (only the remove button is which has a `role`). The only valid role seemed to be [`status`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role), but that also didn't seem helpful from an accessibility perspective, particularly since it mainly relates to providing helpful information when the content changes (which we don't expect).
     - the remove button will have its content set to provide a label provider token for "Remove".
         - title will not be set, which aligns with decisions for the filterable select clear button and the banner
         - ideally this would include the contents of the chip itself (so a screen reader would announce "Remove <Chip>") but differing word order between
