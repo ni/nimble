@@ -1,11 +1,14 @@
 {
-  // Allows VSCode ESLint extension to work with NPM workspace monorepo
-  // https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
+    "chat.promptFilesRecommendations": {
+        "speckit.constitution": true,
+        "speckit.specify": true,
+        "speckit.plan": true,
+        "speckit.tasks": true,
+        "speckit.implement": true
+    },
+    "chat.tools.terminal.autoApprove": {
+        ".specify/scripts/bash/": true,
+        ".specify/scripts/powershell/": true
     }
-  ],
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "omnisharp.useModernNet": true
 }
+
