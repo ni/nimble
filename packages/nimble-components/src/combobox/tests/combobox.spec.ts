@@ -1,5 +1,5 @@
 import { html, repeat } from '@ni/fast-element';
-import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
+import { describe, test, it, expect, beforeEach, afterEach } from 'vitest';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
 import { ComboboxAutocomplete } from '../types';
@@ -88,13 +88,11 @@ describe('Combobox', () => {
                 propName: 'ariaExpanded'
             }
         ] as const;
-        parameterizeSpec(ariaTestData, (spec, name, value) => {
-            spec(`should forward ${name} to inner control`, async () => {
-                element.open = true;
-                element[value.propName] = 'foo';
-                await waitForUpdatesAsync();
-                expect(element.control.getAttribute(name)).toEqual('foo');
-            });
+        test.each(ariaTestData)('should forward $name to inner control', async (value) => {
+            element.open = true;
+            element[value.propName] = 'foo';
+            await waitForUpdatesAsync();
+            expect(element.control.getAttribute(value.name)).toEqual('foo');
         });
 
         it('should forward placeholder to inner control', async () => {
@@ -140,38 +138,38 @@ describe('Combobox', () => {
             element.disabled = true;
             await waitForUpdatesAsync();
 
-            expect(pageObject.isDropdownButtonDisabled()).toBeTrue();
+            expect(pageObject.isDropdownButtonDisabled()).toBe(true);
         });
 
         it('clicking dropdown should set button to checked', () => {
             pageObject.clickDropdownButton();
-            expect(pageObject.isDropdownButtonChecked()).toBeTrue();
+            expect(pageObject.isDropdownButtonChecked()).toBe(true);
         });
 
         it('clicking dropdown button should open menu', async () => {
             await pageObject.clickDropdownButtonAndWaitForOpen();
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
         });
 
         it('clicking dropdown button when popup is open should close menu', async () => {
             await pageObject.clickAndWaitForOpen();
 
             pageObject.clickDropdownButton();
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
         });
 
         it('clicking dropdown button when popup is open should cause button to be unchecked', async () => {
             await pageObject.clickAndWaitForOpen();
 
             pageObject.clickDropdownButton();
-            expect(pageObject.isDropdownButtonChecked()).toBeFalse();
+            expect(pageObject.isDropdownButtonChecked()).toBe(false);
         });
 
         it('setting open programmatically should update checked state of button', async () => {
             element.open = true;
             await waitForUpdatesAsync();
 
-            expect(pageObject.isDropdownButtonChecked()).toBeTrue();
+            expect(pageObject.isDropdownButtonChecked()).toBe(true);
         });
 
         it('clicking dropdown after dropdown closed with button should cause button to be checked', async () => {
@@ -182,7 +180,7 @@ describe('Combobox', () => {
             pageObject.clickInput(); // open should be true
             await waitForUpdatesAsync();
 
-            expect(pageObject.isDropdownButtonChecked()).toBeTrue();
+            expect(pageObject.isDropdownButtonChecked()).toBe(true);
         });
 
         it('input element gets aria-label from combobox', async () => {
@@ -219,16 +217,16 @@ describe('Combobox', () => {
             pageObject.setInputText('Th');
             await pageObject.clickAway();
 
-            expect(pageObject.getFilteredOptions()).toEqual(
-                jasmine.arrayWithExactContents(['Three'])
-            );
+            expect(pageObject.getFilteredOptions()).toHaveExactContents([
+                'Three'
+            ]);
 
             element.value = 'Two';
             await waitForUpdatesAsync();
 
-            expect(pageObject.getFilteredOptions()).toEqual(
-                jasmine.arrayWithExactContents(['Two'])
-            );
+            expect(pageObject.getFilteredOptions()).toHaveExactContents([
+                'Two'
+            ]);
             expect(element.filteredOptions[0]?.classList).toContain('selected');
         });
 
@@ -237,9 +235,9 @@ describe('Combobox', () => {
             pageObject.setInputText('Two');
             await pageObject.clickAway();
 
-            expect(pageObject.getFilteredOptions()).toEqual(
-                jasmine.arrayWithExactContents(['Two'])
-            );
+            expect(pageObject.getFilteredOptions()).toHaveExactContents([
+                'Two'
+            ]);
         });
 
         it('filters list after entering value and reselecting value from list', () => {
@@ -248,48 +246,48 @@ describe('Combobox', () => {
             pageObject.pressArrowDownKey();
             pageObject.pressEnterKey();
 
-            expect(pageObject.getFilteredOptions()).toEqual(
-                jasmine.arrayWithExactContents(['Two'])
-            );
+            expect(pageObject.getFilteredOptions()).toHaveExactContents([
+                'Two'
+            ]);
         });
 
         it('shows "no items found" in dropdown when typed text matches nothing', async () => {
             element.autocomplete = ComboboxAutocomplete.both;
             pageObject.setInputText('zzz');
             await waitForUpdatesAsync();
-            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+            expect(pageObject.isNoResultsLabelVisible()).toBe(true);
         });
 
         it('does not show "no items found" in dropdown when typed text matches nothing but autocomplete mode is none', async () => {
             pageObject.setInputText('zzz');
             await waitForUpdatesAsync();
-            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+            expect(pageObject.isNoResultsLabelVisible()).toBe(false);
         });
 
         it('does not show "no items found" in dropdown when typed text matches enabled option', async () => {
             element.autocomplete = ComboboxAutocomplete.both;
             pageObject.setInputText('o'); // matches "One"
             await waitForUpdatesAsync();
-            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+            expect(pageObject.isNoResultsLabelVisible()).toBe(false);
         });
 
         it('does not show "no items found" in dropdown when typed text matches disabled option', async () => {
             element.autocomplete = ComboboxAutocomplete.both;
             pageObject.setInputText('fo'); // matches "Four"
             await waitForUpdatesAsync();
-            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+            expect(pageObject.isNoResultsLabelVisible()).toBe(false);
         });
 
         it('does not show "no items found" in dropdown when input is empty', async () => {
             element.autocomplete = ComboboxAutocomplete.both;
             await pageObject.clickAndWaitForOpen();
-            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+            expect(pageObject.isNoResultsLabelVisible()).toBe(false);
         });
 
         it('shows "no items found" in dropdown after hiding all options', async () => {
             pageObject.hideAllOptions();
             await pageObject.clickAndWaitForOpen();
-            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+            expect(pageObject.isNoResultsLabelVisible()).toBe(true);
         });
 
         it('removes "no items found" from dropdown when a matching option is added', async () => {
@@ -303,11 +301,11 @@ describe('Combobox', () => {
             element.appendChild(matchingOption);
             await waitForUpdatesAsync();
 
-            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+            expect(pageObject.isNoResultsLabelVisible()).toBe(false);
         });
 
         it('emits one change event after changing value through text entry', async () => {
-            const changeEvent = jasmine.createSpy();
+            const changeEvent = vi.fn();
             element.addEventListener('change', changeEvent);
             element.autocomplete = ComboboxAutocomplete.none;
             pageObject.setInputText('O');
@@ -326,7 +324,7 @@ describe('Combobox', () => {
         });
 
         it('emits one change event on focusout when popup is closed and text was updated', async () => {
-            const changeEvent = jasmine.createSpy();
+            const changeEvent = vi.fn();
             element.addEventListener('change', changeEvent);
             element.autocomplete = ComboboxAutocomplete.none;
             pageObject.setInputText('O');
@@ -345,7 +343,7 @@ describe('Combobox', () => {
             element.autocomplete = ComboboxAutocomplete.none;
             await pageObject.commitValue('O');
 
-            const changeEvent = jasmine.createSpy();
+            const changeEvent = vi.fn();
             element.addEventListener('change', changeEvent);
             pageObject.setInputText('');
             await pageObject.commitValue('O');
@@ -354,7 +352,7 @@ describe('Combobox', () => {
 
         it('after text entry if user browses popup and selects option pressing <Enter>, emit only one change event', async () => {
             element.autocomplete = ComboboxAutocomplete.none;
-            const changeEvent = jasmine.createSpy();
+            const changeEvent = vi.fn();
             element.addEventListener('change', changeEvent);
             pageObject.setInputText('O');
             pageObject.pressArrowDownKey(); // open dropdown
@@ -422,19 +420,12 @@ describe('Combobox', () => {
                 text: 'four'
             }
         ] as const;
-        parameterizeSuite(filterOptionSuiteData, (suite, name) => {
-            suite(`with autocomplete "${name}"`, () => {
-                parameterizeSpec(
-                    filterOptionTestData,
-                    (spec, testName, value) => {
-                        spec(testName, async () => {
-                            element.autocomplete = name;
-                            pageObject.setInputText(value.text);
-                            await pageObject.clickAway(); // attempt to commit typed value
-                            expect(element.value).toEqual(value.text);
-                        });
-                    }
-                );
+        describe.each(filterOptionSuiteData)('with autocomplete "$name"', (suiteData) => {
+            test.each(filterOptionTestData)('$name', async (value) => {
+                element.autocomplete = suiteData.name;
+                pageObject.setInputText(value.text);
+                await pageObject.clickAway(); // attempt to commit typed value
+                expect(element.value).toEqual(value.text);
             });
         });
 
@@ -510,9 +501,9 @@ describe('Combobox', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.classList.contains('open')).toBeTrue();
-            expect(element.classList.contains('disabled')).toBeTrue();
-            expect(element.classList.contains('above')).toBeTrue();
+            expect(element.classList.contains('open')).toBe(true);
+            expect(element.classList.contains('disabled')).toBe(true);
+            expect(element.classList.contains('above')).toBe(true);
 
             await disconnect();
         });
@@ -574,36 +565,36 @@ describe('Combobox', () => {
             const lastOption = element.options[element.options.length - 1]!;
             await pageObject.clickAndWaitForOpen();
             let optionIsVisible = await checkFullyInViewport(lastOption);
-            expect(optionIsVisible).toBeFalse();
+            expect(optionIsVisible).toBe(false);
 
             pageObject.setInputText('1000'); // last option in set
             await waitForUpdatesAsync();
             optionIsVisible = await checkFullyInViewport(lastOption);
-            expect(optionIsVisible).toBeTrue();
+            expect(optionIsVisible).toBe(true);
         });
     });
 
     describe('within a div', () => {
-        async function setupInDiv(): Promise<Fixture<Combobox>> {
+        async function setupInDiv(): Promise<Fixture> {
             // prettier-ignore
             const viewTemplate = html`
                 <div style="overflow: auto;">
-                    <<${comboboxTag}>>
+                    <${comboboxTag}>
                         ${repeat(() => [...Array(5).keys()], html<number>`
                             <${listOptionTag}>${x => x}</${listOptionTag}>`)}
-                    </<${comboboxTag}>>
+                    </${comboboxTag}>
                 </div>
             `;
-            return await fixture<Combobox>(viewTemplate);
+            return await fixture(viewTemplate);
         }
 
         it('should not confine dropdown to div with "overflow: auto"', async () => {
             const { element, connect, disconnect } = await setupInDiv();
-            const combo: Combobox = element.querySelector(comboboxTag)!;
             await connect();
-            const pageObject = new ComboboxPageObject(combo);
+            const combobox = element.querySelector<Combobox>(comboboxTag)!;
+            const pageObject = new ComboboxPageObject(combobox);
             await pageObject.clickAndWaitForOpen();
-            const fullyVisible = await checkFullyInViewport(combo.listbox);
+            const fullyVisible = await checkFullyInViewport(combobox.listbox);
 
             expect(fullyVisible).toBe(true);
 

@@ -51,7 +51,7 @@ describe('Banner', () => {
     });
 
     it("should initialize 'open' to false", () => {
-        expect(element.open).toBeFalse();
+        expect(element.open).toBe(false);
     });
 
     it("should be hidden when 'open' is false", async () => {
@@ -68,7 +68,7 @@ describe('Banner', () => {
 
     it("should fire 'toggle' when 'open' is changed", async () => {
         element.open = false;
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         const toggleListener = waitForEvent(element, 'toggle', spy);
         element.open = true;
         await toggleListener;
@@ -82,7 +82,7 @@ describe('Banner', () => {
     it("should remove 'open' when dismiss button is clicked", () => {
         element.open = true;
         element.shadowRoot?.querySelector(buttonTag)?.click();
-        expect(element.open).toBeFalse();
+        expect(element.open).toBe(false);
     });
 
     it("should initialize 'severity' to default", () => {
@@ -100,7 +100,7 @@ describe('Banner', () => {
             element.shadowRoot
                 ?.querySelector(buttonTag)
                 ?.innerText.includes('Close')
-        ).toBeTrue();
+        ).toBe(true);
     });
 
     it("should set the 'role' to 'status'", () => {

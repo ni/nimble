@@ -43,18 +43,18 @@ describe('Breadcrumb', () => {
 
     describe('Scroll buttons', () => {
         it('should not show scroll buttons when the Breadcrumb fit within the container', () => {
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(false);
         });
 
         it('should show scroll buttons when the Breadcrumb overflow the container', async () => {
             await breadcrumbPageObject.setBreadcrumbWidth(300);
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(true);
         });
 
         it('should hide scroll buttons when the Breadcrumb no longer overflow the container', async () => {
             await breadcrumbPageObject.setBreadcrumbWidth(300); // first make the Breadcrumb overflow
             await breadcrumbPageObject.setBreadcrumbWidth(1000); // then make the Breadcrumb fit
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(false);
         });
 
         it('should scroll left when the left scroll button is clicked', async () => {
@@ -95,11 +95,11 @@ describe('Breadcrumb', () => {
 
         it('should show scroll buttons when new breadcrumb item is added and Breadcrumb overflow the container', async () => {
             await breadcrumbPageObject.setBreadcrumbWidth(450);
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(false);
             await breadcrumbPageObject.addBreadcrumbItem(
                 'New Item With Extremely Long Name'
             );
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(true);
         });
 
         it('should hide scroll buttons when breadcrumb item is removed and Breadcrumb no longer overflow the container', async () => {
@@ -107,19 +107,19 @@ describe('Breadcrumb', () => {
             await breadcrumbPageObject.addBreadcrumbItem(
                 'New Item With Extremely Long Name'
             );
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(true);
             await breadcrumbPageObject.removeBreadcrumbItemByIndex(6);
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(false);
         });
 
         it('should show scroll buttons when breadcrumb item label is updated and Breadcrumb overflow the container', async () => {
             await breadcrumbPageObject.setBreadcrumbWidth(450);
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(false);
             await breadcrumbPageObject.updateBreadcrumbItemLabel(
                 0,
                 'New Item With Extremely Long Name'
             );
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(true);
         });
 
         it('should hide scroll buttons when breadcrumb item label is updated and Breadcrumb no longer overflow the container', async () => {
@@ -127,9 +127,9 @@ describe('Breadcrumb', () => {
             await breadcrumbPageObject.addBreadcrumbItem(
                 'New Item With Extremely Long Name'
             );
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(true);
             await breadcrumbPageObject.updateBreadcrumbItemLabel(6, 'Item 6');
-            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(breadcrumbPageObject.areScrollButtonsVisible()).toBe(false);
         });
     });
 });

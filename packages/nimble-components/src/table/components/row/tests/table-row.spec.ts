@@ -86,7 +86,7 @@ describe('TableRow', () => {
             element.selected = false;
             await connect();
 
-            expect(element.hasAttribute('aria-selected')).toBeFalse();
+            expect(element.hasAttribute('aria-selected')).toBe(false);
         });
 
         it('has aria-selected attribute set to "true" when it is selected', async () => {
@@ -164,7 +164,7 @@ describe('TableRow', () => {
             element.selected = true;
             await waitForUpdatesAsync();
 
-            expect(element.selectionCheckbox!.checked).toBeTrue();
+            expect(element.selectionCheckbox!.checked).toBe(true);
         });
 
         it('selection checkbox is not checked when row is not selected', async () => {
@@ -174,7 +174,7 @@ describe('TableRow', () => {
             element.selected = false;
             await waitForUpdatesAsync();
 
-            expect(element.selectionCheckbox!.checked).toBeFalse();
+            expect(element.selectionCheckbox!.checked).toBe(false);
         });
 
         it('selection state can be set before connect()', async () => {
@@ -183,7 +183,7 @@ describe('TableRow', () => {
             element.selected = true;
             await connect();
 
-            expect(element.selectionCheckbox!.checked).toBeTrue();
+            expect(element.selectionCheckbox!.checked).toBe(true);
         });
 
         it('checking selection checkbox fires "row-selection-toggle" event', async () => {
@@ -192,7 +192,7 @@ describe('TableRow', () => {
             element.selected = false;
             await connect();
 
-            const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+            const spy = vi.fn<TableRowSelectionToggleEventHandler>();
             const listener = waitForEvent(element, 'row-selection-toggle', spy);
             element.selectionCheckbox!.click();
             await listener;
@@ -202,7 +202,7 @@ describe('TableRow', () => {
                 newState: true,
                 oldState: false
             };
-            const event = spy.calls.first().args[0];
+            const event = spy.mock.calls[0]![0];
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -212,7 +212,7 @@ describe('TableRow', () => {
             element.selected = true;
             await connect();
 
-            const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+            const spy = vi.fn<TableRowSelectionToggleEventHandler>();
             const listener = waitForEvent(element, 'row-selection-toggle', spy);
             element.selectionCheckbox!.click();
             await listener;
@@ -222,7 +222,7 @@ describe('TableRow', () => {
                 newState: false,
                 oldState: true
             };
-            const event = spy.calls.first().args[0];
+            const event = spy.mock.calls[0]![0];
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -232,7 +232,7 @@ describe('TableRow', () => {
             element.selected = true;
             await connect();
 
-            const spy = jasmine.createSpy();
+            const spy = vi.fn();
             element.addEventListener('row-selection-toggle', spy);
             element.selected = false;
             await waitForUpdatesAsync();
@@ -269,7 +269,7 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
 
-            const spy = jasmine.createSpy<TableRowExpansionToggleEventHandler>();
+            const spy = vi.fn<TableRowExpansionToggleEventHandler>();
             const listener = waitForEvent(element, 'row-expand-toggle', spy);
             expandCollapseButton!.click();
             await listener;
@@ -280,7 +280,7 @@ describe('TableRow', () => {
                 oldState: false,
                 recordId: 'foo'
             };
-            const event = spy.calls.first().args[0];
+            const event = spy.mock.calls[0]![0];
             expect(event.detail).toEqual(expandDetails);
         });
 
@@ -292,7 +292,7 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
 
-            const spy = jasmine.createSpy<TableRowExpansionToggleEventHandler>();
+            const spy = vi.fn<TableRowExpansionToggleEventHandler>();
             const listener = waitForEvent(element, 'row-expand-toggle', spy);
             element.expanded = true;
             expandCollapseButton!.click();
@@ -303,7 +303,7 @@ describe('TableRow', () => {
                 oldState: true,
                 recordId: 'foo'
             };
-            const event = spy.calls.first().args[0];
+            const event = spy.mock.calls[0]![0];
             expect(event.detail).toEqual(collapseDetails);
         });
 

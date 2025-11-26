@@ -67,8 +67,8 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(elementReferences.column1.checkValidity()).toBeTrue();
-        expect(elementReferences.column2.checkValidity()).toBeTrue();
+        expect(elementReferences.column1.checkValidity()).toBe(true);
+        expect(elementReferences.column2.checkValidity()).toBe(true);
     });
 
     it('defaults to "default" format', () => {
@@ -150,21 +150,25 @@ describe('TableColumnNumberText', () => {
     });
 
     // See: https://github.com/ni/nimble/issues/2658
-    it('changing data from null to value displays value #SkipWebkit', async () => {
-        await table.setData([{ number1: null }]);
-        await connect();
-        await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
-            'No value'
-        );
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    it.skipIf(isSafari)(
+        'changing data from null to value displays value #SkipWebkit',
+        async () => {
+            await table.setData([{ number1: null }]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                'No value'
+            );
 
-        await table.setData([{ number1: -16 }]);
-        await waitForUpdatesAsync();
+            await table.setData([{ number1: -16 }]);
+            await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('-16');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('-16');
-    });
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('-16');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('-16');
+        }
+    );
 
     it('when no fieldName provided, nothing is displayed', async () => {
         await connect();
@@ -358,92 +362,92 @@ describe('TableColumnNumberText', () => {
             elementReferences.column1.decimalDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity.invalidDecimalDigits
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         it('changing format of decimal column with invalid decimal-digits makes it valid', async () => {
             elementReferences.column1.decimalDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity.invalidDecimalDigits
-            ).toBeTrue();
+            ).toBe(true);
 
             elementReferences.column1.format = NumberTextFormat.default;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(elementReferences.column1.checkValidity()).toBe(true);
             expect(
                 elementReferences.column1.validity.invalidDecimalDigits
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         it('changing to a valid decimal-digits value makes an invalid column valid', async () => {
             elementReferences.column1.decimalDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity.invalidDecimalDigits
-            ).toBeTrue();
+            ).toBe(true);
 
             elementReferences.column1.decimalDigits = 1;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(elementReferences.column1.checkValidity()).toBe(true);
             expect(
                 elementReferences.column1.validity.invalidDecimalDigits
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         it('setting an invalid decimal-maximum-digits value makes the column invalid', async () => {
             elementReferences.column1.decimalMaximumDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity.invalidDecimalMaximumDigits
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         it('changing format of decimal column with invalid decimal-maximum-digits makes it valid', async () => {
             elementReferences.column1.decimalMaximumDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity.invalidDecimalMaximumDigits
-            ).toBeTrue();
+            ).toBe(true);
 
             elementReferences.column1.format = NumberTextFormat.default;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(elementReferences.column1.checkValidity()).toBe(true);
             expect(
                 elementReferences.column1.validity.invalidDecimalMaximumDigits
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         it('changing to a valid decimal-maximum-digits value makes an invalid column valid', async () => {
             elementReferences.column1.decimalMaximumDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity.invalidDecimalMaximumDigits
-            ).toBeTrue();
+            ).toBe(true);
 
             elementReferences.column1.decimalMaximumDigits = 1;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(elementReferences.column1.checkValidity()).toBe(true);
             expect(
                 elementReferences.column1.validity.invalidDecimalMaximumDigits
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         it('setting both decimal-digits and decimal-maximum-digits value makes the column invalid', async () => {
@@ -451,11 +455,11 @@ describe('TableColumnNumberText', () => {
             elementReferences.column1.decimalMaximumDigits = 1;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity
                     .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         it('changing format of decimal column with both decimal-digits and decimal-maximum-digits makes it valid', async () => {
@@ -463,20 +467,20 @@ describe('TableColumnNumberText', () => {
             elementReferences.column1.decimalMaximumDigits = 1;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity
                     .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
-            ).toBeTrue();
+            ).toBe(true);
 
             elementReferences.column1.format = NumberTextFormat.default;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(elementReferences.column1.checkValidity()).toBe(true);
             expect(
                 elementReferences.column1.validity
                     .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         it('removing one of decimal-digits and decimal-maximum-digits makes an invalid column valid', async () => {
@@ -484,20 +488,20 @@ describe('TableColumnNumberText', () => {
             elementReferences.column1.decimalMaximumDigits = 1;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBe(false);
             expect(
                 elementReferences.column1.validity
                     .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
-            ).toBeTrue();
+            ).toBe(true);
 
             elementReferences.column1.decimalDigits = undefined;
             await waitForUpdatesAsync();
 
-            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(elementReferences.column1.checkValidity()).toBe(true);
             expect(
                 elementReferences.column1.validity
                     .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         it('updates format when unit element is added or removed', async () => {

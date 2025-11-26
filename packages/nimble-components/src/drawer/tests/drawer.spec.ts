@@ -1,5 +1,6 @@
 import { html } from '@ni/fast-element';
 import { eventAnimationEnd } from '@ni/fast-web-utilities';
+import { expect, describe, it, beforeEach, afterEach } from 'vitest';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Drawer, drawerTag, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
@@ -96,61 +97,68 @@ describe('Drawer', () => {
         });
 
         it('should initialize open to false', () => {
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
         });
 
         it('should set open to true after calling show()', () => {
             void element.show();
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
         });
 
         it('should set open to false after calling close() and waiting for the animation to complete', async () => {
             const promise = element.show();
             element.close();
             await promise;
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
         });
 
         it('should keep open as true while the closing animation is in progress', () => {
             void element.show();
             element.close();
-            expect(isDrawerAnimating(element)).toBeTrue();
-            expect(element.open).toBeTrue();
+            expect(isDrawerAnimating(element)).toBe(true);
+            expect(element.open).toBe(true);
         });
 
         it('should resolve promise when closed', async () => {
             const promise = element.show();
             element.close();
-            await expectAsync(promise).toBeResolved();
+            await expect(promise).resolves.not.toThrow();
         });
 
         it('should not resolve promise while closing animation is in progress', async () => {
             const promise = element.show();
             element.close();
-            expect(isDrawerAnimating(element)).toBeTrue();
+            expect(isDrawerAnimating(element)).toBe(true);
             // toBePending does not wait for the promise to fulfill
-            await expectAsync(promise).toBePending();
+            let resolved = false;
+            void promise.then(() => {
+                resolved = true;
+            });
+            await new Promise(resolve => {
+                setTimeout(resolve, 0);
+            });
+            expect(resolved).toBe(false);
         });
 
         it('should resolve promise if drawer completely opens before being closed', async () => {
             const promise = element.show();
             await completeAnimationAsync(element);
             element.close();
-            await expectAsync(promise).toBeResolved();
+            await expect(promise).resolves.not.toThrow();
         });
 
         it('should resolve promise if drawer does not completely open before being closed', async () => {
             const promise = element.show();
             // Do not wait for open animation to complete
-            expect(isDrawerAnimating(element)).toBeTrue();
+            expect(isDrawerAnimating(element)).toBe(true);
             element.close();
-            await expectAsync(promise).toBeResolved();
+            await expect(promise).resolves.not.toThrow();
         });
 
         it('should resolve promise with undefined when nothing passed to close()', async () => {
             const promise = element.show();
             element.close();
-            await expectAsync(promise).toBeResolvedTo(undefined);
+            await expect(promise).resolves.toBe(undefined);
         });
 
         it('should resolve promise with UserDismissed when cancel event fired', async () => {
@@ -158,8 +166,8 @@ describe('Drawer', () => {
             // Simulate user dismiss event in browser
             const cancelEvent = new Event('cancel', { cancelable: true });
             nativeDialogElement(element).dispatchEvent(cancelEvent);
-            await expectAsync(promise).toBeResolvedTo(UserDismissed);
-            expect(element.open).toBeFalse();
+            await expect(promise).resolves.toBe(UserDismissed);
+            expect(element.open).toBe(false);
         });
 
         // This can potentially happen if the dialog is implemented with the CloseWatcher API
@@ -167,8 +175,8 @@ describe('Drawer', () => {
             const promise = element.show();
             // Simulate user dismiss events in browser
             nativeDialogElement(element).dispatchEvent(new Event('close'));
-            await expectAsync(promise).toBeResolvedTo(UserDismissed);
-            expect(element.open).toBeFalse();
+            await expect(promise).resolves.toBe(UserDismissed);
+            expect(element.open).toBe(false);
         });
 
         it('should not resolve promise when close event bubbles from descendant', async () => {
@@ -176,13 +184,22 @@ describe('Drawer', () => {
             const okButton = document.getElementById('ok')!;
             okButton.dispatchEvent(new Event('close', { bubbles: true }));
             await waitForUpdatesAsync();
-            await expectAsync(promise).toBePending();
-            expect(element.open).toBeTrue();
+
+            let resolved = false;
+            void promise.then(() => {
+                resolved = true;
+            });
+            await new Promise(resolve => {
+                setTimeout(resolve, 0);
+            });
+            expect(resolved).toBe(false);
+
+            expect(element.open).toBe(true);
         });
 
         it('throws calling show() a second time', async () => {
             void element.show();
-            await expectAsync(element.show()).toBeRejectedWithError();
+            await expect(element.show()).rejects.toThrow();
         });
 
         it('throws calling close() before showing', () => {
@@ -234,34 +251,47 @@ describe('Drawer', () => {
         });
 
         // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
-        it('focuses the first button on the drawer when it opens #SkipFirefox #SkipWebkit', () => {
-            const okButton = document.getElementById('ok')!;
-            void element.show();
-            expect(document.activeElement).toBe(okButton);
-        });
+        const isFirefox = navigator.userAgent.includes('Firefox');
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+            navigator.userAgent
+        );
+        it.skipIf(isFirefox || isSafari)(
+            'focuses the first button on the drawer when it opens #SkipFirefox #SkipWebkit',
+            () => {
+                const okButton = document.getElementById('ok')!;
+                void element.show();
+                expect(document.activeElement).toBe(okButton);
+            }
+        );
 
         // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
-        it('focuses the button with autofocus when the drawer opens #SkipFirefox #SkipWebkit', () => {
-            const cancelButton = document.getElementById('cancel')!;
-            cancelButton.setAttribute('autofocus', '');
-            processUpdates();
-            void element.show();
-            expect(document.activeElement).toBe(cancelButton);
-        });
+        it.skipIf(isFirefox || isSafari)(
+            'focuses the button with autofocus when the drawer opens #SkipFirefox #SkipWebkit',
+            () => {
+                const cancelButton = document.getElementById('cancel')!;
+                cancelButton.setAttribute('autofocus', '');
+                processUpdates();
+                void element.show();
+                expect(document.activeElement).toBe(cancelButton);
+            }
+        );
 
         // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
-        it('supports opening multiple drawers on top of each other #SkipFirefox #SkipWebkit', () => {
-            const secondDrawer = document.createElement(drawerTag);
-            const secondDrawerButton = document.createElement(buttonTag);
-            secondDrawer.append(secondDrawerButton);
-            element.parentElement!.append(secondDrawer);
-            void element.show();
-            void secondDrawer.show();
+        it.skipIf(isFirefox || isSafari)(
+            'supports opening multiple drawers on top of each other #SkipFirefox #SkipWebkit',
+            () => {
+                const secondDrawer = document.createElement(drawerTag);
+                const secondDrawerButton = document.createElement(buttonTag);
+                secondDrawer.append(secondDrawerButton);
+                element.parentElement!.append(secondDrawer);
+                void element.show();
+                void secondDrawer.show();
 
-            expect(element.open).toBeTrue();
-            expect(secondDrawer.open).toBeTrue();
-            expect(document.activeElement).toBe(secondDrawerButton);
-        });
+                expect(element.open).toBe(true);
+                expect(secondDrawer.open).toBe(true);
+                expect(document.activeElement).toBe(secondDrawerButton);
+            }
+        );
 
         it('should set closedby="none" when preventDismiss is true', () => {
             element.preventDismiss = true;
@@ -289,7 +319,7 @@ describe('Drawer', () => {
             const expectedReason = 'just because';
             const promise = element.show();
             element.close(expectedReason);
-            await expectAsync(promise).toBeResolvedTo(expectedReason);
+            await expect(promise).resolves.toBe(expectedReason);
 
             await disconnect();
         });
@@ -306,9 +336,9 @@ describe('Drawer', () => {
             nativeDialogElement(element).dispatchEvent(cancelEvent);
             processUpdates();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
             // The drawer should not be closing
-            expect(isDrawerAnimating(element)).toBeFalse();
+            expect(isDrawerAnimating(element)).toBe(false);
 
             await disconnect();
         });

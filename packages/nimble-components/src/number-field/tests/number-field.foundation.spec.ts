@@ -41,7 +41,7 @@ describe('NumberField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('autofocus')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -53,7 +53,7 @@ describe('NumberField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('disabled')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -115,7 +115,7 @@ describe('NumberField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('readonly')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -127,7 +127,7 @@ describe('NumberField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('required')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -137,7 +137,7 @@ describe('NumberField', () => {
 
         expect(
             element.shadowRoot!.querySelector('.control')?.hasAttribute('size')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -447,7 +447,7 @@ describe('NumberField', () => {
             const textarea = element.shadowRoot!.querySelector('input');
             textarea?.dispatchEvent(event);
 
-            expect(wasChanged).toBeTrue();
+            expect(wasChanged).toBe(true);
 
             await disconnect();
         });
@@ -464,13 +464,13 @@ describe('NumberField', () => {
 
             element.stepUp();
 
-            expect(wasInput).toBeTrue();
+            expect(wasInput).toBe(true);
 
             wasInput = false;
 
             element.stepDown();
 
-            expect(wasInput).toBeTrue();
+            expect(wasInput).toBe(true);
 
             await disconnect();
         });

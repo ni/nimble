@@ -265,7 +265,7 @@ describe('Table', () => {
             await waitForUpdatesAsync();
 
             const header = pageObject.getHeaderElement(0);
-            expect(header.indicatorsHidden).toBeFalse();
+            expect(header.indicatorsHidden).toBe(false);
         });
 
         it('sets indicators-hidden to true on a column header when configured as hidden in columnInternals', async () => {
@@ -276,7 +276,7 @@ describe('Table', () => {
             await waitForUpdatesAsync();
 
             const header = pageObject.getHeaderElement(0);
-            expect(header.indicatorsHidden).toBeTrue();
+            expect(header.indicatorsHidden).toBe(true);
         });
 
         it('sets column header alignment to left by default', async () => {
@@ -474,13 +474,13 @@ describe('Table', () => {
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
-            expect(element.checkValidity()).toBeFalse();
+            expect(element.checkValidity()).toBe(false);
 
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
 
             verifyRenderedData(simpleTableData);
-            expect(element.checkValidity()).toBeTrue();
+            expect(element.checkValidity()).toBe(true);
         });
 
         it('allows row hover styling when not scrolling', async () => {
@@ -489,7 +489,7 @@ describe('Table', () => {
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
+            expect(pageObject.isRowHoverStylingEnabled()).toBe(true);
         });
 
         it('does not allow row hover styling while scrolling', async () => {
@@ -500,7 +500,7 @@ describe('Table', () => {
 
             element.viewport.dispatchEvent(new Event('scroll'));
             await waitForUpdatesAsync();
-            expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
+            expect(pageObject.isRowHoverStylingEnabled()).toBe(false);
         });
 
         it('re-enables row hover styling after scrolling ends', async () => {
@@ -511,7 +511,7 @@ describe('Table', () => {
 
             element.viewport.dispatchEvent(new Event('scroll'));
             await waitTimeout(300);
-            expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
+            expect(pageObject.isRowHoverStylingEnabled()).toBe(true);
         });
 
         describe('record IDs', () => {
@@ -559,10 +559,10 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 verifyRenderedData(simpleTableData);
-                expect(element.checkValidity()).toBeTrue();
-                expect(element.validity.duplicateRecordId).toBeFalse();
-                expect(element.validity.invalidRecordId).toBeFalse();
-                expect(element.validity.missingRecordId).toBeFalse();
+                expect(element.checkValidity()).toBe(true);
+                expect(element.validity.duplicateRecordId).toBe(false);
+                expect(element.validity.invalidRecordId).toBe(false);
+                expect(element.validity.missingRecordId).toBe(false);
             });
 
             it('setting invalid field for ID  is invalid and renders no rows', async () => {
@@ -572,10 +572,10 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
-                expect(element.validity.duplicateRecordId).toBeFalse();
-                expect(element.validity.invalidRecordId).toBeTrue();
-                expect(element.validity.missingRecordId).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
+                expect(element.validity.duplicateRecordId).toBe(false);
+                expect(element.validity.invalidRecordId).toBe(true);
+                expect(element.validity.missingRecordId).toBe(false);
             });
 
             it('setting ID field name to undefined makes an invalid table valid', async () => {
@@ -585,13 +585,13 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
 
                 element.idFieldName = undefined;
                 await waitForUpdatesAsync();
 
                 verifyRenderedData(simpleTableData);
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
             });
 
             it('setting a valid ID field name makes an invalid table valid', async () => {
@@ -601,13 +601,13 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
 
                 element.idFieldName = 'stringData';
                 await waitForUpdatesAsync();
 
                 verifyRenderedData(simpleTableData);
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
             });
 
             it('setting invalid ID field name on valid table makes it invalid', async () => {
@@ -617,13 +617,13 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 verifyRenderedData(simpleTableData);
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
 
                 element.idFieldName = 'missingFieldName';
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
             });
         });
 
@@ -636,9 +636,9 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
-                expect(element.validity.duplicateColumnId).toBeTrue();
-                expect(element.validity.missingColumnId).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
+                expect(element.validity.duplicateColumnId).toBe(true);
+                expect(element.validity.missingColumnId).toBe(false);
             });
 
             it('missing column IDs marks the table as invalid and rows are not rendered', async () => {
@@ -649,9 +649,9 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
-                expect(element.validity.duplicateColumnId).toBeFalse();
-                expect(element.validity.missingColumnId).toBeTrue();
+                expect(element.checkValidity()).toBe(false);
+                expect(element.validity.duplicateColumnId).toBe(false);
+                expect(element.validity.missingColumnId).toBe(true);
             });
 
             it('table validity updates if column IDs become valid', async () => {
@@ -662,13 +662,13 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
 
                 column2.setAttribute('column-id', 'my-other-column-id');
                 await waitForUpdatesAsync();
 
                 verifyRenderedData(simpleTableData);
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
             });
 
             it('table validity updates if column IDs become invalid', async () => {
@@ -677,14 +677,14 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 verifyRenderedData(simpleTableData);
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
 
                 column1.setAttribute('column-id', 'my-column-id');
                 column2.setAttribute('column-id', 'my-column-id');
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
             });
         });
 
@@ -1031,7 +1031,7 @@ describe('Table', () => {
                 element.parentIdFieldName = 'parentId';
                 await element.setData(hierarchicalData);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
             });
 
             it('clicking collapse all button hides all child rows', async () => {
@@ -1074,7 +1074,7 @@ describe('Table', () => {
                 ];
                 await element.setData(dataWithNoHierarchy);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
             });
 
             it('renders data hierarchically when parentId set after setData', async () => {
@@ -1240,11 +1240,11 @@ describe('Table', () => {
                 await element.setData(hierarchicalData);
                 await waitForUpdatesAsync();
 
-                const processDataSpy = spyOn(element, 'calculateTanStackData');
+                const processDataSpy = vi.spyOn(element, 'calculateTanStackData');
                 element.idFieldName = 'stringData'; // force tanstack data update
                 await waitForUpdatesAsync();
 
-                expect(processDataSpy.calls.count()).toBe(0);
+                expect(processDataSpy.mock.calls.length).toBe(0);
             });
 
             it('table is invalid when data has circular parent child relationships', async () => {
@@ -1297,7 +1297,7 @@ describe('Table', () => {
                 await element.setData(badData);
                 await waitForUpdatesAsync();
 
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
                 expect(pageObject.getRenderedRowCount()).toBe(0);
             });
 
@@ -1306,7 +1306,7 @@ describe('Table', () => {
                 element.parentIdFieldName = 'parentId';
                 await waitForUpdatesAsync();
 
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
             });
 
             it('table is valid after setting id when parentId already set', async () => {
@@ -1314,7 +1314,7 @@ describe('Table', () => {
                 element.parentIdFieldName = 'parentId';
                 await waitForUpdatesAsync();
 
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
                 element.id = 'id';
             });
 
@@ -1368,12 +1368,12 @@ describe('Table', () => {
                 element.parentIdFieldName = 'parentId';
                 await element.setData(hierarchicalData);
                 await waitForUpdatesAsync();
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
 
                 element.idFieldName = undefined;
                 await waitForUpdatesAsync();
                 expect(pageObject.getRenderedRowCount()).toBe(0);
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
             });
 
             it('changing idFieldName when data is valid for hierarchy results in every row being expanded', async () => {
@@ -1501,7 +1501,7 @@ describe('Table', () => {
             });
 
             it('updates collapse all button visiblity based on whether or not a row has delay loaded children', async () => {
-                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
 
                 await element.setRecordHierarchyOptions([
                     {
@@ -1513,7 +1513,7 @@ describe('Table', () => {
                     }
                 ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
 
                 await element.setRecordHierarchyOptions([
                     {
@@ -1525,11 +1525,11 @@ describe('Table', () => {
                     }
                 ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
             });
 
             it('updates collapse all button visiblity based on whether or not the table has a parentIdFieldName configured', async () => {
-                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
 
                 await element.setRecordHierarchyOptions([
                     {
@@ -1541,15 +1541,15 @@ describe('Table', () => {
                     }
                 ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
 
                 element.parentIdFieldName = undefined;
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
             });
 
             it('ignores hierarchy options for records that do not exist in the data', async () => {
-                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
 
                 await element.setRecordHierarchyOptions([
                     {
@@ -1561,7 +1561,7 @@ describe('Table', () => {
                     }
                 ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
             });
 
             it('collapse all button remains visible when row options are updated but one row still has canLoadChildren configured', async () => {
@@ -1589,7 +1589,7 @@ describe('Table', () => {
                     }
                 ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
 
                 await element.setRecordHierarchyOptions([
                     {
@@ -1615,7 +1615,7 @@ describe('Table', () => {
                     }
                 ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
             });
 
             it('setRecordHierarchyOptions clears options that are not in specified options', async () => {
@@ -1643,7 +1643,7 @@ describe('Table', () => {
                     }
                 ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
 
                 await element.setRecordHierarchyOptions([
                     {
@@ -1662,7 +1662,7 @@ describe('Table', () => {
                     }
                 ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+                expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
             });
 
             it("setting a record's delayedHierarchyState to canLoadChildren when it has no children defaults the row to collapsed", async () => {
@@ -1707,7 +1707,7 @@ describe('Table', () => {
 
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
                     true,
                     false,
@@ -1740,7 +1740,7 @@ describe('Table', () => {
 
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
                     true,
                     false,
@@ -1755,7 +1755,7 @@ describe('Table', () => {
 
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
                     false,
                     false,
@@ -1767,7 +1767,7 @@ describe('Table', () => {
             it("setting a record's delayedHierarchyState to canLoadChildren shows a expand/collapse button for that row", async () => {
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeFalse();
+                ).toBe(false);
 
                 await element.setRecordHierarchyOptions([
                     {
@@ -1781,13 +1781,13 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
 
                 await element.setRecordHierarchyOptions([]);
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeFalse();
+                ).toBe(false);
             });
 
             it('updating data to include children of an expanded delayed parent renders parent as expanded and renders child rows', async () => {
@@ -1837,13 +1837,13 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
 
                 element.idFieldName = 'stringData';
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeFalse();
+                ).toBe(false);
             });
 
             it('updating parentIdFieldName does not clear configured row options', async () => {
@@ -1859,14 +1859,14 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
 
                 element.parentIdFieldName = 'newParentId';
                 await waitForUpdatesAsync();
 
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
             });
 
             it('updating data does not clear configured row options', async () => {
@@ -1882,13 +1882,13 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
 
                 await element.setData(initialData.filter(x => x.id === '0'));
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
             });
 
             it('updating data removes row options for records no longer in the data', async () => {
@@ -1904,7 +1904,7 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
 
                 // Remove record '0' and then readd it
                 await element.setData(initialData.filter(x => x.id !== '0'));
@@ -1913,7 +1913,7 @@ describe('Table', () => {
 
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeFalse();
+                ).toBe(false);
             });
 
             it('updating data to have invalid record IDs does not remove row options for records no longer in the data', async () => {
@@ -1929,7 +1929,7 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
 
                 // Set the data to have duplicate record ids and then reset it to the original data
                 await element.setData([
@@ -1941,7 +1941,7 @@ describe('Table', () => {
 
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
             });
 
             it('hierarchy options set when a parentIdFieldName is not configured are used when the parentIdFieldName is set', async () => {
@@ -1960,14 +1960,14 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeFalse();
+                ).toBe(false);
 
                 element.parentIdFieldName = 'parentId';
                 await waitForUpdatesAsync();
 
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
             });
 
             it('modifying passed hierarchy options does not change table state', async () => {
@@ -1984,7 +1984,7 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
 
                 hierarchyOptions.delayedHierarchyState = TableRecordDelayedHierarchyState.none;
                 await element.setData(initialData); // Reset the data to force the row state to be re-evaluated
@@ -1992,7 +1992,7 @@ describe('Table', () => {
 
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
-                ).toBeTrue();
+                ).toBe(true);
             });
 
             it('setting a record to loadingChildren shows a spinner on its row', async () => {
@@ -2007,7 +2007,7 @@ describe('Table', () => {
                 ]);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.isDataRowLoadingSpinnerVisible(0)).toBeTrue();
+                expect(pageObject.isDataRowLoadingSpinnerVisible(0)).toBe(true);
             });
 
             it('removing the state from a record that was loadingChildren does not show a spinner on its row', async () => {
@@ -2025,7 +2025,7 @@ describe('Table', () => {
 
                 expect(
                     pageObject.isDataRowLoadingSpinnerVisible(0)
-                ).toBeFalse();
+                ).toBe(false);
             });
 
             it('row with delayedHierarchyState of canLoadChildren becomes expanded when its expand/collapse button is clicked', async () => {
@@ -2527,15 +2527,15 @@ describe('Table', () => {
             table.idFieldName = 'not-a-data-field';
             await waitForUpdatesAsync();
 
-            expect(table.checkValidity()).toBeFalse();
-            expect(table.validity.missingRecordId).toBeTrue();
+            expect(table.checkValidity()).toBe(false);
+            expect(table.validity.missingRecordId).toBe(true);
         });
 
         it('validates record IDs when data changes', async () => {
             await table.setData([...simpleTableData, ...simpleTableData]);
 
-            expect(table.checkValidity()).toBeFalse();
-            expect(table.validity.duplicateRecordId).toBeTrue();
+            expect(table.checkValidity()).toBe(false);
+            expect(table.validity.duplicateRecordId).toBe(true);
         });
     });
 
@@ -2568,27 +2568,27 @@ describe('Table', () => {
         });
 
         it('updates invalidColumnConfiguration and validity when column state changes', async () => {
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.invalidColumnConfiguration).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.invalidColumnConfiguration).toBe(false);
             column1.foo = false;
             await waitForUpdatesAsync();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.invalidColumnConfiguration).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.invalidColumnConfiguration).toBe(true);
             column1.foo = true;
             await waitForUpdatesAsync();
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.invalidColumnConfiguration).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.invalidColumnConfiguration).toBe(false);
         });
 
         it('updates invalidColumnConfiguration when invalid column removed', async () => {
             column1.foo = false;
             await waitForUpdatesAsync();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.invalidColumnConfiguration).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.invalidColumnConfiguration).toBe(true);
             element.children[0]?.remove();
             await waitForUpdatesAsync();
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.invalidColumnConfiguration).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.invalidColumnConfiguration).toBe(false);
         });
     });
 

@@ -35,7 +35,7 @@ describe('Button', () => {
             element.shadowRoot
                 ?.querySelector('button')
                 ?.hasAttribute('autofocus')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -51,7 +51,7 @@ describe('Button', () => {
             element.shadowRoot
                 ?.querySelector('button')
                 ?.hasAttribute('disabled')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -584,7 +584,7 @@ describe('Button', () => {
                 DOM.queueUpdate(() => resolve(false));
             });
 
-            expect(wasSumbitted).toBeTrue();
+            expect(wasSumbitted).toBe(true);
 
             await disconnect();
         });
@@ -610,7 +610,7 @@ describe('Button', () => {
                 DOM.queueUpdate(() => resolve(false));
             });
 
-            expect(wasReset).toBeTrue();
+            expect(wasReset).toBe(true);
 
             await disconnect();
         });

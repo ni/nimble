@@ -177,9 +177,7 @@ describe('Wafermap Experimental Computations module', () => {
                 colorCategory => colorCategory.color
             );
 
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
         });
 
         it('and only one duplicated color value pair should have a single color category', () => {
@@ -197,9 +195,7 @@ describe('Wafermap Experimental Computations module', () => {
             const actualValues = computationsModule.colorScale.map(
                 colorCategory => colorCategory.color
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
         });
 
         it('and color value pairs for the scale ends should have the colors equally distributed', () => {
@@ -220,9 +216,7 @@ describe('Wafermap Experimental Computations module', () => {
             const actualValues = computationsModule.colorScale.map(
                 colorCategory => colorCategory.color
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
         });
     });
 
@@ -240,9 +234,7 @@ describe('Wafermap Experimental Computations module', () => {
             const actualValues = computationsModule.colorScale.map(
                 colorCategory => colorCategory.color
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
         });
 
         it('and two colors should have two color categories', () => {
@@ -260,9 +252,7 @@ describe('Wafermap Experimental Computations module', () => {
             const actualValues = computationsModule.colorScale.map(
                 colorCategory => colorCategory.color
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
         });
     });
 });

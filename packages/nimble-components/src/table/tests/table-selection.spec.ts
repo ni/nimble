@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { expect } from 'vitest';
 import { html } from '@ni/fast-element';
 import { keyArrowDown, keySpace, keyTab } from '@ni/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
@@ -222,9 +224,9 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
 
 describe('Table row selection', () => {
     function getEmittedRecordIdsFromSpy(
-        spy: jasmine.Spy<TableRowSelectionEventHandler>
+        spy: import('vitest').Mock<TableRowSelectionEventHandler>
     ): string[] {
-        const event = spy.calls.first().args[0];
+        const event = spy.mock.calls[0]![0];
         return event.detail.selectedRecordIds;
     }
 
@@ -234,14 +236,14 @@ describe('Table row selection', () => {
         let disconnect: () => Promise<void>;
         let pageObject: TablePageObject<SimpleTableRecord>;
         let column1: TableColumnText;
-        let selectionChangeSpy: jasmine.Spy;
+        let selectionChangeSpy: import('vitest').Mock;
         let selectionChangeListener: Promise<void>;
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             pageObject = new TablePageObject<SimpleTableRecord>(element);
             column1 = element.querySelector<TableColumnText>('#column1')!;
-            selectionChangeSpy = jasmine.createSpy();
+            selectionChangeSpy = vi.fn();
             selectionChangeListener = waitForEvent(
                 element,
                 'selection-change',
@@ -266,7 +268,7 @@ describe('Table row selection', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.hasAttribute('aria-multiselectable')).toBeFalse();
+            expect(element.hasAttribute('aria-multiselectable')).toBe(false);
         });
 
         it('aria-multiselectable is "false" with a selection mode of "single"', async () => {
@@ -294,7 +296,7 @@ describe('Table row selection', () => {
             element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
+            expect(element.checkValidity()).toBe(true);
         });
 
         it('configuration is valid when selection mode is "none" and an id field name is not set', async () => {
@@ -302,7 +304,7 @@ describe('Table row selection', () => {
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
+            expect(element.checkValidity()).toBe(true);
         });
 
         it('configuration is valid when selection mode is "single" and an id field name is set', async () => {
@@ -310,7 +312,7 @@ describe('Table row selection', () => {
             element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
+            expect(element.checkValidity()).toBe(true);
         });
 
         it('configuration is invalid when selection mode is "single" and an id field name is not set', async () => {
@@ -318,8 +320,8 @@ describe('Table row selection', () => {
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.idFieldNameNotConfigured).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.idFieldNameNotConfigured).toBe(true);
         });
 
         it('configuration is valid when selection mode is "multiple" and an id field name is set', async () => {
@@ -327,7 +329,7 @@ describe('Table row selection', () => {
             element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
+            expect(element.checkValidity()).toBe(true);
         });
 
         it('configuration is invalid when selection mode is "multiple" and an id field name is not set', async () => {
@@ -335,8 +337,8 @@ describe('Table row selection', () => {
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.idFieldNameNotConfigured).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.idFieldNameNotConfigured).toBe(true);
         });
 
         it('is cleared when selection mode changes', async () => {
@@ -486,7 +488,7 @@ describe('Table row selection', () => {
             ]);
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
+            expect(element.checkValidity()).toBe(false);
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual(['1']);
         });
@@ -497,7 +499,7 @@ describe('Table row selection', () => {
 
             const rowCount = simpleTableData.length;
             for (let i = 0; i < rowCount; i++) {
-                expect(pageObject.getIsRowSelectable(i)).toBeFalse();
+                expect(pageObject.getIsRowSelectable(i)).toBe(false);
             }
         });
 
@@ -508,8 +510,8 @@ describe('Table row selection', () => {
 
             const rowCount = simpleTableData.length;
             for (let i = 0; i < rowCount; i++) {
-                expect(pageObject.getIsRowSelectable(i)).toBeTrue();
-                expect(pageObject.isRowSelectionCheckboxVisible(i)).toBeFalse();
+                expect(pageObject.getIsRowSelectable(i)).toBe(true);
+                expect(pageObject.isRowSelectionCheckboxVisible(i)).toBe(false);
             }
         });
 
@@ -520,8 +522,8 @@ describe('Table row selection', () => {
 
             const rowCount = simpleTableData.length;
             for (let i = 0; i < rowCount; i++) {
-                expect(pageObject.getIsRowSelectable(i)).toBeTrue();
-                expect(pageObject.isRowSelectionCheckboxVisible(i)).toBeTrue();
+                expect(pageObject.getIsRowSelectable(i)).toBe(true);
+                expect(pageObject.isRowSelectionCheckboxVisible(i)).toBe(true);
             }
         });
 
@@ -538,7 +540,7 @@ describe('Table row selection', () => {
 
             const rowCount = simpleTableData.length;
             for (let i = 0; i < rowCount; i++) {
-                expect(pageObject.getIsRowSelectable(i)).toBeTrue();
+                expect(pageObject.getIsRowSelectable(i)).toBe(true);
                 expect(pageObject.getIsRowSelected(i)).toBe(
                     i === selectedIndex
                 );
@@ -556,9 +558,9 @@ describe('Table row selection', () => {
             ]);
             await waitForUpdatesAsync();
 
-            expect(pageObject.getIsRowSelected(0)).toBeTrue();
-            expect(pageObject.getIsRowSelected(1)).toBeTrue();
-            expect(pageObject.getIsRowSelected(2)).toBeFalse();
+            expect(pageObject.getIsRowSelected(0)).toBe(true);
+            expect(pageObject.getIsRowSelected(1)).toBe(true);
+            expect(pageObject.getIsRowSelected(2)).toBe(false);
         });
 
         describe('programmatic selection', () => {
@@ -720,9 +722,9 @@ describe('Table row selection', () => {
                 });
 
                 it('selection checkbox is not shown in header', () => {
-                    expect(
-                        pageObject.isTableSelectionCheckboxVisible()
-                    ).toBeFalse();
+                    expect(pageObject.isTableSelectionCheckboxVisible()).toBe(
+                        false
+                    );
                 });
             });
 
@@ -734,9 +736,9 @@ describe('Table row selection', () => {
                 });
 
                 it('selection checkbox is not shown in header', () => {
-                    expect(
-                        pageObject.isTableSelectionCheckboxVisible()
-                    ).toBeFalse();
+                    expect(pageObject.isTableSelectionCheckboxVisible()).toBe(
+                        false
+                    );
                 });
 
                 describe('interactions that modify the selection', () => {
@@ -795,17 +797,13 @@ describe('Table row selection', () => {
                             );
 
                             const currentSelection = await element.getSelectedRecordIds();
-                            expect(currentSelection).toEqual(
-                                jasmine.arrayWithExactContents(
-                                    value.expectedSelection
-                                )
+                            expect(currentSelection).toHaveExactContents(
+                                value.expectedSelection
                             );
                             expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                             const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                            expect(emittedIds).toEqual(
-                                jasmine.arrayWithExactContents(
-                                    value.expectedSelection
-                                )
+                            expect(emittedIds).toHaveExactContents(
+                                value.expectedSelection
                             );
                         });
                     });
@@ -843,10 +841,8 @@ describe('Table row selection', () => {
                             );
 
                             const currentSelection = await element.getSelectedRecordIds();
-                            expect(currentSelection).toEqual(
-                                jasmine.arrayWithExactContents(
-                                    value.initialSelection
-                                )
+                            expect(currentSelection).toHaveExactContents(
+                                value.initialSelection
                             );
                             expect(selectionChangeSpy).not.toHaveBeenCalled();
                         });
@@ -937,17 +933,13 @@ describe('Table row selection', () => {
                         );
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(
-                                value.expectedSelection
-                            )
+                        expect(currentSelection).toHaveExactContents(
+                            value.expectedSelection
                         );
                         expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(
-                                value.expectedSelection
-                            )
+                        expect(emittedIds).toHaveExactContents(
+                            value.expectedSelection
                         );
                     });
                 });
@@ -957,9 +949,7 @@ describe('Table row selection', () => {
                     await pageObject.clickRow(0);
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(
-                        jasmine.arrayWithExactContents(['0'])
-                    );
+                    expect(currentSelection).toHaveExactContents(['0']);
                     expect(selectionChangeSpy).not.toHaveBeenCalled();
                 });
 
@@ -974,7 +964,7 @@ describe('Table row selection', () => {
                         await pageObject.clickRow(firstRowToSelect);
                         await selectionChangeListener;
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -986,13 +976,13 @@ describe('Table row selection', () => {
                         await multiSelectListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1006,7 +996,7 @@ describe('Table row selection', () => {
                         await pageObject.clickRow(firstRowToSelect);
                         await selectionChangeListener;
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1018,13 +1008,13 @@ describe('Table row selection', () => {
                         await multiSelectListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1038,7 +1028,7 @@ describe('Table row selection', () => {
                         pageObject.clickRowSelectionCheckbox(firstRowToSelect);
                         await selectionChangeListener;
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1051,13 +1041,13 @@ describe('Table row selection', () => {
                         await multiSelectListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1077,7 +1067,7 @@ describe('Table row selection', () => {
                         await pageObject.clickRow(0, { shiftKey: true });
                         await firstMultiSelectListener;
 
-                        const secondMultiSelectSpy = jasmine.createSpy();
+                        const secondMultiSelectSpy = vi.fn();
                         const secondMultiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1089,13 +1079,13 @@ describe('Table row selection', () => {
                         await secondMultiSelectListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(secondMultiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(secondMultiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1112,7 +1102,7 @@ describe('Table row selection', () => {
                         pageObject.clickRowSelectionCheckbox(firstRowToSelect);
                         await selectionChangeListener;
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1146,7 +1136,7 @@ describe('Table row selection', () => {
                         });
                         await selectionChangeListener;
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1159,13 +1149,13 @@ describe('Table row selection', () => {
                         await multiSelectListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1186,7 +1176,7 @@ describe('Table row selection', () => {
                         });
                         await selectionChangeListener;
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1199,13 +1189,13 @@ describe('Table row selection', () => {
                         await multiSelectListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1225,7 +1215,7 @@ describe('Table row selection', () => {
                         });
                         await selectionChangeListener;
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1237,13 +1227,13 @@ describe('Table row selection', () => {
                         await multiSelectListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1274,7 +1264,7 @@ describe('Table row selection', () => {
                         await waitForUpdatesAsync();
 
                         const lastRowToSelect = newData.length - 2;
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1290,13 +1280,13 @@ describe('Table row selection', () => {
                             .slice(1, -1)
                             .map(x => x.id);
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1345,7 +1335,7 @@ describe('Table row selection', () => {
                         ]);
                         await waitForUpdatesAsync();
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1358,13 +1348,13 @@ describe('Table row selection', () => {
                         await multiSelectListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1376,7 +1366,7 @@ describe('Table row selection', () => {
                         column1.sortIndex = 0;
                         await waitForUpdatesAsync();
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1394,13 +1384,13 @@ describe('Table row selection', () => {
                             '5'
                         ];
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1414,7 +1404,7 @@ describe('Table row selection', () => {
                         element.selectionMode = TableRowSelectionMode.multiple;
                         await waitForUpdatesAsync();
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1425,13 +1415,13 @@ describe('Table row selection', () => {
 
                         const expectedSelection = [simpleTableData[3].id];
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1441,7 +1431,7 @@ describe('Table row selection', () => {
 
                         await element.setSelectedRecordIds([]);
 
-                        const multiSelectSpy = jasmine.createSpy();
+                        const multiSelectSpy = vi.fn();
                         const multiSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1454,13 +1444,13 @@ describe('Table row selection', () => {
                             .slice(0, 4)
                             .map(x => x.id);
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1474,7 +1464,7 @@ describe('Table row selection', () => {
                         await selectionChangeListener;
 
                         // Shift + click a different row
-                        const shiftSelectSpy = jasmine.createSpy();
+                        const shiftSelectSpy = vi.fn();
                         const shiftSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1485,13 +1475,13 @@ describe('Table row selection', () => {
 
                         const expectedSelection = ['3'];
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(shiftSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(shiftSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
 
@@ -1505,7 +1495,7 @@ describe('Table row selection', () => {
                         await selectionChangeListener;
 
                         // Shift + click a different row
-                        const shiftSelectSpy = jasmine.createSpy();
+                        const shiftSelectSpy = vi.fn();
                         const shiftSelectListener = waitForEvent(
                             element,
                             'selection-change',
@@ -1516,13 +1506,13 @@ describe('Table row selection', () => {
 
                         const expectedSelection = ['3'];
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(currentSelection).toHaveExactContents(
+                            expectedSelection
                         );
                         expect(shiftSelectSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(shiftSelectSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(expectedSelection)
+                        expect(emittedIds).toHaveExactContents(
+                            expectedSelection
                         );
                     });
                 });
@@ -1533,12 +1523,10 @@ describe('Table row selection', () => {
                     await waitForUpdatesAsync();
 
                     const selectedRecordIds = await element.getSelectedRecordIds();
-                    expect(selectedRecordIds).toEqual(
-                        jasmine.arrayWithExactContents([
-                            simpleTableData[0].stringData,
-                            simpleTableData[1].stringData
-                        ])
-                    );
+                    expect(selectedRecordIds).toHaveExactContents([
+                        simpleTableData[0].stringData,
+                        simpleTableData[1].stringData
+                    ]);
                 });
 
                 it('can deselect a single row by clicking the selection checkbox for the row', async () => {
@@ -1551,9 +1539,7 @@ describe('Table row selection', () => {
 
                     recordIds.splice(0, 1);
                     const selectedRecordIds = await element.getSelectedRecordIds();
-                    expect(selectedRecordIds).toEqual(
-                        jasmine.arrayWithExactContents(recordIds)
-                    );
+                    expect(selectedRecordIds).toHaveExactContents(recordIds);
                 });
 
                 describe('with SHIFT pressed in the window then let go outside the window', () => {
@@ -1574,12 +1560,10 @@ describe('Table row selection', () => {
                         await waitForUpdatesAsync();
 
                         const selectedRecordIds = await element.getSelectedRecordIds();
-                        expect(selectedRecordIds).toEqual(
-                            jasmine.arrayWithExactContents([
-                                simpleTableData[0].id,
-                                simpleTableData[3].id
-                            ])
-                        );
+                        expect(selectedRecordIds).toHaveExactContents([
+                            simpleTableData[0].id,
+                            simpleTableData[3].id
+                        ]);
                     });
 
                     it('selects only the rows that SPACE was pressed on', async () => {
@@ -1594,12 +1578,10 @@ describe('Table row selection', () => {
                         ]);
 
                         const selectedRecordIds = await element.getSelectedRecordIds();
-                        expect(selectedRecordIds).toEqual(
-                            jasmine.arrayWithExactContents([
-                                simpleTableData[0].id,
-                                simpleTableData[3].id
-                            ])
-                        );
+                        expect(selectedRecordIds).toHaveExactContents([
+                            simpleTableData[0].id,
+                            simpleTableData[3].id
+                        ]);
                     });
                 });
 
@@ -1607,7 +1589,7 @@ describe('Table row selection', () => {
                     it('is shown', () => {
                         expect(
                             pageObject.isTableSelectionCheckboxVisible()
-                        ).toBeTrue();
+                        ).toBe(true);
                     });
 
                     it('is unchecked by default', () => {
@@ -1657,14 +1639,12 @@ describe('Table row selection', () => {
                         await selectionChangeListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(allRecordIds)
+                        expect(currentSelection).toHaveExactContents(
+                            allRecordIds
                         );
                         expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(allRecordIds)
-                        );
+                        expect(emittedIds).toHaveExactContents(allRecordIds);
                     });
 
                     it('selects all rows and fires event when clicked while indeterminate', async () => {
@@ -1679,14 +1659,12 @@ describe('Table row selection', () => {
                         await selectionChangeListener;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(
-                            jasmine.arrayWithExactContents(allRecordIds)
+                        expect(currentSelection).toHaveExactContents(
+                            allRecordIds
                         );
                         expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                         const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                        expect(emittedIds).toEqual(
-                            jasmine.arrayWithExactContents(allRecordIds)
-                        );
+                        expect(emittedIds).toHaveExactContents(allRecordIds);
                     });
 
                     it('deselects all rows and fires event when clicked while checked', async () => {
@@ -1723,8 +1701,8 @@ describe('Table row selection', () => {
             table.idFieldName = undefined;
             await waitForUpdatesAsync();
 
-            expect(table.checkValidity()).toBeFalse();
-            expect(table.validity.idFieldNameNotConfigured).toBeTrue();
+            expect(table.checkValidity()).toBe(false);
+            expect(table.validity.idFieldNameNotConfigured).toBe(true);
         });
 
         it('can get and set selection', async () => {
@@ -1732,9 +1710,7 @@ describe('Table row selection', () => {
             await table.setSelectedRecordIds(expectedSelection);
 
             const selection = await table.getSelectedRecordIds();
-            expect(selection).toEqual(
-                jasmine.arrayWithExactContents(expectedSelection)
-            );
+            expect(selection).toHaveExactContents(expectedSelection);
         });
 
         it('should not select records that do not exist', async () => {
@@ -1784,7 +1760,7 @@ describe('Table row selection', () => {
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
         let pageObject: TablePageObject<SimpleTableRecord>;
-        let selectionChangeSpy: jasmine.Spy;
+        let selectionChangeSpy: import('vitest').Mock;
         let selectionChangeListener: Promise<void>;
         let column1: TableColumnText;
         let column2: TableColumnText;
@@ -1797,7 +1773,7 @@ describe('Table row selection', () => {
             column2 = element.querySelector<TableColumnText>('#column2')!;
 
             pageObject = new TablePageObject<SimpleTableRecord>(element);
-            selectionChangeSpy = jasmine.createSpy();
+            selectionChangeSpy = vi.fn();
             selectionChangeListener = waitForEvent(
                 element,
                 'selection-change',
@@ -1856,14 +1832,10 @@ describe('Table row selection', () => {
                 await selectionChangeListener;
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(allRecordIds)
-                );
+                expect(currentSelection).toHaveExactContents(allRecordIds);
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                 const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                expect(emittedIds).toEqual(
-                    jasmine.arrayWithExactContents(allRecordIds)
-                );
+                expect(emittedIds).toHaveExactContents(allRecordIds);
             });
 
             it('clicking checked selection checkbox selects all leaf rows and fires event', async () => {
@@ -1888,14 +1860,10 @@ describe('Table row selection', () => {
                 await selectionChangeListener;
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(allRecordIds)
-                );
+                expect(currentSelection).toHaveExactContents(allRecordIds);
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                 const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                expect(emittedIds).toEqual(
-                    jasmine.arrayWithExactContents(allRecordIds)
-                );
+                expect(emittedIds).toHaveExactContents(allRecordIds);
             });
 
             it('shift clicking across a group row does not select all items in the group', async () => {
@@ -1914,7 +1882,7 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(lastBlueRowIndex);
                 await selectionChangeListener;
 
-                const multiSelectSpy = jasmine.createSpy();
+                const multiSelectSpy = vi.fn();
                 const multiSelectListener = waitForEvent(
                     element,
                     'selection-change',
@@ -1930,14 +1898,10 @@ describe('Table row selection', () => {
                     firstGreenRecordId
                 ];
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(expectedSelection)
-                );
+                expect(currentSelection).toHaveExactContents(expectedSelection);
                 expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                 const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                expect(emittedIds).toEqual(
-                    jasmine.arrayWithExactContents(expectedSelection)
-                );
+                expect(emittedIds).toHaveExactContents(expectedSelection);
             });
 
             it('shift clicking from a row that becomes hidden selects expected range', async () => {
@@ -1958,7 +1922,7 @@ describe('Table row selection', () => {
                 pageObject.toggleGroupRowExpandedState(blueGroupIndex);
                 await waitForUpdatesAsync();
 
-                const multiSelectSpy = jasmine.createSpy();
+                const multiSelectSpy = vi.fn();
                 const multiSelectListener = waitForEvent(
                     element,
                     'selection-change',
@@ -1976,14 +1940,10 @@ describe('Table row selection', () => {
                     firstGreenRecordId
                 ];
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(expectedSelection)
-                );
+                expect(currentSelection).toHaveExactContents(expectedSelection);
                 expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                 const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                expect(emittedIds).toEqual(
-                    jasmine.arrayWithExactContents(expectedSelection)
-                );
+                expect(emittedIds).toHaveExactContents(expectedSelection);
             });
 
             it('shift clicking to a group row selects all rows in the group', async () => {
@@ -2000,7 +1960,7 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(lastBlueRowIndex);
                 await selectionChangeListener;
 
-                const multiSelectSpy = jasmine.createSpy();
+                const multiSelectSpy = vi.fn();
                 const multiSelectListener = waitForEvent(
                     element,
                     'selection-change',
@@ -2017,14 +1977,10 @@ describe('Table row selection', () => {
                     ...allGreenRecordIds
                 ];
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(expectedSelection)
-                );
+                expect(currentSelection).toHaveExactContents(expectedSelection);
                 expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                 const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                expect(emittedIds).toEqual(
-                    jasmine.arrayWithExactContents(expectedSelection)
-                );
+                expect(emittedIds).toHaveExactContents(expectedSelection);
             });
 
             it('shift clicking to an already selected group keeps it selected', async () => {
@@ -2043,7 +1999,7 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(lastBlueRowIndex);
                 await selectionChangeListener;
 
-                const multiSelectSpy = jasmine.createSpy();
+                const multiSelectSpy = vi.fn();
                 const multiSelectListener = waitForEvent(
                     element,
                     'selection-change',
@@ -2060,14 +2016,10 @@ describe('Table row selection', () => {
                     ...allGreenRecordIds
                 ];
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(expectedSelection)
-                );
+                expect(currentSelection).toHaveExactContents(expectedSelection);
                 expect(multiSelectSpy).toHaveBeenCalledTimes(1);
                 const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
-                expect(emittedIds).toEqual(
-                    jasmine.arrayWithExactContents(expectedSelection)
-                );
+                expect(emittedIds).toHaveExactContents(expectedSelection);
                 expect(
                     pageObject.getGroupRowSelectionState(greenGroupIndex)
                 ).toBe(TableRowSelectionState.selected);
@@ -2088,14 +2040,12 @@ describe('Table row selection', () => {
                         .filter(x => x.id.includes('blue-'))
                         .map(x => x.id);
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(
-                        jasmine.arrayWithExactContents(allBlueRecordIds)
+                    expect(currentSelection).toHaveExactContents(
+                        allBlueRecordIds
                     );
                     expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                     const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                    expect(emittedIds).toEqual(
-                        jasmine.arrayWithExactContents(allBlueRecordIds)
-                    );
+                    expect(emittedIds).toHaveExactContents(allBlueRecordIds);
                 });
 
                 it('clicking checked group selection checkbox deselects all children and emits event', async () => {
@@ -2146,14 +2096,12 @@ describe('Table row selection', () => {
                     await selectionChangeListener;
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(
-                        jasmine.arrayWithExactContents(allBlueRecordIds)
+                    expect(currentSelection).toHaveExactContents(
+                        allBlueRecordIds
                     );
                     expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                     const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                    expect(emittedIds).toEqual(
-                        jasmine.arrayWithExactContents(allBlueRecordIds)
-                    );
+                    expect(emittedIds).toHaveExactContents(allBlueRecordIds);
                 });
 
                 it('selecting a row within a group makes the group row indeterminate', async () => {
@@ -2237,14 +2185,10 @@ describe('Table row selection', () => {
                 await selectionChangeListener;
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(allRecordIds)
-                );
+                expect(currentSelection).toHaveExactContents(allRecordIds);
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                 const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                expect(emittedIds).toEqual(
-                    jasmine.arrayWithExactContents(allRecordIds)
-                );
+                expect(emittedIds).toHaveExactContents(allRecordIds);
             });
 
             it('clicking checked selection checkbox selects all leaf rows and fires event', async () => {
@@ -2269,14 +2213,10 @@ describe('Table row selection', () => {
                 await selectionChangeListener;
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(allRecordIds)
-                );
+                expect(currentSelection).toHaveExactContents(allRecordIds);
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                 const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                expect(emittedIds).toEqual(
-                    jasmine.arrayWithExactContents(allRecordIds)
-                );
+                expect(emittedIds).toHaveExactContents(allRecordIds);
             });
 
             describe('group selection checkbox', () => {
@@ -2298,8 +2238,8 @@ describe('Table row selection', () => {
                         )
                         .map(x => x.id);
                     const selection = await element.getSelectedRecordIds();
-                    expect(selection).toEqual(
-                        jasmine.arrayWithExactContents(blueAndGreenRecordIds)
+                    expect(selection).toHaveExactContents(
+                        blueAndGreenRecordIds
                     );
                 });
 
@@ -2317,14 +2257,12 @@ describe('Table row selection', () => {
                         .filter(x => x.id.includes('blue-'))
                         .map(x => x.id);
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(
-                        jasmine.arrayWithExactContents(allBlueRecordIds)
+                    expect(currentSelection).toHaveExactContents(
+                        allBlueRecordIds
                     );
                     expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                     const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                    expect(emittedIds).toEqual(
-                        jasmine.arrayWithExactContents(allBlueRecordIds)
-                    );
+                    expect(emittedIds).toHaveExactContents(allBlueRecordIds);
                 });
 
                 it('clicking checked group selection checkbox deselects all children and emits event', async () => {
@@ -2375,14 +2313,12 @@ describe('Table row selection', () => {
                     await selectionChangeListener;
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(
-                        jasmine.arrayWithExactContents(allBlueRecordIds)
+                    expect(currentSelection).toHaveExactContents(
+                        allBlueRecordIds
                     );
                     expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
                     const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
-                    expect(emittedIds).toEqual(
-                        jasmine.arrayWithExactContents(allBlueRecordIds)
-                    );
+                    expect(emittedIds).toHaveExactContents(allBlueRecordIds);
                 });
 
                 it('selecting a row within a group makes the group row indeterminate', async () => {
@@ -2588,7 +2524,7 @@ describe('Table row selection', () => {
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
         let pageObject: TablePageObject<SimpleTableRecord>;
-        let selectionChangeSpy: jasmine.Spy;
+        let selectionChangeSpy: import('vitest').Mock;
         let selectionChangeListener: Promise<void>;
         let column1: TableColumnText;
 
@@ -2602,7 +2538,7 @@ describe('Table row selection', () => {
             pageObject = new TablePageObject<SimpleTableRecord>(element);
             column1 = element.querySelector<TableColumnText>('#column1')!;
             element.parentIdFieldName = 'parentId';
-            selectionChangeSpy = jasmine.createSpy();
+            selectionChangeSpy = vi.fn();
             selectionChangeListener = waitForEvent(
                 element,
                 'selection-change',
@@ -2672,25 +2608,27 @@ describe('Table row selection', () => {
             it('can programmatically select parent row and its children', async () => {
                 await element.setSelectedRecordIds(['0', '0.0', '0.0.0']);
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(['0', '0.0', '0.0.0'])
-                );
+                expect(currentSelection).toHaveExactContents([
+                    '0',
+                    '0.0',
+                    '0.0.0'
+                ]);
             });
 
             it('can programmatically select parent row and its leaf, skipping a level in the hierarchy', async () => {
                 await element.setSelectedRecordIds(['0', '0.0.0']);
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(['0', '0.0.0'])
-                );
+                expect(currentSelection).toHaveExactContents(['0', '0.0.0']);
             });
 
             it('can programmatically select rows at different levels of the heirarchy', async () => {
                 await element.setSelectedRecordIds(['0.0.1', '1', '2.0']);
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(['0.0.1', '1', '2.0'])
-                );
+                expect(currentSelection).toHaveExactContents([
+                    '0.0.1',
+                    '1',
+                    '2.0'
+                ]);
             });
 
             it('can interactively select parent row', async () => {
@@ -2714,15 +2652,13 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(endRowIndex, { shiftKey: true });
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents([
-                        '0.0.1',
-                        '0.1',
-                        '0.2',
-                        '0.2.0',
-                        '1'
-                    ])
-                );
+                expect(currentSelection).toHaveExactContents([
+                    '0.0.1',
+                    '0.1',
+                    '0.2',
+                    '0.2.0',
+                    '1'
+                ]);
             });
 
             it('shift-selecting across collapsed parents selects children', async () => {
@@ -2737,15 +2673,13 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(endRowIndex, { shiftKey: true });
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents([
-                        '0.0.1',
-                        '0.1',
-                        '0.2',
-                        '0.2.0',
-                        '1'
-                    ])
-                );
+                expect(currentSelection).toHaveExactContents([
+                    '0.0.1',
+                    '0.1',
+                    '0.2',
+                    '0.2.0',
+                    '1'
+                ]);
             });
 
             it('can ctrl-select rows from different parts of the tree', async () => {
@@ -2755,9 +2689,7 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(rowIndex1, { ctrlKey: true });
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(['0.0.1', '1'])
-                );
+                expect(currentSelection).toHaveExactContents(['0.0.1', '1']);
             });
 
             it('can ctrl-select parent row and a child', async () => {
@@ -2767,9 +2699,7 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(rowIndex1, { ctrlKey: true });
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents(['0.0', '0.0.1'])
-                );
+                expect(currentSelection).toHaveExactContents(['0.0', '0.0.1']);
             });
 
             it('table selection checkbox is indeterminate when only parent rows are selected', async () => {
@@ -2828,18 +2758,16 @@ describe('Table row selection', () => {
                 await selectionChangeListener;
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(
-                    jasmine.arrayWithExactContents([
-                        '0',
-                        '0.0',
-                        '0.0.0',
-                        '0.0.1',
-                        '0.1',
-                        '0.2',
-                        '0.2.0',
-                        '3'
-                    ])
-                );
+                expect(currentSelection).toHaveExactContents([
+                    '0',
+                    '0.0',
+                    '0.0.0',
+                    '0.0.1',
+                    '0.1',
+                    '0.2',
+                    '0.2.0',
+                    '3'
+                ]);
             });
 
             it('selecting all children of a group marks the group as selected', async () => {

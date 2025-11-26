@@ -85,7 +85,7 @@ describe('RichTextViewer', () => {
     it('set the markdown property and ensure there is no markdown attribute', () => {
         element.markdown = '**markdown string**';
 
-        expect(element.hasAttribute('markdown')).toBeFalse();
+        expect(element.hasAttribute('markdown')).toBe(false);
     });
 
     it('set the markdown property and ensure that getting the markdown property returns the same value', () => {
@@ -324,26 +324,26 @@ describe('RichTextViewer', () => {
 
         describe('validity', () => {
             it('should have valid states by default', () => {
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
                 expect(
                     element.validity.invalidMentionConfiguration
-                ).toBeFalse();
+                ).toBe(false);
                 expect(
                     element.validity.duplicateMentionConfiguration
-                ).toBeFalse();
+                ).toBe(false);
             });
 
             it('should have valid states when there is no mapping elements but with a configuration element', async () => {
                 element.markdown = '<user:1>';
                 await appendUserMentionConfiguration(element);
 
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
                 expect(
                     element.validity.invalidMentionConfiguration
-                ).toBeFalse();
+                ).toBe(false);
                 expect(
                     element.validity.duplicateMentionConfiguration
-                ).toBeFalse();
+                ).toBe(false);
             });
 
             it('should have invalid states when setting invalid `key` in mapping mention', async () => {
@@ -352,8 +352,8 @@ describe('RichTextViewer', () => {
                     { key: 'invalid', displayName: 'username' }
                 ]);
 
-                expect(element.checkValidity()).toBeFalse();
-                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+                expect(element.checkValidity()).toBe(false);
+                expect(element.validity.invalidMentionConfiguration).toBe(true);
             });
 
             it('should have invalid states when removing `pattern` from configuration element', async () => {
@@ -364,8 +364,8 @@ describe('RichTextViewer', () => {
                 userMentionElement.removeAttribute('pattern');
                 await waitForUpdatesAsync();
 
-                expect(element.checkValidity()).toBeFalse();
-                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+                expect(element.checkValidity()).toBe(false);
+                expect(element.validity.invalidMentionConfiguration).toBe(true);
             });
 
             it('should have invalid states when it is a invalid regex `pattern`', async () => {
@@ -376,8 +376,8 @@ describe('RichTextViewer', () => {
                 userMentionElement.pattern = '(invalid';
                 await waitForUpdatesAsync();
 
-                expect(element.checkValidity()).toBeFalse();
-                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+                expect(element.checkValidity()).toBe(false);
+                expect(element.validity.invalidMentionConfiguration).toBe(true);
             });
 
             it('should have invalid states when we have duplicate configuration element', async () => {
@@ -388,10 +388,10 @@ describe('RichTextViewer', () => {
                 await appendUserMentionConfiguration(element, [
                     { key: 'user:1', displayName: 'username' }
                 ]);
-                expect(element.checkValidity()).toBeFalse();
+                expect(element.checkValidity()).toBe(false);
                 expect(
                     element.validity.duplicateMentionConfiguration
-                ).toBeTrue();
+                ).toBe(true);
             });
 
             it('should have valid states when the duplicate configuration element removed', async () => {
@@ -403,13 +403,13 @@ describe('RichTextViewer', () => {
                 element.removeChild(renderedUserMention);
                 await waitForUpdatesAsync();
 
-                expect(element.checkValidity()).toBeTrue();
+                expect(element.checkValidity()).toBe(true);
                 expect(
                     element.validity.duplicateMentionConfiguration
-                ).toBeFalse();
+                ).toBe(false);
                 expect(
                     element.validity.invalidMentionConfiguration
-                ).toBeFalse();
+                ).toBe(false);
             });
         });
     });
@@ -475,7 +475,7 @@ describe('RichTextViewer', () => {
             await appendUserMentionConfiguration(element);
             const firstInstance = element.getMentionedHrefs();
             const secondInstance = element.getMentionedHrefs();
-            expect(firstInstance === secondInstance).toBeFalse();
+            expect(firstInstance === secondInstance).toBe(false);
         });
 
         it('should return the mentioned href when it valid mention configuration matching the pattern to mention node', async () => {

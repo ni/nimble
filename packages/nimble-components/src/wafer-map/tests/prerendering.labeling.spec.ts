@@ -124,7 +124,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.text
             );
-            expect(actualValues).not.toHaveSize(0);
+            expect(actualValues.length).not.toBe(0);
             for (const value of actualValues) {
                 expect(value).toContain(dieLabelsSuffix);
             }
@@ -164,7 +164,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.text
             );
-            expect(actualValues).not.toHaveSize(0);
+            expect(actualValues.length).not.toBe(0);
             for (const value of actualValues) {
                 expect(value).not.toContain(dieLabelsSuffix);
                 expect(value).toContain('…');
@@ -209,9 +209,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.text
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
         });
     });
 
@@ -252,9 +250,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.text
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
         });
     });
 
@@ -298,9 +294,7 @@ describe('Wafermap Prerendering module', () => {
                 const actualValues = prerenderingModule.diesRenderInfo.map(
                     dieRenderInfo => dieRenderInfo.text
                 );
-                expect(actualValues).toEqual(
-                    jasmine.arrayWithExactContents(expectedValues)
-                );
+                (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
             }
         );
     });
@@ -339,9 +333,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.text
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
         });
     });
 });

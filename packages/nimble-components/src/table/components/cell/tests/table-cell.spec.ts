@@ -1,4 +1,5 @@
 import { html, customElement } from '@ni/fast-element';
+import { expect as vitestExpect } from 'vitest';
 import { TableCell, tableCellTag } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {
@@ -63,41 +64,45 @@ describe('TableCell', () => {
     });
 
     // See: https://github.com/ni/nimble/issues/2658
-    it('changing cellState updates rendered content #SkipWebkit', async () => {
-        await connect();
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    it.skipIf(isSafari)(
+        'changing cellState updates rendered content #SkipWebkit',
+        async () => {
+            await connect();
 
-        element.cellState = {
-            cellRecord: { stringData: 'foo' },
-            columnConfig: {}
-        };
-        await waitForUpdatesAsync();
+            element.cellState = {
+                cellRecord: { stringData: 'foo' },
+                columnConfig: {}
+            };
+            await waitForUpdatesAsync();
 
-        element.cellState = {
-            cellRecord: { stringData: 'bar' },
-            columnConfig: {}
-        };
-        await waitForUpdatesAsync();
-        const renderedContent = pageObject.getRenderedCellContent();
-        expect(renderedContent).toBe('bar');
-    });
+            element.cellState = {
+                cellRecord: { stringData: 'bar' },
+                columnConfig: {}
+            };
+            await waitForUpdatesAsync();
+            const renderedContent = pageObject.getRenderedCellContent();
+            expect(renderedContent).toBe('bar');
+        }
+    );
 
     it('fires cell-view-focus-in/cell-focus-in/cell-blur events when cell contents are focused/blurred', async () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const cellViewFocusInSpy = jasmine.createSpy();
+        const cellViewFocusInSpy = vi.fn();
         const cellViewFocusInPromise = waitForEvent(
             element,
             'cell-view-focus-in',
             cellViewFocusInSpy
         );
-        const cellFocusInSpy = jasmine.createSpy();
+        const cellFocusInSpy = vi.fn();
         const cellFocusInPromise = waitForEvent(
             element,
             'cell-focus-in',
             cellFocusInSpy
         );
-        const cellBlurSpy = jasmine.createSpy();
+        const cellBlurSpy = vi.fn();
         const cellBlurPromise = waitForEvent(element, 'cell-blur', cellBlurSpy);
         const renderedCellView = pageObject.getRenderedCellView();
         const span = renderedCellView.shadowRoot
@@ -108,10 +113,10 @@ describe('TableCell', () => {
         await cellFocusInPromise;
 
         expect(cellViewFocusInSpy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({ detail: element })
+            vitestExpect.objectContaining({ detail: element })
         );
         expect(cellFocusInSpy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({ detail: element })
+            vitestExpect.objectContaining({ detail: element })
         );
         expect(cellBlurSpy).not.toHaveBeenCalled();
 
@@ -119,7 +124,7 @@ describe('TableCell', () => {
         await cellBlurPromise;
 
         expect(cellBlurSpy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({ detail: element })
+            vitestExpect.objectContaining({ detail: element })
         );
     });
 
@@ -127,7 +132,7 @@ describe('TableCell', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         const cellViewFocusInPromise = waitForEvent(
             element,
             'cell-view-focus-in',
@@ -147,7 +152,7 @@ describe('TableCell', () => {
         await cellViewFocusInPromise;
 
         expect(spy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({ detail: element })
+            vitestExpect.objectContaining({ detail: element })
         );
     });
 });

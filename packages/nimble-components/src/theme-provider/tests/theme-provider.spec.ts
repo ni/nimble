@@ -74,7 +74,7 @@ describe('Theme Provider', () => {
             await connect();
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('de-DE');
-            expect(element.validity.invalidLang).toBeFalse();
+            expect(element.validity.invalidLang).toBe(false);
         });
 
         it('value defaults to page lang when theme provider lang attribute is empty string', async () => {
@@ -83,7 +83,7 @@ describe('Theme Provider', () => {
             await connect();
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('de-DE');
-            expect(element.validity.invalidLang).toBeTrue();
+            expect(element.validity.invalidLang).toBe(true);
         });
 
         it('value defaults to page lang when theme provider lang attribute is malformed', async () => {
@@ -92,7 +92,7 @@ describe('Theme Provider', () => {
             await connect();
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('de-DE');
-            expect(element.validity.invalidLang).toBeTrue();
+            expect(element.validity.invalidLang).toBe(true);
         });
 
         it('value updates when page lang changes (while theme provider lang unset)', async () => {
@@ -103,7 +103,7 @@ describe('Theme Provider', () => {
             document.documentElement.lang = 'fr-FR';
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('fr-FR');
-            expect(element.validity.invalidLang).toBeFalse();
+            expect(element.validity.invalidLang).toBe(false);
         });
 
         it('value updates when theme provider lang attribute goes from invalid to valid', async () => {
@@ -114,7 +114,7 @@ describe('Theme Provider', () => {
             element.setAttribute('lang', 'fr-CA');
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('fr-CA');
-            expect(element.validity.invalidLang).toBeFalse();
+            expect(element.validity.invalidLang).toBe(false);
         });
 
         it('value updates when theme provider lang attribute goes from valid to invalid', async () => {
@@ -125,7 +125,7 @@ describe('Theme Provider', () => {
             element.setAttribute('lang', '123');
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('de-DE');
-            expect(element.validity.invalidLang).toBeTrue();
+            expect(element.validity.invalidLang).toBe(true);
         });
 
         it('value defaults to system default (en-US) when page lang is malformed and theme provider lang is malformed', async () => {

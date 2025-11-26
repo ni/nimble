@@ -94,7 +94,7 @@ describe('TableColumnMenuButton', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(column.checkValidity()).toBeTrue();
+        expect(column.checkValidity()).toBe(true);
     });
 
     it('renders a menu button with record value when data is a non-empty string value', async () => {
@@ -266,7 +266,7 @@ describe('TableColumnMenuButton', () => {
 
         it('when opening a menu button by clicking', async () => {
             menuButton.clickMenuButton();
-            expect(menuButton.isOpen()).toBeTrue();
+            expect(menuButton.isOpen()).toBe(true);
             await waitForUpdatesAsync();
             const selection = await table.getSelectedRecordIds();
             expect(selection.length).toBe(0);
@@ -274,7 +274,7 @@ describe('TableColumnMenuButton', () => {
 
         it('when opening a menu button by pressing Enter', async () => {
             menuButton.pressEnterKey();
-            expect(menuButton.isOpen()).toBeTrue();
+            expect(menuButton.isOpen()).toBe(true);
             await waitForUpdatesAsync();
             const selection = await table.getSelectedRecordIds();
             expect(selection.length).toBe(0);
@@ -283,11 +283,11 @@ describe('TableColumnMenuButton', () => {
         it('when closing a menu button by clicking', async () => {
             // Open the menu button
             menuButton.clickMenuButton();
-            expect(menuButton.isOpen()).toBeTrue();
+            expect(menuButton.isOpen()).toBe(true);
 
             // Close the menu button
             menuButton.clickMenuButton();
-            expect(menuButton.isOpen()).toBeFalse();
+            expect(menuButton.isOpen()).toBe(false);
             await waitForUpdatesAsync();
 
             const selection = await table.getSelectedRecordIds();
@@ -310,7 +310,7 @@ describe('TableColumnMenuButton', () => {
         });
 
         it('opening menu button fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
-            const spy = jasmine.createSpy<MenuButtonColumnToggleEvent>();
+            const spy = vi.fn<MenuButtonColumnToggleEvent>();
             const beforetogglePromise = waitForEvent(
                 column,
                 'menu-button-column-beforetoggle',
@@ -330,19 +330,19 @@ describe('TableColumnMenuButton', () => {
                 oldState: false
             };
             expect(spy).toHaveBeenCalledTimes(2);
-            const beforetoggleEvent = spy.calls.argsFor(0)[0];
+            const beforetoggleEvent = spy.mock.calls[0]![0];
             expect(beforetoggleEvent.type).toEqual(
                 'menu-button-column-beforetoggle'
             );
             expect(beforetoggleEvent.detail).toEqual(expectedDetails);
-            const toggleEvent = spy.calls.argsFor(1)[0];
+            const toggleEvent = spy.mock.calls[1]![0];
             expect(toggleEvent.type).toEqual('menu-button-column-toggle');
             expect(toggleEvent.detail).toEqual(expectedDetails);
         });
 
         it('closing menu button with ESC fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
             await menuButton.openMenu();
-            const spy = jasmine.createSpy<MenuButtonColumnToggleEvent>();
+            const spy = vi.fn<MenuButtonColumnToggleEvent>();
             const beforetogglePromise = waitForEvent(
                 column,
                 'menu-button-column-beforetoggle',
@@ -362,20 +362,20 @@ describe('TableColumnMenuButton', () => {
                 oldState: true
             };
             expect(spy).toHaveBeenCalledTimes(2);
-            const beforetoggleEvent = spy.calls.argsFor(0)[0];
+            const beforetoggleEvent = spy.mock.calls[0]![0];
             expect(beforetoggleEvent.type).toEqual(
                 'menu-button-column-beforetoggle'
             );
             expect(beforetoggleEvent.detail).toEqual(expectedDetails);
-            const toggleEvent = spy.calls.argsFor(1)[0];
+            const toggleEvent = spy.mock.calls[1]![0];
             expect(toggleEvent.type).toEqual('menu-button-column-toggle');
             expect(toggleEvent.detail).toEqual(expectedDetails);
-            expect(menuButton.isOpen()).toBeFalse();
+            expect(menuButton.isOpen()).toBe(false);
         });
 
         it('closing menu button by clicking fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
             await menuButton.openMenu();
-            const spy = jasmine.createSpy<MenuButtonColumnToggleEvent>();
+            const spy = vi.fn<MenuButtonColumnToggleEvent>();
             const beforetogglePromise = waitForEvent(
                 column,
                 'menu-button-column-beforetoggle',
@@ -396,20 +396,20 @@ describe('TableColumnMenuButton', () => {
             };
 
             expect(spy).toHaveBeenCalledTimes(2);
-            const beforetoggleEvent = spy.calls.argsFor(0)[0];
+            const beforetoggleEvent = spy.mock.calls[0]![0];
             expect(beforetoggleEvent.type).toEqual(
                 'menu-button-column-beforetoggle'
             );
             expect(beforetoggleEvent.detail).toEqual(expectedDetails);
-            const toggleEvent = spy.calls.argsFor(1)[0];
+            const toggleEvent = spy.mock.calls[1]![0];
             expect(toggleEvent.type).toEqual('menu-button-column-toggle');
             expect(toggleEvent.detail).toEqual(expectedDetails);
-            expect(menuButton.isOpen()).toBeFalse();
+            expect(menuButton.isOpen()).toBe(false);
         });
 
         it('calling setData() closes the menu button', async () => {
             await menuButton.openMenu();
-            expect(menuButton.isOpen()).toBeTrue();
+            expect(menuButton.isOpen()).toBe(true);
 
             await table.setData([
                 ...originalData,
@@ -427,7 +427,7 @@ describe('TableColumnMenuButton', () => {
             await waitForUpdatesAsync();
 
             const menuButtonAfterSetData = pageObject.getMenuButton(0, 0)!;
-            expect(menuButtonAfterSetData.isOpen()).toBeFalse();
+            expect(menuButtonAfterSetData.isOpen()).toBe(false);
         });
 
         it('scrolling the table closes the menu button', async () => {
@@ -438,14 +438,14 @@ describe('TableColumnMenuButton', () => {
             await table.setData(largeDataSet);
             await waitForUpdatesAsync();
 
-            expect(tablePageObject.isVerticalScrollbarVisible()).toBeTrue();
+            expect(tablePageObject.isVerticalScrollbarVisible()).toBe(true);
 
             await menuButton.openMenu();
-            expect(menuButton.isOpen()).toBeTrue();
+            expect(menuButton.isOpen()).toBe(true);
 
             await tablePageObject.scrollToLastRowAsync();
             await tablePageObject.scrollToFirstRowAsync();
-            expect(menuButton.isOpen()).toBeFalse();
+            expect(menuButton.isOpen()).toBe(false);
         });
 
         describe('opens and focuses menu item', () => {
@@ -505,22 +505,22 @@ describe('TableColumnMenuButton', () => {
                 column2BeforeToggleEmitCount: number,
                 column2ToggleEmitCount: number
             }> {
-            const column1BeforeToggleSpy = jasmine.createSpy();
+            const column1BeforeToggleSpy = vi.fn();
             elementReferences.column1.addEventListener(
                 'menu-button-column-beforetoggle',
                 column1BeforeToggleSpy
             );
-            const column1ToggleSpy = jasmine.createSpy();
+            const column1ToggleSpy = vi.fn();
             elementReferences.column1.addEventListener(
                 'menu-button-column-toggle',
                 column1ToggleSpy
             );
-            const column2BeforeToggleSpy = jasmine.createSpy();
+            const column2BeforeToggleSpy = vi.fn();
             elementReferences.column2.addEventListener(
                 'menu-button-column-beforetoggle',
                 column2BeforeToggleSpy
             );
-            const column2ToggleSpy = jasmine.createSpy();
+            const column2ToggleSpy = vi.fn();
             elementReferences.column2.addEventListener(
                 'menu-button-column-toggle',
                 column2ToggleSpy
@@ -546,11 +546,11 @@ describe('TableColumnMenuButton', () => {
 
             return {
                 column1BeforeToggleEmitCount:
-                    column1BeforeToggleSpy.calls.count(),
-                column1ToggleEmitCount: column1ToggleSpy.calls.count(),
+                    column1BeforeToggleSpy.mock.calls.length,
+                column1ToggleEmitCount: column1ToggleSpy.mock.calls.length,
                 column2BeforeToggleEmitCount:
-                    column2BeforeToggleSpy.calls.count(),
-                column2ToggleEmitCount: column2ToggleSpy.calls.count()
+                    column2BeforeToggleSpy.mock.calls.length,
+                column2ToggleEmitCount: column2ToggleSpy.mock.calls.length
             };
         }
 
@@ -578,8 +578,8 @@ describe('TableColumnMenuButton', () => {
                 expect(eventCounts.column1ToggleEmitCount).toBe(1);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(0);
                 expect(eventCounts.column2ToggleEmitCount).toBe(0);
-                expect(column1MenuButton.isOpen()).toBeTrue();
-                expect(column2MenuButton.isOpen()).toBeFalse();
+                expect(column1MenuButton.isOpen()).toBe(true);
+                expect(column2MenuButton.isOpen()).toBe(false);
                 expect(document.activeElement).toBe(
                     elementReferences.firstMenuItem
                 );
@@ -591,8 +591,8 @@ describe('TableColumnMenuButton', () => {
                 expect(eventCounts.column1ToggleEmitCount).toBe(1);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(1);
                 expect(eventCounts.column2ToggleEmitCount).toBe(1);
-                expect(column1MenuButton.isOpen()).toBeFalse();
-                expect(column2MenuButton.isOpen()).toBeTrue();
+                expect(column1MenuButton.isOpen()).toBe(false);
+                expect(column2MenuButton.isOpen()).toBe(true);
                 expect(document.activeElement).toBe(
                     elementReferences.firstMenuItem
                 );
@@ -606,15 +606,15 @@ describe('TableColumnMenuButton', () => {
                 expect(eventCounts.column1ToggleEmitCount).toBe(1);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(0);
                 expect(eventCounts.column2ToggleEmitCount).toBe(0);
-                expect(column1MenuButton.isOpen()).toBeTrue();
-                expect(column2MenuButton.isOpen()).toBeFalse();
+                expect(column1MenuButton.isOpen()).toBe(true);
+                expect(column2MenuButton.isOpen()).toBe(false);
                 expect(document.activeElement).toBe(
                     elementReferences.firstMenuItem
                 );
 
                 column1MenuButton.closeMenuWithEscape();
-                expect(column1MenuButton.isOpen()).toBeFalse();
-                expect(column2MenuButton.isOpen()).toBeFalse();
+                expect(column1MenuButton.isOpen()).toBe(false);
+                expect(column2MenuButton.isOpen()).toBe(false);
                 expect(document.activeElement).not.toBe(
                     elementReferences.firstMenuItem
                 );
@@ -626,8 +626,8 @@ describe('TableColumnMenuButton', () => {
                 expect(eventCounts.column1ToggleEmitCount).toBe(0);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(1);
                 expect(eventCounts.column2ToggleEmitCount).toBe(1);
-                expect(column1MenuButton.isOpen()).toBeFalse();
-                expect(column2MenuButton.isOpen()).toBeTrue();
+                expect(column1MenuButton.isOpen()).toBe(false);
+                expect(column2MenuButton.isOpen()).toBe(true);
                 expect(document.activeElement).toBe(
                     elementReferences.firstMenuItem
                 );
@@ -643,36 +643,36 @@ describe('TableColumnMenuButton', () => {
 
                 // Open column1 menu button
                 await column1MenuButton.openMenu();
-                expect(column1MenuButton.isOpen()).toBeTrue();
-                expect(column2MenuButton.isOpen()).toBeFalse();
-                expect(actionMenu.isOpen()).toBeFalse();
+                expect(column1MenuButton.isOpen()).toBe(true);
+                expect(column2MenuButton.isOpen()).toBe(false);
+                expect(actionMenu.isOpen()).toBe(false);
                 expect(document.activeElement).toBe(
                     elementReferences.firstMenuItem
                 );
 
                 // Close column1 menu button
                 column1MenuButton.closeMenuWithEscape();
-                expect(column1MenuButton.isOpen()).toBeFalse();
-                expect(column2MenuButton.isOpen()).toBeFalse();
-                expect(actionMenu.isOpen()).toBeFalse();
+                expect(column1MenuButton.isOpen()).toBe(false);
+                expect(column2MenuButton.isOpen()).toBe(false);
+                expect(actionMenu.isOpen()).toBe(false);
                 expect(document.activeElement).not.toBe(
                     elementReferences.firstMenuItem
                 );
 
                 // Open column1 action menu
                 await actionMenu.openMenu();
-                expect(column1MenuButton.isOpen()).toBeFalse();
-                expect(column2MenuButton.isOpen()).toBeFalse();
-                expect(actionMenu.isOpen()).toBeTrue();
+                expect(column1MenuButton.isOpen()).toBe(false);
+                expect(column2MenuButton.isOpen()).toBe(false);
+                expect(actionMenu.isOpen()).toBe(true);
                 expect(document.activeElement).toBe(
                     elementReferences.firstMenuItem
                 );
 
                 // Open column2 menu button
                 await column2MenuButton.openMenu();
-                expect(column1MenuButton.isOpen()).toBeFalse();
-                expect(column2MenuButton.isOpen()).toBeTrue();
-                expect(actionMenu.isOpen()).toBeFalse();
+                expect(column1MenuButton.isOpen()).toBe(false);
+                expect(column2MenuButton.isOpen()).toBe(true);
+                expect(actionMenu.isOpen()).toBe(false);
                 expect(document.activeElement).toBe(
                     elementReferences.firstMenuItem
                 );
@@ -705,14 +705,14 @@ describe('TableColumnMenuButton', () => {
             it('menu button in cells are reachable via Tab', async () => {
                 await sendKeyDownEvent(table, keyTab);
 
-                expect(menuButton.isFocused()).toBeTrue();
+                expect(menuButton.isFocused()).toBe(true);
             });
 
             it('when menu button is focused, pressing Esc will blur the menu button', async () => {
                 await sendKeyDownEvent(table, keyTab);
                 await sendKeyDownEvent(table, keyEscape);
 
-                expect(menuButton.isFocused()).toBeFalse();
+                expect(menuButton.isFocused()).toBe(false);
             });
         });
     });

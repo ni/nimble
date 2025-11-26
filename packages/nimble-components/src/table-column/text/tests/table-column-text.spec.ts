@@ -65,7 +65,7 @@ describe('TableColumnText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(column.checkValidity()).toBeTrue();
+        expect(column.checkValidity()).toBe(true);
     });
 
     it('changing fieldName updates display', async () => {
@@ -314,17 +314,23 @@ describe('TableColumnText', () => {
         });
 
         // See: https://github.com/ni/nimble/issues/2658
-        it('setting placeholder to defined string updates cells from displaying blank to displaying placeholder #SkipWebkit', async () => {
-            await initializeColumnAndTable([{}]);
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+            navigator.userAgent
+        );
+        it.skipIf(isSafari)(
+            'setting placeholder to defined string updates cells from displaying blank to displaying placeholder #SkipWebkit',
+            async () => {
+                await initializeColumnAndTable([{}]);
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
 
-            const placeholder = 'placeholder';
-            column.placeholder = placeholder;
-            await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                placeholder
-            );
-        });
+                const placeholder = 'placeholder';
+                column.placeholder = placeholder;
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                    placeholder
+                );
+            }
+        );
 
         it('updating placeholder from one string to another updates cell', async () => {
             const placeholder1 = 'My first placeholder';

@@ -41,19 +41,19 @@ describe('ErrorPatternMixin', () => {
     });
 
     it('defaults errorVisible to false', () => {
-        expect(element.errorVisible).toBeFalse();
+        expect(element.errorVisible).toBe(false);
     });
 
     it('shows error icon when errorVisible is true', () => {
         element.errorVisible = true;
         processUpdates();
-        expect(pageObject.isErrorIconVisible()).toBeTrue();
+        expect(pageObject.isErrorIconVisible()).toBe(true);
     });
 
     it('does not show error icon when errorVisible is false', () => {
         element.errorVisible = false;
         processUpdates();
-        expect(pageObject.isErrorIconVisible()).toBeFalse();
+        expect(pageObject.isErrorIconVisible()).toBe(false);
     });
 
     it('defaults errorText to undefined', () => {

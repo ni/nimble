@@ -34,7 +34,7 @@ describe('TextField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('autofocus')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -50,7 +50,7 @@ describe('TextField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('disabled')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -128,7 +128,7 @@ describe('TextField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('readonly')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -144,7 +144,7 @@ describe('TextField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('required')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -158,7 +158,7 @@ describe('TextField', () => {
         await connect();
         expect(
             element.shadowRoot!.querySelector('.control')?.hasAttribute('size')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -174,7 +174,7 @@ describe('TextField', () => {
             element
                 .shadowRoot!.querySelector('.control')
                 ?.hasAttribute('spellcheck')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -235,7 +235,7 @@ describe('TextField', () => {
             element.shadowRoot
                 ?.querySelector('label')
                 ?.classList.contains('label__hidden')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -256,7 +256,7 @@ describe('TextField', () => {
             element.shadowRoot
                 ?.querySelector('label')
                 ?.classList.contains('label__hidden')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -281,7 +281,7 @@ describe('TextField', () => {
             element.shadowRoot
                 ?.querySelector('label')
                 ?.classList.contains('label__hidden')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -299,7 +299,7 @@ describe('TextField', () => {
             element.shadowRoot
                 ?.querySelector('label')
                 ?.classList.contains('label__hidden')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -313,7 +313,7 @@ describe('TextField', () => {
             element.shadowRoot
                 ?.querySelector('label')
                 ?.classList.contains('label__hidden')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -662,7 +662,7 @@ describe('TextField', () => {
             const textarea = element.shadowRoot!.querySelector('input');
             textarea?.dispatchEvent(event);
 
-            expect(wasChanged).toBeTrue();
+            expect(wasChanged).toBe(true);
 
             await disconnect();
         });
@@ -684,7 +684,7 @@ describe('TextField', () => {
                             element.required = true;
                             element.value = '';
 
-                            expect(element.validity.valueMissing).toBeTrue();
+                            expect(element.validity.valueMissing).toBe(true);
 
                             await disconnect();
                         });
@@ -698,7 +698,7 @@ describe('TextField', () => {
                             element.required = true;
                             element.value = 'some value';
 
-                            expect(element.validity.valueMissing).toBeFalse();
+                            expect(element.validity.valueMissing).toBe(false);
                             await disconnect();
                         });
                     });
@@ -711,7 +711,7 @@ describe('TextField', () => {
                             element.value = value;
                             element.minlength = value.length + 1;
 
-                            expect(element.validity.tooShort).toBeFalse();
+                            expect(element.validity.tooShort).toBe(false);
                             await disconnect();
                         });
                         it('should be valid if the value has a length less than the minlength', async () => {
@@ -722,7 +722,7 @@ describe('TextField', () => {
                             element.value = value;
                             element.minlength = value.length + 1;
 
-                            expect(element.validity.tooShort).toBeFalse();
+                            expect(element.validity.tooShort).toBe(false);
                             await disconnect();
                         });
                     });
@@ -737,7 +737,7 @@ describe('TextField', () => {
                             element.value = value;
                             element.maxlength = value.length;
 
-                            expect(element.validity.tooLong).toBeFalse();
+                            expect(element.validity.tooLong).toBe(false);
 
                             await disconnect();
                         });
@@ -749,7 +749,7 @@ describe('TextField', () => {
                             element.value = value;
                             element.maxlength = value.length - 1;
 
-                            expect(element.validity.tooLong).toBeFalse();
+                            expect(element.validity.tooLong).toBe(false);
                             await disconnect();
                         });
                         it('should be valid if the value has a length shorter than maxlength and the element is [required]', async () => {
@@ -761,7 +761,7 @@ describe('TextField', () => {
                             element.value = value;
                             element.maxlength = value.length + 1;
 
-                            expect(element.validity.tooLong).toBeFalse();
+                            expect(element.validity.tooLong).toBe(false);
                             await disconnect();
                         });
                     });
@@ -778,7 +778,7 @@ describe('TextField', () => {
 
                             expect(
                                 element.validity.patternMismatch
-                            ).toBeFalse();
+                            ).toBe(false);
                             await disconnect();
                         });
 
@@ -791,7 +791,7 @@ describe('TextField', () => {
                             element.pattern = value;
                             element.value = 'foo';
 
-                            expect(element.validity.patternMismatch).toBeTrue();
+                            expect(element.validity.patternMismatch).toBe(true);
                             await disconnect();
                         });
                     });
@@ -805,7 +805,7 @@ describe('TextField', () => {
                 element.required = true;
                 element.value = '';
 
-                expect(element.validity.typeMismatch).toBeFalse();
+                expect(element.validity.typeMismatch).toBe(false);
 
                 await disconnect();
             });
@@ -816,7 +816,7 @@ describe('TextField', () => {
                 element.required = true;
                 element.value = 'foobar';
 
-                expect(element.validity.typeMismatch).toBeTrue();
+                expect(element.validity.typeMismatch).toBe(true);
 
                 await disconnect();
             });
@@ -829,7 +829,7 @@ describe('TextField', () => {
                 element.required = true;
                 element.value = '';
 
-                expect(element.validity.typeMismatch).toBeFalse();
+                expect(element.validity.typeMismatch).toBe(false);
 
                 await disconnect();
             });
@@ -840,7 +840,7 @@ describe('TextField', () => {
                 element.required = true;
                 element.value = 'foobar';
 
-                expect(element.validity.typeMismatch).toBeTrue();
+                expect(element.validity.typeMismatch).toBe(true);
 
                 await disconnect();
             });

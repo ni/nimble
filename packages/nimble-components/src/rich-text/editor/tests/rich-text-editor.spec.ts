@@ -50,7 +50,7 @@ describe('RichTextEditor', () => {
     });
 
     it('should initialize Tiptap editor', () => {
-        expect(pageObject.editorSectionHasChildNodes()).toBeTrue();
+        expect(pageObject.editorSectionHasChildNodes()).toBe(true);
         expect(pageObject.getEditorSectionFirstElementChildClassName()).toBe(
             'tiptap ProseMirror'
         );
@@ -71,7 +71,7 @@ describe('RichTextEditor', () => {
     it('should initialize "aria-label" with undefined when there is no "aria-label" set in the element', () => {
         const editor = element.shadowRoot?.querySelector('.editor');
 
-        expect(editor!.hasAttribute('aria-label')).toBeFalse();
+        expect(editor!.hasAttribute('aria-label')).toBe(false);
     });
 
     it('should forwards value of aria-label to internal control', () => {
@@ -99,32 +99,32 @@ describe('RichTextEditor', () => {
     it('should have either one of the list buttons checked at the same time on click', async () => {
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-        ).toBeFalse();
+        ).toBe(false);
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-        ).toBeFalse();
+        ).toBe(false);
 
         await pageObject.toggleFooterButton(ToolbarButton.bulletList);
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-        ).toBeTrue();
+        ).toBe(true);
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-        ).toBeFalse();
+        ).toBe(false);
 
         await pageObject.toggleFooterButton(ToolbarButton.numberedList);
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-        ).toBeFalse();
+        ).toBe(false);
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-        ).toBeTrue();
+        ).toBe(true);
     });
 
     it('Should return editor as active element after clicking formatting button', async () => {
         await pageObject.setEditorTextContent('Sample Text');
         await pageObject.toggleFooterButton(ToolbarButton.bulletList);
-        expect(pageObject.isRichTextEditorActiveElement()).toBeTrue();
+        expect(pageObject.isRichTextEditorActiveElement()).toBe(true);
     });
 
     const formattingButtons = [
@@ -163,13 +163,13 @@ describe('RichTextEditor', () => {
             spec(`"${name}" button click check`, async () => {
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
-                ).toBeFalse();
+                ).toBe(false);
 
                 await pageObject.toggleFooterButton(value.toolbarButtonIndex);
 
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
-                ).toBeTrue();
+                ).toBe(true);
                 expect(
                     pageObject.getButtonTabIndex(value.toolbarButtonIndex)
                 ).toBe(0);
@@ -182,13 +182,13 @@ describe('RichTextEditor', () => {
             spec(`"${name}" button key press check`, () => {
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
-                ).toBeFalse();
+                ).toBe(false);
 
                 pageObject.spaceKeyActivatesButton(value.toolbarButtonIndex);
 
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
-                ).toBeTrue();
+                ).toBe(true);
             });
         });
     });
@@ -198,13 +198,13 @@ describe('RichTextEditor', () => {
             spec(`"${name}" button key press check`, () => {
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
-                ).toBeFalse();
+                ).toBe(false);
 
                 pageObject.enterKeyActivatesButton(value.toolbarButtonIndex);
 
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
-                ).toBeTrue();
+                ).toBe(true);
             });
         });
     });
@@ -214,7 +214,7 @@ describe('RichTextEditor', () => {
             spec(`"${name}" button keyboard shortcut check`, async () => {
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
-                ).toBeFalse();
+                ).toBe(false);
 
                 await pageObject.clickEditorShortcutKeys(
                     value.shortcutKey,
@@ -223,7 +223,7 @@ describe('RichTextEditor', () => {
 
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
-                ).toBeTrue();
+                ).toBe(true);
             });
         });
     });
@@ -236,7 +236,7 @@ describe('RichTextEditor', () => {
                     const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(toggleButtonTag);
                     const button = buttons[value.toolbarButtonIndex];
                     const buttonParent = button!.parentElement;
-                    const spy = jasmine.createSpy();
+                    const spy = vi.fn();
                     const event = new Event('change', { bubbles: true });
 
                     buttonParent?.addEventListener('change', spy);
@@ -487,7 +487,7 @@ describe('RichTextEditor', () => {
             ]);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         it('should have br tag name when pressing shift + Enter with nested numbered lists content', async () => {
@@ -540,7 +540,7 @@ describe('RichTextEditor', () => {
             ]);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         it('should have "ol" tag name for numbered list and "ul" tag name for nested bullet list', async () => {
@@ -565,10 +565,10 @@ describe('RichTextEditor', () => {
             ]);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-            ).toBeFalse();
+            ).toBe(false);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         it('should have "ul" tag name for bullet list button click', async () => {
@@ -635,7 +635,7 @@ describe('RichTextEditor', () => {
             ]);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         it('should have br tag name when pressing shift + Enter with nested bulleted lists content', async () => {
@@ -679,10 +679,10 @@ describe('RichTextEditor', () => {
             ]);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-            ).toBeTrue();
+            ).toBe(true);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         it('should have "ul" tag names for bullet lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
@@ -716,7 +716,7 @@ describe('RichTextEditor', () => {
             ]);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         it('should have "strong" and "em" tag name for both bold and italics button clicks', async () => {
@@ -1725,37 +1725,37 @@ describe('RichTextEditor', () => {
                 spec(`for "${name}" button`, async () => {
                     expect(
                         pageObject.isButtonDisabled(value.toolbarButtonIndex)
-                    ).toBeFalse();
+                    ).toBe(false);
 
                     await pageObject.setDisabled(true);
 
                     expect(
                         pageObject.isButtonDisabled(value.toolbarButtonIndex)
-                    ).toBeTrue();
+                    ).toBe(true);
                 });
             });
         });
     });
 
     it('should hide the footer when "footer-hidden" attribute is enabled', async () => {
-        expect(pageObject.isFooterHidden()).toBeFalse();
+        expect(pageObject.isFooterHidden()).toBe(false);
 
         await pageObject.setFooterHidden(true);
 
-        expect(pageObject.isFooterHidden()).toBeTrue();
+        expect(pageObject.isFooterHidden()).toBe(true);
     });
 
     it('should show the footer when "footer-hidden" attribute is disabled', async () => {
-        expect(pageObject.isFooterHidden()).toBeFalse();
+        expect(pageObject.isFooterHidden()).toBe(false);
 
         await pageObject.setFooterHidden(true);
         await pageObject.setFooterHidden(false);
 
-        expect(pageObject.isFooterHidden()).toBeFalse();
+        expect(pageObject.isFooterHidden()).toBe(false);
     });
 
     it('should fire "input" event when there is an input to the editor', async () => {
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         const inputEventListener = waitForEvent(element, 'input', spy);
 
         await pageObject.setEditorTextContent('input');
@@ -1765,7 +1765,7 @@ describe('RichTextEditor', () => {
     });
 
     it('should not fire "input" event when setting the content through "setMarkdown"', () => {
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         void waitForEvent(element, 'input', spy);
 
         element.setMarkdown('input');
@@ -1774,14 +1774,14 @@ describe('RichTextEditor', () => {
     });
 
     it('should fire "input" event when the text is updated/removed from the editor', async () => {
-        const updateSpy = jasmine.createSpy();
+        const updateSpy = vi.fn();
         const updatePromise = waitForEvent(element, 'input', updateSpy);
         await pageObject.setEditorTextContent('update');
         await updatePromise;
 
         expect(updateSpy).toHaveBeenCalledTimes(1);
 
-        const removedSpy = jasmine.createSpy();
+        const removedSpy = vi.fn();
         const removedPromise = waitForEvent(element, 'input', removedSpy);
         await pageObject.replaceEditorContent('');
         await removedPromise;
@@ -1790,40 +1790,40 @@ describe('RichTextEditor', () => {
     });
 
     it('should initialize "empty" to true and set false when there is content', async () => {
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
 
         await pageObject.replaceEditorContent('not empty');
-        expect(element.empty).toBeFalse();
+        expect(element.empty).toBe(false);
 
         await pageObject.replaceEditorContent('');
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
     });
 
     it('should update "empty" when the content is loaded with "setMarkdown"', () => {
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
 
         element.setMarkdown('not empty');
-        expect(element.empty).toBeFalse();
+        expect(element.empty).toBe(false);
 
         element.setMarkdown('');
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
     });
 
     it('should return true for "empty" if there is only whitespace', async () => {
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
 
         await pageObject.setEditorTextContent('       ');
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
 
         element.setMarkdown('  ');
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
     });
 
     it('should return true for "empty" even if the placeholder content is set', () => {
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
 
         element.placeholder = 'Placeholder text';
-        expect(element.empty).toBeTrue();
+        expect(element.empty).toBe(true);
     });
 
     it('should initialize the "placeholder" attribute with undefined', () => {
@@ -1855,8 +1855,8 @@ describe('RichTextEditor With Footer', () => {
         await connect();
         const cancelButton: Button = element.querySelector('#cancel')!;
         const okButton: Button = element.querySelector('#ok')!;
-        const cancelButtonSpy = jasmine.createSpy();
-        const okButtonSpy = jasmine.createSpy();
+        const cancelButtonSpy = vi.fn();
+        const okButtonSpy = vi.fn();
         cancelButton?.addEventListener('click', cancelButtonSpy);
         okButton?.addEventListener('click', okButtonSpy);
 

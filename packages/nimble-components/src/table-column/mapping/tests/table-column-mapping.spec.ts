@@ -373,12 +373,12 @@ describe('TableColumnMapping', () => {
             await connect();
             await waitForUpdatesAsync();
             const column = model.col1;
-            expect(column.checkValidity()).toBeTrue();
-            expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
-            expect(column.validity.unsupportedMappingType).toBeFalse();
-            expect(column.validity.duplicateMappingKey).toBeFalse();
-            expect(column.validity.missingKeyValue).toBeFalse();
-            expect(column.validity.invalidIconName).toBeFalse();
+            expect(column.checkValidity()).toBe(true);
+            expect(column.validity.invalidMappingKeyValueForType).toBe(false);
+            expect(column.validity.unsupportedMappingType).toBe(false);
+            expect(column.validity.duplicateMappingKey).toBe(false);
+            expect(column.validity.missingKeyValue).toBe(false);
+            expect(column.validity.invalidIconName).toBe(false);
         });
 
         it('is valid with valid numeric key values', async () => {
@@ -394,10 +394,10 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(true);
             expect(
                 model.col1.validity.invalidMappingKeyValueForType
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         describe('is invalid with invalid boolean key values:', () => {
@@ -420,10 +420,10 @@ describe('TableColumnMapping', () => {
                     }));
                     await connect();
                     await waitForUpdatesAsync();
-                    expect(model.col1.checkValidity()).toBeFalse();
+                    expect(model.col1.checkValidity()).toBe(false);
                     expect(
                         model.col1.validity.invalidMappingKeyValueForType
-                    ).toBeTrue();
+                    ).toBe(true);
                 });
             });
         });
@@ -435,10 +435,10 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.checkValidity()).toBe(false);
             expect(
                 model.col1.validity.invalidMappingKeyValueForType
-            ).toBeTrue();
+            ).toBe(true);
         });
 
         // prettier-ignore
@@ -459,8 +459,8 @@ describe('TableColumnMapping', () => {
             await connect();
             await waitForUpdatesAsync();
             const column = element.columns[0] as TableColumnMapping;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.unsupportedMappingType).toBeTrue();
+            expect(column.checkValidity()).toBe(false);
+            expect(column.validity.unsupportedMappingType).toBe(true);
         });
 
         it('is invalid with duplicate key values', async () => {
@@ -473,8 +473,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.duplicateMappingKey).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.duplicateMappingKey).toBe(true);
         });
 
         it('is invalid with equivalent numeric key values', async () => {
@@ -487,8 +487,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.duplicateMappingKey).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.duplicateMappingKey).toBe(true);
         });
 
         it('is invalid with missing icon key value', async () => {
@@ -498,8 +498,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.missingKeyValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.missingKeyValue).toBe(true);
         });
 
         it('is invalid with missing icon text value', async () => {
@@ -509,8 +509,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.missingTextValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.missingTextValue).toBe(true);
         });
 
         it('is invalid with non-icon icon value', async () => {
@@ -520,8 +520,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.invalidIconName).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.invalidIconName).toBe(true);
         });
 
         it('is invalid with completely made up icon value', async () => {
@@ -531,8 +531,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.invalidIconName).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.invalidIconName).toBe(true);
         });
 
         it('is invalid with undefined icon value', async () => {
@@ -542,8 +542,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.invalidIconName).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.invalidIconName).toBe(true);
         });
 
         it('is invalid with missing text in a spinner mapping', async () => {
@@ -553,8 +553,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.missingTextValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.missingTextValue).toBe(true);
         });
 
         it('is invalid with missing key in a spinner mapping', async () => {
@@ -564,8 +564,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.missingKeyValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.missingKeyValue).toBe(true);
         });
 
         it('is invalid with missing text in a text mapping', async () => {
@@ -575,8 +575,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.missingTextValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.missingTextValue).toBe(true);
         });
 
         it('is invalid with missing key in a text mapping', async () => {
@@ -586,8 +586,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.missingKeyValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.missingKeyValue).toBe(true);
         });
 
         it('is invalid with missing text in an empty mapping', async () => {
@@ -597,8 +597,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.missingTextValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.missingTextValue).toBe(true);
         });
 
         it('is invalid with missing key in an empty mapping', async () => {
@@ -608,8 +608,8 @@ describe('TableColumnMapping', () => {
             }));
             await connect();
             await waitForUpdatesAsync();
-            expect(model.col1.checkValidity()).toBeFalse();
-            expect(model.col1.validity.missingKeyValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBe(false);
+            expect(model.col1.validity.missingKeyValue).toBe(true);
         });
     });
 
@@ -1000,14 +1000,14 @@ describe('TableColumnMapping', () => {
             expect(model.col1.widthMode).toBe(
                 TableColumnMappingWidthMode.default
             );
-            expect(model.col1.columnInternals.resizingDisabled).toBeFalse();
+            expect(model.col1.columnInternals.resizingDisabled).toBe(false);
         });
 
         it('column configuration is updated when set to `iconSize`', async () => {
             model.col1.widthMode = TableColumnMappingWidthMode.iconSize;
             await waitForUpdatesAsync();
 
-            expect(model.col1.columnInternals.resizingDisabled).toBeTrue();
+            expect(model.col1.columnInternals.resizingDisabled).toBe(true);
             expect(model.col1.columnInternals.pixelWidth).toBe(32);
             expect(model.col1.columnInternals.minPixelWidth).toBe(32);
         });
@@ -1018,7 +1018,7 @@ describe('TableColumnMapping', () => {
             model.col1.widthMode = TableColumnMappingWidthMode.default;
             await waitForUpdatesAsync();
 
-            expect(model.col1.columnInternals.resizingDisabled).toBeFalse();
+            expect(model.col1.columnInternals.resizingDisabled).toBe(false);
             expect(model.col1.columnInternals.pixelWidth).toBe(undefined);
             expect(model.col1.columnInternals.minPixelWidth).toBe(
                 defaultMinPixelWidth

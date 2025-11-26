@@ -62,18 +62,18 @@ describe('Tabs', () => {
 
     describe('Scroll buttons', () => {
         it('should not show scroll buttons when the tabs fit within the container', () => {
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
         });
 
         it('should show scroll buttons when the tabs overflow the container', async () => {
             await tabsPageObject.setTabsWidth(300);
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
         });
 
         it('should hide scroll buttons when the tabs no longer overflow the container', async () => {
             await tabsPageObject.setTabsWidth(300); // first make the tabs overflow
             await tabsPageObject.setTabsWidth(1000); // then make the tabs fit
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
         });
 
         it('should scroll left when the left scroll button is clicked', async () => {
@@ -110,35 +110,35 @@ describe('Tabs', () => {
 
         it('should show scroll buttons when new tab is added and tabs overflow the container', async () => {
             await tabsPageObject.setTabsWidth(450);
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
             await tabsPageObject.addTab('New Tab With Extremely Long Name');
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
         });
 
         it('should hide scroll buttons when tab is removed and tabs no longer overflow the container', async () => {
             await tabsPageObject.setTabsWidth(500);
             await tabsPageObject.addTab('New Tab With Extremely Long Name');
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
             await tabsPageObject.removeTab(6);
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
         });
 
         it('should show scroll buttons when tab label is updated and tabs overflow the container', async () => {
             await tabsPageObject.setTabsWidth(450);
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
             await tabsPageObject.updateTabLabel(
                 0,
                 'New Tab With Extremely Long Name'
             );
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
         });
 
         it('should hide scroll buttons when tab label is updated and tabs no longer overflow the container', async () => {
             await tabsPageObject.setTabsWidth(550);
             await tabsPageObject.addTab('New Tab With Extremely Long Name');
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
             await tabsPageObject.updateTabLabel(6, 'Tab 6');
-            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
         });
     });
 });

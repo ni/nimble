@@ -214,7 +214,7 @@ describe('Checkbox', () => {
 
         element.click();
 
-        expect(element.indeterminate).toBeFalse();
+        expect(element.indeterminate).toBe(false);
 
         await disconnect();
     });
@@ -228,7 +228,7 @@ describe('Checkbox', () => {
 
         element.dispatchEvent(new KeyboardEvent('keypress', { key: ' ' }));
 
-        expect(element.indeterminate).toBeFalse();
+        expect(element.indeterminate).toBe(false);
 
         await disconnect();
     });
@@ -392,10 +392,10 @@ describe('Checkbox', () => {
             element.checked = true;
 
             expect(element.getAttribute('checked')).toBeNull();
-            expect(element.checked).toBeTrue();
+            expect(element.checked).toBe(true);
             form.reset();
 
-            expect(element.checked).toBeFalse();
+            expect(element.checked).toBe(false);
             await disconnect();
         });
 
@@ -411,13 +411,13 @@ describe('Checkbox', () => {
             element.setAttribute('checked', '');
 
             expect(element.getAttribute('checked')).toEqual('');
-            expect(element.checked).toBeTrue();
+            expect(element.checked).toBe(true);
 
             element.checked = false;
-            expect(element.checked).toBeFalse();
+            expect(element.checked).toBe(false);
             form.reset();
 
-            expect(element.checked).toBeTrue();
+            expect(element.checked).toBe(true);
             await disconnect();
         });
 
@@ -433,11 +433,11 @@ describe('Checkbox', () => {
             element.checked = true;
             element.removeAttribute('checked');
 
-            expect(element.checked).toBeTrue();
+            expect(element.checked).toBe(true);
 
             form.reset();
 
-            expect(element.checked).toBeFalse();
+            expect(element.checked).toBe(false);
 
             element.setAttribute('checked', '');
 

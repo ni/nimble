@@ -586,7 +586,7 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         element.addEventListener('column-configuration-change', spy);
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
@@ -615,8 +615,8 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateSortIndex).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.duplicateSortIndex).toBe(true);
             expect(pageObject.getRenderedRowCount()).toBe(0);
         });
 
@@ -638,8 +638,8 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.duplicateSortIndex).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.duplicateSortIndex).toBe(false);
             expect(pageObject.getRenderedRowCount()).toBe(4);
         });
 
@@ -661,15 +661,15 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateSortIndex).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.duplicateSortIndex).toBe(true);
             expect(pageObject.getRenderedRowCount()).toBe(0);
 
             column2.sortIndex = 1;
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.duplicateSortIndex).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.duplicateSortIndex).toBe(false);
             expect(pageObject.getRenderedRowCount()).toBe(4);
         });
 
@@ -691,15 +691,15 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.duplicateSortIndex).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.duplicateSortIndex).toBe(false);
             expect(pageObject.getRenderedRowCount()).toBe(4);
 
             column2.sortIndex = 0;
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateSortIndex).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.duplicateSortIndex).toBe(true);
             expect(pageObject.getRenderedRowCount()).toBe(0);
         });
     });
@@ -972,7 +972,7 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
+            const spy = vi.fn<TableColumnConfigurationChangeEventHandler>();
             const listener = waitForEvent(
                 element,
                 'column-configuration-change',
@@ -982,7 +982,7 @@ describe('Table sorting', () => {
             await listener;
 
             expect(spy).toHaveBeenCalled();
-            const args = spy.calls.first().args[0];
+            const args = spy.mock.calls[0]![0];
             expect(args.detail).toEqual({
                 columns: [
                     {
@@ -1022,7 +1022,7 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const spy = jasmine.createSpy();
+            const spy = vi.fn();
             element.addEventListener('column-configuration-change', spy);
             await pageObject.clickColumnHeader(0);
 

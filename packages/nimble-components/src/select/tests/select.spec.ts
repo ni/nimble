@@ -1,4 +1,5 @@
 import { html, repeat } from '@ni/fast-element';
+import { expect as vitestExpect } from 'vitest';
 import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
@@ -121,10 +122,10 @@ describe('Select', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(element.classList.contains('collapsible')).toBeTrue();
-        expect(element.classList.contains('above')).toBeTrue();
-        expect(element.classList.contains('disabled')).toBeTrue();
-        expect(element.classList.contains('open')).toBeTrue();
+        expect(element.classList.contains('collapsible')).toBe(true);
+        expect(element.classList.contains('above')).toBe(true);
+        expect(element.classList.contains('disabled')).toBe(true);
+        expect(element.classList.contains('open')).toBe(true);
 
         await disconnect();
     });
@@ -237,8 +238,8 @@ describe('Select', () => {
         await connect();
         const pageObject = new SelectPageObject(element);
         await clickAndWaitForOpen(element);
-        expect(pageObject.isDropdownVisible()).toBeTrue();
-        expect(pageObject.isFilterInputVisible()).toBeFalse();
+        expect(pageObject.isDropdownVisible()).toBe(true);
+        expect(pageObject.isFilterInputVisible()).toBe(false);
 
         await disconnect();
     });
@@ -277,7 +278,7 @@ describe('Select', () => {
         pageObject.pressArrowDownKey();
         await pageObject.pressSpaceKey();
         expect(element.value).toBe('two');
-        expect(element.open).toBeFalse();
+        expect(element.open).toBe(false);
 
         await disconnect();
     });
@@ -292,7 +293,7 @@ describe('Select', () => {
         element.appendChild(option);
         await waitForUpdatesAsync();
 
-        expect(option.visuallyHidden).toBeFalse();
+        expect(option.visuallyHidden).toBe(false);
 
         await disconnect();
     });
@@ -402,10 +403,10 @@ describe('Select', () => {
         await waitForUpdatesAsync();
         const option = element.options[0]! as ListOption;
         option.hidden = true;
-        expect(option.visuallyHidden).toBeTrue();
+        expect(option.visuallyHidden).toBe(true);
 
         option.hidden = false;
-        expect(option.visuallyHidden).toBeFalse();
+        expect(option.visuallyHidden).toBe(false);
 
         await disconnect();
     });
@@ -519,13 +520,10 @@ describe('Select', () => {
         await connect();
         await waitForUpdatesAsync();
         const newOption = new ListOption('foo', 'foo');
-        const registerOptionSpy = spyOn(
-            element,
-            'registerOption'
-        ).and.callThrough();
+        const registerOptionSpy = vi.spyOn(element, 'registerOption');
         element.insertBefore(newOption, element.options[0]!);
 
-        expect(registerOptionSpy.calls.count()).toBe(1);
+        expect(registerOptionSpy.mock.calls.length).toBe(1);
         expect(element.options).toContain(newOption);
 
         // While the option is registered synchronously as shown above,
@@ -545,15 +543,12 @@ describe('Select', () => {
         await connect();
         await waitForUpdatesAsync();
         const newOption = new ListOption('foo', 'foo');
-        const registerOptionSpy = spyOn(
-            element,
-            'registerOption'
-        ).and.callThrough();
+        const registerOptionSpy = vi.spyOn(element, 'registerOption');
         const pageObject = new SelectPageObject(element);
         const group = pageObject.getAllGroups()[0]!;
         group.insertAdjacentElement('afterbegin', newOption);
 
-        expect(registerOptionSpy.calls.count()).toBe(1);
+        expect(registerOptionSpy.mock.calls.length).toBe(1);
         expect(element.options).toContain(newOption);
 
         // While the option is registered synchronously as shown above,
@@ -600,7 +595,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await waitForUpdatesAsync();
-        const changeEvent = jasmine.createSpy();
+        const changeEvent = vi.fn();
         element.addEventListener('change', changeEvent);
         const pageObject = new SelectPageObject(element);
         await clickAndWaitForOpen(element);
@@ -609,7 +604,7 @@ describe('Select', () => {
         pageObject.clickSelect();
 
         expect(element.value).toBe('one');
-        expect(changeEvent.calls.count()).toBe(0);
+        expect(changeEvent.mock.calls.length).toBe(0);
 
         await disconnect();
     });
@@ -621,7 +616,7 @@ describe('Select', () => {
         element.loadingVisible = true;
         await waitForUpdatesAsync();
 
-        expect(pageObject.isLoadingVisualVisible()).toBeTrue();
+        expect(pageObject.isLoadingVisualVisible()).toBe(true);
 
         await disconnect();
     });
@@ -1083,20 +1078,20 @@ describe('Select', () => {
 
                 it('pressing <Enter> opens dropdown', () => {
                     pageObject.pressEnterKey();
-                    expect(element.open).toBeTrue();
+                    expect(element.open).toBe(true);
                 });
 
                 it('pressing <Space> opens dropdown', async () => {
                     await pageObject.pressSpaceKey();
-                    expect(element.open).toBeTrue();
+                    expect(element.open).toBe(true);
                 });
 
                 it('after pressing <Esc> to close dropdown, <Enter> will re-open dropdown', () => {
                     pageObject.clickSelect();
                     pageObject.pressEscapeKey();
-                    expect(element.open).toBeFalse();
+                    expect(element.open).toBe(false);
                     pageObject.pressEnterKey();
-                    expect(element.open).toBeTrue();
+                    expect(element.open).toBe(true);
                 });
 
                 it('after closing dropdown by pressing <Esc>, activeElement is Select element', () => {
@@ -1172,7 +1167,7 @@ describe('Select', () => {
                 currentSelection = pageObject.getSelectedOption();
                 expect(currentSelection?.text).toBe('One');
                 expect(element.value).toBe('one');
-                expect(element.open).toBeFalse();
+                expect(element.open).toBe(false);
             });
 
             it('opening popup shows correct selected element after cancelling previous selection', async () => {
@@ -1200,7 +1195,7 @@ describe('Select', () => {
 
                 pageObject.clickSelect();
                 currentSelection = pageObject.getActiveOption();
-                expect(currentSelection?.selected).toBeTrue();
+                expect(currentSelection?.selected).toBe(true);
             });
 
             it('filtering out current selected item and then pressing <Enter> changes value, emits change event, and closes popup', async () => {
@@ -1208,15 +1203,15 @@ describe('Select', () => {
                 expect(currentSelection?.text).toBe('One');
                 expect(element.value).toBe('one');
 
-                const changeEvent = jasmine.createSpy();
+                const changeEvent = vi.fn();
                 element.addEventListener('change', changeEvent);
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
                 pageObject.pressEnterKey();
                 await waitForUpdatesAsync();
                 expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
                 expect(pageObject.getDisplayText()).toBe('Two');
-                expect(changeEvent.calls.count()).toBe(1);
-                expect(element.open).toBeFalse();
+                expect(changeEvent.mock.calls.length).toBe(1);
+                expect(element.open).toBe(false);
             });
 
             it('filtering out current selected item and then pressing <Tab> does not change value and closes popup', async () => {
@@ -1227,7 +1222,7 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
                 pageObject.pressTabKey();
                 expect(element.value).toBe('one');
-                expect(element.open).toBeFalse();
+                expect(element.open).toBe(false);
             });
 
             it('filtering out current selected item and then clicking active option changes value, emits change event, and closes popup', async () => {
@@ -1235,15 +1230,15 @@ describe('Select', () => {
                 expect(currentSelection?.text).toBe('One');
                 expect(element.value).toBe('one');
 
-                const changeEvent = jasmine.createSpy();
+                const changeEvent = vi.fn();
                 element.addEventListener('change', changeEvent);
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
                 pageObject.clickActiveItem();
                 await waitForUpdatesAsync();
                 expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
                 expect(pageObject.getDisplayText()).toBe('Two');
-                expect(changeEvent.calls.count()).toBe(1);
-                expect(element.open).toBeFalse();
+                expect(changeEvent.mock.calls.length).toBe(1);
+                expect(element.open).toBe(false);
             });
 
             it('filtering out current selected item and then clicking non-selected option changes value and closes popup', async () => {
@@ -1254,7 +1249,7 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
                 pageObject.clickOptionWithDisplayText('Three');
                 expect(element.value).toBe('three');
-                expect(element.open).toBeFalse();
+                expect(element.open).toBe(false);
             });
 
             it('filtering out current selected item and then losing focus does not change value and closes popup', async () => {
@@ -1265,20 +1260,20 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
                 await pageObject.clickAway();
                 expect(element.value).toBe('one'); // 'Two' is first option in list so it should be selected now
-                expect(element.open).toBeFalse();
+                expect(element.open).toBe(false);
             });
 
             it('allows <Space> to be used as part of filter text', async () => {
                 await pageObject.openAndSetFilterText(' '); // Matches 'Has Space'
                 const currentSelection = pageObject.getActiveOption();
                 expect(currentSelection?.text).toBe('Has Space');
-                expect(element.open).toBeTrue();
+                expect(element.open).toBe(true);
             });
 
             it('pressing <Space> after dropdown is open will enter " " as filter text and keep dropdown open', async () => {
                 pageObject.clickSelect();
                 await pageObject.pressSpaceKey();
-                expect(element.open).toBeTrue();
+                expect(element.open).toBe(true);
                 expect(pageObject.getFilterInputText()).toBe(' ');
             });
 
@@ -1293,17 +1288,17 @@ describe('Select', () => {
 
             it('entering filter text with no match results in "no items found" element', async () => {
                 await pageObject.openAndSetFilterText('abc'); // Matches nothing
-                expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+                expect(pageObject.isNoResultsLabelVisible()).toBe(true);
             });
 
             it('entering filter text with matches does not display "no items found" element', async () => {
                 await pageObject.openAndSetFilterText('T');
-                expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+                expect(pageObject.isNoResultsLabelVisible()).toBe(false);
             });
 
             it('opening dropdown with no filter does not display "no items found" element', async () => {
                 await clickAndWaitForOpen(element);
-                expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+                expect(pageObject.isNoResultsLabelVisible()).toBe(false);
             });
 
             it('clicking disabled option does not cause select to change state', async () => {
@@ -1314,21 +1309,21 @@ describe('Select', () => {
                 expect(pageObject.getFilteredOptions()).toEqual(
                     currentFilteredOptions
                 );
-                expect(element.open).toBeTrue();
+                expect(element.open).toBe(true);
                 expect(pageObject.getActiveOption()?.text).toBe('Two');
             });
 
             it('filtering to only disabled item, then pressing <Enter> does not close popup or change value', async () => {
                 await pageObject.openAndSetFilterText('Disabled');
                 pageObject.pressEnterKey();
-                expect(element.open).toBeTrue();
+                expect(element.open).toBe(true);
                 expect(element.value).toBe('one');
             });
 
             it('filtering to only disabled item, then pressing <Esc> closes popup and does not change value or selectedIndex', async () => {
                 await pageObject.openAndSetFilterText('Disabled');
                 pageObject.pressEscapeKey();
-                expect(element.open).toBeFalse();
+                expect(element.open).toBe(false);
                 expect(element.value).toBe('one');
                 expect(element.selectedIndex).toBe(0);
             });
@@ -1336,7 +1331,7 @@ describe('Select', () => {
             it('filtering to only disabled item, then pressing <Tab> closes popup and does not change value or selectedIndex', async () => {
                 await pageObject.openAndSetFilterText('Disabled');
                 pageObject.pressTabKey();
-                expect(element.open).toBeFalse();
+                expect(element.open).toBe(false);
                 expect(element.value).toBe('one');
                 expect(element.selectedIndex).toBe(0);
             });
@@ -1344,14 +1339,20 @@ describe('Select', () => {
             it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
                 await pageObject.openAndSetFilterText('abc');
                 pageObject.pressEnterKey();
-                expect(element.open).toBeTrue();
+                expect(element.open).toBe(true);
                 expect(element.value).toBe('one');
             });
 
-            it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
-                await pageObject.openAndSetFilterText('abc');
-                expect(element.ariaActiveDescendant).toBe('');
-            });
+            const isSafari = /^((?!chrome|android).)*safari/i.test(
+                navigator.userAgent
+            );
+            it.skipIf(isSafari)(
+                'filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit',
+                async () => {
+                    await pageObject.openAndSetFilterText('abc');
+                    expect(element.ariaActiveDescendant).toBe('');
+                }
+            );
 
             it('filtering to only disabled item, then clicking away does not change value', async () => {
                 await pageObject.openAndSetFilterText('Disabled');
@@ -1381,7 +1382,7 @@ describe('Select', () => {
             it('clicking in filter input after dropdown is open, does not close dropdown', async () => {
                 await clickAndWaitForOpen(element);
                 await pageObject.clickFilterInput();
-                expect(element.open).toBeTrue();
+                expect(element.open).toBe(true);
             });
 
             it('filter input placeholder gets text from design token', async () => {
@@ -1452,7 +1453,7 @@ describe('Select', () => {
                     o.hidden = true;
                 });
                 await waitForUpdatesAsync();
-                expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+                expect(pageObject.isNoResultsLabelVisible()).toBe(true);
             });
 
             it('when dropdown is closed, entering text executes typeahead and sets value', () => {
@@ -1507,20 +1508,20 @@ describe('Select', () => {
             it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown open, is not displayed in dropdown', async () => {
                 const option = element.options[1] as ListOption;
                 await pageObject.openAndSetFilterText('Three');
-                expect(option.visuallyHidden).toBeTrue();
+                expect(option.visuallyHidden).toBe(true);
 
                 element.removeChild(option);
                 await waitForUpdatesAsync();
                 element.appendChild(option);
                 await waitForUpdatesAsync();
 
-                expect(option.visuallyHidden).toBeTrue();
+                expect(option.visuallyHidden).toBe(true);
             });
 
             it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown closed, is visible in dropdown when opened', async () => {
                 const option = element.options[1] as ListOption;
                 await pageObject.openAndSetFilterText('Three');
-                expect(option.visuallyHidden).toBeTrue();
+                expect(option.visuallyHidden).toBe(true);
 
                 element.removeChild(option);
                 await waitForUpdatesAsync();
@@ -1529,7 +1530,7 @@ describe('Select', () => {
                 await waitForUpdatesAsync();
                 pageObject.clickSelect();
 
-                expect(option.visuallyHidden).toBeFalse();
+                expect(option.visuallyHidden).toBe(false);
             });
 
             it('option that is not hidden but is visuallyHidden, if removed and then added back, will be visible', async () => {
@@ -1540,7 +1541,7 @@ describe('Select', () => {
                 element.appendChild(option);
                 await waitForUpdatesAsync();
 
-                expect(option.visuallyHidden).toBeFalse();
+                expect(option.visuallyHidden).toBe(false);
             });
         });
 
@@ -1564,7 +1565,7 @@ describe('Select', () => {
             });
 
             it('emits filter-input event when filter text is entered', async () => {
-                const filterInputEvent = jasmine.createSpy<SelectFilterInputEventHandler>();
+                const filterInputEvent = vi.fn<SelectFilterInputEventHandler>();
                 element.addEventListener(
                     'filter-input',
                     filterInputEvent as unknown as EventListener
@@ -1572,12 +1573,12 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('o');
                 expect(filterInputEvent).toHaveBeenCalledTimes(1);
                 expect(
-                    filterInputEvent.calls.argsFor(0)[0].detail.filterText
+                    filterInputEvent.mock.calls[0]![0].detail.filterText
                 ).toBe('o');
             });
 
             it('emits filter-input event with empty filterText when dropdown is closed', async () => {
-                const filterInputEvent = jasmine.createSpy<SelectFilterInputEventHandler>();
+                const filterInputEvent = vi.fn<SelectFilterInputEventHandler>();
                 element.addEventListener(
                     'filter-input',
                     filterInputEvent as unknown as EventListener
@@ -1586,7 +1587,7 @@ describe('Select', () => {
                 await pageObject.clickAway();
                 expect(filterInputEvent).toHaveBeenCalledTimes(2);
                 expect(
-                    filterInputEvent.calls.argsFor(1)[0].detail.filterText
+                    filterInputEvent.mock.calls[1]![0].detail.filterText
                 ).toBe('');
             });
         });
@@ -1618,7 +1619,7 @@ describe('Select', () => {
 
         it('placeholder option is not present in dropdown', async () => {
             await clickAndWaitForOpen(element);
-            expect(pageObject.isOptionVisible(0)).toBeFalse();
+            expect(pageObject.isOptionVisible(0)).toBe(false);
         });
 
         it('selecting option will replace placeholder text with selected option text', async () => {
@@ -1641,8 +1642,8 @@ describe('Select', () => {
             expect(pageObject.getDisplayText()).toBe('Two');
             expect(element.value).toBe('two');
             await clickAndWaitForOpen(element);
-            expect(pageObject.isOptionVisible(0)).toBeTrue();
-            expect(pageObject.isOptionVisible(1)).toBeFalse();
+            expect(pageObject.isOptionVisible(0)).toBe(true);
+            expect(pageObject.isOptionVisible(1)).toBe(false);
         });
 
         it('selecting option via typing will not select placeholder', async () => {
@@ -1672,7 +1673,7 @@ describe('Select', () => {
         });
 
         it('clear button is not visible when placeholder is selected', () => {
-            expect(pageObject.isClearButtonVisible()).toBeFalse();
+            expect(pageObject.isClearButtonVisible()).toBe(false);
         });
     });
 
@@ -1695,13 +1696,13 @@ describe('Select', () => {
         });
 
         it('clear button is visible by default', () => {
-            expect(pageObject.isClearButtonVisible()).toBeTrue();
+            expect(pageObject.isClearButtonVisible()).toBe(true);
         });
 
         it('when select is disabled, clear button is not visible', async () => {
             element.disabled = true;
             await waitForUpdatesAsync();
-            expect(pageObject.isClearButtonVisible()).toBeFalse();
+            expect(pageObject.isClearButtonVisible()).toBe(false);
         });
 
         it('can not Tab to clear button', () => {
@@ -1711,21 +1712,21 @@ describe('Select', () => {
 
         it('clear button is visible after selecting an option', async () => {
             pageObject.clickClearButton();
-            expect(pageObject.isClearButtonVisible()).toBeFalse();
+            expect(pageObject.isClearButtonVisible()).toBe(false);
             await clickAndWaitForOpen(element);
             pageObject.clickOptionWithDisplayText('Two');
             await waitForUpdatesAsync();
 
-            expect(pageObject.isClearButtonVisible()).toBeTrue();
+            expect(pageObject.isClearButtonVisible()).toBe(true);
         });
 
         it('clicking clear button does not open dropdown', () => {
             pageObject.clickClearButton();
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
         });
 
         it('clicking clear button fires change event', () => {
-            const changeEvent = jasmine.createSpy();
+            const changeEvent = vi.fn();
             element.addEventListener('change', changeEvent);
             pageObject.clickClearButton();
             expect(changeEvent).toHaveBeenCalledTimes(1);
@@ -1734,7 +1735,7 @@ describe('Select', () => {
         it('if dropdown open clicking clear button closes dropdown and fires change event', async () => {
             pageObject.clickSelect();
             await waitForUpdatesAsync();
-            const changeEvent = jasmine.createSpy();
+            const changeEvent = vi.fn();
             element.addEventListener('change', changeEvent);
             pageObject.clickClearButton();
             expect(changeEvent).toHaveBeenCalledTimes(1);
@@ -1744,7 +1745,7 @@ describe('Select', () => {
             pageObject.clickSelect();
             await waitForUpdatesAsync();
             pageObject.pressEscapeKey();
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
             expect(element.value).toBe('one');
         });
 
@@ -1759,7 +1760,7 @@ describe('Select', () => {
                 pageObject.clickClearButton();
 
                 expect(pageObject.getDisplayText()).toBe('');
-                expect(pageObject.isClearButtonVisible()).toBeFalse();
+                expect(pageObject.isClearButtonVisible()).toBe(false);
             });
 
             it('after clicking clear button and then selecting an option, clear button is visible again', async () => {
@@ -1767,7 +1768,7 @@ describe('Select', () => {
                 await clickAndWaitForOpen(element);
                 pageObject.clickOptionWithDisplayText('Two');
                 await waitForUpdatesAsync();
-                expect(pageObject.isClearButtonVisible()).toBeTrue();
+                expect(pageObject.isClearButtonVisible()).toBe(true);
             });
         });
 
@@ -1780,7 +1781,7 @@ describe('Select', () => {
             });
 
             it('clear button is not visible by default', () => {
-                expect(pageObject.isClearButtonVisible()).toBeFalse();
+                expect(pageObject.isClearButtonVisible()).toBe(false);
             });
 
             it('after clicking clear button, placeholder is visible', async () => {
@@ -1810,7 +1811,7 @@ describe('Select', () => {
                 spec(name, async () => {
                     value.updatePlaceholder(element.options[0]! as ListOption);
                     await waitForUpdatesAsync();
-                    expect(pageObject.isClearButtonVisible()).toBeTrue();
+                    expect(pageObject.isClearButtonVisible()).toBe(true);
                     pageObject.clickClearButton();
 
                     expect(pageObject.getDisplayText()).toBe('');
@@ -1847,7 +1848,7 @@ describe('Select', () => {
         it('clicking a group does not close the dropdown', async () => {
             await clickAndWaitForOpen(element);
             pageObject.clickGroup(0);
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
         });
 
         it('updating content with no groups updates options', async () => {
@@ -1880,9 +1881,9 @@ describe('Select', () => {
         it('all groups except last show bottom separator', async () => {
             await clickAndWaitForOpen(element);
             const groups = pageObject.getAllGroups();
-            expect(groups[0]!.bottomSeparatorVisible).toBeTrue();
-            expect(groups[1]!.bottomSeparatorVisible).toBeTrue();
-            expect(groups[2]!.bottomSeparatorVisible).toBeFalse();
+            expect(groups[0]!.bottomSeparatorVisible).toBe(true);
+            expect(groups[1]!.bottomSeparatorVisible).toBe(true);
+            expect(groups[2]!.bottomSeparatorVisible).toBe(false);
         });
 
         it('list option before group causes group to show top separator', async () => {
@@ -1890,7 +1891,7 @@ describe('Select', () => {
             const group = pageObject.getGroup(0);
             group.before(listOption);
             await waitForUpdatesAsync();
-            expect(group.topSeparatorVisible).toBeTrue();
+            expect(group.topSeparatorVisible).toBe(true);
         });
 
         it('list option after last group causes group to show bottom separator', async () => {
@@ -1902,7 +1903,7 @@ describe('Select', () => {
             const lastGroup = groups[groups.length - 1]!;
             lastGroup.after(listOption);
             await waitForUpdatesAsync();
-            expect(lastGroup.bottomSeparatorVisible).toBeTrue();
+            expect(lastGroup.bottomSeparatorVisible).toBe(true);
         });
 
         it('group that is hidden when slotted results in hidden options', async () => {
@@ -1916,7 +1917,7 @@ describe('Select', () => {
             const hiddenOptionIndex = element.options.findIndex(
                 o => o.text === 'Hidden Option'
             );
-            expect(pageObject.isOptionVisible(hiddenOptionIndex)).toBeFalse();
+            expect(pageObject.isOptionVisible(hiddenOptionIndex)).toBe(false);
         });
 
         it('changing group to be hidden results in hidden options', async () => {
@@ -1925,8 +1926,8 @@ describe('Select', () => {
             await waitForUpdatesAsync();
             await clickAndWaitForOpen(element);
             // first two options should now be hidden
-            expect(pageObject.isOptionVisible(0)).toBeFalse();
-            expect(pageObject.isOptionVisible(1)).toBeFalse();
+            expect(pageObject.isOptionVisible(0)).toBe(false);
+            expect(pageObject.isOptionVisible(1)).toBe(false);
         });
 
         it('changing hidden group to be visible results in visible options', async () => {
@@ -1934,12 +1935,12 @@ describe('Select', () => {
             group.hidden = true;
             await waitForUpdatesAsync();
             await clickAndWaitForOpen(element);
-            expect(pageObject.isOptionVisible(0)).toBeFalse();
+            expect(pageObject.isOptionVisible(0)).toBe(false);
             group.hidden = false;
             await waitForUpdatesAsync();
             // first two options should now be visible
-            expect(pageObject.isOptionVisible(0)).toBeTrue();
-            expect(pageObject.isOptionVisible(1)).toBeTrue();
+            expect(pageObject.isOptionVisible(0)).toBe(true);
+            expect(pageObject.isOptionVisible(1)).toBe(true);
         });
 
         it('inserting option between groups results in top separator of group after option', async () => {
@@ -1952,7 +1953,7 @@ describe('Select', () => {
             await waitForUpdatesAsync();
             await clickAndWaitForOpen(element);
             const groupAfterInsertedOption = pageObject.getGroup(1);
-            expect(groupAfterInsertedOption.topSeparatorVisible).toBeTrue();
+            expect(groupAfterInsertedOption.topSeparatorVisible).toBe(true);
         });
 
         it('hiding option between groups results in top separator being hidden of group after option', async () => {
@@ -1963,7 +1964,7 @@ describe('Select', () => {
             newOption.hidden = true;
             await clickAndWaitForOpen(element);
             const groupAfterInsertedOption = pageObject.getGroup(1);
-            expect(groupAfterInsertedOption.topSeparatorVisible).toBeFalse();
+            expect(groupAfterInsertedOption.topSeparatorVisible).toBe(false);
         });
 
         it('hiding option after all groups results in bottom separator being hidden for last group', async () => {
@@ -1972,12 +1973,12 @@ describe('Select', () => {
             group.after(newOption);
             await waitForUpdatesAsync();
             await clickAndWaitForOpen(element);
-            expect(group.bottomSeparatorVisible).toBeTrue();
+            expect(group.bottomSeparatorVisible).toBe(true);
             await waitForUpdatesAsync();
             newOption.hidden = true;
             pageObject.clickSelect();
             await waitForUpdatesAsync();
-            expect(group.bottomSeparatorVisible).toBeFalse();
+            expect(group.bottomSeparatorVisible).toBe(false);
         });
 
         it('after removing group hidden from options and then changing option to be visible, adding group back results in visible group', async () => {
@@ -1987,7 +1988,7 @@ describe('Select', () => {
                 o.hidden = true;
             });
             await waitForUpdatesAsync();
-            expect(group.visuallyHidden).toBeTrue();
+            expect(group.visuallyHidden).toBe(true);
             element.removeChild(group);
 
             groupOptions.forEach(o => {
@@ -1995,7 +1996,7 @@ describe('Select', () => {
             });
             element.appendChild(group);
             await waitForUpdatesAsync();
-            expect(group.visuallyHidden).toBeFalse();
+            expect(group.visuallyHidden).toBe(false);
         });
 
         it('after adding option to a group, it can be selected', async () => {
@@ -2027,7 +2028,7 @@ describe('Select', () => {
             await waitForUpdatesAsync();
             expect(pageObject.getDisplayText()).toBe('Placeholder');
             await clickAndWaitForOpen(element);
-            expect(pageObject.isOptionVisible(0)).toBeFalse();
+            expect(pageObject.isOptionVisible(0)).toBe(false);
         });
 
         describe('filtering', () => {
@@ -2167,12 +2168,12 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('Two');
                 const visibleElements = pageObject.getDropdownVisibleElements();
                 expect(visibleElements?.length).toBe(5);
-                expect(isListOptionGroup(visibleElements[0])).toBeTrue();
+                expect(isListOptionGroup(visibleElements[0])).toBe(true);
                 expect(
                     (visibleElements[0] as ListOptionGroup).labelContent
                 ).toBe('Group One');
                 expect(visibleElements[1]!.textContent?.trim()).toBe('Two');
-                expect(isListOptionGroup(visibleElements[2])).toBeTrue();
+                expect(isListOptionGroup(visibleElements[2])).toBe(true);
                 expect(
                     (visibleElements[2] as ListOptionGroup).labelContent
                 ).toBe('Group Two');
@@ -2213,7 +2214,7 @@ describe('Select', () => {
                 await waitForUpdatesAsync();
                 await pageObject.openAndSetFilterText('Group');
                 const groupAfterInsertedOption = pageObject.getGroup(1);
-                expect(groupAfterInsertedOption.topSeparatorVisible).toBeTrue();
+                expect(groupAfterInsertedOption.topSeparatorVisible).toBe(true);
             });
 
             it('after hiding all groups, dropdown shows no results label', async () => {
@@ -2222,14 +2223,14 @@ describe('Select', () => {
                     g.hidden = true;
                 });
                 await waitForUpdatesAsync();
-                expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+                expect(pageObject.isNoResultsLabelVisible()).toBe(true);
             });
 
             it('if all results are hidden, and loadingVisible is true, no results label is not shown', async () => {
                 element.loadingVisible = true;
                 await waitForUpdatesAsync();
                 await pageObject.openAndSetFilterText('abc');
-                expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+                expect(pageObject.isNoResultsLabelVisible()).toBe(false);
             });
 
             it('does not automatically filter options when filterMode is manual', async () => {
@@ -2241,7 +2242,7 @@ describe('Select', () => {
 
             it('when clicking value, filter-input event occurs after value has been updated', async () => {
                 await clickAndWaitForOpen(element);
-                const eventSpy = jasmine.createSpy<CustomEventHandler>();
+                const eventSpy = vi.fn<CustomEventHandler>();
                 element.addEventListener(
                     'filter-input',
                     eventSpy as unknown as EventListener
@@ -2253,13 +2254,13 @@ describe('Select', () => {
 
                 pageObject.clickOptionWithDisplayText('Two');
                 expect(eventSpy).toHaveBeenCalledTimes(2);
-                expect(eventSpy.calls.argsFor(0)[0].type).toBe('change');
-                expect(eventSpy.calls.argsFor(1)[0].type).toBe('filter-input');
+                expect(eventSpy.mock.calls[0]![0].type).toBe('change');
+                expect(eventSpy.mock.calls[1]![0].type).toBe('filter-input');
             });
 
             it('when selecting a value with <Enter>, filter-input event occurs after value has been updated', async () => {
                 await clickAndWaitForOpen(element);
-                const eventSpy = jasmine.createSpy<CustomEventHandler>();
+                const eventSpy = vi.fn<CustomEventHandler>();
                 element.addEventListener(
                     'filter-input',
                     eventSpy as unknown as EventListener
@@ -2272,13 +2273,13 @@ describe('Select', () => {
                 pageObject.pressArrowDownKey();
                 pageObject.pressEnterKey();
                 expect(eventSpy).toHaveBeenCalledTimes(2);
-                expect(eventSpy.calls.argsFor(0)[0].type).toBe('change');
-                expect(eventSpy.calls.argsFor(1)[0].type).toBe('filter-input');
+                expect(eventSpy.mock.calls[0]![0].type).toBe('change');
+                expect(eventSpy.mock.calls[1]![0].type).toBe('filter-input');
             });
 
             it('pressing <Esc> issues one filter-input event with empty filterText', async () => {
                 await clickAndWaitForOpen(element);
-                const spy = jasmine.createSpy<SelectFilterInputEventHandler>();
+                const spy = vi.fn<SelectFilterInputEventHandler>();
                 const filterInputEventPromise = waitForEvent(
                     element,
                     'filter-input',
@@ -2289,14 +2290,14 @@ describe('Select', () => {
                 const expectedDetails: SelectFilterInputEventDetail = {
                     filterText: ''
                 };
-                const event = spy.calls.first().args[0];
+                const event = spy.mock.calls[0]![0];
                 expect(spy).toHaveBeenCalledTimes(1);
                 expect(event.detail).toEqual(expectedDetails);
             });
 
             it('clicking outside of dropdown issues one filter-input event with empty filterText', async () => {
                 await clickAndWaitForOpen(element);
-                const spy = jasmine.createSpy<CustomEventHandler>();
+                const spy = vi.fn<CustomEventHandler>();
                 const filterInputEventPromise = waitForEvent(
                     element,
                     'filter-input',
@@ -2307,7 +2308,7 @@ describe('Select', () => {
                 const expectedDetails: SelectFilterInputEventDetail = {
                     filterText: ''
                 };
-                const event = spy.calls.first().args[0];
+                const event = spy.mock.calls[0]![0];
                 expect(spy).toHaveBeenCalledTimes(1);
                 expect(event.detail).toEqual(expectedDetails);
             });
@@ -2387,13 +2388,13 @@ describe('Select', () => {
         });
 
         it('exercise setFilter', () => {
-            const spy = jasmine.createSpy();
+            const spy = vi.fn();
             element.addEventListener('filter-input', spy, { once: true });
             pageObject.clickSelect();
             pageObject.setFilter('Two');
 
             expect(spy).toHaveBeenCalledOnceWith(
-                jasmine.objectContaining({
+                vitestExpect.objectContaining({
                     detail: { filterText: 'Two' }
                 })
             );

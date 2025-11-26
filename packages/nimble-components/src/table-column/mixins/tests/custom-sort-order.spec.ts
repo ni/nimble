@@ -101,46 +101,46 @@ describe('CustomSortOrderColumn', () => {
     });
 
     it('column is valid by default', () => {
-        expect(element.checkValidity()).toBeTrue();
-        expect(element.columnInternals.validator.isColumnValid).toBeTrue();
+        expect(element.checkValidity()).toBe(true);
+        expect(element.columnInternals.validator.isColumnValid).toBe(true);
     });
 
     it('column with sortByFieldName configured is valid', () => {
         element.sortByFieldName = 'customFieldName';
-        expect(element.checkValidity()).toBeTrue();
-        expect(element.columnInternals.validator.isColumnValid).toBeTrue();
+        expect(element.checkValidity()).toBe(true);
+        expect(element.columnInternals.validator.isColumnValid).toBe(true);
     });
 
     it('a groupable column with a custom sort order is invalid', () => {
         element.sortByFieldName = 'customFieldName';
         element.columnInternals.groupingDisabled = false;
 
-        expect(element.checkValidity()).toBeFalse();
-        expect(element.columnInternals.validator.isColumnValid).toBeFalse();
-        expect(element.validity.invalidCustomSortWithGrouping).toBeTrue();
+        expect(element.checkValidity()).toBe(false);
+        expect(element.columnInternals.validator.isColumnValid).toBe(false);
+        expect(element.validity.invalidCustomSortWithGrouping).toBe(true);
     });
 
     it('disabling grouping on an invalid column makes it valid', () => {
         element.sortByFieldName = 'customFieldName';
         element.columnInternals.groupingDisabled = false;
 
-        expect(element.checkValidity()).toBeFalse();
+        expect(element.checkValidity()).toBe(false);
 
         element.columnInternals.groupingDisabled = true;
-        expect(element.checkValidity()).toBeTrue();
-        expect(element.columnInternals.validator.isColumnValid).toBeTrue();
-        expect(element.validity.invalidCustomSortWithGrouping).toBeFalse();
+        expect(element.checkValidity()).toBe(true);
+        expect(element.columnInternals.validator.isColumnValid).toBe(true);
+        expect(element.validity.invalidCustomSortWithGrouping).toBe(false);
     });
 
     it('clearing the custom sort order on a groupable column makes the column valid', () => {
         element.sortByFieldName = 'customFieldName';
         element.columnInternals.groupingDisabled = false;
 
-        expect(element.checkValidity()).toBeFalse();
+        expect(element.checkValidity()).toBe(false);
 
         element.sortByFieldName = undefined;
-        expect(element.checkValidity()).toBeTrue();
-        expect(element.columnInternals.validator.isColumnValid).toBeTrue();
-        expect(element.validity.invalidCustomSortWithGrouping).toBeFalse();
+        expect(element.checkValidity()).toBe(true);
+        expect(element.columnInternals.validator.isColumnValid).toBe(true);
+        expect(element.validity.invalidCustomSortWithGrouping).toBe(false);
     });
 });

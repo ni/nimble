@@ -45,24 +45,24 @@ describe('RequiredVisiblePatternMixin', () => {
     });
 
     it('defaults requiredVisible to false', () => {
-        expect(element.requiredVisible).toBeFalse();
+        expect(element.requiredVisible).toBe(false);
     });
 
     it('shows icon when requiredVisible is true', () => {
         element.requiredVisible = true;
         processUpdates();
-        expect(pageObject.isRequiredVisibleIconVisible()).toBeTrue();
+        expect(pageObject.isRequiredVisibleIconVisible()).toBe(true);
     });
 
     it('does not show icon when requiredVisible is false', () => {
         element.requiredVisible = false;
         processUpdates();
-        expect(pageObject.isRequiredVisibleIconVisible()).toBeFalse();
+        expect(pageObject.isRequiredVisibleIconVisible()).toBe(false);
     });
 
     it('uses boolean "required-visible" attribute to set requiredVisible', () => {
         element.setAttribute('required-visible', '');
         processUpdates();
-        expect(element.requiredVisible).toBeTrue();
+        expect(element.requiredVisible).toBe(true);
     });
 });

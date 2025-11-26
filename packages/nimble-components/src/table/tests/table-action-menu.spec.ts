@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { expect } from 'vitest';
 import { html } from '@ni/fast-element';
 import { keyArrowDown, keyArrowUp, keyEscape } from '@ni/fast-web-utilities';
 import { tableTag, type Table } from '..';
@@ -64,9 +66,9 @@ describe('Table action menu', () => {
     let pageObject: TablePageObject<SimpleTableRecord>;
     let column1: TableColumn;
     let column2: TableColumn;
-    let beforetoggleSpy: jasmine.Spy<TableActionMenuToggleEventHandler>;
+    let beforetoggleSpy: import('vitest').Mock<TableActionMenuToggleEventHandler>;
     let beforetoggleListener: Promise<void>;
-    let toggleSpy: jasmine.Spy<TableActionMenuToggleEventHandler>;
+    let toggleSpy: import('vitest').Mock<TableActionMenuToggleEventHandler>;
     let toggleListener: Promise<void>;
 
     beforeEach(async () => {
@@ -75,13 +77,13 @@ describe('Table action menu', () => {
         column1 = element.querySelector<TableColumn>('#first-column')!;
         column2 = element.querySelector<TableColumn>('#second-column')!;
 
-        beforetoggleSpy = jasmine.createSpy();
+        beforetoggleSpy = vi.fn();
         beforetoggleListener = waitForEvent(
             element,
             'action-menu-beforetoggle',
             beforetoggleSpy
         );
-        toggleSpy = jasmine.createSpy();
+        toggleSpy = vi.fn();
         toggleListener = waitForEvent(element, 'action-menu-toggle', toggleSpy);
     });
 
@@ -114,9 +116,9 @@ describe('Table action menu', () => {
     }
 
     function getEmittedRecordIdsFromSpy(
-        spy: jasmine.Spy<TableActionMenuToggleEventHandler>
+        spy: import('vitest').Mock<TableActionMenuToggleEventHandler>
     ): string[] {
-        const event = spy.calls.first().args[0];
+        const event = spy.mock.calls[0]![0];
         return event.detail.recordIds;
     }
 
@@ -132,18 +134,18 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(false);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(false);
 
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeTrue();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(true);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(false);
 
         pageObject.setRowHoverState(1, false);
         await waitForUpdatesAsync();
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(false);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(false);
     });
 
     it('button is present when open if row is not hovered', async () => {
@@ -153,13 +155,13 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(false);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(false);
 
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeTrue();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(true);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(false);
 
         // Open the menu button
         await pageObject.clickCellActionMenu(1, 0);
@@ -167,8 +169,8 @@ describe('Table action menu', () => {
 
         pageObject.setRowHoverState(1, false);
         await waitForUpdatesAsync();
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeTrue();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(true);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(false);
     });
 
     it('button is present on all columns configured with `action-menu-slot`', async () => {
@@ -179,18 +181,18 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(false);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(false);
 
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeTrue();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeTrue();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(true);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(true);
 
         pageObject.setRowHoverState(1, false);
         await waitForUpdatesAsync();
-        expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
-        expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
+        expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(false);
+        expect(pageObject.isCellActionMenuVisible(1, 1)).toBe(false);
     });
 
     it('button has correct label', async () => {
@@ -234,7 +236,7 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
         const cell = pageObject.getCell(1, 0);
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         const blurListener = waitForEvent(cell, 'cell-action-menu-blur', spy);
         menuButton.focus();
         await waitForUpdatesAsync();
@@ -245,7 +247,7 @@ describe('Table action menu', () => {
         await blurListener;
 
         expect(spy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({ detail: cell })
+            expect.objectContaining({ detail: cell })
         );
     });
 
@@ -335,7 +337,7 @@ describe('Table action menu', () => {
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = beforetoggleSpy.calls.first().args[0];
+        const event = beforetoggleSpy.mock.calls[0]![0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -351,7 +353,7 @@ describe('Table action menu', () => {
 
         await pageObject.clickCellActionMenu(1, 0);
         await waitForUpdatesAsync();
-        const spy = jasmine.createSpy<TableActionMenuToggleEventHandler>();
+        const spy = vi.fn<TableActionMenuToggleEventHandler>();
         const listener = waitForEvent(element, 'action-menu-beforetoggle', spy);
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
@@ -367,7 +369,7 @@ describe('Table action menu', () => {
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = spy.calls.first().args[0];
+        const event = spy.mock.calls[0]![0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -391,7 +393,7 @@ describe('Table action menu', () => {
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = toggleSpy.calls.first().args[0];
+        const event = toggleSpy.mock.calls[0]![0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -421,7 +423,7 @@ describe('Table action menu', () => {
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = toggleSpy.calls.first().args[0];
+        const event = toggleSpy.mock.calls[0]![0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -486,7 +488,7 @@ describe('Table action menu', () => {
         await element.setData(newTableData);
         await closeToggleListener;
 
-        expect(pageObject.getCell(0, 0).menuOpen).toBeFalse();
+        expect(pageObject.getCell(0, 0).menuOpen).toBe(false);
         expect(document.activeElement).not.toBe(menuItems[0]!);
     });
 
@@ -508,7 +510,7 @@ describe('Table action menu', () => {
             ]);
             await waitForUpdatesAsync();
 
-            expect(pageObject.isCellActionMenuVisible(rowIndex, 0)).toBeTrue();
+            expect(pageObject.isCellActionMenuVisible(rowIndex, 0)).toBe(true);
         });
 
         it('clicking action menu button selects the row when nothing was previously selected', async () => {
@@ -521,11 +523,11 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
-            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleSpy)
+            ).toHaveExactContents(currentSelection);
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toHaveExactContents(
+                currentSelection
             );
         });
 
@@ -541,11 +543,11 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
-            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleSpy)
+            ).toHaveExactContents(currentSelection);
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toHaveExactContents(
+                currentSelection
             );
         });
 
@@ -563,11 +565,11 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
-            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleSpy)
+            ).toHaveExactContents(currentSelection);
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toHaveExactContents(
+                currentSelection
             );
         });
     });
@@ -590,9 +592,9 @@ describe('Table action menu', () => {
             ]);
             await waitForUpdatesAsync();
 
-            expect(pageObject.isCellActionMenuVisible(0, 0)).toBeTrue();
-            expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
-            expect(pageObject.isCellActionMenuVisible(2, 0)).toBeTrue();
+            expect(pageObject.isCellActionMenuVisible(0, 0)).toBe(true);
+            expect(pageObject.isCellActionMenuVisible(1, 0)).toBe(false);
+            expect(pageObject.isCellActionMenuVisible(2, 0)).toBe(true);
         });
 
         it('clicking action menu button selects the row when nothing was previously selected', async () => {
@@ -605,11 +607,11 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
-            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleSpy)
+            ).toHaveExactContents(currentSelection);
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toHaveExactContents(
+                currentSelection
             );
         });
 
@@ -625,11 +627,11 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
-            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleSpy)
+            ).toHaveExactContents(currentSelection);
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toHaveExactContents(
+                currentSelection
             );
         });
 
@@ -647,11 +649,11 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
-            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleSpy)
+            ).toHaveExactContents(currentSelection);
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toHaveExactContents(
+                currentSelection
             );
         });
 
@@ -670,11 +672,11 @@ describe('Table action menu', () => {
                 simpleTableData[0].stringData,
                 simpleTableData[2].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
-            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleSpy)
+            ).toHaveExactContents(currentSelection);
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toHaveExactContents(
+                currentSelection
             );
         });
     });

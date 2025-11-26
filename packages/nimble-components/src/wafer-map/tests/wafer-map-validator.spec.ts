@@ -15,7 +15,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateGridDimensions();
 
-        expect(waferMapValidator.isValid()).toBeTrue();
+        expect(waferMapValidator.isValid()).toBe(true);
     });
 
     it('with equal grid dimensions should be valid', () => {
@@ -23,7 +23,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateGridDimensions();
 
-        expect(waferMapValidator.isValid()).toBeTrue();
+        expect(waferMapValidator.isValid()).toBe(true);
     });
 
     it('with positive grid dimensions should be valid', () => {
@@ -31,7 +31,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateGridDimensions();
 
-        expect(waferMapValidator.isValid()).toBeTrue();
+        expect(waferMapValidator.isValid()).toBe(true);
     });
 
     it('with negative grid dimensions should be valid', () => {
@@ -39,7 +39,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateGridDimensions();
 
-        expect(waferMapValidator.isValid()).toBeTrue();
+        expect(waferMapValidator.isValid()).toBe(true);
     });
 
     it('with one undefined grid dimension should not be valid', () => {
@@ -47,7 +47,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateGridDimensions();
 
-        expect(waferMapValidator.isValid()).toBeFalse();
+        expect(waferMapValidator.isValid()).toBe(false);
     });
 
     it('with impossible grid dimension should not be valid', () => {
@@ -59,7 +59,7 @@ describe('Wafermap Validator module', () => {
             invalidGridDimensions: true,
             invalidDiesTableSchema: false
         });
-        expect(waferMapValidator.isValid()).toBeFalse();
+        expect(waferMapValidator.isValid()).toBe(false);
     });
 
     it('with undefined dies table should be valid', () => {
@@ -72,7 +72,7 @@ describe('Wafermap Validator module', () => {
         );
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateDiesTableSchema();
-        expect(waferMapValidator.isValid()).toBeTrue();
+        expect(waferMapValidator.isValid()).toBe(true);
     });
 
     it('with colIndex, rowIndex and value column as Int32, Int32 and Float64 dies table should be valid', () => {
@@ -90,7 +90,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateDiesTableSchema();
 
-        expect(waferMapValidator.isValid()).toBeTrue();
+        expect(waferMapValidator.isValid()).toBe(true);
     });
 
     it('with colIndex, rowIndex and value column as Int32, Int32 and Float32 dies table should be invalid', () => {
@@ -108,7 +108,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateDiesTableSchema();
 
-        expect(waferMapValidator.isValid()).toBeFalse();
+        expect(waferMapValidator.isValid()).toBe(false);
     });
 
     it('with colIndex, rowIndex and value column as Int8, Int32 and Float64 dies table should be invalid', () => {
@@ -126,7 +126,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateDiesTableSchema();
 
-        expect(waferMapValidator.isValid()).toBeFalse();
+        expect(waferMapValidator.isValid()).toBe(false);
     });
 
     it('with colIndex, rowIndex and value column as Int32 dies table should be invalid', () => {
@@ -144,7 +144,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateDiesTableSchema();
 
-        expect(waferMapValidator.isValid()).toBeFalse();
+        expect(waferMapValidator.isValid()).toBe(false);
     });
 
     it('with no column dies table should be invalid', () => {
@@ -158,7 +158,7 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateDiesTableSchema();
 
-        expect(waferMapValidator.isValid()).toBeFalse();
+        expect(waferMapValidator.isValid()).toBe(false);
     });
     it('with just colIndex and rowIndex column dies table should be invalid', () => {
         const waferMock = getWaferMapMockValidator(
@@ -174,6 +174,6 @@ describe('Wafermap Validator module', () => {
         waferMapValidator = new WaferMapValidator(waferMock);
         waferMapValidator.validateDiesTableSchema();
 
-        expect(waferMapValidator.isValid()).toBeFalse();
+        expect(waferMapValidator.isValid()).toBe(false);
     });
 });

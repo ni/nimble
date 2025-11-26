@@ -46,7 +46,7 @@ describe('TableGroupRow', () => {
 
     it('clicking group row emits group-expand-toggle event', async () => {
         await connect();
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         const groupExpandListener = waitForEvent(
             element,
             'group-expand-toggle',
@@ -80,8 +80,8 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.selected;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox!.checked).toBeTrue();
-        expect(element.selectionCheckbox!.indeterminate).toBeFalse();
+        expect(element.selectionCheckbox!.checked).toBe(true);
+        expect(element.selectionCheckbox!.indeterminate).toBe(false);
     });
 
     it('selection checkbox is not checked when group is not selected', async () => {
@@ -90,8 +90,8 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.notSelected;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox!.checked).toBeFalse();
-        expect(element.selectionCheckbox!.indeterminate).toBeFalse();
+        expect(element.selectionCheckbox!.checked).toBe(false);
+        expect(element.selectionCheckbox!.indeterminate).toBe(false);
     });
 
     it('selection checkbox is indeterminate when group is partially selected', async () => {
@@ -100,7 +100,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.partiallySelected;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox!.indeterminate).toBeTrue();
+        expect(element.selectionCheckbox!.indeterminate).toBe(true);
     });
 
     it('selection state can be set before connect()', async () => {
@@ -108,7 +108,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.partiallySelected;
         await connect();
 
-        expect(element.selectionCheckbox!.indeterminate).toBeTrue();
+        expect(element.selectionCheckbox!.indeterminate).toBe(true);
     });
 
     it('checking selection checkbox fires "group-selection-toggle" event', async () => {
@@ -116,7 +116,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.notSelected;
         await connect();
 
-        const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+        const spy = vi.fn<TableRowSelectionToggleEventHandler>();
         const listener = waitForEvent(element, 'group-selection-toggle', spy);
         element.selectionCheckbox!.click();
         await listener;
@@ -126,7 +126,7 @@ describe('TableGroupRow', () => {
             newState: true,
             oldState: false
         };
-        const event = spy.calls.first().args[0];
+        const event = spy.mock.calls[0]![0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -135,7 +135,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.selected;
         await connect();
 
-        const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+        const spy = vi.fn<TableRowSelectionToggleEventHandler>();
         const listener = waitForEvent(element, 'group-selection-toggle', spy);
         element.selectionCheckbox!.click();
         await listener;
@@ -145,7 +145,7 @@ describe('TableGroupRow', () => {
             newState: false,
             oldState: true
         };
-        const event = spy.calls.first().args[0];
+        const event = spy.mock.calls[0]![0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -154,7 +154,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.partiallySelected;
         await connect();
 
-        const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+        const spy = vi.fn<TableRowSelectionToggleEventHandler>();
         const listener = waitForEvent(element, 'group-selection-toggle', spy);
         element.selectionCheckbox!.click();
         await listener;
@@ -164,7 +164,7 @@ describe('TableGroupRow', () => {
             newState: true,
             oldState: false
         };
-        const event = spy.calls.first().args[0];
+        const event = spy.mock.calls[0]![0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -173,7 +173,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.selected;
         await connect();
 
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         element.addEventListener('group-selection-toggle', spy);
         element.selectionState = TableRowSelectionState.notSelected;
         await waitForUpdatesAsync();
@@ -187,7 +187,7 @@ describe('TableGroupRow', () => {
         element.selectable = true;
         await connect();
 
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         element.addEventListener('group-expand-toggle', spy);
         element.selectionCheckbox!.click();
         await waitForUpdatesAsync();

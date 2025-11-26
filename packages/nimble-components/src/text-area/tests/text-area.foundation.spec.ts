@@ -31,7 +31,7 @@ describe('TextArea', () => {
             element.shadowRoot
                 ?.querySelector('.control')
                 ?.hasAttribute('autofocus')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -47,7 +47,7 @@ describe('TextArea', () => {
             element.shadowRoot
                 ?.querySelector('.control')
                 ?.hasAttribute('disabled')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -153,7 +153,7 @@ describe('TextArea', () => {
             element.shadowRoot
                 ?.querySelector('.control')
                 ?.hasAttribute('readonly')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -169,7 +169,7 @@ describe('TextArea', () => {
             element.shadowRoot
                 ?.querySelector('.control')
                 ?.hasAttribute('required')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -199,7 +199,7 @@ describe('TextArea', () => {
             element.shadowRoot
                 ?.querySelector('.control')
                 ?.hasAttribute('spellcheck')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -589,7 +589,7 @@ describe('TextArea', () => {
             const textarea = element.shadowRoot?.querySelector('textarea');
             textarea?.dispatchEvent(event);
 
-            expect(wasChanged).toBeTrue();
+            expect(wasChanged).toBe(true);
 
             await disconnect();
         });

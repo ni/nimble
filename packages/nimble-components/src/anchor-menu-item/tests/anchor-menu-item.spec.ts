@@ -1,6 +1,6 @@
 import { customElement, html, ref } from '@ni/fast-element';
 import { MenuItem as FoundationMenuItem } from '@ni/fast-foundation';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { describe, test, it, expect, beforeEach, afterEach } from 'vitest';
 import { AnchorMenuItem, anchorMenuItemTag } from '..';
 import { iconCheckTag, type IconCheck } from '../../icons/check';
 import { iconXmarkTag, type IconXmark } from '../../icons/xmark';
@@ -78,15 +78,13 @@ describe('Anchor Menu Item', () => {
             { name: 'type' }
         ] as const;
         describe('should reflect value to the internal control', () => {
-            parameterizeSpec(attributeNames, (spec, name) => {
-                spec(`for attribute ${name}`, async () => {
-                    await connect();
+            test.each(attributeNames)('for attribute $name', async (value) => {
+                await connect();
 
-                    element.setAttribute(name, 'foo');
-                    await waitForUpdatesAsync();
+                element.setAttribute(value.name, 'foo');
+                await waitForUpdatesAsync();
 
-                    expect(element.anchor.getAttribute(name)).toBe('foo');
-                });
+                expect(element.anchor.getAttribute(value.name)).toBe('foo');
             });
         });
 
@@ -101,11 +99,11 @@ describe('Anchor Menu Item', () => {
             expect(
                 getComputedStyle(element.start).display === 'none'
                     || getComputedStyle(element.startContainer).display === 'none'
-            ).toBeFalse();
+            ).toBe(false);
             expect(
                 getComputedStyle(element.end).display === 'none'
                     || getComputedStyle(element.endContainer).display === 'none'
-            ).toBeTrue();
+            ).toBe(true);
         });
     });
 

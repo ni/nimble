@@ -211,12 +211,12 @@ describe('RichTextMentionUsers', () => {
                 pattern: ''
             }));
             await connect();
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.unsupportedMappingType).toBeFalse();
-            expect(element.validity.duplicateMappingMentionHref).toBeFalse();
-            expect(element.validity.missingMentionHrefValue).toBeFalse();
-            expect(element.validity.mentionHrefNotValidUrl).toBeFalse();
-            expect(element.validity.mentionHrefDoesNotMatchPattern).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.unsupportedMappingType).toBe(false);
+            expect(element.validity.duplicateMappingMentionHref).toBe(false);
+            expect(element.validity.missingMentionHrefValue).toBe(false);
+            expect(element.validity.mentionHrefNotValidUrl).toBe(false);
+            expect(element.validity.mentionHrefDoesNotMatchPattern).toBe(false);
         });
 
         it('is valid with valid unique string key values', async () => {
@@ -231,13 +231,13 @@ describe('RichTextMentionUsers', () => {
                 pattern: 'user:'
             }));
             await connect();
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.unsupportedMappingType).toBeFalse();
-            expect(element.validity.duplicateMappingMentionHref).toBeFalse();
-            expect(element.validity.missingMentionHrefValue).toBeFalse();
-            expect(element.validity.mentionHrefNotValidUrl).toBeFalse();
-            expect(element.validity.mentionHrefDoesNotMatchPattern).toBeFalse();
-            expect(element.validity.missingDisplayNameValue).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.unsupportedMappingType).toBe(false);
+            expect(element.validity.duplicateMappingMentionHref).toBe(false);
+            expect(element.validity.missingMentionHrefValue).toBe(false);
+            expect(element.validity.mentionHrefNotValidUrl).toBe(false);
+            expect(element.validity.mentionHrefDoesNotMatchPattern).toBe(false);
+            expect(element.validity.missingDisplayNameValue).toBe(false);
         });
 
         it('is invalid with missing key', async () => {
@@ -249,8 +249,8 @@ describe('RichTextMentionUsers', () => {
                 pattern: 'user'
             }));
             await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.missingMentionHrefValue).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.missingMentionHrefValue).toBe(true);
             expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
@@ -263,8 +263,8 @@ describe('RichTextMentionUsers', () => {
                 pattern: 'user'
             }));
             await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.missingDisplayNameValue).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.missingDisplayNameValue).toBe(true);
             expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
@@ -277,8 +277,8 @@ describe('RichTextMentionUsers', () => {
                 pattern: ''
             }));
             await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateMappingMentionHref).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.duplicateMappingMentionHref).toBe(true);
             expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
@@ -291,8 +291,8 @@ describe('RichTextMentionUsers', () => {
                 pattern: 'user:'
             }));
             await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.mentionHrefDoesNotMatchPattern).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.mentionHrefDoesNotMatchPattern).toBe(true);
             expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
@@ -305,8 +305,8 @@ describe('RichTextMentionUsers', () => {
                 pattern: 'user:'
             }));
             await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.mentionHrefNotValidUrl).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.mentionHrefNotValidUrl).toBe(true);
             expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
@@ -319,9 +319,9 @@ describe('RichTextMentionUsers', () => {
                 pattern: 'user:.*'
             }));
             await connect();
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.mentionHrefNotValidUrl).toBeFalse();
-            expect(element.validity.mentionHrefDoesNotMatchPattern).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.mentionHrefNotValidUrl).toBe(false);
+            expect(element.validity.mentionHrefDoesNotMatchPattern).toBe(false);
         });
 
         it('is invalid with invalid regex pattern', async () => {
@@ -333,8 +333,8 @@ describe('RichTextMentionUsers', () => {
                 pattern: '(invalid'
             }));
             await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.unsupportedPatternValue).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.unsupportedPatternValue).toBe(true);
             expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
@@ -351,8 +351,8 @@ describe('RichTextMentionUsers', () => {
         it('is invalid with text mapping', async () => {
             ({ element, connect, disconnect } = await setupInvalidMappings());
             await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.unsupportedMappingType).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.unsupportedMappingType).toBe(true);
             expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
@@ -368,8 +368,8 @@ describe('RichTextMentionUsers', () => {
         it('is invalid with missing pattern attribute', async () => {
             ({ element, connect, disconnect } = await setupMissingPattern());
             await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.missingPatternAttribute).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.missingPatternAttribute).toBe(true);
             expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
@@ -382,13 +382,13 @@ describe('RichTextMentionUsers', () => {
                 pattern: 'user:.*'
             }));
             await connect();
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.mentionHrefDoesNotMatchPattern).toBeFalse();
-            expect(element.validity.unsupportedPatternValue).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.mentionHrefDoesNotMatchPattern).toBe(false);
+            expect(element.validity.unsupportedPatternValue).toBe(false);
             await updatePatternAttribute(element, 'user:');
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.mentionHrefDoesNotMatchPattern).toBeFalse();
-            expect(element.validity.unsupportedPatternValue).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.mentionHrefDoesNotMatchPattern).toBe(false);
+            expect(element.validity.unsupportedPatternValue).toBe(false);
         });
 
         it('is invalid when invalid pattern is assigned', async () => {
@@ -400,11 +400,11 @@ describe('RichTextMentionUsers', () => {
                 pattern: 'user:.*'
             }));
             await connect();
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.unsupportedPatternValue).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.unsupportedPatternValue).toBe(false);
             await updatePatternAttribute(element, '(pattern');
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.unsupportedPatternValue).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.unsupportedPatternValue).toBe(true);
         });
 
         it('Should update mentionInternals with updated buttonLabel', async () => {

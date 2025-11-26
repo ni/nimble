@@ -80,7 +80,7 @@ describe('Radio Group', () => {
             element.shadowRoot
                 ?.querySelector('.positioning-region')
                 ?.classList.contains('horizontal')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -96,7 +96,7 @@ describe('Radio Group', () => {
             element.shadowRoot
                 ?.querySelector('.positioning-region')
                 ?.classList.contains('vertical')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -110,7 +110,7 @@ describe('Radio Group', () => {
             element.shadowRoot
                 ?.querySelector('.positioning-region')
                 ?.classList.contains('horizontal')
-        ).toBeTrue();
+        ).toBe(true);
 
         await disconnect();
     });
@@ -150,9 +150,9 @@ describe('Radio Group', () => {
         await connect();
         await DOM.nextUpdate();
 
-        expect(element.querySelector<Radio>('.one')!.disabled).toBeTrue();
-        expect(element.querySelector<Radio>('.two')!.disabled).toBeTrue();
-        expect(element.querySelector<Radio>('.three')!.disabled).toBeTrue();
+        expect(element.querySelector<Radio>('.one')!.disabled).toBe(true);
+        expect(element.querySelector<Radio>('.two')!.disabled).toBe(true);
+        expect(element.querySelector<Radio>('.three')!.disabled).toBe(true);
 
         expect(
             element.querySelector('.one')?.getAttribute('aria-disabled')
@@ -202,9 +202,9 @@ describe('Radio Group', () => {
         await connect();
         await DOM.nextUpdate();
 
-        expect(element.querySelector<Radio>('.one')!.readOnly).toBeTrue();
-        expect(element.querySelector<Radio>('.two')!.readOnly).toBeTrue();
-        expect(element.querySelector<Radio>('.three')!.readOnly).toBeTrue();
+        expect(element.querySelector<Radio>('.one')!.readOnly).toBe(true);
+        expect(element.querySelector<Radio>('.two')!.readOnly).toBe(true);
+        expect(element.querySelector<Radio>('.three')!.readOnly).toBe(true);
 
         expect(
             element.querySelector('.one')?.getAttribute('aria-readonly')
@@ -317,7 +317,7 @@ describe('Radio Group', () => {
         await connect();
         await DOM.nextUpdate();
 
-        expect(element.querySelectorAll(radioTag)[2]!.checked).toBeTrue();
+        expect(element.querySelectorAll(radioTag)[2]!.checked).toBe(true);
         expect(
             element.querySelectorAll(radioTag)[2]!.getAttribute('aria-checked')
         ).toBe('true');
@@ -356,7 +356,7 @@ describe('Radio Group', () => {
 
         await DOM.nextUpdate();
 
-        expect(element.querySelectorAll(radioTag)[0]!.checked).toBeTrue();
+        expect(element.querySelectorAll(radioTag)[0]!.checked).toBe(true);
         expect(
             element.querySelectorAll(radioTag)[0]!.getAttribute('aria-checked')
         ).toBe('true');
@@ -393,8 +393,8 @@ describe('Radio Group', () => {
         await DOM.nextUpdate();
 
         const radios: NodeList = element.querySelectorAll(radioTag);
-        expect((radios[2] as HTMLInputElement).checked).toBeTrue();
-        expect((radios[1] as HTMLInputElement).checked).toBeFalse();
+        expect((radios[2] as HTMLInputElement).checked).toBe(true);
+        expect((radios[1] as HTMLInputElement).checked).toBe(false);
 
         await disconnect();
     });
@@ -430,14 +430,14 @@ describe('Radio Group', () => {
         await DOM.nextUpdate();
 
         const radios: NodeList = element.querySelectorAll(radioTag);
-        expect((radios[1] as HTMLInputElement).checked).toBeTrue();
+        expect((radios[1] as HTMLInputElement).checked).toBe(true);
 
         // radio-group explicitly sets non-matching radio's checked to false if a value match was found,
         // but the attribute should still persist.
         expect(
             (radios[2] as HTMLInputElement).hasAttribute('checked')
-        ).toBeTrue();
-        expect((radios[2] as HTMLInputElement).checked).toBeFalse();
+        ).toBe(true);
+        expect((radios[2] as HTMLInputElement).checked).toBe(false);
 
         await disconnect();
     });
@@ -469,12 +469,12 @@ describe('Radio Group', () => {
         await connect();
         await DOM.nextUpdate();
 
-        expect(element.querySelectorAll(radioTag)[0]!.checked).toBeFalse();
+        expect(element.querySelectorAll(radioTag)[0]!.checked).toBe(false);
         expect(
             element.querySelectorAll(radioTag)[0]!.getAttribute('aria-checked')
         ).toBe('false');
 
-        expect(element.querySelectorAll(radioTag)[1]!.checked).toBeFalse();
+        expect(element.querySelectorAll(radioTag)[1]!.checked).toBe(false);
         expect(
             element.querySelectorAll(radioTag)[1]!.getAttribute('aria-checked')
         ).toBe('false');
@@ -495,15 +495,15 @@ describe('Radio Group', () => {
 
         radio1.checked = true;
 
-        expect(!!radio1.checked).toBeTrue();
-        expect(!!radio2.checked).toBeFalse();
-        expect(!!radio3.checked).toBeFalse();
+        expect(!!radio1.checked).toBe(true);
+        expect(!!radio2.checked).toBe(false);
+        expect(!!radio3.checked).toBe(false);
 
         form.reset();
 
-        expect(!!radio1.checked).toBeFalse();
-        expect(!!radio2.checked).toBeTrue();
-        expect(!!radio3.checked).toBeFalse();
+        expect(!!radio1.checked).toBe(false);
+        expect(!!radio2.checked).toBe(true);
+        expect(!!radio3.checked).toBe(false);
 
         await disconnect();
     });

@@ -34,7 +34,7 @@ describe('TableColumn', () => {
     it('reports column configuration valid', async () => {
         await connect();
 
-        expect(element.checkValidity()).toBeTrue();
+        expect(element.checkValidity()).toBe(true);
     });
 
     it('setting columnInternals.fractionalWidth sets columnInternals.currentFractionalWidth', async () => {
@@ -79,16 +79,23 @@ describe('TableColumn', () => {
             }
 
             it('throws when instantiated', async () => {
-                await jasmine.spyOnGlobalErrorsAsync(async globalErrorSpy => {
-                    document.createElement(columnName);
-                    await Promise.resolve();
-                    expect(globalErrorSpy).toHaveBeenCalledTimes(1);
-                    expect(
-                        globalErrorSpy.calls.first().args[0].message
-                    ).toMatch(
-                        'must evaluate to an element extending TableCellView'
-                    );
+                const errorPromise = new Promise<Error>(resolve => {
+                    const handler = (event: ErrorEvent): void => {
+                        event.preventDefault();
+                        window.removeEventListener('error', handler);
+                        resolve(
+                            (event.error as Error) || new Error(event.message)
+                        );
+                    };
+                    window.addEventListener('error', handler);
                 });
+
+                document.createElement(columnName);
+
+                const error = await errorPromise;
+                expect(error.message).toMatch(
+                    /must evaluate to an element extending TableCellView/
+                );
             });
         });
 
@@ -111,16 +118,23 @@ describe('TableColumn', () => {
             }
 
             it('throws when instantiated', async () => {
-                await jasmine.spyOnGlobalErrorsAsync(async globalErrorSpy => {
-                    document.createElement(columnName);
-                    await Promise.resolve();
-                    expect(globalErrorSpy).toHaveBeenCalledTimes(1);
-                    expect(
-                        globalErrorSpy.calls.first().args[0].message
-                    ).toMatch(
-                        'must evaluate to an element extending TableGroupHeaderView'
-                    );
+                const errorPromise = new Promise<Error>(resolve => {
+                    const handler = (event: ErrorEvent): void => {
+                        event.preventDefault();
+                        window.removeEventListener('error', handler);
+                        resolve(
+                            (event.error as Error) || new Error(event.message)
+                        );
+                    };
+                    window.addEventListener('error', handler);
                 });
+
+                document.createElement(columnName);
+
+                const error = await errorPromise;
+                expect(error.message).toMatch(
+                    /must evaluate to an element extending TableGroupHeaderView/
+                );
             });
         });
     });

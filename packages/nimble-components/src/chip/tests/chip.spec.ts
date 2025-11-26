@@ -29,10 +29,10 @@ describe('Chip', () => {
     it('click remove button raises remove event', async () => {
         element.removable = true;
         await waitForUpdatesAsync();
-        const removeEvent = jasmine.createSpy();
+        const removeEvent = vi.fn();
         element.addEventListener('remove', removeEvent);
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.isRemoveButtonVisible()).toBeTrue();
+        expect(pageObject.isRemoveButtonVisible()).toBe(true);
         pageObject.clickRemoveButton();
         expect(removeEvent).toHaveBeenCalled();
     });
@@ -48,14 +48,14 @@ describe('Chip', () => {
         element.removable = false;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.isRemoveButtonVisible()).toBeFalse();
+        expect(pageObject.isRemoveButtonVisible()).toBe(false);
     });
 
     it('remove button is not visible when disabled', async () => {
         element.disabled = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.isRemoveButtonVisible()).toBeFalse();
+        expect(pageObject.isRemoveButtonVisible()).toBe(false);
     });
 
     it('should not set a tabindex on the internal button by default', async () => {

@@ -101,7 +101,7 @@ describe('Text Area', () => {
                 await waitForUpdatesAsync();
 
                 if (value.boolean) {
-                    expect(element.control.hasAttribute(value.name)).toBeTrue();
+                    expect(element.control.hasAttribute(value.name)).toBe(true);
                 } else {
                     expect(element.control.getAttribute(value.name)).toBe(
                         value.value ?? 'foo'

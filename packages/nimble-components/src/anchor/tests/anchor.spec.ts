@@ -94,7 +94,7 @@ describe('Anchor', () => {
         element.removeAttribute('tabindex');
         await waitForUpdatesAsync();
 
-        expect(element.control!.hasAttribute('tabindex')).toBeFalse();
+        expect(element.control!.hasAttribute('tabindex')).toBe(false);
     });
 
     describe('contenteditable behavior', () => {
@@ -107,7 +107,7 @@ describe('Anchor', () => {
 
         it('has undefined property value and inner anchor isContentEditable is false by default', () => {
             expect(element.contentEditable).toBeUndefined();
-            expect(innerAnchor.isContentEditable).toBeFalse();
+            expect(innerAnchor.isContentEditable).toBe(false);
         });
 
         const interestingValues = [
@@ -161,7 +161,7 @@ describe('Anchor', () => {
             ({ element, connect, disconnect } = await setupWithContenteditable());
             await connect();
             const innerAnchor = element.shadowRoot!.querySelector('a')!;
-            expect(innerAnchor.isContentEditable).toBeTrue();
+            expect(innerAnchor.isContentEditable).toBe(true);
         });
     });
 });

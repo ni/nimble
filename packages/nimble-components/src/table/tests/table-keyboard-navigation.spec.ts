@@ -16,7 +16,7 @@ import {
     keySpace,
     keyTab
 } from '@ni/fast-web-utilities';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { describe, test, it, expect, beforeEach, afterEach } from 'vitest';
 import { tableTag, type Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
@@ -679,21 +679,19 @@ describe('Table keyboard navigation', () => {
                     { name: 'Escape', key: keyEscape },
                     { name: 'F2', key: keyFunction2 }
                 ];
-                parameterizeSpec(tests, (spec, name, value) => {
-                    spec(name, async () => {
-                        await addActionMenu(column1);
-                        await sendKeyPressToTable(keyArrowDown);
-                        await sendKeyPressToTable(keyTab);
-                        expect(currentFocusedElement()).toBe(
-                            pageObject.getCellActionMenu(0, 0)
-                        );
+                test.each(tests)('$name', async (value) => {
+                    await addActionMenu(column1);
+                    await sendKeyPressToTable(keyArrowDown);
+                    await sendKeyPressToTable(keyTab);
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCellActionMenu(0, 0)
+                    );
 
-                        await sendKeyPressToTable(value.key);
+                    await sendKeyPressToTable(value.key);
 
-                        expect(currentFocusedElement()).toBe(
-                            pageObject.getCell(0, 0)
-                        );
-                    });
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 0)
+                    );
                 });
             });
 
@@ -708,36 +706,34 @@ describe('Table keyboard navigation', () => {
                     { name: 'UpArrow', key: keyArrowUp },
                     { name: 'DownArrow', key: keyArrowDown }
                 ];
-                parameterizeSpec(tests, (spec, name, value) => {
-                    spec(
-                        `pressing ${name} will open the action menu, Esc will close the menu, and another Esc press will focus the (same) cell`,
-                        async () => {
-                            const actionMenuButton = pageObject.getCellActionMenu(0, 0)!;
-                            const toggleListener = waitForEvent(
-                                element,
-                                'action-menu-toggle'
-                            );
-                            await sendKeyDownEvent(
-                                actionMenuButton.toggleButton!,
-                                value.key
-                            );
-                            await toggleListener;
+                test.each(tests)(
+                    'pressing $name will open the action menu, Esc will close the menu, and another Esc press will focus the (same) cell',
+                    async (value) => {
+                        const actionMenuButton = pageObject.getCellActionMenu(0, 0)!;
+                        const toggleListener = waitForEvent(
+                            element,
+                            'action-menu-toggle'
+                        );
+                        await sendKeyDownEvent(
+                            actionMenuButton.toggleButton!,
+                            value.key
+                        );
+                        await toggleListener;
 
-                            const firstCell = pageObject.getCell(0, 0);
-                            expect(firstCell.menuOpen).toBe(true);
+                        const firstCell = pageObject.getCell(0, 0);
+                        expect(firstCell.menuOpen).toBe(true);
 
-                            const actionMenuItem = element.querySelector(menuItemTag)!;
+                        const actionMenuItem = element.querySelector(menuItemTag)!;
 
-                            await sendKeyDownEvent(actionMenuItem, keyEscape);
+                        await sendKeyDownEvent(actionMenuItem, keyEscape);
 
                             expect(firstCell.menuOpen).toBe(false);
 
                             await sendKeyPressToTable(keyEscape);
 
                             expect(currentFocusedElement()).toBe(firstCell);
-                        }
-                    );
-                });
+                    }
+                );
             });
 
             describe('table focus state is reset back to default on certain table configuration changes:', () => {
@@ -1081,16 +1077,14 @@ describe('Table keyboard navigation', () => {
                     { name: 'Enter', key: keyEnter },
                     { name: 'LeftArrow', key: keyArrowLeft }
                 ];
-                parameterizeSpec(tests, (spec, name, value) => {
-                    spec(name, async () => {
-                        await sendKeyPressToTable(value.key);
+                test.each(tests)('$name', async (value) => {
+                    await sendKeyPressToTable(value.key);
 
-                        const focusedElement = currentFocusedElement();
-                        expect(focusedElement).toBeInstanceOf(TableGroupRow);
-                        expect((focusedElement as TableGroupRow).expanded).toBe(
-                            false
-                        );
-                    });
+                    const focusedElement = currentFocusedElement();
+                    expect(focusedElement).toBeInstanceOf(TableGroupRow);
+                    expect((focusedElement as TableGroupRow).expanded).toBe(
+                        false
+                    );
                 });
             });
 
@@ -1100,28 +1094,26 @@ describe('Table keyboard navigation', () => {
                     { name: 'Enter', key: keyEnter },
                     { name: 'RightArrow', key: keyArrowRight }
                 ];
-                parameterizeSpec(tests, (spec, name, value) => {
-                    spec(name, async () => {
-                        pageObject.toggleGroupRowExpandedState(0);
-                        await waitForUpdatesAsync();
-                        let focusedElement = currentFocusedElement();
-                        if (
-                            !(focusedElement instanceof TableGroupRow)
-                            || focusedElement.expanded
-                        ) {
-                            throw new Error(
-                                'Expected focused group row to be collapsed'
-                            );
-                        }
-
-                        await sendKeyPressToTable(value.key);
-
-                        focusedElement = currentFocusedElement();
-                        expect(focusedElement).toBeInstanceOf(TableGroupRow);
-                        expect((focusedElement as TableGroupRow).expanded).toBe(
-                            true
+                test.each(tests)('$name', async (value) => {
+                    pageObject.toggleGroupRowExpandedState(0);
+                    await waitForUpdatesAsync();
+                    let focusedElement = currentFocusedElement();
+                    if (
+                        !(focusedElement instanceof TableGroupRow)
+                        || focusedElement.expanded
+                    ) {
+                        throw new Error(
+                            'Expected focused group row to be collapsed'
                         );
-                    });
+                    }
+
+                    await sendKeyPressToTable(value.key);
+
+                    focusedElement = currentFocusedElement();
+                    expect(focusedElement).toBeInstanceOf(TableGroupRow);
+                    expect((focusedElement as TableGroupRow).expanded).toBe(
+                        true
+                    );
                 });
             });
 
@@ -1362,17 +1354,12 @@ describe('Table keyboard navigation', () => {
                     { name: 'Enter', key: keyEnter },
                     { name: 'F2', key: keyFunction2 }
                 ];
-                parameterizeSpec(
-                    keyTests,
-                    (keyTestSpec, keyTestName, keyTestValue) => {
-                        keyTestSpec(keyTestName, async () => {
-                            await sendKeyPressToTable(keyTestValue.key);
+                test.each(keyTests)('$name', async (keyTestValue) => {
+                    await sendKeyPressToTable(keyTestValue.key);
 
-                            const cellContent = getRenderedCellContent(0, 1);
-                            expect(currentFocusedElement()).toBe(cellContent);
-                        });
-                    }
-                );
+                    const cellContent = getRenderedCellContent(0, 1);
+                    expect(currentFocusedElement()).toBe(cellContent);
+                });
             });
 
             describe('when the interactive content in the cell is focused,', () => {
@@ -1385,18 +1372,13 @@ describe('Table keyboard navigation', () => {
                         { name: 'Escape', key: keyEscape },
                         { name: 'F2', key: keyFunction2 }
                     ];
-                    parameterizeSpec(
-                        keyTests,
-                        (keyTestSpec, keyTestName, keyTestValue) => {
-                            keyTestSpec(keyTestName, async () => {
-                                await sendKeyPressToTable(keyTestValue.key);
+                    test.each(keyTests)('$name', async (keyTestValue) => {
+                        await sendKeyPressToTable(keyTestValue.key);
 
-                                expect(currentFocusedElement()).toBe(
-                                    pageObject.getCell(0, 1)
-                                );
-                            });
-                        }
-                    );
+                        expect(currentFocusedElement()).toBe(
+                            pageObject.getCell(0, 1)
+                        );
+                    });
                 });
 
                 it('and then a data update happens, the matching cell will be focused afterwards', async () => {
@@ -1415,7 +1397,7 @@ describe('Table keyboard navigation', () => {
                     await waitForUpdatesAsync();
                     await sendKeyPressToTable(keyEnter); // refocus cell content
                     const cellContent = getRenderedCellContent(0, 1);
-                    const blurSpy = jasmine.createSpy('blur');
+                    const blurSpy = vi.fn() as unknown as EventListener;
                     cellContent.addEventListener('blur', blurSpy);
 
                     await pageObject.scrollToLastRowAsync();
