@@ -1,6 +1,6 @@
 import { html, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
-import { withActions } from 'storybook/internal/actions/decorator';
+import { withActions } from 'storybook/actions/decorator';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import {
@@ -23,11 +23,11 @@ interface ChipArgs {
 // prettier-ignore
 const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
-    render: createUserSelectedThemeStory(html`
+    render: createUserSelectedThemeStory(html<ChipArgs>`
     ${disableStorybookZoomTransform}
-        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?disabled="${x => x.disabled}">
-            ${x => x.content}
-            ${when(x => x.icon, html`
+        <${chipTag} appearance="${(x: ChipArgs) => x.appearance}" ?removable="${(x: ChipArgs) => x.removable}" ?disabled="${(x: ChipArgs) => x.disabled}">
+            ${(x: ChipArgs) => x.content}
+            ${when((x: ChipArgs) => x.icon, html`
                 <nimble-icon-check slot="start"></nimble-icon-check>
             `)}
         </${chipTag}>
