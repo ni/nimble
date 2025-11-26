@@ -313,7 +313,7 @@ export const fancy16X16: {
 Use the `data` property to get the svg string:
 
 ```ts
-import { fancy16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
+import { fancy16X16 } from '@ni/nimble-tokens/dist/icons/js';
 
 const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
     // To populate an existing slot with an svg icon

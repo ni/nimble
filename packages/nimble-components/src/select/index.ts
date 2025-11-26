@@ -22,7 +22,7 @@ import {
     keySpace,
     uniqueId
 } from '@ni/fast-web-utilities';
-import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
+import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import {
     DropdownAppearance,

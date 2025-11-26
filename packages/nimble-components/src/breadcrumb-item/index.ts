@@ -4,7 +4,7 @@ import {
     breadcrumbItemTemplate as template,
     type BreadcrumbItemOptions
 } from '@ni/fast-foundation';
-import { forwardSlash16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
+import { forwardSlash16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
 declare global {

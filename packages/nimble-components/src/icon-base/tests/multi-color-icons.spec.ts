@@ -1,4 +1,4 @@
-import { circlePartialBroken16X16 } from '@ni/nimble-tokens/dist/icons/js/multicolor';
+import { circlePartialBroken16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { html } from '@ni/fast-element';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {

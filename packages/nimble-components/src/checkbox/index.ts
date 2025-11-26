@@ -4,7 +4,7 @@ import {
     Checkbox as FoundationCheckbox,
     type CheckboxOptions
 } from '@ni/fast-foundation';
-import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
+import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { template } from './template';
 import { mixinErrorPattern } from '../patterns/error/types';
