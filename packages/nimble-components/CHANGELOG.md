@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 03 Nov 2025 20:20:29 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 20 Nov 2025 16:54:41 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.6.1
+
+Thu, 20 Nov 2025 16:54:41 GMT
+
+### Patches
+
+- Fix bug where dialogs and drawers can close via ESC when "preventDismiss" is true ([ni/nimble@2fba1c8](https://github.com/ni/nimble/commit/2fba1c80da7a42ad167bdd325af0963756f2601e))
+
+## 34.6.0
+
+Mon, 17 Nov 2025 17:24:55 GMT
+
+### Minor changes
+
+- Upgrade TipTap version to 3.10.1 ([ni/nimble@c7543fd](https://github.com/ni/nimble/commit/c7543fda6ac01d0ce87c062ce443f0f344945f4b))
+
+## 34.5.2
+
+Mon, 10 Nov 2025 23:09:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.13.2
 
 ## 34.5.1
 
