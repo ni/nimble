@@ -434,9 +434,9 @@ describe('Radio Group', () => {
 
         // radio-group explicitly sets non-matching radio's checked to false if a value match was found,
         // but the attribute should still persist.
-        expect(
-            (radios[2] as HTMLInputElement).hasAttribute('checked')
-        ).toBe(true);
+        expect((radios[2] as HTMLInputElement).hasAttribute('checked')).toBe(
+            true
+        );
         expect((radios[2] as HTMLInputElement).checked).toBe(false);
 
         await disconnect();

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any */
 import { html, repeat } from '@ni/fast-element';
 import { describe, test, it, expect, beforeEach, afterEach } from 'vitest';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
@@ -88,12 +89,15 @@ describe('Combobox', () => {
                 propName: 'ariaExpanded'
             }
         ] as const;
-        test.each(ariaTestData)('should forward $name to inner control', async (value) => {
-            element.open = true;
-            element[value.propName] = 'foo';
-            await waitForUpdatesAsync();
-            expect(element.control.getAttribute(value.name)).toEqual('foo');
-        });
+        test.each(ariaTestData)(
+            'should forward $name to inner control',
+            async value => {
+                element.open = true;
+                element[value.propName] = 'foo';
+                await waitForUpdatesAsync();
+                expect(element.control.getAttribute(value.name)).toEqual('foo');
+            }
+        );
 
         it('should forward placeholder to inner control', async () => {
             element.placeholder = 'foo';
@@ -420,14 +424,17 @@ describe('Combobox', () => {
                 text: 'four'
             }
         ] as const;
-        describe.each(filterOptionSuiteData)('with autocomplete "$name"', (suiteData) => {
-            test.each(filterOptionTestData)('$name', async (value) => {
-                element.autocomplete = suiteData.name;
-                pageObject.setInputText(value.text);
-                await pageObject.clickAway(); // attempt to commit typed value
-                expect(element.value).toEqual(value.text);
-            });
-        });
+        describe.each(filterOptionSuiteData)(
+            'with autocomplete "$name"',
+            suiteData => {
+                test.each(filterOptionTestData)('$name', async value => {
+                    element.autocomplete = suiteData.name;
+                    pageObject.setInputText(value.text);
+                    await pageObject.clickAway(); // attempt to commit typed value
+                    expect(element.value).toEqual(value.text);
+                });
+            }
+        );
 
         describe('title overflow', () => {
             beforeEach(() => {

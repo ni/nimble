@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { html, customElement } from '@ni/fast-element';
 import { expect as vitestExpect } from 'vitest';
 import { tableTag, type Table } from '..';

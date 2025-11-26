@@ -1,12 +1,10 @@
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { expect } from 'vitest';
+import { expect, test } from 'vitest';
 import {
     type TableRecord,
     TableRecordDelayedHierarchyState,
     TableRowSelectionMode,
     type TableSetRecordHierarchyOptions
 } from '../../types';
-/* eslint-disable import/no-extraneous-dependencies */
 import { TableValidator } from '../table-validator';
 import {
     TableColumnValidationTest,
@@ -311,16 +309,14 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeSpec(columnConfigurations, (spec, name, value) => {
-            spec(name, () => {
-                const tableValidator = new TableValidator();
-                const isValid = tableValidator.validateColumnConfigurations(
-                    value.columns
-                );
+        test.each(columnConfigurations)('$name', value => {
+            const tableValidator = new TableValidator();
+            const isValid = tableValidator.validateColumnConfigurations(
+                value.columns
+            );
 
-                expect(isValid).toBe(value.isValid);
-                expect(tableValidator.isValid()).toBe(value.isValid);
-            });
+            expect(isValid).toBe(value.isValid);
+            expect(tableValidator.isValid()).toBe(value.isValid);
         });
 
         it('updates when column validity changes to invalid', () => {
@@ -394,21 +390,17 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeSpec(columnConfigurations, (spec, name, value) => {
-            spec(name, () => {
-                const tableValidator = new TableValidator();
-                const isValid = tableValidator.validateColumnIds(
-                    value.columnIds
-                );
+        test.each(columnConfigurations)('$name', value => {
+            const tableValidator = new TableValidator();
+            const isValid = tableValidator.validateColumnIds(value.columnIds);
 
-                expect(isValid).toBe(value.isValid);
-                expect(tableValidator.isValid()).toBe(
-                    value.invalidKeys.length === 0
-                );
-                expect(getInvalidKeys(tableValidator)).toHaveExactContents(
-                    value.invalidKeys
-                );
-            });
+            expect(isValid).toBe(value.isValid);
+            expect(tableValidator.isValid()).toBe(
+                value.invalidKeys.length === 0
+            );
+            expect(getInvalidKeys(tableValidator)).toHaveExactContents(
+                value.invalidKeys
+            );
         });
     });
 
@@ -476,21 +468,19 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeSpec(columnConfigurations, (spec, name, value) => {
-            spec(name, () => {
-                const tableValidator = new TableValidator();
-                const isValid = tableValidator.validateColumnSortIndices(
-                    value.sortIndices
-                );
+        test.each(columnConfigurations)('$name', value => {
+            const tableValidator = new TableValidator();
+            const isValid = tableValidator.validateColumnSortIndices(
+                value.sortIndices
+            );
 
-                expect(isValid).toBe(value.isValid);
-                expect(tableValidator.isValid()).toBe(
-                    value.invalidKeys.length === 0
-                );
-                expect(getInvalidKeys(tableValidator)).toHaveExactContents(
-                    value.invalidKeys
-                );
-            });
+            expect(isValid).toBe(value.isValid);
+            expect(tableValidator.isValid()).toBe(
+                value.invalidKeys.length === 0
+            );
+            expect(getInvalidKeys(tableValidator)).toHaveExactContents(
+                value.invalidKeys
+            );
         });
     });
 
@@ -566,21 +556,19 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeSpec(columnConfigurations, (spec, name, value) => {
-            spec(name, () => {
-                const tableValidator = new TableValidator();
-                const isValid = tableValidator.validateColumnGroupIndices(
-                    value.groupIndices
-                );
+        test.each(columnConfigurations)('$name', value => {
+            const tableValidator = new TableValidator();
+            const isValid = tableValidator.validateColumnGroupIndices(
+                value.groupIndices
+            );
 
-                expect(isValid).toBe(value.isValid);
-                expect(tableValidator.isValid()).toBe(
-                    value.invalidKeys.length === 0
-                );
-                expect(getInvalidKeys(tableValidator)).toHaveExactContents(
-                    value.invalidKeys
-                );
-            });
+            expect(isValid).toBe(value.isValid);
+            expect(tableValidator.isValid()).toBe(
+                value.invalidKeys.length === 0
+            );
+            expect(getInvalidKeys(tableValidator)).toHaveExactContents(
+                value.invalidKeys
+            );
         });
     });
 
@@ -630,21 +618,19 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeSpec(selectionConfigurations, (spec, name, value) => {
-            spec(name, () => {
-                const tableValidator = new TableValidator();
-                const isValid = tableValidator.validateIdFieldConfiguration(
-                    value.selectionMode,
-                    value.idFieldName,
-                    undefined
-                );
+        test.each(selectionConfigurations)('$name', value => {
+            const tableValidator = new TableValidator();
+            const isValid = tableValidator.validateIdFieldConfiguration(
+                value.selectionMode,
+                value.idFieldName,
+                undefined
+            );
 
-                expect(isValid).toBe(value.isValid);
-                expect(tableValidator.isValid()).toBe(value.isValid);
-                expect(getInvalidKeys(tableValidator)).toHaveExactContents(
-                    value.invalidKeys
-                );
-            });
+            expect(isValid).toBe(value.isValid);
+            expect(tableValidator.isValid()).toBe(value.isValid);
+            expect(getInvalidKeys(tableValidator)).toHaveExactContents(
+                value.invalidKeys
+            );
         });
     });
 

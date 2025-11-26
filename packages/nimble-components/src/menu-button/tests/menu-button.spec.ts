@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { html } from '@ni/fast-element';
 import { eventChange, keyEnter } from '@ni/fast-web-utilities';
 import { FoundationElement } from '@ni/fast-foundation';

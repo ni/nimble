@@ -1,4 +1,4 @@
-/* eslint-disable no-await-in-loop */
+/* eslint-disable no-await-in-loop, import/no-extraneous-dependencies */
 import { customElement, html, observable, ref } from '@ni/fast-element';
 import { FoundationElement } from '@ni/fast-foundation';
 import {
@@ -679,7 +679,7 @@ describe('Table keyboard navigation', () => {
                     { name: 'Escape', key: keyEscape },
                     { name: 'F2', key: keyFunction2 }
                 ];
-                test.each(tests)('$name', async (value) => {
+                test.each(tests)('$name', async value => {
                     await addActionMenu(column1);
                     await sendKeyPressToTable(keyArrowDown);
                     await sendKeyPressToTable(keyTab);
@@ -708,8 +708,11 @@ describe('Table keyboard navigation', () => {
                 ];
                 test.each(tests)(
                     'pressing $name will open the action menu, Esc will close the menu, and another Esc press will focus the (same) cell',
-                    async (value) => {
-                        const actionMenuButton = pageObject.getCellActionMenu(0, 0)!;
+                    async value => {
+                        const actionMenuButton = pageObject.getCellActionMenu(
+                            0,
+                            0
+                        )!;
                         const toggleListener = waitForEvent(
                             element,
                             'action-menu-toggle'
@@ -727,11 +730,11 @@ describe('Table keyboard navigation', () => {
 
                         await sendKeyDownEvent(actionMenuItem, keyEscape);
 
-                            expect(firstCell.menuOpen).toBe(false);
+                        expect(firstCell.menuOpen).toBe(false);
 
-                            await sendKeyPressToTable(keyEscape);
+                        await sendKeyPressToTable(keyEscape);
 
-                            expect(currentFocusedElement()).toBe(firstCell);
+                        expect(currentFocusedElement()).toBe(firstCell);
                     }
                 );
             });
@@ -1077,7 +1080,7 @@ describe('Table keyboard navigation', () => {
                     { name: 'Enter', key: keyEnter },
                     { name: 'LeftArrow', key: keyArrowLeft }
                 ];
-                test.each(tests)('$name', async (value) => {
+                test.each(tests)('$name', async value => {
                     await sendKeyPressToTable(value.key);
 
                     const focusedElement = currentFocusedElement();
@@ -1094,7 +1097,7 @@ describe('Table keyboard navigation', () => {
                     { name: 'Enter', key: keyEnter },
                     { name: 'RightArrow', key: keyArrowRight }
                 ];
-                test.each(tests)('$name', async (value) => {
+                test.each(tests)('$name', async value => {
                     pageObject.toggleGroupRowExpandedState(0);
                     await waitForUpdatesAsync();
                     let focusedElement = currentFocusedElement();
@@ -1354,7 +1357,7 @@ describe('Table keyboard navigation', () => {
                     { name: 'Enter', key: keyEnter },
                     { name: 'F2', key: keyFunction2 }
                 ];
-                test.each(keyTests)('$name', async (keyTestValue) => {
+                test.each(keyTests)('$name', async keyTestValue => {
                     await sendKeyPressToTable(keyTestValue.key);
 
                     const cellContent = getRenderedCellContent(0, 1);
@@ -1372,7 +1375,7 @@ describe('Table keyboard navigation', () => {
                         { name: 'Escape', key: keyEscape },
                         { name: 'F2', key: keyFunction2 }
                     ];
-                    test.each(keyTests)('$name', async (keyTestValue) => {
+                    test.each(keyTests)('$name', async keyTestValue => {
                         await sendKeyPressToTable(keyTestValue.key);
 
                         expect(currentFocusedElement()).toBe(

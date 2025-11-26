@@ -20,17 +20,17 @@ describe('The Tracker Utility', () => {
 
     it('can track all the specified items at once', () => {
         tracker.trackAll();
-        expect(
-            tracker.getTrackedItems().a && tracker.getTrackedItems().b
-        ).toBe(true);
+        expect(tracker.getTrackedItems().a && tracker.getTrackedItems().b).toBe(
+            true
+        );
     });
 
     it('can untrack all the specified items at once', () => {
         tracker.trackAll();
         tracker.untrackAll();
-        expect(
-            tracker.getTrackedItems().a || tracker.getTrackedItems().b
-        ).toBe(false);
+        expect(tracker.getTrackedItems().a || tracker.getTrackedItems().b).toBe(
+            false
+        );
     });
 
     it('can check if all items are tracked', () => {

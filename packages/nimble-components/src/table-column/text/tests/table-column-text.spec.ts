@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @stylistic/indent, @stylistic/arrow-parens, import/no-extraneous-dependencies */
 import { html, ref } from '@ni/fast-element';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { describe, it, expect, test, beforeEach, afterEach } from 'vitest';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnText, tableColumnTextTag } from '..';
-import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
@@ -182,21 +183,23 @@ describe('TableColumnText', () => {
     });
 
     describe('various string values render as expected', () => {
-        parameterizeSpec(wackyStrings, (spec, name) => {
-            spec(`data "${name}" renders as "${name}"`, async () => {
+        test.each(wackyStrings)(
+            'data "$name" renders as "$name"',
+            async ({ name }: any) => {
                 await connect();
 
                 await table.setData([{ field: name }]);
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(name);
-            });
-        });
+            }
+        );
     });
 
     describe('various string values render in group header as expected', () => {
-        parameterizeSpec(wackyStrings, (spec, name) => {
-            spec(`data "${name}" renders as "${name}"`, async () => {
+        test.each(wackyStrings)(
+            'data "$name" renders as "$name"',
+            async ({ name }: any) => {
                 await connect();
 
                 await table.setData([{ field: name }]);
@@ -205,8 +208,8 @@ describe('TableColumnText', () => {
                 expect(
                     pageObject.getRenderedGroupHeaderTextContent(0)
                 ).toContain(name);
-            });
-        });
+            }
+        );
     });
 
     describe('placeholder', () => {
@@ -265,41 +268,37 @@ describe('TableColumnText', () => {
             await waitForUpdatesAsync();
         }
 
-        parameterizeSpec(testCases, (spec, name, value) => {
-            spec(
-                `cell and group row render expected value when ${name} and placeholder is configured`,
-                async () => {
-                    const placeholder = 'Custom placeholder';
-                    await initializeColumnAndTable(value.data, placeholder);
+        test.each(testCases)(
+            'cell and group row render expected value when $name and placeholder is configured',
+            async (value: any) => {
+                const placeholder = 'Custom placeholder';
+                await initializeColumnAndTable(value.data, placeholder);
 
-                    const expectedCellText = value.usesColumnPlaceholder
-                        ? placeholder
-                        : value.cellValue;
-                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                        expectedCellText
-                    );
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toBe(value.groupValue);
-                }
-            );
-        });
+                const expectedCellText = value.usesColumnPlaceholder
+                    ? placeholder
+                    : value.cellValue;
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                    expectedCellText
+                );
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    value.groupValue
+                );
+            }
+        );
 
-        parameterizeSpec(testCases, (spec, name, value) => {
-            spec(
-                `cell and group row render expected value when ${name} and placeholder is not configured`,
-                async () => {
-                    await initializeColumnAndTable(value.data);
+        test.each(testCases)(
+            'cell and group row render expected value when $name and placeholder is not configured',
+            async (value: any) => {
+                await initializeColumnAndTable(value.data);
 
-                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                        value.cellValue
-                    );
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toBe(value.groupValue);
-                }
-            );
-        });
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                    value.cellValue
+                );
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    value.groupValue
+                );
+            }
+        );
 
         it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
             const placeholder = 'My placeholder';

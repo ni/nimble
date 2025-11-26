@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { describe, it, expect, vi } from 'vitest';
 import { waitForUpdatesAsync } from './async-helpers';
 

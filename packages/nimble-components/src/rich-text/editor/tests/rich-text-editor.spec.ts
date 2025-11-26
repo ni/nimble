@@ -97,25 +97,25 @@ describe('RichTextEditor', () => {
     });
 
     it('should have either one of the list buttons checked at the same time on click', async () => {
-        expect(
-            pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-        ).toBe(false);
+        expect(pageObject.getButtonCheckedState(ToolbarButton.bulletList)).toBe(
+            false
+        );
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
         ).toBe(false);
 
         await pageObject.toggleFooterButton(ToolbarButton.bulletList);
-        expect(
-            pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-        ).toBe(true);
+        expect(pageObject.getButtonCheckedState(ToolbarButton.bulletList)).toBe(
+            true
+        );
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
         ).toBe(false);
 
         await pageObject.toggleFooterButton(ToolbarButton.numberedList);
-        expect(
-            pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-        ).toBe(false);
+        expect(pageObject.getButtonCheckedState(ToolbarButton.bulletList)).toBe(
+            false
+        );
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
         ).toBe(true);

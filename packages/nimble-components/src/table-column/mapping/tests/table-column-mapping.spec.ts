@@ -395,9 +395,9 @@ describe('TableColumnMapping', () => {
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBe(true);
-            expect(
-                model.col1.validity.invalidMappingKeyValueForType
-            ).toBe(false);
+            expect(model.col1.validity.invalidMappingKeyValueForType).toBe(
+                false
+            );
         });
 
         describe('is invalid with invalid boolean key values:', () => {
@@ -436,9 +436,9 @@ describe('TableColumnMapping', () => {
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBe(false);
-            expect(
-                model.col1.validity.invalidMappingKeyValueForType
-            ).toBe(true);
+            expect(model.col1.validity.invalidMappingKeyValueForType).toBe(
+                true
+            );
         });
 
         // prettier-ignore

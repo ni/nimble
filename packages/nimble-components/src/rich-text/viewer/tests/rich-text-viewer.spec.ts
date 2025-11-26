@@ -325,12 +325,12 @@ describe('RichTextViewer', () => {
         describe('validity', () => {
             it('should have valid states by default', () => {
                 expect(element.checkValidity()).toBe(true);
-                expect(
-                    element.validity.invalidMentionConfiguration
-                ).toBe(false);
-                expect(
-                    element.validity.duplicateMentionConfiguration
-                ).toBe(false);
+                expect(element.validity.invalidMentionConfiguration).toBe(
+                    false
+                );
+                expect(element.validity.duplicateMentionConfiguration).toBe(
+                    false
+                );
             });
 
             it('should have valid states when there is no mapping elements but with a configuration element', async () => {
@@ -338,12 +338,12 @@ describe('RichTextViewer', () => {
                 await appendUserMentionConfiguration(element);
 
                 expect(element.checkValidity()).toBe(true);
-                expect(
-                    element.validity.invalidMentionConfiguration
-                ).toBe(false);
-                expect(
-                    element.validity.duplicateMentionConfiguration
-                ).toBe(false);
+                expect(element.validity.invalidMentionConfiguration).toBe(
+                    false
+                );
+                expect(element.validity.duplicateMentionConfiguration).toBe(
+                    false
+                );
             });
 
             it('should have invalid states when setting invalid `key` in mapping mention', async () => {
@@ -389,9 +389,9 @@ describe('RichTextViewer', () => {
                     { key: 'user:1', displayName: 'username' }
                 ]);
                 expect(element.checkValidity()).toBe(false);
-                expect(
-                    element.validity.duplicateMentionConfiguration
-                ).toBe(true);
+                expect(element.validity.duplicateMentionConfiguration).toBe(
+                    true
+                );
             });
 
             it('should have valid states when the duplicate configuration element removed', async () => {
@@ -404,12 +404,12 @@ describe('RichTextViewer', () => {
                 await waitForUpdatesAsync();
 
                 expect(element.checkValidity()).toBe(true);
-                expect(
-                    element.validity.duplicateMentionConfiguration
-                ).toBe(false);
-                expect(
-                    element.validity.invalidMentionConfiguration
-                ).toBe(false);
+                expect(element.validity.duplicateMentionConfiguration).toBe(
+                    false
+                );
+                expect(element.validity.invalidMentionConfiguration).toBe(
+                    false
+                );
             });
         });
     });

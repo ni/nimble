@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { customElement, html, ref } from '@ni/fast-element';
 import { MenuItem as FoundationMenuItem } from '@ni/fast-foundation';
 import { describe, test, it, expect, beforeEach, afterEach } from 'vitest';
@@ -78,7 +79,7 @@ describe('Anchor Menu Item', () => {
             { name: 'type' }
         ] as const;
         describe('should reflect value to the internal control', () => {
-            test.each(attributeNames)('for attribute $name', async (value) => {
+            test.each(attributeNames)('for attribute $name', async value => {
                 await connect();
 
                 element.setAttribute(value.name, 'foo');

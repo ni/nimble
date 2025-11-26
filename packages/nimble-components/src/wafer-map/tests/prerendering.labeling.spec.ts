@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access */
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import {
@@ -209,7 +210,10 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.text
             );
-            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
+            (
+                expect(actualValues) as any
+            ) /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                .toHaveExactContents(expectedValues);
         });
     });
 
@@ -250,7 +254,10 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.text
             );
-            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
+            (
+                expect(actualValues) as any
+            ) /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                .toHaveExactContents(expectedValues);
         });
     });
 
@@ -294,7 +301,10 @@ describe('Wafermap Prerendering module', () => {
                 const actualValues = prerenderingModule.diesRenderInfo.map(
                     dieRenderInfo => dieRenderInfo.text
                 );
-                (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
+                (
+                    expect(actualValues) as any
+                ) /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                    .toHaveExactContents(expectedValues);
             }
         );
     });
@@ -333,7 +343,10 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.text
             );
-            (expect(actualValues) as any /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */).toHaveExactContents(expectedValues);
+            (
+                expect(actualValues) as any
+            ) /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                .toHaveExactContents(expectedValues);
         });
     });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { html } from '@ni/fast-element';
 import { eventAnimationEnd } from '@ni/fast-web-utilities';
 import { expect, describe, it, beforeEach, afterEach } from 'vitest';

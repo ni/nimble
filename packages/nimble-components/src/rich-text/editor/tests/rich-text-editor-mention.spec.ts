@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @stylistic/indent, @stylistic/arrow-parens, import/no-extraneous-dependencies */
 import { html } from '@ni/fast-element';
-import { expect as vitestExpect } from 'vitest';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { describe, it, expect, test } from 'vitest';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
-import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 import { mappingUserTag } from '../../../mapping/user';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
+import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import {
     appendTestMentionConfiguration,
@@ -229,8 +229,8 @@ describe('RichTextEditorMention', () => {
         it('removing mapping element renders the mention node with user ID', async () => {
             element.setMarkdown('<user:1>');
             const { mappingElements, userMentionElement } = await appendUserMentionConfiguration(element, [
-                { key: 'user:1', displayName: 'username1' }
-            ]);
+                    { key: 'user:1', displayName: 'username1' }
+                ]);
             userMentionElement.removeChild(mappingElements[0]!);
             await waitForUpdatesAsync();
 
@@ -415,8 +415,8 @@ describe('RichTextEditorMention', () => {
             it('should have invalid states when removing `pattern` from configuration element', async () => {
                 element.setMarkdown('<user:1>');
                 const { userMentionElement } = await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username' }
-                ]);
+                        { key: 'user:1', displayName: 'username' }
+                    ]);
                 userMentionElement.removeAttribute('pattern');
                 await waitForUpdatesAsync();
 
@@ -427,8 +427,8 @@ describe('RichTextEditorMention', () => {
             it('should have invalid states when it is a invalid regex `pattern`', async () => {
                 element.setMarkdown('<user:1>');
                 const { userMentionElement } = await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username' }
-                ]);
+                        { key: 'user:1', displayName: 'username' }
+                    ]);
                 userMentionElement.pattern = '(invalid';
                 await waitForUpdatesAsync();
 
@@ -591,8 +591,8 @@ describe('RichTextEditorMention', () => {
                 { key: 'user:1', displayName: 'username1' }
             ]);
             const { mappingElements, testMentionElement } = await appendTestMentionConfiguration(element, [
-                { key: 'test:2', displayName: 'testname2' }
-            ]);
+                    { key: 'test:2', displayName: 'testname2' }
+                ]);
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -829,7 +829,7 @@ describe('RichTextEditorMention', () => {
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.setEditorTextContent('@test');
         expect(mentionUpdateSpy).toHaveBeenCalledOnceWith(
-            vitestExpect.objectContaining({
+            expect.objectContaining({
                 detail: { filter: 'test' }
             })
         );
@@ -932,8 +932,9 @@ describe('RichTextEditorMention', () => {
             }
         ] as const;
 
-        parameterizeSpec(validMentionNodes, (spec, name, value) => {
-            spec(`${name} renders as plain text in editor`, async () => {
+        test.each(validMentionNodes)(
+            '$name renders as plain text in editor',
+            async (value: { name: string, input: string, content: string }) => {
                 await appendUserMentionConfiguration(element, [
                     { key: 'user:1', displayName: value.content }
                 ]);
@@ -949,8 +950,8 @@ describe('RichTextEditorMention', () => {
                 expect(pageObject.getEditorTextContents()).toEqual([
                     value.content
                 ]);
-            });
-        });
+            }
+        );
     });
 });
 
@@ -1123,17 +1124,13 @@ describe('RichTextEditorMentionListbox', () => {
         });
 
         describe('various wacky strings should display as it is in the mention popup option', () => {
-            parameterizeSpec(wackyStrings, (spec, name) => {
-                spec(`for ${name}`, async () => {
-                    await appendUserMentionConfiguration(element, [
-                        { key: 'user:1', displayName: name }
-                    ]);
-                    await pageObject.setEditorTextContent('@');
+            test.each(wackyStrings)('for $name', async ({ name }) => {
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: name }
+                ]);
+                await pageObject.setEditorTextContent('@');
 
-                    expect(pageObject.getMentionListboxItemsName()).toEqual([
-                        name
-                    ]);
-                });
+                expect(pageObject.getMentionListboxItemsName()).toEqual([name]);
             });
         });
 
@@ -1404,9 +1401,9 @@ describe('RichTextEditorMentionListbox', () => {
 
         it('should update mention popup list when removing mapping element', async () => {
             const { mappingElements, userMentionElement } = await appendUserMentionConfiguration(element, [
-                { key: 'user:1', displayName: 'username1' },
-                { key: 'user:2', displayName: 'username2' }
-            ]);
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
             await pageObject.setEditorTextContent('@');
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1',

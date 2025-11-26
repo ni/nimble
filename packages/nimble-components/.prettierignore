@@ -33,3 +33,6 @@ src/wafer-map/workers
 template.ts
 design-tokens.ts
 design-token-values.ts
+
+# Ignore screenshots directories
+**/__screenshots__

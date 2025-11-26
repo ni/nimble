@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @stylistic/indent, @stylistic/arrow-parens, @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, import/no-extraneous-dependencies */
 import { html, ref } from '@ni/fast-element';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { describe, it, expect, test, beforeEach, afterEach } from 'vitest';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnNumberText, tableColumnNumberTextTag } from '..';
-import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { TableColumnAlignment, type TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
@@ -641,28 +642,24 @@ describe('TableColumnNumberText', () => {
         }
     ] as const;
     describe('sets the correct initial alignment on the cell', () => {
-        parameterizeSpec(alignmentTestCases, (spec, name, value) => {
-            spec(name, async () => {
-                await table.setData([{ number1: 10 }]);
-                elementReferences.column1.format = value.format;
-                elementReferences.column1.decimalMaximumDigits = value.decimalMaximumDigits;
-                elementReferences.column1.alignment = value.configuredColumnAlignment;
-                if (value.unit) {
-                    elementReferences.column1.appendChild(
-                        document.createElement(unitByteTag)
-                    );
-                }
-                await connect();
-                await waitForUpdatesAsync();
-
-                const cellView = pageObject.getRenderedCellView(
-                    0,
-                    0
-                ) as TableColumnNumberTextCellView;
-                expect(cellView.alignment).toEqual(
-                    value.expectedCellViewAlignment
+        test.each(alignmentTestCases)('$name', async (value: any) => {
+            await table.setData([{ number1: 10 }]);
+            elementReferences.column1.format = value.format;
+            elementReferences.column1.decimalMaximumDigits = value.decimalMaximumDigits;
+            elementReferences.column1.alignment = value.configuredColumnAlignment;
+            if (value.unit) {
+                elementReferences.column1.appendChild(
+                    document.createElement(unitByteTag)
                 );
-            });
+            }
+            await connect();
+            await waitForUpdatesAsync();
+
+            const cellView = pageObject.getRenderedCellView(
+                0,
+                0
+            ) as TableColumnNumberTextCellView;
+            expect(cellView.alignment).toEqual(value.expectedCellViewAlignment);
         });
     });
 
@@ -799,41 +796,37 @@ describe('TableColumnNumberText', () => {
             await waitForUpdatesAsync();
         }
 
-        parameterizeSpec(testCases, (spec, name, value) => {
-            spec(
-                `cell and group row render expected value when ${name} and placeholder is configured`,
-                async () => {
-                    const placeholder = 'Custom placeholder';
-                    await initializeColumnAndTable(value.data, placeholder);
+        test.each(testCases)(
+            'cell and group row render expected value when $name and placeholder is configured',
+            async (value: any) => {
+                const placeholder = 'Custom placeholder';
+                await initializeColumnAndTable(value.data, placeholder);
 
-                    const expectedCellText = value.usesColumnPlaceholder
-                        ? placeholder
-                        : value.cellValue;
-                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                        expectedCellText
-                    );
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toBe(value.groupValue);
-                }
-            );
-        });
+                const expectedCellText = value.usesColumnPlaceholder
+                    ? placeholder
+                    : value.cellValue;
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                    expectedCellText
+                );
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    value.groupValue
+                );
+            }
+        );
 
-        parameterizeSpec(testCases, (spec, name, value) => {
-            spec(
-                `cell and group row render expected value when ${name} and placeholder is not configured`,
-                async () => {
-                    await initializeColumnAndTable(value.data);
+        test.each(testCases)(
+            'cell and group row render expected value when $name and placeholder is not configured',
+            async (value: any) => {
+                await initializeColumnAndTable(value.data);
 
-                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                        value.cellValue
-                    );
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toBe(value.groupValue);
-                }
-            );
-        });
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                    value.cellValue
+                );
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    value.groupValue
+                );
+            }
+        );
 
         it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
             const placeholder = 'My placeholder';

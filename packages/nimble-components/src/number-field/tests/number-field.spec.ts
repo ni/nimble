@@ -54,9 +54,9 @@ describe('NumberField', () => {
         const buttons = Array.from(
             element.shadowRoot!.querySelectorAll('.step-up-down-button')
         );
-        expect(
-            buttons.every(x => (x as HTMLElement).tabIndex === -1)
-        ).toBe(true);
+        expect(buttons.every(x => (x as HTMLElement).tabIndex === -1)).toBe(
+            true
+        );
     });
 
     it('hides inc/dec buttons from a11y tree', () => {

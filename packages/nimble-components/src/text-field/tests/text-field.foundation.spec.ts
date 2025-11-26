@@ -776,9 +776,9 @@ describe('TextField', () => {
                             element.pattern = value;
                             element.value = value;
 
-                            expect(
-                                element.validity.patternMismatch
-                            ).toBe(false);
+                            expect(element.validity.patternMismatch).toBe(
+                                false
+                            );
                             await disconnect();
                         });
 
