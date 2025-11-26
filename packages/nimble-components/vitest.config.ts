@@ -8,6 +8,12 @@ const packageRoot = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
     root: packageRoot,
+    server: {
+        fs: {
+            // Ensure Vite serves files from packageRoot only
+            allow: [packageRoot]
+        }
+    },
     test: {
         globals: true,
         include: ['src/**/*.spec.ts'],
