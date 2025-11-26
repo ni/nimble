@@ -6,16 +6,14 @@ import { playwright } from '@vitest/browser-playwright';
 
 const packageRoot = dirname(fileURLToPath(import.meta.url));
 
+// Ensure Vitest runs from the package directory, not the monorepo root
+if (process.cwd() !== packageRoot) {
+    process.chdir(packageRoot);
+}
+
 export default defineConfig({
     root: packageRoot,
-    base: './',
-    server: {
-        fs: {
-            // Ensure Vite serves files from packageRoot only
-            allow: [packageRoot],
-            strict: true
-        }
-    },
+    base: '/',
     test: {
         globals: true,
         include: ['src/**/*.spec.ts'],
