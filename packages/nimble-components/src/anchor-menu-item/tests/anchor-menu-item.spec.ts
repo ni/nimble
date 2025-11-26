@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { customElement, html, ref } from '@ni/fast-element';
 import { MenuItem as FoundationMenuItem } from '@ni/fast-foundation';
 import { describe, test, it, expect, beforeEach, afterEach } from 'vitest';

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @stylistic/indent, @stylistic/arrow-parens, import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @stylistic/indent, @stylistic/arrow-parens */
 import { html, repeat } from '@ni/fast-element';
 import { describe, it, expect, test, beforeEach } from 'vitest';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';

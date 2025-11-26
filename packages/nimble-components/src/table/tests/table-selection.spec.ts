@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'vitest';
 import { html } from '@ni/fast-element';
 import { keyArrowDown, keySpace, keyTab } from '@ni/fast-web-utilities';

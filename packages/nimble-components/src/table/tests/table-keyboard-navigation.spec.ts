@@ -1,4 +1,4 @@
-/* eslint-disable no-await-in-loop, import/no-extraneous-dependencies */
+/* eslint-disable no-await-in-loop */
 import { customElement, html, observable, ref } from '@ni/fast-element';
 import { FoundationElement } from '@ni/fast-foundation';
 import {

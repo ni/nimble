@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @stylistic/indent, @stylistic/arrow-parens, @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @stylistic/indent, @stylistic/arrow-parens, @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await */
 import { html, ref } from '@ni/fast-element';
 import { describe, it, expect, test, beforeEach, afterEach } from 'vitest';
 import { tableTag, type Table } from '../../../table';

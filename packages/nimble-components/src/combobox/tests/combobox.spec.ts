@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any */
 import { html, repeat } from '@ni/fast-element';
 import { describe, test, it, expect, beforeEach, afterEach } from 'vitest';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
