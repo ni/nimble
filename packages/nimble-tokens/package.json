@@ -10,7 +10,7 @@
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
     "format": "eslint . --fix",
-    "lint": "eslint .",
+    "lint": "node ../../scripts/lint/run-eslint.mjs .",
     "pack": "npm pack",
     "invoke-publish": "npm publish"
   },

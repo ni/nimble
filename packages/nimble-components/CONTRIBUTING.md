@@ -73,6 +73,19 @@ Before building a new component, 3 specification documents need to be created:
 
 8. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
 
+## Linting
+
+This repository uses [Lage](https://microsoft.github.io/lage/) to orchestrate linting with caching and parallel execution. See the [root CONTRIBUTING.md](/CONTRIBUTING.md#linting) for complete details.
+
+**Commands** (run from repo root):
+
+- `npm run lint:changed` - Lint packages changed since `origin/main`
+- `npm run lint:pkg -- @ni/nimble-components` - Lint only nimble-components
+- `npm run lint` - Lint all packages
+- `npm run format` - Auto-fix issues
+
+**Troubleshooting**: Delete `packages/nimble-components/.eslintcache` if you encounter stale cache issues.
+
 ## Develop new components
 
 ### Marking a component as incubating

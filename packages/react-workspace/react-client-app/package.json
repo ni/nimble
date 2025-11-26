@@ -7,7 +7,7 @@
     "dev": "vite",
     "check": "tsc -b",
     "build": "npm run check && vite build",
-    "lint": "eslint .",
+    "lint": "node ../../../scripts/lint/run-eslint.mjs .",
     "format": "eslint --fix .",
     "preview": "vite preview"
   },

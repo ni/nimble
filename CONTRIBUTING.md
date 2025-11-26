@@ -124,13 +124,39 @@ The PR pipeline also generates a live Storybook site for each PR. Developers, de
 
 ### Linting
 
-This repository uses automated linting and automated lint formatting. Use `npm run lint` to confirm that your changes match style guidelines. If there are rules that can be autofixed they can be cleaned up by running `npm run format`.
+This repository uses [Lage](https://microsoft.github.io/lage/) to orchestrate linting across workspace packages with caching and parallel execution.
 
-To enable linting and formatting during development, install the recommended VS Code extensions. The list of recommended VS Code extensions can be found in `.vscode/extensions.json`.
+#### Commands
 
-The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+- `npm run lint` - Lint all workspace packages
+- `npm run lint:changed` - Lint only packages changed since `origin/main`
+- `npm run lint:pkg -- @ni/nimble-components` - Lint a specific package
+- `npm run format` - Auto-fix linting and formatting issues
 
-You may wish to have the formatter run every time you save a file. This would help ensure you don't forget to run the formatter and end up with a failing PR build. If you want this behavior, turn it on in your user settings: `File >> Preferences >> Settings >> User >> Text Editor >> Format On Save`. We leave this option unset in the workspace settings so that it does not override the user setting.
+**Which command should I use?**
+
+| Scenario | Command |
+|----------|----------|
+| Changed files in 1-3 packages | `npm run lint:changed` |
+| Working on specific package | `npm run lint:pkg -- @ni/nimble-components` |
+| Before submitting PR | `npm run lint` |
+| Debugging cache issues | Delete `.eslintcache` in affected package, then rerun |
+
+Lage runs packages in dependency order with up to 4 concurrent workers (configurable via `LAGE_CONCURRENCY` environment variable). ESLint cache files (`.eslintcache`) are generated per-package.
+
+#### IDE Integration
+
+Install the recommended VS Code extensions listed in `.vscode/extensions.json` to enable linting during development.
+
+The default formatter should already be configured via `.vscode/settings.json`. To configure manually: `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `Prettier ESLint`.
+
+To auto-format on save, enable it in your user settings: `File >> Preferences >> Settings >> User >> Text Editor >> Format On Save`.
+
+#### Troubleshooting
+
+- **Stale cache**: Delete `.eslintcache` in the affected package directory
+- **Missing targets**: Verify the package has a `lint` script in `package.json`. Run `npx lage info lint` to see the dependency graph
+- **Debug single package**: `cd packages/nimble-components && npm run lint`
 
 ### Watch scripts for development
 

@@ -18,10 +18,14 @@
   "author": "National Instruments",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "node ../../scripts/lint/run-eslint.mjs .",
     "format": "eslint . --fix"
   },
-  "files": ["javascript.js", "typescript.js", "components.js"],
+  "files": [
+    "javascript.js",
+    "typescript.js",
+    "components.js"
+  ],
   "exports": {
     "./javascript": "./javascript.js",
     "./javascript.js": "./javascript.js",

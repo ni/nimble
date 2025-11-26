@@ -102,8 +102,53 @@ jobs:
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
+      # Set BASE_SHA for incremental linting
+      - name: Set BASE_SHA
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "BASE_SHA=${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
+          else
+            echo "BASE_SHA=origin/main" >> $GITHUB_ENV
+          fi
+
+      # Restore lint caches
+      - name: Restore Lage cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .lage/cache
+          key: lage-lint-${{ runner.os }}-${{ hashFiles('package-lock.json', 'lage.config.js', 'scripts/lint/workspaces.json') }}
+          restore-keys: |
+            lage-lint-${{ runner.os }}-
+
+      - name: Restore ESLint caches
+        uses: actions/cache/restore@v4
+        with:
+          path: packages/**/.eslintcache
+          key: eslint-${{ runner.os }}-${{ hashFiles('package-lock.json', 'lage.config.js', 'scripts/lint/workspaces.json') }}
+          restore-keys: |
+            eslint-${{ runner.os }}-
+
       # Validate (Lint and Test)
-      - run: npm run validate
+      - name: Run lint
+        run: npm run lint:ci
+
+      - name: Run tests
+        run: npm run test
+
+      # Save lint caches on success
+      - name: Save Lage cache
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: .lage/cache
+          key: lage-lint-${{ runner.os }}-${{ hashFiles('package-lock.json', 'lage.config.js', 'scripts/lint/workspaces.json') }}
+
+      - name: Save ESLint caches
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: packages/**/.eslintcache
+          key: eslint-${{ runner.os }}-${{ hashFiles('package-lock.json', 'lage.config.js', 'scripts/lint/workspaces.json') }}
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI

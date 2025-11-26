@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "lint": "eslint .",
+    "lint": "node ../../scripts/lint/run-eslint.mjs .",
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish",

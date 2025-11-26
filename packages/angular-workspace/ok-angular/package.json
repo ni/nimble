@@ -3,6 +3,7 @@
   "version": "0.1.4",
   "description": "Angular components for NI OK Components",
   "scripts": {
+    "lint": "ng lint",
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/ok-angular && npm publish",
     "invoke-publish:setup": "cd ../ && npm run build:ok"
   },

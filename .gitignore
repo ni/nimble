@@ -53,6 +53,10 @@ typings/
 # Optional eslint cache
 .eslintcache
 
+# Lage + lint orchestration caches
+.lage/
+.lint-timings/
+
 # Microbundle cache
 .rpt2_cache/
 .rts2_cache_cjs/

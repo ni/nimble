@@ -3,6 +3,7 @@
   "version": "4.7.4",
   "description": "Blazor components for Spright",
   "scripts": {
+    "lint": "echo 'Blazor package linting handled by parent workspace'",
     "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
     "invoke-publish": "npm run invoke-publish:setup && npm run invoke-publish:nuget && npm run invoke-publish:noop -- ",
     "invoke-publish:setup": "rimraf --glob \"../dist/SprightBlazor.*.nupkg\" && npm run pack",

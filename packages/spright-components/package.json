@@ -4,9 +4,9 @@
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
-    "lint": "npm run eslint && npm run prettier",
+    "lint": "node ../../scripts/lint/run-eslint.mjs . && npm run prettier",
     "format": "npm run prettier-fix",
-    "eslint": "eslint .",
+    "eslint": "node ../../scripts/lint/run-eslint.mjs .",
     "eslint-fix": "eslint . --fix",
     "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",
     "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore",

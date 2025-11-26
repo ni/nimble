@@ -3,6 +3,7 @@
   "version": "7.8.4",
   "description": "Angular components for NI Spright",
   "scripts": {
+    "lint": "ng lint",
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/spright-angular && npm publish",
     "invoke-publish:setup": "cd ../ && npm run build:spright"
   },

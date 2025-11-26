@@ -1,29 +1,29 @@
 {
-    "name": "@ni-private/site",
-    "version": "1.0.0",
-    "private": true,
-    "description": "A meta package used for creating GitHub pages site contents",
-    "scripts": {
-        "build": "npm run build:landing && npm run build:eleventy",
-        "build:eleventy": "eleventy",
-        "build:landing": "tsc && vite --config ./vite.config.js build landing",
-        "pack": "npm pack",
-        "lint": "eslint .",
-        "start:eleventy": "eleventy --serve",
-        "start:landing": "vite landing"
-    },
-    "dependencies": {
-        "@ni/nimble-components": "*"
-    },
-    "devDependencies": {
-        "@11ty/eleventy": "^3.0.0",
-        "@ni-private/eslint-config-nimble": "*",
-        "typescript": "~5.4.5",
-        "vite": "^7.0.0"
-    },
-    "files": [
-        "dist",
-        "!*.tgz",
-        "!dist/storybook/blazor-client-app"
-    ]
+  "name": "@ni-private/site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A meta package used for creating GitHub pages site contents",
+  "scripts": {
+    "build": "npm run build:landing && npm run build:eleventy",
+    "build:eleventy": "eleventy",
+    "build:landing": "tsc && vite --config ./vite.config.js build landing",
+    "pack": "npm pack",
+    "lint": "node ../../scripts/lint/run-eslint.mjs .",
+    "start:eleventy": "eleventy --serve",
+    "start:landing": "vite landing"
+  },
+  "dependencies": {
+    "@ni/nimble-components": "*"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@ni-private/eslint-config-nimble": "*",
+    "typescript": "~5.4.5",
+    "vite": "^7.0.0"
+  },
+  "files": [
+    "dist",
+    "!*.tgz",
+    "!dist/storybook/blazor-client-app"
+  ]
 }

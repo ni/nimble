@@ -1,0 +1,18 @@
+# Global directories that should never be linted
+node_modules/
+dist/
+build/
+coverage/
+.lage/
+.lint-timings/
+lage.config.mjs
+**/.eslintcache
+
+# Generated artifacts
+packages/**/dist/
+packages/**/build/
+packages/**/coverage/
+
+# Tooling outputs
+.vscode/
+.DS_Store

@@ -10,7 +10,7 @@
     "build": "npm run compile",
     "compile": "tsc -p tsconfig.json",
     "compile-watch": "tsc -p tsconfig.json -w",
-    "lint": "eslint .",
+    "lint": "node ../../scripts/lint/run-eslint.mjs .",
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish",

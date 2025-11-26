@@ -3,6 +3,7 @@
   "version": "30.9.5",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
+    "lint": "ng lint",
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/nimble-angular && npm publish",
     "invoke-publish:setup": "cd ../ && npm run build:nimble"
   },

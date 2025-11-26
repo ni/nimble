@@ -1,0 +1,165 @@
+{
+  "workspaces": [
+    {
+      "name": "@ni/nimble-components",
+      "path": "packages/nimble-components",
+      "script": "lint",
+      "weight": "heavy",
+      "dependsOn": []
+    },
+    {
+      "name": "@ni/spright-components",
+      "path": "packages/spright-components",
+      "script": "lint",
+      "weight": "heavy",
+      "dependsOn": []
+    },
+    {
+      "name": "@ni/ok-components",
+      "path": "packages/ok-components",
+      "script": "lint",
+      "weight": "heavy",
+      "dependsOn": []
+    },
+    {
+      "name": "@ni/nimble-react",
+      "path": "packages/react-workspace/nimble-react",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/nimble-components"]
+    },
+    {
+      "name": "@ni/spright-react",
+      "path": "packages/react-workspace/spright-react",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/spright-components"]
+    },
+    {
+      "name": "@ni/ok-react",
+      "path": "packages/react-workspace/ok-react",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/ok-components"]
+    },
+    {
+      "name": "@ni-private/react-client-app",
+      "path": "packages/react-workspace/react-client-app",
+      "script": "lint",
+      "weight": "light",
+      "dependsOn": ["@ni/nimble-react", "@ni/spright-react", "@ni/ok-react"]
+    },
+    {
+      "name": "@ni-private/angular-workspace",
+      "path": "packages/angular-workspace",
+      "script": "lint",
+      "weight": "heavy",
+      "dependsOn": ["@ni/nimble-angular", "@ni/spright-angular", "@ni/ok-angular"]
+    },
+    {
+      "name": "@ni/nimble-angular",
+      "path": "packages/angular-workspace/nimble-angular",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/nimble-components"]
+    },
+    {
+      "name": "@ni/spright-angular",
+      "path": "packages/angular-workspace/spright-angular",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/spright-components"]
+    },
+    {
+      "name": "@ni/ok-angular",
+      "path": "packages/angular-workspace/ok-angular",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/ok-components"]
+    },
+    {
+      "name": "@ni-private/blazor-workspace",
+      "path": "packages/blazor-workspace",
+      "script": "lint",
+      "weight": "heavy",
+      "dependsOn": ["@ni/nimble-blazor", "@ni/spright-blazor", "@ni/ok-blazor"]
+    },
+    {
+      "name": "@ni/nimble-blazor",
+      "path": "packages/blazor-workspace/NimbleBlazor",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/nimble-components"]
+    },
+    {
+      "name": "@ni/spright-blazor",
+      "path": "packages/blazor-workspace/SprightBlazor",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/spright-components"]
+    },
+    {
+      "name": "@ni/ok-blazor",
+      "path": "packages/blazor-workspace/OkBlazor",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/ok-components"]
+    },
+    {
+      "name": "@ni/nimble-tokens",
+      "path": "packages/nimble-tokens",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": []
+    },
+    {
+      "name": "@ni-private/eslint-config-nimble",
+      "path": "packages/eslint-config-nimble",
+      "script": "lint",
+      "weight": "light",
+      "dependsOn": []
+    },
+    {
+      "name": "@ni-private/jasmine-extensions",
+      "path": "packages/jasmine-extensions",
+      "script": "lint",
+      "weight": "light",
+      "dependsOn": []
+    },
+    {
+      "name": "@ni/jasmine-parameterized",
+      "path": "packages/jasmine-parameterized",
+      "script": "lint",
+      "weight": "light",
+      "dependsOn": []
+    },
+    {
+      "name": "@ni/xliff-to-json-converter",
+      "path": "packages/xliff-to-json-converter",
+      "script": "lint",
+      "weight": "light",
+      "dependsOn": []
+    },
+    {
+      "name": "@ni-private/storybook",
+      "path": "packages/storybook",
+      "script": "lint",
+      "weight": "heavy",
+      "dependsOn": ["@ni/nimble-components", "@ni/spright-components", "@ni/ok-components"]
+    },
+    {
+      "name": "@ni-private/performance",
+      "path": "packages/performance",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni-private/site"]
+    },
+    {
+      "name": "@ni-private/site",
+      "path": "packages/site",
+      "script": "lint",
+      "weight": "standard",
+      "dependsOn": ["@ni/nimble-components"]
+    }
+  ]
+}

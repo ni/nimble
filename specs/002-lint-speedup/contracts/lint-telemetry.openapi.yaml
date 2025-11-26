@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: Nimble Lint Telemetry Service
+  version: 0.1.0
+  summary: Collects lint runtime artifacts emitted by Lage-based orchestration for analytics and release evidence.
+servers:
+  - url: https://tooling.nimble.ni.dev/lint
+    description: Internal tooling endpoint (CI uploads)
+paths:
+  /v1/lint-runs:
+    post:
+      summary: Upload telemetry for a lint run (local or CI)
+      operationId: createLintRun
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LintRun'
+      responses:
+        '201':
+          description: Telemetry stored successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LintRun'
+        '400':
+          description: Validation error (missing fields, invalid packages)
+        '409':
+          description: A run with the same runId already exists
+  /v1/lint-runs/{runId}:
+    get:
+      summary: Retrieve a lint run manifest + telemetry
+      operationId: getLintRun
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lint run details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LintRun'
+        '404':
+          description: Run not found
+  /v1/lint-runs/{runId}/packages/{workspace}:
+    get:
+      summary: Retrieve telemetry for a single workspace in the run
+      operationId: getWorkspaceTelemetry
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: workspace
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workspace telemetry entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceTelemetry'
+        '404':
+          description: Run or workspace not found
+components:
+  schemas:
+    LintRun:
+      type: object
+      required: [runId, gitSha, timestamp, commandFlags, platform, packages]
+      properties:
+        runId:
+          type: string
+          example: "5c4f1b7d-8f24-4f04-a0fb-2d5e472351a7"
+        gitSha:
+          type: string
+          pattern: "^[0-9a-f]{7,40}$"
+          description: Commit hash linted
+        timestamp:
+          type: string
+          format: date-time
+        platform:
+          type: string
+          enum: [macos, linux, windows]
+        commandFlags:
+          type: array
+          items:
+            type: string
+        cacheKey:
+          type: string
+          description: Hash key used for Lage cache snapshot
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceTelemetry'
+    WorkspaceTelemetry:
+      type: object
+      required: [workspace, durationMs, status]
+      properties:
+        workspace:
+          type: string
+          example: "@ni/nimble-components"
+        durationMs:
+          type: integer
+          minimum: 0
+        status:
+          type: string
+          enum: [success, failed, cached, skipped]
+        cacheHit:
+          type: boolean
+        eslintCacheChecksum:
+          type: string
+          description: SHA256 of `.eslintcache` file for release evidence
+        errorSummary:
+          type: string
+          description: Optional lint failure output (first 20 lines)
+        weight:
+          type: string
+          enum: [light, standard, heavy]
+        workerId:
+          type: string
+        logUrl:
+          type: string
+          format: uri
+          description: Link to CI log segment for this workspace
