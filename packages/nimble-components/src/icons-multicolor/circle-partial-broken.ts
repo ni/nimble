@@ -25,7 +25,7 @@ declare global {
  */
 export class IconCirclePartialBroken extends MultiColorIcon {
     public constructor() {
-        super(circlePartialBroken16X16);
+        super(circlePartialBroken16X16 as any);
     }
 }
 

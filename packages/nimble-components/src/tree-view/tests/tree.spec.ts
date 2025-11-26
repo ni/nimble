@@ -1,5 +1,5 @@
 import { html, ref } from '@ni/fast-element';
-import { notebook16X16 } from '@ni/nimble-tokens/dist/icons/js';
+import { notebook16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
 import { keyEnter } from '@ni/fast-web-utilities';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { clickElement } from '../../utilities/testing/component';

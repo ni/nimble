@@ -6,7 +6,10 @@
  */
 
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist/icons/js';
+import * as singleIcons from '@ni/nimble-tokens/dist/icons/js/single';
+import * as multiColorIconsData from '@ni/nimble-tokens/dist/icons/js/multicolor';
+
+const icons = { ...singleIcons, ...multiColorIconsData };
 
 const fs = require('fs');
 const path = require('path');

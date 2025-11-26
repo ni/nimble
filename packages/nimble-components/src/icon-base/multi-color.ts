@@ -1,4 +1,4 @@
-import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
+import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js/single';
 import { type ElementStyles, css } from '@ni/fast-element';
 import { Icon, registerIcon } from '.';
 import { multiColorStyles } from './multi-color-styles';
