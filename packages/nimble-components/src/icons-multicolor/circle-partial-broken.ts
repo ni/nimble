@@ -6,6 +6,7 @@ import {
     MultiColorIcon,
     registerMultiColorIcon
 } from '../icon-base/multi-color';
+import type { NimbleIcon } from '../icon-base';
 import {
     bodyDisabledFontColor,
     warningColor
@@ -25,7 +26,7 @@ declare global {
  */
 export class IconCirclePartialBroken extends MultiColorIcon {
     public constructor() {
-        super(circlePartialBroken16X16 as any);
+        super(circlePartialBroken16X16 as NimbleIcon);
     }
 }
 

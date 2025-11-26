@@ -1,12 +1,13 @@
 import { attr, type ElementStyles, type ViewTemplate } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import type { NimbleIconName as NimbleIconNameSingle } from '@ni/nimble-tokens/dist/icons/js/single';
-import type { NimbleIconName as NimbleIconNameMultiColor } from '@ni/nimble-tokens/dist/icons/js/multicolor';
 import { template } from './template';
 import { styles } from './styles';
 import type { IconSeverity } from './types';
 
-export type NimbleIcon = { name: string; data: string };
+export interface NimbleIcon {
+    name: string;
+    data: string;
+}
 
 /**
  * The base class for icon components
@@ -45,11 +46,12 @@ export const registerIcon = (
     customTemplate?: ViewTemplate,
     additionalStyles?: ElementStyles | ElementStyles[]
 ): void => {
-    const extraStyles = additionalStyles
-        ? Array.isArray(additionalStyles)
+    let extraStyles: ElementStyles[] = [];
+    if (additionalStyles) {
+        extraStyles = Array.isArray(additionalStyles)
             ? additionalStyles
-            : [additionalStyles]
-        : [];
+            : [additionalStyles];
+    }
 
     const composedIcon = iconClass.compose({
         baseName,
