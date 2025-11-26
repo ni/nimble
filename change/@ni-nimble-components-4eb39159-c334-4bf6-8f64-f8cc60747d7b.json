@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "test: migrate tests to vitest",
+  "packageName": "@ni/nimble-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
