@@ -1,6 +1,5 @@
-import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
 import { type ElementStyles, css } from '@ni/fast-element';
-import { Icon, registerIcon } from '.';
+import { Icon, registerIcon, type NimbleIcon } from '.';
 import { multiColorStyles } from './multi-color-styles';
 
 // Note: This constant is duplicated in packages/nimble-tokens/build/validate-icons.cjs

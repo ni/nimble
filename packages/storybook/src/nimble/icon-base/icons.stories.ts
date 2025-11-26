@@ -26,8 +26,8 @@ type IconName = keyof typeof nimbleIconComponentsMap;
 Object.values(nimbleIconComponentsMap);
 
 const data = Object.entries(nimbleIconComponentsMap).map(([iconClassName]) => {
-    // For multi-color icons, the actual registered class is a wrapper created by
-    // createMultiColorIconClass, so customElements.getName(iconClass) returns undefined.
+    // The exported class is not the one directly registered with customElements.define
+    // (FAST creates a subclass via compose), so customElements.getName(iconClass) returns undefined.
     // Instead, derive the tag name from the class name.
     // IconCirclePartialBroken -> icon-circle-partial-broken -> nimble-icon-circle-partial-broken
     const iconName = iconClassName.replace(/^Icon/, ''); // Remove 'Icon' prefix

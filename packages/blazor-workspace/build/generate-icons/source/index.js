@@ -6,7 +6,12 @@
  */
 
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist/icons/js';
+import * as singleIcons from '@ni/nimble-tokens/dist/icons/js/single';
+import * as multiColorIconsData from '@ni/nimble-tokens/dist/icons/js/multicolor';
+import { multiColorIcons } from '@ni/nimble-components/dist/esm/icon-base/tests/icon-multicolor-metadata';
+
+const icons = { ...singleIcons, ...multiColorIconsData };
+const multiColorIconSet = new Set(multiColorIcons);
 
 const fs = require('fs');
 const path = require('path');
@@ -39,11 +44,14 @@ for (const key of Object.keys(icons)) {
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
     const componentName = `Nimble${className}`; // e.g. "NimbleIconArrowExpanderLeft"
 
+    const isMultiColor = multiColorIconSet.has(spinalCase(iconName));
+    const severityAttribute = isMultiColor ? '' : 'severity="@Severity.ToAttributeValue()"';
+
     const directiveFileContents = `${generatedFilePrefix}
 @namespace NimbleBlazor
 @inherits NimbleIconBase
 <${elementName}
-    severity="@Severity.ToAttributeValue()"
+    ${severityAttribute}
     @attributes="AdditionalAttributes">
 </${elementName}>
  `;

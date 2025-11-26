@@ -1,9 +1,12 @@
 import { attr, type ElementStyles, type ViewTemplate } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
+import type { NimbleIcon as SingleNimbleIcon } from '@ni/nimble-tokens/dist/icons/js/single';
+import type { NimbleIcon as MultiColorNimbleIcon } from '@ni/nimble-tokens/dist/icons/js/multicolor';
 import { template } from './template';
 import { styles } from './styles';
 import type { IconSeverity } from './types';
+
+export type NimbleIcon = SingleNimbleIcon | MultiColorNimbleIcon;
 
 /**
  * The base class for icon components
