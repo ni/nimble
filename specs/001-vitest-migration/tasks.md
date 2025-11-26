@@ -57,11 +57,11 @@
 ## Phase 7: Polish & Cleanup
 *Goal: Remove legacy stack and finalize.*
 
-- [ ] T026 Remove Karma, Webpack (including `karma-webpack`, `terser-webpack-plugin`, etc.), and Jasmine dependencies from `package.json` (Verify Storybook build passes after removal)
-- [ ] T027 Delete `karma.conf.js` and `karma.conf.headless.js`
-- [ ] T028 Rename `test:vitest` script to `test` in `package.json`
-- [ ] T029 Update `packages/nimble-components/CONTRIBUTING.md` with new testing instructions
-- [ ] T031 Generate beachball change file for the migration
+- [x] T026 Remove Karma, Webpack (including `karma-webpack`, `terser-webpack-plugin`, etc.), and Jasmine dependencies from `package.json` (Verify Storybook build passes after removal)
+- [x] T027 Delete `karma.conf.js` and `karma.conf.headless.js`
+- [x] T028 Rename `test:vitest` script to `test` in `package.json`
+- [x] T029 Update `packages/nimble-components/CONTRIBUTING.md` with new testing instructions
+- [x] T031 Generate beachball change file for the migration
 
 ## Dependencies
 
