@@ -2,7 +2,8 @@
     "compilerOptions": {
         "declaration": true,
         "esModuleInterop": true,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
+        "skipLibCheck": true,
         "outDir": "dist/esm",
         "strict": true,
         "experimentalDecorators": true,
@@ -21,12 +22,13 @@
             "ES2017.Object"
         ],
         // Whitelist imported @types instead of using them all
-        "types": ["jasmine", "webpack-env", "offscreencanvas"],
+        "types": ["vitest/globals", "webpack-env", "offscreencanvas"],
         "verbatimModuleSyntax": true,
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": false,
         "jsx": "preserve"
     },
-    "include": ["src"]
+    "include": ["src", "vitest.config.ts", "src/utilities/tests/vitest.d.ts"],
+    "exclude": ["node_modules/@types/jasmine"]
 }

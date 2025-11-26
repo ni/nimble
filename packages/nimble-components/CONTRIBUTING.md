@@ -423,25 +423,23 @@ The 'Constrained Mixin' pattern is used for applying mixins that are defined wit
 
 ## Unit tests
 
-Unit tests are written using karma and jasmine in files named `<component-name>.spec.ts`.
+Unit tests are written using Vitest in files named `<component-name>.spec.ts`.
 
 The following commands can be run from the `nimble` directory:
 
 ### Development commands
 
-- `npm run tdd:watch -w @ni/nimble-components`: Starts a process for building the components and running the test suite on file changes.
+- `npm run test:vitest:watch -w @ni/nimble-components`: Starts a process for building the components and running the test suite on file changes.
 
-    This command runs headlessly. See [Debugging commands](#debugging-commands) if you need to see the browser or set breakpoints while running.
+- `npm run test:vitest -w @ni/nimble-components`: Similar to the corresponding `test:vitest:watch` command but only runs once. Useful for infrastructure changes which do not trigger the watch command.
 
-- `npm run tdd -w @ni/nimble-components`: Similar to the corresponding `tdd:watch` command but only runs once. Useful for infrastructure changes which do not trigger the watch command.
+- `npm run test:vitest:ui -w @ni/nimble-components`: Opens the Vitest UI for viewing and running tests.
 
 ### Debugging commands
 
-- `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
+- **VS Code Debugging**: Open the test file you want to debug, set breakpoints, and run the "Debug Current Test File" launch configuration from the Run and Debug view.
 
-    You can also take the page url and open it in a different browser to test interactively.
-
-- `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
+- `npm run test:vitest:ui -w @ni/nimble-components`: The Vitest UI can also be used for debugging.
 
 ### Test utilities
 
