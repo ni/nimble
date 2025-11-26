@@ -15,9 +15,9 @@ module.exports = {
             files: ['*.ts'],
             extends: ['@ni-private/eslint-config-nimble/components'],
             parserOptions: {
-                project: './tsconfig.json',
+                project: './tsconfig.eslint.json',
                 tsconfigRootDir: __dirname
-            },
+            }
         },
         {
             files: ['build/**/*.js'],
@@ -25,8 +25,8 @@ module.exports = {
                 // Build scripts should give verbose logging
                 'no-console': 'off',
                 // Rollup config files use default exports
-                'import/no-default-export': 'off',
-            },
+                'import/no-default-export': 'off'
+            }
         }
     ]
 };
