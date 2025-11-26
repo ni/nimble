@@ -8,10 +8,12 @@ const packageRoot = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
     root: packageRoot,
+    base: './',
     server: {
         fs: {
             // Ensure Vite serves files from packageRoot only
-            allow: [packageRoot]
+            allow: [packageRoot],
+            strict: true
         }
     },
     test: {
@@ -30,10 +32,14 @@ export default defineConfig({
                 }
             ],
             headless: true,
-            screenshotFailures: true
+            screenshotFailures: true,
+            // Isolate each test file for more stable execution in CI
+            isolate: true
         },
         // Increase timeout for browser tests (default is 5000ms)
         testTimeout: 10000,
+        // Retry flaky tests once in CI
+        retry: process.env.CI ? 1 : 0,
         setupFiles: [
             resolve(packageRoot, 'src/utilities/tests/setup-vitest.ts')
         ],
