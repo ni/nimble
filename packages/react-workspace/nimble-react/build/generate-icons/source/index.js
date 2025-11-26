@@ -4,7 +4,7 @@
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
 import * as singleIcons from '@ni/nimble-tokens/dist/icons/js/single';
 import * as multiColorIconsData from '@ni/nimble-tokens/dist/icons/js/multicolor';
-import { multiColorIcons } from '@ni/nimble-components/dist/esm/icon-base/tests/icon-multicolor-metadata';
+import { multiColorIcons } from '@ni/nimble-components/dist/esm/icon-base/icon-multicolor-metadata';
 
 const icons = { ...singleIcons, ...multiColorIconsData };
 

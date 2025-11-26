@@ -342,7 +342,7 @@ Most icons use a single theme-aware color (controlled by the `severity` attribut
     - Reuse the same class for shapes that should share a color
     - Don't skip class numbers (e.g., don't jump from `cls-1` to `cls-3`)
 
-2. **Add to metadata:** In `src/icon-base/tests/icon-multicolor-metadata.ts`, add the icon name (spinal-case) to the `multiColorIcons` array:
+2. **Add to metadata:** In `src/icon-base/icon-multicolor-metadata.ts`, add the icon name (spinal-case) to the `multiColorIcons` array:
 
     ```ts
     export const multiColorIcons = [

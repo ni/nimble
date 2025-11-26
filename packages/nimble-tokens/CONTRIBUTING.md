@@ -73,7 +73,7 @@ These steps require access to Adobe Illustrator and Perforce so will typically b
    - For icons that need multiple theme colors, see the **Creating Multi-Color Icons** section in `/packages/nimble-components/CONTRIBUTING.md`. In the SVG, assign sequential CSS classes (`cls-1`, `cls-2`, etc.) to regions that should use different theme colors.
 2. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
 3. Generate and build icon components by running `npm run build -w @ni/nimble-components`. This step will report an error at this point but is necessary to enable the next step.
-4. Add metadata for the new icons to `nimble-components/src/icon-base/tests/icon-metadata.ts`. If the icon uses multiple color layers, add a `layers: string[]` array to the `Icon<Name>` entry; each string must be a token exported from `theme-provider/design-tokens.ts` in the order matching `cls-1`, `cls-2`, … (maximum 6 layers).
+4. Add metadata for the new icons to `nimble-components/src/icon-base/tests/icon-metadata.ts`. If the icon uses multiple color layers, also add its spinal-case name to `nimble-components/src/icon-base/icon-multicolor-metadata.ts` so the build scripts treat it as a multi-color icon.
 5. Run `npm run build -w @ni/nimble-components` again. It should now succeed.
 6. Preview the built files by running: `npm run storybook`, and review the **Icons** story. Verify single‑color icons change with **Severity** and multi‑color icons render their layers as intended in light/dark themes.
 7. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.

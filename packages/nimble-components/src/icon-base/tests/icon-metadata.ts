@@ -6,7 +6,7 @@
  * - Multi-color icon list is imported from icon-multicolor-metadata
  *   to avoid duplication and ensure consistency across build scripts and metadata
  */
-import { multiColorIcons } from './icon-multicolor-metadata';
+import { multiColorIcons } from '../icon-multicolor-metadata';
 import type * as IconsNamespace from '../../icons/all-icons';
 
 type IconName = keyof typeof IconsNamespace;
