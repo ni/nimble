@@ -1,0 +1,40 @@
+diff --git a/node_modules/glob-hasher/index.js b/node_modules/glob-hasher/index.js
+index b1662c4..a32752d 100644
+--- a/node_modules/glob-hasher/index.js
++++ b/node_modules/glob-hasher/index.js
+@@ -102,15 +102,19 @@ switch (platform) {
+     }
+     break
+   case 'darwin':
+-    localFileExisted = existsSync(join(__dirname, 'glob-hasher.darwin-universal.node'))
+-    try {
+-      if (localFileExisted) {
+-        nativeBinding = require('./glob-hasher.darwin-universal.node')
+-      } else {
+-        nativeBinding = require('glob-hasher-darwin-universal')
++    if (!nativeBinding) {
++      localFileExisted = existsSync(join(__dirname, 'glob-hasher.darwin-universal.node'))
++      try {
++        if (localFileExisted) {
++          nativeBinding = require('./glob-hasher.darwin-universal.node')
++        } else {
++          nativeBinding = require('glob-hasher-darwin-universal')
++        }
++      } catch (e) {
++        loadError = e
+       }
+-      break
+-    } catch {}
++    }
++    if (!nativeBinding) {
+     switch (arch) {
+       case 'x64':
+         localFileExisted = existsSync(join(__dirname, 'glob-hasher.darwin-x64.node'))
+@@ -141,6 +145,7 @@ switch (platform) {
+       default:
+         throw new Error(`Unsupported architecture on macOS: ${arch}`)
+     }
++    }
+     break
+   case 'freebsd':
+     if (arch !== 'x64') {

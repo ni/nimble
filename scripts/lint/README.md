@@ -98,6 +98,67 @@ npm run format
 - **Local (full lint)**: ≤ 2 minutes
 - **CI (full lint)**: ≤ 1.5 minutes
 
+## Test and Validate Orchestration
+
+In addition to linting, Lage orchestrates test execution and validation workflows across the monorepo.
+
+### Test Pipeline
+
+The test pipeline runs unit tests for all packages with caching support:
+
+```bash
+# Run all tests (respects cache)
+npm run test
+
+# Run tests for specific package
+npx lage run test --scope @ni/nimble-components
+
+# Run tests for multiple packages
+npx lage run test --scope @ni/nimble-components --scope @ni/jasmine-extensions
+
+# Run tests for changed packages only
+npx lage run test --since origin/main
+```
+
+**Browser-Specific Tests**: WebKit and Firefox tests are NOT orchestrated by Lage. Run them directly:
+
+```bash
+# Run WebKit tests for nimble-components
+npm run test:vitest:webkit -w @ni/nimble-components
+
+# Run Firefox tests for nimble-components
+npm run test:vitest:firefox -w @ni/nimble-components
+```
+
+### Validate Pipeline
+
+The validate pipeline runs both lint and test tasks with dependency management:
+
+```bash
+# Run full validation (lint + test for all packages)
+npm run validate
+
+# Validate specific package
+npx lage run validate --scope @ni/nimble-components
+
+# Validate only changed packages
+npx lage run validate --since origin/main
+```
+
+The validate pipeline ensures lint tasks complete before test tasks via `dependsOn: ['^lint', '^test']`.
+
+### Cache Behavior for Tests
+
+- **Test caching enabled**: Tests are cached based on source file changes
+- **Cache invalidation**: When test files, source files, or dependencies change
+- **Clear test cache**: `rm -rf .lage/cache` before running tests
+
+### Performance Expectations
+
+- **Warm cache (no changes)**: < 5 seconds for validate
+- **Cold cache (full validation)**: Varies by package count and test suite size
+- **CI concurrency**: 8 workers (vs 4 local) for faster parallel execution
+
 ## Troubleshooting
 
 **Stale cache issues**: Delete the cache directory and re-run

@@ -5,7 +5,6 @@
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
     "lint": "node ../../scripts/lint/run-eslint.mjs . && npm run prettier",
-    "lint-concurrent": "concurrently --pad-prefix --timings --group \"npm:eslint\" \"npm:prettier\"",
     "format": "npm run prettier-fix",
     "eslint": "node ../../scripts/lint/run-eslint.mjs .",
     "eslint-fix": "eslint . --fix",
@@ -27,7 +26,6 @@
     "generate-workers:build": "tsc -p build/generate-workers/tsconfig.json",
     "generate-workers:bundle": "rollup --bundleConfigAsCjs --config build/generate-workers/rollup.config.js",
     "generate-workers:run": "node build/generate-workers/index.js",
-    "test-concurrent": "concurrently --pad-prefix --timings --group \"npm:test\" \"npm:test:vitest:webkit\"",
     "test": "vitest run",
     "test:vitest:watch": "vitest",
     "test:vitest:firefox": "BROWSER=firefox vitest run",
@@ -105,7 +103,6 @@
     "@vitest/browser-playwright": "^4.0.14",
     "@vitest/coverage-v8": "^4.0.14",
     "@vitest/ui": "^4.0.14",
-    "concurrently": "^9.0.0",
     "playwright": "^1.54.1",
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",

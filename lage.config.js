@@ -51,6 +51,23 @@ const config = {
                 const resolvedWeight = resolveWeight(target.packageName);
                 return Math.min(resolvedWeight ?? 2, maxWorkers);
             }
+        },
+        test: {
+            dependsOn: ['^test'],
+            cache: true,
+            inputs: [
+                'package-lock.json',
+                'lage.config.js'
+            ],
+            outputs: [],
+            weight: (target, maxWorkers = 4) => {
+                const resolvedWeight = resolveWeight(target.packageName);
+                return Math.min(resolvedWeight ?? 2, maxWorkers);
+            }
+        },
+        validate: {
+            dependsOn: ['^lint', '^test'],
+            cache: false
         }
     },
     cacheOptions: {
@@ -75,11 +92,18 @@ const config = {
     ],
     priorities: workspaces
         .filter((workspace) => workspace.weight === 'heavy')
-        .map((workspace) => ({
-            package: workspace.name,
-            task: 'lint',
-            priority: 10
-        }))
+        .flatMap((workspace) => [
+            {
+                package: workspace.name,
+                task: 'lint',
+                priority: 10
+            },
+            {
+                package: workspace.name,
+                task: 'test',
+                priority: 10
+            }
+        ])
 };
 
 module.exports = config;
