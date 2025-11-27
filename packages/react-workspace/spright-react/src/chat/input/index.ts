@@ -3,6 +3,7 @@ import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/c
 import { wrap, type EventName } from '../../utilities/react-wrapper';
 
 export { type ChatInput };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 export const SprightChatInput = wrap(ChatInput, {
     events: {
         onSend: 'send' as EventName<ChatInputSendEvent>,
