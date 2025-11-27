@@ -147,14 +147,67 @@ npx lage run validate --since origin/main
 
 The validate pipeline ensures lint tasks complete before test tasks via `dependsOn: ['^lint', '^test']`.
 
-### Cache Behavior for Tests
+### Build Pipeline
 
-- **Test caching enabled**: Tests are cached based on source file changes
-- **Cache invalidation**: When test files, source files, or dependencies change
-- **Clear test cache**: `rm -rf .lage/cache` before running tests
+The build pipeline orchestrates package builds across the monorepo with intelligent caching and parallel execution:
+
+```bash
+# Build all packages (respects cache)
+npm run build
+
+# Build specific package + dependencies
+npx lage run build --scope @ni/nimble-components
+
+# Build multiple packages + dependencies
+npx lage run build --scope @ni/nimble-components --scope @ni/spright-components
+
+# Build only changed packages since main
+npx lage run build --since origin/main
+```
+
+**Watch Mode**: Watch mode scripts remain package-specific for optimal incremental compilation:
+
+```bash
+# Watch nimble-components (TypeScript incremental compilation)
+npm run build-components:watch -w @ni/nimble-components
+
+# Watch nimble-tokens
+npm run build:ts:watch -w @ni/nimble-tokens
+```
+
+**Why not Lage for watch mode?** TypeScript's `tsc -w` provides faster incremental compilation by recompiling only changed files. Lage would rebuild entire packages on every change, which is slower for active development.
+
+### Cache Behavior
+
+**Test Cache** is invalidated when:
+- Test files change (`spec/**`, `src/**/*.spec.ts`)
+- Source files change (`src/**`)
+- Configuration changes (`karma.conf.js`, `vitest.config.ts`, `package.json`)
+- Dependencies change (`package-lock.json`)
+- Lage config changes (`lage.config.js`)
+
+**Note**: Test cache doesn't consider test results - if tests fail, they'll still be cached. Use `--no-cache` to bypass unreliable tests.
+
+**Build Cache** is invalidated when:
+- Source files change (`src/**`, `source/**`)
+- Configuration changes (`tsconfig.json`, `rollup.config.js`, `vite.config.ts`, `package.json`)
+- Build scripts change (`build/**`)
+- Dependencies change (`package-lock.json`)
+- Lage config changes (`lage.config.js`)
+
+Build outputs (`dist/**`, `lib/**`) are restored from cache when inputs match previously successful builds.
+
+**Clear cache**: `rm -rf .lage/cache` or `npx lage run <task> --no-cache`
 
 ### Performance Expectations
 
+**Build Pipeline**:
+- **Warm cache (no changes)**: < 5 seconds
+- **Cold cache (full build)**: < 4 minutes local, < 3 minutes CI
+- **Incremental build**: < 30 seconds for typical changes
+- **Cache hit rate**: > 90% in normal development
+
+**Test Pipeline**:
 - **Warm cache (no changes)**: < 5 seconds for validate
 - **Cold cache (full validation)**: Varies by package count and test suite size
 - **CI concurrency**: 8 workers (vs 4 local) for faster parallel execution

@@ -65,6 +65,30 @@ const config = {
                 return Math.min(resolvedWeight ?? 2, maxWorkers);
             }
         },
+        build: {
+            dependsOn: ['^build'],
+            cache: true,
+            inputs: [
+                'src/**',
+                'source/**',
+                'package.json',
+                'tsconfig.json',
+                'rollup.config.js',
+                'vite.config.ts',
+                'build/**',
+                'package-lock.json',
+                'lage.config.js'
+            ],
+            outputs: [
+                'dist/**',
+                'lib/**',
+                'build/**'
+            ],
+            weight: (target, maxWorkers = 4) => {
+                const resolvedWeight = resolveWeight(target.packageName);
+                return Math.min(resolvedWeight ?? 2, maxWorkers);
+            }
+        },
         validate: {
             dependsOn: ['^lint', '^test'],
             cache: false
@@ -101,6 +125,11 @@ const config = {
             {
                 package: workspace.name,
                 task: 'test',
+                priority: 10
+            },
+            {
+                package: workspace.name,
+                task: 'build',
                 priority: 10
             }
         ])

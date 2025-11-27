@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add Lage orchestration for monorepo builds with caching and parallel execution. Build times reduced from ~10 minutes to <5 seconds (warm cache) or ~3-4 minutes (cold cache with parallelism).",
+  "packageName": "@ni-private/nimble",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
