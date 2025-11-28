@@ -69,5 +69,8 @@
     "patch-package": "^8.0.1",
     "playwright": "1.54.1",
     "tsx": "^4.20.6"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.53.3"
   }
 }
