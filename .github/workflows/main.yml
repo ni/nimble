@@ -62,7 +62,7 @@ jobs:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-        timeout-minutes: 10
+        timeout-minutes: 20
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
