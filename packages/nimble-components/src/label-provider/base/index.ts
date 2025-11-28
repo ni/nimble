@@ -10,10 +10,11 @@ export type DesignTokensFor<ObjectT> = {
  * Base class for label providers
  */
 export abstract class LabelProviderBase<
-    SupportedLabels extends { [key: string]: DesignToken<string> }
->
+        SupportedLabels extends { [key: string]: DesignToken<string> }
+    >
     extends FoundationElement
-    implements Subscriber {
+    implements Subscriber
+{
     protected abstract supportedLabels: SupportedLabels;
 
     private readonly propertyNotifier: Notifier = Observable.getNotifier(this);
@@ -59,7 +60,8 @@ export abstract class LabelProviderBase<
             for (const [property, token] of Object.entries(
                 this.supportedLabels
             )) {
-                const value = this[property as keyof LabelProviderBase<SupportedLabels>];
+                const value =
+                    this[property as keyof LabelProviderBase<SupportedLabels>];
                 if (value === null || value === undefined) {
                     token.deleteValueFor(this.themeProvider);
                 } else {

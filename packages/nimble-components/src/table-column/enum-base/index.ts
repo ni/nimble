@@ -33,11 +33,12 @@ export interface TableColumnEnumColumnConfig
  * Base class for table columns that map values to content
  */
 export abstract class TableColumnEnumBase<
-    TColumnConfig extends TableColumnEnumColumnConfig,
-    TEnumValidator extends TableColumnEnumBaseValidator<[]>
->
+        TColumnConfig extends TableColumnEnumColumnConfig,
+        TEnumValidator extends TableColumnEnumBaseValidator<[]>
+    >
     extends TableColumn<TColumnConfig, TEnumValidator>
-    implements Subscriber {
+    implements Subscriber
+{
     /** @internal */
     public mappingNotifiers: Notifier[] = [];
 

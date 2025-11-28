@@ -192,7 +192,8 @@ describe('TableRow', () => {
             element.selected = false;
             await connect();
 
-            const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+            const spy =
+                jasmine.createSpy<TableRowSelectionToggleEventHandler>();
             const listener = waitForEvent(element, 'row-selection-toggle', spy);
             element.selectionCheckbox!.click();
             await listener;
@@ -212,7 +213,8 @@ describe('TableRow', () => {
             element.selected = true;
             await connect();
 
-            const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+            const spy =
+                jasmine.createSpy<TableRowSelectionToggleEventHandler>();
             const listener = waitForEvent(element, 'row-selection-toggle', spy);
             element.selectionCheckbox!.click();
             await listener;
@@ -269,7 +271,8 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
 
-            const spy = jasmine.createSpy<TableRowExpansionToggleEventHandler>();
+            const spy =
+                jasmine.createSpy<TableRowExpansionToggleEventHandler>();
             const listener = waitForEvent(element, 'row-expand-toggle', spy);
             expandCollapseButton!.click();
             await listener;
@@ -292,7 +295,8 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
 
-            const spy = jasmine.createSpy<TableRowExpansionToggleEventHandler>();
+            const spy =
+                jasmine.createSpy<TableRowExpansionToggleEventHandler>();
             const listener = waitForEvent(element, 'row-expand-toggle', spy);
             element.expanded = true;
             expandCollapseButton!.click();
@@ -378,7 +382,8 @@ describe('TableRow', () => {
 
         beforeEach(async () => {
             columnReferences = new ColumnReferences();
-            ({ element, connect, disconnect } = await setupTable(columnReferences));
+            ({ element, connect, disconnect } =
+                await setupTable(columnReferences));
             await connect();
             await element.setData([
                 {

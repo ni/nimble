@@ -11,7 +11,8 @@ export abstract class ScaledUnitFormat {
         scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
     ) {
         this.locale = scaledUnitFormatFactoryOptions.locale;
-        this.intlNumberFormatOptions = scaledUnitFormatFactoryOptions.intlNumberFormatOptions;
+        this.intlNumberFormatOptions =
+            scaledUnitFormatFactoryOptions.intlNumberFormatOptions;
     }
 
     public abstract format(value: number): string;

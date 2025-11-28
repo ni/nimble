@@ -39,13 +39,13 @@ export class NumberTextUnitFormat extends UnitFormat {
     public optionsMatch(targetOptions?: NumberTextUnitFormatOptions): boolean {
         const targetResolvedOptions = this.resolveOptions(targetOptions);
         return (
-            this._resolvedOptions.decimalDigits
-                === targetResolvedOptions.decimalDigits
-            && this._resolvedOptions.decimalMaximumDigits
-                === targetResolvedOptions.decimalMaximumDigits
-            && this._resolvedOptions.numberTextFormat
-                === targetResolvedOptions.numberTextFormat
-            && this._resolvedOptions.unitScale === targetResolvedOptions.unitScale
+            this._resolvedOptions.decimalDigits ===
+                targetResolvedOptions.decimalDigits &&
+            this._resolvedOptions.decimalMaximumDigits ===
+                targetResolvedOptions.decimalMaximumDigits &&
+            this._resolvedOptions.numberTextFormat ===
+                targetResolvedOptions.numberTextFormat &&
+            this._resolvedOptions.unitScale === targetResolvedOptions.unitScale
         );
     }
 
@@ -95,7 +95,8 @@ export class NumberTextUnitFormat extends UnitFormat {
             };
         }
         const hasDecimalDigits = typeof options.decimalDigits === 'number';
-        const hasDecimalMaximumDigits = typeof options.decimalMaximumDigits === 'number';
+        const hasDecimalMaximumDigits =
+            typeof options.decimalMaximumDigits === 'number';
         if (hasDecimalDigits && hasDecimalMaximumDigits) {
             throw new Error(
                 'decimalDigits and decimalMaximumDigits are mutually exclusive. Do not specify both.'

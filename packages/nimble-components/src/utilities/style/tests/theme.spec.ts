@@ -26,69 +26,69 @@ class ThemedElement extends FASTElement {
             --private-prop: theme-unset;
         }
     `.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
+        themeBehavior(
+            Theme.light,
+            css`
                 div {
                     --private-prop: theme-light;
                 }
             `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
+        ),
+        themeBehavior(
+            Theme.dark,
+            css`
                 div {
                     --private-prop: theme-dark;
                 }
             `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
+        ),
+        themeBehavior(
+            Theme.color,
+            css`
                 div {
                     --private-prop: theme-color;
                 }
             `
-            )
-        );
+        )
+    );
 
     public static sharedDarkColorBehaviorsStyles = css`
         div {
             --private-prop: theme-unset;
         }
     `.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
+        themeBehavior(
+            Theme.light,
+            css`
                 div {
                     --private-prop: theme-light;
                 }
             `
-            ),
-            themeBehavior(
-                [Theme.dark, Theme.color],
-                css`
+        ),
+        themeBehavior(
+            [Theme.dark, Theme.color],
+            css`
                 div {
                     --private-prop: theme-dark;
                 }
             `
-            )
-        );
+        )
+    );
 
     public static unsetDarkColorBehaviorsStyles = css`
         div {
             --private-prop: theme-unset;
         }
     `.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
+        themeBehavior(
+            Theme.light,
+            css`
                 div {
                     --private-prop: theme-light;
                 }
             `
-            )
-        );
+        )
+    );
 
     public themeTarget!: HTMLDivElement;
 

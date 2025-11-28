@@ -320,11 +320,14 @@ interface HeaderContentTableArgs extends SharedTableArgs {
     headerText: string;
 }
 
-const headerContentIntro = 'The content of each column header comes from whatever is slotted in the column element.';
+const headerContentIntro =
+    'The content of each column header comes from whatever is slotted in the column element.';
 const headerTextContent = `If you provide only text content (or text content inside a \`<span>\`), Nimble will style it
 and add a \`title\` to show a tooltip when truncated.`;
-const headerIconContent = 'If you provide icon content, you should set your own `title` on the icon element.';
-const headerTitleContent = 'Titles should use "Headline Casing" and Nimble will automatically capitalize them for display in the header.';
+const headerIconContent =
+    'If you provide icon content, you should set your own `title` on the icon element.';
+const headerTitleContent =
+    'Titles should use "Headline Casing" and Nimble will automatically capitalize them for display in the header.';
 const headerContentDescription = `${headerContentIntro} ${headerTextContent} ${headerIconContent} ${headerTitleContent}`;
 const headerTextContentDescription = `${headerContentIntro} ${headerTextContent} ${headerTitleContent}`;
 const headerIconContentDescription = `${headerContentIntro} ${headerIconContent} ${headerTitleContent}`;
@@ -381,7 +384,8 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
     }
 };
 
-const columnHiddenDescription = 'Columns can be added to the table but hidden from display. One use case for this is to sort by a field but not display its value.';
+const columnHiddenDescription =
+    'Columns can be added to the table but hidden from display. One use case for this is to sort by a field but not display its value.';
 
 interface ColumnHiddenTableArgs extends SharedTableArgs {
     columnHidden: boolean;
@@ -492,9 +496,9 @@ interface SortingTableArgs extends SharedTableArgs {
         columnId: string,
         args: SortingTableArgs
     ) => {
-        direction: TableColumnSortDirection,
-        sortingDisabled: boolean,
-        index: number | undefined
+        direction: TableColumnSortDirection;
+        sortingDisabled: boolean;
+        index: number | undefined;
     };
 }
 
@@ -582,9 +586,9 @@ export const sorting: StoryObj<SortingTableArgs> = {
             columnId: string,
             args: SortingTableArgs
         ): {
-            direction: TableColumnSortDirection,
-            sortingDisabled: boolean,
-            index: number | undefined
+            direction: TableColumnSortDirection;
+            sortingDisabled: boolean;
+            index: number | undefined;
         } => {
             const sortData = sortedOptions[args.sortedColumns];
             const matchingIndex = sortData.findIndex(
@@ -680,7 +684,8 @@ There will be a collapsible row per unique value in a given column. When \`group
 configured with a \`group-index\`, the precedence is determined by the value of \`group-index\` on each column. Grouping is based on the underlying field values in the column,
 not the rendered values.`;
 
-const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
+const groupingDisabledDescription =
+    'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
 
 interface GroupingTableArgs extends SharedTableArgs {
     groupedColumns: ExampleGroupType;

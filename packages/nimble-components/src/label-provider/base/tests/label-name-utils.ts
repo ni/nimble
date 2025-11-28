@@ -20,6 +20,7 @@ export function removePrefixAndCamelCase(
 ): string {
     return jsTokenName.replace(
         new RegExp(String.raw`^${prefix}(\w)(\w+)`),
-        (_match: string, firstChar: string, restOfString: string) => `${firstChar.toLowerCase()}${restOfString}`
+        (_match: string, firstChar: string, restOfString: string) =>
+            `${firstChar.toLowerCase()}${restOfString}`
     );
 }

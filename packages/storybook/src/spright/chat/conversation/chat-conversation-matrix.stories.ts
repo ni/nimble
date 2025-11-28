@@ -128,7 +128,8 @@ export const systemSizing: StoryFn = createStory(html`
     ])}
 `);
 
-const buttons = (count: number): string[] => [...Array(count).keys()].map(x => `Button ${x}`);
+const buttons = (count: number): string[] =>
+    [...Array(count).keys()].map(x => `Button ${x}`);
 
 const footerActionsStates = [
     ['none', []],

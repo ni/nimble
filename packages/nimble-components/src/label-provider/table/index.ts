@@ -51,7 +51,8 @@ const supportedLabels = {
  */
 export class LabelProviderTable
     extends LabelProviderBase<typeof supportedLabels>
-    implements DesignTokensFor<typeof supportedLabels> {
+    implements DesignTokensFor<typeof supportedLabels>
+{
     @attr({ attribute: 'group-collapse' })
     public groupCollapse: string | undefined;
 

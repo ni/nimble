@@ -93,8 +93,8 @@ export class Prerendering {
     ): number {
         return Math.min(
             dieDimensions.height,
-            (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5))
-                * this.fontSizeFactor
+            (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5)) *
+                this.fontSizeFactor
         );
     }
 

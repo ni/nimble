@@ -39,4 +39,5 @@ const dateTextCellView = TableColumnDateTextCellView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(dateTextCellView());
-export const tableColumnDateTextCellViewTag = 'nimble-table-column-date-text-cell-view';
+export const tableColumnDateTextCellViewTag =
+    'nimble-table-column-date-text-cell-view';

@@ -34,12 +34,14 @@ export function createTiptapEditor(
     placeholder?: string
 ): Editor {
     const customLink = createCustomLinkExtension();
-    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(
-        config,
-        activeMentionCharacterEmitter,
-        activeMentionCommandEmitter,
-        mentionListbox
-    ));
+    const mentionExtensions = mentionExtensionConfig.map(config =>
+        createCustomMentionExtension(
+            config,
+            activeMentionCharacterEmitter,
+            activeMentionCommandEmitter,
+            mentionListbox
+        )
+    );
 
     /**
      * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -135,7 +137,7 @@ function createCustomLinkExtension(): Mark {
             HTMLAttributes
         }: {
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            HTMLAttributes: { [key: string]: string }
+            HTMLAttributes: { [key: string]: string };
         }) {
             // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
             // https://github.com/ni/nimble/issues/1516
@@ -180,7 +182,8 @@ function createCustomMentionExtension(
             return {
                 href: {
                     default: null,
-                    parseHTML: (element: HTMLElement) => element.getAttribute('mention-href'),
+                    parseHTML: (element: HTMLElement) =>
+                        element.getAttribute('mention-href'),
                     renderHTML: (attributes: { [key: string]: string }) => {
                         return {
                             'mention-href': attributes.href
@@ -189,7 +192,8 @@ function createCustomMentionExtension(
                 },
                 label: {
                     default: null,
-                    parseHTML: (element: HTMLElement) => element.getAttribute('mention-label'),
+                    parseHTML: (element: HTMLElement) =>
+                        element.getAttribute('mention-label'),
                     renderHTML: (attributes: { [key: string]: string }) => {
                         return {
                             'mention-label': attributes.label
@@ -198,7 +202,8 @@ function createCustomMentionExtension(
                 },
                 disabled: {
                     default: null,
-                    parseHTML: (element: HTMLElement) => element.getAttribute('disabled'),
+                    parseHTML: (element: HTMLElement) =>
+                        element.getAttribute('disabled'),
                     renderHTML: (attributes: { [key: string]: string }) => {
                         return {
                             disabled: attributes.disabled
@@ -212,9 +217,9 @@ function createCustomMentionExtension(
             // eslint-disable-next-line @typescript-eslint/naming-convention
             HTMLAttributes
         }: {
-            node: FragmentNode,
+            node: FragmentNode;
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            HTMLAttributes: { [key: string]: string }
+            HTMLAttributes: { [key: string]: string };
         }) {
             return [
                 config.viewElement,

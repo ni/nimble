@@ -53,9 +53,9 @@ describe('Text Area', () => {
     });
 
     const attributeNames: readonly {
-        name: string,
-        value?: string,
-        boolean?: boolean
+        name: string;
+        value?: string;
+        boolean?: boolean;
     }[] = [
         { name: 'autofocus', boolean: true },
         { name: 'cols', value: '10' },

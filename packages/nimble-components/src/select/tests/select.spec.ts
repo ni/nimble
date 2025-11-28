@@ -130,8 +130,8 @@ describe('Select', () => {
     });
 
     const ariaTestData: {
-        attrName: string,
-        propSetter: (x: Select, value: string) => void
+        attrName: string;
+        propSetter: (x: Select, value: string) => void;
     }[] = [
         {
             attrName: 'aria-controls',
@@ -1020,7 +1020,8 @@ describe('Select', () => {
         });
 
         it('sets title when option text is ellipsized', async () => {
-            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const optionContent =
+                'a very long value that should get ellipsized due to not fitting within the allocated width';
             setSelectedValueContent(optionContent);
             await waitForUpdatesAsync();
             dispatchEventToSelectedValue(new MouseEvent('mouseover'));
@@ -1037,7 +1038,8 @@ describe('Select', () => {
         });
 
         it('removes title on mouseout of option', async () => {
-            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const optionContent =
+                'a very long value that should get ellipsized due to not fitting within the allocated width';
             setSelectedValueContent(optionContent);
             dispatchEventToSelectedValue(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
@@ -1387,13 +1389,15 @@ describe('Select', () => {
             it('filter input placeholder gets text from design token', async () => {
                 filterSearchLabel.setValueFor(element, 'foo');
                 await waitForUpdatesAsync();
-                const filterInput = element.shadowRoot?.querySelector('.filter-input');
+                const filterInput =
+                    element.shadowRoot?.querySelector('.filter-input');
                 expect(filterInput?.getAttribute('placeholder')).toBe('foo');
             });
 
             it('filter input "aria-controls" and "aria-activedescendant" attributes are set to element state', async () => {
                 await clickAndWaitForOpen(element);
-                const filterInput = element.shadowRoot?.querySelector('.filter-input');
+                const filterInput =
+                    element.shadowRoot?.querySelector('.filter-input');
                 expect(filterInput?.getAttribute('aria-controls')).toBe(
                     element.ariaControls
                 );
@@ -1564,7 +1568,8 @@ describe('Select', () => {
             });
 
             it('emits filter-input event when filter text is entered', async () => {
-                const filterInputEvent = jasmine.createSpy<SelectFilterInputEventHandler>();
+                const filterInputEvent =
+                    jasmine.createSpy<SelectFilterInputEventHandler>();
                 element.addEventListener(
                     'filter-input',
                     filterInputEvent as unknown as EventListener
@@ -1577,7 +1582,8 @@ describe('Select', () => {
             });
 
             it('emits filter-input event with empty filterText when dropdown is closed', async () => {
-                const filterInputEvent = jasmine.createSpy<SelectFilterInputEventHandler>();
+                const filterInputEvent =
+                    jasmine.createSpy<SelectFilterInputEventHandler>();
                 element.addEventListener(
                     'filter-input',
                     filterInputEvent as unknown as EventListener
@@ -1705,7 +1711,8 @@ describe('Select', () => {
         });
 
         it('can not Tab to clear button', () => {
-            const clearButton = element.shadowRoot?.querySelector<Button>('.clear-button');
+            const clearButton =
+                element.shadowRoot?.querySelector<Button>('.clear-button');
             expect(clearButton?.getAttribute('tabindex')).toBe('-1');
         });
 
@@ -2382,7 +2389,8 @@ describe('Select', () => {
 
         it('exercise getGroupOptionLabelsByLabel', async () => {
             await clickAndWaitForOpen(element);
-            const optionLabels = pageObject.getGroupOptionLabelsByLabel('Group Two');
+            const optionLabels =
+                pageObject.getGroupOptionLabelsByLabel('Group Two');
             expect(optionLabels).toEqual(['Three', 'Four']);
         });
 

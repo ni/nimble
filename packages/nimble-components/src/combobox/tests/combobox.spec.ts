@@ -444,7 +444,8 @@ describe('Combobox', () => {
             });
 
             it('sets title when option text is ellipsized', async () => {
-                const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+                const optionContent =
+                    'a very long value that should get ellipsized due to not fitting within the allocated width';
                 pageObject.setInputText(optionContent);
                 await pageObject.mouseoverInput();
                 expect(pageObject.getInputTitle()).toBe(optionContent);
@@ -458,7 +459,8 @@ describe('Combobox', () => {
             });
 
             it('removes title on mouseout of option', async () => {
-                const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+                const optionContent =
+                    'a very long value that should get ellipsized due to not fitting within the allocated width';
                 pageObject.setInputText(optionContent);
                 await pageObject.mouseoverInput();
                 await pageObject.mouseoutInput();

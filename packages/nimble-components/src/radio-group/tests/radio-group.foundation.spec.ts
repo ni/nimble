@@ -23,13 +23,13 @@ describe('Radio Group', () => {
     });
 
     async function setup(): Promise<{
-        element: RadioGroup,
-        connect: () => Promise<void>,
-        disconnect: () => Promise<void>,
-        parent: HTMLElement,
-        radio1: Radio,
-        radio2: Radio,
-        radio3: Radio
+        element: RadioGroup;
+        connect: () => Promise<void>;
+        disconnect: () => Promise<void>;
+        parent: HTMLElement;
+        radio1: Radio;
+        radio2: Radio;
+        radio3: Radio;
     }> {
         const { element, connect, disconnect, parent } = await fixture([
             FASTRadioGroup(),
@@ -168,7 +168,8 @@ describe('Radio Group', () => {
     });
 
     it('should set the `aria-readonly` attribute equal to the `readonly` value', async () => {
-        const { element, connect, disconnect } = await fixture(FASTRadioGroup());
+        const { element, connect, disconnect } =
+            await fixture(FASTRadioGroup());
 
         element.readOnly = true;
 
@@ -186,7 +187,8 @@ describe('Radio Group', () => {
     });
 
     it('should NOT set a default `aria-readonly` value when `readonly` is not defined', async () => {
-        const { element, connect, disconnect } = await fixture(FASTRadioGroup());
+        const { element, connect, disconnect } =
+            await fixture(FASTRadioGroup());
 
         await connect();
 
@@ -483,7 +485,8 @@ describe('Radio Group', () => {
     });
 
     it('should allow resetting of elements by the parent form', async () => {
-        const { element, connect, disconnect, parent, radio1, radio2, radio3 } = await setup();
+        const { element, connect, disconnect, parent, radio1, radio2, radio3 } =
+            await setup();
 
         radio2.setAttribute('checked', '');
 

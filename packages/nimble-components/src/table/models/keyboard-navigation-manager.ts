@@ -45,7 +45,8 @@ interface TableFocusState {
  * @internal
  */
 export class KeyboardNavigationManager<TData extends TableRecord>
-implements Subscriber {
+    implements Subscriber
+{
     private focusType: TableFocusType = TableFocusType.none;
     private headerActionIndex = -1;
     private rowIndex = -1;
@@ -58,8 +59,8 @@ implements Subscriber {
     private visibleRowNotifiers: Notifier[] = [];
     private get inNavigationMode(): boolean {
         return (
-            this.focusType !== TableFocusType.cellActionMenu
-            && this.focusType !== TableFocusType.cellContent
+            this.focusType !== TableFocusType.cellActionMenu &&
+            this.focusType !== TableFocusType.cellContent
         );
     }
 
@@ -177,8 +178,8 @@ implements Subscriber {
                 }
             }
         } else if (
-            args === 'resolvedRowIndex'
-            && this.isResolvedRowType(source)
+            args === 'resolvedRowIndex' &&
+            this.isResolvedRowType(source)
         ) {
             if (source.resolvedRowIndex === this.rowIndex) {
                 focusRowAndCell = true;
@@ -191,8 +192,8 @@ implements Subscriber {
             // point. So in both those cases, we focus the cell here. This also lets us maintain what row/ cell the user had focused
             // previously.
             if (
-                this.focusType === TableFocusType.cellActionMenu
-                || this.focusType === TableFocusType.cellContent
+                this.focusType === TableFocusType.cellActionMenu ||
+                this.focusType === TableFocusType.cellContent
             ) {
                 this.setCellFocusState(this.columnIndex, this.rowIndex, false);
             }
@@ -262,14 +263,14 @@ implements Subscriber {
         // Sets initial focus on the appropriate table content
         const actionMenuOpen = this.table.openActionMenuRecordId !== undefined;
         if (
-            (event.target === this.table
-                || this.focusType === TableFocusType.none)
-            && !actionMenuOpen
+            (event.target === this.table ||
+                this.focusType === TableFocusType.none) &&
+            !actionMenuOpen
         ) {
             let focusHeader = true;
             if (
-                this.hasRowOrCellFocusType()
-                && this.scrollToAndFocusRow(this.rowIndex)
+                this.hasRowOrCellFocusType() &&
+                this.scrollToAndFocusRow(this.rowIndex)
             ) {
                 focusHeader = false;
             }
@@ -311,8 +312,8 @@ implements Subscriber {
         // upfront too, so their focusing behavior is consistent whether they've been previously keyboard
         // focused or not.
         if (
-            this.focusType === TableFocusType.row
-            && this.getActiveElement() === cell
+            this.focusType === TableFocusType.row &&
+            this.getActiveElement() === cell
         ) {
             this.focusCurrentRow(false);
         }
@@ -384,8 +385,9 @@ implements Subscriber {
     };
 
     private readonly onViewportKeyDown = (event: KeyboardEvent): void => {
-        let handleEvent = !this.inNavigationMode
-            && (event.key === keyArrowUp || event.key === keyArrowDown);
+        let handleEvent =
+            !this.inNavigationMode &&
+            (event.key === keyArrowUp || event.key === keyArrowDown);
         switch (event.key) {
             case keyPageUp:
             case keyPageDown:
@@ -440,8 +442,8 @@ implements Subscriber {
 
     private onSpacePressed(shiftKey: boolean): boolean {
         if (
-            this.focusType === TableFocusType.row
-            || this.focusType === TableFocusType.cell
+            this.focusType === TableFocusType.row ||
+            this.focusType === TableFocusType.cell
         ) {
             if (this.focusType === TableFocusType.row || shiftKey) {
                 const row = this.getCurrentRow();
@@ -481,8 +483,8 @@ implements Subscriber {
                     this.trySetColumnHeaderFocus(
                         headerElements,
                         this.columnIndex - 1
-                    )
-                    || this.trySetHeaderActionFocus(
+                    ) ||
+                    this.trySetHeaderActionFocus(
                         headerElements,
                         headerElements.headerActions.length - 1
                     )
@@ -498,8 +500,8 @@ implements Subscriber {
                 return this.focusCurrentRow(true);
             case TableFocusType.cell:
                 if (
-                    !this.trySetCellFocus(rowElements, this.columnIndex - 1)
-                    && !this.trySetRowSelectionCheckboxFocus(rowElements)
+                    !this.trySetCellFocus(rowElements, this.columnIndex - 1) &&
+                    !this.trySetRowSelectionCheckboxFocus(rowElements)
                 ) {
                     this.setRowFocusState();
                     this.focusCurrentRow(true);
@@ -542,8 +544,8 @@ implements Subscriber {
                     return true;
                 }
                 return (
-                    this.trySetRowSelectionCheckboxFocus(rowElements)
-                    || this.trySetCellFocus(rowElements, 0)
+                    this.trySetRowSelectionCheckboxFocus(rowElements) ||
+                    this.trySetCellFocus(rowElements, 0)
                 );
             case TableFocusType.rowSelectionCheckbox:
                 return this.trySetCellFocus(rowElements, 0);
@@ -571,8 +573,8 @@ implements Subscriber {
             const row = this.getCurrentRow();
             const rowElements = row?.getFocusableElements();
             return (
-                this.trySetRowSelectionCheckboxFocus(rowElements)
-                || this.trySetCellFocus(rowElements, 0)
+                this.trySetRowSelectionCheckboxFocus(rowElements) ||
+                this.trySetCellFocus(rowElements, 0)
             );
         }
 
@@ -604,9 +606,9 @@ implements Subscriber {
 
     private handleHomeEndWithinRow(ctrlKey: boolean): boolean {
         return (
-            (this.focusType === TableFocusType.cell
-                || this.focusType === TableFocusType.rowSelectionCheckbox)
-            && !ctrlKey
+            (this.focusType === TableFocusType.cell ||
+                this.focusType === TableFocusType.rowSelectionCheckbox) &&
+            !ctrlKey
         );
     }
 
@@ -622,8 +624,10 @@ implements Subscriber {
             this.focusType = nextFocusState.focusType;
             this.rowIndex = nextFocusState.rowIndex ?? this.rowIndex;
             this.columnIndex = nextFocusState.columnIndex ?? this.columnIndex;
-            this.headerActionIndex = nextFocusState.headerActionIndex ?? this.headerActionIndex;
-            this.cellContentIndex = nextFocusState.cellContentIndex ?? this.cellContentIndex;
+            this.headerActionIndex =
+                nextFocusState.headerActionIndex ?? this.headerActionIndex;
+            this.cellContentIndex =
+                nextFocusState.cellContentIndex ?? this.cellContentIndex;
             if (this.hasRowOrCellFocusType()) {
                 this.focusCurrentRow(false);
             } else {
@@ -657,7 +661,8 @@ implements Subscriber {
         while (cellIndex < rowElements.cells.length) {
             const firstCellTabbableIndex = focusStates.length;
             const cellInfo = rowElements.cells[cellIndex]!;
-            const cellViewTabbableChildren = cellInfo.cell.cellView.tabbableChildren;
+            const cellViewTabbableChildren =
+                cellInfo.cell.cellView.tabbableChildren;
             for (let i = 0; i < cellViewTabbableChildren.length; i++) {
                 focusStates.push({
                     focusType: TableFocusType.cellContent,
@@ -665,9 +670,9 @@ implements Subscriber {
                     cellContentIndex: i
                 });
                 if (
-                    this.focusType === TableFocusType.cellContent
-                    && this.columnIndex === cellIndex
-                    && this.cellContentIndex === i
+                    this.focusType === TableFocusType.cellContent &&
+                    this.columnIndex === cellIndex &&
+                    this.cellContentIndex === i
                 ) {
                     startIndex = focusStates.length - 1;
                 }
@@ -678,16 +683,16 @@ implements Subscriber {
                     columnIndex: cellIndex
                 });
                 if (
-                    this.focusType === TableFocusType.cellActionMenu
-                    && this.columnIndex === cellIndex
+                    this.focusType === TableFocusType.cellActionMenu &&
+                    this.columnIndex === cellIndex
                 ) {
                     startIndex = focusStates.length - 1;
                 }
             }
             const lastCellTabbableIndex = focusStates.length - 1;
             if (
-                this.focusType === TableFocusType.cell
-                && this.columnIndex === cellIndex
+                this.focusType === TableFocusType.cell &&
+                this.columnIndex === cellIndex
             ) {
                 startIndex = shiftKeyPressed
                     ? lastCellTabbableIndex + 1
@@ -707,7 +712,8 @@ implements Subscriber {
     ): TableFocusState | undefined {
         let startIndex = -1;
         const focusStates = [];
-        const headerTabbableElements = this.getTableHeaderFocusableElements().headerActions;
+        const headerTabbableElements =
+            this.getTableHeaderFocusableElements().headerActions;
         for (let i = 0; i < headerTabbableElements.length; i++) {
             focusStates.push({
                 focusType: TableFocusType.headerActions,
@@ -763,14 +769,15 @@ implements Subscriber {
                     return this.scrollToAndFocusRow(rowIndex, scrollOptions);
                 }
                 if (rowIndex === -1) {
-                    const headerElements = this.getTableHeaderFocusableElements();
+                    const headerElements =
+                        this.getTableHeaderFocusableElements();
                     if (
-                        this.focusType === TableFocusType.row
-                        || this.focusType === TableFocusType.rowSelectionCheckbox
+                        this.focusType === TableFocusType.row ||
+                        this.focusType === TableFocusType.rowSelectionCheckbox
                     ) {
                         return (
-                            this.trySetHeaderActionFocus(headerElements, 0)
-                            || this.trySetColumnHeaderFocus(headerElements, 0)
+                            this.trySetHeaderActionFocus(headerElements, 0) ||
+                            this.trySetColumnHeaderFocus(headerElements, 0)
                         );
                     }
                     return this.trySetColumnHeaderFocus(
@@ -814,8 +821,8 @@ implements Subscriber {
                     scrollOptions.align = 'end';
                 }
                 if (
-                    rowIndex > this.rowIndex
-                    && rowIndex < this.table.tableData.length
+                    rowIndex > this.rowIndex &&
+                    rowIndex < this.table.tableData.length
                 ) {
                     return this.scrollToAndFocusRow(rowIndex, scrollOptions);
                 }
@@ -849,9 +856,10 @@ implements Subscriber {
                             );
                             return;
                         }
-                        const contentIndex = cell.cellView.tabbableChildren.indexOf(
-                            activeElement
-                        );
+                        const contentIndex =
+                            cell.cellView.tabbableChildren.indexOf(
+                                activeElement
+                            );
                         if (contentIndex > -1) {
                             this.setCellContentFocusState(
                                 contentIndex,
@@ -864,9 +872,9 @@ implements Subscriber {
                     }
                 }
                 if (
-                    setRowFocus
-                    && this.hasRowOrCellFocusType()
-                    && this.rowIndex !== row.resolvedRowIndex
+                    setRowFocus &&
+                    this.hasRowOrCellFocusType() &&
+                    this.rowIndex !== row.resolvedRowIndex
                 ) {
                     this.setRowFocusState(row.resolvedRowIndex);
                 }
@@ -885,8 +893,8 @@ implements Subscriber {
             element.focus(focusOptions);
             this.isCurrentlyFocusingElement = false;
             if (
-                previousActiveElement
-                && this.isInTable(previousActiveElement)
+                previousActiveElement &&
+                this.isInTable(previousActiveElement)
             ) {
                 this.setElementFocusable(previousActiveElement, false);
             }
@@ -928,9 +936,9 @@ implements Subscriber {
     private setDefaultFocus(): void {
         const headerElements = this.getTableHeaderFocusableElements();
         if (
-            !this.trySetHeaderActionFocus(headerElements, 0)
-            && !this.trySetColumnHeaderFocus(headerElements, 0)
-            && !this.scrollToAndFocusRow(0)
+            !this.trySetHeaderActionFocus(headerElements, 0) &&
+            !this.trySetColumnHeaderFocus(headerElements, 0) &&
+            !this.scrollToAndFocusRow(0)
         ) {
             this.focusType = TableFocusType.none;
         }
@@ -1002,7 +1010,8 @@ implements Subscriber {
                 break;
             }
             case TableFocusType.cellActionMenu: {
-                const actionMenuButton = rowElements.cells[this.columnIndex]?.cell.actionMenuButton;
+                const actionMenuButton =
+                    rowElements.cells[this.columnIndex]?.cell.actionMenuButton;
                 if (actionMenuButton) {
                     focusableElement = actionMenuButton;
                     this.setActionMenuButtonFocused(actionMenuButton, true);
@@ -1010,8 +1019,9 @@ implements Subscriber {
                 break;
             }
             case TableFocusType.cellContent: {
-                focusableElement = rowElements.cells[this.columnIndex]?.cell.cellView
-                    .tabbableChildren[this.cellContentIndex];
+                focusableElement =
+                    rowElements.cells[this.columnIndex]?.cell.cellView
+                        .tabbableChildren[this.cellContentIndex];
                 break;
             }
             default:
@@ -1027,10 +1037,12 @@ implements Subscriber {
         let focusableElement: HTMLElement | undefined;
         switch (this.focusType) {
             case TableFocusType.headerActions:
-                focusableElement = headerElements.headerActions[this.headerActionIndex];
+                focusableElement =
+                    headerElements.headerActions[this.headerActionIndex];
                 break;
             case TableFocusType.columnHeader:
-                focusableElement = headerElements.columnHeaders[this.columnIndex];
+                focusableElement =
+                    headerElements.columnHeaders[this.columnIndex];
                 break;
             default:
                 break;
@@ -1051,16 +1063,16 @@ implements Subscriber {
     private getTableHeaderFocusableElements(): TableHeaderFocusableElements {
         const headerActions: HTMLElement[] = [];
         if (
-            this.table.selectionCheckbox?.getRootNode()
-            === this.table.shadowRoot
+            this.table.selectionCheckbox?.getRootNode() ===
+            this.table.shadowRoot
         ) {
             headerActions.push(this.table.selectionCheckbox);
         }
 
         if (
-            this.table.showCollapseAll
-            && this.table.collapseAllButton?.getRootNode()
-                === this.table.shadowRoot
+            this.table.showCollapseAll &&
+            this.table.collapseAllButton?.getRootNode() ===
+                this.table.shadowRoot
         ) {
             headerActions.push(this.table.collapseAllButton);
         }
@@ -1077,9 +1089,8 @@ implements Subscriber {
 
     private canFocusColumnHeaders(): boolean {
         return (
-            this.table.columns.find(
-                c => !c.columnInternals.sortingDisabled
-            ) !== undefined
+            this.table.columns.find(c => !c.columnInternals.sortingDisabled) !==
+            undefined
         );
     }
 
@@ -1091,8 +1102,8 @@ implements Subscriber {
         row: TableRow | TableGroupRow | undefined
     ): boolean | undefined {
         if (
-            (row instanceof TableRow && row.isParentRow)
-            || row instanceof TableGroupRow
+            (row instanceof TableRow && row.isParentRow) ||
+            row instanceof TableGroupRow
         ) {
             return row.expanded;
         }
@@ -1129,8 +1140,9 @@ implements Subscriber {
             if (isElementMatch(possibleMatch)) {
                 return possibleMatch as TElement;
             }
-            possibleMatch = possibleMatch.parentElement
-                ?? (possibleMatch.parentNode as ShadowRoot)?.host;
+            possibleMatch =
+                possibleMatch.parentElement ??
+                (possibleMatch.parentNode as ShadowRoot)?.host;
         }
 
         return undefined;
@@ -1139,8 +1151,9 @@ implements Subscriber {
     private isInTable(start: Element): boolean {
         let possibleMatch = start;
         while (possibleMatch && possibleMatch !== this.table) {
-            possibleMatch = possibleMatch.parentElement
-                ?? (possibleMatch.parentNode as ShadowRoot)?.host;
+            possibleMatch =
+                possibleMatch.parentElement ??
+                (possibleMatch.parentNode as ShadowRoot)?.host;
         }
 
         return possibleMatch === this.table;
@@ -1154,10 +1167,10 @@ implements Subscriber {
             // we can more simply check equality against the elements of getTableHeaderFocusableElements() / row.getFocusableElements().
             // (For rows/cells/cell views, we do need to recurse into them, to get to the appropriate focused controls though)
             if (
-                activeElement instanceof FoundationElement
-                && !this.isResolvedRowType(activeElement)
-                && !(activeElement instanceof TableCell)
-                && !(activeElement instanceof TableCellView)
+                activeElement instanceof FoundationElement &&
+                !this.isResolvedRowType(activeElement) &&
+                !(activeElement instanceof TableCell) &&
+                !(activeElement instanceof TableCellView)
             ) {
                 break;
             }
@@ -1173,8 +1186,8 @@ implements Subscriber {
             return false;
         }
         return (
-            this.trySetCellContentFocus(rowElements, 0)
-            || this.trySetCellActionMenuFocus(rowElements)
+            this.trySetCellContentFocus(rowElements, 0) ||
+            this.trySetCellActionMenuFocus(rowElements)
         );
     }
 
@@ -1217,8 +1230,8 @@ implements Subscriber {
         columnIndex: number
     ): boolean {
         if (
-            columnIndex >= 0
-            && columnIndex < headerElements.columnHeaders.length
+            columnIndex >= 0 &&
+            columnIndex < headerElements.columnHeaders.length
         ) {
             this.focusType = TableFocusType.columnHeader;
             this.columnIndex = columnIndex;
@@ -1233,8 +1246,8 @@ implements Subscriber {
         headerActionIndex: number
     ): boolean {
         if (
-            headerActionIndex >= 0
-            && headerActionIndex < headerElements.headerActions.length
+            headerActionIndex >= 0 &&
+            headerActionIndex < headerElements.headerActions.length
         ) {
             this.focusType = TableFocusType.headerActions;
             this.headerActionIndex = headerActionIndex;
@@ -1277,11 +1290,11 @@ implements Subscriber {
         const newRowIndex = rowIndex ?? this.rowIndex;
 
         if (
-            newColumnIndex >= 0
-            && newColumnIndex < rowElements.cells.length
-            && cellContentIndex >= 0
-            && cellContentIndex
-                < rowElements.cells[newColumnIndex]!.cell.cellView
+            newColumnIndex >= 0 &&
+            newColumnIndex < rowElements.cells.length &&
+            cellContentIndex >= 0 &&
+            cellContentIndex <
+                rowElements.cells[newColumnIndex]!.cell.cellView
                     .tabbableChildren.length
         ) {
             this.setCellContentFocusState(
@@ -1305,9 +1318,9 @@ implements Subscriber {
         const newRowIndex = rowIndex ?? this.rowIndex;
 
         if (
-            newColumnIndex >= 0
-            && newColumnIndex < rowElements.cells.length
-            && rowElements.cells[newColumnIndex]!.actionMenuButton
+            newColumnIndex >= 0 &&
+            newColumnIndex < rowElements.cells.length &&
+            rowElements.cells[newColumnIndex]!.actionMenuButton
         ) {
             this.setCellActionMenuFocusState(newRowIndex, newColumnIndex, true);
             return true;

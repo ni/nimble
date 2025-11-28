@@ -9,8 +9,8 @@ let url: string;
  * This function simplifies the process of creating and accessing MatrixRenderer instances.
  */
 export const createMatrixRenderer = async (): Promise<{
-    matrixRenderer: Remote<MatrixRenderer>,
-    terminate: () => void
+    matrixRenderer: Remote<MatrixRenderer>;
+    terminate: () => void;
 }> => {
     if (url === undefined) {
         const blob = new Blob([workerCode], { type: 'text/javascript' });

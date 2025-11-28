@@ -12,8 +12,8 @@ import type { Dimensions, Margin } from '../workers/types';
 
 interface GridDimensions {
     origin: {
-        x: number,
-        y: number
+        x: number;
+        y: number;
     };
     rows: number;
     cols: number;
@@ -143,26 +143,28 @@ export class Computations {
 
     private gridDimensionsValidAndDefined(): boolean {
         return (
-            !this.wafermap.validity.invalidGridDimensions
-            && typeof this.wafermap.gridMinX === 'number'
-            && typeof this.wafermap.gridMinY === 'number'
-            && typeof this.wafermap.gridMaxX === 'number'
-            && typeof this.wafermap.gridMinX === 'number'
+            !this.wafermap.validity.invalidGridDimensions &&
+            typeof this.wafermap.gridMinX === 'number' &&
+            typeof this.wafermap.gridMinY === 'number' &&
+            typeof this.wafermap.gridMaxX === 'number' &&
+            typeof this.wafermap.gridMinX === 'number'
         );
     }
 
     private calculateGridDimensionsFromBoundingBox(): GridDimensions {
         const gridDimensions = { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
         if (
-            typeof this.wafermap.gridMaxY === 'number'
-            && typeof this.wafermap.gridMinY === 'number'
-            && typeof this.wafermap.gridMaxX === 'number'
-            && typeof this.wafermap.gridMinX === 'number'
+            typeof this.wafermap.gridMaxY === 'number' &&
+            typeof this.wafermap.gridMinY === 'number' &&
+            typeof this.wafermap.gridMaxX === 'number' &&
+            typeof this.wafermap.gridMinX === 'number'
         ) {
             gridDimensions.origin.x = this.wafermap.gridMinX;
             gridDimensions.origin.y = this.wafermap.gridMinY;
-            gridDimensions.rows = this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
-            gridDimensions.cols = this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
+            gridDimensions.rows =
+                this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
+            gridDimensions.cols =
+                this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
         }
         return gridDimensions;
     }
@@ -221,8 +223,8 @@ export class Computations {
             .align(0)
             .round(false);
         if (
-            originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.topLeft
+            originLocation === WaferMapOriginLocation.bottomLeft ||
+            originLocation === WaferMapOriginLocation.topLeft
         ) {
             return scale.range([0, containerWidth]);
         }
@@ -236,8 +238,8 @@ export class Computations {
     ): ScaleQuantile<number, number> {
         const scale = scaleQuantile().domain([0, containerWidth]);
         if (
-            originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.topLeft
+            originLocation === WaferMapOriginLocation.bottomLeft ||
+            originLocation === WaferMapOriginLocation.topLeft
         ) {
             return scale.range(range(grid.origin.x, grid.origin.x + grid.cols));
         }
@@ -260,8 +262,8 @@ export class Computations {
         // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
         // we need to flip the vertical scale
         if (
-            originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.bottomRight
+            originLocation === WaferMapOriginLocation.bottomLeft ||
+            originLocation === WaferMapOriginLocation.bottomRight
         ) {
             return scale.range([containerHeight, 0]);
         }
@@ -277,8 +279,8 @@ export class Computations {
         // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
         // we need to flip the inverted vertical scale
         if (
-            originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.bottomRight
+            originLocation === WaferMapOriginLocation.bottomLeft ||
+            originLocation === WaferMapOriginLocation.bottomRight
         ) {
             return scale.range(
                 range(grid.origin.y, grid.origin.y + grid.rows).reverse()

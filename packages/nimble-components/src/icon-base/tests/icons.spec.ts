@@ -28,7 +28,8 @@ describe('Icons', () => {
     });
 
     describe('should not have inline style', () => {
-        const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
+        const getPaths = (svg: SVGElement): SVGPathElement[] =>
+            Array.from(svg.querySelectorAll('path'));
 
         const nimbleIconsWithStyle = ['sparkle_swirls_16_x_16'];
         const nimbleIconsWithoutStyle = nimbleIcons.filter(

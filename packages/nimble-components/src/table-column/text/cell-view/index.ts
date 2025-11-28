@@ -21,9 +21,10 @@ export class TableColumnTextCellView extends TableColumnTextCellViewBase<
     TableColumnTextColumnConfig
 > {
     protected updateText(): void {
-        this.text = typeof this.cellRecord?.value === 'string'
-            ? this.cellRecord.value
-            : '';
+        this.text =
+            typeof this.cellRecord?.value === 'string'
+                ? this.cellRecord.value
+                : '';
     }
 }
 

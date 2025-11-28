@@ -36,9 +36,9 @@ export class DurationFormatter {
 
     public format(milliseconds: number | null | undefined): string {
         if (
-            typeof milliseconds !== 'number'
-            || milliseconds < 0
-            || !Number.isFinite(milliseconds)
+            typeof milliseconds !== 'number' ||
+            milliseconds < 0 ||
+            !Number.isFinite(milliseconds)
         ) {
             return '';
         }

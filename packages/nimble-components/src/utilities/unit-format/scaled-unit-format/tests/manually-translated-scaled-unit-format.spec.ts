@@ -50,12 +50,13 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
 
     parameterizeSpec(translationTestCases, (spec, name, value) => {
         spec(name, () => {
-            const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
-                unitTranslations,
-                scaledPrefixText
-            })({
-                locale: value.locale
-            });
+            const scaledUnitFormatter =
+                ManuallyTranslatedScaledUnitFormat.createFactory({
+                    unitTranslations,
+                    scaledPrefixText
+                })({
+                    locale: value.locale
+                });
             expect(scaledUnitFormatter.format(5)).toEqual(
                 `5 ${value.appendedUnit}`
             );
@@ -63,23 +64,25 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
     });
 
     it('uses unit prefix and symbol whenever unit prefix is provided', () => {
-        const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
-            unitTranslations,
-            scaledPrefixText: '1.'
-        })({
-            locale: 'en'
-        });
+        const scaledUnitFormatter =
+            ManuallyTranslatedScaledUnitFormat.createFactory({
+                unitTranslations,
+                scaledPrefixText: '1.'
+            })({
+                locale: 'en'
+            });
         expect(scaledUnitFormatter.format(5)).toEqual('5 1.en-abbrev');
     });
 
     it('uses given formatter options', () => {
-        const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
-            unitTranslations,
-            scaledPrefixText
-        })({
-            locale: 'en',
-            intlNumberFormatOptions: { minimumFractionDigits: 5 }
-        });
+        const scaledUnitFormatter =
+            ManuallyTranslatedScaledUnitFormat.createFactory({
+                unitTranslations,
+                scaledPrefixText
+            })({
+                locale: 'en',
+                intlNumberFormatOptions: { minimumFractionDigits: 5 }
+            });
         expect(scaledUnitFormatter.format(5)).toEqual('5.00000 en-plural');
     });
 
@@ -87,13 +90,16 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
         const unitTranslationsMissingEn = new Map<string, UnitTranslation>([
             ['foo', new UnitTranslation('byte', 'bytes', 'B')]
         ]);
-        const scaledUnitFormatterFactory = ManuallyTranslatedScaledUnitFormat.createFactory({
-            unitTranslations: unitTranslationsMissingEn,
-            scaledPrefixText
-        });
-        expect(() => scaledUnitFormatterFactory({
-            locale: 'en'
-        })).toThrowError(/English translations/);
+        const scaledUnitFormatterFactory =
+            ManuallyTranslatedScaledUnitFormat.createFactory({
+                unitTranslations: unitTranslationsMissingEn,
+                scaledPrefixText
+            });
+        expect(() =>
+            scaledUnitFormatterFactory({
+                locale: 'en'
+            })
+        ).toThrowError(/English translations/);
     });
 
     const pluralizationTestCases = [
@@ -173,12 +179,13 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
 
     parameterizeSpec(pluralizationTestCases, (spec, name, value) => {
         spec(`uses expected pluralization for ${name}`, () => {
-            const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
-                unitTranslations,
-                scaledPrefixText
-            })({
-                locale: value.locale
-            });
+            const scaledUnitFormatter =
+                ManuallyTranslatedScaledUnitFormat.createFactory({
+                    unitTranslations,
+                    scaledPrefixText
+                })({
+                    locale: value.locale
+                });
             expect(scaledUnitFormatter.format(value.toFormat)).toEqual(
                 value.expected
             );

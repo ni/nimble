@@ -11,9 +11,9 @@ describe('ListboxOption', () => {
     });
 
     async function setup(): Promise<{
-        element: ListOption,
-        connect: () => Promise<void>,
-        disconnect: () => Promise<void>
+        element: ListOption;
+        connect: () => Promise<void>;
+        disconnect: () => Promise<void>;
     }> {
         const { element, connect, disconnect } = await fixture(option());
 

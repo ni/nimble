@@ -120,11 +120,15 @@ describe('Wafermap Data Manager', () => {
 
     it('should have all dies with full opacity from the highlighted list', () => {
         const highlightedTags = getHighlightedTags();
-        const dies = getWaferMapDies().filter(die => die.tags?.some(dieTag => highlightedTags.some(
-            highlightedTag => dieTag === highlightedTag
-        )));
-        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => x.fillStyle.endsWith(',1)')
+        const dies = getWaferMapDies().filter(die =>
+            die.tags?.some(dieTag =>
+                highlightedTags.some(
+                    highlightedTag => dieTag === highlightedTag
+                )
+            )
+        );
+        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x =>
+            x.fillStyle.endsWith(',1)')
         );
         expect(dies.length).toEqual(diesWithFullOpacity.length);
     });
@@ -132,9 +136,12 @@ describe('Wafermap Data Manager', () => {
     it('should not have any dies with partial opacity from the highlighted list', () => {
         const highlightedTags = getHighlightedTags();
         const dies = getWaferMapDies().filter(
-            die => !die.tags?.some(dieTag => highlightedTags.some(
-                highlightedTag => dieTag === highlightedTag
-            ))
+            die =>
+                !die.tags?.some(dieTag =>
+                    highlightedTags.some(
+                        highlightedTag => dieTag === highlightedTag
+                    )
+                )
         );
         const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
             x => !x.fillStyle.endsWith(',1)')
@@ -147,14 +154,14 @@ describe('Wafermap Data Manager', () => {
             expect(dieRenderInfo.x).toBeGreaterThanOrEqual(0);
             expect(dieRenderInfo.y).toBeGreaterThanOrEqual(0);
             expect(dieRenderInfo.x).toBeLessThanOrEqual(
-                canvasDimensions.width
-                    - dataManagerModule.dieDimensions.width
-                    - expectedMargin.left
+                canvasDimensions.width -
+                    dataManagerModule.dieDimensions.width -
+                    expectedMargin.left
             );
             expect(dieRenderInfo.y).toBeLessThanOrEqual(
-                canvasDimensions.height
-                    - dataManagerModule.dieDimensions.height
-                    - expectedMargin.bottom
+                canvasDimensions.height -
+                    dataManagerModule.dieDimensions.height -
+                    expectedMargin.bottom
             );
         }
     });

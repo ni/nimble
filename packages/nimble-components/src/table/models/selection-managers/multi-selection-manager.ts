@@ -52,7 +52,8 @@ export class MultiSelectionManager<
         }
 
         if (ctrlKey) {
-            const isSelecting = rowState.selectionState !== TableRowSelectionState.selected;
+            const isSelecting =
+                rowState.selectionState !== TableRowSelectionState.selected;
             this.shiftSelectStartRowId = isSelecting ? rowState.id : undefined;
             this.previousShiftSelectRowEndId = undefined;
             this.toggleIsRowSelected(rowState);
@@ -175,7 +176,9 @@ export class MultiSelectionManager<
 
         const endRangeRow = allRows[rangeEndIndex]!;
         if (endRangeRow.getIsGrouped()) {
-            this.getAllLeafRowIds(endRangeRow.id).forEach(id => this.updateSelectionStateForRow(selection, id, isSelecting));
+            this.getAllLeafRowIds(endRangeRow.id).forEach(id =>
+                this.updateSelectionStateForRow(selection, id, isSelecting)
+            );
         }
     }
 

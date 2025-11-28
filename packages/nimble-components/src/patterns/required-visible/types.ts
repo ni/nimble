@@ -21,7 +21,8 @@ export function mixinRequiredVisiblePattern<
      */
     abstract class RequiredVisibleElement
         extends base
-        implements RequiredVisiblePattern {
+        implements RequiredVisiblePattern
+    {
         /*
          * Show the required appearance of the control
          */

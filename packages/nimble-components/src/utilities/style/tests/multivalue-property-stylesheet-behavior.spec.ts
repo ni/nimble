@@ -38,53 +38,53 @@ class AppearanceElement extends FASTElement {
             --private-prop: appearance-default;
         }
     `.withBehaviors(
-            testAppearance(
-                TestAppearance.awesome,
-                css`
+        testAppearance(
+            TestAppearance.awesome,
+            css`
                 div {
                     --private-prop: appearance-awesome;
                 }
             `
-            ),
-            testAppearance(
-                TestAppearance.best,
-                css`
+        ),
+        testAppearance(
+            TestAppearance.best,
+            css`
                 div {
                     --private-prop: appearance-best;
                 }
             `
-            )
-        );
+        )
+    );
 
     public static sharedAppearanceStyles = css`
         div {
             --private-prop: appearance-default;
         }
     `.withBehaviors(
-            testAppearance(
-                [TestAppearance.awesome, TestAppearance.best],
-                css`
+        testAppearance(
+            [TestAppearance.awesome, TestAppearance.best],
+            css`
                 div {
                     --private-prop: appearance-awesome;
                 }
             `
-            )
-        );
+        )
+    );
 
     public static unsetAppearanceStyles = css`
         div {
             --private-prop: appearance-default;
         }
     `.withBehaviors(
-            testAppearance(
-                TestAppearance.awesome,
-                css`
+        testAppearance(
+            TestAppearance.awesome,
+            css`
                 div {
                     --private-prop: appearance-awesome;
                 }
             `
-            )
-        );
+        )
+    );
 
     @attr
     public appearance: TestAppearance;

@@ -21,7 +21,8 @@ export class RichTextMarkdownSerializer {
     private readonly markdownSerializer: MarkdownSerializer;
 
     public constructor(mentionList: string[]) {
-        this.markdownSerializer = this.initializeMarkdownSerializerForTipTap(mentionList);
+        this.markdownSerializer =
+            this.initializeMarkdownSerializerForTipTap(mentionList);
     }
 
     public serializeDOMToMarkdown(doc: Node): string {

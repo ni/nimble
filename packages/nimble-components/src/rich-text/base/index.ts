@@ -69,8 +69,8 @@ export abstract class RichText extends FoundationElement {
         this.validate();
         if (this.richTextValidator.isValid()) {
             if (
-                this.richTextUpdateTracker.updateMappingConfigs
-                || this.richTextUpdateTracker.updatePattern
+                this.richTextUpdateTracker.updateMappingConfigs ||
+                this.richTextUpdateTracker.updatePattern
             ) {
                 this.configuration = new Configuration(this.mentionElements);
             }

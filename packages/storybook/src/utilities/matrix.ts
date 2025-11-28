@@ -7,25 +7,26 @@ import {
 import { fastParameters, renderViewTemplate } from './storybook';
 import { type BackgroundState, backgroundStates } from './states';
 
-export const sharedMatrixParameters = () => ({
-    ...fastParameters(),
-    controls: {
-        hideNoControlsWarning: true
-    },
-    backgrounds: {
-        disable: true,
-        grid: {
-            disable: true
+export const sharedMatrixParameters = () =>
+    ({
+        ...fastParameters(),
+        controls: {
+            hideNoControlsWarning: true
+        },
+        backgrounds: {
+            disable: true,
+            grid: {
+                disable: true
+            }
+        },
+        viewMode: 'story',
+        previewTabs: {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            'storybook/docs/panel': {
+                hidden: true
+            }
         }
-    },
-    viewMode: 'story',
-    previewTabs: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'storybook/docs/panel': {
-            hidden: true
-        }
-    }
-}) as const;
+    }) as const;
 
 type MakeTupleEntriesArrays<T> = { [K in keyof T]: readonly T[K][] };
 
@@ -41,7 +42,8 @@ export function cartesianProduct<T extends readonly unknown[]>(
         ...states: readonly unknown[]
     ): void => {
         if (currentDimensions && currentDimensions.length >= 1) {
-            const [currentDimensionOrUndefined, ...remainingDimensions] = currentDimensions;
+            const [currentDimensionOrUndefined, ...remainingDimensions] =
+                currentDimensions;
 
             // TypeScript and ESLint disagree about whether this can be null or undefined.
             // This was the only type strangeness noticed after the storybook build was changed
@@ -122,10 +124,10 @@ export function createMatrixInteractionsFromStates<
         ...states: THover | TActive | THoverActive | TFocus
     ) => ViewTemplate,
     states: {
-        hover: THover[],
-        hoverActive: THoverActive[],
-        active: TActive[],
-        focus: TFocus[]
+        hover: THover[];
+        hoverActive: THoverActive[];
+        active: TActive[];
+        focus: TFocus[];
     }
 ): ViewTemplate {
     // prettier-ignore

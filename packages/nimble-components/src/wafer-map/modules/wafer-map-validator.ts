@@ -25,19 +25,19 @@ export class WaferMapValidator {
     public validateGridDimensions(): boolean {
         this.invalidGridDimensions = false;
         if (
-            this.wafermap.gridMinX === undefined
-            && this.wafermap.gridMaxX === undefined
-            && this.wafermap.gridMinY === undefined
-            && this.wafermap.gridMaxY === undefined
+            this.wafermap.gridMinX === undefined &&
+            this.wafermap.gridMaxX === undefined &&
+            this.wafermap.gridMinY === undefined &&
+            this.wafermap.gridMaxY === undefined
         ) {
             this.invalidGridDimensions = false;
         } else if (
-            typeof this.wafermap.gridMinX !== 'number'
-            || typeof this.wafermap.gridMaxX !== 'number'
-            || typeof this.wafermap.gridMinY !== 'number'
-            || typeof this.wafermap.gridMaxY !== 'number'
-            || this.wafermap.gridMaxX < this.wafermap.gridMinX
-            || this.wafermap.gridMaxY < this.wafermap.gridMinY
+            typeof this.wafermap.gridMinX !== 'number' ||
+            typeof this.wafermap.gridMaxX !== 'number' ||
+            typeof this.wafermap.gridMinY !== 'number' ||
+            typeof this.wafermap.gridMaxY !== 'number' ||
+            this.wafermap.gridMaxX < this.wafermap.gridMinX ||
+            this.wafermap.gridMaxY < this.wafermap.gridMinY
         ) {
             this.invalidGridDimensions = true;
         }
@@ -54,15 +54,15 @@ export class WaferMapValidator {
             const rowField = fields.find(field => field.name === 'rowIndex');
             const valueField = fields.find(field => field.name === 'value');
             if (
-                !colField
-                || !rowField
-                || !valueField
-                || !DataType.isInt(colField.type)
-                || colField.type.bitWidth !== 32
-                || !DataType.isInt(rowField.type)
-                || rowField.type.bitWidth !== 32
-                || !DataType.isFloat(valueField.type)
-                || valueField.type.precision !== Precision.DOUBLE
+                !colField ||
+                !rowField ||
+                !valueField ||
+                !DataType.isInt(colField.type) ||
+                colField.type.bitWidth !== 32 ||
+                !DataType.isInt(rowField.type) ||
+                rowField.type.bitWidth !== 32 ||
+                !DataType.isFloat(valueField.type) ||
+                valueField.type.precision !== Precision.DOUBLE
             ) {
                 this.invalidDiesTableSchema = true;
             }

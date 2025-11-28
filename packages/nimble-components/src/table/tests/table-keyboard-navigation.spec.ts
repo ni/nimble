@@ -65,11 +65,11 @@ function currentFocusedElement(): HTMLElement | null {
         // we can more simply check element equality.
         // (For rows/cells/cell views, we do need to recurse into them, to get to the appropriate focused controls though)
         if (
-            activeElement instanceof FoundationElement
-            && !(activeElement instanceof TableRow)
-            && !(activeElement instanceof TableGroupRow)
-            && !(activeElement instanceof TableCell)
-            && !(activeElement instanceof TableCellView)
+            activeElement instanceof FoundationElement &&
+            !(activeElement instanceof TableRow) &&
+            !(activeElement instanceof TableGroupRow) &&
+            !(activeElement instanceof TableCell) &&
+            !(activeElement instanceof TableCellView)
         ) {
             break;
         }
@@ -151,8 +151,9 @@ describe('Table keyboard navigation', () => {
             if (isElementMatch(possibleMatch)) {
                 return possibleMatch as TElement;
             }
-            possibleMatch = possibleMatch.parentElement
-                ?? (possibleMatch.parentNode as ShadowRoot)?.host;
+            possibleMatch =
+                possibleMatch.parentElement ??
+                (possibleMatch.parentNode as ShadowRoot)?.host;
         }
 
         return undefined;
@@ -162,32 +163,38 @@ describe('Table keyboard navigation', () => {
         newFocus: HTMLElement
     ): Promise<void> {
         const oldFocus = currentFocusedElement();
-        const oldRow = oldFocus instanceof TableRow
-            ? oldFocus
-            : getContainingElement<TableRow>(
-                oldFocus,
-                el => el instanceof TableRow
-            );
-        const oldCell = oldFocus instanceof TableCell
-            ? oldFocus
-            : getContainingElement<TableCell>(
-                oldFocus,
-                el => el instanceof TableCell
-            );
-        const oldCellContent = oldFocus !== oldRow && oldFocus !== oldCell ? oldFocus : undefined;
-        const newRow = newFocus instanceof TableRow
-            ? newFocus
-            : getContainingElement<TableRow>(
-                newFocus,
-                el => el instanceof TableRow
-            );
-        const newCell = newFocus instanceof TableCell
-            ? newFocus
-            : getContainingElement<TableCell>(
-                newFocus,
-                el => el instanceof TableCell
-            );
-        const newCellContent = newFocus !== newRow && newFocus !== newCell ? newFocus : undefined;
+        const oldRow =
+            oldFocus instanceof TableRow
+                ? oldFocus
+                : getContainingElement<TableRow>(
+                      oldFocus,
+                      el => el instanceof TableRow
+                  );
+        const oldCell =
+            oldFocus instanceof TableCell
+                ? oldFocus
+                : getContainingElement<TableCell>(
+                      oldFocus,
+                      el => el instanceof TableCell
+                  );
+        const oldCellContent =
+            oldFocus !== oldRow && oldFocus !== oldCell ? oldFocus : undefined;
+        const newRow =
+            newFocus instanceof TableRow
+                ? newFocus
+                : getContainingElement<TableRow>(
+                      newFocus,
+                      el => el instanceof TableRow
+                  );
+        const newCell =
+            newFocus instanceof TableCell
+                ? newFocus
+                : getContainingElement<TableCell>(
+                      newFocus,
+                      el => el instanceof TableCell
+                  );
+        const newCellContent =
+            newFocus !== newRow && newFocus !== newCell ? newFocus : undefined;
 
         newFocus.click();
         oldCellContent?.dispatchEvent(new FocusEvent('blur'));
@@ -257,17 +264,21 @@ describe('Table keyboard navigation', () => {
         }
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setupNonInteractiveTable());
+            ({ element, connect, disconnect } =
+                await setupNonInteractiveTable());
             pageObject = new TablePageObject<SimpleTableRecord>(element);
-            column1 = element.querySelector<TestNonInteractiveTableColumn>(
-                '#first-column'
-            )!;
-            column2 = element.querySelector<TestNonInteractiveTableColumn>(
-                '#second-column'
-            )!;
-            column3 = element.querySelector<TestNonInteractiveTableColumn>(
-                '#third-column'
-            )!;
+            column1 =
+                element.querySelector<TestNonInteractiveTableColumn>(
+                    '#first-column'
+                )!;
+            column2 =
+                element.querySelector<TestNonInteractiveTableColumn>(
+                    '#second-column'
+                )!;
+            column3 =
+                element.querySelector<TestNonInteractiveTableColumn>(
+                    '#third-column'
+                )!;
         });
 
         afterEach(async () => {
@@ -306,9 +317,9 @@ describe('Table keyboard navigation', () => {
                 await sendKeyDownEvent(focusedColumn, keyEnter);
                 await waitForUpdatesAsync();
                 expect(
-                    firstHeader.sortDirection
-                        === TableColumnSortDirection.none
-                        || firstHeader.sortDirection === null
+                    firstHeader.sortDirection ===
+                        TableColumnSortDirection.none ||
+                        firstHeader.sortDirection === null
                 ).toBe(true);
             });
 
@@ -346,9 +357,9 @@ describe('Table keyboard navigation', () => {
                     TableColumnSortDirection.ascending
                 );
                 expect(
-                    secondHeader.sortDirection
-                        === TableColumnSortDirection.none
-                        || secondHeader.sortDirection === null
+                    secondHeader.sortDirection ===
+                        TableColumnSortDirection.none ||
+                        secondHeader.sortDirection === null
                 ).toBe(true);
             });
 
@@ -712,7 +723,8 @@ describe('Table keyboard navigation', () => {
                     spec(
                         `pressing ${name} will open the action menu, Esc will close the menu, and another Esc press will focus the (same) cell`,
                         async () => {
-                            const actionMenuButton = pageObject.getCellActionMenu(0, 0)!;
+                            const actionMenuButton =
+                                pageObject.getCellActionMenu(0, 0)!;
                             const toggleListener = waitForEvent(
                                 element,
                                 'action-menu-toggle'
@@ -726,7 +738,8 @@ describe('Table keyboard navigation', () => {
                             const firstCell = pageObject.getCell(0, 0);
                             expect(firstCell.menuOpen).toBe(true);
 
-                            const actionMenuItem = element.querySelector(menuItemTag)!;
+                            const actionMenuItem =
+                                element.querySelector(menuItemTag)!;
 
                             await sendKeyDownEvent(actionMenuItem, keyEscape);
 
@@ -797,8 +810,8 @@ describe('Table keyboard navigation', () => {
                 const visibleIndex = renderedRowCount - 1;
                 const lastRenderedRow = pageObject.getRow(visibleIndex);
                 if (
-                    lastRenderedRow.dataRecord!.id
-                    !== (largeDataRowCount - 1).toString()
+                    lastRenderedRow.dataRecord!.id !==
+                    (largeDataRowCount - 1).toString()
                 ) {
                     throw new Error(
                         'Expected last visible row to be the last row in the dataset'
@@ -1106,8 +1119,8 @@ describe('Table keyboard navigation', () => {
                         await waitForUpdatesAsync();
                         let focusedElement = currentFocusedElement();
                         if (
-                            !(focusedElement instanceof TableGroupRow)
-                            || focusedElement.expanded
+                            !(focusedElement instanceof TableGroupRow) ||
+                            focusedElement.expanded
                         ) {
                             throw new Error(
                                 'Expected focused group row to be collapsed'
@@ -1138,7 +1151,8 @@ describe('Table keyboard navigation', () => {
                 });
 
                 it('pressing RightArrow on an focused expanded group row will focus the selection checkbox', async () => {
-                    const initialFocusedGroupRow = currentFocusedElement() as TableGroupRow;
+                    const initialFocusedGroupRow =
+                        currentFocusedElement() as TableGroupRow;
                     await sendKeyPressToTable(keyArrowRight);
 
                     expect(currentFocusedElement()).toBe(
@@ -1147,7 +1161,8 @@ describe('Table keyboard navigation', () => {
                 });
 
                 it('pressing LeftArrow on a focused group row selection checkbox will focus the entire group row', async () => {
-                    const initialFocusedGroupRow = currentFocusedElement() as TableGroupRow;
+                    const initialFocusedGroupRow =
+                        currentFocusedElement() as TableGroupRow;
                     await sendKeyPressToTable(keyArrowRight);
                     await sendKeyPressToTable(keyArrowLeft);
 
@@ -1293,7 +1308,8 @@ describe('Table keyboard navigation', () => {
 
             const tableData = createTableData(4);
             await element.setData(tableData);
-            const column2 = element.querySelector<TableColumn>('#second-column')!;
+            const column2 =
+                element.querySelector<TableColumn>('#second-column')!;
             await addActionMenu(column2);
             await connect();
             await waitForUpdatesAsync();

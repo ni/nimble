@@ -170,9 +170,10 @@ describe('TreeView', () => {
     });
 
     it('when glyph is clicked tree group is expanded', async () => {
-        const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
-            '.expand-collapse-button'
-        );
+        const rootExpandButton =
+            model.root1.shadowRoot?.querySelector<HTMLElement>(
+                '.expand-collapse-button'
+            );
 
         await clickElement(rootExpandButton!);
         expect(model.root1.hasAttribute('expanded')).toBe(true);
@@ -184,9 +185,10 @@ describe('TreeView', () => {
         });
 
         it('when glyph is clicked tree group is expanded', async () => {
-            const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
-                '.expand-collapse-button'
-            );
+            const rootExpandButton =
+                model.root1.shadowRoot?.querySelector<HTMLElement>(
+                    '.expand-collapse-button'
+                );
 
             await clickElement(rootExpandButton!);
             expect(model.root1.hasAttribute('expanded')).toBe(true);
@@ -257,9 +259,10 @@ describe('TreeView', () => {
         });
 
         it('when glyph is clicked tree group is expanded', async () => {
-            const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
-                '.expand-collapse-button'
-            );
+            const rootExpandButton =
+                model.root1.shadowRoot?.querySelector<HTMLElement>(
+                    '.expand-collapse-button'
+                );
 
             await clickElement(rootExpandButton!);
             expect(model.root1.hasAttribute('expanded')).toBe(true);
@@ -296,9 +299,10 @@ describe('TreeView', () => {
         });
 
         it('when glyph is clicked tree group is expanded', async () => {
-            const rootExpandButton = model.root1.shadowRoot?.querySelector<HTMLElement>(
-                '.expand-collapse-button'
-            );
+            const rootExpandButton =
+                model.root1.shadowRoot?.querySelector<HTMLElement>(
+                    '.expand-collapse-button'
+                );
 
             await clickElement(rootExpandButton!);
             expect(model.root1.hasAttribute('expanded')).toBe(true);

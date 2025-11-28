@@ -422,7 +422,8 @@ describe('AnchorTabs', () => {
         it('should scroll left when the left scroll button is clicked', async () => {
             await tabsPageObject.setTabsWidth(300);
             element.activeid = 'tab-six'; // scrolls to the last tab
-            const currentScrollOffset = tabsPageObject.getTabsViewScrollOffset();
+            const currentScrollOffset =
+                tabsPageObject.getTabsViewScrollOffset();
             await tabsPageObject.clickScrollLeftButton();
             expect(tabsPageObject.getTabsViewScrollOffset()).toBeLessThan(
                 currentScrollOffset
@@ -444,7 +445,8 @@ describe('AnchorTabs', () => {
         it('should not scroll right when the right scroll button is clicked and the last tab is active', async () => {
             await tabsPageObject.setTabsWidth(300);
             element.activeid = 'tab-six'; // scrolls to the last tab
-            const currentScrollOffset = tabsPageObject.getTabsViewScrollOffset();
+            const currentScrollOffset =
+                tabsPageObject.getTabsViewScrollOffset();
             await tabsPageObject.clickScrollRightButton();
             expect(tabsPageObject.getTabsViewScrollOffset()).toBe(
                 currentScrollOffset

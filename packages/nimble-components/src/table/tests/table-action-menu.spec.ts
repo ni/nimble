@@ -90,8 +90,8 @@ describe('Table action menu', () => {
     });
 
     function createAndSlotMenu(slot: string): {
-        menu: Menu,
-        items: MenuItem[]
+        menu: Menu;
+        items: MenuItem[];
     } {
         const menu = document.createElement(menuTag);
         menu.slot = slot;

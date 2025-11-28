@@ -206,9 +206,9 @@ export class TableColumnNumberText extends mixinTextBase(
 
         // Look at format and decimal max digits and unit to determine the default alignment
         if (
-            this.format === NumberTextFormat.decimal
-            && typeof this.decimalMaximumDigits !== 'number'
-            && !this.unit
+            this.format === NumberTextFormat.decimal &&
+            typeof this.decimalMaximumDigits !== 'number' &&
+            !this.unit
         ) {
             return TableColumnAlignment.right;
         }

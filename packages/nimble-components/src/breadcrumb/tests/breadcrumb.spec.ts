@@ -60,7 +60,8 @@ describe('Breadcrumb', () => {
         it('should scroll left when the left scroll button is clicked', async () => {
             await breadcrumbPageObject.setBreadcrumbWidth(300);
             await breadcrumbPageObject.scrollBreadcrumbItemIntoViewByIndex(5);
-            const currentScrollOffset = breadcrumbPageObject.getBreadcrumbViewScrollOffset();
+            const currentScrollOffset =
+                breadcrumbPageObject.getBreadcrumbViewScrollOffset();
             await breadcrumbPageObject.clickScrollLeftButton();
             expect(
                 breadcrumbPageObject.getBreadcrumbViewScrollOffset()
@@ -86,7 +87,8 @@ describe('Breadcrumb', () => {
         it('should not scroll right when the right scroll button is clicked and the last breadcrumb item is active', async () => {
             await breadcrumbPageObject.setBreadcrumbWidth(300);
             await breadcrumbPageObject.scrollBreadcrumbItemIntoViewByIndex(5);
-            const currentScrollOffset = breadcrumbPageObject.getBreadcrumbViewScrollOffset();
+            const currentScrollOffset =
+                breadcrumbPageObject.getBreadcrumbViewScrollOffset();
             await breadcrumbPageObject.clickScrollRightButton();
             expect(breadcrumbPageObject.getBreadcrumbViewScrollOffset()).toBe(
                 currentScrollOffset

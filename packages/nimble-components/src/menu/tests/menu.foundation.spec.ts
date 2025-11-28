@@ -33,13 +33,13 @@ const arrowDownEvent = new KeyboardEvent('keydown', {
 } as KeyboardEventInit);
 
 async function setup(): Promise<{
-    element: Menu,
-    connect: () => Promise<void>,
-    disconnect: () => Promise<void>,
-    menuItem1: MenuItem,
-    menuItem2: MenuItem,
-    menuItem3: MenuItem,
-    menuItem4: MenuItem
+    element: Menu;
+    connect: () => Promise<void>;
+    disconnect: () => Promise<void>;
+    menuItem1: MenuItem;
+    menuItem2: MenuItem;
+    menuItem3: MenuItem;
+    menuItem4: MenuItem;
 }> {
     const { element, connect, disconnect } = await fixture([
         menu(),
@@ -355,7 +355,8 @@ describe('Menu', () => {
     });
 
     it('should not navigate to hidden items', async () => {
-        const { element, connect, disconnect, menuItem3, menuItem4 } = await setup();
+        const { element, connect, disconnect, menuItem3, menuItem4 } =
+            await setup();
 
         const hiddenItem1 = document.createElement('fast-menu-item');
         const hiddenItem2 = document.createElement('fast-menu-item');
@@ -401,7 +402,8 @@ describe('Menu', () => {
     });
 
     it('should navigate the menu on arrow up/down keys', async () => {
-        const { element, connect, disconnect, menuItem3, menuItem4 } = await setup();
+        const { element, connect, disconnect, menuItem3, menuItem4 } =
+            await setup();
 
         const notMenuItem1 = document.createElement('div');
         const notMenuItem2 = document.createElement('div');

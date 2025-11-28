@@ -153,8 +153,8 @@ export class MatrixRenderer {
             const scaledX = this.scaledColumnIndices[i]!;
             if (
                 !(
-                    scaledX >= this.transformConfig.topLeftCanvasCorner.x
-                    && scaledX < this.transformConfig.bottomRightCanvasCorner.x
+                    scaledX >= this.transformConfig.topLeftCanvasCorner.x &&
+                    scaledX < this.transformConfig.bottomRightCanvasCorner.x
                 )
             ) {
                 continue;
@@ -163,9 +163,10 @@ export class MatrixRenderer {
             // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
             // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
             // scaledRowIndices is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndices is 13
-            const columnEndIndex = this.columnIndicesPositions[i + 1] !== undefined
-                ? this.columnIndicesPositions[i + 1]!
-                : this.scaledRowIndices.length;
+            const columnEndIndex =
+                this.columnIndicesPositions[i + 1] !== undefined
+                    ? this.columnIndicesPositions[i + 1]!
+                    : this.scaledRowIndices.length;
             for (
                 let columnStartIndex = this.columnIndicesPositions[i]!;
                 columnStartIndex < columnEndIndex;
@@ -174,15 +175,16 @@ export class MatrixRenderer {
                 const scaledY = this.scaledRowIndices[columnStartIndex]!;
                 if (
                     !(
-                        scaledY >= this.transformConfig.topLeftCanvasCorner.y
-                        && scaledY < this.transformConfig.bottomRightCanvasCorner.y
+                        scaledY >= this.transformConfig.topLeftCanvasCorner.y &&
+                        scaledY < this.transformConfig.bottomRightCanvasCorner.y
                     )
                 ) {
                     continue;
                 }
                 // Fill style is temporary green for all dies, will be replaced with a color based on the value of the die in a future implementation
-                this.context.fillStyle = this.colors[this.colorIndices[columnStartIndex]!]
-                    ?? this.outsideRangeDieColor;
+                this.context.fillStyle =
+                    this.colors[this.colorIndices[columnStartIndex]!] ??
+                    this.outsideRangeDieColor;
                 this.context.fillRect(
                     scaledX,
                     scaledY,
@@ -204,8 +206,8 @@ export class MatrixRenderer {
             const scaledX = this.scaledColumnIndices[i]!;
             if (
                 !(
-                    scaledX >= this.transformConfig.topLeftCanvasCorner.x
-                    && scaledX < this.transformConfig.bottomRightCanvasCorner.x
+                    scaledX >= this.transformConfig.topLeftCanvasCorner.x &&
+                    scaledX < this.transformConfig.bottomRightCanvasCorner.x
                 )
             ) {
                 continue;
@@ -214,9 +216,10 @@ export class MatrixRenderer {
             // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
             // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
             // scaledRowIndices is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndices is 13
-            const columnEndIndex = this.columnIndicesPositions[i + 1] !== undefined
-                ? this.columnIndicesPositions[i + 1]!
-                : this.scaledRowIndices.length;
+            const columnEndIndex =
+                this.columnIndicesPositions[i + 1] !== undefined
+                    ? this.columnIndicesPositions[i + 1]!
+                    : this.scaledRowIndices.length;
             for (
                 let columnStartIndex = this.columnIndicesPositions[i]!;
                 columnStartIndex < columnEndIndex;
@@ -225,8 +228,8 @@ export class MatrixRenderer {
                 const scaledY = this.scaledRowIndices[columnStartIndex]!;
                 if (
                     !(
-                        scaledY >= this.transformConfig.topLeftCanvasCorner.y
-                        && scaledY < this.transformConfig.bottomRightCanvasCorner.y
+                        scaledY >= this.transformConfig.topLeftCanvasCorner.y &&
+                        scaledY < this.transformConfig.bottomRightCanvasCorner.y
                     )
                 ) {
                     continue;
@@ -238,9 +241,9 @@ export class MatrixRenderer {
                 this.context.fillText(
                     label,
                     scaledX + this.renderConfig.dieDimensions.width / 2,
-                    scaledY
-                        + this.renderConfig.dieDimensions.height / 2
-                        + approximateTextHeight.width / 2,
+                    scaledY +
+                        this.renderConfig.dieDimensions.height / 2 +
+                        approximateTextHeight.width / 2,
                     this.renderConfig.dieDimensions.width * this.fontSizeFactor
                 );
             }
@@ -249,26 +252,26 @@ export class MatrixRenderer {
 
     private isDieInGrid(x: number, y: number): boolean {
         return (
-            x >= this.renderConfig.gridMinX
-            && x <= this.renderConfig.gridMaxX
-            && y >= this.renderConfig.gridMinY
-            && y <= this.renderConfig.gridMaxY
+            x >= this.renderConfig.gridMinX &&
+            x <= this.renderConfig.gridMaxX &&
+            y >= this.renderConfig.gridMinY &&
+            y <= this.renderConfig.gridMaxY
         );
     }
 
     private calculateHorizontalScaledIndices(columnIndex: number): number {
         return (
-            this.renderConfig.horizontalCoefficient * columnIndex
-            + this.renderConfig.horizontalConstant
-            + this.renderConfig.margin.left
+            this.renderConfig.horizontalCoefficient * columnIndex +
+            this.renderConfig.horizontalConstant +
+            this.renderConfig.margin.left
         );
     }
 
     private calculateVerticalScaledIndices(rowIndex: number): number {
         return (
-            this.renderConfig.verticalCoefficient * rowIndex
-            + this.renderConfig.verticalConstant
-            + this.renderConfig.margin.top
+            this.renderConfig.verticalCoefficient * rowIndex +
+            this.renderConfig.verticalConstant +
+            this.renderConfig.margin.top
         );
     }
 

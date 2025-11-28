@@ -4,5 +4,6 @@
     "trailingComma": "none",
     "singleQuote": true,
     "endOfLine": "auto",
-    "proseWrap": "always"
+    "proseWrap": "always",
+    "arrowParens": "avoid"
 }

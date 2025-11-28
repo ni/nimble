@@ -110,7 +110,8 @@ describe('Table', () => {
                         continue;
                     }
 
-                    const dataKey = column.columnInternals.dataRecordFieldNames[0]!;
+                    const dataKey =
+                        column.columnInternals.dataRecordFieldNames[0]!;
                     const expectedCellData = rowData[dataKey]!;
                     record[dataKey] = expectedCellData;
                 }
@@ -125,9 +126,7 @@ describe('Table', () => {
             const visibleData = retrieveExpectedData(visibleTableDataSubset);
             const expectedRowCount = visibleData.length;
             expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
-            const visibleColumns = element.columns.filter(
-                x => !x.columnHidden
-            );
+            const visibleColumns = element.columns.filter(x => !x.columnHidden);
 
             for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
                 for (
@@ -135,8 +134,9 @@ describe('Table', () => {
                     columnIndex < visibleColumns.length;
                     columnIndex++
                 ) {
-                    const dataKey = visibleColumns[columnIndex]!.columnInternals
-                        .dataRecordFieldNames[0]!;
+                    const dataKey =
+                        visibleColumns[columnIndex]!.columnInternals
+                            .dataRecordFieldNames[0]!;
                     const expectedCellData = visibleData[rowIndex]![dataKey]!;
                     expect(
                         pageObject.getRenderedCellTextContent(
@@ -212,7 +212,8 @@ describe('Table', () => {
         });
 
         it('sets title when header text is ellipsized', async () => {
-            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            const headerContents =
+                'a very long value that should get ellipsized due to not fitting within the default header width';
             await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
@@ -223,7 +224,8 @@ describe('Table', () => {
         });
 
         it('sets title when header text is ellipsized in a span', async () => {
-            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            const headerContents =
+                'a very long value that should get ellipsized due to not fitting within the default header width';
             await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
@@ -248,7 +250,8 @@ describe('Table', () => {
         });
 
         it('removes title on mouseout of header', async () => {
-            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            const headerContents =
+                'a very long value that should get ellipsized due to not fitting within the default header width';
             await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
@@ -291,7 +294,8 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            element.columns[0]!.columnInternals.headerAlignment = TableColumnAlignment.right;
+            element.columns[0]!.columnInternals.headerAlignment =
+                TableColumnAlignment.right;
             await waitForUpdatesAsync();
 
             const header = pageObject.getHeaderElement(0);
@@ -733,7 +737,8 @@ describe('Table', () => {
                 const approximateRowHeight = parseFloat(
                     controlHeight.getValueFor(element)
                 );
-                const expectedRowCountUpperBound = (element.offsetHeight / approximateRowHeight) * 3;
+                const expectedRowCountUpperBound =
+                    (element.offsetHeight / approximateRowHeight) * 3;
                 expect(actualRowCount).toBeLessThan(data.length);
                 expect(actualRowCount).toBeLessThan(expectedRowCountUpperBound);
                 const dataSubset = data.slice(0, actualRowCount);
@@ -788,7 +793,8 @@ describe('Table', () => {
                 await element.setData(data);
                 await waitForUpdatesAsync();
 
-                const originalRenderedRowCount = pageObject.getRenderedRowCount();
+                const originalRenderedRowCount =
+                    pageObject.getRenderedRowCount();
 
                 element.style.height = '700px';
                 await waitForUpdatesAsync();
@@ -927,7 +933,9 @@ describe('Table', () => {
                 element.idFieldName = 'stringData';
                 await waitForUpdatesAsync();
 
-                const sortedData = [...simpleTableData].sort((a, b) => a.stringData.localeCompare(b.stringData));
+                const sortedData = [...simpleTableData].sort((a, b) =>
+                    a.stringData.localeCompare(b.stringData)
+                );
                 // Verify the record IDs are updated
                 verifyRecordIDs(sortedData.map(x => x.stringData));
                 // Verify the data is still sorted
@@ -1986,7 +1994,8 @@ describe('Table', () => {
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
                 ).toBeTrue();
 
-                hierarchyOptions.delayedHierarchyState = TableRecordDelayedHierarchyState.none;
+                hierarchyOptions.delayedHierarchyState =
+                    TableRecordDelayedHierarchyState.none;
                 await element.setData(initialData); // Reset the data to force the row state to be re-evaluated
                 await waitForUpdatesAsync();
 
@@ -2363,7 +2372,8 @@ describe('Table', () => {
                         await connect();
                         await waitForUpdatesAsync();
                         element.columns.forEach(column => {
-                            column.columnInternals.groupingDisabled = !value.groupableColumns;
+                            column.columnInternals.groupingDisabled =
+                                !value.groupableColumns;
                         });
                         element.parentIdFieldName = value.hierarchy
                             ? 'parentId'
@@ -2557,9 +2567,10 @@ describe('Table', () => {
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setupWithTestColumns());
-            column1 = element.querySelector<TableColumnValidationTest>(
-                '#first-column'
-            )!;
+            column1 =
+                element.querySelector<TableColumnValidationTest>(
+                    '#first-column'
+                )!;
             await connect();
         });
 
@@ -2628,8 +2639,8 @@ describe('Table', () => {
 
         async function disconnectAndReconnect(
             updatesWhileDisconnected: {
-                data?: readonly SimpleTableRecord[],
-                height?: string
+                data?: readonly SimpleTableRecord[];
+                height?: string;
             } = { data: undefined, height: undefined }
         ): Promise<void> {
             await disconnect();
@@ -2647,12 +2658,14 @@ describe('Table', () => {
         it('maintains scroll position if data does not change #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
-            const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
+            const firstRenderedRowBeforeDisconnect =
+                getFirstRenderedRowDataIndex(largeData200);
 
             await disconnectAndReconnect();
 
             expect(element.viewport.scrollTop).toBe(scrollTopBeforeDisconnect);
-            const firstRenderedRowAfterReconnect = getFirstRenderedRowDataIndex(largeData200);
+            const firstRenderedRowAfterReconnect =
+                getFirstRenderedRowDataIndex(largeData200);
             expect(firstRenderedRowAfterReconnect).toBe(
                 firstRenderedRowBeforeDisconnect
             );
@@ -2662,7 +2675,8 @@ describe('Table', () => {
         it('updates scroll position if data length is reduced while not attached #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData400);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
-            const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData400);
+            const firstRenderedRowBeforeDisconnect =
+                getFirstRenderedRowDataIndex(largeData400);
 
             await disconnectAndReconnect({ data: largeData200 });
 
@@ -2670,7 +2684,8 @@ describe('Table', () => {
             expect(element.viewport.scrollTop).toBeLessThan(
                 scrollTopBeforeDisconnect
             );
-            const firstRenderedRowAfterReconnect = getFirstRenderedRowDataIndex(largeData200);
+            const firstRenderedRowAfterReconnect =
+                getFirstRenderedRowDataIndex(largeData200);
             expect(firstRenderedRowAfterReconnect).toBeGreaterThan(0);
             expect(firstRenderedRowAfterReconnect).toBeLessThan(
                 firstRenderedRowBeforeDisconnect
@@ -2681,12 +2696,14 @@ describe('Table', () => {
         it('maintains scroll position if data length is increased while not attached #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
-            const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
+            const firstRenderedRowBeforeDisconnect =
+                getFirstRenderedRowDataIndex(largeData200);
 
             await disconnectAndReconnect({ data: largeData400 });
 
             expect(element.viewport.scrollTop).toBe(scrollTopBeforeDisconnect);
-            const firstRenderedRowAfterReconnect = getFirstRenderedRowDataIndex(largeData400);
+            const firstRenderedRowAfterReconnect =
+                getFirstRenderedRowDataIndex(largeData400);
             expect(firstRenderedRowAfterReconnect).toBe(
                 firstRenderedRowBeforeDisconnect
             );
@@ -2705,11 +2722,13 @@ describe('Table', () => {
             element.style.height = '500px';
             await element.setData(largeData200);
             await waitForUpdatesAsync();
-            const renderedRowCountBeforeDisconnect = pageObject.getRenderedRowCount();
+            const renderedRowCountBeforeDisconnect =
+                pageObject.getRenderedRowCount();
 
             await disconnectAndReconnect({ height: '700px' });
 
-            const renderedRowCountAfterReconnect = pageObject.getRenderedRowCount();
+            const renderedRowCountAfterReconnect =
+                pageObject.getRenderedRowCount();
             expect(renderedRowCountAfterReconnect).toBeGreaterThan(
                 renderedRowCountBeforeDisconnect
             );
@@ -2720,11 +2739,13 @@ describe('Table', () => {
             element.style.height = '500px';
             await element.setData(largeData200);
             await waitForUpdatesAsync();
-            const renderedRowCountBeforeDisconnect = pageObject.getRenderedRowCount();
+            const renderedRowCountBeforeDisconnect =
+                pageObject.getRenderedRowCount();
 
             await disconnectAndReconnect({ height: '200px' });
 
-            const renderedRowCountAfterReconnect = pageObject.getRenderedRowCount();
+            const renderedRowCountAfterReconnect =
+                pageObject.getRenderedRowCount();
             expect(renderedRowCountAfterReconnect).toBeLessThan(
                 renderedRowCountBeforeDisconnect
             );

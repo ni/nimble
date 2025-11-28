@@ -67,7 +67,8 @@ export class TableColumnMenuButtonCellView extends TableCellView<
     /** @internal */
     public onMenuButtonMouseOver(): void {
         if (this.valueSpan) {
-            this.hasOverflow = this.valueSpan.offsetWidth < this.valueSpan.scrollWidth;
+            this.hasOverflow =
+                this.valueSpan.offsetWidth < this.valueSpan.scrollWidth;
         }
     }
 
@@ -90,4 +91,5 @@ const menuButtonCellView = TableColumnMenuButtonCellView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(menuButtonCellView());
-export const tableColumnMenuButtonCellViewTag = 'nimble-table-column-menu-button-cell-view';
+export const tableColumnMenuButtonCellViewTag =
+    'nimble-table-column-menu-button-cell-view';

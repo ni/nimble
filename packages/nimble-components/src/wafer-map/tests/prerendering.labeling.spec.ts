@@ -288,8 +288,8 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it(
-            'should have labels equal with values for each die, '
-                + 'but limited by the maximum number of characters and a ellipsis',
+            'should have labels equal with values for each die, ' +
+                'but limited by the maximum number of characters and a ellipsis',
             () => {
                 const waferMapFloatDies = getWaferMapDiesAsFloats();
                 const expectedValues = waferMapFloatDies.map(waferMapDie => {

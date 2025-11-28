@@ -22,13 +22,14 @@ class VoltUnitScale extends UnitScale {
     public constructor() {
         super(
             metricPrefixes.map(
-                ([scaleFactor, scaledPrefixText]) => new ScaledUnit(
-                    scaleFactor,
-                    ManuallyTranslatedScaledUnitFormat.createFactory({
-                        unitTranslations,
-                        scaledPrefixText
-                    })
-                )
+                ([scaleFactor, scaledPrefixText]) =>
+                    new ScaledUnit(
+                        scaleFactor,
+                        ManuallyTranslatedScaledUnitFormat.createFactory({
+                            unitTranslations,
+                            scaledPrefixText
+                        })
+                    )
             )
         );
     }

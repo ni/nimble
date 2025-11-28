@@ -34,9 +34,10 @@ export class SelectPageObjectInternal extends SelectPageObject {
     }
 
     public getGroup(index: number): ListOptionGroup {
-        const group = this.selectElement.querySelectorAll<ListOptionGroup>(
-            listOptionGroupTag
-        )[index];
+        const group =
+            this.selectElement.querySelectorAll<ListOptionGroup>(
+                listOptionGroupTag
+            )[index];
         if (!group) {
             throw new Error(`Group at index ${index} not found`);
         }

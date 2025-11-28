@@ -106,8 +106,8 @@ describe('Anchor Tree Item', () => {
         it('should set start slot visible', async () => {
             await connect();
             expect(
-                getComputedStyle(element.start).display === 'none'
-                    || getComputedStyle(element.startContainer).display === 'none'
+                getComputedStyle(element.start).display === 'none' ||
+                    getComputedStyle(element.startContainer).display === 'none'
             ).toBeFalse();
         });
     });

@@ -22,17 +22,20 @@ export function mixinSortableColumnAPI<
 
         public sortIndex?: number | null;
 
-        public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
+        public sortDirection: TableColumnSortDirection =
+            TableColumnSortDirection.none;
 
         /** @internal */
         public sortingDisabledChanged(): void {
             this.columnInternals.sortingDisabled = this.sortingDisabled;
             if (this.sortingDisabled) {
-                this.columnInternals.currentSortDirection = TableColumnSortDirection.none;
+                this.columnInternals.currentSortDirection =
+                    TableColumnSortDirection.none;
                 this.columnInternals.currentSortIndex = undefined;
             } else {
                 this.columnInternals.currentSortDirection = this.sortDirection;
-                this.columnInternals.currentSortIndex = this.sortIndex ?? undefined;
+                this.columnInternals.currentSortIndex =
+                    this.sortIndex ?? undefined;
             }
         }
 
@@ -46,7 +49,8 @@ export function mixinSortableColumnAPI<
         /** @internal */
         public sortIndexChanged(): void {
             if (!this.sortingDisabled) {
-                this.columnInternals.currentSortIndex = this.sortIndex ?? undefined;
+                this.columnInternals.currentSortIndex =
+                    this.sortIndex ?? undefined;
             }
         }
     }

@@ -13,7 +13,8 @@ import {
  * @public
  */
 export class MultivaluePropertyStyleSheetBehavior<PropertyType>
-implements Behavior {
+    implements Behavior
+{
     /**
      * Constructs a {@link MultivaluePropertyStyleSheetBehavior} instance.
      * @param propertyName - The property name to operate from.

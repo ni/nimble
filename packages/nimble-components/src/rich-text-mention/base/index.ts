@@ -22,10 +22,11 @@ import type { MappingConfigs, MentionUpdateEventDetail } from './types';
  * The base class for Mention configuration
  */
 export abstract class RichTextMention<
-    TValidator extends RichTextMentionValidator = RichTextMentionValidator
->
+        TValidator extends RichTextMentionValidator = RichTextMentionValidator
+    >
     extends FoundationElement
-    implements Subscriber {
+    implements Subscriber
+{
     /**
      * @internal
      */
@@ -84,9 +85,9 @@ export abstract class RichTextMention<
      */
     public handleChange(source: unknown, args: unknown): void {
         if (
-            source instanceof Mapping
-            && typeof args === 'string'
-            && this.getObservedMappingProperty().includes(args)
+            source instanceof Mapping &&
+            typeof args === 'string' &&
+            this.getObservedMappingProperty().includes(args)
         ) {
             this.updateMappingConfigs();
         }
@@ -120,9 +121,10 @@ export abstract class RichTextMention<
             this.mappingElements,
             this.pattern
         );
-        this.mentionInternals.mappingConfigs = this.mentionInternals.validator.isValid()
-            ? this.getMappingConfigs()
-            : undefined;
+        this.mentionInternals.mappingConfigs =
+            this.mentionInternals.validator.isValid()
+                ? this.getMappingConfigs()
+                : undefined;
     }
 
     private mappingElementsChanged(): void {

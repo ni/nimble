@@ -12,12 +12,13 @@ const FASTTextField = TextField.compose({
 });
 
 async function setup(): Promise<{
-    element: TextField,
-    connect: () => Promise<void>,
-    disconnect: () => Promise<void>,
-    parent: HTMLElement
+    element: TextField;
+    connect: () => Promise<void>;
+    disconnect: () => Promise<void>;
+    parent: HTMLElement;
 }> {
-    const { element, connect, disconnect, parent } = await fixture(FASTTextField());
+    const { element, connect, disconnect, parent } =
+        await fixture(FASTTextField());
 
     return { element, connect, disconnect, parent };
 }
@@ -671,13 +672,15 @@ describe('TextField', () => {
     describe('with constraint validation', () => {
         Object.keys(TextFieldType)
             .map(
-                (key): TextFieldType => TextFieldType[key as keyof typeof TextFieldType]
+                (key): TextFieldType =>
+                    TextFieldType[key as keyof typeof TextFieldType]
             )
             .forEach(type => {
                 describe(`of [type="${type}"]`, () => {
                     describe('that is [required]', () => {
                         it("should be invalid when it's value property is an empty string", async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
 
                             element.type = type;
@@ -690,7 +693,8 @@ describe('TextField', () => {
                         });
 
                         it('should be valid when value property is a string that is non-empty', async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
 
                             element.type = type;
@@ -704,7 +708,8 @@ describe('TextField', () => {
                     });
                     describe('that has a [minlength] attribute', () => {
                         it('should be valid if the value is an empty string', async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
                             const value = '';
                             element.type = type;
@@ -715,7 +720,8 @@ describe('TextField', () => {
                             await disconnect();
                         });
                         it('should be valid if the value has a length less than the minlength', async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
                             const value = 'value';
                             element.type = type;
@@ -729,7 +735,8 @@ describe('TextField', () => {
 
                     describe('that has a [maxlength] attribute', () => {
                         it('should be valid if the value is an empty string', async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
 
                             const value = '';
@@ -742,7 +749,8 @@ describe('TextField', () => {
                             await disconnect();
                         });
                         it('should be valid if the value has a exceeding the maxlength', async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
                             const value = 'value';
                             element.type = type;
@@ -753,7 +761,8 @@ describe('TextField', () => {
                             await disconnect();
                         });
                         it('should be valid if the value has a length shorter than maxlength and the element is [required]', async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
                             const value = 'value';
                             element.type = type;
@@ -768,7 +777,8 @@ describe('TextField', () => {
 
                     describe('that has a [pattern] attribute', () => {
                         it('should be valid if the value matches a pattern', async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
                             const value = 'value';
                             element.type = type;
@@ -783,7 +793,8 @@ describe('TextField', () => {
                         });
 
                         it('should be invalid if the value does not match a pattern', async () => {
-                            const { element, connect, disconnect } = await setup();
+                            const { element, connect, disconnect } =
+                                await setup();
                             await connect();
                             const value = 'value';
                             element.type = type;

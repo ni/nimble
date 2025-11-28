@@ -99,12 +99,12 @@ describe('Anchor Menu Item', () => {
         it('should set start slot visible and end slot not visible', async () => {
             await connect();
             expect(
-                getComputedStyle(element.start).display === 'none'
-                    || getComputedStyle(element.startContainer).display === 'none'
+                getComputedStyle(element.start).display === 'none' ||
+                    getComputedStyle(element.startContainer).display === 'none'
             ).toBeFalse();
             expect(
-                getComputedStyle(element.end).display === 'none'
-                    || getComputedStyle(element.endContainer).display === 'none'
+                getComputedStyle(element.end).display === 'none' ||
+                    getComputedStyle(element.endContainer).display === 'none'
             ).toBeTrue();
         });
     });

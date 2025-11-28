@@ -157,677 +157,725 @@ const requiredVisibleStatesComponent = (
     </${textFieldTag}>
 `;
 
-export const lightTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.none],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.none],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.appearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.appearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.none],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.none],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.appearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.appearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabled],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabled],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabledAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabledAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabled],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabled],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabledAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabledAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabled],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabled],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnly$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabledAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnly$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabledAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabled],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabled],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const lightTheme$ReadOnly$Disabled$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabledAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    lightThemeWhiteBackground
-);
+export const lightTheme$ReadOnly$Disabled$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabledAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        lightThemeWhiteBackground
+    );
 
-export const darkTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.none],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.none],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.appearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.appearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.none],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.none],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.appearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.appearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabled],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabled],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabledAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabledAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabled],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabled],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabledAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabledAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabled],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabled],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnly$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabledAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnly$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabledAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabled],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabled],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const darkTheme$ReadOnly$Disabled$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabledAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    darkThemeBlackBackground
-);
+export const darkTheme$ReadOnly$Disabled$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabledAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        darkThemeBlackBackground
+    );
 
-export const colorTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.none],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.none],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.appearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.appearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.none],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.none],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.appearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnlyAbsent$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.appearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabled],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabled],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabledAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabledAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabled],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabled],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.disabledAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnlyAbsent$Disabled$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.disabledAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnly$DisabledAbsent$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnly$DisabledAbsent$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabled],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabled],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnly$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabledAppearanceReadOnly],
-        [actionButtonStates[0]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnly$Disabled$AppearanceReadOnly$WithoutButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabledAppearanceReadOnly],
+            [actionButtonStates[0]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabled],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnly$Disabled$AppearanceReadOnlyAbsent$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabled],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
-export const colorTheme$ReadOnly$Disabled$AppearanceReadOnly$WithButtons: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        [manipulationState.readOnlyDisabledAppearanceReadOnly],
-        [actionButtonStates[1]],
-        leftIconStates,
-        errorStates,
-        typeStates,
-        appearanceStates,
-        fullBleedStates,
-        valueStates
-    ]),
-    colorThemeDarkGreenBackground
-);
+export const colorTheme$ReadOnly$Disabled$AppearanceReadOnly$WithButtons: StoryFn =
+    createFixedThemeStory(
+        createMatrix(component, [
+            [manipulationState.readOnlyDisabledAppearanceReadOnly],
+            [actionButtonStates[1]],
+            leftIconStates,
+            errorStates,
+            typeStates,
+            appearanceStates,
+            fullBleedStates,
+            valueStates
+        ]),
+        colorThemeDarkGreenBackground
+    );
 
 export const requiredVisibleThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(requiredVisibleStatesComponent, [

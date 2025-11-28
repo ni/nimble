@@ -28,8 +28,8 @@ export class TableLayoutManager<TData extends TableRecord> {
     private leftColumnIndex?: number;
     private rightColumnIndex?: number;
     private initialColumnWidths: {
-        initalColumnFractionalWidth: number,
-        initialPixelWidth: number
+        initalColumnFractionalWidth: number;
+        initialPixelWidth: number;
     }[] = [];
 
     public constructor(private readonly table: Table<TData>) {}
@@ -74,13 +74,15 @@ export class TableLayoutManager<TData extends TableRecord> {
             this.activeColumnDivider
         );
         this.rightColumnIndex = this.leftColumnIndex + 1;
-        this.activeColumnIndex = this.leftColumnIndex + (this.activeColumnDivider % 2);
+        this.activeColumnIndex =
+            this.leftColumnIndex + (this.activeColumnDivider % 2);
         this.dragStart = dragStart;
         this.currentTotalDelta = 0;
         this.visibleColumns = this.getVisibleColumns();
         this.setColumnsToFixedSize();
         this.initialTableScrollableWidth = this.table.viewport.scrollWidth;
-        this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
+        this.initialTableScrollableMinWidth =
+            this.table.tableScrollableMinWidth;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.isColumnBeingSized = true;
         // pointerId of -1 indicates source was synthetic PointerEvent: https://w3c.github.io/pointerevents/#dom-pointerevent-pointerid
@@ -113,7 +115,8 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private readonly onDividerPointerMove = (event: PointerEvent): void => {
         for (let i = 0; i < this.visibleColumns.length; i++) {
-            this.visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnWidths[i]?.initialPixelWidth;
+            this.visibleColumns[i]!.columnInternals.currentPixelWidth =
+                this.initialColumnWidths[i]?.initialPixelWidth;
         }
         this.currentTotalDelta = this.getAllowedSizeDelta(
             event.clientX - this.dragStart
@@ -127,11 +130,14 @@ export class TableLayoutManager<TData extends TableRecord> {
             this.currentTotalDelta
         );
 
-        const totalColumnWidthDelta = this.getTotalColumnFixedWidth() - this.initialColumnTotalWidth!;
+        const totalColumnWidthDelta =
+            this.getTotalColumnFixedWidth() - this.initialColumnTotalWidth!;
         if (totalColumnWidthDelta > 0) {
-            this.table.tableScrollableMinWidth = this.initialTableScrollableWidth! + totalColumnWidthDelta;
+            this.table.tableScrollableMinWidth =
+                this.initialTableScrollableWidth! + totalColumnWidthDelta;
         } else {
-            this.table.tableScrollableMinWidth = this.initialTableScrollableMinWidth!;
+            this.table.tableScrollableMinWidth =
+                this.initialTableScrollableMinWidth!;
         }
     };
 
@@ -155,8 +161,8 @@ export class TableLayoutManager<TData extends TableRecord> {
     private getTotalColumnFixedWidth(): number {
         let totalColumnFixedWidth = 0;
         for (const column of this.visibleColumns) {
-            totalColumnFixedWidth
-                += column.columnInternals.currentPixelWidth ?? 0;
+            totalColumnFixedWidth +=
+                column.columnInternals.currentPixelWidth ?? 0;
         }
         return totalColumnFixedWidth;
     }
@@ -165,7 +171,8 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.cacheGridSizedColumns();
         const headers = this.table.getHeaderContainerElements();
         for (let i = 0; i < headers.length; i++) {
-            this.visibleColumns[i]!.columnInternals.currentPixelWidth = headers[i]!.getBoundingClientRect().width;
+            this.visibleColumns[i]!.columnInternals.currentPixelWidth =
+                headers[i]!.getBoundingClientRect().width;
         }
         this.cacheColumnInitialPixelWidths();
     }
@@ -188,9 +195,9 @@ export class TableLayoutManager<TData extends TableRecord> {
             const columnInitialWidths = this.initialColumnWidths[i]!;
             const column = this.visibleColumns[i]!;
             if (!column.columnInternals.resizingDisabled) {
-                availableSpace
-                    += columnInitialWidths.initialPixelWidth
-                    - column.columnInternals.minPixelWidth;
+                availableSpace +=
+                    columnInitialWidths.initialPixelWidth -
+                    column.columnInternals.minPixelWidth;
             }
         }
         return Math.max(requestedResizeAmount, -availableSpace);
@@ -202,9 +209,10 @@ export class TableLayoutManager<TData extends TableRecord> {
      * is found, returns -1.
      */
     private getFirstLeftResizableColumnIndex(columnIndex: number): number {
-        const visibleColumns = this.visibleColumns.length === 0
-            ? this.getVisibleColumns()
-            : this.visibleColumns;
+        const visibleColumns =
+            this.visibleColumns.length === 0
+                ? this.getVisibleColumns()
+                : this.visibleColumns;
         for (let i = columnIndex; i >= 0; i--) {
             const column = visibleColumns[i];
             if (!column) {
@@ -223,9 +231,10 @@ export class TableLayoutManager<TData extends TableRecord> {
      * is found, returns -1.
      */
     private getFirstRightResizableColumnIndex(columnIndex: number): number {
-        const visibleColumns = this.visibleColumns.length === 0
-            ? this.getVisibleColumns()
-            : this.visibleColumns;
+        const visibleColumns =
+            this.visibleColumns.length === 0
+                ? this.getVisibleColumns()
+                : this.visibleColumns;
         for (let i = columnIndex; i < visibleColumns.length; i++) {
             const column = visibleColumns[i];
             if (!column) {
@@ -242,28 +251,31 @@ export class TableLayoutManager<TData extends TableRecord> {
         leftColumnIndex: number,
         delta: number
     ): void {
-        const firstLeftResizableColumn = this.getFirstLeftResizableColumnIndex(leftColumnIndex);
+        const firstLeftResizableColumn =
+            this.getFirstLeftResizableColumnIndex(leftColumnIndex);
         if (firstLeftResizableColumn === -1) {
             return;
         }
 
         let currentDelta = delta;
         const leftColumn = this.visibleColumns[firstLeftResizableColumn]!;
-        const leftColumnInitialWidths = this.initialColumnWidths[firstLeftResizableColumn]!;
-        const allowedDelta = delta < 0
-            ? Math.max(
-                leftColumn.columnInternals.minPixelWidth
-                          - leftColumnInitialWidths.initialPixelWidth,
-                currentDelta
-            )
-            : delta;
+        const leftColumnInitialWidths =
+            this.initialColumnWidths[firstLeftResizableColumn]!;
+        const allowedDelta =
+            delta < 0
+                ? Math.max(
+                      leftColumn.columnInternals.minPixelWidth -
+                          leftColumnInitialWidths.initialPixelWidth,
+                      currentDelta
+                  )
+                : delta;
         const actualDelta = allowedDelta;
         leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
         if (
-            actualDelta > currentDelta
-            && firstLeftResizableColumn > 0
-            && delta < 0
+            actualDelta > currentDelta &&
+            firstLeftResizableColumn > 0 &&
+            delta < 0
         ) {
             currentDelta -= allowedDelta;
             this.performCascadeSizeLeft(
@@ -277,21 +289,23 @@ export class TableLayoutManager<TData extends TableRecord> {
         rightColumnIndex: number,
         delta: number
     ): void {
-        const firstRightResizableColumn = this.getFirstRightResizableColumnIndex(rightColumnIndex);
+        const firstRightResizableColumn =
+            this.getFirstRightResizableColumnIndex(rightColumnIndex);
         if (firstRightResizableColumn === -1) {
             return;
         }
 
         let currentDelta = delta;
         const rightColumn = this.visibleColumns[firstRightResizableColumn]!;
-        const rightColumnInitialWidths = this.initialColumnWidths[firstRightResizableColumn]!;
+        const rightColumnInitialWidths =
+            this.initialColumnWidths[firstRightResizableColumn]!;
         let allowedDelta: number;
         if (rightColumn.columnInternals.resizingDisabled) {
             allowedDelta = 0;
         } else if (delta > 0) {
             allowedDelta = Math.min(
-                rightColumnInitialWidths.initialPixelWidth
-                    - rightColumn.columnInternals.minPixelWidth,
+                rightColumnInitialWidths.initialPixelWidth -
+                    rightColumn.columnInternals.minPixelWidth,
                 currentDelta
             );
         } else {
@@ -301,9 +315,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         rightColumn.columnInternals.currentPixelWidth! -= actualDelta;
 
         if (
-            actualDelta < currentDelta
-            && firstRightResizableColumn < this.visibleColumns.length - 1
-            && delta > 0
+            actualDelta < currentDelta &&
+            firstRightResizableColumn < this.visibleColumns.length - 1 &&
+            delta > 0
         ) {
             currentDelta -= allowedDelta;
             this.performCascadeSizeRight(
@@ -342,20 +356,22 @@ export class TableLayoutManager<TData extends TableRecord> {
             (sum, col) => sum + col.columnInternals.currentPixelWidth!,
             0
         );
-        const gridSizeColumnAverage = gridSizeColumnTotal / this.gridSizedColumns.length;
+        const gridSizeColumnAverage =
+            gridSizeColumnTotal / this.gridSizedColumns.length;
 
         let gridColumnIndex = 0;
         for (
             let i = 0;
-            i < this.visibleColumns.length
-            && gridColumnIndex < this.gridSizedColumns.length;
+            i < this.visibleColumns.length &&
+            gridColumnIndex < this.gridSizedColumns.length;
             i++
         ) {
             const column = this.visibleColumns[i]!;
             if (column === this.gridSizedColumns[gridColumnIndex]) {
                 gridColumnIndex += 1;
-                column.columnInternals.currentFractionalWidth = column.columnInternals.currentPixelWidth!
-                    / gridSizeColumnAverage;
+                column.columnInternals.currentFractionalWidth =
+                    column.columnInternals.currentPixelWidth! /
+                    gridSizeColumnAverage;
                 column.columnInternals.currentPixelWidth = undefined;
             }
         }

@@ -154,8 +154,8 @@ export class RichTextEditorPageObject {
         }
         if (force === true || force === false) {
             if (
-                this.richTextEditorElement.tiptapEditor.isActive(format!)
-                !== force
+                this.richTextEditorElement.tiptapEditor.isActive(format!) !==
+                force
             ) {
                 toggleButton!.dispatchEvent(event);
                 toggleButton!.click();
@@ -360,9 +360,9 @@ export class RichTextEditorPageObject {
 
     public isRichTextEditorActiveElement(): boolean {
         return (
-            document.activeElement === this.richTextEditorElement
-            && document.activeElement?.shadowRoot?.activeElement
-                === this.getTiptapEditor()
+            document.activeElement === this.richTextEditorElement &&
+            document.activeElement?.shadowRoot?.activeElement ===
+                this.getTiptapEditor()
         );
     }
 
@@ -407,7 +407,8 @@ export class RichTextEditorPageObject {
         markdown: string,
         mappings?: MappingConfiguration[]
     ): string {
-        const parserMentionConfigForUser = this.getParserMentionConfigForUser(mappings);
+        const parserMentionConfigForUser =
+            this.getParserMentionConfigForUser(mappings);
         const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
             [parserMentionConfigForUser]
@@ -425,7 +426,9 @@ export class RichTextEditorPageObject {
 
     public getMentionListboxItemsName(): string[] {
         const listItemsName: string[] = [];
-        this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent!)));
+        this.getAllListItemsInMentionBox().forEach(item =>
+            item.hidden ? null : listItemsName.push(item.textContent!)
+        );
         return listItemsName;
     }
 
@@ -473,9 +476,10 @@ export class RichTextEditorPageObject {
     private getFormattingButton(
         button: ToolbarButton
     ): ToggleButton | null | undefined {
-        const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
-            toggleButtonTag
-        );
+        const buttons: NodeListOf<ToggleButton> =
+            this.richTextEditorElement.shadowRoot!.querySelectorAll(
+                toggleButtonTag
+            );
         return buttons[button];
     }
 

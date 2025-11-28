@@ -75,7 +75,8 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     }
 
     public getCurrentSelectedRecordIds(): string[] {
-        const tanStackSelectionState = this.tanStackTable.options.state.rowSelection;
+        const tanStackSelectionState =
+            this.tanStackTable.options.state.rowSelection;
         if (!tanStackSelectionState) {
             return [];
         }

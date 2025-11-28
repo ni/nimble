@@ -23,11 +23,13 @@ export function mixinFractionalWidthColumnAPI<
         public minPixelWidth?: number | null;
 
         public fractionalWidthChanged(): void {
-            this.columnInternals.fractionalWidth = this.fractionalWidth ?? defaultFractionalWidth;
+            this.columnInternals.fractionalWidth =
+                this.fractionalWidth ?? defaultFractionalWidth;
         }
 
         public minPixelWidthChanged(): void {
-            this.columnInternals.minPixelWidth = this.minPixelWidth ?? defaultMinPixelWidth;
+            this.columnInternals.minPixelWidth =
+                this.minPixelWidth ?? defaultMinPixelWidth;
         }
     }
 

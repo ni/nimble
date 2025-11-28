@@ -641,8 +641,10 @@ describe('TableColumnNumberText', () => {
             spec(name, async () => {
                 await table.setData([{ number1: 10 }]);
                 elementReferences.column1.format = value.format;
-                elementReferences.column1.decimalMaximumDigits = value.decimalMaximumDigits;
-                elementReferences.column1.alignment = value.configuredColumnAlignment;
+                elementReferences.column1.decimalMaximumDigits =
+                    value.decimalMaximumDigits;
+                elementReferences.column1.alignment =
+                    value.configuredColumnAlignment;
                 if (value.unit) {
                     elementReferences.column1.appendChild(
                         document.createElement(unitByteTag)

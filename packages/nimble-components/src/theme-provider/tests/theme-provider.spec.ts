@@ -149,7 +149,8 @@ describe('Theme Provider', () => {
 
         parameterizeSpec(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
-                const tokenValue = value.cssDesignToken.name.split('ni-nimble-')[1]!;
+                const tokenValue =
+                    value.cssDesignToken.name.split('ni-nimble-')[1]!;
                 expect(tokenNameValues).toContain(tokenValue);
             });
         });

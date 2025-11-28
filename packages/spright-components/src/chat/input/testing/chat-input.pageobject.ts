@@ -40,8 +40,8 @@ export class ChatInputPageObject {
 
     public textAreaHasFocus(): boolean {
         return (
-            document.activeElement === this.element
-            && this.element.shadowRoot?.activeElement === this.element.textArea
+            document.activeElement === this.element &&
+            this.element.shadowRoot?.activeElement === this.element.textArea
         );
     }
 
@@ -78,7 +78,8 @@ export class ChatInputPageObject {
     }
 
     private getSendButton(): Button {
-        const sendButton = this.element.shadowRoot!.querySelector<Button>('.send-button')!;
+        const sendButton =
+            this.element.shadowRoot!.querySelector<Button>('.send-button')!;
         return sendButton;
     }
 

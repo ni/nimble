@@ -27,8 +27,9 @@ export class TableColumnNumberTextValidator extends ColumnValidator<
         format: NumberTextFormat,
         decimalDigits: number | undefined
     ): void {
-        const shouldValidateDecimalDigitsValue = format === NumberTextFormat.decimal
-            && typeof decimalDigits === 'number';
+        const shouldValidateDecimalDigitsValue =
+            format === NumberTextFormat.decimal &&
+            typeof decimalDigits === 'number';
         const invalid = shouldValidateDecimalDigitsValue
             ? this.isInvalidDecimalDigitsValue(decimalDigits)
             : false;
@@ -39,8 +40,9 @@ export class TableColumnNumberTextValidator extends ColumnValidator<
         format: NumberTextFormat,
         decimalMaximumDigits: number | undefined
     ): void {
-        const shouldValidateDecimalDigitsValue = format === NumberTextFormat.decimal
-            && typeof decimalMaximumDigits === 'number';
+        const shouldValidateDecimalDigitsValue =
+            format === NumberTextFormat.decimal &&
+            typeof decimalMaximumDigits === 'number';
         const invalid = shouldValidateDecimalDigitsValue
             ? this.isInvalidDecimalDigitsValue(decimalMaximumDigits)
             : false;
@@ -52,10 +54,11 @@ export class TableColumnNumberTextValidator extends ColumnValidator<
         decimalDigits: number | undefined,
         decimalMaximumDigits: number | undefined
     ): void {
-        const shouldValidateMutuallyExclusiveProperties = format === NumberTextFormat.decimal;
+        const shouldValidateMutuallyExclusiveProperties =
+            format === NumberTextFormat.decimal;
         const invalid = shouldValidateMutuallyExclusiveProperties
-            ? typeof decimalDigits === 'number'
-              && typeof decimalMaximumDigits === 'number'
+            ? typeof decimalDigits === 'number' &&
+              typeof decimalMaximumDigits === 'number'
             : false;
         this.setConditionValue(
             'decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits',
@@ -70,8 +73,8 @@ export class TableColumnNumberTextValidator extends ColumnValidator<
 
     private isInvalidDecimalDigitsValue(decimalDigits: number): boolean {
         return (
-            decimalDigits < minimumValidDecimalDigits
-            || decimalDigits > maximumValidDecimalDigits
+            decimalDigits < minimumValidDecimalDigits ||
+            decimalDigits > maximumValidDecimalDigits
         );
     }
 }

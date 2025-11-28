@@ -145,7 +145,8 @@ export class Table<
      * @internal
      */
     @observable
-    public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
+    public selectionState: TableRowSelectionState =
+        TableRowSelectionState.notSelected;
 
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
@@ -156,8 +157,8 @@ export class Table<
      */
     public get showRowOperationColumn(): boolean {
         return (
-            this.selectionMode === TableRowSelectionMode.multiple
-            || this.showCollapseAll
+            this.selectionMode === TableRowSelectionMode.multiple ||
+            this.showCollapseAll
         );
     }
 
@@ -284,24 +285,24 @@ export class Table<
     // and the unique slot name that the slot should be slotted into.
     private readonly requestedSlots: Map<
         string,
-        { recordId: string, uniqueSlot: string }
+        { recordId: string; uniqueSlot: string }
     > = new Map();
 
     private readonly borderWidthSubscriber: DesignTokenSubscriber<
         typeof borderWidth
     > = {
-            handleChange: () => {
-                this.updateRowHeight();
-            }
-        };
+        handleChange: () => {
+            this.updateRowHeight();
+        }
+    };
 
     private readonly controlHeightSubscriber: DesignTokenSubscriber<
         typeof controlHeight
     > = {
-            handleChange: () => {
-                this.updateRowHeight();
-            }
-        };
+        handleChange: () => {
+            this.updateRowHeight();
+        }
+    };
 
     private actionMenuSlots: string[] = [];
 
@@ -384,7 +385,8 @@ export class Table<
     ): Promise<void> {
         await this.processPendingUpdates();
         const clonedOptions = structuredClone(hierarchyOptions);
-        const presentOptions = this.tableValidator.getOptionsWithPresentIds(clonedOptions);
+        const presentOptions =
+            this.tableValidator.getOptionsWithPresentIds(clonedOptions);
         this.expansionManager.setHierarchyOptions(presentOptions);
         this.refreshRows();
     }
@@ -430,20 +432,20 @@ export class Table<
      */
     public handleChange(source: unknown, args: unknown): void {
         if (
-            (source instanceof TableColumn
-                || source instanceof ColumnInternals)
-            && typeof args === 'string'
+            (source instanceof TableColumn ||
+                source instanceof ColumnInternals) &&
+            typeof args === 'string'
         ) {
             this.tableUpdateTracker.trackColumnPropertyChanged(args);
         } else if (
-            source instanceof ColumnValidator
-            && args === 'isColumnValid'
+            source instanceof ColumnValidator &&
+            args === 'isColumnValid'
         ) {
             this.tableValidator.validateColumnConfigurations(this.columns);
         } else if (
-            source instanceof TableLayoutManager
-            && args === 'isColumnBeingSized'
-            && !this.layoutManager.isColumnBeingSized
+            source instanceof TableLayoutManager &&
+            args === 'isColumnBeingSized' &&
+            !this.layoutManager.isColumnBeingSized
         ) {
             // 'isColumnBeingSized' changing to 'false' indicates an interactive
             // column sizing operation has been completed
@@ -611,15 +613,17 @@ export class Table<
         }
 
         const allSortedColumns = this.getColumnsParticipatingInSorting().sort(
-            (x, y) => x.columnInternals.currentSortIndex!
-                - y.columnInternals.currentSortIndex!
+            (x, y) =>
+                x.columnInternals.currentSortIndex! -
+                y.columnInternals.currentSortIndex!
         );
 
         const columnIndex = allSortedColumns.indexOf(column);
         const columnAlreadySorted = columnIndex > -1;
 
         const oldSortDirection = column.columnInternals.currentSortDirection;
-        let newSortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+        let newSortDirection: TableColumnSortDirection =
+            TableColumnSortDirection.ascending;
 
         if (columnAlreadySorted) {
             if (oldSortDirection === TableColumnSortDirection.descending) {
@@ -642,7 +646,8 @@ export class Table<
                 currentColumn.columnInternals.currentSortIndex = 0;
             } else {
                 currentColumn.columnInternals.currentSortIndex = undefined;
-                currentColumn.columnInternals.currentSortDirection = TableColumnSortDirection.none;
+                currentColumn.columnInternals.currentSortDirection =
+                    TableColumnSortDirection.none;
             }
         }
 
@@ -672,14 +677,15 @@ export class Table<
         }
 
         if (
-            this.tableUpdateTracker.updateRowParentIds
-            || this.tableUpdateTracker.updateGroupRows
+            this.tableUpdateTracker.updateRowParentIds ||
+            this.tableUpdateTracker.updateGroupRows
         ) {
             const hierarchyEnabled = this.isHierarchyEnabled();
             const hasGroupableColumns = this.columns.some(
                 x => !x.columnInternals.groupingDisabled
             );
-            this.canHaveCollapsibleRows = hierarchyEnabled || hasGroupableColumns;
+            this.canHaveCollapsibleRows =
+                hierarchyEnabled || hasGroupableColumns;
         }
 
         if (this.tableUpdateTracker.updateActionMenuSlots) {
@@ -742,7 +748,8 @@ export class Table<
         if (this.tableValidator.areRecordIdsValid()) {
             // Update the selection state to remove previously selected records that no longer exist in the
             // data set while maintaining the selection state of records that still exist in the data set.
-            const previousSelection = this.selectionManager.getCurrentSelectedRecordIds();
+            const previousSelection =
+                this.selectionManager.getCurrentSelectedRecordIds();
             tanStackUpdates.state = {
                 rowSelection:
                     this.calculateTanStackSelectionState(previousSelection),
@@ -846,9 +853,10 @@ export class Table<
     private async getActionMenuToggleEventDetail(
         originalEvent: CustomEvent<TableActionMenuToggleEventDetail>
     ): Promise<TableActionMenuToggleEventDetail> {
-        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
-            ? await this.getSelectedRecordIds()
-            : [this.openActionMenuRecordId!];
+        const recordIds =
+            this.selectionMode === TableRowSelectionMode.multiple
+                ? await this.getSelectedRecordIds()
+                : [this.openActionMenuRecordId!];
         return {
             ...originalEvent.detail,
             recordIds
@@ -922,17 +930,19 @@ export class Table<
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
-            x => !x.columnInternals.sortingDisabled
-                && x.columnInternals.currentSortDirection
-                    !== TableColumnSortDirection.none
-                && typeof x.columnInternals.currentSortIndex === 'number'
+            x =>
+                !x.columnInternals.sortingDisabled &&
+                x.columnInternals.currentSortDirection !==
+                    TableColumnSortDirection.none &&
+                typeof x.columnInternals.currentSortIndex === 'number'
         );
     }
 
     private getColumnsParticipatingInGrouping(): TableColumn[] {
         return this.columns.filter(
-            x => !x.columnInternals.groupingDisabled
-                && typeof x.columnInternals.groupIndex === 'number'
+            x =>
+                !x.columnInternals.groupingDisabled &&
+                typeof x.columnInternals.groupIndex === 'number'
         );
     }
 
@@ -971,41 +981,47 @@ export class Table<
             );
         }
         if (this.tableUpdateTracker.updateSelectionMode) {
-            updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
-            updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
+            updatedOptions.enableMultiRowSelection =
+                this.selectionMode === TableRowSelectionMode.multiple;
+            updatedOptions.enableSubRowSelection =
+                this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionModeChanged(
                 this.selectionMode
             );
         }
         if (
-            this.dataHierarchyManager
-            && this.tableUpdateTracker.requiresTanStackDataReset
+            this.dataHierarchyManager &&
+            this.tableUpdateTracker.requiresTanStackDataReset
         ) {
             if (
-                !this.isHierarchyEnabled()
-                && !this.tableUpdateTracker.updateRowParentIds
+                !this.isHierarchyEnabled() &&
+                !this.tableUpdateTracker.updateRowParentIds
             ) {
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
                 updatedOptions.data = [...this.table.options.data];
             } else {
-                const orderedRecords = this.dataHierarchyManager.getAllRecords(true);
-                const tanstackUpdates = this.calculateTanStackData(orderedRecords);
+                const orderedRecords =
+                    this.dataHierarchyManager.getAllRecords(true);
+                const tanstackUpdates =
+                    this.calculateTanStackData(orderedRecords);
                 if (tanstackUpdates.state) {
-                    updatedOptions.state.rowSelection = tanstackUpdates.state.rowSelection;
+                    updatedOptions.state.rowSelection =
+                        tanstackUpdates.state.rowSelection;
                 }
                 updatedOptions.data = tanstackUpdates.data;
             }
         }
 
         if (this.tableUpdateTracker.updateGroupRows) {
-            updatedOptions.state.grouping = this.calculateTanStackGroupingState();
+            updatedOptions.state.grouping =
+                this.calculateTanStackGroupingState();
         }
 
         if (
-            this.tableUpdateTracker.updateRowIds
-            || this.tableUpdateTracker.updateRowParentIds
-            || this.tableUpdateTracker.updateGroupRows
+            this.tableUpdateTracker.updateRowIds ||
+            this.tableUpdateTracker.updateRowParentIds ||
+            this.tableUpdateTracker.updateGroupRows
         ) {
             updatedOptions.state.expanded = true;
             this.expansionManager.resetExpansionState();
@@ -1104,9 +1120,11 @@ export class Table<
     private setSelectionCheckboxState(): void {
         if (this.selectionCheckbox) {
             this.ignoreSelectionChangeEvents = true;
-            this.selectionCheckbox.checked = this.selectionState === TableRowSelectionState.selected;
-            this.selectionCheckbox.indeterminate = this.selectionState
-                === TableRowSelectionState.partiallySelected;
+            this.selectionCheckbox.checked =
+                this.selectionState === TableRowSelectionState.selected;
+            this.selectionCheckbox.indeterminate =
+                this.selectionState ===
+                TableRowSelectionState.partiallySelected;
             this.ignoreSelectionChangeEvents = false;
         }
     }
@@ -1124,9 +1142,10 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const isParent = !isGroupRow && this.getRowCanExpand(row);
-            const isDataChildOfGroupRowWithNoHierarchy = !isGroupRow // is a data row (not a group row)
-                && !this.isHierarchyEnabled() // table does not have hierarchy enabled
-                && row.getParentRow()?.getIsGrouped(); // row has a parent that is a group row
+            const isDataChildOfGroupRowWithNoHierarchy =
+                !isGroupRow && // is a data row (not a group row)
+                !this.isHierarchyEnabled() && // table does not have hierarchy enabled
+                row.getParentRow()?.getIsGrouped(); // row has a parent that is a group row
             const rowState: TableRowState<TData> = {
                 record: row.original.clientRecord,
                 id: row.id,
@@ -1151,13 +1170,14 @@ export class Table<
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
         });
-        this.showCollapseAll = hasDataHierarchy
-            || this.getColumnsParticipatingInGrouping().length > 0;
+        this.showCollapseAll =
+            hasDataHierarchy ||
+            this.getColumnsParticipatingInGrouping().length > 0;
         this.virtualizer.dataChanged();
     }
 
     private getRequestedSlotsByRecordId(): {
-        [recordId: string]: SlotMetadata[]
+        [recordId: string]: SlotMetadata[];
     } {
         const slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
 
@@ -1202,7 +1222,8 @@ export class Table<
     private getGroupedRowSelectionState(
         groupedRow: TanStackRow<TableNode<TData>>
     ): TableRowSelectionState {
-        const leafRows = groupedRow.getLeafRows().filter(x => !x.getIsGrouped()) ?? [];
+        const leafRows =
+            groupedRow.getLeafRows().filter(x => !x.getIsGrouped()) ?? [];
         let foundSelectedRow = false;
         let foundNotSelectedRow = false;
         for (const row of leafRows) {
@@ -1263,29 +1284,33 @@ export class Table<
         return this.expansionManager.isRowExpanded(row);
     };
 
-    private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
-        const rowSelectionState = updaterOrValue instanceof Function
-            ? updaterOrValue(this.table.getState().rowSelection)
-            : updaterOrValue;
+    private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> =
+        (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
+            const rowSelectionState =
+                updaterOrValue instanceof Function
+                    ? updaterOrValue(this.table.getState().rowSelection)
+                    : updaterOrValue;
 
-        this.updateTableOptions({
-            state: {
-                rowSelection: rowSelectionState
-            }
-        });
-    };
+            this.updateTableOptions({
+                state: {
+                    rowSelection: rowSelectionState
+                }
+            });
+        };
 
-    private readonly handleExpandedChange: TanStackOnChangeFn<TanStackExpandedState> = (updaterOrValue: TanStackUpdater<TanStackExpandedState>): void => {
-        const expandedState = updaterOrValue instanceof Function
-            ? updaterOrValue(this.table.getState().expanded)
-            : updaterOrValue;
+    private readonly handleExpandedChange: TanStackOnChangeFn<TanStackExpandedState> =
+        (updaterOrValue: TanStackUpdater<TanStackExpandedState>): void => {
+            const expandedState =
+                updaterOrValue instanceof Function
+                    ? updaterOrValue(this.table.getState().expanded)
+                    : updaterOrValue;
 
-        this.updateTableOptions({
-            state: {
-                expanded: expandedState
-            }
-        });
-    };
+            this.updateTableOptions({
+                state: {
+                    expanded: expandedState
+                }
+            });
+        };
 
     private toggleRowExpanded(rowIndex: number): void {
         const rows = this.table.getRowModel().rows;
@@ -1295,8 +1320,9 @@ export class Table<
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
-            (x, y) => x.columnInternals.currentSortIndex!
-                - y.columnInternals.currentSortIndex!
+            (x, y) =>
+                x.columnInternals.currentSortIndex! -
+                y.columnInternals.currentSortIndex!
         );
         this.firstSortedColumn = sortedColumns.length
             ? sortedColumns[0]
@@ -1306,15 +1332,16 @@ export class Table<
             return {
                 id: column.columnInternals.uniqueId,
                 desc:
-                    column.columnInternals.currentSortDirection
-                    === TableColumnSortDirection.descending
+                    column.columnInternals.currentSortDirection ===
+                    TableColumnSortDirection.descending
             };
         });
     }
 
     private calculateTanStackGroupingState(): TanStackGroupingState {
         const groupedColumns = this.getColumnsParticipatingInGrouping().sort(
-            (x, y) => x.columnInternals.groupIndex! - y.columnInternals.groupIndex!
+            (x, y) =>
+                x.columnInternals.groupIndex! - y.columnInternals.groupIndex!
         );
 
         return groupedColumns.map(column => column.columnInternals.uniqueId);
@@ -1322,14 +1349,15 @@ export class Table<
 
     private calculateTanStackRowIdFunction():
         | ((
-        originalRow: TableNode<TData>,
-        index: number,
-        parent?: TanStackRow<TableNode<TData>>
-        ) => string)
+              originalRow: TableNode<TData>,
+              index: number,
+              parent?: TanStackRow<TableNode<TData>>
+          ) => string)
         | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
             ? undefined
-            : (record: TableNode<TData>) => record.clientRecord[this.idFieldName!] as string;
+            : (record: TableNode<TData>) =>
+                  record.clientRecord[this.idFieldName!] as string;
     }
 
     private calculateTanStackColumns(): TanStackColumnDef<TableNode<TData>>[] {
@@ -1337,7 +1365,8 @@ export class Table<
             return {
                 id: column.columnInternals.uniqueId,
                 accessorFn: (record: TableNode<TData>): TableFieldValue => {
-                    const fieldName = column.columnInternals.operandDataRecordFieldName;
+                    const fieldName =
+                        column.columnInternals.operandDataRecordFieldName;
                     if (typeof fieldName !== 'string') {
                         return undefined;
                     }
@@ -1359,7 +1388,8 @@ export class Table<
         }
 
         const tanstackSelectionState: TanStackRowSelectionState = {};
-        const selectableRecordIds = this.tableValidator.getPresentRecordIds(recordIdsToSelect);
+        const selectableRecordIds =
+            this.tableValidator.getPresentRecordIds(recordIdsToSelect);
         for (const recordId of selectableRecordIds) {
             tanstackSelectionState[recordId] = true;
 
@@ -1373,8 +1403,9 @@ export class Table<
     }
 
     private updateRowHeight(): void {
-        this._rowHeight = parseFloat(controlHeight.getValueFor(this))
-            + 2 * parseFloat(borderWidth.getValueFor(this));
+        this._rowHeight =
+            parseFloat(controlHeight.getValueFor(this)) +
+            2 * parseFloat(borderWidth.getValueFor(this));
         this.virtualizer?.updateRowHeight();
     }
 }

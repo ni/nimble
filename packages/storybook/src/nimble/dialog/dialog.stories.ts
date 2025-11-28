@@ -154,9 +154,10 @@ const metadata: Meta<DialogArgs> = {
                 `,
                 html<DialogArgs>`
                     <span slot="footer"
-                        >${x => (x.preventDismiss
-                            ? 'Refresh the page to close the dialog.'
-                            : 'Press Esc to close the dialog.')}</span
+                        >${x =>
+                            x.preventDismiss
+                                ? 'Refresh the page to close the dialog.'
+                                : 'Press Esc to close the dialog.'}</span
                     >
                 `
             )}
@@ -279,7 +280,8 @@ const metadata: Meta<DialogArgs> = {
         openAndHandleResult: (dialogRef, textFieldRef) => {
             void (async () => {
                 const reason = await dialogRef.show();
-                textFieldRef.value = reason === UserDismissed ? 'Esc pressed' : reason;
+                textFieldRef.value =
+                    reason === UserDismissed ? 'Esc pressed' : reason;
             })();
         }
     }

@@ -26,7 +26,8 @@ import {
  * @public
  */
 export class Menu extends FoundationElement {
-    private static readonly focusableElementRoles: { [key: string]: string } = roleForMenuItem;
+    private static readonly focusableElementRoles: { [key: string]: string } =
+        roleForMenuItem;
 
     /**
      * @internal
@@ -79,9 +80,9 @@ export class Menu extends FoundationElement {
      */
     public readonly isNestedMenu = (): boolean => {
         return (
-            this.parentElement !== null
-            && isHTMLElement(this.parentElement)
-            && this.parentElement.getAttribute('role') === 'menuitem'
+            this.parentElement !== null &&
+            isHTMLElement(this.parentElement) &&
+            this.parentElement.getAttribute('role') === 'menuitem'
         );
     };
 
@@ -143,8 +144,8 @@ export class Menu extends FoundationElement {
      */
     public handleFocusOut = (e: FocusEvent): void => {
         if (
-            !this.contains(e.relatedTarget as Element)
-            && this.menuItems !== undefined
+            !this.contains(e.relatedTarget as Element) &&
+            this.menuItems !== undefined
         ) {
             this.collapseExpandedItem();
             // find our first focusable element
@@ -164,8 +165,8 @@ export class Menu extends FoundationElement {
         const targetItem: HTMLElement = e.target as HTMLElement;
 
         if (
-            this.menuItems !== undefined
-            && targetItem !== this.menuItems[this.focusIndex]
+            this.menuItems !== undefined &&
+            targetItem !== this.menuItems[this.focusIndex]
         ) {
             this.menuItems[this.focusIndex]?.setAttribute('tabindex', '-1');
             this.focusIndex = this.menuItems.indexOf(targetItem);
@@ -175,9 +176,9 @@ export class Menu extends FoundationElement {
 
     private readonly handleExpandedChanged = (e: Event): void => {
         if (
-            e.defaultPrevented
-            || e.target === null
-            || !this.menuItems?.includes(e.target as Element)
+            e.defaultPrevented ||
+            e.target === null ||
+            !this.menuItems?.includes(e.target as Element)
         ) {
             return;
         }
@@ -187,9 +188,9 @@ export class Menu extends FoundationElement {
 
         // closing an expanded item without opening another
         if (
-            this.expandedItem !== null
-            && changedItem === this.expandedItem
-            && changedItem.expanded === false
+            this.expandedItem !== null &&
+            changedItem === this.expandedItem &&
+            changedItem.expanded === false
         ) {
             this.expandedItem = null;
             return;
@@ -197,8 +198,8 @@ export class Menu extends FoundationElement {
 
         if (changedItem.expanded) {
             if (
-                this.expandedItem !== null
-                && this.expandedItem !== changedItem
+                this.expandedItem !== null &&
+                this.expandedItem !== changedItem
             ) {
                 this.expandedItem.expanded = false;
             }
@@ -233,10 +234,10 @@ export class Menu extends FoundationElement {
     private itemIconsChanged(oldIcons: Element[], newIcons: Element[]): void {
         // must check if set of icon elements is actually different
         if (
-            this.$fastController.isConnected
-            && this.menuItems !== undefined
-            && (oldIcons.length !== newIcons.length
-                || new Set(oldIcons.concat(newIcons)).size !== oldIcons.length)
+            this.$fastController.isConnected &&
+            this.menuItems !== undefined &&
+            (oldIcons.length !== newIcons.length ||
+                new Set(oldIcons.concat(newIcons)).size !== oldIcons.length)
         ) {
             this.setItems();
         }
@@ -271,11 +272,12 @@ export class Menu extends FoundationElement {
             return 0;
         }
 
-        const indent: MenuItemColumnCount = menuItems.reduce<MenuItemColumnCount>((accum, current) => {
-            const elementValue = elementIndent(current);
+        const indent: MenuItemColumnCount =
+            menuItems.reduce<MenuItemColumnCount>((accum, current) => {
+                const elementValue = elementIndent(current);
 
-            return accum > elementValue ? accum : elementValue;
-        }, 0);
+                return accum > elementValue ? accum : elementValue;
+            }, 0);
 
         menuItems.forEach((item: HTMLElement, index: number) => {
             item.setAttribute('tabindex', index === 0 ? '0' : '-1');
@@ -306,8 +308,8 @@ export class Menu extends FoundationElement {
         }
 
         if (
-            changedMenuItem.role === 'menuitemradio'
-            && changedMenuItem.checked === true
+            changedMenuItem.role === 'menuitemradio' &&
+            changedMenuItem.checked === true
         ) {
             for (let i = changeItemIndex - 1; i >= 0; --i) {
                 const item: Element = this.menuItems[i]!;
@@ -347,8 +349,8 @@ export class Menu extends FoundationElement {
      */
     private readonly isMenuItemElement = (el: Element): el is HTMLElement => {
         return (
-            isHTMLElement(el)
-            && Object.prototype.hasOwnProperty.call(
+            isHTMLElement(el) &&
+            Object.prototype.hasOwnProperty.call(
                 Menu.focusableElementRoles,
                 el.getAttribute('role')!
             )
@@ -374,8 +376,8 @@ export class Menu extends FoundationElement {
             if (this.isFocusableElement(child)) {
                 // change the previous index to -1
                 if (
-                    this.focusIndex > -1
-                    && this.menuItems.length >= this.focusIndex - 1
+                    this.focusIndex > -1 &&
+                    this.menuItems.length >= this.focusIndex - 1
                 ) {
                     this.menuItems[this.focusIndex]?.setAttribute(
                         'tabindex',

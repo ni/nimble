@@ -50,8 +50,9 @@ class ThemeStyleSheetBehavior implements Behavior {
      * @internal
      */
     public bind(source: FASTElement & HTMLElement): void {
-        const subscriber = this.cache.get(source)
-            || new ThemeStyleSheetBehaviorSubscription(
+        const subscriber =
+            this.cache.get(source) ||
+            new ThemeStyleSheetBehaviorSubscription(
                 this.theme,
                 this.styles,
                 source

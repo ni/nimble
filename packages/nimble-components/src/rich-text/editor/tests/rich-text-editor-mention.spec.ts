@@ -17,7 +17,8 @@ import { iconExclamationMarkTag } from '../../../icons/exclamation-mark';
 import { ArrowKeyButton, ToolbarButton } from '../testing/types';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 
-const RICH_TEXT_MENTION_USERS_VIEW_TAG = richTextMentionUsersViewTag.toUpperCase();
+const RICH_TEXT_MENTION_USERS_VIEW_TAG =
+    richTextMentionUsersViewTag.toUpperCase();
 const ICON_AT_TAG = iconAtTag.toUpperCase();
 const ICON_EXCLAMATION_TAG = iconExclamationMarkTag.toUpperCase();
 
@@ -80,7 +81,8 @@ describe('RichTextEditorMention', () => {
 
     it('Should return same markdown for assigned mention markdown when removing configuration element in the same editor', async () => {
         element.setMarkdown('<user:1>');
-        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        const { userMentionElement } =
+            await appendUserMentionConfiguration(element);
         expect(element.getMarkdown()).toBe('<user:1>');
         element.removeChild(userMentionElement);
         await waitForUpdatesAsync();
@@ -227,9 +229,10 @@ describe('RichTextEditorMention', () => {
 
         it('removing mapping element renders the mention node with user ID', async () => {
             element.setMarkdown('<user:1>');
-            const { mappingElements, userMentionElement } = await appendUserMentionConfiguration(element, [
-                { key: 'user:1', displayName: 'username1' }
-            ]);
+            const { mappingElements, userMentionElement } =
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' }
+                ]);
             userMentionElement.removeChild(mappingElements[0]!);
             await waitForUpdatesAsync();
 
@@ -355,7 +358,8 @@ describe('RichTextEditorMention', () => {
 
             // WebKit skipped, see https://github.com/ni/nimble/issues/1938
             it('should have button title and text when `button-label` updated #SkipWebkit', async () => {
-                const { userMentionElement } = await appendUserMentionConfiguration(element);
+                const { userMentionElement } =
+                    await appendUserMentionConfiguration(element);
                 userMentionElement.buttonLabel = 'at mention';
                 await waitForUpdatesAsync();
 
@@ -403,9 +407,10 @@ describe('RichTextEditorMention', () => {
 
             it('should have invalid states when removing `pattern` from configuration element', async () => {
                 element.setMarkdown('<user:1>');
-                const { userMentionElement } = await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username' }
-                ]);
+                const { userMentionElement } =
+                    await appendUserMentionConfiguration(element, [
+                        { key: 'user:1', displayName: 'username' }
+                    ]);
                 userMentionElement.removeAttribute('pattern');
                 await waitForUpdatesAsync();
 
@@ -415,9 +420,10 @@ describe('RichTextEditorMention', () => {
 
             it('should have invalid states when it is a invalid regex `pattern`', async () => {
                 element.setMarkdown('<user:1>');
-                const { userMentionElement } = await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username' }
-                ]);
+                const { userMentionElement } =
+                    await appendUserMentionConfiguration(element, [
+                        { key: 'user:1', displayName: 'username' }
+                    ]);
                 userMentionElement.pattern = '(invalid';
                 await waitForUpdatesAsync();
 
@@ -441,7 +447,8 @@ describe('RichTextEditorMention', () => {
 
             it('should have valid states when the duplicate configuration element removed', async () => {
                 element.setMarkdown('<user:1>');
-                const { userMentionElement } = await appendUserMentionConfiguration(element);
+                const { userMentionElement } =
+                    await appendUserMentionConfiguration(element);
                 await appendUserMentionConfiguration(element);
                 await waitForUpdatesAsync();
                 element.removeChild(userMentionElement);
@@ -579,9 +586,10 @@ describe('RichTextEditorMention', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            const { mappingElements, testMentionElement } = await appendTestMentionConfiguration(element, [
-                { key: 'test:2', displayName: 'testname2' }
-            ]);
+            const { mappingElements, testMentionElement } =
+                await appendTestMentionConfiguration(element, [
+                    { key: 'test:2', displayName: 'testname2' }
+                ]);
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -745,7 +753,8 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when there is @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        const { userMentionElement } =
+            await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.setEditorTextContent('@test');
@@ -753,7 +762,8 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when there is update in @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        const { userMentionElement } =
+            await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -762,7 +772,8 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when pasting @ in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        const { userMentionElement } =
+            await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.pasteToEditor('@test');
@@ -771,7 +782,8 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event when deleting an existing @mention partially in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        const { userMentionElement } =
+            await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -780,7 +792,8 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should not fire "mention-update" event when deleting an existing @mention completely in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        const { userMentionElement } =
+            await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -789,7 +802,8 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should not fire "mention-update" event when adding text near an existing @ mention', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        const { userMentionElement } =
+            await appendUserMentionConfiguration(element);
         element.setMarkdown('<user:1>');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -813,7 +827,8 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event with specific filter details from configuration element when there is @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        const { userMentionElement } =
+            await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.setEditorTextContent('@test');
@@ -1392,10 +1407,11 @@ describe('RichTextEditorMentionListbox', () => {
         });
 
         it('should update mention popup list when removing mapping element', async () => {
-            const { mappingElements, userMentionElement } = await appendUserMentionConfiguration(element, [
-                { key: 'user:1', displayName: 'username1' },
-                { key: 'user:2', displayName: 'username2' }
-            ]);
+            const { mappingElements, userMentionElement } =
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
             await pageObject.setEditorTextContent('@');
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1',

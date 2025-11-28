@@ -36,18 +36,21 @@ export class RenderingModule {
 
     public renderHover(): void {
         if (
-            this.wafermap.dataManager.dieDimensions === undefined
-            || this.wafermap.transform === undefined
+            this.wafermap.dataManager.dieDimensions === undefined ||
+            this.wafermap.transform === undefined
         ) {
             return;
         }
-        this.wafermap.hoverWidth = this.wafermap.dataManager.dieDimensions.width
-            * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this.wafermap.dataManager.dieDimensions.height
-            * this.wafermap.transform.k;
-        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
-            ? HoverDieOpacity.hide
-            : HoverDieOpacity.show;
+        this.wafermap.hoverWidth =
+            this.wafermap.dataManager.dieDimensions.width *
+            this.wafermap.transform.k;
+        this.wafermap.hoverHeight =
+            this.wafermap.dataManager.dieDimensions.height *
+            this.wafermap.transform.k;
+        this.wafermap.hoverOpacity =
+            this.wafermap.hoverDie === undefined
+                ? HoverDieOpacity.hide
+                : HoverDieOpacity.show;
         this.wafermap.hoverTransform = this.calculateHoverTransform();
     }
 
@@ -173,10 +176,10 @@ export class RenderingModule {
         maxPoint: [number, number]
     ): boolean {
         return (
-            die.x >= minPoint[0]
-            && die.x < maxPoint[0]
-            && die.y >= minPoint[1]
-            && die.y < maxPoint[1]
+            die.x >= minPoint[0] &&
+            die.x < maxPoint[0] &&
+            die.y >= minPoint[1] &&
+            die.y < maxPoint[1]
         );
     }
 }

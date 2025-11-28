@@ -73,9 +73,10 @@ describe('Label Provider Core', () => {
             spec(`for token name ${name}`, () => {
                 const expectedPropertyName = getPropertyName(value.name);
                 const expectedAttributeName = getAttributeName(value.name);
-                const attributeDefinition = element.$fastController.definition.attributes.find(
-                    a => a.name === expectedPropertyName
-                );
+                const attributeDefinition =
+                    element.$fastController.definition.attributes.find(
+                        a => a.name === expectedPropertyName
+                    );
                 expect(attributeDefinition).toBeDefined();
                 expect(expectedAttributeName).toEqual(
                     attributeDefinition!.attribute

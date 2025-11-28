@@ -9,8 +9,8 @@ export async function checkFullyInViewport(
             entries => {
                 intersectionObserver.disconnect();
                 if (
-                    entries[0]?.isIntersecting
-                    && entries[0].intersectionRatio === 1.0
+                    entries[0]?.isIntersecting &&
+                    entries[0].intersectionRatio === 1.0
                 ) {
                     resolve(true);
                 } else {

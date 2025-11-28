@@ -69,14 +69,15 @@ export class RichTextMentionListbox extends FoundationListbox {
 
     private regionNotifier?: Notifier;
 
-    private readonly anchorElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
-        entries => {
-            if (!entries[0]?.isIntersecting) {
-                this.setOpen(false);
-            }
-        },
-        { threshold: 1.0, root: document }
-    );
+    private readonly anchorElementIntersectionObserver: IntersectionObserver =
+        new IntersectionObserver(
+            entries => {
+                if (!entries[0]?.isIntersecting) {
+                    this.setOpen(false);
+                }
+            },
+            { threshold: 1.0, root: document }
+        );
 
     /**
      * @public
@@ -166,9 +167,11 @@ export class RichTextMentionListbox extends FoundationListbox {
             const normalizedFilter = diacriticInsensitiveStringNormalizer(
                 this.filter
             );
-            this.filteredOptions = this._options.filter(o => diacriticInsensitiveStringNormalizer(o.text).includes(
-                normalizedFilter
-            ));
+            this.filteredOptions = this._options.filter(o =>
+                diacriticInsensitiveStringNormalizer(o.text).includes(
+                    normalizedFilter
+                )
+            );
         }
 
         this._options.forEach(o => {

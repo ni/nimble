@@ -38,12 +38,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "nimble-angular/**/*.ts",
-              "nimble-angular/**/*.js",
-              "nimble-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "nimble-angular/eslint.config.js",
+						"lintFilePatterns": [
+							"nimble-angular/**/*.ts",
+							"nimble-angular/**/*.js",
+							"nimble-angular/**/*.html",
+              "nimble-angular/eslint.config.js"
+						]
+					}
         }
       }
     },
@@ -79,12 +81,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "ok-angular/**/*.ts",
-              "ok-angular/**/*.js",
-              "ok-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "ok-angular/eslint.config.js",
+						"lintFilePatterns": [
+							"ok-angular/**/*.ts",
+							"ok-angular/**/*.js",
+							"ok-angular/**/*.html",
+              "ok-angular/eslint.config.js"
+						]
+					}
         }
       }
     },
@@ -120,12 +124,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "spright-angular/**/*.ts",
-              "spright-angular/**/*.js",
-              "spright-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "spright-angular/eslint.config.js",
+						"lintFilePatterns": [
+							"spright-angular/**/*.ts",
+							"spright-angular/**/*.js",
+							"spright-angular/**/*.html",
+              "spright-angular/eslint.config.js"
+						]
+					}
         }
       }
     },
@@ -246,12 +252,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "example-client-app/**/*.ts",
-              "example-client-app/**/*.js",
-              "example-client-app/**/*.html"
-            ]
-          }
+						"eslintConfig": "example-client-app/eslint.config.js",
+						"lintFilePatterns": [
+							"example-client-app/**/*.ts",
+							"example-client-app/**/*.js",
+							"example-client-app/**/*.html",
+              "example-client-app/eslint.config.js"
+						]
+					}
         }
       }
     }

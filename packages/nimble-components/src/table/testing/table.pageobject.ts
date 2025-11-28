@@ -37,7 +37,8 @@ export class TablePageObject<T extends TableRecord> {
     public constructor(private readonly tableElement: Table<T>) {}
 
     public getRenderedHeaderCount(): number {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll(tableHeaderTag);
+        const headers =
+            this.tableElement.shadowRoot!.querySelectorAll(tableHeaderTag);
         return headers.length;
     }
 
@@ -48,9 +49,10 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getHeaderContent(columnIndex: number): Node | undefined {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            tableHeaderTag
-        );
+        const headers =
+            this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+                tableHeaderTag
+            );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -61,9 +63,10 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getHeaderElement(columnIndex: number): TableHeader {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            tableHeaderTag
-        );
+        const headers =
+            this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+                tableHeaderTag
+            );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -97,9 +100,10 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getHeaderRenderedWidth(columnIndex: number): number {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            tableHeaderTag
-        );
+        const headers =
+            this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+                tableHeaderTag
+            );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -132,12 +136,14 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getAllGroupRowsExpandedState(): boolean[] {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
+        const groupRows =
+            this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         return Array.from(groupRows).map(row => row.expanded);
     }
 
     public getAllDataRowsExpandedState(): boolean[] {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll(tableRowTag);
+        const rows =
+            this.tableElement.shadowRoot!.querySelectorAll(tableRowTag);
         return Array.from(rows).map(row => row.expanded);
     }
 
@@ -229,7 +235,8 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getAllRenderedGroupHeaderTextContent(): string[] {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
+        const groupRows =
+            this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         return Array.from(groupRows).map((_, i) => {
             return this.getRenderedGroupHeaderTextContent(i);
         });
@@ -292,9 +299,9 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         table.style.width = `${
-            rowWidth
-            + table.headerRowActionContainer.getBoundingClientRect().width
-            + table.virtualizer.headerContainerMarginRight
+            rowWidth +
+            table.headerRowActionContainer.getBoundingClientRect().width +
+            table.virtualizer.headerContainerMarginRight
         }px`;
         await waitForUpdatesAsync();
     }
@@ -368,14 +375,18 @@ export class TablePageObject<T extends TableRecord> {
         const row = this.getRow(rowIndex);
         const cells = row.shadowRoot!.querySelectorAll(tableCellTag);
         if (hover) {
-            cells.forEach(cell => cell.style.setProperty(
-                '--ni-private-table-cell-action-menu-display',
-                'block'
-            ));
+            cells.forEach(cell =>
+                cell.style.setProperty(
+                    '--ni-private-table-cell-action-menu-display',
+                    'block'
+                )
+            );
         } else {
-            cells.forEach(cell => cell.style.removeProperty(
-                '--ni-private-table-cell-action-menu-display'
-            ));
+            cells.forEach(cell =>
+                cell.style.removeProperty(
+                    '--ni-private-table-cell-action-menu-display'
+                )
+            );
         }
     }
 
@@ -387,7 +398,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public async clickRow(
         rowIndex: number,
-        modifiers: { shiftKey?: boolean, ctrlKey?: boolean } = {}
+        modifiers: { shiftKey?: boolean; ctrlKey?: boolean } = {}
     ): Promise<void> {
         const row = this.getRow(rowIndex);
         const event = new MouseEvent('click', modifiers);
@@ -414,7 +425,8 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public clickDataRowExpandCollapseButton(rowIndex: number): void {
-        const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
+        const expandCollapseButton =
+            this.getExpandCollapseButtonForRow(rowIndex);
         if (!expandCollapseButton) {
             throw new Error(
                 'The provided row index has no visible expand collapse button associated with it.'
@@ -443,7 +455,8 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
-        const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
+        const expandCollapseButton =
+            this.getExpandCollapseButtonForRow(rowIndex);
         return expandCollapseButton !== null;
     }
 
@@ -584,29 +597,31 @@ export class TablePageObject<T extends TableRecord> {
 
     public isVerticalScrollbarVisible(): boolean {
         return (
-            this.tableElement.viewport.clientHeight
-            < this.tableElement.viewport.scrollHeight
+            this.tableElement.viewport.clientHeight <
+            this.tableElement.viewport.scrollHeight
         );
     }
 
     public isHorizontalScrollbarVisible(): boolean {
         return (
-            this.tableElement.viewport.clientWidth
-            < this.tableElement.viewport.scrollWidth
+            this.tableElement.viewport.clientWidth <
+            this.tableElement.viewport.scrollWidth
         );
     }
 
     public getSortedColumns(): SortedColumn[] {
         return this.tableElement.columns
             .filter(
-                x => !x.columnInternals.sortingDisabled
-                    && typeof x.columnInternals.currentSortIndex === 'number'
-                    && x.columnInternals.currentSortDirection
-                        !== TableColumnSortDirection.none
+                x =>
+                    !x.columnInternals.sortingDisabled &&
+                    typeof x.columnInternals.currentSortIndex === 'number' &&
+                    x.columnInternals.currentSortDirection !==
+                        TableColumnSortDirection.none
             )
             .sort(
-                (a, b) => a.columnInternals.currentSortIndex!
-                    - b.columnInternals.currentSortIndex!
+                (a, b) =>
+                    a.columnInternals.currentSortIndex! -
+                    b.columnInternals.currentSortIndex!
             )
             .map(x => {
                 return {
@@ -619,12 +634,14 @@ export class TablePageObject<T extends TableRecord> {
     public getGroupedColumns(): string[] {
         return this.tableElement.columns
             .filter(
-                x => !x.columnInternals.groupingDisabled
-                    && typeof x.columnInternals.groupIndex === 'number'
+                x =>
+                    !x.columnInternals.groupingDisabled &&
+                    typeof x.columnInternals.groupIndex === 'number'
             )
             .sort(
-                (a, b) => a.columnInternals.groupIndex!
-                    - b.columnInternals.groupIndex!
+                (a, b) =>
+                    a.columnInternals.groupIndex! -
+                    b.columnInternals.groupIndex!
             )
             .map(x => x.columnId ?? '');
     }
@@ -644,13 +661,12 @@ export class TablePageObject<T extends TableRecord> {
 
     /** @internal */
     public isRowHoverStylingEnabled(): boolean {
-        const rows: NodeListOf<TableRow | TableGroupRow> = this.tableElement.shadowRoot!.querySelectorAll(
-            `${tableRowTag}, ${tableGroupRowTag}`
-        );
+        const rows: NodeListOf<TableRow | TableGroupRow> =
+            this.tableElement.shadowRoot!.querySelectorAll(
+                `${tableRowTag}, ${tableGroupRowTag}`
+            );
         const firstRowAllowsHover = rows[0]!.allowHover;
-        if (
-            Array.from(rows).some(x => x.allowHover !== firstRowAllowsHover)
-        ) {
+        if (Array.from(rows).some(x => x.allowHover !== firstRowAllowsHover)) {
             throw new Error('Rows inconsistently allow hover styling');
         }
         return firstRowAllowsHover;
@@ -664,7 +680,8 @@ export class TablePageObject<T extends TableRecord> {
 
     /** @internal */
     public getRow(rowIndex: number): TableRow {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll(tableRowTag);
+        const rows =
+            this.tableElement.shadowRoot!.querySelectorAll(tableRowTag);
         if (rowIndex >= rows.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered rows'
@@ -688,9 +705,10 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     private getRowById(recordId: string): TableRow {
-        const row: TableRow | null = this.tableElement.shadowRoot!.querySelector(
-            `nimble-table-row[record-id="${CSS.escape(recordId)}"]`
-        );
+        const row: TableRow | null =
+            this.tableElement.shadowRoot!.querySelector(
+                `nimble-table-row[record-id="${CSS.escape(recordId)}"]`
+            );
         if (!row) {
             throw new Error(
                 'Row with given id was not found. It may not be scrolled into view.'
@@ -773,7 +791,8 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     private getGroupRow(groupRowIndex: number): TableGroupRow {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
+        const groupRows =
+            this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         if (groupRowIndex >= groupRows.length) {
             throw new Error(
                 'Attempting to index past the total number of group rows'
@@ -807,9 +826,10 @@ export class TablePageObject<T extends TableRecord> {
         view: TableCellView | TableGroupHeaderView
     ): Icon | Spinner {
         const viewShadowRoot = view.shadowRoot!;
-        const spinnerOrIcon = viewShadowRoot.querySelector(
-            '.reserve-icon-size'
-        )?.firstElementChild;
+        const spinnerOrIcon =
+            viewShadowRoot.querySelector(
+                '.reserve-icon-size'
+            )?.firstElementChild;
         if (
             !(spinnerOrIcon instanceof Icon || spinnerOrIcon instanceof Spinner)
         ) {
@@ -823,7 +843,8 @@ export class TablePageObject<T extends TableRecord> {
         columnIndex: number,
         leftDivider: boolean
     ): HTMLElement {
-        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        const headerContainers =
+            this.tableElement.shadowRoot!.querySelectorAll('.header-container');
         if (columnIndex < 0 || columnIndex >= headerContainers.length) {
             throw new Error(
                 'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'

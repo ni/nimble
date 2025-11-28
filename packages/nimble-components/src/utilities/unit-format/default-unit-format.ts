@@ -32,12 +32,13 @@ export class DefaultUnitFormat extends UnitFormat {
 
     private readonly unitScale: UnitScale;
     // Format options to use by default. It renders the number with a maximum of 6 signficant digits (including zero before decimal point).
-    private readonly defaultIntlNumberFormatOptions: Intl.NumberFormatOptions = {
-        maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
-        maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
-        roundingPriority: 'lessPrecision',
-        signDisplay
-    };
+    private readonly defaultIntlNumberFormatOptions: Intl.NumberFormatOptions =
+        {
+            maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
+            maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
+            roundingPriority: 'lessPrecision',
+            signDisplay
+        };
 
     private readonly defaultScaledUnitFormatters = new Map<
         number,
@@ -46,11 +47,12 @@ export class DefaultUnitFormat extends UnitFormat {
 
     // Format options for numbers that should be displayed in exponential notation. This should be used
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
-    private readonly exponentialIntlNumberFormatOptions: Intl.NumberFormatOptions = {
-        maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
-        notation: 'scientific',
-        signDisplay
-    };
+    private readonly exponentialIntlNumberFormatOptions: Intl.NumberFormatOptions =
+        {
+            maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
+            notation: 'scientific',
+            signDisplay
+        };
 
     private readonly exponentialScaledUnitFormatter: ScaledUnitFormat;
 
@@ -70,10 +72,11 @@ export class DefaultUnitFormat extends UnitFormat {
                 })
             );
         }
-        this.exponentialScaledUnitFormatter = unitScale.baseScaledUnit.scaledUnitFormatFactory({
-            locale,
-            intlNumberFormatOptions: this.exponentialIntlNumberFormatOptions
-        });
+        this.exponentialScaledUnitFormatter =
+            unitScale.baseScaledUnit.scaledUnitFormatFactory({
+                locale,
+                intlNumberFormatOptions: this.exponentialIntlNumberFormatOptions
+            });
         this.unitScale = unitScale;
     }
 
@@ -87,13 +90,14 @@ export class DefaultUnitFormat extends UnitFormat {
         const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(number);
 
         const absoluteValue = Math.abs(scaledValue);
-        const useExponential = absoluteValue !== 0
-            && (absoluteValue >= DefaultUnitFormat.exponentialUpperBound
-                || absoluteValue < DefaultUnitFormat.exponentialLowerBound);
+        const useExponential =
+            absoluteValue !== 0 &&
+            (absoluteValue >= DefaultUnitFormat.exponentialUpperBound ||
+                absoluteValue < DefaultUnitFormat.exponentialLowerBound);
         return useExponential
             ? this.exponentialScaledUnitFormatter.format(number)
             : this.defaultScaledUnitFormatters
-                .get(scaledUnit.scaleFactor)!
-                .format(scaledValue);
+                  .get(scaledUnit.scaleFactor)!
+                  .format(scaledValue);
     }
 }

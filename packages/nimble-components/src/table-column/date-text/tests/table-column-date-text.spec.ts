@@ -88,10 +88,11 @@ describe('TableColumnDateText', () => {
             column.fieldName = 'anotherField';
             await waitForUpdatesAsync();
 
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
-                anotherFieldValue,
-                'en-US'
-            );
+            const expectedFormattedValue =
+                pageObject.getDefaultFormattedCellText(
+                    anotherFieldValue,
+                    'en-US'
+                );
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
                 expectedFormattedValue
             );
@@ -101,7 +102,8 @@ describe('TableColumnDateText', () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
+            const expectedFormattedValue =
+                pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
                 expectedFormattedValue
             );
@@ -123,7 +125,8 @@ describe('TableColumnDateText', () => {
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
 
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
+            const expectedFormattedValue =
+                pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
                 expectedFormattedValue
             );
@@ -150,7 +153,8 @@ describe('TableColumnDateText', () => {
                 new MouseEvent('mouseover')
             );
             await waitForUpdatesAsync();
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
+            const expectedFormattedValue =
+                pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getCellTitle(0, 0)).toEqual(
                 expectedFormattedValue
             );
@@ -195,7 +199,8 @@ describe('TableColumnDateText', () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
+            const expectedFormattedValue =
+                pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
                 expectedFormattedValue
             );
@@ -215,13 +220,15 @@ describe('TableColumnDateText', () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
-            const expectedEnglishFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
+            const expectedEnglishFormattedValue =
+                pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
                 expectedEnglishFormattedValue
             );
             lang.setValueFor(table, 'fr');
             await waitForUpdatesAsync();
-            const expectedFrenchFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'fr');
+            const expectedFrenchFormattedValue =
+                pageObject.getDefaultFormattedCellText(fieldValue, 'fr');
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
                 expectedFrenchFormattedValue
             );
@@ -695,7 +702,8 @@ describe('TableColumnDateText', () => {
 
         beforeEach(async () => {
             elementReferences = new ElementReferences();
-            ({ connect, disconnect } = await setupWithConfig(elementReferences));
+            ({ connect, disconnect } =
+                await setupWithConfig(elementReferences));
             table = elementReferences.table;
             tablePageObject = new TablePageObject<SimpleTableRecord>(table);
             pageObject = new TableColumnDateTextPageObject(tablePageObject);

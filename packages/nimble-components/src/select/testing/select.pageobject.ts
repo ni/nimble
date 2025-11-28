@@ -71,8 +71,9 @@ export class SelectPageObject {
     }
 
     public getDisplayText(): string {
-        const displayText = this.selectElement.shadowRoot?.querySelector('.selected-value')
-            ?.textContent ?? '';
+        const displayText =
+            this.selectElement.shadowRoot?.querySelector('.selected-value')
+                ?.textContent ?? '';
         return displayText.trim();
     }
 
@@ -192,8 +193,8 @@ export class SelectPageObject {
         }
 
         if (
-            this.selectElement.selectedIndex === -1
-            || this.selectElement.displayPlaceholder
+            this.selectElement.selectedIndex === -1 ||
+            this.selectElement.displayPlaceholder
         ) {
             throw new Error(
                 'Select must have a selected element in order to click clear button'
@@ -249,16 +250,17 @@ export class SelectPageObject {
         }
 
         if (
-            this.selectElement.open
-            && this.selectElement.filterMode !== FilterMode.none
+            this.selectElement.open &&
+            this.selectElement.filterMode !== FilterMode.none
         ) {
             const filterInput = this.selectElement.filterInput!;
             filterInput.value += character;
         }
-        const inputElement = this.selectElement.open
-            && this.selectElement.filterMode !== FilterMode.none
-            ? this.selectElement.filterInput
-            : this.selectElement;
+        const inputElement =
+            this.selectElement.open &&
+            this.selectElement.filterMode !== FilterMode.none
+                ? this.selectElement.filterInput
+                : this.selectElement;
         inputElement!.dispatchEvent(new InputEvent('input'));
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: character })
@@ -272,8 +274,8 @@ export class SelectPageObject {
         );
         await waitForUpdatesAsync();
         if (
-            this.selectElement.filterMode === FilterMode.standard
-            && alreadyOpen
+            this.selectElement.filterMode === FilterMode.standard &&
+            alreadyOpen
         ) {
             // add space to end of current filter
             const filterValue = `${
@@ -342,8 +344,8 @@ export class SelectPageObject {
 
     public isFilterInputVisible(): boolean {
         return (
-            this.selectElement.shadowRoot?.querySelector('.filter-field')
-            !== null
+            this.selectElement.shadowRoot?.querySelector('.filter-field') !==
+            null
         );
     }
 

@@ -37,8 +37,8 @@ export class HoverHandler {
             y: invertedPoint[1]
         });
         if (
-            dieCoordinates === undefined
-            || !this.isDieInGrid(dieCoordinates.x, dieCoordinates.y)
+            dieCoordinates === undefined ||
+            !this.isDieInGrid(dieCoordinates.x, dieCoordinates.y)
         ) {
             this.wafermap.hoverDie = undefined;
             return;
@@ -53,8 +53,8 @@ export class HoverHandler {
         // will replace iterating with arquero filtering after fixing errors
         for (let i = 0; i < colIndex.length; i++) {
             if (
-                colIndex[i] === dieCoordinates.x
-                && rowIndex[i] === dieCoordinates.y
+                colIndex[i] === dieCoordinates.x &&
+                rowIndex[i] === dieCoordinates.y
             ) {
                 this.wafermap.hoverDie = {
                     index: i,
@@ -76,14 +76,16 @@ export class HoverHandler {
     ): PointCoordinates | undefined {
         if (this.wafermap.isExperimentalUpdate()) {
             const originLocation = this.wafermap.originLocation;
-            const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
-                || originLocation === WaferMapOriginLocation.topLeft
-                ? Math.floor
-                : Math.ceil;
-            const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
-                || originLocation === WaferMapOriginLocation.bottomRight
-                ? Math.ceil
-                : Math.floor;
+            const xRoundFunction =
+                originLocation === WaferMapOriginLocation.bottomLeft ||
+                originLocation === WaferMapOriginLocation.topLeft
+                    ? Math.floor
+                    : Math.ceil;
+            const yRoundFunction =
+                originLocation === WaferMapOriginLocation.bottomLeft ||
+                originLocation === WaferMapOriginLocation.bottomRight
+                    ? Math.ceil
+                    : Math.floor;
             // go to x and y scale to get the x,y values of the die.
             const x = xRoundFunction(
                 this.wafermap.computations.horizontalScale.invert(
@@ -102,10 +104,10 @@ export class HoverHandler {
 
     private isDieInGrid(x: number, y: number): boolean {
         return (
-            x >= this.wafermap.computations.gridMinX
-            && x <= this.wafermap.computations.gridMaxX
-            && y >= this.wafermap.computations.gridMinY
-            && y <= this.wafermap.computations.gridMaxY
+            x >= this.wafermap.computations.gridMinX &&
+            x <= this.wafermap.computations.gridMaxX &&
+            y >= this.wafermap.computations.gridMinY &&
+            y <= this.wafermap.computations.gridMaxY
         );
     }
 }

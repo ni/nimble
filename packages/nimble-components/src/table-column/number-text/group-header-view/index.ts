@@ -18,16 +18,19 @@ export class TableColumnNumberTextGroupHeaderView extends TableColumnTextGroupHe
     TableColumnNumberTextColumnConfig
 > {
     protected updateText(): void {
-        this.text = this.columnConfig?.formatter?.format(this.groupHeaderValue) ?? '';
+        this.text =
+            this.columnConfig?.formatter?.format(this.groupHeaderValue) ?? '';
     }
 }
 
-const tableColumnNumberTextGroupHeaderView = TableColumnNumberTextGroupHeaderView.compose({
-    baseName: 'table-column-number-text-group-header-view',
-    template,
-    styles
-});
+const tableColumnNumberTextGroupHeaderView =
+    TableColumnNumberTextGroupHeaderView.compose({
+        baseName: 'table-column-number-text-group-header-view',
+        template,
+        styles
+    });
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnNumberTextGroupHeaderView());
-export const tableColumnNumberTextGroupHeaderTag = 'nimble-table-column-number-text-group-header-view';
+export const tableColumnNumberTextGroupHeaderTag =
+    'nimble-table-column-number-text-group-header-view';

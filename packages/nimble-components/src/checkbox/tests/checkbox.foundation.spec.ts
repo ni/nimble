@@ -13,10 +13,10 @@ const checkbox = Checkbox.compose({
 });
 
 async function setup(): Promise<{
-    element: Checkbox,
-    connect: () => Promise<void>,
-    disconnect: () => Promise<void>,
-    parent: HTMLElement
+    element: Checkbox;
+    connect: () => Promise<void>;
+    disconnect: () => Promise<void>;
+    parent: HTMLElement;
 }> {
     const { connect, disconnect, element, parent } = await fixture(checkbox());
 

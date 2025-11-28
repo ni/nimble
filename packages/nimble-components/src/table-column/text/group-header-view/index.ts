@@ -18,9 +18,10 @@ export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderVi
     TableColumnTextColumnConfig
 > {
     protected updateText(): void {
-        this.text = typeof this.groupHeaderValue === 'string'
-            ? this.groupHeaderValue
-            : '';
+        this.text =
+            typeof this.groupHeaderValue === 'string'
+                ? this.groupHeaderValue
+                : '';
     }
 }
 
@@ -32,4 +33,5 @@ const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnTextGroupHeaderView());
-export const tableColumnTextGroupHeaderViewTag = 'nimble-table-column-text-group-header-view';
+export const tableColumnTextGroupHeaderViewTag =
+    'nimble-table-column-text-group-header-view';

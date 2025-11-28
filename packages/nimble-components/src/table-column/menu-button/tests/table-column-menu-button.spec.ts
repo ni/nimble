@@ -218,7 +218,8 @@ describe('TableColumnMenuButton', () => {
 
     describe('overflow', () => {
         it('sets title on menu button when button text is ellipsized', async () => {
-            const longValue = 'long button text that is too long to fit in the space allocated';
+            const longValue =
+                'long button text that is too long to fit in the space allocated';
             table.style.width = '100px';
             await table.setData([{ field: longValue }]);
             await waitForUpdatesAsync();
@@ -238,7 +239,8 @@ describe('TableColumnMenuButton', () => {
         });
 
         it('removes title on mouseout of cell', async () => {
-            const longValue = 'long button text that is too long to fit in the space allocated';
+            const longValue =
+                'long button text that is too long to fit in the space allocated';
             table.style.width = '100px';
             await table.setData([{ field: longValue }]);
             await waitForUpdatesAsync();
@@ -489,9 +491,10 @@ describe('TableColumnMenuButton', () => {
                     );
                     value.action();
                     await togglePromise;
-                    const expectedFocusedItem = value.expectedFocus === 'first'
-                        ? elementReferences.firstMenuItem
-                        : elementReferences.lastMenuItem;
+                    const expectedFocusedItem =
+                        value.expectedFocus === 'first'
+                            ? elementReferences.firstMenuItem
+                            : elementReferences.lastMenuItem;
                     expect(document.activeElement).toBe(expectedFocusedItem);
                 });
             });
@@ -500,11 +503,11 @@ describe('TableColumnMenuButton', () => {
         async function openMenuAndListenForColumnToggleEvents(
             menuButtonToOpen: MenuButtonPageObject
         ): Promise<{
-                column1BeforeToggleEmitCount: number,
-                column1ToggleEmitCount: number,
-                column2BeforeToggleEmitCount: number,
-                column2ToggleEmitCount: number
-            }> {
+            column1BeforeToggleEmitCount: number;
+            column1ToggleEmitCount: number;
+            column2BeforeToggleEmitCount: number;
+            column2ToggleEmitCount: number;
+        }> {
             const column1BeforeToggleSpy = jasmine.createSpy();
             elementReferences.column1.addEventListener(
                 'menu-button-column-beforetoggle',
@@ -571,9 +574,10 @@ describe('TableColumnMenuButton', () => {
             });
 
             it('menu opens and closes when column1 menu button is clicked and then column2 menu button is clicked', async () => {
-                let eventCounts = await openMenuAndListenForColumnToggleEvents(
-                    column1MenuButton
-                );
+                let eventCounts =
+                    await openMenuAndListenForColumnToggleEvents(
+                        column1MenuButton
+                    );
                 expect(eventCounts.column1BeforeToggleEmitCount).toBe(1);
                 expect(eventCounts.column1ToggleEmitCount).toBe(1);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(0);
@@ -584,9 +588,10 @@ describe('TableColumnMenuButton', () => {
                     elementReferences.firstMenuItem
                 );
 
-                eventCounts = await openMenuAndListenForColumnToggleEvents(
-                    column2MenuButton
-                );
+                eventCounts =
+                    await openMenuAndListenForColumnToggleEvents(
+                        column2MenuButton
+                    );
                 expect(eventCounts.column1BeforeToggleEmitCount).toBe(1);
                 expect(eventCounts.column1ToggleEmitCount).toBe(1);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(1);
@@ -599,9 +604,10 @@ describe('TableColumnMenuButton', () => {
             });
 
             it('menu opens and closes when column1 menu button is clicked, closed, and then column2 menu button is clicked', async () => {
-                let eventCounts = await openMenuAndListenForColumnToggleEvents(
-                    column1MenuButton
-                );
+                let eventCounts =
+                    await openMenuAndListenForColumnToggleEvents(
+                        column1MenuButton
+                    );
                 expect(eventCounts.column1BeforeToggleEmitCount).toBe(1);
                 expect(eventCounts.column1ToggleEmitCount).toBe(1);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(0);
@@ -619,9 +625,10 @@ describe('TableColumnMenuButton', () => {
                     elementReferences.firstMenuItem
                 );
 
-                eventCounts = await openMenuAndListenForColumnToggleEvents(
-                    column2MenuButton
-                );
+                eventCounts =
+                    await openMenuAndListenForColumnToggleEvents(
+                        column2MenuButton
+                    );
                 expect(eventCounts.column1BeforeToggleEmitCount).toBe(0);
                 expect(eventCounts.column1ToggleEmitCount).toBe(0);
                 expect(eventCounts.column2BeforeToggleEmitCount).toBe(1);

@@ -107,7 +107,8 @@ export class ColumnInternals<
      * The operation to use when sorting the table by this column.
      */
     @observable
-    public sortOperation: TableColumnSortOperation = TableColumnSortOperation.basic;
+    public sortOperation: TableColumnSortOperation =
+        TableColumnSortOperation.basic;
 
     /**
      * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
@@ -205,7 +206,8 @@ export class ColumnInternals<
      * the resolved value of the sortDirection after programmatic or interactive updates.
      */
     @observable
-    public currentSortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
+    public currentSortDirection: TableColumnSortDirection =
+        TableColumnSortDirection.none;
 
     public readonly validator: TColumnValidator;
 
@@ -219,7 +221,8 @@ export class ColumnInternals<
         }
         this.delegatedEvents = options.delegatedEvents;
         this.slotNames = options.slotNames ?? [];
-        this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
+        this.sortOperation =
+            options.sortOperation ?? TableColumnSortOperation.basic;
         this.validator = options.validator;
     }
 

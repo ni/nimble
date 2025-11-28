@@ -144,8 +144,10 @@ export class Computations {
             originLocation,
             containerDiameter
         );
-        this._horizontalCoefficient = this._horizontalScale(1) - this._horizontalScale(0);
-        this._verticalCoefficient = this._verticalScale(1) - this._verticalScale(0);
+        this._horizontalCoefficient =
+            this._horizontalScale(1) - this._horizontalScale(0);
+        this._verticalCoefficient =
+            this._verticalScale(1) - this._verticalScale(0);
         this._horizontalConstant = this._horizontalScale(0);
         this._verticalConstant = this._verticalScale(0);
 
@@ -172,11 +174,11 @@ export class Computations {
 
     private gridDimensionsValidAndDefined(): boolean {
         return (
-            !this.wafermap.validity.invalidGridDimensions
-            && typeof this.wafermap.gridMinX === 'number'
-            && typeof this.wafermap.gridMinY === 'number'
-            && typeof this.wafermap.gridMaxX === 'number'
-            && typeof this.wafermap.gridMinX === 'number'
+            !this.wafermap.validity.invalidGridDimensions &&
+            typeof this.wafermap.gridMinX === 'number' &&
+            typeof this.wafermap.gridMinY === 'number' &&
+            typeof this.wafermap.gridMaxX === 'number' &&
+            typeof this.wafermap.gridMinX === 'number'
         );
     }
 
@@ -239,8 +241,8 @@ export class Computations {
     ): ScaleLinear<number, number> {
         const scale = scaleLinear<number, number>();
         if (
-            originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.topLeft
+            originLocation === WaferMapOriginLocation.bottomLeft ||
+            originLocation === WaferMapOriginLocation.topLeft
         ) {
             return scale
                 .domain([this._gridMinX, this._gridMaxX + 1])
@@ -259,8 +261,8 @@ export class Computations {
         // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
         // we need to flip the vertical scale
         if (
-            originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.bottomRight
+            originLocation === WaferMapOriginLocation.bottomLeft ||
+            originLocation === WaferMapOriginLocation.bottomRight
         ) {
             return scale
                 .domain([this._gridMinY - 1, this._gridMaxY])
@@ -329,8 +331,8 @@ export class Computations {
     ): number {
         return Math.min(
             dieDimensions.height,
-            (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5))
-                * this.fontSizeFactor
+            (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5)) *
+                this.fontSizeFactor
         );
     }
 }

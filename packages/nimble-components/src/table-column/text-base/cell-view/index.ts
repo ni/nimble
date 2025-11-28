@@ -19,9 +19,9 @@ export interface TableColumnTextBaseColumnConfig {
  */
 export abstract class TableColumnTextCellViewBase<
     TCellRecord extends
-    TableColumnTextBaseCellRecord = TableColumnTextBaseCellRecord,
+        TableColumnTextBaseCellRecord = TableColumnTextBaseCellRecord,
     TColumnConfig extends
-    TableColumnTextBaseColumnConfig = TableColumnTextBaseColumnConfig
+        TableColumnTextBaseColumnConfig = TableColumnTextBaseColumnConfig
 > extends TableCellView<TCellRecord, TColumnConfig> {
     /** @internal */
     @observable
@@ -67,8 +67,8 @@ export abstract class TableColumnTextCellViewBase<
         const cellValue = this.cellRecord?.value;
         const placeholder = this.columnConfig?.placeholder;
         if (
-            typeof placeholder === 'string'
-            && (cellValue === null || cellValue === undefined)
+            typeof placeholder === 'string' &&
+            (cellValue === null || cellValue === undefined)
         ) {
             this.text = placeholder;
             this.isPlaceholder = true;

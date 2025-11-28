@@ -67,7 +67,8 @@ const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
  */
 export class Select
     extends mixinErrorPattern(mixinRequiredVisiblePattern(FormAssociatedSelect))
-    implements ListOptionOwner {
+    implements ListOptionOwner
+{
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -239,12 +240,14 @@ export class Select
             const newValueIndex = this.options.findIndex(
                 el => el.value === newValue
             );
-            const prevSelectedValue = this.options[this.selectedIndex]?.value ?? null;
-            const nextSelectedValue = this.options[newValueIndex]?.value ?? null;
+            const prevSelectedValue =
+                this.options[this.selectedIndex]?.value ?? null;
+            const nextSelectedValue =
+                this.options[newValueIndex]?.value ?? null;
 
             if (
-                newValueIndex === -1
-                || prevSelectedValue !== nextSelectedValue
+                newValueIndex === -1 ||
+                prevSelectedValue !== nextSelectedValue
             ) {
                 newValue = '';
                 this.selectedIndex = newValueIndex;
@@ -366,9 +369,9 @@ export class Select
         super.clickHandler(e);
 
         if (
-            this.open
-            && this.selectedIndex !== previousSelectedIndex
-            && optionClicked
+            this.open &&
+            this.selectedIndex !== previousSelectedIndex &&
+            optionClicked
         ) {
             this.updateValue(true);
         }
@@ -416,8 +419,8 @@ export class Select
             }
             case 'visuallyHidden': {
                 if (
-                    isListOptionGroup(sourceElement)
-                    || isListOption(sourceElement)
+                    isListOptionGroup(sourceElement) ||
+                    isListOption(sourceElement)
                 ) {
                     this.updateAdjacentSeparatorState(sourceElement);
                 }
@@ -503,8 +506,8 @@ export class Select
     public updateDisplayValue(): void {
         const placeholderOption = this.getPlaceholderOption();
         if (
-            placeholderOption
-            && this.firstSelectedOption === placeholderOption
+            placeholderOption &&
+            this.firstSelectedOption === placeholderOption
         ) {
             this.displayPlaceholder = true;
         } else {
@@ -528,15 +531,14 @@ export class Select
             const enabledOptions = this.filteredOptions.filter(
                 o => !o.disabled
             );
-            let activeOptionIndex = this.filter !== ''
-                ? (this.openActiveIndex ?? this.selectedIndex)
-                : this.selectedIndex;
+            let activeOptionIndex =
+                this.filter !== ''
+                    ? (this.openActiveIndex ?? this.selectedIndex)
+                    : this.selectedIndex;
 
             if (
-                enabledOptions.length > 0
-                && !enabledOptions.find(
-                    o => o === this.options[activeOptionIndex]
-                )
+                enabledOptions.length > 0 &&
+                !enabledOptions.find(o => o === this.options[activeOptionIndex])
             ) {
                 activeOptionIndex = this.options.indexOf(enabledOptions[0]!);
             } else if (enabledOptions.length === 0) {
@@ -596,9 +598,9 @@ export class Select
             case keyArrowDown: {
                 const selectedOption = this.options[this.selectedIndex];
                 if (
-                    this.open
-                    && isListOption(selectedOption)
-                    && !isOptionOrGroupVisible(selectedOption)
+                    this.open &&
+                    isListOption(selectedOption) &&
+                    !isOptionOrGroupVisible(selectedOption)
                 ) {
                     if (this.openActiveIndex === this.selectedIndex) {
                         this.selectFirstOption();
@@ -616,9 +618,9 @@ export class Select
             case keyArrowUp: {
                 const selectedOption = this.options[this.selectedIndex];
                 if (
-                    this.open
-                    && isListOption(selectedOption)
-                    && !isOptionOrGroupVisible(selectedOption)
+                    this.open &&
+                    isListOption(selectedOption) &&
+                    !isOptionOrGroupVisible(selectedOption)
                 ) {
                     if (this.openActiveIndex === this.selectedIndex) {
                         this.selectLastOption();
@@ -656,8 +658,8 @@ export class Select
             case keyEnter: {
                 e.preventDefault();
                 if (
-                    this.filteredOptions.length === 0
-                    || this.filteredOptions.every(o => o.disabled)
+                    this.filteredOptions.length === 0 ||
+                    this.filteredOptions.every(o => o.disabled)
                 ) {
                     return false;
                 }
@@ -923,7 +925,8 @@ export class Select
             return;
         }
 
-        const activeOption = this.options[this.openActiveIndex ?? this.selectedIndex];
+        const activeOption =
+            this.options[this.openActiveIndex ?? this.selectedIndex];
         if (isListOption(activeOption)) {
             activeOption.activeOption = false;
         }
@@ -975,8 +978,9 @@ export class Select
      * @internal
      */
     protected override setDefaultSelectedOption(): void {
-        const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => isListOption(o));
+        const options: ListboxOption[] =
+            this.options ??
+            Array.from(this.children).filter(o => isListOption(o));
 
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
@@ -992,8 +996,8 @@ export class Select
             } else if (placeholderIndex === -1 && isOptionPlaceholder(option)) {
                 placeholderIndex = i;
             } else if (
-                firstValidOptionIndex === -1
-                && isOptionSelectable(option as ListOption)
+                firstValidOptionIndex === -1 &&
+                isOptionSelectable(option as ListOption)
             ) {
                 firstValidOptionIndex = i;
             }
@@ -1032,11 +1036,12 @@ export class Select
                 activeOption.activeOption = true;
             }
 
-            const previousActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+            const previousActiveIndex =
+                this.openActiveIndex ?? this.selectedIndex;
             const previousActiveOption = this.options[previousActiveIndex];
             if (
-                previousActiveIndex !== newActiveIndex
-                && isListOption(previousActiveOption)
+                previousActiveIndex !== newActiveIndex &&
+                isListOption(previousActiveOption)
             ) {
                 previousActiveOption.activeOption = false;
             }
@@ -1051,7 +1056,8 @@ export class Select
     }
 
     private focusAndScrollActiveOptionIntoView(): void {
-        const optionToFocus = this.options[this.openActiveIndex ?? this.selectedIndex];
+        const optionToFocus =
+            this.options[this.openActiveIndex ?? this.selectedIndex];
         // Copied from FAST: To ensure that the browser handles both `focus()` and
         // `scrollIntoView()`, the timing here needs to guarantee that they happen on
         // different frames. Since this function is typically called from the `openChanged`
@@ -1091,9 +1097,10 @@ export class Select
             ? this.positionAttribute
             : this.position;
 
-        this.availableViewportHeight = this.position === SelectPosition.above
-            ? Math.trunc(currentBox.top)
-            : Math.trunc(availableBottom);
+        this.availableViewportHeight =
+            this.position === SelectPosition.above
+                ? Math.trunc(currentBox.top)
+                : Math.trunc(availableBottom);
     }
 
     private updateAdjacentSeparatorState(
@@ -1143,9 +1150,9 @@ export class Select
         let previousElement = element.previousElementSibling;
         while (previousElement) {
             if (
-                (isListOption(previousElement)
-                    || isListOptionGroup(previousElement))
-                && isOptionOrGroupVisible(previousElement)
+                (isListOption(previousElement) ||
+                    isListOptionGroup(previousElement)) &&
+                isOptionOrGroupVisible(previousElement)
             ) {
                 return previousElement;
             }
@@ -1160,8 +1167,8 @@ export class Select
         let nextElement = element.nextElementSibling;
         while (nextElement) {
             if (
-                (isListOption(nextElement) || isListOptionGroup(nextElement))
-                && isOptionOrGroupVisible(nextElement)
+                (isListOption(nextElement) || isListOptionGroup(nextElement)) &&
+                isOptionOrGroupVisible(nextElement)
             ) {
                 return nextElement;
             }
@@ -1216,7 +1223,8 @@ export class Select
                     }
                 });
             } else if (isListOption(element)) {
-                element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
+                element.visuallyHidden =
+                    this.isOptionHiddenOrFilteredOut(element);
                 if (!element.visuallyHidden) {
                     filteredOptions.push(element);
                 }
@@ -1276,8 +1284,9 @@ export class Select
         if (this.proxy instanceof HTMLSelectElement && this.options) {
             this.proxy.options.length = 0;
             this.options.forEach(option => {
-                const proxyOption = option.proxy
-                    || (option instanceof HTMLOptionElement
+                const proxyOption =
+                    option.proxy ||
+                    (option instanceof HTMLOptionElement
                         ? option.cloneNode()
                         : null);
 
