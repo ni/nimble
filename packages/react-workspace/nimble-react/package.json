@@ -31,6 +31,7 @@
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-web-utilities": "^10.0.0",
+    "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "^8.13.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "rollup": "^4.12.0",

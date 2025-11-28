@@ -26,6 +26,7 @@
   "license": "MIT",
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
+    "@ni/ok-components": "*",
     "typescript": "~5.4.5"
   },
   "peerDependencies": {
