@@ -31,7 +31,7 @@ const computedCSSValueFromTokenName = (tokenName: string): string => {
 
 const colorTemplate = html<TokenName>`
     <div
-        title="${x => computedCSSValueFromTokenName(tokens[x])}"
+        title=${x => computedCSSValueFromTokenName(tokens[x])}
         style="
         display: inline-block;
         height: 24px;
@@ -44,7 +44,7 @@ const colorTemplate = html<TokenName>`
 
 const imageTemplate = html<TokenName>`
     <div
-        title="${x => computedCSSValueFromTokenName(tokens[x])}"
+        title=${x => computedCSSValueFromTokenName(tokens[x])}
         style="
         display: inline-block;
         height: 24px;
@@ -57,7 +57,7 @@ const imageTemplate = html<TokenName>`
 
 const rgbColorTemplate = html<TokenName>`
     <div
-        title="${x => computedCSSValueFromTokenName(tokens[x])}"
+        title=${x => computedCSSValueFromTokenName(tokens[x])}
         style="
         display: inline-block;
         height: 24px;
