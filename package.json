@@ -69,9 +69,5 @@
     "patch-package": "^8.0.1",
     "playwright": "1.54.1",
     "tsx": "^4.20.6"
-  },
-  "dependencies": {
-    "glob-hasher-darwin-arm64": "^1.4.2",
-    "glob-hasher-darwin-x64": "^1.4.2"
   }
 }
