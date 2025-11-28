@@ -79,7 +79,6 @@ module.exports = defineConfig([
                     ],
                 },
             ],
-
             // Jasmine createSpyObj rely on accessing unbound methods
             '@typescript-eslint/unbound-method': 'off',
         },
