@@ -3,6 +3,7 @@ import { Breadcrumb, breadcrumbTag } from '..';
 import { breadcrumbItemTag } from '../../breadcrumb-item';
 import { BreadcrumbPageObject } from '../testing/breadcrumb.pageobject';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Breadcrumb>> {
     const viewTemplate = html`
@@ -77,6 +78,7 @@ describe('Breadcrumb', () => {
 
         it('should scroll right when the right scroll button is clicked', async () => {
             await breadcrumbPageObject.setBreadcrumbWidth(300);
+            await waitForUpdatesAsync();
             await breadcrumbPageObject.clickScrollRightButton();
             expect(
                 breadcrumbPageObject.getBreadcrumbViewScrollOffset()

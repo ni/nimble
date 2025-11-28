@@ -94,6 +94,7 @@ describe('Tabs', () => {
 
         it('should scroll right when the right scroll button is clicked', async () => {
             await tabsPageObject.setTabsWidth(300);
+            await waitForUpdatesAsync();
             await tabsPageObject.clickScrollRightButton();
             expect(tabsPageObject.getTabsViewScrollOffset()).toBeGreaterThan(0);
         });
