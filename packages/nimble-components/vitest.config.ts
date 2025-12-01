@@ -28,10 +28,7 @@ export default defineConfig({
         include: ['src/**/*.spec.ts'],
         browser: {
             enabled: true,
-            provider: playwright({
-                // Increase browser launch timeout to reduce connection failures
-                timeout: 60000
-            }),
+            provider: playwright(),
             instances: [
                 {
                     browser:
@@ -44,9 +41,7 @@ export default defineConfig({
             headless: true,
             screenshotFailures: true,
             // Isolate each test file for more stable execution in CI
-            isolate: true,
-            // Increase iframe timeout to reduce connection failures
-            slowHijackESM: false
+            isolate: true
         },
         // Increase timeout for browser tests (default is 5000ms)
         testTimeout: 10000,
