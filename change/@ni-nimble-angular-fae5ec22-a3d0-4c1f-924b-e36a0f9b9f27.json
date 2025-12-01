@@ -1,5 +1,5 @@
 {
-  "type": "patch",
+  "type": "minor",
   "comment": "Switch from deprecated Sass @import to @use",
   "packageName": "@ni/nimble-angular",
   "email": "7282195+m-akinc@users.noreply.github.com",
