@@ -32,9 +32,9 @@ export interface TableColumnEnumColumnConfig extends TableColumnTextBaseColumnCo
  * Base class for table columns that map values to content
  */
 export abstract class TableColumnEnumBase<
-        TColumnConfig extends TableColumnEnumColumnConfig,
-        TEnumValidator extends TableColumnEnumBaseValidator<[]>
-    >
+    TColumnConfig extends TableColumnEnumColumnConfig,
+    TEnumValidator extends TableColumnEnumBaseValidator<[]>
+>
     extends TableColumn<TColumnConfig, TEnumValidator>
     implements Subscriber
 {

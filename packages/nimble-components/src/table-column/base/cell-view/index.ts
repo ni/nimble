@@ -12,9 +12,9 @@ import type {
  * Each TableColumn type has a corresponding TableCellView type (linked via TableColumn.cellViewTag).
  */
 export abstract class TableCellView<
-        TCellRecord extends TableCellRecord = TableCellRecord,
-        TColumnConfig = unknown
-    >
+    TCellRecord extends TableCellRecord = TableCellRecord,
+    TColumnConfig = unknown
+>
     extends FoundationElement
     implements TableCellState<TCellRecord, TColumnConfig>
 {

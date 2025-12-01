@@ -16,9 +16,9 @@ export interface TableGroupHeaderState<
  * type (linked via TableColumn.groupHeaderViewTag).
  */
 export abstract class TableGroupHeaderView<
-        TGroupValue = TableFieldValue,
-        TColumnConfig = unknown
-    >
+    TGroupValue = TableFieldValue,
+    TColumnConfig = unknown
+>
     extends FoundationElement
     implements TableGroupHeaderState<TGroupValue, TColumnConfig>
 {

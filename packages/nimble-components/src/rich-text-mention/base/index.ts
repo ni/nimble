@@ -22,8 +22,8 @@ import type { MappingConfigs, MentionUpdateEventDetail } from './types';
  * The base class for Mention configuration
  */
 export abstract class RichTextMention<
-        TValidator extends RichTextMentionValidator = RichTextMentionValidator
-    >
+    TValidator extends RichTextMentionValidator = RichTextMentionValidator
+>
     extends FoundationElement
     implements Subscriber
 {

@@ -10,8 +10,8 @@ export type DesignTokensFor<ObjectT> = {
  * Base class for label providers
  */
 export abstract class LabelProviderBase<
-        SupportedLabels extends { [key: string]: DesignToken<string> }
-    >
+    SupportedLabels extends { [key: string]: DesignToken<string> }
+>
     extends FoundationElement
     implements Subscriber
 {
