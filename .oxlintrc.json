@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "no-unused-vars": "off",
+        "unicorn/no-useless-spread": "off",
+        "typescript/no-unsafe-declaration-merging": "off",
+        "no-unused-expressions": "off"
+    }
+}

@@ -1,5 +1,8 @@
 module.exports = {
-    extends: '@ni/eslint-config-javascript',
+    extends: [
+        '@ni/eslint-config-javascript',
+        'plugin:oxlint/recommended'
+    ],
     parserOptions: {
         ecmaVersion: 2020
     },

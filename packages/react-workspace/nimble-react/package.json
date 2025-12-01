@@ -13,7 +13,8 @@
     "build:icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
     "build:icons:run": "node build/generate-icons/dist/index.js",
     "build:components": "tsc -p ./tsconfig.json",
-    "lint": "eslint .",
+    "lint": "npm run lint:fast && eslint .",
+    "lint:fast": "oxlint",
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish"

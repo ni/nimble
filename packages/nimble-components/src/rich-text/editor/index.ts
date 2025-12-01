@@ -606,6 +606,10 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
         });
     }
 
+    private readonly inputHandler = (event: Event): void => {
+        event.stopPropagation();
+    };
+
     /**
      * Stopping the native input event propagation emitted by the contenteditable element in the Tiptap
      * since there is an issue (linked below) in ProseMirror where selecting the text and removing it
@@ -615,13 +619,14 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
      * Prose Mirror issue: https://discuss.prosemirror.net/t/how-to-handle-select-backspace-delete-cut-type-kind-of-events-handletextinput-or-handledomevents-input-doesnt-help/4844
      */
     private stopNativeInputEventPropagation(): void {
-        this.tiptapEditor.view.dom.addEventListener('input', event => {
-            event.stopPropagation();
-        });
+        this.tiptapEditor.view.dom.addEventListener('input', this.inputHandler);
     }
 
     private unbindNativeInputEvent(): void {
-        this.tiptapEditor.view.dom.removeEventListener('input', () => {});
+        this.tiptapEditor.view.dom.removeEventListener(
+            'input',
+            this.inputHandler
+        );
     }
 
     private queueUpdateScrollbarWidth(): void {

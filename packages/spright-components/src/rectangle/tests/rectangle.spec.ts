@@ -28,7 +28,7 @@ describe('Rectangle', () => {
     it('should have a slot element in the shadow DOM', async () => {
         await connect();
         expect(
-            (element.shadowRoot?.childNodes.item(0) as HTMLElement).tagName
+            (element.shadowRoot!.childNodes.item(0) as HTMLElement).tagName
         ).toBe('SLOT');
     });
 });

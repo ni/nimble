@@ -37,7 +37,9 @@ const simpleData = [
         firstName: 'Marge',
         lastName: 'Simpson',
         age: 42.918275125,
+        // oxlint-disable-next-line no-loss-of-precision
         favoriteNumber: 28729375089724643,
+        // oxlint-disable-next-line no-loss-of-precision
         measurement: 28729375089724643
     },
     {

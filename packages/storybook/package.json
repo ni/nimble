@@ -7,8 +7,9 @@
     "build": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
     "lint": "npm run eslint && npm run prettier",
+    "lint:fast": "oxlint",
     "format": "npm run prettier-fix",
-    "eslint": "eslint .",
+    "eslint": "npm run lint:fast && eslint .",
     "eslint-fix": "eslint . --fix",
     "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",
     "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore"

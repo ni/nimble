@@ -51,6 +51,7 @@ describe('Duration Formatter', () => {
             },
             {
                 name: '59999.9999999999997s',
+                // oxlint-disable-next-line no-loss-of-precision
                 value: 59999.9999999999997,
                 expected: '1 min'
             },

@@ -18,7 +18,8 @@
   "author": "National Instruments",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "npm run lint:fast && eslint .",
+    "lint:fast": "oxlint",
     "format": "eslint . --fix"
   },
   "files": ["javascript.js", "typescript.js", "components.js"],
@@ -34,6 +35,7 @@
     "@ni/eslint-config-javascript": "^4.3.0",
     "@ni/eslint-config-typescript": "^4.4.2",
     "eslint": "^8.7.0",
-    "eslint-plugin-jsdoc": "^60.7.1"
+    "eslint-plugin-jsdoc": "^60.7.1",
+    "eslint-plugin-oxlint": "^1.31.0"
   }
 }

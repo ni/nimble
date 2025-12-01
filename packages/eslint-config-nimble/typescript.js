@@ -1,7 +1,8 @@
 module.exports = {
     extends: [
         '@ni/eslint-config-typescript',
-        '@ni/eslint-config-typescript/requiring-type-checking'
+        '@ni/eslint-config-typescript/requiring-type-checking',
+        'plugin:oxlint/recommended'
     ],
     parserOptions: {
         ecmaVersion: 2020

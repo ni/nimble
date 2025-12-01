@@ -28,7 +28,6 @@ export abstract class UnitScale {
                 'Supported scaled units must include a base scaled unit (scale factor=1)'
             );
         }
-        this.supportedScaledUnits = supportedScaledUnits;
         this.baseScaledUnit = baseScaledUnit;
     }
 

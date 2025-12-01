@@ -8,7 +8,8 @@
         "build:eleventy": "eleventy",
         "build:landing": "tsc && vite --config ./vite.config.js build landing",
         "pack": "npm pack",
-        "lint": "eslint .",
+        "lint": "npm run lint:fast && eslint .",
+        "lint:fast": "oxlint",
         "start:eleventy": "eleventy --serve",
         "start:landing": "vite landing"
     },

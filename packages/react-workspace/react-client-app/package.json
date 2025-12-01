@@ -7,7 +7,8 @@
     "dev": "vite",
     "check": "tsc -b",
     "build": "npm run check && vite build",
-    "lint": "eslint .",
+    "lint": "npm run lint:fast && eslint .",
+    "lint:fast": "oxlint",
     "format": "eslint --fix .",
     "preview": "vite preview"
   },

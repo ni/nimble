@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc && vite build src",
     "pack": "npm pack",
-    "lint": "eslint .",
+    "lint": "npm run lint:fast && eslint .",
+    "lint:fast": "oxlint",
     "format": "eslint . --fix",
     "start": "vite src",
     "performance": "lhci autorun"

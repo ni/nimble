@@ -177,6 +177,7 @@ describe('DefaultUnitFormat', () => {
         },
         {
             name: 'converts numbers with large magnitudes to exponential notation',
+            // oxlint-disable-next-line no-loss-of-precision
             value: -123456789.123456789,
             expectedFormattedValue: {
                 en: '-1.23457E8',

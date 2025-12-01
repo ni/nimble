@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "lint": "eslint .",
+    "lint": "npm run lint:fast && eslint .",
+    "lint:fast": "oxlint",
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish",
