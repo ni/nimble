@@ -100,9 +100,9 @@ export interface TableGroupHeaderState<
 }
 
 export abstract class TableGroupHeaderView<
-        TGroupValue = unknown,
-        TColumnConfig = unknown
-    >
+    TGroupValue = unknown,
+    TColumnConfig = unknown
+>
     extends FoundationElement
     implements TableGroupHeaderState<TGroupValue, TColumnConfig>
 {
