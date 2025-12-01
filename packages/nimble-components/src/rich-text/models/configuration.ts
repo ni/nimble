@@ -10,17 +10,14 @@ export class Configuration {
     protected isValid = true;
 
     public constructor(mentionElements: RichTextMention[]) {
-        this.isValid = mentionElements.every(mentionElement =>
-            mentionElement.mentionInternals.validator.isValid()
-        );
+        this.isValid = mentionElements.every(mentionElement => mentionElement.mentionInternals.validator.isValid());
 
         this.parserMentionConfig = this.isValid
             ? mentionElements.map(
-                  mentionElement =>
-                      new MarkdownParserMentionConfiguration(
-                          mentionElement.mentionInternals
-                      )
-              )
+                mentionElement => new MarkdownParserMentionConfiguration(
+                    mentionElement.mentionInternals
+                )
+            )
             : [];
     }
 }

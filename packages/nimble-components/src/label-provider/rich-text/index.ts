@@ -27,8 +27,7 @@ const supportedLabels = {
  */
 export class LabelProviderRichText
     extends LabelProviderBase<typeof supportedLabels>
-    implements DesignTokensFor<typeof supportedLabels>
-{
+    implements DesignTokensFor<typeof supportedLabels> {
     @attr({ attribute: 'toggle-bold' })
     public toggleBold: string | undefined;
 

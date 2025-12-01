@@ -23,14 +23,14 @@ describe('Combobox', () => {
     });
 
     async function setup(): Promise<{
-        element: Combobox;
-        connect: () => Promise<void>;
-        disconnect: () => Promise<void>;
-        document: Document;
-        option1: ListboxOption;
-        option2: ListboxOption;
-        option3: ListboxOption;
-        parent: HTMLElement;
+        element: Combobox,
+        connect: () => Promise<void>,
+        disconnect: () => Promise<void>,
+        document: Document,
+        option1: ListboxOption,
+        option2: ListboxOption,
+        option3: ListboxOption,
+        parent: HTMLElement
     }> {
         const { element, connect, disconnect, parent } = await fixture([
             combobox(),
@@ -401,8 +401,7 @@ describe('Combobox', () => {
         });
 
         it('should reset its value property to the first option with the `selected` attribute present', async () => {
-            const { element, connect, disconnect, parent, option2 } =
-                await setup();
+            const { element, connect, disconnect, parent, option2 } = await setup();
 
             option2.setAttribute('selected', '');
 
@@ -451,8 +450,7 @@ describe('Combobox', () => {
     });
 
     it("should set the control's `aria-activedescendant` property to the ID of the currently selected option while open", async () => {
-        const { connect, disconnect, element, option1, option2, option3 } =
-            await setup();
+        const { connect, disconnect, element, option1, option2, option3 } = await setup();
 
         await connect();
 
@@ -548,8 +546,7 @@ describe('Combobox', () => {
     const noInlineAutocompleteModes: ComboboxAutocomplete[] = ['none', 'list'];
     noInlineAutocompleteModes.forEach(mode => {
         it(`when autocomplete is ${mode}, typing should select exact match`, async () => {
-            const { connect, disconnect, element, option2, option3 } =
-                await setup();
+            const { connect, disconnect, element, option2, option3 } = await setup();
 
             await connect();
 

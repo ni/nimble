@@ -12,11 +12,10 @@ export class EditorConfiguration extends Configuration {
         super(mentionElements);
         this.mentionExtensionConfig = this.isValid
             ? mentionElements.map(
-                  mentionElement =>
-                      new MentionExtensionConfiguration(
-                          mentionElement.mentionInternals
-                      )
-              )
+                mentionElement => new MentionExtensionConfiguration(
+                    mentionElement.mentionInternals
+                )
+            )
             : [];
     }
 }

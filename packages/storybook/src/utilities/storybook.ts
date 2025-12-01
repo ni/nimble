@@ -10,16 +10,15 @@ import {
     defaultBackgroundState
 } from './states';
 
-export const fastParameters = () =>
-    ({
-        a11y: { disable: true },
-        docs: {
-            source: {
-                code: null
-            },
-            transformSource: (source: string): string => source
-        }
-    }) as const;
+export const fastParameters = () => ({
+    a11y: { disable: true },
+    docs: {
+        source: {
+            code: null
+        },
+        transformSource: (source: string): string => source
+    }
+}) as const;
 
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
@@ -56,9 +55,8 @@ const getGlobalTheme = (context: unknown): Theme => {
     // @ts-expect-error Accessing the global background defined in preview.js
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const globalValue = context?.globals?.backgrounds?.value as GlobalValue;
-    const background =
-        backgroundStates.find(({ theme }) => theme === globalValue) ??
-        defaultBackgroundState;
+    const background = backgroundStates.find(({ theme }) => theme === globalValue)
+        ?? defaultBackgroundState;
     return background.theme;
 };
 
@@ -177,70 +175,55 @@ export const apiCategory = {
 } as const;
 
 export const appearanceDescription = (options: {
-    componentName: string;
-}): string =>
-    `This attribute affects the appearance of the ${options.componentName}.`;
+    componentName: string
+}): string => `This attribute affects the appearance of the ${options.componentName}.`;
 export const fullBleedDescription = (options: {
-    componentName: string;
-}): string =>
-    `Removes the start and end margins of the ${options.componentName} causing the text to stretch across the full control width. This property only applies to the frameless appearance.`;
-export const iconDescription =
-    'Set `slot="start"` to include an icon before the text content.';
+    componentName: string
+}): string => `Removes the start and end margins of the ${options.componentName} causing the text to stretch across the full control width. This property only applies to the frameless appearance.`;
+export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
 export const disabledDescription = (options: {
-    componentName: string;
-}): string =>
-    `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
+    componentName: string
+}): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
 export const readonlyDescription = (options: {
-    componentName: string;
-}): string =>
-    `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
+    componentName: string
+}): string => `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
 export const appearanceReadOnlyDescription = (options: {
-    componentName: string;
-}): string =>
-    `Styles the ${options.componentName} as readonly when the component is disabled. This is useful for applications that use a forms library that sets \`disabled\` on components but don't want those components to have a disabled appearance. This property has no impact on the control when it is not disabled.`;
+    componentName: string
+}): string => `Styles the ${options.componentName} as readonly when the component is disabled. This is useful for applications that use a forms library that sets \`disabled\` on components but don't want those components to have a disabled appearance. This property has no impact on the control when it is not disabled.`;
 export const slottedLabelDescription = (options: {
-    componentName: string;
-}): string =>
-    `Label text to display adjacent to the ${options.componentName} describing its purpose to the user.`;
+    componentName: string
+}): string => `Label text to display adjacent to the ${options.componentName} describing its purpose to the user.`;
 export const textContentDescription = (options: {
-    componentName: string;
+    componentName: string
 }): string => `The text content of the ${options.componentName}.`;
 export const placeholderDescription = (options: {
-    componentName: string;
-}): string =>
-    `Placeholder text to display when no value has been entered in the ${options.componentName}.`;
+    componentName: string
+}): string => `Placeholder text to display when no value has been entered in the ${options.componentName}.`;
 
-export const errorTextDescription =
-    'A message to be displayed explaining why the value is invalid. Only visible when `error-visible` is set.';
-export const errorVisibleDescription =
-    'When set to `true`, an error indicator will be displayed within the control and the `error-text` message will be displayed.';
+export const errorTextDescription = 'A message to be displayed explaining why the value is invalid. Only visible when `error-visible` is set.';
+export const errorVisibleDescription = 'When set to `true`, an error indicator will be displayed within the control and the `error-text` message will be displayed.';
 
-export const requiredVisibleDescription =
-    'When set to `true`, an indicator will be displayed within the control to indicate that the field is required. A disabled or readonly control should not also be marked as `required-visible`.';
+export const requiredVisibleDescription = 'When set to `true`, an indicator will be displayed within the control to indicate that the field is required. A disabled or readonly control should not also be marked as `required-visible`.';
 
 export const dropdownPositionDescription = (options: {
-    componentName: string;
-}): string =>
-    `Controls the position of the dropdown relative to the ${options.componentName}.`;
+    componentName: string
+}): string => `Controls the position of the dropdown relative to the ${options.componentName}.`;
 export const optionsDescription = (options: {
-    includeGrouping: boolean;
-}): string =>
-    `The \`${listOptionTag}\` items for the user to select from.${options.includeGrouping ? ` Each ${listOptionTag} can also be grouped using the \`${listOptionGroupTag}\` element.` : ''} `;
+    includeGrouping: boolean
+}): string => `The \`${listOptionTag}\` items for the user to select from.${options.includeGrouping ? ` Each ${listOptionTag} can also be grouped using the \`${listOptionGroupTag}\` element.` : ''} `;
 
 export const preventDismissDescription = (options: {
-    componentName: string;
-}): string =>
-    `Prevents the \`Esc\` key from closing the ${options.componentName}.`;
+    componentName: string
+}): string => `Prevents the \`Esc\` key from closing the ${options.componentName}.`;
 
 export const checkValidityDescription = (options: {
-    componentName: string;
-}): string =>
-    `Returns \`true\` if the configuration of the ${options.componentName} is valid, otherwise \`false\`.`;
+    componentName: string
+}): string => `Returns \`true\` if the configuration of the ${options.componentName} is valid, otherwise \`false\`.`;
 
 export const validityDescription = (options: {
-    colloquialName: string;
-    validityObjectType: string;
-    validityFlags: { flagName: string; description: string }[];
+    colloquialName: string,
+    validityObjectType: string,
+    validityFlags: { flagName: string, description: string }[]
 }): string => `Readonly object of boolean values that represents the validity states that the ${options.colloquialName}'s configuration can be in.
 The object's type is \`${options.validityObjectType}\`, and it contains the following boolean properties:
 ${options.validityFlags.map(flag => `-   \`${flag.flagName}\`: ${flag.description}`).join('\n')}`;

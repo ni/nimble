@@ -254,8 +254,8 @@ export type TableFocusType =
 export interface TableRowFocusableElements {
     selectionCheckbox?: Checkbox;
     cells: {
-        cell: TableCell;
-        actionMenuButton?: MenuButton;
+        cell: TableCell,
+        actionMenuButton?: MenuButton
     }[];
 }
 

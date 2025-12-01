@@ -442,9 +442,9 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
         this.validate();
         if (this.richTextValidator.isValid()) {
             if (
-                this.richTextUpdateTracker.updateButtonLabel ||
-                this.richTextUpdateTracker.updateMappingConfigs ||
-                this.richTextUpdateTracker.updatePattern
+                this.richTextUpdateTracker.updateButtonLabel
+                || this.richTextUpdateTracker.updateMappingConfigs
+                || this.richTextUpdateTracker.updatePattern
             ) {
                 this.configuration = new EditorConfiguration(
                     this.mentionElements
@@ -539,16 +539,12 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
         const { extensionManager, state } = this.tiptapEditor;
         const { extensions } = extensionManager;
         const { selection } = state;
-        const parentList = findParentNode((node: { type: { name: string } }) =>
-            isList(node.type.name, extensions)
-        )(selection);
+        const parentList = findParentNode((node: { type: { name: string } }) => isList(node.type.name, extensions))(selection);
 
         this.boldButton.checked = this.tiptapEditor.isActive('bold');
         this.italicsButton.checked = this.tiptapEditor.isActive('italic');
-        this.bulletListButton.checked =
-            parentList?.node.type.name === TipTapNodeName.bulletList;
-        this.numberedListButton.checked =
-            parentList?.node.type.name === TipTapNodeName.numberedList;
+        this.bulletListButton.checked = parentList?.node.type.name === TipTapNodeName.bulletList;
+        this.numberedListButton.checked = parentList?.node.type.name === TipTapNodeName.numberedList;
     }
 
     private keyActivatesButton(event: KeyboardEvent): boolean {
@@ -599,12 +595,11 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
                     updatedAttrs,
                     node.content
                 );
-                const updatedTransaction =
-                    this.tiptapEditor.state.tr.replaceWith(
-                        pos,
-                        pos + node.nodeSize,
-                        updatedNode
-                    );
+                const updatedTransaction = this.tiptapEditor.state.tr.replaceWith(
+                    pos,
+                    pos + node.nodeSize,
+                    updatedNode
+                );
                 this.tiptapEditor.view.dispatch(updatedTransaction);
             }
             return true;
@@ -641,15 +636,13 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
 
     private updateScrollbarWidth(): void {
         this.updateScrollbarWidthQueued = false;
-        this.scrollbarWidth =
-            this.tiptapEditor.view.dom.offsetWidth -
-            this.tiptapEditor.view.dom.clientWidth;
+        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth
+            - this.tiptapEditor.view.dom.clientWidth;
     }
 
     private onResize(): void {
-        this.scrollbarWidth =
-            this.tiptapEditor.view.dom.offsetWidth -
-            this.tiptapEditor.view.dom.clientWidth;
+        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth
+            - this.tiptapEditor.view.dom.clientWidth;
     }
 
     private getTipTapExtension(
@@ -673,27 +666,23 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
     private setActiveMappingConfigs(): void {
         this.activeMappingConfigs = this.activeMentionCharacter
             ? this.getMentionExtensionConfigFromCharacter(
-                  this.activeMentionCharacter
-              )?.mappingConfigs
+                this.activeMentionCharacter
+            )?.mappingConfigs
             : undefined;
     }
 
     private shouldInsertSpace(): boolean {
         const { $anchor, $head } = this.tiptapEditor.view.state.selection;
 
-        const isAtStartOfLine =
-            $head.parentOffset === 0 || $anchor.parentOffset === 0;
-        const nodeBeforeSelection =
-            $anchor.pos < $head.pos ? $anchor.nodeBefore : $head.nodeBefore;
-        const isHardBreakNode =
-            nodeBeforeSelection?.type.name === HardBreak.name;
-        const hasWhitespaceBeforeCurrentPosition =
-            nodeBeforeSelection?.textContent.endsWith(' ');
+        const isAtStartOfLine = $head.parentOffset === 0 || $anchor.parentOffset === 0;
+        const nodeBeforeSelection = $anchor.pos < $head.pos ? $anchor.nodeBefore : $head.nodeBefore;
+        const isHardBreakNode = nodeBeforeSelection?.type.name === HardBreak.name;
+        const hasWhitespaceBeforeCurrentPosition = nodeBeforeSelection?.textContent.endsWith(' ');
 
         return (
-            !isAtStartOfLine &&
-            !isHardBreakNode &&
-            !hasWhitespaceBeforeCurrentPosition
+            !isAtStartOfLine
+            && !isHardBreakNode
+            && !hasWhitespaceBeforeCurrentPosition
         );
     }
 

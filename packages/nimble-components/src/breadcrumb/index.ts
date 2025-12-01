@@ -48,8 +48,7 @@ export class Breadcrumb extends FoundationBreadcrumb {
                 if (this.showScrollButtons) {
                     listVisibleWidth += buttonWidth * 2;
                 }
-                this.showScrollButtons =
-                    listVisibleWidth < this.list.scrollWidth;
+                this.showScrollButtons = listVisibleWidth < this.list.scrollWidth;
             }
         });
     }

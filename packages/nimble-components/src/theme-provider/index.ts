@@ -33,9 +33,7 @@ function isValidLang(value: string): boolean {
 export const lang = DesignToken.create<string>({
     name: 'lang',
     cssCustomPropertyName: null
-}).withDefault((): string =>
-    isValidLang(documentElementLang.lang) ? documentElementLang.lang : 'en-US'
-);
+}).withDefault((): string => (isValidLang(documentElementLang.lang) ? documentElementLang.lang : 'en-US'));
 
 // Not represented as a CSS Custom Property, instead available
 // as an attribute of theme provider.

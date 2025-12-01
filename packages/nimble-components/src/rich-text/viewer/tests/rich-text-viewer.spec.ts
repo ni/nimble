@@ -187,8 +187,7 @@ describe('RichTextViewer', () => {
                 { key: 'user:1', displayName: 'username1' }
             ]);
 
-            const renderedUserMention =
-                element.firstElementChild as RichTextMentionUsers;
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
             element.removeChild(renderedUserMention);
             await waitForUpdatesAsync();
 
@@ -207,10 +206,8 @@ describe('RichTextViewer', () => {
                 { key: 'user:1', displayName: 'username1' }
             ]);
 
-            const renderedUserMention =
-                element.firstElementChild as RichTextMentionUsers;
-            const renderedMappingUser =
-                renderedUserMention.firstElementChild as MappingUser;
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
             renderedUserMention.removeChild(renderedMappingUser);
             await waitForUpdatesAsync();
 
@@ -231,8 +228,7 @@ describe('RichTextViewer', () => {
                 { key: 'user:1', displayName: 'username1' }
             ]);
 
-            (element.firstElementChild as RichTextMentionUsers).pattern =
-                'invalid';
+            (element.firstElementChild as RichTextMentionUsers).pattern = 'invalid';
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
@@ -250,10 +246,8 @@ describe('RichTextViewer', () => {
                 { key: 'user:1', displayName: 'username1' }
             ]);
 
-            const renderedUserMention =
-                element.firstElementChild as RichTextMentionUsers;
-            const renderedMappingUser =
-                renderedUserMention.firstElementChild as MappingUser;
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
             renderedMappingUser.displayName = 'updated-name';
             await waitForUpdatesAsync();
 
@@ -282,10 +276,8 @@ describe('RichTextViewer', () => {
                 'user:2'
             );
 
-            const renderedUserMention =
-                element.firstElementChild as RichTextMentionUsers;
-            const renderedMappingUser =
-                renderedUserMention.firstElementChild as MappingUser;
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
             renderedMappingUser.key = 'user:2';
             await waitForUpdatesAsync();
 
@@ -316,10 +308,8 @@ describe('RichTextViewer', () => {
                 )
             ).toEqual('username');
 
-            const renderedUserMention =
-                element.firstElementChild as RichTextMentionUsers;
-            const renderedMappingUser =
-                renderedUserMention.firstElementChild as MappingUser;
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
             renderedMappingUser.key = 'invalid';
             await waitForUpdatesAsync();
 
@@ -368,10 +358,9 @@ describe('RichTextViewer', () => {
 
             it('should have invalid states when removing `pattern` from configuration element', async () => {
                 element.markdown = '<user:1>';
-                const { userMentionElement } =
-                    await appendUserMentionConfiguration(element, [
-                        { key: 'user:1', displayName: 'username' }
-                    ]);
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
                 userMentionElement.removeAttribute('pattern');
                 await waitForUpdatesAsync();
 
@@ -381,10 +370,9 @@ describe('RichTextViewer', () => {
 
             it('should have invalid states when it is a invalid regex `pattern`', async () => {
                 element.markdown = '<user:1>';
-                const { userMentionElement } =
-                    await appendUserMentionConfiguration(element, [
-                        { key: 'user:1', displayName: 'username' }
-                    ]);
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
                 userMentionElement.pattern = '(invalid';
                 await waitForUpdatesAsync();
 
@@ -411,8 +399,7 @@ describe('RichTextViewer', () => {
                 await appendUserMentionConfiguration(element);
                 await appendUserMentionConfiguration(element);
 
-                const renderedUserMention =
-                    element.firstElementChild as RichTextMentionUsers;
+                const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
                 element.removeChild(renderedUserMention);
                 await waitForUpdatesAsync();
 
@@ -521,8 +508,7 @@ describe('RichTextViewer', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            const renderedUserMention =
-                element.lastElementChild as RichTextMentionUsers;
+            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             renderedUserMention.pattern = 'invalid';
             await waitForUpdatesAsync();
@@ -534,8 +520,7 @@ describe('RichTextViewer', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            const renderedUserMention =
-                element.lastElementChild as RichTextMentionUsers;
+            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             element.removeChild(renderedUserMention);
             await waitForUpdatesAsync();

@@ -47,8 +47,7 @@ describe('ListboxOption', () => {
         });
 
         it('sets title when option text is ellipsized', async () => {
-            const optionContent =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.textContent = optionContent;
             dispatchEventToListOption(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
@@ -64,8 +63,7 @@ describe('ListboxOption', () => {
         });
 
         it('removes title on mouseout of option', async () => {
-            const optionContent =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.textContent = optionContent;
             dispatchEventToListOption(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();

@@ -24,11 +24,10 @@ export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
     ) {
         return (
             scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
-        ): IntlNumberFormatScaledUnitFormat =>
-            new IntlNumberFormatScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
-                unitSpecificIntlNumberFormatOptions
-            );
+        ): IntlNumberFormatScaledUnitFormat => new IntlNumberFormatScaledUnitFormat(
+            scaledUnitFormatFactoryOptions,
+            unitSpecificIntlNumberFormatOptions
+        );
     }
 
     public format(value: number): string {

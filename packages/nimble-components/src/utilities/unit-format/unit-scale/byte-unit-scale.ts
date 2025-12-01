@@ -18,15 +18,14 @@ class ByteUnitScale extends UnitScale {
     public constructor() {
         super(
             byteUnitScaleOptions.map(
-                ([scaleFactor, unit, unitDisplay]) =>
-                    new ScaledUnit(
-                        scaleFactor,
-                        IntlNumberFormatScaledUnitFormat.createFactory({
-                            style: 'unit',
-                            unit,
-                            unitDisplay
-                        })
-                    )
+                ([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
+                    scaleFactor,
+                    IntlNumberFormatScaledUnitFormat.createFactory({
+                        style: 'unit',
+                        unit,
+                        unitDisplay
+                    })
+                )
             )
         );
     }

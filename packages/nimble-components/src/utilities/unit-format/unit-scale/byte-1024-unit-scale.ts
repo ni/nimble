@@ -30,14 +30,13 @@ class Byte1024UnitScale extends UnitScale {
     public constructor() {
         super(
             byte1024Prefixes.map(
-                ([scaleFactor, scaledPrefixText]) =>
-                    new ScaledUnit(
-                        scaleFactor,
-                        ManuallyTranslatedScaledUnitFormat.createFactory({
-                            unitTranslations,
-                            scaledPrefixText
-                        })
-                    )
+                ([scaleFactor, scaledPrefixText]) => new ScaledUnit(
+                    scaleFactor,
+                    ManuallyTranslatedScaledUnitFormat.createFactory({
+                        unitTranslations,
+                        scaledPrefixText
+                    })
+                )
             )
         );
     }

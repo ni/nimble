@@ -43,11 +43,10 @@ export const tableColumnHeaderSortedAscendingLabel = DesignToken.create<string>(
     }
 ).withDefault(tableLabelDefaults.tableColumnHeaderSortedAscendingLabel);
 
-export const tableColumnHeaderSortedDescendingLabel =
-    DesignToken.create<string>({
-        name: 'table-column-header-sorted-descending-label',
-        cssCustomPropertyName: null
-    }).withDefault(tableLabelDefaults.tableColumnHeaderSortedDescendingLabel);
+export const tableColumnHeaderSortedDescendingLabel = DesignToken.create<string>({
+    name: 'table-column-header-sorted-descending-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableColumnHeaderSortedDescendingLabel);
 
 export const tableSelectAllLabel = DesignToken.create<string>({
     name: 'table-select-all-label',

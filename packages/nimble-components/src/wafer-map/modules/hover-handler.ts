@@ -50,8 +50,7 @@ export class HoverHandler {
             this.wafermap.hoverDie = undefined;
             return;
         }
-        this.wafermap.hoverDie =
-            this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
+        this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
     };
 
     private readonly onMouseOut = (_event: MouseEvent): void => {
@@ -63,16 +62,14 @@ export class HoverHandler {
     ): PointCoordinates | undefined {
         if (!this.wafermap.isExperimentalUpdate()) {
             const originLocation = this.wafermap.originLocation;
-            const xRoundFunction =
-                originLocation === WaferMapOriginLocation.bottomLeft ||
-                originLocation === WaferMapOriginLocation.topLeft
-                    ? Math.floor
-                    : Math.ceil;
-            const yRoundFunction =
-                originLocation === WaferMapOriginLocation.bottomLeft ||
-                originLocation === WaferMapOriginLocation.bottomRight
-                    ? Math.floor
-                    : Math.ceil;
+            const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
+                || originLocation === WaferMapOriginLocation.topLeft
+                ? Math.floor
+                : Math.ceil;
+            const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
+                || originLocation === WaferMapOriginLocation.bottomRight
+                ? Math.floor
+                : Math.ceil;
             // go to x and y scale to get the x,y values of the die.
             const x = xRoundFunction(
                 this.wafermap.dataManager.invertedHorizontalScale(

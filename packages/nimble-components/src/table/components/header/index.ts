@@ -16,8 +16,7 @@ declare global {
  */
 export class TableHeader extends FoundationElement {
     @attr({ attribute: 'sort-direction' })
-    public sortDirection: TableColumnSortDirection =
-        TableColumnSortDirection.none;
+    public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
     @attr({ attribute: 'first-sorted-column', mode: 'boolean' })
     public firstSortedColumn = false;
@@ -47,8 +46,8 @@ export class TableHeader extends FoundationElement {
 
     private updateAriaSort(): void {
         if (
-            !this.firstSortedColumn ||
-            this.sortDirection === TableColumnSortDirection.none
+            !this.firstSortedColumn
+            || this.sortDirection === TableColumnSortDirection.none
         ) {
             this.ariaSort = null;
         } else if (this.sortDirection === TableColumnSortDirection.ascending) {

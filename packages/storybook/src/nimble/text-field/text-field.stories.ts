@@ -44,8 +44,7 @@ interface TextFieldArgs {
     appearanceReadOnly: boolean;
 }
 
-const leftIconDescription =
-    'An icon to display at the start of the text field.';
+const leftIconDescription = 'An icon to display at the start of the text field.';
 
 const actionButtonDescription = `Content such as a button at the end of the text field.
 

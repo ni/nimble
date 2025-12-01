@@ -28,8 +28,7 @@ declare global {
  */
 export class TableColumnMappingGroupHeaderView
     extends TableGroupHeaderView<TableFieldValue, TableColumnEnumColumnConfig>
-    implements IconView, SpinnerView
-{
+    implements IconView, SpinnerView {
     /** @internal */
     @observable
     public hasOverflow = false;
@@ -92,5 +91,4 @@ const mappingGroupHeaderView = TableColumnMappingGroupHeaderView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(mappingGroupHeaderView());
-export const tableColumnMappingGroupHeaderViewTag =
-    'nimble-table-column-mapping-group-header-view';
+export const tableColumnMappingGroupHeaderViewTag = 'nimble-table-column-mapping-group-header-view';

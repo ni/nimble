@@ -41,8 +41,8 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
         isSelecting?: boolean
     ): void {
         if (
-            rowState.isGroupRow &&
-            rowState.selectionState === TableRowSelectionState.selected
+            rowState.isGroupRow
+            && rowState.selectionState === TableRowSelectionState.selected
         ) {
             // Work around for https://github.com/TanStack/table/issues/4759
             // Manually deselect all leaf rows when a fully selected group is being deselected.
@@ -68,8 +68,8 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
         });
 
         if (
-            selectedRecordIds.length === 1 &&
-            selectedRecordIds[0] === rowState.id
+            selectedRecordIds.length === 1
+            && selectedRecordIds[0] === rowState.id
         ) {
             // The clicked row is already the only selected row. Do nothing.
             return false;

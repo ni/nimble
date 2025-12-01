@@ -30,14 +30,12 @@ export class TableColumnDateTextGroupHeaderView extends TableColumnTextGroupHead
     }
 }
 
-const tableColumnDateTextGroupHeaderView =
-    TableColumnDateTextGroupHeaderView.compose({
-        baseName: 'table-column-date-text-group-header-view',
-        template,
-        styles
-    });
+const tableColumnDateTextGroupHeaderView = TableColumnDateTextGroupHeaderView.compose({
+    baseName: 'table-column-date-text-group-header-view',
+    template,
+    styles
+});
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnDateTextGroupHeaderView());
-export const tableColumnDateTextGroupHeaderViewTag =
-    'nimble-table-column-date-text-group-header-view';
+export const tableColumnDateTextGroupHeaderViewTag = 'nimble-table-column-date-text-group-header-view';

@@ -16,8 +16,7 @@ export abstract class TableCellView<
     TColumnConfig = unknown
 >
     extends FoundationElement
-    implements TableCellState<TCellRecord, TColumnConfig>
-{
+    implements TableCellState<TCellRecord, TColumnConfig> {
     @observable
     public cellRecord?: TCellRecord;
 

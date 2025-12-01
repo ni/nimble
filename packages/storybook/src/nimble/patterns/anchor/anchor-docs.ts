@@ -1,6 +1,6 @@
 export const hrefDescription = (options: {
-    componentName: string;
-    includeDisable: boolean;
+    componentName: string,
+    includeDisable: boolean
 }): string => `The URL that the ${options.componentName} points to. 
 ${options.includeDisable ? 'To disable the control, remove the `href` attribute.' : ''}
 

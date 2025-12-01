@@ -230,10 +230,10 @@ export class TableRow<
     /** @internal */
     public handleChange(source: unknown, args: unknown): void {
         if (
-            source instanceof ColumnInternals &&
-            typeof args === 'string' &&
-            (isColumnInternalsProperty(args, 'columnConfig') ||
-                isColumnInternalsProperty(args, 'dataRecordFieldNames'))
+            source instanceof ColumnInternals
+            && typeof args === 'string'
+            && (isColumnInternalsProperty(args, 'columnConfig')
+                || isColumnInternalsProperty(args, 'dataRecordFieldNames'))
         ) {
             this.updateCellStates();
         }

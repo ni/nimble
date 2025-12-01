@@ -47,8 +47,7 @@ export class TableGroupRow extends FoundationElement {
     public selectable = false;
 
     @attr({ attribute: 'selection-state' })
-    public selectionState: TableRowSelectionState =
-        TableRowSelectionState.notSelected;
+    public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
 
     /**
      * @internal
@@ -133,11 +132,9 @@ export class TableGroupRow extends FoundationElement {
     private setSelectionCheckboxState(): void {
         if (this.selectionCheckbox) {
             this.ignoreSelectionChangeEvents = true;
-            this.selectionCheckbox.checked =
-                this.selectionState === TableRowSelectionState.selected;
-            this.selectionCheckbox.indeterminate =
-                this.selectionState ===
-                TableRowSelectionState.partiallySelected;
+            this.selectionCheckbox.checked = this.selectionState === TableRowSelectionState.selected;
+            this.selectionCheckbox.indeterminate = this.selectionState
+                === TableRowSelectionState.partiallySelected;
             this.ignoreSelectionChangeEvents = false;
         }
     }

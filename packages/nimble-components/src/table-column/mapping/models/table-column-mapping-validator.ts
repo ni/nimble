@@ -36,10 +36,10 @@ export class TableColumnMappingValidator extends TableColumnEnumBaseValidator<
         mapping: Mapping<unknown>
     ): mapping is MappingIcon | MappingSpinner | MappingText | MappingEmpty {
         return (
-            mapping instanceof MappingIcon ||
-            mapping instanceof MappingSpinner ||
-            mapping instanceof MappingText ||
-            mapping instanceof MappingEmpty
+            mapping instanceof MappingIcon
+            || mapping instanceof MappingSpinner
+            || mapping instanceof MappingText
+            || mapping instanceof MappingEmpty
         );
     }
 

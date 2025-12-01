@@ -21,8 +21,7 @@ declare global {
  */
 export class AnchorButton
     extends AnchorBase
-    implements ButtonPattern, ButtonAppearanceVariantPattern
-{
+    implements ButtonPattern, ButtonAppearanceVariantPattern {
     /**
      * @public
      * @remarks

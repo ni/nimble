@@ -9,10 +9,10 @@ const textArea = TextArea.compose({
 });
 
 async function setup(): Promise<{
-    element: TextArea;
-    connect: () => Promise<void>;
-    disconnect: () => Promise<void>;
-    parent: HTMLElement;
+    element: TextArea,
+    connect: () => Promise<void>,
+    disconnect: () => Promise<void>,
+    parent: HTMLElement
 }> {
     const { element, connect, disconnect, parent } = await fixture(textArea());
 

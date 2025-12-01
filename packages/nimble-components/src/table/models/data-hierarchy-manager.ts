@@ -16,8 +16,8 @@ export class DataHierarchyManager<TData extends TableRecord> {
         parentIdFieldName: string | undefined
     ) {
         if (
-            typeof idFieldName === 'string' &&
-            typeof parentIdFieldName === 'string'
+            typeof idFieldName === 'string'
+            && typeof parentIdFieldName === 'string'
         ) {
             try {
                 this._hierarchicalData = arrayToTree<TData>(records, {

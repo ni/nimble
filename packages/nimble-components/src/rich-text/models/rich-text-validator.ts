@@ -40,8 +40,7 @@ export class RichTextValidator {
         const mentionChars = mentions.map(
             mention => mention.mentionInternals.character
         );
-        this.duplicateMentionConfiguration =
-            mentionChars.length !== new Set(mentionChars).size;
+        this.duplicateMentionConfiguration = mentionChars.length !== new Set(mentionChars).size;
         return !this.duplicateMentionConfiguration;
     }
 }

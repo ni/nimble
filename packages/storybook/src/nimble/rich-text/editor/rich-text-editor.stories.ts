@@ -76,10 +76,8 @@ const mentionDataSets = {
     }
 } as const;
 
-const setMarkdownDescription =
-    'A function that sets content in the editor with the provided markdown string.';
-const getMarkdownDescription =
-    'A function that serializes the current data in the editor and returns the markdown string.';
+const setMarkdownDescription = 'A function that sets content in the editor with the provided markdown string.';
+const getMarkdownDescription = 'A function that serializes the current data in the editor and returns the markdown string.';
 const footerActionButtonDescription = `Place a button or anchor button at the far-right of the footer section to allow the user to invoke a custom action.
 
 Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.

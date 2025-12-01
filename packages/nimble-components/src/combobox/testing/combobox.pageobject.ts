@@ -41,10 +41,9 @@ export class ComboboxPageObject {
      * @returns The current slotted label text, if any
      */
     public getLabelText(): string {
-        const labelSlot =
-            this.comboboxElement.shadowRoot!.querySelector<HTMLSlotElement>(
-                'label > slot'
-            )!;
+        const labelSlot = this.comboboxElement.shadowRoot!.querySelector<HTMLSlotElement>(
+            'label > slot'
+        )!;
         return slotTextContent(labelSlot);
     }
 

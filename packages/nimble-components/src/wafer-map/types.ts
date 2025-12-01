@@ -84,7 +84,7 @@ export interface WaferMapValidity extends ValidityObject {
 // See: https://github.com/microsoft/TypeScript/issues/15300#issuecomment-1317901527
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type WaferRequiredFields = {
-    colIndex: Int32;
-    rowIndex: Int32;
-    value: Float64;
+    colIndex: Int32,
+    rowIndex: Int32,
+    value: Float64
 };

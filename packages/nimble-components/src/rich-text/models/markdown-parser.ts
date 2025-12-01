@@ -71,8 +71,7 @@ export class RichTextMarkdownParser {
          * https://github.com/markdown-it/markdown-it/blob/2b6cac25823af011ff3bc7628bc9b06e483c5a08/lib/presets/zero.js#L1
          *
          */
-        const zeroTokenizerConfiguration =
-            defaultMarkdownParser.tokenizer.configure('zero');
+        const zeroTokenizerConfiguration = defaultMarkdownParser.tokenizer.configure('zero');
 
         // The detailed information of the supported rules were provided in the below CommonMark spec document.
         // https://spec.commonmark.org/0.30/
@@ -122,12 +121,10 @@ export class RichTextMarkdownParser {
                     excludes: '_',
                     toDOM(node) {
                         const href = node.attrs.href as string;
-                        const currentMention =
-                            RichTextMarkdownParser.mentionConfigs?.find(
-                                mention => mention.isValidMentionHref(href)
-                            );
-                        const displayName =
-                            currentMention?.getDisplayName(href);
+                        const currentMention = RichTextMarkdownParser.mentionConfigs?.find(
+                            mention => mention.isValidMentionHref(href)
+                        );
+                        const displayName = currentMention?.getDisplayName(href);
 
                         if (currentMention && displayName) {
                             RichTextMarkdownParser.mentionedHrefs.add(href);

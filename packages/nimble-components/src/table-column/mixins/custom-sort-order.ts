@@ -54,8 +54,8 @@ export function mixinCustomSortOrderColumnAPI<
             this.updateCustomColumnSortingValidity();
 
             if (
-                typeof this.sortByFieldName === 'string' &&
-                !this.customSortOrderColumnNotifier
+                typeof this.sortByFieldName === 'string'
+                && !this.customSortOrderColumnNotifier
             ) {
                 this.customSortOrderColumnNotifier = Observable.getNotifier(
                     this.columnInternals
@@ -85,8 +85,7 @@ export function mixinCustomSortOrderColumnAPI<
 
         /** @internal */
         public updateCustomColumnSortingValidity(): void {
-            const hasCustomColumnSorting =
-                typeof this.sortByFieldName === 'string';
+            const hasCustomColumnSorting = typeof this.sortByFieldName === 'string';
             const isGroupingEnabled = !this.columnInternals.groupingDisabled;
             const isValid = !isGroupingEnabled || !hasCustomColumnSorting;
             if (isValid) {

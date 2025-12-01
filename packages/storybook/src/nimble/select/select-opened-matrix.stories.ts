@@ -132,14 +132,13 @@ export const lightTheme$OpenBelow$NoFilter: StoryFn = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
-export const lightTheme$OpenBelow$StandardFilter: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard
-        }),
-        lightThemeWhiteBackground
-    );
+export const lightTheme$OpenBelow$StandardFilter: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard
+    }),
+    lightThemeWhiteBackground
+);
 
 export const lightTheme$OpenAbove$NoFilter: StoryFn = createFixedThemeStory(
     component({
@@ -149,14 +148,13 @@ export const lightTheme$OpenAbove$NoFilter: StoryFn = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
-export const lightTheme$OpenAbove$StandardFilter: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard
-        }),
-        lightThemeWhiteBackground
-    );
+export const lightTheme$OpenAbove$StandardFilter: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard
+    }),
+    lightThemeWhiteBackground
+);
 
 export const colorTheme$OpenBelow$NoFilter: StoryFn = createFixedThemeStory(
     component({
@@ -166,14 +164,13 @@ export const colorTheme$OpenBelow$NoFilter: StoryFn = createFixedThemeStory(
     colorThemeDarkGreenBackground
 );
 
-export const colorTheme$OpenBelow$StandardFilter: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard
-        }),
-        colorThemeDarkGreenBackground
-    );
+export const colorTheme$OpenBelow$StandardFilter: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard
+    }),
+    colorThemeDarkGreenBackground
+);
 
 export const colorTheme$OpenAbove$NoFilter: StoryFn = createFixedThemeStory(
     component({
@@ -183,14 +180,13 @@ export const colorTheme$OpenAbove$NoFilter: StoryFn = createFixedThemeStory(
     colorThemeDarkGreenBackground
 );
 
-export const colorTheme$OpenAbove$StandardFilter: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard
-        }),
-        colorThemeDarkGreenBackground
-    );
+export const colorTheme$OpenAbove$StandardFilter: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard
+    }),
+    colorThemeDarkGreenBackground
+);
 
 export const darkTheme$OpenBelow$NoFilter: StoryFn = createFixedThemeStory(
     component({
@@ -200,14 +196,13 @@ export const darkTheme$OpenBelow$NoFilter: StoryFn = createFixedThemeStory(
     darkThemeBlackBackground
 );
 
-export const darkTheme$OpenBelow$StandardFilter: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard
-        }),
-        darkThemeBlackBackground
-    );
+export const darkTheme$OpenBelow$StandardFilter: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard
+    }),
+    darkThemeBlackBackground
+);
 
 export const darkTheme$OpenAbove$NoFilter: StoryFn = createFixedThemeStory(
     component({
@@ -217,14 +212,13 @@ export const darkTheme$OpenAbove$NoFilter: StoryFn = createFixedThemeStory(
     darkThemeBlackBackground
 );
 
-export const darkTheme$OpenAbove$StandardFilter: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard
-        }),
-        darkThemeBlackBackground
-    );
+export const darkTheme$OpenAbove$StandardFilter: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard
+    }),
+    darkThemeBlackBackground
+);
 
 const noMatchesFilterPlayFunction = (): void => {
     const select = document.querySelector(selectTag);
@@ -285,35 +279,32 @@ export const colorTheme$OpenBelow$NoMatch: StoryFn = createFixedThemeStory(
 );
 colorTheme$OpenBelow$NoMatch.play = noMatchesFilterPlayFunction;
 
-export const lightTheme$OpenBelow$NoFilter$WithPlaceholder: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.none,
-            placeholder: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const lightTheme$OpenBelow$NoFilter$WithPlaceholder: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.none,
+        placeholder: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const colorTheme$OpenBelow$NoFilter$WithPlaceholder: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.none,
-            placeholder: true
-        }),
-        colorThemeDarkGreenBackground
-    );
+export const colorTheme$OpenBelow$NoFilter$WithPlaceholder: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.none,
+        placeholder: true
+    }),
+    colorThemeDarkGreenBackground
+);
 
-export const darkTheme$OpenBelow$NoFilter$WithPlaceholder: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.none,
-            placeholder: true
-        }),
-        darkThemeBlackBackground
-    );
+export const darkTheme$OpenBelow$NoFilter$WithPlaceholder: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.none,
+        placeholder: true
+    }),
+    darkThemeBlackBackground
+);
 
 export const lightTheme$GroupedOptions: StoryFn = createFixedThemeStory(
     component({
@@ -345,41 +336,38 @@ export const darkTheme$GroupedOptions: StoryFn = createFixedThemeStory(
     darkThemeBlackBackground
 );
 
-export const lightTheme$GroupedAndUngroupedOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            placeholder: true,
-            grouped: true,
-            optionsOutsideGroup: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const lightTheme$GroupedAndUngroupedOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        optionsOutsideGroup: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const colorTheme$GroupedAndUngroupedOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            placeholder: true,
-            grouped: true,
-            optionsOutsideGroup: true
-        }),
-        colorThemeDarkGreenBackground
-    );
+export const colorTheme$GroupedAndUngroupedOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        optionsOutsideGroup: true
+    }),
+    colorThemeDarkGreenBackground
+);
 
-export const darkTheme$GroupedAndUngroupedOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            placeholder: true,
-            grouped: true,
-            optionsOutsideGroup: true
-        }),
-        darkThemeBlackBackground
-    );
+export const darkTheme$GroupedAndUngroupedOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        optionsOutsideGroup: true
+    }),
+    darkThemeBlackBackground
+);
 
 export const lightTheme$SlottedGroupLabel: StoryFn = createFixedThemeStory(
     component({
@@ -414,86 +402,78 @@ export const darkTheme$SlottedGroupLabel: StoryFn = createFixedThemeStory(
     darkThemeBlackBackground
 );
 
-export const lightTheme$OpenBelow$LoadingVisible: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            loadingVisible: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const lightTheme$OpenBelow$LoadingVisible: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const colorTheme$OpenBelow$LoadingVisible: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            loadingVisible: true
-        }),
-        colorThemeDarkGreenBackground
-    );
+export const colorTheme$OpenBelow$LoadingVisible: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
 
-export const darkTheme$OpenBelow$LoadingVisible: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            loadingVisible: true
-        }),
-        darkThemeBlackBackground
-    );
+export const darkTheme$OpenBelow$LoadingVisible: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
 
-export const lightTheme$OpenAbove$LoadingVisible: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard,
-            loadingVisible: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const lightTheme$OpenAbove$LoadingVisible: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const colorTheme$OpenAbove$LoadingVisible: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard,
-            loadingVisible: true
-        }),
-        colorThemeDarkGreenBackground
-    );
+export const colorTheme$OpenAbove$LoadingVisible: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
 
-export const darkTheme$OpenAbove$LoadingVisible: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard,
-            loadingVisible: true
-        }),
-        darkThemeBlackBackground
-    );
+export const darkTheme$OpenAbove$LoadingVisible: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
 
-export const openBelow$NoMatches$LoadingVisible: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            loadingVisible: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openBelow$NoMatches$LoadingVisible: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
 openBelow$NoMatches$LoadingVisible.play = noMatchesFilterPlayFunction;
 
-export const openAbove$NoMatches$LoadingVisible: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard,
-            loadingVisible: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openAbove$NoMatches$LoadingVisible: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
 openAbove$NoMatches$LoadingVisible.play = noMatchesFilterPlayFunction;
 
 export const openBelow$NoFilter$ManyOptions: StoryFn = createFixedThemeStory(
@@ -505,48 +485,44 @@ export const openBelow$NoFilter$ManyOptions: StoryFn = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
-export const openBelow$NoFilter$LoadingVisible$ManyOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.none,
-            loadingVisible: true,
-            manyOptions: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openBelow$NoFilter$LoadingVisible$ManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.none,
+        loadingVisible: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const openBelow$StandardFilter$ManyOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            manyOptions: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openBelow$StandardFilter$ManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const openBelow$StandardFilter$LoadingVisible$ManyOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            loadingVisible: true,
-            manyOptions: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openBelow$StandardFilter$LoadingVisible$ManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const openBelow$StandardFilter$Grouped$ManyOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.below,
-            filterMode: FilterMode.standard,
-            grouped: true,
-            manyOptions: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openBelow$StandardFilter$Grouped$ManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        grouped: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
 
 export const openAbove$NoFilter$ManyOptions: StoryFn = createFixedThemeStory(
     component({
@@ -557,34 +533,31 @@ export const openAbove$NoFilter$ManyOptions: StoryFn = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
-export const openAbove$StandardFilter$ManyOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard,
-            manyOptions: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openAbove$StandardFilter$ManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const openAbove$StandardFilter$LoadingVisible$ManyOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard,
-            loadingVisible: true,
-            manyOptions: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openAbove$StandardFilter$LoadingVisible$ManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
 
-export const openAbove$StandardFilter$Grouped$ManyOptions: StoryFn =
-    createFixedThemeStory(
-        component({
-            positionState: DropdownPosition.above,
-            filterMode: FilterMode.standard,
-            grouped: true,
-            manyOptions: true
-        }),
-        lightThemeWhiteBackground
-    );
+export const openAbove$StandardFilter$Grouped$ManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        grouped: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);

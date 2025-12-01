@@ -345,8 +345,7 @@ describe('ListOptionGroup', () => {
         });
 
         it('sets title when group text is ellipsized when using label attribute', async () => {
-            const groupLabel =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.label = groupLabel;
             await waitForUpdatesAsync();
             dispatchEventToListOptionGroup(new MouseEvent('mouseover'));
@@ -363,8 +362,7 @@ describe('ListOptionGroup', () => {
         });
 
         it('removes title on mouseout of group when using label attribute', async () => {
-            const groupLabel =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.label = groupLabel;
             dispatchEventToListOptionGroup(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
@@ -374,8 +372,7 @@ describe('ListOptionGroup', () => {
         });
 
         it('sets title when group text is ellipsized when using slotted label', async () => {
-            const groupLabel =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.label = undefined;
             const slottedLabel = document.createElement('span');
             slottedLabel.textContent = groupLabel;
@@ -398,8 +395,7 @@ describe('ListOptionGroup', () => {
         });
 
         it('removes title on mouseout of group when using slotted label', async () => {
-            const groupLabel =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.label = undefined;
             const slottedLabel = document.createElement('span');
             slottedLabel.textContent = groupLabel;
@@ -412,8 +408,7 @@ describe('ListOptionGroup', () => {
         });
 
         it('updating slotted label updates title', async () => {
-            const groupLabel =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.label = undefined;
             const slottedLabel = document.createElement('span');
             slottedLabel.textContent = groupLabel;
@@ -424,8 +419,7 @@ describe('ListOptionGroup', () => {
             expect(getListOptionGroupTitle()).toEqual(groupLabel);
             dispatchEventToListOptionGroup(new MouseEvent('mouseout'));
             await waitForUpdatesAsync();
-            const newGroupLabel =
-                'a different very long value that should get ellipsized due to not fitting within the allocated width';
+            const newGroupLabel = 'a different very long value that should get ellipsized due to not fitting within the allocated width';
             slottedLabel.textContent = newGroupLabel;
             dispatchEventToListOptionGroup(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
@@ -433,8 +427,7 @@ describe('ListOptionGroup', () => {
         });
 
         it('removing slotted label removes title', async () => {
-            const groupLabel =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.label = undefined;
             const slottedLabel = document.createElement('span');
             slottedLabel.textContent = groupLabel;
@@ -450,8 +443,7 @@ describe('ListOptionGroup', () => {
         });
 
         it('when label attribute is set, updating slotted label does not update display', async () => {
-            const groupLabel =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.label = groupLabel;
             const slottedLabel = document.createElement('span');
             slottedLabel.textContent = 'different value';

@@ -23,13 +23,11 @@ export class TableColumnNumberTextCellView extends TableColumnTextCellViewBase<
 > {
     protected override columnConfigChanged(): void {
         super.columnConfigChanged();
-        this.alignment =
-            this.columnConfig?.alignment ?? TableColumnAlignment.left;
+        this.alignment = this.columnConfig?.alignment ?? TableColumnAlignment.left;
     }
 
     protected updateText(): void {
-        this.text =
-            this.columnConfig?.formatter?.format(this.cellRecord?.value) ?? '';
+        this.text = this.columnConfig?.formatter?.format(this.cellRecord?.value) ?? '';
     }
 }
 
@@ -39,5 +37,4 @@ const numberTextCellView = TableColumnNumberTextCellView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(numberTextCellView());
-export const tableColumnNumberTextCellViewTag =
-    'nimble-table-column-number-text-cell-view';
+export const tableColumnNumberTextCellViewTag = 'nimble-table-column-number-text-cell-view';

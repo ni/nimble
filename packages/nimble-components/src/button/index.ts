@@ -23,8 +23,7 @@ declare global {
  */
 export class Button
     extends FoundationButton
-    implements ButtonPattern, ButtonAppearanceVariantPattern
-{
+    implements ButtonPattern, ButtonAppearanceVariantPattern {
     /**
      * @public
      * @remarks

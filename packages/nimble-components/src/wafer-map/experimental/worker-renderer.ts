@@ -19,17 +19,16 @@ export class WorkerRenderer {
     public constructor(private readonly wafermap: WaferMap) {}
 
     public async setupWafer(snapshot: {
-        canvasDimensions: Dimensions;
-        renderConfig: RenderConfig;
-        columnIndices: Int32Array;
-        rowIndices: Int32Array;
-        values: Float64Array;
+        canvasDimensions: Dimensions,
+        renderConfig: RenderConfig,
+        columnIndices: Int32Array,
+        rowIndices: Int32Array,
+        values: Float64Array
     }): Promise<void> {
         if (this.matrixRenderer === undefined) {
             const { matrixRenderer } = await createMatrixRenderer();
             this.matrixRenderer = matrixRenderer;
-            const offscreenCanvas =
-                this.wafermap.workerCanvas.transferControlToOffscreen();
+            const offscreenCanvas = this.wafermap.workerCanvas.transferControlToOffscreen();
             await this.matrixRenderer.setCanvas(
                 transfer(offscreenCanvas, [offscreenCanvas])
             );
@@ -46,10 +45,10 @@ export class WorkerRenderer {
     }
 
     public async drawWafer(snapshot: {
-        canvasDimensions: Dimensions;
-        dieDimensions: Dimensions;
-        transform: ZoomTransform;
-        dieLabelsHidden: boolean;
+        canvasDimensions: Dimensions,
+        dieDimensions: Dimensions,
+        transform: ZoomTransform,
+        dieLabelsHidden: boolean
     }): Promise<void> {
         const topLeftCanvasCorner = snapshot.transform.invert([0, 0]);
         const bottomRightCanvasCorner = snapshot.transform.invert([
@@ -69,12 +68,12 @@ export class WorkerRenderer {
         });
         await this.matrixRenderer.drawWafer();
         if (
-            !snapshot.dieLabelsHidden &&
-            snapshot.dieDimensions &&
-            snapshot.dieDimensions.width *
-                snapshot.dieDimensions.height *
-                (snapshot.transform.k || 1) >=
-                this.minDieDim
+            !snapshot.dieLabelsHidden
+            && snapshot.dieDimensions
+            && snapshot.dieDimensions.width
+                * snapshot.dieDimensions.height
+                * (snapshot.transform.k || 1)
+                >= this.minDieDim
         ) {
             await this.matrixRenderer.drawText();
         }
@@ -82,21 +81,18 @@ export class WorkerRenderer {
 
     public renderHover(): void {
         if (
-            this.wafermap.computations.dieDimensions === undefined ||
-            this.wafermap.transform === undefined
+            this.wafermap.computations.dieDimensions === undefined
+            || this.wafermap.transform === undefined
         ) {
             return;
         }
-        this.wafermap.hoverWidth =
-            this.wafermap.computations.dieDimensions.width *
-            this.wafermap.transform.k;
-        this.wafermap.hoverHeight =
-            this.wafermap.computations.dieDimensions.height *
-            this.wafermap.transform.k;
-        this.wafermap.hoverOpacity =
-            this.wafermap.hoverDie === undefined
-                ? HoverDieOpacity.hide
-                : HoverDieOpacity.show;
+        this.wafermap.hoverWidth = this.wafermap.computations.dieDimensions.width
+            * this.wafermap.transform.k;
+        this.wafermap.hoverHeight = this.wafermap.computations.dieDimensions.height
+            * this.wafermap.transform.k;
+        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
+            ? HoverDieOpacity.hide
+            : HoverDieOpacity.show;
         this.wafermap.hoverTransform = this.calculateHoverTransform();
     }
 

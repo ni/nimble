@@ -32,8 +32,7 @@ export class OverflowBehavior implements Behavior {
         this.source = source;
         this.setSourceValue(false);
         this.mouseOverHandler = () => {
-            const hasOverflow =
-                this.target.offsetWidth < this.target.scrollWidth;
+            const hasOverflow = this.target.offsetWidth < this.target.scrollWidth;
             this.setSourceValue(hasOverflow);
         };
         this.mouseOutHandler = () => {

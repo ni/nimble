@@ -46,9 +46,9 @@ export class TableValidator<TData extends TableRecord> {
     public areRecordIdsValid(): boolean {
         const validity = this.getValidity();
         return (
-            !validity.duplicateRecordId &&
-            !validity.missingRecordId &&
-            !validity.invalidRecordId
+            !validity.duplicateRecordId
+            && !validity.missingRecordId
+            && !validity.invalidRecordId
         );
     }
 
@@ -57,9 +57,8 @@ export class TableValidator<TData extends TableRecord> {
         idFieldName: string | undefined,
         parentIdFieldName: string | undefined
     ): boolean {
-        const idFieldNameRequired =
-            selectionMode !== TableRowSelectionMode.none ||
-            typeof parentIdFieldName === 'string';
+        const idFieldNameRequired = selectionMode !== TableRowSelectionMode.none
+            || typeof parentIdFieldName === 'string';
         if (idFieldNameRequired) {
             this.idFieldNameNotConfigured = typeof idFieldName !== 'string';
         } else {
@@ -101,9 +100,9 @@ export class TableValidator<TData extends TableRecord> {
         }
 
         return (
-            !this.missingRecordId &&
-            !this.invalidRecordId &&
-            !this.duplicateRecordId
+            !this.missingRecordId
+            && !this.invalidRecordId
+            && !this.duplicateRecordId
         );
     }
 
@@ -165,9 +164,7 @@ export class TableValidator<TData extends TableRecord> {
     public getOptionsWithPresentIds(
         requestedOptions: readonly TableSetRecordHierarchyOptions[]
     ): TableSetRecordHierarchyOptions[] {
-        return requestedOptions.filter(item =>
-            this.recordIds.has(item.recordId)
-        );
+        return requestedOptions.filter(item => this.recordIds.has(item.recordId));
     }
 
     public setParentIdConfigurationValidity(valid: boolean): void {

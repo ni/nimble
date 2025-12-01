@@ -15,8 +15,7 @@ export abstract class UnitScale {
         public readonly supportedScaledUnits: readonly ScaledUnit[]
     ) {
         const unitsSorted = supportedScaledUnits.every(
-            (curr, i, arr) =>
-                i === 0 || arr[i - 1]!.scaleFactor < curr.scaleFactor
+            (curr, i, arr) => i === 0 || arr[i - 1]!.scaleFactor < curr.scaleFactor
         );
         if (!unitsSorted) {
             throw new Error(
@@ -43,10 +42,10 @@ export abstract class UnitScale {
         const magnitude = Math.abs(number);
         const onlyBaseScaledUnit = this.supportedScaledUnits.length === 1;
         if (
-            onlyBaseScaledUnit ||
-            magnitude === 0 ||
-            magnitude === Infinity ||
-            Number.isNaN(magnitude)
+            onlyBaseScaledUnit
+            || magnitude === 0
+            || magnitude === Infinity
+            || Number.isNaN(magnitude)
         ) {
             return { scaledValue: number, scaledUnit: this.baseScaledUnit };
         }

@@ -11,15 +11,14 @@ class FahrenheitUnitScale extends UnitScale {
     public constructor() {
         super(
             fahrenheitUnitScaleOptions.map(
-                ([scaleFactor, unit, unitDisplay]) =>
-                    new ScaledUnit(
-                        scaleFactor,
-                        IntlNumberFormatScaledUnitFormat.createFactory({
-                            style: 'unit',
-                            unit,
-                            unitDisplay
-                        })
-                    )
+                ([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
+                    scaleFactor,
+                    IntlNumberFormatScaledUnitFormat.createFactory({
+                        style: 'unit',
+                        unit,
+                        unitDisplay
+                    })
+                )
             )
         );
     }

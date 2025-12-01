@@ -328,8 +328,7 @@ describe('MenuButton', () => {
         {
             name: 'menu passed through slot of additional element',
             setupFunction: slottedSetup,
-            getMenuButton: (element: HTMLElement) =>
-                element.shadowRoot!.querySelector(menuButtonTag)!
+            getMenuButton: (element: HTMLElement) => element.shadowRoot!.querySelector(menuButtonTag)!
         }
     ] as const;
     parameterizeSuite(menuSlotConfigurations, (suite, name, value) => {
@@ -341,8 +340,7 @@ describe('MenuButton', () => {
             let disconnect: () => Promise<void>;
 
             beforeEach(async () => {
-                ({ element, connect, disconnect, parent } =
-                    await value.setupFunction());
+                ({ element, connect, disconnect, parent } = await value.setupFunction());
                 createAndSlotMenu(element);
                 await connect();
                 menuButton = value.getMenuButton(element);
@@ -487,8 +485,7 @@ describe('MenuButton', () => {
             let disconnect: () => Promise<void>;
 
             beforeEach(async () => {
-                ({ element, connect, disconnect, parent } =
-                    await value.setupFunction());
+                ({ element, connect, disconnect, parent } = await value.setupFunction());
                 // Unlike other tests, explicitly do not slot a menu in the parent element
                 await connect();
                 menuButton = value.getMenuButton(element);

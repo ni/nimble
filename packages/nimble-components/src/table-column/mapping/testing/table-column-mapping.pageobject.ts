@@ -83,8 +83,7 @@ export class TableColumnMappingPageObject<T extends TableRecord> {
     }
 
     public getRenderedGroupHeaderTextTitle(groupRowIndex: number): string {
-        const groupHeader =
-            this.tablePageObject.getGroupRowHeaderView(groupRowIndex);
+        const groupHeader = this.tablePageObject.getGroupRowHeaderView(groupRowIndex);
         const textElement = this.getRenderedTextElement(groupHeader);
         return textElement?.title ?? '';
     }
@@ -99,8 +98,7 @@ export class TableColumnMappingPageObject<T extends TableRecord> {
     }
 
     public getRenderedGroupHeaderText(groupRowIndex: number): string {
-        const groupHeader =
-            this.tablePageObject.getGroupRowHeaderView(groupRowIndex);
+        const groupHeader = this.tablePageObject.getGroupRowHeaderView(groupRowIndex);
         const textElement = this.getRenderedTextElement(groupHeader);
         return textElement?.textContent?.trim() ?? '';
     }
@@ -122,8 +120,7 @@ export class TableColumnMappingPageObject<T extends TableRecord> {
         groupRowIndex: number,
         event: Event
     ): boolean | undefined {
-        const groupHeader =
-            this.tablePageObject.getGroupRowHeaderView(groupRowIndex);
+        const groupHeader = this.tablePageObject.getGroupRowHeaderView(groupRowIndex);
         const textElement = this.getRenderedTextElement(groupHeader);
         return textElement!.dispatchEvent(event);
     }
@@ -132,10 +129,9 @@ export class TableColumnMappingPageObject<T extends TableRecord> {
         view: TableCellView | TableGroupHeaderView
     ): Icon | Spinner {
         const viewShadowRoot = view.shadowRoot!;
-        const spinnerOrIcon =
-            viewShadowRoot.querySelector(
-                '.reserve-icon-size'
-            )?.firstElementChild;
+        const spinnerOrIcon = viewShadowRoot.querySelector(
+            '.reserve-icon-size'
+        )?.firstElementChild;
         if (
             !(spinnerOrIcon instanceof Icon || spinnerOrIcon instanceof Spinner)
         ) {

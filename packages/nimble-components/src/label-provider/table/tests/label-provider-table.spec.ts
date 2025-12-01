@@ -75,10 +75,9 @@ describe('Label Provider Table', () => {
                 const tokenName = removePrefixAndCamelCase(value.name, 'table');
                 const expectedPropertyName = getPropertyName(tokenName);
                 const expectedAttributeName = getAttributeName(tokenName);
-                const attributeDefinition =
-                    element.$fastController.definition.attributes.find(
-                        a => a.name === expectedPropertyName
-                    );
+                const attributeDefinition = element.$fastController.definition.attributes.find(
+                    a => a.name === expectedPropertyName
+                );
                 expect(attributeDefinition).toBeDefined();
                 expect(expectedAttributeName).toEqual(
                     attributeDefinition!.attribute

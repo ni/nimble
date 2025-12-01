@@ -26,8 +26,7 @@ import {
 } from '../../../utilities/matrix';
 import { createStory } from '../../../utilities/storybook';
 
-const richTextMarkdownString =
-    '1. **Bold** *Italics*\n2. Numbered lists\n   1. Option 1\n   \n3. Bulleted lists\n   * Option 1\n   \n4. Absolute link: <https://nimble.ni.dev/>\n 6. @mention:\n    1. User pattern: <user:1>';
+const richTextMarkdownString = '1. **Bold** *Italics*\n2. Numbered lists\n   1. Option 1\n   \n3. Bulleted lists\n   * Option 1\n   \n4. Absolute link: <https://nimble.ni.dev/>\n 6. @mention:\n    1. User pattern: <user:1>';
 
 const footerHiddenStates = [
     ['Footer Visible', false],
@@ -90,18 +89,14 @@ const component = (
 
 const playFunction = (): void => {
     const editorNodeList = document.querySelectorAll(richTextEditorTag);
-    editorNodeList.forEach(element =>
-        element.setMarkdown(richTextMarkdownString)
-    );
+    editorNodeList.forEach(element => element.setMarkdown(richTextMarkdownString));
 };
 
 const longTextPlayFunction = (): void => {
     const editorNodeList = document.querySelectorAll(richTextEditorTag);
-    editorNodeList.forEach(element =>
-        element.setMarkdown(
-            `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`
-        )
-    );
+    editorNodeList.forEach(element => element.setMarkdown(
+        `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`
+    ));
 };
 
 // prettier-ignore
@@ -207,8 +202,7 @@ const mobileWidthComponent = html`
     </${richTextEditorTag}>
 `;
 
-export const plainTextContent$MobileWidth: StoryFn =
-    createStory(mobileWidthComponent);
+export const plainTextContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
 plainTextContent$MobileWidth.play = (): void => {
     document.querySelector(richTextEditorTag)!.setMarkdown(loremIpsum);
 };
@@ -224,8 +218,7 @@ const multipleSubPointsContent = `
                      1. Sub point 8
                         1. Sub point 9`;
 
-export const multipleSubPointsContent$MobileWidth: StoryFn =
-    createStory(mobileWidthComponent);
+export const multipleSubPointsContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
 multipleSubPointsContent$MobileWidth.play = (): void => {
     document
         .querySelector(richTextEditorTag)!
@@ -239,16 +232,14 @@ const differentListElementContentInSameLevel = `
     * Sub point 3
     1. Sub point 4`;
 
-export const differentListElementInSameLevel: StoryFn =
-    createStory(mobileWidthComponent);
+export const differentListElementInSameLevel: StoryFn = createStory(mobileWidthComponent);
 differentListElementInSameLevel.play = (): void => {
     document
         .querySelector(richTextEditorTag)!
         .setMarkdown(differentListElementContentInSameLevel);
 };
 
-export const longWordContent$MobileWidth: StoryFn =
-    createStory(mobileWidthComponent);
+export const longWordContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
 longWordContent$MobileWidth.play = (): void => {
     document
         .querySelector(richTextEditorTag)!
@@ -270,8 +261,7 @@ This line enters new line in paragraph tag
       Hard break sub point content
 `;
 
-export const newLineWithForceLineBreak$MobileWidth: StoryFn =
-    createStory(mobileWidthComponent);
+export const newLineWithForceLineBreak$MobileWidth: StoryFn = createStory(mobileWidthComponent);
 newLineWithForceLineBreak$MobileWidth.play = (): void => {
     document
         .querySelector(richTextEditorTag)!

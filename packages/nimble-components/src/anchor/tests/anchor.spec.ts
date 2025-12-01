@@ -158,8 +158,7 @@ describe('Anchor', () => {
         }
 
         it('acts like value is "true"', async () => {
-            ({ element, connect, disconnect } =
-                await setupWithContenteditable());
+            ({ element, connect, disconnect } = await setupWithContenteditable());
             await connect();
             const innerAnchor = element.shadowRoot!.querySelector('a')!;
             expect(innerAnchor.isContentEditable).toBeTrue();

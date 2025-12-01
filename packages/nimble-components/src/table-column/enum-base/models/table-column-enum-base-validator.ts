@@ -16,7 +16,7 @@ export abstract class TableColumnEnumBaseValidator<
     ValidityFlagNames extends readonly string[]
 > extends ColumnValidator<
     typeof enumBaseValidityFlagNames | ValidityFlagNames
-> {
+    > {
     public constructor(configValidityKeys: ValidityFlagNames) {
         super(configValidityKeys);
     }
@@ -40,9 +40,8 @@ export abstract class TableColumnEnumBaseValidator<
         // We should only set 'invalidMappingKeyValueForType' when there is a key,
         // but it isn't appropriate for the type.
         const invalid = keys.some(
-            key =>
-                key !== undefined &&
-                resolveKeyWithType(key, keyType) === undefined
+            key => key !== undefined
+                && resolveKeyWithType(key, keyType) === undefined
         );
         this.setConditionValue('invalidMappingKeyValueForType', invalid);
     }

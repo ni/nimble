@@ -20,8 +20,7 @@ export abstract class TableGroupHeaderView<
     TColumnConfig = unknown
 >
     extends FoundationElement
-    implements TableGroupHeaderState<TGroupValue, TColumnConfig>
-{
+    implements TableGroupHeaderState<TGroupValue, TColumnConfig> {
     @observable
     public groupHeaderValue?: TGroupValue;
 

@@ -25,8 +25,7 @@ export class BreadcrumbPageObject {
         if (index >= this.breadcrumbElement.slottedBreadcrumbItems.length) {
             throw new Error(`Breadcrumb with index ${index} not found`);
         }
-        const breadcrumb =
-            this.breadcrumbElement.slottedBreadcrumbItems[index]!;
+        const breadcrumb = this.breadcrumbElement.slottedBreadcrumbItems[index]!;
         breadcrumb.dispatchEvent(new KeyboardEvent('keydown', { key }));
         await waitForUpdatesAsync();
     }
@@ -38,10 +37,9 @@ export class BreadcrumbPageObject {
     }
 
     public async clickScrollLeftButton(): Promise<void> {
-        const leftButton =
-            this.breadcrumbElement.shadowRoot!.querySelector<Button>(
-                '.scroll-button.left'
-            );
+        const leftButton = this.breadcrumbElement.shadowRoot!.querySelector<Button>(
+            '.scroll-button.left'
+        );
         if (!leftButton) {
             throw new Error('Scroll left button not found');
         }
@@ -51,10 +49,9 @@ export class BreadcrumbPageObject {
     }
 
     public async clickScrollRightButton(): Promise<void> {
-        const rightButton =
-            this.breadcrumbElement.shadowRoot!.querySelector<Button>(
-                '.scroll-button.right'
-            );
+        const rightButton = this.breadcrumbElement.shadowRoot!.querySelector<Button>(
+            '.scroll-button.right'
+        );
         if (!rightButton) {
             throw new Error('Scroll right button not found');
         }
@@ -85,8 +82,7 @@ export class BreadcrumbPageObject {
         if (index >= this.breadcrumbElement.slottedBreadcrumbItems.length) {
             throw new Error(`Breadcrumb item with index ${index} not found`);
         }
-        const breadcrumbItemToRemove =
-            this.breadcrumbElement.slottedBreadcrumbItems[index];
+        const breadcrumbItemToRemove = this.breadcrumbElement.slottedBreadcrumbItems[index];
         breadcrumbItemToRemove?.remove();
         await waitForUpdatesAsync();
     }
@@ -98,8 +94,7 @@ export class BreadcrumbPageObject {
         if (index >= this.breadcrumbElement.slottedBreadcrumbItems.length) {
             throw new Error(`Breadcrumb item with index ${index} not found`);
         }
-        const breadcrumb =
-            this.breadcrumbElement.slottedBreadcrumbItems[index]!;
+        const breadcrumb = this.breadcrumbElement.slottedBreadcrumbItems[index]!;
         breadcrumb.textContent = label;
         await waitForUpdatesAsync();
     }
@@ -110,8 +105,7 @@ export class BreadcrumbPageObject {
         if (index >= this.breadcrumbElement.slottedBreadcrumbItems.length) {
             throw new Error(`Breadcrumb item with index ${index} not found`);
         }
-        const breadcrumb =
-            this.breadcrumbElement.slottedBreadcrumbItems[index]!;
+        const breadcrumb = this.breadcrumbElement.slottedBreadcrumbItems[index]!;
         breadcrumb.scrollIntoView();
         await waitForUpdatesAsync();
     }

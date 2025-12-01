@@ -23,5 +23,4 @@ const nimbleRichTextMentionUsersView = RichTextMentionUsersView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextMentionUsersView());
-export const richTextMentionUsersViewTag =
-    'nimble-rich-text-mention-users-view';
+export const richTextMentionUsersViewTag = 'nimble-rich-text-mention-users-view';

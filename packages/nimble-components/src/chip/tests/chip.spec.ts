@@ -108,8 +108,7 @@ describe('Chip', () => {
         }
 
         it('sets title when chip text is ellipsized', async () => {
-            const chipContent =
-                'a very long value that should get ellipsized due to not fitting within the allocated width';
+            const chipContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
             element.textContent = chipContent;
             dispatchEventToChipContent(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();

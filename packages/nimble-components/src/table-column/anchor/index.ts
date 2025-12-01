@@ -86,8 +86,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     @attr
     public download?: string;
 
-    private readonly defaultSortOperation =
-        TableColumnSortOperation.localeAwareCaseSensitive;
+    private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
 
     public placeholderChanged(): void {
         this.updateColumnConfig();
@@ -177,8 +176,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     }
 
     private updateColumnInternalsSortConfiguration(): void {
-        this.columnInternals.operandDataRecordFieldName =
-            this.getResolvedOperandDataRecordFieldName(this.labelFieldName);
+        this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.labelFieldName);
         this.columnInternals.sortOperation = this.getResolvedSortOperation(
             this.defaultSortOperation
         );

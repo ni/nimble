@@ -53,8 +53,7 @@ export class Tabs extends FoundationTabs implements TabsOwner {
                 if (this.showScrollButtons) {
                     tabListVisibleWidth += buttonWidth * 2;
                 }
-                this.showScrollButtons =
-                    tabListVisibleWidth < this.tablist.scrollWidth;
+                this.showScrollButtons = tabListVisibleWidth < this.tablist.scrollWidth;
             }
         });
     }

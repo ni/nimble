@@ -21,8 +21,8 @@ const elementName = uniqueElementName();
     styles
 })
 class TestErrorPatternElement extends mixinRequiredVisiblePattern(
-    FoundationElement
-) {}
+        FoundationElement
+    ) {}
 
 async function setup(): Promise<Fixture<TestErrorPatternElement>> {
     return await fixture(elementName);

@@ -36,8 +36,7 @@ export abstract class TableColumnEnumBase<
     TEnumValidator extends TableColumnEnumBaseValidator<[]>
 >
     extends TableColumn<TColumnConfig, TEnumValidator>
-    implements Subscriber
-{
+    implements Subscriber {
     /** @internal */
     public mappingNotifiers: Notifier[] = [];
 

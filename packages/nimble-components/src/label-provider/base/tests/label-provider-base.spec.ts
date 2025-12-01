@@ -30,7 +30,7 @@ describe('Label Provider Base', () => {
     })
     class LabelProviderTest extends LabelProviderBase<
         typeof exampleSupportedLabels
-    > {
+        > {
         @attr({ attribute: 'example-message' })
         public exampleMessage?: string;
 
@@ -89,12 +89,9 @@ describe('Label Provider Base', () => {
         });
 
         it('token values cascade from parent providers correctly', () => {
-            const parentLabelProvider: LabelProviderTest =
-                themeProvider.querySelector('.parent-provider')!;
-            const childLabelProvider: LabelProviderTest =
-                themeProvider.querySelector('.child-provider')!;
-            const elementUsingLabels: HTMLElement =
-                themeProvider.querySelector(buttonTag)!;
+            const parentLabelProvider: LabelProviderTest = themeProvider.querySelector('.parent-provider')!;
+            const childLabelProvider: LabelProviderTest = themeProvider.querySelector('.child-provider')!;
+            const elementUsingLabels: HTMLElement = themeProvider.querySelector(buttonTag)!;
 
             expect(exampleMessageLabel.getValueFor(elementUsingLabels)).toBe(
                 'test-child'
@@ -145,10 +142,8 @@ describe('Label Provider Base', () => {
         });
 
         it('token values cascade from parent providers correctly', () => {
-            const parentLabelProvider: LabelProviderTest =
-                themeProvider.querySelector('.parent-provider')!;
-            const elementUsingLabels: HTMLElement =
-                themeProvider.querySelector(buttonTag)!;
+            const parentLabelProvider: LabelProviderTest = themeProvider.querySelector('.parent-provider')!;
+            const elementUsingLabels: HTMLElement = themeProvider.querySelector(buttonTag)!;
 
             expect(exampleMessageLabel.getValueFor(elementUsingLabels)).toBe(
                 exampleMessageLabelDefaultValue

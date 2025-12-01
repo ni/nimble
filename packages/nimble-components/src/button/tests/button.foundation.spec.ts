@@ -13,10 +13,10 @@ const button = Button.compose({
 });
 
 async function setup(): Promise<{
-    element: Button;
-    connect: () => Promise<void>;
-    disconnect: () => Promise<void>;
-    parent: HTMLElement;
+    element: Button,
+    connect: () => Promise<void>,
+    disconnect: () => Promise<void>,
+    parent: HTMLElement
 }> {
     const { connect, disconnect, element, parent } = await fixture(button());
 

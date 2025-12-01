@@ -82,30 +82,30 @@ export class TableUpdateTracker<
 
     public get requiresTanStackUpdate(): boolean {
         return (
-            this.isTracked('rowIds') ||
-            this.isTracked('rowParentIds') ||
-            this.isTracked('columnSort') ||
-            this.isTracked('columnDefinition') ||
-            this.isTracked('groupRows') ||
-            this.isTracked('selectionMode')
+            this.isTracked('rowIds')
+            || this.isTracked('rowParentIds')
+            || this.isTracked('columnSort')
+            || this.isTracked('columnDefinition')
+            || this.isTracked('groupRows')
+            || this.isTracked('selectionMode')
         );
     }
 
     public get requiresTanStackDataReset(): boolean {
         return (
-            this.isTracked('rowIds') ||
-            this.isTracked('columnDefinition') ||
-            this.isTracked('rowParentIds')
+            this.isTracked('rowIds')
+            || this.isTracked('columnDefinition')
+            || this.isTracked('rowParentIds')
         );
     }
 
     public get requiresKeyboardFocusReset(): boolean {
         return (
-            this.isTracked('columnSortDisabled') ||
-            this.isTracked('columnDefinition') ||
-            this.isTracked('columnHidden') ||
-            this.isTracked('selectionMode') ||
-            this.isTracked('actionMenuSlots')
+            this.isTracked('columnSortDisabled')
+            || this.isTracked('columnDefinition')
+            || this.isTracked('columnHidden')
+            || this.isTracked('selectionMode')
+            || this.isTracked('actionMenuSlots')
         );
     }
 

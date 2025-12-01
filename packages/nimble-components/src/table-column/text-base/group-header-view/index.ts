@@ -31,18 +31,18 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     private readonly noValuePlaceholderLabelSubscriber: DesignTokenSubscriber<
         typeof tableGroupRowPlaceholderNoValueLabel
     > = {
-        handleChange: () => {
-            this.applyPlaceholderTextIfNeeded();
-        }
-    };
+            handleChange: () => {
+                this.applyPlaceholderTextIfNeeded();
+            }
+        };
 
     private readonly emptyPlaceholderLabelSubscriber: DesignTokenSubscriber<
         typeof tableGroupRowPlaceholderEmptyLabel
     > = {
-        handleChange: () => {
-            this.applyPlaceholderTextIfNeeded();
-        }
-    };
+            handleChange: () => {
+                this.applyPlaceholderTextIfNeeded();
+            }
+        };
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -87,8 +87,8 @@ export abstract class TableColumnTextGroupHeaderViewBase<
      */
     private applyPlaceholderTextIfNeeded(): boolean {
         if (
-            this.groupHeaderValue === null ||
-            this.groupHeaderValue === undefined
+            this.groupHeaderValue === null
+            || this.groupHeaderValue === undefined
         ) {
             this.text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
             return true;

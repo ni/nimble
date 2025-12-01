@@ -111,8 +111,7 @@ describe('TableColumnTextBaseGroupHeaderView', () => {
                 const customLabelProviderValue = 'Custom label provider value';
                 groupHeaderView.groupHeaderValue = value.value;
                 await waitForUpdatesAsync();
-                labelProvider[value.labelProviderProperty] =
-                    customLabelProviderValue;
+                labelProvider[value.labelProviderProperty] = customLabelProviderValue;
                 await waitForUpdatesAsync();
 
                 expect(getRenderedText()).toBe(customLabelProviderValue);
@@ -129,8 +128,7 @@ describe('TableColumnTextBaseGroupHeaderView', () => {
                 await disconnect();
 
                 const customLabelProviderValue = 'Custom label provider value';
-                labelProvider[value.labelProviderProperty] =
-                    customLabelProviderValue;
+                labelProvider[value.labelProviderProperty] = customLabelProviderValue;
 
                 await connect();
                 await waitForUpdatesAsync();

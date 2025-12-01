@@ -33,8 +33,7 @@ export class TableColumnMappingCellView
         TableColumnEnumCellRecord,
         TableColumnEnumColumnConfig
     >
-    implements IconView, SpinnerView
-{
+    implements IconView, SpinnerView {
     @observable
     public severity: IconSeverity;
 
@@ -104,5 +103,4 @@ const mappingCellView = TableColumnMappingCellView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(mappingCellView());
-export const tableColumnMappingCellViewTag =
-    'nimble-table-column-mapping-cell-view';
+export const tableColumnMappingCellViewTag = 'nimble-table-column-mapping-cell-view';

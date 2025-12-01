@@ -248,8 +248,7 @@ const metadata: Meta<DrawerArgs> = {
         openAndHandleResult: (drawerRef, textFieldRef) => {
             void (async () => {
                 const reason = await drawerRef.show();
-                textFieldRef.value =
-                    reason === UserDismissed ? 'User dismissed' : reason;
+                textFieldRef.value = reason === UserDismissed ? 'User dismissed' : reason;
             })();
         }
     }

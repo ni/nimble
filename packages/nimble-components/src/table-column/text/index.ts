@@ -33,8 +33,7 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
         >
     )
 ) {
-    private readonly defaultSortOperation =
-        TableColumnSortOperation.localeAwareCaseSensitive;
+    private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
 
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
@@ -65,8 +64,7 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
     }
 
     private updateColumnInternalsSortConfiguration(): void {
-        this.columnInternals.operandDataRecordFieldName =
-            this.getResolvedOperandDataRecordFieldName(this.fieldName);
+        this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.fieldName);
         this.columnInternals.sortOperation = this.getResolvedSortOperation(
             this.defaultSortOperation
         );

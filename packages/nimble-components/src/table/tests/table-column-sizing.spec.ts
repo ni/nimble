@@ -211,20 +211,16 @@ describe('Table Column Sizing', () => {
                 await element.setData(simpleTableData);
                 await waitForUpdatesAsync();
 
-                column1.columnInternals.fractionalWidth =
-                    value.column1FractionalWidth;
+                column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
                 column1.columnInternals.pixelWidth = value.column1PixelWidth;
                 if (typeof value.column1MinPixelWidth === 'number') {
-                    column1.columnInternals.minPixelWidth =
-                        value.column1MinPixelWidth;
+                    column1.columnInternals.minPixelWidth = value.column1MinPixelWidth;
                 }
 
-                column2.columnInternals.fractionalWidth =
-                    value.column2FractionalWidth;
+                column2.columnInternals.fractionalWidth = value.column2FractionalWidth;
                 column2.columnInternals.pixelWidth = value.column2PixelWidth;
                 if (typeof value.column2MinPixelWidth === 'number') {
-                    column2.columnInternals.minPixelWidth =
-                        value.column2MinPixelWidth;
+                    column2.columnInternals.minPixelWidth = value.column2MinPixelWidth;
                 }
 
                 await waitForUpdatesAsync();
@@ -236,10 +232,8 @@ describe('Table Column Sizing', () => {
                     0,
                     1
                 );
-                const header1RenderedWidth =
-                    pageObject.getHeaderRenderedWidth(0);
-                const header2RenderedWidth =
-                    pageObject.getHeaderRenderedWidth(1);
+                const header1RenderedWidth = pageObject.getHeaderRenderedWidth(0);
+                const header2RenderedWidth = pageObject.getHeaderRenderedWidth(1);
                 expect(column1RenderedWidth).toBe(
                     value.column1ExpectedRenderedWidth
                 );
@@ -316,31 +310,23 @@ describe('Table Column Sizing', () => {
                 await element.setData(largeTableData);
                 await waitForUpdatesAsync();
 
-                column1.columnInternals.fractionalWidth =
-                    value.column1FractionalWidth;
+                column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
                 if (value.column1MinPixelWidth !== null) {
-                    column1.columnInternals.minPixelWidth =
-                        value.column1MinPixelWidth;
+                    column1.columnInternals.minPixelWidth = value.column1MinPixelWidth;
                 }
 
-                column2.columnInternals.fractionalWidth =
-                    value.column2FractionalWidth;
+                column2.columnInternals.fractionalWidth = value.column2FractionalWidth;
                 if (value.column2MinPixelWidth !== null) {
-                    column2.columnInternals.minPixelWidth =
-                        value.column2MinPixelWidth;
+                    column2.columnInternals.minPixelWidth = value.column2MinPixelWidth;
                 }
 
                 await waitForUpdatesAsync();
-                const firstRowColumn1RenderedWidth =
-                    pageObject.getCellRenderedWidth(0, 0);
-                const firstRowColumn2RenderedWidth =
-                    pageObject.getCellRenderedWidth(0, 1);
+                const firstRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
+                const firstRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(0, 1);
                 await pageObject.scrollToLastRowAsync();
                 const lastRowIndex = pageObject.getRenderedRowCount() - 1;
-                const lastRowColumn1RenderedWidth =
-                    pageObject.getCellRenderedWidth(lastRowIndex, 0);
-                const lastRowColumn2RenderedWidth =
-                    pageObject.getCellRenderedWidth(lastRowIndex, 1);
+                const lastRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(lastRowIndex, 0);
+                const lastRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(lastRowIndex, 1);
 
                 expect(firstRowColumn1RenderedWidth).toBe(
                     lastRowColumn1RenderedWidth
@@ -539,13 +525,10 @@ describe('Table Interactive Column Sizing', () => {
         parameterizeSpec(columnSizeTests, (spec, name, value) => {
             spec(name, async () => {
                 element.columns.forEach((column, i) => {
-                    column.columnInternals.fractionalWidth =
-                        value.fractionalWidths[i]!;
+                    column.columnInternals.fractionalWidth = value.fractionalWidths[i]!;
                     column.columnInternals.pixelWidth = value.pixelWidths[i]!;
-                    column.columnInternals.minPixelWidth =
-                        value.minPixelWidths[i]!;
-                    column.columnInternals.resizingDisabled =
-                        value.resizingDisabled[i]!;
+                    column.columnInternals.minPixelWidth = value.minPixelWidths[i]!;
+                    column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
                 });
                 await waitForUpdatesAsync();
                 pageObject.dragSizeColumnByRightDivider(
@@ -553,9 +536,7 @@ describe('Table Interactive Column Sizing', () => {
                     value.dragDeltas
                 );
                 await waitForUpdatesAsync();
-                value.expectedColumnWidths.forEach((width, i) =>
-                    expect(pageObject.getCellRenderedWidth(0, i)).toBe(width)
-                );
+                value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(width));
             });
         });
 
@@ -601,8 +582,7 @@ describe('Table Interactive Column Sizing', () => {
             (spec, name, value) => {
                 spec(name, async () => {
                     element.columns.forEach((column, i) => {
-                        column.columnInternals.resizingDisabled =
-                            value.resizingDisabled[i]!;
+                        column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
                     });
                     await waitForUpdatesAsync();
 
@@ -828,14 +808,10 @@ describe('Table Interactive Column Sizing', () => {
                         element
                     );
                     element.columns.forEach((column, i) => {
-                        column.columnInternals.fractionalWidth =
-                            value.fractionalWidths[i]!;
-                        column.columnInternals.pixelWidth =
-                            value.pixelWidths[i]!;
-                        column.columnInternals.minPixelWidth =
-                            value.minPixelWidths[i]!;
-                        column.columnInternals.resizingDisabled =
-                            value.resizingDisabled[i]!;
+                        column.columnInternals.fractionalWidth = value.fractionalWidths[i]!;
+                        column.columnInternals.pixelWidth = value.pixelWidths[i]!;
+                        column.columnInternals.minPixelWidth = value.minPixelWidths[i]!;
+                        column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
                     });
                     value.hiddenColumns.forEach(columnIndex => {
                         element.columns[columnIndex]!.columnHidden = true;
@@ -846,11 +822,9 @@ describe('Table Interactive Column Sizing', () => {
                         value.dragDeltas
                     );
                     await waitForUpdatesAsync();
-                    value.expectedColumnWidths.forEach((width, i) =>
-                        expect(pageObject.getCellRenderedWidth(0, i)).toBe(
-                            width
-                        )
-                    );
+                    value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                        width
+                    ));
                 });
             }
         );
@@ -976,14 +950,10 @@ describe('Table Interactive Column Sizing', () => {
                         element
                     );
                     element.columns.forEach((column, i) => {
-                        column.columnInternals.fractionalWidth =
-                            value.fractionalWidths[i]!;
-                        column.columnInternals.pixelWidth =
-                            value.pixelWidths[i]!;
-                        column.columnInternals.minPixelWidth =
-                            value.minPixelWidths[i]!;
-                        column.columnInternals.resizingDisabled =
-                            value.resizingDisabled[i]!;
+                        column.columnInternals.fractionalWidth = value.fractionalWidths[i]!;
+                        column.columnInternals.pixelWidth = value.pixelWidths[i]!;
+                        column.columnInternals.minPixelWidth = value.minPixelWidths[i]!;
+                        column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
                     });
                     value.hiddenColumns.forEach(columnIndex => {
                         element.columns[columnIndex]!.columnHidden = true;
@@ -994,11 +964,9 @@ describe('Table Interactive Column Sizing', () => {
                         value.dragDeltas
                     );
                     await waitForUpdatesAsync();
-                    value.expectedColumnWidths.forEach((width, i) =>
-                        expect(pageObject.getCellRenderedWidth(0, i)).toBe(
-                            width
-                        )
-                    );
+                    value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                        width
+                    ));
                 });
             }
         );
@@ -1024,8 +992,7 @@ describe('Table Interactive Column Sizing', () => {
             (spec, name, value) => {
                 spec(name, async () => {
                     element.columns.forEach((column, i) => {
-                        column.columnInternals.resizingDisabled =
-                            value.resizingDisabled[i]!;
+                        column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
                     });
                     value.hiddenColumns.forEach(columnIndex => {
                         element.columns[columnIndex]!.columnHidden = true;
@@ -1051,12 +1018,10 @@ describe('Table Interactive Column Sizing', () => {
 
     describe('active divider styling', () => {
         it('is applied during press', async () => {
-            const hasActiveStylingBefore =
-                pageObject.columnRightDividerHasActiveStyling(0);
+            const hasActiveStylingBefore = pageObject.columnRightDividerHasActiveStyling(0);
             pageObject.pressRightColumnDivider(0);
             await waitForUpdatesAsync();
-            const hasActiveStylingAfter =
-                pageObject.columnRightDividerHasActiveStyling(0);
+            const hasActiveStylingAfter = pageObject.columnRightDividerHasActiveStyling(0);
 
             expect(hasActiveStylingBefore).toBeFalse();
             expect(hasActiveStylingAfter).toBeTrue();
@@ -1067,16 +1032,14 @@ describe('Table Interactive Column Sizing', () => {
             await waitForUpdatesAsync();
             pageObject.releaseRightColumnDivider(0);
             await waitForUpdatesAsync();
-            const hasActiveStyling =
-                pageObject.columnRightDividerHasActiveStyling(0);
+            const hasActiveStyling = pageObject.columnRightDividerHasActiveStyling(0);
 
             expect(hasActiveStyling).toBeFalse();
         });
     });
 
     it('resizing columns emits single "column-configuration-change" event with expected state', async () => {
-        const spy =
-            jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
+        const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
         const listener = waitForEvent(
             element,
             'column-configuration-change',
@@ -1107,9 +1070,7 @@ describe('Table Interactive Column Sizing', () => {
     it('sizing to left when columns are all on sub-pixel boundary and just above minimum size, does not cause total column width to change', async () => {
         await pageObject.sizeTableToGivenRowWidth(202, element); // columns now on half-pixel boundary
         const expectedColumnSizes = [50.5, 50.5, 50.5, 50.5];
-        expectedColumnSizes.forEach((width, i) =>
-            expect(pageObject.getCellRenderedWidth(0, i)).toBe(width)
-        );
+        expectedColumnSizes.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(width));
         pageObject.dragSizeColumnByLeftDivider(3, [-1]);
         await waitForUpdatesAsync();
         const totalColumnPixelWidth = pageObject.getTotalCellRenderedWidth();

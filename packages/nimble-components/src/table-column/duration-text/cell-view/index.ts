@@ -21,8 +21,7 @@ export class TableColumnDurationTextCellView extends TableColumnTextCellViewBase
     TableColumnDurationTextColumnConfig
 > {
     protected updateText(): void {
-        this.text =
-            this.columnConfig?.formatter.format(this.cellRecord?.value) ?? '';
+        this.text = this.columnConfig?.formatter.format(this.cellRecord?.value) ?? '';
     }
 }
 
@@ -34,5 +33,4 @@ const durationTextCellView = TableColumnDurationTextCellView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(durationTextCellView());
-export const tableColumnDurationTextCellViewTag =
-    'nimble-table-column-duration-text-cell-view';
+export const tableColumnDurationTextCellViewTag = 'nimble-table-column-duration-text-cell-view';

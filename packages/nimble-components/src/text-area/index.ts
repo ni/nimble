@@ -94,8 +94,7 @@ export class TextArea extends mixinErrorPattern(
     private onResize(): void {
         // Do this directly instead of calling updateScrollbarWidth, b/c we don't want to
         // interfere with queue.
-        this.scrollbarWidth =
-            this.control.offsetWidth - this.control.clientWidth;
+        this.scrollbarWidth = this.control.offsetWidth - this.control.clientWidth;
     }
 
     private queueUpdateScrollbarWidth(): void {
@@ -110,8 +109,7 @@ export class TextArea extends mixinErrorPattern(
 
     private updateScrollbarWidth(): void {
         this.updateScrollbarWidthQueued = false;
-        this.scrollbarWidth =
-            this.control.offsetWidth - this.control.clientWidth;
+        this.scrollbarWidth = this.control.offsetWidth - this.control.clientWidth;
     }
 }
 

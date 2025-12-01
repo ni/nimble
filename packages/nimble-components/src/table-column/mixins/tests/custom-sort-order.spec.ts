@@ -30,10 +30,9 @@ const customSortColumnName = uniqueElementName();
 })
 class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
     TableColumn<unknown, TestValidator>
-) {
+    ) {
     private readonly defaultFieldName = 'defaultFieldName';
-    private readonly defaultSortOperation =
-        TableColumnSortOperation.localeAwareCaseSensitive;
+    private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
 
     public override handleSortConfigurationChange(): void {
         this.updateColumnInternalsSortConfiguration();
@@ -53,8 +52,7 @@ class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
     }
 
     private updateColumnInternalsSortConfiguration(): void {
-        this.columnInternals.operandDataRecordFieldName =
-            this.getResolvedOperandDataRecordFieldName(this.defaultFieldName);
+        this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.defaultFieldName);
         this.columnInternals.sortOperation = this.getResolvedSortOperation(
             this.defaultSortOperation
         );

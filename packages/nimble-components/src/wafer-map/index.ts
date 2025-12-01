@@ -52,12 +52,10 @@ export class WaferMap<
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker: WaferMapUpdateTracker =
-        new WaferMapUpdateTracker(this.asRequiredFieldsWaferMap);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this.asRequiredFieldsWaferMap);
 
     @attr({ attribute: 'origin-location' })
-    public originLocation: WaferMapOriginLocation =
-        WaferMapOriginLocation.bottomLeft;
+    public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
 
     @attr({ attribute: 'grid-min-x', converter: nullableNumberConverter })
     public gridMinX?: number = undefined;
@@ -84,8 +82,7 @@ export class WaferMap<
     public dieLabelsSuffix = '';
 
     @attr({ attribute: 'color-scale-mode' })
-    public colorScaleMode: WaferMapColorScaleMode =
-        WaferMapColorScaleMode.linear;
+    public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
      * @internal
@@ -187,16 +184,14 @@ export class WaferMap<
         this.asRequiredFieldsWaferMap
     );
 
-    private readonly experimentalHoverHandler: ExperimentalHoverHandler =
-        new ExperimentalHoverHandler(this.asRequiredFieldsWaferMap);
+    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this.asRequiredFieldsWaferMap);
 
     private readonly zoomHandler: ZoomHandler = new ZoomHandler(
         this.asRequiredFieldsWaferMap
     );
 
     private readonly resizeObserver = this.createResizeObserver();
-    private readonly waferMapValidator: WaferMapValidator =
-        new WaferMapValidator(this.asRequiredFieldsWaferMap);
+    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this.asRequiredFieldsWaferMap);
 
     public get validity(): WaferMapValidity {
         return this.waferMapValidator.getValidity();
@@ -306,14 +301,14 @@ export class WaferMap<
     }
 
     private createSnapshot(): {
-        canvasDimensions: Dimensions;
-        renderConfig: RenderConfig;
-        dieDimensions: Dimensions;
-        transform: ZoomTransform;
-        dieLabelsHidden: boolean;
-        columnIndices: Int32Array;
-        rowIndices: Int32Array;
-        values: Float64Array;
+        canvasDimensions: Dimensions,
+        renderConfig: RenderConfig,
+        dieDimensions: Dimensions,
+        transform: ZoomTransform,
+        dieLabelsHidden: boolean,
+        columnIndices: Int32Array,
+        rowIndices: Int32Array,
+        values: Float64Array
     } {
         const canvasDimensions = {
             width: this.canvasWidth ?? 0,

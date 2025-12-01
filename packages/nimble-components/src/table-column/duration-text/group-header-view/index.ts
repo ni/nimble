@@ -28,14 +28,12 @@ export class TableColumnDurationTextGroupHeaderView extends TableColumnTextGroup
     }
 }
 
-const tableColumnDurationTextGroupHeaderView =
-    TableColumnDurationTextGroupHeaderView.compose({
-        baseName: 'table-column-duration-text-group-header-view',
-        template,
-        styles
-    });
+const tableColumnDurationTextGroupHeaderView = TableColumnDurationTextGroupHeaderView.compose({
+    baseName: 'table-column-duration-text-group-header-view',
+    template,
+    styles
+});
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnDurationTextGroupHeaderView());
-export const tableColumnDurationTextGroupHeaderViewTag =
-    'nimble-table-column-duration-text-group-header-view';
+export const tableColumnDurationTextGroupHeaderViewTag = 'nimble-table-column-duration-text-group-header-view';

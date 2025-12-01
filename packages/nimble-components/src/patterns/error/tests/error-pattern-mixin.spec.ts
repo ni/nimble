@@ -89,8 +89,7 @@ describe('ErrorPatternMixin', () => {
         }
 
         it('sets title when error text is ellipsized', () => {
-            const errorText =
-                'a very long error message because something terrible happened and we need to show the user what it is';
+            const errorText = 'a very long error message because something terrible happened and we need to show the user what it is';
             setVisibleError(errorText);
 
             pageObject.dispatchEventToErrorText(new MouseEvent('mouseover'));
@@ -105,8 +104,7 @@ describe('ErrorPatternMixin', () => {
         });
 
         it('removes title on mouseout of error text', () => {
-            const errorText =
-                'a very long error message because something terrible happened and we need to show the user what it is';
+            const errorText = 'a very long error message because something terrible happened and we need to show the user what it is';
             setVisibleError(errorText);
 
             pageObject.dispatchEventToErrorText(new MouseEvent('mouseover'));

@@ -366,8 +366,7 @@ describe('Wafermap Prerendering module', () => {
                 if (!waferMapDie.tags) {
                     return 'rgba(255,0,0,0.3)';
                 }
-                const opacity =
-                    waferMapDie.tags[0] === highlightedTag ? 1 : 0.3;
+                const opacity = waferMapDie.tags[0] === highlightedTag ? 1 : 0.3;
                 return `rgba(255,0,0,${opacity})`;
             });
             const actualValues = prerenderingModule.diesRenderInfo.map(

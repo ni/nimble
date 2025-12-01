@@ -43,8 +43,7 @@ const supportedLabels = {
  */
 export class LabelProviderCore
     extends LabelProviderBase<typeof supportedLabels>
-    implements DesignTokensFor<typeof supportedLabels>
-{
+    implements DesignTokensFor<typeof supportedLabels> {
     @attr({ attribute: 'popup-dismiss' })
     public popupDismiss: string | undefined;
 

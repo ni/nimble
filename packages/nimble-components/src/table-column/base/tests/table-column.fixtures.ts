@@ -7,8 +7,7 @@ import { TableColumn } from '..';
 import type { ColumnInternalsOptions } from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 
-export const tableColumnEmptyCellViewTag =
-    'nimble-test-table-column-empty-cell-view';
+export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnEmptyCellViewTag]: TableCellView;
@@ -22,8 +21,7 @@ declare global {
 })
 class EmptyTableCellView extends TableCellView {}
 
-export const tableColumnEmptyGroupHeaderViewTag =
-    'nimble-test-table-column-empty-group-header-view';
+export const tableColumnEmptyGroupHeaderViewTag = 'nimble-test-table-column-empty-group-header-view';
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnEmptyGroupHeaderViewTag]: EmptyTableGroupHeaderView;
@@ -82,8 +80,7 @@ export class TestColumnValidator extends ColumnValidator<
     }
 }
 
-export const tableColumnValidationTestTag =
-    'nimble-test-table-column-validation';
+export const tableColumnValidationTestTag = 'nimble-test-table-column-validation';
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnValidationTestTag]: TableColumnValidationTest;

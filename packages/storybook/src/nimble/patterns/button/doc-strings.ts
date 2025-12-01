@@ -4,18 +4,14 @@ import {
 } from '../../../utilities/storybook';
 
 export const textContentDescription = (options: {
-    componentName: string;
-}): string =>
-    `${baseTextContentDescription(options)} This will be hidden when \`content-hidden\` is set but should always be provided; see the **Accessibility** section for more info.`;
+    componentName: string
+}): string => `${baseTextContentDescription(options)} This will be hidden when \`content-hidden\` is set but should always be provided; see the **Accessibility** section for more info.`;
 
-export const appearanceDescription =
-    'This attribute affects the appearance of the button. See the **Styling** section for more information.';
+export const appearanceDescription = 'This attribute affects the appearance of the button. See the **Styling** section for more information.';
 
-export const appearanceVariantDescription =
-    'This attribute configures additional variations of the button appearance. It has no effect on buttons with a `ghost` appearance. There is no `accent` appearance-variant for the `color` UI.  See the **Styling** section for more information.';
+export const appearanceVariantDescription = 'This attribute configures additional variations of the button appearance. It has no effect on buttons with a `ghost` appearance. There is no `accent` appearance-variant for the `color` UI.  See the **Styling** section for more information.';
 
-export const contentHiddenDescription =
-    'When set, this attribute hides the text and end icon, leaving only the start icon visible.';
+export const contentHiddenDescription = 'When set, this attribute hides the text and end icon, leaving only the start icon visible.';
 
 export const iconDescription = `${baseIconDescription} When \`content-hidden\` is set the icon will be displayed instead of the text content.
 
@@ -43,5 +39,4 @@ export const iconDescription = `${baseIconDescription} When \`content-hidden\` i
 </details>`;
 
 // 'Set `slot="end"` to include an icon after the text content.'
-export const endIconDescription =
-    'Set `slot="end"` to include an icon after the text content. This icon will be hidden when `content-hidden` is set to `true`.';
+export const endIconDescription = 'Set `slot="end"` to include an icon after the text content. This icon will be hidden when `content-hidden` is set to `true`.';

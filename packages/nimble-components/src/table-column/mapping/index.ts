@@ -56,8 +56,7 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
 
     public override minPixelWidthChanged(): void {
         if (this.widthMode !== TableColumnMappingWidthMode.iconSize) {
-            this.columnInternals.minPixelWidth =
-                this.getConfiguredMinPixelWidth();
+            this.columnInternals.minPixelWidth = this.getConfiguredMinPixelWidth();
         }
     }
 
@@ -117,8 +116,7 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
             this.columnInternals.resizingDisabled = false;
             this.columnInternals.hideHeaderIndicators = false;
             this.columnInternals.pixelWidth = undefined;
-            this.columnInternals.minPixelWidth =
-                this.getConfiguredMinPixelWidth();
+            this.columnInternals.minPixelWidth = this.getConfiguredMinPixelWidth();
         }
     }
 

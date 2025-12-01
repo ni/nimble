@@ -17,11 +17,10 @@ export class TestScaledUnitFormat extends IntlNumberFormatScaledUnitFormat {
     ): (options: ScaledUnitFormatFactoryOptions) => TestScaledUnitFormat {
         return (
             scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
-        ) =>
-            new TestScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
-                scaleFactor
-            );
+        ) => new TestScaledUnitFormat(
+            scaledUnitFormatFactoryOptions,
+            scaleFactor
+        );
     }
 
     public override format(value: number): string {

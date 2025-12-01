@@ -668,18 +668,15 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined(tableTag);
                 const isFuture = (
                     component: (typeof components)[number]
-                ): boolean =>
-                    component.angularStatus ===
-                        ComponentFrameworkStatus.doesNotExist &&
-                    component.blazorStatus ===
-                        ComponentFrameworkStatus.doesNotExist &&
-                    component.componentStatus ===
-                        ComponentFrameworkStatus.doesNotExist;
-                const data = components.filter(component =>
-                    x.status === 'future'
-                        ? isFuture(component)
-                        : !isFuture(component)
-                );
+                ): boolean => component.angularStatus
+                        === ComponentFrameworkStatus.doesNotExist
+                    && component.blazorStatus
+                        === ComponentFrameworkStatus.doesNotExist
+                    && component.componentStatus
+                        === ComponentFrameworkStatus.doesNotExist;
+                const data = components.filter(component => (x.status === 'future'
+                    ? isFuture(component)
+                    : !isFuture(component)));
                 await x.tableRef.setData(data);
             })();
         },

@@ -858,8 +858,8 @@ describe('Table sorting', () => {
             direction: TableColumnSortDirection
         ) => string = direction => `${direction ?? 'no'}-sort`;
         const directionCyclingTests: {
-            initialDirection: TableColumnSortDirection;
-            expectedDirectionAfterClick: TableColumnSortDirection;
+            initialDirection: TableColumnSortDirection,
+            expectedDirectionAfterClick: TableColumnSortDirection
         }[] = [
             {
                 initialDirection: TableColumnSortDirection.none,
@@ -882,25 +882,23 @@ describe('Table sorting', () => {
             )} when clicked`, async () => {
                 await element.setData(data);
                 column1.sortDirection = test.initialDirection;
-                column1.sortIndex =
-                    test.initialDirection === TableColumnSortDirection.none
-                        ? undefined
-                        : 0;
+                column1.sortIndex = test.initialDirection === TableColumnSortDirection.none
+                    ? undefined
+                    : 0;
                 await connect();
                 await waitForUpdatesAsync();
 
                 await pageObject.clickColumnHeader(0);
 
-                const expectedSort: SortedColumn[] =
-                    test.expectedDirectionAfterClick
-                        ? [
-                              {
-                                  columnId: 'column-1',
-                                  sortDirection:
+                const expectedSort: SortedColumn[] = test.expectedDirectionAfterClick
+                    ? [
+                        {
+                            columnId: 'column-1',
+                            sortDirection:
                                       test.expectedDirectionAfterClick
-                              }
-                          ]
-                        : [];
+                        }
+                    ]
+                    : [];
                 expect(pageObject.getSortedColumns()).toEqual(expectedSort);
             });
 
@@ -911,10 +909,9 @@ describe('Table sorting', () => {
             )} when Shift-clicked, and other sorted columns stay sorted`, async () => {
                 await element.setData(data);
                 column1.sortDirection = test.initialDirection;
-                column1.sortIndex =
-                    test.initialDirection === TableColumnSortDirection.none
-                        ? undefined
-                        : 1;
+                column1.sortIndex = test.initialDirection === TableColumnSortDirection.none
+                    ? undefined
+                    : 1;
                 column2.sortDirection = TableColumnSortDirection.ascending;
                 column2.sortIndex = 0;
                 await connect();
@@ -926,17 +923,16 @@ describe('Table sorting', () => {
                     columnId: 'column-2',
                     sortDirection: TableColumnSortDirection.ascending
                 };
-                const expectedSort: SortedColumn[] =
-                    test.expectedDirectionAfterClick
-                        ? [
-                              alreadySortedColumn,
-                              {
-                                  columnId: 'column-1',
-                                  sortDirection:
+                const expectedSort: SortedColumn[] = test.expectedDirectionAfterClick
+                    ? [
+                        alreadySortedColumn,
+                        {
+                            columnId: 'column-1',
+                            sortDirection:
                                       test.expectedDirectionAfterClick
-                              }
-                          ]
-                        : [alreadySortedColumn];
+                        }
+                    ]
+                    : [alreadySortedColumn];
                 expect(column1.columnInternals.currentSortDirection).toEqual(
                     test.expectedDirectionAfterClick
                 );
@@ -976,8 +972,7 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const spy =
-                jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
+            const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
             const listener = waitForEvent(
                 element,
                 'column-configuration-change',

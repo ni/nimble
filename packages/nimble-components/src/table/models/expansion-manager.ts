@@ -73,8 +73,8 @@ export class ExpansionManager<TData extends TableRecord> {
 
     public processDataUpdate(rows: TanStackRow<TableNode<TData>>[]): void {
         if (
-            this.explicitExpansionStates.size === 0 &&
-            this.hierarchyOptions.size === 0
+            this.explicitExpansionStates.size === 0
+            && this.hierarchyOptions.size === 0
         ) {
             return;
         }
@@ -127,13 +127,12 @@ export class ExpansionManager<TData extends TableRecord> {
         for (const { recordId, options } of hierarchyOptions) {
             updatedHierarchyOptions.set(recordId, options);
 
-            const oldState =
-                this.hierarchyOptions.get(recordId)?.delayedHierarchyState;
+            const oldState = this.hierarchyOptions.get(recordId)?.delayedHierarchyState;
             const newState = options.delayedHierarchyState;
             if (
-                oldState === TableRecordDelayedHierarchyState.loadingChildren &&
-                newState === TableRecordDelayedHierarchyState.canLoadChildren &&
-                !this.parentRowsWithChildren.has(recordId)
+                oldState === TableRecordDelayedHierarchyState.loadingChildren
+                && newState === TableRecordDelayedHierarchyState.canLoadChildren
+                && !this.parentRowsWithChildren.has(recordId)
             ) {
                 // If a row without children transitions from loadingChildren to canLoadChildren,
                 // put it back in its default state of collapsed.
@@ -157,8 +156,8 @@ export class ExpansionManager<TData extends TableRecord> {
         }
 
         return (
-            this.hierarchyOptions.get(id)?.delayedHierarchyState ===
-                TableRecordDelayedHierarchyState.loadingChildren ?? false
+            this.hierarchyOptions.get(id)?.delayedHierarchyState
+                === TableRecordDelayedHierarchyState.loadingChildren ?? false
         );
     }
 
@@ -167,8 +166,7 @@ export class ExpansionManager<TData extends TableRecord> {
             return false;
         }
 
-        const delayedHierarchyState =
-            this.hierarchyOptions.get(id)?.delayedHierarchyState;
+        const delayedHierarchyState = this.hierarchyOptions.get(id)?.delayedHierarchyState;
         return delayedHierarchyState !== TableRecordDelayedHierarchyState.none;
     }
 

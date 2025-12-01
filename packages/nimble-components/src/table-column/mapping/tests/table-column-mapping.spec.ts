@@ -179,9 +179,7 @@ describe('TableColumnMapping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(() =>
-            pageObject.getRenderedMappingColumnCellIconTagName(0, 0)
-        ).toThrowError();
+        expect(() => pageObject.getRenderedMappingColumnCellIconTagName(0, 0)).toThrowError();
     });
 
     it('changing fieldName updates display', async () => {
@@ -312,9 +310,7 @@ describe('TableColumnMapping', () => {
 
         model.col1.removeChild(model.col1.firstElementChild!);
         await waitForUpdatesAsync();
-        expect(() =>
-            pageObject.getRenderedMappingColumnCellIconTagName(0, 0)
-        ).toThrowError();
+        expect(() => pageObject.getRenderedMappingColumnCellIconTagName(0, 0)).toThrowError();
     });
 
     it('clears group header when mappings removed', async () => {
@@ -334,9 +330,7 @@ describe('TableColumnMapping', () => {
 
         model.col1.removeChild(model.col1.firstElementChild!);
         await waitForUpdatesAsync();
-        expect(() =>
-            columnPageObject.getRenderedGroupHeaderIconTagName(0)
-        ).toThrowError();
+        expect(() => columnPageObject.getRenderedGroupHeaderIconTagName(0)).toThrowError();
     });
 
     it('empty mapping displays no value in cell', async () => {
@@ -350,9 +344,7 @@ describe('TableColumnMapping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(() =>
-            pageObject.getRenderedMappingColumnCellIconTagName(0, 0)
-        ).toThrowError();
+        expect(() => pageObject.getRenderedMappingColumnCellIconTagName(0, 0)).toThrowError();
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
     });
 
@@ -369,9 +361,7 @@ describe('TableColumnMapping', () => {
         model.col1.groupIndex = 0;
         await waitForUpdatesAsync();
 
-        expect(() =>
-            columnPageObject.getRenderedGroupHeaderIconTagName(0)
-        ).toThrowError();
+        expect(() => columnPageObject.getRenderedGroupHeaderIconTagName(0)).toThrowError();
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('alpha');
     });
 
@@ -799,8 +789,7 @@ describe('TableColumnMapping', () => {
         );
         parameterizeSuite(mappingsWithTextInCell, (suite, name, value) => {
             suite(`in cell with ${name}`, () => {
-                const longText =
-                    'a very long value that should get ellipsized due to not fitting within the default cell width';
+                const longText = 'a very long value that should get ellipsized due to not fitting within the default cell width';
                 const shortText = 'short value';
                 const longTextRowIndex = 0;
                 const shortTextRowIndex = 1;
@@ -904,8 +893,7 @@ describe('TableColumnMapping', () => {
 
         parameterizeSuite(mappingTypes, (suite, name, value) => {
             suite(`in group row with ${name}`, () => {
-                const longText =
-                    'a very long value that should get ellipsized due to not fitting within the default cell width';
+                const longText = 'a very long value that should get ellipsized due to not fitting within the default cell width';
                 const shortText = 'short value';
                 const longTextRowIndex = 0;
                 const shortTextRowIndex = 1;

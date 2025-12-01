@@ -99,8 +99,8 @@ export class ListOptionGroup extends FoundationElement {
      */
     public handleChange(source: unknown, propertyName: string): void {
         if (
-            source instanceof ListOption &&
-            (propertyName === 'hidden' || propertyName === 'visuallyHidden')
+            source instanceof ListOption
+            && (propertyName === 'hidden' || propertyName === 'visuallyHidden')
         ) {
             if (source.hidden || source.visuallyHidden) {
                 this.hiddenOptions.add(source);
@@ -108,8 +108,7 @@ export class ListOptionGroup extends FoundationElement {
                 this.hiddenOptions.delete(source);
             }
 
-            this.visuallyHidden =
-                this.hiddenOptions.size === this.listOptions.length;
+            this.visuallyHidden = this.hiddenOptions.size === this.listOptions.length;
         }
     }
 
@@ -118,9 +117,7 @@ export class ListOptionGroup extends FoundationElement {
         next: ListOption[]
     ): void {
         this.hiddenOptions.clear();
-        next.filter(o => o.hidden || o.visuallyHidden).forEach(o =>
-            this.hiddenOptions.add(o)
-        );
+        next.filter(o => o.hidden || o.visuallyHidden).forEach(o => this.hiddenOptions.add(o));
         prev?.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.unsubscribe(this, 'hidden');
@@ -132,8 +129,7 @@ export class ListOptionGroup extends FoundationElement {
             const notifier = Observable.getNotifier(o);
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'visuallyHidden');
-            allOptionsHidden =
-                allOptionsHidden && (o.hidden || o.visuallyHidden);
+            allOptionsHidden = allOptionsHidden && (o.hidden || o.visuallyHidden);
         });
 
         this.visuallyHidden = next.length === 0 || allOptionsHidden;

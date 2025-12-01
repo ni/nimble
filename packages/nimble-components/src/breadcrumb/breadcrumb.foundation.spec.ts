@@ -94,8 +94,7 @@ describe('Breadcrumb', () => {
     });
 
     it('should set the `aria-current` on the internal, last node, anchor when `href` is passed', async () => {
-        const { element, connect, disconnect, item1, item2, item3 } =
-            await setup();
+        const { element, connect, disconnect, item1, item2, item3 } = await setup();
 
         const anchor1 = document.createElement('a');
         anchor1.href = '#';
@@ -120,8 +119,7 @@ describe('Breadcrumb', () => {
     });
 
     it('should remove aria-current from any prior Breadcrumb Item children with hrefs when a new node is appended', async () => {
-        const { element, connect, disconnect, item1, item2, item3 } =
-            await setup();
+        const { element, connect, disconnect, item1, item2, item3 } = await setup();
 
         item1.setAttribute('href', '#');
         item2.setAttribute('href', '#');
@@ -157,8 +155,7 @@ describe('Breadcrumb', () => {
     });
 
     it('should remove aria-current from any prior Breadcrumb Item children with child anchors when a new node is appended', async () => {
-        const { element, connect, disconnect, item1, item2, item3 } =
-            await setup();
+        const { element, connect, disconnect, item1, item2, item3 } = await setup();
 
         const anchor1 = document.createElement('a');
         anchor1.href = '#';

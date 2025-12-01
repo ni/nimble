@@ -48,7 +48,7 @@ StackOverflow also seems to recommend either `Intl.NumberFormat().formatToParts(
 function getDecimalSeparator(locale: string): string {
     return Intl.NumberFormat(locale)
         .formatToParts(1.1)
-        .find(x => x.type === 'decimal').value;
+        .find((x) => x.type === 'decimal').value;
 }
 ```
 

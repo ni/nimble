@@ -62,8 +62,7 @@ describe('Table with LabelProviderTable', () => {
     beforeEach(async () => {
         let themeProvider: ThemeProvider;
         ({ element: themeProvider, connect, disconnect } = await setup());
-        element =
-            themeProvider.querySelector<Table<SimpleTableRecord>>(tableTag)!;
+        element = themeProvider.querySelector<Table<SimpleTableRecord>>(tableTag)!;
         labelProvider = themeProvider.querySelector(labelProviderTableTag)!;
 
         pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -96,8 +95,7 @@ describe('Table with LabelProviderTable', () => {
         expect(actualColumnHeaderGroupedIndicatorLabel).toBe(
             'Customized Grouped'
         );
-        const firstGroupRow: HTMLElement =
-            element.shadowRoot!.querySelector(tableGroupRowTag)!;
+        const firstGroupRow: HTMLElement = element.shadowRoot!.querySelector(tableGroupRowTag)!;
         const actualGroupCollapseLabel = firstGroupRow
             .shadowRoot!.querySelector('.expand-collapse-button')!
             .getAttribute('title')

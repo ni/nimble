@@ -11,15 +11,14 @@ class CelsiusUnitScale extends UnitScale {
     public constructor() {
         super(
             celsiusUnitScaleOptions.map(
-                ([scaleFactor, unit, unitDisplay]) =>
-                    new ScaledUnit(
-                        scaleFactor,
-                        IntlNumberFormatScaledUnitFormat.createFactory({
-                            style: 'unit',
-                            unit,
-                            unitDisplay
-                        })
-                    )
+                ([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
+                    scaleFactor,
+                    IntlNumberFormatScaledUnitFormat.createFactory({
+                        style: 'unit',
+                        unit,
+                        unitDisplay
+                    })
+                )
             )
         );
     }

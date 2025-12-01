@@ -37,8 +37,8 @@ export class TableColumnAnchorCellView extends TableCellView<
     public get text(): string {
         const displayedText = this.cellRecord?.label ?? this.cellRecord?.href;
         if (
-            (displayedText === undefined || displayedText === null) &&
-            this.columnConfig?.placeholder
+            (displayedText === undefined || displayedText === null)
+            && this.columnConfig?.placeholder
         ) {
             this.isPlaceholder = true;
             return this.columnConfig.placeholder;
@@ -74,5 +74,4 @@ const anchorCellView = TableColumnAnchorCellView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(anchorCellView());
-export const tableColumnAnchorCellViewTag =
-    'nimble-table-column-anchor-cell-view';
+export const tableColumnAnchorCellViewTag = 'nimble-table-column-anchor-cell-view';

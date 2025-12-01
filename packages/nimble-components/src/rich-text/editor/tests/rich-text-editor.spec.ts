@@ -233,8 +233,7 @@ describe('RichTextEditor', () => {
             spec(
                 `"${name}" button not propagate change event to parent element`,
                 () => {
-                    const buttons: NodeListOf<ToggleButton> =
-                        element.shadowRoot!.querySelectorAll(toggleButtonTag);
+                    const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(toggleButtonTag);
                     const button = buttons[value.toolbarButtonIndex];
                     const buttonParent = button!.parentElement;
                     const spy = jasmine.createSpy();
@@ -1613,10 +1612,9 @@ describe('RichTextEditor', () => {
 
     describe('Should return markdown without any changes when various wacky string values are assigned', () => {
         const wackyStringsToTest = wackyStrings.filter(
-            value =>
-                value.name !== '\x00' &&
-                value.name !== '-Infinity' &&
-                value.name !== '-2147483648/-1'
+            value => value.name !== '\x00'
+                && value.name !== '-Infinity'
+                && value.name !== '-2147483648/-1'
         );
 
         parameterizeSpec(wackyStringsToTest, (spec, name) => {

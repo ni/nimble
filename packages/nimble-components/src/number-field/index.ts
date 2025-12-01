@@ -70,18 +70,16 @@ export class NumberField extends mixinErrorPattern(
 
     // this.value <-- this.control.value
     protected override syncValueFromInnerControl(): void {
-        this.value =
-            this.decimalSeparator !== '.'
-                ? this.control.value.replace(this.decimalSeparator, '.')
-                : this.control.value;
+        this.value = this.decimalSeparator !== '.'
+            ? this.control.value.replace(this.decimalSeparator, '.')
+            : this.control.value;
     }
 
     // this.value --> this.control.value
     protected override syncValueToInnerControl(): void {
-        this.control.value =
-            this.decimalSeparator !== '.'
-                ? this.value.replace('.', this.decimalSeparator)
-                : this.value;
+        this.control.value = this.decimalSeparator !== '.'
+            ? this.value.replace('.', this.decimalSeparator)
+            : this.value;
     }
 
     private updateDecimalSeparatorAndInputFilter(): void {

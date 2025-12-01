@@ -100,8 +100,7 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
                 if (this.showScrollButtons) {
                     tabListVisibleWidth += buttonWidth * 2;
                 }
-                this.showScrollButtons =
-                    tabListVisibleWidth < this.tablist.scrollWidth;
+                this.showScrollButtons = tabListVisibleWidth < this.tablist.scrollWidth;
             }
         });
     }
@@ -190,8 +189,7 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
             if (!firstFocusableTab && this.isFocusableElement(tab)) {
                 firstFocusableTab = tab;
             }
-            const isTabStop =
-                this.activeid === tabId && this.isFocusableElement(tab);
+            const isTabStop = this.activeid === tabId && this.isFocusableElement(tab);
             tab.setAttribute('id', tabId);
             if (isActiveTab) {
                 tab.setAttribute('aria-current', 'page');
@@ -212,8 +210,8 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
         });
 
         if (
-            firstFocusableTab &&
-            (!this.activetab || !this.isFocusableElement(this.activetab))
+            firstFocusableTab
+            && (!this.activetab || !this.isFocusableElement(this.activetab))
         ) {
             firstFocusableTab.setAttribute('tabindex', '0');
         }
@@ -228,8 +226,8 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
     private readonly handleTabClick = (event: MouseEvent): void => {
         const selectedTab = event.currentTarget as HTMLElement;
         if (
-            selectedTab.nodeType === 1 &&
-            this.isFocusableElement(selectedTab)
+            selectedTab.nodeType === 1
+            && this.isFocusableElement(selectedTab)
         ) {
             this.tabs.forEach((tab: HTMLElement) => {
                 tab.setAttribute('tabindex', tab === selectedTab ? '0' : '-1');

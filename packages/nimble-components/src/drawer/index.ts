@@ -118,8 +118,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         this.resolveShow = undefined;
     }
 
-    private readonly animationEndHandlerFunction = (): void =>
-        this.animationEndHandler();
+    private readonly animationEndHandlerFunction = (): void => this.animationEndHandler();
 
     private openDialog(): void {
         this.dialog.showModal();

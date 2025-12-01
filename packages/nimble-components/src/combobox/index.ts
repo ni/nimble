@@ -49,8 +49,7 @@ export class Combobox
     extends mixinErrorPattern(
         mixinRequiredVisiblePattern(FormAssociatedCombobox)
     )
-    implements DropdownPattern
-{
+    implements DropdownPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -215,15 +214,15 @@ export class Combobox
 
     private get isAutocompleteInline(): boolean {
         return (
-            this.autocomplete === ComboboxAutocomplete.inline ||
-            this.isAutocompleteBoth
+            this.autocomplete === ComboboxAutocomplete.inline
+            || this.isAutocompleteBoth
         );
     }
 
     private get isAutocompleteList(): boolean {
         return (
-            this.autocomplete === ComboboxAutocomplete.list ||
-            this.isAutocompleteBoth
+            this.autocomplete === ComboboxAutocomplete.list
+            || this.isAutocompleteBoth
         );
     }
 
@@ -323,8 +322,8 @@ export class Combobox
      */
     public filterOptions(): void {
         if (
-            !this.autocomplete ||
-            this.autocomplete === ComboboxAutocomplete.none
+            !this.autocomplete
+            || this.autocomplete === ComboboxAutocomplete.none
         ) {
             this.filter = '';
         }
@@ -337,8 +336,7 @@ export class Combobox
 
         if (this.isAutocompleteList) {
             this._options.forEach(o => {
-                (o as ListOption).visuallyHidden =
-                    !this.filteredOptions.includes(o);
+                (o as ListOption).visuallyHidden = !this.filteredOptions.includes(o);
             });
         }
     }
@@ -530,9 +528,8 @@ export class Combobox
     public override setDefaultSelectedOption(): void {
         if (this.$fastController.isConnected && this.options) {
             const selectedIndex = this.options.findIndex(
-                el =>
-                    !el.disabled &&
-                    (el.getAttribute('selected') !== null || el.selected)
+                el => !el.disabled
+                    && (el.getAttribute('selected') !== null || el.selected)
             );
 
             this.selectedIndex = selectedIndex;
@@ -649,10 +646,9 @@ export class Combobox
             ? this.positionAttribute
             : this.position;
 
-        this.availableViewportHeight =
-            this.position === SelectPosition.above
-                ? Math.trunc(currentBox.top)
-                : Math.trunc(availableBottom);
+        this.availableViewportHeight = this.position === SelectPosition.above
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
     }
 
     /**
@@ -710,8 +706,7 @@ export class Combobox
      * Overrides: `Listbox.setSelectedOptions`
      */
     protected override setSelectedOptions(): void {
-        this.selectedOptions =
-            this.selectedIndex > -1 ? [this.options[this.selectedIndex]!] : [];
+        this.selectedOptions = this.selectedIndex > -1 ? [this.options[this.selectedIndex]!] : [];
         this.ariaActiveDescendant = this.firstSelectedOption?.id ?? '';
         this.focusAndScrollOptionIntoView();
     }
@@ -811,10 +806,9 @@ export class Combobox
      * Determines if a value update should involve emitting a change event, then updates the value.
      */
     private syncValue(): void {
-        const newValue =
-            this.selectedIndex > -1
-                ? this.firstSelectedOption?.text
-                : this.control.value;
+        const newValue = this.selectedIndex > -1
+            ? this.firstSelectedOption?.text
+            : this.control.value;
         this.updateValue(this.value !== newValue);
     }
 

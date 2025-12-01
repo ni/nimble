@@ -134,8 +134,7 @@ describe('TableColumnAnchor', () => {
         });
 
         it('sets title when cell text is ellipsized', async () => {
-            const cellContents =
-                'a very long value that should get ellipsized due to not fitting within the default cell width';
+            const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
             await table.setData([{ label: cellContents }]);
             await connect();
             await waitForUpdatesAsync();
@@ -155,8 +154,7 @@ describe('TableColumnAnchor', () => {
         });
 
         it('removes title on mouseout of cell', async () => {
-            const cellContents =
-                'a very long value that should get ellipsized due to not fitting within the default cell width';
+            const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
             await table.setData([{ label: cellContents }]);
             await connect();
             await waitForUpdatesAsync();
@@ -337,8 +335,7 @@ describe('TableColumnAnchor', () => {
         });
 
         it('sets title when cell text is ellipsized', async () => {
-            const cellContents =
-                'a very long value that should get ellipsized due to not fitting within the default cell width';
+            const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
             await table.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
@@ -358,8 +355,7 @@ describe('TableColumnAnchor', () => {
         });
 
         it('removes title on mouseout of cell', async () => {
-            const cellContents =
-                'a very long value that should get ellipsized due to not fitting within the default cell width';
+            const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
             await table.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
@@ -371,8 +367,7 @@ describe('TableColumnAnchor', () => {
         });
 
         it('sets title when group header text is ellipsized', async () => {
-            const cellContents =
-                'a very long value that should get ellipsized due to not fitting within the default cell width';
+            const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
             await table.setData([{ label: cellContents, link: 'url' }]);
             table.style.width = '200px';
             await connect();
@@ -399,8 +394,7 @@ describe('TableColumnAnchor', () => {
         });
 
         it('removes title on mouseout of group header', async () => {
-            const cellContents =
-                'a very long value that should get ellipsized due to not fitting within the default cell width';
+            const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
             await table.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();

@@ -12,13 +12,12 @@ const FASTNumberField = NumberField.compose({
 });
 
 async function setup(props?: Partial<NumberField>): Promise<{
-    element: NumberField;
-    connect: () => Promise<void>;
-    disconnect: () => Promise<void>;
-    parent: HTMLElement;
+    element: NumberField,
+    connect: () => Promise<void>,
+    disconnect: () => Promise<void>,
+    parent: HTMLElement
 }> {
-    const { element, connect, disconnect, parent } =
-        await fixture(FASTNumberField());
+    const { element, connect, disconnect, parent } = await fixture(FASTNumberField());
 
     if (props) {
         for (const key in props) {

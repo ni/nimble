@@ -27,52 +27,46 @@ interface BasicUserMentionMapping {
 describe('Markdown parser', () => {
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
         it('bold markdown string("**") to "strong" HTML tag', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM('**Bold**').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('**Bold**').fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['P', 'STRONG']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Bold']);
         });
 
         it('bold markdown string("__") to "strong" HTML tag', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM('__Bold__').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('__Bold__').fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['P', 'STRONG']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Bold']);
         });
 
         it('italics markdown string("*") to "em" HTML tag', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM('*Italics*').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('*Italics*').fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['P', 'EM']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Italics']);
         });
 
         it('italics markdown string("_") to "em" HTML tag', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM('_Italics_').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('_Italics_').fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['P', 'EM']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Italics']);
         });
 
         it('numbered list markdown string("1.") to "ol" and "li" HTML tags', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM(
-                    '1. Numbered list'
-                ).fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '1. Numbered list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['OL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Numbered list']);
         });
 
         it('numbered list markdown string("1)") to "ol" and "li" HTML tags', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM(
-                    '1) Numbered list'
-                ).fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '1) Numbered list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['OL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Numbered list']);
@@ -97,10 +91,9 @@ describe('Markdown parser', () => {
         });
 
         it('multiple empty numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM(
-                    '1.    \n 2.    '
-                ).fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '1.    \n 2.    '
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual([
                 'OL',
@@ -152,30 +145,27 @@ describe('Markdown parser', () => {
         });
 
         it('bulleted list markdown string("*") to "ul" and "li" HTML tags', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM(
-                    '* Bulleted list'
-                ).fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '* Bulleted list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
         });
 
         it('bulleted list markdown string("-") to "ul" and "li" HTML tags', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM(
-                    '- Bulleted list'
-                ).fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '- Bulleted list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
         });
 
         it('bulleted list markdown string("+") to "ul" and "li" HTML tags', () => {
-            const doc =
-                RichTextMarkdownParser.parseMarkdownToDOM(
-                    '+ Bulleted list'
-                ).fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '+ Bulleted list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
@@ -327,10 +317,9 @@ describe('Markdown parser', () => {
                             spec(
                                 `${name} to "nimble-anchor" tags with the link as the text content`,
                                 () => {
-                                    const doc =
-                                        RichTextMarkdownParser.parseMarkdownToDOM(
-                                            value.validLink
-                                        ).fragment;
+                                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                        value.validLink
+                                    ).fragment;
                                     const renderedLink = value.validLink.slice(
                                         1,
                                         -1
@@ -438,10 +427,9 @@ describe('Markdown parser', () => {
                             spec(
                                 `${name} to "nimble-anchor" tags with the non-ASCII characters as the text content and encoded as their href`,
                                 () => {
-                                    const doc =
-                                        RichTextMarkdownParser.parseMarkdownToDOM(
-                                            value.validLink
-                                        ).fragment;
+                                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                        value.validLink
+                                    ).fragment;
                                     const renderedLink = value.validLink.slice(
                                         1,
                                         -1
@@ -578,10 +566,9 @@ describe('Markdown parser', () => {
                     spec(
                         `string "${name}" renders within nimble-anchor without 'href' attribute and with 'underline-hidden'`,
                         () => {
-                            const doc =
-                                RichTextMarkdownParser.parseMarkdownToDOM(
-                                    name
-                                ).fragment;
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                name
+                            ).fragment;
                             const renderedLink = name.slice(1, -1);
 
                             expect(getTagsFromElement(doc)).toEqual([
@@ -623,10 +610,9 @@ describe('Markdown parser', () => {
                     spec(
                         `string "${name}" renders within nimble-anchor with 'class' attribute`,
                         () => {
-                            const doc =
-                                RichTextMarkdownParser.parseMarkdownToDOM(
-                                    name
-                                ).fragment;
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                name
+                            ).fragment;
                             const renderedLink = name.slice(1, -1);
 
                             expect(getTagsFromElement(doc)).toEqual([
@@ -660,10 +646,9 @@ describe('Markdown parser', () => {
                     spec(
                         `string "${name}" renders as plain text within paragraph tag`,
                         () => {
-                            const doc =
-                                RichTextMarkdownParser.parseMarkdownToDOM(
-                                    name
-                                ).fragment;
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                name
+                            ).fragment;
 
                             expect(getTagsFromElement(doc)).toEqual(['P']);
                             expect(getLeafContentsFromElement(doc)).toEqual([
@@ -840,10 +825,9 @@ describe('Markdown parser', () => {
             spec(
                 `string "${name}" renders as plain text "${name}" within paragraph tag`,
                 () => {
-                    const doc =
-                        RichTextMarkdownParser.parseMarkdownToDOM(
-                            name
-                        ).fragment;
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        name
+                    ).fragment;
 
                     expect(getTagsFromElement(doc)).toEqual(['P']);
                     expect(getLeafContentsFromElement(doc)).toEqual([name]);
@@ -861,10 +845,9 @@ describe('Markdown parser', () => {
             spec(
                 `wacky string "${name}" that are unmodified when set the same "${name}" within paragraph tag`,
                 () => {
-                    const doc =
-                        RichTextMarkdownParser.parseMarkdownToDOM(
-                            name
-                        ).fragment;
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        name
+                    ).fragment;
 
                     expect(getTagsFromElement(doc)).toEqual(['P']);
                     expect(getLeafContentsFromElement(doc)).toEqual([name]);
@@ -1424,12 +1407,11 @@ describe('Markdown parser', () => {
                         '^user:.*'
                     ));
                     await connect();
-                    const parserContent =
-                        RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                            new MarkdownParserMentionConfiguration(
-                                element.mentionInternals
-                            )
-                        ]);
+                    const parserContent = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                        new MarkdownParserMentionConfiguration(
+                            element.mentionInternals
+                        )
+                    ]);
 
                     expect(getTagsFromElement(parserContent.fragment)).toEqual([
                         'P',

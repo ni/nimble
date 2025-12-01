@@ -41,8 +41,8 @@ export class ZoomHandler {
 
     public handleChange(source: WaferMap, propertyName: string): void {
         if (
-            source === this.wafermap &&
-            (propertyName === 'canvasWidth' || propertyName === 'canvasHeight')
+            source === this.wafermap
+            && (propertyName === 'canvasWidth' || propertyName === 'canvasHeight')
         ) {
             this.createZoomBehavior();
         }

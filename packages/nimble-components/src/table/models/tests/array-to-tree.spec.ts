@@ -60,28 +60,24 @@ describe('arrayToTree', () => {
     });
 
     it('should throw circular parent child relations are encountered', () => {
-        expect(() =>
-            arrayToTree(
-                [
-                    { id: '4', parentId: '31', custom: 'abc' },
-                    { id: '31', parentId: '4', custom: '12' }
-                ],
-                { id: 'id', parentId: 'parentId' }
-            )
-        ).toThrowError(
+        expect(() => arrayToTree(
+            [
+                { id: '4', parentId: '31', custom: 'abc' },
+                { id: '31', parentId: '4', custom: '12' }
+            ],
+            { id: 'id', parentId: 'parentId' }
+        )).toThrowError(
             'The items array contains nodes with a circular parent/child relationship.'
         );
 
-        expect(() =>
-            arrayToTree(
-                [
-                    { id: '4', parentId: '31', custom: 'abc' },
-                    { id: '31', parentId: '5', custom: '12' },
-                    { id: '5', parentId: '4', custom: '12' }
-                ],
-                { id: 'id', parentId: 'parentId' }
-            )
-        ).toThrowError(
+        expect(() => arrayToTree(
+            [
+                { id: '4', parentId: '31', custom: 'abc' },
+                { id: '31', parentId: '5', custom: '12' },
+                { id: '5', parentId: '4', custom: '12' }
+            ],
+            { id: 'id', parentId: 'parentId' }
+        )).toThrowError(
             'The items array contains nodes with a circular parent/child relationship.'
         );
     });
@@ -138,18 +134,16 @@ describe('arrayToTree', () => {
     });
 
     it('should throw if orphans exist', () => {
-        expect(() =>
-            arrayToTree(
-                [
-                    { id: '4', parentId: null, custom: 'abc' },
-                    { id: '31', parentId: '4', custom: '12' },
-                    { id: '418', parentId: '6', custom: 'ü' },
-                    { id: '419', parentId: '418', custom: 'ü' },
-                    { id: '420', parentId: '7', custom: 'ü' }
-                ],
-                { id: 'id', parentId: 'parentId' }
-            )
-        ).toThrowError(
+        expect(() => arrayToTree(
+            [
+                { id: '4', parentId: null, custom: 'abc' },
+                { id: '31', parentId: '4', custom: '12' },
+                { id: '418', parentId: '6', custom: 'ü' },
+                { id: '419', parentId: '418', custom: 'ü' },
+                { id: '420', parentId: '7', custom: 'ü' }
+            ],
+            { id: 'id', parentId: 'parentId' }
+        )).toThrowError(
             'The items array contains orphans that point to the following parentIds: [6,7]. These parentIds do not exist in the items array.'
         );
     });

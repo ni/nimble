@@ -71,11 +71,10 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
     ) {
         return (
             scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
-        ): ManuallyTranslatedScaledUnitFormat =>
-            new ManuallyTranslatedScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
-                manuallyTranslatedScaledUnitFormatOptions
-            );
+        ): ManuallyTranslatedScaledUnitFormat => new ManuallyTranslatedScaledUnitFormat(
+            scaledUnitFormatFactoryOptions,
+            manuallyTranslatedScaledUnitFormatOptions
+        );
     }
 
     public format(value: number): string {
@@ -95,10 +94,9 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
         // of the unit. E.g. in English, it formats "1 byte" vs "1.0 bytes". Thus there is
         // sometimes an inconsistency between unit pluralization for the same number, based
         // on whether it's supported by NumberFormat, or manually translated.
-        const unitLabel =
-            this.pluralRules.select(value) === 'one'
-                ? this.unitTranslation.singular
-                : this.unitTranslation.plural;
+        const unitLabel = this.pluralRules.select(value) === 'one'
+            ? this.unitTranslation.singular
+            : this.unitTranslation.plural;
         return `${formatted} ${unitLabel}`;
     }
 
@@ -113,9 +111,9 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
             ? unitTranslations.get(`${language}-${region}`)
             : undefined;
         return (
-            regionSpecificMatchedTranslations ??
-            unitTranslations.get(language) ??
-            unitTranslations.get('en')!
+            regionSpecificMatchedTranslations
+            ?? unitTranslations.get(language)
+            ?? unitTranslations.get('en')!
         );
     }
 }

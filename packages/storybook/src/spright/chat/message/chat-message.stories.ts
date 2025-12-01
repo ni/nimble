@@ -24,8 +24,7 @@ The buttons should have the \`ghost\` appearance and \`content-hidden\`.
 Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 `;
 
-const endButtonDescription =
-    'Place 0 or more buttons with text. They appear below any action buttons. End buttons should only be added to inbound messages.';
+const endButtonDescription = 'Place 0 or more buttons with text. They appear below any action buttons. End buttons should only be added to inbound messages.';
 
 interface ChatMessageArgs {
     messageType: keyof typeof ChatMessageType;
