@@ -17,6 +17,10 @@ export default defineConfig({
         // Ensure Vite serves files relative to package root
         fs: {
             strict: false
+        },
+        // Add longer timeout for server warmup
+        warmup: {
+            clientFiles: ['src/**/*.spec.ts']
         }
     },
     test: {
@@ -24,7 +28,10 @@ export default defineConfig({
         include: ['src/**/*.spec.ts'],
         browser: {
             enabled: true,
-            provider: playwright(),
+            provider: playwright({
+                // Increase browser launch timeout to reduce connection failures
+                timeout: 60000
+            }),
             instances: [
                 {
                     browser:
@@ -37,10 +44,14 @@ export default defineConfig({
             headless: true,
             screenshotFailures: true,
             // Isolate each test file for more stable execution in CI
-            isolate: true
+            isolate: true,
+            // Increase iframe timeout to reduce connection failures
+            slowHijackESM: false
         },
         // Increase timeout for browser tests (default is 5000ms)
         testTimeout: 10000,
+        // Add hook timeout for better error messages
+        hookTimeout: 10000,
         // Retry flaky tests once in CI
         retry: process.env.CI ? 1 : 0,
         setupFiles: [
