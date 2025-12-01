@@ -24,8 +24,7 @@ export type TableColumnEnumCellRecord =
     | TableBooleanField<'value'>
     | TableNumberField<'value'>;
 export type MappingConfigs = Map<MappingKey, MappingConfig>;
-export interface TableColumnEnumColumnConfig
-    extends TableColumnTextBaseColumnConfig {
+export interface TableColumnEnumColumnConfig extends TableColumnTextBaseColumnConfig {
     mappingConfigs: MappingConfigs;
 }
 
