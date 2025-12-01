@@ -44,13 +44,13 @@ The steps to use components from Nimble Angular are similar to using components 
 4. Each application should import the Nimble fonts once in the root `src/styles.scss`. Nimble recommends using SCSS for capabilities such as build time property checking.
 
     ```scss
-    @import '@ni/nimble-angular/styles/fonts';
+    @use '@ni/nimble-angular/styles/fonts' as *;
     ```
 
 5. As needed, import the theme-aware design tokens in each SCSS file that will leverage the tokens for other parts of your application (for colors, fonts, etc).
 
     ```scss
-    @import '@ni/nimble-angular/styles/tokens';
+    @use '@ni/nimble-angular/styles/tokens' as *;
 
     .my-element {
         font-family: $ni-nimble-body-font-family;
