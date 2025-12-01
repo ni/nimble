@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 01 Dec 2025 17:22:08 GMT",
+      "version": "34.6.5",
+      "tag": "@ni/nimble-components_v34.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b8b7754052f7f7f6b871aedc4535d7e98ee3a79b",
+            "comment": "Add work around to table to fix action-menu bug in Firefox"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Dec 2025 06:22:03 GMT",
       "version": "34.6.3",
       "tag": "@ni/nimble-components_v34.6.3",
