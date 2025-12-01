@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Mon, 01 Dec 2025 17:22:08 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.11.0
+
+Mon, 01 Dec 2025 19:34:20 GMT
+
+### Minor changes
+
+- Switch from deprecated Sass @import to @use ([ni/nimble@b71c518](https://github.com/ni/nimble/commit/b71c5184eacf68cc67e59c92d81487e12e6465cb))
+- Bump @ni/nimble-components to v34.8.0
 
 ## 30.9.9
 

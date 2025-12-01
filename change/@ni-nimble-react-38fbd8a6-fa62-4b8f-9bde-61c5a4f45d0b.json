@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Switch from deprecated Sass @import to @use",
-  "packageName": "@ni/nimble-react",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

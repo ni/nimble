@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 01 Dec 2025 19:34:20 GMT",
+      "version": "34.8.0",
+      "tag": "@ni/nimble-components_v34.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b71c5184eacf68cc67e59c92d81487e12e6465cb",
+            "comment": "Switch from deprecated Sass @import to @use"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Dec 2025 17:22:08 GMT",
       "version": "34.6.5",
       "tag": "@ni/nimble-components_v34.6.5",
