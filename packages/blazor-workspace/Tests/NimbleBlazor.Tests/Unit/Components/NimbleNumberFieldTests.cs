@@ -7,7 +7,7 @@ using Xunit;
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
-/// Tests for <see cref="NimbleTextField"/>
+/// Tests for <see cref="NimbleNumberField"/>
 /// </summary>
 public class NimbleNumberFieldTests
 {
@@ -16,8 +16,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NimbleNumberField_Rendered_HasNumberFieldMarkup()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
 
         var textField = context.RenderComponent<NimbleNumberField>();
 
@@ -31,8 +30,7 @@ public class NimbleNumberFieldTests
     [InlineData("1E+100")]
     public void Render_ChangeValue_HasMatchingValue(string value)
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var field = context.RenderComponent<NimbleNumberField>();
 
         field.Find(NumberFieldMarkup).Change(value);
@@ -44,8 +42,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NimbleNumberField_SupportsAdditionalAttributes()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var exception = Record.Exception(() => context.RenderComponent<NimbleNumberField>(ComponentParameter.CreateParameter("class", "foo")));
         Assert.Null(exception);
     }
@@ -57,8 +54,7 @@ public class NimbleNumberFieldTests
     [InlineData(NumberFieldAppearance.Frameless, "frameless")]
     public void NumberFieldAppearance_AttributeIsSet(NumberFieldAppearance value, string expectedAttribute)
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.Appearance, value));
 
         Assert.Contains(expectedAttribute, numberField.Markup);
@@ -67,8 +63,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldStep_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.Step, 2.3));
 
         Assert.Contains("step=\"2.3\"", numberField.Markup);
@@ -77,8 +72,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldHideStep_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.HideStep, true));
 
         Assert.Contains("hide-step", numberField.Markup);
@@ -87,8 +81,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldMin_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.Min, 2.3));
 
         Assert.Contains("min=\"2.3\"", numberField.Markup);
@@ -97,8 +90,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldMax_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.Max, 2.3));
 
         Assert.Contains("max=\"2.3\"", numberField.Markup);
@@ -107,8 +99,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldPlaceholder_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.Placeholder, "enter a value"));
 
         Assert.Contains("placeholder=\"enter a value\"", numberField.Markup);
@@ -117,8 +108,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldErrorText_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.ErrorText, "bad number"));
 
         Assert.Contains("error-text=\"bad number\"", numberField.Markup);
@@ -127,8 +117,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldErrorVisible_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.ErrorVisible, true));
 
         Assert.Contains("error-visible", numberField.Markup);
@@ -137,8 +126,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldDisabled_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.Disabled, true));
 
         Assert.Contains("disabled", numberField.Markup);
@@ -147,8 +135,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldReadOnly_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.ReadOnly, true));
 
         Assert.Contains("readonly", numberField.Markup);
@@ -157,8 +144,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldRequiredVisible_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.RequiredVisible, true));
 
         Assert.Contains("required-visible", numberField.Markup);
@@ -167,8 +153,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldAppearanceReadOnly_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.AppearanceReadOnly, true));
 
         Assert.Contains("appearance-readonly", numberField.Markup);
@@ -177,51 +162,33 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NumberFieldFullBleed_AttributeIsSet()
     {
-        using var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        using var context = CreateTestContext();
         var numberField = context.RenderComponent<NimbleNumberField>(p => p.Add(x => x.FullBleed, true));
 
         Assert.Contains("full-bleed", numberField.Markup);
     }
 
     [Fact]
-    public void NumberField_WithGermanCulture_FormatsValueWithPeriod()
+    public void NumberFieldValue_WithGermanCulture_FormatsValueWithPeriod()
     {
-        // Save the current culture to restore it later
-        var originalCulture = CultureInfo.CurrentCulture;
-        try
+        using (new CultureScope("de-DE"))
         {
-            // Set the current culture to German, which uses comma as decimal separator
-            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+            using var context = CreateTestContext();
 
-            using var context = new TestContext();
-            context.JSInterop.Mode = JSRuntimeMode.Loose;
-
-            // Render the component with a value that has a decimal part
             var numberField = context.RenderComponent<NimbleNumberField>(
                 p => p.Add(x => x.Value, 1.5));
 
-            // Verify that the value attribute uses period (.) not comma (,)
-            // This is required because the web component expects period regardless of locale
             Assert.Contains("current-value=\"1.5\"", numberField.Markup);
             Assert.DoesNotContain("current-value=\"1,5\"", numberField.Markup);
-        }
-        finally
-        {
-            // Restore the original culture
-            CultureInfo.CurrentCulture = originalCulture;
         }
     }
 
     [Fact]
     public void NumberFieldStep_WithGermanCulture_FormatsValueWithPeriod()
     {
-        var originalCulture = CultureInfo.CurrentCulture;
-        try
+        using (new CultureScope("de-DE"))
         {
-            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
-            using var context = new TestContext();
-            context.JSInterop.Mode = JSRuntimeMode.Loose;
+            using var context = CreateTestContext();
 
             var numberField = context.RenderComponent<NimbleNumberField>(
                 p => p.Add(x => x.Step, 1.5));
@@ -229,21 +196,14 @@ public class NimbleNumberFieldTests
             Assert.Contains("step=\"1.5\"", numberField.Markup);
             Assert.DoesNotContain("step=\"1,5\"", numberField.Markup);
         }
-        finally
-        {
-            CultureInfo.CurrentCulture = originalCulture;
-        }
     }
 
     [Fact]
     public void NumberFieldMin_WithGermanCulture_FormatsValueWithPeriod()
     {
-        var originalCulture = CultureInfo.CurrentCulture;
-        try
+        using (new CultureScope("de-DE"))
         {
-            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
-            using var context = new TestContext();
-            context.JSInterop.Mode = JSRuntimeMode.Loose;
+            using var context = CreateTestContext();
 
             var numberField = context.RenderComponent<NimbleNumberField>(
                 p => p.Add(x => x.Min, 1.5));
@@ -251,21 +211,14 @@ public class NimbleNumberFieldTests
             Assert.Contains("min=\"1.5\"", numberField.Markup);
             Assert.DoesNotContain("min=\"1,5\"", numberField.Markup);
         }
-        finally
-        {
-            CultureInfo.CurrentCulture = originalCulture;
-        }
     }
 
     [Fact]
     public void NumberFieldMax_WithGermanCulture_FormatsValueWithPeriod()
     {
-        var originalCulture = CultureInfo.CurrentCulture;
-        try
+        using (new CultureScope("de-DE"))
         {
-            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
-            using var context = new TestContext();
-            context.JSInterop.Mode = JSRuntimeMode.Loose;
+            using var context = CreateTestContext();
 
             var numberField = context.RenderComponent<NimbleNumberField>(
                 p => p.Add(x => x.Max, 1.5));
@@ -273,9 +226,28 @@ public class NimbleNumberFieldTests
             Assert.Contains("max=\"1.5\"", numberField.Markup);
             Assert.DoesNotContain("max=\"1,5\"", numberField.Markup);
         }
-        finally
+    }
+
+    private TestContext CreateTestContext()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context;
+    }
+
+    private sealed class CultureScope : IDisposable
+    {
+        private readonly CultureInfo _originalCulture;
+
+        public CultureScope(string cultureName)
         {
-            CultureInfo.CurrentCulture = originalCulture;
+            _originalCulture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = new CultureInfo(cultureName);
+        }
+
+        public void Dispose()
+        {
+            CultureInfo.CurrentCulture = _originalCulture;
         }
     }
 }
