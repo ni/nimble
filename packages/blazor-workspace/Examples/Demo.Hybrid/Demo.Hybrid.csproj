@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.100" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.22" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" />
   </ItemGroup>
 

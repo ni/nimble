@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 20 Nov 2025 16:54:41 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 01 Dec 2025 06:22:03 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.6.3
+
+Mon, 01 Dec 2025 06:22:03 GMT
+
+### Patches
+
+- dep update ([ni/nimble@41e2151](https://github.com/ni/nimble/commit/41e2151ff36cf10f07cf94ca3af197c927198c5c))
 
 ## 34.6.1
 

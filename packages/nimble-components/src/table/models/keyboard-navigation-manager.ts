@@ -44,9 +44,9 @@ interface TableFocusState {
  * Manages the keyboard navigation and focus within the table.
  * @internal
  */
-export class KeyboardNavigationManager<TData extends TableRecord>
-    implements Subscriber
-{
+export class KeyboardNavigationManager<
+    TData extends TableRecord
+> implements Subscriber {
     private focusType: TableFocusType = TableFocusType.none;
     private headerActionIndex = -1;
     private rowIndex = -1;
