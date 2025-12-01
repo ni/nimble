@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 01 Dec 2025 06:22:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 01 Dec 2025 17:22:08 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.6.5
+
+Mon, 01 Dec 2025 17:22:08 GMT
+
+### Patches
+
+- Add work around to table to fix action-menu bug in Firefox ([ni/nimble@b8b7754](https://github.com/ni/nimble/commit/b8b7754052f7f7f6b871aedc4535d7e98ee3a79b))
 
 ## 34.6.3
 
