@@ -4,7 +4,7 @@ import {
     menuItemTemplate as template,
     type MenuItemOptions
 } from '@ni/fast-foundation';
-import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
+import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
 import { styles } from './styles';
 
 // FAST menu item template requires an anchored region is available using tagFor DI

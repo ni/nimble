@@ -1,4 +1,4 @@
-import { webviCustom16X16 } from '@ni/nimble-tokens/dist/icons/js';
+import { webviCustom16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
 
 const imgBlob = new Blob([webviCustom16X16.data], {
     type: 'image/svg+xml'

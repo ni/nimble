@@ -42,8 +42,8 @@ export const styles = css`
 
     .icon svg {
         display: inline-flex;
-        fill: ${iconColor};
         width: 100%;
         height: 100%;
+        fill: ${iconColor};
     }
 `;

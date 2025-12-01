@@ -4,7 +4,7 @@ import {
     DesignSystem,
     type RadioOptions
 } from '@ni/fast-foundation';
-import { circleFilled16X16 } from '@ni/nimble-tokens/dist/icons/js';
+import { circleFilled16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
 import { styles } from './styles';
 
 declare global {

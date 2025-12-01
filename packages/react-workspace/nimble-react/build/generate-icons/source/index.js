@@ -2,7 +2,11 @@
  * Build script for generating React wrappers for Nimble icon components.
  */
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist/icons/js';
+import * as singleIcons from '@ni/nimble-tokens/dist/icons/js/single';
+import * as multiColorIconsData from '@ni/nimble-tokens/dist/icons/js/multicolor';
+import { multiColorIcons } from '@ni/nimble-components/dist/esm/icon-base/icon-multicolor-metadata';
+
+const icons = { ...singleIcons, ...multiColorIconsData };
 
 const fs = require('fs');
 const path = require('path');
@@ -14,6 +18,9 @@ const trimSizeFromName = text => {
 
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-react/build/generate-icons\n`;
+
+// Multi-color icons use a different import path (icons-multicolor vs icons)
+const multiColorIconSet = new Set(multiColorIcons);
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
@@ -33,12 +40,17 @@ let fileCount = 0;
 for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
     const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
+
+    // Determine if this is a multi-color icon and set the appropriate import path
+    const isMultiColor = multiColorIconSet.has(fileName);
+    const iconSubfolder = isMultiColor ? 'icons-multicolor' : 'icons';
+
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
 
     fileCount += 1;
 
     const iconReactWrapperContent = `${generatedFilePrefix}
-import { ${className} } from '@ni/nimble-components/dist/esm/icons/${fileName}';
+import { ${className} } from '@ni/nimble-components/dist/esm/${iconSubfolder}/${fileName}';
 import { wrap } from '../utilities/react-wrapper';
 
 export { type ${className} };

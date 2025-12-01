@@ -1,10 +1,13 @@
-import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
+import * as singleIcons from '@ni/nimble-tokens/dist/icons/js/single';
+import * as multiColorIcons from '@ni/nimble-tokens/dist/icons/js/multicolor';
 import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
 import { iconMetadata } from './icon-metadata';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { IconAdd, iconAddTag } from '../../icons/add';
+
+const nimbleIconsMap = { ...singleIcons, ...multiColorIcons };
 
 describe('Icons', () => {
     const nimbleIcons = Object.values(nimbleIconsMap);

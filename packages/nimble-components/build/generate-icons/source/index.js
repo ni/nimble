@@ -3,9 +3,12 @@
  *
  * Iterates through icons provided by nimble-tokens, and generates a Nimble component for each in
  * src/icons. Also generates an all-icons barrel file.
+ *
+ * Note: Multi-color icons should be created manually in src/icons-multicolor.
+ * See CONTRIBUTING.md for instructions.
  */
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist/icons/js';
+import * as icons from '@ni/nimble-tokens/dist/icons/js/single';
 
 const fs = require('fs');
 const path = require('path');
@@ -38,13 +41,14 @@ for (const key of Object.keys(icons)) {
     const svgName = key; // e.g. "arrowExpanderLeft16X16"
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
     const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
+
     const elementBaseName = `icon-${spinalCase(iconName)}`; // e.g. "icon-arrow-expander-left-icon"
     const elementName = `nimble-${elementBaseName}`;
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
     const tagName = `icon${pascalCase(iconName)}Tag`; // e.g. "iconArrowExpanderLeftTag"
 
     const componentFileContents = `${generatedFilePrefix}
-import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
+import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js/single';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -74,7 +78,25 @@ export const ${tagName} = '${elementName}';
         `export { ${className} } from './${fileName}';\n`
     );
 }
-console.log(`Finshed writing ${fileCount} icon component files`);
+console.log(`Finished writing ${fileCount} icon component files`);
+
+// Add manual icons to all-icons exports (from icons-multicolor directory)
+const iconsMulticolorDirectory = path.resolve(
+    __dirname,
+    '../../../src/icons-multicolor'
+);
+if (fs.existsSync(iconsMulticolorDirectory)) {
+    const manualIconFiles = fs
+        .readdirSync(iconsMulticolorDirectory)
+        .filter(f => f.endsWith('.ts'));
+    for (const file of manualIconFiles) {
+        const fileName = path.basename(file, '.ts');
+        const className = `Icon${pascalCase(fileName)}`;
+        allIconsFileContents = allIconsFileContents.concat(
+            `export { ${className} } from '../icons-multicolor/${fileName}';\n`
+        );
+    }
+}
 
 const allIconsFilePath = path.resolve(iconsDirectory, 'all-icons.ts');
 console.log('Writing all-icons file');

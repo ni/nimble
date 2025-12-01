@@ -6,7 +6,11 @@
  */
 
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist/icons/js';
+import * as singleIcons from '@ni/nimble-tokens/dist/icons/js/single';
+import * as multiColorIconsData from '@ni/nimble-tokens/dist/icons/js/multicolor';
+import { multiColorIcons } from '@ni/nimble-components/dist/esm/icon-base/icon-multicolor-metadata';
+
+const icons = { ...singleIcons, ...multiColorIconsData };
 
 const fs = require('fs');
 const path = require('path');
@@ -24,6 +28,9 @@ const getRelativeFilePath = (from, to) => {
 
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-angular/build/generate-icons\n`;
+
+// Multi-color icons use a different import path (icons-multicolor vs icons)
+const multiColorIconSet = new Set(multiColorIcons);
 
 const packageDirectory = path.resolve(__dirname, '../../../');
 const iconsDirectory = path.resolve(packageDirectory, 'src/directives/icons');
@@ -43,6 +50,11 @@ const directiveAndModulePaths = [];
 for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // "arrowExpanderLeft"
     const directoryName = spinalCase(iconName); // e.g. "arrow-expander-left"
+
+    // Determine if this is a multi-color icon and set the appropriate import path
+    const isMultiColor = multiColorIconSet.has(directoryName);
+    const iconSubfolder = isMultiColor ? 'icons-multicolor' : 'icons';
+
     const elementName = `nimble-icon-${spinalCase(iconName)}`; // e.g. "nimble-icon-arrow-expander-left"
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
     const tagName = `icon${pascalCase(iconName)}Tag`; // e.g. "iconArrowExpanderLeftTag"
@@ -52,7 +64,7 @@ for (const key of Object.keys(icons)) {
 
     const directiveFileContents = `${generatedFilePrefix}
 import { Directive } from '@angular/core';
-import { type ${className}, ${tagName} } from '@ni/nimble-components/dist/esm/icons/${directoryName}';
+import { type ${className}, ${tagName} } from '@ni/nimble-components/dist/esm/${iconSubfolder}/${directoryName}';
 import { NimbleIconBaseDirective } from '../../icon-base/nimble-icon-base.directive';
 
 export type { ${className} };
@@ -77,7 +89,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ${directiveName} } from './${directiveFileName}';
 
-import '@ni/nimble-components/dist/esm/icons/${directoryName}';
+import '@ni/nimble-components/dist/esm/${iconSubfolder}/${directoryName}';
 
 @NgModule({
     declarations: [${directiveName}],

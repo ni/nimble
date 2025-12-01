@@ -5,7 +5,7 @@ import {
     DesignSystem,
     treeItemTemplate as template
 } from '@ni/fast-foundation';
-import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js';
+import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js/single';
 import { styles } from './styles';
 
 declare global {
