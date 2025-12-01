@@ -1,6 +1,4 @@
 // Nimble Angular Tokens SCSS
-// Can use this file in two different ways:
-// - @use once per SCSS file that is leveraging the tokens (helpful for autocomplete features, etc)
-// - @forward globally in the application styles.scss (less noise per file)
+// @use once per SCSS file that is leveraging the tokens (helpful for autocomplete features, etc)
 
 @forward '@ni/nimble-components/dist/tokens';
