@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-react",
-  "version": "0.5.4",
+  "version": "0.5.8",
   "description": "React components for the NI Nimble Design System",
   "keywords": [
     "ni",
@@ -38,7 +38,7 @@
   },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/nimble-components": "^34.6.1",
+    "@ni/nimble-components": "^34.6.5",
     "react": "^16 || ^17 || ^18"
   }
 }

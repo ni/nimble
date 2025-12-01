@@ -13,8 +13,7 @@ import { TableColumnTextBase, mixinTextBase } from '../text-base';
 import { ColumnValidator } from '../base/models/column-validator';
 
 export type TableColumnDurationTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDurationTextColumnConfig
-    extends TableColumnTextBaseColumnConfig {
+export interface TableColumnDurationTextColumnConfig extends TableColumnTextBaseColumnConfig {
     formatter: DurationFormatter;
 }
 

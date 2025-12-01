@@ -2,6 +2,48 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Mon, 01 Dec 2025 17:22:08 GMT",
+      "version": "0.1.8",
+      "tag": "@ni/ok-components_v0.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v34.6.5",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.4.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Dec 2025 06:22:03 GMT",
+      "version": "0.1.6",
+      "tag": "@ni/ok-components_v0.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v34.6.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.4.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Nov 2025 16:54:41 GMT",
       "version": "0.1.4",
       "tag": "@ni/ok-components_v0.1.4",
