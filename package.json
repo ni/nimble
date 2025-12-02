@@ -15,11 +15,11 @@
     "invoke-publish": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
     "performance": "npm run performance --workspaces --if-present",
     "validate": "concurrently --pad-prefix --timings --group \"npm:validate:*\"",
-    "validate:lint": "npm run lint --workspaces --if-present",
-    "validate:test": "npm run test --workspaces --if-present",
+    "validate:lint": "npm run lint",
+    "validate:test": "npm run test",
     "validate:test-concurrent": "npm run test-concurrent -w packages/nimble-components",
-    "test": "concurrently --pad-prefix --timings --group \"npm:validate:test*\"",
-    "lint": "concurrently --pad-prefix --timings --group \"npm:validate:lint*\"",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
     "storybook": "npm run start -w @ni-private/storybook"
   },
   "repository": {
