@@ -580,13 +580,13 @@ describe('Markdown parser', () => {
                             ]);
                             expect(
                                 lastChildElementHasAttribute('href', doc)
-                            ).toBeFalse();
+                            ).toBe(false);
                             expect(
                                 lastChildElementHasAttribute(
                                     'underline-hidden',
                                     doc
                                 )
-                            ).toBeTrue();
+                            ).toBe(true);
                         }
                     );
                 });
@@ -1121,7 +1121,7 @@ describe('Markdown parser', () => {
             ]);
             expect(
                 lastChildElementHasAttribute('href', parserContent.fragment)
-            ).toBeFalse();
+            ).toBe(false);
             expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
                 'user:1234-5678'
             ]);
@@ -1152,7 +1152,7 @@ describe('Markdown parser', () => {
             ]);
             expect(
                 lastChildElementHasAttribute('href', parserContent.fragment)
-            ).toBeFalse();
+            ).toBe(false);
             expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
                 'issue:1'
             ]);
@@ -1180,7 +1180,7 @@ describe('Markdown parser', () => {
             ]);
             expect(
                 lastChildElementHasAttribute('href', parserContent.fragment)
-            ).toBeFalse();
+            ).toBe(false);
             expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
                 'user:1'
             ]);
@@ -1211,7 +1211,7 @@ describe('Markdown parser', () => {
             ]);
             expect(
                 lastChildElementHasAttribute('href', parserContent.fragment)
-            ).toBeFalse();
+            ).toBe(false);
             expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
                 'user:1'
             ]);
@@ -1242,7 +1242,7 @@ describe('Markdown parser', () => {
             ]);
             expect(
                 lastChildElementHasAttribute('href', parserContent.fragment)
-            ).toBeFalse();
+            ).toBe(false);
             expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
                 'user:1'
             ]);

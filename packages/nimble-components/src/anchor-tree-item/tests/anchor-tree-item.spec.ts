@@ -108,7 +108,7 @@ describe('Anchor Tree Item', () => {
             expect(
                 getComputedStyle(element.start).display === 'none'
                     || getComputedStyle(element.startContainer).display === 'none'
-            ).toBeFalse();
+            ).toBe(false);
         });
     });
 
@@ -161,62 +161,62 @@ describe('Anchor Tree Item', () => {
         });
 
         it('root1 should have "group-selected" attribute set after initialization', () => {
-            expect(model.root1.hasAttribute('group-selected')).toBeTrue();
-            expect(model.root2.hasAttribute('group-selected')).toBeFalse();
+            expect(model.root1.hasAttribute('group-selected')).toBe(true);
+            expect(model.root2.hasAttribute('group-selected')).toBe(false);
         });
 
         it('when leaf item is selected, only root parent tree item has "group-selected" attribute', async () => {
             model.leaf3.selected = true;
             await waitForUpdatesAsync(); // reflect selected property to attribute
             await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
-            expect(model.root2.hasAttribute('group-selected')).toBeTrue();
-            expect(model.subRoot2.hasAttribute('group-selected')).toBeFalse();
-            expect(model.root1.hasAttribute('group-selected')).toBeFalse();
-            expect(model.leaf3.hasAttribute('group-selected')).toBeFalse();
+            expect(model.root2.hasAttribute('group-selected')).toBe(true);
+            expect(model.subRoot2.hasAttribute('group-selected')).toBe(false);
+            expect(model.root1.hasAttribute('group-selected')).toBe(false);
+            expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
 
             model.leaf1.selected = true;
             await waitForUpdatesAsync(); // reflect selected property to attribute
             await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
-            expect(model.root2.hasAttribute('group-selected')).toBeFalse();
-            expect(model.subRoot2.hasAttribute('group-selected')).toBeFalse();
-            expect(model.root1.hasAttribute('group-selected')).toBeTrue();
-            expect(model.leaf3.hasAttribute('group-selected')).toBeFalse();
+            expect(model.root2.hasAttribute('group-selected')).toBe(false);
+            expect(model.subRoot2.hasAttribute('group-selected')).toBe(false);
+            expect(model.root1.hasAttribute('group-selected')).toBe(true);
+            expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
         });
 
         it('when leaf item is deselected, root parent tree loses "group-selected" attribute', async () => {
             model.leaf1.selected = false;
             await waitForUpdatesAsync(); // reflect selected property to attribute
             await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
-            expect(model.root1.hasAttribute('group-selected')).toBeFalse();
+            expect(model.root1.hasAttribute('group-selected')).toBe(false);
         });
 
         it('when second leaf item under same root parent is selected, root parent tree item has "group-selected" attribute', async () => {
             model.leaf2.selected = true;
             await waitForUpdatesAsync(); // reflect selected property to attribute
             await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
-            expect(model.root1.hasAttribute('group-selected')).toBeTrue();
+            expect(model.root1.hasAttribute('group-selected')).toBe(true);
         });
 
         it('when selected item is removed, root parent tree loses "group-selected" attribute', async () => {
-            expect(model.leaf1.selected).toBeTrue();
+            expect(model.leaf1.selected).toBe(true);
             model.leaf1.remove();
             await waitForUpdatesAsync();
-            expect(model.root1.hasAttribute('group-selected')).toBeFalse();
+            expect(model.root1.hasAttribute('group-selected')).toBe(false);
         });
 
         it('when non-selected item is removed, root parent tree keeps "group-selected" attribute', async () => {
             model.leaf2.remove();
             await waitForUpdatesAsync();
-            expect(model.root1.hasAttribute('group-selected')).toBeTrue();
+            expect(model.root1.hasAttribute('group-selected')).toBe(true);
         });
 
         it('when selected item is added to tree, root parent tree gains "group-selected" attribute', async () => {
-            expect(model.leaf1.selected).toBeTrue();
+            expect(model.leaf1.selected).toBe(true);
             model.leaf1.remove();
             await waitForUpdatesAsync();
             model.subRoot1.appendChild(model.leaf1);
             await waitForUpdatesAsync();
-            expect(model.root1.hasAttribute('group-selected')).toBeTrue();
+            expect(model.root1.hasAttribute('group-selected')).toBe(true);
         });
     });
 });

@@ -614,7 +614,7 @@ describe('Table Interactive Column Sizing', () => {
         it('sizing column beyond table width creates horizontal scrollbar', async () => {
             pageObject.dragSizeColumnByRightDivider(2, [100]);
             await waitForUpdatesAsync();
-            expect(pageObject.isHorizontalScrollbarVisible()).toBeTrue();
+            expect(pageObject.isHorizontalScrollbarVisible()).toBe(true);
         });
 
         it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths', async () => {
@@ -629,7 +629,7 @@ describe('Table Interactive Column Sizing', () => {
             // size table 100 pixels beyond total column widths
             await pageObject.sizeTableToGivenRowWidth(600, element);
             expect(pageObject.getTotalCellRenderedWidth()).toBe(600);
-            expect(pageObject.isHorizontalScrollbarVisible()).toBeFalse();
+            expect(pageObject.isHorizontalScrollbarVisible()).toBe(false);
         });
 
         it('after table gets horizontal scrollbar, growing right-most column to left does not remove scroll area', async () => {
@@ -1023,8 +1023,8 @@ describe('Table Interactive Column Sizing', () => {
             await waitForUpdatesAsync();
             const hasActiveStylingAfter = pageObject.columnRightDividerHasActiveStyling(0);
 
-            expect(hasActiveStylingBefore).toBeFalse();
-            expect(hasActiveStylingAfter).toBeTrue();
+            expect(hasActiveStylingBefore).toBe(false);
+            expect(hasActiveStylingAfter).toBe(true);
         });
 
         it('is removed after release', async () => {
@@ -1034,12 +1034,12 @@ describe('Table Interactive Column Sizing', () => {
             await waitForUpdatesAsync();
             const hasActiveStyling = pageObject.columnRightDividerHasActiveStyling(0);
 
-            expect(hasActiveStyling).toBeFalse();
+            expect(hasActiveStyling).toBe(false);
         });
     });
 
     it('resizing columns emits single "column-configuration-change" event with expected state', async () => {
-        const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
+        const spy = vi.fn<TableColumnConfigurationChangeEventHandler>();
         const listener = waitForEvent(
             element,
             'column-configuration-change',
@@ -1056,7 +1056,7 @@ describe('Table Interactive Column Sizing', () => {
             undefined,
             undefined
         ];
-        const eventDetails = spy.calls.first().args[0].detail;
+        const eventDetails = spy.mock.calls[0]![0].detail;
         const actualFractionalWidths = eventDetails.columns.map(
             column => column.fractionalWidth
         );

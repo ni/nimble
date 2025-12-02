@@ -69,7 +69,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('reports column configuration valid', () => {
-            expect(column.checkValidity()).toBeTrue();
+            expect(column.checkValidity()).toBe(true);
         });
 
         it('changing fieldName updates display', async () => {
@@ -443,7 +443,7 @@ describe('TableColumnDateText', () => {
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
-            expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
+            expect(column.validity.invalidCustomOptionsCombination).toBe(false);
         });
 
         it('sets invalidCustomOptionsCombination flag on column when custom options are incompatible', async () => {
@@ -455,7 +455,7 @@ describe('TableColumnDateText', () => {
             column.customYear = 'numeric';
             column.customDateStyle = 'full';
             await waitForUpdatesAsync();
-            expect(column.validity.invalidCustomOptionsCombination).toBeTrue();
+            expect(column.validity.invalidCustomOptionsCombination).toBe(true);
         });
 
         it('clears invalidCustomOptionsCombination flag on column after fixing custom option incompatibility', async () => {
@@ -469,7 +469,7 @@ describe('TableColumnDateText', () => {
             await waitForUpdatesAsync();
             column.customDateStyle = undefined;
             await waitForUpdatesAsync();
-            expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
+            expect(column.validity.invalidCustomOptionsCombination).toBe(false);
         });
 
         describe('placeholder', () => {
@@ -753,7 +753,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors custom-hour12 attribute', () => {
-            expect(column.customHour12).toBeFalse();
+            expect(column.customHour12).toBe(false);
         });
 
         it('honors custom-hour-cycle attribute', () => {

@@ -71,7 +71,7 @@ describe('ListboxOption', () => {
 
         await connect();
 
-        expect(element.hasAttribute('aria-checked')).toBeFalse();
+        expect(element.hasAttribute('aria-checked')).toBe(false);
 
         element.checked = true;
 
@@ -89,7 +89,7 @@ describe('ListboxOption', () => {
 
         await waitForUpdatesAsync();
 
-        expect(element.hasAttribute('aria-checked')).toBeFalse();
+        expect(element.hasAttribute('aria-checked')).toBe(false);
 
         await disconnect();
     });

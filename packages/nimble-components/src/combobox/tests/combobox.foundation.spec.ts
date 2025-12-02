@@ -130,7 +130,7 @@ describe('Combobox', () => {
 
         option2.setAttribute('selected', '');
 
-        expect(option2.selected).toBeTrue();
+        expect(option2.selected).toBe(true);
 
         await connect();
 
@@ -170,7 +170,7 @@ describe('Combobox', () => {
 
         await connect();
 
-        expect(element.hasAttribute('open')).toBeTrue();
+        expect(element.hasAttribute('open')).toBe(true);
 
         await disconnect();
     });
@@ -194,7 +194,7 @@ describe('Combobox', () => {
             waitForUpdatesAsync().then(() => false)
         ]);
 
-        expect(wasChanged).toBeFalse();
+        expect(wasChanged).toBe(false);
 
         await disconnect();
     });
@@ -235,7 +235,7 @@ describe('Combobox', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeTrue();
+            expect(wasChanged).toBe(true);
             expect(element.value).toEqual('a');
 
             await disconnect();
@@ -267,7 +267,7 @@ describe('Combobox', () => {
             waitForUpdatesAsync().then(() => false)
         ]);
 
-        expect(wasChanged).toBeTrue();
+        expect(wasChanged).toBe(true);
 
         await disconnect();
     });
@@ -280,7 +280,7 @@ describe('Combobox', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -294,7 +294,7 @@ describe('Combobox', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeFalse();
+            expect(wasChanged).toBe(false);
 
             await disconnect();
         });
@@ -310,7 +310,7 @@ describe('Combobox', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -324,7 +324,7 @@ describe('Combobox', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeFalse();
+            expect(wasChanged).toBe(false);
 
             expect(element.value).toEqual('two');
 
@@ -351,7 +351,7 @@ describe('Combobox', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeFalse();
+            expect(wasChanged).toBe(false);
 
             expect(element.value).toEqual('two');
 
@@ -552,7 +552,7 @@ describe('Combobox', () => {
 
             element.autocomplete = mode;
 
-            expect(option2.selected).toBeFalse();
+            expect(option2.selected).toBe(false);
 
             // fake a key entered value
             element.control.value = 't';
@@ -560,8 +560,8 @@ describe('Combobox', () => {
                 new InputEvent('input', { data: 't', inputType: 'insertText' })
             );
 
-            expect(option2.selected).toBeFalse(); // 'two' not selected
-            expect(option3.selected).toBeFalse(); // 'three' not selected
+            expect(option2.selected).toBe(false); // 'two' not selected
+            expect(option3.selected).toBe(false); // 'three' not selected
 
             element.control.value = 'tw';
             element.control.dispatchEvent(
@@ -573,21 +573,21 @@ describe('Combobox', () => {
                 new InputEvent('input', { data: 'o', inputType: 'insertText' })
             );
 
-            expect(option2.selected).toBeTrue();
+            expect(option2.selected).toBe(true);
 
             element.control.value = 'twos';
             element.control.dispatchEvent(
                 new InputEvent('input', { data: 's', inputType: 'insertText' })
             );
 
-            expect(option2.selected).toBeFalse();
+            expect(option2.selected).toBe(false);
 
             element.control.value = 'two';
             element.control.dispatchEvent(
                 new InputEvent('input', { inputType: 'deleteContentBackward' })
             );
 
-            expect(option2.selected).toBeTrue();
+            expect(option2.selected).toBe(true);
 
             await disconnect();
         });
@@ -617,7 +617,7 @@ describe('Combobox', () => {
         element.dispatchEvent(keyDownEvent); // open dropdown
 
         await waitForUpdatesAsync();
-        expect(element.hasAttribute('open')).toBeTrue();
+        expect(element.hasAttribute('open')).toBe(true);
 
         element.dispatchEvent(keyDownEvent); // select "two"
         element.dispatchEvent(keyDownEvent); // select "three"

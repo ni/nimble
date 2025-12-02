@@ -52,7 +52,7 @@ describe('GroupableColumn', () => {
 
         element.groupingDisabled = true;
 
-        expect(element.columnInternals.groupingDisabled).toBeTrue();
+        expect(element.columnInternals.groupingDisabled).toBe(true);
     });
 
     it('setting groupIndex sets columnInternals.groupIndex', async () => {

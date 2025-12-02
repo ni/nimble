@@ -29,6 +29,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v6
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
@@ -104,6 +105,15 @@ jobs:
 
       # Validate (Lint and Test)
       - run: npm run validate
+
+      # Upload Vitest failure screenshots if tests failed
+      - name: Upload Vitest failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vitest-failure-screenshots
+          path: packages/nimble-components/.vitest-browser-screenshots/
+          if-no-files-found: ignore
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI

@@ -1,6 +1,5 @@
 import { html } from '@ni/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
-import type { Remote } from 'comlink';
 import { WaferMap, waferMapTag } from '..';
 import {
     processUpdates,
@@ -12,12 +11,22 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation
 } from '../types';
-import type { MatrixRenderer } from '../workers/matrix-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return await fixture<WaferMap>(html`<${waferMapTag}></${waferMapTag}>`);
 }
 describe('WaferMap', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function createSpyObj(methods: string[]): any {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const obj: any = {};
+        for (const method of methods) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            obj[method] = vi.fn();
+        }
+        return obj;
+    }
+
     let element: WaferMap;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -36,9 +45,9 @@ describe('WaferMap', () => {
     });
 
     describe('update action', () => {
-        let spy: jasmine.Spy;
+        let spy: import('vitest').Mock;
         beforeEach(() => {
-            spy = spyOn(element, 'update');
+            spy = vi.spyOn(element, 'update');
         });
 
         it('will update once after originLocation changes', () => {
@@ -117,22 +126,24 @@ describe('WaferMap', () => {
     });
 
     describe('worker renderer draw wafer action', () => {
-        let matrixRendererSpy: jasmine.SpyObj<Remote<MatrixRenderer>>;
-        let setupWaferSpy: jasmine.Spy;
+        /* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment */
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let matrixRendererSpy: any;
+        let setupWaferSpy: import('vitest').Mock;
         beforeEach(() => {
-            setupWaferSpy = spyOn(
-                element.workerRenderer,
-                'setupWafer'
-            ).and.returnValue(Promise.resolve());
-            matrixRendererSpy = jasmine.createSpyObj<Remote<MatrixRenderer>>(
-                'Remote',
-                ['setTransformConfig', 'drawWafer', 'drawText']
-            );
-            matrixRendererSpy.setTransformConfig.and.returnValue(
+            setupWaferSpy = vi
+                .spyOn(element.workerRenderer, 'setupWafer')
+                .mockReturnValue(Promise.resolve());
+            matrixRendererSpy = createSpyObj([
+                'setTransformConfig',
+                'drawWafer',
+                'drawText'
+            ]);
+            matrixRendererSpy.setTransformConfig.mockReturnValue(
                 Promise.resolve()
             );
-            matrixRendererSpy.drawWafer.and.returnValue(Promise.resolve());
-            matrixRendererSpy.drawText.and.returnValue(Promise.resolve());
+            matrixRendererSpy.drawWafer.mockReturnValue(Promise.resolve());
+            matrixRendererSpy.drawText.mockReturnValue(Promise.resolve());
             element.workerRenderer.matrixRenderer = matrixRendererSpy;
         });
 
@@ -147,7 +158,7 @@ describe('WaferMap', () => {
             });
             await waitForUpdatesAsync();
             await element.currentTask;
-            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(element.validity.invalidDiesTableSchema).toBe(false);
             expect(setupWaferSpy).toHaveBeenCalledTimes(1);
             expect(matrixRendererSpy.drawWafer).toHaveBeenCalledTimes(1);
             expect(matrixRendererSpy.drawText).toHaveBeenCalledTimes(0);
@@ -164,7 +175,7 @@ describe('WaferMap', () => {
             });
             await waitForUpdatesAsync();
             await element.currentTask;
-            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(element.validity.invalidDiesTableSchema).toBe(false);
             expect(setupWaferSpy).toHaveBeenCalledTimes(1);
             expect(matrixRendererSpy.drawWafer).toHaveBeenCalledTimes(1);
             expect(matrixRendererSpy.drawText).toHaveBeenCalledTimes(1);
@@ -172,17 +183,15 @@ describe('WaferMap', () => {
     });
 
     describe('worker renderer draw action', () => {
-        let setupWaferSpy: jasmine.Spy;
-        let drawWaferSpy: jasmine.Spy;
+        let setupWaferSpy: import('vitest').Mock;
+        let drawWaferSpy: import('vitest').Mock;
         beforeEach(() => {
-            setupWaferSpy = spyOn(
-                element.workerRenderer,
-                'setupWafer'
-            ).and.returnValue(Promise.resolve());
-            drawWaferSpy = spyOn(
-                element.workerRenderer,
-                'drawWafer'
-            ).and.returnValue(Promise.resolve());
+            setupWaferSpy = vi
+                .spyOn(element.workerRenderer, 'setupWafer')
+                .mockReturnValue(Promise.resolve());
+            drawWaferSpy = vi
+                .spyOn(element.workerRenderer, 'drawWafer')
+                .mockReturnValue(Promise.resolve());
         });
 
         it('will call setupWafer and drawWafer after supported diesTable change', async () => {
@@ -192,7 +201,7 @@ describe('WaferMap', () => {
                 value: Float64Array.from([])
             });
             await waitForUpdatesAsync();
-            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(element.validity.invalidDiesTableSchema).toBe(false);
             expect(setupWaferSpy).toHaveBeenCalledTimes(1);
             expect(drawWaferSpy).toHaveBeenCalledTimes(1);
         });
@@ -200,22 +209,19 @@ describe('WaferMap', () => {
         it('will not call setupWafer and drawWafer after unsupported diesTable change', async () => {
             element.diesTable = new Table();
             await waitForUpdatesAsync();
-            expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(element.validity.invalidDiesTableSchema).toBe(true);
             expect(setupWaferSpy).toHaveBeenCalledTimes(0);
             expect(drawWaferSpy).toHaveBeenCalledTimes(0);
         });
     });
 
     describe('worker renderer action', () => {
-        let renderHoverSpy: jasmine.Spy;
-        let experimentalUpdateSpy: jasmine.Spy;
+        let renderHoverSpy: import('vitest').Mock;
+        let experimentalUpdateSpy: import('vitest').Mock;
 
         beforeEach(() => {
-            renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
-            experimentalUpdateSpy = spyOn(
-                element,
-                'experimentalUpdate'
-            ).and.callThrough();
+            renderHoverSpy = vi.spyOn(element.workerRenderer, 'renderHover');
+            experimentalUpdateSpy = vi.spyOn(element, 'experimentalUpdate');
         });
 
         it('will use RenderingModule after dies change', () => {
@@ -244,7 +250,7 @@ describe('WaferMap', () => {
         it('will not call renderHover after unsupported diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
-            expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(element.validity.invalidDiesTableSchema).toBe(true);
             expect(renderHoverSpy).toHaveBeenCalledTimes(0);
         });
     });

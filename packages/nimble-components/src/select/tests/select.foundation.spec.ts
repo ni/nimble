@@ -278,7 +278,7 @@ describe('Select', () => {
 
         await connect();
 
-        expect(element.hasAttribute('open')).toBeTrue();
+        expect(element.hasAttribute('open')).toBe(true);
 
         await disconnect();
     });
@@ -291,7 +291,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -305,7 +305,7 @@ describe('Select', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeFalse();
+            expect(wasChanged).toBe(false);
 
             expect(element.value).toEqual('one');
 
@@ -323,7 +323,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -337,7 +337,7 @@ describe('Select', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeFalse();
+            expect(wasChanged).toBe(false);
 
             expect(element.value).toEqual('two');
 
@@ -351,7 +351,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -365,7 +365,7 @@ describe('Select', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeFalse();
+            expect(wasChanged).toBe(false);
 
             expect(element.value).toEqual('one');
 
@@ -381,7 +381,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -395,7 +395,7 @@ describe('Select', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeFalse();
+            expect(wasChanged).toBe(false);
 
             expect(element.value).toEqual('one');
 
@@ -411,7 +411,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -425,7 +425,7 @@ describe('Select', () => {
                 waitTimeout().then(() => false)
             ]);
 
-            expect(wasInput).toBeFalse();
+            expect(wasInput).toBe(false);
 
             expect(element.value).toEqual('one');
 
@@ -443,7 +443,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -457,7 +457,7 @@ describe('Select', () => {
                 waitTimeout().then(() => false)
             ]);
 
-            expect(wasInput).toBeFalse();
+            expect(wasInput).toBe(false);
 
             expect(element.value).toEqual('two');
 
@@ -471,7 +471,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: 'Home'
@@ -485,7 +485,7 @@ describe('Select', () => {
                 waitTimeout().then(() => false)
             ]);
 
-            expect(wasInput).toBeFalse();
+            expect(wasInput).toBe(false);
 
             expect(element.value).toEqual('one');
 
@@ -501,7 +501,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.open).toBe(true);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -515,7 +515,7 @@ describe('Select', () => {
                 waitTimeout().then(() => false)
             ]);
 
-            expect(wasInput).toBeFalse();
+            expect(wasInput).toBe(false);
 
             expect(element.value).toEqual('one');
 
@@ -533,7 +533,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('one');
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -547,7 +547,7 @@ describe('Select', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeTrue();
+            expect(wasChanged).toBe(true);
 
             expect(element.value).toEqual('two');
 
@@ -563,7 +563,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('two');
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -577,7 +577,7 @@ describe('Select', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeTrue();
+            expect(wasChanged).toBe(true);
 
             expect(element.value).toEqual('one');
 
@@ -593,7 +593,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('three');
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -607,7 +607,7 @@ describe('Select', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeTrue();
+            expect(wasChanged).toBe(true);
 
             expect(element.value).toEqual('one');
 
@@ -619,7 +619,7 @@ describe('Select', () => {
 
             await connect();
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -633,7 +633,7 @@ describe('Select', () => {
                 waitForUpdatesAsync().then(() => false)
             ]);
 
-            expect(wasChanged).toBeTrue();
+            expect(wasChanged).toBe(true);
 
             expect(element.value).toEqual('three');
 
@@ -652,7 +652,7 @@ describe('Select', () => {
             element.click();
             element.click();
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const arrowDownEvent = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -674,7 +674,7 @@ describe('Select', () => {
                     }),
                     waitTimeout().then(() => false)
                 ])
-            ).toBeTrue();
+            ).toBe(true);
 
             expect(element.value).toEqual('one');
 
@@ -690,7 +690,7 @@ describe('Select', () => {
                     }),
                     waitTimeout().then(() => false)
                 ])
-            ).toBeTrue();
+            ).toBe(true);
 
             expect(element.value).toEqual('two');
 
@@ -708,7 +708,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('one');
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -722,7 +722,7 @@ describe('Select', () => {
                 waitTimeout().then(() => false)
             ]);
 
-            expect(wasInput).toBeTrue();
+            expect(wasInput).toBe(true);
 
             expect(element.value).toEqual('two');
 
@@ -738,7 +738,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('two');
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -752,7 +752,7 @@ describe('Select', () => {
                 waitTimeout().then(() => false)
             ]);
 
-            expect(wasInput).toBeTrue();
+            expect(wasInput).toBe(true);
 
             expect(element.value).toEqual('one');
 
@@ -768,7 +768,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('three');
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -782,7 +782,7 @@ describe('Select', () => {
                 waitTimeout().then(() => false)
             ]);
 
-            expect(wasInput).toBeTrue();
+            expect(wasInput).toBe(true);
 
             expect(element.value).toEqual('one');
 
@@ -794,7 +794,7 @@ describe('Select', () => {
 
             await connect();
 
-            expect(element.open).toBeFalse();
+            expect(element.open).toBe(false);
 
             const event = new KeyboardEvent('keydown', {
                 key: 'End'
@@ -808,7 +808,7 @@ describe('Select', () => {
                 waitTimeout().then(() => false)
             ]);
 
-            expect(wasInput).toBeTrue();
+            expect(wasInput).toBe(true);
 
             expect(element.value).toEqual('three');
 
@@ -834,7 +834,7 @@ describe('Select', () => {
             waitForUpdatesAsync().then(() => false)
         ]);
 
-        expect(wasChanged).toBeFalse();
+        expect(wasChanged).toBe(false);
 
         expect(element.value).toEqual('two');
 
@@ -859,7 +859,7 @@ describe('Select', () => {
             waitForUpdatesAsync().then(() => false)
         ]);
 
-        expect(wasChanged).toBeFalse();
+        expect(wasChanged).toBe(false);
 
         expect(element.value).toEqual('two');
 

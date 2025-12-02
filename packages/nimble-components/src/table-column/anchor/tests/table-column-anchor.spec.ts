@@ -83,7 +83,7 @@ describe('TableColumnAnchor', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(column.checkValidity()).toBeTrue();
+        expect(column.checkValidity()).toBe(true);
     });
 
     describe('with no href', () => {
@@ -247,7 +247,7 @@ describe('TableColumnAnchor', () => {
                 pageObject
                     .getRenderedCellAnchor(0, 0)
                     .hasAttribute('underline-hidden')
-            ).toBeTrue();
+            ).toBe(true);
 
             column.underlineHidden = false;
             await waitForUpdatesAsync();
@@ -255,7 +255,7 @@ describe('TableColumnAnchor', () => {
                 pageObject
                     .getRenderedCellAnchor(0, 0)
                     .hasAttribute('underline-hidden')
-            ).toBeFalse();
+            ).toBe(false);
         });
 
         it('cell view tabbableChildren returns the anchor', async () => {

@@ -446,8 +446,8 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateGroupIndex).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.duplicateGroupIndex).toBe(true);
             expect(pageObject.getRenderedRowCount()).toBe(0);
         });
 
@@ -467,15 +467,15 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateGroupIndex).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.duplicateGroupIndex).toBe(true);
             expect(pageObject.getRenderedRowCount()).toBe(0);
 
             column2.groupIndex = 1;
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.duplicateGroupIndex).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.duplicateGroupIndex).toBe(false);
             expect(pageObject.getRenderedRowCount()).toBe(4);
         });
 
@@ -495,15 +495,15 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.duplicateGroupIndex).toBeFalse();
+            expect(element.checkValidity()).toBe(true);
+            expect(element.validity.duplicateGroupIndex).toBe(false);
             expect(pageObject.getRenderedRowCount()).toBe(4);
 
             column2.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.duplicateGroupIndex).toBeTrue();
+            expect(element.checkValidity()).toBe(false);
+            expect(element.validity.duplicateGroupIndex).toBe(true);
             expect(pageObject.getRenderedRowCount()).toBe(0);
         });
     });
@@ -769,11 +769,11 @@ describe('Table grouping', () => {
             await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
-            expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+            expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
 
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
-            expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+            expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
         });
 
         it('becomes hidden when grouping is removed', async () => {
@@ -789,11 +789,11 @@ describe('Table grouping', () => {
             await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
-            expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+            expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
 
             column1.groupIndex = null;
             await waitForUpdatesAsync();
-            expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+            expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
         });
 
         it('becomes hidden when grouping is disabled', async () => {
@@ -809,11 +809,11 @@ describe('Table grouping', () => {
             await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
-            expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+            expect(pageObject.isCollapseAllButtonVisible()).toBe(true);
 
             column1.groupingDisabled = true;
             await waitForUpdatesAsync();
-            expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+            expect(pageObject.isCollapseAllButtonVisible()).toBe(false);
         });
 
         it('when clicked, collapses all expanded rows', async () => {

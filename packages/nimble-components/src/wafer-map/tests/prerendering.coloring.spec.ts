@@ -1,3 +1,4 @@
+import { expect } from 'vitest';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import {
@@ -51,9 +52,7 @@ describe('Wafermap Prerendering module', () => {
                 const actualValues = prerenderingModule.diesRenderInfo.map(
                     dieRenderInfo => dieRenderInfo.fillStyle
                 );
-                expect(actualValues).toEqual(
-                    jasmine.arrayWithExactContents(expectedValues)
-                );
+                expect(actualValues).toHaveExactContents(expectedValues);
             });
         });
 
@@ -94,9 +93,7 @@ describe('Wafermap Prerendering module', () => {
                 const actualValues = prerenderingModule.diesRenderInfo.map(
                     dieRenderInfo => dieRenderInfo.fillStyle
                 );
-                expect(actualValues).toEqual(
-                    jasmine.arrayWithExactContents(expectedValues)
-                );
+                expect(actualValues).toHaveExactContents(expectedValues);
             });
         });
 
@@ -140,9 +137,7 @@ describe('Wafermap Prerendering module', () => {
                 const actualValues = prerenderingModule.diesRenderInfo.map(
                     dieRenderInfo => dieRenderInfo.fillStyle
                 );
-                expect(actualValues).toEqual(
-                    jasmine.arrayWithExactContents(expectedValues)
-                );
+                expect(actualValues).toHaveExactContents(expectedValues);
             });
         });
     });
@@ -184,9 +179,7 @@ describe('Wafermap Prerendering module', () => {
                 const actualValues = prerenderingModule.diesRenderInfo.map(
                     dieRenderInfo => dieRenderInfo.fillStyle
                 );
-                expect(actualValues).toEqual(
-                    jasmine.arrayWithExactContents(expectedValues)
-                );
+                expect(actualValues).toHaveExactContents(expectedValues);
             });
         });
 
@@ -232,9 +225,7 @@ describe('Wafermap Prerendering module', () => {
                 const actualValues = prerenderingModule.diesRenderInfo.map(
                     dieRenderInfo => dieRenderInfo.fillStyle
                 );
-                expect(actualValues).toEqual(
-                    jasmine.arrayWithExactContents(expectedValues)
-                );
+                expect(actualValues).toHaveExactContents(expectedValues);
             });
         });
     });
@@ -279,9 +270,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.fillStyle
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            expect(actualValues).toHaveExactContents(expectedValues);
         });
     });
 
@@ -325,9 +314,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.fillStyle
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            expect(actualValues).toHaveExactContents(expectedValues);
         });
     });
 
@@ -372,9 +359,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.fillStyle
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            expect(actualValues).toHaveExactContents(expectedValues);
         });
     });
 
@@ -412,9 +397,7 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.fillStyle
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            expect(actualValues).toHaveExactContents(expectedValues);
         });
     });
 });

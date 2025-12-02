@@ -1,4 +1,5 @@
-import { customElement, html } from '@ni/fast-element';
+import { html, customElement } from '@ni/fast-element';
+import { expect as vitestExpect } from 'vitest';
 import { tableTag, type Table } from '..';
 import { TableColumn } from '../../table-column/base';
 import { tableColumnTextCellViewTag } from '../../table-column/text/cell-view';
@@ -67,7 +68,7 @@ describe('Table delegated events', () => {
         await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         column1.addEventListener('delegated-event', spy);
         const clickEvent = new PointerEvent('click', {
             bubbles: true,
@@ -75,7 +76,7 @@ describe('Table delegated events', () => {
         });
         pageObject.dispatchEventToCell(0, 0, clickEvent);
         expect(spy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({
+            vitestExpect.objectContaining({
                 detail: { originalEvent: clickEvent, recordId: '0' }
             })
         );
@@ -105,7 +106,7 @@ describe('Table delegated events', () => {
         await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         column1.addEventListener('delegated-event', spy);
         const clickEvent = new PointerEvent('click', {
             bubbles: true,
@@ -113,19 +114,19 @@ describe('Table delegated events', () => {
         });
         pageObject.dispatchEventToCell(0, 0, clickEvent);
         expect(spy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({
+            vitestExpect.objectContaining({
                 detail: { originalEvent: clickEvent, recordId: '0' }
             })
         );
 
-        spy.calls.reset();
+        spy.mockClear();
         const keydownEvent = new KeyboardEvent('keydown', {
             bubbles: true,
             composed: true
         });
         pageObject.dispatchEventToCell(0, 0, keydownEvent);
         expect(spy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({
+            vitestExpect.objectContaining({
                 detail: { originalEvent: keydownEvent, recordId: '0' }
             })
         );
@@ -146,7 +147,7 @@ describe('Table delegated events', () => {
             composed: true
         });
         pageObject.dispatchEventToCell(0, 0, mouseoverEvent);
-        expect(gotDelegatedEvent).toBeFalse();
+        expect(gotDelegatedEvent).toBe(false);
     });
 
     it('delegates events with specified record ids', async () => {
@@ -158,7 +159,7 @@ describe('Table delegated events', () => {
         await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         column1.addEventListener('delegated-event', spy);
         const clickEvent = new PointerEvent('click', {
             bubbles: true,
@@ -166,7 +167,7 @@ describe('Table delegated events', () => {
         });
         pageObject.dispatchEventToCell(0, 0, clickEvent);
         expect(spy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({
+            vitestExpect.objectContaining({
                 detail: { originalEvent: clickEvent, recordId: '1234' }
             })
         );

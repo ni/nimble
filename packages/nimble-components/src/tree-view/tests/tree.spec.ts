@@ -119,25 +119,25 @@ describe('TreeView', () => {
     });
 
     it('when selected item is removed, root parent tree loses "group-selected" attribute', async () => {
-        expect(model.leaf2.selected).toBeTrue();
+        expect(model.leaf2.selected).toBe(true);
         model.leaf2.remove();
         await waitForUpdatesAsync();
-        expect(model.root1.hasAttribute('group-selected')).toBeFalse();
+        expect(model.root1.hasAttribute('group-selected')).toBe(false);
     });
 
     it('when non-selected item is removed, root parent tree keeps "group-selected" attribute', async () => {
         model.leaf1.remove();
         await waitForUpdatesAsync();
-        expect(model.root1.hasAttribute('group-selected')).toBeTrue();
+        expect(model.root1.hasAttribute('group-selected')).toBe(true);
     });
 
     it('when selected item is added to tree, root parent tree gains "group-selected" attribute', async () => {
-        expect(model.leaf2.selected).toBeTrue();
+        expect(model.leaf2.selected).toBe(true);
         model.leaf2.remove();
         await waitForUpdatesAsync();
         model.root1.appendChild(model.leaf2);
         await waitForUpdatesAsync();
-        expect(model.root1.hasAttribute('group-selected')).toBeTrue();
+        expect(model.root1.hasAttribute('group-selected')).toBe(true);
     });
 
     it('when first leaf is clicked twice, leaf remains selected', async () => {
@@ -147,20 +147,20 @@ describe('TreeView', () => {
     });
 
     it('item inside a tree item handles events when clicked', async () => {
-        const buttonClicked = jasmine.createSpy();
+        const buttonClicked = vi.fn();
         model.button.addEventListener('click', buttonClicked);
         await clickElement(model.button);
 
-        expect(buttonClicked.calls.count()).toEqual(1);
+        expect(buttonClicked.mock.calls.length).toEqual(1);
     });
 
     it('item inside a tree item handles events when clicked when item is disabled', async () => {
-        const buttonClicked = jasmine.createSpy();
+        const buttonClicked = vi.fn();
         model.button.disabled = true;
         model.button.addEventListener('click', buttonClicked);
         await clickElement(model.button);
 
-        expect(buttonClicked.calls.count()).toEqual(1);
+        expect(buttonClicked.mock.calls.length).toEqual(1);
     });
 
     it('when disabled tree item is clicked it is not selected', async () => {
@@ -193,33 +193,33 @@ describe('TreeView', () => {
         });
 
         it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
-            const expandedChange = jasmine.createSpy();
+            const expandedChange = vi.fn();
             model.treeView.addEventListener('expanded-change', expandedChange);
 
             await clickElement(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(true);
-            expect(expandedChange.calls.count()).toEqual(1);
+            expect(expandedChange.mock.calls.length).toEqual(1);
 
             await clickElement(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
-            expect(expandedChange.calls.count()).toEqual(2);
+            expect(expandedChange.mock.calls.length).toEqual(2);
         });
 
         it('root1 should not be selected after pressing Enter, but should be expanded (and fired expanded-change)', async () => {
-            const expandedChange = jasmine.createSpy();
+            const expandedChange = vi.fn();
             model.treeView.addEventListener('expanded-change', expandedChange);
 
             await pressEnterOnItem(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(true);
-            expect(expandedChange.calls.count()).toEqual(1);
+            expect(expandedChange.mock.calls.length).toEqual(1);
 
             await pressEnterOnItem(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
-            expect(expandedChange.calls.count()).toEqual(2);
+            expect(expandedChange.mock.calls.length).toEqual(2);
         });
 
         it('leaf should be selected by click', async () => {
@@ -305,33 +305,33 @@ describe('TreeView', () => {
         });
 
         it('root1 should not be selected after being clicked, but should be expanded (and fired expanded-change)', async () => {
-            const expandedChange = jasmine.createSpy();
+            const expandedChange = vi.fn();
             model.treeView.addEventListener('expanded-change', expandedChange);
 
             await clickElement(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(true);
-            expect(expandedChange.calls.count()).toEqual(1);
+            expect(expandedChange.mock.calls.length).toEqual(1);
 
             await clickElement(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
-            expect(expandedChange.calls.count()).toEqual(2);
+            expect(expandedChange.mock.calls.length).toEqual(2);
         });
 
         it('root1 should not be selected after pressing Enter, but should be expanded (and fired expanded-change)', async () => {
-            const expandedChange = jasmine.createSpy();
+            const expandedChange = vi.fn();
             model.treeView.addEventListener('expanded-change', expandedChange);
 
             await pressEnterOnItem(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(true);
-            expect(expandedChange.calls.count()).toEqual(1);
+            expect(expandedChange.mock.calls.length).toEqual(1);
 
             await pressEnterOnItem(model.root1);
             expect(model.root1.hasAttribute('selected')).toBe(false);
             expect(model.root1.hasAttribute('expanded')).toBe(false);
-            expect(expandedChange.calls.count()).toEqual(2);
+            expect(expandedChange.mock.calls.length).toEqual(2);
         });
 
         it('when root item is clicked, it is not selected', async () => {

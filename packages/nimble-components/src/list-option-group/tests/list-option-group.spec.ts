@@ -104,7 +104,7 @@ describe('ListOptionGroup', () => {
     it('group is visually hidden with no options', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
         await disconnect();
     });
 
@@ -118,7 +118,7 @@ describe('ListOptionGroup', () => {
         option2.visuallyHidden = true;
         element.appendChild(option2);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
         await disconnect();
     });
 
@@ -128,7 +128,7 @@ describe('ListOptionGroup', () => {
         const option = document.createElement(listOptionTag);
         element.appendChild(option);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeFalse();
+        expect(element.visuallyHidden).toBe(false);
         await disconnect();
     });
 
@@ -138,11 +138,11 @@ describe('ListOptionGroup', () => {
         const option = document.createElement(listOptionTag);
         element.appendChild(option);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeFalse();
+        expect(element.visuallyHidden).toBe(false);
 
         element.removeChild(option);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
         await disconnect();
     });
 
@@ -156,12 +156,12 @@ describe('ListOptionGroup', () => {
         option2.hidden = true;
         element.appendChild(option2);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
 
         element.removeChild(option1);
         await waitForUpdatesAsync();
         option1.hidden = false;
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
         await disconnect();
     });
 
@@ -172,11 +172,11 @@ describe('ListOptionGroup', () => {
         option.hidden = true;
         element.appendChild(option);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
 
         option.visuallyHidden = true;
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
         await disconnect();
     });
 
@@ -191,7 +191,7 @@ describe('ListOptionGroup', () => {
 
         option.hidden = false;
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
         await disconnect();
     });
 
@@ -206,7 +206,7 @@ describe('ListOptionGroup', () => {
 
         option.visuallyHidden = false;
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBeTrue();
+        expect(element.visuallyHidden).toBe(true);
         await disconnect();
     });
 

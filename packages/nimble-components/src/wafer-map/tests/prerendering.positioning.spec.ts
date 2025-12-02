@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access */
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import {
@@ -50,9 +51,10 @@ describe('Wafermap Prerendering module', () => {
             let actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.x
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (
+                expect(actualValues) as any
+            ) /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                .toHaveExactContents(expectedValues);
 
             expectedValues = waferMapDies.map(
                 waferMapDie => waferMapDie.y + margin.top
@@ -60,9 +62,10 @@ describe('Wafermap Prerendering module', () => {
             actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.y
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (
+                expect(actualValues) as any
+            ) /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                .toHaveExactContents(expectedValues);
         });
     });
 
@@ -107,9 +110,10 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.x
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (
+                expect(actualValues) as any
+            ) /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                .toHaveExactContents(expectedValues);
         });
     });
 
@@ -154,9 +158,10 @@ describe('Wafermap Prerendering module', () => {
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.y
             );
-            expect(actualValues).toEqual(
-                jasmine.arrayWithExactContents(expectedValues)
-            );
+            (
+                expect(actualValues) as any
+            ) /* eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                .toHaveExactContents(expectedValues);
         });
     });
 });

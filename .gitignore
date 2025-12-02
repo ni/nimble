@@ -115,6 +115,7 @@ package-lock.json
 !.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/tasks.json
+!.vscode/launch.json
 
 # visual studio
 .vs
@@ -128,3 +129,6 @@ package-lock.json
 # ignore renamed paths
 packages/nimble-blazor
 /angular-workspace
+
+# Vitest screenshots
+__screenshots__/

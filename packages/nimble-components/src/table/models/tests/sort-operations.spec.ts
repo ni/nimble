@@ -5,14 +5,25 @@ import { getTanStackSortingFunction } from '../sort-operations';
 import type { TableFieldValue } from '../../types';
 
 describe('Sort Operations', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function createSpyObj(methods: string[]): any {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const obj: any = {};
+        for (const method of methods) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            obj[method] = vi.fn();
+        }
+        return obj;
+    }
+
     function createFakeRow(
         value: TableFieldValue
     ): TanStackRow<TableFieldValue> {
-        const row = jasmine.createSpyObj<TanStackRow<TableFieldValue>>(
-            'TanStackRow',
-            ['getValue']
-        );
-        row.getValue.and.returnValue(value);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const row = createSpyObj(['getValue']);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+        row.getValue.mockReturnValue(value);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return row;
     }
 

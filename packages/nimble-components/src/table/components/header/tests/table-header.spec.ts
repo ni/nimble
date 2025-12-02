@@ -42,9 +42,9 @@ describe('TableHeader', () => {
     });
 
     it('has correct state when not sorted', () => {
-        expect(element.hasAttribute('aria-sort')).toBeFalse();
-        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
+        expect(element.hasAttribute('aria-sort')).toBe(false);
+        expect(pageObject.isSortAscendingIconVisible()).toBe(false);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(false);
     });
 
     it('has correct state when sorted ascending', async () => {
@@ -53,8 +53,8 @@ describe('TableHeader', () => {
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-sort')).toEqual('ascending');
-        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortAscendingIconVisible()).toBe(true);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(false);
     });
 
     it('has correct state when sorted descending', async () => {
@@ -63,8 +63,8 @@ describe('TableHeader', () => {
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-sort')).toEqual('descending');
-        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-        expect(pageObject.isSortDescendingIconVisible()).toBeTrue();
+        expect(pageObject.isSortAscendingIconVisible()).toBe(false);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(true);
     });
 
     it('does not configure aria-sort if it is not the first sorted column', async () => {
@@ -72,21 +72,21 @@ describe('TableHeader', () => {
         element.firstSortedColumn = false;
         await waitForUpdatesAsync();
 
-        expect(element.hasAttribute('aria-sort')).toBeFalse();
-        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-        expect(pageObject.isSortDescendingIconVisible()).toBeTrue();
+        expect(element.hasAttribute('aria-sort')).toBe(false);
+        expect(pageObject.isSortAscendingIconVisible()).toBe(false);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(true);
     });
 
     it('displays grouping indicator icon when grouped', async () => {
         element.isGrouped = true;
         await waitForUpdatesAsync();
 
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
+        expect(pageObject.isGroupIndicatorIconVisible()).toBe(true);
     });
 
     it('grouping indicator icon is not shown when not grouped', () => {
-        expect(element.isGrouped).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
+        expect(element.isGrouped).toBe(false);
+        expect(pageObject.isGroupIndicatorIconVisible()).toBe(false);
     });
 
     it('sorting and grouping indicators are hidden when indicators-hidden is true', async () => {
@@ -96,9 +96,9 @@ describe('TableHeader', () => {
         element.indicatorsHidden = true;
         await waitForUpdatesAsync();
 
-        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
+        expect(pageObject.isSortAscendingIconVisible()).toBe(false);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(false);
+        expect(pageObject.isGroupIndicatorIconVisible()).toBe(false);
     });
 
     it('sorting and grouping indicators become visible when indicators-hidden changes from true to false', async () => {
@@ -108,16 +108,16 @@ describe('TableHeader', () => {
         element.indicatorsHidden = true;
         await waitForUpdatesAsync();
 
-        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
+        expect(pageObject.isSortAscendingIconVisible()).toBe(false);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(false);
+        expect(pageObject.isGroupIndicatorIconVisible()).toBe(false);
 
         element.indicatorsHidden = false;
         await waitForUpdatesAsync();
 
-        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
+        expect(pageObject.isSortAscendingIconVisible()).toBe(true);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(false);
+        expect(pageObject.isGroupIndicatorIconVisible()).toBe(true);
     });
 
     it('sorting and grouping indicators become hidden when indicators-hidden changes from false to true', async () => {
@@ -126,16 +126,16 @@ describe('TableHeader', () => {
         element.firstSortedColumn = true;
         await waitForUpdatesAsync();
 
-        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
+        expect(pageObject.isSortAscendingIconVisible()).toBe(true);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(false);
+        expect(pageObject.isGroupIndicatorIconVisible()).toBe(true);
 
         element.indicatorsHidden = true;
         await waitForUpdatesAsync();
 
-        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
+        expect(pageObject.isSortAscendingIconVisible()).toBe(false);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(false);
+        expect(pageObject.isGroupIndicatorIconVisible()).toBe(false);
     });
 
     it('configures aria-sort when sorting indicator is hidden', async () => {
@@ -145,8 +145,8 @@ describe('TableHeader', () => {
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-sort')).toEqual('descending');
-        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortAscendingIconVisible()).toBe(false);
+        expect(pageObject.isSortDescendingIconVisible()).toBe(false);
     });
 
     it('defaults to left-aligned', () => {

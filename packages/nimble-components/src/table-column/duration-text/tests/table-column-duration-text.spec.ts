@@ -67,7 +67,7 @@ describe('TableColumnDurationText', () => {
     });
 
     it('reports column configuration valid', () => {
-        expect(column.checkValidity()).toBeTrue();
+        expect(column.checkValidity()).toBe(true);
     });
 
     it('changing fieldName updates display', async () => {

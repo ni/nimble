@@ -54,9 +54,9 @@ describe('NumberField', () => {
         const buttons = Array.from(
             element.shadowRoot!.querySelectorAll('.step-up-down-button')
         );
-        expect(
-            buttons.every(x => (x as HTMLElement).tabIndex === -1)
-        ).toBeTrue();
+        expect(buttons.every(x => (x as HTMLElement).tabIndex === -1)).toBe(
+            true
+        );
     });
 
     it('hides inc/dec buttons from a11y tree', () => {
@@ -65,7 +65,7 @@ describe('NumberField', () => {
         );
         expect(
             buttons.every(x => (x as HTMLElement).ariaHidden === 'true')
-        ).toBeTrue();
+        ).toBe(true);
     });
 
     it('should set "aria-required" to true when "required-visible" is true', () => {

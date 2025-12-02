@@ -147,8 +147,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
-        expect(isIconVisible(iconInfoTag)).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBe(false);
+        expect(isIconVisible(iconInfoTag)).toBe(false);
 
         await disconnect();
     });
@@ -160,8 +160,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
-        expect(isIconVisible(iconInfoTag)).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBe(false);
+        expect(isIconVisible(iconInfoTag)).toBe(false);
 
         await disconnect();
     });
@@ -173,8 +173,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
-        expect(isIconVisible(iconInfoTag)).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBe(false);
+        expect(isIconVisible(iconInfoTag)).toBe(false);
 
         await disconnect();
     });
@@ -187,8 +187,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible(iconExclamationMarkTag)).toBeTrue();
-        expect(isIconVisible(iconInfoTag)).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBe(true);
+        expect(isIconVisible(iconInfoTag)).toBe(false);
 
         await disconnect();
     });
@@ -200,8 +200,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
-        expect(isIconVisible(iconInfoTag)).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBe(false);
+        expect(isIconVisible(iconInfoTag)).toBe(false);
 
         await disconnect();
     });
@@ -214,8 +214,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
-        expect(isIconVisible(iconInfoTag)).toBeTrue();
+        expect(isIconVisible(iconExclamationMarkTag)).toBe(false);
+        expect(isIconVisible(iconInfoTag)).toBe(true);
 
         await disconnect();
     });

@@ -1,4 +1,5 @@
 import { customElement } from '@ni/fast-element';
+import { expect as vitestExpect } from 'vitest';
 import { TableColumn } from '..';
 import {
     fixture,
@@ -95,21 +96,21 @@ describe('TableCellView', () => {
         element.dispatchEvent(new PointerEvent('click'));
         element.dispatchEvent(new KeyboardEvent('keydown'));
         element.dispatchEvent(new MouseEvent('mouseover'));
-        expect(gotClickOnDelegatingColumn).toBeTrue();
-        expect(gotKeydownOnDelegatingColumn).toBeTrue();
-        expect(gotOtherEventOnDelegatingColumn).toBeFalse();
+        expect(gotClickOnDelegatingColumn).toBe(true);
+        expect(gotKeydownOnDelegatingColumn).toBe(true);
+        expect(gotOtherEventOnDelegatingColumn).toBe(false);
         element.column = emptyColumn; // should no longer delegate events to either column
         gotClickOnDelegatingColumn = false;
         gotKeydownOnDelegatingColumn = false;
         element.dispatchEvent(new PointerEvent('click'));
         element.dispatchEvent(new KeyboardEvent('keydown'));
         element.dispatchEvent(new MouseEvent('mouseover'));
-        expect(gotClickOnEmptyColumn).toBeFalse();
-        expect(gotKeydownOnEmptyColumn).toBeFalse();
-        expect(gotOtherEventOnEmptyColumn).toBeFalse();
-        expect(gotClickOnDelegatingColumn).toBeFalse();
-        expect(gotKeydownOnDelegatingColumn).toBeFalse();
-        expect(gotOtherEventOnDelegatingColumn).toBeFalse();
+        expect(gotClickOnEmptyColumn).toBe(false);
+        expect(gotKeydownOnEmptyColumn).toBe(false);
+        expect(gotOtherEventOnEmptyColumn).toBe(false);
+        expect(gotClickOnDelegatingColumn).toBe(false);
+        expect(gotKeydownOnDelegatingColumn).toBe(false);
+        expect(gotOtherEventOnDelegatingColumn).toBe(false);
     });
 
     it('does not fire delegated event for cell with undefined row id', async () => {
@@ -118,7 +119,7 @@ describe('TableCellView', () => {
         const column = document.createElement(
             tableColumnDelegatesClickAndKeydownTag
         ) as TableColumnDelegatesClickAndKeydown;
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         column.addEventListener('delegated-event', spy);
 
         element.column = column;
@@ -133,7 +134,7 @@ describe('TableCellView', () => {
         const column = document.createElement(
             tableColumnDelegatesClickAndKeydownTag
         ) as TableColumnDelegatesClickAndKeydown;
-        const spy = jasmine.createSpy();
+        const spy = vi.fn();
         column.addEventListener('delegated-event', spy);
 
         element.recordId = 'foo';
@@ -141,8 +142,9 @@ describe('TableCellView', () => {
         element.dispatchEvent(new PointerEvent('click'));
 
         expect(spy).toHaveBeenCalledOnceWith(
-            jasmine.objectContaining({
-                detail: jasmine.objectContaining({ recordId: 'foo' })
+            vitestExpect.objectContaining({
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                detail: vitestExpect.objectContaining({ recordId: 'foo' })
             })
         );
     });
