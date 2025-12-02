@@ -13,13 +13,14 @@ if (process.cwd() !== packageRoot) {
 
 export default defineConfig({
     root: packageRoot,
-    base: './',
     server: {
         // Ensure Vite serves files relative to package root
         fs: {
             strict: false,
             allow: ['..']
         },
+        // Disable HMR in CI to prevent module resolution issues
+        hmr: process.env.CI ? false : undefined,
         // Add longer timeout for server warmup
         warmup: {
             clientFiles: ['src/**/*.spec.ts']
