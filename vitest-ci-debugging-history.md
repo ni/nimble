@@ -103,6 +103,22 @@ server: {
 ```
 **Result**: Still seeing absolute path failures in CI
 
+### Attempt 8: Remove base path and disable HMR (Commit bbfd1ad7e)
+**What**: Removed base config, disabled HMR in CI
+```typescript
+server: {
+    hmr: process.env.CI ? false : undefined
+}
+```
+**Result**: Still seeing absolute path failures in CI - HMR wasn't the issue
+
+### Attempt 9: Change base back to '/' (Current)
+**What**: Set explicit `base: '/'` instead of './' or undefined
+```typescript
+base: '/'
+```
+**Hypothesis**: The issue might be that Vite needs an explicit base of '/' to properly construct URLs from the root, not from a relative path
+
 ## Current Configuration State
 ```typescript
 const packageRoot = dirname(fileURLToPath(import.meta.url));
@@ -113,12 +129,13 @@ if (process.cwd() !== packageRoot) {
 
 export default defineConfig({
     root: packageRoot,
-    base: './',
+    base: '/',
     server: {
         fs: {
             strict: false,
             allow: ['..']
         },
+        hmr: process.env.CI ? false : undefined,
         warmup: {
             clientFiles: ['src/**/*.spec.ts']
         }
