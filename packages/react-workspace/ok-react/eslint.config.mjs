@@ -1,10 +1,11 @@
-const { defineConfig } = require('eslint/config');
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-const typescriptNimbleConfig = require('@ni-private/eslint-config-nimble/typescript');
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig, typescriptNimbleConfig} from '@ni-private/eslint-config-nimble';
 
-module.exports = defineConfig([
+export default defineConfig([
     {
-        ignores: ['**/dist/**'],
+        ignores: [
+            '**/dist/**'
+        ],
     },
     {
         files: ['**/*.js', '**/*.cjs'],
@@ -12,7 +13,7 @@ module.exports = defineConfig([
         rules: {
             // Configuration scripts will not be in published package and are allowed to use devDependencies
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-        },
+        }
     },
     {
         files: ['**/*.ts'],
@@ -20,8 +21,8 @@ module.exports = defineConfig([
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.json',
-                tsconfigRootDir: __dirname,
-            },
+                tsconfigRootDir: import.meta.dirname
+            }
         },
         rules: {
             // The React components should use PascalCase
@@ -29,9 +30,9 @@ module.exports = defineConfig([
                 'error',
                 {
                     selector: 'variable',
-                    format: ['camelCase', 'PascalCase'],
+                    format: ['camelCase', 'PascalCase']
                 },
             ],
-        },
-    },
+        }
+    }
 ]);

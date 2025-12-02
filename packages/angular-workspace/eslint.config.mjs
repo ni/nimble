@@ -1,14 +1,12 @@
-const { defineConfig } = require('eslint/config');
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-const typescriptNimbleConfig = require('@ni-private/eslint-config-nimble/typescript');
-const {
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig, lintNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
+import {
     angularTypescriptConfig,
     angularTemplateConfig,
     ignoreAttributes,
-} = require('@ni/eslint-config-angular');
-const { importNodeEsmConfig } = require('@ni/eslint-config-javascript');
+} from '@ni/eslint-config-angular';
 
-module.exports = defineConfig([
+export default defineConfig([
     {
         ignores: ['**/dist/**'],
     },
@@ -17,15 +15,15 @@ module.exports = defineConfig([
         extends: javascriptNimbleConfig,
         rules: {
             // Use package.json from angular-workspace root
-            'import/no-extraneous-dependencies': ['error', { packageDir: __dirname }],
+            'import/no-extraneous-dependencies': ['error', { packageDir: import.meta.dirname }],
         },
     },
     {
         files: ['**/*.ts'],
-        extends: [...angularTypescriptConfig, ...typescriptNimbleConfig],
+        extends: [angularTypescriptConfig, typescriptNimbleConfig],
         rules: {
             // Use package.json from angular-workspace root
-            'import/no-extraneous-dependencies': ['error', { packageDir: __dirname }],
+            'import/no-extraneous-dependencies': ['error', { packageDir: import.meta.dirname }],
             'no-restricted-imports': [
                 'error',
                 {
@@ -130,10 +128,9 @@ module.exports = defineConfig([
         },
     },
     {
-        files: ['**/eslint.config.js'],
+        files: ['**/eslint.config.mjs'],
         extends: [
-            ...javascriptNimbleConfig,
-            ...importNodeEsmConfig
+            lintNimbleConfig
         ]
     },
 ]);

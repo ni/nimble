@@ -38,12 +38,12 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-						"eslintConfig": "nimble-angular/eslint.config.js",
+						"eslintConfig": "nimble-angular/eslint.config.mjs",
 						"lintFilePatterns": [
 							"nimble-angular/**/*.ts",
 							"nimble-angular/**/*.js",
-							"nimble-angular/**/*.html",
-              "nimble-angular/eslint.config.js"
+							"nimble-angular/**/*.mjs",
+							"nimble-angular/**/*.html"
 						]
 					}
         }
@@ -81,12 +81,12 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-						"eslintConfig": "ok-angular/eslint.config.js",
+						"eslintConfig": "ok-angular/eslint.config.mjs",
 						"lintFilePatterns": [
 							"ok-angular/**/*.ts",
 							"ok-angular/**/*.js",
-							"ok-angular/**/*.html",
-              "ok-angular/eslint.config.js"
+							"ok-angular/**/*.mjs",
+							"ok-angular/**/*.html"
 						]
 					}
         }
@@ -124,12 +124,12 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-						"eslintConfig": "spright-angular/eslint.config.js",
+						"eslintConfig": "spright-angular/eslint.config.mjs",
 						"lintFilePatterns": [
 							"spright-angular/**/*.ts",
 							"spright-angular/**/*.js",
-							"spright-angular/**/*.html",
-              "spright-angular/eslint.config.js"
+							"spright-angular/**/*.mjs",
+							"spright-angular/**/*.html"
 						]
 					}
         }
@@ -252,12 +252,12 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-						"eslintConfig": "example-client-app/eslint.config.js",
+						"eslintConfig": "example-client-app/eslint.config.mjs",
 						"lintFilePatterns": [
 							"example-client-app/**/*.ts",
 							"example-client-app/**/*.js",
-							"example-client-app/**/*.html",
-              "example-client-app/eslint.config.js"
+              "example-client-app/**/*.mjs",
+							"example-client-app/**/*.html"
 						]
 					}
         }

@@ -1,8 +1,7 @@
-const { defineConfig } = require('eslint/config');
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-const typescriptNimbleConfig = require('@ni-private/eslint-config-nimble/typescript');
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig, typescriptNimbleConfig} from '@ni-private/eslint-config-nimble';
 
-module.exports = defineConfig([
+export default defineConfig([
     {
         ignores: ['**/dist/**'],
     },
@@ -15,21 +14,12 @@ module.exports = defineConfig([
         },
     },
     {
-        files: ['**/build/**/*.js'],
-        rules: {
-            // Build scripts should give verbose logging
-            'no-console': 'off',
-            // Rollup config files use default exports
-            'import/no-default-export': 'off',
-        },
-    },
-    {
         files: ['**/*.ts'],
         extends: typescriptNimbleConfig,
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.json',
-                tsconfigRootDir: __dirname,
+                tsconfigRootDir: import.meta.dirname,
             },
         },
         rules: {

@@ -1,11 +1,9 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { defineConfig } = require('eslint/config');
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-const componentsNimbleConfig = require('@ni-private/eslint-config-nimble/components');
-const globals = require('globals');
-const storybook = require('eslint-plugin-storybook');
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig, componentsNimbleConfig, lintNimbleConfig } from '@ni-private/eslint-config-nimble';
+import globals from 'globals';
+import storybook from 'eslint-plugin-storybook';
 
-module.exports = defineConfig([
+export default defineConfig([
     {
         ignores: [
             '**/dist/**',
@@ -15,15 +13,15 @@ module.exports = defineConfig([
             '**/src/nimble/icons'
         ]
     },
-    {
-        settings: {
-            // Configure the `eslint-import-resolver-typescript` package to resolve `import/no-unresolved` eslint errors in JS files
-            // Per https://iifx.dev/en/articles/322441446
-            'import/resolver': {
-                typescript: {} // this loads <rootdir>/tsconfig.json to eslint
-            }
-        }
-    },
+    // {
+    //     settings: {
+    //         // Configure the `eslint-import-resolver-typescript` package to resolve `import/no-unresolved` eslint errors in JS files
+    //         // Per https://iifx.dev/en/articles/322441446
+    //         'import/resolver': {
+    //             typescript: {} // this loads <rootdir>/tsconfig.json to eslint
+    //         }
+    //     }
+    // },
     {
         files: ['**/*.js'],
         extends: javascriptNimbleConfig,
@@ -47,7 +45,7 @@ module.exports = defineConfig([
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.json',
-                tsConfigRootDir: __dirname
+                tsConfigRootDir: import.meta.dirname
             }
         },
         rules: {
@@ -82,5 +80,9 @@ module.exports = defineConfig([
                 ...globals.browser
             }
         }
-    }
+    },
+    {
+        files: ['**/*.mjs'],
+        extends: lintNimbleConfig
+    },
 ]);

@@ -1,14 +1,14 @@
-const { defineConfig } = require('eslint/config');
-const baseConfig = require('../eslint.config.js');
+import { defineConfig } from 'eslint/config';
+import baseConfig from '../eslint.config.mjs';
 
-module.exports = defineConfig([
+export default defineConfig([
     baseConfig,
     {
         files: ['**/*.ts'],
         languageOptions: {
             parserOptions: {
                 project: ['./tsconfig.lib.json', './tsconfig.spec.json'],
-                tsconfigRootDir: __dirname,
+                tsconfigRootDir: import.meta.dirname,
             },
         },
     },

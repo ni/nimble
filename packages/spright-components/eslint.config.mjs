@@ -1,8 +1,7 @@
-const { defineConfig } = require('eslint/config');
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-const componentsNimbleConfig = require('@ni-private/eslint-config-nimble/components');
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig, componentsNimbleConfig} from '@ni-private/eslint-config-nimble';
 
-module.exports = defineConfig([
+export default defineConfig([
     {
         ignores: ['**/dist/**']
     },
@@ -16,7 +15,7 @@ module.exports = defineConfig([
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.json',
-                tsconfigRootDir: __dirname
+                tsconfigRootDir: import.meta.dirname
             }
         },
         rules: {

@@ -1,9 +1,7 @@
-// eslint-disable-next-line import/no-unresolved
-const { defineConfig } = require('eslint/config');
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-
-module.exports = defineConfig([
+export default defineConfig([
     {
         ignores: ['**/dist', '**/dist/styledictionary/*'],
     },

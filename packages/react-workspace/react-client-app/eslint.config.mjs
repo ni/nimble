@@ -1,10 +1,9 @@
-const { defineConfig } = require('eslint/config');
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-const typescriptNimbleConfig = require('@ni-private/eslint-config-nimble/typescript');
-const reactHooks = require('eslint-plugin-react-hooks');
-const reactRefresh = require('eslint-plugin-react-refresh');
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig, lintNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
 
-module.exports = defineConfig([
+export default defineConfig([
     {
         ignores: ['**/dist/**'],
     },
@@ -29,7 +28,7 @@ module.exports = defineConfig([
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.app.json',
-                tsconfigRootDir: __dirname,
+                tsconfigRootDir: import.meta.dirname,
             },
         },
         rules: {
@@ -53,7 +52,7 @@ module.exports = defineConfig([
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.node.json',
-                tsconfigRootDir: __dirname,
+                tsconfigRootDir: import.meta.dirname,
             },
         },
         rules: {
@@ -63,10 +62,7 @@ module.exports = defineConfig([
         },
     },
     {
-        files: ['**/eslint.config.cjs'],
-        rules: {
-            'import/no-unresolved': 'off',
-            'import/no-extraneous-dependencies': 'off',
-        },
+        files: ['**/eslint.config.mjs'],
+        extends: [lintNimbleConfig],
     },
 ]);

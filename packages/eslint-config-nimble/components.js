@@ -1,9 +1,8 @@
-const globals = require('globals');
-const { defineConfig } = require('eslint/config');
-// eslint-disable-next-line import/extensions
-const typescriptNimbleConfig = require('./typescript.js');
+import globals from 'globals';
+import { defineConfig } from 'eslint/config';
+import { typescriptNimbleConfig } from './typescript.js';
 
-module.exports = defineConfig([
+export const componentsNimbleConfig = defineConfig([
     typescriptNimbleConfig,
     {
         rules: {

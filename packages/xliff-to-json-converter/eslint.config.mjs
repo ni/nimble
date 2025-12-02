@@ -1,8 +1,7 @@
-const { defineConfig } = require('eslint/config');
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-const typescriptNimbleConfig = require('@ni-private/eslint-config-nimble/typescript');
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig, typescriptNimbleConfig, lintNimbleConfig } from '@ni-private/eslint-config-nimble';
 
-module.exports = defineConfig([
+export default defineConfig([
     {
         ignores: ['**/dist/**'],
     },
@@ -16,12 +15,16 @@ module.exports = defineConfig([
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.json',
-                tsconfigRootDir: __dirname,
+                tsconfigRootDir: import.meta.dirname,
             },
         },
         rules: {
             // This is a command line app so printing to console to show progress is desirable
             'no-console': 'off',
         },
+    },
+    {
+        files: ['**/*.mjs'],
+        extends: lintNimbleConfig
     },
 ]);

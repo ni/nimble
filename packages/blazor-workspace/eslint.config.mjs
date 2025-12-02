@@ -1,8 +1,8 @@
-const { defineConfig } = require('eslint/config');
-const javascriptNimbleConfig = require('@ni-private/eslint-config-nimble/javascript');
-const globals = require('globals');
+import { defineConfig } from 'eslint/config';
+import { javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
+import globals from 'globals';
 
-module.exports = defineConfig([
+export default defineConfig([
     {
         ignores: [
             '**/dist/**',
