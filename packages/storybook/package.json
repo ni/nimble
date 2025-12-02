@@ -6,10 +6,8 @@
   "scripts": {
     "build": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
-    "lint": "npm run prettier",
-    "format": "npm run prettier-fix",
-    "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",
-    "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore"
+    "lint": "eslint .",
+    "format": "eslint . --fix"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.0",
@@ -31,8 +29,6 @@
     "@storybook/cli": "^9.0.5",
     "@storybook/html-vite": "^9.0.5",
     "js-beautify": "^1.15.1",
-    "prettier-eslint": "^17.0.0-alpha.1",
-    "prettier-eslint-cli": "^9.0.0-alpha.2",
     "react-syntax-highlighter": "^16.1.0",
     "remark-gfm": "^4.0.0",
     "rollup": "^4.12.0",
