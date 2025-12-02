@@ -18,7 +18,7 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     public constructor(
         tanStackTable: TanStackTable<TableNode<TData>>,
         selectionMode: TableRowSelectionMode,
-        actionMenusPreserveSelection = false
+        actionMenusPreserveSelection: boolean
     ) {
         this.tanStackTable = tanStackTable;
         this.actionMenusPreserveSelection = actionMenusPreserveSelection;
@@ -126,7 +126,10 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
                     actionMenusPreserveSelection
                 );
             case TableRowSelectionMode.none:
-                return new DisabledSelectionManager(this.tanStackTable);
+                return new DisabledSelectionManager(
+                    this.tanStackTable,
+                    actionMenusPreserveSelection
+                );
             default:
                 throw new Error('unknown selection mode found');
         }

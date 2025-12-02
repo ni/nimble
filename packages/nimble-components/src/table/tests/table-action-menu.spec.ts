@@ -587,19 +587,17 @@ describe('Table action menu', () => {
             await waitForUpdatesAsync();
         });
 
-        it('when false (default), clicking action menu button changes selection (legacy behavior)', async () => {
+        it('when false, clicking action menu button changes selection', async () => {
             const rowIndex = 0;
-            // Ensure the attribute is false (default value) - means action menus change selection
+
             element.actionMenusPreserveSelection = false;
 
-            // Set initial selection to a different row
             await element.setSelectedRecordIds([simpleTableData[1].stringData]);
 
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener;
 
-            // Selection should change to the clicked row
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
@@ -608,38 +606,62 @@ describe('Table action menu', () => {
 
         it('when true, clicking action menu button does not change selection', async () => {
             const rowIndex = 0;
-            // Enable preservation - means action menus preserve selection
             element.actionMenusPreserveSelection = true;
             await waitForUpdatesAsync();
 
-            // Set initial selection to a different row
             await element.setSelectedRecordIds([simpleTableData[1].stringData]);
 
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener;
 
-            // Selection should remain unchanged
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([simpleTableData[1].stringData]);
         });
+
         it('when false, clicking action menu on unselected row with no prior selection selects it', async () => {
             const rowIndex = 0;
-            // Ensure the attribute is false (default value) - action menus change selection
             element.actionMenusPreserveSelection = false;
 
-            // Ensure no initial selection
             await element.setSelectedRecordIds([]);
 
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener;
 
-            // Selection should occur to the clicked row
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
+        });
+
+        it('when true, clicking action menu on unselected row with no prior selection does not select it', async () => {
+            const rowIndex = 0;
+            element.actionMenusPreserveSelection = true;
+
+            await element.setSelectedRecordIds([]);
+
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([]);
+        });
+
+        it ('when true, clicking action menu in multi row selection mode does not change selection', async () => {
+            const rowIndex = 0;
+            element.actionMenusPreserveSelection = true;
+            element.selectionMode = TableRowSelectionMode.multiple;
+
+            await element.setSelectedRecordIds([simpleTableData[1].stringData]);
+
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([simpleTableData[1].stringData]);
         });
     });
 

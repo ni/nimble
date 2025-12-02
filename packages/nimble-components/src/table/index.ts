@@ -690,6 +690,12 @@ export class Table<
             this.updateActionMenuSlots();
         }
 
+        if (this.tableUpdateTracker.updateActionMenusPreserveSelection) {
+            this.selectionManager.handleActionMenusPreserveSelectionChanged(
+                this.actionMenusPreserveSelection
+            );
+        }
+
         if (this.tableUpdateTracker.updateColumnWidths) {
             this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
             this.visibleColumns = this.columns.filter(
@@ -778,9 +784,7 @@ export class Table<
             return;
         }
 
-        this.selectionManager.handleActionMenusPreserveSelectionChanged(
-            this.actionMenusPreserveSelection
-        );
+        this.tableUpdateTracker.trackActionMenusPreserveSelectionChanged();
     }
 
     protected idFieldNameChanged(
@@ -838,7 +842,7 @@ export class Table<
             this.tableData[rowIndex]
         );
 
-        if (selectionChanged && !this.actionMenusPreserveSelection) {
+        if (selectionChanged) {
             await this.emitSelectionChangeEvent();
         }
 
@@ -907,12 +911,6 @@ export class Table<
         this.$fastController.onConnectedCallback();
         this.tableUpdateTracker.trackAllStateChanged();
         this.observeColumns();
-
-        // Ensure the selection manager is updated with the current actionMenusPreserveSelection value
-        // This handles cases where the attribute was set before the component was connected
-        this.selectionManager.handleActionMenusPreserveSelectionChanged(
-            this.actionMenusPreserveSelection
-        );
     }
 
     private async processPendingUpdates(): Promise<void> {

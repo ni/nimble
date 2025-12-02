@@ -285,7 +285,7 @@ export const table: StoryObj<TableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
-            action-menus-preserve-selection="${x => x.actionMenusPreserveSelection}"
+            ?action-menus-preserve-selection="${x => x.actionMenusPreserveSelection}"
             id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"

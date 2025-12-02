@@ -19,7 +19,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
 
     public constructor(
         tanStackTable: TanStackTable<TableNode<TData>>,
-        actionMenusPreserveSelection = false
+        actionMenusPreserveSelection: boolean
     ) {
         this.tanStackTable = tanStackTable;
         this.actionMenusPreserveSelection = actionMenusPreserveSelection;
