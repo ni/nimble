@@ -13,10 +13,12 @@ if (process.cwd() !== packageRoot) {
 
 export default defineConfig({
     root: packageRoot,
+    base: './',
     server: {
         // Ensure Vite serves files relative to package root
         fs: {
-            strict: false
+            strict: false,
+            allow: ['..']
         },
         // Add longer timeout for server warmup
         warmup: {
