@@ -7,8 +7,6 @@ import storybook from 'eslint-plugin-storybook';
 export default defineConfig([
     globalIgnores([
         '**/dist/',
-        // Force inclusion of storybook dot file hidden folder
-        '!**/.storybook',
         '**/.storybook/blocks/StoryLayout.tsx',
     ]),
     lintNimbleConfig,
