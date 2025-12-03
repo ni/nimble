@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 01 Dec 2025 19:34:20 GMT",
+      "version": "34.8.0",
+      "tag": "@ni/nimble-components_v34.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b71c5184eacf68cc67e59c92d81487e12e6465cb",
+            "comment": "Switch from deprecated Sass @import to @use"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Dec 2025 17:22:08 GMT",
+      "version": "34.6.5",
+      "tag": "@ni/nimble-components_v34.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b8b7754052f7f7f6b871aedc4535d7e98ee3a79b",
+            "comment": "Add work around to table to fix action-menu bug in Firefox"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Dec 2025 06:22:03 GMT",
+      "version": "34.6.3",
+      "tag": "@ni/nimble-components_v34.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "41e2151ff36cf10f07cf94ca3af197c927198c5c",
+            "comment": "dep update"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Nov 2025 16:54:41 GMT",
       "version": "34.6.1",
       "tag": "@ni/nimble-components_v34.6.1",
