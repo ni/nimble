@@ -1,6 +1,6 @@
-@import "@ni/nimble-tokens/dist/styledictionary/scss/variables";
-@import "@ni/nimble-components/dist/fonts";
-@import "@ni/nimble-components/dist/tokens";
+@use "@ni/nimble-tokens/dist/styledictionary/scss/variables" as *;
+@use "@ni/nimble-components/dist/fonts" as *;
+@use "@ni/nimble-components/dist/tokens" as *;
 
 $rgb-ni-sky-light: #A5DDED;
 $rgb-labview: #FFC60B;
