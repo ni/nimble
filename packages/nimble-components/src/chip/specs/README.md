@@ -168,6 +168,7 @@ _Consider the accessibility of the component, including:_
     - N/A
 
 ### Future work
+
 - Provide error state for the chip (there are already UX designs)
     - Again, there are no current use-cases requiring a chip to present with error information, but it is not unreasonable to expect we may have such a use-case in the future.
 - Create a chip container component that manages chip layout, and removal
