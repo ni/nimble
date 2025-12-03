@@ -24,7 +24,6 @@ export function mixinColumnWithPlaceholderAPI<
         public abstract placeholderChanged(): void;
     }
     attr({ attribute: 'placeholder' })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         ColumnWithPlaceholder.prototype,
         'placeholder'
     );

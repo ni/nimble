@@ -83,7 +83,7 @@ const data = [
     }
 ] as const;
 
-const selectionModeStates = Object.values(TableRowSelectionMode);
+export const selectionModeStates = Object.values(TableRowSelectionMode);
 type SelectionModeState = (typeof selectionModeStates)[number];
 
 const groupedStates = [

@@ -29,8 +29,7 @@ type SelectFilterInputEventHandler = (
 
 type CustomEventHandler = (evt: CustomEvent) => void;
 
-type OptionInitialState =
-    | 'selected'
+type OptionInitialState = 'selected'
     | 'disabled'
     | 'disabled selected'
     | 'disabled hidden'

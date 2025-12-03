@@ -1238,7 +1238,6 @@ describe('Table keyboard navigation', () => {
             name: interactiveCellViewName,
             template: html<TestInteractiveCellView>`<span tabindex="-1" ${ref('spanElement')}>Test</span>`
         })
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         class TestInteractiveCellView extends TableCellView {
             @observable
             public spanElement!: HTMLSpanElement;

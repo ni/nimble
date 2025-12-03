@@ -17,7 +17,7 @@ const metadata: Meta = {
 
 export default metadata;
 
-const positionStates = Object.values(DropdownPosition);
+export const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
 
 interface ComboboxMatrixStoryOptions {

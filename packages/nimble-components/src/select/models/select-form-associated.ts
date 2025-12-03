@@ -4,7 +4,7 @@ import { FormAssociated, ListboxElement } from '@ni/fast-foundation';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 class Select extends ListboxElement {}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface Select extends FormAssociated {}
 
 /**

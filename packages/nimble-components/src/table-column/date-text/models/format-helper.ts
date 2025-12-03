@@ -7,7 +7,7 @@ export function formatNumericDate(
     if (typeof date === 'number') {
         try {
             return formatter.format(date);
-        } catch (e) {
+        } catch (_e) {
             return '';
         }
     } else {

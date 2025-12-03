@@ -19,22 +19,22 @@ const metadata: Meta = {
 
 export default metadata;
 
-const positionStates = Object.values(DropdownPosition);
+export const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
 
-const filterModeStates = Object.values(FilterMode);
+export const filterModeStates = Object.values(FilterMode);
 type FilterModeState = (typeof filterModeStates)[number];
 
-const loadingVisibleStates = [false, true] as const;
+export const loadingVisibleStates = [false, true] as const;
 type LoadingVisibleState = (typeof loadingVisibleStates)[number];
 
-const placeholderStates = [false, true] as const;
+export const placeholderStates = [false, true] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
-const groupedStates = [false, true] as const;
+export const groupedStates = [false, true] as const;
 type GroupedState = (typeof groupedStates)[number];
 
-const optionsOutsideGroupStates = [false, true] as const;
+export const optionsOutsideGroupStates = [false, true] as const;
 type OptionsOutsideGroupState = (typeof optionsOutsideGroupStates)[number];
 
 interface SelectMatrixStoryOptions {
