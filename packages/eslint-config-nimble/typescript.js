@@ -2,9 +2,9 @@ import { defineConfig } from 'eslint/config';
 import { typescriptConfig } from '@ni/eslint-config-typescript';
 import jsdoc from 'eslint-plugin-jsdoc';
 import globals from 'globals';
+import { javascriptNimbleConfigOverrides } from './javascript.js';
 
-export const typescriptNimbleConfig = defineConfig([
-    typescriptConfig,
+export const typescriptNimbleConfigOverrides = defineConfig([
     {
         plugins: {
             jsdoc,
@@ -45,5 +45,11 @@ export const typescriptNimbleConfig = defineConfig([
             // It's common to define helper classes for tests and it's more readable to do this in the same file
             'max-classes-per-file': 'off',
         },
-    },
+    }
+]);
+
+export const typescriptNimbleConfig = defineConfig([
+    typescriptConfig,
+    javascriptNimbleConfigOverrides,
+    typescriptNimbleConfigOverrides,
 ]);

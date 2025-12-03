@@ -1,46 +1,26 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig, componentsNimbleConfig, lintNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { importNodeEsmConfig } from '@ni/eslint-config-javascript';
+import { lintNimbleConfig, componentsNimbleConfig, javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 import globals from 'globals';
 import storybook from 'eslint-plugin-storybook';
 
 export default defineConfig([
-    {
-        ignores: [
-            '**/dist/**',
-            // Force inclusion of storybook dot file hidden folder
-            '!**/.storybook',
-            '**/.storybook/blocks/StoryLayout.tsx',
-            '**/src/nimble/icons'
-        ]
-    },
-    // {
-    //     settings: {
-    //         // Configure the `eslint-import-resolver-typescript` package to resolve `import/no-unresolved` eslint errors in JS files
-    //         // Per https://iifx.dev/en/articles/322441446
-    //         'import/resolver': {
-    //             typescript: {} // this loads <rootdir>/tsconfig.json to eslint
-    //         }
-    //     }
-    // },
+    globalIgnores([
+        '**/dist/',
+        // Force inclusion of storybook dot file hidden folder
+        '!**/.storybook',
+        '**/.storybook/blocks/StoryLayout.tsx',
+    ]),
+    lintNimbleConfig,
     {
         files: ['**/*.js'],
         extends: javascriptNimbleConfig,
-        rules: {
-            // Storybook tends to rely on default exports in plugins
-            'import/no-default-export': 'off',
-
-            // Storybook is not a published package and is allowed to use devDependencies
-            'import/no-extraneous-dependencies': [
-                'error',
-                { devDependencies: true }
-            ]
-        }
     },
     {
         files: ['**/*.ts', '**/*.tsx'],
         extends: [
-            ...componentsNimbleConfig,
-            ...storybook.configs['flat/recommended']
+            componentsNimbleConfig,
+            storybook.configs['flat/recommended']
         ],
         languageOptions: {
             parserOptions: {
@@ -74,15 +54,22 @@ export default defineConfig([
         }
     },
     {
-        files: ['**/.storybook/*.js'],
+        files: ['**/.storybook/**/*.js'],
+        extends: importNodeEsmConfig,
         languageOptions: {
             globals: {
                 ...globals.browser
             }
+        },
+        rules: {
+            // Storybook tends to rely on default exports in plugins
+            'import/no-default-export': 'off',
+
+            // Storybook is not a published package and is allowed to use devDependencies
+            'import/no-extraneous-dependencies': [
+                'error',
+                { devDependencies: true }
+            ]
         }
-    },
-    {
-        files: ['**/*.mjs'],
-        extends: lintNimbleConfig
     },
 ]);

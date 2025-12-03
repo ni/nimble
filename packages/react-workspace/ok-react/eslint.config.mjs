@@ -1,12 +1,9 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig, typescriptNimbleConfig} from '@ni-private/eslint-config-nimble';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { lintNimbleConfig, javascriptNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
-    {
-        ignores: [
-            '**/dist/**'
-        ],
-    },
+    globalIgnores(['**/dist/']),
+    lintNimbleConfig,
     {
         files: ['**/*.js', '**/*.cjs'],
         extends: javascriptNimbleConfig,

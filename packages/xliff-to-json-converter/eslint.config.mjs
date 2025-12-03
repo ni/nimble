@@ -1,10 +1,9 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig, typescriptNimbleConfig, lintNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { lintNimbleConfig, javascriptNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
-    {
-        ignores: ['**/dist/**'],
-    },
+    globalIgnores(['**/dist/']),
+    lintNimbleConfig,
     {
         files: ['**/*.js'],
         extends: javascriptNimbleConfig,
@@ -22,9 +21,5 @@ export default defineConfig([
             // This is a command line app so printing to console to show progress is desirable
             'no-console': 'off',
         },
-    },
-    {
-        files: ['**/*.mjs'],
-        extends: lintNimbleConfig
-    },
+    }
 ]);

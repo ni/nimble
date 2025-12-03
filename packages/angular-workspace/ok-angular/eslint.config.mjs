@@ -1,8 +1,16 @@
 import { defineConfig } from 'eslint/config';
-import baseConfig from '../eslint.config.mjs';
+import { lintNimbleConfig, javascriptNimbleConfig, angularTypescriptNimbleConfig, angularTemplateNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { resolve } from 'node:path';
 
 export default defineConfig([
-    baseConfig,
+    lintNimbleConfig,
+    {
+        files: ['**/*.js'],
+        extends: javascriptNimbleConfig,
+        rules: {
+            'import/no-extraneous-dependencies': ['error', { packageDir: resolve(import.meta.dirname, '../') }],
+        }
+    },
     {
         files: ['**/*.ts'],
         languageOptions: {
@@ -11,5 +19,13 @@ export default defineConfig([
                 tsconfigRootDir: import.meta.dirname,
             },
         },
+        extends: angularTypescriptNimbleConfig,
+        rules: {
+            'import/no-extraneous-dependencies': ['error', { packageDir: resolve(import.meta.dirname, '../') }],
+        }
+    },
+    {
+        files: ['**/*.html'],
+        extends: angularTemplateNimbleConfig
     },
 ]);

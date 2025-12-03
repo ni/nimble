@@ -1,14 +1,13 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig, typescriptNimbleConfig} from '@ni-private/eslint-config-nimble';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { lintNimbleConfig, javascriptNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
-    {
-        ignores: [
-            '**/dist/**',
-            // Force inclusion of config dot file
-            '!**/*.eleventy.js',
-        ],
-    },
+    globalIgnores([
+        '**/dist/',
+        // Force inclusion of config dot file
+        '!**/*.eleventy.js',
+    ]),
+    lintNimbleConfig,
     {
         files: ['**/*.js'],
         extends: javascriptNimbleConfig,

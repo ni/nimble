@@ -1,17 +1,16 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { lintNimbleConfig, javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 import globals from 'globals';
 
 export default defineConfig([
-    {
-        ignores: [
-            '**/dist/**',
-            '**/bin/**',
-            '**/obj/**',
-            '**/wwwroot/**',
-            '!**/wwwroot/*.lib.module.js',
-        ],
-    },
+    globalIgnores([
+        '**/dist/',
+        '**/bin/',
+        '**/obj/',
+        '**/wwwroot/',
+        '!**/wwwroot/*.lib.module.js',
+    ]),
+    lintNimbleConfig,
     {
         files: ['**/*.js'],
         extends: javascriptNimbleConfig,

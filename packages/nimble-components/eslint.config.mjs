@@ -1,10 +1,13 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig, componentsNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { lintNimbleConfig, componentsNimbleConfig, javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
-    {
-        ignores: ['**/dist/**', '**/src/icons', '**/src/wafer-map/workers']
-    },
+    globalIgnores([
+        '**/dist/',
+        '**/src/icons/',
+        '**/src/wafer-map/workers/'
+    ]),
+    lintNimbleConfig,
     {
         files: ['**/*.js'],
         extends: javascriptNimbleConfig
@@ -17,12 +20,6 @@ export default defineConfig([
                 project: './tsconfig.json',
                 tsconfigRootDir: import.meta.dirname
             }
-        },
-        rules: {
-            // Disable strict null checks
-            '@typescript-eslint/no-unnecessary-condition': 'off',
-            '@typescript-eslint/strict-boolean-expressions': 'off',
-            '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'off'
         }
     },
     {

@@ -1,10 +1,9 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { lintNimbleConfig, javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
-    {
-        ignores: ['**/dist', '**/dist/styledictionary/*'],
-    },
+    globalIgnores(['**/dist/']),
+    lintNimbleConfig,
     {
         files: ['**/*.js', '**/*.cjs'],
         extends: javascriptNimbleConfig,
@@ -28,17 +27,7 @@ export default defineConfig([
         },
     },
     {
-        files: ['**/source/styledictionary/*.cjs'],
-        rules: {
-            // Build scripts will not be in published package and are allowed to use devDependencies
-            'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-
-            // Okay to use console.log in build scripts
-            'no-console': 'off',
-        },
-    },
-    {
-        files: ['**/build/**'],
+        files: ['**/source/styledictionary/*.cjs', '**/build/**'],
         rules: {
             // Build scripts will not be in published package and are allowed to use devDependencies
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],

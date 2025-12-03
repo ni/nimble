@@ -1,12 +1,11 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig, lintNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { lintNimbleConfig, javascriptNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
-    {
-        ignores: ['**/dist/**'],
-    },
+    globalIgnores(['**/dist/']),
+    lintNimbleConfig,
     {
         files: ['**/*.js', '**/*.cjs'],
         extends: javascriptNimbleConfig,
@@ -22,7 +21,7 @@ export default defineConfig([
             'react-hooks': reactHooks
         },
         extends: [
-            ...typescriptNimbleConfig,
+            typescriptNimbleConfig,
             reactHooks.configs.flat.recommended,
         ],
         languageOptions: {
@@ -60,9 +59,5 @@ export default defineConfig([
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
             'import/no-default-export': 'off',
         },
-    },
-    {
-        files: ['**/eslint.config.mjs'],
-        extends: [lintNimbleConfig],
-    },
+    }
 ]);

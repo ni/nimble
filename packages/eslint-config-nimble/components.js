@@ -27,6 +27,11 @@ export const componentsNimbleConfig = defineConfig([
                     paths: [...restrictedFastImports()],
                 },
             ],
+
+            // Strict rules components have not adopted yet
+            '@typescript-eslint/no-unnecessary-condition': 'off',
+            '@typescript-eslint/strict-boolean-expressions': 'off',
+            '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'off'
         },
     },
     {

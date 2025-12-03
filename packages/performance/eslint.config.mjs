@@ -1,10 +1,10 @@
-import { defineConfig } from 'eslint/config';
-import { javascriptNimbleConfig, lintNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { importNodeEsmConfig } from '@ni/eslint-config-javascript';
+import { lintNimbleConfig, javascriptNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
-    {
-        ignores: ['**/dist/**'],
-    },
+    globalIgnores(['**/dist/']),
+    lintNimbleConfig,
     {
         files: ['**/*.js', '**/*.cjs'],
         extends: javascriptNimbleConfig,
@@ -20,7 +20,17 @@ export default defineConfig([
         },
     },
     {
-        files: ['**/vite.config.js', '**/eslint.config.mjs'],
-        extends: [lintNimbleConfig]
+        files: ['**/vite.config.js'],
+        extends: importNodeEsmConfig,
+        rules: {
+            // Vite config tends to rely on default exports in plugins
+            'import/no-default-export': 'off',
+
+            // Vite config is not a published package and is allowed to use devDependencies
+            'import/no-extraneous-dependencies': [
+                'error',
+                { devDependencies: true }
+            ]
+        }
     },
 ]);

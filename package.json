@@ -19,7 +19,7 @@
     "validate:test": "npm run test",
     "validate:test-concurrent": "npm run test-concurrent -w packages/nimble-components",
     "test": "npm run test --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present",
+    "lint": "eslint . && npm run lint --workspaces --if-present",
     "storybook": "npm run start -w @ni-private/storybook"
   },
   "repository": {

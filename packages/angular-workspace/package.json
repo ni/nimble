@@ -13,7 +13,7 @@
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
     "generate-icons:bundle": "rollup --bundleConfigAsCjs --config nimble-angular/build/generate-icons/rollup.config.js",
     "generate-icons:run": "node nimble-angular/build/generate-icons/dist/index.js",
-    "lint": "ng lint",
+    "lint": "eslint . && ng lint",
     "pack": "npm run pack:nimble && npm run pack:spright && npm run pack:ok && npm run pack:application",
     "pack:nimble": "cd dist/nimble-angular && npm pack",
     "pack:spright": "cd dist/spright-angular && npm pack",

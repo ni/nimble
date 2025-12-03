@@ -29,6 +29,7 @@
         ".": "./index.js"
     },
     "peerDependencies": {
+        "@ni/eslint-config-angular": "^10.0.3",
         "@ni/eslint-config-javascript": "^5.1.2",
         "@ni/eslint-config-typescript": "^5.0.3",
         "eslint": "^9.36.0",
