@@ -152,10 +152,7 @@ export class Chip extends FoundationElement {
                 }
                 return true;
             case keyEscape:
-                if (
-                    this.removable
-                    && this.selectionMode === ChipSelectionMode.single
-                ) {
+                if (this.removable) {
                     e.stopPropagation();
                     this.$emit('remove');
                     return false;

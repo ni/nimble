@@ -294,7 +294,7 @@ describe('Chip', () => {
             expect(removeEvent).toHaveBeenCalledTimes(1);
         });
 
-        it('does not emit remove event when Escape is pressed on non-selectable chip', async () => {
+        it('emits remove event when Escape is pressed on non-selectable removable chip', async () => {
             element.removable = true;
             element.selectionMode = ChipSelectionMode.none;
             await waitForUpdatesAsync();
@@ -305,7 +305,7 @@ describe('Chip', () => {
             const event = new KeyboardEvent('keydown', { key: 'Escape' });
             element.dispatchEvent(event);
 
-            expect(removeEvent).not.toHaveBeenCalled();
+            expect(removeEvent).toHaveBeenCalledTimes(1);
         });
 
         it('does not emit remove event when Escape is pressed on non-removable chip', async () => {

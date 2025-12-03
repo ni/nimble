@@ -27,14 +27,15 @@ The chip uses the `selection-mode` attribute to control whether the chip is sele
     - Emitted when the user toggles the chip state via click or keyboard (Space/Enter).
     - Only emitted when `selection-mode="single"`.
 - **Event:** `remove`
-    - Emitted when the user activates the remove button (click) or presses Escape key (when selectable and removable).
+    - Emitted when the user activates the remove button (click) or presses Escape key (when removable and not disabled).
 
 ### Keyboard Interaction
 
 - **Space/Enter:** Toggles `selected` state (when `selection-mode="single"`).
     - **Note:** Enter key is handled on `keydown` to match native button behavior. Space key is handled on `keyup` to allow for active state styling.
-- **Escape:** Removes the chip (when `selection-mode="single"`, `removable`, and not `disabled`).
-    - This provides keyboard access to the remove functionality without requiring the remove button to be focusable, which would violate WCAG 4.1.2 (nested interactive controls).
+- **Escape:** Removes the chip (when `removable` and not `disabled`).
+    - When the chip is selectable (`selection-mode="single"`), the remove button is set to `tabindex="-1"` to avoid a WCAG 4.1.2 violation (nested interactive controls). The Escape key provides keyboard access to the remove functionality in this case.
+    - For non-selectable chips, Escape also works as a convenient alternative to clicking the remove button.
     - **Note:** Escape key is handled on `keydown` to prevent event propagation (e.g., to parent dialogs).
 
 ### Accessibility
@@ -45,7 +46,7 @@ The chip uses the `selection-mode` attribute to control whether the chip is sele
 - **Tabindex Management:**
     - When `selection-mode="single"`: The chip automatically manages its own `tabindex` (defaults to `0`). User-supplied values are preserved.
     - When `selection-mode="none"`: The chip does not manage `tabindex`. User-supplied values are forwarded to the remove button if `removable`.
-- **Nested Interactive Controls:** To comply with WCAG 4.1.2, when a chip is both selectable and removable, the remove button is set to `tabindex="-1"` (not keyboard-focusable) and the Escape key provides the keyboard mechanism for removal.
+- **Nested Interactive Controls:** To comply with WCAG 4.1.2, when a chip is both selectable and removable, the remove button is set to `tabindex="-1"` (not keyboard-focusable). The Escape key provides keyboard access to the remove functionality for all removable chips.
 
 ### Visual Design
 

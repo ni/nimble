@@ -18,6 +18,7 @@ import './button';
 import './card';
 import './card-button';
 import './checkbox';
+import './chip';
 import './combobox';
 import './dialog';
 import './drawer';

@@ -64,10 +64,13 @@ _The key elements of the component's public API surface:_
     - `removable` - set to show the remove button
     - `appearance` - supports `outline` and `block` appearances
     - `disabled` - styles the chip in the typical Nimble manner, including any user-slotted content (text and icon), and additionally hides the remove button.
+    - `selection-mode` - controls whether the chip can be selected. Values: `'none'` (default) or `'single'`. When `'single'`, the chip acts as a toggle button with `role="button"` and `aria-pressed`.
+    - `selected` - indicates the current selection state when `selection-mode="single"`. When `true`, the chip displays with selected background styling.
 - _Methods_
     - _None_
 - _Events_
-    - `remove` - fired when the chip remove button is pressed.
+    - `remove` - fired when the chip remove button is pressed, or when Escape key is pressed on a removable chip.
+    - `selected-change` - fired when the user toggles the chip's selected state via click or keyboard (Space/Enter). Only emitted when `selection-mode="single"`.
 - _Slots_
     - `start` - icon placed to the left of the chip text
     - (default) - for the primary label text
@@ -165,9 +168,6 @@ _Consider the accessibility of the component, including:_
     - N/A
 
 ### Future work
-
-- Make chip selectable (there are already UX designs)
-    - Currently there are no use-cases for chips requiring them to be selectable, but there are many use-cases in the wild where this is needed.
 - Provide error state for the chip (there are already UX designs)
     - Again, there are no current use-cases requiring a chip to present with error information, but it is not unreasonable to expect we may have such a use-case in the future.
 - Create a chip container component that manages chip layout, and removal
