@@ -33,7 +33,6 @@
     "@storybook/builder-vite": "^10.1.0",
     "@storybook/cli": "^10.1.0",
     "@storybook/html-vite": "^10.1.0",
-    "eslint-plugin-storybook": "^10.1.0",
     "js-beautify": "^1.15.1",
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
@@ -49,6 +48,7 @@
     "@types/react": "^18",
     "apache-arrow": "21.1.0",
     "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-storybook": "^10.1.0",
     "flatbuffers": "25.2.10"
   }
 }
