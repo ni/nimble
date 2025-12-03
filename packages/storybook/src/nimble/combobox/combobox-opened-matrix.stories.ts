@@ -17,7 +17,8 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const positionStates = Object.values(DropdownPosition);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
 
 interface ComboboxMatrixStoryOptions {

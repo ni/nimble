@@ -19,23 +19,25 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const positionStates = Object.values(DropdownPosition);
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
 
-export const filterModeStates = Object.values(FilterMode);
+const filterModeStates = Object.values(FilterMode);
 type FilterModeState = (typeof filterModeStates)[number];
 
-export const loadingVisibleStates = [false, true] as const;
+const loadingVisibleStates = [false, true] as const;
 type LoadingVisibleState = (typeof loadingVisibleStates)[number];
 
-export const placeholderStates = [false, true] as const;
+const placeholderStates = [false, true] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
-export const groupedStates = [false, true] as const;
+const groupedStates = [false, true] as const;
 type GroupedState = (typeof groupedStates)[number];
 
-export const optionsOutsideGroupStates = [false, true] as const;
+const optionsOutsideGroupStates = [false, true] as const;
 type OptionsOutsideGroupState = (typeof optionsOutsideGroupStates)[number];
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 interface SelectMatrixStoryOptions {
     positionState: PositionState;
