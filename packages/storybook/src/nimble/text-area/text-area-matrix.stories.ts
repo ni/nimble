@@ -9,8 +9,8 @@ import {
     sharedMatrixParameters
 } from '../../utilities/matrix';
 import {
-    type DisabledReadOnlyState,
-    disabledReadOnlyStates,
+    type ManipulationState,
+    manipulationStates,
     type ErrorState,
     errorStates,
     type RequiredVisibleState,
@@ -45,11 +45,11 @@ export default metadata;
 
 const component = (
     [
-        disabledReadOnlyName,
+        manipulationName,
         readOnly,
         disabled,
         appearanceReadOnly
-    ]: DisabledReadOnlyState,
+    ]: ManipulationState,
     [appearanceName, appearance]: AppearanceState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [valueName, valueValue, placeholderValue]: ValueState,
@@ -72,7 +72,7 @@ const component = (
         error-text="${() => errorText}"
         ?required-visible="${() => requiredVisible}"
     >
-        ${() => disabledReadOnlyName} ${() => appearanceName} ${() => valueName}
+        ${() => manipulationName} ${() => appearanceName} ${() => valueName}
         ${() => errorStateName} ${() => requiredVisibleName}
     </${textAreaTag}>
 `;
@@ -90,7 +90,7 @@ if (remaining.length > 0) {
 
 export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         requiredVisibleStates,
         valueStates,
@@ -101,7 +101,7 @@ export const lightTheme: StoryFn = createFixedThemeStory(
 
 export const colorTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         requiredVisibleStates,
         valueStates,
@@ -112,7 +112,7 @@ export const colorTheme: StoryFn = createFixedThemeStory(
 
 export const darkTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyStates,
+        manipulationStates,
         appearanceStates,
         requiredVisibleStates,
         valueStates,

@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 17 Nov 2025 17:24:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.8.0
+
+Mon, 01 Dec 2025 19:34:20 GMT
+
+### Minor changes
+
+- Switch from deprecated Sass @import to @use ([ni/nimble@b71c518](https://github.com/ni/nimble/commit/b71c5184eacf68cc67e59c92d81487e12e6465cb))
+
+## 34.6.5
+
+Mon, 01 Dec 2025 17:22:08 GMT
+
+### Patches
+
+- Add work around to table to fix action-menu bug in Firefox ([ni/nimble@b8b7754](https://github.com/ni/nimble/commit/b8b7754052f7f7f6b871aedc4535d7e98ee3a79b))
+
+## 34.6.3
+
+Mon, 01 Dec 2025 06:22:03 GMT
+
+### Patches
+
+- dep update ([ni/nimble@41e2151](https://github.com/ni/nimble/commit/41e2151ff36cf10f07cf94ca3af197c927198c5c))
+
+## 34.6.1
+
+Thu, 20 Nov 2025 16:54:41 GMT
+
+### Patches
+
+- Fix bug where dialogs and drawers can close via ESC when "preventDismiss" is true ([ni/nimble@2fba1c8](https://github.com/ni/nimble/commit/2fba1c80da7a42ad167bdd325af0963756f2601e))
 
 ## 34.6.0
 
