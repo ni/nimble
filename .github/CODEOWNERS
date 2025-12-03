@@ -31,12 +31,10 @@ specs @rajsite @jattasNI @atmgrifter00 @mollykreis
 # .snyk security scanning configuration file
 /.snyk @chris468 @cameronwaterman @BKnight760 @rbell517 @jattasNI @prestwick
 
+# AI Instructions
+/.github/prompts @fredvisser
+copilot-instructions.md @fredvisser
+
 # Change files don't need explicit reviewers
 /change
 
-# AI Instructions
-/.github/copilot-instructions.md @fredvisser
-/.github/prompts @fredvisser
-/packages/nimble-components/copilot-instructions.md @fredvisser
-/packages/ok-components/copilot-instructions.md @fredvisser
-/packages/spright-components/copilot-instructions.md @fredvisser

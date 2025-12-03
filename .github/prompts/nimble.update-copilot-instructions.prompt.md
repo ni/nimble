@@ -1,5 +1,5 @@
 ---
-name: update-copilot-instructions
+name: nimble.update-copilot-instructions
 description: Synchronize the AI coding agent instructions with the latest project documentation and patterns.
 ---
 
@@ -13,15 +13,18 @@ Follow GitHub's best practices for instruction files (see [Unlocking the Full Po
 
 1. **Prefer Links Over Duplication**: Link to existing documentation (CONTRIBUTING.md, specs, guidelines) rather than duplicating content. This reduces maintenance burden and ensures single source of truth.
 2. **Essential Information Only**: Include only critical patterns, gotchas, and quick-reference snippets that AI agents need immediately. Detailed documentation belongs in the linked files.
-3. **Code Snippets for Common Patterns**: Include concise, verified code examples for frequently-used patterns (component registration, testing setup) that would otherwise require multiple file reads.
+3. **Code Snippets for Common Patterns**: Include concise, verified code examples for frequently-used patterns (component registration, testing setup, templates, styles) that would otherwise require multiple file reads.
 4. **Maintainability**: Every duplicated line is a maintenance liability. Ask: "Does this need to be here, or can we link to it?"
 
 ## Context Sources
 Read the following files to understand the current "source of truth":
 1.  `CONTRIBUTING.md` (Root)
 2.  `packages/nimble-components/CONTRIBUTING.md`
-3.  `packages/nimble-components/docs/css-guidelines.md`
-4.  `packages/storybook/CONTRIBUTING.md`
+4.  `packages/nimble-components/docs/css-guidelines.md`
+2.  `packages/spright-components/CONTRIBUTING.md`
+3.  `packages/ok-components/CONTRIBUTING.md`
+5.  `packages/storybook/CONTRIBUTING.md`
+6.  `packages/storybook/src/docs/component-status.mdx`
 
 ## Target Files
 You will be updating the following instruction files:

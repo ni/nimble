@@ -51,7 +51,7 @@ import { display } from '../utilities/style/display';
 import { bodyFont } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    @layer base, hover, focusVisible, active, disabled, top
+    @layer base, hover, focusVisible, active, disabled, top;
 
     ${display('flex')}
 

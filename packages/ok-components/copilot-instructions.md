@@ -1,5 +1,9 @@
 # Ok Components – AI Instructions
 
+## Key References
+
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) – Ownership, code quality, and documentation requirements.
+
 ## Context
 
 - **Package**: `@ni/ok-components` (incubating experiments built on Nimble patterns).

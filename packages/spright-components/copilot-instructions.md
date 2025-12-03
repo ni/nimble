@@ -1,5 +1,9 @@
 # Spright Components – AI Instructions
 
+## Key References
+
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) – Ownership, code quality, and documentation requirements.
+
 ## Context
 
 - **Package**: `@ni/spright-components` (specialized components that must still align with Nimble quality).
@@ -14,17 +18,21 @@
 
 ## Requirements vs Nimble
 
-| Requirement                   | Nimble | Spright                                                  |
-| ----------------------------- | ------ | -------------------------------------------------------- |
-| Approved IxD/ViD/Tech specs   | ✅     | ✅ (can trail by agreement, but gaps must be tracked)    |
-| Unit tests + Chromatic matrix | ✅     | ✅                                                       |
-| Storybook API docs            | ✅     | ✅                                                       |
-| Storybook usage guidance      | ✅     | ⚠️ Optional if domain docs exist elsewhere               |
-| Angular/Blazor wrappers       | ✅     | ⚠️ Optional unless downstream apps require them          |
-| Accessibility polish          | ✅     | ⚠️ Temporary gaps allowed but must be logged             |
-| Tech debt tolerance           | Low    | Medium – but issues must have owners and follow-up dates |
+|                        | `nimble-components` | `spright-components` |
+| ---------------------- | :-----------------: | :------------------: |
+| Approved spec          |         🟢          |          🟢          |
+| Unit tests             |         🟢          |          🟢          |
+| Storybook visual tests |         🟢          |          🟢          |
+| Storybook API docs     |         🟢          |          🟢          |
+| Storybook usage docs   |         🟢          |          🟡          |
+| Approved VxD\*         |         🟢          |          🟡          |
+| Approved IxD\*         |         🟢          |          🟡          |
+| Angular/Blazor support |         🟢          |          🟡          |
+| Proper a11y            |         🟢          |          🟡          |
+| Minimal tech debt      |         🟢          |          🟡          |
+| Mobile support         |         🟡          |          🟡          |
 
-Legend: ✅ required, ⚠️ optional/negotiated
+🟢 = required, 🟡 = optional\*By an interaction and/or visual designer
 
 ## Code Ownership
 
