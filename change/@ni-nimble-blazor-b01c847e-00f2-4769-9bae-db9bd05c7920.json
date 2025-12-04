@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add action menu selection attribute to table",
-  "packageName": "@ni/nimble-blazor",
-  "email": "valerie.gleason@gmail.com",
-  "dependentChangeType": "patch"
-}

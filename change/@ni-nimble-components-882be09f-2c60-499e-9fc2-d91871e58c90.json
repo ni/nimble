@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add action menu preserves selection attribute to table",
-  "packageName": "@ni/nimble-components",
-  "email": "valerie.gleason@gmail.com",
-  "dependentChangeType": "patch"
-}
