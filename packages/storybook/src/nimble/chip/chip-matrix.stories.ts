@@ -113,8 +113,8 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
         showStartSlotIconStates,
         labelStates,
         widthStates,
-        selectionModeStates,
-        selectedStates
+        [selectionModeStates[0]], // Only non-selectable
+        [selectedStates[0]] // Only not selected
     ])
 );
 
