@@ -8,8 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/angular-workspace/spright-angular"
+    "url": "git+https://github.com/ni/nimble.git"
   },
   "publishConfig": {
     "access": "public"

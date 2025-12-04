@@ -6,8 +6,7 @@
   "description": "Shared ESLint configuration for FAST web component development",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/eslint-config-nimble"
+    "url": "git+https://github.com/ni/nimble.git"
   },
   "keywords": [
     "eslint",
