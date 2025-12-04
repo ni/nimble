@@ -83,6 +83,7 @@ const data = [
     }
 ] as const;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const selectionModeStates = Object.values(TableRowSelectionMode);
 type SelectionModeState = (typeof selectionModeStates)[number];
 

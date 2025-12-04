@@ -31,18 +31,18 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     private readonly noValuePlaceholderLabelSubscriber: DesignTokenSubscriber<
         typeof tableGroupRowPlaceholderNoValueLabel
     > = {
-            handleChange: () => {
-                this.applyPlaceholderTextIfNeeded();
-            }
-        };
+        handleChange: () => {
+            this.applyPlaceholderTextIfNeeded();
+        }
+    };
 
     private readonly emptyPlaceholderLabelSubscriber: DesignTokenSubscriber<
         typeof tableGroupRowPlaceholderEmptyLabel
     > = {
-            handleChange: () => {
-                this.applyPlaceholderTextIfNeeded();
-            }
-        };
+        handleChange: () => {
+            this.applyPlaceholderTextIfNeeded();
+        }
+    };
 
     public override connectedCallback(): void {
         super.connectedCallback();
