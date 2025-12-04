@@ -3,5 +3,4 @@ export const ExampleBreadcrumbItemsType = {
     many: 'many',
     wide: 'wide'
 } as const;
-export type ExampleBreadcrumbItemsType =
-    (typeof ExampleBreadcrumbItemsType)[keyof typeof ExampleBreadcrumbItemsType];
+export type ExampleBreadcrumbItemsType = (typeof ExampleBreadcrumbItemsType)[keyof typeof ExampleBreadcrumbItemsType];

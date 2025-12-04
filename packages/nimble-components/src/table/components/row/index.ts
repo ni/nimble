@@ -35,7 +35,7 @@ declare global {
 }
 
 /** Represents a single row (element) in the Table's data  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface TableDataRecord extends TableRecord {}
 
 /**

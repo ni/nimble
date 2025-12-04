@@ -718,7 +718,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
 applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 

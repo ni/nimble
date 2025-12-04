@@ -14,6 +14,7 @@
     "generate-icons:bundle": "rollup --bundleConfigAsCjs --config nimble-angular/build/generate-icons/rollup.config.js",
     "generate-icons:run": "node nimble-angular/build/generate-icons/dist/index.js",
     "lint": "eslint . && ng lint",
+    "format": "eslint . --fix && ng lint --fix",
     "pack": "npm run pack:nimble && npm run pack:spright && npm run pack:ok && npm run pack:application",
     "pack:nimble": "cd dist/nimble-angular && npm pack",
     "pack:spright": "cd dist/spright-angular && npm pack",
@@ -30,8 +31,7 @@
     "test": "ng test --watch=false",
     "test-nimble": "ng test @ni/nimble-angular --watch=false",
     "test-spright": "ng test @ni/spright-angular --watch=false",
-    "test-ok": "ng test @ni/ok-angular --watch=false",
-    "format": "ng lint --fix"
+    "test-ok": "ng test @ni/ok-angular --watch=false"
   },
   "dependencies": {
     "@angular/animations": "^18.2.13",

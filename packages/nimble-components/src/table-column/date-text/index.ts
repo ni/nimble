@@ -254,7 +254,7 @@ export class TableColumnDateText extends mixinTextBase(
         }
         try {
             return new Intl.DateTimeFormat(lang.getValueFor(this), options);
-        } catch (e) {
+        } catch (_e) {
             return undefined;
         }
     }
