@@ -31,3 +31,7 @@ import * as componentStories from './component.stories';
 <Canvas of={componentStories.firstStoryName} />
 <Controls of={componentStories.firstStoryName} />
 ```
+
+## Common Pitfalls
+- ❌ **Missing Args**: Ensure all component inputs are defined in `argTypes`.
+- ❌ **Broken Links**: Use relative paths for links to other docs.

@@ -22,3 +22,7 @@ Run these commands from the repo root:
 
 ## Naming Conventions
 - **Icons**: Use Font Awesome names where possible (e.g., `key`, `cog`). Avoid metaphors (`access-control`, `logout`).
+
+## Common Pitfalls
+- ❌ **Missing Build**: Always run `npm run build` after changing tokens or icons.
+- ❌ **Complex SVGs**: Icons should be simple paths. Remove `<defs>`, `style` tags, and colors (unless multi-colored).

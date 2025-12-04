@@ -43,3 +43,8 @@ export class NimbleExampleDirective {
 - Test `ControlValueAccessor` with `[(ngModel)]`.
 - Verify module imports: `expect(customElements.get('nimble-example')).not.toBeUndefined();`.
 - Use `fakeAsync` and `processUpdates()` for async behavior.
+
+## Common Pitfalls
+- ❌ **Direct DOM Manipulation**: Use `Renderer2` instead of modifying `nativeElement` directly.
+- ❌ **Missing CVA**: Form components *must* implement `ControlValueAccessor`.
+- ❌ **State Duplication**: Don't duplicate component state in the directive; proxy it.

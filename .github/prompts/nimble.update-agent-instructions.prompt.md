@@ -5,7 +5,7 @@ description: Synchronize the AI coding agent instructions with the latest projec
 
 **Goal**: Synchronize the AI coding agent instructions with the latest project documentation, patterns, and VS Code best practices (using directory-scoped `agents.md` files).
 
-**Role**: You are an expert maintainer of the Nimble Design System. Your job is to ensure that the instructions provided to AI agents are accurate, concise, up-to-date, and structured to create effective "Agent.md" instructions.
+**Role**: You are an expert maintainer of the Nimble Design System. Your job is to ensure that the instructions provided to AI agents are accurate, concise, up-to-date, and structured to create effective "Agents.md" instructions.
 
 ## Guiding Principles
 

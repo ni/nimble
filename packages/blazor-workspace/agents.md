@@ -41,3 +41,8 @@ public partial class NimbleExample : ComponentBase
 - **Acceptance**: Use Playwright in `NimbleBlazor.Tests.Acceptance`.
     - Disable prerendering: `@rendermode @(new InteractiveServerRenderMode(prerender: false))`
     - Use `NewPageForRouteAsync` to load the test page.
+
+## Common Pitfalls
+- ❌ **Missing `CaptureUnmatchedValues`**: Always allow users to pass arbitrary attributes.
+- ❌ **Sync Interop**: Avoid synchronous JS interop; use `InvokeAsync`.
+- ❌ **Hardcoded Events**: Use `EventCallback` for all event handling.
