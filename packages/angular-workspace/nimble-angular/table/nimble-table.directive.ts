@@ -5,7 +5,6 @@ import { TableRowSelectionMode, TableRecordDelayedHierarchyState } from '@ni/nim
 import type { Observable, Subscription } from 'rxjs';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
-
 export type { Table };
 export { tableTag };
 export type { TableActionMenuToggleEventDetail, TableRowSelectionEventDetail, TableColumnConfigurationChangeEventDetail, TableColumnConfiguration, TableRowExpansionToggleEventDetail };

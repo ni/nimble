@@ -870,7 +870,9 @@ export class Table<
     ): Promise<TableActionMenuToggleEventDetail> {
         const recordIds = this.selectionMode === TableRowSelectionMode.multiple
             ? await this.getSelectedRecordIds()
-            : [this.openActionMenuRecordId!];
+            : this.actionMenusPreserveSelection
+                ? await this.getSelectedRecordIds()
+                : [this.openActionMenuRecordId!];
         return {
             ...originalEvent.detail,
             recordIds

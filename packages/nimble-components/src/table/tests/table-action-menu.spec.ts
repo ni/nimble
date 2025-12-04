@@ -120,6 +120,13 @@ describe('Table action menu', () => {
         return event.detail.recordIds;
     }
 
+    function getEmittedOperatingRecordIdFromSpy(
+        spy: jasmine.Spy<TableActionMenuToggleEventHandler>
+    ): string {
+        const event = spy.calls.first().args[0];
+        return event.detail.operatingRecordId;
+    }
+
     beforeEach(async () => {
         await element.setData(simpleTableData);
         element.idFieldName = 'stringData';
@@ -617,6 +624,18 @@ describe('Table action menu', () => {
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([simpleTableData[1].stringData]);
+            expect(beforetoggleSpy).toHaveBeenCalledTimes(1);
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(toggleSpy).toHaveBeenCalledTimes(1);
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+
+            expect(getEmittedOperatingRecordIdFromSpy(toggleSpy)).toBe(
+                simpleTableData[rowIndex].stringData
+            );
         });
 
         it('when false, clicking action menu on unselected row with no prior selection selects it', async () => {
@@ -647,6 +666,16 @@ describe('Table action menu', () => {
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([]);
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+
+            expect(getEmittedOperatingRecordIdFromSpy(toggleSpy)).toBe(
+                simpleTableData[rowIndex].stringData
+            );
         });
 
         it('when true, clicking action menu in multi row selection mode does not change selection', async () => {
@@ -662,6 +691,16 @@ describe('Table action menu', () => {
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([simpleTableData[1].stringData]);
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+
+            expect(getEmittedOperatingRecordIdFromSpy(toggleSpy)).toBe(
+                simpleTableData[rowIndex].stringData
+            );
         });
     });
 
