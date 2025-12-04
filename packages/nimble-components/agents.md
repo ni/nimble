@@ -25,6 +25,8 @@ Run these commands from the repo root:
 
 ## Component Skeleton
 
+<!-- Pattern derived from src/text-field/index.ts -->
+
 ### `index.ts`
 
 ```typescript
@@ -55,6 +57,8 @@ DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleExample());
 export const exampleTag = 'nimble-example';
 ```
 
+<!-- Pattern derived from src/text-field/styles.ts -->
+
 ### `styles.ts`
 
 ```typescript
@@ -74,6 +78,8 @@ export const styles = css`
     }
 `;
 ```
+
+<!-- Pattern derived from src/text-field/tests/text-field.spec.ts -->
 
 ### `tests/*.spec.ts`
 

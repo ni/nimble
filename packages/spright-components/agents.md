@@ -45,3 +45,4 @@ Run these commands from the repo root:
 
 - ❌ **Duplicating Nimble Patterns**: Link to `nimble-components` docs instead of copying code snippets.
 - ❌ **Missing Specs**: An approved spec is required before development.
+- ❌ **Skipping Visual Tests**: Storybook visual tests are mandatory.
