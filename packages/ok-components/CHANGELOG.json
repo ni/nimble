@@ -2,6 +2,39 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 21:45:22 GMT",
+      "version": "0.1.15",
+      "tag": "@ni/ok-components_v0.1.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "f8f93677c34da2f3f992077c864ad3cc5541669b",
+            "comment": "Upgrade to ESLint v9 and update the configuration to use the flat configuration format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v34.8.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.4.15",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 19:09:56 GMT",
       "version": "0.1.14",
       "tag": "@ni/ok-components_v0.1.14",

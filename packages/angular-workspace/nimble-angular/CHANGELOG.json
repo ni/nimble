@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 21:45:22 GMT",
+      "version": "30.11.3",
+      "tag": "@ni/nimble-angular_v30.11.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f8f93677c34da2f3f992077c864ad3cc5541669b",
+            "comment": "Upgrade to ESLint v9 and update the configuration to use the flat configuration format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v34.8.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 03:43:28 GMT",
       "version": "30.11.2",
       "tag": "@ni/nimble-angular_v30.11.2",

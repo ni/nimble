@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Upgrade to ESLint v9 and update the configuration to use the flat configuration format",
-  "packageName": "@ni/ok-react",
-  "email": "131153319+gokulprasanth-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

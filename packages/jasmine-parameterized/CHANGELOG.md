@@ -1,8 +1,16 @@
 # Change Log - @ni/jasmine-parameterized
 
-<!-- This log was last generated on Thu, 04 Dec 2025 03:43:28 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 04 Dec 2025 21:45:22 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.6
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
 
 ## 1.0.5
 
