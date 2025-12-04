@@ -34,6 +34,7 @@ specs @rajsite @jattasNI @atmgrifter00 @mollykreis
 # AI Instructions
 /.github/prompts @fredvisser
 copilot-instructions.md @fredvisser
+agents.md @fredvisser
 
 # Change files don't need explicit reviewers
 /change
