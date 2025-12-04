@@ -1,19 +1,24 @@
 # Nimble Components – AI Instructions
 
 ## Overview
+
 The core Web Components library for the Nimble Design System, built on the **FAST Foundation**.
+
 - **Framework**: FAST Element (Web Components)
 - **Styling**: SCSS-like `css` tagged templates with Design Tokens
 - **Testing**: Karma/Jasmine (Unit), Playwright (Visual/Interaction)
 
 ## Build & Test
+
 Run these commands from the repo root:
+
 - **Build**: `npm run build -w @ni/nimble-components`
 - **Test (Watch)**: `npm run tdd:watch -w @ni/nimble-components`
 - **Test (All Browsers)**: `npm run test-webkit -w @ni/nimble-components`
 - **Lint**: `npm run lint -w @ni/nimble-components`
 
 ## Key References
+
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) – component lifecycle, Storybook, accessibility.
 - [`docs/css-guidelines.md`](docs/css-guidelines.md) – cascade layers, `display()` utility, attribute-driven states.
 - [`docs/coding-conventions.md`](docs/coding-conventions.md) – const-object enums, comment expectations.
@@ -21,6 +26,7 @@ Run these commands from the repo root:
 ## Component Skeleton
 
 ### `index.ts`
+
 ```typescript
 import { attr } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
@@ -50,6 +56,7 @@ export const exampleTag = 'nimble-example';
 ```
 
 ### `styles.ts`
+
 ```typescript
 import { css } from '@ni/fast-element';
 import { display } from '../utilities/style/display';
@@ -69,6 +76,7 @@ export const styles = css`
 ```
 
 ### `tests/*.spec.ts`
+
 ```typescript
 import { html } from '@ni/fast-element';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
@@ -94,6 +102,7 @@ describe('Example', () => {
 ```
 
 ## Common Pitfalls
+
 - ❌ **Hardcoded Colors**: Always use tokens (e.g., `bodyFont`), never hex codes or raw CSS vars.
 - ❌ **Class-based State**: Use attributes/behaviors to drive state, not `.is-active` classes.
 - ❌ **Missing Exports**: Always export the tag constant and update `src/all-components.ts`.

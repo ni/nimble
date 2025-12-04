@@ -1,20 +1,26 @@
 # Ok Components – AI Instructions
 
 ## Overview
+
 Incubating and experimental components built on Nimble patterns.
+
 - **Prefix**: `ok-`
 - **Status**: Experimental / Pre-production
 - **Goal**: Rapid prototyping with a path to graduation.
 
 ## Build & Test
+
 Run these commands from the repo root:
+
 - **Build**: `npm run build -w @ni/ok-components`
 - **Test**: `npm run tdd:watch -w @ni/ok-components`
 
 ## Key References
+
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) – Ownership, code quality, and documentation requirements.
 
 ## Requirements vs Nimble
+
 | Area                 | Nimble             | Ok                                                |
 | -------------------- | ------------------ | ------------------------------------------------- |
 | Spec completeness    | Required           | Optional – document scope gaps in Storybook       |
@@ -23,5 +29,12 @@ Run these commands from the repo root:
 | Owner team           | Nimble             | Contributing feature team                         |
 
 ## Expectations
+
 - Follow Nimble coding/styling/testing conventions unless explicitly documented otherwise.
 - Clearly call out incubating gaps in docs (e.g., Storybook banner, component status table ⚠️ entry).
+
+## Common Pitfalls
+
+- ❌ **Undocumented Gaps**: Always add a Storybook banner and ⚠️ status for incubating features.
+- ❌ **Skipping Tests**: Unit and Chromatic tests are still required, even for experimental code.
+- ❌ **Missing CODEOWNERS**: Add both contributing team and Nimble team as owners.
