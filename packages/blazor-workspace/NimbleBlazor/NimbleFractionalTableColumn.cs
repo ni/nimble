@@ -20,16 +20,10 @@ public abstract class NimbleFractionalTableColumn : NimbleTableColumn, IFraction
     /// <summary>
     /// The fractional/proportional width formatted with the invariant culture.
     /// </summary>
-    protected string FractionalWidthAsString()
-    {
-        return FractionalWidth.ToString(CultureInfo.InvariantCulture);
-    }
+    protected string FractionalWidthAsString => FractionalWidth.ToString(CultureInfo.InvariantCulture);
 
     /// <summary>
     /// The minimum column width formatted with the invariant culture.
     /// </summary>
-    protected string? MinPixelWidthAsString()
-    {
-        return MinPixelWidth?.ToString(CultureInfo.InvariantCulture);
-    }
+    protected string? MinPixelWidthAsString => MinPixelWidth?.ToString(CultureInfo.InvariantCulture);
 }
