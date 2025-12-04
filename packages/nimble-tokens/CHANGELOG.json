@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 03:43:28 GMT",
+      "version": "8.13.4",
+      "tag": "@ni/nimble-tokens_v8.13.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "bf1d4a84926cbdd3332713b91c509f3de07d1420",
+            "comment": "Remove directory path from package.json to resolve README linking issue"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 10 Nov 2025 23:09:19 GMT",
       "version": "8.13.2",
       "tag": "@ni/nimble-tokens_v8.13.2",

@@ -13,7 +13,7 @@ const path = require('path');
 const fontsFilePath = path.resolve(__dirname, '../../../dist/fonts.scss');
 const fontsFile = `// Nimble Components Fonts SCSS
 
-@import '@ni/nimble-tokens/dist/fonts/scss/fonts';
+@forward '@ni/nimble-tokens/dist/fonts/scss/fonts';
 `;
 
 const tokensFilePath = path.resolve(__dirname, '../../../dist/tokens.scss');
@@ -23,7 +23,8 @@ const tokensFileHeader = `// Nimble Components Tokens SCSS
 // Requires using a <nimble-theme-provider> in the page.
 // For more information see https://github.com/ni/nimble/tree/main/packages/nimble-components#theming
 
-@import 'tokens-internal';
+@forward 'tokens-internal';
+@use 'tokens-internal' as *;
 `;
 
 const tokensFileContents = Object.entries(tokenNames).map(

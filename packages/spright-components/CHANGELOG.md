@@ -1,8 +1,34 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 01 Dec 2025 06:22:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 04 Dec 2025 03:43:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.4.12
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/nimble-components to v34.8.2
+- Bump @ni/jasmine-parameterized to v1.0.5
+
+## 6.4.10
+
+Mon, 01 Dec 2025 19:34:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.0
+
+## 6.4.8
+
+Mon, 01 Dec 2025 17:22:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.6.5
 
 ## 6.4.6
 

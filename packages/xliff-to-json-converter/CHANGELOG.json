@@ -2,6 +2,21 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 03:43:28 GMT",
+      "version": "1.1.12",
+      "tag": "@ni/xliff-to-json-converter_v1.1.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "bf1d4a84926cbdd3332713b91c509f3de07d1420",
+            "comment": "Remove directory path from package.json to resolve README linking issue"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Nov 2025 20:20:29 GMT",
       "version": "1.1.10",
       "tag": "@ni/xliff-to-json-converter_v1.1.10",

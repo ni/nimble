@@ -83,7 +83,7 @@ The theming system is composed of:
 2. Include one import in your styles for the Nimble fonts. Nimble recommends using SCSS for capabilities such as build-time property checking.
 
     ```scss
-    @import '@ni/nimble-components/dist/fonts';
+    @use '@ni/nimble-components/dist/fonts' as *;
     ```
 
 3. As needed, add Nimble components as descendants of the theme provider and they will inherit the theme.
@@ -91,7 +91,7 @@ The theming system is composed of:
 4. As needed, import the theme-aware design tokens in each SCSS file that will leverage the tokens for other parts of your application (for colors, fonts, etc).
 
     ```scss
-    @import '@ni/nimble-components/dist/tokens';
+    @use '@ni/nimble-components/dist/tokens' as *;
 
     .my-element {
         font-family: $ni-nimble-body-font-family;
