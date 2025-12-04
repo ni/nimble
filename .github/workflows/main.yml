@@ -47,9 +47,11 @@ jobs:
 
       # Remove existing dotnet installs, both package managed versions and manual versions
       # See https://github.com/dotnet/sdk/issues/39635#issuecomment-3075858666
-      - run: dotnet --info
-      - run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
-      - run: sudo rm -rf /usr/share/dotnet/
+      - name: Removing existing dotnet installs
+        run: |
+          dotnet --info
+          sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
+          sudo rm -rf /usr/share/dotnet/
 
       # Install dependencies
       - uses: actions/setup-dotnet@v5
@@ -126,7 +128,7 @@ jobs:
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
       # Release
-      - name: Set Git User
+      - name: Publish packages
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NUGET_TOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
         env:
           NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
