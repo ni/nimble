@@ -4,7 +4,7 @@
 
 # Ok React
 
-React Components for Nimble web components built using [`@lit/react`](https://lit.dev/docs/frameworks/react/#why-are-wrappers-needed).
+React Components for Ok web components built using [`@lit/react`](https://lit.dev/docs/frameworks/react/#why-are-wrappers-needed).
 
 ## Getting Started
 

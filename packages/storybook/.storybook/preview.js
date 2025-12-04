@@ -38,18 +38,19 @@ const parameters = {
             order: [
                 'Getting Started',
                 'Components',
-                ['Status Table'],
+                // Intentionally no docs for 'Components'
                 'Incubating',
                 ['Docs'],
                 'Tokens',
-                ['Docs'],
+                // Intentionally no docs for 'Tokens'
                 'Tests',
                 ['Docs'],
                 'Spright',
+                // Intentionally no docs for 'Spright'
                 'Tests Spright',
                 ['Docs'],
                 'Ok',
-                ['Docs'],
+                // Intentionally no docs for 'Ok'
                 'Tests Ok',
                 ['Docs'],
                 'Internal',
