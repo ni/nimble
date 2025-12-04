@@ -36,6 +36,19 @@ is:
 
 {/* ## Examples */}
 
-{/* ## Accessibility */}
+## Accessibility
+
+### Keyboard Interaction
+
+When a chip is both selectable (`selection-mode="single"`) and removable:
+
+- **Space/Enter**: Toggles the chip's selected state
+- **Escape**: Removes the chip (emits the `remove` event)
+
+The remove button is non-focusable when the chip is selectable to avoid nested
+interactive controls. Instead, use the Escape key to remove a focused chip.
+
+When a chip is removable but not selectable (`selection-mode="none"`), the
+remove button is focusable and can be activated with Space or Enter.
 
 {/* ## Resources */}

@@ -64,10 +64,13 @@ _The key elements of the component's public API surface:_
     - `removable` - set to show the remove button
     - `appearance` - supports `outline` and `block` appearances
     - `disabled` - styles the chip in the typical Nimble manner, including any user-slotted content (text and icon), and additionally hides the remove button.
+    - `selection-mode` - controls whether the chip can be selected. Values: `'none'` (default) or `'single'`. When `'single'`, the chip acts as a toggle button with `role="button"` and `aria-pressed`.
+    - `selected` - indicates the current selection state when `selection-mode="single"`. When `true`, the chip displays with selected background styling.
 - _Methods_
     - _None_
 - _Events_
-    - `remove` - fired when the chip remove button is pressed.
+    - `remove` - fired when the chip remove button is pressed, or when Escape key is pressed on a removable chip.
+    - `selected-change` - fired when the user toggles the chip's selected state via click or keyboard (Space/Enter). Only emitted when `selection-mode="single"`.
 - _Slots_
     - `start` - icon placed to the left of the chip text
     - (default) - for the primary label text
@@ -145,12 +148,18 @@ We will provide styling for the `disabled` attribute state.
 _Consider the accessibility of the component, including:_
 
 - _Keyboard Navigation and Focus_
-    - when the chip component is removable, the remove button will be focusable, otherwise it will not receive focus (following the `nimble-banner` pattern).
+    - When the chip is selectable (`selection-mode="single"`) and removable:
+        - The chip itself is focusable and receives keyboard events
+        - Space/Enter toggles the selected state
+        - Escape removes the chip (emits `remove` event)
+        - The remove button is **not** focusable (`tabindex="-1"`) to avoid nested interactive controls (violates [WCAG 4.1.2](https://dequeuniversity.com/rules/axe/4.11/nested-interactive))
+    - When the chip is removable but not selectable (`selection-mode="none"`):
+        - The remove button is focusable and can be activated with Space or Enter
 - _Form Input_
     - N/A
 - _Use with Assistive Technology_
+    - When selectable, the chip has `role="button"` and `aria-pressed` to indicate its toggle state
     - a `chip`'s accessible name comes from the element's contents by default
-    - no ARIA `role` seems necessary to define for the chip, as it isn't interactive itself (only the remove button is which has a `role`). The only valid role seemed to be [`status`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role), but that also didn't seem helpful from an accessibility perspective, particularly since it mainly relates to providing helpful information when the content changes (which we don't expect).
     - the remove button will have its content set to provide a label provider token for "Remove".
         - title will not be set, which aligns with decisions for the filterable select clear button and the banner
         - ideally this would include the contents of the chip itself (so a screen reader would announce "Remove <Chip>") but differing word order between
@@ -160,8 +169,6 @@ _Consider the accessibility of the component, including:_
 
 ### Future work
 
-- Make chip selectable (there are already UX designs)
-    - Currently there are no use-cases for chips requiring them to be selectable, but there are many use-cases in the wild where this is needed.
 - Provide error state for the chip (there are already UX designs)
     - Again, there are no current use-cases requiring a chip to present with error information, but it is not unreasonable to expect we may have such a use-case in the future.
 - Create a chip container component that manages chip layout, and removal
