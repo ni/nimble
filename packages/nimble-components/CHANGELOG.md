@@ -1,8 +1,18 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 04 Dec 2025 03:43:28 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 04 Dec 2025 21:45:22 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.8.3
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/nimble-tokens to v8.13.5
+- Bump @ni/jasmine-parameterized to v1.0.6
 
 ## 34.8.2
 

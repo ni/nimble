@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 21:45:22 GMT",
+      "version": "8.13.5",
+      "tag": "@ni/nimble-tokens_v8.13.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f8f93677c34da2f3f992077c864ad3cc5541669b",
+            "comment": "Upgrade to ESLint v9 and update the configuration to use the flat configuration format"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 03:43:28 GMT",
       "version": "8.13.4",
       "tag": "@ni/nimble-tokens_v8.13.4",

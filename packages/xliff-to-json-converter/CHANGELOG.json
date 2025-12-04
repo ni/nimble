@@ -2,6 +2,21 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 21:45:22 GMT",
+      "version": "1.1.13",
+      "tag": "@ni/xliff-to-json-converter_v1.1.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "f8f93677c34da2f3f992077c864ad3cc5541669b",
+            "comment": "Upgrade to ESLint v9 and update the configuration to use the flat configuration format"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 03:43:28 GMT",
       "version": "1.1.12",
       "tag": "@ni/xliff-to-json-converter_v1.1.12",

@@ -2,6 +2,33 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 21:45:22 GMT",
+      "version": "6.4.15",
+      "tag": "@ni/spright-components_v6.4.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "f8f93677c34da2f3f992077c864ad3cc5541669b",
+            "comment": "Upgrade to ESLint v9 and update the configuration to use the flat configuration format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v34.8.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 19:09:56 GMT",
       "version": "6.4.14",
       "tag": "@ni/spright-components_v6.4.14",
