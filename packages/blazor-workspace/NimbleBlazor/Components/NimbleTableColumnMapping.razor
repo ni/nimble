@@ -1,5 +1,4 @@
-﻿@using System.Globalization
-@namespace NimbleBlazor
+﻿@namespace NimbleBlazor
 @inherits NimbleTableColumnEnumBase<TKey>
 @attribute [CascadingTypeParameter(nameof(TKey))]
 @typeparam TKey
@@ -10,8 +9,8 @@
     action-menu-slot="@ActionMenuSlot"
     action-menu-label="@ActionMenuLabel"
     column-hidden="@ColumnHidden"
-    fractional-width="@FractionalWidth.ToString(CultureInfo.InvariantCulture)"
-    min-pixel-width="@MinPixelWidth.ToString(CultureInfo.InvariantCulture)"
+    fractional-width="@FractionalWidthAsString()"
+    min-pixel-width="@MinPixelWidthAsString()"
     sort-direction="@SortDirection.ToAttributeValue()"
     sort-index="@SortIndex"
     sorting-disabled="@SortingDisabled"
