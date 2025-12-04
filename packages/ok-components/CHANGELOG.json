@@ -2,6 +2,60 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 19:09:56 GMT",
+      "version": "0.1.14",
+      "tag": "@ni/ok-components_v0.1.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "a210907bff6aad25602a66f17d0f0b98cc759a05",
+            "comment": "doc updates"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.4.14",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 03:43:28 GMT",
+      "version": "0.1.12",
+      "tag": "@ni/ok-components_v0.1.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "bf1d4a84926cbdd3332713b91c509f3de07d1420",
+            "comment": "Remove directory path from package.json to resolve README linking issue"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v34.8.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.4.12",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Dec 2025 19:34:20 GMT",
       "version": "0.1.10",
       "tag": "@ni/ok-components_v0.1.10",

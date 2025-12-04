@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "8.13.2",
+  "version": "8.13.4",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:generate-font-scss && npm run build:style-dictionary",
@@ -17,8 +17,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/nimble-tokens"
+    "url": "git+https://github.com/ni/nimble.git"
   },
   "publishConfig": {
     "access": "public"

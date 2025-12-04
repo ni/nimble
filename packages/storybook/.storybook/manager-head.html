@@ -1,4 +1,39 @@
 <!--
   Override the default favicon used in the Storybook in the browser tab.
 -->
- <link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.ico" sizes="any">
+<style>
+    /* 
+       Storybook 10's toolbar icons (specifically the addon icons on the right) 
+       sometimes default to a dark grey (fgColor.default) instead of using barTextColor.
+       Since our toolbar background is dark green (Brand85), we force these icons to be white.
+       See: https://github.com/storybookjs/storybook/issues/32789
+    */
+    .sb-bar button {
+        color: #ffffff !important; /* White */
+    }
+    .sb-bar button svg {
+        fill: #ffffff !important;
+    }
+    
+    /* Hover state: Black15 (#f1f1f2) */
+    .sb-bar button:hover {
+        color: #f1f1f2 !important;
+    }
+    .sb-bar button:hover svg {
+        fill: #f1f1f2 !important;
+    }
+
+    /* Selected/Active state: Black7 (#f5f5f5) */
+    .sb-bar button:active, 
+    .sb-bar button[aria-pressed="true"], 
+    .sb-bar button[class*="selected"] {
+        color: #f5f5f5 !important;
+    }
+    .sb-bar button:active svg, 
+    .sb-bar button[aria-pressed="true"] svg, 
+    .sb-bar button[class*="selected"] svg {
+        fill: #f5f5f5 !important;
+    }
+</style>
+

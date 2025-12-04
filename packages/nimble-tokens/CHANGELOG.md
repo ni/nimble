@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Mon, 10 Nov 2025 23:09:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 04 Dec 2025 03:43:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.13.4
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
 
 ## 8.13.2
 

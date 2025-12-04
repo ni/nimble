@@ -1,8 +1,26 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 04 Dec 2025 19:09:56 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.7.4
+
+Thu, 04 Dec 2025 19:09:56 GMT
+
+### Patches
+
+- doc updates ([ni/nimble@a210907](https://github.com/ni/nimble/commit/a210907bff6aad25602a66f17d0f0b98cc759a05))
+
+## 0.7.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/nimble-tokens to v8.13.4
+- Bump @ni/nimble-components to v34.8.2
 
 ## 0.7.0
 

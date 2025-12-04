@@ -2,6 +2,48 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 19:09:56 GMT",
+      "version": "0.2.14",
+      "tag": "@ni/ok-react_v0.2.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "a210907bff6aad25602a66f17d0f0b98cc759a05",
+            "comment": "doc updates"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.14",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 03:43:28 GMT",
+      "version": "0.2.12",
+      "tag": "@ni/ok-react_v0.2.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "bf1d4a84926cbdd3332713b91c509f3de07d1420",
+            "comment": "Remove directory path from package.json to resolve README linking issue"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.12",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Dec 2025 19:34:20 GMT",
       "version": "0.2.10",
       "tag": "@ni/ok-react_v0.2.10",

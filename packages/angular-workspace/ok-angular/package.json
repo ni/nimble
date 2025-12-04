@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-angular",
-  "version": "0.1.10",
+  "version": "0.1.14",
   "description": "Angular components for NI OK Components",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/ok-angular && npm publish",
@@ -8,8 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/angular-workspace/ok-angular"
+    "url": "git+https://github.com/ni/nimble.git"
   },
   "publishConfig": {
     "access": "public"
@@ -25,7 +24,7 @@
   "peerDependencies": {
     "@angular/common": "^18.2.13",
     "@angular/core": "^18.2.13",
-    "@ni/ok-components": "^0.1.10"
+    "@ni/ok-components": "^0.1.14"
   },
   "dependencies": {
     "tslib": "^2.2.0"

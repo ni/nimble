@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.4.10",
+  "version": "6.4.14",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
@@ -30,8 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/spright-components"
+    "url": "git+https://github.com/ni/nimble.git"
   },
   "publishConfig": {
     "access": "public"
@@ -48,12 +47,12 @@
     "@ni/fast-element": "^10.0.0",
     "@ni/fast-foundation": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^34.8.0",
+    "@ni/nimble-components": "^34.8.2",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@ni-private/jasmine-extensions": "^0.0.1",
-    "@ni/jasmine-parameterized": "^1.0.3",
+    "@ni/jasmine-parameterized": "^1.0.5",
     "@ni-private/eslint-config-nimble": "*",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
