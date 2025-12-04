@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Remove directory path from package.json to resolve README linking issue",
-  "packageName": "@ni/jasmine-parameterized",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
