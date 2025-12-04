@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 04 Dec 2025 21:45:22 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 04 Dec 2025 23:41:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.8.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Minor update to remove unreachable statement in table dynamic child loading check ([ni/nimble@18b6b62](https://github.com/ni/nimble/commit/18b6b62ccf69d6f488239dc02e88d91ec31a37d6))
 
 ## 34.8.3
 
