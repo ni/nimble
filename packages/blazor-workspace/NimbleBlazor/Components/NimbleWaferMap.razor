@@ -1,13 +1,14 @@
-﻿@namespace NimbleBlazor
+﻿@using System.Globalization
+@namespace NimbleBlazor
 <nimble-wafer-map
     @ref="_waferMap"
     origin-location="@OriginLocation.ToAttributeValue()"
-    grid-min-x="@GridMinX"
-    grid-max-x="@GridMaxX"
-    grid-min-y="@GridMinY"
-    grid-max-y="@GridMaxY"
+    grid-min-x="@GridMinX.ToString(CultureInfo.InvariantCulture)"
+    grid-max-x="@GridMaxX.ToString(CultureInfo.InvariantCulture)"
+    grid-min-y="@GridMinY.ToString(CultureInfo.InvariantCulture)"
+    grid-max-y="@GridMaxY.ToString(CultureInfo.InvariantCulture)"
     orientation="@Orientation.ToAttributeValue()"
-    max-characters="@MaxCharacters"
+    max-characters="@MaxCharacters.ToString(CultureInfo.InvariantCulture)"
     die-labels-hidden="@DieLabelsHidden"
     die-labels-suffix="@DieLabelsSuffix"
     color-scale-mode="@ColorScaleMode.ToAttributeValue()"

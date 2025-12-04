@@ -1,4 +1,5 @@
-﻿@namespace NimbleBlazor
+﻿@using System.Globalization
+@namespace NimbleBlazor
 @inherits NimbleTableColumn
 
 <nimble-table-column-date-text
@@ -8,8 +9,8 @@
     action-menu-slot="@ActionMenuSlot"
     action-menu-label="@ActionMenuLabel"
     column-hidden="@ColumnHidden"
-    fractional-width="@FractionalWidth"
-    min-pixel-width="@MinPixelWidth"
+    fractional-width="@FractionalWidth.ToString(CultureInfo.InvariantCulture)"
+    min-pixel-width="@MinPixelWidth.ToString(CultureInfo.InvariantCulture)"
     sort-direction="@SortDirection.ToAttributeValue()"
     sort-index="@SortIndex"
     sorting-disabled="@SortingDisabled"
