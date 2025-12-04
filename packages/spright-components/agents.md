@@ -1,23 +1,19 @@
 # Spright Components – AI Instructions
 
-## Key References
+## Overview
+Specialized components that serve specific domain needs while maintaining Nimble's quality standards.
+- **Prefix**: `spright-`
+- **Status**: Production-grade, domain-specific.
 
+## Build & Test
+Run these commands from the repo root:
+- **Build**: `npm run build -w @ni/spright-components`
+- **Test**: `npm run tdd:watch -w @ni/spright-components`
+
+## Key References
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) – Ownership, code quality, and documentation requirements.
 
-## Context
-
-- **Package**: `@ni/spright-components` (specialized components that must still align with Nimble quality).
-- **Prefix**: `spright-` (`DesignSystem.getOrCreate().withPrefix('spright')`).
-- **Ownership**: Shared between the Nimble team and the feature team delivering the Spright experience.
-
-## Development Guidelines
-
-- Build/test/storybook commands mirror Nimble components (see [`../nimble-components/copilot-instructions.md`](../nimble-components/copilot-instructions.md)).
-- Implement the same component skeleton (registration, template, styles, tests, docs). Link to the Nimble instructions rather than duplicating snippets.
-- Document any domain-specific deviations (tokens, behaviors, wrappers) inside the component specs and Storybook docs.
-
 ## Requirements vs Nimble
-
 |                        | `nimble-components` | `spright-components` |
 | ---------------------- | :-----------------: | :------------------: |
 | Approved spec          |         🟢          |          🟢          |
@@ -34,8 +30,6 @@
 
 🟢 = required, 🟡 = optional\*By an interaction and/or visual designer
 
-## Code Ownership
-
-- Nimble team reviews for architecture, tokens, accessibility, and repo health.
-- Contributing team owns roadmap delivery, bug fixes, and maintenance for Spright-specific behaviors.
-- Coordinate on design tokens and shared utilities to avoid divergence from Nimble.
+## Development Guidelines
+- Implement the same component skeleton (registration, template, styles, tests, docs) as Nimble.
+- Link to Nimble instructions rather than duplicating snippets.
