@@ -649,7 +649,7 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([]);
         });
 
-        it ('when true, clicking action menu in multi row selection mode does not change selection', async () => {
+        it('when true, clicking action menu in multi row selection mode does not change selection', async () => {
             const rowIndex = 0;
             element.actionMenusPreserveSelection = true;
             element.selectionMode = TableRowSelectionMode.multiple;
