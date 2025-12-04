@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-react",
-  "version": "0.2.12",
+  "version": "0.2.14",
   "description": "React components for NI Ok Components",
   "keywords": [
     "ni",
@@ -29,7 +29,7 @@
   },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/ok-components": "^0.1.12",
+    "@ni/ok-components": "^0.1.14",
     "react": "^16 || ^17 || ^18"
   }
 }

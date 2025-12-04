@@ -2,6 +2,21 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Thu, 04 Dec 2025 19:09:56 GMT",
+      "version": "0.7.4",
+      "tag": "@ni/nimble-react_v0.7.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "a210907bff6aad25602a66f17d0f0b98cc759a05",
+            "comment": "doc updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 03:43:28 GMT",
       "version": "0.7.2",
       "tag": "@ni/nimble-react_v0.7.2",

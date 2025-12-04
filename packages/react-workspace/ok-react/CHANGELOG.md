@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Thu, 04 Dec 2025 03:43:28 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 04 Dec 2025 19:09:56 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.14
+
+Thu, 04 Dec 2025 19:09:56 GMT
+
+### Patches
+
+- doc updates ([ni/nimble@a210907](https://github.com/ni/nimble/commit/a210907bff6aad25602a66f17d0f0b98cc759a05))
+- Bump @ni/ok-components to v0.1.14
 
 ## 0.2.12
 

@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-blazor",
-  "version": "0.1.12",
+  "version": "0.1.14",
   "description": "Blazor components for Ok components",
   "scripts": {
     "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
@@ -25,7 +25,7 @@
     "!*"
   ],
   "peerDependencies": {
-    "@ni/ok-components": "^0.1.12",
+    "@ni/ok-components": "^0.1.14",
     "cross-env": "^10.1.0",
     "rimraf": "^6.0.0"
   }
