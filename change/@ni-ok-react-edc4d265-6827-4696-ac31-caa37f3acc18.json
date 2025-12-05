@@ -1,7 +1,7 @@
 {
-  "type": "none",
-  "comment": "Change to dev deps",
+  "type": "patch",
+  "comment": "Adopt turborepo build",
   "packageName": "@ni/ok-react",
   "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
+  "dependentChangeType": "patch"
 }

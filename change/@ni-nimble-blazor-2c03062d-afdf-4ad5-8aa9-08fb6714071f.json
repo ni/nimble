@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "fix pack blazor",
+  "comment": "Adopt turborepo build",
   "packageName": "@ni/nimble-blazor",
   "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
