@@ -26,6 +26,10 @@ export class SingleSelectionManager<
     }
 
     public override handleActionMenuOpening(rowState: TableRowState): boolean {
+        if (this.actionMenusPreserveSelection) {
+            return false;
+        }
+
         return this.handleRowClick(rowState, false, false);
     }
 }

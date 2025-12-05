@@ -15,9 +15,14 @@ import {
  */
 export abstract class SelectionManagerBase<TData extends TableRecord> {
     protected tanStackTable: TanStackTable<TableNode<TData>>;
+    protected actionMenusPreserveSelection: boolean;
 
-    public constructor(tanStackTable: TanStackTable<TableNode<TData>>) {
+    public constructor(
+        tanStackTable: TanStackTable<TableNode<TData>>,
+        actionMenusPreserveSelection: boolean
+    ) {
         this.tanStackTable = tanStackTable;
+        this.actionMenusPreserveSelection = actionMenusPreserveSelection;
     }
 
     public abstract handleRowSelectionToggle(
@@ -33,6 +38,12 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
     ): boolean;
 
     public abstract handleActionMenuOpening(rowState: TableRowState): boolean;
+
+    public updateActionMenusPreserveSelection(
+        actionMenusPreserveSelection: boolean
+    ): void {
+        this.actionMenusPreserveSelection = actionMenusPreserveSelection;
+    }
 
     public reset(): void {}
 

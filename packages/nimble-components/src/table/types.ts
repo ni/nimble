@@ -107,6 +107,7 @@ export interface TableActionMenuToggleEventDetail {
     newState: boolean;
     oldState: boolean;
     recordIds: string[];
+    operatingRecordId: string;
     columnId?: string;
 }
 

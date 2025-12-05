@@ -313,6 +313,7 @@ export class TableRow<
             newState: menuButtonEventDetail.newState,
             oldState: menuButtonEventDetail.oldState,
             recordIds: [this.recordId!],
+            operatingRecordId: this.recordId!,
             columnId: column.columnId
         };
         this.$emit(eventType, detail);
