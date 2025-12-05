@@ -26,6 +26,7 @@ env:
   HAS_LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN != ''}}
   HAS_NUGET_TOKEN: ${{secrets.NUGET_TOKEN != ''}}
   TURBO_RUN_SUMMARY: true
+  TURBO_CONCURRENCY: "50%"
 
 jobs:
   build:
