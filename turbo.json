@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "cache" :false
+      "cache": false
     }
   }
 }
