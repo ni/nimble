@@ -4,6 +4,16 @@
     "build": {
       "dependsOn": ["^build"],
       "cache": false
+    },
+    "test": {
+      "cache": false
+    },
+    "lint": {
+      "cache": false
+    },
+    "validate": {
+      "dependsOn": ["test", "lint"],
+      "cache": false
     }
   }
 }

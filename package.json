@@ -14,12 +14,9 @@
     "sync": "beachball sync",
     "invoke-publish": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
     "performance": "npm run performance --workspaces --if-present",
-    "validate": "concurrently --pad-prefix --timings --group \"npm:validate:*\"",
-    "validate:lint": "npm run lint",
-    "validate:test": "npm run test",
-    "validate:test-concurrent": "npm run test-concurrent -w packages/nimble-components",
-    "test": "npm run test --workspaces --if-present",
-    "lint": "eslint . && npm run lint --workspaces --if-present",
+    "validate": "turbo run validate --log-order=grouped --continue=dependencies-successful",
+    "test": "turbo run test --log-order=grouped --continue=dependencies-successful",
+    "lint": "turbo run lint --log-order=grouped --continue=dependencies-successful",
     "storybook": "npm run start -w @ni-private/storybook",
     "storybook-build": "turbo run @ni-private/storybook#build --log-order=grouped"
   },
@@ -66,7 +63,6 @@
   ],
   "devDependencies": {
     "beachball": "^2.45.0",
-    "concurrently": "^9.0.0",
     "patch-package": "^8.0.0",
     "playwright": "1.54.1",
     "turbo": "^2.6.3"
