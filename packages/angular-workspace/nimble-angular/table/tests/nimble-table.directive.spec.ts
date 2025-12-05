@@ -433,7 +433,7 @@ describe('Nimble table', () => {
                     id-field-name="${idField}"
                     parent-id-field-name="${parentIdField}"
                     selection-mode="${selectionMode}"
-                    action-menus-preserve-selection"
+                    action-menus-preserve-selection
                 >
                 </nimble-table>
             `
