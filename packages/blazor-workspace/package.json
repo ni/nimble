@@ -10,7 +10,7 @@
 		"generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
 		"generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
 		"generate-icons:run": "node build/generate-icons/dist/index.js",
-		"pack": "npm run pack:nimble && npm run pack:spright && npm run pack:ok && npm run pack:application",
+		"pack": "npm run pack:nimble && npm run pack:spright && npm run pack:ok",
 		"pack:nimble": "cd NimbleBlazor && npm run invoke-pack",
 		"pack:spright": "cd SprightBlazor && npm run invoke-pack",
 		"pack:ok": "cd OkBlazor && npm run invoke-pack",
