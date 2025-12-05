@@ -64,7 +64,7 @@ export const fullBleedStates = [
 ] as const;
 export type FullBleedState = (typeof fullBleedStates)[number];
 
-export const disabledReadOnlyStates = [
+export const manipulationStates = [
     ['', false, false, false],
     ['Appearance-Read-Only', false, false, true],
     ['Disabled', false, true, false],
@@ -74,39 +74,25 @@ export const disabledReadOnlyStates = [
     ['Read-Only Disabled', true, true, false],
     ['Read-Only Disabled Appearance-Read-Only', true, true, true]
 ] as const;
-export type DisabledReadOnlyState = (typeof disabledReadOnlyStates)[number];
+export type ManipulationState = (typeof manipulationStates)[number];
 
-export const disabledReadOnlyState = {
-    none: disabledReadOnlyStates[0],
-    appearanceReadOnly: disabledReadOnlyStates[1],
-    disabled: disabledReadOnlyStates[2],
-    disabledAppearanceReadOnly: disabledReadOnlyStates[3],
-    readOnly: disabledReadOnlyStates[4],
-    readOnlyAppearanceReadOnly: disabledReadOnlyStates[5],
-    readOnlyDisabled: disabledReadOnlyStates[6],
-    readOnlyDisabledAppearanceReadOnly: disabledReadOnlyStates[7]
+export const manipulationState = {
+    none: manipulationStates[0],
+    appearanceReadOnly: manipulationStates[1],
+    disabled: manipulationStates[2],
+    disabledAppearanceReadOnly: manipulationStates[3],
+    readOnly: manipulationStates[4],
+    readOnlyAppearanceReadOnly: manipulationStates[5],
+    readOnlyDisabled: manipulationStates[6],
+    readOnlyDisabledAppearanceReadOnly: manipulationStates[7]
 } as const;
 
-export const onlyDisabledAbsentStates = disabledReadOnlyStates.filter(
-    (
-        state: readonly [
-            name: string,
-            readOnly: boolean,
-            disabled: boolean,
-            appearanceReadonly: boolean
-        ]
-    ) => state[2] === false
+export const manipulationDisabledAbsentStates = manipulationStates.filter(
+    (state: (typeof manipulationStates)[number]) => state[2] === false
 );
-export type OnlyDisabledAbsentState = (typeof onlyDisabledAbsentStates)[number];
+export type ManipulationDisabledAbsentState = (typeof manipulationDisabledAbsentStates)[number];
 
-export const onlyReadOnlyAbsentStates = disabledReadOnlyStates.filter(
-    (
-        state: readonly [
-            name: string,
-            readOnly: boolean,
-            disabled: boolean,
-            appearanceReadonly: boolean
-        ]
-    ) => state[1] === false
+export const manipulationReadOnlyAbsentStates = manipulationStates.filter(
+    (state: (typeof manipulationStates)[number]) => state[1] === false
 );
-export type OnlyReadOnlyAbsentState = (typeof onlyReadOnlyAbsentStates)[number];
+export type ManipulationReadOnlyAbsentState = (typeof manipulationReadOnlyAbsentStates)[number];

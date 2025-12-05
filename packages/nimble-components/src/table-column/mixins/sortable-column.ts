@@ -51,17 +51,14 @@ export function mixinSortableColumnAPI<
         }
     }
     attr({ attribute: 'sorting-disabled', mode: 'boolean' })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         SortableColumn.prototype,
         'sortingDisabled'
     );
     attr({ attribute: 'sort-index', converter: nullableNumberConverter })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         SortableColumn.prototype,
         'sortIndex'
     );
     attr({ attribute: 'sort-direction' })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         SortableColumn.prototype,
         'sortDirection'
     );

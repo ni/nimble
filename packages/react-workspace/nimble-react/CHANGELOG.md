@@ -1,8 +1,85 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Mon, 10 Nov 2025 23:09:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 04 Dec 2025 23:41:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.7.6
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.4
+
+## 0.7.5
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/nimble-tokens to v8.13.5
+- Bump @ni/nimble-components to v34.8.3
+
+## 0.7.4
+
+Thu, 04 Dec 2025 19:09:56 GMT
+
+### Patches
+
+- doc updates ([ni/nimble@a210907](https://github.com/ni/nimble/commit/a210907bff6aad25602a66f17d0f0b98cc759a05))
+
+## 0.7.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/nimble-tokens to v8.13.4
+- Bump @ni/nimble-components to v34.8.2
+
+## 0.7.0
+
+Mon, 01 Dec 2025 19:34:20 GMT
+
+### Minor changes
+
+- Switch from deprecated Sass @import to @use ([ni/nimble@b71c518](https://github.com/ni/nimble/commit/b71c5184eacf68cc67e59c92d81487e12e6465cb))
+- Bump @ni/nimble-components to v34.8.0
+
+## 0.5.8
+
+Mon, 01 Dec 2025 17:22:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.6.5
+
+## 0.5.6
+
+Mon, 01 Dec 2025 06:22:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.6.3
+
+## 0.5.4
+
+Thu, 20 Nov 2025 16:54:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.6.1
+
+## 0.5.3
+
+Mon, 17 Nov 2025 17:24:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.6.0
 
 ## 0.5.2
 

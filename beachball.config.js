@@ -5,9 +5,9 @@ module.exports = {
             renderEntry: entry => {
                 if (entry.author === 'beachball') {
                     return `- ${entry.comment}`;
-                  }
-                  // Imitate GitHub's commit format https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls#commit-shas
-                  return `- ${entry.comment} ([ni/nimble@${entry.commit.substring(0,7)}](https://github.com/ni/nimble/commit/${entry.commit}))`;
+                }
+                // Imitate GitHub's commit format https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls#commit-shas
+                return `- ${entry.comment} ([ni/nimble@${entry.commit.substring(0, 7)}](https://github.com/ni/nimble/commit/${entry.commit}))`;
             }
         }
     }

@@ -17,6 +17,7 @@ const metadata: Meta = {
 
 export default metadata;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
 

@@ -13,7 +13,8 @@
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
     "generate-icons:bundle": "rollup --bundleConfigAsCjs --config nimble-angular/build/generate-icons/rollup.config.js",
     "generate-icons:run": "node nimble-angular/build/generate-icons/dist/index.js",
-    "lint": "ng lint",
+    "lint": "eslint . && ng lint",
+    "format": "eslint . --fix && ng lint --fix",
     "pack": "npm run pack:nimble && npm run pack:spright && npm run pack:ok && npm run pack:application",
     "pack:nimble": "cd dist/nimble-angular && npm pack",
     "pack:spright": "cd dist/spright-angular && npm pack",
@@ -30,8 +31,7 @@
     "test": "ng test --watch=false",
     "test-nimble": "ng test @ni/nimble-angular --watch=false",
     "test-spright": "ng test @ni/spright-angular --watch=false",
-    "test-ok": "ng test @ni/ok-angular --watch=false",
-    "format": "ng lint --fix"
+    "test-ok": "ng test @ni/ok-angular --watch=false"
   },
   "dependencies": {
     "@angular/animations": "^18.2.13",
@@ -57,7 +57,8 @@
     "@lhci/cli": "^0.15.0",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni-private/eslint-config-nimble": "*",
-    "@ni/eslint-config-angular": "^9.0.4",
+    "@ni/eslint-config-angular": "^10.0.3",
+    "@ni/eslint-config-javascript": "^5.1.2",
     "@ni-private/jasmine-extensions": "*",
     "@ni/jasmine-parameterized": "*",
     "@ni/nimble-tokens": "*",

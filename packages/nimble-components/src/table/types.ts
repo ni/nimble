@@ -101,8 +101,7 @@ export const TableRecordDelayedHierarchyState = {
     canLoadChildren: 'can-load-children',
     loadingChildren: 'loading-children'
 } as const;
-export type TableRecordDelayedHierarchyState =
-    (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
+export type TableRecordDelayedHierarchyState = (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
 
 export interface TableActionMenuToggleEventDetail {
     newState: boolean;
@@ -120,8 +119,7 @@ export const TableColumnSortDirection = {
     ascending: 'ascending',
     descending: 'descending'
 } as const;
-export type TableColumnSortDirection =
-    (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];
+export type TableColumnSortDirection = (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];
 
 /**
  * The selection modes of rows in the table.
@@ -131,8 +129,7 @@ export const TableRowSelectionMode = {
     single: 'single',
     multiple: 'multiple'
 } as const;
-export type TableRowSelectionMode =
-    (typeof TableRowSelectionMode)[keyof typeof TableRowSelectionMode];
+export type TableRowSelectionMode = (typeof TableRowSelectionMode)[keyof typeof TableRowSelectionMode];
 
 /**
  * @internal
@@ -144,8 +141,7 @@ export const TableRowSelectionState = {
     selected: 'selected',
     partiallySelected: 'partially-selected'
 } as const;
-export type TableRowSelectionState =
-    (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];
+export type TableRowSelectionState = (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];
 
 /**
  * @internal
@@ -228,8 +224,7 @@ export const TableColumnAlignment = {
     left: 'left',
     right: 'right'
 } as const;
-export type TableColumnAlignment =
-    (typeof TableColumnAlignment)[keyof typeof TableColumnAlignment];
+export type TableColumnAlignment = (typeof TableColumnAlignment)[keyof typeof TableColumnAlignment];
 
 /**
  * Table keyboard focus types
@@ -244,8 +239,7 @@ export const TableFocusType = {
     cellActionMenu: 'cellActionMenu',
     cellContent: 'cellContent'
 } as const;
-export type TableFocusType =
-    (typeof TableFocusType)[keyof typeof TableFocusType];
+export type TableFocusType = (typeof TableFocusType)[keyof typeof TableFocusType];
 
 /**
  * @internal

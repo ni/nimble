@@ -49,7 +49,7 @@ export class MappingIcon extends Mapping<MappingKey> {
             // Clear the current resolution while waiting for async resolution
             this.resolvedIcon = undefined;
             await customElements.whenDefined(icon);
-        } catch (ex) {
+        } catch (_ex) {
             // If any error (i.e. invalid custom element name) don't continue
             // Don't update the resolvedIcon as it was already set to undefined before async resolution
             // (in case other async resolutions were started)

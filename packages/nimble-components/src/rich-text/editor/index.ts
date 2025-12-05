@@ -9,11 +9,9 @@ import {
     findParentNode,
     isList,
     type AnyExtension,
-    Extension,
     Editor
 } from '@tiptap/core';
 
-import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import HardBreak from '@tiptap/extension-hard-break';
 import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
@@ -220,13 +218,16 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
      * @internal
      */
     public placeholderChanged(_prev: unknown, _next: unknown): void {
-        const placeholderExtension = this.getTipTapExtension(
-            'placeholder'
-        ) as Extension<PlaceholderOptions>;
-        placeholderExtension.options.placeholder = this.placeholder ?? '';
-        this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
+        // In TipTap v3, extension options cannot be modified after initialization.
+        // We need to reinitialize the editor with the new placeholder value.
+        // This workaround will be updated once the upstream issue is resolved.
+        // See: https://github.com/ni/nimble/issues/2752
+        const currentContent = this.getMarkdown();
+        const { from, to } = this.tiptapEditor.view.state.selection;
 
-        this.queueUpdateScrollbarWidth();
+        this.initializeEditor(); // Destroys and recreates entire editor
+        this.setMarkdown(currentContent);
+        this.tiptapEditor.commands.setTextSelection({ from, to });
     }
 
     /**
@@ -372,7 +373,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
-        this.tiptapEditor.commands.setContent(html);
+        this.tiptapEditor.commands.setContent(html, { emitUpdate: false });
         this.disableMentionViewElement();
     }
 
@@ -717,7 +718,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
 applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 

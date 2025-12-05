@@ -4,7 +4,6 @@ import { Dialog, dialogTag, UserDismissed } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { buttonTag } from '../../button';
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
     preventDismiss = false
 ): Promise<Fixture<Dialog<CloseReason>>> {
@@ -314,6 +313,30 @@ describe('Dialog', () => {
         expect(element.open).toBeTrue();
         expect(secondDialog.open).toBeTrue();
         expect(document.activeElement).toBe(secondDialogButton);
+
+        await disconnect();
+    });
+
+    it('should set closedby="none" when preventDismiss is true', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.preventDismiss = true;
+        await connect();
+
+        expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
+            'none'
+        );
+
+        await disconnect();
+    });
+
+    it('should set closedby="closerequest" when preventDismiss is false', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.preventDismiss = false;
+        await connect();
+
+        expect(nativeDialogElement(element)?.getAttribute('closedby')).toBe(
+            'closerequest'
+        );
 
         await disconnect();
     });

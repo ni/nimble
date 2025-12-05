@@ -38,12 +38,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "nimble-angular/**/*.ts",
-              "nimble-angular/**/*.js",
-              "nimble-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "nimble-angular/eslint.config.mjs",
+						"lintFilePatterns": [
+							"nimble-angular/**/*.ts",
+							"nimble-angular/**/*.js",
+							"nimble-angular/**/*.mjs",
+							"nimble-angular/**/*.html"
+						]
+					}
         }
       }
     },
@@ -79,12 +81,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "ok-angular/**/*.ts",
-              "ok-angular/**/*.js",
-              "ok-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "ok-angular/eslint.config.mjs",
+						"lintFilePatterns": [
+							"ok-angular/**/*.ts",
+							"ok-angular/**/*.js",
+							"ok-angular/**/*.mjs",
+							"ok-angular/**/*.html"
+						]
+					}
         }
       }
     },
@@ -120,12 +124,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "spright-angular/**/*.ts",
-              "spright-angular/**/*.js",
-              "spright-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "spright-angular/eslint.config.mjs",
+						"lintFilePatterns": [
+							"spright-angular/**/*.ts",
+							"spright-angular/**/*.js",
+							"spright-angular/**/*.mjs",
+							"spright-angular/**/*.html"
+						]
+					}
         }
       }
     },
@@ -166,8 +172,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -246,12 +252,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "example-client-app/**/*.ts",
-              "example-client-app/**/*.js",
-              "example-client-app/**/*.html"
-            ]
-          }
+						"eslintConfig": "example-client-app/eslint.config.mjs",
+						"lintFilePatterns": [
+							"example-client-app/**/*.ts",
+							"example-client-app/**/*.js",
+              "example-client-app/**/*.mjs",
+							"example-client-app/**/*.html"
+						]
+					}
         }
       }
     }

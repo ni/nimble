@@ -1,5 +1,8 @@
-import { dirname, join } from 'path';
+import { dirname, join } from 'node:path';
+import { createRequire } from 'node:module';
 import remarkGfm from 'remark-gfm';
+
+const require = createRequire(import.meta.url);
 
 // All files participating in storybook should be in src
 // so that TypeScript and linters can track them correctly
@@ -19,10 +22,6 @@ export const addons = [
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('storybook-addon-pseudo-states')
 ];
-
-export const core = {
-    builder: '@storybook/builder-vite'
-};
 
 export async function viteFinal(config) {
     const { mergeConfig } = await import('vite');

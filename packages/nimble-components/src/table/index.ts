@@ -293,18 +293,18 @@ export class Table<
     private readonly borderWidthSubscriber: DesignTokenSubscriber<
         typeof borderWidth
     > = {
-            handleChange: () => {
-                this.updateRowHeight();
-            }
-        };
+        handleChange: () => {
+            this.updateRowHeight();
+        }
+    };
 
     private readonly controlHeightSubscriber: DesignTokenSubscriber<
         typeof controlHeight
     > = {
-            handleChange: () => {
-                this.updateRowHeight();
-            }
-        };
+        handleChange: () => {
+            this.updateRowHeight();
+        }
+    };
 
     private actionMenuSlots: string[] = [];
 
@@ -1349,10 +1349,10 @@ export class Table<
     }
 
     private calculateTanStackRowIdFunction():
-        | ((
-        originalRow: TableNode<TData>,
-        index: number,
-        parent?: TanStackRow<TableNode<TData>>
+        ((
+            originalRow: TableNode<TData>,
+            index: number,
+            parent?: TanStackRow<TableNode<TData>>
         ) => string)
         | undefined {
         return this.idFieldName === null || this.idFieldName === undefined

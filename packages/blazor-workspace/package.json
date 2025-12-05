@@ -1,41 +1,42 @@
 {
-  "name": "@ni-private/blazor-workspace",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Workspace for Blazor projects",
-  "scripts": {
-    "build": "npm run generate-icons && npm run build:release && npm run build:client",
-    "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
-    "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
-    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
-    "generate-icons:run": "node build/generate-icons/dist/index.js",
-    "lint": "npm run lint:cs && npm run lint:js",
-    "lint:cs": "dotnet format --verify-no-changes",
-    "lint:js": "eslint .",
-    "format": "npm run format:cs && npm run format:js",
-    "format:cs": "dotnet format",
-    "format:js": "eslint . --fix",
-    "test": "dotnet test -c Release",
-    "copy-resources:nimble": "node build/copyResources.js nimble",
-    "copy-resources:spright": "node build/copyResources.js spright",
-    "copy-resources:ok": "node build/copyResources.js ok",
-    "update-lock-files": "dotnet restore --force-evaluate"
-  },
-  "files": [
-    "!*"
-  ],
-  "devDependencies": {
-    "@ni/fast-web-utilities": "^10.0.0",
-    "@ni-private/eslint-config-nimble": "*",
-    "@ni/nimble-components": "*",
-    "@ni/nimble-tokens": "*",
-    "@ni/ok-components": "*",
-    "@ni/spright-components": "*",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "cross-env": "^10.1.0",
-    "glob": "^11.0.0",
-    "playwright": "1.54.1",
-    "rollup": "^4.12.0"
-  }
+	"name": "@ni-private/blazor-workspace",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Workspace for Blazor projects",
+	"scripts": {
+		"build": "npm run generate-icons && npm run build:release && npm run build:client",
+		"build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
+		"build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
+		"generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
+		"generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
+		"generate-icons:run": "node build/generate-icons/dist/index.js",
+		"lint": "npm run lint:cs && npm run lint:js",
+		"lint:cs": "dotnet format --verify-no-changes",
+		"lint:js": "eslint .",
+		"format": "npm run format:cs && npm run format:js",
+		"format:cs": "dotnet format",
+		"format:js": "eslint . --fix",
+		"test": "dotnet test -c Release",
+		"copy-resources:nimble": "node build/copyResources.js nimble",
+		"copy-resources:spright": "node build/copyResources.js spright",
+		"copy-resources:ok": "node build/copyResources.js ok",
+		"update-lock-files": "dotnet restore --force-evaluate"
+	},
+	"files": [
+		"!*"
+	],
+	"devDependencies": {
+		"@ni/fast-web-utilities": "^10.0.0",
+		"@ni-private/eslint-config-nimble": "*",
+		"@ni/nimble-components": "*",
+		"@ni/nimble-tokens": "*",
+		"@ni/ok-components": "*",
+		"@ni/spright-components": "*",
+		"@rollup/plugin-node-resolve": "^16.0.0",
+		"cross-env": "^10.1.0",
+		"glob": "^11.0.0",
+		"playwright": "1.54.1",
+		"rollup": "^4.12.0",
+		"globals": "^14.0.0"
+	}
 }
