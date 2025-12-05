@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { processUpdates } from '@ni/nimble-angular';
+import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { Observable, Subject } from 'rxjs';
 import { NimbleTableDirective, TableRowSelectionMode, type Table, type TableRecord, type TableValidity } from '../nimble-table.directive';
 import { NimbleTableModule } from '../nimble-table.module';
@@ -209,6 +210,17 @@ describe('Nimble table', () => {
             expect(directive.selectionMode).toEqual(TableRowSelectionMode.none);
             expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.none);
         });
+
+        it('has expected defaults for actionMenusPreserveSelection', () => {
+            expect(directive.actionMenusPreserveSelection).toBeFalse();
+            expect(nativeElement.actionMenusPreserveSelection).toBeFalse();
+        });
+
+        it('can use the directive to set actionMenusPreserveSelection', () => {
+            directive.actionMenusPreserveSelection = true;
+            expect(directive.actionMenusPreserveSelection).toBeTrue();
+            expect(nativeElement.actionMenusPreserveSelection).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -226,6 +238,7 @@ describe('Nimble table', () => {
                     [idFieldName]="idFieldName"
                     [parentIdFieldName]="parentIdFieldName"
                     [selectionMode]="selectionMode"
+                    [actionMenusPreserveSelection]="actionMenusPreserveSelection"
                 >
                 </nimble-table>
             `
@@ -238,6 +251,7 @@ describe('Nimble table', () => {
             public idFieldName = 'field1';
             public parentIdFieldName = 'parentField1';
             public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
+            public actionMenusPreserveSelection = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -296,6 +310,17 @@ describe('Nimble table', () => {
             expect(directive.selectionMode).toEqual(TableRowSelectionMode.single);
             expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.single);
         });
+
+        it('can be configured with property binding for actionMenusPreserveSelection', () => {
+            expect(directive.actionMenusPreserveSelection).toBeFalse();
+            expect(nativeElement.actionMenusPreserveSelection).toBeFalse();
+
+            fixture.componentInstance.actionMenusPreserveSelection = true;
+            fixture.detectChanges();
+
+            expect(directive.actionMenusPreserveSelection).toBeTrue();
+            expect(nativeElement.actionMenusPreserveSelection).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -312,6 +337,7 @@ describe('Nimble table', () => {
                     [attr.id-field-name]="idFieldName"
                     [attr.parent-id-field-name]="parentIdFieldName"
                     [attr.selection-mode]="selectionMode"
+                    [attr.action-menus-preserve-selection]="actionMenusPreserveSelection"
                 >
                 </nimble-table>
             `
@@ -327,6 +353,7 @@ describe('Nimble table', () => {
             public idFieldName = 'field1';
             public parentIdFieldName = 'parentField1';
             public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
+            public actionMenusPreserveSelection: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -376,6 +403,17 @@ describe('Nimble table', () => {
             expect(directive.selectionMode).toEqual(TableRowSelectionMode.single);
             expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.single);
         });
+
+        it('can be configured with attribute binding for actionMenusPreserveSelection', () => {
+            expect(directive.actionMenusPreserveSelection).toBeFalse();
+            expect(nativeElement.actionMenusPreserveSelection).toBeFalse();
+
+            fixture.componentInstance.actionMenusPreserveSelection = '';
+            fixture.detectChanges();
+
+            expect(directive.actionMenusPreserveSelection).toBeTrue();
+            expect(nativeElement.actionMenusPreserveSelection).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -395,6 +433,7 @@ describe('Nimble table', () => {
                     id-field-name="${idField}"
                     parent-id-field-name="${parentIdField}"
                     selection-mode="${selectionMode}"
+                    action-menus-preserve-selection"
                 >
                 </nimble-table>
             `
@@ -432,6 +471,11 @@ describe('Nimble table', () => {
         it('will use template string values for selectionMode', () => {
             expect(directive.selectionMode).toBe(selectionMode);
             expect(nativeElement.selectionMode).toBe(selectionMode);
+        });
+
+        it('will use template string values for actionMenusPreserveSelection', () => {
+            expect(directive.actionMenusPreserveSelection).toBeTrue();
+            expect(nativeElement.actionMenusPreserveSelection).toBeTrue();
         });
     });
 });
