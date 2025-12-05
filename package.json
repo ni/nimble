@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "patch-package && npm run playwright-setup",
     "playwright-setup": "playwright install --with-deps",
-    "build": "npm run build --workspaces --if-present",
+    "build": "turbo run build --log-order=grouped",
     "format": "npm run format --workspaces --if-present",
     "pack": "npm run pack --workspaces --if-present",
     "change": "beachball change",
@@ -37,6 +37,7 @@
   "files": [
     "!*"
   ],
+  "packageManager": "npm@11.6.4",
   "workspaces": [
     "packages/eslint-config-nimble",
     "packages/jasmine-extensions",
@@ -66,6 +67,7 @@
     "beachball": "^2.45.0",
     "concurrently": "^9.0.0",
     "patch-package": "^8.0.0",
-    "playwright": "1.54.1"
+    "playwright": "1.54.1",
+    "turbo": "^2.6.3"
   }
 }
