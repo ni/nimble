@@ -8,17 +8,6 @@
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningsNotAsErrors>;NU1900;CS0122</WarningsNotAsErrors>
-    <NoWarn>LRT001;NU1701;CA1707;NU1900;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningsNotAsErrors>;NU1900;CS0122</WarningsNotAsErrors>
-    <NoWarn>LRT001;NU1701;CA1707;NU1900;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
-
   <ItemGroup>
     <Content Remove="packages.lock.json" />
   </ItemGroup>
