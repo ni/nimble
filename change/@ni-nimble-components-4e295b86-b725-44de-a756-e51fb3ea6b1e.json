@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Minor update to remove unreachable statement in table dynamic child loading check",
-  "packageName": "@ni/nimble-components",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
