@@ -11,8 +11,10 @@
     "lint": {
       "cache": false
     },
-    "validate": {
-      "dependsOn": ["test", "lint"],
+    "pack": {
+      "cache": false
+    },
+    "format": {
       "cache": false
     }
   }
