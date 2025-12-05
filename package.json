@@ -7,6 +7,10 @@
     "postinstall": "patch-package && npm run playwright-setup",
     "playwright-setup": "playwright install --with-deps",
     "build": "turbo run build --log-order=grouped --continue=dependencies-successful",
+    "build-storybook": "turbo run @ni-private/storybook#build --log-order=grouped",
+    "build-angular": "turbo run @ni-private/angular-workspace#build --log-order=grouped",
+    "build-blazor": "turbo run @ni-private/blazor-workspace#build --log-order=grouped",
+    "build-react": "turbo run @ni-private/react-client-app#build --log-order=grouped",
     "format": "turbo run format --log-order=grouped --continue=dependencies-successful",
     "pack": "turbo run pack --log-order=grouped --continue=dependencies-successful",
     "test": "turbo run test --log-order=grouped --continue=dependencies-successful",
@@ -17,8 +21,7 @@
     "sync": "beachball sync",
     "invoke-publish": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
     "performance": "npm run performance --workspaces --if-present",
-    "storybook": "npm run start -w @ni-private/storybook",
-    "storybook-build": "turbo run @ni-private/storybook#build --log-order=grouped"
+    "storybook": "npm run start -w @ni-private/storybook"
   },
   "repository": {
     "type": "git",
