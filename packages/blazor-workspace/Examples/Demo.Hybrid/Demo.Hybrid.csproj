@@ -11,11 +11,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>LRT001;SA1633;NU1701;CA1707;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
+    <NoWarn>LRT001;SA1633;NU1701;CA1707;NU1900;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>LRT001;SA1633;NU1701;CA1707;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
+    <NoWarn>LRT001;SA1633;NU1701;CA1707;NU1900;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

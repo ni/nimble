@@ -11,13 +11,13 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
-    <NoWarn>;NU1701;CA1707;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
+    <WarningsNotAsErrors>;NU1900;CS0122</WarningsNotAsErrors>
+    <NoWarn>;NU1701;CA1707;NU1900;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
-    <NoWarn>;NU1701;CA1707;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
+    <WarningsNotAsErrors>;NU1900;CS0122</WarningsNotAsErrors>
+    <NoWarn>;NU1701;CA1707;NU1900;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
