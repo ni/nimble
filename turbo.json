@@ -5,6 +5,13 @@
       "dependsOn": ["^build"],
       "cache": false
     },
+    "@ni-private/blazor-workspace#build": {
+      "dependsOn": ["^build", "^build-bundle"]
+    },
+    "build-bundle": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "test": {
       "cache": false
     },
