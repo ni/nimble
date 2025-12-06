@@ -33,13 +33,6 @@ export const lintNimbleConfig = defineConfig([
                 'error',
                 {
                     basePath: resolve(import.meta.dirname, '../../'),
-                    // ignorePaths: [],
-                    // checkAnchor: true,
-                    // allowedAnchors: { '/./': '/^:~:/' },
-                    // anchorOption: {
-                    //     ignoreCase: true,
-                    //     slugify: 'github'
-                    // }
                 }
             ]
         },
