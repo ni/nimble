@@ -13,12 +13,15 @@
       "cache": false
     },
     "test": {
+      "dependsOn": ["build"],
       "cache": false
     },
     "lint": {
+      "dependsOn": ["build"],
       "cache": false
     },
     "pack": {
+      "dependsOn": ["build"],
       "cache": false
     },
     "format": {
