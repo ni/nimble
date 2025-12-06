@@ -86,7 +86,6 @@ const metadata: Meta<ButtonArgs> = {
             control: false
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${buttonTag}
             ?disabled="${x => x.disabled}"

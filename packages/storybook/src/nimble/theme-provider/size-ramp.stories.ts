@@ -52,7 +52,6 @@ const computedCSSValueFromTokenName = (tokenName: string): string => {
     );
 };
 
-// prettier-ignore
 export const sizeRampTokens: StoryObj<TokenArgs> = {
     parameters: {
         controls: { hideNoControlsWarning: true }

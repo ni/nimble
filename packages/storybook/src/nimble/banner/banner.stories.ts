@@ -58,7 +58,6 @@ addLabelUseMetadata(metadata, labelProviderCoreTag, popupDismissLabel);
 export default metadata;
 
 export const _banner: StoryObj<BannerArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${bannerTag}
             ?open="${x => x.open}"

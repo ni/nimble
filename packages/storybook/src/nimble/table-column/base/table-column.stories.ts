@@ -93,7 +93,6 @@ const metadata: Meta<SharedTableArgs> = {
             handles: sharedTableActions
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<SharedTableArgs>`
     <${tableTag}
         ${ref('tableRef')}
@@ -264,7 +263,6 @@ export const addingColumns: StoryObj<ColumnOrderTableArgs> = {
             }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnOrderTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
@@ -337,7 +335,6 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
             }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<HeaderContentTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
@@ -395,7 +392,6 @@ export const columnHidden: StoryObj<ColumnHiddenTableArgs> = {
             }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnHiddenTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
@@ -506,7 +502,6 @@ export const sorting: StoryObj<SortingTableArgs> = {
             }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<SortingTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
@@ -695,7 +690,6 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<GroupingTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
@@ -820,7 +814,6 @@ export const width: StoryObj<ColumnWidthTableArgs> = {
             }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnWidthTableArgs>`
         <${tableTag}
             ${ref('tableRef')}

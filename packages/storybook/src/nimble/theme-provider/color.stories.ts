@@ -64,7 +64,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 export const baseColors: StoryObj = {
     parameters: {
         controls: { hideNoControlsWarning: true }

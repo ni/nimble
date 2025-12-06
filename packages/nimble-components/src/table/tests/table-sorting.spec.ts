@@ -29,7 +29,6 @@ type TableColumnConfigurationChangeEventHandler = (
     evt: CustomEvent<TableColumnConfigurationChangeEventDetail>
 ) => void;
 
-// prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag} id-field-name="id">

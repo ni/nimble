@@ -10,7 +10,6 @@ import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
 import { ButtonAppearance } from '../button/types';
 
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Chip>,
 ChipOptions

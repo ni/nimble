@@ -144,7 +144,6 @@ const endButtonStates = [
 ] as const;
 type EndButtonStates = (typeof endButtonStates)[number];
 
-// prettier-ignore
 const slottedButtons = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
     [footerActionsLabel, footerActions]: FooterActionsStates,
@@ -201,7 +200,6 @@ const heightStates = [
 ] as const;
 type HeightStates = (typeof heightStates)[number];
 
-// prettier-ignore
 const conversationWithInput = (
     [heightLabel, height]: HeightStates,
 ): ViewTemplate => html`
