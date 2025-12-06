@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Remove prettier inline disables and update docs",
+  "packageName": "@ni/spright-components",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
