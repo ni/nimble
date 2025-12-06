@@ -1,0 +1,28 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
+    "@ni-private/blazor-workspace#build": {
+      "dependsOn": ["^build", "^build-bundle"]
+    },
+    "build-bundle": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "test": {
+      "cache": false
+    },
+    "lint": {
+      "cache": false
+    },
+    "pack": {
+      "cache": false
+    },
+    "format": {
+      "cache": false
+    }
+  }
+}

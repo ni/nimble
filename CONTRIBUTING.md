@@ -26,6 +26,13 @@ For Visual Studio Code users, after running `npm install` you can:
 
 Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
 
+Note: Most users should start by building the full monorepo, however there are helpers for building subsets of the monorepo for advanced use cases:
+
+- `npm run build-storybook`
+- `npm run build-angular`
+- `npm run build-blazor`
+- `npm run build-react`
+
 ## Repository overview
 
 This repository uses the following tooling. See below for more info.

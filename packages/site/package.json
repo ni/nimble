@@ -17,7 +17,12 @@
     },
     "devDependencies": {
         "@11ty/eleventy": "^3.0.0",
+        "@ni-private/angular-workspace": "*",
+        "@ni-private/blazor-workspace": "*",
         "@ni-private/eslint-config-nimble": "*",
+        "@ni-private/performance": "*",
+        "@ni-private/react-client-app": "*",
+        "@ni-private/storybook": "*",
         "typescript": "~5.4.5",
         "vite": "^7.0.0"
     },

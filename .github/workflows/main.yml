@@ -25,6 +25,7 @@ env:
   HAS_CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN != ''}}
   HAS_LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN != ''}}
   HAS_NUGET_TOKEN: ${{secrets.NUGET_TOKEN != ''}}
+  TURBO_RUN_SUMMARY: true
 
 jobs:
   build:
@@ -136,6 +137,9 @@ jobs:
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
           npm run invoke-publish
+
+      - uses: charpeni/turborepo-summary-action@v1
+        if: always()
 
   pages:
     needs: build
