@@ -15,7 +15,7 @@
     "pack": "turbo run pack --log-order=grouped --continue=dependencies-successful",
     "test": "turbo run test --log-order=grouped --continue=dependencies-successful",
     "lint": "eslint . && turbo run lint --log-order=grouped --continue=dependencies-successful",
-    "validate": "turbo run test lint --log-order=grouped --continue=dependencies-successful",
+    "validate": "eslint . && turbo run test lint --log-order=grouped --continue=dependencies-successful",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "sync": "beachball sync",
