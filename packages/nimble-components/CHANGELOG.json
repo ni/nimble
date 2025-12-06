@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sat, 06 Dec 2025 00:45:19 GMT",
+      "version": "34.8.5",
+      "tag": "@ni/nimble-components_v34.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aabdf2f08ccf6c41b1131a886450f5366fd43123",
+            "comment": "Remove prettier inline disables and update docs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 23:41:33 GMT",
       "version": "34.8.4",
       "tag": "@ni/nimble-components_v34.8.4",

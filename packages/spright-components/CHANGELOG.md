@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 04 Dec 2025 23:41:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 06 Dec 2025 00:45:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.4.17
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Remove prettier inline disables and update docs ([ni/nimble@aabdf2f](https://github.com/ni/nimble/commit/aabdf2f08ccf6c41b1131a886450f5366fd43123))
+- Bump @ni/nimble-components to v34.8.5
 
 ## 6.4.16
 
