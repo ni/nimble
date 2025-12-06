@@ -113,9 +113,11 @@ When the user is focused on the breakpoint cell Space/Enter adds the breakpoint 
 
 When the user is focused on table row or group header only the keyboard shortcuts add the breakpoint.
 
-    - On Mac: <kbd>Cmd</kbd> + <kbd>B</kbd>
-    - On Windows/Linux: <kbd>Ctrl</kbd> + <kbd>B</kbd>
-    - Alternatively, pressing <kbd>F9</kbd> when focused on a table row toggles the breakpoint
+```
+- On Mac: <kbd>Cmd</kbd> + <kbd>B</kbd>
+- On Windows/Linux: <kbd>Ctrl</kbd> + <kbd>B</kbd>
+- Alternatively, pressing <kbd>F9</kbd> when focused on a table row toggles the breakpoint
+```
 
 ## Open Issues
 

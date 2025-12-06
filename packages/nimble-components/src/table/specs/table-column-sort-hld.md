@@ -88,7 +88,7 @@ When a column is sorted interactively, either by clicking on the column header o
 
 ### Interactive Sorting UX
 
-The UX/ interactions for interactive sorting are captured in [#885: UX Design for basic column/row interactions](https://github.com/ni/nimble/issues/885).  
+The UX/ interactions for interactive sorting are captured in [#885: UX Design for basic column/row interactions](https://github.com/ni/nimble/issues/885).\
 To summarize:
 
 Single-clicking a column header will cycle the column from unsorted, to ascending sort, descending sort, then back to unsorted.
@@ -103,8 +103,8 @@ Shift-clicking a column header will cycle the column from unsorted, to ascending
 - If the clicked column is transitioning to being sorted, it will get a `currentSortIndex` of `0` if no other columns were already sorted, or `n` if there were `n` other columns already sorted
 
 If sorting is enabled for a column, sorting menu items also appear in the column header menu:
-![Sorting via Column Header Menu](./spec-images/HeaderMenuSorting.png)  
-If sorting is disabled for a column, and no other enabled items are in the column header menu, the column header menu button will not appear.  
+![Sorting via Column Header Menu](./spec-images/HeaderMenuSorting.png)\
+If sorting is disabled for a column, and no other enabled items are in the column header menu, the column header menu button will not appear.\
 Updating sorting via the menu will always unsort any other columns that were already sorted, even when the current column is being unsorted too.
 
 For columns with `sorting-disabled` set to true:

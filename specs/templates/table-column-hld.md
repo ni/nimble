@@ -67,7 +67,9 @@ _Describe what the cell view will render._
 
 _If an existing group header view element will be used instead of creating a new one:_
 
-    A new element will not be created for the group header view. The column will specify the existing `tableColumnTextGroupHeaderViewTag` as the `groupHeaderViewTag` because the header will contain only text.
+```
+A new element will not be created for the group header view. The column will specify the existing `tableColumnTextGroupHeaderViewTag` as the `groupHeaderViewTag` because the header will contain only text.
+```
 
 _Otherwise:_
 

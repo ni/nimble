@@ -27,14 +27,14 @@ Some noteworthy aspects of the treegrid pattern are:
 > ARIA: "One reason it is important for all cells to be able to receive or contain keyboard focus is that screen readers will typically be in their application reading mode, rather than their document reading mode, when users are interacting with the grid. While in application mode, a screen reader user hears only focusable elements and content that labels focusable elements. So, screen reader users may unknowingly overlook elements contained in a treegrid that are either not focusable or not used to label a column or row."
 
 2. The `Tab` key moves focus between the focusable elements in a row (not the cells). When focus has reached the end (or beginning of the row), a continued `Tab` (or `Shift-Tab`) will move focus outside of the table.
-3. When a cell has multiple interactive elements, or editable content, the user needs a way to leave navigation mode to interact with the cell (`Enter` and `F2` are suggested), and a way to return to navigation mode (`Esc`, also `Enter` for editable content).  
+3. When a cell has multiple interactive elements, or editable content, the user needs a way to leave navigation mode to interact with the cell (`Enter` and `F2` are suggested), and a way to return to navigation mode (`Esc`, also `Enter` for editable content).\
    (Note: The `treegrid` and `grid` guidance are identical here.)
 
 If the above guidelines are adhered to, technologies like screen readers should be able to handle navigating through the table in an expected fashion.
 
 There's also guidance about whether cells themselves, or the elements inside the cells, should be focused:
 
-> ARIA: "For assistive technology users, the quality of experience when navigating a grid heavily depends on both what a cell contains and on where keyboard focus is set. For example, if a cell contains a button and a grid navigation key places focus on the cell instead of the button, screen readers announce the button label but do not tell users a button is present.  
+> ARIA: "For assistive technology users, the quality of experience when navigating a grid heavily depends on both what a cell contains and on where keyboard focus is set. For example, if a cell contains a button and a grid navigation key places focus on the cell instead of the button, screen readers announce the button label but do not tell users a button is present.\
 > There are two optimal cell design and focus behavior combinations:
 >
 > - When a cell contains _one widget_ whose operation _does not require arrow keys_, the grid navigation keys **will set focus on that widget**. Examples of such widgets include link, button, menubutton, toggle button, radio button (not radio group), switch, and checkbox.

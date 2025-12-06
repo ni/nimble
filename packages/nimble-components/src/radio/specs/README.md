@@ -35,7 +35,7 @@ The two components will expose common attributes shared by all components. In ad
 
 ### Angular integration
 
-We will implement an Angular `ControlValueAccessor` with `RadioControlValueAccessor` as the base class: [https://angular.io/api/forms/RadioControlValueAccessor]
+We will implement an Angular `ControlValueAccessor` with `RadioControlValueAccessor` as the base class: <https://angular.io/api/forms/RadioControlValueAccessor>
 
 ### Blazor integration
 

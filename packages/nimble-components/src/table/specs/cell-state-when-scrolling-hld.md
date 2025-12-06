@@ -28,16 +28,16 @@ We will not:
     - See the "Alternative Implementations" section for additional information on this decision.
 - Try and re-apply any state to the re-bound rows/cells after the scroll. That means that we won't re-focus the previously focused control in a cell / re-open an action menu, after a scroll operation.
 
-**Prototype:**  
-See [the prototype branch](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1) and the [prototype table Storybook](https://60e89457a987cf003efc0a5b-ktcaixsgzs.chromatic.com/?path=/story/table--table&args=data:LargeDataSet) to illustrate the concepts discussed in the following sections.  
+**Prototype:**\
+See [the prototype branch](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1) and the [prototype table Storybook](https://60e89457a987cf003efc0a5b-ktcaixsgzs.chromatic.com/?path=/story/table--table&args=data:LargeDataSet) to illustrate the concepts discussed in the following sections.\
 As we don't yet support editable column types, the prototype Storybook updates the Last Name column to show text which can be focused by clicking on it. After clicking a Last Name cell value, you'll see the text get a green border as its focused styling. Once you scroll the table vertically, the green border goes away, and you'll see a `console.log` indicating that the new cell `focusedRecycleCallback` API was used.
 
 ### Blur Focused Controls in Cells
 
 In this case, `document.activeElement` will be the Nimble `Table`, and `table.shadowRoot.activeElement` will be a Nimble `TableRow`. We can recursively look at the active element's `shadowRoot.activeElement`, starting from the TableRow, and stop when we reach a `TableCellView` (the custom element in table cells implemented by column plugin authors) or `null` (see [prototype](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR124)).
 
-If we found a focused `TableCellView`, then we will call the new API `focusedRecycleCallback()` on it.  
-(Prototype: [TableCellView API](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e307bbd379116ba5f5690332122a16b1fe392878b3899cbe487f98672766dcedR10), [calling focusedRecycleCallback() from virtualizer code](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR130))  
+If we found a focused `TableCellView`, then we will call the new API `focusedRecycleCallback()` on it.\
+(Prototype: [TableCellView API](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e307bbd379116ba5f5690332122a16b1fe392878b3899cbe487f98672766dcedR10), [calling focusedRecycleCallback() from virtualizer code](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR130))\
 Column plugins, in their derived versions of `TableCellView`, should generally override `focusedRecycleCallback()` if they have a focusable control - they can commit changes, and then blur the focusable control.
 ([Prototype:](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-d1db6a67f7353782eeb2c4769380687c9c1e70261dd7fb43960efe293cf04d97) A simplified column implementation that shows focusable text, and blurs it in the `focusedRecycleCallback` method.)
 
@@ -46,7 +46,7 @@ Column plugins, in their derived versions of `TableCellView`, should generally o
 The table will handle this internally (in the `Virtualizer` class, via `handleVirtualizerChange()`), without affecting the TableColumn public API.
 
 We want to close the action menu via the associated `MenuButton`, which allows the rest of the table logic dealing with action menus to get called normally.
-In this case, `table.shadowRoot.activeElement` will be null (since the action menus are slotted in), but `document.activeElement` will be a Nimble `MenuItem`. (We can also doublecheck that `table.contains(document.activeElement)` before proceeding.)  
+In this case, `table.shadowRoot.activeElement` will be null (since the action menus are slotted in), but `document.activeElement` will be a Nimble `MenuItem`. (We can also doublecheck that `table.contains(document.activeElement)` before proceeding.)\
 We have a few options:
 
 - We can use `table.openActionMenuRecordId` to find the row with an open action menu (via `querySelector` as one option). `tableRow.currentActionMenuColumn` gives us the `TableColumn` with an open menu but no direct way to get to the associated cell (we may need to look at all cells in the row, and find the one with `cell.menuOpen` being `true`).
@@ -60,8 +60,8 @@ Once we have a `TableCell`, we can get the `MenuButton` for the cell, and call `
 
 ### Clearing Text Selection
 
-**Background Info:**  
-The DOM API for text selection is [`window.getSelection()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection), but unfortunately the text selection APIs are incomplete / inconsistent across browsers, once you're using them on DOM elements that use Shadow DOM ([StackOverflow reference](https://stackoverflow.com/a/70523247)). In the future there may be a `getComposedRange()` API added that works better with Shadow DOM, however it's not yet finalized and is not yet in any browsers ([webcomponents#79](https://github.com/WICG/webcomponents/issues/79), [getComposedRange() draft proposal](https://w3c.github.io/selection-api/#dom-selection-getcomposedrange), [feedback thread for proposal](https://github.com/w3c/selection-api/issues/161)).  
+**Background Info:**\
+The DOM API for text selection is [`window.getSelection()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection), but unfortunately the text selection APIs are incomplete / inconsistent across browsers, once you're using them on DOM elements that use Shadow DOM ([StackOverflow reference](https://stackoverflow.com/a/70523247)). In the future there may be a `getComposedRange()` API added that works better with Shadow DOM, however it's not yet finalized and is not yet in any browsers ([webcomponents#79](https://github.com/WICG/webcomponents/issues/79), [getComposedRange() draft proposal](https://w3c.github.io/selection-api/#dom-selection-getcomposedrange), [feedback thread for proposal](https://github.com/w3c/selection-api/issues/161)).\
 Note: The specific problem is detecting whether the active text selection is (wholly or partially) within the table. Clearing the text selection, once we decide we want to, is always straightforward (`window.getSelection()?.removeAllRanges()`, `window.getSelection().removeRange(range)`).
 
 There's several potential approaches to detecting if the table contains selected text, but none of them work in all cases / across all browsers. Given a [`Range` instance](https://developer.mozilla.org/en-US/docs/Web/API/Range) (`window.getSelection().getRangeAt(n)`):
@@ -84,20 +84,20 @@ There's several potential approaches to detecting if the table contains selected
 
 **Possible Implementation Plan: Detecting Table Text Selection**
 
-To check if the table contains selected text:  
+To check if the table contains selected text:\
 Get `window.getSelection()`. If null or `rangeCount === 0`, no text is selected. Otherwise, for each `Range`:
 
 - Check if `startContainer`/`endContainer` is the `nimble-table`
 - Else, do the `compareBoundaryPoints` check (in a `try/catch`)
 - Else, check if `startContainer`/`endContainer` has the `nimble-table` as an ancestor
 
-If any of those `Range` checks succeed, remove that `Range` from the selection.  
+If any of those `Range` checks succeed, remove that `Range` from the selection.\
 _Limitations:_
 
 - If text is selected in the table but outside rows (e.g. column header text), it will also be cleared when the user scrolls. (There's not a good way to differentiate the text location that works in each browser.)
 - (Safari only) If text selection is partially in the table and partially before/ after it, there isn't any way for us to detect that case. So Safari will still have text incorrectly selected after the scroll in that case.
 
-_API:_  
+_API:_\
 This logic will be in the Nimble Virtualizer class, called from `handleVirtualizerChange()` (called when the user scrolls). It will apply to all Nimble tables / all column types, without an opt-out option.
 
 **Conclusion**: Since the code required to detect table selection is problematic (`try/catch`) and complex, doesn't work fully in Safari, and is potentially fragile, we currently don't plan to try and detect table text selection.

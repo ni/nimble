@@ -139,4 +139,4 @@ The commandline build will create a published distribution of the Blazor client 
 - Pick a site name
 - Under "Physical Path", click [...] and browse to your `blazor-workspace\dist\blazor-client-app` directory
 - Under "Binding", pick a port other than 80 (such as 8080), then click "OK"
-- Open http://localhost:8080 (or whatever port you chose)
+- Open <http://localhost:8080> (or whatever port you chose)

@@ -34,15 +34,16 @@ Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://
         - VS Code: Run the command `dotnet add package NimbleBlazor --source [NimbleRepoDirectory]\packages\blazor-workspace\dist` in the Terminal window.
 2. Add required references to Blazor code
     - Open `_Imports.razor`, and add a new line at the bottom: `@using NimbleBlazor`
-    - Open the HTML page (generally `App.razor` for Blazor Web Apps, or `wwwroot/index.html` for Blazor WebAssembly / Hybrid)  
-    At the bottom of the `<head>` section (right before `</head>`), add  
-        ```html
-        <link href="_content/NimbleBlazor/nimble-tokens/css/fonts.css" rel="stylesheet" />
-        ```  
-        At the bottom of the `<body>` section (right before `</body>`), add  
-        ```html
-        <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
-        ```  
+    - Open the HTML page (generally `App.razor` for Blazor Web Apps, or `wwwroot/index.html` for Blazor WebAssembly / Hybrid)
+
+      At the bottom of the `<head>` section (right before `</head>`), add  
+      ```html
+      <link href="_content/NimbleBlazor/nimble-tokens/css/fonts.css" rel="stylesheet" />
+      ```
+      At the bottom of the `<body>` section (right before `</body>`), add  
+      ```html
+      <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
+      ```
 
 Additional Resources: [`dotnet add package` documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-add-package)
 
@@ -113,10 +114,12 @@ Components _must_ be wrapped in a containing element in order to work with the `
 
 #### Using Nimble Design Tokens (CSS/SCSS)
 
-Blazor doesn't have built-in support for using/ building SCSS files, however Nimble's design tokens can be used as CSS variables (`var(--ni-nimble-...)`) in Blazor apps without any additional work.  
+Blazor doesn't have built-in support for using/ building SCSS files, however Nimble's design tokens can be used as CSS variables (`var(--ni-nimble-...)`) in Blazor apps without any additional work.
+
 For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Theme-aware tokens"](https://nimble.ni.dev/storybook/?path=/story/tokens-theme-aware-tokens--theme-aware-tokens&args=propertyFormat:CSS).
 
-**Experimental: Manually including Nimble Tokens SCSS files**  
+**Experimental: Manually including Nimble Tokens SCSS files**
+
 There are currently extra manual steps required to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense and compile-time checking for the Nimble tokens and variables):
 1. Copy the Nimble tokens SCSS files into your Blazor project: Include `tokens.scss` and `tokens-internal.scss` from the `nimble-components` in your Blazor project directory. The simplest way to get these files is via `unpkg.com` (latest versions: [tokens.scss](https://unpkg.com/@ni/nimble-components/dist/tokens-internal.scss), [tokens-internal.scss](https://unpkg.com/@ni/nimble-components/dist/tokens-internal.scss))
 2. In `tokens.scss`, add a file extension to the `@forward` and `@use` statements at the top (`'./tokens-internal'` => `'./tokens-internal.scss'`)
@@ -124,7 +127,8 @@ There are currently extra manual steps required to use the Nimble design tokens 
 4. Add new SCSS files for your Razor components (e.g. `MyComponent.razor.scss`), and `@use 'tokens.scss' as *` in it (updating the import relative path as needed).
 5. Use the `$ni-nimble-...` variables in your Blazor application SCSS.
 
-The SCSS compilation happens before the rest of Blazor's compilation, so this approach works fine with Blazor CSS isolation.  
+The SCSS compilation happens before the rest of Blazor's compilation, so this approach works fine with Blazor CSS isolation.
+
 Note: This approach requires periodically updating the Nimble tokens SCSS files manually (whenever the Nimble Blazor NuGet version is updated).
 
 ### Localization (Optional)
