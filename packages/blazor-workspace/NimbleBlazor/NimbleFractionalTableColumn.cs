@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnMapping<TKey> : NimbleTableColumnEnumBase<TKey>, IFractionalWidthColumn
+public abstract class NimbleFractionalTableColumn : NimbleTableColumn, IFractionalWidthColumn
 {
     /// <summary>
     /// The fractional/proportional width to use for this column
@@ -16,12 +16,6 @@ public partial class NimbleTableColumnMapping<TKey> : NimbleTableColumnEnumBase<
     /// </summary>
     [Parameter]
     public double? MinPixelWidth { get; set; }
-
-    /// <summary>
-    /// Sets the width mode on the column.
-    /// </summary>
-    [Parameter]
-    public MappingColumnWidthMode? WidthMode { get; set; }
 
     /// <summary>
     /// The fractional/proportional width formatted with the invariant culture.

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnText : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn, ISortableColumn, ICustomSortOrderColumn
+public partial class NimbleTableColumnText : NimbleFractionalTableColumn, IGroupableColumn, ISortableColumn, ICustomSortOrderColumn
 {
     /// <summary>
     /// Gets or sets the field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display
@@ -17,18 +17,6 @@ public partial class NimbleTableColumnText : NimbleTableColumn, IFractionalWidth
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
-
-    /// <summary>
-    /// The fractional/proportional width to use for this column
-    /// </summary>
-    [Parameter]
-    public double FractionalWidth { get; set; } = 1;
-
-    /// <summary>
-    /// The minimum width (in pixels) for this column
-    /// </summary>
-    [Parameter]
-    public double? MinPixelWidth { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
