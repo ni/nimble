@@ -1,5 +1,8 @@
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import { javascriptConfig, importNodeEsmConfig } from '@ni/eslint-config-javascript';
+import markdownPreferences from 'eslint-plugin-markdown-preferences';
+import markdownLinks from 'eslint-plugin-markdown-links';
+import { resolve } from 'node:path';
 
 export const lintNimbleConfig = defineConfig([
     {
@@ -18,5 +21,27 @@ export const lintNimbleConfig = defineConfig([
         rules: {
             'import/no-extraneous-dependencies': 'off'
         }
+    },
+    globalIgnores(['CHANGELOG.md']),
+    markdownPreferences.configs.recommended,
+    markdownLinks.configs.recommended,
+    {
+        files: ['**/*.md', '*.md'],
+        rules: {
+            'markdown-links/no-missing-fragments': 'error',
+            'markdown-links/no-missing-path': [
+                'error',
+                {
+                    basePath: resolve(import.meta.dirname, '../../'),
+                    // ignorePaths: [],
+                    // checkAnchor: true,
+                    // allowedAnchors: { '/./': '/^:~:/' },
+                    // anchorOption: {
+                    //     ignoreCase: true,
+                    //     slugify: 'github'
+                    // }
+                }
+            ]
+        },
     }
 ]);

@@ -6,8 +6,8 @@ Spinner component (`nimble-spinner`): Indeterminate progress indicator / loading
 
 ### Background
 
-[Nimble spinner: #346](https://github.com/ni/nimble/issues/346)  
-[Nimble spinner design: #822](https://github.com/ni/nimble/issues/822)  
+[Nimble spinner: #346](https://github.com/ni/nimble/issues/346)\
+[Nimble spinner design: #822](https://github.com/ni/nimble/issues/822)\
 [Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)
 
 [Follow-up issue about PowerGreen/custom color variants: #916](https://github.com/ni/nimble/issues/916)
@@ -35,10 +35,10 @@ None
 
 ### Prior Art/Examples
 
-SystemLink Enterprise uses a spinner based on the Material `mat-spinner`:  
+SystemLink Enterprise uses a spinner based on the Material `mat-spinner`:\
 ![SystemLink Material spinner](SlMatSpinner.gif)
 
-A variant of this spinner design is already implemented in the Web Config tool written in Blazor:  
+A variant of this spinner design is already implemented in the Web Config tool written in Blazor:\
 ![Blazor Web Config spinner](BlazorWebConfigSpinner.gif)
 
 ## Design
@@ -77,17 +77,17 @@ Standard Blazor implementation (`NimbleSpinner` deriving from `ComponentBase`), 
 
 [Visual Design spec - Adobe XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/)
 
-![New spinner design](NewSpinnerDesign.gif)  
+![New spinner design](NewSpinnerDesign.gif)\
 **Note:** 'Color UI Alt.' appearance is unsupported for the initial implementation, see the _Potential Future Enhancements_ section.
 
-When `prefers-reduced-motion` is enabled, a simplified version will be used:  
+When `prefers-reduced-motion` is enabled, a simplified version will be used:\
 ![Spinner, Prefers Reduced Motion](SpinnerPrefersReducedMotion.gif)
 
 ## Implementation
 
 Component implementation will derive from the FAST `FoundationElement`.
 
-**Alternatives Considered:** We could derive from `fast-progress-ring` (radial progress indicator, which supports an indeterminate progress display), however then our component API would also pick up the `min`/`max`/`value` properties for determinate progress (and `paused` to pause the indicator), which we don't plan on supporting at this time. Additionally, the visual appearance of our spinner will be a little different from a radial progress bar, and we still may end up supporting a standard radial progress bar in the future.  
+**Alternatives Considered:** We could derive from `fast-progress-ring` (radial progress indicator, which supports an indeterminate progress display), however then our component API would also pick up the `min`/`max`/`value` properties for determinate progress (and `paused` to pause the indicator), which we don't plan on supporting at this time. Additionally, the visual appearance of our spinner will be a little different from a radial progress bar, and we still may end up supporting a standard radial progress bar in the future.\
 For reference, the FAST spec for `progress` / `progress-ring` is [here](https://github.com/microsoft/fast/blob/802443ffb2b19a078f9b48f62e6d1a35e3276fb5/packages/web-components/fast-foundation/src/progress/README.md).
 
 ### States
@@ -98,7 +98,7 @@ Only one component state: visible and animating. Pausing not supported; spinner 
 
 No keyboard states / form integration.
 
-ARIA: We plan to use the [`progressbar role`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role) without setting `aria-valuemin` / `aria-valuemax` / `aria-valuenow` (representing indeterminate).  
+ARIA: We plan to use the [`progressbar role`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role) without setting `aria-valuemin` / `aria-valuemax` / `aria-valuenow` (representing indeterminate).\
 This matches the behavior of an indeterminate FAST progress ring (in which case min/max/value are unset) - see the [FAST template here](https://github.com/microsoft/fast/blob/802443ffb2b19a078f9b48f62e6d1a35e3276fb5/packages/web-components/fast-foundation/src/progress-ring/progress-ring.template.ts#L17).
 
 `prefers-reduced-motion`: A simplified spinner indicator will be shown when this is enabled, see the Visual Appearance section.
@@ -123,7 +123,7 @@ None
 
 ### Test Plan
 
-Standard tests planned.  
+Standard tests planned.\
 [Chromatic is supposed to handle pausing CSS animations by default](https://www.chromatic.com/docs/animations), however we should verify that by ensuring the snapshots of the spinner show the same state across 2 Chromatic builds.
 
 ### Tooling

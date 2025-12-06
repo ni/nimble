@@ -47,20 +47,20 @@ Related work items:
      - NimbleBlazor 18.2.0
      - Microsoft.AspNetCore.Components.Web 8.0.7
      - Code owners: Eric Peterson, Anand Jain
-- ASW
-  - ElectricVehicle (`/Source/ElectricVehicle`): `BatteryTestWebApplication.NetCore.csproj`, `EVTestUIPluginComponents.NetCore.csproj`
+ - ASW
+ - ElectricVehicle (`/Source/ElectricVehicle`): `BatteryTestWebApplication.NetCore.csproj`, `EVTestUIPluginComponents.NetCore.csproj`
     - .NET 8
     - NimbleBlazor 18.2.2
     - Microsoft.AspNetCore.Components.Web 8.0.7
     - Code owners: Jonathan Ou-yang, Fei Ma
-  - LicenseManagement (`/Source/LicenseManagement`):
+ - LicenseManagement (`/Source/LicenseManagement`):
     - `Licensing.ClientUtility.NetCore.csproj`: .NET 8
     - `Licensing.ElectronBlazorUtilities.NetCore.csproj`, `Licensing.Wizard.NetCore.csproj`: .NET 6
     - NimbleBlazor 18.2.2
     - Microsoft.AspNetCore.Components.Web 8.0.7
     - Code owners: Vineeta Chelamkuri, Tim Atwood
-- Skyline
-  - `/WaferMapProcessorService/`
+ - Skyline
+    - `/WaferMapProcessorService/`
     - .NET 6
     - NimbleBlazor 17.4.3
     - Code owners: Alon Aviv, Dror Lupu
@@ -84,7 +84,7 @@ Once we update to target .NET 8, remaining .NET 6 clients of Nimble Blazor can o
 
 ### Target both .NET 6 and .NET 8
 
-It's possible for .NET projects to [target multiple framework versions](https://learn.microsoft.com/en-us/dotnet/standard/frameworks#how-to-specify-a-target-framework), meaning we could target both .NET 6 and .NET 8 with the following `csproj` configuration:  
+It's possible for .NET projects to [target multiple framework versions](https://learn.microsoft.com/en-us/dotnet/standard/frameworks#how-to-specify-a-target-framework), meaning we could target both .NET 6 and .NET 8 with the following `csproj` configuration:\
 `<TargetFrameworks>net8.0;net6.0</TargetFrameworks>`
 
 We've elected not to do this for the following reasons:
