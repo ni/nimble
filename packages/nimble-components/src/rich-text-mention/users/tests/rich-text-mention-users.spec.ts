@@ -54,7 +54,6 @@ describe('RichTextMentionUsers', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
-    // prettier-ignore
     async function setup(options: {
         mappings: BasicUserMentionMapping[],
         pattern: string

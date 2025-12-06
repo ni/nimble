@@ -61,7 +61,6 @@ function createMatrixFromStates<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate,
     states: T[]
 ): ViewTemplate {
-    // prettier-ignore
     return html`
     ${repeat(() => states, html`
         ${(x: T): ViewTemplate => component(...x)}
@@ -123,7 +122,6 @@ export function createMatrixInteractionsFromStates<
         focus: TFocus[]
     }
 ): ViewTemplate {
-    // prettier-ignore
     return html`
     <div style="
         font: var(${bodyFont.cssCustomProperty});

@@ -88,7 +88,6 @@ const tabSets = {
 export default metadata;
 
 export const tabs: StoryObj<TabsArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${tabsTag} activeid="${x => x.activeid}">
         ${repeat(x => (tabSets[x.tabsType] as TabArgs[]), html<TabArgs>`
@@ -148,7 +147,6 @@ export const tabs: StoryObj<TabsArgs> = {
 };
 
 export const tab: StoryObj<TabArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${tabsTag}>
             <${tabTag} id="1" ?disabled="${x => x.disabled}">Tab One</${tabTag}>
@@ -181,7 +179,6 @@ export const tab: StoryObj<TabArgs> = {
 };
 
 export const tabPanel: StoryObj<TabPanelArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${tabsTag}>
             <${tabTag}>Tab One</${tabTag}>
@@ -203,7 +200,6 @@ export const tabPanel: StoryObj<TabPanelArgs> = {
 };
 
 export const tabToolbar: StoryObj<ToolbarArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${tabsTag} style="width: 800px;">
             <${tabsToolbarTag}>

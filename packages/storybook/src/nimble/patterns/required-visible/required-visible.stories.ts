@@ -28,7 +28,6 @@ const metadata: Meta<RequiredVisiblePatternArgs> = {
     parameters: {
         actions: {}
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style class='code-hide'>
             .control-container {

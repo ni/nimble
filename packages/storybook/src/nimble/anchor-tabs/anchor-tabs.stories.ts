@@ -85,7 +85,6 @@ const metadata: Meta<AnchorTabsArgs> = {
 export default metadata;
 
 export const anchorTabs: StoryObj<AnchorTabsArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${anchorTabsTag} activeid="${x => x.activeid}">
         ${repeat(x => tabSets[x.tabsType] as AnchorTabArgs[], html<AnchorTabArgs>`
@@ -177,7 +176,6 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
 };
 
 export const tabsToolbar: StoryObj<ToolbarArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${anchorTabsTag} activeid="1" style="width: 800px;">
             <${tabsToolbarTag}>
