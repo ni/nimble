@@ -20,7 +20,6 @@ interface ChipArgs {
     remove: undefined;
 }
 
-// prettier-ignore
 const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
     render: createUserSelectedThemeStory(html`

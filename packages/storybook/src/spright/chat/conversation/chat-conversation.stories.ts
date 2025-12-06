@@ -52,7 +52,6 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     parameters: {
         actions: {}
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style class='code-hide'>
             ${chatConversationTag} {

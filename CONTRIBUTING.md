@@ -167,7 +167,7 @@ This repository uses automated linting and automated lint formatting. Use `npm r
 
 To enable linting and formatting during development, install the recommended VS Code extensions. The list of recommended VS Code extensions can be found in `.vscode/extensions.json`.
 
-The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `ESLint`. The `ESLint` option assumes that the recommended VS Code extensions are installed.
 
 You may wish to have the formatter run every time you save a file. This would help ensure you don't forget to run the formatter and end up with a failing PR build. If you want this behavior, turn it on in your user settings: `File >> Preferences >> Settings >> User >> Text Editor >> Format On Save`. We leave this option unset in the workspace settings so that it does not override the user setting.
 

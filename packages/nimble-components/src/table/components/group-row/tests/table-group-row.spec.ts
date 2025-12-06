@@ -12,7 +12,6 @@ type TableRowSelectionToggleEventHandler = (
     evt: CustomEvent<TableRowSelectionToggleEventDetail>
 ) => void;
 
-// prettier-ignore
 async function setup(): Promise<Fixture<TableGroupRow>> {
     return await fixture<TableGroupRow>(
         html`<${tableGroupRowTag}>

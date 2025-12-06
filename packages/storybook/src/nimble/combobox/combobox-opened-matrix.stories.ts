@@ -26,7 +26,6 @@ interface ComboboxMatrixStoryOptions {
     manyOptions?: boolean;
 }
 
-// prettier-ignore
 const component = ({
     position,
     manyOptions

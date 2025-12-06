@@ -64,7 +64,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     toolbar: TabsToolbarState,
     [disabledName, disabled]: DisabledState,

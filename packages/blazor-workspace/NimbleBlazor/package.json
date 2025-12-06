@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "20.9.4",
+  "version": "20.9.5",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "invoke-pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
@@ -25,7 +25,7 @@
     "!*"
   ],
   "peerDependencies": {
-    "@ni/nimble-components": "^34.8.4",
+    "@ni/nimble-components": "^34.8.5",
     "@ni/nimble-tokens": "^8.13.5",
     "cross-env": "^10.1.0",
     "rimraf": "^6.0.0"

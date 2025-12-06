@@ -220,7 +220,6 @@ const metadata: Meta<SharedTableArgs> = {
             ]
         }
     },
-    // prettier-ignore
     argTypes: {
         ...sharedTableArgTypes,
         selectionMode: {
@@ -266,7 +265,6 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
 
 export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
     parameters: {},
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<MenuButtonColumnTableArgs>`
         ${disableStorybookZoomTransform} 
         <${tableTag}

@@ -63,7 +63,6 @@ const updateData = (tableRef: Table<Data>): void => {
     })();
 };
 
-// prettier-ignore
 export const icons: StoryObj<IconArgs> = {
     args: {
         severity: 'default',

@@ -76,7 +76,6 @@ function createLargeData(dataLength: number): SimpleTableRecord[] {
 
 const largeTableData = createLargeData(500);
 
-// prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag} style="width: 700px">
@@ -2544,7 +2543,6 @@ describe('Table', () => {
         let disconnect: () => Promise<void>;
         let column1: TableColumnValidationTest;
 
-        // prettier-ignore
         async function setupWithTestColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag}>

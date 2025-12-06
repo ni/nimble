@@ -74,7 +74,6 @@ const defaultHrefDescription = hrefDescription({
 const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb item represents the current page it should have no \`href\` set.`;
 
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"

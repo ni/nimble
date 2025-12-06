@@ -44,7 +44,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [_groupingName, groupIndex]: GroupingState,
     [_minColumnWidthName, minColumnWidth]: MinColumnWidthState

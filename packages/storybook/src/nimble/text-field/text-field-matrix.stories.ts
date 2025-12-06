@@ -86,7 +86,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [_manipulationName, readOnly, disabled, appearanceReadOnly]: ManipulationState,
     [_showActionButtonsName, showActionButtons]: ActionButtonState,
@@ -132,7 +131,6 @@ const component = (
     </${textFieldTag}>
 `;
 
-// prettier-ignore
 const requiredVisibleStatesComponent = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [appearanceName, appearance]: AppearanceState,

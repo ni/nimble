@@ -630,7 +630,6 @@ const metadata: Meta<TableArgs> = {
     parameters: {
         ...fastParameters()
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <style class="code-hide">
             ${tableTag} {

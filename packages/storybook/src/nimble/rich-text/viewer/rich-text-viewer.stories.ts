@@ -38,7 +38,6 @@ const dataSets = {
 const metadata: Meta<RichTextViewerArgs> = {
     title: 'Incubating/Rich Text Viewer',
     parameters: {},
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
     ${incubatingWarning({
         componentName: 'rich text viewer',

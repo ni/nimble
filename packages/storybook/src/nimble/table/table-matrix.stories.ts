@@ -100,7 +100,6 @@ const hierarchyStates = [
 ] as const;
 type HierarchyState = (typeof hierarchyStates)[number];
 
-// prettier-ignore
 const component = (
     selectionMode: SelectionModeState,
     [groupedStateName, groupedState]: GroupedState,
