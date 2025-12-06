@@ -11,7 +11,7 @@
     "build-angular": "turbo run @ni-private/angular-workspace#build --log-order=grouped",
     "build-blazor": "turbo run @ni-private/blazor-workspace#build --log-order=grouped",
     "build-react": "turbo run @ni-private/react-client-app#build --log-order=grouped",
-    "format": "turbo run format --log-order=grouped --continue=dependencies-successful",
+    "format": "eslint . --fix && turbo run format --log-order=grouped --continue=dependencies-successful",
     "pack": "turbo run pack --log-order=grouped --continue=dependencies-successful",
     "test": "turbo run test --log-order=grouped --continue=dependencies-successful",
     "lint": "eslint . && turbo run lint --log-order=grouped --continue=dependencies-successful",
