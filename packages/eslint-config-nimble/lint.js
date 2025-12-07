@@ -34,7 +34,10 @@ export const lintNimbleConfig = defineConfig([
                 {
                     basePath: resolve(import.meta.dirname, '../../'),
                 }
-            ]
+            ],
+            'markdown-preferences/hard-linebreak-style': ['error', {
+                style: 'spaces'
+            }]
         },
     }
 ]);

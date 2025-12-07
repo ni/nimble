@@ -39,10 +39,10 @@ When not to use:
 
 It is best practice to use one accordion with multiple sections over multiple accordions with one section.
 
-Do this:\
+Do this:  
 ![ ](spec-images/accordion-2.png)
 
-Avoid this:\
+Avoid this:  
 ![ ](spec-images/accordion-3.png)
 
 #### Header Button
@@ -89,7 +89,7 @@ The client-user should be able to specify whether only one content panel can be 
 
 > NOTE:
 
-The client-user may need/want to have additional icon buttons, badge counts, or status indicators in the header. For example, an expand button:\
+The client-user may need/want to have additional icon buttons, badge counts, or status indicators in the header. For example, an expand button:  
 ![ ](spec-images/accordion-8.png)
 
 ### Behavior
