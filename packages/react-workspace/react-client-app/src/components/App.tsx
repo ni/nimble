@@ -55,9 +55,7 @@ import { NimbleCombobox } from '@ni/nimble-react/dist/esm/combobox';
 import { NimbleRichTextEditor } from '@ni/nimble-react/dist/esm/rich-text/editor';
 import type { RichTextEditor } from '@ni/nimble-react/dist/esm/rich-text/editor';
 import { NimbleRichTextMentionUsers } from '@ni/nimble-react/dist/esm/rich-text-mention/users';
-import type { RichTextMentionUsers } from '@ni/nimble-react/dist/esm/rich-text-mention/users';
 import { NimbleMappingUser } from '@ni/nimble-react/dist/esm/mapping/user';
-import type { MappingUser } from '@ni/nimble-react/dist/esm/mapping/user';
 import { NimbleRichTextViewer } from '@ni/nimble-react/dist/esm/rich-text/viewer';
 import { SprightChatConversation } from '@ni/spright-react/dist/esm/chat/conversation';
 import { SprightChatInput } from '@ni/spright-react/dist/esm/chat/input';
@@ -211,13 +209,7 @@ export function App(): JSX.Element {
     const delayedHierarchyTableRef = useRef<Table>(null);
 
     const richTextEditorRef = useRef<RichTextEditor>(null);
-    const editorMentionRef = useRef<RichTextMentionUsers>(null);
-    const viewerMentionRef = useRef<RichTextMentionUsers>(null);
-    const editorMappingUser1Ref = useRef<MappingUser>(null);
-    const editorMappingUser2Ref = useRef<MappingUser>(null);
-    const viewerMappingUser1Ref = useRef<MappingUser>(null);
-    const viewerMappingUser2Ref = useRef<MappingUser>(null);
-    const [markdownString] = useState(`Supported rich text formatting options:
+    const markdownString = `Supported rich text formatting options:
 1. **Bold**
 2. *Italics*
 3. Numbered lists
@@ -228,7 +220,7 @@ export function App(): JSX.Element {
     * Option 2
 5. Absolute link: <https://nimble.ni.dev/>
 6. @mention: <user:1>
-`);
+`;
 
     function addTableRows(numberOfRowsToAdd: number): void {
         const possibleStatuses = ['success', 'calculating', 'unknown'];
@@ -435,29 +427,6 @@ export function App(): JSX.Element {
         setChatUserMessages(prevMessages => [...prevMessages, text]);
     }
 
-    // Set attributes on mapping user elements imperatively since React doesn't pass 'key' prop to DOM
-    useEffect(() => {
-        if (editorMentionRef.current) {
-            editorMentionRef.current.setAttribute('button-label', 'Mention User');
-        }
-        if (editorMappingUser1Ref.current) {
-            editorMappingUser1Ref.current.setAttribute('key', 'user:1');
-            editorMappingUser1Ref.current.setAttribute('display-name', 'John Doe');
-        }
-        if (editorMappingUser2Ref.current) {
-            editorMappingUser2Ref.current.setAttribute('key', 'user:2');
-            editorMappingUser2Ref.current.setAttribute('display-name', 'Mary Wilson');
-        }
-        if (viewerMappingUser1Ref.current) {
-            viewerMappingUser1Ref.current.setAttribute('key', 'user:1');
-            viewerMappingUser1Ref.current.setAttribute('display-name', 'John Doe');
-        }
-        if (viewerMappingUser2Ref.current) {
-            viewerMappingUser2Ref.current.setAttribute('key', 'user:2');
-            viewerMappingUser2Ref.current.setAttribute('display-name', 'Mary Wilson');
-        }
-    }, []);
-
     // Update table data when component mounts or data changes
     useEffect(() => {
         const loadData = async (): Promise<void> => {
@@ -597,7 +566,6 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Anchor</div>
                         <div><NimbleAnchor href="#" appearance="prominent">Site root</NimbleAnchor></div>
-                        Let's try it <NimbleAnchor href="#" underline-hidden={false}>using href</NimbleAnchor>.
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Banner</div>
@@ -960,9 +928,9 @@ export function App(): JSX.Element {
                                 className="rich-text-editor"
                                 placeholder="Rich text editor"
                             >
-                                <NimbleRichTextMentionUsers ref={editorMentionRef} pattern="^user:(.*)">
-                                    <NimbleMappingUser ref={editorMappingUser1Ref}></NimbleMappingUser>
-                                    <NimbleMappingUser ref={editorMappingUser2Ref}></NimbleMappingUser>
+                                <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
+                                    <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
+                                    <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>
                                 </NimbleRichTextMentionUsers>
                                 <NimbleButton slot="footer-actions"
                                     onClick={loadRichTextEditorContent}
@@ -976,10 +944,9 @@ export function App(): JSX.Element {
                             <NimbleRichTextViewer
                                 markdown={markdownString}
                             >
-                                <NimbleRichTextMentionUsers ref={viewerMentionRef} pattern="^user:(.*)">
-                                    <NimbleMappingUser ref={viewerMappingUser1Ref}></NimbleMappingUser>
-                                    <NimbleMappingUser ref={viewerMappingUser2Ref}></NimbleMappingUser>
-                                </NimbleRichTextMentionUsers>
+                                <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
+                                    <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
+                                    <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>                                </NimbleRichTextMentionUsers>
                             </NimbleRichTextViewer>
                         </div>
                     </div>
