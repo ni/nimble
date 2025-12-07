@@ -951,7 +951,7 @@ export function App(): JSX.Element {
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Spinner</div>
-                        <NimbleSpinner ariaLabel="Loading example content"></NimbleSpinner>
+                        <NimbleSpinner aria-label="Loading example content"></NimbleSpinner>
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Switch</div>
