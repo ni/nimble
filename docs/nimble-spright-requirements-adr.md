@@ -51,9 +51,9 @@ The following table compares the requirements for developing a component in diff
 | `nimble-components` (incubating) | 🟢           | 🟢         | 🟢              | 🟢           | 🟡            | 🟡             | 🟢            | 🟡                     | 🟡         | 🟡                | 🟡
 | `spright-components`             | 🟢           | 🟢         | 🟢              | 🟢           | 🟡            | 🟡             | 🟡            | 🟡                     | 🟡         | 🟡                | 🟡
 
-🟢 = required\
-🟡 = optional\
-*SB = Storybook\
+🟢 = required  
+🟡 = optional  
+*SB = Storybook  
 **By an interaction and/or visual designer
 
 ## Consequences

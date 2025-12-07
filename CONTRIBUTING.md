@@ -74,8 +74,8 @@ Bare minimum requirements for each library (though components in each library ar
 | Minimal tech debt      |         🟢          |          🟡         |          🟡          |
 | Mobile support         |         🟡          |          🟡         |          🟡          |
 
-🟢 = required\
-🟡 = optional\
+🟢 = required  
+🟡 = optional  
 \* = By an interaction and / or visual designer
 
 ### Adding a new component

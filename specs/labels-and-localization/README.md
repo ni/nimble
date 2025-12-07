@@ -121,12 +121,12 @@ We'll define a base class (prototype: [i18n-base.ts](https://github.com/ni/nimbl
 
 **nimble-angular**
 
-Each label-provider will have its own Angular directive and module (prototype: [nimble-i18n-core.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.directive.ts) and [nimble-i18n-core.module](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.module.ts) for `label-provider-core`.)\
+Each label-provider will have its own Angular directive and module (prototype: [nimble-i18n-core.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.directive.ts) and [nimble-i18n-core.module](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.module.ts) for `label-provider-core`.)  
 We will probably also want to create secondary entry points in nimble-angular for each label-provider, which ensures that client apps won't necessary pull in all the Nimble labels from all label providers (unless they import them explicitly).
 
 In order to make it easy/automatic for clients to pick up new localized strings/labels when they uptake new nimble-angular versions, each label-provider has an additional directive that will set all of the Nimble-defined labels/strings, using Angular's `$localize` function on the English strings.
 
-Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core-with-defaults.directive.ts)\
+Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core-with-defaults.directive.ts)  
 If we define descriptions for each string, we can include it so it appears in the message files, such as: ``$localize`:Nimble number-field increment button label:Increment` ``.
 
 For each label-provider that an Angular app will use:
@@ -147,7 +147,7 @@ We expect most apps in SystemLink to consume both `nimble-label-provider-core` a
 
 We can consider codegen-ing the Angular directives, which would let us avoid copy-pasting the English strings/ descriptions at the nimble-angular level, but at the expense of obfucscating some of the code (in the generator scripts).
 
-**nimble-blazor**\
+**nimble-blazor**  
 We currently don't have a good solution for Blazor clients to automatically pick up or localize our labels/strings.
 
 We do still plan to create Razor components for each label-provider, so that Blazor clients can manually specify/localize the labels if desired.

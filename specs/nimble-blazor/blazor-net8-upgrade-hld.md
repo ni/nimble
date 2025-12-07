@@ -84,8 +84,8 @@ Once we update to target .NET 8, remaining .NET 6 clients of Nimble Blazor can o
 
 ### Target both .NET 6 and .NET 8
 
-It's possible for .NET projects to [target multiple framework versions](https://learn.microsoft.com/en-us/dotnet/standard/frameworks#how-to-specify-a-target-framework), meaning we could target both .NET 6 and .NET 8 with the following `csproj` configuration:\
-`<TargetFrameworks>net8.0;net6.0</TargetFrameworks>`
+It's possible for .NET projects to [target multiple framework versions](https://learn.microsoft.com/en-us/dotnet/standard/frameworks#how-to-specify-a-target-framework), meaning we could target both .NET 6 and .NET 8 with the following `csproj` configuration:  
+`<TargetFrameworks>net8.0;net6.0</TargetFrameworks>`  
 
 We've elected not to do this for the following reasons:
 - Additional maintenance burden. Each target framework version can specify different dependencies/ dependency versions - we'd probably depend on different versions of `Microsoft.AspNetCore.Components.Web` for each .NET version, for example. This approach would require separate testing going forward. We would most likely need different JS initialization scripts for each .NET version (also implying that all of our Playwright tests would need to run against both versions).
