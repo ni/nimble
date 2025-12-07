@@ -15,8 +15,8 @@ import { NimbleCheckbox } from '@ni/nimble-react/dist/esm/checkbox';
 import { NimbleRadioGroup } from '@ni/nimble-react/dist/esm/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/dist/esm/radio';
 import { NimbleTextField } from '@ni/nimble-react/dist/esm/text-field';
-import { NimbleDialog, type DialogRef, type Dialog, UserDismissed } from '@ni/nimble-react/dist/esm/dialog';
-import { NimbleDrawer, type Drawer, UserDismissed as DrawerUserDismissed, DrawerLocation, type DrawerRef } from '@ni/nimble-react/dist/esm/drawer';
+import { NimbleDialog, type Dialog, type DialogRef, DialogUserDismissed } from '@ni/nimble-react/dist/esm/dialog';
+import { NimbleDrawer, type Drawer, type DrawerRef, DrawerUserDismissed, DrawerLocation } from '@ni/nimble-react/dist/esm/drawer';
 import { NimbleMenu } from '@ni/nimble-react/dist/esm/menu';
 import { NimbleMenuItem, type MenuItemChangeEvent } from '@ni/nimble-react/dist/esm/menu-item';
 import { NimbleAnchorMenuItem } from '@ni/nimble-react/dist/esm/anchor-menu-item';
@@ -375,7 +375,7 @@ export function App(): JSX.Element {
     function openDialog(): void {
         void (async (): Promise<void> => {
             const closeReason = await dialogRef.current?.show();
-            setDialogCloseReason((closeReason === UserDismissed) ? 'escape pressed' : (closeReason ?? 'unknown'));
+            setDialogCloseReason((closeReason === DialogUserDismissed) ? 'escape pressed' : (closeReason ?? 'unknown'));
         })();
     }
 
