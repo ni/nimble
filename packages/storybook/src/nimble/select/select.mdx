@@ -76,6 +76,10 @@ Placeholder text should always follow the pattern "Select [thing(s)]", for
 example "Select country". Use sentence casing and don't include punctuation at
 the end of the prompt.
 
+*Note: In React avoid setting `selected` on the placeholder element. Instead mark the
+placeholder as `disabled` and `hidden` and ensure that it is the first option
+in the list. See [#2783](https://github.com/ni/nimble/issues/2783) for more detail.*
+
 <Canvas of={selectStories.placeholder} />
 
 ### Dynamic options
