@@ -7,6 +7,7 @@ import type {
     TableRecord,
     TableSetRecordHierarchyOptions
 } from '@ni/nimble-components/dist/esm/table/types';
+import type { LegacyRef } from 'react';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
 export { type Table, type TableRecord, type TableSetRecordHierarchyOptions };
@@ -34,3 +35,5 @@ export interface TableColumnConfigurationChangeEvent extends CustomEvent<TableCo
 export interface TableRowExpandToggleEvent extends CustomEvent<TableRowExpansionToggleEventDetail> {
     target: Table;
 }
+
+export type TableRef = LegacyRef<Table>;

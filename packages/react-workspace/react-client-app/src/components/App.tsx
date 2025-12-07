@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { NimbleAnchor } from '@ni/nimble-react/dist/esm/anchor';
 import { NimbleButton } from '@ni/nimble-react/dist/esm/button';
 import { NimbleBanner } from '@ni/nimble-react/dist/esm/banner';
@@ -27,7 +26,7 @@ import { NimbleIconCheck } from '@ni/nimble-react/dist/esm/icons/check';
 import { NimbleIconXmarkCheck } from '@ni/nimble-react/dist/esm/icons/xmark-check';
 import { NimbleSpinner } from '@ni/nimble-react/dist/esm/spinner';
 import { NimbleSwitch } from '@ni/nimble-react/dist/esm/switch';
-import { NimbleTable, type Table, type TableRowExpandToggleEvent, type TableRecord, type TableSetRecordHierarchyOptions } from '@ni/nimble-react/dist/esm/table';
+import { NimbleTable, type Table, type TableRowExpandToggleEvent, type TableRecord, type TableSetRecordHierarchyOptions, type TableRef } from '@ni/nimble-react/dist/esm/table';
 import { NimbleTableColumnText } from '@ni/nimble-react/dist/esm/table-column/text';
 import { NimbleTableColumnAnchor } from '@ni/nimble-react/dist/esm/table-column/anchor';
 import { NimbleTableColumnDateText } from '@ni/nimble-react/dist/esm/table-column/date-text';
@@ -205,8 +204,8 @@ export function App(): JSX.Element {
     ]);
     const [recordsLoadingChildren, setRecordsLoadingChildren] = useState<Set<string>>(new Set());
     const [recordsWithLoadedChildren, setRecordsWithLoadedChildren] = useState<Set<string>>(new Set());
-    const tableRef = useRef<Table>(null);
-    const delayedHierarchyTableRef = useRef<Table>(null);
+    const tableRef = useRef<Table<SimpleTableRecord>>(null);
+    const delayedHierarchyTableRef = useRef<Table<PersonTableRecord>>(null);
 
     const richTextEditorRef = useRef<RichTextEditor>(null);
     const markdownString = `Supported rich text formatting options:
@@ -428,17 +427,14 @@ export function App(): JSX.Element {
 
     // Update table data when component mounts or data changes
     useEffect(() => {
-        const loadData = async (): Promise<void> => {
-            if (tableRef.current) {
-                await tableRef.current.setData(tableData);
-            }
-        };
-        void loadData();
+        void ((async (): Promise<void> => {
+            await tableRef.current?.setData(tableData);
+        })());
     }, [tableData]);
 
     // Update delayed hierarchy table when data changes
     useEffect(() => {
-        const updateTable = async (): Promise<void> => {
+        void ((async (): Promise<void> => {
             if (delayedHierarchyTableRef.current) {
                 await delayedHierarchyTableRef.current.setData(delayedHierarchyTableData);
                 const hierarchyOptions: TableSetRecordHierarchyOptions[] = delayedHierarchyTableData.filter(person => {
@@ -452,10 +448,9 @@ export function App(): JSX.Element {
                         options: { delayedHierarchyState: state }
                     };
                 });
-                void delayedHierarchyTableRef.current.setRecordHierarchyOptions(hierarchyOptions);
+                await delayedHierarchyTableRef.current.setRecordHierarchyOptions(hierarchyOptions);
             }
-        };
-        void updateTable();
+        })());
     }, [delayedHierarchyTableData, recordsLoadingChildren, recordsWithLoadedChildren]);
 
     function onDynamicSelectFilterInput(event: SelectFilterInputEvent): void {
@@ -664,6 +659,8 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Dialog</div>
                         <NimbleDialog
+                            // Note: Generic types such as Dialog require using the workaround ref type
+                            // See: https://github.com/ni/nimble/issues/2784
                             ref={dialogRef as unknown as DialogRef}
                         >
                             <span slot="title">This is a dialog</span>
@@ -685,6 +682,8 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Drawer</div>
                         <NimbleDrawer
+                            // Note: Generic types such as Drawer require using the workaround ref type
+                            // See: https://github.com/ni/nimble/issues/2784
                             ref={drawerRef as unknown as DrawerRef}
                             location={drawerLocation}
                         >
@@ -965,7 +964,9 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Table</div>
                         <NimbleTable
-                            ref={tableRef}
+                            // Note: Generic types such as Table require using the workaround ref type
+                            // See: https://github.com/ni/nimble/issues/2784
+                            ref={tableRef as unknown as TableRef}
                             idFieldName="id"
                             parentIdFieldName="parentId"
                             selectionMode="multiple"
@@ -1060,7 +1061,9 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Table with delayed hierarchy</div>
                         <NimbleTable
-                            ref={delayedHierarchyTableRef}
+                            // Note: Generic types such as Table require using the workaround ref type
+                            // See: https://github.com/ni/nimble/issues/2784
+                            ref={delayedHierarchyTableRef as unknown as TableRef}
                             idFieldName="id" parentIdFieldName="parentId" selectionMode="multiple"
                             onRowExpandToggle={onRowExpandToggle}
                         >

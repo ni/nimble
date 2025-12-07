@@ -44,6 +44,7 @@ export default defineConfig([
                 { allowConstantExport: true },
             ],
             '@typescript-eslint/strict-boolean-expressions': 'off',
+            'no-alert': 'off'
         },
     },
     {
