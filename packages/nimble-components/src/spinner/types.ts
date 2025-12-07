@@ -6,5 +6,4 @@ export const SpinnerAppearance = {
     default: undefined,
     accent: 'accent'
 } as const;
-export type SpinnerAppearance =
-    (typeof SpinnerAppearance)[keyof typeof SpinnerAppearance];
+export type SpinnerAppearance = (typeof SpinnerAppearance)[keyof typeof SpinnerAppearance];

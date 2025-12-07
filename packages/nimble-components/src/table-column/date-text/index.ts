@@ -32,8 +32,7 @@ import { optionalBooleanConverter } from '../../utilities/models/converter';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDateTextColumnConfig
-    extends TableColumnTextBaseColumnConfig {
+export interface TableColumnDateTextColumnConfig extends TableColumnTextBaseColumnConfig {
     formatter: Intl.DateTimeFormat;
 }
 
@@ -255,7 +254,7 @@ export class TableColumnDateText extends mixinTextBase(
         }
         try {
             return new Intl.DateTimeFormat(lang.getValueFor(this), options);
-        } catch (e) {
+        } catch (_e) {
             return undefined;
         }
     }

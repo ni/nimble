@@ -13,9 +13,8 @@ import { TableColumnTextValidator } from './models/table-column-text-validator';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableColumnTextColumnConfig
-    extends TableColumnTextBaseColumnConfig {}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface TableColumnTextColumnConfig extends TableColumnTextBaseColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {

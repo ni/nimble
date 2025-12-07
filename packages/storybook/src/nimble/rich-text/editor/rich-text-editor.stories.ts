@@ -27,7 +27,6 @@ import {
     validityDescription
 } from '../../../utilities/storybook';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {
     data: ExampleDataType;
     mentionData: MentionDataType;
@@ -95,7 +94,6 @@ const metadata: Meta<RichTextEditorArgs> = {
             handles: ['input']
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
     ${incubatingWarning({

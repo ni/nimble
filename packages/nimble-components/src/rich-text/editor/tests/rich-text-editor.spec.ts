@@ -18,7 +18,6 @@ async function setup(): Promise<Fixture<RichTextEditor>> {
 
 async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
-        // prettier-ignore
         html`<${richTextEditorTag}>
             <${buttonTag} slot="footer-actions" id="cancel">Cancel</${buttonTag}>
             <${buttonTag} slot="footer-actions" id="ok">OK</${buttonTag}>

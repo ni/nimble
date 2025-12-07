@@ -22,7 +22,6 @@ const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestTableColumn extends TableColumn {
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
@@ -35,7 +34,6 @@ class TestTableColumn extends TableColumn {
     }
 }
 
-// prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag}>

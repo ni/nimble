@@ -31,7 +31,6 @@ import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
 import { userSelectNone } from '../../utilities/style/user-select';
 
-// prettier-ignore
 export const styles = css`
     ${display('inline-flex')}
 

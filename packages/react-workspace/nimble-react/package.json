@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-react",
-  "version": "0.5.4",
+  "version": "0.7.7",
   "description": "React components for the NI Nimble Design System",
   "keywords": [
     "ni",
@@ -20,8 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/react-workspace/nimble-react"
+    "url": "git+https://github.com/ni/nimble.git"
   },
   "publishConfig": {
     "access": "public"
@@ -31,14 +30,14 @@
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-tokens": "^8.13.2",
+    "@ni/nimble-tokens": "^8.13.5",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "rollup": "^4.12.0",
     "typescript": "~5.4.5"
   },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/nimble-components": "^34.6.1",
+    "@ni/nimble-components": "^34.8.5",
     "react": "^16 || ^17 || ^18"
   }
 }

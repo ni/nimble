@@ -42,11 +42,6 @@ export function cartesianProduct<T extends readonly unknown[]>(
     ): void => {
         if (currentDimensions && currentDimensions.length >= 1) {
             const [currentDimensionOrUndefined, ...remainingDimensions] = currentDimensions;
-
-            // TypeScript and ESLint disagree about whether this can be null or undefined.
-            // This was the only type strangeness noticed after the storybook build was changed
-            // to rely on component source directly so the workaround was allowed.
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             const currentDimension = currentDimensionOrUndefined!;
             for (const currentState of currentDimension) {
                 recurseDimensions(remainingDimensions, ...states, currentState);
@@ -66,7 +61,6 @@ function createMatrixFromStates<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate,
     states: T[]
 ): ViewTemplate {
-    // prettier-ignore
     return html`
     ${repeat(() => states, html`
         ${(x: T): ViewTemplate => component(...x)}
@@ -128,7 +122,6 @@ export function createMatrixInteractionsFromStates<
         focus: TFocus[]
     }
 ): ViewTemplate {
-    // prettier-ignore
     return html`
     <div style="
         font: var(${bodyFont.cssCustomProperty});

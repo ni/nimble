@@ -2,6 +2,144 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Sat, 06 Dec 2025 00:45:19 GMT",
+      "version": "0.2.17",
+      "tag": "@ni/ok-react_v0.2.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.17",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 23:41:33 GMT",
+      "version": "0.2.16",
+      "tag": "@ni/ok-react_v0.2.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.16",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 21:45:22 GMT",
+      "version": "0.2.15",
+      "tag": "@ni/ok-react_v0.2.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "f8f93677c34da2f3f992077c864ad3cc5541669b",
+            "comment": "Upgrade to ESLint v9 and update the configuration to use the flat configuration format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.15",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 19:09:56 GMT",
+      "version": "0.2.14",
+      "tag": "@ni/ok-react_v0.2.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "a210907bff6aad25602a66f17d0f0b98cc759a05",
+            "comment": "doc updates"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.14",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 03:43:28 GMT",
+      "version": "0.2.12",
+      "tag": "@ni/ok-react_v0.2.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "bf1d4a84926cbdd3332713b91c509f3de07d1420",
+            "comment": "Remove directory path from package.json to resolve README linking issue"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.12",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Dec 2025 19:34:20 GMT",
+      "version": "0.2.10",
+      "tag": "@ni/ok-react_v0.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.10",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Dec 2025 17:22:08 GMT",
+      "version": "0.2.8",
+      "tag": "@ni/ok-react_v0.2.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Dec 2025 06:22:03 GMT",
+      "version": "0.2.6",
+      "tag": "@ni/ok-react_v0.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Nov 2025 16:54:41 GMT",
       "version": "0.2.4",
       "tag": "@ni/ok-react_v0.2.4",

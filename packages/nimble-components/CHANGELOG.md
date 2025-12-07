@@ -1,8 +1,68 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 20 Nov 2025 16:54:41 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 06 Dec 2025 00:45:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.8.5
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Remove prettier inline disables and update docs ([ni/nimble@aabdf2f](https://github.com/ni/nimble/commit/aabdf2f08ccf6c41b1131a886450f5366fd43123))
+
+## 34.8.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Minor update to remove unreachable statement in table dynamic child loading check ([ni/nimble@18b6b62](https://github.com/ni/nimble/commit/18b6b62ccf69d6f488239dc02e88d91ec31a37d6))
+
+## 34.8.3
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/nimble-tokens to v8.13.5
+- Bump @ni/jasmine-parameterized to v1.0.6
+
+## 34.8.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/nimble-tokens to v8.13.4
+- Bump @ni/jasmine-parameterized to v1.0.5
+
+## 34.8.0
+
+Mon, 01 Dec 2025 19:34:20 GMT
+
+### Minor changes
+
+- Switch from deprecated Sass @import to @use ([ni/nimble@b71c518](https://github.com/ni/nimble/commit/b71c5184eacf68cc67e59c92d81487e12e6465cb))
+
+## 34.6.5
+
+Mon, 01 Dec 2025 17:22:08 GMT
+
+### Patches
+
+- Add work around to table to fix action-menu bug in Firefox ([ni/nimble@b8b7754](https://github.com/ni/nimble/commit/b8b7754052f7f7f6b871aedc4535d7e98ee3a79b))
+
+## 34.6.3
+
+Mon, 01 Dec 2025 06:22:03 GMT
+
+### Patches
+
+- dep update ([ni/nimble@41e2151](https://github.com/ni/nimble/commit/41e2151ff36cf10f07cf94ca3af197c927198c5c))
 
 ## 34.6.1
 

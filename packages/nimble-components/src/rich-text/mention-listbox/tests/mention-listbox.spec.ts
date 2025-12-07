@@ -24,7 +24,6 @@ describe('RichTextMentionListbox', () => {
     async function setup500Options(
         source: Model
     ): Promise<Fixture<RichTextMentionListbox>> {
-        // prettier-ignore
         return await fixture<RichTextMentionListbox>(
             html<Model>`
             <div>

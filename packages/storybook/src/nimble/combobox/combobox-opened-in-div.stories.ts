@@ -20,7 +20,6 @@ const positionStates = [
 ] as const;
 type PositionState = (typeof positionStates)[number];
 
-// prettier-ignore
 const component = ([
     position,
     positionStyle

@@ -145,7 +145,6 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 #### Prompt buttons message example
 
-<!-- prettier-ignore-start -->
 
 ```html
 <spright-chat-message message-type="inbound">
@@ -154,7 +153,6 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 </spright-chat-message>
 ```
 
-<!-- prettier-ignore-end -->
 
 #### Input example
 

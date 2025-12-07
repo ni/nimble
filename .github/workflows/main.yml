@@ -30,7 +30,7 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
         with:
           # Required for chromatic change detection
@@ -39,7 +39,7 @@ jobs:
           # Cannot rely on GITHUB_TOKEN with workflow contents permission
           # See: https://github.com/orgs/community/discussions/40971
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'false'
         with:
           # Required for chromatic change detection
@@ -47,9 +47,11 @@ jobs:
 
       # Remove existing dotnet installs, both package managed versions and manual versions
       # See https://github.com/dotnet/sdk/issues/39635#issuecomment-3075858666
-      - run: dotnet --info
-      - run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
-      - run: sudo rm -rf /usr/share/dotnet/
+      - name: Removing existing dotnet installs
+        run: |
+          dotnet --info
+          sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
+          sudo rm -rf /usr/share/dotnet/
 
       # Install dependencies
       - uses: actions/setup-dotnet@v5
@@ -57,7 +59,7 @@ jobs:
           global-json-file: packages/blazor-workspace/global.json
       - run: dotnet restore --locked-mode
         working-directory: packages/blazor-workspace/
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
@@ -74,7 +76,7 @@ jobs:
 
       # Pack
       - run: npm run pack
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: packages
           path: |
@@ -126,7 +128,7 @@ jobs:
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
       # Release
-      - name: Set Git User
+      - name: Publish packages
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NUGET_TOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
         env:
           NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}

@@ -47,7 +47,6 @@ describe('TableColumnMenuButton', () => {
     let pageObject: TableColumnMenuButtonPageObject<SimpleTableRecord>;
     let column: TableColumnMenuButton;
 
-    // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
         return await fixture<Table<SimpleTableRecord>>(
             html`<${tableTag} ${ref('table')} style="width: 700px">
@@ -500,11 +499,11 @@ describe('TableColumnMenuButton', () => {
         async function openMenuAndListenForColumnToggleEvents(
             menuButtonToOpen: MenuButtonPageObject
         ): Promise<{
-                column1BeforeToggleEmitCount: number,
-                column1ToggleEmitCount: number,
-                column2BeforeToggleEmitCount: number,
-                column2ToggleEmitCount: number
-            }> {
+            column1BeforeToggleEmitCount: number,
+            column1ToggleEmitCount: number,
+            column2BeforeToggleEmitCount: number,
+            column2ToggleEmitCount: number
+        }> {
             const column1BeforeToggleSpy = jasmine.createSpy();
             elementReferences.column1.addEventListener(
                 'menu-button-column-beforetoggle',

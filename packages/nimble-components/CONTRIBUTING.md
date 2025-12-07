@@ -236,7 +236,6 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
 2. Respond to attribute values using a behavior:
 
-    <!-- prettier-ignore -->
     ```ts
     import { css } from '@ni/fast-element';
     css`
@@ -386,7 +385,6 @@ export class MyComponent {
 
 Then in the template, bind the focusable elements' `tabindex` to the host component's property:
 
-<!-- prettier-ignore -->
 ```html
 html<MyComponent>`
     <nimble-button 

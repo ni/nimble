@@ -37,7 +37,6 @@ type TableRowSelectionToggleEventHandler = (
 
 describe('TableRow', () => {
     describe('standalone', () => {
-        // prettier-ignore
         async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
             return await fixture<TableRow<SimpleTableRecord>>(
                 html`<${tableRowTag}>
@@ -358,7 +357,6 @@ describe('TableRow', () => {
             public secondColumn!: TableColumnDateText;
         }
 
-        // prettier-ignore
         async function setupTable(source: ColumnReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag}>

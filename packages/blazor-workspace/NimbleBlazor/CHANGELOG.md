@@ -1,8 +1,68 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 20 Nov 2025 16:54:41 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 06 Dec 2025 00:45:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.9.5
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.5
+
+## 20.9.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.4
+
+## 20.9.3
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.3
+- Bump @ni/nimble-tokens to v8.13.5
+
+## 20.9.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.2
+- Bump @ni/nimble-tokens to v8.13.4
+
+## 20.9.0
+
+Mon, 01 Dec 2025 19:34:20 GMT
+
+### Minor changes
+
+- Switch from deprecated Sass @import to @use ([ni/nimble@b71c518](https://github.com/ni/nimble/commit/b71c5184eacf68cc67e59c92d81487e12e6465cb))
+- Bump @ni/nimble-components to v34.8.0
+
+## 20.7.8
+
+Mon, 01 Dec 2025 17:22:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.6.5
+
+## 20.7.6
+
+Mon, 01 Dec 2025 06:22:03 GMT
+
+### Patches
+
+- update deps ([ni/nimble@41e2151](https://github.com/ni/nimble/commit/41e2151ff36cf10f07cf94ca3af197c927198c5c))
+- Bump @ni/nimble-components to v34.6.3
 
 ## 20.7.4
 

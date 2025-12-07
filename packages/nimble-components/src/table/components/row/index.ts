@@ -35,7 +35,7 @@ declare global {
 }
 
 /** Represents a single row (element) in the Table's data  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface TableDataRecord extends TableRecord {}
 
 /**
@@ -215,6 +215,11 @@ export class TableRow<
         column: TableColumn
     ): void {
         this.menuOpen = event.detail.newState;
+        // Workaround for Firefox issue when action menus opened on different rows
+        // See: https://github.com/ni/nimble/issues/2744
+        if (!event.detail.newState) {
+            this.currentActionMenuColumn = undefined;
+        }
         this.emitActionMenuToggleEvent(
             'row-action-menu-toggle',
             event.detail,

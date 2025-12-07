@@ -5,7 +5,6 @@
         "dbaeumer.vscode-eslint",
         "redhat.vscode-yaml",
         "editorconfig.editorconfig",
-        "rvest.vs-code-prettier-eslint",
         "unifiedjs.vscode-mdx",
         "ms-dotnettools.csharp",
         "ms-dotnettools.blazorwasm-companion"

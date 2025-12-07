@@ -561,14 +561,14 @@ function createFontTokens(
     fontSize: string,
     fontLineHeight: string
 ): readonly [
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>,
-        CSSDesignToken<string>
-    ] {
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>,
+    CSSDesignToken<string>
+] {
     const fontNameParts = fontTokenName.split('-font');
     const tokenPrefixWithoutFont = fontNameParts[0];
     const fontFamilyWithFallback = `${fontFamily}, ${fontFamily} Fallback`;

@@ -89,7 +89,6 @@ We only formally support spans of text in the `title` and default slots, but we 
 
 ### Anatomy
 
-<!-- prettier-ignore -->
 ```html
 <div class="icon">
     ${when(x => x.severity === 'error', html`

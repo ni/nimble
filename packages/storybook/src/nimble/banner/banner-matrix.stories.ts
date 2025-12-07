@@ -54,7 +54,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [severityLabel, severity]: SeverityState,
     [actionLabel, linkVisible, iconButton, buttonAppearance]: ActionState,
