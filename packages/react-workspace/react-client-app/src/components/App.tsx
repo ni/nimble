@@ -17,9 +17,9 @@ import { NimbleRadioGroup } from '@ni/nimble-react/dist/esm/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/dist/esm/radio';
 import { NimbleTextField } from '@ni/nimble-react/dist/esm/text-field';
 import { NimbleDialog, type DialogRef, type Dialog, UserDismissed } from '@ni/nimble-react/dist/esm/dialog';
-import { NimbleDrawer, type Drawer, UserDismissed as DrawerUserDismissed, DrawerLocation } from '@ni/nimble-react/dist/esm/drawer';
+import { NimbleDrawer, type Drawer, UserDismissed as DrawerUserDismissed, DrawerLocation, type DrawerRef } from '@ni/nimble-react/dist/esm/drawer';
 import { NimbleMenu } from '@ni/nimble-react/dist/esm/menu';
-import { NimbleMenuItem, type MenuItem } from '@ni/nimble-react/dist/esm/menu-item';
+import { NimbleMenuItem, type MenuItemChangeEvent } from '@ni/nimble-react/dist/esm/menu-item';
 import { NimbleAnchorMenuItem } from '@ni/nimble-react/dist/esm/anchor-menu-item';
 import { NimbleMenuButton } from '@ni/nimble-react/dist/esm/menu-button';
 import { NimbleIconAdd } from '@ni/nimble-react/dist/esm/icons/add';
@@ -38,7 +38,7 @@ import { NimbleMappingSpinner } from '@ni/nimble-react/dist/esm/mapping/spinner'
 import { NimbleMappingEmpty } from '@ni/nimble-react/dist/esm/mapping/empty';
 import { NimbleTableColumnNumberText } from '@ni/nimble-react/dist/esm/table-column/number-text';
 import { NimbleTableColumnDurationText } from '@ni/nimble-react/dist/esm/table-column/duration-text';
-import { NimbleTableColumnMenuButton } from '@ni/nimble-react/dist/esm/table-column/menu-button';
+import { NimbleTableColumnMenuButton, type TableColumnMenuButtonBeforeToggleEvent } from '@ni/nimble-react/dist/esm/table-column/menu-button';
 import { NimbleTabs } from '@ni/nimble-react/dist/esm/tabs';
 import { NimbleTab } from '@ni/nimble-react/dist/esm/tab';
 import { NimbleTabsToolbar } from '@ni/nimble-react/dist/esm/tabs-toolbar';
@@ -112,7 +112,7 @@ export function App(): JSX.Element {
     const [selectedRadio, setSelectedRadio] = useState('mango');
     const dialogRef = useRef<Dialog<string>>(null);
     const [dialogCloseReason, setDialogCloseReason] = useState('');
-    const drawerRef = useRef<Drawer>(null);
+    const drawerRef = useRef<Drawer<string>>(null);
     const [drawerCloseReason, setDrawerCloseReason] = useState('');
     const [drawerLocation, setDrawerLocation] = useState<DrawerLocation>(DrawerLocation.right);
 
@@ -245,11 +245,10 @@ export function App(): JSX.Element {
         setTableData([...tableData, ...newRows]);
     }
 
-    function onMenuButtonColumnBeforeToggle(event: Event): void {
-        const customEvent = event as CustomEvent<{ newState: boolean, recordId: string }>;
-        if (customEvent.detail.newState) {
-            setOpenMenuButtonColumnRecordId(customEvent.detail.recordId);
-            const currentRecord = tableData.find(record => record.id === customEvent.detail.recordId);
+    function onMenuButtonColumnBeforeToggle(event: TableColumnMenuButtonBeforeToggleEvent): void {
+        if (event.detail.newState) {
+            setOpenMenuButtonColumnRecordId(event.detail.recordId);
+            const currentRecord = tableData.find(record => record.id === event.detail.recordId);
             if (currentRecord) {
                 setCurrentColor(currentRecord.color);
             }
@@ -376,8 +375,8 @@ export function App(): JSX.Element {
 
     function openDialog(): void {
         void (async (): Promise<void> => {
-            const closeReason = await dialogRef.current?.show() || 'unknown';
-            setDialogCloseReason((closeReason === UserDismissed) ? 'escape pressed' : closeReason);
+            const closeReason = await dialogRef.current?.show();
+            setDialogCloseReason((closeReason === UserDismissed) ? 'escape pressed' : (closeReason ?? 'unknown'));
         })();
     }
 
@@ -388,16 +387,16 @@ export function App(): JSX.Element {
     function openDrawer(): void {
         void (async (): Promise<void> => {
             const closeReason = await drawerRef.current?.show();
-            setDrawerCloseReason((closeReason === DrawerUserDismissed) ? 'escape pressed' : String(closeReason ?? 'unknown'));
+            setDrawerCloseReason((closeReason === DrawerUserDismissed) ? 'escape pressed' : (closeReason ?? 'unknown'));
         })();
     }
 
     function closeDrawer(reason: string): void {
-        drawerRef.current?.close(reason as never);
+        drawerRef.current?.close(reason);
     }
 
-    function onMenuButtonMenuChange(event: Event): void {
-        const menuItemText = (event.target as MenuItem).innerText;
+    function onMenuButtonMenuChange(event: MenuItemChangeEvent): void {
+        const menuItemText = event.target.innerText;
         alert(`${menuItemText} selected`);
     }
 
@@ -686,7 +685,7 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Drawer</div>
                         <NimbleDrawer
-                            ref={drawerRef}
+                            ref={drawerRef as unknown as DrawerRef}
                             location={drawerLocation}
                         >
                             <header>This is a drawer</header>
@@ -712,7 +711,7 @@ export function App(): JSX.Element {
                         >Closed Reason</NimbleTextField>
                         <NimbleSelect className="drawer-location-select"
                             value={drawerLocation}
-                            onChange={e => setDrawerLocation(e.target.value as DrawerLocation)}
+                            onChange={e => setDrawerLocation(e.target.value === DrawerLocation.left ? DrawerLocation.left : DrawerLocation.right)}
                         >
                             Drawer Location
                             <NimbleListOption
@@ -767,7 +766,7 @@ export function App(): JSX.Element {
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Select</div>
-                        <NimbleSelect filter-mode="standard" appearance="underline">
+                        <NimbleSelect filterMode="standard" appearance="underline">
                             Underline Select
                             <NimbleListOption hidden disabled>Select an option</NimbleListOption>
                             <NimbleListOptionGroup label="Group 1">
@@ -808,7 +807,7 @@ export function App(): JSX.Element {
                             <NimbleSelect
                                 ref={dynamicSelectRef}
                                 appearance="underline"
-                                filter-mode="manual"
+                                filterMode="manual"
                                 value={dynamicSelectValue ? `${dynamicSelectValue.first}-${dynamicSelectValue.last}` : ''}
                                 onChange={e => handleDynamicSelectChange(e.target.value)}
                                 onFilterInput={onDynamicSelectFilterInput}
@@ -952,7 +951,7 @@ export function App(): JSX.Element {
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Spinner</div>
-                        <NimbleSpinner aria-label="Loading example content"></NimbleSpinner>
+                        <NimbleSpinner ariaLabel="Loading example content"></NimbleSpinner>
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Switch</div>
@@ -1114,7 +1113,7 @@ export function App(): JSX.Element {
                         <NimbleSelect
                             value={activeTabId}
                             onChange={e => setActiveTabId(e.target.value)}
-                            aria-labelledby="activeTabLabel">
+                            ariaLabelledby="activeTabLabel">
                             <NimbleListOption value="tab-1">Tab 1</NimbleListOption>
                             <NimbleListOption value="tab-2">Tab 2</NimbleListOption>
                             <NimbleListOption value="tab-3">Tab 3</NimbleListOption>
@@ -1140,7 +1139,7 @@ export function App(): JSX.Element {
                         <NimbleSelect
                             value={activeAnchorTabId}
                             onChange={e => setActiveAnchorTabId(e.target.value)}
-                            aria-labelledby="activeAnchorTabLabel">
+                            ariaLabelledby="activeAnchorTabLabel">
                             <NimbleListOption value="a-tab-1">Tab 1</NimbleListOption>
                             <NimbleListOption value="a-tab-2">Tab 2</NimbleListOption>
                             <NimbleListOption value="a-tab-3">Tab 3</NimbleListOption>
@@ -1174,9 +1173,9 @@ export function App(): JSX.Element {
                         <NimbleButton id="anchor3">Information</NimbleButton>
                         <NimbleTooltip anchor="anchor3" severity="information">Tooltip label</NimbleTooltip>
                         <NimbleButton id="anchor4">Fail Icon </NimbleButton>
-                        <NimbleTooltip anchor="anchor4" severity="error" icon-visible>Tooltip label</NimbleTooltip>
+                        <NimbleTooltip anchor="anchor4" severity="error" iconVisible>Tooltip label</NimbleTooltip>
                         <NimbleButton id="anchor5">Information Icon</NimbleButton>
-                        <NimbleTooltip anchor="anchor5" severity="information" icon-visible>Tooltip label</NimbleTooltip>
+                        <NimbleTooltip anchor="anchor5" severity="information" iconVisible>Tooltip label</NimbleTooltip>
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Tree View</div>
@@ -1201,12 +1200,12 @@ export function App(): JSX.Element {
                         <div className="container-label">Chat Conversation and Messages (Spright)</div>
                         <SprightChatConversation>
                             <SprightChatMessage>To start, press any key.</SprightChatMessage>
-                            <SprightChatMessage message-type="outbound">Where is the Any key?</SprightChatMessage>
+                            <SprightChatMessage messageType="outbound">Where is the Any key?</SprightChatMessage>
                             <SprightChatMessage>
                                 <NimbleSpinner appearance="accent"></NimbleSpinner>
                             </SprightChatMessage>
-                            <SprightChatMessage message-type="inbound">
-                                <NimbleButton slot="footer-actions" appearance='ghost' content-hidden>
+                            <SprightChatMessage messageType="inbound">
+                                <NimbleButton slot="footer-actions" appearance='ghost' contentHidden>
                                     <NimbleIconCopyText slot="start"></NimbleIconCopyText>
                                     Copy
                                 </NimbleButton>
@@ -1217,7 +1216,7 @@ export function App(): JSX.Element {
                                 <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
                             </SprightChatMessage>
                             {chatUserMessages.map((message, index) => (
-                                <SprightChatMessage key={index} message-type="outbound">
+                                <SprightChatMessage key={index} messageType="outbound">
                                     <span>{message}</span>
                                 </SprightChatMessage>
                             ))}
