@@ -44,7 +44,7 @@ _*Props/Attrs*_
 
 _Type Reference_
 
-- [`TableColumn`](../table-columns-hld.md#tablecolumn)
+- [`TableColumn`](../table-columns-hld.md)
 - [`TableStringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
 - [`TableCellState`](../table-columns-hld.md#tablecellstate-interface)
 
