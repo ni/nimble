@@ -103,16 +103,16 @@ HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
 
  - Fork the `microsoft/fast` repo to `ni/fast` as a new top-level open source GitHub repository.
     - FAST is licensed similarly to Nimble as MIT. That will be preserved in the fork. License should be [updated](https://softwareengineering.stackexchange.com/a/277699) to reflect NI contributions.
-- Make the `archives/fast-element-1` branch the default branch:
+ - Make the `archives/fast-element-1` branch the default branch:
     - Keep the name `archives/fast-element-1` on the default branch.
     - Delete branches other than the `archives/*` branches.
-- Update the packages to use the `ni` scope:
+ - Update the packages to use the `ni` scope:
     - `@microsoft/fast-colors` to `@ni/fast-colors`.
     - `@microsoft/fast-element` to `@ni/fast-element`.
     - `@microsoft/fast-foundation` to `@ni/fast-foundation`.
     - `@microsoft/fast-web-utilities` to `@ni/fast-web-utilities`.
     - `@microsoft/fast-react-wrapper` to `@ni/fast-react-wrapper`.
-- Remove unused packages and code (refer to [`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1)):
+ - Remove unused packages and code (refer to [`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1)):
    
    ```
    /examples
@@ -124,15 +124,15 @@ HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
    /specs
    ```
 
-- Update npm dependencies to latest.
-- Enable renovate updates.
-- Add CODEOWNERS configuration (exact owners TBD).
-- Update GitHub workflow:
+ - Update npm dependencies to latest.
+ - Enable renovate updates.
+ - Add CODEOWNERS configuration (exact owners TBD).
+ - Update GitHub workflow:
     - Configure beachball to publish on each merge.
     - Make minimal changes (continue to use `yarn`, `lerna`, `chai`, etc).
         - If not a significant effort, switching external facing / globally required tools to align with Nimble would be preferable. In particular switching yarn and lerna to standard npm and npm workspaces would be beneficial for Nimble contributors.
 
-- Update top-level README / CONTRIBUTING to cover intentions of the repo / fork:
+ - Update top-level README / CONTRIBUTING to cover intentions of the repo / fork:
     - A set of minimal changes to FAST to continue to adopt bug fixes and potentially minor features only with the goal of alignment / consistency (for example adding start / end slots or label slots consistently).
     - Not a place for significant new features or component development.
     - Treat the `ni/fast` repo similarly to how `microsoft/fast` was treated:

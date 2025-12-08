@@ -28,11 +28,14 @@
         ".": "./index.js"
     },
     "peerDependencies": {
+        "@eslint/markdown": "^7.5.1",
         "@ni/eslint-config-angular": "^10.0.3",
         "@ni/eslint-config-javascript": "^5.1.2",
         "@ni/eslint-config-typescript": "^5.0.3",
         "eslint": "^9.36.0",
         "eslint-plugin-jsdoc": "^60.7.1",
+        "eslint-plugin-markdown-links": "^0.7.0",
+        "eslint-plugin-markdown-preferences": "^0.38.0",
         "globals": "^14.0.0"
     }
 }
