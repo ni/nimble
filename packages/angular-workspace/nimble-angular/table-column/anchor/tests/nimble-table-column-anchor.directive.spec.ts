@@ -34,7 +34,8 @@ describe('Nimble anchor table column', () => {
         @Component({
             template: `
                 <nimble-table-column-anchor #column></nimble-table-column-anchor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnAnchorDirective }) public directive: NimbleTableColumnAnchorDirective;
@@ -207,7 +208,8 @@ describe('Nimble anchor table column', () => {
                     placeholder="Custom placeholder"
                     >
                 </nimble-table-column-anchor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnAnchorDirective }) public directive: NimbleTableColumnAnchorDirective;
@@ -380,7 +382,8 @@ describe('Nimble anchor table column', () => {
                     [placeholder]="placeholder"
                     >
                     </nimble-table-column-anchor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnAnchorDirective }) public directive: NimbleTableColumnAnchorDirective;
@@ -765,7 +768,8 @@ describe('Nimble anchor table column', () => {
                     [attr.placeholder]="placeholder"
                     >
                 </nimble-table-column-anchor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnAnchorDirective }) public directive: NimbleTableColumnAnchorDirective;

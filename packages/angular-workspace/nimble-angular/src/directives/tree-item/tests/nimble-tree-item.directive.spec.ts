@@ -21,7 +21,8 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
                     Parent 3
                 </nimble-tree-item>
             </nimble-tree-view>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('parent1', { static: true }) public parent1: ElementRef<TreeItem>;

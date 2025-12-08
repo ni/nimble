@@ -19,13 +19,13 @@ export type OptionNotFound = typeof OPTION_NOT_FOUND;
  * that when using 'ngModel' that each list-option bind a value via 'ngValue', and not 'value'.
  */
 @Directive({
-    selector:
-      'nimble-combobox[formControlName],nimble-combobox[formControl],nimble-combobox[ngModel]',
+    selector: 'nimble-combobox[formControlName],nimble-combobox[formControl],nimble-combobox[ngModel]',
     providers: [{
-        provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => NimbleComboboxControlValueAccessorDirective),
-        multi: true
-    }]
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => NimbleComboboxControlValueAccessorDirective),
+            multi: true
+        }],
+    standalone: false
 })
 export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor, AfterViewChecked {
     /**

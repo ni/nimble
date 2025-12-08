@@ -8,7 +8,8 @@ export type { LabelProviderRichText };
  * To use the Nimble-provided strings declared via $localize, instead use NimbleLabelProviderRichTextWithDefaultsDirective.
  */
 @Directive({
-    selector: 'nimble-label-provider-rich-text'
+    selector: 'nimble-label-provider-rich-text',
+    standalone: false
 })
 export class NimbleLabelProviderRichTextDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<LabelProviderRichText>) {

@@ -43,7 +43,8 @@ interface PersonTableRecord extends TableRecord {
 @Component({
     selector: 'example-customapp',
     templateUrl: './customapp.component.html',
-    styleUrls: ['./customapp.component.scss']
+    styleUrls: ['./customapp.component.scss'],
+    standalone: false
 })
 export class CustomAppComponent implements AfterViewInit {
     public bannerOpen = false;

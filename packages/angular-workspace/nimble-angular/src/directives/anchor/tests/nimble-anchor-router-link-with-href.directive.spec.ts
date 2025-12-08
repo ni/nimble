@@ -15,13 +15,14 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
             <nimble-anchor #anchor nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
                 Anchor text
             </nimble-anchor>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('anchor', { static: true }) public anchor: ElementRef<Anchor>;
     }
 
-    @Component({ template: '' })
+    @Component({ template: '', standalone: false })
     class BlankComponent { }
 
     let anchor: Anchor;

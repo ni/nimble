@@ -12,7 +12,8 @@ export type { BannerToggleEventDetail };
  * Directive to provide Angular integration for the banner.
  */
 @Directive({
-    selector: 'nimble-banner'
+    selector: 'nimble-banner',
+    standalone: false
 })
 export class NimbleBannerDirective {
     public get open(): boolean {

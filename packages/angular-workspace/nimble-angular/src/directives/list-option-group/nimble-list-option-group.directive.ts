@@ -9,7 +9,8 @@ export { listOptionGroupTag };
  * Directive to provide Angular integration for the list option group.
  */
 @Directive({
-    selector: 'nimble-list-option-group'
+    selector: 'nimble-list-option-group',
+    standalone: false
 })
 export class NimbleListOptionGroupDirective {
     public get label(): string | undefined {
