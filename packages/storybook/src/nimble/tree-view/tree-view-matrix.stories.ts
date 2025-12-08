@@ -41,7 +41,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [expandedName, expanded]: ExpandedState,

@@ -8,7 +8,6 @@ import {
 import { iconArrowExpanderDownTag } from '../../../icons/arrow-expander-down';
 import { cellViewMenuSlotName } from '../types';
 
-// prettier-ignore
 export const template = html<TableColumnMenuButtonCellView>`
     ${when(x => x.showMenuButton, html<TableColumnMenuButtonCellView>`
         <${menuButtonTag}

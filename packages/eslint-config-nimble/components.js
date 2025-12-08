@@ -73,7 +73,7 @@ export const componentsNimbleConfig = defineConfig([
     {
         files: ['**/styles.ts'],
         rules: {
-            // Prettier and eslint conflict in how they format CSS in styles files and we prefer prettier's output
+            // eslint handle does not handle indent well in style files
             '@stylistic/indent': 'off',
         },
     },
@@ -86,7 +86,7 @@ export const componentsNimbleConfig = defineConfig([
                 'error',
                 { selector: "LogicalExpression[operator='??']" },
             ],
-            // Neither prettier or eslint handle indent well in template files
+            // eslint handle does not handle indent well in template files
             '@stylistic/indent': 'off',
         },
     },

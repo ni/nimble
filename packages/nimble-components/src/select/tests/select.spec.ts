@@ -902,7 +902,6 @@ describe('Select', () => {
 
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
-            // prettier-ignore
             const viewTemplate = html`
                 <${selectTag}>
                     ${repeat(() => [...Array(500).keys()], html<number>`
@@ -953,7 +952,6 @@ describe('Select', () => {
 
     describe('within a div', () => {
         async function setupInDiv(): Promise<Fixture<Select>> {
-            // prettier-ignore
             const viewTemplate = html`
                 <div style="overflow: auto;">
                     <${selectTag}>

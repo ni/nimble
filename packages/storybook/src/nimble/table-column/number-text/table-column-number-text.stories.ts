@@ -71,7 +71,6 @@ const metadata: Meta<SharedTableArgs> = {
             handles: sharedTableActions
         }
     },
-    // prettier-ignore
     argTypes: {
         ...sharedTableArgTypes,
         selectionMode: {
@@ -154,7 +153,6 @@ const unitDescription = `A unit for the column may be configured by providing a 
 
 export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
     parameters: {},
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<NumberTextColumnTableArgs>`
         <${tableTag}
             ${ref('tableRef')}

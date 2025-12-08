@@ -61,7 +61,6 @@ const metadata: Meta<TextFieldArgs> = {
             handles: ['change', 'input']
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${textFieldTag}
             placeholder="${x => x.placeholder}"
