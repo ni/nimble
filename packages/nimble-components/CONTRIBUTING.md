@@ -452,7 +452,7 @@ Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/sr
 
 #### Fixtures
 
-The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/ok-components/src/utilities/tests/tests/fixture.spec.ts).
+The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/tests/fixture.spec.ts).
 
 ### Disabling tests
 
