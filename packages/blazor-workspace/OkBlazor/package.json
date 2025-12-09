@@ -3,7 +3,7 @@
   "version": "0.1.19",
   "description": "Blazor components for Ok components",
   "scripts": {
-    "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
+    "invoke-pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
     "invoke-publish": "npm run invoke-publish:setup && npm run invoke-publish:nuget && npm run invoke-publish:noop -- ",
     "invoke-publish:setup": "rimraf --glob \"../dist/OkBlazor.*.nupkg\" && npm run pack",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"../dist/OkBlazor.*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
