@@ -22,7 +22,8 @@ describe('Nimble button', () => {
         @Component({
             template: `
                 <nimble-button #button></nimble-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('button', { read: NimbleButtonDirective }) public directive: NimbleButtonDirective;
@@ -73,7 +74,8 @@ describe('Nimble button', () => {
                     appearance="ghost"
                     appearance-variant="primary"
                     content-hidden>
-                </nimble-button>`
+                </nimble-button>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('button', { read: NimbleButtonDirective }) public directive: NimbleButtonDirective;
@@ -125,7 +127,8 @@ describe('Nimble button', () => {
                     [appearance-variant]="appearanceVariant"
                     [content-hidden]="contentHidden">
                 </nimble-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('button', { read: NimbleButtonDirective }) public directive: NimbleButtonDirective;
@@ -205,7 +208,8 @@ describe('Nimble button', () => {
                     [attr.appearance-variant]="appearanceVariant"
                     [attr.content-hidden]="contentHidden">
                 </nimble-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('button', { read: NimbleButtonDirective }) public directive: NimbleButtonDirective;

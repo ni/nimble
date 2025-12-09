@@ -120,7 +120,8 @@ describe('NumberTextPipe', () => {
         @Component({
             template: `
             <div #div>{{ value | numberText:{ numberTextFormat: 'decimal', decimalDigits: 3 } }}</div>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('div') public divRef: ElementRef<HTMLDivElement>;

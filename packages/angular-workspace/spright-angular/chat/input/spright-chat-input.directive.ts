@@ -10,7 +10,8 @@ export { chatInputTag };
  * Directive to provide Angular integration for the chat input.
  */
 @Directive({
-    selector: 'spright-chat-input'
+    selector: 'spright-chat-input',
+    standalone: false
 })
 export class SprightChatInputDirective {
     public get placeholder(): string | undefined {

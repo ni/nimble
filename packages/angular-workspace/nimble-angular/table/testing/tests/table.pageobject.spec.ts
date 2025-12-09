@@ -25,7 +25,8 @@ describe('Table page object', () => {
                 .fit-height {
                     height: var(${tableFitRowsHeight.cssCustomProperty});
                 }
-            `]
+            `],
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('table', { read: ElementRef }) public tableElement: ElementRef<Table<SimpleRecord>>;

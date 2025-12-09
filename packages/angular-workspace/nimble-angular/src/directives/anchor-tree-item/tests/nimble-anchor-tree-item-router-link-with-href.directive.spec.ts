@@ -15,13 +15,14 @@ describe('Nimble anchor tree item RouterLinkWithHrefDirective', () => {
             <nimble-anchor-tree-item #treeItem nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
                 Anchor text
             </nimble-anchor-tree-item>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('treeItem', { static: true }) public treeItem: ElementRef<AnchorTreeItem>;
     }
 
-    @Component({ template: '' })
+    @Component({ template: '', standalone: false })
     class BlankComponent { }
 
     let anchorTreeItem: AnchorTreeItem;

@@ -17,7 +17,8 @@ import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkb
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => NimbleToggleButtonControlValueAccessorDirective),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 export class NimbleToggleButtonControlValueAccessorDirective extends CheckboxControlValueAccessor {
 }

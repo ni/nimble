@@ -20,7 +20,8 @@ describe('Nimble dialog', () => {
         @Component({
             template: `
                 <nimble-dialog #dialog></nimble-dialog>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('dialog', { read: NimbleDialogDirective }) public directive: NimbleDialogDirective;
@@ -70,7 +71,8 @@ describe('Nimble dialog', () => {
                     prevent-dismiss
                     header-hidden
                     footer-hidden>
-                </nimble-dialog>`
+                </nimble-dialog>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('dialog', { read: NimbleDialogDirective }) public directive: NimbleDialogDirective;
@@ -115,7 +117,8 @@ describe('Nimble dialog', () => {
                     [preventDismiss]="preventDismiss"
                     [headerHidden]="headerHidden"
                     [footerHidden]="footerHidden">
-                </nimble-dialog>`
+                </nimble-dialog>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('dialog', { read: NimbleDialogDirective }) public directive: NimbleDialogDirective;
@@ -181,7 +184,8 @@ describe('Nimble dialog', () => {
                     [attr.prevent-dismiss]="preventDismiss"
                     [attr.header-hidden]="headerHidden"
                     [attr.footer-hidden]="footerHidden">
-                </nimble-dialog>`
+                </nimble-dialog>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('dialog', { read: NimbleDialogDirective }) public directive: NimbleDialogDirective;

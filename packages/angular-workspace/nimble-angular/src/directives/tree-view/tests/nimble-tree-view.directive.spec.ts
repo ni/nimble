@@ -20,7 +20,8 @@ describe('Nimble tree view', () => {
         @Component({
             template: `
                 <nimble-tree-view #treeView></nimble-tree-view>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('treeView', { read: NimbleTreeViewDirective }) public directive: NimbleTreeViewDirective;
@@ -54,7 +55,8 @@ describe('Nimble tree view', () => {
                 <nimble-tree-view #treeView
                     selection-mode="none"
                 ></nimble-tree-view>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('treeView', { read: NimbleTreeViewDirective }) public directive: NimbleTreeViewDirective;
@@ -88,7 +90,8 @@ describe('Nimble tree view', () => {
                 <nimble-tree-view #treeView
                     [selection-mode]="selectionMode"
                 ></nimble-tree-view>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('treeView', { read: NimbleTreeViewDirective }) public directive: NimbleTreeViewDirective;
@@ -130,7 +133,8 @@ describe('Nimble tree view', () => {
                 <nimble-tree-view #treeView
                     [attr.selection-mode]="selectionMode"
                 ></nimble-tree-view>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('treeView', { read: NimbleTreeViewDirective }) public directive: NimbleTreeViewDirective;

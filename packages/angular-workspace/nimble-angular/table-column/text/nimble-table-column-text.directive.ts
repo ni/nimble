@@ -10,7 +10,8 @@ export { tableColumnTextTag };
  * Directive to provide Angular integration for the table column element for text.
  */
 @Directive({
-    selector: 'nimble-table-column-text'
+    selector: 'nimble-table-column-text',
+    standalone: false
 })
 export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirective<TableColumnText> {
     public get fieldName(): string | undefined {
