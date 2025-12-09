@@ -5,7 +5,8 @@ import { NimbleDrawerDirective, Theme } from '@ni/nimble-angular';
 @Component({
     selector: 'example-header',
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    styleUrls: ['./header.component.scss'],
+    standalone: false
 })
 export class HeaderComponent {
     @Input() public theme: Theme;

@@ -18,7 +18,8 @@ describe('Nimble select control value accessor', () => {
                         {{ option.name }}
                     </nimble-list-option>
                 </nimble-select>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('select', { static: true }) public select: ElementRef<Select>;
@@ -126,7 +127,8 @@ describe('Nimble select control value accessor', () => {
                         {{ option.name }}
                     </nimble-list-option>
                 </nimble-select>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('select', { static: true }) public select: ElementRef<Select>;
@@ -199,7 +201,8 @@ describe('Nimble select control value accessor', () => {
                         </nimble-list-option>
                     </nimble-select>
                 </form>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent implements OnInit {
             @ViewChild('select', { static: true }) public select: ElementRef<Select>;
@@ -268,7 +271,8 @@ describe('Nimble select control value accessor', () => {
                         </nimble-list-option>
                     </nimble-select>
                 </form>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent implements OnChanges {
             @ViewChild('select', { static: true }) public select: ElementRef<Select>;
@@ -351,7 +355,8 @@ describe('Nimble select control value accessor', () => {
                         </nimble-list-option-group>
                     </nimble-select>
                 </form>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent implements OnInit {
             @ViewChild('select', { static: true }) public select: ElementRef<Select>;
@@ -422,7 +427,8 @@ describe('Nimble select control value accessor', () => {
                         </nimble-list-option-group>
                     </nimble-select>
                 </form>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent implements OnChanges {
             @ViewChild('select', { static: true }) public select: ElementRef<Select>;

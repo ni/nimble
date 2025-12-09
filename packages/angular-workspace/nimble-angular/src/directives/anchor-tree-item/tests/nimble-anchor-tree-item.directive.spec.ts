@@ -34,7 +34,8 @@ describe('Nimble anchor tree item', () => {
         @Component({
             template: `
                 <nimble-anchor-tree-item #treeItem></nimble-anchor-tree-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('treeItem', { read: NimbleAnchorTreeItemDirective }) public directive: NimbleAnchorTreeItemDirective;
@@ -117,7 +118,8 @@ describe('Nimble anchor tree item', () => {
                     disabled
                     >
                 </nimble-anchor-tree-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('treeItem', { read: NimbleAnchorTreeItemDirective }) public directive: NimbleAnchorTreeItemDirective;
@@ -200,7 +202,8 @@ describe('Nimble anchor tree item', () => {
                     [disabled]="disabled"
                     >
                 </nimble-anchor-tree-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('treeItem', { read: NimbleAnchorTreeItemDirective }) public directive: NimbleAnchorTreeItemDirective;
@@ -348,7 +351,8 @@ describe('Nimble anchor tree item', () => {
                     [attr.disabled]="disabled"
                     >
                 </nimble-anchor-tree-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('treeItem', { read: NimbleAnchorTreeItemDirective }) public directive: NimbleAnchorTreeItemDirective;

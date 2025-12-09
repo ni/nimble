@@ -8,6 +8,7 @@ export { chatConversationTag };
  * Directive to provide Angular integration for the chat conversation.
  */
 @Directive({
-    selector: 'spright-chat-conversation'
+    selector: 'spright-chat-conversation',
+    standalone: false
 })
 export class SprightChatConversationDirective { }

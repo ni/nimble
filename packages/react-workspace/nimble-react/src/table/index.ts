@@ -3,11 +3,14 @@ import type {
     TableActionMenuToggleEventDetail,
     TableRowExpansionToggleEventDetail,
     TableColumnConfigurationChangeEventDetail,
-    TableRowSelectionEventDetail
+    TableRowSelectionEventDetail,
+    TableRecord,
+    TableSetRecordHierarchyOptions
 } from '@ni/nimble-components/dist/esm/table/types';
+import type { LegacyRef } from 'react';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
-export { type Table };
+export { type Table, type TableRecord, type TableSetRecordHierarchyOptions };
 export const NimbleTable = wrap(Table, {
     events: {
         onActionMenuBeforeToggle: 'action-menu-beforetoggle' as EventName<TableActionMenuBeforeToggleEvent>,
@@ -32,3 +35,5 @@ export interface TableColumnConfigurationChangeEvent extends CustomEvent<TableCo
 export interface TableRowExpandToggleEvent extends CustomEvent<TableRowExpansionToggleEventDetail> {
     target: Table;
 }
+
+export type TableRef = LegacyRef<Table>;

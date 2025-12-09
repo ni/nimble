@@ -62,7 +62,8 @@ export { ${tagName} };
  * Directive to provide Angular integration for the ${iconName} icon element.
  */
 @Directive({
-    selector: '${elementName}'
+    selector: '${elementName}',
+    standalone: false
 })
 export class ${directiveName} extends NimbleIconBaseDirective {
 }

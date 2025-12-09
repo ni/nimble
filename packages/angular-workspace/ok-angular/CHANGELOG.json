@@ -2,6 +2,36 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Tue, 09 Dec 2025 06:58:39 GMT",
+      "version": "0.1.20",
+      "tag": "@ni/ok-angular_v0.1.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v0.1.19",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Dec 2025 00:59:48 GMT",
+      "version": "0.1.19",
+      "tag": "@ni/ok-angular_v0.1.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "b8d39ab52baa53977f131fc2631ee55241cdda9f",
+            "comment": "Add \"standalone: false\" to every directive, component, pipe decorator"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 08 Dec 2025 23:33:42 GMT",
       "version": "0.1.18",
       "tag": "@ni/ok-angular_v0.1.18",

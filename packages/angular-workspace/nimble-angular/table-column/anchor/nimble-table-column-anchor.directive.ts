@@ -12,7 +12,8 @@ export { AnchorAppearance };
  * Directive to provide Angular integration for the table column element for links.
  */
 @Directive({
-    selector: 'nimble-table-column-anchor'
+    selector: 'nimble-table-column-anchor',
+    standalone: false
 })
 export class NimbleTableColumnAnchorDirective extends NimbleTableColumnBaseDirective<TableColumnAnchor> {
     public get labelFieldName(): string | undefined {

@@ -37,7 +37,8 @@ describe('Nimble anchor button', () => {
         @Component({
             template: `
                 <nimble-anchor-button #anchor></nimble-anchor-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchor', { read: NimbleAnchorButtonDirective }) public directive: NimbleAnchorButtonDirective;
@@ -132,7 +133,8 @@ describe('Nimble anchor button', () => {
                     disabled
                     >
                 </nimble-anchor-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchor', { read: NimbleAnchorButtonDirective }) public directive: NimbleAnchorButtonDirective;
@@ -227,7 +229,8 @@ describe('Nimble anchor button', () => {
                     [disabled]="disabled"
                     >
                 </nimble-anchor-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchor', { read: NimbleAnchorButtonDirective }) public directive: NimbleAnchorButtonDirective;
@@ -401,7 +404,8 @@ describe('Nimble anchor button', () => {
                     [attr.disabled]="disabled"
                     >
                 </nimble-anchor-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchor', { read: NimbleAnchorButtonDirective }) public directive: NimbleAnchorButtonDirective;

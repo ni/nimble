@@ -11,7 +11,8 @@ export { TextFieldType, TextFieldAppearance };
  * Directive to provide Angular integration for the text field
  */
 @Directive({
-    selector: 'nimble-text-field'
+    selector: 'nimble-text-field',
+    standalone: false
 })
 export class NimbleTextFieldDirective {
     public get appearance(): TextFieldAppearance {

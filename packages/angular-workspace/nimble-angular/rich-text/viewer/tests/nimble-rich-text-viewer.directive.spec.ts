@@ -20,7 +20,8 @@ describe('Nimble Rich Text Viewer', () => {
         @Component({
             template: `
                 <nimble-rich-text-viewer #viewer></nimble-rich-text-viewer>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('viewer', { read: NimbleRichTextViewerDirective }) public directive: NimbleRichTextViewerDirective;
@@ -69,7 +70,8 @@ describe('Nimble Rich Text Viewer', () => {
                 <nimble-rich-text-viewer #viewer
                     markdown="**Bold** _Italics_ \n\n1. \n2. \n * \n * \n"
                     >
-                </nimble-rich-text-viewer>`
+                </nimble-rich-text-viewer>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('viewer', { read: NimbleRichTextViewerDirective }) public directive: NimbleRichTextViewerDirective;
@@ -103,7 +105,8 @@ describe('Nimble Rich Text Viewer', () => {
                 <nimble-rich-text-viewer #viewer
                     [markdown]="markdown"
                     >
-                </nimble-rich-text-viewer>`
+                </nimble-rich-text-viewer>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('viewer', { read: NimbleRichTextViewerDirective }) public directive: NimbleRichTextViewerDirective;

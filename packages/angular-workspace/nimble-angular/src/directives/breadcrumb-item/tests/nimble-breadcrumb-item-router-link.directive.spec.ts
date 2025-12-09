@@ -14,7 +14,8 @@ describe('Nimble breadcrumb item RouterLinkDirective', () => {
                 </nimble-breadcrumb-item>
             </nimble-breadcrumb>
             <router-outlet></router-outlet>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
     }

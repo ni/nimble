@@ -33,7 +33,8 @@ describe('Nimble breadcrumb item', () => {
         @Component({
             template: `
                 <nimble-breadcrumb-item #breadcrumbItem></nimble-breadcrumb-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('breadcrumbItem', { read: NimbleBreadcrumbItemDirective }) public directive: NimbleBreadcrumbItemDirective;
@@ -103,7 +104,8 @@ describe('Nimble breadcrumb item', () => {
                     target="${target1}"
                     type="${type1}"
                     >
-                </nimble-breadcrumb-item>`
+                </nimble-breadcrumb-item>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('breadcrumbItem', { read: NimbleBreadcrumbItemDirective }) public directive: NimbleBreadcrumbItemDirective;
@@ -174,7 +176,8 @@ describe('Nimble breadcrumb item', () => {
                     [type]="type"
                     >
                 </nimble-breadcrumb-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('breadcrumbItem', { read: NimbleBreadcrumbItemDirective }) public directive: NimbleBreadcrumbItemDirective;
@@ -294,7 +297,8 @@ describe('Nimble breadcrumb item', () => {
                     [attr.type]="type"
                 >
                 </nimble-breadcrumb-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('breadcrumbItem', { read: NimbleBreadcrumbItemDirective }) public directive: NimbleBreadcrumbItemDirective;

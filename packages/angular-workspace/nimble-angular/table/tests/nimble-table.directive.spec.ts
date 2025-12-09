@@ -27,7 +27,8 @@ describe('Nimble table', () => {
         @Component({
             template: `
                 <nimble-table #table [data$]="data$"></nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
@@ -97,7 +98,8 @@ describe('Nimble table', () => {
         @Component({
             template: `
                 <nimble-table #table [idFieldName]="idFieldName"></nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
@@ -169,7 +171,8 @@ describe('Nimble table', () => {
         @Component({
             template: `
                 <nimble-table #table></nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective;
@@ -228,7 +231,8 @@ describe('Nimble table', () => {
                     [selectionMode]="selectionMode"
                 >
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
@@ -314,7 +318,8 @@ describe('Nimble table', () => {
                     [attr.selection-mode]="selectionMode"
                 >
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
@@ -397,7 +402,8 @@ describe('Nimble table', () => {
                     selection-mode="${selectionMode}"
                 >
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;

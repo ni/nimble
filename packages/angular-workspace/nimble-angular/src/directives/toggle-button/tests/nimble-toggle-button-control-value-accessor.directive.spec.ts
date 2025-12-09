@@ -13,7 +13,8 @@ describe('Nimble toggle button control value accessor', () => {
     @Component({
         template: `
             <nimble-toggle-button #toggleButton [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-toggle-button>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('toggleButton', { static: true }) public toggleButton: ElementRef<ToggleButton>;

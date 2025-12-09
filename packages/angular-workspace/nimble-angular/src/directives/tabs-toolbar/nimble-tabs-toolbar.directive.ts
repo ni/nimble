@@ -8,7 +8,8 @@ export { tabsToolbarTag };
  * Directive to provide Angular integration for the tabs toolbar.
  */
 @Directive({
-    selector: 'nimble-tabs-toolbar'
+    selector: 'nimble-tabs-toolbar',
+    standalone: false
 })
 export class NimbleTabsToolbarDirective {
 }
