@@ -59,11 +59,11 @@ To allow end-users to select a list option but not enter a custom value, use a [
 
 ![ ](spec-images/combobox-alternative-select.png)
 
-To allow end-users to multi-select list options, use a [**tag picker**](/packages/nimble-components/src/tag-picker/specs/IxD.md).
+To allow end-users to multi-select list options, use a **tag picker**.
 
 ![ ](spec-images/combobox-alternative-picker.png)
 
-To allow end-users to select less than three options, use a [**radio group**](/packages/nimble-components/src/radio-group/specs/IxD.md).
+To allow end-users to select less than three options, use a [**radio group**](/packages/nimble-components/src/radio-group/).
 
 ## Design
 

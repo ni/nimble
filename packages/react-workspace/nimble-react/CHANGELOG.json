@@ -2,6 +2,42 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Tue, 09 Dec 2025 06:58:39 GMT",
+      "version": "0.7.9",
+      "tag": "@ni/nimble-react_v0.7.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "72ca6168a2df4d5b70b860f724cefc6338e78ae8",
+            "comment": "Export missing types from drawer and table wrappers"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Dec 2025 23:33:42 GMT",
+      "version": "0.7.8",
+      "tag": "@ni/nimble-react_v0.7.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.8.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 06 Dec 2025 00:45:19 GMT",
       "version": "0.7.7",
       "tag": "@ni/nimble-react_v0.7.7",

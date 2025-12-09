@@ -36,7 +36,8 @@ describe('Nimble combobox control value accessor', () => {
                     <nimble-list-option *ngIf="showFirstSharedOption" [ngValue]="sharedOption">{{ sharedOption?.name }}</nimble-list-option>
                     <nimble-list-option #lastOption [ngValue]="sharedOption">{{ sharedOption?.otherName }}</nimble-list-option>
                 </nimble-combobox>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('combobox', { static: true }) public combobox: ElementRef<Combobox>;
@@ -333,7 +334,8 @@ describe('Nimble combobox control value accessor', () => {
                         <nimble-list-option #lastOption [ngValue]="sharedOption">{{ sharedOption?.otherName }}</nimble-list-option>
                     </nimble-combobox>
                 </form>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('combobox', { static: true }) public combobox: ElementRef<Combobox>;

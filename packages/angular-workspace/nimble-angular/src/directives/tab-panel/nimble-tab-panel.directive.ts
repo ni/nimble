@@ -8,7 +8,8 @@ export { tabPanelTag };
  * Directive to provide Angular integration for the tab panel.
  */
 @Directive({
-    selector: 'nimble-tab-panel'
+    selector: 'nimble-tab-panel',
+    standalone: false
 })
 export class NimbleTabPanelDirective {
 }

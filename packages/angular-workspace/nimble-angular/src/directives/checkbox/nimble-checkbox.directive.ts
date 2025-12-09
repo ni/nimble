@@ -9,7 +9,8 @@ export { checkboxTag };
  * Directive to provide Angular integration for the checkbox.
  */
 @Directive({
-    selector: 'nimble-checkbox'
+    selector: 'nimble-checkbox',
+    standalone: false
 })
 export class NimbleCheckboxDirective {
     public get disabled(): boolean {

@@ -2,6 +2,57 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 09 Dec 2025 17:55:53 GMT",
+      "version": "20.9.8",
+      "tag": "@ni/nimble-blazor_v20.9.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "353ae989bdd4e1310e0cfcd60c091182d5f2ff05",
+            "comment": "Always format doubles in razor files using the invariant culture"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Dec 2025 06:58:39 GMT",
+      "version": "20.9.7",
+      "tag": "@ni/nimble-blazor_v20.9.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v34.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Dec 2025 23:33:42 GMT",
+      "version": "20.9.6",
+      "tag": "@ni/nimble-blazor_v20.9.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "65cc5e77bca7ed431fba155a4ed6c56a41c0add7",
+            "comment": "markdown linting"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v34.8.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 06 Dec 2025 00:45:19 GMT",
       "version": "20.9.5",
       "tag": "@ni/nimble-blazor_v20.9.5",

@@ -17,7 +17,8 @@ export { DrawerLocation };
  * ```
  */
 @Directive({
-    selector: 'nimble-drawer'
+    selector: 'nimble-drawer',
+    standalone: false
 })
 export class NimbleDrawerDirective<CloseReason = void> {
     public get location(): DrawerLocation {

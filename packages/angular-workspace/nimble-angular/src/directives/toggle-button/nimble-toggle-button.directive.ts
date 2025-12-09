@@ -10,7 +10,8 @@ export { toggleButtonTag };
  * Directive to provide Angular integration for the toggle button.
  */
 @Directive({
-    selector: 'nimble-toggle-button'
+    selector: 'nimble-toggle-button',
+    standalone: false
 })
 export class NimbleToggleButtonDirective {
     public get appearance(): ButtonAppearance {

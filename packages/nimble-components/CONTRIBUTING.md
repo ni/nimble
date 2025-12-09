@@ -71,7 +71,7 @@ Before building a new component, 3 specification documents need to be created:
 
     `npm run change`
 
-8. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
+8. Update the [Component Status table](/packages/storybook/src/docs/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
@@ -193,8 +193,9 @@ It is common in web development to represent variations of control states using 
 
 - Do not use attribute names that conflict with native attribute names:
     - Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
-    - Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+    - Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. <https://github.com/openui> and <https://github.com/whatwg>.
     - Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
+    - Avoid any names that are [reserved props](https://legacy.reactjs.org/warnings/special-props.html) in React.
 - Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
     ```ts
@@ -452,7 +453,7 @@ Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/sr
 
 #### Fixtures
 
-The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/fixture.spec.ts).
+The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/tests/fixture.spec.ts).
 
 ### Disabling tests
 

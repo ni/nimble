@@ -12,7 +12,8 @@ export { AnchorAppearance };
  * Directive to provide Angular integration for the anchor.
  */
 @Directive({
-    selector: 'nimble-anchor'
+    selector: 'nimble-anchor',
+    standalone: false
 })
 export class NimbleAnchorDirective extends NimbleAnchorBaseDirective<Anchor> {
     public get appearance(): AnchorAppearance {

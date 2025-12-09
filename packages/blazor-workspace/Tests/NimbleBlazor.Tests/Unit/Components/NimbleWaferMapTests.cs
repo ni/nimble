@@ -82,6 +82,61 @@ public class NimbleWaferMapTests
         Assert.Contains(expectedMarkup, waferMap.Markup);
     }
 
+    [Fact]
+    public void NimbleWaferMapGridMinX_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.GridMinX, 1.5);
+
+            Assert.Contains("grid-min-x=\"1.5\"", numberField.Markup);
+        }
+    }
+
+    [Fact]
+    public void NimbleWaferMapGridMaxX_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.GridMaxX, 1.5);
+
+            Assert.Contains("grid-max-x=\"1.5\"", numberField.Markup);
+        }
+    }
+
+    [Fact]
+    public void NimbleWaferMapGridMinY_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.GridMinY, 1.5);
+
+            Assert.Contains("grid-min-y=\"1.5\"", numberField.Markup);
+        }
+    }
+
+    [Fact]
+    public void NimbleWaferMapGridMaxY_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.GridMaxY, 1.5);
+
+            Assert.Contains("grid-max-y=\"1.5\"", numberField.Markup);
+        }
+    }
+
+    [Fact]
+    public void NimbleWaferMapMaxCharacters_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.MaxCharacters, 1.5);
+
+            Assert.Contains("max-characters=\"1.5\"", numberField.Markup);
+        }
+    }
+
     [Theory]
     [InlineData(WaferMapOriginLocation.TopRight, "top-right")]
     [InlineData(WaferMapOriginLocation.TopLeft, "top-left")]

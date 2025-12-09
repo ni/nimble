@@ -11,7 +11,8 @@ export { tableColumnMenuButtonTag };
  * Directive to provide Angular integration for the table column element for a menu button.
  */
 @Directive({
-    selector: 'nimble-table-column-menu-button'
+    selector: 'nimble-table-column-menu-button',
+    standalone: false
 })
 export class NimbleTableColumnMenuButtonDirective extends NimbleTableColumnBaseDirective<TableColumnMenuButton> {
     public get fieldName(): string | undefined {

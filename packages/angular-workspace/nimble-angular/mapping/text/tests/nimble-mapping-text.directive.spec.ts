@@ -31,7 +31,8 @@ describe('NimbleMappingText', () => {
                         </nimble-mapping-text>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingTextDirective }) public directive: NimbleMappingTextDirective;
@@ -77,7 +78,8 @@ describe('NimbleMappingText', () => {
                         </nimble-mapping-text>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingTextDirective }) public directive: NimbleMappingTextDirective;
@@ -137,7 +139,8 @@ describe('NimbleMappingText', () => {
                         </nimble-mapping-text>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingTextDirective }) public directive: NimbleMappingTextDirective;

@@ -8,8 +8,7 @@ import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkb
  * Directive decorator based on CheckboxControlValueAccessor decorator in thirdparty/directives/checkbox_value_accessor
  */
 @Directive({
-    selector:
-        'nimble-switch[formControlName],nimble-switch[formControl],nimble-switch[ngModel]',
+    selector: 'nimble-switch[formControlName],nimble-switch[formControl],nimble-switch[ngModel]',
     // The following host metadata is duplicated from CheckboxControlValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()' },
@@ -17,7 +16,8 @@ import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkb
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => NimbleSwitchControlValueAccessorDirective),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 export class NimbleSwitchControlValueAccessorDirective extends CheckboxControlValueAccessor {
 }

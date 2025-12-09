@@ -24,6 +24,7 @@ import { DefaultValueAccessor } from '../../thirdparty/directives/default_value_
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => NimbleTextAreaControlValueAccessorDirective),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 export class NimbleTextAreaControlValueAccessorDirective extends DefaultValueAccessor { }

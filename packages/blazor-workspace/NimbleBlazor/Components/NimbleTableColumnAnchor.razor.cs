@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnAnchor : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn, ISortableColumn, ICustomSortOrderColumn
+public partial class NimbleTableColumnAnchor : NimbleFractionalTableColumn, IGroupableColumn, ISortableColumn, ICustomSortOrderColumn
 {
     /// <summary>
     /// Gets or sets the link label field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display
@@ -78,18 +78,6 @@ public partial class NimbleTableColumnAnchor : NimbleTableColumn, IFractionalWid
     /// </summary>
     [Parameter]
     public string? Download { get; set; }
-
-    /// <summary>
-    /// The fractional/proportional width to use for this column
-    /// </summary>
-    [Parameter]
-    public double FractionalWidth { get; set; } = 1;
-
-    /// <summary>
-    /// The minimum width (in pixels) for this column
-    /// </summary>
-    [Parameter]
-    public double? MinPixelWidth { get; set; }
 
     /// <summary>
     /// Specifies the grouping precedence of the column within the set of all columns participating in grouping.

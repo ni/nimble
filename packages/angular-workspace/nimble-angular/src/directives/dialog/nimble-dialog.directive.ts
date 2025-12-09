@@ -15,7 +15,8 @@ export { dialogTag };
  * ```
  */
 @Directive({
-    selector: 'nimble-dialog'
+    selector: 'nimble-dialog',
+    standalone: false
 })
 export class NimbleDialogDirective<CloseReason = void> {
     public get preventDismiss(): boolean {

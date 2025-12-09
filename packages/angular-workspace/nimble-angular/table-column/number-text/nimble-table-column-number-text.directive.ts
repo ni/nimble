@@ -11,7 +11,8 @@ export { tableColumnNumberTextTag, NumberTextFormat, NumberTextAlignment };
  * Directive to provide Angular integration for the table column element for number text.
  */
 @Directive({
-    selector: 'nimble-table-column-number-text'
+    selector: 'nimble-table-column-number-text',
+    standalone: false
 })
 export class NimbleTableColumnNumberTextDirective extends NimbleTableColumnBaseDirective<TableColumnNumberText> {
     public get fieldName(): string | undefined {

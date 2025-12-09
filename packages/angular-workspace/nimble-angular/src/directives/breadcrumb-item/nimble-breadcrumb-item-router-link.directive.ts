@@ -5,7 +5,10 @@ import { Directive } from '@angular/core';
  *
  * @see NimbleBreadcrumbItemRouterLinkWithHrefDirective
  */
-@Directive({ selector: 'nimble-breadcrumb-item[routerLink]' })
+@Directive({
+    selector: 'nimble-breadcrumb-item[routerLink]',
+    standalone: false
+})
 export class NimbleBreadcrumbItemRouterLinkDirective {
     public constructor() {
         throw new Error('Use [nimbleRouterLink] instead of [routerLink].');

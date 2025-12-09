@@ -11,7 +11,8 @@ export { TextAreaAppearance, TextAreaResize };
  * Directive to provide Angular integration for the text area
  */
 @Directive({
-    selector: 'nimble-text-area'
+    selector: 'nimble-text-area',
+    standalone: false
 })
 export class NimbleTextAreaDirective {
     public get appearance(): TextAreaAppearance {
