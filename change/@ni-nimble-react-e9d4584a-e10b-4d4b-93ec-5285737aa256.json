@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Export missing types from drawer and table wrappers",
+  "packageName": "@ni/nimble-react",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

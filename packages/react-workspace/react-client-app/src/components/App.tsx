@@ -7,7 +7,7 @@ import { NimbleToggleButton } from '@ni/nimble-react/dist/esm/toggle-button';
 import { NimbleAnchorButton } from '@ni/nimble-react/dist/esm/anchor-button';
 import { NimbleCard } from '@ni/nimble-react/dist/esm/card';
 import { NimbleNumberField } from '@ni/nimble-react/dist/esm/number-field';
-import { NimbleSelect } from '@ni/nimble-react/dist/esm/select';
+import { NimbleSelect, type Select, type SelectChangeEvent, type SelectFilterInputEvent } from '@ni/nimble-react/dist/esm/select';
 import { NimbleListOption } from '@ni/nimble-react/dist/esm/list-option';
 import { NimbleListOptionGroup } from '@ni/nimble-react/dist/esm/list-option-group';
 import { NimbleCardButton } from '@ni/nimble-react/dist/esm/card-button';
@@ -15,10 +15,10 @@ import { NimbleCheckbox } from '@ni/nimble-react/dist/esm/checkbox';
 import { NimbleRadioGroup } from '@ni/nimble-react/dist/esm/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/dist/esm/radio';
 import { NimbleTextField } from '@ni/nimble-react/dist/esm/text-field';
-import { NimbleDialog, type DialogRef, type Dialog, UserDismissed } from '@ni/nimble-react/dist/esm/dialog';
-import { NimbleDrawer } from '@ni/nimble-react/dist/esm/drawer';
+import { NimbleDialog, type Dialog, type DialogRef, DialogUserDismissed } from '@ni/nimble-react/dist/esm/dialog';
+import { NimbleDrawer, type Drawer, type DrawerRef, DrawerUserDismissed, DrawerLocation } from '@ni/nimble-react/dist/esm/drawer';
 import { NimbleMenu } from '@ni/nimble-react/dist/esm/menu';
-import { NimbleMenuItem } from '@ni/nimble-react/dist/esm/menu-item';
+import { NimbleMenuItem, type MenuItemChangeEvent } from '@ni/nimble-react/dist/esm/menu-item';
 import { NimbleAnchorMenuItem } from '@ni/nimble-react/dist/esm/anchor-menu-item';
 import { NimbleMenuButton } from '@ni/nimble-react/dist/esm/menu-button';
 import { NimbleIconAdd } from '@ni/nimble-react/dist/esm/icons/add';
@@ -26,7 +26,7 @@ import { NimbleIconCheck } from '@ni/nimble-react/dist/esm/icons/check';
 import { NimbleIconXmarkCheck } from '@ni/nimble-react/dist/esm/icons/xmark-check';
 import { NimbleSpinner } from '@ni/nimble-react/dist/esm/spinner';
 import { NimbleSwitch } from '@ni/nimble-react/dist/esm/switch';
-import { NimbleTable } from '@ni/nimble-react/dist/esm/table';
+import { NimbleTable, type Table, type TableRowExpandToggleEvent, type TableRecord, type TableSetRecordHierarchyOptions, type TableRef } from '@ni/nimble-react/dist/esm/table';
 import { NimbleTableColumnText } from '@ni/nimble-react/dist/esm/table-column/text';
 import { NimbleTableColumnAnchor } from '@ni/nimble-react/dist/esm/table-column/anchor';
 import { NimbleTableColumnDateText } from '@ni/nimble-react/dist/esm/table-column/date-text';
@@ -37,7 +37,7 @@ import { NimbleMappingSpinner } from '@ni/nimble-react/dist/esm/mapping/spinner'
 import { NimbleMappingEmpty } from '@ni/nimble-react/dist/esm/mapping/empty';
 import { NimbleTableColumnNumberText } from '@ni/nimble-react/dist/esm/table-column/number-text';
 import { NimbleTableColumnDurationText } from '@ni/nimble-react/dist/esm/table-column/duration-text';
-import { NimbleTableColumnMenuButton } from '@ni/nimble-react/dist/esm/table-column/menu-button';
+import { NimbleTableColumnMenuButton, type TableColumnMenuButtonBeforeToggleEvent } from '@ni/nimble-react/dist/esm/table-column/menu-button';
 import { NimbleTabs } from '@ni/nimble-react/dist/esm/tabs';
 import { NimbleTab } from '@ni/nimble-react/dist/esm/tab';
 import { NimbleTabsToolbar } from '@ni/nimble-react/dist/esm/tabs-toolbar';
@@ -51,7 +51,7 @@ import { NimbleTreeView } from '@ni/nimble-react/dist/esm/tree-view';
 import { NimbleTreeItem } from '@ni/nimble-react/dist/esm/tree-item';
 import { NimbleAnchorTreeItem } from '@ni/nimble-react/dist/esm/anchor-tree-item';
 import { NimbleCombobox } from '@ni/nimble-react/dist/esm/combobox';
-import { NimbleRichTextEditor } from '@ni/nimble-react/dist/esm/rich-text/editor';
+import { NimbleRichTextEditor, type RichTextEditor } from '@ni/nimble-react/dist/esm/rich-text/editor';
 import { NimbleRichTextMentionUsers } from '@ni/nimble-react/dist/esm/rich-text-mention/users';
 import { NimbleMappingUser } from '@ni/nimble-react/dist/esm/mapping/user';
 import { NimbleRichTextViewer } from '@ni/nimble-react/dist/esm/rich-text/viewer';
@@ -66,22 +66,470 @@ import { SprightRectangle } from '@ni/spright-react/dist/esm/rectangle';
 import { OkButton } from '@ni/ok-react/dist/esm/button';
 
 import './App.scss';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+
+interface ComboboxItem {
+    first: string;
+    last: string;
+}
+
+const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
+type Color = typeof colors[number];
+
+interface SimpleTableRecord extends TableRecord {
+    [key: string]: string | number | boolean | undefined;
+    id: string;
+    parentId?: string;
+    stringValue1: string;
+    stringValue2: string;
+    href?: string;
+    linkLabel?: string;
+    date: number;
+    statusCode: number;
+    result: string;
+    number: number;
+    duration: number;
+    color: Color;
+}
+
+interface PersonTableRecord extends TableRecord {
+    [key: string]: string | number | boolean | undefined;
+    id: string;
+    parentId?: string;
+    firstName: string;
+    lastName: string;
+    age: number;
+    hasChildren?: boolean;
+}
 
 export function App(): JSX.Element {
     const [bannerOpen, setBannerOpen] = useState(true);
     const [selectedRadio, setSelectedRadio] = useState('mango');
     const dialogRef = useRef<Dialog<string>>(null);
     const [dialogCloseReason, setDialogCloseReason] = useState('');
+    const drawerRef = useRef<Drawer<string>>(null);
+    const [drawerCloseReason, setDrawerCloseReason] = useState('');
+    const [drawerLocation, setDrawerLocation] = useState<DrawerLocation>(DrawerLocation.right);
+
+    const [underlineSelectValue, setUnderlineSelectValue] = useState('');
+    const [outlineSelectValue, setOutlineSelectValue] = useState('');
+    const [blockSelectValue, setBlockSelectValue] = useState('');
+    const availableSelectItems: ComboboxItem[] = [
+        { first: 'Homer', last: 'Simpson' },
+        { first: 'Marge', last: 'Simpson' },
+        { first: 'Bart', last: 'Simpson' },
+        { first: 'Lisa', last: 'Simpson' },
+        { first: 'Maggie', last: 'Simpson' },
+        { first: 'Mona', last: 'Simpson' },
+        { first: 'Jacqueline', last: 'Bouvier' },
+        { first: 'Selma', last: 'Bouvier' },
+        { first: 'Patty', last: 'Bouvier' },
+        { first: 'Abe', last: 'Simpson' },
+        { first: 'Ned', last: 'Flanders' },
+        { first: 'Maude', last: 'Flanders' },
+        { first: 'Rod', last: 'Flanders' },
+        { first: 'Todd', last: 'Flanders' }
+    ];
+
+    const defaultDynamicSelectItems = availableSelectItems.slice(0, 5);
+    const [dynamicSelectItems, setDynamicSelectItems] = useState<ComboboxItem[]>(defaultDynamicSelectItems);
+    const [dynamicSelectValue, setDynamicSelectValue] = useState<ComboboxItem | null>(null);
+    const [hideSelectedItem, setHideSelectedItem] = useState(false);
+    const dynamicSelectRef = useRef<Select>(null);
+    const dynamicSelectFilterTimeoutRef = useRef<number>();
+    const dynamicSelectValueRef = useRef<ComboboxItem | null>(null);
+
+    const comboboxItems: ComboboxItem[] = [
+        { first: 'foo', last: 'bar' },
+        { first: 'Bubba', last: 'Hotep' },
+        { first: 'Mister', last: 'Smithers' }
+    ];
+
+    const [activeTabId, setActiveTabId] = useState('tab-1');
+    const [activeAnchorTabId, setActiveAnchorTabId] = useState('a-tab-2');
+    const [chatUserMessages, setChatUserMessages] = useState<string[]>([]);
+
+    // Initialize table data
+    const [tableData, setTableData] = useState<SimpleTableRecord[]>(() => {
+        const possibleStatuses = ['success', 'calculating', 'unknown'];
+        const initialRows: SimpleTableRecord[] = [];
+        for (let i = 0; i < 10; i++) {
+            initialRows.push({
+                id: i.toString(),
+                parentId: (i >= 4 ? (i % 4).toString() : undefined),
+                stringValue1: `new string ${i}`,
+                stringValue2: `bar ${i}`,
+                href: '/customapp',
+                linkLabel: 'Link',
+                date: (i % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
+                statusCode: (i % 2 === 0) ? 100 : 101,
+                result: possibleStatuses[i % 3],
+                number: i / 10,
+                duration: i * 1000 * (1.1 + 2 * 60 + 3 * 3600),
+                color: colors[i % colors.length]
+            });
+        }
+        return initialRows;
+    });
+    const [currentColor, setCurrentColor] = useState<Color | undefined>(undefined);
+    const [openMenuButtonColumnRecordId, setOpenMenuButtonColumnRecordId] = useState<string | undefined>(undefined);
+    const [delayedHierarchyTableData, setDelayedHierarchyTableData] = useState<PersonTableRecord[]>([
+        {
+            firstName: 'Jacqueline',
+            lastName: 'Bouvier',
+            age: 80,
+            id: 'jacqueline-bouvier',
+            parentId: undefined,
+            hasChildren: true
+        },
+        {
+            firstName: 'Mona',
+            lastName: 'Simpson',
+            age: 77,
+            id: 'mona-simpson',
+            parentId: undefined,
+            hasChildren: true
+        },
+        {
+            firstName: 'Agnes',
+            lastName: 'Skinner',
+            age: 88,
+            id: 'agnes-skinner',
+            parentId: undefined,
+            hasChildren: true
+        }
+    ]);
+    const [recordsLoadingChildren, setRecordsLoadingChildren] = useState<Set<string>>(new Set());
+    const [recordsWithLoadedChildren, setRecordsWithLoadedChildren] = useState<Set<string>>(new Set());
+    const tableRef = useRef<Table<SimpleTableRecord>>(null);
+    const delayedHierarchyTableRef = useRef<Table<PersonTableRecord>>(null);
+
+    const richTextEditorRef = useRef<RichTextEditor>(null);
+    const markdownString = `Supported rich text formatting options:
+1. **Bold**
+2. *Italics*
+3. Numbered lists
+    1. Option 1
+    2. Option 2
+4. Bulleted lists
+    * Option 1
+    * Option 2
+5. Absolute link: <https://nimble.ni.dev/>
+6. @mention: <user:1>
+`;
+
+    function addTableRows(numberOfRowsToAdd: number): void {
+        const possibleStatuses = ['success', 'calculating', 'unknown'];
+        const newRows: SimpleTableRecord[] = [];
+        for (let i = 0; i < numberOfRowsToAdd; i++) {
+            const currentLength = tableData.length + i;
+            newRows.push({
+                id: currentLength.toString(),
+                parentId: (currentLength >= 4 ? (currentLength % 4).toString() : undefined),
+                stringValue1: `new string ${currentLength}`,
+                stringValue2: `bar ${currentLength}`,
+                href: '/customapp',
+                linkLabel: 'Link',
+                date: (currentLength % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
+                statusCode: (currentLength % 2 === 0) ? 100 : 101,
+                result: possibleStatuses[currentLength % 3],
+                number: currentLength / 10,
+                duration: currentLength * 1000 * (1.1 + 2 * 60 + 3 * 3600),
+                color: colors[currentLength % colors.length]
+            });
+        }
+        setTableData([...tableData, ...newRows]);
+    }
+
+    function onMenuButtonColumnBeforeToggle(event: TableColumnMenuButtonBeforeToggleEvent): void {
+        if (event.detail.newState) {
+            setOpenMenuButtonColumnRecordId(event.detail.recordId);
+            const currentRecord = tableData.find(record => record.id === event.detail.recordId);
+            if (currentRecord) {
+                setCurrentColor(currentRecord.color);
+            }
+        }
+    }
+
+    function onColorSelected(color: Color): void {
+        const recordToUpdate = tableData.find(record => record.id === openMenuButtonColumnRecordId);
+        if (recordToUpdate) {
+            recordToUpdate.color = color;
+            setTableData([...tableData]);
+        }
+    }
+
+    function getChildren(id: string): PersonTableRecord[] {
+        switch (id) {
+            case 'jacqueline-bouvier':
+                return [{
+                    firstName: 'Marge',
+                    lastName: 'Simpson',
+                    age: 35,
+                    id: 'marge-simpson',
+                    parentId: id,
+                    hasChildren: true
+                }, {
+                    firstName: 'Selma',
+                    lastName: 'Bouvier',
+                    age: 45,
+                    id: 'selma-bouvier',
+                    parentId: id
+                }, {
+                    firstName: 'Patty',
+                    lastName: 'Bouvier',
+                    age: 45,
+                    id: 'patty-bouvier',
+                    parentId: id
+                }];
+            case 'marge-simpson':
+                return [{
+                    firstName: 'Bart',
+                    lastName: 'Simpson',
+                    age: 12,
+                    id: 'bart-simpson',
+                    parentId: id
+                }, {
+                    firstName: 'Lisa',
+                    lastName: 'Simpson',
+                    age: 10,
+                    id: 'lisa-simpson',
+                    parentId: id
+                }, {
+                    firstName: 'Maggie',
+                    lastName: 'Simpson',
+                    age: 1,
+                    id: 'maggie-simpson',
+                    parentId: id
+                }];
+            case 'mona-simpson':
+                return [{
+                    firstName: 'Homer',
+                    lastName: 'Simpson',
+                    age: 35,
+                    id: 'homer-simpson',
+                    parentId: id
+                }];
+            case 'agnes-skinner':
+                return [{
+                    firstName: 'Seymour',
+                    lastName: 'Skinner',
+                    age: 42,
+                    id: 'seymour-skinner',
+                    parentId: id
+                }];
+            default:
+                return [];
+        }
+    }
+
+    function onRowExpandToggle(event: TableRowExpandToggleEvent): void {
+        const recordId = event.detail.recordId;
+        if (event.detail.newState && !recordsLoadingChildren.has(recordId) && !recordsWithLoadedChildren.has(recordId)) {
+            const record = delayedHierarchyTableData.find(x => x.id === recordId && x.hasChildren);
+            if (!record) {
+                return;
+            }
+
+            const newLoadingSet = new Set(recordsLoadingChildren);
+            newLoadingSet.add(recordId);
+            setRecordsLoadingChildren(newLoadingSet);
+            void updateDelayedHierarchyTable(false);
+
+            window.setTimeout(() => {
+                const children = getChildren(recordId);
+                setDelayedHierarchyTableData([...delayedHierarchyTableData, ...children]);
+                const newLoadingSet2 = new Set(recordsLoadingChildren);
+                newLoadingSet2.delete(recordId);
+                setRecordsLoadingChildren(newLoadingSet2);
+                const newLoadedSet = new Set(recordsWithLoadedChildren);
+                newLoadedSet.add(recordId);
+                setRecordsWithLoadedChildren(newLoadedSet);
+            }, 1500);
+        }
+    }
+
+    async function updateDelayedHierarchyTable(setData = true): Promise<void> {
+        if (delayedHierarchyTableRef.current) {
+            if (setData) {
+                await delayedHierarchyTableRef.current.setData(delayedHierarchyTableData);
+            }
+            const hierarchyOptions: TableSetRecordHierarchyOptions[] = delayedHierarchyTableData.filter(person => {
+                return person.hasChildren && !recordsWithLoadedChildren.has(person.id);
+            }).map(person => {
+                const state = recordsLoadingChildren.has(person.id)
+                    ? 'loading-children'
+                    : 'can-load-children';
+                return {
+                    recordId: person.id,
+                    options: { delayedHierarchyState: state }
+                };
+            });
+            void delayedHierarchyTableRef.current.setRecordHierarchyOptions(hierarchyOptions);
+        }
+    }
+
     function openDialog(): void {
         void (async (): Promise<void> => {
-            const closeReason = await dialogRef.current?.show() || 'unknown';
-            setDialogCloseReason((closeReason === UserDismissed) ? 'escape pressed' : closeReason);
+            const closeReason = await dialogRef.current?.show();
+            setDialogCloseReason((closeReason === DialogUserDismissed) ? 'escape pressed' : (closeReason ?? 'unknown'));
         })();
     }
 
     function closeDialog(reason: string): void {
         dialogRef.current?.close(reason);
+    }
+
+    function openDrawer(): void {
+        void (async (): Promise<void> => {
+            const closeReason = await drawerRef.current?.show();
+            setDrawerCloseReason((closeReason === DrawerUserDismissed) ? 'escape pressed' : (closeReason ?? 'unknown'));
+        })();
+    }
+
+    function closeDrawer(reason: string): void {
+        drawerRef.current?.close(reason);
+    }
+
+    function onMenuButtonMenuChange(event: MenuItemChangeEvent): void {
+        const menuItemText = event.target.innerText;
+        alert(`${menuItemText} selected`);
+    }
+
+    function loadRichTextEditorContent(): void {
+        richTextEditorRef.current?.setMarkdown(markdownString);
+    }
+
+    function onTabToolbarButtonClick(): void {
+        alert('Tab toolbar button clicked');
+    }
+
+    function onChatInputSend(event: CustomEvent<{ text: string }>): void {
+        const text = event.detail.text;
+        setChatUserMessages(prevMessages => [...prevMessages, text]);
+    }
+
+    // Update table data when component mounts or data changes
+    useEffect(() => {
+        void ((async (): Promise<void> => {
+            await tableRef.current?.setData(tableData);
+        })());
+    }, [tableData]);
+
+    // Update delayed hierarchy table when data changes
+    useEffect(() => {
+        void ((async (): Promise<void> => {
+            if (delayedHierarchyTableRef.current) {
+                await delayedHierarchyTableRef.current.setData(delayedHierarchyTableData);
+                const hierarchyOptions: TableSetRecordHierarchyOptions[] = delayedHierarchyTableData.filter(person => {
+                    return person.hasChildren && !recordsWithLoadedChildren.has(person.id);
+                }).map(person => {
+                    const state = recordsLoadingChildren.has(person.id)
+                        ? 'loading-children'
+                        : 'can-load-children';
+                    return {
+                        recordId: person.id,
+                        options: { delayedHierarchyState: state }
+                    };
+                });
+                await delayedHierarchyTableRef.current.setRecordHierarchyOptions(hierarchyOptions);
+            }
+        })());
+    }, [delayedHierarchyTableData, recordsLoadingChildren, recordsWithLoadedChildren]);
+
+    function onDynamicSelectFilterInput(event: SelectFilterInputEvent): void {
+        const filter = event.detail.filterText || '';
+        if (filter.length > 0) {
+            window.clearTimeout(dynamicSelectFilterTimeoutRef.current);
+            if (dynamicSelectRef.current) {
+                dynamicSelectRef.current.loadingVisible = true;
+            }
+            const timeoutId = window.setTimeout(() => {
+                // Check if this timeout is still the active one
+                if (dynamicSelectFilterTimeoutRef.current !== timeoutId) {
+                    return;
+                }
+                const filteredItems = availableSelectItems.filter(item => item.first.concat(item.last).toLowerCase().includes(filter.toLowerCase()));
+                // Use the ref to get the latest value
+                const currentValue = dynamicSelectValueRef.current;
+                // Ensure the selected value is in the list if it exists
+                let itemsToSet = filteredItems;
+                if (currentValue) {
+                    const valueInFiltered = filteredItems.some(
+                        item => item.first === currentValue.first && item.last === currentValue.last
+                    );
+                    if (!valueInFiltered) {
+                        itemsToSet = [...filteredItems, currentValue];
+                    }
+                }
+                setDynamicSelectItems(itemsToSet);
+                const selectedItemInFiltered = currentValue
+                    ? filteredItems.some(item => item.first === currentValue.first && item.last === currentValue.last)
+                    : true;
+                setHideSelectedItem(!selectedItemInFiltered);
+                if (dynamicSelectRef.current) {
+                    dynamicSelectRef.current.loadingVisible = false;
+                }
+                // Clear the timeout ref after execution
+                dynamicSelectFilterTimeoutRef.current = undefined;
+            }, 2000);
+            dynamicSelectFilterTimeoutRef.current = timeoutId; // simulate async loading with debounce
+        } else {
+            setHideSelectedItem(false);
+            window.clearTimeout(dynamicSelectFilterTimeoutRef.current);
+            dynamicSelectFilterTimeoutRef.current = undefined;
+            // Don't reset items here - let handleDynamicSelectChange manage the items
+            // The filter being cleared doesn't mean we should reset the list
+            if (dynamicSelectRef.current) {
+                dynamicSelectRef.current.loadingVisible = false;
+            }
+        }
+    }
+
+    function shouldHideItem(item: ComboboxItem): boolean {
+        return hideSelectedItem && dynamicSelectValue !== null
+            && item.first === dynamicSelectValue.first
+            && item.last === dynamicSelectValue.last;
+    }
+
+    function onDynamicSelectChange(evt: SelectChangeEvent): void {
+        const selectedKey = evt.target.value;
+        // Clear any pending filter timeout to prevent list updates during selection
+        window.clearTimeout(dynamicSelectFilterTimeoutRef.current);
+        dynamicSelectFilterTimeoutRef.current = undefined;
+
+        if (selectedKey) {
+            // Find the item in availableSelectItems using the key
+            const selectedItem = availableSelectItems.find(
+                item => `${item.first}-${item.last}` === selectedKey
+            );
+            if (selectedItem) {
+                // Update the ref immediately
+                dynamicSelectValueRef.current = selectedItem;
+
+                // Update items list first to ensure the selected value is present
+                setDynamicSelectItems(currentItems => {
+                    const itemInList = currentItems.some(
+                        item => item.first === selectedItem.first && item.last === selectedItem.last
+                    );
+                    const newItems = itemInList ? currentItems : [...currentItems, selectedItem];
+                    return newItems;
+                });
+
+                // Then update the selected value
+                setDynamicSelectValue(selectedItem);
+                setHideSelectedItem(false);
+            }
+
+            // Stop loading indicator
+            if (dynamicSelectRef.current) {
+                dynamicSelectRef.current.loadingVisible = false;
+            }
+        } else {
+            dynamicSelectValueRef.current = null;
+            setDynamicSelectValue(null);
+            setHideSelectedItem(false);
+        }
     }
 
     return (
@@ -196,6 +644,8 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Dialog</div>
                         <NimbleDialog
+                            // Note: Generic types such as Dialog require using the workaround ref type
+                            // See: https://github.com/ni/nimble/issues/2784
                             ref={dialogRef as unknown as DialogRef}
                         >
                             <span slot="title">This is a dialog</span>
@@ -217,8 +667,10 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Drawer</div>
                         <NimbleDrawer
-                        // #drawer
-                        //  [location]="drawerLocation"
+                            // Note: Generic types such as Drawer require using the workaround ref type
+                            // See: https://github.com/ni/nimble/issues/2784
+                            ref={drawerRef as unknown as DrawerRef}
+                            location={drawerLocation}
                         >
                             <header>This is a drawer</header>
                             <section>
@@ -227,29 +679,30 @@ export function App(): JSX.Element {
                             </section>
                             <footer className="drawer-footer">
                                 <NimbleButton appearance="ghost"
-                                // (click)="closeDrawer('cancel pressed')"
+                                    onClick={() => closeDrawer('cancel pressed')}
                                 >Cancel</NimbleButton>
                                 <NimbleButton
-                                //  (click)="closeDrawer('OK pressed')"
+                                    onClick={() => closeDrawer('OK pressed')}
                                 >OK</NimbleButton>
                             </footer>
                         </NimbleDrawer>
                         <NimbleButton
-                        // (click)="openDrawer()"
+                            onClick={openDrawer}
                         >Open Drawer</NimbleButton>
                         <NimbleTextField
-                            // readonly
-                        // [ngModel]="drawerCloseReason"
+                            readOnly
+                            value={drawerCloseReason}
                         >Closed Reason</NimbleTextField>
                         <NimbleSelect className="drawer-location-select"
-                        //  [(ngModel)]="drawerLocation"
+                            value={drawerLocation}
+                            onChange={e => setDrawerLocation(e.target.value === DrawerLocation.left ? DrawerLocation.left : DrawerLocation.right)}
                         >
                             Drawer Location
                             <NimbleListOption
-                            //  [value]="drawerLocations.left"
+                                value={DrawerLocation.left}
                             >Drawer: Left-side</NimbleListOption>
                             <NimbleListOption
-                            //  [value]="drawerLocations.right"
+                                value={DrawerLocation.right}
                             >Drawer: Right-side</NimbleListOption>
                         </NimbleSelect>
                     </div>
@@ -266,7 +719,7 @@ export function App(): JSX.Element {
                             <header>Header 2</header>
                             <NimbleMenuItem>Item 4</NimbleMenuItem>
                             <NimbleAnchorMenuItem
-                            // nimbleRouterLink="/customapp"
+                                href="#"
                             >Item 5 (link)</NimbleAnchorMenuItem>
                         </NimbleMenu>
                     </div>
@@ -275,7 +728,7 @@ export function App(): JSX.Element {
                         <NimbleMenuButton>
                             Menu Button
                             <NimbleMenu slot="menu"
-                            // (change)="onMenuButtonMenuChange($event)"
+                                onChange={onMenuButtonMenuChange}
                             >
                                 <header>Header 1</header>
                                 <NimbleMenuItem>
@@ -297,21 +750,30 @@ export function App(): JSX.Element {
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Select</div>
-                        <NimbleSelect filter-mode="standard" appearance="underline">
+                        <NimbleSelect
+                            filterMode="standard"
+                            appearance="underline"
+                            value={underlineSelectValue}
+                            onChange={e => setUnderlineSelectValue(e.target.value)}
+                        >
                             Underline Select
-                            <NimbleListOption hidden selected disabled>Select an option</NimbleListOption>
+                            <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
                             <NimbleListOptionGroup label="Group 1">
-                                <NimbleListOption>Option 1</NimbleListOption>
-                                <NimbleListOption>Option 2</NimbleListOption>
+                                <NimbleListOption value="1">Option 1</NimbleListOption>
+                                <NimbleListOption value="2">Option 2</NimbleListOption>
                             </NimbleListOptionGroup>
                             <NimbleListOptionGroup label="Group 2">
-                                <NimbleListOption>Option 3</NimbleListOption>
-                                <NimbleListOption>Option 4</NimbleListOption>
+                                <NimbleListOption value="3">Option 3</NimbleListOption>
+                                <NimbleListOption value="4">Option 4</NimbleListOption>
                             </NimbleListOptionGroup>
                         </NimbleSelect>
-                        <NimbleSelect appearance="outline">
+                        <NimbleSelect
+                            appearance="outline"
+                            value={outlineSelectValue}
+                            onChange={e => setOutlineSelectValue(e.target.value)}
+                        >
                             Outline Select
-                            <NimbleListOption hidden selected disabled>Select an option</NimbleListOption>
+                            <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
                             <NimbleListOptionGroup label="Group 1">
                                 <NimbleListOption>Option 1</NimbleListOption>
                                 <NimbleListOption>Option 2</NimbleListOption>
@@ -321,9 +783,13 @@ export function App(): JSX.Element {
                                 <NimbleListOption>Option 4</NimbleListOption>
                             </NimbleListOptionGroup>
                         </NimbleSelect>
-                        <NimbleSelect appearance="block">
+                        <NimbleSelect
+                            appearance="block"
+                            value={blockSelectValue}
+                            onChange={e => setBlockSelectValue(e.target.value)}
+                        >
                             Block Select
-                            <NimbleListOption hidden selected disabled>Select an option</NimbleListOption>
+                            <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
                             <NimbleListOptionGroup label="Group 1">
                                 <NimbleListOption>Option 1</NimbleListOption>
                                 <NimbleListOption>Option 2</NimbleListOption>
@@ -336,72 +802,78 @@ export function App(): JSX.Element {
                         <div className="sub-container">
                             <div className="container-label">Select with dynamic options</div>
                             <NimbleSelect
-                            // #dynamicSelect
-                                appearance="underline" filter-mode="manual"
-                            //  [(ngModel)]="dynamicSelectValue" (filter-input)="onDynamicSelectFilterInput($event)"
+                                ref={dynamicSelectRef}
+                                appearance="underline"
+                                filterMode="manual"
+                                value={dynamicSelectValue ? `${dynamicSelectValue.first}-${dynamicSelectValue.last}` : ''}
+                                onChange={onDynamicSelectChange}
+                                onFilterInput={onDynamicSelectFilterInput}
                             >
-                                <NimbleListOption hidden selected disabled
-                                // [ngValue]="dynamicSelectPlaceholderValue"
-                                >Select an option</NimbleListOption>
-                                <NimbleListOption
-                                // #dynamicOptions *ngFor="let item of dynamicSelectItems" [ngValue]="item" [hidden]="shouldHideItem(item)"
-                                >
-                                    {/* {{ item.first }} {{ item.last }} */}
+                                <NimbleListOption hidden selected disabled value="">
+                                    Select an option
                                 </NimbleListOption>
+                                {dynamicSelectItems.map(item => (
+                                    <NimbleListOption
+                                        key={`${item.first}-${item.last}`}
+                                        value={`${item.first}-${item.last}`}
+                                        hidden={shouldHideItem(item)}
+                                    >
+                                        {item.first} {item.last}
+                                    </NimbleListOption>
+                                ))}
                             </NimbleSelect>
                         </div>
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Combobox</div>
-                        <NimbleCombobox aria-label="Combobox"
-                        // [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)"
-                            appearance="underline" autocomplete="both" placeholder="Select value...">
+                        <NimbleCombobox
+                            aria-label="Combobox"
+                            appearance="underline"
+                            autocomplete="both"
+                            placeholder="Select value..."
+                        >
                             Underline Combobox
-                            <NimbleListOption
-                            //  *ngFor="let item of comboboxItems" [ngValue]="item"
-                            >
-                                {/* {{ item ? item.first : '' }} */}
-                            </NimbleListOption>
+                            {comboboxItems.map((item, index) => (
+                                <NimbleListOption key={index}>{item.first}</NimbleListOption>
+                            ))}
                         </NimbleCombobox>
-                        <div>
-                            <span>
-                                Last name:
-                                {/* {{ comboboxSelectedLastName }} */}
-                            </span>
-                        </div>
-                        <NimbleCombobox aria-label="Combobox"
-                        // [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)"
-                            appearance="outline" autocomplete="both" placeholder="Select value...">
+                        <NimbleCombobox
+                            aria-label="Combobox"
+                            appearance="outline"
+                            autocomplete="both"
+                            placeholder="Select value..."
+                        >
                             Outline Combobox
-                            <NimbleListOption
-                            // *ngFor="let item of comboboxItems" [ngValue]="item"
-                            >
-                                {/* {{ item ? item.first : '' }} */}
-                            </NimbleListOption>
+                            {comboboxItems.map((item, index) => (
+                                <NimbleListOption key={index}>{item.first}</NimbleListOption>
+                            ))}
                         </NimbleCombobox>
-                        <NimbleCombobox aria-label="Combobox"
-                        //  [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)"
-                            appearance="block" autocomplete="both" placeholder="Select value...">
+                        <NimbleCombobox
+                            aria-label="Combobox"
+                            appearance="block"
+                            autocomplete="both"
+                            placeholder="Select value..."
+                        >
                             Block Combobox
-                            <NimbleListOption
-                            // *ngFor="let item of comboboxItems" [ngValue]="item"
-                            >
-                                {/* {{ item ? item.first : '' }} */}
-                            </NimbleListOption>
+                            {comboboxItems.map((item, index) => (
+                                <NimbleListOption key={index}>{item.first}</NimbleListOption>
+                            ))}
                         </NimbleCombobox>
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Rich Text Editor</div>
                         <div className="rich-text-editor-container">
-                            <NimbleRichTextEditor className="rich-text-editor" placeholder="Rich text editor"
-                            //  #editor
+                            <NimbleRichTextEditor
+                                ref={richTextEditorRef}
+                                className="rich-text-editor"
+                                placeholder="Rich text editor"
                             >
-                                <NimbleRichTextMentionUsers pattern="^user:(.*)" button-label="Mention User">
-                                    <NimbleMappingUser key="user:1" display-name="John Doe"></NimbleMappingUser>
-                                    <NimbleMappingUser key="user:2" display-name="Mary Wilson"></NimbleMappingUser>
+                                <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
+                                    <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
+                                    <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>
                                 </NimbleRichTextMentionUsers>
                                 <NimbleButton slot="footer-actions"
-                                // (click)="loadRichTextEditorContent()"
+                                    onClick={loadRichTextEditorContent}
                                 >Load Content</NimbleButton>
                             </NimbleRichTextEditor>
                         </div>
@@ -410,11 +882,11 @@ export function App(): JSX.Element {
                         <div className="container-label">Rich Text Viewer</div>
                         <div className="rich-text-viewer-container">
                             <NimbleRichTextViewer
-                            // [markdown]="markdownString"
+                                markdown={markdownString}
                             >
-                                <NimbleRichTextMentionUsers pattern="^user:(.*)">
-                                    <NimbleMappingUser key="user:1" display-name="John Doe"></NimbleMappingUser>
-                                    <NimbleMappingUser key="user:2" display-name="Mary Wilson"></NimbleMappingUser>
+                                <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
+                                    <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
+                                    <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>
                                 </NimbleRichTextMentionUsers>
                             </NimbleRichTextViewer>
                         </div>
@@ -435,75 +907,73 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Table</div>
                         <NimbleTable
-                        // [data$]="tableData$"
-                            id-field-name="id" parent-id-field-name="parentId" selection-mode="multiple">
+                            // Note: Generic types such as Table require using the workaround ref type
+                            // See: https://github.com/ni/nimble/issues/2784
+                            ref={tableRef as unknown as TableRef}
+                            idFieldName="id"
+                            parentIdFieldName="parentId"
+                            selectionMode="multiple"
+                            style={{ height: '400px' }}>
                             <NimbleTableColumnText
-                                field-name="stringValue1"
-                                action-menu-slot="action-menu"
-                                action-menu-label="Action menu"
-                                fractional-width="2"
-                                min-pixel-width="300"
-                                sort-direction="ascending"
-                                sort-index="0"
-                            >
+                                fieldName="stringValue1"
+                                actionMenuSlot="action-menu"
+                                actionMenuLabel="Action menu"
+                                fractionalWidth={2}
+                                minPixelWidth={300}
+                                sortDirection="ascending"
+                                sortIndex={0}>
                                 <NimbleIconCheck title="String 1"></NimbleIconCheck>
                             </NimbleTableColumnText>
                             <NimbleTableColumnAnchor
-                                href-field-name="href"
-                                label-field-name="linkLabel"
-                            >
+                                hrefFieldName="href"
+                                labelFieldName="linkLabel">
                                 Link
                             </NimbleTableColumnAnchor>
-                            <NimbleTableColumnDateText
-                                field-name="date"
-                            >
+                            <NimbleTableColumnDateText fieldName="date">
                                 Date
                             </NimbleTableColumnDateText>
                             <NimbleTableColumnMapping
-                                field-name="statusCode"
-                                key-type="number"
-                            >
-                                <NimbleMappingText key="100" text="Status message 1"></NimbleMappingText>
-                                <NimbleMappingText key="101" text="Status message 2"></NimbleMappingText>
+                                fieldName="statusCode"
+                                keyType="number">
+                                <NimbleMappingText keyValue="100" text="Status message 1"></NimbleMappingText>
+                                <NimbleMappingText keyValue="101" text="Status message 2"></NimbleMappingText>
                                 Status
                             </NimbleTableColumnMapping>
                             <NimbleTableColumnMapping
-                                field-name="result"
-                                key-type="string"
-                                width-mode="icon-size"
-                            >
+                                fieldName="result"
+                                keyType="string"
+                                widthMode="icon-size">
                                 <NimbleMappingIcon
-                                    key="success"
+                                    keyValue="success"
                                     text="Success"
                                     icon="nimble-icon-check"
                                     severity="success"
-                                    text-hidden>
+                                    textHidden>
                                 </NimbleMappingIcon>
                                 <NimbleMappingSpinner
-                                    key="calculating"
+                                    keyValue="calculating"
                                     text="Calculating"
-                                    text-hidden>
+                                    textHidden>
                                 </NimbleMappingSpinner>
                                 <NimbleMappingEmpty
-                                    key="unknown"
+                                    keyValue="unknown"
                                     text="Unknown">
                                 </NimbleMappingEmpty>
                                 <NimbleIconXmarkCheck title="Result"></NimbleIconXmarkCheck>
                             </NimbleTableColumnMapping>
-                            <NimbleTableColumnNumberText
-                                field-name="number"
-                            >
+                            <NimbleTableColumnNumberText fieldName="number">
                                 Number
                             </NimbleTableColumnNumberText>
-                            <NimbleTableColumnDurationText
-                                field-name="duration"
-                            >
+                            <NimbleTableColumnDurationText fieldName="duration">
                                 Duration
                             </NimbleTableColumnDurationText>
-                            <NimbleTableColumnText field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</NimbleTableColumnText>
-                            <NimbleTableColumnMenuButton field-name="color" menu-slot="color-menu"
-                                // (menu-button-column-beforetoggle)="onMenuButtonColumnBeforeToggle($event)"
-                            >
+                            <NimbleTableColumnText fieldName="stringValue2" minPixelWidth={400} groupIndex={0}>
+                                String 2
+                            </NimbleTableColumnText>
+                            <NimbleTableColumnMenuButton
+                                fieldName="color"
+                                menuSlot="color-menu"
+                                onBeforeToggle={onMenuButtonColumnBeforeToggle}>
                                 Color
                             </NimbleTableColumnMenuButton>
 
@@ -514,41 +984,46 @@ export function App(): JSX.Element {
                             </NimbleMenu>
 
                             <NimbleMenu slot="color-menu">
-                                <NimbleMenuItem
-                                // *ngFor="let color of possibleColors" (change)="onColorSelected(color)"
-                                >
-                                    <NimbleIconCheck
-                                    //  *ngIf="color === currentColor"
-                                        slot="start"></NimbleIconCheck>
-                                    {/* {{ color }} */}
-                                </NimbleMenuItem>
+                                {colors.map(color => (
+                                    <NimbleMenuItem
+                                        key={color}
+                                        onChange={() => onColorSelected(color)}>
+                                        {color === currentColor && (
+                                            <NimbleIconCheck slot="start"></NimbleIconCheck>
+                                        )}
+                                        {color}
+                                    </NimbleMenuItem>
+                                ))}
                             </NimbleMenu>
                         </NimbleTable>
                         <NimbleButton className="add-table-row-button"
-                        //  (click)="addTableRows(10)"
+                            onClick={() => addTableRows(10)}
                         >Add rows</NimbleButton>
+                        <div>Row count: {tableData.length}</div>
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Table with delayed hierarchy</div>
                         <NimbleTable
-                        // #delayedHierarchyTable
-                            id-field-name="id" parent-id-field-name="parentId" selection-mode="multiple"
-                        //  (row-expand-toggle)="onRowExpandToggle($event)"
+                            // Note: Generic types such as Table require using the workaround ref type
+                            // See: https://github.com/ni/nimble/issues/2784
+                            ref={delayedHierarchyTableRef as unknown as TableRef}
+                            idFieldName="id" parentIdFieldName="parentId" selectionMode="multiple"
+                            onRowExpandToggle={onRowExpandToggle}
                         >
                             <NimbleTableColumnText
-                                field-name="firstName"
+                                fieldName="firstName"
                             >
                                 First name
                             </NimbleTableColumnText>
                             <NimbleTableColumnText
-                                field-name="lastName"
+                                fieldName="lastName"
                             >
                                 Last name
                             </NimbleTableColumnText>
                             <NimbleTableColumnNumberText
-                                field-name="age"
+                                fieldName="age"
                                 format="decimal"
-                                decimal-digits="0"
+                                decimalDigits={0}
                             >
                                 Age
                             </NimbleTableColumnNumberText>
@@ -557,14 +1032,15 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Tabs</div>
                         <NimbleTabs
-                        //  [(activeid)]="activeTabId"
+                            activeid={activeTabId}
+                            onChange={e => setActiveTabId(e.target.activeid)}
                         >
                             <NimbleTab id="tab-1">Tab 1</NimbleTab>
                             <NimbleTab id="tab-2">Tab 2</NimbleTab>
                             <NimbleTab id="tab-3" disabled>Tab 3 (Disabled)</NimbleTab>
                             <NimbleTabsToolbar>
                                 <NimbleButton
-                                // (click)="onTabToolbarButtonClick()"
+                                    onClick={onTabToolbarButtonClick}
                                 >Toolbar button</NimbleButton>
                             </NimbleTabsToolbar>
                             <NimbleTabPanel>
@@ -581,7 +1057,8 @@ export function App(): JSX.Element {
                             Active tab:
                         </label>
                         <NimbleSelect
-                        //  [(ngModel)]="activeTabId"
+                            value={activeTabId}
+                            onChange={e => setActiveTabId(e.target.value)}
                             aria-labelledby="activeTabLabel">
                             <NimbleListOption value="tab-1">Tab 1</NimbleListOption>
                             <NimbleListOption value="tab-2">Tab 2</NimbleListOption>
@@ -591,14 +1068,14 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Tabs - Anchor</div>
                         <NimbleAnchorTabs
-                        // [activeid]="activeAnchorTabId"
+                            activeid={activeAnchorTabId}
                         >
                             <NimbleAnchorTab id="a-tab-1" href="https://nimble.ni.dev">Tab 1</NimbleAnchorTab>
                             <NimbleAnchorTab id="a-tab-2" href="https://ni.com">Tab 2</NimbleAnchorTab>
                             <NimbleAnchorTab disabled id="a-tab-3" href="https://google.com">Tab 3 (Disabled)</NimbleAnchorTab>
                             <NimbleTabsToolbar>
                                 <NimbleButton
-                                // (click)="onTabToolbarButtonClick()"
+                                    onClick={onTabToolbarButtonClick}
                                 >Toolbar button</NimbleButton>
                             </NimbleTabsToolbar>
                         </NimbleAnchorTabs>
@@ -606,7 +1083,8 @@ export function App(): JSX.Element {
                             Active tab:
                         </label>
                         <NimbleSelect
-                        //  [(ngModel)]="activeAnchorTabId"
+                            value={activeAnchorTabId}
+                            onChange={e => setActiveAnchorTabId(e.target.value)}
                             aria-labelledby="activeAnchorTabLabel">
                             <NimbleListOption value="a-tab-1">Tab 1</NimbleListOption>
                             <NimbleListOption value="a-tab-2">Tab 2</NimbleListOption>
@@ -641,9 +1119,9 @@ export function App(): JSX.Element {
                         <NimbleButton id="anchor3">Information</NimbleButton>
                         <NimbleTooltip anchor="anchor3" severity="information">Tooltip label</NimbleTooltip>
                         <NimbleButton id="anchor4">Fail Icon </NimbleButton>
-                        <NimbleTooltip anchor="anchor4" severity="error" icon-visible>Tooltip label</NimbleTooltip>
+                        <NimbleTooltip anchor="anchor4" severity="error" iconVisible>Tooltip label</NimbleTooltip>
                         <NimbleButton id="anchor5">Information Icon</NimbleButton>
-                        <NimbleTooltip anchor="anchor5" severity="information" icon-visible>Tooltip label</NimbleTooltip>
+                        <NimbleTooltip anchor="anchor5" severity="information" iconVisible>Tooltip label</NimbleTooltip>
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Tree View</div>
@@ -652,13 +1130,13 @@ export function App(): JSX.Element {
                                 Parent 1
                                 <NimbleTreeItem>Child 1</NimbleTreeItem>
                                 <NimbleAnchorTreeItem
-                                // nimbleRouterLink="/customapp"
+                                    href="#"
                                 >Child 2 (link)</NimbleAnchorTreeItem>
                                 <NimbleTreeItem disabled>Child 3</NimbleTreeItem>
                             </NimbleTreeItem>
                             <NimbleTreeItem expanded>
                                 Parent 2
-                                <NimbleTreeItem selected>Child 2-1</NimbleTreeItem>
+                                <NimbleTreeItem>Child 2-1</NimbleTreeItem>
                                 <NimbleTreeItem>Child 2-2</NimbleTreeItem>
                                 <NimbleTreeItem>Child 2-3</NimbleTreeItem>
                             </NimbleTreeItem>
@@ -668,12 +1146,12 @@ export function App(): JSX.Element {
                         <div className="container-label">Chat Conversation and Messages (Spright)</div>
                         <SprightChatConversation>
                             <SprightChatMessage>To start, press any key.</SprightChatMessage>
-                            <SprightChatMessage message-type="outbound">Where is the Any key?</SprightChatMessage>
+                            <SprightChatMessage messageType="outbound">Where is the Any key?</SprightChatMessage>
                             <SprightChatMessage>
                                 <NimbleSpinner appearance="accent"></NimbleSpinner>
                             </SprightChatMessage>
-                            <SprightChatMessage message-type="inbound">
-                                <NimbleButton slot="footer-actions" appearance='ghost' content-hidden>
+                            <SprightChatMessage messageType="inbound">
+                                <NimbleButton slot="footer-actions" appearance='ghost' contentHidden>
                                     <NimbleIconCopyText slot="start"></NimbleIconCopyText>
                                     Copy
                                 </NimbleButton>
@@ -683,9 +1161,15 @@ export function App(): JSX.Element {
                                 <NimbleButton slot="end" appearance="block">Order a tab</NimbleButton>
                                 <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
                             </SprightChatMessage>
+                            {chatUserMessages.map((message, index) => (
+                                <SprightChatMessage key={index} messageType="outbound">
+                                    <span>{message}</span>
+                                </SprightChatMessage>
+                            ))}
                             <SprightChatInput
                                 slot="input"
                                 placeholder="Type here"
+                                onSend={onChatInputSend}
                             ></SprightChatInput>
                         </SprightChatConversation>
                     </div>
