@@ -7,7 +7,7 @@ import { NimbleToggleButton } from '@ni/nimble-react/dist/esm/toggle-button';
 import { NimbleAnchorButton } from '@ni/nimble-react/dist/esm/anchor-button';
 import { NimbleCard } from '@ni/nimble-react/dist/esm/card';
 import { NimbleNumberField } from '@ni/nimble-react/dist/esm/number-field';
-import { NimbleSelect, type Select, type SelectFilterInputEvent } from '@ni/nimble-react/dist/esm/select';
+import { NimbleSelect, type Select, type SelectChangeEvent, type SelectFilterInputEvent } from '@ni/nimble-react/dist/esm/select';
 import { NimbleListOption } from '@ni/nimble-react/dist/esm/list-option';
 import { NimbleListOptionGroup } from '@ni/nimble-react/dist/esm/list-option-group';
 import { NimbleCardButton } from '@ni/nimble-react/dist/esm/card-button';
@@ -51,8 +51,7 @@ import { NimbleTreeView } from '@ni/nimble-react/dist/esm/tree-view';
 import { NimbleTreeItem } from '@ni/nimble-react/dist/esm/tree-item';
 import { NimbleAnchorTreeItem } from '@ni/nimble-react/dist/esm/anchor-tree-item';
 import { NimbleCombobox } from '@ni/nimble-react/dist/esm/combobox';
-import { NimbleRichTextEditor } from '@ni/nimble-react/dist/esm/rich-text/editor';
-import type { RichTextEditor } from '@ni/nimble-react/dist/esm/rich-text/editor';
+import { NimbleRichTextEditor, type RichTextEditor } from '@ni/nimble-react/dist/esm/rich-text/editor';
 import { NimbleRichTextMentionUsers } from '@ni/nimble-react/dist/esm/rich-text-mention/users';
 import { NimbleMappingUser } from '@ni/nimble-react/dist/esm/mapping/user';
 import { NimbleRichTextViewer } from '@ni/nimble-react/dist/esm/rich-text/viewer';
@@ -73,9 +72,6 @@ interface ComboboxItem {
     first: string;
     last: string;
 }
-
-const optionNotFound: unique symbol = Symbol('not found');
-type OptionNotFound = typeof optionNotFound;
 
 const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
 type Color = typeof colors[number];
@@ -115,6 +111,9 @@ export function App(): JSX.Element {
     const [drawerCloseReason, setDrawerCloseReason] = useState('');
     const [drawerLocation, setDrawerLocation] = useState<DrawerLocation>(DrawerLocation.right);
 
+    const [underlineSelectValue, setUnderlineSelectValue] = useState('');
+    const [outlineSelectValue, setOutlineSelectValue] = useState('');
+    const [blockSelectValue, setBlockSelectValue] = useState('');
     const availableSelectItems: ComboboxItem[] = [
         { first: 'Homer', last: 'Simpson' },
         { first: 'Marge', last: 'Simpson' },
@@ -146,8 +145,6 @@ export function App(): JSX.Element {
         { first: 'Mister', last: 'Smithers' }
     ];
 
-    const [comboboxSelectedOption, setComboboxSelectedOption] = useState<ComboboxItem | null>(null);
-    const [comboboxSelectedLastName, setComboboxSelectedLastName] = useState<string>('');
     const [activeTabId, setActiveTabId] = useState('tab-1');
     const [activeAnchorTabId, setActiveAnchorTabId] = useState('a-tab-2');
     const [chatUserMessages, setChatUserMessages] = useState<string[]>([]);
@@ -399,19 +396,6 @@ export function App(): JSX.Element {
         alert(`${menuItemText} selected`);
     }
 
-    function onComboboxChange(value: ComboboxItem | OptionNotFound | null): void {
-        if (value && value !== optionNotFound) {
-            setComboboxSelectedLastName(value.last);
-            setComboboxSelectedOption(value);
-        } else if (value === optionNotFound) {
-            setComboboxSelectedLastName('not found');
-            setComboboxSelectedOption(null);
-        } else {
-            setComboboxSelectedLastName('');
-            setComboboxSelectedOption(null);
-        }
-    }
-
     function loadRichTextEditorContent(): void {
         richTextEditorRef.current?.setMarkdown(markdownString);
     }
@@ -508,7 +492,8 @@ export function App(): JSX.Element {
             && item.last === dynamicSelectValue.last;
     }
 
-    function handleDynamicSelectChange(selectedKey: string): void {
+    function onDynamicSelectChange(evt: SelectChangeEvent): void {
+        const selectedKey = evt.target.value;
         // Clear any pending filter timeout to prevent list updates during selection
         window.clearTimeout(dynamicSelectFilterTimeoutRef.current);
         dynamicSelectFilterTimeoutRef.current = undefined;
@@ -765,21 +750,30 @@ export function App(): JSX.Element {
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Select</div>
-                        <NimbleSelect filterMode="standard" appearance="underline">
+                        <NimbleSelect
+                            filterMode="standard"
+                            appearance="underline"
+                            value={underlineSelectValue}
+                            onChange={e => setUnderlineSelectValue(e.target.value)}
+                        >
                             Underline Select
-                            <NimbleListOption hidden disabled>Select an option</NimbleListOption>
+                            <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
                             <NimbleListOptionGroup label="Group 1">
-                                <NimbleListOption>Option 1</NimbleListOption>
-                                <NimbleListOption>Option 2</NimbleListOption>
+                                <NimbleListOption value="1">Option 1</NimbleListOption>
+                                <NimbleListOption value="2">Option 2</NimbleListOption>
                             </NimbleListOptionGroup>
                             <NimbleListOptionGroup label="Group 2">
-                                <NimbleListOption>Option 3</NimbleListOption>
-                                <NimbleListOption>Option 4</NimbleListOption>
+                                <NimbleListOption value="3">Option 3</NimbleListOption>
+                                <NimbleListOption value="4">Option 4</NimbleListOption>
                             </NimbleListOptionGroup>
                         </NimbleSelect>
-                        <NimbleSelect appearance="outline">
+                        <NimbleSelect
+                            appearance="outline"
+                            value={outlineSelectValue}
+                            onChange={e => setOutlineSelectValue(e.target.value)}
+                        >
                             Outline Select
-                            <NimbleListOption hidden disabled>Select an option</NimbleListOption>
+                            <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
                             <NimbleListOptionGroup label="Group 1">
                                 <NimbleListOption>Option 1</NimbleListOption>
                                 <NimbleListOption>Option 2</NimbleListOption>
@@ -789,9 +783,13 @@ export function App(): JSX.Element {
                                 <NimbleListOption>Option 4</NimbleListOption>
                             </NimbleListOptionGroup>
                         </NimbleSelect>
-                        <NimbleSelect appearance="block">
+                        <NimbleSelect
+                            appearance="block"
+                            value={blockSelectValue}
+                            onChange={e => setBlockSelectValue(e.target.value)}
+                        >
                             Block Select
-                            <NimbleListOption hidden disabled>Select an option</NimbleListOption>
+                            <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
                             <NimbleListOptionGroup label="Group 1">
                                 <NimbleListOption>Option 1</NimbleListOption>
                                 <NimbleListOption>Option 2</NimbleListOption>
@@ -808,7 +806,7 @@ export function App(): JSX.Element {
                                 appearance="underline"
                                 filterMode="manual"
                                 value={dynamicSelectValue ? `${dynamicSelectValue.first}-${dynamicSelectValue.last}` : ''}
-                                onChange={e => handleDynamicSelectChange(e.target.value)}
+                                onChange={onDynamicSelectChange}
                                 onFilterInput={onDynamicSelectFilterInput}
                             >
                                 <NimbleListOption hidden selected disabled value="">
@@ -833,60 +831,21 @@ export function App(): JSX.Element {
                             appearance="underline"
                             autocomplete="both"
                             placeholder="Select value..."
-                            value={comboboxSelectedOption?.first || ''}
-                            onChange={e => {
-                                const selectedValue = e.target.value;
-                                const selectedItem = comboboxItems.find(item => item.first === selectedValue);
-                                if (selectedItem) {
-                                    onComboboxChange(selectedItem);
-                                } else if (selectedValue && selectedValue.length > 0) {
-                                    onComboboxChange(optionNotFound);
-                                } else {
-                                    onComboboxChange(null);
-                                }
-                            }}
                         >
                             Underline Combobox
                             {comboboxItems.map((item, index) => (
-                                <NimbleListOption
-                                    key={`${item.first}-${index}`}
-                                    value={item.first}
-                                >
-                                    {item.first}
-                                </NimbleListOption>
+                                <NimbleListOption key={index}>{item.first}</NimbleListOption>
                             ))}
                         </NimbleCombobox>
-                        <div>
-                            <span>
-                                Last name: {comboboxSelectedLastName}
-                            </span>
-                        </div>
                         <NimbleCombobox
                             aria-label="Combobox"
                             appearance="outline"
                             autocomplete="both"
                             placeholder="Select value..."
-                            value={comboboxSelectedOption?.first || ''}
-                            onChange={e => {
-                                const selectedValue = e.target.value;
-                                const selectedItem = comboboxItems.find(item => item.first === selectedValue);
-                                if (selectedItem) {
-                                    onComboboxChange(selectedItem);
-                                } else if (selectedValue && selectedValue.length > 0) {
-                                    onComboboxChange(optionNotFound);
-                                } else {
-                                    onComboboxChange(null);
-                                }
-                            }}
                         >
                             Outline Combobox
                             {comboboxItems.map((item, index) => (
-                                <NimbleListOption
-                                    key={`${item.first}-${index}`}
-                                    value={item.first}
-                                >
-                                    {item.first}
-                                </NimbleListOption>
+                                <NimbleListOption key={index}>{item.first}</NimbleListOption>
                             ))}
                         </NimbleCombobox>
                         <NimbleCombobox
@@ -894,27 +853,10 @@ export function App(): JSX.Element {
                             appearance="block"
                             autocomplete="both"
                             placeholder="Select value..."
-                            value={comboboxSelectedOption?.first || ''}
-                            onChange={e => {
-                                const selectedValue = e.target.value;
-                                const selectedItem = comboboxItems.find(item => item.first === selectedValue);
-                                if (selectedItem) {
-                                    onComboboxChange(selectedItem);
-                                } else if (selectedValue && selectedValue.length > 0) {
-                                    onComboboxChange(optionNotFound);
-                                } else {
-                                    onComboboxChange(null);
-                                }
-                            }}
                         >
                             Block Combobox
                             {comboboxItems.map((item, index) => (
-                                <NimbleListOption
-                                    key={`${item.first}-${index}`}
-                                    value={item.first}
-                                >
-                                    {item.first}
-                                </NimbleListOption>
+                                <NimbleListOption key={index}>{item.first}</NimbleListOption>
                             ))}
                         </NimbleCombobox>
                     </div>
@@ -944,7 +886,8 @@ export function App(): JSX.Element {
                             >
                                 <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
                                     <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
-                                    <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>                                </NimbleRichTextMentionUsers>
+                                    <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>
+                                </NimbleRichTextMentionUsers>
                             </NimbleRichTextViewer>
                         </div>
                     </div>
@@ -1116,7 +1059,7 @@ export function App(): JSX.Element {
                         <NimbleSelect
                             value={activeTabId}
                             onChange={e => setActiveTabId(e.target.value)}
-                            ariaLabelledby="activeTabLabel">
+                            aria-labelledby="activeTabLabel">
                             <NimbleListOption value="tab-1">Tab 1</NimbleListOption>
                             <NimbleListOption value="tab-2">Tab 2</NimbleListOption>
                             <NimbleListOption value="tab-3">Tab 3</NimbleListOption>
@@ -1142,7 +1085,7 @@ export function App(): JSX.Element {
                         <NimbleSelect
                             value={activeAnchorTabId}
                             onChange={e => setActiveAnchorTabId(e.target.value)}
-                            ariaLabelledby="activeAnchorTabLabel">
+                            aria-labelledby="activeAnchorTabLabel">
                             <NimbleListOption value="a-tab-1">Tab 1</NimbleListOption>
                             <NimbleListOption value="a-tab-2">Tab 2</NimbleListOption>
                             <NimbleListOption value="a-tab-3">Tab 3</NimbleListOption>
