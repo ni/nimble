@@ -99,6 +99,14 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     public RenderFragment? ChildContent { get; set; }
 
     /// <inheritdoc />
+    protected override string? FormatValueAsString(double? value)
+    {
+        // The web component requires that decimal values are formatted with a period (.) as
+        // the decimal separator, regardless of locale.
+        return value?.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <inheritdoc />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out double? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (TryConvertToDouble(value, out result))

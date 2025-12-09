@@ -10,7 +10,8 @@ export { BreadcrumbAppearance };
  * Directive to provide Angular integration for the breadcrumb.
  */
 @Directive({
-    selector: 'nimble-breadcrumb'
+    selector: 'nimble-breadcrumb',
+    standalone: false
 })
 export class NimbleBreadcrumbDirective {
     public get appearance(): BreadcrumbAppearance {

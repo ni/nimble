@@ -6,8 +6,8 @@ To submit changes to Nimble, the first step is to build the monorepo which requi
 
 - Sync down a copy of the nimble repository
     - Note: For one-off small contributions you can consider using a fork-pull workflow. However [fork-pull workflows are not yet supported](https://github.com/ni/nimble/issues/634) for substantial development. For substantial development you should be added as a Contributor to the repository. See the [`README.md` Community section](/README.md#community) to get in touch if you need Contributor permissions. 
-- Install Node.js version 24+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
-- Install .NET 8 SDK (`8.0.403` or higher) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+- Install Node.js version 24+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from <https://nodejs.org/en/download/>
+- Install .NET 8 SDK (`8.0.403` or higher) which can be downloaded from <https://dotnet.microsoft.com/en-us/download>
    - Run `dotnet --info` to verify the required version of the SDK is installed. A `v8` install is required, but it's fine if later versions are installed too.
 
 From the `nimble` directory:
@@ -74,8 +74,8 @@ Bare minimum requirements for each library (though components in each library ar
 | Minimal tech debt      |         🟢          |          🟡         |          🟡          |
 | Mobile support         |         🟡          |          🟡         |          🟡          |
 
-🟢 = required\
-🟡 = optional\
+🟢 = required  
+🟡 = optional  
 \* = By an interaction and / or visual designer
 
 ### Adding a new component
@@ -113,7 +113,7 @@ This repository uses [beachball](https://microsoft.github.io/beachball/) to auto
 3. A pipeline will run for each newly created git tag and invoke the `npm run publish` command for the associated package.
 
 When generating a change file, follow these guidelines:
-1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as incubating](/packages/nimble-components/CONTRIBUTING.md/#Marking-a-component-as-incubating) may use `patch` version bumps even for breaking changes.
+1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as incubating](/packages/nimble-components/CONTRIBUTING.md#Marking-a-component-as-incubating) may use `patch` version bumps even for breaking changes.
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 

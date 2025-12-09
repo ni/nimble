@@ -24,7 +24,8 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
                     <nimble-table-column-menu-button #column field-name="field1">
                     </nimble-table-column-menu-button>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnMenuButtonDirective }) public directive: NimbleTableColumnMenuButtonDirective;
@@ -65,7 +66,8 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
                         menu-slot="my-menu-slot"
                     ></nimble-table-column-menu-button>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnMenuButtonDirective }) public directive: NimbleTableColumnMenuButtonDirective;
@@ -144,7 +146,8 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
                         [menu-slot]="menuSlot"
                     ></nimble-table-column-menu-button>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnMenuButtonDirective }) public directive: NimbleTableColumnMenuButtonDirective;
@@ -301,7 +304,8 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
                         [attr.menu-slot]="menuSlot"
                     ></nimble-table-column-menu-button>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnMenuButtonDirective }) public directive: NimbleTableColumnMenuButtonDirective;

@@ -14,7 +14,8 @@ export { type TableRecord, type TableFieldName, type TableFieldValue, type Table
  * Directive to provide Angular integration for the table element.
  */
 @Directive({
-    selector: 'nimble-table'
+    selector: 'nimble-table',
+    standalone: false
 })
 export class NimbleTableDirective<TData extends TableRecord = TableRecord> implements OnDestroy {
     public get data$(): Observable<TData[]> | undefined {

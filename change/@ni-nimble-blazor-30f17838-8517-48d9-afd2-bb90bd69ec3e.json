@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Always format doubles in razor files using the invariant culture",
+  "packageName": "@ni/nimble-blazor",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

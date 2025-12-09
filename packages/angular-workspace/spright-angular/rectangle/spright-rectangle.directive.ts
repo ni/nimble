@@ -8,6 +8,7 @@ export { rectangleTag };
  * Directive to provide Angular integration for the rectangle.
  */
 @Directive({
-    selector: 'spright-rectangle'
+    selector: 'spright-rectangle',
+    standalone: false
 })
 export class SprightRectangleDirective { }

@@ -35,7 +35,8 @@ describe('Nimble Label Provider Table', () => {
         @Component({
             template: `
                 <nimble-label-provider-table #labelProvider></nimble-label-provider-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;
@@ -160,7 +161,8 @@ describe('Nimble Label Provider Table', () => {
                     group-row-placeholder-empty="${label16}"
                     >
                 </nimble-label-provider-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;
@@ -285,7 +287,8 @@ describe('Nimble Label Provider Table', () => {
                     [groupRowPlaceholderEmpty]="groupRowPlaceholderEmpty"
                     >
                 </nimble-label-provider-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;
@@ -522,7 +525,8 @@ describe('Nimble Label Provider Table', () => {
                     [attr.group-row-placeholder-empty]="groupRowPlaceholderEmpty"
                     >
                 </nimble-label-provider-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;

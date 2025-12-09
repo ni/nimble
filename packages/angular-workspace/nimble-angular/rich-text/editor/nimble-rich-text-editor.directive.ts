@@ -10,7 +10,8 @@ export type { RichTextValidity };
  * Directive to provide Angular integration for the rich text editor element.
  */
 @Directive({
-    selector: 'nimble-rich-text-editor'
+    selector: 'nimble-rich-text-editor',
+    standalone: false
 })
 
 export class NimbleRichTextEditorDirective {

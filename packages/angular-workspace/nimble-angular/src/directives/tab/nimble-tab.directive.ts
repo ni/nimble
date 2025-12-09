@@ -9,7 +9,8 @@ export { tabTag };
  * Directive to provide Angular integration for the tab element.
  */
 @Directive({
-    selector: 'nimble-tab'
+    selector: 'nimble-tab',
+    standalone: false
 })
 export class NimbleTabDirective {
     public get disabled(): boolean {

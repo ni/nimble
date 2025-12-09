@@ -39,7 +39,8 @@ describe('NimbleTableColumnDurationText', () => {
                         placeholder="Custom placeholder"
                     ></nimble-table-column-duration-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnDurationTextDirective }) public directive: NimbleTableColumnDurationTextDirective;
@@ -148,7 +149,8 @@ describe('NimbleTableColumnDurationText', () => {
                         [placeholder]="placeholder"
                     ></nimble-table-column-duration-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnDurationTextDirective }) public directive: NimbleTableColumnDurationTextDirective;
@@ -392,7 +394,8 @@ describe('NimbleTableColumnDurationText', () => {
                         [attr.placeholder]="placeholder"
                     ></nimble-table-column-duration-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnDurationTextDirective }) public directive: NimbleTableColumnDurationTextDirective;

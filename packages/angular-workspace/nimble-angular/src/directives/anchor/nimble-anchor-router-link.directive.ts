@@ -5,7 +5,10 @@ import { Directive } from '@angular/core';
  *
  * @see NimbleAnchorRouterLinkWithHrefDirective
  */
-@Directive({ selector: 'nimble-anchor[routerLink]' })
+@Directive({
+    selector: 'nimble-anchor[routerLink]',
+    standalone: false
+})
 export class NimbleAnchorRouterLinkDirective {
     public constructor() {
         throw new Error('Use [nimbleRouterLink] instead of [routerLink].');

@@ -15,13 +15,14 @@ describe('Nimble anchor menu item RouterLinkWithHrefDirective', () => {
             <nimble-anchor-menu-item #menuItem nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
                 Anchor text
             </nimble-anchor-menu-item>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('menuItem', { static: true }) public menuItem: ElementRef<AnchorMenuItem>;
     }
 
-    @Component({ template: '' })
+    @Component({ template: '', standalone: false })
     class BlankComponent { }
 
     let menuItem: AnchorMenuItem;

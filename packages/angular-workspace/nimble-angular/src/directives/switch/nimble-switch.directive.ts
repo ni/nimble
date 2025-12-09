@@ -9,7 +9,8 @@ export { switchTag };
  * Directive to provide Angular integration for the switch.
  */
 @Directive({
-    selector: 'nimble-switch'
+    selector: 'nimble-switch',
+    standalone: false
 })
 export class NimbleSwitchDirective {
     public get disabled(): boolean {

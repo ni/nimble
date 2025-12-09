@@ -24,7 +24,8 @@ describe('Custom pipe instantiation', () => {
         template: `
         <div #div1>{{ value | pipeId }}</div>
         <div #div2>{{ value | pipeId }}</div>
-        `
+        `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('div1') public div1Ref: ElementRef<HTMLDivElement>;

@@ -10,7 +10,8 @@ export { mappingEmptyTag };
  * Directive to provide Angular integration for the mapping empty element used by the mapping column.
  */
 @Directive({
-    selector: 'nimble-mapping-empty'
+    selector: 'nimble-mapping-empty',
+    standalone: false
 })
 export class NimbleMappingEmptyDirective extends NimbleMappingDirective<MappingKey> {
     public get text(): string | undefined {

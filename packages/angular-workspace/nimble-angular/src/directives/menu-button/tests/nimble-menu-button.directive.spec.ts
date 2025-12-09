@@ -22,7 +22,8 @@ describe('Nimble menu button', () => {
         @Component({
             template: `
                 <nimble-menu-button #menuButton></nimble-menu-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuButton', { read: NimbleMenuButtonDirective }) public directive: NimbleMenuButtonDirective;
@@ -79,7 +80,8 @@ describe('Nimble menu button', () => {
                     appearance-variant="${ButtonAppearanceVariant.primary}"
                     content-hidden
                     open>
-                </nimble-menu-button>`
+                </nimble-menu-button>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuButton', { read: NimbleMenuButtonDirective }) public directive: NimbleMenuButtonDirective;
@@ -137,7 +139,8 @@ describe('Nimble menu button', () => {
                     [content-hidden]="contentHidden"
                     [open]="open">
                 </nimble-menu-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuButton', { read: NimbleMenuButtonDirective }) public directive: NimbleMenuButtonDirective;
@@ -230,7 +233,8 @@ describe('Nimble menu button', () => {
                     [attr.content-hidden]="contentHidden"
                     [attr.open]="open">
                 </nimble-menu-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuButton', { read: NimbleMenuButtonDirective }) public directive: NimbleMenuButtonDirective;

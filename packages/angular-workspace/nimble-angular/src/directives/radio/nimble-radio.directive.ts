@@ -9,7 +9,8 @@ export { radioTag };
  * Directive to provide Angular integration for the radio button.
  */
 @Directive({
-    selector: 'nimble-radio'
+    selector: 'nimble-radio',
+    standalone: false
 })
 export class NimbleRadioDirective {
     public get disabled(): boolean {
