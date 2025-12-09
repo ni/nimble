@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-react",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "description": "React components for NI Ok Components",
   "keywords": [
     "ni",
@@ -24,13 +24,13 @@
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/ok-components": "^0.1.19",
+    "@ni/ok-components": "^0.1.20",
     "@ni-private/eslint-config-nimble": "*",
     "typescript": "~5.4.5"
   },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/ok-components": "^0.1.19",
+    "@ni/ok-components": "^0.1.20",
     "react": "^16 || ^17 || ^18"
   }
 }

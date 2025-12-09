@@ -2,6 +2,27 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Tue, 09 Dec 2025 23:54:32 GMT",
+      "version": "0.2.20",
+      "tag": "@ni/ok-react_v0.2.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "806acadef5963de6fb99720d2bf558d93a6965b4",
+            "comment": "Adopt turborepo build"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.20",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Dec 2025 06:58:39 GMT",
       "version": "0.2.19",
       "tag": "@ni/ok-react_v0.2.19",

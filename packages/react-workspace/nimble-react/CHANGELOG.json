@@ -2,6 +2,27 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Tue, 09 Dec 2025 23:54:32 GMT",
+      "version": "0.7.10",
+      "tag": "@ni/nimble-react_v0.7.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "806acadef5963de6fb99720d2bf558d93a6965b4",
+            "comment": "Adopt turborepo build"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.10.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Dec 2025 06:58:39 GMT",
       "version": "0.7.9",
       "tag": "@ni/nimble-react_v0.7.9",

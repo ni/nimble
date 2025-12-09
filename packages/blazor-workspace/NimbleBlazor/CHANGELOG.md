@@ -1,8 +1,21 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 09 Dec 2025 17:55:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 09 Dec 2025 23:54:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.10.0
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Minor changes
+
+- add action menus preserve selection attribute to table ([ni/nimble@1c2b96b](https://github.com/ni/nimble/commit/1c2b96bfe343440df93424577ae771127b1d4184))
+- Bump @ni/nimble-components to v34.10.0
+
+### Patches
+
+- Adopt turborepo build ([ni/nimble@806acad](https://github.com/ni/nimble/commit/806acadef5963de6fb99720d2bf558d93a6965b4))
 
 ## 20.9.8
 

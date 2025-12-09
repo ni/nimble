@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Adopt turborepo build",
-  "packageName": "@ni/spright-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

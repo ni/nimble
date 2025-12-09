@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Adopt turborepo build",
-  "packageName": "@ni/nimble-react",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -2,6 +2,35 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 09 Dec 2025 23:54:32 GMT",
+      "version": "20.10.0",
+      "tag": "@ni/nimble-blazor_v20.10.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "806acadef5963de6fb99720d2bf558d93a6965b4",
+            "comment": "Adopt turborepo build"
+          }
+        ],
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "1c2b96bfe343440df93424577ae771127b1d4184",
+            "comment": "add action menus preserve selection attribute to table"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v34.10.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Dec 2025 17:55:53 GMT",
       "version": "20.9.8",
       "tag": "@ni/nimble-blazor_v20.9.8",
