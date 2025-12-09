@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 09 Dec 2025 06:58:39 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 09 Dec 2025 17:55:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.9.8
+
+Tue, 09 Dec 2025 17:55:53 GMT
+
+### Patches
+
+- Always format doubles in razor files using the invariant culture ([ni/nimble@353ae98](https://github.com/ni/nimble/commit/353ae989bdd4e1310e0cfcd60c091182d5f2ff05))
 
 ## 20.9.7
 
