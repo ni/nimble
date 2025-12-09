@@ -31,7 +31,7 @@ public class TableActionMenuToggleEventArgs : EventArgs
     public bool OldState { get; set; }
     public IEnumerable<string>? RecordIds { get; set; }
     public string? ColumnId { get; set; }
-    public string? OperatingRecordId { get; set; }
+    public string OperatingRecordId { get; set; } = string.Empty;
 }
 
 public class TableRowSelectionEventArgs : EventArgs
