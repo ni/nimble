@@ -6,20 +6,21 @@
   "scripts": {
     "postinstall": "patch-package && npm run playwright-setup",
     "playwright-setup": "playwright install --with-deps",
-    "build": "npm run build --workspaces --if-present",
-    "format": "npm run format --workspaces --if-present",
-    "pack": "npm run pack --workspaces --if-present",
+    "build": "turbo run build build-bundle --log-order=grouped --continue=dependencies-successful",
+    "build-storybook": "turbo run @ni-private/storybook#build --log-order=grouped",
+    "build-angular": "turbo run @ni-private/angular-workspace#build --log-order=grouped",
+    "build-blazor": "turbo run @ni-private/blazor-workspace#build --log-order=grouped",
+    "build-react": "turbo run @ni-private/react-client-app#build --log-order=grouped",
+    "format": "eslint . --fix && turbo run format --log-order=grouped --continue=dependencies-successful",
+    "pack": "turbo run pack --log-order=grouped --continue=dependencies-successful",
+    "test": "turbo run test --log-order=grouped --continue=dependencies-successful",
+    "lint": "eslint . && turbo run lint --log-order=grouped --continue=dependencies-successful",
+    "validate": "eslint . && turbo run test lint --log-order=grouped --continue=dependencies-successful",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "sync": "beachball sync",
     "invoke-publish": "beachball publish --yes --access public --message \"applying package updates [skip ci]\"",
     "performance": "npm run performance --workspaces --if-present",
-    "validate": "concurrently --pad-prefix --timings --group \"npm:validate:*\"",
-    "validate:lint": "npm run lint",
-    "validate:test": "npm run test",
-    "validate:test-concurrent": "npm run test-concurrent -w packages/nimble-components",
-    "test": "npm run test --workspaces --if-present",
-    "lint": "eslint . && npm run lint --workspaces --if-present",
     "storybook": "npm run start -w @ni-private/storybook"
   },
   "repository": {
@@ -37,6 +38,7 @@
   "files": [
     "!*"
   ],
+  "packageManager": "npm@11.6.4",
   "workspaces": [
     "packages/eslint-config-nimble",
     "packages/jasmine-extensions",
@@ -64,8 +66,8 @@
   ],
   "devDependencies": {
     "beachball": "^2.45.0",
-    "concurrently": "^9.0.0",
     "patch-package": "^8.0.0",
-    "playwright": "1.54.1"
+    "playwright": "1.54.1",
+    "turbo": "^2.6.3"
   }
 }
