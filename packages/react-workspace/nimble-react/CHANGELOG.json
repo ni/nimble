@@ -2,6 +2,51 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Mon, 08 Dec 2025 23:33:42 GMT",
+      "version": "0.7.8",
+      "tag": "@ni/nimble-react_v0.7.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.8.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 06 Dec 2025 00:45:19 GMT",
+      "version": "0.7.7",
+      "tag": "@ni/nimble-react_v0.7.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.8.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 23:41:33 GMT",
+      "version": "0.7.6",
+      "tag": "@ni/nimble-react_v0.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.8.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 21:45:22 GMT",
       "version": "0.7.5",
       "tag": "@ni/nimble-react_v0.7.5",

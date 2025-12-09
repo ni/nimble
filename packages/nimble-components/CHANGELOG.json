@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 08 Dec 2025 23:33:42 GMT",
+      "version": "34.8.6",
+      "tag": "@ni/nimble-components_v34.8.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "65cc5e77bca7ed431fba155a4ed6c56a41c0add7",
+            "comment": "markdown linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 06 Dec 2025 00:45:19 GMT",
+      "version": "34.8.5",
+      "tag": "@ni/nimble-components_v34.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aabdf2f08ccf6c41b1131a886450f5366fd43123",
+            "comment": "Remove prettier inline disables and update docs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 23:41:33 GMT",
+      "version": "34.8.4",
+      "tag": "@ni/nimble-components_v34.8.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "18b6b62ccf69d6f488239dc02e88d91ec31a37d6",
+            "comment": "Minor update to remove unreachable statement in table dynamic child loading check"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 21:45:22 GMT",
       "version": "34.8.3",
       "tag": "@ni/nimble-components_v34.8.3",

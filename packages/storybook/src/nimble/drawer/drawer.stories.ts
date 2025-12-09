@@ -62,7 +62,6 @@ const simpleContent = html<DrawerArgs>`
     </section>
 `;
 
-// prettier-ignore
 const headerFooterContent = html<DrawerArgs>`
     <style>
         .example-content {
@@ -134,7 +133,6 @@ const metadata: Meta<DrawerArgs> = {
             handles: []
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${drawerTag}
             ${ref('drawerRef')}

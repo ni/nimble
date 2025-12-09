@@ -47,7 +47,6 @@ describe('TableColumnMenuButton', () => {
     let pageObject: TableColumnMenuButtonPageObject<SimpleTableRecord>;
     let column: TableColumnMenuButton;
 
-    // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
         return await fixture<Table<SimpleTableRecord>>(
             html`<${tableTag} ${ref('table')} style="width: 700px">

@@ -135,7 +135,6 @@ const metadata: Meta<MenuButtonArgs> = {
             control: false
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
         <${menuButtonTag}

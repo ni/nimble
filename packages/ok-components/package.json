@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-components",
-  "version": "0.1.15",
+  "version": "0.1.18",
   "description": "NI Ok Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
@@ -47,8 +47,8 @@
     "@ni/fast-element": "^10.0.0",
     "@ni/fast-foundation": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^34.8.3",
-    "@ni/spright-components": "^6.4.15",
+    "@ni/nimble-components": "^34.8.6",
+    "@ni/spright-components": "^6.4.18",
     "tslib": "^2.2.0"
   },
   "devDependencies": {

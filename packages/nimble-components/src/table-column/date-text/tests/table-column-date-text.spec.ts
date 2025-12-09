@@ -29,7 +29,6 @@ describe('TableColumnDateText', () => {
     let pageObject: TableColumnDateTextPageObject<SimpleTableRecord>;
     let column: TableColumnDateText;
 
-    // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
         return await fixture<Table<SimpleTableRecord>>(
             html`<${themeProviderTag} lang="en-US">
@@ -660,7 +659,6 @@ describe('TableColumnDateText', () => {
     });
 
     describe('with static config', () => {
-        // prettier-ignore
         async function setupWithConfig(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag} ${ref('table')} style="width: 700px">

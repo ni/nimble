@@ -39,7 +39,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [valueLabel, value]: ValueState,
     [placeholderLabel, placeholder]: PlaceholderState
@@ -74,7 +73,6 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(html`<${chatInputTag}></${chatInputTag}>`)
 );
 
-// prettier-ignore
 const componentWithPlaceholder = (
     [_, placeholder]: PlaceholderState
 ): ViewTemplate => html`

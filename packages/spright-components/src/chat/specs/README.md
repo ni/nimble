@@ -96,13 +96,16 @@ These components are competing against possible implementations within applicati
 
 ### Prior Art/Examples
 
-**Screenshot of Figma design of message and conversation component (light mode)**  
+**Screenshot of Figma design of message and conversation component (light mode)**
+
 ![ ](spec-images/chat-conversation.png)
 
-**Screenshot of Figma design of chat input component (light mode)**  
+**Screenshot of Figma design of chat input component (light mode)**
+
 ![ ](spec-images/chat-input.png)
 
-**Screenshot of Figma design of chat components embeded within larger pane (dark mode)**  
+**Screenshot of Figma design of chat components embeded within larger pane (dark mode)**
+
 ![ ](spec-images/chat-pane.png)
 
 ---
@@ -145,7 +148,6 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 #### Prompt buttons message example
 
-<!-- prettier-ignore-start -->
 
 ```html
 <spright-chat-message message-type="inbound">
@@ -154,7 +156,6 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 </spright-chat-message>
 ```
 
-<!-- prettier-ignore-end -->
 
 #### Input example
 
@@ -367,7 +368,7 @@ _Consider the accessibility of the component, including:_
     - _Components which delegate focus require all global ARIA attributes to be enumerated_
     - _Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems._
 - _Behavior with browser configurations like "Prefers reduced motion"_
-- _Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component._
+- *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](https://nimble.ni.dev/storybook/index.html?path=/docs/tests-anchor-patterns--docs). The story should be updated to include the new component.*
 
 #### Input
 

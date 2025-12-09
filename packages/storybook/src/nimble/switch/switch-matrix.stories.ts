@@ -31,7 +31,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [checkedName, checked]: CheckedState,
     [disabledName, disabled]: DisabledState,
@@ -50,7 +49,6 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [checkedStates, disabledStates, messagesStates])
 );
 
-// prettier-ignore
 export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${switchTag} hidden>Hidden Switch</${switchTag}>`

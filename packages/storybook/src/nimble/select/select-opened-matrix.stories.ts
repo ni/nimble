@@ -50,7 +50,6 @@ interface SelectMatrixStoryOptions {
     manyOptions?: boolean;
 }
 
-// prettier-ignore
 const component = ({
     positionState, filterMode, loadingVisible, placeholder, grouped, optionsOutsideGroup, slottedLabel, manyOptions
 }: SelectMatrixStoryOptions): ViewTemplate => html`

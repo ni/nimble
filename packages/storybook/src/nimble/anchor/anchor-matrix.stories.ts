@@ -40,7 +40,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState,
@@ -92,7 +91,6 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
 );
 
 export const textWrapping: StoryFn = createStory(
-    // prettier-ignore
     html`
     <p style="width: 300px; border: 1px solid black">
         <style>

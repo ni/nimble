@@ -274,7 +274,6 @@ const fitRowsHeightDescription = `Style the table with ${scssPropertySetterMarkd
 See the **Sizing** section for information on sizing the table.`;
 
 export const table: StoryObj<TableArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <style class="code-hide">
             nimble-table {
@@ -529,7 +528,6 @@ interface DelayedHierarchyTableArgs extends BaseTableArgs {
 }
 
 export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<DelayedHierarchyTableArgs>`
         <${tableTag}
             ${ref('tableRef')}

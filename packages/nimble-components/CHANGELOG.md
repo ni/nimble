@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 04 Dec 2025 21:45:22 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 08 Dec 2025 23:33:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.8.6
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- markdown linting ([ni/nimble@65cc5e7](https://github.com/ni/nimble/commit/65cc5e77bca7ed431fba155a4ed6c56a41c0add7))
+
+## 34.8.5
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Remove prettier inline disables and update docs ([ni/nimble@aabdf2f](https://github.com/ni/nimble/commit/aabdf2f08ccf6c41b1131a886450f5366fd43123))
+
+## 34.8.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Minor update to remove unreachable statement in table dynamic child loading check ([ni/nimble@18b6b62](https://github.com/ni/nimble/commit/18b6b62ccf69d6f488239dc02e88d91ec31a37d6))
 
 ## 34.8.3
 

@@ -202,7 +202,6 @@ describe('Table keyboard navigation', () => {
 
     describe('with non-interactive columns', () => {
         const nonInteractiveColumnName = uniqueElementName();
-        // prettier-ignore
         @customElement({
             name: nonInteractiveColumnName
         })
@@ -218,7 +217,6 @@ describe('Table keyboard navigation', () => {
             }
         }
 
-        // prettier-ignore
         async function setupNonInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag} id-field-name="id">
@@ -1233,7 +1231,6 @@ describe('Table keyboard navigation', () => {
         const interactiveCellViewName = uniqueElementName();
         const interactiveColumnName = uniqueElementName();
 
-        // prettier-ignore
         @customElement({
             name: interactiveCellViewName,
             template: html<TestInteractiveCellView>`<span tabindex="-1" ${ref('spanElement')}>Test</span>`
@@ -1246,7 +1243,6 @@ describe('Table keyboard navigation', () => {
                 return [this.spanElement];
             }
         }
-        // prettier-ignore
         @customElement({
             name: interactiveColumnName
         })
@@ -1263,7 +1259,6 @@ describe('Table keyboard navigation', () => {
             }
         }
 
-        // prettier-ignore
         async function setupInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag} id-field-name="id">

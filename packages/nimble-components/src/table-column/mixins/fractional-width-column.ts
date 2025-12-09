@@ -4,7 +4,6 @@ import { defaultMinPixelWidth, defaultFractionalWidth } from '../base/types';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
 type SizedTableColumn = Pick<TableColumn, 'columnInternals'>;
-// prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SizedTableColumnConstructor = abstract new (...args: any[]) => SizedTableColumn;
 

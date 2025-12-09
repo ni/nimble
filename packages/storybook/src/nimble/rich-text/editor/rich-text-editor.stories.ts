@@ -94,7 +94,6 @@ const metadata: Meta<RichTextEditorArgs> = {
             handles: ['input']
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
     ${incubatingWarning({

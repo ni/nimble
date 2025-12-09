@@ -20,5 +20,8 @@ export default defineConfig({
                 replacement: '@ni/ok-react/src'
             },
         ]
+    },
+    build: {
+        chunkSizeWarningLimit: 5 * 1024 * 1024
     }
 });

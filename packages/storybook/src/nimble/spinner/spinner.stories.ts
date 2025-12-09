@@ -90,7 +90,6 @@ const metadata: Meta<SpinnerArgs> = {
         }
     },
     // Disable animation in Chromatic because it intermittently causes shapshot differences
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${spinnerTag}
             style="${x => spinnerSize[x.size]}; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
