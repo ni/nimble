@@ -1,5 +1,5 @@
 ﻿@namespace NimbleBlazor
-@inherits NimbleTableColumn
+@inherits NimbleFractionalTableColumn
 
 <nimble-table-column-menu-button
     column-id="@ColumnId"
@@ -8,8 +8,8 @@
     action-menu-slot="@ActionMenuSlot"
     action-menu-label="@ActionMenuLabel"
     column-hidden="@ColumnHidden"
-    fractional-width="@FractionalWidth"
-    min-pixel-width="@MinPixelWidth"
+    fractional-width="@FractionalWidthAsString"
+    min-pixel-width="@MinPixelWidthAsString"
     @onnimbletablecolumnmenubuttontoggle="(__value) => HandleMenuButtonColumnToggle(__value)"
     @onnimbletablecolumnmenubuttonbeforetoggle="(__value) => HandleMenuButtonColumnBeforeToggle(__value)"
     @attributes="AdditionalAttributes"
