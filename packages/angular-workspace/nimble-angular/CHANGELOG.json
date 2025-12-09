@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 09 Dec 2025 00:59:48 GMT",
+      "version": "30.11.7",
+      "tag": "@ni/nimble-angular_v30.11.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b8d39ab52baa53977f131fc2631ee55241cdda9f",
+            "comment": "Add \"standalone: false\" to every directive, component, pipe decorator"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 08 Dec 2025 23:33:42 GMT",
       "version": "30.11.6",
       "tag": "@ni/nimble-angular_v30.11.6",

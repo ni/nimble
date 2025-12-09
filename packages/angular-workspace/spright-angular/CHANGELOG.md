@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Mon, 08 Dec 2025 23:33:42 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 09 Dec 2025 00:59:48 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 7.8.19
+
+Tue, 09 Dec 2025 00:59:48 GMT
+
+### Patches
+
+- Add "standalone: false" to every directive, component, pipe decorator ([ni/nimble@b8d39ab](https://github.com/ni/nimble/commit/b8d39ab52baa53977f131fc2631ee55241cdda9f))
 
 ## 7.8.18
 
