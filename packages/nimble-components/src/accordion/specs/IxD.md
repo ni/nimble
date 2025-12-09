@@ -61,11 +61,11 @@ The content panel can have almost any type of content and that content can be re
 
 ### Related Components
 
-To display hierarchical relationships and allow selection on named items, use a [**tree view**](/packages/nimble-components/src/tree-view/specs/IxD.md). With the accordion, the heading button text is a label for a group of content, not content in-and-of itself. With the tree, the content is the tree items and all the tree items represent data.
+To display hierarchical relationships and allow selection on named items, use a [**tree view**](/packages/nimble-components/src/tree-view/). With the accordion, the heading button text is a label for a group of content, not content in-and-of itself. With the tree, the content is the tree items and all the tree items represent data.
 
 ![ ](spec-images/accordion-alternative-tree.png)
 
-For switching views in high-level page layouts, use [**tabs**](/packages/nimble-components/src/tab/specs/IxD.md) and [**tab panels**](/packages/nimble-components/src/tab-panel/specs/IxD.md).
+For switching views in high-level page layouts, use [**tabs**](/packages/nimble-components/src/tabs) and [**tab panels**](/packages/nimble-components/src/tab-panel).
 
 ![ ](spec-images/accordion-alternative-tabs.png)
 

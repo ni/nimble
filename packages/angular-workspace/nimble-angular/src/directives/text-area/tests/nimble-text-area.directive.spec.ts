@@ -21,7 +21,8 @@ describe('Nimble text area', () => {
         @Component({
             template: `
                 <nimble-text-area #textArea></nimble-text-area>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('textArea', { read: NimbleTextAreaDirective }) public directive: NimbleTextAreaDirective;
@@ -163,7 +164,8 @@ describe('Nimble text area', () => {
                     required-visible
                     appearance-readonly
                 >
-                </nimble-text-area>`
+                </nimble-text-area>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('textArea', { read: NimbleTextAreaDirective }) public directive: NimbleTextAreaDirective;
@@ -293,7 +295,8 @@ describe('Nimble text area', () => {
                     [required-visible]="requiredVisible"
                     [appearance-readonly]="appearanceReadOnly"
                 >
-                </nimble-text-area>`
+                </nimble-text-area>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('textArea', { read: NimbleTextAreaDirective }) public directive: NimbleTextAreaDirective;
@@ -542,7 +545,8 @@ describe('Nimble text area', () => {
                     [attr.required-visible]="requiredVisible"
                     [attr.appearance-readonly]="appearanceReadOnly"
                 >
-                </nimble-text-area>`
+                </nimble-text-area>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('textArea', { read: NimbleTextAreaDirective }) public directive: NimbleTextAreaDirective;

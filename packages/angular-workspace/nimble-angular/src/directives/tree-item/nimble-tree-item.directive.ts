@@ -9,7 +9,8 @@ export { treeItemTag };
  * Directive to provide Angular integration for the tree item.
  */
 @Directive({
-    selector: 'nimble-tree-item'
+    selector: 'nimble-tree-item',
+    standalone: false
 })
 export class NimbleTreeItemDirective {
     public get disabled(): boolean {

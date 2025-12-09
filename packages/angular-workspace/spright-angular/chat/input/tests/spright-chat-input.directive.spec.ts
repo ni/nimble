@@ -20,7 +20,8 @@ describe('Spright chat input', () => {
         @Component({
             template: `
                 <spright-chat-input #chatInput></spright-chat-input>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('chatInput', { read: SprightChatInputDirective }) public directive: SprightChatInputDirective;
@@ -66,7 +67,8 @@ describe('Spright chat input', () => {
                     send-button-label="Send button label value"
                     value="Value value"
                     >
-                </spright-chat-input>`
+                </spright-chat-input>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('chatInput', { read: SprightChatInputDirective }) public directive: SprightChatInputDirective;
@@ -112,7 +114,8 @@ describe('Spright chat input', () => {
                     [sendButtonLabel]="sendButtonLabel"
                     [value]="value"
                     >
-                </spright-chat-input>`
+                </spright-chat-input>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('chatInput', { read: SprightChatInputDirective }) public directive: SprightChatInputDirective;
@@ -181,7 +184,8 @@ describe('Spright chat input', () => {
                     [attr.send-button-label]="sendButtonLabel"
                     [attr.value]="value"
                     >
-                </spright-chat-input>`
+                </spright-chat-input>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('chatInput', { read: SprightChatInputDirective }) public directive: SprightChatInputDirective;

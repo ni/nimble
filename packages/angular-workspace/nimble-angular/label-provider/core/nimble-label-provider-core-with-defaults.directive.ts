@@ -8,7 +8,8 @@ import '@angular/localize/init';
  * using @angular/localize.
  */
 @Directive({
-    selector: 'nimble-label-provider-core[withDefaults]'
+    selector: 'nimble-label-provider-core[withDefaults]',
+    standalone: false
 })
 export class NimbleLabelProviderCoreWithDefaultsDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<LabelProviderCore>) {

@@ -8,8 +8,7 @@ import { RadioControlValueAccessor, RadioControlRegistry } from '../../thirdpart
  * Control Value Accessor implementation for the radio group.
  */
 @Directive({
-    selector:
-        'nimble-radio[formControlName],nimble-radio[formControl],nimble-radio[ngModel]',
+    selector: 'nimble-radio[formControlName],nimble-radio[formControl],nimble-radio[ngModel]',
     // The following host metadata is duplicated from RadioControlValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(change)': 'nimbleOnChange($event.target.checked)', '(blur)': 'onTouched()' },
@@ -17,7 +16,8 @@ import { RadioControlValueAccessor, RadioControlRegistry } from '../../thirdpart
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => NimbleRadioControlValueAccessorDirective),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 export class NimbleRadioControlValueAccessorDirective extends RadioControlValueAccessor implements OnInit {
     private static _nextOpenId = 0;

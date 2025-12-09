@@ -9,7 +9,8 @@ describe('Nimble number field control value accessor', () => {
     @Component({
         template: `
             <nimble-number-field #numberField [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled" [min]="0"></nimble-number-field>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('numberField', { static: true }) public numberField: ElementRef<NumberField>;

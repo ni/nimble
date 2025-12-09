@@ -21,7 +21,8 @@ describe('Nimble icon check', () => {
         @Component({
             template: `
                 <nimble-icon-check #icon></nimble-icon-check>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('icon', { read: NimbleIconCheckDirective }) public directive: NimbleIconCheckDirective;
@@ -55,7 +56,8 @@ describe('Nimble icon check', () => {
                 <nimble-icon-check #icon
                     severity="error"
                 >
-                </nimble-icon-check>`
+                </nimble-icon-check>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('icon', { read: NimbleIconCheckDirective }) public directive: NimbleIconCheckDirective;
@@ -90,7 +92,8 @@ describe('Nimble icon check', () => {
                     [severity]="severity"
                 >
                 </nimble-icon-check>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('icon', { read: NimbleIconCheckDirective }) public directive: NimbleIconCheckDirective;
@@ -132,7 +135,8 @@ describe('Nimble icon check', () => {
                     [attr.severity]="severity"
                 >
                 </nimble-icon-check>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('icon', { read: NimbleIconCheckDirective }) public directive: NimbleIconCheckDirective;

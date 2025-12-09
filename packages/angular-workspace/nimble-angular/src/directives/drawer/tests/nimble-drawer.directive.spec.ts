@@ -20,7 +20,8 @@ describe('Nimble drawer', () => {
         @Component({
             template: `
                 <nimble-drawer #drawer></nimble-drawer>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('drawer', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;
@@ -70,7 +71,8 @@ describe('Nimble drawer', () => {
                     location="right"
                     prevent-dismiss
                     aria-label="label">
-                </nimble-drawer>`
+                </nimble-drawer>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('drawer', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;
@@ -115,7 +117,8 @@ describe('Nimble drawer', () => {
                     [location]="location"
                     [preventDismiss]="preventDismiss"
                     [ariaLabel]="ariaLabel">
-                </nimble-drawer>`
+                </nimble-drawer>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('drawer', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;
@@ -181,7 +184,8 @@ describe('Nimble drawer', () => {
                     [attr.location]="location"
                     [attr.prevent-dismiss]="preventDismiss"
                     [attr.aria-label]="ariaLabel">
-                </nimble-drawer>`
+                </nimble-drawer>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('drawer', { read: NimbleDrawerDirective }) public directive: NimbleDrawerDirective;

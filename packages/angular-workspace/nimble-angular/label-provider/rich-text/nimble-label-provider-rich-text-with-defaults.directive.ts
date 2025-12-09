@@ -8,7 +8,8 @@ import '@angular/localize/init';
  * using @angular/localize.
  */
 @Directive({
-    selector: 'nimble-label-provider-rich-text[withDefaults]'
+    selector: 'nimble-label-provider-rich-text[withDefaults]',
+    standalone: false
 })
 export class NimbleLabelProviderRichTextWithDefaultsDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<LabelProviderRichText>) {

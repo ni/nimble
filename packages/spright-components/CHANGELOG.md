@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Sat, 06 Dec 2025 00:45:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 08 Dec 2025 23:33:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.4.18
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- markdown linting ([ni/nimble@65cc5e7](https://github.com/ni/nimble/commit/65cc5e77bca7ed431fba155a4ed6c56a41c0add7))
+- Bump @ni/nimble-components to v34.8.6
 
 ## 6.4.17
 

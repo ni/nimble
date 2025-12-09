@@ -8,7 +8,8 @@ export { unitCelsiusTag };
  * Directive to provide Angular integration for the Celsius unit element used by the number-text column.
  */
 @Directive({
-    selector: 'nimble-unit-celsius'
+    selector: 'nimble-unit-celsius',
+    standalone: false
 })
 export class NimbleUnitCelsiusDirective {
 }

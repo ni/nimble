@@ -19,7 +19,8 @@ describe('Nimble radio', () => {
         @Component({
             template: `
                 <nimble-radio #radio></nimble-radio>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radio', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
@@ -54,7 +55,8 @@ describe('Nimble radio', () => {
 
     describe('with template string values', () => {
         @Component({
-            template: '<nimble-radio #radio disabled></nimble-radio>'
+            template: '<nimble-radio #radio disabled></nimble-radio>',
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radio', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
@@ -84,7 +86,8 @@ describe('Nimble radio', () => {
 
     describe('with property bound values', () => {
         @Component({
-            template: '<nimble-radio #radio [disabled]="disabled"></nimble-radio>'
+            template: '<nimble-radio #radio [disabled]="disabled"></nimble-radio>',
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radio', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;
@@ -121,7 +124,8 @@ describe('Nimble radio', () => {
 
     describe('with attribute bound values', () => {
         @Component({
-            template: '<nimble-radio #radio [attr.disabled]="disabled"></nimble-radio>'
+            template: '<nimble-radio #radio [attr.disabled]="disabled"></nimble-radio>',
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radio', { read: NimbleRadioDirective }) public directive: NimbleRadioDirective;

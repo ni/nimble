@@ -9,8 +9,7 @@ import type { Checkbox } from './nimble-checkbox.directive';
  * Directive decorator based on CheckboxControlValueAccessor decorator in thirdparty/directives/checkbox_value_accessor
  */
 @Directive({
-    selector:
-      'nimble-checkbox[formControlName],nimble-checkbox[formControl],nimble-checkbox[ngModel]',
+    selector: 'nimble-checkbox[formControlName],nimble-checkbox[formControl],nimble-checkbox[ngModel]',
     // The following host metadata is duplicated from CheckboxControlValueAccessor
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(blur)': 'onTouched()' },
@@ -18,7 +17,8 @@ import type { Checkbox } from './nimble-checkbox.directive';
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => NimbleCheckboxControlValueAccessorDirective),
         multi: true
-    }]
+    }],
+    standalone: false
 })
 export class NimbleCheckboxControlValueAccessorDirective extends CheckboxControlValueAccessor {
     private ignoreChangeEvents = false;

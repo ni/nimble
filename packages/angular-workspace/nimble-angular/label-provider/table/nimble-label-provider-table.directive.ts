@@ -8,7 +8,8 @@ export type { LabelProviderTable };
  * To use the Nimble-provided strings declared via $localize, instead use NimbleLabelProviderTableWithDefaultsDirective.
  */
 @Directive({
-    selector: 'nimble-label-provider-table'
+    selector: 'nimble-label-provider-table',
+    standalone: false
 })
 export class NimbleLabelProviderTableDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<LabelProviderTable>) {

@@ -5,7 +5,10 @@ import { Directive } from '@angular/core';
  *
  * @see NimbleAnchorTreeItemRouterLinkWithHrefDirective
  */
-@Directive({ selector: 'nimble-anchor-tree-item[routerLink]' })
+@Directive({
+    selector: 'nimble-anchor-tree-item[routerLink]',
+    standalone: false
+})
 export class NimbleAnchorTreeItemRouterLinkDirective {
     public constructor() {
         throw new Error('Use [nimbleRouterLink] instead of [routerLink].');
