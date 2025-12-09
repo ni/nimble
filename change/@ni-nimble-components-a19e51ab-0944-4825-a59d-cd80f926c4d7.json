@@ -2,6 +2,6 @@
   "type": "minor",
   "comment": "Add keyValue accessor to Mapping base class for React compatibility",
   "packageName": "@ni/nimble-components",
-  "email": "venkatnarayana.akula@emerson.com",
+  "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
 }
