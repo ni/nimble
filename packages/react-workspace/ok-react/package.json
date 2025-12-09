@@ -24,7 +24,7 @@
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/ok-components": "^0.1.15",
+    "@ni/ok-components": "^0.1.19",
     "@ni-private/eslint-config-nimble": "*",
     "typescript": "~5.4.5"
   },
