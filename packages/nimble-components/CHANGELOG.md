@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 08 Dec 2025 23:33:42 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 09 Dec 2025 06:58:39 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.9.0
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Minor changes
+
+- Add keyValue accessor to Mapping base class for React compatibility ([ni/nimble@72ca616](https://github.com/ni/nimble/commit/72ca6168a2df4d5b70b860f724cefc6338e78ae8))
 
 ## 34.8.6
 

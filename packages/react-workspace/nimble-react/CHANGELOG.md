@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Mon, 08 Dec 2025 23:33:42 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 09 Dec 2025 06:58:39 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.7.9
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Patches
+
+- Export missing types from drawer and table wrappers ([ni/nimble@72ca616](https://github.com/ni/nimble/commit/72ca6168a2df4d5b70b860f724cefc6338e78ae8))
+- Bump @ni/nimble-components to v34.9.0
 
 ## 0.7.8
 
