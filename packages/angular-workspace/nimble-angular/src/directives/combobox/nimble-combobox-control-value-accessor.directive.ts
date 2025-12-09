@@ -21,10 +21,10 @@ export type OptionNotFound = typeof OPTION_NOT_FOUND;
 @Directive({
     selector: 'nimble-combobox[formControlName],nimble-combobox[formControl],nimble-combobox[ngModel]',
     providers: [{
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NimbleComboboxControlValueAccessorDirective),
-            multi: true
-        }],
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => NimbleComboboxControlValueAccessorDirective),
+        multi: true
+    }],
     standalone: false
 })
 export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor, AfterViewChecked {

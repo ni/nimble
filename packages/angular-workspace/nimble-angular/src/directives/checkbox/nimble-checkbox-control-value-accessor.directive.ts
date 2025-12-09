@@ -14,10 +14,10 @@ import type { Checkbox } from './nimble-checkbox.directive';
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(blur)': 'onTouched()' },
     providers: [{
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NimbleCheckboxControlValueAccessorDirective),
-            multi: true
-        }],
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => NimbleCheckboxControlValueAccessorDirective),
+        multi: true
+    }],
     standalone: false
 })
 export class NimbleCheckboxControlValueAccessorDirective extends CheckboxControlValueAccessor {

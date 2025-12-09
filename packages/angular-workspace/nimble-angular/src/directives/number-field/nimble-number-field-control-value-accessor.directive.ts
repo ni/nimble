@@ -13,10 +13,10 @@ import { NumberValueAccessor } from '../../thirdparty/directives/number_value_ac
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
     providers: [{
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NimbleNumberFieldControlValueAccessorDirective),
-            multi: true
-        }],
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => NimbleNumberFieldControlValueAccessorDirective),
+        multi: true
+    }],
     standalone: false
 })
 export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueAccessor { }

@@ -13,10 +13,10 @@ import { RadioControlValueAccessor, RadioControlRegistry } from '../../thirdpart
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(change)': 'nimbleOnChange($event.target.checked)', '(blur)': 'onTouched()' },
     providers: [{
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NimbleRadioControlValueAccessorDirective),
-            multi: true
-        }],
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => NimbleRadioControlValueAccessorDirective),
+        multi: true
+    }],
     standalone: false
 })
 export class NimbleRadioControlValueAccessorDirective extends RadioControlValueAccessor implements OnInit {

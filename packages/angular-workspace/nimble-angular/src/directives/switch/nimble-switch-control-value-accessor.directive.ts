@@ -13,10 +13,10 @@ import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkb
     // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
     host: { '(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()' },
     providers: [{
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NimbleSwitchControlValueAccessorDirective),
-            multi: true
-        }],
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => NimbleSwitchControlValueAccessorDirective),
+        multi: true
+    }],
     standalone: false
 })
 export class NimbleSwitchControlValueAccessorDirective extends CheckboxControlValueAccessor {
