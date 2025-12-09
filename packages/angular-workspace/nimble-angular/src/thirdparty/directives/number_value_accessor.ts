@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/number_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/packages/forms/src/directives/number_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from NumberValueAccessor's `@Directive` decorator
@@ -15,7 +15,7 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import {Directive, ElementRef, forwardRef, type Provider} from '@angular/core';
+import {Directive, forwardRef, type Provider} from '@angular/core';
 
 import type {ControlValueAccessor} from '@angular/forms';
 import {
@@ -48,7 +48,7 @@ const NUMBER_VALUE_ACCESSOR: Provider = {
  * const totalCountControl = new FormControl();
  * ```
  *
- * ```
+ * ```html
  * <input type="number" [formControl]="totalCountControl">
  * ```
  *
@@ -56,22 +56,21 @@ const NUMBER_VALUE_ACCESSOR: Provider = {
  * @ngModule FormsModule
  * @publicApi
  */
-/* [Nimble] Remove all configuration from @Directive decorator
+// [Nimble] Remove configuration from @Directive decorator
 @Directive({
-  selector:
-    'input[type=number][formControlName],input[type=number][formControl],input[type=number][ngModel]',
-  host: {'(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
-  providers: [NUMBER_VALUE_ACCESSOR],
+  // selector:
+  //   'input[type=number][formControlName],input[type=number][formControl],input[type=number][ngModel]',
+  // host: {'(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
+  // providers: [NUMBER_VALUE_ACCESSOR],
+  standalone: false,
 })
-*/
-@Directive()
 export class NumberValueAccessor
   extends BuiltInControlValueAccessor
   implements ControlValueAccessor
 {
   /**
    * Sets the "value" property on the input element.
-   * @nodoc
+   * @docs-private
    */
   writeValue(value: number): void {
     // The value needs to be normalized for IE9, otherwise it is set to 'null' when null
@@ -81,7 +80,7 @@ export class NumberValueAccessor
 
   /**
    * Registers a function called when the control value changes.
-   * @nodoc
+   * @docs-private
    */
   override registerOnChange(fn: (_: number | null) => void): void {
     this.onChange = (value) => {

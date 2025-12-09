@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/default_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/packages/forms/src/directives/default_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Update implementation of `_isAndroid()` to not use private APIs
@@ -81,7 +81,7 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>(
  * const firstNameControl = new FormControl();
  * ```
  *
- * ```
+ * ```html
  * <input type="text" [formControl]="firstNameControl">
  * ```
  *
@@ -90,7 +90,7 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>(
  * processing. In order to attach the default value accessor to a custom element, add the
  * `ngDefaultControl` attribute as shown below.
  *
- * ```
+ * ```html
  * <custom-input-component ngDefaultControl [(ngModel)]="value"></custom-input-component>
  * ```
  *
@@ -98,23 +98,22 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>(
  * @ngModule FormsModule
  * @publicApi
  */
-/* [Nimble] Remove all configuration from @Directive decorator
+// [Nimble] Remove configuration from @Directive decorator
 @Directive({
-  selector:
-    'input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]',
-  // TODO: vsavkin replace the above selector with the one below it once
-  // https://github.com/angular/angular/issues/3011 is implemented
-  // selector: '[ngModel],[formControl],[formControlName]',
-  host: {
-    '(input)': '$any(this)._handleInput($event.target.value)',
-    '(blur)': 'onTouched()',
-    '(compositionstart)': '$any(this)._compositionStart()',
-    '(compositionend)': '$any(this)._compositionEnd($event.target.value)',
-  },
-  providers: [DEFAULT_VALUE_ACCESSOR],
+  // selector:
+  //   'input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]',
+  // // TODO: vsavkin replace the above selector with the one below it once
+  // // https://github.com/angular/angular/issues/3011 is implemented
+  // // selector: '[ngModel],[formControl],[formControlName]',
+  // host: {
+  //   '(input)': '$any(this)._handleInput($event.target.value)',
+  //   '(blur)': 'onTouched()',
+  //   '(compositionstart)': '$any(this)._compositionStart()',
+  //   '(compositionend)': '$any(this)._compositionEnd($event.target.value)',
+  // },
+  // providers: [DEFAULT_VALUE_ACCESSOR],
+  standalone: false,
 })
-*/
-@Directive()
 export class DefaultValueAccessor extends BaseControlValueAccessor implements ControlValueAccessor {
   /** Whether the user is creating a composition string (IME events). */
   private _composing = false;
@@ -132,7 +131,7 @@ export class DefaultValueAccessor extends BaseControlValueAccessor implements Co
 
   /**
    * Sets the "value" property on the input element.
-   * @nodoc
+   * @docs-private
    */
   writeValue(value: any): void {
     const normalizedValue = value == null ? '' : value;
