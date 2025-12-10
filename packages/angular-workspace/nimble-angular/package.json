@@ -32,7 +32,8 @@
     "@angular/forms": "^18.2.13",
     "@angular/localize": "^18.2.13",
     "@angular/router": "^18.2.13",
-    "@ni/nimble-components": "^34.10.0"
+    "@ni/nimble-components": "^34.10.0",
+    "@ni/unit-format": "^0.0.1"
   },
   "dependencies": {
     "tslib": "^2.2.0"
