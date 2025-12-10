@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 09 Dec 2025 23:54:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.10.1
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Fix typo in menu button column file name ([ni/nimble@1a8e710](https://github.com/ni/nimble/commit/1a8e710d60bbd317c87735ed43ad777030f0f681))
 
 ## 34.10.0
 

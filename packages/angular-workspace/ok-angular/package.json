@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-angular",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "Angular components for NI OK Components",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/ok-angular && npm publish",
@@ -24,7 +24,7 @@
   "peerDependencies": {
     "@angular/common": "^18.2.13",
     "@angular/core": "^18.2.13",
-    "@ni/ok-components": "^0.1.20"
+    "@ni/ok-components": "^0.1.21"
   },
   "dependencies": {
     "tslib": "^2.2.0"

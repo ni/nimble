@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 09 Dec 2025 23:54:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.1.21
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.1
+- Bump @ni/spright-components to v6.4.21
 
 ## 0.1.20
 
