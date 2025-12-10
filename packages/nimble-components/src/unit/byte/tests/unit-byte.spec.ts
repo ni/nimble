@@ -1,8 +1,8 @@
 import { html } from '@ni/fast-element';
+import { byte1024UnitScale } from '@ni/unit-format/unit-scale/byte-1024';
+import { byteUnitScale } from '@ni/unit-format/unit-scale/byte';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { UnitByte, unitByteTag } from '..';
-import { byte1024UnitScale } from '../../../utilities/unit-format/unit-scale/byte-1024-unit-scale';
-import { byteUnitScale } from '../../../utilities/unit-format/unit-scale/byte-unit-scale';
 
 async function setup(binary: boolean): Promise<Fixture<UnitByte>> {
     return await fixture<UnitByte>(html`

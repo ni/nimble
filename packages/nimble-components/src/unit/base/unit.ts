@@ -1,6 +1,6 @@
 import { observable } from '@ni/fast-element';
 import { FoundationElement } from '@ni/fast-foundation';
-import type { UnitScale } from '../../utilities/unit-format/unit-scale/unit-scale';
+import type { UnitScale } from '@ni/unit-format/unit-scale/unit-scale';
 
 /**
  * The base class for an element that provides a unit scale for scaled unit conversions
