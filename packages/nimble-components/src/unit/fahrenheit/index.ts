@@ -1,7 +1,7 @@
 import { DesignSystem } from '@ni/fast-foundation';
+import { fahrenheitUnitScale } from '@ni/unit-format/unit-scale/fahrenheit';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
-import { fahrenheitUnitScale } from '../../utilities/unit-format/unit-scale/fahrenheit-unit-scale';
 import { styles } from '../base/styles';
 
 declare global {

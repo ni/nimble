@@ -7,6 +7,7 @@ import {
     observable,
     type Subscriber
 } from '@ni/fast-element';
+import type { UnitFormat } from '@ni/unit-format/unit-format';
 import { styles } from '../base/styles';
 import { template } from './template';
 import { TableColumnAlignment, type TableNumberField } from '../../table/types';
@@ -16,7 +17,6 @@ import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
-import type { UnitFormat } from '../../utilities/unit-format/unit-format';
 import { NumberTextUnitFormat } from './models/number-text-unit-format';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { lang } from '../../theme-provider';

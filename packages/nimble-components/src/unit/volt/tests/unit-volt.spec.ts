@@ -1,5 +1,5 @@
+import { voltUnitScale } from '@ni/unit-format/unit-scale/volt';
 import { UnitVolt, unitVoltTag } from '..';
-import { voltUnitScale } from '../../../utilities/unit-format/unit-scale/volt-unit-scale';
 
 describe('Volt unit', () => {
     it('can construct an element instance', () => {

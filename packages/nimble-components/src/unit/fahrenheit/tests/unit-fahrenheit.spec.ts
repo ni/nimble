@@ -1,5 +1,5 @@
+import { fahrenheitUnitScale } from '@ni/unit-format/unit-scale/fahrenheit';
 import { UnitFahrenheit, unitFahrenheitTag } from '..';
-import { fahrenheitUnitScale } from '../../../utilities/unit-format/unit-scale/fahrenheit-unit-scale';
 
 describe('Fahrenheit unit', () => {
     it('can construct an element instance', () => {

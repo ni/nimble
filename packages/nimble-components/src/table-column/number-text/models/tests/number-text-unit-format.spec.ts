@@ -1,9 +1,9 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { byteUnitScale } from '@ni/unit-format/unit-scale/byte';
+import { byte1024UnitScale } from '@ni/unit-format/unit-scale/byte-1024';
+import { passthroughUnitScale } from '@ni/unit-format/unit-scale/passthrough';
 import { NumberTextFormat } from '../../types';
 import { NumberTextUnitFormat } from '../number-text-unit-format';
-import { byteUnitScale } from '../../../../utilities/unit-format/unit-scale/byte-unit-scale';
-import { byte1024UnitScale } from '../../../../utilities/unit-format/unit-scale/byte-1024-unit-scale';
-import { passthroughUnitScale } from '../../../../utilities/unit-format/unit-scale/passthrough-unit-scale';
 
 describe('NumberTextUnitFormat', () => {
     const testCases = [

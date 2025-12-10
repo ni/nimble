@@ -1,7 +1,7 @@
 import { DesignSystem } from '@ni/fast-foundation';
+import { voltUnitScale } from '@ni/unit-format/unit-scale/volt';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
-import { voltUnitScale } from '../../utilities/unit-format/unit-scale/volt-unit-scale';
 import { styles } from '../base/styles';
 
 declare global {

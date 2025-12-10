@@ -1,8 +1,8 @@
 import { attr } from '@ni/fast-element';
 import { DesignSystem } from '@ni/fast-foundation';
+import { byte1024UnitScale } from '@ni/unit-format/unit-scale/byte-1024';
+import { byteUnitScale } from '@ni/unit-format/unit-scale/byte';
 import { template } from '../base/template';
-import { byte1024UnitScale } from '../../utilities/unit-format/unit-scale/byte-1024-unit-scale';
-import { byteUnitScale } from '../../utilities/unit-format/unit-scale/byte-unit-scale';
 import { Unit } from '../base/unit';
 import { styles } from '../base/styles';
 

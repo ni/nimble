@@ -1,11 +1,11 @@
 import {
     UnitFormat,
     type UnitFormatOptions
-} from '../../../utilities/unit-format/unit-format';
-import { passthroughUnitScale } from '../../../utilities/unit-format/unit-scale/passthrough-unit-scale';
+} from '@ni/unit-format/unit-format';
+import { passthroughUnitScale } from '@ni/unit-format/unit-scale/passthrough';
+import { DefaultUnitFormat } from '@ni/unit-format/default';
+import { DecimalUnitFormat } from '@ni/unit-format/decimal';
 import { NumberTextFormat } from '../types';
-import { DefaultUnitFormat } from '../../../utilities/unit-format/default-unit-format';
-import { DecimalUnitFormat } from '../../../utilities/unit-format/decimal-unit-format';
 
 export interface NumberTextUnitFormatOptions extends UnitFormatOptions {
     numberTextFormat?: NumberTextFormat;
