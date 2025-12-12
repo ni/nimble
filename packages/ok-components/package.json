@@ -12,12 +12,6 @@
     "build-components": "tsc -p ./tsconfig.json",
     "build-components:watch": "tsc -p ./tsconfig.json -w",
     "bundle-components": "rollup --bundleConfigAsCjs --config",
-    "tdd": "npm run build-components && npm run test-chrome",
-    "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
-    "tdd-firefox": "npm run build-components && npm run test-firefox",
-    "tdd-firefox:watch": "npm run build-components:watch & npm run test-firefox:watch",
-    "tdd-webkit": "npm run build-components && npm run test-webkit",
-    "tdd-webkit:watch": "npm run build-components:watch & npm run test-webkit:watch",
     "test-chrome:debugger": "karma start karma.conf.js --browsers=ChromeDebugging --skip-tags SkipChrome",
     "test-chrome:watch": "karma start karma.conf.headless.js --browsers=ChromeHeadlessOpt --skip-tags SkipChrome --watch-extensions js",
     "test-chrome": "karma start karma.conf.headless.js --browsers=ChromeHeadlessOpt --single-run --skip-tags SkipChrome",
@@ -27,7 +21,7 @@
     "test-webkit:debugger": "karma start karma.conf.js --browsers=WebkitDebugging --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.headless.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.headless.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test": "npm run test-chrome && npm run test-firefox && npm run test-webkit"
+    "test": "concurrently --pad-prefix --timings --group \"npm:test-chrome\" \"npm:test-webkit\""
   },
   "repository": {
     "type": "git",
@@ -53,15 +47,14 @@
     "tslib": "^2.2.0"
   },
   "devDependencies": {
+    "@ni-private/eslint-config-nimble": "*",
     "@ni-private/jasmine-extensions": "^0.0.1",
     "@ni/jasmine-parameterized": "^1.0.6",
-    "@ni-private/eslint-config-nimble": "*",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.0",
     "@rollup/plugin-terser": "^0.4.0",
     "@types/jasmine": "^5.1.4",
-    "@types/webpack-env": "^1.15.2",
     "jasmine-core": "^5.1.2",
     "karma": "^6.3.0",
     "karma-chrome-launcher": "^3.1.0",
@@ -69,17 +62,12 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
     "karma-jasmine-spec-tags": "^2.0.0",
-    "karma-source-map-support": "^1.4.0",
-    "karma-sourcemap-loader": "^0.4.0",
     "karma-spec-reporter": "^0.0.36",
+    "karma-vite": "^1.0.5",
     "karma-webkit-launcher": "^2.6.0",
-    "karma-webpack": "^5.0.0",
     "playwright": "1.54.1",
     "rollup": "^4.12.0",
     "rollup-plugin-sourcemaps2": "^0.5.0",
-    "source-map-loader": "^5.0.0",
-    "typescript": "~5.4.5",
-    "webpack": "^5.75.0",
-    "webpack-dev-middleware": "^7.0.0"
+    "typescript": "~5.4.5"
   }
 }
