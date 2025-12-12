@@ -1,8 +1,3 @@
-// Based on fast-components configuration:
-// https://github.com/microsoft/fast/blob/6549309c1ed2dea838561d23fea6337ef16d7908/packages/web-components/fast-components/karma.conf.js
-// Coverage from the fast configuration removed due to lack of Webpack 5 support:
-// https://github.com/webpack-contrib/istanbul-instrumenter-loader/issues/110
-
 const playwright = require('playwright');
 
 process.env.WEBKIT_HEADLESS_BIN = playwright.webkit.executablePath();
@@ -44,7 +39,7 @@ module.exports = config => {
         ],
         plugins: [
             // eslint-disable-next-line global-require
-            require('karma-vite'),
+            'karma-vite',
             'karma-jasmine',
             'karma-jasmine-html-reporter',
             'karma-jasmine-spec-tags',
@@ -54,7 +49,7 @@ module.exports = config => {
         ],
         files: [
             {
-                pattern: 'src/utilities/tests.setup-configuration.ts',
+                pattern: 'src/utilities/tests/setup-configuration.ts',
                 type: 'module',
                 watched: false,
                 served: false,
