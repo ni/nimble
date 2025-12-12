@@ -112,6 +112,15 @@ export class ListOptionGroup extends FoundationElement {
         }
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.listOptions?.forEach(o => {
+            const notifier = Observable.getNotifier(o);
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'visuallyHidden');
+        });
+    }
+
     private listOptionsChanged(
         prev: ListOption[] | undefined,
         next: ListOption[]

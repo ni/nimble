@@ -158,6 +158,13 @@ export class KeyboardNavigationManager<
             'cell-blur',
             this.onCellBlur as EventListener
         );
+        // Clean up Observable subscriptions
+        this.tableNotifier.unsubscribe(this, 'rowElements');
+        this.virtualizerNotifier.unsubscribe(this, 'visibleItems');
+        for (const notifier of this.visibleRowNotifiers) {
+            notifier.unsubscribe(this);
+        }
+        this.visibleRowNotifiers = [];
     }
 
     public handleChange(source: unknown, args: unknown): void {

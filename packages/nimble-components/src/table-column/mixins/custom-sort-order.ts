@@ -70,6 +70,14 @@ export function mixinCustomSortOrderColumnAPI<
             }
         }
 
+        public override disconnectedCallback(): void {
+            super.disconnectedCallback();
+            this.customSortOrderColumnNotifier?.unsubscribe(
+                this.customSortOrderColumnChangeHandler
+            );
+            this.customSortOrderColumnNotifier = undefined;
+        }
+
         public abstract handleSortConfigurationChange(): void;
 
         /** @internal */

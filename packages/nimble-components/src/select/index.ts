@@ -224,6 +224,26 @@ export class Select
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.selectedOptionObserver?.disconnect();
+        // Clean up Observable subscriptions
+        this.options.forEach(o => {
+            const notifier = Observable.getNotifier(o);
+            notifier.unsubscribe(this, 'value');
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'disabled');
+        });
+        this.slottedOptions
+            ?.filter<ListOptionGroup>(isListOptionGroup)
+            .forEach(el => {
+                const notifier = Observable.getNotifier(el);
+                notifier.unsubscribe(this, 'hidden');
+                notifier.unsubscribe(this, 'visuallyHidden');
+                notifier.unsubscribe(this, 'listOptions');
+            });
+        // Also clean up selected subscriptions
+        this.options?.forEach((o, i) => {
+            const notifier = Observable.getNotifier(o);
+            notifier.unsubscribe(this, 'selected');
+        });
     }
 
     public override get value(): string {

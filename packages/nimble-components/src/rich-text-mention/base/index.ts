@@ -55,6 +55,11 @@ export abstract class RichTextMention<
     @observable
     public mappingElements: Mapping<unknown>[] = [];
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeMappingElementObservers();
+    }
+
     /**
      * @public
      */

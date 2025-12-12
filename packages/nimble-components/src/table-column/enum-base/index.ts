@@ -61,6 +61,11 @@ export abstract class TableColumnEnumBase<
         }
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeMappingObservers();
+    }
+
     /**
      * Implementations should throw an error if an invalid Mapping is passed.
      */

@@ -90,6 +90,10 @@ export class TableColumnNumberText extends mixinTextBase(
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         lang.unsubscribe(this.langSubscriber, this);
+        if (this.unitNotifier) {
+            this.unitNotifier.unsubscribe(this.unitSubscriber);
+            this.unitNotifier = undefined;
+        }
     }
 
     public placeholderChanged(): void {

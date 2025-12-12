@@ -255,6 +255,17 @@ export class RichTextMentionListbox extends FoundationListbox {
         this.regionNotifier.subscribe(this);
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        if (this.regionNotifier) {
+            this.regionNotifier.unsubscribe(this);
+            this.regionNotifier = undefined;
+        }
+        if (this.anchorElement) {
+            this.anchorElementIntersectionObserver.unobserve(this.anchorElement);
+        }
+    }
+
     /**
      * Handles the events of the anchored region.
      * Repositions the listbox scroll bar when the `initialLayoutComplete` event is triggered.

@@ -37,6 +37,8 @@ export class ZoomHandler {
     public disconnect(): void {
         zoom().on('zoom', null)(select(this.wafermap as Element));
         this.wafermap.removeEventListener('wheel', this.onWheelMove);
+        this.wafermapNotifier.unsubscribe(this, 'canvasWidth');
+        this.wafermapNotifier.unsubscribe(this, 'canvasHeight');
     }
 
     public handleChange(source: WaferMap, propertyName: string): void {

@@ -46,6 +46,11 @@ export abstract class RichText extends FoundationElement {
         return this.richTextValidator.isValid();
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeMentionInternalsObservers();
+    }
+
     /**
      * @internal
      */
