@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Switch to vite test",
+  "comment": "Switch to karma-vite",
   "packageName": "@ni/nimble-react",
   "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
