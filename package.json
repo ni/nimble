@@ -8,6 +8,7 @@
     "playwright-setup": "playwright install --with-deps",
     "build": "turbo run build build-bundle --log-order=grouped --continue=dependencies-successful",
     "build-storybook": "turbo run @ni-private/storybook#build --log-order=grouped",
+    "build-components": "turbo run @ni/nimble-components#build @ni/spright-components#build @ni/ok-components#build --log-order=grouped",
     "build-angular": "turbo run @ni-private/angular-workspace#build --log-order=grouped",
     "build-blazor": "turbo run @ni-private/blazor-workspace#build --log-order=grouped",
     "build-react": "turbo run @ni-private/react-client-app#build --log-order=grouped",
