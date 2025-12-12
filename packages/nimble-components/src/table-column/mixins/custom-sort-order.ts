@@ -70,8 +70,9 @@ export function mixinCustomSortOrderColumnAPI<
             }
         }
 
-        public override disconnectedCallback(): void {
-            super.disconnectedCallback();
+        public disconnectedCallback(): void {
+            // @ts-expect-error - calling super method if it exists
+            super.disconnectedCallback?.();
             this.customSortOrderColumnNotifier?.unsubscribe(
                 this.customSortOrderColumnChangeHandler
             );
