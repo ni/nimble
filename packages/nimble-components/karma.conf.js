@@ -6,6 +6,13 @@ process.env.FIREFOX_BIN = playwright.firefox.executablePath();
 process.env.CHROME_BIN = playwright.chromium.executablePath();
 
 const path = require('path');
+const karmaVite = require('karma-vite');
+const karmaJasmine = require('karma-jasmine');
+const karmaJasmineHtmlReporter = require('karma-jasmine-html-reporter');
+const karmaJasmineSpecTags = require('karma-jasmine-spec-tags');
+const karmaChromeLauncher = require('karma-chrome-launcher');
+const karmaFirefoxLauncher = require('karma-firefox-launcher');
+const karmaWebkitLauncher = require('karma-webkit-launcher');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [
@@ -38,14 +45,13 @@ module.exports = config => {
             'jasmine-spec-tags'
         ],
         plugins: [
-            // eslint-disable-next-line global-require
-            'karma-vite',
-            'karma-jasmine',
-            'karma-jasmine-html-reporter',
-            'karma-jasmine-spec-tags',
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-webkit-launcher'
+            karmaVite,
+            karmaJasmine,
+            karmaJasmineHtmlReporter,
+            karmaJasmineSpecTags,
+            karmaChromeLauncher,
+            karmaFirefoxLauncher,
+            karmaWebkitLauncher
         ],
         files: [
             {
@@ -111,7 +117,16 @@ module.exports = config => {
                 name: 'Content-Security-Policy',
                 value: "default-src 'self'; frame-ancestors 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob: ;"
             }
-        ]
+        ],
+        vite: {
+            config: {
+                resolve: {
+                    alias: {
+                        '/base': '',
+                    }
+                }
+            }
+        }
     };
 
     config.set(options);
