@@ -48,6 +48,11 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
+  "overrides": {
+    "karma-vite": {
+      "vite": "^7"
+    }
+  },
   "dependencies": {
     "@ni/fast-colors": "^10.0.0",
     "@ni/fast-element": "^10.0.0",
