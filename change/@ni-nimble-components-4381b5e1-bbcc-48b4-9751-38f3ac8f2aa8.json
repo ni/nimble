@@ -1,7 +1,7 @@
 {
-  "type": "none",
+  "type": "patch",
   "comment": "Switch to karma-vite",
   "packageName": "@ni/nimble-components",
   "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
+  "dependentChangeType": "patch"
 }
