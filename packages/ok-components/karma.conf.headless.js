@@ -2,7 +2,6 @@
  * A karma config file that sets up reporting for headless test runs
  */
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 const karmaSpecReporter = require('karma-spec-reporter');
 const originalConfigFunction = require('./karma.conf');
 
