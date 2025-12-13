@@ -7,6 +7,7 @@
   "scripts": {
     "build": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
+    "launch-webkit": "playwright wk http://localhost:6006",
     "lint": "eslint .",
     "format": "eslint . --fix"
   },
@@ -29,6 +30,7 @@
     "@storybook/builder-vite": "^10.1.0",
     "@storybook/cli": "^10.1.0",
     "@storybook/html-vite": "^10.1.0",
+    "concurrently": "^9.2.1",
     "js-beautify": "^1.15.1",
     "react-syntax-highlighter": "^16.1.0",
     "remark-gfm": "^4.0.0",
