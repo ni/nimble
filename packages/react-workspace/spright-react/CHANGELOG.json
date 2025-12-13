@@ -2,6 +2,21 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Sat, 13 Dec 2025 22:42:32 GMT",
+      "version": "0.6.21",
+      "tag": "@ni/spright-react_v0.6.21",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-react",
+            "commit": "fc03c70e4061694b75b137901ff3edafb5810830",
+            "comment": "Dev change only, switch to karma-vite"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Dec 2025 22:42:37 GMT",
       "version": "0.6.21",
       "tag": "@ni/spright-react_v0.6.21",

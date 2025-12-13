@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Dev change only, switch to karma-vite",
-  "packageName": "@ni/jasmine-parameterized",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
