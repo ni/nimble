@@ -119,7 +119,9 @@ module.exports = config => {
             }
         ],
         vite: {
+            autoInit: true,
             config: {
+                clearScreen: false,
                 resolve: {
                     alias: {
                         '/base': '',
