@@ -30,7 +30,6 @@
     "@storybook/builder-vite": "^10.1.0",
     "@storybook/cli": "^10.1.0",
     "@storybook/html-vite": "^10.1.0",
-    "concurrently": "^9.2.1",
     "js-beautify": "^1.15.1",
     "react-syntax-highlighter": "^16.1.0",
     "remark-gfm": "^4.0.0",
