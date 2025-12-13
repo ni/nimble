@@ -7,6 +7,7 @@
   "scripts": {
     "build": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
+    "launch-webkit": "playwright wk http://localhost:6006",
     "lint": "eslint .",
     "format": "eslint . --fix"
   },

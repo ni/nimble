@@ -27,7 +27,7 @@ From the repo root directory:
 
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
-    - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
+    - To run the unit tests: `npm run test-chrome -w @ni/nimble-components`
 
 ## Component spec process
 
@@ -55,11 +55,7 @@ Before building a new component, 3 specification documents need to be created:
 
     To build and run the tests once, from the `nimble` directory run:
 
-    `npm run tdd -w @ni/nimble-components`
-
-    To watch for changes and automatically re-run tests on changes, from the `nimble` directory run:
-
-    `npm run tdd:watch -w @ni/nimble-components`
+    `npm run test-chrome -w @ni/nimble-components`
 
     See [Unit tests](#unit-tests) for additional available commands.
 
@@ -428,19 +424,17 @@ The following commands can be run from the `nimble` directory:
 
 ### Development commands
 
-- `npm run tdd:watch -w @ni/nimble-components`: Starts a process for building the components and running the test suite on file changes.
+- `npm run test-chrome -w @ni/nimble-components`: Runs the test suite in chrome.
 
     This command runs headlessly. See [Debugging commands](#debugging-commands) if you need to see the browser or set breakpoints while running.
 
-- `npm run tdd -w @ni/nimble-components`: Similar to the corresponding `tdd:watch` command but only runs once. Useful for infrastructure changes which do not trigger the watch command.
-
 ### Debugging commands
 
-- `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
+- `npm run test-chrome-debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
 
     You can also take the page url and open it in a different browser to test interactively.
 
-- `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
+- `npm run test-webkit-debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
 
 ### Test utilities
 

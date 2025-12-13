@@ -1,8 +1,3 @@
-// Based on fast-components configuration:
-// https://github.com/microsoft/fast/blob/6549309c1ed2dea838561d23fea6337ef16d7908/packages/web-components/fast-components/karma.conf.js
-// Coverage from the fast configuration removed due to lack of Webpack 5 support:
-// https://github.com/webpack-contrib/istanbul-instrumenter-loader/issues/110
-
 const playwright = require('playwright');
 
 process.env.WEBKIT_HEADLESS_BIN = playwright.webkit.executablePath();
@@ -11,7 +6,13 @@ process.env.FIREFOX_BIN = playwright.firefox.executablePath();
 process.env.CHROME_BIN = playwright.chromium.executablePath();
 
 const path = require('path');
-const webpack = require('webpack');
+const karmaVite = require('karma-vite');
+const karmaJasmine = require('karma-jasmine');
+const karmaJasmineHtmlReporter = require('karma-jasmine-html-reporter');
+const karmaJasmineSpecTags = require('karma-jasmine-spec-tags');
+const karmaChromeLauncher = require('karma-chrome-launcher');
+const karmaFirefoxLauncher = require('karma-firefox-launcher');
+const karmaWebkitLauncher = require('karma-webkit-launcher');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [
@@ -33,91 +34,45 @@ const commonChromeFlags = [
     '--time-zone-for-testing=America/Chicago'
 ];
 
-// Create a webpack environment plugin to use while running tests so that
-// functionality that accesses the environment, such as the TanStack table
-// within the nimble-table, work correctly.
-// Note: Unless we run the tests twice, we have to choose to either run them
-// against the 'production' configuration or the 'development' configuration.
-// Because we expect shipping apps to use the 'production' configuration, we
-// have chosen to run tests aginst that configuration.
-const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({
-    NODE_ENV: 'production'
-});
-
 module.exports = config => {
     const options = {
         basePath,
         browserDisconnectTimeout: 10000,
         processKillTimeout: 10000,
         frameworks: [
-            'source-map-support',
+            'vite',
             'jasmine',
-            'webpack',
             'jasmine-spec-tags'
         ],
         plugins: [
-            'karma-jasmine',
-            'karma-jasmine-html-reporter',
-            'karma-jasmine-spec-tags',
-            'karma-webpack',
-            'karma-source-map-support',
-            'karma-sourcemap-loader',
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-webkit-launcher'
+            karmaVite,
+            karmaJasmine,
+            karmaJasmineHtmlReporter,
+            karmaJasmineSpecTags,
+            karmaChromeLauncher,
+            karmaFirefoxLauncher,
+            karmaWebkitLauncher
         ],
-        files: ['dist/esm/utilities/tests/setup.js'],
-        preprocessors: {
-            'dist/esm/utilities/tests/setup.js': ['webpack', 'sourcemap']
-        },
-        webpackMiddleware: {
-            // webpack-dev-middleware configuration
-            // i. e.
-            stats: 'errors-only'
-        },
-        webpack: {
-            mode: 'none',
-            resolve: {
-                extensions: ['.js'],
-                modules: ['dist', 'node_modules'],
-                mainFields: ['module', 'main']
+        files: [
+            {
+                pattern: 'src/utilities/tests/setup-configuration.ts',
+                type: 'module',
+                watched: false,
+                served: false,
             },
-            devtool: 'inline-source-map',
-            performance: {
-                hints: false
+            {
+                pattern: 'src/**/*.spec.ts',
+                type: 'module',
+                watched: false,
+                served: false,
             },
-            optimization: {
-                nodeEnv: false,
-                usedExports: true,
-                flagIncludedChunks: false,
-                sideEffects: true,
-                concatenateModules: true,
-                splitChunks: {
-                    name: false
-                },
-                runtimeChunk: false,
-                checkWasmTypes: false,
-                minimize: false
+            {
+                pattern: 'build/generate-workers/**/*.spec.ts',
+                type: 'module',
+                watched: false,
+                served: false,
             },
-            module: {
-                rules: [
-                    {
-                        test: /\.js\.map$/,
-                        use: ['ignore-loader']
-                    },
-                    {
-                        test: /\.js$/,
-                        enforce: 'pre',
-                        use: [
-                            {
-                                loader: 'source-map-loader'
-                            }
-                        ]
-                    }
-                ]
-            },
-            plugins: [webpackEnvironmentPlugin]
-        },
+        ],
         mime: {
             'text/x-typescript': ['ts']
         },
@@ -162,7 +117,18 @@ module.exports = config => {
                 name: 'Content-Security-Policy',
                 value: "default-src 'self'; frame-ancestors 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob: ;"
             }
-        ]
+        ],
+        vite: {
+            autoInit: true,
+            config: {
+                clearScreen: false,
+                resolve: {
+                    alias: {
+                        '/base': '',
+                    }
+                }
+            }
+        }
     };
 
     config.set(options);
