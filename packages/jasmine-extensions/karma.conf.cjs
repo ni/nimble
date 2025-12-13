@@ -1,6 +1,10 @@
 process.env.CHROME_BIN = require('playwright').chromium.executablePath();
 
 const path = require('path');
+const karmaVite = require('karma-vite');
+const karmaJasmine = require('karma-jasmine');
+const karmaJasmineHtmlReporter = require('karma-jasmine-html-reporter');
+const karmaChromeLauncher = require('karma-chrome-launcher');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [
@@ -18,7 +22,8 @@ const commonChromeFlags = [
     '--disable-infobars',
     '--disable-translate',
     '--force-prefers-reduced-motion',
-    '--lang=en-US'
+    '--lang=en-US',
+    '--time-zone-for-testing=America/Chicago'
 ];
 
 module.exports = config => {
@@ -27,21 +32,32 @@ module.exports = config => {
         browserDisconnectTimeout: 10000,
         processKillTimeout: 10000,
         frameworks: [
+            'vite',
             'jasmine',
         ],
         plugins: [
-            'karma-jasmine',
-            'karma-jasmine-html-reporter',
-            'karma-chrome-launcher'
+            karmaVite,
+            karmaJasmine,
+            karmaJasmineHtmlReporter,
+            karmaChromeLauncher,
         ],
         files: [
-            // Test files
-            { pattern: './dist/esm/tests/setup.js', type: 'module' },
-            { pattern: './dist/esm/**/*.spec.js', type: 'module' },
-            // Library files and dependencies
-            { pattern: './dist/esm/**/*.js', type: 'module', included: false },
-            { pattern: './dist/esm/**/*.map', included: false },
+            {
+                pattern: 'src/tests/setup.ts',
+                type: 'module',
+                watched: false,
+                served: false,
+            },
+            {
+                pattern: 'src/**/*.spec.ts',
+                type: 'module',
+                watched: false,
+                served: false,
+            },
         ],
+        mime: {
+            'text/x-typescript': ['ts']
+        },
         reporters: ['kjhtml'],
         browsers: ['ChromeHeadlessOpt'],
         customLaunchers: {
@@ -56,6 +72,9 @@ module.exports = config => {
             }
         },
         client: {
+            jasmine: {
+                stopSpecOnExpectationFailure: false
+            },
             captureConsole: true
         },
         // to disable the WARN 404 for image requests
@@ -70,7 +89,18 @@ module.exports = config => {
                 name: 'Content-Security-Policy',
                 value: "default-src 'self'; frame-ancestors 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline';"
             }
-        ]
+        ],
+        vite: {
+            autoInit: true,
+            config: {
+                clearScreen: false,
+                resolve: {
+                    alias: {
+                        '/base': '',
+                    }
+                }
+            }
+        }
     };
 
     config.set(options);
