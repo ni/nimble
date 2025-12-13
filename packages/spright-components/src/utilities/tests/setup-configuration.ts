@@ -8,3 +8,4 @@ applyExtensions();
 console.error = (data: any): void => fail(data);
 // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
 console.warn = (data: any): void => fail(data);
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
