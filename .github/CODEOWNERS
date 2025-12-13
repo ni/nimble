@@ -23,7 +23,7 @@
 /packages/site @rajsite @jattasNI
 /packages/spright-components @rajsite @jattasNI
 /packages/storybook/.storybook @rajsite @jattasNI @fredvisser
-/packages/xliff-to-json-converter @rajsite @TrevorKarjanis @jattasNI
+/packages/xliff-to-json-converter @rajsite @jattasNI
 
 # Specs (placed after packages to have higher precedence for spec files contained in packages)
 specs @rajsite @jattasNI @atmgrifter00 @mollykreis
