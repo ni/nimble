@@ -12,4 +12,4 @@ import {
  */
 export const display: typeof foundationDisplay = (
     displayValue: CSSDisplayPropertyValue
-) => `${foundationDisplay(displayValue)}:host{box-sizing:border-box;}*{box-sizing:border-box;}:host::before,:host::after,::before,::after{box-sizing:border-box;}`;
+) => `${foundationDisplay(displayValue)}:host{box-sizing:border-box;touch-action:manipulation;}*{box-sizing:border-box;touch-action:manipulation;}:host::before,:host::after,::before,::after{box-sizing:border-box;}`;
