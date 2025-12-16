@@ -108,7 +108,7 @@ export const angularTemplateNimbleConfigOverrides = defineConfig([
                         ...ignoreAttributes.all,
 
                         // Attributes that SHOULD be localized in production, but we don't want to
-                        // for tests / examples apps should be added to the following list:
+                        // in example apps should be added to the following list:
                         'action-menu-label',
                         'aria-label',
                         'button-label',
@@ -119,6 +119,17 @@ export const angularTemplateNimbleConfigOverrides = defineConfig([
                     ],
                 },
             ],
+        }
+    },
+    {
+        // Ignore inline templates in tests using the inline template naming convention
+        // See naming details: https://github.com/angular-eslint/angular-eslint/releases/tag/v14.0.0
+        files: ['**/*.spec.ts*.html'],
+        rules: {
+            /*
+                Tests often define helper components that don't need to be marked for i18n.
+            */
+            '@angular-eslint/template/i18n': 'off'
         }
     }
 ]);
