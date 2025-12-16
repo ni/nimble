@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 16 Dec 2025 02:47:13 GMT",
+      "version": "34.10.1",
+      "tag": "@ni/nimble-components_v34.10.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "324367966279f70ca2291c0842e90523a6f0797e",
+            "comment": "Clean-up missed prettier references"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 13 Dec 2025 22:42:32 GMT",
       "version": "34.10.1",
       "tag": "@ni/nimble-components_v34.10.1",

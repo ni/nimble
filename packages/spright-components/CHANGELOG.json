@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 16 Dec 2025 02:47:13 GMT",
+      "version": "6.4.21",
+      "tag": "@ni/spright-components_v6.4.21",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "324367966279f70ca2291c0842e90523a6f0797e",
+            "comment": "Clean-up missed prettier references"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 13 Dec 2025 22:42:32 GMT",
       "version": "6.4.21",
       "tag": "@ni/spright-components_v6.4.21",
