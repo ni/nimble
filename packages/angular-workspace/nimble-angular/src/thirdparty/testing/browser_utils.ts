@@ -1,8 +1,8 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/platform-browser/testing/src/browser_util.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/ppackages/private/testing/src/browser_utils.ts
  * with the following modifications:
- * - Comment out everything except childNodesAsList
+ * - Comment out everything not used by other forked files
  */
 
 /**
@@ -101,11 +101,11 @@ export function stringifyElement(el: Element): string {
 export function createNgZone(): NgZone {
   return new NgZone({enableLongStackTrace: true, shouldCoalesceEventChangeDetection: false});
 }
-
+*/
 export function isCommentNode(node: Node): boolean {
   return node.nodeType === Node.COMMENT_NODE;
 }
-
+/*
 export function isTextNode(node: Node): boolean {
   return node.nodeType === Node.TEXT_NODE;
 }
