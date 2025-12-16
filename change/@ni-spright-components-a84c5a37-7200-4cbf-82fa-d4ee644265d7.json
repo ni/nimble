@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Clean-up missed prettier references",
+  "packageName": "@ni/spright-components",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
