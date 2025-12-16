@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Bump typescript version in all packages (to 5.8.3)",
+  "packageName": "@ni/nimble-tokens",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
