@@ -2,8 +2,6 @@
  * Public API Surface of nimble-angular
  */
 
-/// <reference types="@angular/localize" />
-
 export * from './directives/anchor/nimble-anchor-router-link-with-href.directive';
 export * from './directives/anchor/nimble-anchor-router-link.directive';
 export * from './directives/anchor/nimble-anchor.directive';
