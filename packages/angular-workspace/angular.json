@@ -242,7 +242,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "example-client-app/src/test.ts",
-            "polyfills": "example-client-app/src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "example-client-app/tsconfig.spec.json",
             "karmaConfig": "example-client-app/karma.conf.js",
             "inlineStyleLanguage": "scss",

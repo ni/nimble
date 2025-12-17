@@ -6,7 +6,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular.svg)](https://www.npmjs.com/package/@ni/nimble-angular)
 
-NI-styled UI components for [Angular](https://angular.io) applications
+NI-styled UI components for [Angular](https://angular.dev) applications
 
 ## Getting started
 
@@ -106,7 +106,7 @@ The standard way to use these in Angular (for localized apps using `@angular/loc
         <router-outlet></router-outlet>
     </nimble-theme-provider>
     ```
-3. Follow [the standard Angular internationalization guidance](https://angular.io/guide/i18n-common-overview) to extract the localizable strings, translate them, and merge translations back into the application. 
+3. Follow [the standard Angular internationalization guidance](https://angular.dev/guide/i18n) to extract the localizable strings, translate them, and merge translations back into the application. 
 
 ### Learn more
 
