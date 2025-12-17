@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Dec 2025 05:25:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.22
+
+Wed, 17 Dec 2025 05:25:49 GMT
+
+### Patches
+
+- Tweak ok components for build ([ni/nimble@7edb6b3](https://github.com/ni/nimble/commit/7edb6b388dd3413748eb7aaa1197b327abca5631))
 
 ## 0.2.21
 

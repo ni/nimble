@@ -1,10 +1,10 @@
 diff --git a/node_modules/beachball/lib/packageManager/npmArgs.js b/node_modules/beachball/lib/packageManager/npmArgs.js
-index 9ed1d08..a3f064c 100644
+index 60dbbc6..c0d9cd4 100644
 --- a/node_modules/beachball/lib/packageManager/npmArgs.js
 +++ b/node_modules/beachball/lib/packageManager/npmArgs.js
-@@ -9,7 +9,9 @@ function getNpmPublishArgs(packageInfo, options) {
-     const { registry, token, authType, access } = options;
+@@ -10,7 +10,9 @@ function getNpmPublishArgs(packageInfo, options) {
      const pkgCombinedOptions = packageInfo.combinedOptions;
+     const authArgs = getNpmAuthArgs(options);
      const args = [
 -        'publish',
 +        'run',

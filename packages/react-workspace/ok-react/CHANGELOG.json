@@ -2,6 +2,21 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Wed, 17 Dec 2025 05:25:49 GMT",
+      "version": "0.2.22",
+      "tag": "@ni/ok-react_v0.2.22",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "7edb6b388dd3413748eb7aaa1197b327abca5631",
+            "comment": "Tweak ok components for build"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 13 Dec 2025 22:42:32 GMT",
       "version": "0.2.21",
       "tag": "@ni/ok-react_v0.2.21",
