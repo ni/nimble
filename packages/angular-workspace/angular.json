@@ -78,7 +78,10 @@
           "options": {
             "main": "ok-angular/test.ts",
             "tsConfig": "ok-angular/tsconfig.spec.json",
-            "karmaConfig": "ok-angular/karma.conf.js"
+            "karmaConfig": "ok-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
@@ -121,7 +124,10 @@
           "options": {
             "main": "spright-angular/test.ts",
             "tsConfig": "spright-angular/tsconfig.spec.json",
-            "karmaConfig": "spright-angular/karma.conf.js"
+            "karmaConfig": "spright-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
