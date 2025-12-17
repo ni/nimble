@@ -27,10 +27,6 @@ describe('RouterLink', () => {
   @Directive({ selector: '[routerLink]', standalone: false })
   class TestRouterLinkDirective extends RouterLink {}
 
-  // [Nimble] Don't use Zoneless change detection for these tests
-  // beforeEach(() => {
-  //   TestBed.configureTestingModule({providers: [provideExperimentalZonelessChangeDetection()]});
-  // });
   beforeEach(() => {
     TestBed.configureTestingModule({providers: [provideExperimentalZonelessChangeDetection()]});
   });
