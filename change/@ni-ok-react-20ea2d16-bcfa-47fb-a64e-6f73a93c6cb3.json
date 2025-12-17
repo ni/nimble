@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Tweak ok components for build",
+  "packageName": "@ni/ok-react",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
