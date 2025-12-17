@@ -10,7 +10,7 @@ import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkb
 @Directive({
     selector: 'nimble-switch[formControlName],nimble-switch[formControl],nimble-switch[ngModel]',
     // The following host metadata is duplicated from CheckboxControlValueAccessor
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     host: { '(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()' },
     providers: [{
         provide: NG_VALUE_ACCESSOR,

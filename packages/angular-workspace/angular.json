@@ -32,7 +32,10 @@
           "options": {
             "main": "nimble-angular/test.ts",
             "tsConfig": "nimble-angular/tsconfig.spec.json",
-            "karmaConfig": "nimble-angular/karma.conf.js"
+            "karmaConfig": "nimble-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
@@ -75,7 +78,10 @@
           "options": {
             "main": "ok-angular/test.ts",
             "tsConfig": "ok-angular/tsconfig.spec.json",
-            "karmaConfig": "ok-angular/karma.conf.js"
+            "karmaConfig": "ok-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
@@ -118,7 +124,10 @@
           "options": {
             "main": "spright-angular/test.ts",
             "tsConfig": "spright-angular/tsconfig.spec.json",
-            "karmaConfig": "spright-angular/karma.conf.js"
+            "karmaConfig": "spright-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
@@ -150,12 +159,16 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/example-client-app",
+            "outputPath": {
+              "base": "dist/example-client-app"
+            },
             "index": "example-client-app/src/index.html",
-            "main": "example-client-app/src/main.ts",
-            "polyfills": "example-client-app/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "example-client-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -165,10 +178,15 @@
             "styles": [
               "example-client-app/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "example-client-app/src/main.ts"
           },
           "configurations": {
             "production": {
+              "outputPath": {
+                "base": "dist/example-client-app",
+                "browser": ""
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -196,7 +214,6 @@
                   "output": "/"
                 }
               ],
-              "buildOptimizer": true,
               "optimization": {
                 "styles": {
                   "inlineCritical": false
@@ -205,9 +222,7 @@
               "sourceMap": true
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -237,7 +252,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "example-client-app/src/test.ts",
-            "polyfills": "example-client-app/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "example-client-app/tsconfig.spec.json",
             "karmaConfig": "example-client-app/karma.conf.js",
             "inlineStyleLanguage": "scss",

@@ -1235,7 +1235,7 @@ export class Select
                 }
 
                 return el;
-            }) as ListOption[];
+            });
     }
 
     /**

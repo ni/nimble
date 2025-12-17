@@ -26,7 +26,7 @@
   "devDependencies": {
     "@ni/ok-components": "^0.1.21",
     "@ni-private/eslint-config-nimble": "*",
-    "typescript": "~5.4.5"
+    "typescript": "~5.8.3"
   },
   "peerDependencies": {
     "@lit/react": "^1.0.8",

@@ -11,7 +11,7 @@ import type { Checkbox } from './nimble-checkbox.directive';
 @Directive({
     selector: 'nimble-checkbox[formControlName],nimble-checkbox[formControl],nimble-checkbox[ngModel]',
     // The following host metadata is duplicated from CheckboxControlValueAccessor
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property, @typescript-eslint/naming-convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     host: { '(blur)': 'onTouched()' },
     providers: [{
         provide: NG_VALUE_ACCESSOR,
