@@ -54,14 +54,16 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = {
  * @ngModule FormsModule
  * @publicApi
  */
-// [Nimble] Remove configuration from @Directive decorator
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
-  // selector:
-  //   'input[type=checkbox][formControlName],input[type=checkbox][formControl],input[type=checkbox][ngModel]',
-  // host: {'(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()'},
-  // providers: [CHECKBOX_VALUE_ACCESSOR],
+  selector:
+    'input[type=checkbox][formControlName],input[type=checkbox][formControl],input[type=checkbox][ngModel]',
+  host: {'(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()'},
+  providers: [CHECKBOX_VALUE_ACCESSOR],
   standalone: false,
 })
+*/
+@Directive()
 export class CheckboxControlValueAccessor
   extends BuiltInControlValueAccessor
   implements ControlValueAccessor

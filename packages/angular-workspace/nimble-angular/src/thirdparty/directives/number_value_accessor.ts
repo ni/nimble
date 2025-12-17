@@ -56,14 +56,16 @@ const NUMBER_VALUE_ACCESSOR: Provider = {
  * @ngModule FormsModule
  * @publicApi
  */
-// [Nimble] Remove configuration from @Directive decorator
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
-  // selector:
-  //   'input[type=number][formControlName],input[type=number][formControl],input[type=number][ngModel]',
-  // host: {'(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
-  // providers: [NUMBER_VALUE_ACCESSOR],
+  selector:
+    'input[type=number][formControlName],input[type=number][formControl],input[type=number][ngModel]',
+  host: {'(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
+  providers: [NUMBER_VALUE_ACCESSOR],
   standalone: false,
 })
+*/
+@Directive()
 export class NumberValueAccessor
   extends BuiltInControlValueAccessor
   implements ControlValueAccessor

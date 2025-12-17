@@ -137,14 +137,16 @@ export class RadioControlRegistry {
  * @ngModule FormsModule
  * @publicApi
  */
-// [Nimble] Remove configuration from @Directive decorator
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
-  // selector:
-  //   'input[type=radio][formControlName],input[type=radio][formControl],input[type=radio][ngModel]',
-  // host: {'(change)': 'onChange()', '(blur)': 'onTouched()'},
-  // providers: [RADIO_VALUE_ACCESSOR],
+  selector:
+    'input[type=radio][formControlName],input[type=radio][formControl],input[type=radio][ngModel]',
+  host: {'(change)': 'onChange()', '(blur)': 'onTouched()'},
+  providers: [RADIO_VALUE_ACCESSOR],
   standalone: false,
 })
+*/
+@Directive()
 export class RadioControlValueAccessor
   extends BuiltInControlValueAccessor
   implements ControlValueAccessor, OnDestroy, OnInit

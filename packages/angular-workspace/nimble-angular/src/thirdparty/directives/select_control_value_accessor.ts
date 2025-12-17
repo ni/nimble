@@ -114,14 +114,16 @@ function _extractId(valueString: string): string {
  * @ngModule FormsModule
  * @publicApi
  */
-// [Nimble] Remove configuration from @Directive decorator
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
-  // selector:
-  //   'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
-  // host: {'(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
-  // providers: [SELECT_VALUE_ACCESSOR],
+  selector:
+    'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
+  host: {'(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
+  providers: [SELECT_VALUE_ACCESSOR],
   standalone: false,
 })
+*/
+@Directive()
 export class SelectControlValueAccessor
   extends BuiltInControlValueAccessor
   implements ControlValueAccessor
