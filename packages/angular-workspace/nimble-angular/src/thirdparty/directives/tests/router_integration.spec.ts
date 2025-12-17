@@ -67,7 +67,7 @@ export function routerLinkIntegrationSpec() {
     beforeEach(() => {
       jasmine.clock().uninstall(); // [Nimble] Seems there is a conflict with zone.js if not uninstalled first
       jasmine.clock().install();
-      jasmine.clock().autoTick();
+      // jasmine.clock().autoTick(); // [Nimble] autoTick() not available in jasmine-core 4.x
     });
     afterEach(() => {
       jasmine.clock().uninstall();
