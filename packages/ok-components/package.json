@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-components",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "NI Ok Components",
   "scripts": {
     "build": "npm run build-components",
@@ -37,14 +37,14 @@
     "@ni/fast-element": "^10.0.0",
     "@ni/fast-foundation": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^34.10.1",
-    "@ni/spright-components": "^6.4.21",
+    "@ni/nimble-components": "^34.10.2",
+    "@ni/spright-components": "^6.4.22",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni-private/jasmine-extensions": "^0.0.1",
-    "@ni/jasmine-parameterized": "^1.0.6",
+    "@ni/jasmine-parameterized": "^1.0.7",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.0",

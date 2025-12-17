@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Wed, 17 Dec 2025 05:25:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.23
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/ok-components to v0.1.22
 
 ## 0.2.22
 

@@ -2,6 +2,27 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "0.2.23",
+      "tag": "@ni/ok-react_v0.2.23",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Bump typescript version in all packages (to 5.8.3)"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.22",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Dec 2025 05:25:49 GMT",
       "version": "0.2.22",
       "tag": "@ni/ok-react_v0.2.22",

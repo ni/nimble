@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "31.0.0",
+      "tag": "@ni/nimble-angular_v31.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Update Angular dependencies and forked files to v19.2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v34.10.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Dec 2025 22:42:37 GMT",
       "version": "30.12.1",
       "tag": "@ni/nimble-angular_v30.12.1",

@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.0
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Major changes
+
+- Update Angular dependencies and forked files to v19.2 ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/ok-components to v0.1.22
 
 ## 0.1.22
 

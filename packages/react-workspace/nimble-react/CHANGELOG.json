@@ -2,6 +2,33 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "0.7.12",
+      "tag": "@ni/nimble-react_v0.7.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Bump typescript version in all packages (to 5.8.3)"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.10.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-tokens to v8.13.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 13 Dec 2025 22:42:32 GMT",
       "version": "0.7.11",
       "tag": "@ni/nimble-react_v0.7.11",
