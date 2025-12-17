@@ -32,7 +32,10 @@
           "options": {
             "main": "nimble-angular/test.ts",
             "tsConfig": "nimble-angular/tsconfig.spec.json",
-            "karmaConfig": "nimble-angular/karma.conf.js"
+            "karmaConfig": "nimble-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
@@ -157,7 +160,8 @@
             },
             "index": "example-client-app/src/index.html",
             "polyfills": [
-              "example-client-app/src/polyfills.ts"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "example-client-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
