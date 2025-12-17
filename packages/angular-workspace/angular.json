@@ -177,6 +177,10 @@
           },
           "configurations": {
             "production": {
+              "outputPath": {
+                "base": "dist/example-client-app",
+                "browser": ""
+              },
               "budgets": [
                 {
                   "type": "initial",
