@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 import type { LabelProviderRichText } from '@ni/nimble-components/dist/esm/label-provider/rich-text';
 
-declare const $localize: (messageParts: TemplateStringsArray) => string;
-
 /**
  * Directive for nimble-label-provider-rich-text which will initialize all of the labels with $localize-tagged strings, for apps
  * using @angular/localize.
