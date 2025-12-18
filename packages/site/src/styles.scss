@@ -7,9 +7,18 @@ $rgb-ni-sky-light: #A5DDED;
 $rgb-labview: #FFC60B;
 $card-height: 4.5rem;
 
-
 body {
     margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.backdrop {
+    height: 100%;
+    width: 100%;
+    background-color: $ni-nimble-application-background-color;
+    position: fixed;
+    z-index: -1;
 }
 
 .container {
@@ -23,6 +32,85 @@ body {
 .main-content {
     grid-area: main;
     min-height: 50px;
+}
+
+.banner {
+    box-sizing: border-box;
+    margin-top: 10rem;
+    margin-bottom: 8rem;
+    min-width: 0;
+    width: 100%;
+}
+
+.banner-main {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 48rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.banner-main > p {
+    max-width: 40rem;
+    color: $ni-nimble-body-font-color;
+    font-family: $ni-nimble-body-font-family;
+    font-size: $ni-nimble-title-font-size;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, $card-height);
+    gap: 2rem;
+    row-gap: 8rem;
+    justify-items: center;
+    align-items: center;
+}
+
+.card-wrapper {
+    width: 23rem;
+    justify-content: left;
+    display: flex;
+}
+
+.card {
+    height: $card-height;
+    display: grid;
+    grid-template-areas: "icon name"
+        "icon description";
+    text-decoration: none;
+    grid-template-columns: 4rem auto;
+    column-gap: 2rem;
+    box-sizing: border-box;
+    margin: .5rem;
+    border-bottom: 3px solid transparent;
+    color: $ni-nimble-body-font-color;
+}
+
+.card:hover {
+    border-bottom-color: $ni-nimble-border-hover-color;
+    cursor: pointer;
+}
+
+.card .name {
+    grid-area: name;
+    font-family: $ni-nimble-headline-font-family;
+    font-size: $ni-nimble-headline-plus-1-font-size;
+    font-weight: $ni-nimble-headline-plus-1-font-weight;
+}
+
+.card .icon {
+    grid-area: icon;
+}
+
+.card .description {
+    grid-area: description;
+    font-family: $ni-nimble-body-font-family;
+    font-size: $ni-nimble-subtitle-plus-1-font-size;
+    font-weight: $ni-nimble-subtitle-plus-1-font-weight;
+    vertical-align: top;
 }
 
 .circle-wrapper {
@@ -61,6 +149,15 @@ circle {
     animation-play-state: paused;
 }
 
+// $colors:
+//     $ni-nimble-graph-trace-1-color,
+//     $ni-nimble-graph-trace-2-color,
+//     $ni-nimble-graph-trace-3-color,
+//     $ni-nimble-graph-trace-4-color,
+//     $ni-nimble-graph-trace-5-color,
+//     $ni-nimble-graph-trace-6-color,
+//     $ni-nimble-graph-trace-7-color;
+
 $colors:
     $ni-nimble-base-power-green,
     $ni-nimble-base-rgb-ni-green,
@@ -74,109 +171,6 @@ $colors:
     circle:nth-of-type(#{list.length($colors)}n+#{$i}) {
         stroke: list.nth($colors, $i);
     }
-}
-
-.banner {
-    box-sizing: border-box;
-    margin-top: 10rem;
-    margin-bottom: 8rem;
-    min-width: 0;
-    width: 100%;
-}
-
-.banner>.ni-logo {
-    text-align: right;
-    padding-right: 2rem;
-    padding-top: 2rem;
-}
-
-.banner-main {
-    align-items: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-flow: column nowrap;
-    max-width: 48rem;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.banner-main>p {
-    max-width: 40rem;
-    color: $ni-nimble-base-black-91;
-    font-family: $ni-nimble-body-font-family;
-    font-size: $ni-nimble-title-font-size;
-}
-
-h1 {
-    font-family: $ni-nimble-headline-font-family;
-    font-size: 6rem;
-    color: $ni-nimble-headline-font-color;
-    margin: 0;
-}
-
-.cards-container {
-    max-width: 60rem;
-    margin: 0 auto;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(2, $card-height);
-    gap: 2rem;
-    row-gap: 8rem;
-    justify-items: center;
-    align-items: center;
-}
-
-.card-wrapper {
-    width: 23rem;
-    justify-content: left;
-    display: flex;
-}
-
-.card {
-    height: $card-height;
-    display: grid;
-    grid-template-areas: "icon name"
-        "icon description";
-    text-decoration: none;
-    grid-template-columns: 4rem auto;
-    column-gap: 2rem;
-    box-sizing: border-box;
-    margin: .5rem;
-    border-bottom: 3px solid transparent;
-    color:$ni-nimble-base-black-91;
-}
-
-.card .name {
-    grid-area: name;
-    font-family: $ni-nimble-headline-font-family;
-    font-size: $ni-nimble-headline-plus-1-font-size;
-    font-weight: $ni-nimble-headline-plus-1-font-weight;
-}
-
-.card .icon {
-    grid-area: icon;
-}
-
-.card .description {
-    grid-area: description;
-    font-family: $ni-nimble-body-font-family;
-    font-size: $ni-nimble-subtitle-plus-1-font-size;
-    font-weight: $ni-nimble-subtitle-plus-1-font-weight;
-    vertical-align: top;
-}
-
-.card:hover {
-    border-bottom-color: $ni-nimble-base-digital-green-dark;
-    cursor: pointer;
-}
-
-.card:visited {
-    text-decoration: none;
-    color: inherit;
-    text-decoration-color: inherit;
 }
 
 @media screen and (max-width: 1600px) {
@@ -203,7 +197,7 @@ h1 {
         flex-direction: column;
         row-gap: 4rem;
     }
-    .circle-wrapper{
+    .circle-wrapper {
         right: 70%;
     }
 }
