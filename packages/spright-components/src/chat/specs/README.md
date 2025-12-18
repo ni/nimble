@@ -174,11 +174,11 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 ```html
 <spright-chat-conversation>
     <spright-chat-message message-type="system">
-        <spright-chat-message-welcome-content>
+        <spright-chat-welcome-message-content>
             <nimble-anchor-button appearance="block" appearance-variant="primary" href="/login">
                 Login
             </nimble-anchor-button>
-        </spright-chat-message-welcome-content>
+        </spright-chat-welcome-message-content>
     </spright-chat-message>
 </spright-chat-conversation>
 ```
@@ -224,7 +224,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 #### Message welcome content
 
-- _Component Name_ `spright-chat-message-welcome-content`
+- _Component Name_ `spright-chat-welcome-message-content`
 - _Props/Attrs_
     - User-visible strings will be be specified via the chat label provider.
 - _Methods_
@@ -404,7 +404,7 @@ that changes before the feature is available in all supported browsers, we will 
 
 The template will simply contain a `span` and a `nimble-anchor` with contents populated by label provider strings.
 
-Most styling can be achieved with existing tokens and APIs. The visual design calls for some anchor styling which is not available today (grey link text, smaller font size). Since this is the only known use case for this design, we can implement it by overriding anchor token values in the disclaimer component rather than adding new public API to the anchor.
+Most styling can be achieved with existing tokens and APIs. The visual design calls for some anchor styling which is not available today (grey text, smaller font size). Since this is the only known use case for this design, we can implement it by overriding anchor token values in the disclaimer component rather than adding new public API to the anchor.
 
 We can use [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/ChatbotViewFooter.razor) for reference.
 
