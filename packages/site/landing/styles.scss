@@ -1,3 +1,4 @@
+@use 'sass:list';
 @use "@ni/nimble-tokens/dist/styledictionary/scss/variables" as *;
 @use "@ni/nimble-components/dist/fonts" as *;
 @use "@ni/nimble-components/dist/tokens" as *;
@@ -69,9 +70,9 @@ $colors:
     $ni-nimble-base-ni-sky,
     $rgb-labview;
 
-@for $i from 1 through length($colors) {
-    circle:nth-of-type(#{length($colors)}n+#{$i}) {
-        stroke: nth($colors, $i);
+@for $i from 1 through list.length($colors) {
+    circle:nth-of-type(#{list.length($colors)}n+#{$i}) {
+        stroke: list.nth($colors, $i);
     }
 }
 
