@@ -114,6 +114,10 @@ These components are competing against possible implementations within applicati
 
 ![ ](spec-images/chat-conversation.png)
 
+**Screenshot of Figma design of chat welcome message when login is visible (light mode)**
+
+![ ](spec-images/chat-welcome-login.png)
+
 **Screenshot of Figma design of chat input component (light mode)**
 
 ![ ](spec-images/chat-input.png)
