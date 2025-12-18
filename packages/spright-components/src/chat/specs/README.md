@@ -173,8 +173,12 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-message message-type="inbound">
-        <spright-chat-message-welcome-content login-visible login-href="/login"></spright-chat-message-welcome-content>
+    <spright-chat-message message-type="system">
+        <spright-chat-message-welcome-content>
+            <nimble-anchor-button appearance="block" appearance-variant="primary" href="/login">
+                Login
+            </nimble-anchor-button>
+        </spright-chat-message-welcome-content>
     </spright-chat-message>
 </spright-chat-conversation>
 ```
@@ -188,6 +192,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     <nimble-button appearance="block" slot="end">Provide me some life advice</nimble-button>
 </spright-chat-message>
 ```
+
 
 #### Input example
 
