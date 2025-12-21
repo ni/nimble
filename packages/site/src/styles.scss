@@ -105,6 +105,72 @@ body {
     grid-area: icon;
 }
 
+.icon {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-angular {
+    background-image: url('./images/angular-light.svg');
+}
+
+nimble-theme-provider[theme="dark"] .icon-angular {
+    background-image: url('./images/angular-dark.svg');
+}
+
+.icon-blazor {
+    background-image: url('./images/blazor-light.svg');
+}
+
+nimble-theme-provider[theme="dark"] .icon-blazor {
+    background-image: url('./images/blazor-dark.svg');
+}
+
+.icon-figma {
+    background-image: url('./images/figma-light.svg');
+}
+
+nimble-theme-provider[theme="dark"] .icon-figma {
+    background-image: url('./images/figma-dark.svg');
+}
+
+.icon-github {
+    background-image: url('./images/github-light.svg');
+}
+
+nimble-theme-provider[theme="dark"] .icon-github {
+    background-image: url('./images/github-dark.svg');
+}
+
+.icon-nimble {
+    width: 326px;
+    height: 97px;
+    background-image: url('./images/nimble-light.svg');
+}
+
+nimble-theme-provider[theme="dark"] .icon-nimble {
+    background-image: url('./images/nimble-dark.svg');
+}
+
+.icon-react {
+    background-image: url('./images/react-light.svg');
+}
+
+nimble-theme-provider[theme="dark"] .icon-react {
+    background-image: url('./images/react-dark.svg');
+}
+
+.icon-storybook {
+    background-image: url('./images/storybook-light.svg');
+}
+
+nimble-theme-provider[theme="dark"] .icon-storybook {
+    background-image: url('./images/storybook-dark.svg');
+}
+
 .card .description {
     grid-area: description;
     font-family: $ni-nimble-body-font-family;

@@ -14,7 +14,6 @@
     "devDependencies": {
         "@ni-private/angular-workspace": "*",
         "@ni-private/blazor-workspace": "*",
-        "@ni/nimble-components": "*",
         "@ni-private/eslint-config-nimble": "*",
         "@ni-private/performance": "*",
         "@ni-private/react-client-app": "*",
@@ -22,6 +21,9 @@
         "typescript": "~5.8.3",
         "vite": "^7.0.0",
         "vite-plugin-static-copy": "^3.1.4"
+    },
+    "dependencies": {
+        "@ni/nimble-components": "*"
     },
     "files": [
         "dist",
