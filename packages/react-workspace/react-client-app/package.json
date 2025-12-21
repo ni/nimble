@@ -1,15 +1,14 @@
 {
   "name": "@ni-private/react-client-app",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "check": "tsc -b",
-    "build": "npm run check && vite build",
+    "start": "vite",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "format": "eslint . --fix",
-    "preview": "vite preview"
+    "pack": "npm pack"
   },
   "dependencies": {
     "@ni/nimble-react": "*",
