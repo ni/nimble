@@ -17,6 +17,7 @@ import {
     Divider,
     Tag
 } from './blocks/StoryLayout';
+import { theme } from './theme';
 
 SyntaxHighlighter.registerLanguage('cs', csharp);
 
@@ -77,7 +78,8 @@ const parameters = {
             Frame,
             Divider,
             Tag
-        }
+        },
+        theme
     }
 };
 
