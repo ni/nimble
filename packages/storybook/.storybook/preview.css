@@ -4,12 +4,6 @@ by the storybook.ts createStory helpers */
     display: contents;
 }
 
-/* background plugin renders on a transition resulting in a flash between modes
-see: https://github.com/storybookjs/storybook/issues/17122#issuecomment-1031421267 */
-body {
-    transition: none;
-}
-
 /* doc pages skeleton not theme aware
 see: https://github.com/storybookjs/storybook/discussions/26088 */
 @media (prefers-color-scheme: dark) {
