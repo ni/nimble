@@ -9,13 +9,11 @@ see: https://github.com/storybookjs/storybook/discussions/26088 */
 @media (prefers-color-scheme: dark) {
     .sb-wrapper,
     .sb-previewBlock_body,
-    .sb-previewBlock_header
-    {
-        background-color:black;
+    .sb-previewBlock_header {
+        background-color: black;
     }
 
-    .sb-argstableBlock-body td
-    {
+    .sb-argstableBlock-body td {
         background: gray;
     }
 }
