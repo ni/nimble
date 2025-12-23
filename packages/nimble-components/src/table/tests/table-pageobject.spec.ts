@@ -27,7 +27,6 @@ const simpleTableData = [
     }
 ] as const;
 
-// prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag}>

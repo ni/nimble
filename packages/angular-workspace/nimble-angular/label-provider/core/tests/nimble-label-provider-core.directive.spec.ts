@@ -30,7 +30,8 @@ describe('Nimble Label Provider Core', () => {
         @Component({
             template: `
                 <nimble-label-provider-core #labelProvider></nimble-label-provider-core>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderCoreDirective }) public directive: NimbleLabelProviderCoreDirective;
@@ -125,7 +126,8 @@ describe('Nimble Label Provider Core', () => {
                     scroll-forward="${label11}"
                     >
                 </nimble-label-provider-core>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderCoreDirective }) public directive: NimbleLabelProviderCoreDirective;
@@ -220,7 +222,8 @@ describe('Nimble Label Provider Core', () => {
                     [scrollForward]="scrollForward"
                     >
                 </nimble-label-provider-core>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderCoreDirective }) public directive: NimbleLabelProviderCoreDirective;
@@ -392,7 +395,8 @@ describe('Nimble Label Provider Core', () => {
                     [attr.scroll-forward]="scrollForward"
                     >
                 </nimble-label-provider-core>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderCoreDirective }) public directive: NimbleLabelProviderCoreDirective;

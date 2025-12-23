@@ -21,7 +21,8 @@ describe('Nimble menu item', () => {
         @Component({
             template: `
                 <nimble-menu-item #menuItem></nimble-menu-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuItem', { read: NimbleMenuItemDirective }) public directive: NimbleMenuItemDirective;
@@ -55,7 +56,8 @@ describe('Nimble menu item', () => {
                 <nimble-menu-item #menuItem
                     disabled
                 ></nimble-menu-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuItem', { read: NimbleMenuItemDirective }) public directive: NimbleMenuItemDirective;
@@ -89,7 +91,8 @@ describe('Nimble menu item', () => {
                 <nimble-menu-item #menuItem
                     [disabled]="disabled"
                 ></nimble-menu-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuItem', { read: NimbleMenuItemDirective }) public directive: NimbleMenuItemDirective;
@@ -131,7 +134,8 @@ describe('Nimble menu item', () => {
                 <nimble-menu-item #menuItem
                     [attr.disabled]="disabled">
                 </nimble-menu-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuItem', { read: NimbleMenuItemDirective }) public directive: NimbleMenuItemDirective;

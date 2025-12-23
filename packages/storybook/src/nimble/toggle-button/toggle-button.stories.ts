@@ -100,7 +100,6 @@ const metadata: Meta<ToggleButtonArgs> = {
             control: false
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${toggleButtonTag}
             ?checked="${x => x.checked}"

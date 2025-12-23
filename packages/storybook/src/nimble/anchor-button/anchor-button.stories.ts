@@ -38,7 +38,6 @@ const metadata: Meta<AnchorButtonArgs> = {
     parameters: {
         actions: {}
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${anchorButtonTag}
             href=${x => (x.href !== '' ? x.href : null)}

@@ -9,7 +9,8 @@ export { cardButtonTag };
  * Directive to provide Angular integration for the card button.
  */
 @Directive({
-    selector: 'nimble-card-button'
+    selector: 'nimble-card-button',
+    standalone: false
 })
 export class NimbleCardButtonDirective {
     public get disabled(): boolean {

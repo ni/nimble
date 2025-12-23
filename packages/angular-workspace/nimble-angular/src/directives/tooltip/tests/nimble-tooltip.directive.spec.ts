@@ -29,7 +29,8 @@ describe('Nimble tooltip', () => {
         @Component({
             template: `
                 <nimble-tooltip #target></nimble-tooltip>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('target', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
@@ -81,7 +82,8 @@ describe('Nimble tooltip', () => {
                     severity="information"
                     icon-visible
                 >
-                </nimble-tooltip>`
+                </nimble-tooltip>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('target', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
@@ -134,7 +136,8 @@ describe('Nimble tooltip', () => {
                     [icon-visible]="iconVisible"
                 >
                 </nimble-tooltip>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('target', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;
@@ -215,7 +218,8 @@ describe('Nimble tooltip', () => {
                     [attr.icon-visible]="iconVisible"
                 >
                 </nimble-tooltip>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('target', { read: NimbleTooltipDirective }) public directive: NimbleTooltipDirective;

@@ -28,7 +28,8 @@ const trackedItems = [
     'columnWidths',
     'columnDefinition',
     'actionMenuSlots',
-    'selectionMode'
+    'selectionMode',
+    'actionMenusPreserveSelection'
 ] as const;
 
 /**
@@ -78,6 +79,10 @@ export class TableUpdateTracker<
 
     public get updateSelectionMode(): boolean {
         return this.isTracked('selectionMode');
+    }
+
+    public get updateActionMenusPreserveSelection(): boolean {
+        return this.isTracked('actionMenusPreserveSelection');
     }
 
     public get requiresTanStackUpdate(): boolean {
@@ -194,6 +199,11 @@ export class TableUpdateTracker<
 
     public trackSelectionModeChanged(): void {
         this.track('selectionMode');
+        this.queueUpdate();
+    }
+
+    public trackActionMenusPreserveSelectionChanged(): void {
+        this.track('actionMenusPreserveSelection');
         this.queueUpdate();
     }
 

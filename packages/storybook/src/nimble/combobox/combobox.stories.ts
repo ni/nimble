@@ -102,7 +102,6 @@ const metadata: Meta<ComboboxArgs> = {
             zoom: { hidden: true }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
         <${comboboxTag}

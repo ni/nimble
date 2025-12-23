@@ -21,7 +21,6 @@ async function setup(): Promise<Fixture<RichTextViewer>> {
 
 async function setupMentionConfig(): Promise<Fixture<RichTextViewer>> {
     return await fixture<RichTextViewer>(
-        // prettier-ignore
         html`<${richTextViewerTag}>
             <${richTextMentionUsersTag} pattern="^user:(.*)">
                 <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>

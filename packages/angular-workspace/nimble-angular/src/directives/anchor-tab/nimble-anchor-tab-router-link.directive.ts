@@ -5,7 +5,10 @@ import { Directive } from '@angular/core';
  *
  * @see NimbleAnchorTabRouterLinkWithHrefDirective
  */
-@Directive({ selector: 'nimble-anchor-tab[routerLink]' })
+@Directive({
+    selector: 'nimble-anchor-tab[routerLink]',
+    standalone: false
+})
 export class NimbleAnchorTabRouterLinkDirective {
     public constructor() {
         throw new Error('Use [nimbleRouterLink] instead of [routerLink].');

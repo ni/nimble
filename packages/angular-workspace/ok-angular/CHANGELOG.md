@@ -1,8 +1,99 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.0
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Major changes
+
+- Update Angular dependencies and forked files to v19.2 ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/ok-components to v0.1.22
+
+## 0.1.22
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.21
+
+## 0.1.21
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.20
+
+## 0.1.20
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.19
+
+## 0.1.19
+
+Tue, 09 Dec 2025 00:59:48 GMT
+
+### Patches
+
+- Add "standalone: false" to every directive, component, pipe decorator ([ni/nimble@b8d39ab](https://github.com/ni/nimble/commit/b8d39ab52baa53977f131fc2631ee55241cdda9f))
+
+## 0.1.18
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.18
+
+## 0.1.17
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.17
+
+## 0.1.16
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.16
+
+## 0.1.15
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/ok-components to v0.1.15
+
+## 0.1.14
+
+Thu, 04 Dec 2025 19:09:56 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.14
+
+## 0.1.12
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/ok-components to v0.1.12
 
 ## 0.1.10
 

@@ -15,9 +15,9 @@ export { dialogTag };
  * ```
  */
 @Directive({
-    selector: 'nimble-dialog'
+    selector: 'nimble-dialog',
+    standalone: false
 })
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export class NimbleDialogDirective<CloseReason = void> {
     public get preventDismiss(): boolean {
         return this.elementRef.nativeElement.preventDismiss;

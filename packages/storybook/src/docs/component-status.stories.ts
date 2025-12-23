@@ -6,7 +6,6 @@ import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-colu
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
 import { iconTriangleTag } from '@ni/nimble-components/dist/esm/icons/triangle';
-import { iconTriangleFilledTag } from '@ni/nimble-components/dist/esm/icons/triangle-filled';
 import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { ComponentFrameworkStatus } from './types';
@@ -15,12 +14,12 @@ import {
     fastParameters
 } from '../utilities/storybook';
 
-const statusOptions = ['active', 'future'] as const;
+const libraryOptions = ['nimble', 'spright', 'ok', 'future'] as const;
 
 interface TableArgs {
     tableRef: Table;
     updateData: (args: TableArgs) => void;
-    status: (typeof statusOptions)[number];
+    library: (typeof libraryOptions)[number];
 }
 
 const components = [
@@ -30,7 +29,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A89225&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/533',
-        issueLabel: 'Issue',
+        issueLabel: '#533',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -42,7 +42,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A76992&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/324',
-        issueLabel: 'Issue',
+        issueLabel: '#324',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -54,7 +55,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A82309&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/324',
-        issueLabel: 'Issue',
+        issueLabel: '#324',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -66,7 +68,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/479',
-        issueLabel: 'Issue',
+        issueLabel: '#479',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -76,7 +79,8 @@ const components = [
         componentHref:
             './?path=/docs/components-tree-view--docs#anchor-tree-item',
         issueHref: 'https://github.com/ni/nimble/issues/562',
-        issueLabel: 'Issue',
+        issueLabel: '#562',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -84,7 +88,8 @@ const components = [
     {
         componentName: 'Badge',
         issueHref: 'https://github.com/ni/nimble/issues/1428',
-        issueLabel: 'Issue',
+        issueLabel: '#1428',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -96,7 +101,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A65855&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/305',
-        issueLabel: 'Issue',
+        issueLabel: '#305',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -108,7 +114,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/343',
-        issueLabel: 'Issue',
+        issueLabel: '#343',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -120,7 +127,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=5069%3A8503&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/296',
-        issueLabel: 'Issue',
+        issueLabel: '#296',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
         blazorStatus: ComponentFrameworkStatus.incubating
@@ -132,7 +140,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d4ebeb5d-023c-4ff2-a71c-f6385fffca20',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/643',
-        issueLabel: 'Issue',
+        issueLabel: '#643',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -143,7 +152,8 @@ const components = [
         designHref:
             'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0',
         designLabel: 'Figma',
-        componentStatus: ComponentFrameworkStatus.spright,
+        library: 'spright',
+        componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
     },
@@ -153,6 +163,7 @@ const components = [
         designHref:
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A64589&mode=dev',
         designLabel: 'Figma',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -163,6 +174,7 @@ const components = [
         designHref:
             'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2227-78839&p=f&t=jqn5mzroV2yUvbvC-0',
         designLabel: 'Figma',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -174,7 +186,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2229%3A79038&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/341',
-        issueLabel: 'Issue',
+        issueLabel: '#341',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -182,7 +195,8 @@ const components = [
     {
         componentName: 'Date picker',
         issueHref: 'https://github.com/ni/nimble/issues/342',
-        issueLabel: 'Issue',
+        issueLabel: '#342',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -190,7 +204,8 @@ const components = [
     {
         componentName: 'Date Time Text',
         issueHref: 'https://github.com/ni/nimble/issues/294',
-        issueLabel: 'Issue',
+        issueLabel: '#294',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -202,7 +217,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/378',
-        issueLabel: 'Issue',
+        issueLabel: '#378',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -213,6 +229,7 @@ const components = [
         designHref:
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff',
         designLabel: 'XD',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -220,7 +237,8 @@ const components = [
     {
         componentName: 'Filter Builder (Query Builder)',
         issueHref: 'https://github.com/ni/nimble/issues/310',
-        issueLabel: 'Issue',
+        issueLabel: '#310',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -231,6 +249,7 @@ const components = [
         designHref:
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece',
         designLabel: 'XD',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -242,7 +261,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/300',
-        issueLabel: 'Issue',
+        issueLabel: '#300',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -250,6 +270,7 @@ const components = [
     {
         componentName: 'Icons',
         componentHref: './?path=/docs/components-icons--docs',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -257,7 +278,8 @@ const components = [
     {
         componentName: 'Label',
         issueHref: 'https://github.com/ni/nimble/issues/312',
-        issueLabel: 'Issue',
+        issueLabel: '#312',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -268,6 +290,7 @@ const components = [
         designHref:
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1317%3A31514&mode=dev',
         designLabel: 'Figma',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -279,7 +302,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/300',
-        issueLabel: 'Issue',
+        issueLabel: '#300',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -291,7 +315,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A47482&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/361',
-        issueLabel: 'Issue',
+        issueLabel: '#361',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -302,7 +327,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/18a0e4f6-6541-4420-a6b5-cb79652a97dc/',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/458',
-        issueLabel: 'Issue',
+        issueLabel: '#458',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -310,7 +336,8 @@ const components = [
     {
         componentName: 'Progress Bar',
         issueHref: 'https://github.com/ni/nimble/issues/304',
-        issueLabel: 'Issue',
+        issueLabel: '#304',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -318,7 +345,8 @@ const components = [
     {
         componentName: 'Query Builder',
         issueHref: 'https://github.com/ni/nimble/issues/506',
-        issueLabel: 'Issue',
+        issueLabel: '#506',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -330,7 +358,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A64589&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/297',
-        issueLabel: 'Issue',
+        issueLabel: '#297',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -342,7 +371,8 @@ const components = [
             'https://www.figma.com/design/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?node-id=6280-94045&m=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/1288',
-        issueLabel: 'Issue',
+        issueLabel: '#1288',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -354,10 +384,11 @@ const components = [
             'https://www.figma.com/design/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?node-id=6280-94045&m=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/1288',
-        issueLabel: 'Issue',
+        issueLabel: '#1288',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.incubating
     },
     {
         componentName: 'Search Field',
@@ -365,7 +396,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1507%3A44702&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/299',
-        issueLabel: 'Issue',
+        issueLabel: '#299',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -376,6 +408,7 @@ const components = [
         designHref:
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e',
         designLabel: 'XD',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -383,7 +416,8 @@ const components = [
     {
         componentName: 'Skeleton',
         issueHref: 'https://github.com/ni/nimble/issues/762',
-        issueLabel: 'Issue',
+        issueLabel: '#762',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -394,7 +428,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/29d3a5f7-9eed-498c-9957-2cd495458e3b',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/295',
-        issueLabel: 'Issue',
+        issueLabel: '#295',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -406,7 +441,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2086%3A78099&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/346',
-        issueLabel: 'Issue',
+        issueLabel: '#346',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -414,7 +450,8 @@ const components = [
     {
         componentName: 'Split Button',
         issueHref: 'https://github.com/ni/nimble/issues/1523',
-        issueLabel: 'Issue',
+        issueLabel: '#1523',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -422,7 +459,8 @@ const components = [
     {
         componentName: 'Stepper',
         issueHref: 'https://github.com/ni/nimble/issues/624',
-        issueLabel: 'Issue',
+        issueLabel: '#624',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -434,7 +472,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1672%3A73506&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/387',
-        issueLabel: 'Issue',
+        issueLabel: '#387',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -446,7 +485,8 @@ const components = [
             'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/',
         designLabel: 'XD',
         issueHref: 'https://github.com/orgs/ni/projects/11',
-        issueLabel: 'Issue',
+        issueLabel: 'project #11',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -457,6 +497,7 @@ const components = [
         designHref:
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A70711&mode=dev',
         designLabel: 'Figma',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -467,6 +508,7 @@ const components = [
         designHref:
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A82309&mode=dev',
         designLabel: 'Figma',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -477,6 +519,7 @@ const components = [
         designHref:
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7c146e4b-c7c9-4975-a158-10e6093c522d',
         designLabel: 'XD',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -487,6 +530,7 @@ const components = [
         designHref:
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A47516&mode=dev',
         designLabel: 'Figma',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -497,7 +541,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A68679&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/513',
-        issueLabel: 'Issue',
+        issueLabel: '#513',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -508,7 +553,8 @@ const components = [
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece',
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/298',
-        issueLabel: 'Issue',
+        issueLabel: '#298',
+        library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
@@ -520,6 +566,7 @@ const components = [
         designHref:
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/',
         designLabel: 'XD',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -528,7 +575,8 @@ const components = [
         componentName: 'Toolbar',
         componentHref: './?path=/docs/components-toolbar--docs',
         issueHref: 'https://github.com/ni/nimble/issues/411',
-        issueLabel: 'Issue',
+        issueLabel: '#411',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -540,7 +588,8 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1347%3A40392&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/309',
-        issueLabel: 'Issue',
+        issueLabel: '#309',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
         blazorStatus: ComponentFrameworkStatus.incubating
@@ -551,6 +600,7 @@ const components = [
         designHref:
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1372%3A32423&mode=dev',
         designLabel: 'Figma',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
@@ -559,7 +609,8 @@ const components = [
         componentName: 'Wafer Map',
         componentHref: './?path=/docs/incubating-wafer-map--docs',
         issueHref: 'https://github.com/ni/nimble/issues/924',
-        issueLabel: 'Issue',
+        issueLabel: '#924',
+        library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.incubating
@@ -568,7 +619,6 @@ const components = [
 
 const iconMappings = html`
     <${mappingIconTag} key="${ComponentFrameworkStatus.ready}" text="Ready" icon="${iconCheckTag}" severity="success" text-hidden></${mappingIconTag}>
-    <${mappingIconTag} key="${ComponentFrameworkStatus.spright}" text="Spright" icon="${iconTriangleFilledTag}" severity="success"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.incubating}" text="Incubating" icon="${iconTriangleTag}" severity="warning"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.doesNotExist}" text="Does not exist" icon="${iconXmarkTag}" severity="error"></${mappingIconTag}>
 `;
@@ -580,7 +630,6 @@ const metadata: Meta<TableArgs> = {
     parameters: {
         ...fastParameters()
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <style class="code-hide">
             ${tableTag} {
@@ -617,7 +666,7 @@ const metadata: Meta<TableArgs> = {
             <${tableColumnMappingTag}
                 column-id="component-status-column"
                 field-name="componentStatus"
-                ?column-hidden="${x => x.status === 'future'}"
+                ?column-hidden="${x => x.library === 'future'}"
             >
                 Web Component
                 ${iconMappings}
@@ -625,7 +674,7 @@ const metadata: Meta<TableArgs> = {
             <${tableColumnMappingTag}
                 column-id="angular-status-column"
                 field-name="angularStatus"
-                ?column-hidden="${x => x.status === 'future'}"
+                ?column-hidden="${x => x.library === 'future'}"
             >
                 Angular
                 ${iconMappings}
@@ -633,12 +682,11 @@ const metadata: Meta<TableArgs> = {
             <${tableColumnMappingTag}
                 column-id="blazor-status-column"
                 field-name="blazorStatus"
-                ?column-hidden="${x => x.status === 'future'}"
+                ?column-hidden="${x => x.library === 'future'}"
             >
                 Blazor
                 ${iconMappings}
             </${tableColumnMappingTag}>
-
         </${tableTag}>
     `),
     argTypes: {
@@ -652,8 +700,8 @@ const metadata: Meta<TableArgs> = {
                 disable: true
             }
         },
-        status: {
-            options: [...statusOptions],
+        library: {
+            options: [...libraryOptions],
             control: {
                 type: 'radio'
             }
@@ -665,22 +713,23 @@ const metadata: Meta<TableArgs> = {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
+                const libraryComponents = components.filter(
+                    component => component.library === x.library
+                );
                 await customElements.whenDefined(tableTag);
-                const isFuture = (
-                    component: (typeof components)[number]
-                ): boolean => component.angularStatus
-                        === ComponentFrameworkStatus.doesNotExist
-                    && component.blazorStatus
-                        === ComponentFrameworkStatus.doesNotExist
-                    && component.componentStatus
-                        === ComponentFrameworkStatus.doesNotExist;
-                const data = components.filter(component => (x.status === 'future'
-                    ? isFuture(component)
-                    : !isFuture(component)));
-                await x.tableRef.setData(data);
+                await x.tableRef.setData(
+                    libraryComponents.length > 0
+                        ? libraryComponents
+                        : [
+                            {
+                                componentName:
+                                      'No components found for this library'
+                            }
+                        ]
+                );
             })();
         },
-        status: statusOptions[0]
+        library: 'nimble'
     }
 };
 
@@ -693,12 +742,32 @@ export const componentStatus: StoryObj<TableArgs> = {
     }
 };
 
+export const componentStatusSpright: StoryObj<TableArgs> = {
+    parameters: {
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
+    },
+    args: {
+        library: 'spright'
+    }
+};
+
+export const componentStatusOk: StoryObj<TableArgs> = {
+    parameters: {
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
+    },
+    args: {
+        library: 'ok'
+    }
+};
+
 export const componentStatusFuture: StoryObj<TableArgs> = {
     parameters: {
         // Story used by documentation, not needed for visual comparison.
         chromatic: { disableSnapshot: true }
     },
     args: {
-        status: 'future'
+        library: 'future'
     }
 };

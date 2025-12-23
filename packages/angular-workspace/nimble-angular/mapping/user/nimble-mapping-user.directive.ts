@@ -10,7 +10,8 @@ export { mappingUserTag };
  * Directive to provide Angular integration for the mapping user element used by the rich-text-mention-users element.
  */
 @Directive({
-    selector: 'nimble-mapping-user'
+    selector: 'nimble-mapping-user',
+    standalone: false
 })
 export class NimbleMappingUserDirective extends NimbleMappingDirective<MappingUserKey> {
     public get displayName(): string | undefined {

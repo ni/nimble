@@ -1,8 +1,89 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.7.22
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.22
+
+## 4.7.21
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.21
+
+## 4.7.20
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Patches
+
+- Adopt turborepo build ([ni/nimble@806acad](https://github.com/ni/nimble/commit/806acadef5963de6fb99720d2bf558d93a6965b4))
+- Bump @ni/spright-components to v6.4.20
+
+## 4.7.19
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.19
+
+## 4.7.18
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.18
+
+## 4.7.17
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.17
+
+## 4.7.16
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.16
+
+## 4.7.15
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.15
+
+## 4.7.14
+
+Thu, 04 Dec 2025 19:09:56 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.14
+
+## 4.7.12
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.12
 
 ## 4.7.10
 

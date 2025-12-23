@@ -3,6 +3,7 @@ import { type Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import type { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableActionMenuToggleEventDetail, TableRowSelectionEventDetail, TableColumnConfigurationChangeEventDetail, TableColumnConfiguration, TableRowExpansionToggleEventDetail, TableSetRecordHierarchyOptions, TableRecordHierarchyOptions } from '@ni/nimble-components/dist/esm/table/types';
 import { TableRowSelectionMode, TableRecordDelayedHierarchyState } from '@ni/nimble-components/dist/esm/table/types';
 import type { Observable, Subscription } from 'rxjs';
+import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Table };
 export { tableTag };
@@ -13,7 +14,8 @@ export { type TableRecord, type TableFieldName, type TableFieldValue, type Table
  * Directive to provide Angular integration for the table element.
  */
 @Directive({
-    selector: 'nimble-table'
+    selector: 'nimble-table',
+    standalone: false
 })
 export class NimbleTableDirective<TData extends TableRecord = TableRecord> implements OnDestroy {
     public get data$(): Observable<TData[]> | undefined {
@@ -64,6 +66,14 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
 
     @Input('selection-mode') public set selectionMode(value: TableRowSelectionMode) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
+    }
+
+    public get actionMenusPreserveSelection(): BooleanValueOrAttribute {
+        return this.elementRef.nativeElement.actionMenusPreserveSelection;
+    }
+
+    @Input('action-menus-preserve-selection') public set actionMenusPreserveSelection(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenusPreserveSelection', toBooleanProperty(value));
     }
 
     public get validity(): TableValidity {

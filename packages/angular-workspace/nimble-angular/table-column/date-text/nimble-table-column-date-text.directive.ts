@@ -44,7 +44,8 @@ export { tableColumnDateTextTag };
  * Directive to provide Angular integration for the table column element for date text.
  */
 @Directive({
-    selector: 'nimble-table-column-date-text'
+    selector: 'nimble-table-column-date-text',
+    standalone: false
 })
 export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDirective<TableColumnDateText> {
     public get fieldName(): string | undefined {

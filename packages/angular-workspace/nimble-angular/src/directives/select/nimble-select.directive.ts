@@ -13,6 +13,7 @@ export { selectTag };
  */
 @Directive({
     selector: 'nimble-select',
+    standalone: false
 })
 export class NimbleSelectDirective {
     public get appearance(): DropdownAppearance {

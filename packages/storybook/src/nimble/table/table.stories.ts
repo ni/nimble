@@ -68,6 +68,7 @@ addLabelUseMetadata(metadata, labelProviderTableTag);
 
 interface TableArgs extends BaseTableArgs {
     selectionMode: keyof typeof TableRowSelectionMode;
+    actionMenusPreserveSelection: boolean;
     idFieldName: undefined;
     parentIdFieldName: undefined;
     validity: undefined;
@@ -274,7 +275,6 @@ const fitRowsHeightDescription = `Style the table with ${scssPropertySetterMarkd
 See the **Sizing** section for information on sizing the table.`;
 
 export const table: StoryObj<TableArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <style class="code-hide">
             nimble-table {
@@ -284,6 +284,7 @@ export const table: StoryObj<TableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
+            ?action-menus-preserve-selection="${x => x.actionMenusPreserveSelection}"
             id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
@@ -351,6 +352,13 @@ export const table: StoryObj<TableArgs> = {
             description:
                 'Controls whether the table supports selecting a single row at a time, multiple rows at a time, or no rows. When selection is enabled, `id-field-name` must be specified.',
             control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
+        },
+        actionMenusPreserveSelection: {
+            name: 'action-menus-preserve-selection',
+            description:
+                'When present, action menus will preserve the current selection instead of changing it. When absent (default), opening action menus will automatically select the row.',
+            control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
         getSelectedRecordIds: {
@@ -507,6 +515,7 @@ export const table: StoryObj<TableArgs> = {
     args: {
         data: ExampleDataType.simpleData,
         selectionMode: TableRowSelectionMode.single,
+        actionMenusPreserveSelection: false,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
@@ -529,7 +538,6 @@ interface DelayedHierarchyTableArgs extends BaseTableArgs {
 }
 
 export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<DelayedHierarchyTableArgs>`
         <${tableTag}
             ${ref('tableRef')}

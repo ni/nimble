@@ -93,6 +93,9 @@ export class Table<
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
+    @attr({ attribute: 'action-menus-preserve-selection', mode: 'boolean' })
+    public actionMenusPreserveSelection = false;
+
     /**
      * @internal
      */
@@ -290,18 +293,18 @@ export class Table<
     private readonly borderWidthSubscriber: DesignTokenSubscriber<
         typeof borderWidth
     > = {
-            handleChange: () => {
-                this.updateRowHeight();
-            }
-        };
+        handleChange: () => {
+            this.updateRowHeight();
+        }
+    };
 
     private readonly controlHeightSubscriber: DesignTokenSubscriber<
         typeof controlHeight
     > = {
-            handleChange: () => {
-                this.updateRowHeight();
-            }
-        };
+        handleChange: () => {
+            this.updateRowHeight();
+        }
+    };
 
     private actionMenuSlots: string[] = [];
 
@@ -344,7 +347,8 @@ export class Table<
         this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
-            this.selectionMode
+            this.selectionMode,
+            this.actionMenusPreserveSelection
         );
         this.expansionManager = new ExpansionManager(this.table);
     }
@@ -686,6 +690,12 @@ export class Table<
             this.updateActionMenuSlots();
         }
 
+        if (this.tableUpdateTracker.updateActionMenusPreserveSelection) {
+            this.selectionManager.handleActionMenusPreserveSelectionChanged(
+                this.actionMenusPreserveSelection
+            );
+        }
+
         if (this.tableUpdateTracker.updateColumnWidths) {
             this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
             this.visibleColumns = this.columns.filter(
@@ -766,6 +776,17 @@ export class Table<
         this.tableUpdateTracker.trackSelectionModeChanged();
     }
 
+    protected actionMenusPreserveSelectionChanged(
+        _prev: boolean,
+        _next: boolean
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.tableUpdateTracker.trackActionMenusPreserveSelectionChanged();
+    }
+
     protected idFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
@@ -820,13 +841,14 @@ export class Table<
         const selectionChanged = this.selectionManager.handleActionMenuOpening(
             this.tableData[rowIndex]
         );
+
         if (selectionChanged) {
             await this.emitSelectionChangeEvent();
         }
 
-        this.openActionMenuRecordId = event.detail.recordIds[0];
+        this.openActionMenuRecordId = event.detail.operatingRecordId;
         this.updateRequestedSlotsForOpeningActionMenu(
-            this.openActionMenuRecordId!
+            this.openActionMenuRecordId
         );
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
@@ -846,9 +868,15 @@ export class Table<
     private async getActionMenuToggleEventDetail(
         originalEvent: CustomEvent<TableActionMenuToggleEventDetail>
     ): Promise<TableActionMenuToggleEventDetail> {
-        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
-            ? await this.getSelectedRecordIds()
-            : [this.openActionMenuRecordId!];
+        let recordIds: string[];
+        if (
+            this.selectionMode === TableRowSelectionMode.multiple
+            || this.actionMenusPreserveSelection
+        ) {
+            recordIds = await this.getSelectedRecordIds();
+        } else {
+            recordIds = [this.openActionMenuRecordId!];
+        }
         return {
             ...originalEvent.detail,
             recordIds
@@ -1321,10 +1349,10 @@ export class Table<
     }
 
     private calculateTanStackRowIdFunction():
-        | ((
-        originalRow: TableNode<TData>,
-        index: number,
-        parent?: TanStackRow<TableNode<TData>>
+        ((
+            originalRow: TableNode<TData>,
+            index: number,
+            parent?: TanStackRow<TableNode<TData>>
         ) => string)
         | undefined {
         return this.idFieldName === null || this.idFieldName === undefined

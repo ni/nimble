@@ -18,13 +18,14 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
                     Breadcrumb Text
                 </nimble-breadcrumb-item>
             </nimble-breadcrumb>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('breadcrumbItem1', { static: true }) public breadcrumbItem1: ElementRef<BreadcrumbItem>;
     }
 
-    @Component({ template: '' })
+    @Component({ template: '', standalone: false })
     class BlankComponent { }
 
     let breadcrumbItem1: BreadcrumbItem;

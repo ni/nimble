@@ -2,7 +2,7 @@
     "compilerOptions": {
         "declaration": true,
         "esModuleInterop": true,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "outDir": "dist/esm",
         "strict": true,
         "experimentalDecorators": true,
@@ -21,7 +21,7 @@
             "ES2017.Object"
         ],
         // Whitelist imported @types instead of using them all
-        "types": ["jasmine", "webpack-env", "offscreencanvas"],
+        "types": ["jasmine", "offscreencanvas"],
         // Require type only imports where possible
         // so imports with side-effects are explicit
         "verbatimModuleSyntax": true,

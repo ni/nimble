@@ -23,7 +23,8 @@ describe('Nimble Label Provider Rich text', () => {
         @Component({
             template: `
                 <nimble-label-provider-rich-text #labelProvider></nimble-label-provider-rich-text>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderRichTextDirective }) public directive: NimbleLabelProviderRichTextDirective;
@@ -76,7 +77,8 @@ describe('Nimble Label Provider Rich text', () => {
                     toggle-numbered-list="${numberedListLabel}"
                     >
                 </nimble-label-provider-rich-text>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderRichTextDirective }) public directive: NimbleLabelProviderRichTextDirective;
@@ -129,7 +131,8 @@ describe('Nimble Label Provider Rich text', () => {
                     [toggleNumberedList]="toggleNumberedList"
                     >
                 </nimble-label-provider-rich-text>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderRichTextDirective }) public directive: NimbleLabelProviderRichTextDirective;
@@ -210,7 +213,8 @@ describe('Nimble Label Provider Rich text', () => {
                     [attr.toggle-numbered-list]="toggleNumberedList"
                     >
                 </nimble-label-provider-rich-text>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderRichTextDirective }) public directive: NimbleLabelProviderRichTextDirective;

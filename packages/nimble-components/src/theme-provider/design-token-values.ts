@@ -483,12 +483,11 @@ function createThemeColor(light: string, dark: string, color: string): ThemeColo
     } as const;
 }
 
-type Font<T extends string> =
-    {
-        [K in `${T}Font` | `${T}FontFamily` | `${T}FontWeight` | `${T}FontSize` | `${T}FontLineHeight`]: string;
-    } & {
-        [K in `${T}FontColor` | `${T}DisabledFontColor`]: ThemeColor;
-    };
+type Font<T extends string> = {
+    [K in `${T}Font` | `${T}FontFamily` | `${T}FontWeight` | `${T}FontSize` | `${T}FontLineHeight`]: string;
+} & {
+    [K in `${T}FontColor` | `${T}DisabledFontColor`]: ThemeColor;
+};
 
 function createFont<T extends string>(
     token: T,

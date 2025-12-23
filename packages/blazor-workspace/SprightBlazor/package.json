@@ -1,11 +1,11 @@
 {
   "name": "@ni/spright-blazor",
-  "version": "4.7.10",
+  "version": "4.7.22",
   "description": "Blazor components for Spright",
   "scripts": {
-    "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
+    "invoke-pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
     "invoke-publish": "npm run invoke-publish:setup && npm run invoke-publish:nuget && npm run invoke-publish:noop -- ",
-    "invoke-publish:setup": "rimraf --glob \"../dist/SprightBlazor.*.nupkg\" && npm run pack",
+    "invoke-publish:setup": "rimraf --glob \"../dist/SprightBlazor.*.nupkg\" && npm run invoke-pack",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"../dist/SprightBlazor.*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:noop": "echo \"noop command to swallow npm args\""
   },
@@ -25,7 +25,7 @@
     "!*"
   ],
   "peerDependencies": {
-    "@ni/spright-components": "^6.4.10",
+    "@ni/spright-components": "^6.4.22",
     "cross-env": "^10.1.0",
     "rimraf": "^6.0.0"
   }

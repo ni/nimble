@@ -17,6 +17,7 @@ import {
     Divider,
     Tag
 } from './blocks/StoryLayout';
+import { theme } from './theme';
 
 SyntaxHighlighter.registerLanguage('cs', csharp);
 
@@ -38,19 +39,19 @@ const parameters = {
             order: [
                 'Getting Started',
                 'Components',
-                ['Status Table'],
+                // Intentionally no docs for 'Components'
                 'Incubating',
                 ['Docs'],
                 'Tokens',
-                ['Docs'],
+                // Intentionally no docs for 'Tokens'
                 'Tests',
                 ['Docs'],
                 'Spright',
-                ['Docs'],
+                // Intentionally no docs for 'Spright'
                 'Tests Spright',
                 ['Docs'],
                 'Ok',
-                ['Docs'],
+                // Intentionally no docs for 'Ok'
                 'Tests Ok',
                 ['Docs'],
                 'Internal',
@@ -77,7 +78,8 @@ const parameters = {
             Frame,
             Divider,
             Tag
-        }
+        },
+        theme
     }
 };
 
@@ -122,5 +124,5 @@ configureActions({
     depth: 1
 });
 
-// Update the GUID on this line to trigger a turbosnap full rebuild: 4affe2f2-215a-4d52-b841-b4eeb06a9e61
+// Update the GUID on this line to trigger a turbosnap full rebuild: 753CDD1C-2A44-4884-9726-A81B9D0E5107
 // See https://www.chromatic.com/docs/turbosnap/#full-rebuilds

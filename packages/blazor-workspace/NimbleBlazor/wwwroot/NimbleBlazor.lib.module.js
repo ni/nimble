@@ -87,7 +87,8 @@ function registerEvents(Blazor) {
                 newState: event.detail.newState,
                 oldState: event.detail.oldState,
                 recordIds: event.detail.recordIds,
-                columnId: event.detail.columnId
+                columnId: event.detail.columnId,
+                operatingRecordId: event.detail.operatingRecordId
             };
         }
     });
@@ -99,7 +100,8 @@ function registerEvents(Blazor) {
                 newState: event.detail.newState,
                 oldState: event.detail.oldState,
                 recordIds: event.detail.recordIds,
-                columnId: event.detail.columnId
+                columnId: event.detail.columnId,
+                operatingRecordId: event.detail.operatingRecordId
             };
         }
     });

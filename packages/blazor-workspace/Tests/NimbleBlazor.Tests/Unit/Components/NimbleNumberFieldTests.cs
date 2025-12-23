@@ -6,7 +6,7 @@ using Xunit;
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
-/// Tests for <see cref="NimbleTextField"/>
+/// Tests for <see cref="NimbleNumberField"/>
 /// </summary>
 public class NimbleNumberFieldTests
 {
@@ -16,7 +16,6 @@ public class NimbleNumberFieldTests
     public void NimbleNumberField_Rendered_HasNumberFieldMarkup()
     {
         var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
 
         var textField = context.RenderComponent<NimbleNumberField>();
 
@@ -31,7 +30,6 @@ public class NimbleNumberFieldTests
     public void Render_ChangeValue_HasMatchingValue(string value)
     {
         var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
         var field = context.RenderComponent<NimbleNumberField>();
 
         field.Find(NumberFieldMarkup).Change(value);
@@ -44,7 +42,6 @@ public class NimbleNumberFieldTests
     public void NimbleNumberField_SupportsAdditionalAttributes()
     {
         var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
         var exception = Record.Exception(() => context.RenderComponent<NimbleNumberField>(ComponentParameter.CreateParameter("class", "foo")));
         Assert.Null(exception);
     }
@@ -155,6 +152,50 @@ public class NimbleNumberFieldTests
         var numberField = RenderWithPropertySet(x => x.FullBleed, true);
 
         Assert.Contains("full-bleed", numberField.Markup);
+    }
+
+    [Fact]
+    public void NumberFieldValue_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.Value, 1.5);
+
+            Assert.Contains("current-value=\"1.5\"", numberField.Markup);
+        }
+    }
+
+    [Fact]
+    public void NumberFieldStep_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.Step, 1.5);
+
+            Assert.Contains("step=\"1.5\"", numberField.Markup);
+        }
+    }
+
+    [Fact]
+    public void NumberFieldMin_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.Min, 1.5);
+
+            Assert.Contains("min=\"1.5\"", numberField.Markup);
+        }
+    }
+
+    [Fact]
+    public void NumberFieldMax_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.Max, 1.5);
+
+            Assert.Contains("max=\"1.5\"", numberField.Markup);
+        }
     }
 
     private IRenderedComponent<NimbleNumberField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)

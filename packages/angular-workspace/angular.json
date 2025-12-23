@@ -32,18 +32,23 @@
           "options": {
             "main": "nimble-angular/test.ts",
             "tsConfig": "nimble-angular/tsconfig.spec.json",
-            "karmaConfig": "nimble-angular/karma.conf.js"
+            "karmaConfig": "nimble-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "nimble-angular/**/*.ts",
-              "nimble-angular/**/*.js",
-              "nimble-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "nimble-angular/eslint.config.mjs",
+						"lintFilePatterns": [
+							"nimble-angular/**/*.ts",
+							"nimble-angular/**/*.js",
+							"nimble-angular/**/*.mjs",
+							"nimble-angular/**/*.html"
+						]
+					}
         }
       }
     },
@@ -73,18 +78,23 @@
           "options": {
             "main": "ok-angular/test.ts",
             "tsConfig": "ok-angular/tsconfig.spec.json",
-            "karmaConfig": "ok-angular/karma.conf.js"
+            "karmaConfig": "ok-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "ok-angular/**/*.ts",
-              "ok-angular/**/*.js",
-              "ok-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "ok-angular/eslint.config.mjs",
+						"lintFilePatterns": [
+							"ok-angular/**/*.ts",
+							"ok-angular/**/*.js",
+							"ok-angular/**/*.mjs",
+							"ok-angular/**/*.html"
+						]
+					}
         }
       }
     },
@@ -114,18 +124,23 @@
           "options": {
             "main": "spright-angular/test.ts",
             "tsConfig": "spright-angular/tsconfig.spec.json",
-            "karmaConfig": "spright-angular/karma.conf.js"
+            "karmaConfig": "spright-angular/karma.conf.js",
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "spright-angular/**/*.ts",
-              "spright-angular/**/*.js",
-              "spright-angular/**/*.html"
-            ]
-          }
+						"eslintConfig": "spright-angular/eslint.config.mjs",
+						"lintFilePatterns": [
+							"spright-angular/**/*.ts",
+							"spright-angular/**/*.js",
+							"spright-angular/**/*.mjs",
+							"spright-angular/**/*.html"
+						]
+					}
         }
       }
     },
@@ -144,12 +159,16 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/example-client-app",
+            "outputPath": {
+              "base": "dist/example-client-app"
+            },
             "index": "example-client-app/src/index.html",
-            "main": "example-client-app/src/main.ts",
-            "polyfills": "example-client-app/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "example-client-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -159,15 +178,20 @@
             "styles": [
               "example-client-app/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "example-client-app/src/main.ts"
           },
           "configurations": {
             "production": {
+              "outputPath": {
+                "base": "dist/example-client-app",
+                "browser": ""
+              },
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -190,7 +214,6 @@
                   "output": "/"
                 }
               ],
-              "buildOptimizer": true,
               "optimization": {
                 "styles": {
                   "inlineCritical": false
@@ -199,9 +222,7 @@
               "sourceMap": true
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -231,7 +252,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "example-client-app/src/test.ts",
-            "polyfills": "example-client-app/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "example-client-app/tsconfig.spec.json",
             "karmaConfig": "example-client-app/karma.conf.js",
             "inlineStyleLanguage": "scss",
@@ -246,12 +270,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "example-client-app/**/*.ts",
-              "example-client-app/**/*.js",
-              "example-client-app/**/*.html"
-            ]
-          }
+						"eslintConfig": "example-client-app/eslint.config.mjs",
+						"lintFilePatterns": [
+							"example-client-app/**/*.ts",
+							"example-client-app/**/*.js",
+              "example-client-app/**/*.mjs",
+							"example-client-app/**/*.html"
+						]
+					}
         }
       }
     }

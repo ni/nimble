@@ -13,7 +13,8 @@ describe('Nimble switch control value accessor', () => {
     @Component({
         template: `
             <nimble-switch #switch [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-switch>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('switch', { static: true }) public switch: ElementRef<Switch>;

@@ -1,8 +1,92 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 31.0.0
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Major changes
+
+- Update Angular dependencies and forked files to v19.2 ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-components to v34.10.2
+
+## 30.12.1
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.1
+
+## 30.12.0
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Minor changes
+
+- add action menus preserve selection attribute to table ([ni/nimble@1c2b96b](https://github.com/ni/nimble/commit/1c2b96bfe343440df93424577ae771127b1d4184))
+- Bump @ni/nimble-components to v34.10.0
+
+## 30.11.8
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.9.0
+
+## 30.11.7
+
+Tue, 09 Dec 2025 00:59:48 GMT
+
+### Patches
+
+- Add "standalone: false" to every directive, component, pipe decorator ([ni/nimble@b8d39ab](https://github.com/ni/nimble/commit/b8d39ab52baa53977f131fc2631ee55241cdda9f))
+
+## 30.11.6
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.6
+
+## 30.11.5
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.5
+
+## 30.11.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.4
+
+## 30.11.3
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/nimble-components to v34.8.3
+
+## 30.11.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/nimble-components to v34.8.2
 
 ## 30.11.0
 

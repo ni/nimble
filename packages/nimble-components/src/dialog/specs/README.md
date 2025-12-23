@@ -25,7 +25,7 @@ Also tracked by [AzDO User Story 2042565](https://ni.visualstudio.com/DevCentral
 
 ### Risks and Challenges
 
-- The latest version of TypeScript does not have the `dialog` element's full API, which will leads to dev-time errors in the editor (however everything is fine at run-time): https://github.com/microsoft/TypeScript/issues/48267. The TypeScript-DOM-lib-generator source has been updated to have the missing members, so this may be easily fixed through a dependency update and release from the TypeScript repo.
+- The latest version of TypeScript does not have the `dialog` element's full API, which will leads to dev-time errors in the editor (however everything is fine at run-time): <https://github.com/microsoft/TypeScript/issues/48267>. The TypeScript-DOM-lib-generator source has been updated to have the missing members, so this may be easily fixed through a dependency update and release from the TypeScript repo.
 
 ### Prior Art/Examples
 

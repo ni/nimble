@@ -27,7 +27,7 @@ From the repo root directory:
 
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
-    - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
+    - To run the unit tests: `npm run test-chrome -w @ni/nimble-components`
 
 ## Component spec process
 
@@ -55,11 +55,7 @@ Before building a new component, 3 specification documents need to be created:
 
     To build and run the tests once, from the `nimble` directory run:
 
-    `npm run tdd -w @ni/nimble-components`
-
-    To watch for changes and automatically re-run tests on changes, from the `nimble` directory run:
-
-    `npm run tdd:watch -w @ni/nimble-components`
+    `npm run test-chrome -w @ni/nimble-components`
 
     See [Unit tests](#unit-tests) for additional available commands.
 
@@ -71,7 +67,7 @@ Before building a new component, 3 specification documents need to be created:
 
     `npm run change`
 
-8. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
+8. Update the [Component Status table](/packages/storybook/src/docs/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
@@ -193,8 +189,9 @@ It is common in web development to represent variations of control states using 
 
 - Do not use attribute names that conflict with native attribute names:
     - Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
-    - Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+    - Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. <https://github.com/openui> and <https://github.com/whatwg>.
     - Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
+    - Avoid any names that are [reserved props](https://legacy.reactjs.org/warnings/special-props.html) in React.
 - Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
     ```ts
@@ -236,7 +233,6 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
 2. Respond to attribute values using a behavior:
 
-    <!-- prettier-ignore -->
     ```ts
     import { css } from '@ni/fast-element';
     css`
@@ -386,7 +382,6 @@ export class MyComponent {
 
 Then in the template, bind the focusable elements' `tabindex` to the host component's property:
 
-<!-- prettier-ignore -->
 ```html
 html<MyComponent>`
     <nimble-button 
@@ -429,19 +424,17 @@ The following commands can be run from the `nimble` directory:
 
 ### Development commands
 
-- `npm run tdd:watch -w @ni/nimble-components`: Starts a process for building the components and running the test suite on file changes.
+- `npm run test-chrome -w @ni/nimble-components`: Runs the test suite in chrome.
 
     This command runs headlessly. See [Debugging commands](#debugging-commands) if you need to see the browser or set breakpoints while running.
 
-- `npm run tdd -w @ni/nimble-components`: Similar to the corresponding `tdd:watch` command but only runs once. Useful for infrastructure changes which do not trigger the watch command.
-
 ### Debugging commands
 
-- `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
+- `npm run test-chrome-debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
 
     You can also take the page url and open it in a different browser to test interactively.
 
-- `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
+- `npm run test-webkit-debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
 
 ### Test utilities
 
@@ -454,7 +447,7 @@ Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/sr
 
 #### Fixtures
 
-The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/fixture.spec.ts).
+The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/tests/fixture.spec.ts).
 
 ### Disabling tests
 

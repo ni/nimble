@@ -22,7 +22,8 @@ describe('Nimble switch', () => {
         @Component({
             template: `
                 <nimble-switch #switch></nimble-switch>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('switch', { read: NimbleSwitchDirective }) public directive: NimbleSwitchDirective;
@@ -61,7 +62,8 @@ describe('Nimble switch', () => {
                 <nimble-switch #switch
                     disabled
                     checked>
-                </nimble-switch>`
+                </nimble-switch>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('switch', { read: NimbleSwitchDirective }) public directive: NimbleSwitchDirective;
@@ -101,7 +103,8 @@ describe('Nimble switch', () => {
                     [disabled]="disabled"
                     [checked]="checked">
                 </nimble-switch>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('switch', { read: NimbleSwitchDirective }) public directive: NimbleSwitchDirective;
@@ -155,7 +158,8 @@ describe('Nimble switch', () => {
                     [attr.disabled]="disabled"
                     [attr.checked]="checked">
                 </nimble-switch>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('switch', { read: NimbleSwitchDirective }) public directive: NimbleSwitchDirective;

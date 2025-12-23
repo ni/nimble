@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "30.11.0",
+  "version": "31.0.0",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/nimble-angular && npm publish",
@@ -8,8 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/angular-workspace/nimble-angular"
+    "url": "git+https://github.com/ni/nimble.git"
   },
   "publishConfig": {
     "access": "public"
@@ -28,12 +27,12 @@
     }
   },
   "peerDependencies": {
-    "@angular/common": "^18.2.13",
-    "@angular/core": "^18.2.13",
-    "@angular/forms": "^18.2.13",
-    "@angular/localize": "^18.2.13",
-    "@angular/router": "^18.2.13",
-    "@ni/nimble-components": "^34.8.0"
+    "@angular/common": "^19.2.17",
+    "@angular/core": "^19.2.17",
+    "@angular/forms": "^19.2.17",
+    "@angular/localize": "^19.2.17",
+    "@angular/router": "^19.2.17",
+    "@ni/nimble-components": "^34.10.2"
   },
   "dependencies": {
     "tslib": "^2.2.0"

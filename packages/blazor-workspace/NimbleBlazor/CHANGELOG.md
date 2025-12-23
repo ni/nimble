@@ -1,8 +1,97 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.10.2
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.2
+- Bump @ni/nimble-tokens to v8.13.6
+
+## 20.10.1
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.1
+
+## 20.10.0
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Minor changes
+
+- add action menus preserve selection attribute to table ([ni/nimble@1c2b96b](https://github.com/ni/nimble/commit/1c2b96bfe343440df93424577ae771127b1d4184))
+- Bump @ni/nimble-components to v34.10.0
+
+### Patches
+
+- Adopt turborepo build ([ni/nimble@806acad](https://github.com/ni/nimble/commit/806acadef5963de6fb99720d2bf558d93a6965b4))
+
+## 20.9.8
+
+Tue, 09 Dec 2025 17:55:53 GMT
+
+### Patches
+
+- Always format doubles in razor files using the invariant culture ([ni/nimble@353ae98](https://github.com/ni/nimble/commit/353ae989bdd4e1310e0cfcd60c091182d5f2ff05))
+
+## 20.9.7
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.9.0
+
+## 20.9.6
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- markdown linting ([ni/nimble@65cc5e7](https://github.com/ni/nimble/commit/65cc5e77bca7ed431fba155a4ed6c56a41c0add7))
+- Bump @ni/nimble-components to v34.8.6
+
+## 20.9.5
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.5
+
+## 20.9.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.4
+
+## 20.9.3
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.3
+- Bump @ni/nimble-tokens to v8.13.5
+
+## 20.9.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.2
+- Bump @ni/nimble-tokens to v8.13.4
 
 ## 20.9.0
 

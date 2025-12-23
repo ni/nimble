@@ -6,8 +6,8 @@ To submit changes to Nimble, the first step is to build the monorepo which requi
 
 - Sync down a copy of the nimble repository
     - Note: For one-off small contributions you can consider using a fork-pull workflow. However [fork-pull workflows are not yet supported](https://github.com/ni/nimble/issues/634) for substantial development. For substantial development you should be added as a Contributor to the repository. See the [`README.md` Community section](/README.md#community) to get in touch if you need Contributor permissions. 
-- Install Node.js version 24+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
-- Install .NET 8 SDK (`8.0.403` or higher) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+- Install Node.js version 24+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from <https://nodejs.org/en/download/>
+- Install .NET 8 SDK (`8.0.403` or higher) which can be downloaded from <https://dotnet.microsoft.com/en-us/download>
    - Run `dotnet --info` to verify the required version of the SDK is installed. A `v8` install is required, but it's fine if later versions are installed too.
 
 From the `nimble` directory:
@@ -25,6 +25,13 @@ For Visual Studio Code users, after running `npm install` you can:
    - Alternatively, you can run a full build using the shortcuts `cmd+shift+B` on Mac / `ctrl+shift+B` on Windows.
 
 Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
+
+Note: Most users should start by building the full monorepo, however there are helpers for building subsets of the monorepo for advanced use cases:
+
+- `npm run build-storybook`
+- `npm run build-angular`
+- `npm run build-blazor`
+- `npm run build-react`
 
 ## Repository overview
 
@@ -45,6 +52,38 @@ This repository uses the following tooling. See below for more info.
 - [Nimble technologies walkthrough video](https://nio365.sharepoint.com/:v:/s/SystemLinkDesignSystem/EY4c8IRUechPgBkomuIDwwEB2rl66Tg2CJxY0nfPsqSb8g?e=fWViGm) (NI internal)
 
 ## Develop new components
+
+### Choosing a component library
+
+Two main factors help decide the library a component belongs to: the intended usage and expected coverage of component requirements.
+
+Intended usage can be summarized as follows (with more details in the [Component Status](https://nimble.ni.dev/storybook/index.html?path=/docs/component-status--docs) doc):
+
+- **Nimble Components**: General purpose components that are suitable for use in each and every application.
+- **Spright Components**: Application-specific or context-specific components that may be purpose built or coupled to specific technologies, products, or domains.
+- **Ok Components**: Components that are leveraging Nimble infrastructure but have varied ownership.
+
+Bare minimum requirements for each library (though components in each library are strongly encouraged to have full support) are as follows:
+
+| Requirements           | `nimble-components` | `spright-components` | `ok-components`      |
+| ---------------------- | :-----------------: | :------------------: | :------------------: |
+| Storybook API docs     |         🟢          |          🟢         |          🟢          |
+| Approved spec          |         🟢          |          🟢         |          🟡          |
+| Unit tests             |         🟢          |          🟢         |          🟡          |
+| Storybook visual tests |         🟢          |          🟢         |          🟡          |
+| Storybook usage docs   |         🟢          |          🟡         |          🟡          |
+| Approved VxD\*         |         🟢          |          🟡         |          🟡          |
+| Approved IxD\*         |         🟢          |          🟡         |          🟡          |
+| Angular support        |         🟢          |          🟡         |          🟡          |
+| Blazor support         |         🟢          |          🟡         |          🟡          |
+| React support          |         🟢          |          🟡         |          🟡          |
+| Proper a11y            |         🟢          |          🟡         |          🟡          |
+| Minimal tech debt      |         🟢          |          🟡         |          🟡          |
+| Mobile support         |         🟡          |          🟡         |          🟡          |
+
+🟢 = required  
+🟡 = optional  
+\* = By an interaction and / or visual designer
 
 ### Adding a new component
 
@@ -81,7 +120,7 @@ This repository uses [beachball](https://microsoft.github.io/beachball/) to auto
 3. A pipeline will run for each newly created git tag and invoke the `npm run publish` command for the associated package.
 
 When generating a change file, follow these guidelines:
-1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as incubating](/packages/nimble-components/CONTRIBUTING.md/#Marking-a-component-as-incubating) may use `patch` version bumps even for breaking changes.
+1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as incubating](/packages/nimble-components/CONTRIBUTING.md#Marking-a-component-as-incubating) may use `patch` version bumps even for breaking changes.
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 
@@ -128,7 +167,7 @@ This repository uses automated linting and automated lint formatting. Use `npm r
 
 To enable linting and formatting during development, install the recommended VS Code extensions. The list of recommended VS Code extensions can be found in `.vscode/extensions.json`.
 
-The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `ESLint`. The `ESLint` option assumes that the recommended VS Code extensions are installed.
 
 You may wish to have the formatter run every time you save a file. This would help ensure you don't forget to run the formatter and end up with a failing PR build. If you want this behavior, turn it on in your user settings: `File >> Preferences >> Settings >> User >> Text Editor >> Format On Save`. We leave this option unset in the workspace settings so that it does not override the user setting.
 

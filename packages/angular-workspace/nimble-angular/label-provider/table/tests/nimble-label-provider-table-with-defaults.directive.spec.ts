@@ -11,7 +11,8 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
         template: `
         <nimble-label-provider-table withDefaults #labelProvider>
         </nimble-label-provider-table>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('labelProvider', { static: true }) public labelProvider: ElementRef<LabelProviderTable>;

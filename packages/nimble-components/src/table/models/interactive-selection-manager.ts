@@ -13,13 +13,19 @@ import { SingleSelectionManager } from './selection-managers/single-selection-ma
 export class InteractiveSelectionManager<TData extends TableRecord> {
     private readonly tanStackTable: TanStackTable<TableNode<TData>>;
     private selectionManager: SelectionManagerBase<TData>;
+    private actionMenusPreserveSelection: boolean;
 
     public constructor(
         tanStackTable: TanStackTable<TableNode<TData>>,
-        selectionMode: TableRowSelectionMode
+        selectionMode: TableRowSelectionMode,
+        actionMenusPreserveSelection: boolean
     ) {
         this.tanStackTable = tanStackTable;
-        this.selectionManager = this.createSelectionManager(selectionMode);
+        this.actionMenusPreserveSelection = actionMenusPreserveSelection;
+        this.selectionManager = this.createSelectionManager(
+            selectionMode,
+            actionMenusPreserveSelection
+        );
     }
 
     public handleRowSelectionToggle(
@@ -67,7 +73,20 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     public handleSelectionModeChanged(
         selectionMode: TableRowSelectionMode
     ): void {
-        this.selectionManager = this.createSelectionManager(selectionMode);
+        this.selectionManager = this.createSelectionManager(
+            selectionMode,
+            this.actionMenusPreserveSelection
+        );
+    }
+
+    public handleActionMenusPreserveSelectionChanged(
+        actionMenusPreserveSelection: boolean
+    ): void {
+        this.actionMenusPreserveSelection = actionMenusPreserveSelection;
+
+        this.selectionManager.updateActionMenusPreserveSelection(
+            actionMenusPreserveSelection
+        );
     }
 
     public handleSelectionReset(): void {
@@ -92,15 +111,25 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     }
 
     private createSelectionManager(
-        selectionMode: TableRowSelectionMode
+        selectionMode: TableRowSelectionMode,
+        actionMenusPreserveSelection: boolean
     ): SelectionManagerBase<TData> {
         switch (selectionMode) {
             case TableRowSelectionMode.multiple:
-                return new MultiSelectionManager(this.tanStackTable);
+                return new MultiSelectionManager(
+                    this.tanStackTable,
+                    actionMenusPreserveSelection
+                );
             case TableRowSelectionMode.single:
-                return new SingleSelectionManager(this.tanStackTable);
+                return new SingleSelectionManager(
+                    this.tanStackTable,
+                    actionMenusPreserveSelection
+                );
             case TableRowSelectionMode.none:
-                return new DisabledSelectionManager(this.tanStackTable);
+                return new DisabledSelectionManager(
+                    this.tanStackTable,
+                    actionMenusPreserveSelection
+                );
             default:
                 throw new Error('unknown selection mode found');
         }

@@ -20,7 +20,8 @@ describe('Nimble byte unit', () => {
         @Component({
             template: `
                 <nimble-unit-byte #unit></nimble-unit-byte>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('unit', { read: NimbleUnitByteDirective }) public directive: NimbleUnitByteDirective;
@@ -52,7 +53,8 @@ describe('Nimble byte unit', () => {
         @Component({
             template: `
                 <nimble-unit-byte #unit binary></nimble-unit-byte>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('unit', { read: NimbleUnitByteDirective }) public directive: NimbleUnitByteDirective;
@@ -84,7 +86,8 @@ describe('Nimble byte unit', () => {
         @Component({
             template: `
                 <nimble-unit-byte #unit [binary]="binary"></nimble-unit-byte>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('unit', { read: NimbleUnitByteDirective }) public directive: NimbleUnitByteDirective;
@@ -123,7 +126,8 @@ describe('Nimble byte unit', () => {
         @Component({
             template: `
                 <nimble-unit-byte #unit [attr.binary]="binary"></nimble-unit-byte>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('unit', { read: NimbleUnitByteDirective }) public directive: NimbleUnitByteDirective;

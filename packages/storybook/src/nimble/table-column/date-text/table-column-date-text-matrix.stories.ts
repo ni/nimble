@@ -40,7 +40,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [placeholderName, placeholder]: PlaceholderState
 ): ViewTemplate => html`

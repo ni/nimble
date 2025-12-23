@@ -1,8 +1,90 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.10.2
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-tokens to v8.13.6
+- Bump @ni/jasmine-parameterized to v1.0.7
+
+## 34.10.1
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Fix typo in menu button column file name ([ni/nimble@1a8e710](https://github.com/ni/nimble/commit/1a8e710d60bbd317c87735ed43ad777030f0f681))
+
+## 34.10.0
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Minor changes
+
+- add action menus preserve selection attribute to table ([ni/nimble@1c2b96b](https://github.com/ni/nimble/commit/1c2b96bfe343440df93424577ae771127b1d4184))
+
+### Patches
+
+- Adopt turborepo build ([ni/nimble@806acad](https://github.com/ni/nimble/commit/806acadef5963de6fb99720d2bf558d93a6965b4))
+
+## 34.9.0
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Minor changes
+
+- Add keyValue accessor to Mapping base class for React compatibility ([ni/nimble@72ca616](https://github.com/ni/nimble/commit/72ca6168a2df4d5b70b860f724cefc6338e78ae8))
+
+## 34.8.6
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- markdown linting ([ni/nimble@65cc5e7](https://github.com/ni/nimble/commit/65cc5e77bca7ed431fba155a4ed6c56a41c0add7))
+
+## 34.8.5
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Remove prettier inline disables and update docs ([ni/nimble@aabdf2f](https://github.com/ni/nimble/commit/aabdf2f08ccf6c41b1131a886450f5366fd43123))
+
+## 34.8.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Minor update to remove unreachable statement in table dynamic child loading check ([ni/nimble@18b6b62](https://github.com/ni/nimble/commit/18b6b62ccf69d6f488239dc02e88d91ec31a37d6))
+
+## 34.8.3
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/nimble-tokens to v8.13.5
+- Bump @ni/jasmine-parameterized to v1.0.6
+
+## 34.8.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/nimble-tokens to v8.13.4
+- Bump @ni/jasmine-parameterized to v1.0.5
 
 ## 34.8.0
 

@@ -20,7 +20,6 @@ interface ToolbarArgs {
 const metadata: Meta<ToolbarArgs> = {
     title: 'Components/Toolbar',
     parameters: {},
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${toolbarTag}>
             <${buttonTag} appearance="ghost" slot="start">
