@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Wed, 24 Dec 2025 01:13:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 24 Dec 2025 23:16:44 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.8.1
+
+Wed, 24 Dec 2025 23:16:44 GMT
+
+### Patches
+
+- Export Theme type from ThemeProvider ([ni/nimble@76a4daf](https://github.com/ni/nimble/commit/76a4daff934119d14006bdab4859fc05c21cf42d))
 
 ## 0.8.0
 
