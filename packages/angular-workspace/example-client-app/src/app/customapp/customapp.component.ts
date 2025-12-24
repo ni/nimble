@@ -47,7 +47,7 @@ interface PersonTableRecord extends TableRecord {
     standalone: false
 })
 export class CustomAppComponent implements AfterViewInit {
-    public bannerOpen = false;
+    public bannerOpen = true;
     public dialogCloseReason: string;
     public drawerCloseReason: string;
     public drawerLocation: DrawerLocation = DrawerLocation.right;
