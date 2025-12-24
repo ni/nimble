@@ -540,669 +540,673 @@ export function App(): React.JSX.Element {
     return (
         <>
             <NimbleThemeProvider theme={theme}>
-                <div className="header">
-                    <NimbleSelect
-                        className="theme-select"
-                        appearance="frameless"
-                        value={theme}
-                        onChange={e => setTheme(e.target.value as Theme)}
-                    >
-                        {Object.values(Theme).map(item => (
-                            <NimbleListOption
-                                key={item}
-                                value={item}
-                            >
-                                {`${item.charAt(0).toUpperCase()}${item.slice(1)}`} Theme
-                            </NimbleListOption>
-                        ))}
-                    </NimbleSelect>
-                </div>
-                <div className="content container">
-                    <p>
-                        Explore the components below to see the Nimble components in action. See the <a
-                            href="https://ni.github.io/nimble/storybook/">Nimble
-                            component docs</a> for additional usage details.
-                        Navigate to the <a href="../index.html">parent page</a>.
-                    </p>
-                    <div className="container">
-                        <div className="sub-container">
-                            <div className="container-label">Anchor</div>
-                            <div><NimbleAnchor href="#" appearance="prominent">Site root</NimbleAnchor></div>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Banner</div>
-                            <NimbleBanner
-                                open={bannerOpen}
-                                onToggle={e => setBannerOpen(e.detail.newState)}
-                                severity="information">
-                                <span slot="title">Title of the banner</span>
-                                This is the message text of this banner. It tells you something interesting.
-                            </NimbleBanner>
-                            <NimbleCheckbox
-                                checked={bannerOpen}
-                                onChange={e => setBannerOpen(e.target.checked)}
-                            >Show banner</NimbleCheckbox>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Breadcrumb</div>
-                            <NimbleBreadcrumb>
-                                <NimbleBreadcrumbItem href="#">Page 1</NimbleBreadcrumbItem>
-                                <NimbleBreadcrumbItem
-                                    href="#"
-                                >Page 2</NimbleBreadcrumbItem>
-                                <NimbleBreadcrumbItem>Current Page (No Link)</NimbleBreadcrumbItem>
-                            </NimbleBreadcrumb>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Buttons</div>
-                            <NimbleButton appearance="outline">Outline Button</NimbleButton>
-                            <NimbleButton appearance="block">Block Button</NimbleButton>
-                            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Buttons - Toggle</div>
-                            <NimbleToggleButton appearance="outline">Outline Toggle Button</NimbleToggleButton>
-                            <NimbleToggleButton appearance="block">Block Toggle Button</NimbleToggleButton>
-                            <NimbleToggleButton appearance="ghost">Ghost Toggle Button</NimbleToggleButton>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Buttons - Anchor</div>
-                            <NimbleAnchorButton
-                                href="#"
-                                appearance="outline">Outline Anchor Button</NimbleAnchorButton>
-                            <NimbleAnchorButton
-                                href="#"
-                                appearance="block">Block Anchor Button</NimbleAnchorButton>
-                            <NimbleAnchorButton
-                                href="#"
-                                appearance="ghost">Ghost Anchor Button</NimbleAnchorButton>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Card</div>
-                            <NimbleCard>
-                                <span slot="title">Title of the card</span>
-                                <NimbleNumberField>Numeric field 1</NimbleNumberField>
-                                <NimbleNumberField>Numeric field 2</NimbleNumberField>
-                                <NimbleSelect>
-                                    Select
-                                    <NimbleListOption value="1">Option 1</NimbleListOption>
-                                    <NimbleListOption value="2">Option 2</NimbleListOption>
-                                    <NimbleListOption value="3">Option 3</NimbleListOption>
-                                </NimbleSelect>
-                            </NimbleCard>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Card Button</div>
-                            <NimbleCardButton>
-                                <span className="card-button-content">Card Button</span>
-                            </NimbleCardButton>
-                            <NimbleCardButton selected>
-                                <span className="card-button-content">Selected Card Button</span>
-                            </NimbleCardButton>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Checkbox</div>
-                            <NimbleCheckbox>Checkbox label</NimbleCheckbox>
-                            <NimbleCheckbox>Checkbox label</NimbleCheckbox>
-                            <NimbleCheckbox>Checkbox label</NimbleCheckbox>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Radio Buttons</div>
-                            <NimbleRadioGroup
-                                value={selectedRadio}
-                                onChange={e => setSelectedRadio(e.target.value)}
-                            >
-                                <span slot="label">Fruit</span>
-                                <NimbleRadio name="fruit" value="apple"
-                                >Apple</NimbleRadio>
-                                <NimbleRadio name="fruit" value="banana"
-                                >Banana</NimbleRadio>
-                                <NimbleRadio name="fruit" value="mango"
-                                >Mango</NimbleRadio>
-                            </NimbleRadioGroup>
-                            <NimbleTextField
-                                value={selectedRadio}
-                            >Selected value</NimbleTextField>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Dialog</div>
-                            <NimbleDialog
-                                // Note: Generic types such as Dialog require using the workaround ref type
-                                // See: https://github.com/ni/nimble/issues/2784
-                                ref={dialogRef as unknown as DialogRef}
-                            >
-                                <span slot="title">This is a dialog</span>
-                                <div>It opened when you pushed the button</div>
-                                <NimbleButton slot="footer"
-                                    onClick={_ => closeDialog('cancel pressed')}
-                                >Cancel</NimbleButton>
-                                <NimbleButton slot="footer"
-                                    onClick={_ => closeDialog('OK pressed')}
-                                >OK</NimbleButton>
-                            </NimbleDialog>
-                            <NimbleButton
-                                onClick={openDialog}
-                            >Open Dialog</NimbleButton>
-                            <NimbleTextField
-                                value={dialogCloseReason}
-                            >Closed Reason</NimbleTextField>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Drawer</div>
-                            <NimbleDrawer
-                                // Note: Generic types such as Drawer require using the workaround ref type
-                                // See: https://github.com/ni/nimble/issues/2784
-                                ref={drawerRef as unknown as DrawerRef}
-                                location={drawerLocation}
-                            >
-                                <header>This is a drawer</header>
-                                <section>
-                                    <p style={{ height: '1000px' }}>It opened when you pushed the button</p>
-                                    <p>This is the bottom!</p>
-                                </section>
-                                <footer className="drawer-footer">
-                                    <NimbleButton appearance="ghost"
-                                        onClick={() => closeDrawer('cancel pressed')}
-                                    >Cancel</NimbleButton>
-                                    <NimbleButton
-                                        onClick={() => closeDrawer('OK pressed')}
-                                    >OK</NimbleButton>
-                                </footer>
-                            </NimbleDrawer>
-                            <NimbleButton
-                                onClick={openDrawer}
-                            >Open Drawer</NimbleButton>
-                            <NimbleTextField
-                                readOnly
-                                value={drawerCloseReason}
-                            >Closed Reason</NimbleTextField>
-                            <NimbleSelect className="drawer-location-select"
-                                value={drawerLocation}
-                                onChange={e => setDrawerLocation(e.target.value === DrawerLocation.left ? DrawerLocation.left : DrawerLocation.right)}
-                            >
-                                Drawer Location
+                <div className="example-root">
+                    <div className="header">
+                        <NimbleSelect
+                            className="theme-select"
+                            appearance="frameless"
+                            value={theme}
+                            onChange={e => setTheme(e.target.value as Theme)}
+                        >
+                            {Object.values(Theme).map(item => (
                                 <NimbleListOption
-                                    value={DrawerLocation.left}
-                                >Drawer: Left-side</NimbleListOption>
-                                <NimbleListOption
-                                    value={DrawerLocation.right}
-                                >Drawer: Right-side</NimbleListOption>
-                            </NimbleSelect>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Menu</div>
-                            <NimbleMenu>
-                                <header>Header 1</header>
-                                <NimbleMenuItem>
-                                    Item 1
-                                    <NimbleIconAdd slot="start"></NimbleIconAdd>
-                                </NimbleMenuItem>
-                                <NimbleMenuItem>Item 2</NimbleMenuItem>
-                                <hr />
-                                <header>Header 2</header>
-                                <NimbleMenuItem>Item 4</NimbleMenuItem>
-                                <NimbleAnchorMenuItem
-                                    href="#"
-                                >Item 5 (link)</NimbleAnchorMenuItem>
-                            </NimbleMenu>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Menu Button</div>
-                            <NimbleMenuButton>
-                                Menu Button
-                                <NimbleMenu slot="menu"
-                                    onChange={onMenuButtonMenuChange}
+                                    key={item}
+                                    value={item}
                                 >
-                                    <header>Header 1</header>
-                                    <NimbleMenuItem>
-                                        Item 1
-                                        <NimbleIconAdd slot="start"></NimbleIconAdd>
-                                    </NimbleMenuItem>
-                                    <NimbleMenuItem>Item 2</NimbleMenuItem>
-                                    <hr/>
-                                    <header>Header 2</header>
-                                    <NimbleMenuItem>Item 4</NimbleMenuItem>
-                                </NimbleMenu>
-                            </NimbleMenuButton>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Number Field</div>
-                            <NimbleNumberField appearance="underline" placeholder="Number Field" value="42">Underline Number Field</NimbleNumberField>
-                            <NimbleNumberField appearance="outline" placeholder="Number Field" value="42">Outline Number Field</NimbleNumberField>
-                            <NimbleNumberField appearance="block" placeholder="Number Field" value="42">Block Number Field</NimbleNumberField>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Select</div>
-                            <NimbleSelect
-                                filterMode="standard"
-                                appearance="underline"
-                                value={underlineSelectValue}
-                                onChange={e => setUnderlineSelectValue(e.target.value)}
-                            >
-                                Underline Select
-                                <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
-                                <NimbleListOptionGroup label="Group 1">
-                                    <NimbleListOption value="1">Option 1</NimbleListOption>
-                                    <NimbleListOption value="2">Option 2</NimbleListOption>
-                                </NimbleListOptionGroup>
-                                <NimbleListOptionGroup label="Group 2">
-                                    <NimbleListOption value="3">Option 3</NimbleListOption>
-                                    <NimbleListOption value="4">Option 4</NimbleListOption>
-                                </NimbleListOptionGroup>
-                            </NimbleSelect>
-                            <NimbleSelect
-                                appearance="outline"
-                                value={outlineSelectValue}
-                                onChange={e => setOutlineSelectValue(e.target.value)}
-                            >
-                                Outline Select
-                                <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
-                                <NimbleListOptionGroup label="Group 1">
-                                    <NimbleListOption>Option 1</NimbleListOption>
-                                    <NimbleListOption>Option 2</NimbleListOption>
-                                </NimbleListOptionGroup>
-                                <NimbleListOptionGroup label="Group 2">
-                                    <NimbleListOption>Option 3</NimbleListOption>
-                                    <NimbleListOption>Option 4</NimbleListOption>
-                                </NimbleListOptionGroup>
-                            </NimbleSelect>
-                            <NimbleSelect
-                                appearance="block"
-                                value={blockSelectValue}
-                                onChange={e => setBlockSelectValue(e.target.value)}
-                            >
-                                Block Select
-                                <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
-                                <NimbleListOptionGroup label="Group 1">
-                                    <NimbleListOption>Option 1</NimbleListOption>
-                                    <NimbleListOption>Option 2</NimbleListOption>
-                                </NimbleListOptionGroup>
-                                <NimbleListOptionGroup label="Group 2">
-                                    <NimbleListOption>Option 3</NimbleListOption>
-                                    <NimbleListOption>Option 4</NimbleListOption>
-                                </NimbleListOptionGroup>
-                            </NimbleSelect>
-                            <div className="sub-container">
-                                <div className="container-label">Select with dynamic options</div>
-                                <NimbleSelect
-                                    ref={dynamicSelectRef}
-                                    appearance="underline"
-                                    filterMode="manual"
-                                    value={dynamicSelectValue ? `${dynamicSelectValue.first}-${dynamicSelectValue.last}` : ''}
-                                    onChange={onDynamicSelectChange}
-                                    onFilterInput={onDynamicSelectFilterInput}
-                                >
-                                    <NimbleListOption hidden selected disabled value="">
-                                        Select an option
-                                    </NimbleListOption>
-                                    {dynamicSelectItems.map(item => (
-                                        <NimbleListOption
-                                            key={`${item.first}-${item.last}`}
-                                            value={`${item.first}-${item.last}`}
-                                            hidden={shouldHideItem(item)}
-                                        >
-                                            {item.first} {item.last}
-                                        </NimbleListOption>
-                                    ))}
-                                </NimbleSelect>
-                            </div>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Combobox</div>
-                            <NimbleCombobox
-                                aria-label="Combobox"
-                                appearance="underline"
-                                autocomplete="both"
-                                placeholder="Select value..."
-                            >
-                                Underline Combobox
-                                {comboboxItems.map((item, index) => (
-                                    <NimbleListOption key={index}>{item.first}</NimbleListOption>
-                                ))}
-                            </NimbleCombobox>
-                            <NimbleCombobox
-                                aria-label="Combobox"
-                                appearance="outline"
-                                autocomplete="both"
-                                placeholder="Select value..."
-                            >
-                                Outline Combobox
-                                {comboboxItems.map((item, index) => (
-                                    <NimbleListOption key={index}>{item.first}</NimbleListOption>
-                                ))}
-                            </NimbleCombobox>
-                            <NimbleCombobox
-                                aria-label="Combobox"
-                                appearance="block"
-                                autocomplete="both"
-                                placeholder="Select value..."
-                            >
-                                Block Combobox
-                                {comboboxItems.map((item, index) => (
-                                    <NimbleListOption key={index}>{item.first}</NimbleListOption>
-                                ))}
-                            </NimbleCombobox>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Rich Text Editor</div>
-                            <div className="rich-text-editor-container">
-                                <NimbleRichTextEditor
-                                    ref={richTextEditorRef}
-                                    className="rich-text-editor"
-                                    placeholder="Rich text editor"
-                                >
-                                    <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
-                                        <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
-                                        <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>
-                                    </NimbleRichTextMentionUsers>
-                                    <NimbleButton slot="footer-actions"
-                                        onClick={loadRichTextEditorContent}
-                                    >Load Content</NimbleButton>
-                                </NimbleRichTextEditor>
-                            </div>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Rich Text Viewer</div>
-                            <div className="rich-text-viewer-container">
-                                <NimbleRichTextViewer
-                                    markdown={markdownString}
-                                >
-                                    <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
-                                        <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
-                                        <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>
-                                    </NimbleRichTextMentionUsers>
-                                </NimbleRichTextViewer>
-                            </div>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Spinner</div>
-                            <NimbleSpinner aria-label="Loading example content"></NimbleSpinner>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Switch</div>
-                            <NimbleSwitch>Switch</NimbleSwitch>
-                            <NimbleSwitch checked>
-                                Switch with checked/unchecked messages
-                                <span slot="unchecked-message">Off</span>
-                                <span slot="checked-message">On</span>
-                            </NimbleSwitch>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Table</div>
-                            <NimbleTable
-                                // Note: Generic types such as Table require using the workaround ref type
-                                // See: https://github.com/ni/nimble/issues/2784
-                                ref={tableRef as unknown as TableRef}
-                                idFieldName="id"
-                                parentIdFieldName="parentId"
-                                selectionMode="multiple"
-                                style={{ height: '400px' }}>
-                                <NimbleTableColumnText
-                                    fieldName="stringValue1"
-                                    actionMenuSlot="action-menu"
-                                    actionMenuLabel="Action menu"
-                                    fractionalWidth={2}
-                                    minPixelWidth={300}
-                                    sortDirection="ascending"
-                                    sortIndex={0}>
-                                    <NimbleIconCheck title="String 1"></NimbleIconCheck>
-                                </NimbleTableColumnText>
-                                <NimbleTableColumnAnchor
-                                    hrefFieldName="href"
-                                    labelFieldName="linkLabel">
-                                    Link
-                                </NimbleTableColumnAnchor>
-                                <NimbleTableColumnDateText fieldName="date">
-                                    Date
-                                </NimbleTableColumnDateText>
-                                <NimbleTableColumnMapping
-                                    fieldName="statusCode"
-                                    keyType="number">
-                                    <NimbleMappingText keyValue="100" text="Status message 1"></NimbleMappingText>
-                                    <NimbleMappingText keyValue="101" text="Status message 2"></NimbleMappingText>
-                                    Status
-                                </NimbleTableColumnMapping>
-                                <NimbleTableColumnMapping
-                                    fieldName="result"
-                                    keyType="string"
-                                    widthMode="icon-size">
-                                    <NimbleMappingIcon
-                                        keyValue="success"
-                                        text="Success"
-                                        icon="nimble-icon-check"
-                                        severity="success"
-                                        textHidden>
-                                    </NimbleMappingIcon>
-                                    <NimbleMappingSpinner
-                                        keyValue="calculating"
-                                        text="Calculating"
-                                        textHidden>
-                                    </NimbleMappingSpinner>
-                                    <NimbleMappingEmpty
-                                        keyValue="unknown"
-                                        text="Unknown">
-                                    </NimbleMappingEmpty>
-                                    <NimbleIconXmarkCheck title="Result"></NimbleIconXmarkCheck>
-                                </NimbleTableColumnMapping>
-                                <NimbleTableColumnNumberText fieldName="number">
-                                    Number
-                                </NimbleTableColumnNumberText>
-                                <NimbleTableColumnDurationText fieldName="duration">
-                                    Duration
-                                </NimbleTableColumnDurationText>
-                                <NimbleTableColumnText fieldName="stringValue2" minPixelWidth={400} groupIndex={0}>
-                                    String 2
-                                </NimbleTableColumnText>
-                                <NimbleTableColumnMenuButton
-                                    fieldName="color"
-                                    menuSlot="color-menu"
-                                    onBeforeToggle={onMenuButtonColumnBeforeToggle}>
-                                    Color
-                                </NimbleTableColumnMenuButton>
-
-                                <NimbleMenu slot="action-menu">
-                                    <NimbleMenuItem>Item 1</NimbleMenuItem>
-                                    <NimbleMenuItem>Item 2</NimbleMenuItem>
-                                    <NimbleMenuItem>Item 3</NimbleMenuItem>
-                                </NimbleMenu>
-
-                                <NimbleMenu slot="color-menu">
-                                    {colors.map(color => (
-                                        <NimbleMenuItem
-                                            key={color}
-                                            onChange={() => onColorSelected(color)}>
-                                            {color === currentColor && (
-                                                <NimbleIconCheck slot="start"></NimbleIconCheck>
-                                            )}
-                                            {color}
-                                        </NimbleMenuItem>
-                                    ))}
-                                </NimbleMenu>
-                            </NimbleTable>
-                            <NimbleButton className="add-table-row-button"
-                                onClick={() => addTableRows(10)}
-                            >Add rows</NimbleButton>
-                            <div>Row count: {tableData.length}</div>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Table with delayed hierarchy</div>
-                            <NimbleTable
-                                // Note: Generic types such as Table require using the workaround ref type
-                                // See: https://github.com/ni/nimble/issues/2784
-                                ref={delayedHierarchyTableRef as unknown as TableRef}
-                                idFieldName="id" parentIdFieldName="parentId" selectionMode="multiple"
-                                onRowExpandToggle={onRowExpandToggle}
-                            >
-                                <NimbleTableColumnText
-                                    fieldName="firstName"
-                                >
-                                    First name
-                                </NimbleTableColumnText>
-                                <NimbleTableColumnText
-                                    fieldName="lastName"
-                                >
-                                    Last name
-                                </NimbleTableColumnText>
-                                <NimbleTableColumnNumberText
-                                    fieldName="age"
-                                    format="decimal"
-                                    decimalDigits={0}
-                                >
-                                    Age
-                                </NimbleTableColumnNumberText>
-                            </NimbleTable>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Tabs</div>
-                            <NimbleTabs
-                                activeid={activeTabId}
-                                onChange={e => setActiveTabId(e.target.activeid)}
-                            >
-                                <NimbleTab id="tab-1">Tab 1</NimbleTab>
-                                <NimbleTab id="tab-2">Tab 2</NimbleTab>
-                                <NimbleTab id="tab-3" disabled>Tab 3 (Disabled)</NimbleTab>
-                                <NimbleTabsToolbar>
-                                    <NimbleButton
-                                        onClick={onTabToolbarButtonClick}
-                                    >Toolbar button</NimbleButton>
-                                </NimbleTabsToolbar>
-                                <NimbleTabPanel>
-                                    <div className="container-label">Tab 1 content</div>
-                                </NimbleTabPanel>
-                                <NimbleTabPanel>
-                                    <div className="container-label">Tab 2 content</div>
-                                </NimbleTabPanel>
-                                <NimbleTabPanel>
-                                    <div className="container-label">Tab 3 content</div>
-                                </NimbleTabPanel>
-                            </NimbleTabs>
-                            <label id="activeTabLabel">
-                                Active tab:
-                            </label>
-                            <NimbleSelect
-                                value={activeTabId}
-                                onChange={e => setActiveTabId(e.target.value)}
-                                aria-labelledby="activeTabLabel">
-                                <NimbleListOption value="tab-1">Tab 1</NimbleListOption>
-                                <NimbleListOption value="tab-2">Tab 2</NimbleListOption>
-                                <NimbleListOption value="tab-3">Tab 3</NimbleListOption>
-                            </NimbleSelect>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Tabs - Anchor</div>
-                            <NimbleAnchorTabs
-                                activeid={activeAnchorTabId}
-                            >
-                                <NimbleAnchorTab id="a-tab-1" href="https://nimble.ni.dev">Tab 1</NimbleAnchorTab>
-                                <NimbleAnchorTab id="a-tab-2" href="https://ni.com">Tab 2</NimbleAnchorTab>
-                                <NimbleAnchorTab disabled id="a-tab-3" href="https://google.com">Tab 3 (Disabled)</NimbleAnchorTab>
-                                <NimbleTabsToolbar>
-                                    <NimbleButton
-                                        onClick={onTabToolbarButtonClick}
-                                    >Toolbar button</NimbleButton>
-                                </NimbleTabsToolbar>
-                            </NimbleAnchorTabs>
-                            <label id="activeAnchorTabLabel">
-                                Active tab:
-                            </label>
-                            <NimbleSelect
-                                value={activeAnchorTabId}
-                                onChange={e => setActiveAnchorTabId(e.target.value)}
-                                aria-labelledby="activeAnchorTabLabel">
-                                <NimbleListOption value="a-tab-1">Tab 1</NimbleListOption>
-                                <NimbleListOption value="a-tab-2">Tab 2</NimbleListOption>
-                                <NimbleListOption value="a-tab-3">Tab 3</NimbleListOption>
-                            </NimbleSelect>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Text Area</div>
-                            <NimbleTextArea placeholder="Text Area" cols={50} rows={5} resize="horizontal" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</NimbleTextArea>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Text Field</div>
-                            <NimbleTextField appearance="underline" placeholder="Text Field" value="Here is text!">Underline Text Field</NimbleTextField>
-                            <NimbleTextField appearance="outline" placeholder="Text Field" value="Here is text!">Outline Text Field</NimbleTextField>
-                            <NimbleTextField appearance="block" placeholder="Text Field" value="Here is text!">Block Text Field</NimbleTextField>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Toolbar</div>
-                            <NimbleToolbar>
-                                <NimbleButton slot="start" appearance="outline">First button</NimbleButton>
-                                <NimbleButton slot="start" appearance="outline">Second button</NimbleButton>
-                                <NimbleButton>Middle button</NimbleButton>
-                                <NimbleButton slot="end" appearance="outline">Last button</NimbleButton>
-                            </NimbleToolbar>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Tooltip</div>
-                            <NimbleButton id="anchor1">Default</NimbleButton>
-                            <NimbleTooltip anchor="anchor1">Tooltip label</NimbleTooltip>
-                            <NimbleButton id="anchor2">Fail</NimbleButton>
-                            <NimbleTooltip anchor="anchor2" severity="error">Tooltip label</NimbleTooltip>
-                            <NimbleButton id="anchor3">Information</NimbleButton>
-                            <NimbleTooltip anchor="anchor3" severity="information">Tooltip label</NimbleTooltip>
-                            <NimbleButton id="anchor4">Fail Icon </NimbleButton>
-                            <NimbleTooltip anchor="anchor4" severity="error" iconVisible>Tooltip label</NimbleTooltip>
-                            <NimbleButton id="anchor5">Information Icon</NimbleButton>
-                            <NimbleTooltip anchor="anchor5" severity="information" iconVisible>Tooltip label</NimbleTooltip>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Tree View</div>
-                            <NimbleTreeView>
-                                <NimbleTreeItem>
-                                    Parent 1
-                                    <NimbleTreeItem>Child 1</NimbleTreeItem>
-                                    <NimbleAnchorTreeItem
+                                    {`${item.charAt(0).toUpperCase()}${item.slice(1)}`} Theme
+                                </NimbleListOption>
+                            ))}
+                        </NimbleSelect>
+                    </div>
+                    <div className="content-container-wrapper">
+                        <div className="content-container">
+                            <p>
+                                Explore the components below to see the Nimble components in action. See the <a
+                                    href="https://ni.github.io/nimble/storybook/">Nimble
+                                    component docs</a> for additional usage details.
+                                Navigate to the <a href="../index.html">parent page</a>.
+                            </p>
+                            <div className="container">
+                                <div className="sub-container">
+                                    <div className="container-label">Anchor</div>
+                                    <div><NimbleAnchor href="#" appearance="prominent">Site root</NimbleAnchor></div>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Banner</div>
+                                    <NimbleBanner
+                                        open={bannerOpen}
+                                        onToggle={e => setBannerOpen(e.detail.newState)}
+                                        severity="information">
+                                        <span slot="title">Title of the banner</span>
+                                        This is the message text of this banner. It tells you something interesting.
+                                    </NimbleBanner>
+                                    <NimbleCheckbox
+                                        checked={bannerOpen}
+                                        onChange={e => setBannerOpen(e.target.checked)}
+                                    >Show banner</NimbleCheckbox>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Breadcrumb</div>
+                                    <NimbleBreadcrumb>
+                                        <NimbleBreadcrumbItem href="#">Page 1</NimbleBreadcrumbItem>
+                                        <NimbleBreadcrumbItem
+                                            href="#"
+                                        >Page 2</NimbleBreadcrumbItem>
+                                        <NimbleBreadcrumbItem>Current Page (No Link)</NimbleBreadcrumbItem>
+                                    </NimbleBreadcrumb>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Buttons</div>
+                                    <NimbleButton appearance="outline">Outline Button</NimbleButton>
+                                    <NimbleButton appearance="block">Block Button</NimbleButton>
+                                    <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Buttons - Toggle</div>
+                                    <NimbleToggleButton appearance="outline">Outline Toggle Button</NimbleToggleButton>
+                                    <NimbleToggleButton appearance="block">Block Toggle Button</NimbleToggleButton>
+                                    <NimbleToggleButton appearance="ghost">Ghost Toggle Button</NimbleToggleButton>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Buttons - Anchor</div>
+                                    <NimbleAnchorButton
                                         href="#"
-                                    >Child 2 (link)</NimbleAnchorTreeItem>
-                                    <NimbleTreeItem disabled>Child 3</NimbleTreeItem>
-                                </NimbleTreeItem>
-                                <NimbleTreeItem expanded>
-                                    Parent 2
-                                    <NimbleTreeItem>Child 2-1</NimbleTreeItem>
-                                    <NimbleTreeItem>Child 2-2</NimbleTreeItem>
-                                    <NimbleTreeItem>Child 2-3</NimbleTreeItem>
-                                </NimbleTreeItem>
-                            </NimbleTreeView>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Chat Conversation and Messages (Spright)</div>
-                            <SprightChatConversation>
-                                <SprightChatMessage>To start, press any key.</SprightChatMessage>
-                                <SprightChatMessage messageType="outbound">Where is the Any key?</SprightChatMessage>
-                                <SprightChatMessage>
-                                    <NimbleSpinner appearance="accent"></NimbleSpinner>
-                                </SprightChatMessage>
-                                <SprightChatMessage messageType="inbound">
-                                    <NimbleButton slot="footer-actions" appearance='ghost' contentHidden>
-                                        <NimbleIconCopyText slot="start"></NimbleIconCopyText>
-                                        Copy
-                                    </NimbleButton>
-                                    <NimbleIconWebviCustom style={{ height: '100px', width: '100px' }}></NimbleIconWebviCustom>
-                                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                                    <NimbleButton slot="end" appearance="block">Order a tab</NimbleButton>
-                                    <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
-                                </SprightChatMessage>
-                                {chatUserMessages.map((message, index) => (
-                                    <SprightChatMessage key={index} messageType="outbound">
-                                        <span>{message}</span>
-                                    </SprightChatMessage>
-                                ))}
-                                <SprightChatInput
-                                    slot="input"
-                                    placeholder="Type here"
-                                    onSend={onChatInputSend}
-                                ></SprightChatInput>
-                            </SprightChatConversation>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Rectangle (Spright)</div>
-                            <SprightRectangle>Spright!</SprightRectangle>
-                        </div>
-                        <div className="sub-container">
-                            <div className="container-label">Button (Ok)</div>
-                            <OkButton>Ok</OkButton>
+                                        appearance="outline">Outline Anchor Button</NimbleAnchorButton>
+                                    <NimbleAnchorButton
+                                        href="#"
+                                        appearance="block">Block Anchor Button</NimbleAnchorButton>
+                                    <NimbleAnchorButton
+                                        href="#"
+                                        appearance="ghost">Ghost Anchor Button</NimbleAnchorButton>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Card</div>
+                                    <NimbleCard>
+                                        <span slot="title">Title of the card</span>
+                                        <NimbleNumberField>Numeric field 1</NimbleNumberField>
+                                        <NimbleNumberField>Numeric field 2</NimbleNumberField>
+                                        <NimbleSelect>
+                                            Select
+                                            <NimbleListOption value="1">Option 1</NimbleListOption>
+                                            <NimbleListOption value="2">Option 2</NimbleListOption>
+                                            <NimbleListOption value="3">Option 3</NimbleListOption>
+                                        </NimbleSelect>
+                                    </NimbleCard>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Card Button</div>
+                                    <NimbleCardButton>
+                                        <span className="card-button-content">Card Button</span>
+                                    </NimbleCardButton>
+                                    <NimbleCardButton selected>
+                                        <span className="card-button-content">Selected Card Button</span>
+                                    </NimbleCardButton>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Checkbox</div>
+                                    <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+                                    <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+                                    <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Radio Buttons</div>
+                                    <NimbleRadioGroup
+                                        value={selectedRadio}
+                                        onChange={e => setSelectedRadio(e.target.value)}
+                                    >
+                                        <span slot="label">Fruit</span>
+                                        <NimbleRadio name="fruit" value="apple"
+                                        >Apple</NimbleRadio>
+                                        <NimbleRadio name="fruit" value="banana"
+                                        >Banana</NimbleRadio>
+                                        <NimbleRadio name="fruit" value="mango"
+                                        >Mango</NimbleRadio>
+                                    </NimbleRadioGroup>
+                                    <NimbleTextField
+                                        value={selectedRadio}
+                                    >Selected value</NimbleTextField>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Dialog</div>
+                                    <NimbleDialog
+                                        // Note: Generic types such as Dialog require using the workaround ref type
+                                        // See: https://github.com/ni/nimble/issues/2784
+                                        ref={dialogRef as unknown as DialogRef}
+                                    >
+                                        <span slot="title">This is a dialog</span>
+                                        <div>It opened when you pushed the button</div>
+                                        <NimbleButton slot="footer"
+                                            onClick={_ => closeDialog('cancel pressed')}
+                                        >Cancel</NimbleButton>
+                                        <NimbleButton slot="footer"
+                                            onClick={_ => closeDialog('OK pressed')}
+                                        >OK</NimbleButton>
+                                    </NimbleDialog>
+                                    <NimbleButton
+                                        onClick={openDialog}
+                                    >Open Dialog</NimbleButton>
+                                    <NimbleTextField
+                                        value={dialogCloseReason}
+                                    >Closed Reason</NimbleTextField>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Drawer</div>
+                                    <NimbleDrawer
+                                        // Note: Generic types such as Drawer require using the workaround ref type
+                                        // See: https://github.com/ni/nimble/issues/2784
+                                        ref={drawerRef as unknown as DrawerRef}
+                                        location={drawerLocation}
+                                    >
+                                        <header>This is a drawer</header>
+                                        <section>
+                                            <p style={{ height: '1000px' }}>It opened when you pushed the button</p>
+                                            <p>This is the bottom!</p>
+                                        </section>
+                                        <footer className="drawer-footer">
+                                            <NimbleButton appearance="ghost"
+                                                onClick={() => closeDrawer('cancel pressed')}
+                                            >Cancel</NimbleButton>
+                                            <NimbleButton
+                                                onClick={() => closeDrawer('OK pressed')}
+                                            >OK</NimbleButton>
+                                        </footer>
+                                    </NimbleDrawer>
+                                    <NimbleButton
+                                        onClick={openDrawer}
+                                    >Open Drawer</NimbleButton>
+                                    <NimbleTextField
+                                        readOnly
+                                        value={drawerCloseReason}
+                                    >Closed Reason</NimbleTextField>
+                                    <NimbleSelect className="drawer-location-select"
+                                        value={drawerLocation}
+                                        onChange={e => setDrawerLocation(e.target.value === DrawerLocation.left ? DrawerLocation.left : DrawerLocation.right)}
+                                    >
+                                        Drawer Location
+                                        <NimbleListOption
+                                            value={DrawerLocation.left}
+                                        >Drawer: Left-side</NimbleListOption>
+                                        <NimbleListOption
+                                            value={DrawerLocation.right}
+                                        >Drawer: Right-side</NimbleListOption>
+                                    </NimbleSelect>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Menu</div>
+                                    <NimbleMenu>
+                                        <header>Header 1</header>
+                                        <NimbleMenuItem>
+                                            Item 1
+                                            <NimbleIconAdd slot="start"></NimbleIconAdd>
+                                        </NimbleMenuItem>
+                                        <NimbleMenuItem>Item 2</NimbleMenuItem>
+                                        <hr />
+                                        <header>Header 2</header>
+                                        <NimbleMenuItem>Item 4</NimbleMenuItem>
+                                        <NimbleAnchorMenuItem
+                                            href="#"
+                                        >Item 5 (link)</NimbleAnchorMenuItem>
+                                    </NimbleMenu>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Menu Button</div>
+                                    <NimbleMenuButton>
+                                        Menu Button
+                                        <NimbleMenu slot="menu"
+                                            onChange={onMenuButtonMenuChange}
+                                        >
+                                            <header>Header 1</header>
+                                            <NimbleMenuItem>
+                                                Item 1
+                                                <NimbleIconAdd slot="start"></NimbleIconAdd>
+                                            </NimbleMenuItem>
+                                            <NimbleMenuItem>Item 2</NimbleMenuItem>
+                                            <hr/>
+                                            <header>Header 2</header>
+                                            <NimbleMenuItem>Item 4</NimbleMenuItem>
+                                        </NimbleMenu>
+                                    </NimbleMenuButton>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Number Field</div>
+                                    <NimbleNumberField appearance="underline" placeholder="Number Field" value="42">Underline Number Field</NimbleNumberField>
+                                    <NimbleNumberField appearance="outline" placeholder="Number Field" value="42">Outline Number Field</NimbleNumberField>
+                                    <NimbleNumberField appearance="block" placeholder="Number Field" value="42">Block Number Field</NimbleNumberField>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Select</div>
+                                    <NimbleSelect
+                                        filterMode="standard"
+                                        appearance="underline"
+                                        value={underlineSelectValue}
+                                        onChange={e => setUnderlineSelectValue(e.target.value)}
+                                    >
+                                        Underline Select
+                                        <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
+                                        <NimbleListOptionGroup label="Group 1">
+                                            <NimbleListOption value="1">Option 1</NimbleListOption>
+                                            <NimbleListOption value="2">Option 2</NimbleListOption>
+                                        </NimbleListOptionGroup>
+                                        <NimbleListOptionGroup label="Group 2">
+                                            <NimbleListOption value="3">Option 3</NimbleListOption>
+                                            <NimbleListOption value="4">Option 4</NimbleListOption>
+                                        </NimbleListOptionGroup>
+                                    </NimbleSelect>
+                                    <NimbleSelect
+                                        appearance="outline"
+                                        value={outlineSelectValue}
+                                        onChange={e => setOutlineSelectValue(e.target.value)}
+                                    >
+                                        Outline Select
+                                        <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
+                                        <NimbleListOptionGroup label="Group 1">
+                                            <NimbleListOption>Option 1</NimbleListOption>
+                                            <NimbleListOption>Option 2</NimbleListOption>
+                                        </NimbleListOptionGroup>
+                                        <NimbleListOptionGroup label="Group 2">
+                                            <NimbleListOption>Option 3</NimbleListOption>
+                                            <NimbleListOption>Option 4</NimbleListOption>
+                                        </NimbleListOptionGroup>
+                                    </NimbleSelect>
+                                    <NimbleSelect
+                                        appearance="block"
+                                        value={blockSelectValue}
+                                        onChange={e => setBlockSelectValue(e.target.value)}
+                                    >
+                                        Block Select
+                                        <NimbleListOption hidden selected disabled value="">Select an option</NimbleListOption>
+                                        <NimbleListOptionGroup label="Group 1">
+                                            <NimbleListOption>Option 1</NimbleListOption>
+                                            <NimbleListOption>Option 2</NimbleListOption>
+                                        </NimbleListOptionGroup>
+                                        <NimbleListOptionGroup label="Group 2">
+                                            <NimbleListOption>Option 3</NimbleListOption>
+                                            <NimbleListOption>Option 4</NimbleListOption>
+                                        </NimbleListOptionGroup>
+                                    </NimbleSelect>
+                                    <div className="sub-container">
+                                        <div className="container-label">Select with dynamic options</div>
+                                        <NimbleSelect
+                                            ref={dynamicSelectRef}
+                                            appearance="underline"
+                                            filterMode="manual"
+                                            value={dynamicSelectValue ? `${dynamicSelectValue.first}-${dynamicSelectValue.last}` : ''}
+                                            onChange={onDynamicSelectChange}
+                                            onFilterInput={onDynamicSelectFilterInput}
+                                        >
+                                            <NimbleListOption hidden selected disabled value="">
+                                                Select an option
+                                            </NimbleListOption>
+                                            {dynamicSelectItems.map(item => (
+                                                <NimbleListOption
+                                                    key={`${item.first}-${item.last}`}
+                                                    value={`${item.first}-${item.last}`}
+                                                    hidden={shouldHideItem(item)}
+                                                >
+                                                    {item.first} {item.last}
+                                                </NimbleListOption>
+                                            ))}
+                                        </NimbleSelect>
+                                    </div>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Combobox</div>
+                                    <NimbleCombobox
+                                        aria-label="Combobox"
+                                        appearance="underline"
+                                        autocomplete="both"
+                                        placeholder="Select value..."
+                                    >
+                                        Underline Combobox
+                                        {comboboxItems.map((item, index) => (
+                                            <NimbleListOption key={index}>{item.first}</NimbleListOption>
+                                        ))}
+                                    </NimbleCombobox>
+                                    <NimbleCombobox
+                                        aria-label="Combobox"
+                                        appearance="outline"
+                                        autocomplete="both"
+                                        placeholder="Select value..."
+                                    >
+                                        Outline Combobox
+                                        {comboboxItems.map((item, index) => (
+                                            <NimbleListOption key={index}>{item.first}</NimbleListOption>
+                                        ))}
+                                    </NimbleCombobox>
+                                    <NimbleCombobox
+                                        aria-label="Combobox"
+                                        appearance="block"
+                                        autocomplete="both"
+                                        placeholder="Select value..."
+                                    >
+                                        Block Combobox
+                                        {comboboxItems.map((item, index) => (
+                                            <NimbleListOption key={index}>{item.first}</NimbleListOption>
+                                        ))}
+                                    </NimbleCombobox>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Rich Text Editor</div>
+                                    <div className="rich-text-editor-container">
+                                        <NimbleRichTextEditor
+                                            ref={richTextEditorRef}
+                                            className="rich-text-editor"
+                                            placeholder="Rich text editor"
+                                        >
+                                            <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
+                                                <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
+                                                <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>
+                                            </NimbleRichTextMentionUsers>
+                                            <NimbleButton slot="footer-actions"
+                                                onClick={loadRichTextEditorContent}
+                                            >Load Content</NimbleButton>
+                                        </NimbleRichTextEditor>
+                                    </div>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Rich Text Viewer</div>
+                                    <div className="rich-text-viewer-container">
+                                        <NimbleRichTextViewer
+                                            markdown={markdownString}
+                                        >
+                                            <NimbleRichTextMentionUsers buttonLabel='Mention User' pattern="^user:(.*)">
+                                                <NimbleMappingUser keyValue='user:1' displayName='John Doe'></NimbleMappingUser>
+                                                <NimbleMappingUser keyValue='user:2' displayName='Mary Wilson'></NimbleMappingUser>
+                                            </NimbleRichTextMentionUsers>
+                                        </NimbleRichTextViewer>
+                                    </div>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Spinner</div>
+                                    <NimbleSpinner aria-label="Loading example content"></NimbleSpinner>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Switch</div>
+                                    <NimbleSwitch>Switch</NimbleSwitch>
+                                    <NimbleSwitch checked>
+                                        Switch with checked/unchecked messages
+                                        <span slot="unchecked-message">Off</span>
+                                        <span slot="checked-message">On</span>
+                                    </NimbleSwitch>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Table</div>
+                                    <NimbleTable
+                                        // Note: Generic types such as Table require using the workaround ref type
+                                        // See: https://github.com/ni/nimble/issues/2784
+                                        ref={tableRef as unknown as TableRef}
+                                        idFieldName="id"
+                                        parentIdFieldName="parentId"
+                                        selectionMode="multiple"
+                                        style={{ height: '400px' }}>
+                                        <NimbleTableColumnText
+                                            fieldName="stringValue1"
+                                            actionMenuSlot="action-menu"
+                                            actionMenuLabel="Action menu"
+                                            fractionalWidth={2}
+                                            minPixelWidth={300}
+                                            sortDirection="ascending"
+                                            sortIndex={0}>
+                                            <NimbleIconCheck title="String 1"></NimbleIconCheck>
+                                        </NimbleTableColumnText>
+                                        <NimbleTableColumnAnchor
+                                            hrefFieldName="href"
+                                            labelFieldName="linkLabel">
+                                            Link
+                                        </NimbleTableColumnAnchor>
+                                        <NimbleTableColumnDateText fieldName="date">
+                                            Date
+                                        </NimbleTableColumnDateText>
+                                        <NimbleTableColumnMapping
+                                            fieldName="statusCode"
+                                            keyType="number">
+                                            <NimbleMappingText keyValue="100" text="Status message 1"></NimbleMappingText>
+                                            <NimbleMappingText keyValue="101" text="Status message 2"></NimbleMappingText>
+                                            Status
+                                        </NimbleTableColumnMapping>
+                                        <NimbleTableColumnMapping
+                                            fieldName="result"
+                                            keyType="string"
+                                            widthMode="icon-size">
+                                            <NimbleMappingIcon
+                                                keyValue="success"
+                                                text="Success"
+                                                icon="nimble-icon-check"
+                                                severity="success"
+                                                textHidden>
+                                            </NimbleMappingIcon>
+                                            <NimbleMappingSpinner
+                                                keyValue="calculating"
+                                                text="Calculating"
+                                                textHidden>
+                                            </NimbleMappingSpinner>
+                                            <NimbleMappingEmpty
+                                                keyValue="unknown"
+                                                text="Unknown">
+                                            </NimbleMappingEmpty>
+                                            <NimbleIconXmarkCheck title="Result"></NimbleIconXmarkCheck>
+                                        </NimbleTableColumnMapping>
+                                        <NimbleTableColumnNumberText fieldName="number">
+                                            Number
+                                        </NimbleTableColumnNumberText>
+                                        <NimbleTableColumnDurationText fieldName="duration">
+                                            Duration
+                                        </NimbleTableColumnDurationText>
+                                        <NimbleTableColumnText fieldName="stringValue2" minPixelWidth={400} groupIndex={0}>
+                                            String 2
+                                        </NimbleTableColumnText>
+                                        <NimbleTableColumnMenuButton
+                                            fieldName="color"
+                                            menuSlot="color-menu"
+                                            onBeforeToggle={onMenuButtonColumnBeforeToggle}>
+                                            Color
+                                        </NimbleTableColumnMenuButton>
+
+                                        <NimbleMenu slot="action-menu">
+                                            <NimbleMenuItem>Item 1</NimbleMenuItem>
+                                            <NimbleMenuItem>Item 2</NimbleMenuItem>
+                                            <NimbleMenuItem>Item 3</NimbleMenuItem>
+                                        </NimbleMenu>
+
+                                        <NimbleMenu slot="color-menu">
+                                            {colors.map(color => (
+                                                <NimbleMenuItem
+                                                    key={color}
+                                                    onChange={() => onColorSelected(color)}>
+                                                    {color === currentColor && (
+                                                        <NimbleIconCheck slot="start"></NimbleIconCheck>
+                                                    )}
+                                                    {color}
+                                                </NimbleMenuItem>
+                                            ))}
+                                        </NimbleMenu>
+                                    </NimbleTable>
+                                    <NimbleButton className="add-table-row-button"
+                                        onClick={() => addTableRows(10)}
+                                    >Add rows</NimbleButton>
+                                    <div>Row count: {tableData.length}</div>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Table with delayed hierarchy</div>
+                                    <NimbleTable
+                                        // Note: Generic types such as Table require using the workaround ref type
+                                        // See: https://github.com/ni/nimble/issues/2784
+                                        ref={delayedHierarchyTableRef as unknown as TableRef}
+                                        idFieldName="id" parentIdFieldName="parentId" selectionMode="multiple"
+                                        onRowExpandToggle={onRowExpandToggle}
+                                    >
+                                        <NimbleTableColumnText
+                                            fieldName="firstName"
+                                        >
+                                            First name
+                                        </NimbleTableColumnText>
+                                        <NimbleTableColumnText
+                                            fieldName="lastName"
+                                        >
+                                            Last name
+                                        </NimbleTableColumnText>
+                                        <NimbleTableColumnNumberText
+                                            fieldName="age"
+                                            format="decimal"
+                                            decimalDigits={0}
+                                        >
+                                            Age
+                                        </NimbleTableColumnNumberText>
+                                    </NimbleTable>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Tabs</div>
+                                    <NimbleTabs
+                                        activeid={activeTabId}
+                                        onChange={e => setActiveTabId(e.target.activeid)}
+                                    >
+                                        <NimbleTab id="tab-1">Tab 1</NimbleTab>
+                                        <NimbleTab id="tab-2">Tab 2</NimbleTab>
+                                        <NimbleTab id="tab-3" disabled>Tab 3 (Disabled)</NimbleTab>
+                                        <NimbleTabsToolbar>
+                                            <NimbleButton
+                                                onClick={onTabToolbarButtonClick}
+                                            >Toolbar button</NimbleButton>
+                                        </NimbleTabsToolbar>
+                                        <NimbleTabPanel>
+                                            <div className="container-label">Tab 1 content</div>
+                                        </NimbleTabPanel>
+                                        <NimbleTabPanel>
+                                            <div className="container-label">Tab 2 content</div>
+                                        </NimbleTabPanel>
+                                        <NimbleTabPanel>
+                                            <div className="container-label">Tab 3 content</div>
+                                        </NimbleTabPanel>
+                                    </NimbleTabs>
+                                    <label id="activeTabLabel">
+                                        Active tab:
+                                    </label>
+                                    <NimbleSelect
+                                        value={activeTabId}
+                                        onChange={e => setActiveTabId(e.target.value)}
+                                        aria-labelledby="activeTabLabel">
+                                        <NimbleListOption value="tab-1">Tab 1</NimbleListOption>
+                                        <NimbleListOption value="tab-2">Tab 2</NimbleListOption>
+                                        <NimbleListOption value="tab-3">Tab 3</NimbleListOption>
+                                    </NimbleSelect>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Tabs - Anchor</div>
+                                    <NimbleAnchorTabs
+                                        activeid={activeAnchorTabId}
+                                    >
+                                        <NimbleAnchorTab id="a-tab-1" href="https://nimble.ni.dev">Tab 1</NimbleAnchorTab>
+                                        <NimbleAnchorTab id="a-tab-2" href="https://ni.com">Tab 2</NimbleAnchorTab>
+                                        <NimbleAnchorTab disabled id="a-tab-3" href="https://google.com">Tab 3 (Disabled)</NimbleAnchorTab>
+                                        <NimbleTabsToolbar>
+                                            <NimbleButton
+                                                onClick={onTabToolbarButtonClick}
+                                            >Toolbar button</NimbleButton>
+                                        </NimbleTabsToolbar>
+                                    </NimbleAnchorTabs>
+                                    <label id="activeAnchorTabLabel">
+                                        Active tab:
+                                    </label>
+                                    <NimbleSelect
+                                        value={activeAnchorTabId}
+                                        onChange={e => setActiveAnchorTabId(e.target.value)}
+                                        aria-labelledby="activeAnchorTabLabel">
+                                        <NimbleListOption value="a-tab-1">Tab 1</NimbleListOption>
+                                        <NimbleListOption value="a-tab-2">Tab 2</NimbleListOption>
+                                        <NimbleListOption value="a-tab-3">Tab 3</NimbleListOption>
+                                    </NimbleSelect>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Text Area</div>
+                                    <NimbleTextArea placeholder="Text Area" cols={50} rows={5} resize="horizontal" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</NimbleTextArea>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Text Field</div>
+                                    <NimbleTextField appearance="underline" placeholder="Text Field" value="Here is text!">Underline Text Field</NimbleTextField>
+                                    <NimbleTextField appearance="outline" placeholder="Text Field" value="Here is text!">Outline Text Field</NimbleTextField>
+                                    <NimbleTextField appearance="block" placeholder="Text Field" value="Here is text!">Block Text Field</NimbleTextField>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Toolbar</div>
+                                    <NimbleToolbar>
+                                        <NimbleButton slot="start" appearance="outline">First button</NimbleButton>
+                                        <NimbleButton slot="start" appearance="outline">Second button</NimbleButton>
+                                        <NimbleButton>Middle button</NimbleButton>
+                                        <NimbleButton slot="end" appearance="outline">Last button</NimbleButton>
+                                    </NimbleToolbar>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Tooltip</div>
+                                    <NimbleButton id="anchor1">Default</NimbleButton>
+                                    <NimbleTooltip anchor="anchor1">Tooltip label</NimbleTooltip>
+                                    <NimbleButton id="anchor2">Fail</NimbleButton>
+                                    <NimbleTooltip anchor="anchor2" severity="error">Tooltip label</NimbleTooltip>
+                                    <NimbleButton id="anchor3">Information</NimbleButton>
+                                    <NimbleTooltip anchor="anchor3" severity="information">Tooltip label</NimbleTooltip>
+                                    <NimbleButton id="anchor4">Fail Icon </NimbleButton>
+                                    <NimbleTooltip anchor="anchor4" severity="error" iconVisible>Tooltip label</NimbleTooltip>
+                                    <NimbleButton id="anchor5">Information Icon</NimbleButton>
+                                    <NimbleTooltip anchor="anchor5" severity="information" iconVisible>Tooltip label</NimbleTooltip>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Tree View</div>
+                                    <NimbleTreeView>
+                                        <NimbleTreeItem>
+                                            Parent 1
+                                            <NimbleTreeItem>Child 1</NimbleTreeItem>
+                                            <NimbleAnchorTreeItem
+                                                href="#"
+                                            >Child 2 (link)</NimbleAnchorTreeItem>
+                                            <NimbleTreeItem disabled>Child 3</NimbleTreeItem>
+                                        </NimbleTreeItem>
+                                        <NimbleTreeItem expanded>
+                                            Parent 2
+                                            <NimbleTreeItem>Child 2-1</NimbleTreeItem>
+                                            <NimbleTreeItem>Child 2-2</NimbleTreeItem>
+                                            <NimbleTreeItem>Child 2-3</NimbleTreeItem>
+                                        </NimbleTreeItem>
+                                    </NimbleTreeView>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Chat Conversation and Messages (Spright)</div>
+                                    <SprightChatConversation>
+                                        <SprightChatMessage>To start, press any key.</SprightChatMessage>
+                                        <SprightChatMessage messageType="outbound">Where is the Any key?</SprightChatMessage>
+                                        <SprightChatMessage>
+                                            <NimbleSpinner appearance="accent"></NimbleSpinner>
+                                        </SprightChatMessage>
+                                        <SprightChatMessage messageType="inbound">
+                                            <NimbleButton slot="footer-actions" appearance='ghost' contentHidden>
+                                                <NimbleIconCopyText slot="start"></NimbleIconCopyText>
+                                                Copy
+                                            </NimbleButton>
+                                            <NimbleIconWebviCustom style={{ height: '100px', width: '100px' }}></NimbleIconWebviCustom>
+                                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                            <NimbleButton slot="end" appearance="block">Order a tab</NimbleButton>
+                                            <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
+                                        </SprightChatMessage>
+                                        {chatUserMessages.map((message, index) => (
+                                            <SprightChatMessage key={index} messageType="outbound">
+                                                <span>{message}</span>
+                                            </SprightChatMessage>
+                                        ))}
+                                        <SprightChatInput
+                                            slot="input"
+                                            placeholder="Type here"
+                                            onSend={onChatInputSend}
+                                        ></SprightChatInput>
+                                    </SprightChatConversation>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Rectangle (Spright)</div>
+                                    <SprightRectangle>Spright!</SprightRectangle>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Button (Ok)</div>
+                                    <OkButton>Ok</OkButton>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
