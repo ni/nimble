@@ -1,5 +1,11 @@
 @use '@ni/nimble-react/styles/tokens' as *;
 
+.header {
+    background-color: $ni-nimble-header-background-color;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .content {
     width: 100%;
     box-sizing: border-box;
