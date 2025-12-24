@@ -3,3 +3,17 @@ by the storybook.ts createStory helpers */
 .code-hide-top-container {
     display: contents;
 }
+
+/* doc pages skeleton not theme aware
+see: https://github.com/storybookjs/storybook/discussions/26088 */
+@media (prefers-color-scheme: dark) {
+    .sb-wrapper,
+    .sb-previewBlock_body,
+    .sb-previewBlock_header {
+        background-color: black;
+    }
+
+    .sb-argstableBlock-body td {
+        background: gray;
+    }
+}
