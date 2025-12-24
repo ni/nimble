@@ -38,12 +38,10 @@ import { SprightChatMessageModule } from '@ni/spright-angular/chat/message';
 import { SprightRectangleModule } from '@ni/spright-angular/rectangle';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
-import { HeaderComponent } from './header/header.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent,
         CustomAppComponent
     ],
     imports: [

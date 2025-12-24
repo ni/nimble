@@ -1,9 +1,30 @@
 @use '@ni/nimble-react/styles/tokens' as *;
 
-.content {
+.example-root {
+    background-color: $ni-nimble-application-background-color;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.header {
+    background-color: $ni-nimble-header-background-color;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content-container-wrapper {
+    overflow: auto;
+    height: 100%;
+}
+
+.content-container {
     width: 100%;
     box-sizing: border-box;
     font: $ni-nimble-body-font;
+    color: $ni-nimble-body-font-color;
 }
 
 .container-label {
@@ -17,8 +38,7 @@ p, a {
 }
 
 .container {
-    background-color: $ni-nimble-application-background-color;
-    display: inline-flex;
+    display: flex;
     justify-content: left;
     flex-direction: column;
     padding: 0px 2px 0px 10px;
@@ -30,12 +50,6 @@ p, a {
 
 .sub-container > * {
     margin-right: $ni-nimble-standard-padding;
-}
-
-.theme-select {
-    display: block;
-    width: 150px;
-    min-width: unset;
 }
 
 .drawer-location-select {
@@ -97,4 +111,8 @@ nimble-table {
 
 spright-chat-conversation {
     max-width: 700px;
+}
+
+spright-chat-message span {
+    white-space: pre-wrap;
 }

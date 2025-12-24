@@ -8,15 +8,23 @@
 <NimbleThemeProvider Theme="Theme">
     <NimbleLabelProviderCore></NimbleLabelProviderCore>
     <NimbleLabelProviderTable></NimbleLabelProviderTable>
-    <div class="root">
-        <ExampleHeader @bind-Theme="Theme"></ExampleHeader>
-        <ErrorBoundary @ref="ErrorBoundary">
-            <ChildContent>
-                @Body
-            </ChildContent>
-            <ErrorContent Context="ex">
-                    <p class="error">@ex.Message</p>
-            </ErrorContent>
-        </ErrorBoundary>
+    <div class="example-root">
+        <div class="header">
+            <NimbleSelect class="theme-select" Value="@ThemeAsString" ValueChanged="OnThemeChange">
+                <NimbleListOption Value="@Theme.Light.ToString()">Light Theme</NimbleListOption>
+                <NimbleListOption Value="@Theme.Dark.ToString()">Dark Theme</NimbleListOption>
+                <NimbleListOption Value="@Theme.Color.ToString()">Color Theme</NimbleListOption>
+            </NimbleSelect>
+        </div>
+        <div class="content-container-wrapper">
+            <ErrorBoundary @ref="ErrorBoundary">
+                <ChildContent>
+                    @Body
+                </ChildContent>
+                <ErrorContent Context="ex">
+                        <p class="error">@ex.Message</p>
+                </ErrorContent>
+            </ErrorBoundary>
+        </div>
     </div>
 </NimbleThemeProvider>
