@@ -102,7 +102,7 @@ interface PersonTableRecord extends TableRecord {
     hasChildren?: boolean;
 }
 
-export function App(): JSX.Element {
+export function App(): React.JSX.Element {
     const [bannerOpen, setBannerOpen] = useState(true);
     const [selectedRadio, setSelectedRadio] = useState('mango');
     const dialogRef = useRef<Dialog<string>>(null);
@@ -136,7 +136,7 @@ export function App(): JSX.Element {
     const [dynamicSelectValue, setDynamicSelectValue] = useState<ComboboxItem | null>(null);
     const [hideSelectedItem, setHideSelectedItem] = useState(false);
     const dynamicSelectRef = useRef<Select>(null);
-    const dynamicSelectFilterTimeoutRef = useRef<number>();
+    const dynamicSelectFilterTimeoutRef = useRef<number | undefined>(undefined);
     const dynamicSelectValueRef = useRef<ComboboxItem | null>(null);
 
     const comboboxItems: ComboboxItem[] = [

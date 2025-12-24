@@ -31,6 +31,6 @@
   "peerDependencies": {
     "@lit/react": "^1.0.8",
     "@ni/ok-components": "^0.1.22",
-    "react": "^16 || ^17 || ^18"
+    "react": "^17 || ^18 || ^19"
   }
 }
