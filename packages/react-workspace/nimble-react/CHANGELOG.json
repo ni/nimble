@@ -2,6 +2,21 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Wed, 24 Dec 2025 01:13:38 GMT",
+      "version": "0.8.0",
+      "tag": "@ni/nimble-react_v0.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "f02af57ebb0bd171e3778b06bb05ad1d140317bf",
+            "comment": "React 19 support"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Dec 2025 23:15:32 GMT",
       "version": "0.7.12",
       "tag": "@ni/nimble-react_v0.7.12",

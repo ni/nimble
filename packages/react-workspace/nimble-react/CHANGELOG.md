@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 24 Dec 2025 01:13:38 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.8.0
+
+Wed, 24 Dec 2025 01:13:38 GMT
+
+### Minor changes
+
+- React 19 support ([ni/nimble@f02af57](https://github.com/ni/nimble/commit/f02af57ebb0bd171e3778b06bb05ad1d140317bf))
 
 ## 0.7.12
 
