@@ -9,6 +9,7 @@
     box-sizing: border-box;
     font: $ni-nimble-body-font;
     color: $ni-nimble-body-font-color;
+    padding: 0px 2px 0px 10px;
 }
 
 .container-label {
@@ -17,23 +18,14 @@
     padding-bottom: $ni-nimble-standard-padding;
 }
 
-p, a {
-    color: $ni-nimble-control-label-font-color;
-}
-
 .container {
     display: flex;
     justify-content: left;
     flex-direction: column;
-    padding: 0px 2px 0px 10px;
 }
 
 .sub-container {
     margin: $ni-nimble-standard-padding;
-}
-
-.sub-container > * {
-    margin-right: $ni-nimble-standard-padding;
 }
 
 .drawer-location-select {
