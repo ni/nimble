@@ -560,13 +560,12 @@ export function App(): React.JSX.Element {
                     </div>
                     <div className="content-container-wrapper">
                         <div className="content-container">
-                            <p>
-                                Explore the components below to see the Nimble components in action. See the <a
-                                    href="https://ni.github.io/nimble/storybook/">Nimble
-                                    component docs</a> for additional usage details.
-                                Navigate to the <a href="../index.html">parent page</a>.
-                            </p>
                             <div className="container">
+                                <div className="sub-container">
+                                    Explore the components below to see the Nimble components in action.
+                                    See the <NimbleAnchor href="https://nimble.ni.dev/storybook/">Nimble component docs</NimbleAnchor> for additional usage details.
+                                    Navigate to the <NimbleAnchor href="../index.html">parent page</NimbleAnchor>.
+                                </div>
                                 <div className="sub-container">
                                     <div className="container-label">Anchor</div>
                                     <div><NimbleAnchor href="#" appearance="prominent">Site root</NimbleAnchor></div>
@@ -602,12 +601,6 @@ export function App(): React.JSX.Element {
                                     <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
                                 </div>
                                 <div className="sub-container">
-                                    <div className="container-label">Buttons - Toggle</div>
-                                    <NimbleToggleButton appearance="outline">Outline Toggle Button</NimbleToggleButton>
-                                    <NimbleToggleButton appearance="block">Block Toggle Button</NimbleToggleButton>
-                                    <NimbleToggleButton appearance="ghost">Ghost Toggle Button</NimbleToggleButton>
-                                </div>
-                                <div className="sub-container">
                                     <div className="container-label">Buttons - Anchor</div>
                                     <NimbleAnchorButton
                                         href="#"
@@ -618,6 +611,12 @@ export function App(): React.JSX.Element {
                                     <NimbleAnchorButton
                                         href="#"
                                         appearance="ghost">Ghost Anchor Button</NimbleAnchorButton>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Buttons - Toggle</div>
+                                    <NimbleToggleButton appearance="outline">Outline Toggle Button</NimbleToggleButton>
+                                    <NimbleToggleButton appearance="block">Block Toggle Button</NimbleToggleButton>
+                                    <NimbleToggleButton appearance="ghost">Ghost Toggle Button</NimbleToggleButton>
                                 </div>
                                 <div className="sub-container">
                                     <div className="container-label">Card</div>
