@@ -4,9 +4,14 @@ by the storybook.ts createStory helpers */
     display: contents;
 }
 
-/* doc pages skeleton not theme aware
+/* doc pages loading skeleton not theme aware
 see: https://github.com/storybookjs/storybook/discussions/26088 */
 @media (prefers-color-scheme: dark) {
+    body {
+        background-color: black;
+        color: white;
+    }
+
     .sb-wrapper,
     .sb-previewBlock_body,
     .sb-previewBlock_header {
