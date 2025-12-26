@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 26 Dec 2025 05:48:06 GMT",
+      "version": "34.10.3",
+      "tag": "@ni/nimble-components_v34.10.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aa38dfa69ff4dd4926f7f6f2da4d317fe83304b5",
+            "comment": "remove flatbuffers peerdep workaround"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Dec 2025 23:15:32 GMT",
       "version": "34.10.2",
       "tag": "@ni/nimble-components_v34.10.2",
