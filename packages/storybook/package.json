@@ -44,7 +44,6 @@
     "apache-arrow": "21.1.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-storybook": "^10.1.10",
-    "flatbuffers": "25.2.10",
     "globals": "^14.0.0"
   }
 }
