@@ -2,6 +2,102 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Fri, 26 Dec 2025 05:48:06 GMT",
+      "version": "0.3.1",
+      "tag": "@ni/ok-react_v0.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.23",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Dec 2025 01:13:38 GMT",
+      "version": "0.3.0",
+      "tag": "@ni/ok-react_v0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "f02af57ebb0bd171e3778b06bb05ad1d140317bf",
+            "comment": "React 19 support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "0.2.23",
+      "tag": "@ni/ok-react_v0.2.23",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Bump typescript version in all packages (to 5.8.3)"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.22",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Dec 2025 05:25:49 GMT",
+      "version": "0.2.22",
+      "tag": "@ni/ok-react_v0.2.22",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "7edb6b388dd3413748eb7aaa1197b327abca5631",
+            "comment": "Tweak ok components for build"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 13 Dec 2025 22:42:32 GMT",
+      "version": "0.2.21",
+      "tag": "@ni/ok-react_v0.2.21",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "fc03c70e4061694b75b137901ff3edafb5810830",
+            "comment": "Dev change only, switch to karma-vite"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Dec 2025 22:42:37 GMT",
+      "version": "0.2.21",
+      "tag": "@ni/ok-react_v0.2.21",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.21",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Dec 2025 23:54:32 GMT",
       "version": "0.2.20",
       "tag": "@ni/ok-react_v0.2.20",

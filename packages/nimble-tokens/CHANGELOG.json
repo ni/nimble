@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "8.13.6",
+      "tag": "@ni/nimble-tokens_v8.13.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Bump typescript version in all packages (to 5.8.3)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 21:45:22 GMT",
       "version": "8.13.5",
       "tag": "@ni/nimble-tokens_v8.13.5",

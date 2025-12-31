@@ -2,6 +2,36 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "1.0.7",
+      "tag": "@ni/jasmine-parameterized_v1.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Bump typescript version in all packages (to 5.8.3)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 13 Dec 2025 22:42:32 GMT",
+      "version": "1.0.6",
+      "tag": "@ni/jasmine-parameterized_v1.0.6",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "fc03c70e4061694b75b137901ff3edafb5810830",
+            "comment": "Dev change only, switch to karma-vite"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 21:45:22 GMT",
       "version": "1.0.6",
       "tag": "@ni/jasmine-parameterized_v1.0.6",

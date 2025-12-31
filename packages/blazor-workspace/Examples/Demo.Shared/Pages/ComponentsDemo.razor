@@ -3,25 +3,16 @@
 @namespace Demo.Shared.Pages
 @inherits LayoutComponentBase
 
-<div class="content container">
-    <p>
-        Explore the components below to see the Nimble components in action. See the <a
-                href="https://nimble.ni.dev/storybook/">Nimble
-                component docs</a> for additional usage details.
-                Navigate to the <a href="../../index.html">parent page</a>.
-    </p>
+<div class="content-container">
     <div class="container">
         <div class="sub-container">
-            <div class="container-label">Anchor</div>
-            <NimbleAnchor Href="#">Site root</NimbleAnchor>
+            Explore the components below to see the Nimble components in action.
+            See the <NimbleAnchor Href="https://nimble.ni.dev/storybook/">Nimble component docs</NimbleAnchor> for additional usage details.
+            Navigate to the <NimbleAnchor Href="../../index.html">parent page</NimbleAnchor>.
         </div>
         <div class="sub-container">
-            <div class="container-label">Breadcrumb</div>
-            <NimbleBreadcrumb>
-                <NimbleBreadcrumbItem Href="#">Page 1</NimbleBreadcrumbItem>
-                <NimbleBreadcrumbItem Href="#">Page 2</NimbleBreadcrumbItem>
-                <NimbleBreadcrumbItem>Current Page (No Link)</NimbleBreadcrumbItem>
-            </NimbleBreadcrumb>
+            <div class="container-label">Anchor</div>
+            <NimbleAnchor Appearance="AnchorAppearance.Prominent" Href="#">Site root</NimbleAnchor>
         </div>
         <div class="sub-container">
             <div class="container-label">Banner</div>
@@ -30,6 +21,14 @@
                 This is the message text of this banner. It tells you something interesting.
             </NimbleBanner>
             <NimbleCheckbox @bind-Value="@BannerOpen">Show banner</NimbleCheckbox>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Breadcrumb</div>
+            <NimbleBreadcrumb>
+                <NimbleBreadcrumbItem Href="#">Page 1</NimbleBreadcrumbItem>
+                <NimbleBreadcrumbItem Href="#">Page 2</NimbleBreadcrumbItem>
+                <NimbleBreadcrumbItem>Current Page (No Link)</NimbleBreadcrumbItem>
+            </NimbleBreadcrumb>
         </div>
         <div class="sub-container">
             <div class="container-label">Buttons</div>
@@ -99,12 +98,6 @@
                 <NimbleRadio Value="3">Option 3</NimbleRadio>
             </NimbleRadioGroup>
             <NimbleTextField @bind-Value="@SelectedRadio">Value</NimbleTextField>
-        </div>
-        <div class="sub-container">
-            <div class="container-label">Rich Text Viewer</div>
-            <div class="rich-text-viewer-container">
-                <NimbleRichTextViewer Markdown="@MarkdownString"></NimbleRichTextViewer>
-            </div>
         </div>
         <div class="sub-container">
             <div class="container-label">Dialog</div>
@@ -235,6 +228,12 @@
                 <NimbleListOption>Sue</NimbleListOption>
                 <NimbleListOption>Dexter</NimbleListOption>
             </NimbleCombobox>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Rich Text Viewer</div>
+            <div class="rich-text-viewer-container">
+                <NimbleRichTextViewer Markdown="@MarkdownString"></NimbleRichTextViewer>
+            </div>
         </div>
         <div class="sub-container">
             <div class="container-label">Spinner</div>

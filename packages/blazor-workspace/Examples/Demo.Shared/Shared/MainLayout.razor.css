@@ -1,6 +1,19 @@
-﻿.root {
+﻿.example-root {
+    background-color: var(--ni-nimble-application-background-color);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     height: 100%;
-    background-color: var(--ni-nimble-application-background-color);
+    width: 100%;
+}
+
+.header {
+    background-color: var(--ni-nimble-header-background-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content-container-wrapper {
+    overflow: auto;
+    height: 100%;
 }

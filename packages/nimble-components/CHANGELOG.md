@@ -1,8 +1,34 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 09 Dec 2025 23:54:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 26 Dec 2025 05:48:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.10.3
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- remove flatbuffers peerdep workaround ([ni/nimble@aa38dfa](https://github.com/ni/nimble/commit/aa38dfa69ff4dd4926f7f6f2da4d317fe83304b5))
+
+## 34.10.2
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-tokens to v8.13.6
+- Bump @ni/jasmine-parameterized to v1.0.7
+
+## 34.10.1
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Fix typo in menu button column file name ([ni/nimble@1a8e710](https://github.com/ni/nimble/commit/1a8e710d60bbd317c87735ed43ad777030f0f681))
 
 ## 34.10.0
 

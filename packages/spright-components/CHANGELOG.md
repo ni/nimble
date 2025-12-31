@@ -1,8 +1,34 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 09 Dec 2025 23:54:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 26 Dec 2025 05:48:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.4.23
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.3
+
+## 6.4.22
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-components to v34.10.2
+- Bump @ni/jasmine-parameterized to v1.0.7
+
+## 6.4.21
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.1
 
 ## 6.4.20
 

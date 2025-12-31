@@ -2,6 +2,7 @@
     "compilerOptions": {
       "target": "ES2020",
       "module": "Node16",
+      "esModuleInterop": true,
       "moduleResolution": "Node16",
       "outDir": "./dist/esm",
       "importHelpers": false,

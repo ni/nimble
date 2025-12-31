@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "30.12.0",
+  "version": "31.0.1",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/nimble-angular && npm publish",
@@ -27,13 +27,12 @@
     }
   },
   "peerDependencies": {
-    "@angular/common": "^18.2.13",
-    "@angular/core": "^18.2.13",
-    "@angular/forms": "^18.2.13",
-    "@angular/localize": "^18.2.13",
-    "@angular/router": "^18.2.13",
-    "@ni/nimble-components": "^34.10.0",
-    "@ni/unit-format": "^0.0.1"
+    "@angular/common": "^19.2.17",
+    "@angular/core": "^19.2.17",
+    "@angular/forms": "^19.2.17",
+    "@angular/localize": "^19.2.17",
+    "@angular/router": "^19.2.17",
+    "@ni/nimble-components": "^34.10.3"
   },
   "dependencies": {
     "tslib": "^2.2.0"

@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/platform-browser/testing/src/matchers.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/packages/private/testing/matchers/index.ts
  * with the following modifications:
  * - Update imports
  * - Comment out everything other than what is needed to use `toHaveText` matcher because `toHaveText` is the only matcher required by the copied
@@ -17,13 +17,13 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import {ɵgetDOM as getDOM} from '@angular/common';
-import {Type} from '@angular/core';
-import {ComponentFixture} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
+// import {ɵgetDOM as getDOM} from '@angular/common';
+// import {Type} from '@angular/core';
+// import {ComponentFixture} from '@angular/core/testing';
+// import {By} from '@angular/platform-browser';
 
 // [Nimble] Update imports
-import {childNodesAsList} from './browser_util';
+import {childNodesAsList, isCommentNode} from './browser_utils';
 
 /**
  * Jasmine matchers that check Angular specific conditions.
@@ -144,7 +144,9 @@ beforeEach(function () {
             get message() {
               const expectedValueStr = typeof styles === 'string' ? styles : JSON.stringify(styles);
               return `Expected ${actual.outerHTML} ${!allPassed ? ' ' : 'not '}to contain the
-                      CSS ${typeof styles === 'string' ? 'property' : 'styles'} "${expectedValueStr}"`;
+                      CSS ${
+                        typeof styles === 'string' ? 'property' : 'styles'
+                      } "${expectedValueStr}"`;
             },
           };
         },
@@ -213,13 +215,11 @@ function elementText(n: any): string {
     return n.map(elementText).join('');
   }
 
-  // [Nimble] Update isCommentNode check to not require `getDom()` call
-  // if (isCommentNode(n)) {
-  if (n.nodeType === Node.COMMENT_NODE) {
+  if (isCommentNode(n)) {
     return '';
   }
 
-  // [Nimble] Update isElementNode check to not require `getDom()` call
+  // [Nimble] Update isElementNode check to not require `getDOM()` call
   // if (getDOM().isElementNode(n)) {
   if (n.nodeType === Node.ELEMENT_NODE) {
     const tagName = (n as Element).tagName;

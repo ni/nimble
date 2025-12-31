@@ -2,6 +2,57 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Fri, 26 Dec 2025 05:48:06 GMT",
+      "version": "8.0.1",
+      "tag": "@ni/spright-angular_v8.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.4.23",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "8.0.0",
+      "tag": "@ni/spright-angular_v8.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Update Angular dependencies and forked files to v19.2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.4.22",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Dec 2025 22:42:37 GMT",
+      "version": "7.8.22",
+      "tag": "@ni/spright-angular_v7.8.22",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.4.21",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Dec 2025 23:54:32 GMT",
       "version": "7.8.21",
       "tag": "@ni/spright-angular_v7.8.21",

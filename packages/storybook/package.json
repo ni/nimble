@@ -7,6 +7,7 @@
   "scripts": {
     "build": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
+    "launch-webkit": "playwright wk http://localhost:6006",
     "lint": "eslint .",
     "format": "eslint . --fix"
   },
@@ -23,27 +24,26 @@
     "@ni/ok-react": "*",
     "@ni/spright-components": "*",
     "@ni/spright-react": "*",
-    "@storybook/addon-a11y": "^10.1.0",
-    "@storybook/addon-docs": "^10.1.0",
-    "@storybook/addon-links": "^10.1.0",
-    "@storybook/builder-vite": "^10.1.0",
-    "@storybook/cli": "^10.1.0",
-    "@storybook/html-vite": "^10.1.0",
+    "@storybook/addon-a11y": "^10.1.10",
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-links": "^10.1.10",
+    "@storybook/builder-vite": "^10.1.10",
+    "@storybook/cli": "^10.1.10",
+    "@storybook/html-vite": "^10.1.10",
     "js-beautify": "^1.15.1",
     "react-syntax-highlighter": "^16.1.0",
     "remark-gfm": "^4.0.0",
     "rollup": "^4.12.0",
-    "storybook": "^10.1.0",
-    "storybook-addon-pseudo-states": "^10.1.0",
-    "typescript": "~5.4.5",
+    "storybook": "^10.1.10",
+    "storybook-addon-pseudo-states": "^10.1.10",
+    "typescript": "~5.8.3",
     "vite": "^7.0.0"
   },
   "peerDependencies": {
-    "@types/react": "^18",
+    "@types/react": "^19",
     "apache-arrow": "21.1.0",
     "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-storybook": "^10.1.0",
-    "flatbuffers": "25.2.10",
+    "eslint-plugin-storybook": "^10.1.10",
     "globals": "^14.0.0"
   }
 }
