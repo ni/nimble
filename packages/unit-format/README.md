@@ -17,8 +17,8 @@ The library is intended to align well with the [`Intl.NumberFormat`](https://dev
 Choose a `UnitFormat` and create an instance with an optional `UnitScale` reference:
 
 ```ts
-const formatter = new DefaultUnitFormat('en', {
-    unitScale: byteUnitScale
+const formatter = new UnitFormatDefault('en', {
+    unitScale: unitScaleByte
 });
 console.log(formatter.format(1000));
 // Output: '1 kB'
@@ -30,7 +30,7 @@ console.log(formatter.format(1000));
 
 There are multiple `UnitFormat`s that represent different configurations for formatting numbers. These represent wrappers around `Intl.NumberFormat` with opinionated configurations.
 
-For example, the `DefaultUnitFormat` will represent "very large" and "very small" numbers with an exponential notation and numbers between those ranges as decimal. The different `UnitFormat`s take an optional `unitScale` that provides units and automatic conversions of numbers for that unit scale.
+For example, the `UnitFormatDefault` will represent "very large" and "very small" numbers with an exponential notation and numbers between those ranges as decimal. The different `UnitFormat`s take an optional `unitScale` that provides units and automatic conversions of numbers for that unit scale.
 
 ### UnitScale
 
@@ -47,15 +47,15 @@ A `ScaledUnitFormat` is an object for formatting a particular `ScaledUnit` on th
 
 There are two main types of `ScaledUnitFormat`s:
 
-- `IntlNumberFormatScaledUnitFormat` which are scaled units can be translated by [`Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
-- `ManuallyTranslatedScaledUnitFormat` which are scaled units manually translated for a set of supported languages via `UnitTranslation` string collections.
+- `ScaledUnitFormatIntlNumberFormat` which are scaled units can be translated by [`Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
+- `ScaledUnitFormatManuallyTranslated` which are scaled units manually translated for a set of supported languages via `UnitTranslation` string collections.
 
 The different `ScaledUnitFormat` objects have a static function to assist with their factory creation, for example:
 
 ```ts
 new ScaledUnit(
     10 ** 3,
-    IntlNumberFormatScaledUnitFormat.createFactory({
+    ScaledUnitFormatIntlNumberFormat.createFactory({
         style: 'unit',
         unit: 'kilobyte',
         unitDisplay: 'short'

@@ -1,6 +1,6 @@
 {
-  "type": "patch",
-  "comment": "Migrate to `@ni/unit-format`",
+  "type": "major",
+  "comment": "First release of `@ni/unit-format` 🎉",
   "packageName": "@ni/unit-format",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"

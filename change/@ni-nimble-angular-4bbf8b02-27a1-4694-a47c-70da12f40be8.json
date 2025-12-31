@@ -1,6 +1,6 @@
 {
-  "type": "patch",
-  "comment": "Migrate to `@ni/unit-format`",
+  "type": "major",
+  "comment": "Breaking: `@ni/nimble-angular/pipes` unit scales renamed, i.e. `byteUnitScale` to `unitScaleByte`",
   "packageName": "@ni/nimble-angular",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
