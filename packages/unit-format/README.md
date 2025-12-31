@@ -1,8 +1,12 @@
-# UnitFormat
+<div align="center">
+    <p><b>ni | unit format</b></p>
+</div>
 
-## Overview
+# Unit Format
 
-The `UnitFormat` library provides a way to format numbers with units. The library:
+[![NPM Version](https://img.shields.io/npm/v/@ni/unit-format.svg)](https://www.npmjs.com/package/@ni/unit-format)
+
+The `@ni/unit-format` library provides a way to format numbers with units. The library:
 
 - Provides opinionated number formatters that are well-suited for:
     - numbers that can appear in large ranges (very small or very large).
@@ -12,7 +16,7 @@ The `UnitFormat` library provides a way to format numbers with units. The librar
 
 The library is intended to align well with the [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) API to make it relatively straightforward to swap in.
 
-## Usage
+## Getting Started
 
 Choose a `UnitFormat` and create an instance with an optional `UnitScale` reference:
 
@@ -62,3 +66,7 @@ new ScaledUnit(
     })
 ),
 ```
+
+## Contributing
+
+See `Getting Started` in [`CONTRIBUTING.md`](/packages/unit-format/CONTRIBUTING.md#getting-started).
