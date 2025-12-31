@@ -1,6 +1,6 @@
 import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
 import { UnitScale } from './unit-scale.js';
-import { metricPrefixes } from './utilities/metrix-prefixes.js';
+import { metricPrefixes } from './utilities/metric-prefixes.js';
 import {
     ManuallyTranslatedScaledUnitFormat,
     type UnitTranslations,
