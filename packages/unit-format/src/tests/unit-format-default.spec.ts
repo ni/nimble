@@ -228,7 +228,7 @@ describe('UnitFormatDefault', () => {
     });
 
     describe('with unit', () => {
-        class TestUnitScale extends UnitScale {
+        class UnitScaleTest extends UnitScale {
             public constructor() {
                 super([
                     new ScaledUnit(
@@ -258,7 +258,7 @@ describe('UnitFormatDefault', () => {
                 expect(resolvedOptions.unitScale).toBe(unitScalePassthrough);
             });
             it('unconfigured', () => {
-                const unitScale = new TestUnitScale();
+                const unitScale = new UnitScaleTest();
                 const formatter = new UnitFormatDefault('en', {
                     unitScale
                 });
@@ -286,7 +286,7 @@ describe('UnitFormatDefault', () => {
         parameterizeSpec(appendedLabelUnitTestCases, (spec, name, value) => {
             spec(name, () => {
                 const formatterForAppendedLabel = new UnitFormatDefault('en', {
-                    unitScale: new TestUnitScale()
+                    unitScale: new UnitScaleTest()
                 });
                 expect(formatterForAppendedLabel.format(value.value)).toEqual(
                     value.expectedFormattedValue

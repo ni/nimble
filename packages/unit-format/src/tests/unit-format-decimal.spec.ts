@@ -140,7 +140,7 @@ describe('UnitFormatDecimal', () => {
     });
 
     describe('with unit', () => {
-        class TestUnitScale extends UnitScale {
+        class UnitScaleTest extends UnitScale {
             public constructor() {
                 super([
                     new ScaledUnit(
@@ -190,7 +190,7 @@ describe('UnitFormatDecimal', () => {
             });
 
             it('all configured', () => {
-                const unitScale = new TestUnitScale();
+                const unitScale = new UnitScaleTest();
                 const formatter = new UnitFormatDecimal('en', {
                     minimumFractionDigits: 10,
                     maximumFractionDigits: 20,
@@ -225,7 +225,7 @@ describe('UnitFormatDecimal', () => {
                 const formatter = new UnitFormatDecimal('en', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
-                    unitScale: new TestUnitScale()
+                    unitScale: new UnitScaleTest()
                 });
                 expect(formatter.format(value.value)).toEqual(
                     value.expectedFormattedValue

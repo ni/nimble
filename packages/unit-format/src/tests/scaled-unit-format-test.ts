@@ -2,7 +2,7 @@ import { ScaledUnitFormatIntlNumberFormat } from '../scaled-unit-format/intl-num
 import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/scaled-unit.js';
 
 /**
- * A ScaledUnitFormat that behaves like IntlNumberFormatScaledUnitFormat but also includes the scaleFactor in the formatted number
+ * A ScaledUnitFormat that behaves like ScaledUnitFormatIntlNumberFormat but also includes the scaleFactor in the formatted number
  */
 export class ScaledUnitFormatTest extends ScaledUnitFormatIntlNumberFormat {
     protected constructor(

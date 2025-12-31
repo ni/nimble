@@ -16,7 +16,7 @@ describe('UnitScale', () => {
     const kiloScaledUnit = new ScaledUnit(10 ** 3, noopScaledUnitFormatFactory);
     const megaScaledUnit = new ScaledUnit(10 ** 6, noopScaledUnitFormatFactory);
 
-    class TestUnitScale extends UnitScale {
+    class UnitScaleTest extends UnitScale {
         public constructor() {
             super([
                 milliScaledUnit,
@@ -92,7 +92,7 @@ describe('UnitScale', () => {
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
-            const unitScale = new TestUnitScale();
+            const unitScale = new UnitScaleTest();
             const { scaledValue, scaledUnit } = unitScale.scaleNumber(
                 value.value
             );
@@ -104,39 +104,39 @@ describe('UnitScale', () => {
     });
 
     it('can return the base scaled unit', () => {
-        expect(new TestUnitScale().baseScaledUnit).toBe(baseScaledUnit);
+        expect(new UnitScaleTest().baseScaledUnit).toBe(baseScaledUnit);
     });
 
     describe('with incorrect ScaledUnits', () => {
         it('out of order', () => {
-            class TestOutOfOrderUnitScale extends UnitScale {
+            class UnitScaleTestOutOfOrder extends UnitScale {
                 public constructor() {
                     super([baseScaledUnit, milliScaledUnit]);
                 }
             }
-            expect(() => new TestOutOfOrderUnitScale()).toThrowError(
+            expect(() => new UnitScaleTestOutOfOrder()).toThrowError(
                 /must have unique and ordered scale factors/
             );
         });
 
         it('duplicated', () => {
-            class TestDuplicateUnitScale extends UnitScale {
+            class UnitScaleTestDuplicate extends UnitScale {
                 public constructor() {
                     super([milliScaledUnit, milliScaledUnit, baseScaledUnit]);
                 }
             }
-            expect(() => new TestDuplicateUnitScale()).toThrowError(
+            expect(() => new UnitScaleTestDuplicate()).toThrowError(
                 /must have unique and ordered scale factors/
             );
         });
 
         it('missing base unit', () => {
-            class TestNoBaseUnitScale extends UnitScale {
+            class UnitScaleTestNoBase extends UnitScale {
                 public constructor() {
                     super([milliScaledUnit, kiloScaledUnit, megaScaledUnit]);
                 }
             }
-            expect(() => new TestNoBaseUnitScale()).toThrowError(
+            expect(() => new UnitScaleTestNoBase()).toThrowError(
                 /must include a base scaled unit/
             );
         });

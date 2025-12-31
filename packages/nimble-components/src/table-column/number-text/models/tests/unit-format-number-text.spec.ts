@@ -255,7 +255,7 @@ describe('UnitFormatNumberText', () => {
                 expected: true
             },
             {
-                name: 'defaults unitScale to passthroughUnitScale',
+                name: 'defaults unitScale to passthrough',
                 options1: {
                     unitScale: unitScalePassthrough
                 },
