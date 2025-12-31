@@ -1,7 +1,7 @@
 import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
 import { UnitScale } from './unit-scale.js';
 import {
-    ManuallyTranslatedScaledUnitFormat,
+    ScaledUnitFormatManuallyTranslated,
     type UnitTranslations,
     UnitTranslation
 } from '../scaled-unit-format/manually-translated.js';
@@ -26,13 +26,13 @@ const byte1024Prefixes = [
 /**
  * Byte units (1024-based)
  */
-class Byte1024UnitScale extends UnitScale {
+class UnitScaleByte1024 extends UnitScale {
     public constructor() {
         super(
             byte1024Prefixes.map(
                 ([scaleFactor, scaledPrefixText]) => new ScaledUnit(
                     scaleFactor,
-                    ManuallyTranslatedScaledUnitFormat.createFactory({
+                    ScaledUnitFormatManuallyTranslated.createFactory({
                         unitTranslations,
                         scaledPrefixText
                     })
@@ -42,4 +42,4 @@ class Byte1024UnitScale extends UnitScale {
     }
 }
 
-export const byte1024UnitScale = new Byte1024UnitScale();
+export const unitScaleByte1024 = new UnitScaleByte1024();

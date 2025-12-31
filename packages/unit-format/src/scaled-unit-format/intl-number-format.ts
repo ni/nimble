@@ -4,7 +4,7 @@ import { ScaledUnitFormat } from './scaled-unit-format.js';
 /**
  * A formatter for units that can be formatted/translated by Intl.NumberFormat
  */
-export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
+export class ScaledUnitFormatIntlNumberFormat extends ScaledUnitFormat {
     private readonly formatter: Intl.NumberFormat;
 
     protected constructor(
@@ -24,7 +24,7 @@ export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
     ) {
         return (
             scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
-        ): IntlNumberFormatScaledUnitFormat => new IntlNumberFormatScaledUnitFormat(
+        ): ScaledUnitFormatIntlNumberFormat => new ScaledUnitFormatIntlNumberFormat(
             scaledUnitFormatFactoryOptions,
             unitSpecificIntlNumberFormatOptions
         );

@@ -1,19 +1,19 @@
 import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
-import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-number-format.js';
+import { ScaledUnitFormatIntlNumberFormat } from '../scaled-unit-format/intl-number-format.js';
 import { UnitScale } from './unit-scale.js';
 
-const celsiusUnitScaleOptions = [[1, 'celsius', 'short']] as const;
+const unitScaleCelsiusConfig = [[1, 'celsius', 'short']] as const;
 
 /**
  * Degrees Celsius units
  */
-class CelsiusUnitScale extends UnitScale {
+class UnitScaleCelsius extends UnitScale {
     public constructor() {
         super(
-            celsiusUnitScaleOptions.map(
+            unitScaleCelsiusConfig.map(
                 ([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
                     scaleFactor,
-                    IntlNumberFormatScaledUnitFormat.createFactory({
+                    ScaledUnitFormatIntlNumberFormat.createFactory({
                         style: 'unit',
                         unit,
                         unitDisplay
@@ -24,4 +24,4 @@ class CelsiusUnitScale extends UnitScale {
     }
 }
 
-export const celsiusUnitScale = new CelsiusUnitScale();
+export const unitScaleCelsius = new UnitScaleCelsius();

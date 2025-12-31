@@ -17,7 +17,7 @@ import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
-import { NumberTextUnitFormat } from './models/number-text-unit-format';
+import { UnitFormatNumberText } from './models/unit-format-number-text';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
@@ -184,7 +184,7 @@ export class TableColumnNumberText extends mixinTextBase(
 
     private createFormatter(): UnitFormat {
         const unitScale = this.unit?.resolvedUnitScale;
-        return new NumberTextUnitFormat(lang.getValueFor(this), {
+        return new UnitFormatNumberText(lang.getValueFor(this), {
             // Attribute values sometimes resolve to either null or undefined
             // See https://github.com/microsoft/fast/issues/6630
             numberTextFormat: this.format ?? undefined,

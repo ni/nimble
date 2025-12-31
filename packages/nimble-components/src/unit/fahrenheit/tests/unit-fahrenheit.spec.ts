@@ -1,4 +1,4 @@
-import { fahrenheitUnitScale } from '@ni/unit-format/unit-scale/fahrenheit';
+import { unitScaleFahrenheit } from '@ni/unit-format/unit-scale/fahrenheit';
 import { UnitFahrenheit, unitFahrenheitTag } from '..';
 
 describe('Fahrenheit unit', () => {
@@ -10,6 +10,6 @@ describe('Fahrenheit unit', () => {
 
     it('returns expected formatter', () => {
         const element = document.createElement(unitFahrenheitTag);
-        expect(element.resolvedUnitScale).toBe(fahrenheitUnitScale);
+        expect(element.resolvedUnitScale).toBe(unitScaleFahrenheit);
     });
 });

@@ -1,7 +1,7 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { voltUnitScale } from '../volt.js';
+import { unitScaleVolt } from '../volt.js';
 
-describe('VoltUnitScale', () => {
+describe('UnitScaleVolt', () => {
     const testCases = [
         {
             name: '10 ** -18',
@@ -104,7 +104,7 @@ describe('VoltUnitScale', () => {
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
-            const { scaledValue, scaledUnit } = voltUnitScale.scaleNumber(
+            const { scaledValue, scaledUnit } = unitScaleVolt.scaleNumber(
                 value.number
             );
             expect(
@@ -136,7 +136,7 @@ describe('VoltUnitScale', () => {
     });
 
     it('uses femtovolts unit instead of volts if number would round down to 0', () => {
-        const { scaledValue, scaledUnit } = voltUnitScale.scaleNumber(
+        const { scaledValue, scaledUnit } = unitScaleVolt.scaleNumber(
             10 ** -17
         );
         expect(

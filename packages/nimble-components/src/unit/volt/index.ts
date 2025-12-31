@@ -1,5 +1,5 @@
 import { DesignSystem } from '@ni/fast-foundation';
-import { voltUnitScale } from '@ni/unit-format/unit-scale/volt';
+import { unitScaleVolt } from '@ni/unit-format/unit-scale/volt';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
 import { styles } from '../base/styles';
@@ -16,7 +16,7 @@ declare global {
 export class UnitVolt extends Unit {
     public constructor() {
         super();
-        this.resolvedUnitScale = voltUnitScale;
+        this.resolvedUnitScale = unitScaleVolt;
     }
 }
 

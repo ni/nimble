@@ -1,7 +1,7 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { byte1024UnitScale } from '../byte-1024.js';
+import { unitScaleByte1024 } from '../byte-1024.js';
 
-describe('Byte1024UnitScale', () => {
+describe('UnitScaleByte1024', () => {
     const testCases = [
         {
             name: '0',
@@ -80,7 +80,7 @@ describe('Byte1024UnitScale', () => {
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
-            const { scaledValue, scaledUnit } = byte1024UnitScale.scaleNumber(
+            const { scaledValue, scaledUnit } = unitScaleByte1024.scaleNumber(
                 value.number
             );
             expect(

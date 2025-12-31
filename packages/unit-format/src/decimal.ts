@@ -1,18 +1,18 @@
 import { UnitFormat, type UnitFormatOptions } from './unit-format.js';
 import type { ScaledUnitFormat } from './scaled-unit-format/scaled-unit-format.js';
 import type { UnitScale } from './unit-scale/unit-scale.js';
-import { passthroughUnitScale } from './unit-scale/passthrough.js';
+import { unitScalePassthrough } from './unit-scale/passthrough.js';
 
-interface DecimalUnitFormatOptions extends UnitFormatOptions {
+interface UnitFormatDecimalOptions extends UnitFormatOptions {
     minimumFractionDigits?: number;
     maximumFractionDigits?: number;
 }
-type ResolvedDecimalUnitFormatOptions = Required<DecimalUnitFormatOptions>;
+type UnitFormatDecimalResolvedOptions = Required<UnitFormatDecimalOptions>;
 
 /**
  * Format for decimal numbers with units.
  */
-export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
+export class UnitFormatDecimal extends UnitFormat<UnitFormatDecimalOptions> {
     private readonly unitScale: UnitScale;
     private readonly minimumFractionDigits: number;
     private readonly maximumFractionDigits: number;
@@ -24,11 +24,11 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
         {
             minimumFractionDigits = 0,
             maximumFractionDigits = Math.max(3, minimumFractionDigits),
-            unitScale = passthroughUnitScale
-        }: DecimalUnitFormatOptions = {
+            unitScale = unitScalePassthrough
+        }: UnitFormatDecimalOptions = {
             minimumFractionDigits: 0,
             maximumFractionDigits: 3,
-            unitScale: passthroughUnitScale
+            unitScale: unitScalePassthrough
         }
     ) {
         super();
@@ -55,7 +55,7 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
         this.maximumFractionDigits = maximumFractionDigits;
     }
 
-    public override resolvedOptions(): ResolvedDecimalUnitFormatOptions {
+    public override resolvedOptions(): UnitFormatDecimalResolvedOptions {
         return {
             unitScale: this.unitScale,
             maximumFractionDigits: this.maximumFractionDigits,

@@ -1,11 +1,11 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { DefaultUnitFormat } from '../default.js';
+import { UnitFormatDefault } from '../default.js';
 import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
 import { UnitScale } from '../unit-scale/unit-scale.js';
-import { passthroughUnitScale } from '../unit-scale/passthrough.js';
-import { TestScaledUnitFormat } from './test-scaled-unit-format.js';
+import { unitScalePassthrough } from '../unit-scale/passthrough.js';
+import { ScaledUnitFormatTest } from './scaled-unit-format-test.js';
 
-describe('DefaultUnitFormat', () => {
+describe('UnitFormatDefault', () => {
     const testCases = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
@@ -212,15 +212,15 @@ describe('DefaultUnitFormat', () => {
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
             const options = {
-                unitScale: passthroughUnitScale
+                unitScale: unitScalePassthrough
             } as const;
 
-            const formatterEn = new DefaultUnitFormat('en', options);
+            const formatterEn = new UnitFormatDefault('en', options);
             expect(formatterEn.format(value.value)).toEqual(
                 value.expectedFormattedValue.en
             );
 
-            const formatterDe = new DefaultUnitFormat('de', options);
+            const formatterDe = new UnitFormatDefault('de', options);
             expect(formatterDe.format(value.value)).toEqual(
                 value.expectedFormattedValue.de
             );
@@ -233,19 +233,19 @@ describe('DefaultUnitFormat', () => {
                 super([
                     new ScaledUnit(
                         0.01,
-                        TestScaledUnitFormat.createTestFactory(0.01)
+                        ScaledUnitFormatTest.createTestFactory(0.01)
                     ),
                     new ScaledUnit(
                         1,
-                        TestScaledUnitFormat.createTestFactory(1)
+                        ScaledUnitFormatTest.createTestFactory(1)
                     ),
                     new ScaledUnit(
                         100,
-                        TestScaledUnitFormat.createTestFactory(100)
+                        ScaledUnitFormatTest.createTestFactory(100)
                     ),
                     new ScaledUnit(
                         1000,
-                        TestScaledUnitFormat.createTestFactory(1000)
+                        ScaledUnitFormatTest.createTestFactory(1000)
                     )
                 ]);
             }
@@ -253,13 +253,13 @@ describe('DefaultUnitFormat', () => {
 
         describe('and default values', () => {
             it('unconfigured', () => {
-                const formatter = new DefaultUnitFormat('en');
+                const formatter = new UnitFormatDefault('en');
                 const resolvedOptions = formatter.resolvedOptions();
-                expect(resolvedOptions.unitScale).toBe(passthroughUnitScale);
+                expect(resolvedOptions.unitScale).toBe(unitScalePassthrough);
             });
             it('unconfigured', () => {
                 const unitScale = new TestUnitScale();
-                const formatter = new DefaultUnitFormat('en', {
+                const formatter = new UnitFormatDefault('en', {
                     unitScale
                 });
                 const resolvedOptions = formatter.resolvedOptions();
@@ -285,7 +285,7 @@ describe('DefaultUnitFormat', () => {
         ] as const;
         parameterizeSpec(appendedLabelUnitTestCases, (spec, name, value) => {
             spec(name, () => {
-                const formatterForAppendedLabel = new DefaultUnitFormat('en', {
+                const formatterForAppendedLabel = new UnitFormatDefault('en', {
                     unitScale: new TestUnitScale()
                 });
                 expect(formatterForAppendedLabel.format(value.value)).toEqual(

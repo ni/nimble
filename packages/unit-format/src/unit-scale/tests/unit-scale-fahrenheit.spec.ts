@@ -1,39 +1,39 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { celsiusUnitScale } from '../celsius.js';
+import { unitScaleFahrenheit } from '../fahrenheit.js';
 
-describe('CelsiusUnitScale', () => {
+describe('UnitScaleFahrenheit', () => {
     const testCases = [
         {
             name: '10 ** -1',
             number: 10 ** -1,
-            formatted: ['0.1°C', '0,1\u202f°C', '0,1 °C', '0.1°C', '0.1°C']
+            formatted: ['0.1°F', '0,1\u202f°F', '0,1 °F', '0.1°F', '0.1°F']
         },
         {
             name: '1',
             number: 1,
-            formatted: ['1°C', '1\u202f°C', '1 °C', '1°C', '1°C']
+            formatted: ['1°F', '1\u202f°F', '1 °F', '1°F', '1°F']
         },
         {
             name: '2',
             number: 2,
-            formatted: ['2°C', '2\u202f°C', '2 °C', '2°C', '2°C']
+            formatted: ['2°F', '2\u202f°F', '2 °F', '2°F', '2°F']
         },
         {
             name: '10 ** 3',
             number: 10 ** 3,
             formatted: [
-                '1,000°C',
-                '1\u202f000\u202f°C',
-                '1.000 °C',
-                '1,000°C',
-                '1,000°C'
+                '1,000°F',
+                '1\u202f000\u202f°F',
+                '1.000 °F',
+                '1,000°F',
+                '1,000°F'
             ]
         }
     ] as const;
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
-            const { scaledValue, scaledUnit } = celsiusUnitScale.scaleNumber(
+            const { scaledValue, scaledUnit } = unitScaleFahrenheit.scaleNumber(
                 value.number
             );
             expect(

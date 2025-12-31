@@ -1,11 +1,11 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { byteUnitScale } from '@ni/unit-format/unit-scale/byte';
-import { byte1024UnitScale } from '@ni/unit-format/unit-scale/byte-1024';
-import { passthroughUnitScale } from '@ni/unit-format/unit-scale/passthrough';
+import { unitScaleByte } from '@ni/unit-format/unit-scale/byte';
+import { unitScaleByte1024 } from '@ni/unit-format/unit-scale/byte-1024';
+import { unitScalePassthrough } from '@ni/unit-format/unit-scale/passthrough';
 import { NumberTextFormat } from '../../types';
-import { NumberTextUnitFormat } from '../number-text-unit-format';
+import { UnitFormatNumberText } from '../unit-format-number-text';
 
-describe('NumberTextUnitFormat', () => {
+describe('UnitFormatNumberText', () => {
     const testCases = [
         {
             name: 'honors locale',
@@ -63,7 +63,7 @@ describe('NumberTextUnitFormat', () => {
             format: NumberTextFormat.decimal,
             decimalDigits: undefined,
             decimalMaximumDigits: undefined,
-            unitScale: byteUnitScale,
+            unitScale: unitScaleByte,
             number: 0.0123456,
             expected: '0.01 bytes'
         },
@@ -73,14 +73,14 @@ describe('NumberTextUnitFormat', () => {
             format: NumberTextFormat.default,
             decimalDigits: undefined,
             decimalMaximumDigits: undefined,
-            unitScale: byteUnitScale,
+            unitScale: unitScaleByte,
             number: 0.0123456,
             expected: '0.01235 bytes'
         }
     ] as const;
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
-            const formatter = new NumberTextUnitFormat(value.locale ?? 'en', {
+            const formatter = new UnitFormatNumberText(value.locale ?? 'en', {
                 numberTextFormat: value.format,
                 decimalDigits: value.decimalDigits,
                 decimalMaximumDigits: value.decimalMaximumDigits,
@@ -92,7 +92,7 @@ describe('NumberTextUnitFormat', () => {
 
     it('throws error when format=decimal and decimalDigits and decimalMaximumDigits both specified', () => {
         expect(() => {
-            void new NumberTextUnitFormat('en', {
+            void new UnitFormatNumberText('en', {
                 numberTextFormat: NumberTextFormat.decimal,
                 decimalDigits: 0,
                 decimalMaximumDigits: 0
@@ -104,7 +104,7 @@ describe('NumberTextUnitFormat', () => {
 
     it('does not throw error when format=default and decimalDigits specified', () => {
         expect(() => {
-            void new NumberTextUnitFormat('en', {
+            void new UnitFormatNumberText('en', {
                 numberTextFormat: NumberTextFormat.default,
                 decimalDigits: 0
             });
@@ -113,7 +113,7 @@ describe('NumberTextUnitFormat', () => {
 
     it('does not throw error when format=default and decimalMaximumDigits specified', () => {
         expect(() => {
-            void new NumberTextUnitFormat('en', {
+            void new UnitFormatNumberText('en', {
                 numberTextFormat: NumberTextFormat.default,
                 decimalMaximumDigits: 0
             });
@@ -237,27 +237,27 @@ describe('NumberTextUnitFormat', () => {
             {
                 name: 'with different unitScale values',
                 options1: {
-                    unitScale: byteUnitScale
+                    unitScale: unitScaleByte
                 },
                 options2: {
-                    unitScale: byte1024UnitScale
+                    unitScale: unitScaleByte1024
                 },
                 expected: false
             },
             {
                 name: 'with same unitScale values',
                 options1: {
-                    unitScale: byteUnitScale
+                    unitScale: unitScaleByte
                 },
                 options2: {
-                    unitScale: byteUnitScale
+                    unitScale: unitScaleByte
                 },
                 expected: true
             },
             {
                 name: 'defaults unitScale to passthroughUnitScale',
                 options1: {
-                    unitScale: passthroughUnitScale
+                    unitScale: unitScalePassthrough
                 },
                 options2: {},
                 expected: true
@@ -277,7 +277,7 @@ describe('NumberTextUnitFormat', () => {
         ] as const;
         parameterizeSpec(optionsMatchTestCases, (spec, name, value) => {
             spec(name, () => {
-                const format = new NumberTextUnitFormat('en', value.options1);
+                const format = new UnitFormatNumberText('en', value.options1);
                 expect(format.optionsMatch(value.options2)).toBe(
                     value.expected
                 );

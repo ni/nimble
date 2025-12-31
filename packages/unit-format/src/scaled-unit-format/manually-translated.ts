@@ -16,7 +16,7 @@ export class UnitTranslation {
  * A map of locales of string format "[lang]" or "[lang]-[region]", for example "en" and / or "en-us", to UnitTranslation objects
  */
 export type UnitTranslations = ReadonlyMap<string, UnitTranslation>;
-export interface ManuallyTranslatedScaledUnitFormatOptions {
+export interface ScaledUnitFormatManuallyTranslatedOptions {
     /**
      * Translations for the unit by locale string.
      * The locale strings must be of the form [lang] or [lang]-[region], for example "en" and / or "en-us".
@@ -35,7 +35,7 @@ export interface ManuallyTranslatedScaledUnitFormatOptions {
 /**
  * A formatter for units that are not supported by Intl.NumberFormat
  */
-export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
+export class ScaledUnitFormatManuallyTranslated extends ScaledUnitFormat {
     private readonly pluralRules: Intl.PluralRules;
     private readonly formatter: Intl.NumberFormat;
     private readonly unitTranslation: UnitTranslation;
@@ -46,7 +46,7 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
         {
             unitTranslations,
             scaledPrefixText
-        }: ManuallyTranslatedScaledUnitFormatOptions
+        }: ScaledUnitFormatManuallyTranslatedOptions
     ) {
         super(scaledUnitFormatFactoryOptions);
         if (!unitTranslations.get('en')) {
@@ -67,13 +67,13 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
     }
 
     public static createFactory(
-        manuallyTranslatedScaledUnitFormatOptions: ManuallyTranslatedScaledUnitFormatOptions
+        scaledUnitFormatManuallyTranslatedOptions: ScaledUnitFormatManuallyTranslatedOptions
     ) {
         return (
             scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
-        ): ManuallyTranslatedScaledUnitFormat => new ManuallyTranslatedScaledUnitFormat(
+        ): ScaledUnitFormatManuallyTranslated => new ScaledUnitFormatManuallyTranslated(
             scaledUnitFormatFactoryOptions,
-            manuallyTranslatedScaledUnitFormatOptions
+            scaledUnitFormatManuallyTranslatedOptions
         );
     }
 

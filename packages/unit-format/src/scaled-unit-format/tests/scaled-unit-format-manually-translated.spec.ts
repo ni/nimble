@@ -1,10 +1,10 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import {
-    ManuallyTranslatedScaledUnitFormat,
+    ScaledUnitFormatManuallyTranslated,
     UnitTranslation
 } from '../manually-translated.js';
 
-describe('ManuallyTranslatedScaledUnitFormat', () => {
+describe('ScaledUnitFormatManuallyTranslated', () => {
     const unitTranslations = new Map<string, UnitTranslation>([
         ['en', new UnitTranslation('en-singular', 'en-plural', 'en-abbrev')],
         ['fr', new UnitTranslation('fr-singular', 'fr-plural', 'fr-abbrev')],
@@ -50,7 +50,7 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
 
     parameterizeSpec(translationTestCases, (spec, name, value) => {
         spec(name, () => {
-            const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+            const scaledUnitFormatter = ScaledUnitFormatManuallyTranslated.createFactory({
                 unitTranslations,
                 scaledPrefixText
             })({
@@ -63,7 +63,7 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
     });
 
     it('uses unit prefix and symbol whenever unit prefix is provided', () => {
-        const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+        const scaledUnitFormatter = ScaledUnitFormatManuallyTranslated.createFactory({
             unitTranslations,
             scaledPrefixText: '1.'
         })({
@@ -73,7 +73,7 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
     });
 
     it('uses given formatter options', () => {
-        const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+        const scaledUnitFormatter = ScaledUnitFormatManuallyTranslated.createFactory({
             unitTranslations,
             scaledPrefixText
         })({
@@ -87,7 +87,7 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
         const unitTranslationsMissingEn = new Map<string, UnitTranslation>([
             ['foo', new UnitTranslation('byte', 'bytes', 'B')]
         ]);
-        const scaledUnitFormatterFactory = ManuallyTranslatedScaledUnitFormat.createFactory({
+        const scaledUnitFormatterFactory = ScaledUnitFormatManuallyTranslated.createFactory({
             unitTranslations: unitTranslationsMissingEn,
             scaledPrefixText
         });
@@ -173,7 +173,7 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
 
     parameterizeSpec(pluralizationTestCases, (spec, name, value) => {
         spec(`uses expected pluralization for ${name}`, () => {
-            const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+            const scaledUnitFormatter = ScaledUnitFormatManuallyTranslated.createFactory({
                 unitTranslations,
                 scaledPrefixText
             })({

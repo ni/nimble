@@ -1,8 +1,8 @@
-import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-number-format.js';
+import { ScaledUnitFormatIntlNumberFormat } from '../scaled-unit-format/intl-number-format.js';
 import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
 import { UnitScale } from './unit-scale.js';
 
-const byteUnitScaleOptions = [
+const unitScaleByteConfig = [
     [1000 ** 0, 'byte', 'long'],
     [1000 ** 1, 'kilobyte', 'short'],
     [1000 ** 2, 'megabyte', 'short'],
@@ -14,13 +14,13 @@ const byteUnitScaleOptions = [
 /**
  * Byte units (1000-based)
  */
-class ByteUnitScale extends UnitScale {
+class UnitScaleByte extends UnitScale {
     public constructor() {
         super(
-            byteUnitScaleOptions.map(
+            unitScaleByteConfig.map(
                 ([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
                     scaleFactor,
-                    IntlNumberFormatScaledUnitFormat.createFactory({
+                    ScaledUnitFormatIntlNumberFormat.createFactory({
                         style: 'unit',
                         unit,
                         unitDisplay
@@ -31,4 +31,4 @@ class ByteUnitScale extends UnitScale {
     }
 }
 
-export const byteUnitScale = new ByteUnitScale();
+export const unitScaleByte = new UnitScaleByte();

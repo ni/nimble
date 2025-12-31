@@ -1,5 +1,5 @@
 import { DesignSystem } from '@ni/fast-foundation';
-import { fahrenheitUnitScale } from '@ni/unit-format/unit-scale/fahrenheit';
+import { unitScaleFahrenheit } from '@ni/unit-format/unit-scale/fahrenheit';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
 import { styles } from '../base/styles';
@@ -16,7 +16,7 @@ declare global {
 export class UnitFahrenheit extends Unit {
     public constructor() {
         super();
-        this.resolvedUnitScale = fahrenheitUnitScale;
+        this.resolvedUnitScale = unitScaleFahrenheit;
     }
 }
 

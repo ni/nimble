@@ -2,7 +2,7 @@ import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
 import { UnitScale } from './unit-scale.js';
 import { metricPrefixes } from './utilities/metric-prefixes.js';
 import {
-    ManuallyTranslatedScaledUnitFormat,
+    ScaledUnitFormatManuallyTranslated,
     type UnitTranslations,
     UnitTranslation
 } from '../scaled-unit-format/manually-translated.js';
@@ -18,13 +18,13 @@ const unitTranslations: UnitTranslations = new Map([
 /**
  * Voltage unit scale
  */
-class VoltUnitScale extends UnitScale {
+class UnitScaleVolt extends UnitScale {
     public constructor() {
         super(
             metricPrefixes.map(
                 ([scaleFactor, scaledPrefixText]) => new ScaledUnit(
                     scaleFactor,
-                    ManuallyTranslatedScaledUnitFormat.createFactory({
+                    ScaledUnitFormatManuallyTranslated.createFactory({
                         unitTranslations,
                         scaledPrefixText
                     })
@@ -34,4 +34,4 @@ class VoltUnitScale extends UnitScale {
     }
 }
 
-export const voltUnitScale = new VoltUnitScale();
+export const unitScaleVolt = new UnitScaleVolt();

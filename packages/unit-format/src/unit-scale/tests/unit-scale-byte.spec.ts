@@ -1,7 +1,7 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { byteUnitScale } from '../byte.js';
+import { unitScaleByte } from '../byte.js';
 
-describe('ByteUnitScale', () => {
+describe('UnitScaleByte', () => {
     const testCases = [
         {
             name: '0',
@@ -52,7 +52,7 @@ describe('ByteUnitScale', () => {
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
-            const { scaledValue, scaledUnit } = byteUnitScale.scaleNumber(
+            const { scaledValue, scaledUnit } = unitScaleByte.scaleNumber(
                 value.number
             );
             expect(
@@ -69,7 +69,7 @@ describe('ByteUnitScale', () => {
     });
 
     it('uses bytes unit instead of kilobytes if number would round up to 1000', () => {
-        const { scaledValue, scaledUnit } = byteUnitScale.scaleNumber(999);
+        const { scaledValue, scaledUnit } = unitScaleByte.scaleNumber(999);
         expect(
             scaledUnit
                 .scaledUnitFormatFactory({

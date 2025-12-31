@@ -111,9 +111,9 @@ describe('NumberTextPipe', () => {
             unitScale: byteUnitScale
         };
         pipe.transform(1, args);
-        const initialFormatter = pipe.numberTextUnitFormat;
+        const initialFormatter = pipe.unitFormatNumberText;
         pipe.transform(1, args);
-        expect(pipe.numberTextUnitFormat).toBe(initialFormatter);
+        expect(pipe.unitFormatNumberText).toBe(initialFormatter);
     });
 
     describe('in component template', () => {

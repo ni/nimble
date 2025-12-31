@@ -1,19 +1,19 @@
 import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
-import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-number-format.js';
+import { ScaledUnitFormatIntlNumberFormat } from '../scaled-unit-format/intl-number-format.js';
 import { UnitScale } from './unit-scale.js';
 
-const fahrenheitUnitScaleOptions = [[1, 'fahrenheit', 'short']] as const;
+const unitScaleFahrenheitConfig = [[1, 'fahrenheit', 'short']] as const;
 
 /**
  * Degrees Fahrenheit units
  */
-class FahrenheitUnitScale extends UnitScale {
+class UnitScaleFahrenheit extends UnitScale {
     public constructor() {
         super(
-            fahrenheitUnitScaleOptions.map(
+            unitScaleFahrenheitConfig.map(
                 ([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
                     scaleFactor,
-                    IntlNumberFormatScaledUnitFormat.createFactory({
+                    ScaledUnitFormatIntlNumberFormat.createFactory({
                         style: 'unit',
                         unit,
                         unitDisplay
@@ -24,4 +24,4 @@ class FahrenheitUnitScale extends UnitScale {
     }
 }
 
-export const fahrenheitUnitScale = new FahrenheitUnitScale();
+export const unitScaleFahrenheit = new UnitScaleFahrenheit();

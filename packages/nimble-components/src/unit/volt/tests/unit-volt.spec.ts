@@ -1,4 +1,4 @@
-import { voltUnitScale } from '@ni/unit-format/unit-scale/volt';
+import { unitScaleVolt } from '@ni/unit-format/unit-scale/volt';
 import { UnitVolt, unitVoltTag } from '..';
 
 describe('Volt unit', () => {
@@ -8,6 +8,6 @@ describe('Volt unit', () => {
 
     it('returns expected formatter', () => {
         const element = document.createElement(unitVoltTag);
-        expect(element.resolvedUnitScale).toBe(voltUnitScale);
+        expect(element.resolvedUnitScale).toBe(unitScaleVolt);
     });
 });

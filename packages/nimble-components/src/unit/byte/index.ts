@@ -1,7 +1,7 @@
 import { attr } from '@ni/fast-element';
 import { DesignSystem } from '@ni/fast-foundation';
-import { byte1024UnitScale } from '@ni/unit-format/unit-scale/byte-1024';
-import { byteUnitScale } from '@ni/unit-format/unit-scale/byte';
+import { unitScaleByte1024 } from '@ni/unit-format/unit-scale/byte-1024';
+import { unitScaleByte } from '@ni/unit-format/unit-scale/byte';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
 import { styles } from '../base/styles';
@@ -25,13 +25,13 @@ export class UnitByte extends Unit {
 
     public constructor() {
         super();
-        this.resolvedUnitScale = byteUnitScale;
+        this.resolvedUnitScale = unitScaleByte;
     }
 
     private binaryChanged(): void {
         this.resolvedUnitScale = this.binary
-            ? byte1024UnitScale
-            : byteUnitScale;
+            ? unitScaleByte1024
+            : unitScaleByte;
     }
 }
 
