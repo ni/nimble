@@ -2,7 +2,7 @@
     "compilerOptions": {
         "declaration": true,
         "esModuleInterop": true,
-        "moduleResolution": "bundler",
+        "moduleResolution": "node",
         "outDir": "dist/icons/js",
         "strictNullChecks": true,
         "experimentalDecorators": true,

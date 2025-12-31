@@ -31,6 +31,11 @@
         "import": "./dist/esm/*.js"
       }
   },
+  "typesVersions": {
+    "*": {
+      "*": ["dist/esm/*"]
+    }
+  },
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
