@@ -7,6 +7,18 @@
     "ok",
     "react"
   ],
+  "type": "module",
+  "exports": {
+      "./*": {
+        "types": "./dist/esm/*.d.ts",
+        "import": "./dist/esm/*/index.js"
+      }
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["dist/esm/*"]
+    }
+  },
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "lint": "eslint .",

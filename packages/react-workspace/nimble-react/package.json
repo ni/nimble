@@ -7,11 +7,26 @@
     "nimble",
     "react"
   ],
+  "type": "module",
+  "exports": {
+      "./styles/*": "./styles/*",
+      "./icons/*": {
+        "types": "./dist/esm/icons/*.d.ts",
+        "import": "./dist/esm/icons/*.js"
+      },
+      "./*": {
+        "types": "./dist/esm/*.d.ts",
+        "import": "./dist/esm/*/index.js"
+      }
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["dist/esm/*"]
+    }
+  },
   "scripts": {
     "build": "npm run build:icons && npm run build:components",
-    "build:icons": "npm run build:icons:bundle && npm run build:icons:run",
-    "build:icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
-    "build:icons:run": "node build/generate-icons/dist/index.js",
+    "build:icons": "node build/generate-icons.mjs",
     "build:components": "tsc -p ./tsconfig.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
@@ -32,8 +47,6 @@
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "^34.10.3",
     "@ni/nimble-tokens": "^8.13.6",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "rollup": "^4.12.0",
     "typescript": "~5.8.3"
   },
   "peerDependencies": {
