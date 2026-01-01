@@ -4,22 +4,6 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
     plugins: [react()],
     base: './',
-    resolve: {
-        alias: [
-            {
-                find: '@ni/nimble-react/dist/esm',
-                replacement: '@ni/nimble-react/src'
-            },
-            {
-                find: '@ni/spright-react/dist/esm',
-                replacement: '@ni/spright-react/src'
-            },
-            {
-                find: '@ni/ok-react/dist/esm',
-                replacement: '@ni/ok-react/src'
-            },
-        ]
-    },
     build: {
         chunkSizeWarningLimit: 5 * 1024 * 1024
     }
