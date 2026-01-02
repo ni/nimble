@@ -49,6 +49,7 @@
     "@ni/fast-foundation": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-tokens": "^8.13.6",
+    "@ni/unit-format": "^0.0.1",
     "@tanstack/table-core": "^8.19.3",
     "@tanstack/virtual-core": "^3.10.6",
     "@tiptap/core": "^3.10.1",
