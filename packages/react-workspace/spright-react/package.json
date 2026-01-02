@@ -7,6 +7,21 @@
     "spright",
     "react"
   ],
+  "type": "module",
+  "exports": {
+      "./package.json": "./package.json",
+      "./*": {
+        "types": "./dist/esm/*.d.ts",
+        "import": "./dist/esm/*/index.js"
+      }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "lint": "eslint .",

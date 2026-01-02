@@ -6,6 +6,7 @@
   "scripts": {
     "start": "vite",
     "build": "tsc -b && vite build",
+    "test": "tsc -p ./tsconfig.legacy.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack"

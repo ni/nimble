@@ -1,7 +1,7 @@
 import React, { type ReactNode } from 'react';
 import './story-layout.css';
-import { NimbleIconCheck } from '@ni/nimble-react/dist/esm/icons/check';
-import { NimbleIconExclamationMark } from '@ni/nimble-react/dist/esm/icons/exclamation-mark';
+import { NimbleIconCheck } from '@ni/nimble-react/icons/check';
+import { NimbleIconExclamationMark } from '@ni/nimble-react/icons/exclamation-mark';
 
 interface ChildrenProp {
     children?: ReactNode;
