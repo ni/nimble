@@ -1,6 +1,6 @@
-import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
-import { ScaledUnitFormatIntlNumberFormat } from '../scaled-unit-format/intl-number-format.js';
-import { UnitScale } from './unit-scale.js';
+import { ScaledUnit } from '../../scaled-unit/index.js';
+import { ScaledUnitFormatIntlNumberFormat } from '../../scaled-unit-format/intl-number-format/index.js';
+import { UnitScale } from '../index.js';
 
 const unitScaleCelsiusConfig = [[1, 'celsius', 'short']] as const;
 

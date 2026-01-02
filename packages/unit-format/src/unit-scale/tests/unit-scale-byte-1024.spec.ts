@@ -1,5 +1,5 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { unitScaleByte1024 } from '../byte-1024.js';
+import { unitScaleByte1024 } from '../byte-1024/index.js';
 
 describe('UnitScaleByte1024', () => {
     const testCases = [

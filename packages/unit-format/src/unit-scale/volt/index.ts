@@ -1,11 +1,11 @@
-import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
-import { UnitScale } from './unit-scale.js';
-import { metricPrefixes } from './utilities/metric-prefixes.js';
+import { ScaledUnit } from '../../scaled-unit/index.js';
+import { UnitScale } from '../index.js';
+import { metricPrefixes } from '../utilities/metric-prefixes.js';
 import {
     ScaledUnitFormatManuallyTranslated,
     type UnitTranslations,
     UnitTranslation
-} from '../scaled-unit-format/manually-translated.js';
+} from '../../scaled-unit-format/manually-translated/index.js';
 
 const unitTranslations: UnitTranslations = new Map([
     ['en', new UnitTranslation('volt', 'volts', 'V')],

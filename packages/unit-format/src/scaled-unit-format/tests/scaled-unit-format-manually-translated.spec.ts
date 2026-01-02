@@ -2,7 +2,7 @@ import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import {
     ScaledUnitFormatManuallyTranslated,
     UnitTranslation
-} from '../manually-translated.js';
+} from '../manually-translated/index.js';
 
 describe('ScaledUnitFormatManuallyTranslated', () => {
     const unitTranslations = new Map<string, UnitTranslation>([

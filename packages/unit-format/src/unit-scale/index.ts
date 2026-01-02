@@ -1,4 +1,4 @@
-import type { ScaledUnit } from '../scaled-unit/scaled-unit.js';
+import type { ScaledUnit } from '../scaled-unit/index.js';
 
 interface ScaledNumber {
     readonly scaledValue: number;

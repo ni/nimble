@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/scaled-unit.js';
-import { ScaledUnitFormat } from './scaled-unit-format.js';
+import type { ScaledUnitFormatFactoryOptions } from '../../scaled-unit/index.js';
+import { ScaledUnitFormat } from '../index.js';
 
 /**
  * Representations of a unit in a particular language

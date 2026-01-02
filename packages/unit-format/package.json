@@ -26,14 +26,19 @@
   },
   "type": "module",
   "exports": {
+      ".": {
+        "types": "./dist/esm/index.d.ts",
+        "import": "./dist/esm/index.js"
+      },
       "./*": {
         "types": "./dist/esm/*.d.ts",
-        "import": "./dist/esm/*.js"
+        "import": "./dist/esm/*/index.js"
       }
   },
   "typesVersions": {
     "*": {
-      "*": ["dist/esm/*"]
+      ".": ["dist/esm/index.d.ts"],
+      "*": ["dist/esm/*", "dist/esm/*/index.d.ts"]
     }
   },
   "author": "National Instruments",

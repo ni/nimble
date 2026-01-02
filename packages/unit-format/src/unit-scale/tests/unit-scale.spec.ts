@@ -1,7 +1,7 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { ScaledUnit } from '../../scaled-unit/scaled-unit.js';
-import { UnitScale } from '../unit-scale.js';
-import type { ScaledUnitFormat } from '../../scaled-unit-format/scaled-unit-format.js';
+import { ScaledUnit } from '../../scaled-unit/index.js';
+import { UnitScale } from '../index.js';
+import type { ScaledUnitFormat } from '../../scaled-unit-format/index.js';
 
 describe('UnitScale', () => {
     const noopScaledUnitFormatFactory = (): ScaledUnitFormat => {

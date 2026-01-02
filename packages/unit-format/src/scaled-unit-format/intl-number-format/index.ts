@@ -1,5 +1,5 @@
-import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/scaled-unit.js';
-import { ScaledUnitFormat } from './scaled-unit-format.js';
+import type { ScaledUnitFormatFactoryOptions } from '../../scaled-unit/index.js';
+import { ScaledUnitFormat } from '../index.js';
 
 /**
  * A formatter for units that can be formatted/translated by Intl.NumberFormat

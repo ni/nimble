@@ -1,5 +1,5 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { unitScaleFahrenheit } from '../fahrenheit.js';
+import { unitScaleFahrenheit } from '../fahrenheit/index.js';
 
 describe('UnitScaleFahrenheit', () => {
     const testCases = [

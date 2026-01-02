@@ -1,5 +1,5 @@
-import { ScaledUnitFormatIntlNumberFormat } from '../scaled-unit-format/intl-number-format.js';
-import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/scaled-unit.js';
+import { ScaledUnitFormatIntlNumberFormat } from '../scaled-unit-format/intl-number-format/index.js';
+import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/index.js';
 
 /**
  * A ScaledUnitFormat that behaves like ScaledUnitFormatIntlNumberFormat but also includes the scaleFactor in the formatted number

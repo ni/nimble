@@ -1,5 +1,5 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { unitScaleVolt } from '../volt.js';
+import { unitScaleVolt } from '../volt/index.js';
 
 describe('UnitScaleVolt', () => {
     const testCases = [

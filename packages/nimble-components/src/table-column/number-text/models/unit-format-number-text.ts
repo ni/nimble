@@ -1,7 +1,7 @@
 import {
     UnitFormat,
     type UnitFormatOptions
-} from '@ni/unit-format/unit-format';
+} from '@ni/unit-format';
 import { unitScalePassthrough } from '@ni/unit-format/unit-scale/passthrough';
 import { UnitFormatDefault } from '@ni/unit-format/default';
 import { UnitFormatDecimal } from '@ni/unit-format/decimal';

@@ -7,7 +7,7 @@ import {
     observable,
     type Subscriber
 } from '@ni/fast-element';
-import type { UnitFormat } from '@ni/unit-format/unit-format';
+import type { UnitFormat } from '@ni/unit-format';
 import { styles } from '../base/styles';
 import { template } from './template';
 import { TableColumnAlignment, type TableNumberField } from '../../table/types';

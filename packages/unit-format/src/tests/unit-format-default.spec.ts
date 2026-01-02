@@ -1,8 +1,8 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { UnitFormatDefault } from '../default.js';
-import { ScaledUnit } from '../scaled-unit/scaled-unit.js';
-import { UnitScale } from '../unit-scale/unit-scale.js';
-import { unitScalePassthrough } from '../unit-scale/passthrough.js';
+import { UnitFormatDefault } from '../default/index.js';
+import { ScaledUnit } from '../scaled-unit/index.js';
+import { UnitScale } from '../unit-scale/index.js';
+import { unitScalePassthrough } from '../unit-scale/passthrough/index.js';
 import { ScaledUnitFormatTest } from './scaled-unit-format-test.js';
 
 describe('UnitFormatDefault', () => {

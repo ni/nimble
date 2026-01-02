@@ -1,7 +1,7 @@
-import { UnitFormat, type UnitFormatOptions } from './unit-format.js';
-import type { ScaledUnitFormat } from './scaled-unit-format/scaled-unit-format.js';
-import type { UnitScale } from './unit-scale/unit-scale.js';
-import { unitScalePassthrough } from './unit-scale/passthrough.js';
+import { UnitFormat, type UnitFormatOptions } from '../index.js';
+import type { ScaledUnitFormat } from '../scaled-unit-format/index.js';
+import type { UnitScale } from '../unit-scale/index.js';
+import { unitScalePassthrough } from '../unit-scale/passthrough/index.js';
 
 interface UnitFormatDecimalOptions extends UnitFormatOptions {
     minimumFractionDigits?: number;

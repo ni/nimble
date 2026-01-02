@@ -1,5 +1,5 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { unitScaleCelsius } from '../celsius.js';
+import { unitScaleCelsius } from '../celsius/index.js';
 
 describe('UnitScaleCelsius', () => {
     const testCases = [
