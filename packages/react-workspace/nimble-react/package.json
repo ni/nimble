@@ -22,7 +22,7 @@
   },
   "typesVersions": {
     "*": {
-      "*": ["dist/esm/*"]
+      "*": ["dist/esm/*/index.d.ts", "dist/esm/*"]
     }
   },
   "scripts": {
