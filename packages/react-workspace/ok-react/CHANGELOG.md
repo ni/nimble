@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Fri, 26 Dec 2025 05:48:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 02 Jan 2026 06:16:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.4.0
+
+Fri, 02 Jan 2026 06:16:54 GMT
+
+### Minor changes
+
+- Switch to package exports ([ni/nimble@66f9a70](https://github.com/ni/nimble/commit/66f9a70c13c5a2f8605b86036f1faded63e2bf93))
 
 ## 0.3.1
 

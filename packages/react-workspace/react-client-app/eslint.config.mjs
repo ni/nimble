@@ -2,17 +2,22 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
-import { lintNimbleConfig, javascriptNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { javascriptConfig, importNodeEsmConfig } from '@ni/eslint-config-javascript';
+import { lintNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
     globalIgnores(['**/dist/']),
     lintNimbleConfig,
     {
-        files: ['**/*.js', '**/*.cjs'],
-        extends: javascriptNimbleConfig,
+        files: ['vite.config.mjs'],
+        extends: [javascriptConfig, importNodeEsmConfig],
         rules: {
             // Configuration scripts will not be in published package and are allowed to use devDependencies
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+            // Build scripts should give verbose logging
+            'no-console': 'off',
+            // Rollup config files use default exports
+            'import/no-default-export': 'off',
         },
     },
     {
@@ -30,7 +35,7 @@ export default defineConfig([
         ],
         languageOptions: {
             parserOptions: {
-                project: './tsconfig.app.json',
+                project: './tsconfig.json',
                 tsconfigRootDir: import.meta.dirname,
                 ecmaFeatures: {
                     jsx: true,
@@ -57,20 +62,6 @@ export default defineConfig([
             ],
             '@typescript-eslint/strict-boolean-expressions': 'off',
             'no-alert': 'off',
-        },
-    },
-    {
-        files: ['**/vite.config.ts'],
-        languageOptions: {
-            parserOptions: {
-                project: './tsconfig.node.json',
-                tsconfigRootDir: import.meta.dirname,
-            },
-        },
-        rules: {
-            // Configuration scripts will not be in published package and are allowed to use devDependencies
-            'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-            'import/no-default-export': 'off',
         },
     }
 ]);
