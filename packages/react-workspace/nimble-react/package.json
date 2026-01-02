@@ -22,6 +22,9 @@
   },
   "typesVersions": {
     "*": {
+      "icons/*": [
+        "dist/esm/icons/*.d.ts"
+      ],
       "*": [
         "dist/esm/*/index.d.ts"
       ]
