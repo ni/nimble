@@ -5,7 +5,9 @@
   "type": "module",
   "description": "Storybook for the Nimble repo",
   "scripts": {
-    "build": "storybook build -o dist/storybook --webpack-stats-json",
+    "build": "npm run build:ts && npm run build:sb",
+    "build:ts": "tsc -b",
+    "build:sb": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
     "launch-webkit": "playwright wk http://localhost:6006",
     "lint": "eslint .",
