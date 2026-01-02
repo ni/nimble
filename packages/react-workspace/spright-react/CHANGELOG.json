@@ -2,6 +2,21 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Fri, 02 Jan 2026 06:16:54 GMT",
+      "version": "0.8.0",
+      "tag": "@ni/spright-react_v0.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-react",
+            "commit": "66f9a70c13c5a2f8605b86036f1faded63e2bf93",
+            "comment": "Switch to package exports"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Dec 2025 05:48:06 GMT",
       "version": "0.7.1",
       "tag": "@ni/spright-react_v0.7.1",

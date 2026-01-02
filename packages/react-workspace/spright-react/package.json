@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-react",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "React components for NI Spright",
   "keywords": [
     "ni",
@@ -9,11 +9,11 @@
   ],
   "type": "module",
   "exports": {
-      "./package.json": "./package.json",
-      "./*": {
-        "types": "./dist/esm/*.d.ts",
-        "import": "./dist/esm/*/index.js"
-      }
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
   },
   "typesVersions": {
     "*": {

@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-react",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "React components for NI Ok Components",
   "keywords": [
     "ni",
@@ -9,11 +9,11 @@
   ],
   "type": "module",
   "exports": {
-      "./package.json": "./package.json",
-      "./*": {
-        "types": "./dist/esm/*.d.ts",
-        "import": "./dist/esm/*/index.js"
-      }
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
   },
   "typesVersions": {
     "*": {

@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Switch to package exports",
-  "packageName": "@ni/spright-react",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

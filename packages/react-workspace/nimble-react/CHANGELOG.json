@@ -2,6 +2,21 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Fri, 02 Jan 2026 06:16:54 GMT",
+      "version": "0.9.0",
+      "tag": "@ni/nimble-react_v0.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "66f9a70c13c5a2f8605b86036f1faded63e2bf93",
+            "comment": "Switch to package exports"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Dec 2025 05:48:06 GMT",
       "version": "0.8.2",
       "tag": "@ni/nimble-react_v0.8.2",
