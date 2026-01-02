@@ -36,8 +36,6 @@ export class RichTextMentionListbox extends FoundationListbox {
     public region?: AnchoredRegion;
 
     /**
-     * The space available in the viewport for the listbox when opened.
-     *
      * @internal
      */
     @observable
@@ -108,10 +106,7 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @public
      */
     public show(options: MentionListboxShowOptions): void {
-        const listboxTop = options.anchorNode.getBoundingClientRect().bottom;
-        this.availableViewportHeight = Math.trunc(
-            window.innerHeight - listboxTop
-        );
+        this.updateAvailableViewportHeight();
         this.filter = options.filter;
         this.anchorElement = options.anchorNode;
         this.setOpen(true);
@@ -286,6 +281,19 @@ export class RichTextMentionListbox extends FoundationListbox {
 
     private setOpen(value: boolean): void {
         this.open = value;
+    }
+
+    private updateAvailableViewportHeight(): void {
+        const currentBox = this.getBoundingClientRect();
+        const viewportHeight = document.documentElement.getBoundingClientRect().height;
+        const availableSpaceAbove = Math.trunc(currentBox.top);
+        const availableSpaceBelow = Math.trunc(
+            viewportHeight - currentBox.bottom
+        );
+        this.availableViewportHeight = Math.max(
+            availableSpaceAbove,
+            availableSpaceBelow
+        );
     }
 }
 

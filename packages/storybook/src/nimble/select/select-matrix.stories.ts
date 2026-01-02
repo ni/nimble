@@ -445,17 +445,20 @@ const playFunction = async (): Promise<void> => {
 };
 
 export const navigateToDifferentOption: StoryFn = createStory(
-    html`<${selectTag} open style="width: 250px;">
-        <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
-        <${listOptionTag}>Option 2</${listOptionTag}>
-    </${selectTag}>`
+    html`
+    <div style="height: 130px; width: 250px;">
+        <${selectTag} open style="width: 250px;">
+            <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
+            <${listOptionTag}>Option 2</${listOptionTag}>
+        </${selectTag}>
+    </div>`
 );
 
 navigateToDifferentOption.play = playFunction;
 
 export const navigateToDifferentOptionWithGroups: StoryFn = createStory(
     html`
-    <div style="height: 250px;">
+    <div style="height: 130px; width: 250px;">
         <${selectTag} open style="width: 250px;">
             <${listOptionGroupTag} label="Group 1">
                 <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
