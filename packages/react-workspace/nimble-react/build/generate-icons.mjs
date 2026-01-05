@@ -2,10 +2,9 @@
  * Build script for generating React wrappers for Nimble icon components.
  */
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist/icons/js';
-
-const fs = require('fs');
-const path = require('path');
+import * as icons from '@ni/nimble-tokens/dist/icons/js/index.js';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 const trimSizeFromName = text => {
     // Remove dimensions from icon name, e.g. "add16X16" -> "add"
@@ -15,7 +14,7 @@ const trimSizeFromName = text => {
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-react/build/generate-icons\n`;
 
-const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
+const iconsDirectory = path.resolve(import.meta.dirname, '../src/icons');
 
 if (fs.existsSync(iconsDirectory)) {
     console.log(`Deleting existing icons directory "${iconsDirectory}"`);
@@ -49,4 +48,4 @@ export const Nimble${className} = wrap(${className});`;
         encoding: 'utf-8'
     });
 }
-console.log(`Finshed writing ${fileCount} icon react wrapper files`);
+console.log(`Finished writing ${fileCount} icon react wrapper files`);

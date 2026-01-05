@@ -2,6 +2,51 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Fri, 02 Jan 2026 06:16:54 GMT",
+      "version": "0.4.0",
+      "tag": "@ni/ok-react_v0.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "66f9a70c13c5a2f8605b86036f1faded63e2bf93",
+            "comment": "Switch to package exports"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Dec 2025 05:48:06 GMT",
+      "version": "0.3.1",
+      "tag": "@ni/ok-react_v0.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.1.23",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Dec 2025 01:13:38 GMT",
+      "version": "0.3.0",
+      "tag": "@ni/ok-react_v0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "f02af57ebb0bd171e3778b06bb05ad1d140317bf",
+            "comment": "React 19 support"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Dec 2025 23:15:32 GMT",
       "version": "0.2.23",
       "tag": "@ni/ok-react_v0.2.23",

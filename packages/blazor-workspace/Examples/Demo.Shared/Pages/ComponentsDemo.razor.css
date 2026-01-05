@@ -1,10 +1,9 @@
-﻿.root {
-    background-color: var(--ni-nimble-application-background-color);
-}
-
-.content {
+﻿.content-container {
+    width: 100%;
+    box-sizing: border-box;
     font: var(--ni-nimble-body-font);
-    overflow-y: auto;
+    color: var(--ni-nimble-body-font-color);
+    padding: 0px 2px 0px 10px;
 }
 
 .container-label {
@@ -13,22 +12,10 @@
     padding-bottom: var(--ni-nimble-standard-padding);
 }
 
-p, a {
-    color: var(--ni-nimble-control-label-font-color);
-}
-
 .container {
-    background-color: var(--ni-nimble-application-background-color);
-    display: inline-flex;
+    display: flex;
     justify-content: left;
     flex-direction: column;
-    padding: 0px 2px 0px 10px;
-}
-
-.rich-text-viewer-container {
-    border: var(--ni-nimble-border-width) solid rgba(var(--ni-nimble-action-rgb-partial-color), 0.3);
-    padding: var(--ni-nimble-small-padding);
-    width: 350px;
 }
 
 .sub-container {
@@ -43,22 +30,8 @@ p, a {
     margin-top: var(--ni-nimble-small-padding);
 }
 
-.sub-container > * {
-    padding-right: var(--ni-nimble-standard-padding);
-}
-
-.theme-select {
-    display: block;
-    width: 150px;
-    min-width: unset;
-}
-
 .drawer-location-select {
     width: 200px;
-}
-
-example-header {
-    display: block;
 }
 
 ::deep nimble-toolbar::part(positioning-region) {
@@ -72,6 +45,12 @@ example-header {
 
 .drawer-footer {
     gap: var(--ni-nimble-standard-padding);
+}
+
+.rich-text-viewer-container {
+    border: var(--ni-nimble-border-width) solid rgba(var(--ni-nimble-action-rgb-partial-color), 0.3);
+    padding: var(--ni-nimble-small-padding);
+    width: 350px;
 }
 
 ::deep spright-chat-conversation {

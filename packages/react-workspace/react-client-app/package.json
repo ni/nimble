@@ -1,27 +1,27 @@
 {
   "name": "@ni-private/react-client-app",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "check": "tsc -b",
-    "build": "npm run check && vite build",
+    "start": "vite",
+    "build": "tsc -b && vite build",
+    "test": "tsc -p ./tsconfig.legacy.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
-    "preview": "vite preview"
+    "pack": "npm pack"
   },
   "dependencies": {
     "@ni/nimble-react": "*",
     "@ni/ok-react": "*",
     "@ni/spright-react": "*",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@vitejs/plugin-react-swc": "^3.9.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.19",

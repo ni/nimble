@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 26 Dec 2025 05:48:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.10.3
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- remove flatbuffers peerdep workaround ([ni/nimble@aa38dfa](https://github.com/ni/nimble/commit/aa38dfa69ff4dd4926f7f6f2da4d317fe83304b5))
 
 ## 34.10.2
 

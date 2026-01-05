@@ -35,3 +35,10 @@ body {
 .blazor-error-boundary::after {
     content: "An error has occurred."
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: black;
+        color: white;
+    }
+}

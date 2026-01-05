@@ -3,7 +3,8 @@
         "declaration": true,
         "esModuleInterop": true,
         "moduleResolution": "bundler",
-        "outDir": "dist/esm",
+        "incremental": true,
+        "noEmit": true,
         "strict": true,
         "experimentalDecorators": true,
         "target": "ES2020",
@@ -33,19 +34,18 @@
         // Support Chromatic Turbosnap in a monorepo
         // See: https://github.com/chromaui/chromatic-cli/issues/1149#issuecomment-2936493954
         // Keep in sync with .storybook/main.js vite config
+        // To test changes check the built tsconfig.tsbuildinfo file for .ts vs .d.ts references of mapped paths
         "paths": {
             "@ni/nimble-components/dist/esm/*": ["../nimble-components/src/*"],
-            "@ni/spright-components/dist/esm/*": [
-                "../spright-components/src/*"
-            ],
+            "@ni/spright-components/dist/esm/*": ["../spright-components/src/*"],
             "@ni/ok-components/dist/esm/*": ["../ok-components/src/*"],
-            "@ni/nimble-react/dist/esm/*": [
+            "@ni/nimble-react/*": [
                 "../react-workspace/nimble-react/src/*"
             ],
-            "@ni/spright-react/dist/esm/*": [
+            "@ni/spright-react/*": [
                 "../react-workspace/spright-react/src/*"
             ],
-            "@ni/ok-react/dist/esm/*": ["../react-workspace/ok-react/src/*"]
+            "@ni/ok-react/*": ["../react-workspace/ok-react/src/*"]
         }
     },
     "include": ["src"]

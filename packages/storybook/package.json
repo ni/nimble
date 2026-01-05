@@ -5,7 +5,9 @@
   "type": "module",
   "description": "Storybook for the Nimble repo",
   "scripts": {
-    "build": "storybook build -o dist/storybook --webpack-stats-json",
+    "build": "npm run build:ts && npm run build:sb",
+    "build:ts": "tsc -b",
+    "build:sb": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
     "launch-webkit": "playwright wk http://localhost:6006",
     "lint": "eslint .",
@@ -40,11 +42,10 @@
     "vite": "^7.0.0"
   },
   "peerDependencies": {
-    "@types/react": "^18",
+    "@types/react": "^19",
     "apache-arrow": "21.1.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-storybook": "^10.1.10",
-    "flatbuffers": "25.2.10",
     "globals": "^14.0.0"
   }
 }

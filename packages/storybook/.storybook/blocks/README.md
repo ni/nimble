@@ -53,7 +53,7 @@ This folder contains reusable React components used in Nimble component MDX docu
 Compose the components to create clear and attractive usage documentation.
 
 To use any Nimble components in MDX documentation, first import the Nimble React wrapper for the component.
-E.g. `import { NimbleButton } from '@ni/nimble-react/dist/esm/button';`
+E.g. `import { NimbleButton } from '@ni/nimble-react/button';`
 
 ```jsx
 <Frame>
