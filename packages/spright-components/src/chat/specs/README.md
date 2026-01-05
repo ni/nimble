@@ -71,7 +71,7 @@ The component also contains the following features:
 
 1. Contains welcome content that can be slotted into a message
 1. Content includes text ("Welcome to Nigel™ AI") and an image to brand the chat experience
-1. If the user is not logged in, displays a button to launch the external login process
+1. If the user is not logged in, displays a button or anchor button to launch the external login process
 1. If the user is logged in, displays text ("Chat below to get started") explaining the first step the user should take
 
 #### Chat conversation
@@ -232,7 +232,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 - _CSS Classes and CSS Custom Properties that affect the component_
 - _How native CSS Properties (height, width, etc.) affect the component_
 - _Slots_
-    - default slot can be used to provide a login button or anchor button. If not provided, the component will show the post-login instructions instead. We will provide usage guidance for the button content ("Login") and appearance (primary block).
+    - default slot can be used to provide a login button or anchor button. If not provided, the component will show the post-login instructions instead. We will provide usage guidance suggesting the button content ("Login") and appearance (primary block).
 
 ##### Message welcome content API alternatives
 
@@ -344,7 +344,7 @@ The template will include an `svg` element to render the image. The image requir
 
 A `slot` element will be used to host the login button.
 
-Text content will be placed in `div` elements, conditionally shown depending on whether there is slotted content. We will use our standard pattern to detect whether there is slotted content (see #2579).
+Text content will be placed in `div` elements, conditionally shown if there is no slotted login button. We will use our standard pattern to detect whether there is slotted content (see #2579).
 
 We can use [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/StartPage.razor) and [images](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/NigelLocalService/wwwroot/Images/two-chat-sparkle_green_DarkUI_48x48.svg) for reference.
 
