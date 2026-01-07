@@ -20,7 +20,7 @@ const light = create({
     appContentBg: tokenValues.applicationBackgroundColor.light,
     appHoverBg: tokenValues.fillHoverColor.light,
     appPreviewBg: tokenValues.applicationBackgroundColor.light,
-    appBorderColor: tokenValues.borderColor.light,
+    appBorderColor: tokenValues.tableRowBorderColor.light,
     appBorderRadius: 1,
 
     // Text colors
@@ -40,7 +40,7 @@ const light = create({
     booleanBg: tokenValues.fillHoverColor.light,
     booleanSelectedBg: tokenValues.fillSelectedColor.light,
     inputBg: tokenValues.applicationBackgroundColor.light,
-    inputBorder: tokenValues.borderColor.light,
+    inputBorder: tokenValues.tableRowBorderColor.light,
     inputTextColor: tokenValues.bodyFontColor.light,
     inputBorderRadius: 1,
 });
@@ -62,7 +62,7 @@ const dark = create({
     appContentBg: tokenValues.applicationBackgroundColor.dark,
     appHoverBg: tokenValues.fillHoverColor.dark,
     appPreviewBg: tokenValues.applicationBackgroundColor.dark,
-    appBorderColor: tokenValues.borderColor.dark,
+    appBorderColor: tokenValues.tableRowBorderColor.dark,
     appBorderRadius: 1,
 
     // Text colors
@@ -82,7 +82,7 @@ const dark = create({
     booleanBg: tokenValues.fillHoverColor.dark,
     booleanSelectedBg: tokenValues.fillSelectedColor.dark,
     inputBg: tokenValues.applicationBackgroundColor.dark,
-    inputBorder: tokenValues.borderColor.dark,
+    inputBorder: tokenValues.tableRowBorderColor.dark,
     inputTextColor: tokenValues.bodyFontColor.dark,
     inputBorderRadius: 1,
 });
