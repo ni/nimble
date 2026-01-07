@@ -15,3 +15,38 @@
         }
     }
 </style>
+<style>
+    @namespace xlink 'http://www.w3.org/1999/xlink';
+
+    [xlink|href="#icon--document"] {
+        color:#009921; /* pass light */
+    }
+    [xlink|href="#icon--component"] {
+        color:#161617; /* icon color light */
+    }
+    [xlink|href="#icon--story"] {
+        color:#ff4b00; /* warn light */
+    }
+    [xlink|href="#icon--group"] {
+        color:#161617; /* icon color light */
+    }
+
+    @media (prefers-color-scheme: dark) {
+        [xlink|href="#icon--document"] {
+            color:#00c12b; /* pass dark */
+        }
+        [xlink|href="#icon--component"] {
+            color:#f1f1f2; /* icon color dark */
+        }
+        [xlink|href="#icon--story"] {
+            color:#ff8126; /* warn dark */
+        }
+        [xlink|href="#icon--group"] {
+            color:#f1f1f2; /* icon color dark */
+        }
+    }
+
+    [data-selected="true"] [xlink|href] {
+        color:#f1f1f2; /* icon color dark */
+    }
+</style>
