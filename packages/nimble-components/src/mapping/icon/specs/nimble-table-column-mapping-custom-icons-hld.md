@@ -6,12 +6,6 @@ Currently, the `nimble-table-column-mapping` component only supports Nimble icon
 
 This design proposes adding two new mapping elements (`nimble-mapping-svg-icon` and `nimble-mapping-png-icon`) to enable custom icon support.
 
-## Links To Relevant Work Items and Reference Material
-
-- [Original table column mapping specification](../nimble-components/src/table/specs/table-column-specs/table-column-mapping.md)
-- [Icon column type issue #1013](https://github.com/ni/nimble/issues/1013)
-- Original specification explicitly listed "Non-Nimble icon support" as a non-goal
-
 ## Implementation / Design
 
 ### New Mapping Elements
