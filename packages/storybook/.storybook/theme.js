@@ -9,6 +9,7 @@ const light = create({
     // Brand
     brandTitle: 'Nimble components',
     brandUrl: 'https://github.com/ni/nimble',
+    brandTarget: '_self',
     brandImage: logoLight,
 
     // Brand colors
@@ -51,6 +52,7 @@ const dark = create({
     // Brand
     brandTitle: 'Nimble components',
     brandUrl: 'https://github.com/ni/nimble',
+    brandTarget: '_self',
     brandImage: logoDark,
 
     // Brand colors
