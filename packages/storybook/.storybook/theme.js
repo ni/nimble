@@ -8,7 +8,7 @@ const light = create({
 
     // Brand
     brandTitle: 'Nimble components',
-    brandUrl: 'https://github.com/ni/nimble',
+    brandUrl: 'https://nimble.ni.dev/',
     brandTarget: '_self',
     brandImage: logoLight,
 
@@ -51,7 +51,7 @@ const dark = create({
 
     // Brand
     brandTitle: 'Nimble components',
-    brandUrl: 'https://github.com/ni/nimble',
+    brandUrl: 'https://nimble.ni.dev/',
     brandTarget: '_self',
     brandImage: logoDark,
 
