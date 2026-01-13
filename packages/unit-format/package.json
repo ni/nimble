@@ -1,9 +1,9 @@
 {
   "name": "@ni/unit-format",
   "version": "0.0.1",
-  "description": "Utilities to write parameterized jasmine tests",
+  "description": "NumberFormat aligned library to format numbers with scaled units.",
   "keywords": [
-    
+    "units", "formatting", "nimble", "engineering", "metric", "si", "volts", "degrees", "bytes"
   ],
   "scripts": {
     "build": "tsc -b",
@@ -47,7 +47,7 @@
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/jasmine-parameterized": "^1.0.6",
+    "@ni/jasmine-parameterized": "^1.0.7",
     "@ni-private/eslint-config-nimble": "*",
     "@types/jasmine": "^5.1.4",
     "jasmine": "^5.1.0",
@@ -59,6 +59,6 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
     "playwright": "1.54.1",
-    "typescript": "~5.4.5"
+    "typescript": "~5.8.3"
   }
 }

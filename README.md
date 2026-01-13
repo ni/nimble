@@ -74,7 +74,7 @@ Tools and utilities hosted in the repository.
 
 - [`@ni/nimble-tokens`](/packages/nimble-tokens/) - Base design tokens used by the Nimble and Spright component packages.
 - [`@ni/jasmine-parameterized`](/packages/jasmine-parameterized/) - A utility for writing [Jasmine](https://jasmine.github.io/) parameterized tests.
-- [`@ni/unit-format`](/packages/unit-format/) - A library that provides multiple ways to format numbers with units.
+- [`@ni/unit-format`](/packages/unit-format/) - NumberFormat aligned library to format numbers with scaled units.
 - [`@ni/xliff-to-json-converter`](/packages/xliff-to-json-converter/) - A utility to convert translation files from XLIFF to JSON for Angular localization.
 
 The above packages follow [Semantic Versioning](https://semver.org). Consult the `CHANGELOG.md` for each package to see the changes in each version, including instructions for adapting your application in response to breaking changes.
