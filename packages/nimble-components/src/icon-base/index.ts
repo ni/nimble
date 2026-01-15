@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { attr } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
@@ -16,15 +17,18 @@ export class Icon extends FoundationElement {
      */
     @attr
     public severity: IconSeverity;
+}
 
+/**
+ * Icon base class for the standard nimble icon set
+ */
+export class SvgIcon extends Icon {
     public constructor(/** @internal */ public readonly icon: NimbleIcon) {
         super();
     }
 }
 
-type IconClass = typeof Icon;
-
-export const registerIcon = (baseName: string, iconClass: IconClass): void => {
+export const registerSvgIcon = (baseName: string, iconClass: typeof SvgIcon): void => {
     const composedIcon = iconClass.compose({
         baseName,
         template,
