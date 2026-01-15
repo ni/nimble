@@ -6,7 +6,9 @@ This spec describes a set of components that can be used to compose a chat inter
 
 - chat input: a text input, button, and related components for users to compose and send new messages
 - chat message: a single entry in a chat conversation, including some content and metadata about the message
+- chat message welcome content: one type of message content that welcomes the user to the chat experience and allows them to login
 - chat conversation: a layout component that allows slotting messages and an input
+- chat disclaimer: a static legal message that can appear within a conversation
 
 ### Background
 
@@ -42,7 +44,7 @@ The message component will allow slotting arbitrary content, but any efforts to 
 
 The `spright-chat-message` has the following slot elements.
 
-1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, a spinner, or welcome content.
 1. `footer-actions` slot which is used to add action buttons below the main content.
 1. `end` slot which is used to add text buttons. They are below any action buttons.
 
@@ -65,11 +67,18 @@ The component also contains the following features:
 1. Size based on content size with maximum width (but not height) based on parent's width.
 1. Change the styling of the message depending on metadata about who sent the message. For example: render user messages in a bubble with the tail pointing to the right but render system messages with no styling.
 
+#### Chat message welcome content
+
+1. Contains welcome content that can be slotted into a message
+1. Content includes text ("Welcome to Nigel™ AI") and an image to brand the chat experience
+1. If the user is not logged in, displays a button or anchor button to launch the external login process
+1. If the user is logged in, displays text ("Chat below to get started") explaining the first step the user should take
+
 #### Chat conversation
 
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
-1. Includes a slot to place an input component below the messages.
+1. Includes a slot to place an input component below the messages and a slot for the disclaimer below that.
 1. Only appearance of its own is to set a background color.
 
 #### Chat input
@@ -90,6 +99,11 @@ The component also contains the following features:
 1. Styling for default, focus, and rollover states
 1. Displays errors via the standard red `!` icon and error text
 
+#### Chat disclaimer
+
+1. A short message ("AI-generated content may be incorrect") and static link to more information ("[View Terms and Conditions](https://www.ni.com/content/dam/web/pdfs/legal/terms_and_conditions_generative_ai.pdf)").
+1. The link `target` will be configurable. Some clients require the link to be configured to open in a new browser context since they are hosted in an embedded pane. Other clients follow best practices which prefer opening links in the same context.
+
 ### Risks and Challenges
 
 These components are competing against possible implementations within applications. Depending on who implements these components, the overhead of learning the Nimble repo's tech stack could introduce a small risk.
@@ -100,6 +114,10 @@ These components are competing against possible implementations within applicati
 
 ![ ](spec-images/chat-conversation.png)
 
+**Screenshot of Figma design of chat welcome message when login is visible (light mode)**
+
+![ ](spec-images/chat-welcome-login.png)
+
 **Screenshot of Figma design of chat input component (light mode)**
 
 ![ ](spec-images/chat-input.png)
@@ -107,6 +125,10 @@ These components are competing against possible implementations within applicati
 **Screenshot of Figma design of chat components embeded within larger pane (dark mode)**
 
 ![ ](spec-images/chat-pane.png)
+
+**Screenshot of Figma design of chat disclaimer (light mode)**
+
+![ ](spec-images/chat-disclaimer.png)
 
 ---
 
@@ -128,6 +150,7 @@ These components are competing against possible implementations within applicati
         <nimble-spinner></nimble-spinner>
     </spright-chat-message>
     <spright-chat-input slot="input></spright-chat-input>
+    <spright-chat-disclaimer slot="end"></spright-chat-disclaimer>
 </spright-chat-conversation>
 ```
 
@@ -144,6 +167,20 @@ These components are competing against possible implementations within applicati
 ```js
 const richText = document.querySelector('#welcome');
 richText.markdown = 'Welcome **Homer**, how can I help?';
+```
+
+#### Welcome message example
+
+```html
+<spright-chat-conversation>
+    <spright-chat-message message-type="system">
+        <spright-chat-welcome-message-content>
+            <nimble-anchor-button appearance="block" appearance-variant="primary" href="/login">
+                Login
+            </nimble-anchor-button>
+        </spright-chat-welcome-message-content>
+    </spright-chat-message>
+</spright-chat-conversation>
 ```
 
 #### Prompt buttons message example
@@ -185,6 +222,26 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - `(default)`
         - arbitrary content can be added to the default slot to be displayed within the message
 
+#### Message welcome content
+
+- _Component Name_ `spright-chat-welcome-message-content`
+- _Props/Attrs_
+    - User-visible strings will be be specified via the chat label provider.
+- _Methods_
+- _Events_
+- _CSS Classes and CSS Custom Properties that affect the component_
+- _How native CSS Properties (height, width, etc.) affect the component_
+- _Slots_
+    - default slot can be used to provide a login button or anchor button. If not provided, the component will show the post-login instructions instead. We will provide usage guidance suggesting the button content ("Login") and appearance (primary block).
+
+##### Message welcome content API alternatives
+
+Instead of clients slotting the login button, the component could expose attributes that are forwarded to a button that is managed by the component. This would improve consistency and avoid the need for usage guidance about how to configure the button. However it would require a rather large API surface:
+ - whether to use a button or anchor button
+ - `login-disabled` attribute
+ - if using a button: `loginclick` event
+ - if using an anchor button: `login-href` attribute
+
 #### Conversation
 
 - _Component Name_ `spright-chat-conversation`
@@ -202,6 +259,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 - _Slots_
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
     - a single chat input can optionally be added to the `input` slot. It will be placed below the messages.
+    - a single chat disclaimer can optionally be added to the `end` slot. It will be placed below the input.
 
 #### Input
 
@@ -247,6 +305,18 @@ In the case of the auto-clearing being undesirable, a `resetInput()` method was 
 
 [Some concern](https://github.com/ni/nimble/pull/2611#discussion_r2110130708) was raised with having the 'Send' button (or pressing \<Enter\>) automatically clearing the text, however there is enough basis to do so both in that this is designed behavior for the control (there is no expectation that the text field should maintain any text after the send event occurs), and we already have a similar UX semantic with the clear button for the `Select`.
 
+#### Disclaimer
+
+- _Component Name_ `spright-chat-disclaimer`
+- _Props/Attrs_
+    - `target` - an attribute which is forwarded to the link's `target` attribute. Defaults to `_self`.
+    - User-visible strings will be be specified via the chat label provider. The link URL will not be configurable.
+- _Methods_
+- _Events_
+- _CSS Classes and CSS Custom Properties that affect the component_
+- _How native CSS Properties (height, width, etc.) affect the component_
+- _Slots_
+
 ### Anatomy
 
 #### Message
@@ -267,6 +337,16 @@ A message is simply a `div` which will styled with background / border / rounded
     </div>
 </template>
 ```
+
+#### Message welcome content
+
+The template will include an `svg` element to render the image. The image requires different svg contents for dark and light themes (they use different gradient parameters). The gradient content will be specified in a new design token, `messageWelcomeContentGradient`, and the template will read the correct gradient value for the current theme using `messageWelcomeContentGradient.getValueFor()`.
+
+A `slot` element will be used to host the login button.
+
+Text content will be placed in `div` elements, conditionally shown if there is no slotted login button. We will use our standard pattern to detect whether there is slotted content (see #2579).
+
+We can use [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/StartPage.razor) and [images](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/NigelLocalService/wwwroot/Images/two-chat-sparkle_green_DarkUI_48x48.svg) for reference.
 
 #### Conversation
 
@@ -319,6 +399,14 @@ to implement the ability to grow the height of the text area as the user types. 
 [is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility) (though it should land in Safari soon).
 Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
 that changes before the feature is available in all supported browsers, we will revisit this decision and consider implementing a JavaScript-based resizing solution.
+
+#### Disclaimer
+
+The template will simply contain a `span` and a `nimble-anchor` with contents populated by label provider strings.
+
+Most styling can be achieved with existing tokens and APIs. The visual design calls for some anchor styling which is not available today (grey text, smaller font size). Since this is the only known use case for this design, we can implement it by overriding anchor token values in the disclaimer component rather than adding new public API to the anchor.
+
+We can use [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/ChatbotViewFooter.razor) for reference.
 
 ### Native form integration
 
@@ -390,7 +478,7 @@ On mobile, typing a newline in the input will be difficult as most on-screen key
 
 ### Globalization
 
-Most content is provided by applications so they are responsible for localization. For the input component "Send" and "Stop" button titles and accessible labels we will add label provider strings. These supply default labels which applications can localize or replace with custom labels. These will be added to a new Spright chat label provider.
+Most content is provided by applications so they are responsible for localization. For components with user-visible text we will add label provider strings. These supply default labels which applications can localize or replace with custom labels. These will be added to a new Spright chat label provider.
 
 Defining the behavior for RTL languages is initially out of scope. But the API can easily be extended to support changing the layout for an RTL language when that is desired.
 
