@@ -2,6 +2,21 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Thu, 15 Jan 2026 05:18:11 GMT",
+      "version": "0.10.0",
+      "tag": "@ni/nimble-react_v0.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "414a6b5000e34f9a3cb6bc8c7594f05dec69e277",
+            "comment": "Create fromDialogRef, fromDrawerRef, and fromTableRef helpers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Jan 2026 06:16:54 GMT",
       "version": "0.9.0",
       "tag": "@ni/nimble-react_v0.9.0",
