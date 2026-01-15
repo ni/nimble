@@ -8,7 +8,8 @@ const light = create({
 
     // Brand
     brandTitle: 'Nimble components',
-    brandUrl: 'https://github.com/ni/nimble',
+    brandUrl: 'https://nimble.ni.dev/',
+    brandTarget: '_self',
     brandImage: logoLight,
 
     // Brand colors
@@ -30,8 +31,8 @@ const light = create({
 
     // Toolbar default and active colors
     barTextColor: tokenValues.bodyFontColor.light,
-    barHoverColor: tokenValues.fillHoverColor.light,
-    barSelectedColor: tokenValues.fillHoverSelectedColor.light,
+    barHoverColor: tokenValues.borderHoverColor.light,
+    barSelectedColor: tokenValues.borderHoverColor.light,
     barBg: tokenValues.headerBackgroundColor.light,
 
     // Form colors
@@ -50,7 +51,8 @@ const dark = create({
 
     // Brand
     brandTitle: 'Nimble components',
-    brandUrl: 'https://github.com/ni/nimble',
+    brandUrl: 'https://nimble.ni.dev/',
+    brandTarget: '_self',
     brandImage: logoDark,
 
     // Brand colors
@@ -72,8 +74,8 @@ const dark = create({
 
     // Toolbar default and active colors
     barTextColor: tokenValues.bodyFontColor.dark,
-    barHoverColor: tokenValues.fillHoverColor.dark,
-    barSelectedColor: tokenValues.fillHoverSelectedColor.dark,
+    barHoverColor: tokenValues.borderHoverColor.dark,
+    barSelectedColor: tokenValues.borderHoverColor.dark,
     barBg: tokenValues.headerBackgroundColor.dark,
 
     // Form colors
