@@ -31,8 +31,8 @@ const light = create({
 
     // Toolbar default and active colors
     barTextColor: tokenValues.bodyFontColor.light,
-    barHoverColor: tokenValues.fillHoverColor.light,
-    barSelectedColor: tokenValues.fillHoverSelectedColor.light,
+    barHoverColor: tokenValues.borderHoverColor.light,
+    barSelectedColor: tokenValues.borderHoverColor.light,
     barBg: tokenValues.headerBackgroundColor.light,
 
     // Form colors
@@ -74,8 +74,8 @@ const dark = create({
 
     // Toolbar default and active colors
     barTextColor: tokenValues.bodyFontColor.dark,
-    barHoverColor: tokenValues.fillHoverColor.dark,
-    barSelectedColor: tokenValues.fillHoverSelectedColor.dark,
+    barHoverColor: tokenValues.borderHoverColor.dark,
+    barSelectedColor: tokenValues.borderHoverColor.dark,
     barBg: tokenValues.headerBackgroundColor.dark,
 
     // Form colors

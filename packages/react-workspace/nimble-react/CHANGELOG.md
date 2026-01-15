@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Fri, 02 Jan 2026 06:16:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Jan 2026 05:18:11 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.10.0
+
+Thu, 15 Jan 2026 05:18:11 GMT
+
+### Minor changes
+
+- Create fromDialogRef, fromDrawerRef, and fromTableRef helpers ([ni/nimble@414a6b5](https://github.com/ni/nimble/commit/414a6b5000e34f9a3cb6bc8c7594f05dec69e277))
 
 ## 0.9.0
 
