@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Breaking: Rename `NumberTextUnitFormat` to `UnitFormatNumberText`",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

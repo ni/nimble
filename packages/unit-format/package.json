@@ -1,9 +1,17 @@
 {
   "name": "@ni/unit-format",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "NumberFormat aligned library to format numbers with scaled units.",
   "keywords": [
-    "units", "formatting", "nimble", "engineering", "metric", "si", "volts", "degrees", "bytes"
+    "units",
+    "formatting",
+    "nimble",
+    "engineering",
+    "metric",
+    "si",
+    "volts",
+    "degrees",
+    "bytes"
   ],
   "scripts": {
     "build": "tsc -b",
@@ -26,15 +34,15 @@
   },
   "type": "module",
   "exports": {
-      "./package.json": "./package.json",
-      ".": {
-        "types": "./dist/esm/index.d.ts",
-        "import": "./dist/esm/index.js"
-      },
-      "./*": {
-        "types": "./dist/esm/*.d.ts",
-        "import": "./dist/esm/*/index.js"
-      }
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
   },
   "typesVersions": {
     "*": {

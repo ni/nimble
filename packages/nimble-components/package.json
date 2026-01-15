@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "34.10.3",
+  "version": "35.0.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run generate-scss",
@@ -49,7 +49,7 @@
     "@ni/fast-foundation": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-tokens": "^8.13.6",
-    "@ni/unit-format": "^0.0.1",
+    "@ni/unit-format": "^1.0.0",
     "@tanstack/table-core": "^8.19.3",
     "@tanstack/virtual-core": "^3.10.6",
     "@tiptap/core": "^3.10.1",

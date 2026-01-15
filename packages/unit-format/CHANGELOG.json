@@ -1,0 +1,20 @@
+{
+  "name": "@ni/unit-format",
+  "entries": [
+    {
+      "date": "Thu, 15 Jan 2026 18:15:56 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/unit-format_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "e26c67af559e81c7a7869429869483dc17ec2fb1",
+            "comment": "First release of `@ni/unit-format` 🎉"
+          }
+        ]
+      }
+    }
+  ]
+}
