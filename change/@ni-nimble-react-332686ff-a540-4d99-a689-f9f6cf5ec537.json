@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Create fromDialogRef, fromDrawerRef, and fromTableRef helpers",
+  "packageName": "@ni/nimble-react",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
