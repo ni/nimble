@@ -30,7 +30,7 @@ The `nimble-stepper-group` and
 
 ### Prior Art/Examples
 
-- Carbon design system progress: https://carbondesignsystem.com/components/progress-indicator/usage/
+- Carbon design system progress: <https://carbondesignsystem.com/components/progress-indicator/usage/>
 
 *Screenshots and/or links to existing, canonical, or exemplary implementations of the component.*
 
