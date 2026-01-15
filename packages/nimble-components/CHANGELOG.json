@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 15 Jan 2026 18:15:56 GMT",
+      "version": "35.0.0",
+      "tag": "@ni/nimble-components_v35.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e26c67af559e81c7a7869429869483dc17ec2fb1",
+            "comment": "Breaking: Rename `NumberTextUnitFormat` to `UnitFormatNumberText`"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Dec 2025 05:48:06 GMT",
       "version": "34.10.3",
       "tag": "@ni/nimble-components_v34.10.3",

@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-react",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "React components for NI Spright",
   "keywords": [
     "ni",
@@ -39,13 +39,13 @@
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/spright-components": "^6.4.23",
+    "@ni/spright-components": "^6.4.24",
     "@ni-private/eslint-config-nimble": "*",
     "typescript": "~5.8.3"
   },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/spright-components": "^6.4.23",
+    "@ni/spright-components": "^6.4.24",
     "react": "^17 || ^18 || ^19"
   }
 }
