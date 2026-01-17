@@ -23,7 +23,7 @@ import { NimbleMenuItem, type MenuItemChangeEvent } from '@ni/nimble-react/menu-
 import { NimbleAnchorMenuItem } from '@ni/nimble-react/anchor-menu-item';
 import { NimbleMenuButton } from '@ni/nimble-react/menu-button';
 import { NimbleIconAdd } from '@ni/nimble-react/icons/add';
-import { NimbleIconCheck } from '@ni/nimble-react/icons/check';
+import { iconCheckTag, NimbleIconCheck } from '@ni/nimble-react/icons/check';
 import { NimbleIconXmarkCheck } from '@ni/nimble-react/icons/xmark-check';
 import { NimbleSpinner } from '@ni/nimble-react/spinner';
 import { NimbleSwitch } from '@ni/nimble-react/switch';
@@ -964,7 +964,7 @@ export function App(): React.JSX.Element {
                                             <NimbleMappingIcon
                                                 keyValue="success"
                                                 text="Success"
-                                                icon="nimble-icon-check"
+                                                icon={iconCheckTag}
                                                 severity="success"
                                                 textHidden>
                                             </NimbleMappingIcon>
