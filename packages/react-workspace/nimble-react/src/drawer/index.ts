@@ -1,8 +1,9 @@
-import { Drawer, UserDismissed as DrawerUserDismissed } from '@ni/nimble-components/dist/esm/drawer';
+import { Drawer, UserDismissed as DrawerUserDismissed, drawerTag } from '@ni/nimble-components/dist/esm/drawer';
 import { DrawerLocation } from '@ni/nimble-components/dist/esm/drawer/types';
 import type { RefAttributes, RefObject } from 'react';
 import { wrap } from '../utilities/react-wrapper';
 
+export { drawerTag };
 export { type Drawer, DrawerUserDismissed, DrawerLocation };
 export const NimbleDrawer = wrap(Drawer);
 

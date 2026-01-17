@@ -1,4 +1,4 @@
-import { Table } from '@ni/nimble-components/dist/esm/table';
+import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import type {
     TableActionMenuToggleEventDetail,
     TableRowExpansionToggleEventDetail,
@@ -10,6 +10,7 @@ import type {
 import type { RefAttributes, RefObject } from 'react';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
+export { tableTag };
 export { type Table, type TableRecord, type TableSetRecordHierarchyOptions };
 export const NimbleTable = wrap(Table, {
     events: {

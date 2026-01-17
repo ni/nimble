@@ -11,9 +11,9 @@
   "exports": {
     "./package.json": "./package.json",
     "./styles/*": "./styles/*",
-    "./icons/*": {
-      "types": "./dist/esm/icons/*.d.ts",
-      "import": "./dist/esm/icons/*.js"
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
     },
     "./*": {
       "types": "./dist/esm/*.d.ts",
@@ -22,10 +22,8 @@
   },
   "typesVersions": {
     "*": {
-      "icons/*": [
-        "dist/esm/icons/*.d.ts"
-      ],
       "*": [
+        "dist/esm/*",
         "dist/esm/*/index.d.ts"
       ]
     }
