@@ -30,14 +30,24 @@
   },
   "type": "module",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      }
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
     }
   },
-  "types": "./dist/esm/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*",
+        "dist/esm/*/index.d.ts"
+      ]
+    }
+  },
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
