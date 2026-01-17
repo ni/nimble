@@ -11,20 +11,10 @@
     "exports": {
         "./package.json": "./package.json",
         ".": {
-            "types": "./dist/esm/index.d.ts",
-            "import": "./dist/esm/index.js"
+            "import": "./index.js"
         },
         "./*": {
-            "types": "./dist/esm/*.d.ts",
-            "import": "./dist/esm/*/index.js"
-        }
-    },
-    "typesVersions": {
-        "*": {
-            "*": [
-                "dist/esm/*",
-                "dist/esm/*/index.d.ts"
-            ]
+            "import": "./*/index.js"
         }
     },
     "keywords": [
