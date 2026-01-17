@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Simplify icon export paths",
-  "packageName": "@ni/nimble-react",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

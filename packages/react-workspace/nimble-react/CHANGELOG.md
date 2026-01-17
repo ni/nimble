@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Thu, 15 Jan 2026 18:15:56 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 17 Jan 2026 21:02:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.10.2
+
+Sat, 17 Jan 2026 21:02:32 GMT
+
+### Patches
+
+- Simplify icon export paths ([ni/nimble@e6ea842](https://github.com/ni/nimble/commit/e6ea8421529512a2fc7397cfec9d408397b140fc))
 
 ## 0.10.1
 
