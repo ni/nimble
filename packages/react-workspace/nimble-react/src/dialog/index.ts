@@ -1,7 +1,8 @@
-import { Dialog, UserDismissed as DialogUserDismissed } from '@ni/nimble-components/dist/esm/dialog';
+import { Dialog, UserDismissed as DialogUserDismissed, dialogTag } from '@ni/nimble-components/dist/esm/dialog';
 import type { RefAttributes, RefObject } from 'react';
 import { wrap } from '../utilities/react-wrapper';
 
+export { dialogTag };
 export { type Dialog, DialogUserDismissed };
 export const NimbleDialog = wrap(Dialog);
 
