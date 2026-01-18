@@ -30,17 +30,17 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
-  "devDependencies": {
-    "@ni-private/eslint-config-nimble": "*",
-    "style-dictionary": "^5.0.0",
-    "svg-to-ts": "^12.0.0",
-    "typescript": "~5.8.3"
-  },
   "files": [
     "dist/styledictionary/css/**",
     "dist/styledictionary/js/**",
     "dist/styledictionary/scss/**",
     "dist/fonts/**",
     "dist/icons/js/**"
-  ]
+  ],
+  "devDependencies": {
+    "@ni-private/eslint-config-nimble": "*",
+    "style-dictionary": "^5.0.0",
+    "svg-to-ts": "^12.0.0",
+    "typescript": "~5.8.3"
+  }
 }

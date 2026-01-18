@@ -18,6 +18,7 @@
     "test-webkit": "karma start karma.conf.headless.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test": "concurrently --pad-prefix --timings --group \"npm:test-chrome\" \"npm:test-webkit\""
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"

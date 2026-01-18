@@ -26,6 +26,7 @@
 		"copy-resources:ok": "node build/copyResources.js ok",
 		"update-lock-files": "dotnet restore --force-evaluate"
 	},
+	"type": "module",
 	"files": [
 		"!*"
 	],

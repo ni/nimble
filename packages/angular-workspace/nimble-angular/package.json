@@ -6,6 +6,12 @@
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/nimble-angular && npm publish",
     "invoke-publish:setup": "cd ../ && npm run build:nimble"
   },
+  "type": "module",
+  "exports": {
+    "./styles/*": {
+      "sass": "./styles/*.scss"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -21,10 +27,8 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
-  "exports": {
-    "./styles/*": {
-      "sass": "./styles/*.scss"
-    }
+  "dependencies": {
+    "tslib": "^2.2.0"
   },
   "peerDependencies": {
     "@angular/common": "^19.2.17",
@@ -34,8 +38,5 @@
     "@angular/router": "^19.2.17",
     "@ni/nimble-components": "^35.0.1",
     "@ni/unit-format": "^1.0.1"
-  },
-  "dependencies": {
-    "tslib": "^2.2.0"
   }
 }

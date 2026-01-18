@@ -2,17 +2,7 @@
   "name": "@ni/unit-format",
   "version": "1.0.1",
   "description": "NumberFormat aligned library to format numbers with scaled units.",
-  "keywords": [
-    "units",
-    "formatting",
-    "nimble",
-    "engineering",
-    "metric",
-    "si",
-    "volts",
-    "degrees",
-    "bytes"
-  ],
+  "keywords": ["units", "formatting", "metric", "si"],
   "scripts": {
     "build": "tsc -b",
     "lint": "eslint .",
@@ -24,13 +14,6 @@
     "test:node": "jasmine",
     "test:browser": "karma start karma.conf.cjs --browsers=ChromeHeadlessOpt --single-run",
     "test:browser:debugger": "karma start karma.conf.cjs --browsers=ChromeDebugging"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ni/nimble.git"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "type": "module",
   "exports": {
@@ -51,6 +34,13 @@
         "dist/esm/*/index.d.ts"
       ]
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "author": "National Instruments",
   "license": "MIT",

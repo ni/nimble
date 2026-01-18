@@ -9,6 +9,7 @@
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"../dist/OkBlazor.*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:noop": "echo \"noop command to swallow npm args\""
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
