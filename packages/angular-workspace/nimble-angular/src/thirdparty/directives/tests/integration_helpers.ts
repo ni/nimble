@@ -3,6 +3,7 @@
  * Copied from https://github.com/angular/angular/blob/19.2.15/packages/router/test/integration/integration_helpers.ts
  * with the following modifications:
  * - modify imports
+ * - uniquify all 'link-cmp' selectors to avoid NG0912 component ID collision. Approach based on: https://angular.io/errors/NG0912#debugging-the-error
  */
 
 /**
@@ -47,28 +48,28 @@ export function onlyNavigationStartAndEnd(e: Event): e is NavigationStart | Navi
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-0])',
   template: `<a routerLink="/team/33/simple" [target]="'_self'">link</a>`,
   standalone: false,
 })
 export class StringLinkCmp {}
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-1])',
   template: `<button routerLink="/team/33/simple">link</button>`,
   standalone: false,
 })
 export class StringLinkButtonCmp {}
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-2])',
   template: `<router-outlet></router-outlet><a [routerLink]="['/team/33/simple']">link</a>`,
   standalone: false,
 })
 export class AbsoluteLinkCmp {}
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-3])',
   template: `<router-outlet></router-outlet><a routerLinkActive="active" (isActiveChange)="this.onRouterLinkActivated($event)" [routerLinkActiveOptions]="{exact: exact}" ariaCurrentWhenActive="page" [routerLink]="['./']">link</a>
  <button routerLinkActive="active" [routerLinkActiveOptions]="{exact: exact}" [routerLink]="['./']">button</button>
  `,
@@ -88,28 +89,28 @@ export class DummyLinkCmp {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-4])',
   template: `<a [routerLink]="['/simple']">link</a>`,
   standalone: false,
 })
 export class AbsoluteSimpleLinkCmp {}
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-5])',
   template: `<a [routerLink]="['../simple']">link</a>`,
   standalone: false,
 })
 export class RelativeLinkCmp {}
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-6])',
   template: `<a [routerLink]="['../simple']" [queryParams]="{q: '1'}" fragment="f">link</a>`,
   standalone: false,
 })
 export class LinkWithQueryParamsAndFragment {}
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-7])',
   template: `<a id="link" [routerLink]="['../simple']" [state]="{foo: 'bar'}">link</a>`,
   standalone: false,
 })
@@ -263,7 +264,7 @@ export class RouteCmp {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-8])',
   template: `<div *ngIf="show"><a [routerLink]="['./simple']">link</a></div> <router-outlet></router-outlet>`,
   standalone: false,
 })
@@ -281,7 +282,7 @@ export class OutletInNgIf {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-9])',
   template: `<router-outlet></router-outlet>
               <div id="link-parent" routerLinkActive="active" [routerLinkActiveOptions]="{exact: exact}">
                 <div ngClass="{one: 'true'}"><a [routerLink]="['./']">link</a></div>
