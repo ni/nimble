@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Thu, 15 Jan 2026 18:15:56 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 18 Jan 2026 00:56:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.4.2
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Consistent package exports ([ni/nimble@bf50557](https://github.com/ni/nimble/commit/bf50557680684a905423b3e1c541101f4225e564))
+- Bump @ni/ok-components to v0.1.25
 
 ## 0.4.1
 

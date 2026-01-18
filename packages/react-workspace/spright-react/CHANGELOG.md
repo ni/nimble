@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Thu, 15 Jan 2026 18:15:56 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 18 Jan 2026 00:56:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.8.2
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Consistent package exports ([ni/nimble@bf50557](https://github.com/ni/nimble/commit/bf50557680684a905423b3e1c541101f4225e564))
+- Bump @ni/spright-components to v6.4.25
 
 ## 0.8.1
 

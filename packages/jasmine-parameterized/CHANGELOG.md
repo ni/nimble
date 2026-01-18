@@ -1,8 +1,16 @@
 # Change Log - @ni/jasmine-parameterized
 
-<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 18 Jan 2026 00:56:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.8
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Consistent package exports ([ni/nimble@bf50557](https://github.com/ni/nimble/commit/bf50557680684a905423b3e1c541101f4225e564))
 
 ## 1.0.7
 

@@ -1,6 +1,6 @@
 {
   "name": "@ni/unit-format",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NumberFormat aligned library to format numbers with scaled units.",
   "keywords": [
     "units",
@@ -55,7 +55,7 @@
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/jasmine-parameterized": "^1.0.7",
+    "@ni/jasmine-parameterized": "^1.0.8",
     "@ni-private/eslint-config-nimble": "*",
     "@types/jasmine": "^5.1.4",
     "jasmine": "^5.1.0",
