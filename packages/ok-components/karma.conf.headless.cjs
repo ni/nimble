@@ -3,7 +3,7 @@
  */
 
 const karmaSpecReporter = require('karma-spec-reporter');
-const originalConfigFunction = require('./karma.conf');
+const originalConfigFunction = require('./karma.conf.cjs');
 
 module.exports = config => {
     originalConfigFunction(config);
