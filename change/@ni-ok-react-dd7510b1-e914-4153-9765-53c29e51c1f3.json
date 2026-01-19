@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "consistent module package format",
+  "packageName": "@ni/ok-react",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
