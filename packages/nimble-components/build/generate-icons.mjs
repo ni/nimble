@@ -65,7 +65,7 @@ registerIcon('${elementBaseName}', ${className});
 export const ${tagName} = '${elementName}';
 `;
 
-    const filePath = path.resolve(iconDirectory, `index.ts`);
+    const filePath = path.resolve(iconDirectory, 'index.ts');
     fs.writeFileSync(filePath, componentFileContents, { encoding: 'utf-8' });
 
     allIconsFileContents = allIconsFileContents.concat(
