@@ -1,22 +1,21 @@
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 import {
     tokenNames,
     cssPropertyFromTokenName,
     scssInternalPropertyFromTokenName,
     scssPropertyFromTokenName,
     scssInternalPropertySetterMarkdown
-} from '../../../dist/esm/theme-provider/design-token-names';
-import { comments } from '../../../dist/esm/theme-provider/design-token-comments';
+} from '../dist/esm/theme-provider/design-token-names.js';
+import { comments } from '../dist/esm/theme-provider/design-token-comments.js';
 
-const fs = require('fs');
-const path = require('path');
-
-const fontsFilePath = path.resolve(__dirname, '../../../dist/fonts.scss');
+const fontsFilePath = path.resolve(import.meta.dirname, '../dist/fonts.scss');
 const fontsFile = `// Nimble Components Fonts SCSS
 
 @forward '@ni/nimble-tokens/dist/fonts/scss/fonts';
 `;
 
-const tokensFilePath = path.resolve(__dirname, '../../../dist/tokens.scss');
+const tokensFilePath = path.resolve(import.meta.dirname, '../dist/tokens.scss');
 
 const tokensFileHeader = `// Nimble Components Tokens SCSS
 // Used to integrate theme-aware design tokens in an application.
@@ -37,8 +36,8 @@ ${scssPropertyFromTokenName(tokenName)}: var(${scssInternalPropertyFromTokenName
 const tokensFile = [tokensFileHeader, ...tokensFileContents].join('');
 
 const tokensInternalFilePath = path.resolve(
-    __dirname,
-    '../../../dist/tokens-internal.scss'
+    import.meta.dirname,
+    '../dist/tokens-internal.scss'
 );
 
 const tokensInternalFileHeader = `// Nimble Components Internal Tokens SCSS

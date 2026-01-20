@@ -1,15 +1,10 @@
 /**
  * Build script for generating nimble-blazor integration for Nimble icons.
- *
- * Iterates through icons provided by nimble-tokens, and generates a Razor component
- * file for each.
  */
-
 import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
-import * as icons from '@ni/nimble-tokens/dist/icons/js';
-
-const fs = require('fs');
-const path = require('path');
+import * as icons from '@ni/nimble-tokens/dist/icons/js/index.js';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 const trimSizeFromName = text => {
     // Remove dimensions from icon name, e.g. "add16X16" -> "add"
@@ -19,7 +14,7 @@ const trimSizeFromName = text => {
 const generatedFilePrefix = `@* AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
  // See generation source in blazor-workspace/build/generate-icons *@\n`;
 
-const packageDirectory = path.resolve(__dirname, '../../../');
+const packageDirectory = path.resolve(import.meta.dirname, '../');
 const iconsDirectory = path.resolve(packageDirectory, 'NimbleBlazor/Components/Icons');
 console.log(iconsDirectory);
 

@@ -2,6 +2,63 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Tue, 20 Jan 2026 03:36:17 GMT",
+      "version": "0.10.4",
+      "tag": "@ni/nimble-react_v0.10.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "8dad67eea4b456fee7f4f5e1071e1924753092d0",
+            "comment": "consistent module package format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v35.0.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-tokens to v8.13.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 18 Jan 2026 00:56:49 GMT",
+      "version": "0.10.3",
+      "tag": "@ni/nimble-react_v0.10.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v35.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 17 Jan 2026 21:02:32 GMT",
+      "version": "0.10.2",
+      "tag": "@ni/nimble-react_v0.10.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "e6ea8421529512a2fc7397cfec9d408397b140fc",
+            "comment": "Simplify icon export paths"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Jan 2026 18:15:56 GMT",
       "version": "0.10.1",
       "tag": "@ni/nimble-react_v0.10.1",

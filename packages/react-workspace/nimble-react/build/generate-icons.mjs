@@ -23,7 +23,6 @@ if (fs.existsSync(iconsDirectory)) {
 }
 console.log(`Creating icons directory "${iconsDirectory}"`);
 fs.mkdirSync(iconsDirectory);
-
 console.log('Finished creating icons directory');
 
 console.log('Writing icon react wrapper files');
@@ -31,19 +30,24 @@ console.log('Writing icon react wrapper files');
 let fileCount = 0;
 for (const key of Object.keys(icons)) {
     const iconName = trimSizeFromName(key); // e.g. "arrowExpanderLeft"
+    const directoryName = spinalCase(iconName); // e.g. "arrow-expander-left"
     const fileName = spinalCase(iconName); // e.g. "arrow-expander-left";
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
+    const tagName = `icon${pascalCase(iconName)}Tag`; // e.g. "iconArrowExpanderLeftTag"
+    const iconDirectory = path.resolve(iconsDirectory, directoryName);
+    fs.mkdirSync(iconDirectory);
 
     fileCount += 1;
 
     const iconReactWrapperContent = `${generatedFilePrefix}
-import { ${className} } from '@ni/nimble-components/dist/esm/icons/${fileName}';
-import { wrap } from '../utilities/react-wrapper';
+import { ${className}, ${tagName} } from '@ni/nimble-components/dist/esm/icons/${fileName}';
+import { wrap } from '../../utilities/react-wrapper';
 
-export { type ${className} };
+export type { ${className} };
+export { ${tagName} };
 export const Nimble${className} = wrap(${className});`;
 
-    const outputPath = path.resolve(iconsDirectory, `${fileName}.ts`);
+    const outputPath = path.resolve(iconDirectory, 'index.ts');
     fs.writeFileSync(outputPath, iconReactWrapperContent, {
         encoding: 'utf-8'
     });

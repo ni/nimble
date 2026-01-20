@@ -9,8 +9,11 @@ export default defineConfig([
     ]),
     lintNimbleConfig,
     {
-        files: ['**/*.js'],
-        extends: javascriptNimbleConfig
+        files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
+        extends: [javascriptNimbleConfig],
+        rules: {
+            'import/extensions': 'off'
+        }
     },
     {
         files: ['**/*.ts'],
@@ -23,7 +26,7 @@ export default defineConfig([
         }
     },
     {
-        files: ['**/build/**/*.js'],
+        files: ['**/build/**/*.js', '**/build/**/*.cjs', '**/build/**/*.mjs'],
         rules: {
             // Build scripts should give verbose logging
             'no-console': 'off',

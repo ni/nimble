@@ -1,35 +1,12 @@
 {
   "name": "@ni/nimble-react",
-  "version": "0.10.1",
+  "version": "0.10.4",
   "description": "React components for the NI Nimble Design System",
   "keywords": [
     "ni",
     "nimble",
     "react"
   ],
-  "type": "module",
-  "exports": {
-    "./package.json": "./package.json",
-    "./styles/*": "./styles/*",
-    "./icons/*": {
-      "types": "./dist/esm/icons/*.d.ts",
-      "import": "./dist/esm/icons/*.js"
-    },
-    "./*": {
-      "types": "./dist/esm/*.d.ts",
-      "import": "./dist/esm/*/index.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "icons/*": [
-        "dist/esm/icons/*.d.ts"
-      ],
-      "*": [
-        "dist/esm/*/index.d.ts"
-      ]
-    }
-  },
   "scripts": {
     "build": "npm run build:icons && npm run build:components",
     "build:icons": "node build/generate-icons.mjs",
@@ -38,6 +15,27 @@
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish"
+  },
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./styles/*": "./styles/*",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*",
+        "dist/esm/*/index.d.ts"
+      ]
+    }
   },
   "repository": {
     "type": "git",
@@ -48,16 +46,16 @@
   },
   "author": "National Instruments",
   "license": "MIT",
+  "peerDependencies": {
+    "@lit/react": "^1.0.8",
+    "@ni/nimble-components": "^35.0.2",
+    "react": "^17 || ^18 || ^19"
+  },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.0.0",
-    "@ni/nimble-tokens": "^8.13.6",
+    "@ni/nimble-components": "^35.0.2",
+    "@ni/nimble-tokens": "^8.13.7",
     "typescript": "~5.8.3"
-  },
-  "peerDependencies": {
-    "@lit/react": "^1.0.8",
-    "@ni/nimble-components": "^35.0.0",
-    "react": "^17 || ^18 || ^19"
   }
 }

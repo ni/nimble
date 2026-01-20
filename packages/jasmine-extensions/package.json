@@ -3,13 +3,7 @@
   "version": "0.0.1",
   "private": "true",
   "description": "Utilities to modify the runtime behavior of jasmine",
-  "keywords": [
-    "jasmine",
-    "extensions",
-    "retry",
-    "retries",
-    "elevate log"
-  ],
+  "keywords": ["jasmine", "extensions", "retry", "retries", "elevate log"],
   "scripts": {
     "build": "tsc -b",
     "lint": "eslint .",
@@ -22,6 +16,26 @@
     "test:browser": "karma start karma.conf.cjs --browsers=ChromeHeadlessOpt --single-run",
     "test:browser:debugger": "karma start karma.conf.cjs --browsers=ChromeDebugging"
   },
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*",
+        "dist/esm/*/index.d.ts"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -29,16 +43,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      }
-    }
-  },
-  "types": "./dist/esm/index.d.ts",
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {

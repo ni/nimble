@@ -24,6 +24,7 @@
     "performance": "npm run performance --workspaces --if-present",
     "storybook": "npm run start -w @ni-private/storybook"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"

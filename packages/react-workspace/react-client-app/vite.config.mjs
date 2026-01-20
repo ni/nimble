@@ -21,10 +21,6 @@ export default defineConfig({
                 replacement: `${getAbsolutePath('@ni/nimble-react')}/styles/$1.scss`
             },
             {
-                find: /^@ni\/nimble-react\/icons\/(.*)/,
-                replacement: `${getAbsolutePath('@ni/nimble-react')}/src/icons/$1.ts`
-            },
-            {
                 find: /^@ni\/nimble-react\/(.*)/,
                 replacement: `${getAbsolutePath('@ni/nimble-react')}/src/$1/index.ts`
             },

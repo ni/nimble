@@ -86,7 +86,7 @@ export class UnitFormatNumberText extends UnitFormat {
     private resolveOptions(
         options?: UnitFormatNumberTextOptions
     ): UnitFormatNumberTextResolvedOptions {
-        if (!options || options.numberTextFormat === NumberTextFormat.default) {
+        if (options?.numberTextFormat === NumberTextFormat.default) {
             return {
                 numberTextFormat: NumberTextFormat.default,
                 decimalDigits: undefined,
