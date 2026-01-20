@@ -1,20 +1,22 @@
-const path = require('path');
-const glob = require('glob');
-const fs = require('fs');
+import * as path from 'node:path';
+import * as fs from 'node:fs';
+import { createRequire } from 'node:module';
+import * as glob from 'glob';
 
+const require = createRequire(import.meta.url);
 const target = process.argv[2];
 
 let componentPackageName;
 let destinationDirectory;
 if (target === 'nimble') {
     componentPackageName = 'nimble-components';
-    destinationDirectory = path.resolve(__dirname, '../NimbleBlazor/wwwroot');
+    destinationDirectory = path.resolve(import.meta.dirname, '../NimbleBlazor/wwwroot');
 } else if (target === 'spright') {
     componentPackageName = 'spright-components';
-    destinationDirectory = path.resolve(__dirname, '../SprightBlazor/wwwroot');
+    destinationDirectory = path.resolve(import.meta.dirname, '../SprightBlazor/wwwroot');
 } else if (target === 'ok') {
     componentPackageName = 'ok-components';
-    destinationDirectory = path.resolve(__dirname, '../OkBlazor/wwwroot');
+    destinationDirectory = path.resolve(import.meta.dirname, '../OkBlazor/wwwroot');
 } else {
     throw new Error(`Argument must be either 'nimble', 'spright', or 'ok'. Received: ${target}`);
 }

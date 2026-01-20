@@ -2,11 +2,16 @@
   "name": "@ni/nimble-react",
   "version": "0.10.3",
   "description": "React components for the NI Nimble Design System",
-  "keywords": [
-    "ni",
-    "nimble",
-    "react"
-  ],
+  "keywords": ["ni", "nimble", "react"],
+  "scripts": {
+    "build": "npm run build:icons && npm run build:components",
+    "build:icons": "node build/generate-icons.mjs",
+    "build:components": "tsc -p ./tsconfig.json",
+    "lint": "eslint .",
+    "format": "eslint . --fix",
+    "pack": "npm pack",
+    "invoke-publish": "npm publish"
+  },
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
@@ -28,15 +33,6 @@
       ]
     }
   },
-  "scripts": {
-    "build": "npm run build:icons && npm run build:components",
-    "build:icons": "node build/generate-icons.mjs",
-    "build:components": "tsc -p ./tsconfig.json",
-    "lint": "eslint .",
-    "format": "eslint . --fix",
-    "pack": "npm pack",
-    "invoke-publish": "npm publish"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -46,16 +42,16 @@
   },
   "author": "National Instruments",
   "license": "MIT",
+  "peerDependencies": {
+    "@lit/react": "^1.0.8",
+    "@ni/nimble-components": "^35.0.1",
+    "react": "^17 || ^18 || ^19"
+  },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "^35.0.1",
     "@ni/nimble-tokens": "^8.13.6",
     "typescript": "~5.8.3"
-  },
-  "peerDependencies": {
-    "@lit/react": "^1.0.8",
-    "@ni/nimble-components": "^35.0.1",
-    "react": "^17 || ^18 || ^19"
   }
 }

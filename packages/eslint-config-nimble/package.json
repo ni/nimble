@@ -3,9 +3,10 @@
     "version": "1.0.0",
     "private": true,
     "description": "Shared ESLint configuration for FAST web component development",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/ni/nimble.git"
+    "keywords": ["eslint", "eslintconfig", "ni", "nimble"],
+    "scripts": {
+        "lint": "eslint .",
+        "format": "eslint . --fix"
     },
     "type": "module",
     "exports": {
@@ -17,18 +18,13 @@
             "import": "./*/index.js"
         }
     },
-    "keywords": [
-        "eslint",
-        "eslintconfig",
-        "ni",
-        "nimble"
-    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ni/nimble.git"
+    },
+    
     "author": "National Instruments",
     "license": "MIT",
-    "scripts": {
-        "lint": "eslint .",
-        "format": "eslint . --fix"
-    },
     "files": [
         "**/*.js",
         "!/eslint.config.*"
