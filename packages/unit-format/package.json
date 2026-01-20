@@ -1,8 +1,13 @@
 {
   "name": "@ni/unit-format",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "NumberFormat aligned library to format numbers with scaled units.",
-  "keywords": ["units", "formatting", "metric", "si"],
+  "keywords": [
+    "units",
+    "formatting",
+    "metric",
+    "si"
+  ],
   "scripts": {
     "build": "tsc -b",
     "lint": "eslint .",
@@ -45,7 +50,7 @@
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/jasmine-parameterized": "^1.0.8",
+    "@ni/jasmine-parameterized": "^1.0.9",
     "@ni-private/eslint-config-nimble": "*",
     "@types/jasmine": "^5.1.4",
     "jasmine": "^5.1.0",

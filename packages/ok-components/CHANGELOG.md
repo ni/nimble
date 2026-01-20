@@ -1,8 +1,19 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Sun, 18 Jan 2026 00:56:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 20 Jan 2026 03:36:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.1.26
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-components to v35.0.2
+- Bump @ni/spright-components to v6.4.26
+- Bump @ni/jasmine-parameterized to v1.0.9
 
 ## 0.1.25
 

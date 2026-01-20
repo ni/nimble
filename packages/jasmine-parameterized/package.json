@@ -1,8 +1,14 @@
 {
   "name": "@ni/jasmine-parameterized",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Utilities to write parameterized jasmine tests",
-  "keywords": ["jasmine", "parameterised", "parameterized", "test", "testing"],
+  "keywords": [
+    "jasmine",
+    "parameterised",
+    "parameterized",
+    "test",
+    "testing"
+  ],
   "scripts": {
     "build": "tsc -b",
     "lint": "eslint .",

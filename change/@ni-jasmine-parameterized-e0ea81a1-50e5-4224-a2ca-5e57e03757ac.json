@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "consistent module package format",
-  "packageName": "@ni/jasmine-parameterized",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -1,8 +1,12 @@
 {
   "name": "@ni/spright-react",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "React components for NI Spright",
-  "keywords": [ "ni", "spright", "react"],
+  "keywords": [
+    "ni",
+    "spright",
+    "react"
+  ],
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "lint": "eslint .",
@@ -41,11 +45,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/spright-components": "^6.4.25",
+    "@ni/spright-components": "^6.4.26",
     "react": "^17 || ^18 || ^19"
   },
   "devDependencies": {
-    "@ni/spright-components": "^6.4.25",
+    "@ni/spright-components": "^6.4.26",
     "@ni-private/eslint-config-nimble": "*",
     "typescript": "~5.8.3"
   }
