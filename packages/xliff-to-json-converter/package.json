@@ -3,9 +3,7 @@
   "version": "1.1.14",
   "description": "Utility to convert translation files from XLIFF to JSON for Angular localization",
   "scripts": {
-    "build": "npm run compile",
-    "compile": "tsc -p tsconfig.json",
-    "compile-watch": "tsc -p tsconfig.json -w",
+    "build": "tsc -p tsconfig.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
@@ -14,9 +12,27 @@
     "test": "jasmine"
   },
   "type": "module",
-  "main": "dist/commonjs/cli.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*",
+        "dist/esm/*/index.d.ts"
+      ]
+    }
+  },
   "bin": {
-    "xliff-to-json-converter": "./dist/commonjs/cli.js"
+    "xliff-to-json-converter": "./dist/esm/index.js"
   },
   "repository": {
     "type": "git",
