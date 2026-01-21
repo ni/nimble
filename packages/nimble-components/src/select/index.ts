@@ -3,7 +3,6 @@ import { attr, html, observable, Observable, volatile } from '@ni/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
-    Select as FoundationSelect,
     ListboxOption,
     type SelectOptions,
     SelectPosition,

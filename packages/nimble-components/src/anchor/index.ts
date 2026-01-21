@@ -1,7 +1,6 @@
 import { attr, nullableNumberConverter } from '@ni/fast-element';
 import {
     DesignSystem,
-    Anchor as FoundationAnchor,
     type AnchorOptions
 } from '@ni/fast-foundation';
 import { AnchorBase } from '../anchor-base';
