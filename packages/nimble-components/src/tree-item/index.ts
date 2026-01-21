@@ -34,7 +34,6 @@ export class TreeItem extends FoundationTreeItem {
 
 const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
     baseName: 'tree-item',
-    baseClass: FoundationTreeItem,
     template,
     styles,
     expandCollapseGlyph: arrowExpanderUp16X16.data

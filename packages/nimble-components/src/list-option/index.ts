@@ -95,7 +95,6 @@ export class ListOption extends FoundationListboxOption {
 
 const nimbleListOption = ListOption.compose({
     baseName: 'list-option',
-    baseClass: FoundationListboxOption,
     template,
     styles
 });

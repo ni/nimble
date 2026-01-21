@@ -97,7 +97,6 @@ export class TreeView extends FoundationTreeView {
 
 const nimbleTreeView = TreeView.compose({
     baseName: 'tree-view',
-    baseClass: FoundationTreeView,
     template,
     styles
 });

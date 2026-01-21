@@ -61,7 +61,6 @@ export class Anchor extends AnchorBase {
 
 const nimbleAnchor = Anchor.compose<AnchorOptions>({
     baseName: 'anchor',
-    baseClass: FoundationAnchor,
     template,
     styles,
     shadowOptions: {

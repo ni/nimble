@@ -18,7 +18,6 @@ declare global {
 export class Switch extends FoundationSwitch {}
 
 const nimbleSwitch = Switch.compose<SwitchOptions>({
-    baseClass: FoundationSwitch,
     baseName: 'switch',
     template,
     styles

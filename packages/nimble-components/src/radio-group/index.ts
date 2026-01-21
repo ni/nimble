@@ -25,7 +25,6 @@ export class RadioGroup extends mixinErrorPattern(
 
 const nimbleRadioGroup = RadioGroup.compose({
     baseName: 'radio-group',
-    baseClass: FoundationRadioGroup,
     template,
     styles,
     shadowOptions: {

@@ -153,7 +153,6 @@ const nimbleDialog = Dialog.compose({
     baseName: 'dialog',
     template,
     styles,
-    baseClass: Dialog
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDialog());

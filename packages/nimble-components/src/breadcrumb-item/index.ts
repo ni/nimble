@@ -20,7 +20,6 @@ export class BreadcrumbItem extends FoundationBreadcrumbItem {}
 
 const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     baseName: 'breadcrumb-item',
-    baseClass: FoundationBreadcrumbItem,
     template,
     styles,
     separator: forwardSlash16X16.data

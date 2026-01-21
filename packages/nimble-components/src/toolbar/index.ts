@@ -19,7 +19,6 @@ export class Toolbar extends FoundationToolbar {}
 
 const nimbleToolbar = Toolbar.compose<ToolbarOptions>({
     baseName: 'toolbar',
-    baseClass: FoundationToolbar,
     template,
     styles
 });

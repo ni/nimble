@@ -138,7 +138,6 @@ export class ListOptionGroup extends FoundationElement {
 
 const nimbleListOptionGroup = ListOptionGroup.compose({
     baseName: 'list-option-group',
-    baseClass: FoundationElement,
     template,
     styles
 });

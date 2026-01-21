@@ -31,7 +31,6 @@ export class Tooltip extends FoundationTooltip {
 
 const nimbleTooltip = Tooltip.compose({
     baseName: 'tooltip',
-    baseClass: FoundationTooltip,
     template,
     styles
 });

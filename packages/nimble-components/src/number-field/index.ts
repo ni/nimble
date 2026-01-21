@@ -119,7 +119,6 @@ export class NumberField extends mixinErrorPattern(
  */
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     baseName: 'number-field',
-    baseClass: FoundationNumberField,
     template,
     styles,
     shadowOptions: {

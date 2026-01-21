@@ -1329,7 +1329,6 @@ export class Select
 
 const nimbleSelect = Select.compose<SelectOptions>({
     baseName: 'select',
-    baseClass: FoundationSelect,
     template,
     styles,
     indicator: arrowExpanderDown16X16.data,

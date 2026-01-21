@@ -15,7 +15,6 @@ export class Card extends FoundationCard {}
 
 const nimbleCard = Card.compose({
     baseName: 'card',
-    baseClass: FoundationCard,
     template,
     styles
 });

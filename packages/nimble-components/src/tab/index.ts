@@ -18,7 +18,6 @@ export class Tab extends FoundationTab {}
 
 const nimbleTab = Tab.compose({
     baseName: 'tab',
-    baseClass: FoundationTab,
     template,
     styles
 });

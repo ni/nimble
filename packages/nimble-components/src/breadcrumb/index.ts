@@ -92,7 +92,6 @@ export class Breadcrumb extends FoundationBreadcrumb {
 
 const nimbleBreadcrumb = Breadcrumb.compose({
     baseName: 'breadcrumb',
-    baseClass: FoundationBreadcrumb,
     template,
     styles
 });

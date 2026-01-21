@@ -68,7 +68,6 @@ export class Button
  */
 const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
-    baseClass: FoundationButton,
     template,
     styles,
     shadowOptions: {

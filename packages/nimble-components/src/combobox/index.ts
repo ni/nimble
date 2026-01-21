@@ -850,7 +850,6 @@ export class Combobox
 
 const nimbleCombobox = Combobox.compose<ComboboxOptions>({
     baseName: 'combobox',
-    baseClass: FormAssociatedCombobox,
     template,
     styles,
     shadowOptions: {

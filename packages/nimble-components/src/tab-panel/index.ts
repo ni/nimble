@@ -18,7 +18,6 @@ export class TabPanel extends FoundationTabPanel {}
 
 const nimbleTabPanel = TabPanel.compose({
     baseName: 'tab-panel',
-    baseClass: FoundationTabPanel,
     template,
     styles
 });

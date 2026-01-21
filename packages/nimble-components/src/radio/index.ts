@@ -20,7 +20,6 @@ export class Radio extends FoundationRadio {}
 
 const nimbleRadio = Radio.compose<RadioOptions>({
     baseName: 'radio',
-    baseClass: FoundationRadio,
     template,
     styles,
     checkedIndicator: circleFilled16X16.data

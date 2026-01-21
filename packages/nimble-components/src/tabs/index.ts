@@ -105,7 +105,6 @@ export class Tabs extends FoundationTabs implements TabsOwner {
 
 const nimbleTabs = Tabs.compose<TabsOptions>({
     baseName: 'tabs',
-    baseClass: FoundationTabs,
     template,
     styles
 });

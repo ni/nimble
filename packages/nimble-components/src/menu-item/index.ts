@@ -33,7 +33,6 @@ export class MenuItem extends FoundationMenuItem {}
  */
 const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
     baseName: 'menu-item',
-    baseClass: FoundationMenuItem,
     template,
     styles,
     expandCollapseGlyph: arrowExpanderRight16X16.data

@@ -25,7 +25,6 @@ export class Menu extends FoundationMenu {}
  */
 const nimbleMenu = Menu.compose({
     baseName: 'menu',
-    baseClass: FoundationMenu,
     template,
     styles
 });

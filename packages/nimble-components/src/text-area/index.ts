@@ -115,7 +115,6 @@ export class TextArea extends mixinErrorPattern(
 
 const nimbleTextArea = TextArea.compose({
     baseName: 'text-area',
-    baseClass: FoundationTextArea,
     template,
     styles,
     shadowOptions: {

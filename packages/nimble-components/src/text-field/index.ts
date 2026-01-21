@@ -43,7 +43,6 @@ export class TextField extends mixinErrorPattern(
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
     baseName: 'text-field',
-    baseClass: FoundationTextField,
     template,
     styles,
     shadowOptions: {

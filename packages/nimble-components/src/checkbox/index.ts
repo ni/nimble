@@ -38,7 +38,6 @@ export class Checkbox extends mixinErrorPattern(FoundationCheckbox) {
 
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     baseName: 'checkbox',
-    baseClass: FoundationCheckbox,
     template,
     styles,
     checkedIndicator: check16X16.data,
