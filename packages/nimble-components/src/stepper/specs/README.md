@@ -2,43 +2,54 @@
 
 ## Overview
 
-The `nimble-stepper-group` and 
+The `nimble-stepper`, `nimble-step`, and `nimble-anchor-step` elements.
 
 ### Background
 
-
+<!--
 - *Relevant historical or background information*
-- *Link to Interaction Design spec*
-- *Link to Visual Design spec*
 - *Link to relevant work items, related existing issues, etc.*
+-->
+
+- Interaction Design: None
+- Visual Design:
+  - [Nimble Components Stepper Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=11742-71097&p=f&t=U3UnPlU4awyN4ybh-0)
+  - [Config App Figma](https://www.figma.com/design/eG9PhYykbokYf1OBd8KLkn/Valinor?node-id=0-1&p=f&t=oRGYidVydXMcgj3I-0)
 
 ### Containing Library
 
-*State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.* 
+<!-- *State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.*  -->
+
+Nimble, general component
 
 ### Non-goals
 
-*A list of use cases, features, or functionality which are **not** goals for the component.*
-  
+<!-- *A list of use cases, features, or functionality which are **not** goals for the component.* -->
+
+- Very long lists of steps
+- Non-linear steps
+
 ### Features
 
-*A list of the key features unique to this component.*
+- Similar to a breadcrumb but with more visual states
 
 ### Risks and Challenges
 
-*Notable risks or challenges associated with implementing the component. Would we need to make any breaking changes in order to achieve this component's goals?*
+<!-- *Notable risks or challenges associated with implementing the component. Would we need to make any breaking changes in order to achieve this component's goals?* -->
 
-### Prior Art/Examples
+No known new risks or challenges
 
-- Carbon design system progress: <https://carbondesignsystem.com/components/progress-indicator/usage/>
+### Prior Art / Examples
 
-*Screenshots and/or links to existing, canonical, or exemplary implementations of the component.*
-
----
+- Relevant design systems:
+  - [Carbon progress indicator](https://carbondesignsystem.com/components/progress-indicator/usage/)
+  - [Angular Material stepper](https://material.angular.dev/components/stepper/overview)
+  - [WAI Patterns step-by-step indicator](https://www.w3.org/WAI/tutorials/forms/multi-page/#using-step-by-step-indicator)
+  - [USDS step indicator](https://designsystem.digital.gov/components/step-indicator/)
 
 ## Design
 
-*Describe the design of the component, thinking through several perspectives:*
+<!-- *Describe the design of the component, thinking through several perspectives:*
 
 - *A customer using the component on a web page.*
 - *A developer building an app with the component and interacting through HTML/CSS/JavaScript.*
@@ -46,11 +57,16 @@ The `nimble-stepper-group` and
 
 *Include code snippets showing basic component use and any interesting configurations.*
 
-*For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.*
+*For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.* -->
+
+The `nimble-stepper` acts a a progress indicator for a wizard / step-by-step workflow. It behaves conceptually as either a collection of card buttons (i.e. collection of `nimble-step`) or as a breadcrumb (i.e. collection of `nimble-anchor-step`). Each item has a severity state associated with it (potentially with extra detail messages to show) and the ability to show what state is the "current" selected step that the user is on.
+
+The `nimble-stepper` is just for layout, placing steps either horizontal or vertical orientation and communicating internal state to child steps as needed (ideally just via style)
+
 
 ### API
 
-*The key elements of the component's public API surface:*
+<!-- *The key elements of the component's public API surface:*
 
 - *Component Name*
 - *Props/Attrs: to match native element APIs, prefer primitive types rather than complex configuration objects and expose fields as both properties on the TypeScript class and attributes on the HTML element*
@@ -59,7 +75,14 @@ The `nimble-stepper-group` and
 - *CSS Classes and CSS Custom Properties that affect the component*
 - *How native CSS Properties (height, width, etc.) affect the component*
 
-*Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.*
+*Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.* -->
+
+- `nimble-stepper`
+- *Props/Attrs: to match native element APIs, prefer primitive types rather than complex configuration objects and expose fields as both properties on the TypeScript class and attributes on the HTML element*
+- *Methods*
+- *Events*
+- *CSS Classes and CSS Custom Properties that affect the component*
+- *How native CSS Properties (height, width, etc.) affect the component*
 
 ### Anatomy 
 
@@ -72,13 +95,17 @@ The `nimble-stepper-group` and
 
 ### Native form integration
 
-*Describe the plan for custom element form integration or why it's not necessary.*
+<!-- *Describe the plan for custom element form integration or why it's not necessary.*
 
-*Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).*
+*Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).* -->
+
+N/A
 
 ### Angular integration
 
-*Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
+<!-- *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.* -->
+
+Angular `routerLink` integration for `nimble-anchor-step`
 
 ### Blazor integration
 
@@ -118,11 +145,13 @@ The `nimble-stepper-group` and
 
 ### Mobile
 
-*Consider how the component will behave on mobile devices, including:*
+<!-- *Consider how the component will behave on mobile devices, including:*
 
 - *Overflow behavior when screen space is constrained*
 - *Interactions that are affected by touch rather than a pointer device (e.g. hover)*
-- *Integration with common mobile experiences like native pickers, on-screen keyboards, and dictation*
+- *Integration with common mobile experiences like native pickers, on-screen keyboards, and dictation* -->
+
+Overflow of `nimble-step-group`
 
 ### Globalization
 
