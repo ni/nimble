@@ -12,6 +12,7 @@
 # Specific packages
 /packages/angular-workspace @rajsite @mollykreis
 /packages/blazor-workspace @rajsite @msmithNI
+/packages/nimble-components/build/generate-workers @rajsite @jattasNI @munteannatan
 /packages/nimble-components/src/wafer-map @rajsite @jattasNI @munteannatan
 /packages/nimble-components/src/rich-text @rajsite @jattasNI @vivinkrishna-ni
 /packages/nimble-components/src/rich-text-mention @rajsite @jattasNI @vivinkrishna-ni
