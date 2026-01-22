@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Angular integration for nimble-chi component",
+  "comment": "Angular integration for nimble-chip component",
   "packageName": "@ni/nimble-angular",
   "email": "vivin.krishna.r.n@emerson.com",
   "dependentChangeType": "patch"
