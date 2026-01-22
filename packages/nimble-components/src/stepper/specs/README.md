@@ -20,24 +20,24 @@ The `nimble-stepper`, `nimble-step`, and `nimble-anchor-step` elements.
 
 <!-- *State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.*  -->
 
-Nimble, general component
+Nimble: Stepper is a generic component not designed for a specific application / domain.
 
 ### Non-goals
 
 <!-- *A list of use cases, features, or functionality which are **not** goals for the component.* -->
 
-- Very long lists of steps
-- Non-linear steps
+- Handling long lists of steps (10s+)
+- Non-linear step progressions
 
 ### Features
 
-- Similar to a breadcrumb but with more visual states
+- Similar to a breadcrumb conceptually but with more visual states and not only link based.
 
 ### Risks and Challenges
 
 <!-- *Notable risks or challenges associated with implementing the component. Would we need to make any breaking changes in order to achieve this component's goals?* -->
 
-No known new risks or challenges
+No known new unique risks or challenges
 
 ### Prior Art / Examples
 
@@ -59,10 +59,13 @@ No known new risks or challenges
 
 *For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.* -->
 
-The `nimble-stepper` acts a a progress indicator for a wizard / step-by-step workflow. It behaves conceptually as either a collection of card buttons (i.e. collection of `nimble-step`) or as a breadcrumb (i.e. collection of `nimble-anchor-step`). Each item has a severity state associated with it (potentially with extra detail messages to show) and the ability to show what state is the "current" selected step that the user is on.
+The `nimble-stepper` acts a a progress indicator for a wizard / step-by-step workflow. It behaves conceptually as either a collection of card buttons (i.e. collection of `nimble-step`) or as a breadcrumb (i.e. collection of `nimble-anchor-step`). Each item has a standard `severity` state associated with it and the ability to express that a state is the "current" `selected` step.
 
-The `nimble-stepper` is just for layout, placing steps either horizontal or vertical orientation and communicating internal state to child steps as needed (ideally just via style)
+The `nimble-stepper` is just for layout, placing steps either horizontal or vertical orientation and communicating internal state to child steps as needed (ideally just via style but implementation TBD).
 
+The `nimble-step` and `nimble-anchor-step` are elements representing individual steps with `nimble-step` behaving as a card button (i.e. a button with a concept of a `selected` visual appearance that does not change behavior) and a `nimble-anchor-step` looking visually identical but with link behaviors.
+
+The `step` elements will primarily render a provided nimble icon (and new nimble icons for the visuals of digits 0 - 9 will be added). When a non-default severity is provided the provided icon will be replaced with an icon representing the severity.
 
 ### API
 
@@ -78,20 +81,61 @@ The `nimble-stepper` is just for layout, placing steps either horizontal or vert
 *Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.* -->
 
 - `nimble-stepper`
-- *Props/Attrs: to match native element APIs, prefer primitive types rather than complex configuration objects and expose fields as both properties on the TypeScript class and attributes on the HTML element*
-- *Methods*
-- *Events*
-- *CSS Classes and CSS Custom Properties that affect the component*
-- *How native CSS Properties (height, width, etc.) affect the component*
+  - Attributes
+    - orientation: vertical / horizontal (aligned with radio group and wafer)
+  <!-- - Properties (not attribute reflected)
+  - Methods
+  - Events
+  - CSS custom properties -->
+  - CSS native properties
+    - Will respond to width / height sizing (on the axis corresponding to orientation) and show overflow scroll buttons following the pattern of breadcrumb
+  - Slots
+    -  default: supports `nimble-step` and `nimble-anchor-step` children
+  <!-- - Parts
+  - Localizable labels -->
+
+- `nimble-step`
+  - Attributes
+    - disabled: boolean (standard, i.e. visually disabled and interactions prevented)
+      - `disabled[appearance-readonly]`: (standard, i.e. visually not disabled, interactions prevented)
+    - readonly: boolean (standard, i.e. visually not disabled, interactions other than tab focus prevented)
+    - selected: boolean (visual change only, no behavior) (aligned with card button)
+    - severity: default / error / warning / success / information (aligned with icon)
+    - severity-text: string (if provided, only renders during warning, error, and information severity)
+  <!-- - Properties (not attribute reflected)
+  - Methods
+  - Events
+  - CSS custom properties
+  - CSS native properties
+  -->
+  - Slots
+    - default: supports nimble icons, will render inside the circle and have color controlled via css
+    - title: Title content (aligned with dialog)
+    - subtitle: Subtitle content  (aligned with dialog)
+  <!-- - Parts
+  - Localizable labels -->
+
+- `nimble-anchor-step`
+  - Attributes
+  - Properties (not attribute reflected)
+  - Methods
+  - Events
+  - CSS custom properties
+  - CSS native properties
+  - Slots
+  - Parts
+  - Localizable labels
 
 ### Anatomy 
-
+<!-- 
 *Outline the component structure with a diagram of its visual tree (shadow DOM). Enumerate key areas of visual customization, such as:*
 
 - *Slot Names*
 - *Host Classes*
 - *Slotted Content/Slotted Classes*
-- *CSS Parts*
+- *CSS Parts* -->
+
+Merged above in API.
 
 ### Native form integration
 
