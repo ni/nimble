@@ -32,7 +32,7 @@
           "options": {
             "main": "nimble-angular/test.ts",
             "tsConfig": "nimble-angular/tsconfig.spec.json",
-            "karmaConfig": "nimble-angular/karma.conf.js",
+            "karmaConfig": "nimble-angular/karma.conf.cjs",
             "polyfills": [
               "@angular/localize/init"
             ]
@@ -78,7 +78,7 @@
           "options": {
             "main": "ok-angular/test.ts",
             "tsConfig": "ok-angular/tsconfig.spec.json",
-            "karmaConfig": "ok-angular/karma.conf.js",
+            "karmaConfig": "ok-angular/karma.conf.cjs",
             "polyfills": [
               "@angular/localize/init"
             ]
@@ -124,7 +124,7 @@
           "options": {
             "main": "spright-angular/test.ts",
             "tsConfig": "spright-angular/tsconfig.spec.json",
-            "karmaConfig": "spright-angular/karma.conf.js",
+            "karmaConfig": "spright-angular/karma.conf.cjs",
             "polyfills": [
               "@angular/localize/init"
             ]
@@ -257,7 +257,7 @@
               "@angular/localize/init"
             ],
             "tsConfig": "example-client-app/tsconfig.spec.json",
-            "karmaConfig": "example-client-app/karma.conf.js",
+            "karmaConfig": "example-client-app/karma.conf.cjs",
             "inlineStyleLanguage": "scss",
             "assets": [
               "example-client-app/src/favicon.ico",

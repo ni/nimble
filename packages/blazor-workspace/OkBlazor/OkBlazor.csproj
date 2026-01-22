@@ -58,6 +58,6 @@
   </ItemGroup>
 
   <Target Name="CopyResources" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run copy-resources:ok" WorkingDirectory=".." />
+    <Exec Command="npm run copy-resources-ok" WorkingDirectory=".." />
   </Target>
 </Project>

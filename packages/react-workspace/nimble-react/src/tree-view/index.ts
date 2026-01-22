@@ -1,7 +1,8 @@
-import { TreeView } from '@ni/nimble-components/dist/esm/tree-view';
+import { TreeView, treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 import type { TreeItemExpandedChangeEvent, TreeItemSelectedChangeEvent } from '../tree-item';
 
+export { treeViewTag };
 export { type TreeView };
 export const NimbleTreeView = wrap(TreeView, {
     events: {

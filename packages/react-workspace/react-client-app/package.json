@@ -2,15 +2,15 @@
   "name": "@ni-private/react-client-app",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
+  "description": "React application for development testing",
   "scripts": {
     "start": "vite",
     "build": "tsc -b && vite build",
-    "test": "tsc -p ./tsconfig.legacy.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack"
   },
+  "type": "module",
   "dependencies": {
     "@ni/nimble-react": "*",
     "@ni/ok-react": "*",

@@ -12,6 +12,18 @@
     "verbatimModuleSyntax": true,
     "jsx": "react-jsx",
     "incremental": true,
+
+    // Used for improved nimble dev workflow, not needed in normal apps
+    // Keep in sync with vite.config.mjs
+    "paths": {
+      "@ni/nimble-react/*": [
+          "../nimble-react/src/*"
+      ],
+      "@ni/spright-react/*": [
+          "../spright-react/src/*"
+      ],
+      "@ni/ok-react/*": ["../ok-react/src/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
 }
