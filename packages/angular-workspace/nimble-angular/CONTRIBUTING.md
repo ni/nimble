@@ -10,6 +10,42 @@ Directives for the underlying Nimble web components should generally be stateles
 
 Each Nimble element should have its own module, even if it is closely associated with another Nimble element.
 
+### Event emitters
+
+Event emitters (via `@Output`) in Angular directives should be used judiciously according to the following policy:
+
+**When to use event emitters:**
+- Event emitters should **only** be added to directives to support Angular's two-way binding syntax (e.g., `[(propertyName)]="value"`).
+- All event emitters must follow the naming convention `<propertyName>Change`, where `propertyName` corresponds to an `@Input` property on the directive.
+- Example: For a property `open`, the event emitter should be named `openChange`.
+
+**When NOT to use event emitters:**
+- Do **not** create event emitters to wrap all events that the custom element can fire.
+- For events that don't support two-way binding, clients should listen to DOM events directly on the custom element using standard DOM event APIs or Angular's event binding syntax (e.g., `(eventName)="handler($event)"`).
+
+**Exporting event detail types:**
+- When a custom element fires an event with a `detail` property, the TypeScript type for that detail should be exported from the Angular directive file.
+- This allows clients to strongly type their event handlers.
+- Example: `export type { BannerToggleEventDetail } from '@ni/nimble-components/dist/esm/banner/types';`
+
+**Working with event details:**
+- TypeScript's `CustomEvent` is a generic type that can be parameterized with the detail type: `CustomEvent<DetailType>`.
+- When handling events, clients can type the event parameter to avoid needing `as` type casts:
+  ```typescript
+  // In the template:
+  <nimble-banner (toggle)="onToggle($event)"></nimble-banner>
+
+  // In the component:
+  public onToggle(event: CustomEvent<BannerToggleEventDetail>): void {
+      // event.detail is strongly typed - no 'as' cast needed
+      const { oldState, newState } = event.detail;
+  }
+  ```
+
+**Rationale:**
+- This approach provides the best of both worlds: two-way binding works seamlessly via event emitters, while clients can still handle and cancel events as needed.
+- Event naming conflicts are avoided because custom element events use lower-kebab-case naming (e.g., `toggle`), while Angular event emitters use camelCase with a `Change` suffix (e.g., `openChange`).
+
 ### Angular forms integration
 
 We can make Nimble components integrate well with Angular forms and `ngModel` binding by implementing the `ControlValueAccessor` interface on directives. Unless custom behavior is needed, we extend Angular's built-in `ControlValueAccessor` implementations to target our controls.
