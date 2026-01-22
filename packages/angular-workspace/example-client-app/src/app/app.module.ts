@@ -12,6 +12,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule, NimbleIconXmarkCheckModule,
     NimbleListOptionGroupModule } from '@ni/nimble-angular';
 import { NimbleCardModule } from '@ni/nimble-angular/card';
+import { NimbleChipModule } from '@ni/nimble-angular/chip';
 import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
 import { NimbleLabelProviderRichTextModule } from '@ni/nimble-angular/label-provider/rich-text';
 import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provider/table';
@@ -70,6 +71,7 @@ import { CustomAppComponent } from './customapp/customapp.component';
         NimbleTabsToolbarModule,
         NimbleDrawerModule,
         NimbleCheckboxModule,
+        NimbleChipModule,
         NimbleToggleButtonModule,
         NimbleBreadcrumbModule,
         NimbleBreadcrumbItemModule,
