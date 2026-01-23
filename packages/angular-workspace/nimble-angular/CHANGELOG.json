@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 23 Jan 2026 16:37:46 GMT",
+      "version": "32.1.0",
+      "tag": "@ni/nimble-angular_v32.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "fed6c36b6fe971d4699a6b8c1b55084f7fe8a651",
+            "comment": "Angular integration for nimble-chip component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jan 2026 03:36:17 GMT",
       "version": "32.0.2",
       "tag": "@ni/nimble-angular_v32.0.2",
