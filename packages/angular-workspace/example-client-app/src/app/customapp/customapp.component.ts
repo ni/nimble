@@ -159,6 +159,10 @@ export class CustomAppComponent implements AfterViewInit {
         alert(`${menuItemText} selected`);
     }
 
+    public onChipRemove(): void {
+        alert('Chip removed');
+    }
+
     public onDynamicSelectFilterInput(e: Event): void {
         const event = e as CustomEvent<SelectFilterInputEventDetail>;
         const filter = event.detail.filterText;
