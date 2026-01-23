@@ -58,6 +58,6 @@
   </ItemGroup>
 
   <Target Name="CopyResources" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run copy-resources:spright" WorkingDirectory=".." />
+    <Exec Command="npm run copy-resources-spright" WorkingDirectory=".." />
   </Target>
 </Project>

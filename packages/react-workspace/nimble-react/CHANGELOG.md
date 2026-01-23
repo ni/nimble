@@ -1,8 +1,50 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Fri, 02 Jan 2026 06:16:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 20 Jan 2026 03:36:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.10.4
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-components to v35.0.2
+- Bump @ni/nimble-tokens to v8.13.7
+
+## 0.10.3
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.1
+
+## 0.10.2
+
+Sat, 17 Jan 2026 21:02:32 GMT
+
+### Patches
+
+- Simplify icon export paths ([ni/nimble@e6ea842](https://github.com/ni/nimble/commit/e6ea8421529512a2fc7397cfec9d408397b140fc))
+
+## 0.10.1
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.0
+
+## 0.10.0
+
+Thu, 15 Jan 2026 05:18:11 GMT
+
+### Minor changes
+
+- Create fromDialogRef, fromDrawerRef, and fromTableRef helpers ([ni/nimble@414a6b5](https://github.com/ni/nimble/commit/414a6b5000e34f9a3cb6bc8c7594f05dec69e277))
 
 ## 0.9.0
 

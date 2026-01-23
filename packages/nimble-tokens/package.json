@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "8.13.6",
+  "version": "8.13.7",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:generate-font-scss && npm run build:style-dictionary",
@@ -30,17 +30,17 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
-  "devDependencies": {
-    "@ni-private/eslint-config-nimble": "*",
-    "style-dictionary": "^5.0.0",
-    "svg-to-ts": "^12.0.0",
-    "typescript": "~5.8.3"
-  },
   "files": [
     "dist/styledictionary/css/**",
     "dist/styledictionary/js/**",
     "dist/styledictionary/scss/**",
     "dist/fonts/**",
     "dist/icons/js/**"
-  ]
+  ],
+  "devDependencies": {
+    "@ni-private/eslint-config-nimble": "*",
+    "style-dictionary": "^5.0.0",
+    "svg-to-ts": "^12.0.0",
+    "typescript": "~5.8.3"
+  }
 }

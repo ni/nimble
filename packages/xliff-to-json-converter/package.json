@@ -1,21 +1,38 @@
 {
   "name": "@ni/xliff-to-json-converter",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "Utility to convert translation files from XLIFF to JSON for Angular localization",
-  "main": "dist/commonjs/cli.js",
-  "bin": {
-    "xliff-to-json-converter": "./dist/commonjs/cli.js"
-  },
   "scripts": {
-    "build": "npm run compile",
-    "compile": "tsc -p tsconfig.json",
-    "compile-watch": "tsc -p tsconfig.json -w",
+    "build": "tsc -p tsconfig.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish",
     "tdd": "npm run build && npm run test",
     "test": "jasmine"
+  },
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*",
+        "dist/esm/*/index.d.ts"
+      ]
+    }
+  },
+  "bin": {
+    "xliff-to-json-converter": "./dist/esm/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +43,10 @@
   },
   "author": "National Instruments",
   "license": "MIT",
+  "dependencies": {
+    "xliff": "^6.1.0",
+    "yargs": "^17.5.1"
+  },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@types/jasmine": "^5.1.4",
@@ -33,9 +54,5 @@
     "jasmine": "^5.1.0",
     "jasmine-core": "^5.1.2",
     "typescript": "~5.8.3"
-  },
-  "dependencies": {
-    "xliff": "^6.1.0",
-    "yargs": "^17.5.1"
   }
 }

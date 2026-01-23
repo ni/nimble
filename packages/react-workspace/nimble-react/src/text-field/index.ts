@@ -1,6 +1,7 @@
-import { TextField } from '@ni/nimble-components/dist/esm/text-field';
+import { TextField, textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
+export { textFieldTag };
 export { type TextField };
 export const NimbleTextField = wrap(TextField, {
     events: {

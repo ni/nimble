@@ -2,6 +2,57 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Tue, 20 Jan 2026 03:36:17 GMT",
+      "version": "4.7.26",
+      "tag": "@ni/spright-blazor_v4.7.26",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "8dad67eea4b456fee7f4f5e1071e1924753092d0",
+            "comment": "consistent module package format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.4.26",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 18 Jan 2026 00:56:49 GMT",
+      "version": "4.7.25",
+      "tag": "@ni/spright-blazor_v4.7.25",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.4.25",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Jan 2026 18:15:56 GMT",
+      "version": "4.7.24",
+      "tag": "@ni/spright-blazor_v4.7.24",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.4.24",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Dec 2025 05:48:06 GMT",
       "version": "4.7.23",
       "tag": "@ni/spright-blazor_v4.7.23",

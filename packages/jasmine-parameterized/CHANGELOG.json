@@ -2,6 +2,36 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Tue, 20 Jan 2026 03:36:17 GMT",
+      "version": "1.0.9",
+      "tag": "@ni/jasmine-parameterized_v1.0.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "8dad67eea4b456fee7f4f5e1071e1924753092d0",
+            "comment": "consistent module package format"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 18 Jan 2026 00:56:49 GMT",
+      "version": "1.0.8",
+      "tag": "@ni/jasmine-parameterized_v1.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "bf50557680684a905423b3e1c541101f4225e564",
+            "comment": "Consistent package exports"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Dec 2025 23:15:32 GMT",
       "version": "1.0.7",
       "tag": "@ni/jasmine-parameterized_v1.0.7",

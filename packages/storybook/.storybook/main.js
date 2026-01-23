@@ -1,4 +1,4 @@
-import { dirname, join } from 'node:path';
+import * as path from 'node:path';
 import { createRequire } from 'node:module';
 import remarkGfm from 'remark-gfm';
 
@@ -46,8 +46,8 @@ export async function viteFinal(config) {
             replacement: '@ni/ok-components/src'
         },
         {
-            find: /^@ni\/nimble-react\/icons\/(.*)/,
-            replacement: `${getAbsolutePath('@ni/nimble-react')}/src/icons/$1.ts`
+            find: /^@ni\/nimble-react\/styles\/(.*)/,
+            replacement: `${getAbsolutePath('@ni/nimble-react')}/styles/$1.scss`
         },
         {
             find: /^@ni\/nimble-react\/(.*)/,
@@ -72,5 +72,5 @@ export const framework = {
 };
 
 function getAbsolutePath(value) {
-    return dirname(require.resolve(join(value, 'package.json')));
+    return path.dirname(require.resolve(path.join(value, 'package.json')));
 }

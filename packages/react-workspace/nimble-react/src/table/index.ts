@@ -1,4 +1,4 @@
-import { Table } from '@ni/nimble-components/dist/esm/table';
+import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import type {
     TableActionMenuToggleEventDetail,
     TableRowExpansionToggleEventDetail,
@@ -7,9 +7,10 @@ import type {
     TableRecord,
     TableSetRecordHierarchyOptions
 } from '@ni/nimble-components/dist/esm/table/types';
-import type { LegacyRef } from 'react';
+import type { RefAttributes, RefObject } from 'react';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
+export { tableTag };
 export { type Table, type TableRecord, type TableSetRecordHierarchyOptions };
 export const NimbleTable = wrap(Table, {
     events: {
@@ -36,4 +37,10 @@ export interface TableRowExpandToggleEvent extends CustomEvent<TableRowExpansion
     target: Table;
 }
 
-export type TableRef = LegacyRef<Table>;
+/**
+ * Helper to assign Table refs with generics to ref bindings
+ * See: https://github.com/ni/nimble/issues/2784
+ * @param tableRef A ref to a table created with `useRef`
+ * @returns A ref type compatible with normal `ref` bindings
+ */
+export const fromTableRef = <T extends TableRecord>(tableRef: RefObject<Table<T> | null>): RefAttributes<Table>['ref'] => tableRef as RefAttributes<Table>['ref'];

@@ -24,6 +24,7 @@
     "performance": "npm run performance --workspaces --if-present",
     "storybook": "npm run start -w @ni-private/storybook"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -45,6 +46,7 @@
     "packages/jasmine-extensions",
     "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
+    "packages/unit-format",
     "packages/nimble-tokens",
     "packages/nimble-components",
     "packages/spright-components",

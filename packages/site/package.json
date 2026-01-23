@@ -11,6 +11,14 @@
         "format": "eslint . --fix",
         "pack": "npm pack"
     },
+    "files": [
+        "dist",
+        "!*.tgz",
+        "!dist/storybook/blazor-client-app"
+    ],
+    "dependencies": {
+        "@ni/nimble-components": "*"
+    },
     "devDependencies": {
         "@ni-private/angular-workspace": "*",
         "@ni-private/blazor-workspace": "*",
@@ -21,13 +29,5 @@
         "typescript": "~5.8.3",
         "vite": "^7.0.0",
         "vite-plugin-static-copy": "^3.1.4"
-    },
-    "dependencies": {
-        "@ni/nimble-components": "*"
-    },
-    "files": [
-        "dist",
-        "!*.tgz",
-        "!dist/storybook/blazor-client-app"
-    ]
+    }
 }
