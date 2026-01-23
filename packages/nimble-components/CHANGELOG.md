@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 20 Jan 2026 03:36:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 23 Jan 2026 21:08:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.0.3
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- SVGIcon proto ([ni/nimble@ea48f0f](https://github.com/ni/nimble/commit/ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63))
 
 ## 35.0.2
 
