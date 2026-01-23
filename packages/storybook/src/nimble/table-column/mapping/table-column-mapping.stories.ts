@@ -1,4 +1,4 @@
-import { html, ref, customElement, css } from '@ni/fast-element';
+import { html, ref } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
@@ -11,8 +11,6 @@ import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
 import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
-import { Icon } from '@ni/nimble-components/dist/esm/icon-base';
-import { display } from '@ni/nimble-components/dist/esm/utilities/style/display';
 import {
     type SharedTableArgs,
     sharedTableArgTypes,
@@ -85,21 +83,6 @@ This should only be set when the header contains a single icon (no text) and non
 to \`default\`, the column will be resizable and be sized based on its fractional-width and min-pixel-width values. A column with its \`width-mode\` set to \`iconSize\` should
 should not be the right-most column in the table.`;
 
-const img = 'data:image/gif;base64,R0lGODlhFwAaAPIHAPfWre+9e//v3s6EITw+PP////+M/wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgAHACwAAAAAFwAaAEADkHi63O5jhEmFBSDCYPq0oNUZGTNgJ6ZiVCC5Tywr70QQn3WD5RKpPMvAMhnMjjOJMcLUnIybVuVygfoot50uq7I2gSEBQGhtnMIgaRnJbifXEDjNVWv95If6lCfXT8ZhPVc2BAU4W4ZVJhwFBjcBAgRiNwaNgnMVgIGXKWBhQygxZ2gRdnEYaAJqZU2trq0HCQAh+QQFCgAAACwAAAAAAQABAAACAkQBACH5BAUKAAAALAAAAAABAAEAAAICRAEAIfkECQoAAAAsAAAAABMABwAAAgqEj6nL7Q+jnLEAACH5BAkKAAIALAIABgATAAQAAAIQlD+pc6gNzRohxAsAY/eyAgAh+QQJCgAEACwEAAUADwAFAAADGThD3E5qhBUrBGrKwLvCWccJJABuYkCuWAIAIfkECQoABAAsAgAGABMABAAAAxhIutM+i70Rqg2zVXqD+AAwhJDWeR/YEAkAIfkEBQoABAAsBAAFAA8ABQAAAxk4Q9xOaoQVKwRqysC7wlnHCSQAbmJArlgCACH5BAUKAAAALAAAAAABAAEAAAICRAEAIfkEBQoAAAAsAAAAAAEAAQAAAgJEAQAh+QQFCgAAACwAAAAAAQABAAACAkQBACH5BAUKAAAALAAAAAABAAEAAAICRAEAIfkEBQoAAAAsAAAAAAEAAQAAAgJEAQAh+QQFCgAAACwAAAAAAQABAAACAkQBACH5BAUKAAAALAAAAAABAAEAAAICRAEAIfkEBQoAAAAsAAAAAAEAAQAAAgJEAQAh+QQFCgAAACwAAAAAAQABAAACAkQBACH5BAUKAAAALAAAAAABAAEAAAICRAEAIfkEBQoAAwAsBgAIAAsABwAAAhKMD6PL7SveSsM0gU+AOFqGDQUAIfkEBQoAAQAsBgAIAAsABwAAAxMYurL+EILIFCHviluwJd3lLWICACH5BAUKAAAALAAAAAABAAEAAAICRAEAIfkEBQoAAAAsAAAAAAEAAQAAAgJEAQAh+QQFCgAAACwAAAAAAQABAAACAkQBACH5BAUKAAAALAAAAAABAAEAAAICRAEAIfkEBQoAAAAsAAAAAAEAAQAAAgJEAQAh+QQFCgAAACwAAAAAAQABAAACAkQBACH5BAUKAAAALAAAAAABAAEAAAICRAEAOw==';
-const awesomeIconTag = 'awesome-icon';
-/**
- * Awesome icon
- */
-@customElement({
-    name: awesomeIconTag,
-    template: html`<img src="${img}" style="width: 16px; height: 16px">`,
-    styles: css`
-        ${display('inline-flex')}
-    `
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class AwesomeIcon extends Icon {}
-
 export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
     render: createUserSelectedThemeStory(html<MappingColumnTableArgs>`
         <${tableTag}
@@ -113,7 +96,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             <${tableColumnMappingTag} field-name="status" group-index="0">
                 Status
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
-                <${mappingIconTag} key="success" icon="${awesomeIconTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} key="success" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
