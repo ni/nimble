@@ -6,7 +6,7 @@ The breakpoint table column provides a visual indicator for debugging breakpoint
 
 ### Background
 
-[IxD](https://emerson-my.sharepoint.com/:w:/p/alice_darrow/EUyUN2MwIVZKnzUm0MNHSw0BFfTMtxGMTpEupWpMPbD-og?e=z8UyoJ)
+[IxD](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table-column/breakpoint/IxD.md)
 
 ### Features
 
