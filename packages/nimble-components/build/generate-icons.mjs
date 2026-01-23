@@ -44,7 +44,7 @@ for (const key of Object.keys(icons)) {
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
-import { Icon, registerIcon } from '../../icon-base';
+import { IconSvg, registerIconSvg } from '../../icon-svg';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -55,13 +55,13 @@ declare global {
 /**
  * The icon component for the '${iconName}' icon
  */
-export class ${className} extends Icon {
+export class ${className} extends IconSvg {
     public constructor() {
         super(${svgName});
     }
 }
 
-registerIcon('${elementBaseName}', ${className});
+registerIconSvg('${elementBaseName}', ${className});
 export const ${tagName} = '${elementName}';
 `;
 
@@ -72,7 +72,7 @@ export const ${tagName} = '${elementName}';
         `export { ${className} } from './${directoryName}';\n`
     );
 }
-console.log(`Finshed writing ${fileCount} icon component files`);
+console.log(`Finished writing ${fileCount} icon component files`);
 
 const allIconsFilePath = path.resolve(iconsDirectory, 'all-icons.ts');
 console.log('Writing all-icons file');

@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 20 Jan 2026 03:36:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 23 Jan 2026 21:08:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.1.1
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Internal change to icon pattern ([ni/nimble@ea48f0f](https://github.com/ni/nimble/commit/ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63))
+- Bump @ni/nimble-components to v35.0.3
+
+## 32.1.0
+
+Fri, 23 Jan 2026 16:37:46 GMT
+
+### Minor changes
+
+- Angular integration for nimble-chip component ([ni/nimble@fed6c36](https://github.com/ni/nimble/commit/fed6c36b6fe971d4699a6b8c1b55084f7fe8a651))
 
 ## 32.0.2
 
