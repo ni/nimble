@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type Chip, chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
@@ -39,14 +39,5 @@ export class NimbleChipDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 
-    @Output() public removeEvent = new EventEmitter<void>();
-
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Chip>) {}
-
-    @HostListener('remove', ['$event'])
-    public onRemove($event: Event): void {
-        if ($event.target === this.elementRef.nativeElement) {
-            this.removeEvent.emit();
-        }
-    }
 }
