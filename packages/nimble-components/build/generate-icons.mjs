@@ -44,7 +44,7 @@ for (const key of Object.keys(icons)) {
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
-import { SvgIcon, registerSvgIcon } from '../icon-base';
+import { SvgIcon, registerSvgIcon } from '../../icon-base';
 
 declare global {
     interface HTMLElementTagNameMap {
