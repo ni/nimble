@@ -15,11 +15,12 @@ declare global {
 /**
  * Base class for dynamic icons. Not intended to be used directly, instead use to register dynamic icons:
  * ```
- * customElements.get('ok-icon-dynamic').registerIconDynamic('awesome', '<url>');
+ * customElements.get('ok-icon-dynamic').registerIconDynamic('awesome', '<img data uri or arbitrary url>');
  * ```
- * After called successfully, the icon can be used:
+ * After calling successfully, the icon can be used like any other icon:
  * ```
  * <ok-icon-dynamic-awesome></ok-icon-dynamic-awesome>
+ * <nimble-mapping-icon icon="ok-icon-dynamic-awesome"></nimble-mapping-icon>
  * ```
  */
 export class IconDynamic extends Icon {
@@ -34,8 +35,10 @@ export class IconDynamic extends Icon {
         const iconClassName = `IconDynamic${name.charAt(0).toUpperCase() + name.slice(1)}`;
         const iconClassContainer = {
             // Class name for expression should come object literal assignment, helpful for stack traces, etc.
-            [iconClassName]: class extends Icon {
-                public readonly url = url;
+            [iconClassName]: class extends IconDynamic {
+                constructor() {
+                    super(url);
+                }
             }
         } as const;
         const iconClass = iconClassContainer[iconClassName]!;
