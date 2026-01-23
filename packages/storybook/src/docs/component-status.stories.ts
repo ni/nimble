@@ -176,7 +176,7 @@ const components = [
         designLabel: 'Figma',
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist
     },
     {

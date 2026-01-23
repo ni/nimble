@@ -74,6 +74,13 @@
             <nimble-checkbox>Checkbox label</nimble-checkbox>
         </div>
         <div class="sub-container">
+            <div class="container-label">Chip</div>
+            <nimble-chip>Outline Chip</nimble-chip>
+            <nimble-chip appearance="block">Block Chip</nimble-chip>
+            <nimble-chip removable (remove)="onChipRemove()">Removable Chip</nimble-chip>
+            <nimble-chip disabled>Disabled Chip</nimble-chip>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Radio Buttons</div>
             <nimble-radio-group>
                 <span slot="label">Fruit</span>
