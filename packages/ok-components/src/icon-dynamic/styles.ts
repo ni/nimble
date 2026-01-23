@@ -14,4 +14,9 @@ export const styles = css`
         width: ${iconSize};
         height: ${iconSize};
     }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 `;

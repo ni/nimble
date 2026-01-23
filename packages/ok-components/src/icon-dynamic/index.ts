@@ -39,14 +39,14 @@ export class IconDynamic extends Icon {
             }
         } as const;
         const iconClass = iconClassContainer[iconClassName]!;
-        const iconTag = `ok-icon-dynamic-${name}`;
+        const baseName = `icon-dynamic-${name}`;
         const composedIcon = iconClass.compose({
-            baseName: iconTag,
+            baseName,
             template,
             styles
         });
 
-        DesignSystem.getOrCreate().withPrefix('').register(composedIcon());
+        DesignSystem.getOrCreate().withPrefix('ok').register(composedIcon());
     }
 }
 
