@@ -10,7 +10,7 @@ import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-colu
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
-import { iconMetadata } from '@ni/nimble-components/dist/esm/icon-base/tests/icon-metadata';
+import { iconMetadata } from '@ni/nimble-components/dist/esm/icon-svg/tests/icon-metadata';
 import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     apiCategory,
