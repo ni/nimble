@@ -26,7 +26,7 @@ Nimble: Stepper is a generic component not designed for a specific application /
 
 <!-- *A list of use cases, features, or functionality which are **not** goals for the component.* -->
 
-- Handling long lists of steps (10s+)
+- Handling long lists of steps (10+)
 - Non-linear step progressions
 
 ### Features
@@ -103,13 +103,13 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
     - severity: default / error / warning / success / information (aligned with icon)
     - severity-text: string (if provided, only renders during warning, error, and information severity)
   <!-- - Properties (not attribute reflected)
-  - Methods
+  - Methods -->
   - Events
-  - CSS custom properties
-  - CSS native properties
-  -->
+    - click (aligned to button, not emitted on disable)
+  <!-- - CSS custom properties
+  - CSS native properties -->
   - Slots
-    - default: supports nimble icons, will render inside the circle and have color controlled via css
+    - default: supports nimble icons, will render inside the circle and have color controlled via iconColor token
     - title: Title content (aligned with dialog)
     - subtitle: Subtitle content  (aligned with dialog)
   <!-- - Parts
@@ -117,14 +117,20 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
 
 - `nimble-anchor-step`
   - Attributes
-  - Properties (not attribute reflected)
-  - Methods
+    - All `nimble-step` attributes
+    - `<a>` attributes (href, target, etc)
+      - Open question (for all anchors): Visual design of open in new window icon? Expected to slot in title?
+      - href: null / undefined should behave like disabled (seems inconsistent across controls)
+  <!-- - Properties (not attribute reflected)
+  - Methods -->
   - Events
-  - CSS custom properties
-  - CSS native properties
+    - click (aligned to anchor-button, not emitted on disable)
+  <!-- - CSS custom properties
+  - CSS native properties -->
   - Slots
-  - Parts
-  - Localizable labels
+    - All `nimble-step` slots
+  <!-- - Parts
+  - Localizable labels -->
 
 ### Anatomy 
 <!-- 
@@ -135,7 +141,7 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
 - *Slotted Content/Slotted Classes*
 - *CSS Parts* -->
 
-Merged above in API.
+Slots, parts, etc. merged above in API section.
 
 ### Native form integration
 
@@ -143,7 +149,7 @@ Merged above in API.
 
 *Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).* -->
 
-N/A
+N/A, control has no intrinsic "value" state.
 
 ### Angular integration
 
@@ -153,11 +159,15 @@ Angular `routerLink` integration for `nimble-anchor-step`
 
 ### Blazor integration
 
-*Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
+<!-- *Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.* -->
+
+Open Question: We have not historically taken Blazor Router support into account. To align with Blazor conventions we'd want to implement the same behavior as Blazor [`NavLink`](https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/navigation?view=aspnetcore-10.0#navlink-component) ([component src](https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Routing/NavLink.cs)). Not sure how our current Blazor components behave with the router.
 
 ### Visual Appearance
 
-*Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
+<!-- *Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.* -->
+
+See figma linked in background.
 
 ---
 
