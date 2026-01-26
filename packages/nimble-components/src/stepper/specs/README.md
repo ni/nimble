@@ -59,7 +59,7 @@ No known new unique risks or challenges
 
 *For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.* -->
 
-The `nimble-stepper` acts a a progress indicator for a wizard / step-by-step workflow. It behaves conceptually as either a collection of card buttons (i.e. collection of `nimble-step`) or as a breadcrumb (i.e. collection of `nimble-anchor-step`). Each item has a standard `severity` state associated with it and the ability to express that a state is the "current" `selected` step.
+The `nimble-stepper` acts a a progress indicator for a wizard / step-by-step workflow. It behaves conceptually as either a collection of card buttons (i.e. collection of `nimble-step`) or as breadcrumbs (i.e. collection of `nimble-anchor-step`). Each item has a standard `severity` state associated with it and the ability to express that a state is the "current" `selected` step.
 
 The `nimble-stepper` is just for layout, placing steps either horizontal or vertical orientation and communicating internal state to child steps as needed (ideally just via style but implementation TBD).
 
@@ -149,43 +149,52 @@ Slots, parts, etc. merged above in API section.
 
 *Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).* -->
 
-N/A, control has no intrinsic "value" state.
+- Anchor related components will use native `<a>` tag and forward attributes.
+- control has no intrinsic "value" state, so not a form control
+- control used for navigation, does not seem like a good candidate for form submit button behavior
 
 ### Angular integration
 
 <!-- *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.* -->
 
-Angular `routerLink` integration for `nimble-anchor-step`
+- Angular `routerLink` integration for `nimble-anchor-step`.
+- No Angular Form integration.
 
 ### Blazor integration
 
 <!-- *Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.* -->
 
-Open Question: We have not historically taken Blazor Router support into account. To align with Blazor conventions we'd want to implement the same behavior as Blazor [`NavLink`](https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/navigation?view=aspnetcore-10.0#navlink-component) ([component src](https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Routing/NavLink.cs)). Not sure how our current Blazor components behave with the router.
+- To align with Blazor conventions we could implement the same behavior as Blazor [`NavLink`](https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/navigation?view=aspnetcore-10.0#navlink-component) ([component src](https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Routing/NavLink.cs)) (we have not done that for other anchor controls). Not sure how our current Blazor components behave with the router as they don't have any specific integration.
+- Could be a good candidate for Blazor `EditForm` integration to visualize form error state as [`ValidationSummary`](https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation?view=aspnetcore-10.0#validation-summary-and-validation-message-components) components.
+- Current scope does not include specific considerations for Blazor Router / `NavLink` or `EditForm` / `ValidationSummary` support.
 
 ### Visual Appearance
 
 <!-- *Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.* -->
 
-See figma linked in background.
+See figma linked in background section.
 
 ---
 
 ## Implementation
 
-*Important aspects of the planned implementation with careful consideration of web standards and integration.*
+<!-- *Important aspects of the planned implementation with careful consideration of web standards and integration.*
 
 *Highlight any alternative implementations you considered in each section.*
 
-*If you think a section doesn't apply or don't know what to write, please DO NOT delete it. Either mark it "N/A" or leave it blank and the Nimble team can help you fill it in.*
+*If you think a section doesn't apply or don't know what to write, please DO NOT delete it. Either mark it "N/A" or leave it blank and the Nimble team can help you fill it in.* -->
+
+No particularly interesting implementation concerns. Follows existing patterns around buttons and anchors.
 
 ### States
 
-*Key component states, valid state transitions, and how interactions trigger a state transition.*
+<!-- *Key component states, valid state transitions, and how interactions trigger a state transition.* -->
+
+Nothing unique beyond what's captured in the API section.
 
 ### Accessibility
 
-*Consider the accessibility of the component, including:*
+<!-- *Consider the accessibility of the component, including:*
 
 - *Keyboard Navigation and Focus*
 - *Form Input and Autofill*
@@ -195,7 +204,13 @@ See figma linked in background.
   - *Components which delegate focus require all global ARIA attributes to be enumerated*
   - *Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems.*
 - *Behavior with browser configurations like "Prefers reduced motion"*
-- *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](https://nimble.ni.dev/storybook/index.html?path=/docs/tests-anchor-patterns--docs). The story should be updated to include the new component.*
+- *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](https://nimble.ni.dev/storybook/index.html?path=/docs/tests-anchor-patterns--docs). The story should be updated to include the new component.* -->
+
+Will follow the [ARIA WAI Forms: step-by-step indicator pattern](https://www.w3.org/WAI/tutorials/forms/multi-page/#using-step-by-step-indicator) with key elements of:
+- Items are in an ordered list
+- Visibly hidden text is used convey step state
+
+Otherwise standard keyboard accessibility and aria for buttons / links.
 
 ### Mobile
 
@@ -205,47 +220,64 @@ See figma linked in background.
 - *Interactions that are affected by touch rather than a pointer device (e.g. hover)*
 - *Integration with common mobile experiences like native pickers, on-screen keyboards, and dictation* -->
 
-Overflow of `nimble-step-group`
+No additional support beyond discussion in API section on CSS sizing.
 
 ### Globalization
 
-*Consider whether the component has any special globalization needs such as:*
+<!-- *Consider whether the component has any special globalization needs such as:*
 
 - *Special RTL handling*
 - *Swapping of internal icons/visuals*
-- *Localization*
+- *Localization* -->
+
+Label providers for visibly hidden step states:
+- Reuse `popupIconError`, `popupIconInformation`, `popupIconWarning`
+- Add (for consistency but maybe unexpected naming): `popupIconComplete`, `popupIconCurrent` 
 
 ### Security
 
-*Are there any security implications surrounding the component?*
+<!-- *Are there any security implications surrounding the component?* -->
+
+No unique concerns.
 
 ### Performance
 
-*Are there any performance pitfalls or challenges with implementing the component?*
+<!-- *Are there any performance pitfalls or challenges with implementing the component?* -->
+
+No unique concerns.
 
 ### Dependencies
 
-*Will implementing the component require taking on any dependencies?*
+<!-- *Will implementing the component require taking on any dependencies?*
 
 - *3rd party libraries*
 - *Upcoming standards we need to polyfill*
 - *Dependencies on other fast components or utilities*
 
-*Do any of these dependencies bring along an associated timeline?*
+*Do any of these dependencies bring along an associated timeline?* -->
+
+N/A
 
 ### Test Plan
 
-*What is the plan for testing the component, if different from the normal path? Note that the normal plan includes unit tests for basic state/behavior as well as end-to-end tests to validate the specific user stories described above.*
+<!-- *What is the plan for testing the component, if different from the normal path? Note that the normal plan includes unit tests for basic state/behavior as well as end-to-end tests to validate the specific user stories described above.* -->
+
+No unique concerns.
 
 ### Tooling
 
-*Are there any special considerations for tooling? Will tooling changes need to be made? Is there a special way to light up this component in our tooling that would be compelling for developers/designers?*
+<!-- *Are there any special considerations for tooling? Will tooling changes need to be made? Is there a special way to light up this component in our tooling that would be compelling for developers/designers?* -->
+
+N/A
 
 ### Documentation
 
-*What additions or changes are needed for user documentation and demos? Are there any architectural/engineering docs we should create as well, perhaps due to some interesting technical challenge or design decisions related to this component?*
+<!-- *What additions or changes are needed for user documentation and demos? Are there any architectural/engineering docs we should create as well, perhaps due to some interesting technical challenge or design decisions related to this component?* -->
 
----
+No unique concerns. Use common link docs.
+
 ## Open Issues
 
-*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*
+<!-- *Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.* -->
+
+Visual design does not currently represent full matrix of states: `severity` x `selected` x `interaction` (hover, mouse down, tab focus). 
