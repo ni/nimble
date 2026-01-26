@@ -31,7 +31,7 @@ Nimble: Stepper is a generic component not designed for a specific application /
 
 ### Features
 
-- Similar to a breadcrumb conceptually but with more visual states and not only link based.
+- Similar to a collection of card buttons / breadcrumb conceptually but with more visual states.
 
 ### Risks and Challenges
 
@@ -119,7 +119,6 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
   - Attributes
     - All `nimble-step` attributes
     - `<a>` attributes (href, target, etc)
-      - Open question (for all anchors): Visual design of open in new window icon? Expected to slot in title?
       - href: null / undefined should behave like disabled (seems inconsistent across controls)
   <!-- - Properties (not attribute reflected)
   - Methods -->
