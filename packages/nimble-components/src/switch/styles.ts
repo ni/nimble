@@ -3,6 +3,7 @@ import {
     Black15,
     Black7,
     Black91,
+    DigitalGreenLight,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { display } from '../utilities/style/display';
@@ -34,7 +35,8 @@ export const styles = css`
         flex-direction: column;
         cursor: pointer;
         --ni-private-switch-height: 24px;
-        --ni-private-switch-indicator-size: 16px;
+        --ni-private-switch-indicator-size: 24px;
+        --ni-private-switch-indicator-inner-size: 18px;
         padding-bottom: calc(
             ${controlHeight} - var(--ni-private-switch-height)
         );
@@ -75,7 +77,7 @@ export const styles = css`
         background-color: ${fillHoverColor};
         border-radius: calc(var(--ni-private-switch-height) / 2);
         align-items: center;
-        border: calc(${borderWidth} * 2) solid transparent;
+        border: calc(${borderWidth}) solid transparent;
     }
 
     :host([disabled]) .switch {
@@ -84,6 +86,10 @@ export const styles = css`
 
     :host(${focusVisible}) .switch {
         border-color: ${borderHoverColor};
+    }
+
+    :host([aria-checked='true']:not([disabled])) .switch {
+        background-color: ${hexToRgbaCssColor(DigitalGreenLight, 0.6)};
     }
 
     .checked-indicator-spacer {
@@ -103,16 +109,13 @@ export const styles = css`
         width: var(--ni-private-switch-indicator-size);
         height: var(--ni-private-switch-indicator-size);
         border-radius: calc(var(--ni-private-switch-indicator-size) / 2);
-        margin: calc(
-            calc(
-                    var(--ni-private-switch-height) - var(
-                            --ni-private-switch-indicator-size
-                        )
-                ) /
-                2
-        );
+        margin: -2px;
         border: ${borderWidth} solid
             var(--ni-private-switch-indicator-border-color);
+    }
+
+    :host([aria-checked='true']) .checked-indicator {
+        border-color: ${DigitalGreenLight};
     }
 
     :host(:hover) .checked-indicator {
@@ -120,22 +123,19 @@ export const styles = css`
     }
 
     :host([disabled]) .checked-indicator {
-        background-color: var(
-            --ni-private-switch-indicator-background-disabled-color
-        );
+        background-color: transparent;
         border: ${borderWidth} solid
             var(--ni-private-switch-indicator-border-disabled-color);
     }
 
     :host(${focusVisible}) .checked-indicator {
-        border: ${borderWidth} solid ${borderHoverColor};
+        border: calc(${borderWidth} * 2) solid ${borderHoverColor};
     }
 
     .checked-indicator-inner {
-        width: calc(var(--ni-private-switch-indicator-size) / 2);
-        height: calc(var(--ni-private-switch-indicator-size) / 2);
-        border-radius: calc(var(--ni-private-switch-indicator-size) / 4);
-        background-color: var(--ni-private-switch-indicator-border-color);
+        width: var(--ni-private-switch-indicator-inner-size);
+        height: var(--ni-private-switch-indicator-inner-size);
+        border-radius: calc(var(--ni-private-switch-indicator-inner-size) / 2);
         opacity: 0;
         transition: opacity ${smallDelay} ease-in-out;
     }
@@ -147,8 +147,21 @@ export const styles = css`
     }
 
     :host([aria-checked='true']) .checked-indicator-inner {
-        opacity: 1;
+        opacity: 0;
     }
+
+    :host(:active:not([disabled])) .checked-indicator-inner {
+        opacity: 1;
+        background-color: ${hexToRgbaCssColor(DigitalGreenLight, 0.3)};
+
+    }
+
+    :host(${focusVisible}:not([disabled])) .checked-indicator-inner {
+        opacity: 1;
+        background-color: ${White};
+        border: 1px solid ${DigitalGreenLight};
+    }
+
 
     slot[name='checked-message']::slotted(*) {
         margin-inline-start: 8px;
@@ -171,13 +184,16 @@ export const styles = css`
                 )};
                 --ni-private-switch-indicator-background-color: ${White};
                 --ni-private-switch-indicator-background-disabled-color: ${hexToRgbaCssColor(
-                    White,
-                    0.1
+                    Black91,
+                    0.15
                 )};
-                --ni-private-switch-indicator-border-color: ${Black91};
-                --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
+                --ni-private-switch-indicator-border-color: ${hexToRgbaCssColor(
                     Black91,
                     0.3
+                )};
+                --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
+                    Black91,
+                    0.15
                 )};
             }
         `
