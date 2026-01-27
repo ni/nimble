@@ -5,7 +5,9 @@ import * as inputStories from '../input/chat-input.stories';
 import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
-import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
+import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
+import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
+import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
 
 <Meta of={conversationStories} />
 <Title of={conversationStories} />
@@ -29,30 +31,41 @@ components, like the input.
 <Canvas of={conversationStories.chatConversation} />
 <Controls of={conversationStories.chatConversation} />
 
-### Chat message
+### Chat messages
 
-Use the <Tag name={chatMessageTag} /> element to display content in a message.
-Clients can place any HTML content within the message.
+Use one of the message types below to display chat messages. Clients can place any HTML content within the message.
 
-#### Text message content
+#### Inbound message
 
-<Canvas of={messageStories.chatMessageText} />
-<Controls of={messageStories.chatMessageText} />
+Use the <Tag name={chatMessageInboundTag} /> element to display content in an inbound message.
 
-#### Rich text message content
+##### Rich text inbound message content
 
 <Canvas of={messageStories.chatMessageRichText} />
 <Controls of={messageStories.chatMessageRichText} />
 
-#### Spinner message content
-
-<Canvas of={messageStories.chatMessageSpinner} />
-<Controls of={messageStories.chatMessageSpinner} />
-
-#### Image message content
+##### Image inbound message content
 
 <Canvas of={messageStories.chatMessageImage} />
 <Controls of={messageStories.chatMessageImage} />
+
+#### Outbound message
+
+Use the <Tag name={chatMessageOutboundTag} /> element to display content in an outbound message.
+
+##### Text outbound message content
+
+<Canvas of={messageStories.chatMessageText} />
+<Controls of={messageStories.chatMessageText} />
+
+#### System message
+
+Use the <Tag name={chatMessageSystemTag} /> element to display content in a system message.
+
+##### Spinner system message content
+
+<Canvas of={messageStories.chatMessageSpinner} />
+<Controls of={messageStories.chatMessageSpinner} />
 
 ### Chat input
 
