@@ -1,10 +1,8 @@
 import { css } from '@ni/fast-element';
 import {
     Black15,
-    Black7,
     Black75,
     Black91,
-    DigitalGreenDark,
     DigitalGreenLight,
     PowerGreen,
     White
@@ -20,7 +18,6 @@ import {
     controlLabelDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
-    fillHoverColor,
     smallDelay
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
@@ -89,6 +86,13 @@ export const styles = css`
 
     :host(${focusVisible}) .switch {
         border-color: ${borderHoverColor};
+    }
+
+    :host(${focusVisible}[aria-checked='true']:not([disabled])) .switch {
+        background-color: ${hexToRgbaCssColor(
+                    DigitalGreenLight,
+                    0.3
+                )};
     }
 
     :host([aria-checked='true']:not([disabled])) .switch {
@@ -164,8 +168,8 @@ export const styles = css`
 
     :host(${focusVisible}:not([disabled])) .checked-indicator-inner {
         opacity: 1;
-        background-color: ${White};
-        border: 1px solid ${DigitalGreenLight};
+        background-color: var(--ni-private-switch-indicator-background-color);
+        border: 1px solid var(--ni-private-switch-indicator-border-selected-color);
     }
 
 
