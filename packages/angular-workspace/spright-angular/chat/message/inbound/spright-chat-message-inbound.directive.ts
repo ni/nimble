@@ -8,7 +8,7 @@ export { chatMessageInboundTag };
  * Directive to provide Angular integration for the chat inbound message.
  */
 @Directive({
-    selector: 'spright-chat-message',
+    selector: 'spright-chat-message-inbound',
     standalone: false
 })
 export class SprightChatMessageInboundDirective {
