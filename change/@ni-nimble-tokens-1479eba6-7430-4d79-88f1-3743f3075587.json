@@ -3,5 +3,5 @@
   "comment": "Add forklift icon",
   "packageName": "@ni/nimble-tokens",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "minor"
 }
