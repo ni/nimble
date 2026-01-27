@@ -2,6 +2,7 @@
 
 namespace SprightBlazor;
 
+[Obsolete("Use specific message component types instead")]
 public partial class SprightChatMessage : ComponentBase
 {
     /// <summary>
