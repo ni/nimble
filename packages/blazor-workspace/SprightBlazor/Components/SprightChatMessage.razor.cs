@@ -2,7 +2,9 @@
 
 namespace SprightBlazor;
 
-[Obsolete("Use specific message component types instead")]
+/// <summary>
+/// SprightChatMessage is deprecated. Use specific message component types instead.
+/// </summary>
 public partial class SprightChatMessage : ComponentBase
 {
     /// <summary>
