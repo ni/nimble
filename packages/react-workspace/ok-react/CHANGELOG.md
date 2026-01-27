@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Fri, 23 Jan 2026 21:08:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.5.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v0.2.0
 
 ## 0.4.4
 
