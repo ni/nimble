@@ -30,11 +30,4 @@ public class SprightChatMessageOutboundTests
         var exception = Record.Exception(() => context.RenderComponent<SprightChatMessageOutbound>(ComponentParameter.CreateParameter("class", "foo")));
         Assert.Null(exception);
     }
-
-    private IRenderedComponent<SprightChatMessageOutbound> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatMessageOutbound, TProperty>> propertyGetter, TProperty propertyValue)
-    {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<SprightChatMessageOutbound>(p => p.Add(propertyGetter, propertyValue));
-    }
 }
