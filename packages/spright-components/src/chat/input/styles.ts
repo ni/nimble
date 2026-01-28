@@ -9,12 +9,15 @@ import {
     mediumPadding,
     popupBorderColor,
     borderHoverColor,
-    smallDelay
+    smallDelay,
+    failColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
+import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
 
 export const styles = css`
     ${display('flex')}
+    ${errorStyles}
 
     :host {
         width: 100%;
@@ -54,6 +57,10 @@ export const styles = css`
 
     :host(:focus-within) .container {
         border-bottom-color: ${borderHoverColor};
+    }
+        
+    :host([error-visible]) .container {
+        border-bottom-color: ${failColor};
     }
 
     @media (prefers-reduced-motion) {

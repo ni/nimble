@@ -425,7 +425,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Text Field</div>
-            <nimble-text-field appearance="underline" placeholder="Text Field" value="Here is text!">Underline Text Field</nimble-text-field>
+            <nimble-text-field appearance="underline" placeholder="Text Field" [error-text]="'Text'" [error-visible]="true"  value="Here is text!">Underline Text Field</nimble-text-field>
             <nimble-text-field appearance="outline" placeholder="Text Field" value="Here is text!">Outline Text Field</nimble-text-field>
             <nimble-text-field appearance="block" placeholder="Text Field" value="Here is text!">Block Text Field</nimble-text-field>
         </div>
@@ -488,7 +488,7 @@
                     <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
                 </spright-chat-message>
                 <spright-chat-message message-type="outbound" *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message>
-                <spright-chat-input slot="input" placeholder="Type here" (send)="onChatInputSend($event)"></spright-chat-input>
+                <spright-chat-input slot="input" placeholder="Type here" (send)="onChatInputSend($event)" [error-text]="'Text'" [error-visible]="true"></spright-chat-input>
             </spright-chat-conversation>
         </div>
         <div class="sub-container">

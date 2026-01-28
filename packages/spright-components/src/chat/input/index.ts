@@ -1,6 +1,9 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable, html } from '@ni/fast-element';
+import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error/types';
+import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
+import { iconExclamationMarkTag } from '@ni/nimble-components/dist/esm/icons/exclamation-mark';
 import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
@@ -14,7 +17,7 @@ declare global {
 /**
  * A Spright component for composing and sending a chat message
  */
-export class ChatInput extends FoundationElement {
+export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @attr
     public placeholder?: string;
 
@@ -111,7 +114,11 @@ const sprightChatInput = ChatInput.compose({
     styles,
     shadowOptions: {
         delegatesFocus: true
-    }
+    },
+    end: html<ChatInput>`
+        <${iconExclamationMarkTag} severity="error" class="error-icon"></${iconExclamationMarkTag}>
+        ${errorTextTemplate}
+    `
 });
 
 DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatInput());
