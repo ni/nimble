@@ -80,27 +80,31 @@ export const styles = css`
         border: calc(${borderWidth}) solid transparent;
     }
 
-    :host([disabled]) .switch {
-        background-color: var(--ni-private-switch-background-disabled-color);
+    :host([aria-checked='true']) .switch {
+        background-color: var(--ni-private-switch-background-selected-color);
+    }
+
+    :host([aria-checked='true']:hover) .switch {
+        background-color: var(--ni-private-switch-background-selected-rollover-color);
     }
 
     :host(${focusVisible}) .switch {
         border-color: ${borderHoverColor};
     }
 
-    :host(${focusVisible}[aria-checked='true']:not([disabled])) .switch {
+    :host(${focusVisible}[aria-checked='true']) .switch {
         background-color: ${hexToRgbaCssColor(
                     DigitalGreenLight,
                     0.3
                 )};
     }
 
-    :host([aria-checked='true']:not([disabled])) .switch {
-        background-color: var(--ni-private-switch-background-selected-color);
+    :host([disabled]) .switch {
+        background-color: var(--ni-private-switch-background-disabled-color);
     }
 
-    :host([aria-checked='true']:hover:not([disabled])) .switch {
-        background-color: var(--ni-private-switch-background-selected-rollover-color);
+    :host([disabled]:hover) .switch {
+        background-color: var(--ni-private-switch-background-disabled-color);
     }
 
     .checked-indicator-spacer {
@@ -133,14 +137,40 @@ export const styles = css`
         border: calc(${borderWidth} * 2) solid ${borderHoverColor};
     }
 
+    :host(${focusVisible}) .checked-indicator {
+        border: calc(${borderWidth} * 2) solid ${borderHoverColor};
+    }
+
     :host([disabled]) .checked-indicator {
         background-color: transparent;
         border: ${borderWidth} solid
             var(--ni-private-switch-indicator-border-disabled-color);
     }
 
-    :host(${focusVisible}) .checked-indicator {
-        border: calc(${borderWidth} * 2) solid ${borderHoverColor};
+    :host([disabled]:hover) .checked-indicator {
+        background-color: transparent;
+        border: ${borderWidth} solid
+            var(--ni-private-switch-indicator-border-disabled-color);
+    }
+
+    :host([disabled]${focusVisible}) .checked-indicator {
+        background-color: transparent;
+        border: ${borderWidth} solid
+            var(--ni-private-switch-indicator-border-disabled-color);
+    }
+
+    :host([disabled]:active) .checked-indicator-inner {
+        background-color: var(
+            --ni-private-switch-indicator-border-disabled-color
+        );
+        opacity: 0;
+    }
+
+    :host([disabled]${focusVisible}) .checked-indicator-inner {
+        background-color: var(
+            --ni-private-switch-indicator-border-disabled-color
+        );
+        opacity: 0;
     }
 
     .checked-indicator-inner {
@@ -151,27 +181,26 @@ export const styles = css`
         transition: opacity ${smallDelay} ease-in-out;
     }
 
-    :host([disabled]) .checked-indicator-inner {
-        background-color: var(
-            --ni-private-switch-indicator-border-disabled-color
-        );
-    }
-
     :host([aria-checked='true']) .checked-indicator-inner {
         opacity: 0;
     }
 
-    :host(:active:not([disabled])) .checked-indicator-inner {
-        opacity: 1;
-        background-color: var(--ni-private-switch-indicator-background-active-color);
-    }
-
-    :host(${focusVisible}:not([disabled])) .checked-indicator-inner {
+    :host(${focusVisible}) .checked-indicator-inner {
         opacity: 1;
         background-color: var(--ni-private-switch-indicator-background-color);
         border: 1px solid var(--ni-private-switch-indicator-border-selected-color);
     }
 
+    :host(:active) .checked-indicator-inner {
+        opacity: 1;
+        background-color: var(--ni-private-switch-indicator-background-active-color);
+    }
+
+    :host([disabled]) .checked-indicator-inner {
+        background-color: var(
+            --ni-private-switch-indicator-border-disabled-color
+        );
+    }
 
     slot[name='checked-message']::slotted(*) {
         margin-inline-start: 8px;
