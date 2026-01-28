@@ -67,4 +67,10 @@ window.DemoShared = window.DemoShared ?? {
             return result;
         },
     },
+    IconDynamic: {
+        registerIconDynamic: function (name, url) {
+            const registerIconDynamic = window.customElements.get('ok-icon-dynamic').registerIconDynamic;
+            registerIconDynamic(name, url);
+        }
+    }
 };
