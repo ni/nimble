@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Fri, 23 Jan 2026 21:08:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.11.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.1.0
+- Bump @ni/nimble-tokens to v8.14.0
 
 ## 20.10.7
 
