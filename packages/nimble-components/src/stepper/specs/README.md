@@ -11,6 +11,7 @@ The `nimble-stepper`, `nimble-step`, and `nimble-anchor-step` elements.
 - *Link to relevant work items, related existing issues, etc.*
 -->
 
+- Nimble issue: [#624](https://github.com/ni/nimble/issues/624)
 - Interaction Design: None
 - Visual Design:
   - [Nimble Components Stepper Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=11742-71097&p=f&t=U3UnPlU4awyN4ybh-0)
@@ -27,7 +28,7 @@ Nimble: Stepper is a generic component not designed for a specific application /
 <!-- *A list of use cases, features, or functionality which are **not** goals for the component.* -->
 
 - Handling long lists of steps (10+)
-- Non-linear step progressions
+- Non-linear step progressions such as following steps in a branching flow chart or graph are not in the scope of the current HLD / designs.
 
 ### Features
 
@@ -97,7 +98,6 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
 - `nimble-step`
   - Attributes
     - disabled: boolean (standard, i.e. visually disabled and interactions prevented)
-      - `disabled[appearance-readonly]`: (standard, i.e. visually not disabled, interactions prevented)
     - readonly: boolean (standard, i.e. visually not disabled, interactions other than tab focus prevented)
     - selected: boolean (visual change only, no behavior) (aligned with card button)
     - severity: default / error / warning / success / information (aligned with icon)
@@ -173,7 +173,15 @@ Slots, parts, etc. merged above in API section.
 
 See figma linked in background section.
 
----
+### Interactions
+
+<!-- *Work with Interaction Design to create Figma files and other design assets. Be sure to account for the various interactions from mouse, keyboard, and touch * -->
+
+Step button / link interaction area is the step control size boundaries which includes the icon, title, subtitle, and the line visual. The control size / interaction area does not include the severity text (similar to error text in other controls).
+
+See the blue areas in the following image as an example:
+
+![step interaction bounds](./stepper-interaction-bounds.png)
 
 ## Implementation
 
@@ -189,7 +197,10 @@ No particularly interesting implementation concerns. Follows existing patterns a
 
 <!-- *Key component states, valid state transitions, and how interactions trigger a state transition.* -->
 
-Nothing unique beyond what's captured in the API section.
+Some specific usage notes:
+- Only one step should be marked selected at a time
+- Disabled steps represent a step that doesn't apply for the current workflow (previous step configuration disabled a future step which is now skipped)
+- Readonly steps are steps that don't have associated views for them (it's a step that just indicates something like disk formatted or software installed)
 
 ### Accessibility
 
