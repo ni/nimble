@@ -370,6 +370,9 @@ export const iconMetadata: {
     IconFolderOpen: {
         tags: ['browse']
     },
+    IconForklift: {
+        tags: ['transport', 'transit', 'transfer', 'convey', 'haul', 'lift', 'move']
+    },
     IconForwardSlash: {
         tags: []
     },
