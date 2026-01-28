@@ -255,6 +255,110 @@
     "NI Sea Dark 2": {
       "value": "#00685Fff",
       "type": "color"
+    },
+    "Information10_LightUI": {
+      "value": "#F3EDFCff",
+      "type": "color"
+    },
+    "Information10_DarkUI": {
+      "value": "#413D4Cff",
+      "type": "color"
+    },
+    "Information30_LightUI": {
+      "value": "#D9C9F4ff",
+      "type": "color"
+    },
+    "Information30_DarkUI": {
+      "value": "#574873ff",
+      "type": "color"
+    },
+    "Information50_DarkUI": {
+      "value": "#C9ABFFff",
+      "type": "color"
+    },
+    "Warning10_LightUI": {
+      "value": "#FFEDE6ff",
+      "type": "color"
+    },
+    "Warning10_DarkUI": {
+      "value": "#4A3E36ff",
+      "type": "color"
+    },
+    "Warning20_LightUI": {
+      "value": "#FFDBCCff",
+      "type": "color"
+    },
+    "Warning20_DarkUI": {
+      "value": "#5E4635ff",
+      "type": "color"
+    },
+    "NI Tulip 10": {
+      "value": "#FDEEF4ff",
+      "type": "color"
+    },
+    "NI Tulip Dark 10": {
+      "value": "#483A41ff",
+      "type": "color"
+    },
+    "NI Tulip 20": {
+      "value": "#FADBE8ff",
+      "type": "color"
+    },
+    "NI Tulip Dark 20": {
+      "value": "#593B49ff",
+      "type": "color"
+    },
+    "NI Spec 10": {
+      "value": "#E6F6FBff",
+      "type": "color"
+    },
+    "NI Spec Dark 10": {
+      "value": "#304147ff",
+      "type": "color"
+    },
+    "NI Spec 20": {
+      "value": "#CCECF6ff",
+      "type": "color"
+    },
+    "NI Spec Dark 20": {
+      "value": "#2B4C57ff",
+      "type": "color"
+    },
+    "NI Spec Dark 1": {
+      "value": "#00A1D4ff",
+      "type": "color"
+    },
+    "BrownLight10": {
+      "value": "#F1EEEBff",
+      "type": "color"
+    },
+    "BrownDark10": {
+      "value": "#403E3Dff",
+      "type": "color"
+    },
+    "BrownLight20": {
+      "value": "#E2DCD7ff",
+      "type": "color"
+    },
+    "BrownDark20": {
+      "value": "#4A4440ff",
+      "type": "color"
+    },
+    "BrownLight": {
+      "value": "#6F4E37ff",
+      "type": "color"
+    },
+    "BrownDark": {
+      "value": "#9B7A60ff",
+      "type": "color"
+    },
+    "Black91_10": {
+      "value": "#E8E8E8ff",
+      "type": "color"
+    },
+    "Black15_30": {
+      "value": "#6E6F70ff",
+      "type": "color"
     }
   }
 }
