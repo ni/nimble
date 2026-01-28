@@ -1,9 +1,9 @@
 import {
     DesignSystem,
+    FoundationElement,
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { ChatMessageBase } from '../base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -14,7 +14,7 @@ declare global {
 /**
  * A Spright component for displaying an outbound chat message
  */
-export class ChatMessageOutbound extends ChatMessageBase {
+export class ChatMessageOutbound extends FoundationElement {
 }
 
 const sprightChatMessageOutbound = ChatMessageOutbound.compose({
