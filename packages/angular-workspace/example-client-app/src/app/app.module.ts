@@ -35,7 +35,9 @@ import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-m
 import { OkButtonModule } from 'ok-angular/button/ok-button.module';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
-import { SprightChatMessageModule } from '@ni/spright-angular/chat/message';
+import { SprightChatMessageInboundModule } from '@ni/spright-angular/chat/message/inbound';
+import { SprightChatMessageOutboundModule } from '@ni/spright-angular/chat/message/outbound';
+import { SprightChatMessageSystemModule } from '@ni/spright-angular/chat/message/system';
 import { SprightRectangleModule } from '@ni/spright-angular/rectangle';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
@@ -116,7 +118,9 @@ import { CustomAppComponent } from './customapp/customapp.component';
         OkButtonModule,
         SprightChatConversationModule,
         SprightChatInputModule,
-        SprightChatMessageModule,
+        SprightChatMessageInboundModule,
+        SprightChatMessageOutboundModule,
+        SprightChatMessageSystemModule,
         SprightRectangleModule,
         RouterModule.forRoot(
             [

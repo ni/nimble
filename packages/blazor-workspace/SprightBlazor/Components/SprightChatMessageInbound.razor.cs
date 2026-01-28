@@ -2,17 +2,8 @@
 
 namespace SprightBlazor;
 
-/// <summary>
-/// SprightChatMessage is deprecated. Use specific message component types instead.
-/// </summary>
-public partial class SprightChatMessage : ComponentBase
+public partial class SprightChatMessageInbound : ComponentBase
 {
-    /// <summary>
-    /// The message type of the message
-    /// </summary>
-    [Parameter]
-    public ChatMessageType? MessageType { get; set; }
-
     /// <summary>
     /// The child content of the element.
     /// </summary>

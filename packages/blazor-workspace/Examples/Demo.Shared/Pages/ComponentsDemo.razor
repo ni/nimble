@@ -435,16 +435,16 @@
         <div class="sub-container">
             <div class="container-label">Chat Conversation and Messages (Spright)</div>
             <SprightChatConversation class="conversation">
-                <SprightChatMessage message-type="system">
+                <SprightChatMessageSystem>
                     To start, press any key.
-                </SprightChatMessage>
-                <SprightChatMessage message-type="outbound">
+                </SprightChatMessageSystem>
+                <SprightChatMessageOutbound>
                     Where is the Any key?
-                </SprightChatMessage>
-                <SprightChatMessage>
+                </SprightChatMessageOutbound>
+                <SprightChatMessageSystem>
                     <NimbleSpinner Appearance="SpinnerAppearance.Accent"></NimbleSpinner>
-                </SprightChatMessage>
-                <SprightChatMessage message-type="inbound">
+                </SprightChatMessageSystem>
+                <SprightChatMessageInbound>
                     <NimbleButton slot="footer-actions" Appearance=ButtonAppearance.Ghost ContentHidden="true">
                         <NimbleIconCopyText slot="start"></NimbleIconCopyText>
                         Copy
@@ -458,12 +458,12 @@
                     <NimbleButton slot="end" Appearance=ButtonAppearance.Block>
                         Check core temperature
                     </NimbleButton>
-                </SprightChatMessage>
+                </SprightChatMessageInbound>
                 @foreach(var message in _userMessages)
                 {
-                    <SprightChatMessage MessageType="ChatMessageType.Outbound">
+                    <SprightChatMessageOutbound>
                         @message
-                    </SprightChatMessage>
+                    </SprightChatMessageOutbound>
                 }
                 <SprightChatInput slot="input" Placeholder="Type here" Send="UpdateUserMessages"></SprightChatInput>
             </SprightChatConversation>

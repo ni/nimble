@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add dedicated chat message components for inbound, outbound, and system messages. The original chat message component is deprecated and will be removed in a future release.",
+  "packageName": "@ni/spright-angular",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

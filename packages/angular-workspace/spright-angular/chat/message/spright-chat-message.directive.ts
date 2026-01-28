@@ -8,6 +8,7 @@ export { chatMessageTag };
 
 /**
  * Directive to provide Angular integration for the chat message.
+ * @deprecated Use specific message component types instead
  */
 @Directive({
     selector: 'spright-chat-message',
