@@ -12,8 +12,44 @@
       "value": "#804AD9ff",
       "type": "color"
     },
+    "Information10_LightUI": {
+      "value": "#F3EDFCff",
+      "type": "color"
+    },
+    "Information10_DarkUI": {
+      "value": "#413D4Cff",
+      "type": "color"
+    },
+    "Information30_LightUI": {
+      "value": "#D9C9F4ff",
+      "type": "color"
+    },
+    "Information30_DarkUI": {
+      "value": "#574873ff",
+      "type": "color"
+    },
+    "Information50_DarkUI": {
+      "value": "#C9ABFFff",
+      "type": "color"
+    },
     "Warning100_DarkUI": {
       "value": "#FF8126ff",
+      "type": "color"
+    },
+    "Warning10_LightUI": {
+      "value": "#FFEDE6ff",
+      "type": "color"
+    },
+    "Warning10_DarkUI": {
+      "value": "#4A3E36ff",
+      "type": "color"
+    },
+    "Warning20_LightUI": {
+      "value": "#FFDBCCff",
+      "type": "color"
+    },
+    "Warning20_DarkUI": {
+      "value": "#5E4635ff",
       "type": "color"
     },
     "Pass100_LightUI": {
@@ -120,8 +156,16 @@
       "value": "#FF4B00ff",
       "type": "color"
     },
+    "Black10": {
+      "value": "#E8E8E8ff",
+      "type": "color"
+    },
     "Black30": {
       "value": "#D3D5D6ff",
+      "type": "color"
+    },
+    "Black44": {
+      "value": "#6E6F70ff",
       "type": "color"
     },
     "Black50": {
@@ -240,58 +284,6 @@
       "value": "#E54C8Aff",
       "type": "color"
     },
-    "NI Indigo": {
-      "value": "#8E78B7ff",
-      "type": "color"
-    },
-    "NI Plum Dark 1": {
-      "value": "#8C459Aff",
-      "type": "color"
-    },
-    "NI Indigo Dark 2": {
-      "value": "#312E7Fff",
-      "type": "color"
-    },
-    "NI Sea Dark 2": {
-      "value": "#00685Fff",
-      "type": "color"
-    },
-    "Information10_LightUI": {
-      "value": "#F3EDFCff",
-      "type": "color"
-    },
-    "Information10_DarkUI": {
-      "value": "#413D4Cff",
-      "type": "color"
-    },
-    "Information30_LightUI": {
-      "value": "#D9C9F4ff",
-      "type": "color"
-    },
-    "Information30_DarkUI": {
-      "value": "#574873ff",
-      "type": "color"
-    },
-    "Information50_DarkUI": {
-      "value": "#C9ABFFff",
-      "type": "color"
-    },
-    "Warning10_LightUI": {
-      "value": "#FFEDE6ff",
-      "type": "color"
-    },
-    "Warning10_DarkUI": {
-      "value": "#4A3E36ff",
-      "type": "color"
-    },
-    "Warning20_LightUI": {
-      "value": "#FFDBCCff",
-      "type": "color"
-    },
-    "Warning20_DarkUI": {
-      "value": "#5E4635ff",
-      "type": "color"
-    },
     "NI Tulip 10": {
       "value": "#FDEEF4ff",
       "type": "color"
@@ -306,6 +298,22 @@
     },
     "NI Tulip Dark 20": {
       "value": "#593B49ff",
+      "type": "color"
+    },
+    "NI Indigo": {
+      "value": "#8E78B7ff",
+      "type": "color"
+    },
+    "NI Plum Dark 1": {
+      "value": "#8C459Aff",
+      "type": "color"
+    },
+    "NI Indigo Dark 2": {
+      "value": "#312E7Fff",
+      "type": "color"
+    },
+    "NI Sea Dark 2": {
+      "value": "#00685Fff",
       "type": "color"
     },
     "NI Spec 10": {
@@ -350,14 +358,6 @@
     },
     "BrownDark": {
       "value": "#9B7A60ff",
-      "type": "color"
-    },
-    "Black10": {
-      "value": "#E8E8E8ff",
-      "type": "color"
-    },
-    "Black44": {
-      "value": "#6E6F70ff",
       "type": "color"
     }
   }
