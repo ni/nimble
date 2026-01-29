@@ -22,6 +22,7 @@ The breakpoint table column provides a visual indicator for debugging breakpoint
 - Sorting or grouping capabilities
 - Resizable column width
 - Context menu for disabling or enabling breakpoints
+- Updates to the nimble table to modify column ordering or pin columns
 
 ## Implementation / Design
 
@@ -52,7 +53,7 @@ _Props/Attrs_
 
 _Content_
 
-- Typically empty 
+- Column label (icon and/or text), typically empty
 
 _Events_
 
@@ -62,16 +63,6 @@ _Events_
       recordId: string;
       newState: BreakpointState;
       oldState: BreakpointState;
-  }
-  ```
-
-- `breakpoint-action`: Emitted for additional breakpoint actions (e.g., right-click, secondary interactions)
-  ```ts
-  interface BreakpointActionEventDetail {
-      recordId: string;
-      currentState: BreakpointState;
-      actionType: 'secondary-click';
-      nativeEvent: Event;
   }
   ```
 
@@ -90,6 +81,19 @@ The cell view will render a breakpoint indicator based on the current state:
 - **Hit**: Filled red circle with highlight/border indicating active state within the indicator itself
 
 Each indicator will have a minimum 24x24 pixel hit target.
+
+#### Breakpoint States
+
+The breakpoint state is represented as an enum with the following values:
+
+```ts
+enum BreakpointState {
+    Off = 'off',
+    Enabled = 'enabled',
+    Disabled = 'disabled',
+    Hit = 'hit'
+}
+```
 
 #### Group Header View Element
 
@@ -112,7 +116,6 @@ When the breakpoint state is `undefined` or `null`, the cell will render in the 
 The following events from the cell view will be delegated to the column:
 
 - `click` events from the breakpoint indicator will be delegated as `breakpoint-toggle` events
-- `contextmenu` events will be delegated as `breakpoint-action` events with `actionType: 'secondary-click'`
 
 Both events will include the `recordId` to identify the row where the interaction occurred.
 
@@ -130,7 +133,6 @@ Interactive elements:
 - Verify keyboard shortcuts (Ctrl+B, F9) work when row/cell is focused
 - Test right-click event delegation for client callback implementation
 - Verify tooltip display on hover/focus
-- Test accessibility with screen readers
 - Verify proper event delegation with correct recordId values
 - Test that column appears leftmost in table layout
 - Verify non-resizable behavior
