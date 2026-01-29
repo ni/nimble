@@ -93,10 +93,7 @@ export const styles = css`
     }
 
     :host(${focusVisible}[aria-checked='true']) .switch {
-        background-color: ${hexToRgbaCssColor(
-                    DigitalGreenLight,
-                    0.3
-                )};
+        background-color: var(--ni-private-switch-background-selected-rollover-color);
     }
 
     :host([disabled]) .switch {
