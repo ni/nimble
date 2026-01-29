@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "8.14.0",
+      "tag": "@ni/nimble-tokens_v8.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "98fb6159317ad0e8e7cdbbff1cbb18972749c2cb",
+            "comment": "Add forklift icon"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jan 2026 03:36:17 GMT",
       "version": "8.13.7",
       "tag": "@ni/nimble-tokens_v8.13.7",

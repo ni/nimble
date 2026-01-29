@@ -2,6 +2,27 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "0.11.0",
+      "tag": "@ni/nimble-react_v0.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v35.1.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-tokens to v8.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Jan 2026 21:08:50 GMT",
       "version": "0.10.5",
       "tag": "@ni/nimble-react_v0.10.5",
