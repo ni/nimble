@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "32.2.0",
+      "tag": "@ni/nimble-angular_v32.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Jan 2026 21:08:50 GMT",
+      "version": "32.1.1",
+      "tag": "@ni/nimble-angular_v32.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63",
+            "comment": "Internal change to icon pattern"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Jan 2026 16:37:46 GMT",
       "version": "32.1.0",
       "tag": "@ni/nimble-angular_v32.1.0",

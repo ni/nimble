@@ -2,6 +2,36 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "0.2.0",
+      "tag": "@ni/ok-blazor_v0.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v0.2.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Jan 2026 21:08:50 GMT",
+      "version": "0.1.27",
+      "tag": "@ni/ok-blazor_v0.1.27",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v0.1.27",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jan 2026 03:36:17 GMT",
       "version": "0.1.26",
       "tag": "@ni/ok-blazor_v0.1.26",

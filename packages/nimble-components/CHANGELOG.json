@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "35.1.0",
+      "tag": "@ni/nimble-components_v35.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Jan 2026 21:08:50 GMT",
+      "version": "35.0.3",
+      "tag": "@ni/nimble-components_v35.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63",
+            "comment": "SVGIcon proto"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jan 2026 03:36:17 GMT",
       "version": "35.0.2",
       "tag": "@ni/nimble-components_v35.0.2",

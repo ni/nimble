@@ -91,7 +91,7 @@ export class ${moduleName} { }
         modulePath: moduleFilePath
     });
 }
-console.log(`Finshed writing ${directiveAndModulePaths.length} icon directive and module files`);
+console.log(`Finished writing ${directiveAndModulePaths.length} icon directive and module files`);
 
 let barrelFileContents = `${generatedFilePrefix}\n`;
 for (const paths of directiveAndModulePaths) {

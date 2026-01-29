@@ -46,4 +46,4 @@ for (const key of Object.keys(icons)) {
     const componentFilePath = path.resolve(iconsDirectory, componentFileName);
     fs.writeFileSync(componentFilePath, directiveFileContents, { encoding: 'utf-8' });
 }
-console.log('Finshed writing icon Razor component files');
+console.log('Finished writing icon Razor component files');
