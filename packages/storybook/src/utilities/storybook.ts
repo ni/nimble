@@ -23,7 +23,7 @@ export const fastParameters = () => ({
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
  * Bindings, such as event binding, will be active.
- * The first element child of the fragment will be returned
+ * The first element child of the fragment will be returned.
  */
 export const renderViewTemplate = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
