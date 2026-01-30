@@ -58,7 +58,7 @@ export class ChatInput extends FoundationElement {
      */
     public textAreaInputHandler(): void {
         const currentValue = this.textArea!.value;
-        this.value = this.characterLimit !== undefined 
+        this.value = this.characterLimit !== undefined
             ? currentValue.slice(0, this.characterLimit)
             : currentValue;
         this.textArea!.value = this.value;
