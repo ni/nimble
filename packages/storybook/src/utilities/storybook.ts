@@ -36,8 +36,9 @@ export const renderViewTemplate = <TSource>(
     // Capture the outerHTML content before the node is attached to the DOM
     // to workaround outerHTML being called after the element is attached to the DOM
     // https://github.com/ni/nimble/issues/2706
+    const value = content.outerHTML;
     Object.defineProperty(content, 'outerHTML', {
-        value: content.outerHTML,
+        value,
     });
     return content;
 };
