@@ -189,7 +189,7 @@ export class Menu extends FoundationElement {
         if (
             this.expandedItem !== null
             && changedItem === this.expandedItem
-            && changedItem.expanded === false
+            && !changedItem.expanded
         ) {
             this.expandedItem = null;
             return;
@@ -307,7 +307,7 @@ export class Menu extends FoundationElement {
 
         if (
             changedMenuItem.role === 'menuitemradio'
-            && changedMenuItem.checked === true
+            && changedMenuItem.checked
         ) {
             for (let i = changeItemIndex - 1; i >= 0; --i) {
                 const item: Element = this.menuItems[i]!;
