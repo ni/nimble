@@ -23,15 +23,24 @@ export const fastParameters = () => ({
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
  * Bindings, such as event binding, will be active.
+ * The first element child of the fragment will be returned.
  */
 export const renderViewTemplate = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     source: TSource
-): DocumentFragment => {
+): Element => {
     const template = document.createElement('template');
     const fragment = template.content;
     viewTemplate.render(source, fragment);
-    return fragment;
+    const content = fragment.firstElementChild!;
+    // Capture the outerHTML content before the node is attached to the DOM
+    // to workaround outerHTML being called after the element is attached to the DOM
+    // https://github.com/ni/nimble/issues/2706
+    const value = content.outerHTML;
+    Object.defineProperty(content, 'outerHTML', {
+        value,
+    });
+    return content;
 };
 
 /**
@@ -44,8 +53,7 @@ export const createStory = <TSource>(
         const wrappedViewTemplate = html<TSource>`
             <div class="code-hide-top-container">${viewTemplate}</div>
         `;
-        const fragment = renderViewTemplate(wrappedViewTemplate, source);
-        const content = fragment.firstElementChild!;
+        const content = renderViewTemplate(wrappedViewTemplate, source);
         return content;
     };
 };
@@ -76,8 +84,7 @@ export const createUserSelectedThemeStory = <TSource>(
                 ${viewTemplate}
             </${themeProviderTag}>
         `;
-        const fragment = renderViewTemplate(wrappedViewTemplate, source);
-        const content = fragment.firstElementChild!;
+        const content = renderViewTemplate(wrappedViewTemplate, source);
         return content;
     };
 };
@@ -113,8 +120,7 @@ export const createFixedThemeStory = <TSource>(
                 </div>
             </${themeProviderTag}>
         `;
-        const fragment = renderViewTemplate(wrappedViewTemplate, source);
-        const content = fragment.firstElementChild!;
+        const content = renderViewTemplate(wrappedViewTemplate, source);
         return content;
     };
 };
