@@ -4,4 +4,5 @@
  */
 export interface ChatInputSendEventDetail {
     text: string;
+    characterLimit?: number;
 }

@@ -30,6 +30,14 @@ export class SprightChatInputDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'sendButtonLabel', value);
     }
 
+    public get characterLimit(): number | undefined {
+        return this.elementRef.nativeElement.characterLimit;
+    }
+
+    @Input('character-limit') public set characterLimit(value: number | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'characterLimit', value);
+    }
+
     public get value(): string | undefined {
         return this.elementRef.nativeElement.value;
     }

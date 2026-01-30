@@ -11,6 +11,7 @@ import {
 interface ChatInputArgs {
     placeholder: string;
     sendButtonLabel: string;
+    characterLimit: number | undefined;
     value: string;
     send: undefined;
 }
@@ -30,7 +31,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         <${chatInputTag}
             placeholder="${x => x.placeholder}"
             send-button-label="${x => x.sendButtonLabel}"
-            value="${x => x.value}"    
+            character-limit="${x => x.characterLimit}"
+            value="${x => x.value}"
         >
         </${chatInputTag}>
     `),
@@ -46,6 +48,13 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             name: 'send-button-label',
             description:
                 'Text to use for a `title` and ARIA attributes on the send button.',
+            table: { category: apiCategory.attributes }
+        },
+        characterLimit: {
+            name: 'character-limit',
+            description:
+                'The maximum number of characters allowed. Input will be silently truncated to this limit.',
+            control: { type: 'number' },
             table: { category: apiCategory.attributes }
         },
         value: {
