@@ -328,5 +328,36 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Background fill color for the editable calendar event grab handle',
     calendarGridBorderColor: 'Border color for the calendar grid',
     calendarGroupHeaderBackgroundColor:
-        'Background color for the calendar resource group header'
+        'Background color for the calendar resource group header',
+    calendarEventBackgroundStatic2Color:
+        'Background color for second static calendar events',
+    calendarEventBackgroundHoverStatic2Color:
+        'Color while hovering second static calendar events',
+    calendarEventBorderStatic2Color: 'Border color for second static calendar events',
+    calendarEventStatic2FontColor: 'Font color for second static calendar events',
+    calendarEventBackgroundStatic3Color:
+        'Background color for third static calendar events',
+    calendarEventBackgroundHoverStatic3Color:
+        'Color while hovering third static calendar events',
+    calendarEventBorderStatic3Color: 'Border color for third static calendar events',
+    calendarEventBackgroundStatic4Color:
+        'Background color for fourth static calendar events',
+    calendarEventBackgroundHoverStatic4Color:
+        'Color while hovering fourth static calendar events',
+    calendarEventBorderStatic4Color: 'Border color for fourth static calendar events',
+    calendarEventBackgroundStatic5Color:
+        'Background color for fifth static calendar events',
+    calendarEventBackgroundHoverStatic5Color:
+        'Color while hovering fifth static calendar events',
+    calendarEventBorderStatic5Color: 'Border color for fifth static calendar events',
+    calendarEventBackgroundStatic6Color:
+        'Background color for sixth static calendar events',
+    calendarEventBackgroundHoverStatic6Color:
+        'Color while hovering sixth static calendar events',
+    calendarEventBorderStatic6Color: 'Border color for sixth static calendar events',
+    calendarEventBackgroundStatic7Color:
+        'Background color for seventh static calendar events',
+    calendarEventBackgroundHoverStatic7Color:
+        'Color while hovering seventh static calendar events',
+    calendarEventBorderStatic7Color: 'Border color for seventh static calendar events'
 };
