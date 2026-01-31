@@ -18,7 +18,8 @@
     "apache-arrow": "21.1.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-storybook": "^10.1.10",
-    "globals": "^14.0.0"
+    "globals": "^14.0.0",
+    "react": "^19"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",

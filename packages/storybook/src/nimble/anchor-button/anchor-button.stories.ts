@@ -119,15 +119,7 @@ const metadata: Meta<AnchorButtonArgs> = {
 
 export default metadata;
 
-export const outlineAnchorButton: StoryObj<AnchorButtonArgs> = {};
-
-export const ghostAnchorButton: StoryObj<AnchorButtonArgs> = {
-    args: { appearance: ButtonAppearance.ghost }
-};
-
-export const blockAnchorButton: StoryObj<AnchorButtonArgs> = {
-    args: { appearance: ButtonAppearance.block }
-};
+export const anchorButton: StoryObj<AnchorButtonArgs> = {};
 
 export const iconAnchorButton: StoryObj<AnchorButtonArgs> = {
     args: {

@@ -73,12 +73,12 @@ const defaultHrefDescription = hrefDescription({
 });
 const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb item represents the current page it should have no \`href\` set.`;
 
-export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
+export const breadcrumb: StoryObj<BreadcrumbArgs> = {
     render: createUserSelectedThemeStory(html`
         <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
-            style="max-width: 100%;"
         >
+            <style class="code-hide">@scope{:scope{max-width: 100%;}}</style>
             ${repeat(x => breadcrumbItemSets[x.itemsType], html<ItemArgs, BreadcrumbArgs>`
                 <${breadcrumbItemTag}
                     href="${x => x.href}"
@@ -88,8 +88,6 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
             `)}
         </${breadcrumbTag}>
 `),
-    // eslint-disable-next-line storybook/no-redundant-story-name
-    name: 'Standard Breadcrumb',
     argTypes: {
         itemsType: {
             name: 'default',
@@ -125,7 +123,7 @@ export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
     render: createUserSelectedThemeStory(html`
         <${breadcrumbTag}>
             <${breadcrumbItemTag}
-                href="${x => x.href}"
+                href=${x => (x.href === '' ? null : x.href)}
             >
                 ${x => x.label}
             </${breadcrumbItemTag}>

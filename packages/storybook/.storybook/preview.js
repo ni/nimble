@@ -7,15 +7,6 @@ import {
     backgroundStates,
     defaultBackgroundState
 } from '../src/utilities/states';
-import {
-    Container,
-    Column,
-    Do,
-    Dont,
-    Frame,
-    Divider,
-    Tag
-} from './blocks/StoryLayout';
 import { theme } from './theme';
 
 SyntaxHighlighter.registerLanguage('cs', csharp);
@@ -66,15 +57,6 @@ const parameters = {
     docs: {
         controls: { sort: 'alpha' },
         toc: { headingSelector: 'h1, h2, h3' },
-        components: {
-            Container,
-            Column,
-            Do,
-            Dont,
-            Frame,
-            Divider,
-            Tag
-        },
         theme
     }
 };

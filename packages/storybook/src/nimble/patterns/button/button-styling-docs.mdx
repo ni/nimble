@@ -1,19 +1,20 @@
 import { NimbleIconKey } from '@ni/nimble-react/icons/key';
+import { Frame, Container, Column, Do, Dont, Divider } from '../../../utilities/story-layout';
 
 ### Appearances
 
 These are the standard styling options for the button. Each should be considered
 for use before employing an appearance variant.
 
-#### Ghost Button:
+#### Ghost Button
 
 <Frame>
     <Container>
-        <Column stylingClass="controls">
-            <Button appearance="ghost">{`Ghost Button`}</Button>
+        <Column>
+            <Button appearance="ghost">Ghost Button</Button>
             <Button appearance="ghost" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
-                {`Ghost Button`}
+                Ghost Button
             </Button>
 
         </Column>
@@ -33,18 +34,17 @@ for use before employing an appearance variant.
             </ul>
         </Column>
     </Container>
-
 </Frame>
 
-#### Outline Button:
+#### Outline Button
 
 <Frame>
     <Container>
-        <Column stylingClass="controls">
-            <Button appearance="outline">{`Outline Button`}</Button>
+        <Column>
+            <Button appearance="outline">Outline Button</Button>
             <Button appearance="outline" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
-                {`Outline Button`}
+                Outline Button
             </Button>
         </Column>
         <Column>
@@ -71,15 +71,15 @@ for use before employing an appearance variant.
     </Container>
 </Frame>
 
-#### Block Button:
+#### Block Button
 
 <Frame>
     <Container>
-        <Column stylingClass="controls">
-            <Button appearance="block">{`Block Button`}</Button>
+        <Column>
+            <Button appearance="block">Block Button</Button>
             <Button appearance="block" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
-                {`Block Button`}
+                Block Button
             </Button>
         </Column>
         <Column>
@@ -117,24 +117,24 @@ for one of the following reasons:
 
 There are two available values for `appearance-variant`: `primary` and `accent`.
 
-#### Accent Button:
+#### Accent Button
 
 <Frame>
-    <Container config="325px 1fr">
-        <Column stylingClass="controls">
-            <Button appearance="ghost">{`Ghost`}</Button>
-            <Button appearance="ghost">{`Ghost`}</Button>
+    <Container>
+        <Column>
+            <Button appearance="ghost">Ghost</Button>
+            <Button appearance="ghost">Ghost</Button>
             <Button
                 appearance="outline"
                 appearance-variant="accent"
-            >{`Outline Accent`}</Button>
+            >Outline Accent</Button>
             <Divider />
-            <Button appearance="ghost">{`Ghost`}</Button>
-            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button appearance="ghost">Ghost</Button>
+            <Button appearance="ghost">Ghost</Button>
             <Button
                 appearance="block"
                 appearance-variant="accent"
-            >{`Block Accent`}</Button>
+            >Block Accent</Button>
         </Column>
         <Column>
             <Do>
@@ -158,39 +158,32 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
     </Container>
 </Frame>
 
-#### Primary Button:
+#### Primary Button
 
 <Frame>
-    <Container config="325px 1fr">
-        <Column stylingClass="controls">
-            <Button appearance="ghost">{`Ghost`}</Button>
-            <Button appearance="ghost">{`Ghost`}</Button>
+    <Container>
+        <Column>
+            <Button appearance="ghost">Ghost</Button>
+            <Button appearance="ghost">Ghost</Button>
             <Button appearance="outline" appearance-variant="primary">
-            {`Outline Primary`}
+            Outline Primary
             </Button>
             <Divider/>
-            <Button appearance="ghost">{`Ghost`}</Button>
-            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button appearance="ghost">Ghost</Button>
+            <Button appearance="ghost">Ghost</Button>
             <Button appearance="block" appearance-variant="primary">
-                {`Block Primary`}
+                Block Primary
             </Button>
         </Column>
         <Column>
-            <Do>
-                Use only 1 primary button in a section. It should be used when
-                there is a conflict with color and its context.
-            </Do>
+            <Do>Use only 1 primary button in a section. It should be used when there is a conflict with color and its context.</Do>
             <Do>Use in combination with ghost buttons to create hierarchy.</Do>
-            <Dont>
-                Do not use an outline button with a block button to create
-                hierarchy.
-            </Dont>
+            <Dont>Do not use an outline button with a block button to create hierarchy.</Dont>
         </Column>
     </Container>
-
 </Frame>
 
-#### Examples:
+#### Examples
 
 To see more examples of appearance variant button hierarchy, see the Figma docs
 for

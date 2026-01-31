@@ -39,7 +39,7 @@ const metadata: Meta<AnchorArgs> = {
                 }
             }
         </style>Click on the <${anchorTag}
-            href=${x => (x.href !== '' ? x.href : null)}
+            href=${x => (x.href === '' ? null : x.href)}
             ?underline-hidden=${x => x.underlineHidden}
             ?contenteditable=${x => x.contenteditable}
             appearance=${x => AnchorAppearance[x.appearance]}

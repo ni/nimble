@@ -87,7 +87,7 @@ export default metadata;
 export const anchorTabs: StoryObj<AnchorTabsArgs> = {
     render: createUserSelectedThemeStory(html`
         <${anchorTabsTag} activeid="${x => x.activeid}">
-        ${repeat(x => tabSets[x.tabsType] as AnchorTabArgs[], html<AnchorTabArgs>`
+        ${repeat(x => tabSets[x.tabsType], html<AnchorTabArgs>`
             <${anchorTabTag}
                 ?disabled="${x => x.disabled}"
                 id="${x => x.id}"
