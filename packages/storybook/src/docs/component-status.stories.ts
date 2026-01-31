@@ -34,7 +34,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Anchor',
@@ -98,7 +98,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Banner',
@@ -214,7 +214,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Date Time Text',
@@ -224,7 +224,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Dialog',
@@ -260,7 +260,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Icon Button',
@@ -305,7 +305,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Menu',
@@ -358,7 +358,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Progress Bar',
@@ -368,7 +368,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Query Builder',
@@ -378,7 +378,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Radio',
@@ -433,7 +433,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Select (Dropdown)',
@@ -455,7 +455,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Slider',
@@ -468,7 +468,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Spinner',
@@ -492,17 +492,17 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Stepper',
         issueHref: 'https://github.com/ni/nimble/issues/624',
         issueLabel: '#624',
-        library: 'future',
-        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        library: 'nimble',
+        componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Switch',
@@ -591,7 +591,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Toggle Button Group',
@@ -604,7 +604,7 @@ const components = [
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.ready
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Toggle Icon Button',
