@@ -9,7 +9,7 @@ declare global {
 }
 
 /**
- * A nimble-styled step for a stepper
+ * A nimble-styled stepper
  */
 export class Stepper extends FoundationElement {}
 
