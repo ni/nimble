@@ -1,6 +1,6 @@
 import { html } from '@ni/fast-element';
-import type { Step } from '.';
+import type { Stepper } from '.';
 
-export const template = html<Step>`
+export const template = html<Stepper>`
     <template></template>
 `;
