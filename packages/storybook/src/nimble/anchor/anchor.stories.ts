@@ -26,18 +26,23 @@ const metadata: Meta<AnchorArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <style class='code-hide'>
-            .anchor-container {
-                font: var(${bodyFont.cssCustomProperty});
-                color: var(${bodyFontColor.cssCustomProperty});
-                outline: none;
+        <span
+            class="code-hide-top-container"
+            ?contenteditable=${x => x.contenteditable}
+        ><style class='code-hide'>
+            @scope {
+                :scope {
+                    font: var(${bodyFont.cssCustomProperty});
+                    color: var(${bodyFontColor.cssCustomProperty});
+                    outline: none;
+                    display: inline;
+                }
             }
-        </style>
-        <span class="anchor-container" ?contenteditable=${x => x.contenteditable}>Click on the <${anchorTag}
+        </style>Click on the <${anchorTag}
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-hidden=${x => x.underlineHidden}
             ?contenteditable=${x => x.contenteditable}
-            appearance=${x => x.appearance}
+            appearance=${x => AnchorAppearance[x.appearance]}
         >${x => x.label}</${anchorTag}> to navigate.</span>
     `),
     argTypes: {

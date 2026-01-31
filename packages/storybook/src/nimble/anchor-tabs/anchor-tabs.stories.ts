@@ -37,35 +37,35 @@ interface ToolbarArgs {
 const simpleTabs = [
     {
         title: 'Google',
-        id: '1',
+        id: 'my-tab-1',
         disabled: true,
         href: 'https://www.google.com'
     },
-    { title: 'NI', id: '2', disabled: false, href: 'https://www.ni.com' },
-    { title: 'Nimble', id: '3', disabled: false, href: 'https://nimble.ni.dev' }
+    { title: 'NI', id: 'my-tab-2', disabled: false, href: 'https://www.ni.com' },
+    { title: 'Nimble', id: 'my-tab-3', disabled: false, href: 'https://nimble.ni.dev' }
 ] as const;
 
 const wideTabs = [
     {
         title: 'Tab 1 that is too long and should probably be shorter but is not',
-        id: '1',
+        id: 'my-tab-1',
         disabled: false,
         href: 'https://nimble.ni.dev'
     },
     {
         title: 'Tab 2 that is also too long but disabled',
-        id: '2',
+        id: 'my-tab-2',
         disabled: true,
         href: 'https://nimble.ni.dev'
     },
-    { title: 'Short', id: '3', disabled: false, href: 'https://nimble.ni.dev' }
+    { title: 'Short', id: 'my-tab-3', disabled: false, href: 'https://nimble.ni.dev' }
 ] as const;
 
 const manyTabs: AnchorTabArgs[] = [];
 for (let i = 1; i <= 100; i++) {
     manyTabs.push({
         title: `Tab ${i}`,
-        id: `${i}`,
+        id: `my-tab-${i}`,
         disabled: false,
         href: `https://nimble.ni.dev?tabid=${i}`
     });
@@ -98,17 +98,31 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
         `)}
         ${when(x => x.tabsType === ExampleTabsType.simpleTabsWithToolbar, html`
             <${tabsToolbarTag}>
-                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
-                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
-                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
+                <${buttonTag} appearance="ghost">
+                    Toolbar Button
+                </${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">
+                    Toolbar Button 2
+                </${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">
+                    Toolbar Button 3
+                </${buttonTag}>
             </${tabsToolbarTag}>
         `)}
     </${anchorTabsTag}>
     `),
     argTypes: {
         activeid: {
-            options: ['None', '1', '2', '3'],
-            control: { type: 'radio' },
+            options: [undefined, 'my-tab-1', 'my-tab-2', 'my-tab-3'],
+            control: {
+                labels: {
+                    undefined: 'None',
+                    'my-tab-1': 'my-tab-1',
+                    'my-tab-2': 'my-tab-2',
+                    'my-tab-3': 'my-tab-3'
+                },
+                type: 'radio'
+            },
             description: `The \`id\` of the \`${anchorTabTag}\` that should be indicated as currently active/selected. It is the application's responsibility to set \`activeid\` to the tab matching the currently loaded URL.`,
             table: { category: apiCategory.attributes }
         },
@@ -131,17 +145,23 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
         }
     },
     args: {
-        activeid: 'None',
+        activeid: undefined,
         tabsType: ExampleTabsType.simpleTabs
     }
 };
 
 export const anchorTab: StoryObj<AnchorTabArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${anchorTabsTag} activeid="1">
-            <${anchorTabTag} id="1" ?disabled="${x => x.disabled}" href="${x => x.href}">${x => x.title}</${anchorTabTag}>
-            <${anchorTabTag} id="2" href="https://www.ni.com">NI</${anchorTabTag}>
-            <${anchorTabTag} id="3" href="https://nimble.ni.dev">Nimble</${anchorTabTag}>
+        <${anchorTabsTag} activeid="my-tab-1">
+            <${anchorTabTag} id="my-tab-1" ?disabled="${x => x.disabled}" href="${x => x.href}">
+                ${x => x.title}
+            </${anchorTabTag}>
+            <${anchorTabTag} id="my-tab-2" href="https://www.ni.com">
+                NI
+            </${anchorTabTag}>
+            <${anchorTabTag} id="my-tab-3" href="https://nimble.ni.dev">
+                Nimble
+            </${anchorTabTag}>
         </${anchorTabsTag}>
     `),
     argTypes: {
@@ -177,19 +197,31 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
 
 export const tabsToolbar: StoryObj<ToolbarArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${anchorTabsTag} activeid="1" style="width: 800px;">
+        <${anchorTabsTag} activeid="my-tab-1" style="width: 800px;">
+            <${anchorTabTag} id="my-tab-1" disabled href="https://www.google.com">
+                Google
+            </${anchorTabTag}>
+            <${anchorTabTag} id="my-tab-2" href="https://www.ni.com">
+                NI
+            </${anchorTabTag}>
+            <${anchorTabTag} id="my-tab-3" href="https://nimble.ni.dev">
+                Nimble
+            </${anchorTabTag}>
             <${tabsToolbarTag}>
                 ${when(x => x.default, html`
-                    <${buttonTag} appearance="ghost">Toolbar Button 1</${buttonTag}>
+                    <${buttonTag} appearance="ghost">
+                        Toolbar Button 1
+                    </${buttonTag}>
                 `)}
                 ${when(x => x.end, html`
-                    <${buttonTag} slot="end" appearance="ghost">Toolbar Button 2</${buttonTag}>
-                    <${buttonTag} slot="end" appearance="ghost">Toolbar Button 3</${buttonTag}>
+                    <${buttonTag} slot="end" appearance="ghost">
+                        Toolbar Button 2
+                    </${buttonTag}>
+                    <${buttonTag} slot="end" appearance="ghost">
+                        Toolbar Button 3
+                    </${buttonTag}>
                 `)}
             </${tabsToolbarTag}>
-            <${anchorTabTag} id="1" disabled href="https://www.google.com">Google</${anchorTabTag}>
-            <${anchorTabTag} id="2" href="https://www.ni.com">NI</${anchorTabTag}>
-            <${anchorTabTag} id="3" href="https://nimble.ni.dev">Nimble</${anchorTabTag}>
         </${anchorTabsTag}>
     `),
     argTypes: {

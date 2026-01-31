@@ -39,6 +39,7 @@
     "@storybook/builder-vite": "^10.1.10",
     "@storybook/cli": "^10.1.10",
     "@storybook/html-vite": "^10.1.10",
+    "@types/js-beautify": "^1.14.3",
     "js-beautify": "^1.15.1",
     "react-syntax-highlighter": "^16.1.0",
     "remark-gfm": "^4.0.0",

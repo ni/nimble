@@ -3,7 +3,6 @@ import { SyntaxHighlighter } from 'storybook/internal/components';
 import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
 import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
 import './preview.css';
-import { transformSource } from './transformSource';
 import {
     backgroundStates,
     defaultBackgroundState
@@ -66,9 +65,6 @@ const parameters = {
     },
     docs: {
         controls: { sort: 'alpha' },
-        source: {
-            transform: transformSource
-        },
         toc: { headingSelector: 'h1, h2, h3' },
         components: {
             Container,
