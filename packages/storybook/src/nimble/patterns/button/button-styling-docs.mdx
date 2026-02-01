@@ -10,7 +10,7 @@ for use before employing an appearance variant.
 
 <Frame>
     <Container>
-        <Column>
+        <Column stylingClass="controls">
             <Button appearance="ghost">Ghost Button</Button>
             <Button appearance="ghost" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
@@ -40,7 +40,7 @@ for use before employing an appearance variant.
 
 <Frame>
     <Container>
-        <Column>
+        <Column stylingClass="controls">
             <Button appearance="outline">Outline Button</Button>
             <Button appearance="outline" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
@@ -75,7 +75,7 @@ for use before employing an appearance variant.
 
 <Frame>
     <Container>
-        <Column>
+        <Column stylingClass="controls">
             <Button appearance="block">Block Button</Button>
             <Button appearance="block" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
@@ -120,8 +120,8 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
 #### Accent Button
 
 <Frame>
-    <Container>
-        <Column>
+    <Container config="325px 1fr">
+        <Column stylingClass="controls">
             <Button appearance="ghost">Ghost</Button>
             <Button appearance="ghost">Ghost</Button>
             <Button
@@ -161,8 +161,8 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
 #### Primary Button
 
 <Frame>
-    <Container>
-        <Column>
+    <Container config="325px 1fr">
+        <Column stylingClass="controls">
             <Button appearance="ghost">Ghost</Button>
             <Button appearance="ghost">Ghost</Button>
             <Button appearance="outline" appearance-variant="primary">
@@ -176,9 +176,15 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
             </Button>
         </Column>
         <Column>
-            <Do>Use only 1 primary button in a section. It should be used when there is a conflict with color and its context.</Do>
+            <Do>
+                Use only 1 primary button in a section. It should be used when
+                there is a conflict with color and its context.
+            </Do>
             <Do>Use in combination with ghost buttons to create hierarchy.</Do>
-            <Dont>Do not use an outline button with a block button to create hierarchy.</Dont>
+            <Dont>
+                Do not use an outline button with a block button to create
+                hierarchy.
+            </Dont>
         </Column>
     </Container>
 </Frame>

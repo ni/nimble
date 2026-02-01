@@ -1,6 +1,6 @@
-import React, { useState, type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { NimbleIconCheck } from '@ni/nimble-react/icons/check';
-import { NimbleThemeProvider, Theme } from '@ni/nimble-react/theme-provider';
+import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
 import { NimbleIconExclamationMark } from '@ni/nimble-react/icons/exclamation-mark';
 
 const css = (strings: TemplateStringsArray, ...values: unknown[]): React.JSX.Element => <style>
@@ -11,52 +11,65 @@ interface ChildrenProp {
     children?: ReactNode;
 }
 
+const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
 /**
  * Renders a frame to match visual design of existing Storybook Doc blocks.
  */
 export const Frame = ({ children }: ChildrenProp): React.JSX.Element => {
-    const prefersColorSchemeDarkMediaQuery: MediaQueryList = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-    );
-    const [theme] = useState<Theme>(prefersColorSchemeDarkMediaQuery.matches ? 'dark' : 'light');
     return <NimbleThemeProvider theme={theme}>
-        {css`
-            :scope {
-                margin-bottom: 32px !important;
-                border: 1px solid rgba(128, 128, 128, 0.2);
-                border-radius: 4px;
-                box-shadow: 0px 1px 4px rgba(128, 128, 128, 0.22);
-                padding: 16px;
-            }
-        `}
-        {children}
+        <div>
+            {css`
+                :scope {
+                    margin-bottom: 32px !important;
+                    border: 1px solid rgba(128, 128, 128, 0.2);
+                    border-radius: 4px;
+                    box-shadow: 0px 1px 4px rgba(128, 128, 128, 0.22);
+                    padding: 16px;
+                }
+            `}
+            {children}
+        </div>
     </NimbleThemeProvider>;
 };
+
+interface ContainerProp {
+    children?: ReactNode;
+    config?: string;
+}
 
 /**
  * Renders a container with grid configuration. Use with <Column> to create grided documentation.
  * Use CSS grid syntax for the config prop to specify the number of columns and their widths.
  */
-export const Container = ({ children }: ChildrenProp): React.JSX.Element => {
-    return <div>
+export const Container = ({ children, config = '200px 1fr' }: ContainerProp): React.JSX.Element => {
+    return <div style={{ gridTemplateColumns: config }}>
         {css`
             :scope {
                 display: grid;
                 align-items: center;
-                grid-template-columns: 200px 1fr;
             }
         `}
         {children}
     </div>;
 };
 
+interface ColumnProp {
+    children?: ReactNode;
+    stylingClass?: string;
+}
+
 /**
  * Renders a column for use with <Container>.
  * If you need to put Nimble components in a column, use the stylingClass="controls" prop to apply the correct margins.
  */
-export const Column = ({ children }: ChildrenProp): React.JSX.Element => {
-    return <div>
+export const Column = ({ children, stylingClass = '' }: ColumnProp): React.JSX.Element => {
+    return <div className={stylingClass}>
         {css`
+            :scope.controls {
+                padding-left: var(--ni-nimble-medium-padding);
+                padding-right: var(--ni-nimble-medium-padding);
+            }
             :scope > * {
                 margin: var(--ni-nimble-small-padding);
             }
@@ -77,7 +90,7 @@ export const Divider = (): React.JSX.Element => {
  */
 export const Do = ({ children }: ChildrenProp): React.JSX.Element => {
     return (
-        <Container>
+        <Container config='48px 1fr'>
             <Column>
                 <NimbleIconCheck style={{ width: '28px', height: '28px' }} severity='success'/>
             </Column>
@@ -91,7 +104,7 @@ export const Do = ({ children }: ChildrenProp): React.JSX.Element => {
  */
 export const Dont = ({ children }: ChildrenProp): React.JSX.Element => {
     return (
-        <Container>
+        <Container config='48px 1fr'>
             <Column>
                 <NimbleIconExclamationMark style={{ width: '24px', height: '24px' }} severity='error'/>
             </Column>
