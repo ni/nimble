@@ -165,15 +165,15 @@ const messageComponentSizing = (
             width: 100%;
             height: 100%;
         ">
-            <${() => messageComponentType}>
-            <div style="
-                width: ${contentWidth};
-                height: ${contentHeight};
-                background: blue;
-                display: inline-block;
-            "
-            ></div>
-            </${() => messageComponentType}>
+            <${messageComponentType}>
+                <div style="
+                    width: ${contentWidth};
+                    height: ${contentHeight};
+                    background: blue;
+                    display: inline-block;
+                "
+                ></div>
+            </${messageComponentType}>
         </${chatConversationTag}>
     </div>
 `;
