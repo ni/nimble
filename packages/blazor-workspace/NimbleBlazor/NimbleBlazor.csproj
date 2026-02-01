@@ -44,8 +44,8 @@
 
   <ItemGroup>
     <PackageReference Include="Apache.Arrow" Version="[22.1.0]" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.22" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.23" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
