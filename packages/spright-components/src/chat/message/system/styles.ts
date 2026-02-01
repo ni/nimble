@@ -3,6 +3,7 @@ import { css } from '@ni/fast-element';
 import {
     bodyFont,
     bodyFontColor,
+    standardPadding,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../../utilities/style/display';
 
@@ -10,8 +11,8 @@ export const styles = css`
     ${display('flex')}
 
     :host {
-        min-width: 16px;
-        min-height: 16px;
+        min-width: ${standardPadding};
+        min-height: ${standardPadding};
 
         flex-direction: row;
         justify-content: center;

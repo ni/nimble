@@ -18,8 +18,8 @@ export const styles = css`
     ${display('flex')}
 
     :host {
-        min-width: 16px;
-        min-height: 16px;
+        min-width: ${standardPadding};
+        min-height: ${standardPadding};
 
         flex-direction: row;
         justify-content: flex-start;
