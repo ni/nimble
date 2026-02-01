@@ -25,26 +25,26 @@ const metadata: Meta<AnchorArgs> = {
     parameters: {
         actions: {}
     },
-    render: createUserSelectedThemeStory(html`
-        <span
-            class="code-hide-top-container"
-            ?contenteditable=${x => x.contenteditable}
-        ><style class='code-hide'>
-            @scope {
-                :scope {
-                    font: var(${bodyFont.cssCustomProperty});
-                    color: var(${bodyFontColor.cssCustomProperty});
-                    outline: none;
-                    display: inline;
-                }
-            }
-        </style>Click on the <${anchorTag}
-            href=${x => (x.href === '' ? null : x.href)}
-            ?underline-hidden=${x => x.underlineHidden}
-            ?contenteditable=${x => x.contenteditable}
-            appearance=${x => AnchorAppearance[x.appearance]}
-        >${x => x.label}</${anchorTag}> to navigate.</span>
-    `),
+    // Avoid whitespace between elements in the template
+    // as the component is inline display
+    render: createUserSelectedThemeStory(html`<style
+        class='code-hide'
+    >
+    .anchor-container {
+        display: inline-block;
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        outline: none;
+    }
+    </style><span
+        class="anchor-container code-hide-top-container"
+        ?contenteditable=${x => x.contenteditable}
+    >Click on the <${anchorTag}
+        href=${x => (x.href === '' ? null : x.href)}
+        ?underline-hidden=${x => x.underlineHidden}
+        ?contenteditable=${x => x.contenteditable}
+        appearance=${x => AnchorAppearance[x.appearance]}
+    >${x => x.label}</${anchorTag}> to navigate.</span>`),
     argTypes: {
         label: {
             name: 'default',

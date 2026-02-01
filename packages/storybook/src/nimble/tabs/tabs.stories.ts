@@ -217,8 +217,7 @@ export const tabPanel: StoryObj<TabPanelArgs> = {
 
 export const tabToolbar: StoryObj<ToolbarArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${tabsTag}>
-            <style class="code-hide">@scope{:scope{width: 800px;}}</style>
+        <${tabsTag} style="width: 800px;">
             <${tabsToolbarTag}>
                 ${when(x => x.default, html`
                     <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>

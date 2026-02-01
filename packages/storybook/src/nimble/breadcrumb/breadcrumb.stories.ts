@@ -77,8 +77,8 @@ export const breadcrumb: StoryObj<BreadcrumbArgs> = {
     render: createUserSelectedThemeStory(html`
         <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
+            style="max-width: 100%;"
         >
-            <style class="code-hide">@scope{:scope{max-width: 100%;}}</style>
             ${repeat(x => breadcrumbItemSets[x.itemsType], html<ItemArgs, BreadcrumbArgs>`
                 <${breadcrumbItemTag}
                     href="${x => x.href}"
