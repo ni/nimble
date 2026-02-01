@@ -120,11 +120,3 @@ const metadata: Meta<AnchorButtonArgs> = {
 export default metadata;
 
 export const anchorButton: StoryObj<AnchorButtonArgs> = {};
-
-export const iconAnchorButton: StoryObj<AnchorButtonArgs> = {
-    args: {
-        icon: true,
-        contentHidden: true,
-        appearance: ButtonAppearance.ghost
-    }
-};
