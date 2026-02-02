@@ -1,13 +1,15 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
-import * as conversationStories from './chat-conversation.stories';
-import * as messageStories from '../message/chat-message.stories';
-import * as inputStories from '../input/chat-input.stories';
-import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
+import * as conversationStories from './chat-conversation.stories';
+import * as messageStories from '../message/chat-message.stories';
+import * as inputStories from '../input/chat-input.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import { Tag } from '../../../utilities/story-layout';
+
 
 <Meta of={conversationStories} />
 <Title of={conversationStories} />
