@@ -1,13 +1,16 @@
 import { html, slotted, ViewTemplate } from '@ni/fast-element';
 import {
+    endSlotTemplate,
+    startSlotTemplate,
     type FoundationElementTemplate
 } from '@ni/fast-foundation';
-import type { ChatMessageInbound } from '.';
+import type { ChatMessageInbound, ChatMessageInboundOptions } from '.';
 
 export const template: FoundationElementTemplate<
-ViewTemplate<ChatMessageInbound>
-> = () => html<ChatMessageInbound>`
+ViewTemplate<ChatMessageInbound>,
+ChatMessageInboundOptions> = (context, definition) => html<ChatMessageInbound>`
     <div class="container">
+        ${startSlotTemplate(context, definition)}
         <section class="message-content">
             <slot></slot>
         </section>
@@ -17,5 +20,6 @@ ViewTemplate<ChatMessageInbound>
                 ${slotted({ property: 'slottedFooterActionsElements' })}
            ></slot>
         </section>
+        ${endSlotTemplate(context, definition)}
     </div>
 `;
