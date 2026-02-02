@@ -72,6 +72,7 @@ describe('Spright chat input', () => {
                     send-button-label="Send button label value"
                     value="Value value"
                     character-limit="10"
+                    >
                 </spright-chat-input>`,
             standalone: false
         })
@@ -134,7 +135,7 @@ describe('Spright chat input', () => {
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
             public value = 'initial';
-            public characterLimit = 10;
+            public characterLimit = 20;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -187,14 +188,14 @@ describe('Spright chat input', () => {
         });
 
         it('can be configured with property binding for characterLimit', () => {
-            expect(directive.characterLimit).toBe(10);
-            expect(nativeElement.characterLimit).toBe(10);
-
-            fixture.componentInstance.characterLimit = 20;
-            fixture.detectChanges();
-
             expect(directive.characterLimit).toBe(20);
             expect(nativeElement.characterLimit).toBe(20);
+
+            fixture.componentInstance.characterLimit = 10;
+            fixture.detectChanges();
+
+            expect(directive.characterLimit).toBe(10);
+            expect(nativeElement.characterLimit).toBe(10);
         });
     });
 
@@ -217,7 +218,7 @@ describe('Spright chat input', () => {
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
             public value = 'initial';
-            public characterLimit = 10;
+            public characterLimit = 20;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -269,14 +270,14 @@ describe('Spright chat input', () => {
         });
 
         it('can be configured with attribute binding for characterLimit', () => {
-            expect(directive.characterLimit).toBe(10);
-            expect(nativeElement.characterLimit).toBe(10);
-
-            fixture.componentInstance.characterLimit = 20;
-            fixture.detectChanges();
-
             expect(directive.characterLimit).toBe(20);
             expect(nativeElement.characterLimit).toBe(20);
+
+            fixture.componentInstance.characterLimit = 10;
+            fixture.detectChanges();
+
+            expect(directive.characterLimit).toBe(10);
+            expect(nativeElement.characterLimit).toBe(10);
         });
     });
 });
