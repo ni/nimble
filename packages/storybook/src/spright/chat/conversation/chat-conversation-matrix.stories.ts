@@ -289,7 +289,7 @@ const slottedButtonsInboundMessageComponent = (
             width: 100%;
             height: 100%;
         ">
-            <${chatMessageInboundTag}">
+            <${chatMessageInboundTag}>
                 <div style="
                     width: 100px;
                     border: 1px blue solid;
