@@ -69,6 +69,10 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public valueChanged(): void {
+        if (this.characterLimit !== undefined && this.value.length > this.characterLimit) {
+            this.value = this.value.slice(0, this.characterLimit);
+            return;
+        }
         if (this.textArea) {
             this.textArea.value = this.value;
             this.disableSendButton = this.shouldDisableSendButton();

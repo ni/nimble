@@ -126,6 +126,45 @@ describe('ChatInput', () => {
             await page.pressShiftEnterKey();
             expect(element.value).toEqual('new value\n');
         });
+
+        describe('characterLimit', () => {
+            beforeEach(async () => {
+                await connect();
+            });
+
+            it('truncates user input when exceeded', () => {
+                element.characterLimit = 10;
+                page.setText('a'.repeat(20));
+                
+                expect(element.value).toEqual('a'.repeat(10));
+                expect(page.getRenderedText()).toEqual('a'.repeat(10));
+            });
+
+            it('allows input within limit', () => {
+                element.characterLimit = 10;
+                page.setText('aaa');
+                
+                expect(element.value).toEqual('aaa');
+                expect(page.getRenderedText()).toEqual('aaa');
+            });
+
+            it('does not truncate when undefined', () => {
+                const longText = 'a'.repeat(20);
+                page.setText(longText);
+                
+                expect(element.value).toEqual(longText);
+                expect(page.getRenderedText()).toEqual(longText);
+            });
+
+            it('truncates value property set when exceeded', () => {
+                element.characterLimit = 10;
+                element.value = 'a'.repeat(20);
+                processUpdates();
+                
+                expect(element.value).toEqual('a'.repeat(10));
+                expect(page.getRenderedText()).toEqual('a'.repeat(10));
+            });
+        });
     });
 
     describe('send', () => {
