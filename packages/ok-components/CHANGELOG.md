@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Feb 2026 13:53:04 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.1
+
+Mon, 02 Feb 2026 13:53:04 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.0
 
 ## 0.2.0
 

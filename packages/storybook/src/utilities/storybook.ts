@@ -9,6 +9,7 @@ import {
     backgroundStates,
     defaultBackgroundState
 } from './states';
+import { transformSource } from './transformSource';
 
 export const fastParameters = () => ({
     a11y: { disable: true },
@@ -36,7 +37,8 @@ export const renderViewTemplate = <TSource>(
     // Capture the outerHTML content before the node is attached to the DOM
     // to workaround outerHTML being called after the element is attached to the DOM
     // https://github.com/ni/nimble/issues/2706
-    const value = content.outerHTML;
+    const outerHtml = content.outerHTML;
+    const value = transformSource(outerHtml);
     Object.defineProperty(content, 'outerHTML', {
         value,
     });
