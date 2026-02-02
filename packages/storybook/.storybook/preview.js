@@ -28,6 +28,7 @@ const parameters = {
             // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
             order: [
                 'Getting Started',
+                'Using Storybook',
                 'Components',
                 // Intentionally no docs for 'Components'
                 'Incubating',
