@@ -3,7 +3,7 @@ import overviewImage from './storybook-overview.png';
 import nimbleLogo from './nimble-logo-icon.svg';
 import { NimbleAnchorButton } from '@ni/nimble-react/anchor-button';
 import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
-import { theme } from '../utilities/story-layout';
+import { css, theme } from '../utilities/story-layout';
 
 <Meta title="Getting Started" />
 
@@ -16,7 +16,19 @@ import { theme } from '../utilities/story-layout';
   The [Nimble Design System](https://nimble.ni.dev/) is an easy to use collection
   of well-designed, styled components that can be used in any NI web application.
 
-  <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px'}}>
+  <div>
+    {css`
+      :scope {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 16px;
+      }
+      @media (max-width: 480px) {
+        :scope {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    `}
     <NimbleAnchorButton target="_parent" href="./?path=/docs/using-storybook--docs" appearance="block">Using Storybook</NimbleAnchorButton>
     <NimbleAnchorButton target="_parent" href="https://github.com/ni/nimble#getting-started" appearance="block">Get Started (GitHub)</NimbleAnchorButton>
     <NimbleAnchorButton target="_parent" href="./example-client-app/index.html" appearance="block">Example Angular App</NimbleAnchorButton>

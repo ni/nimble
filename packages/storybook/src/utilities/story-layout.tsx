@@ -3,7 +3,7 @@ import { NimbleIconCheck } from '@ni/nimble-react/icons/check';
 import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
 import { NimbleIconExclamationMark } from '@ni/nimble-react/icons/exclamation-mark';
 
-const css = (strings: TemplateStringsArray, ...values: unknown[]): React.JSX.Element => <style>
+export const css = (strings: TemplateStringsArray, ...values: unknown[]): React.JSX.Element => <style>
     {`@scope {${String.raw({ raw: strings }, ...values)}}`}
 </style>;
 
