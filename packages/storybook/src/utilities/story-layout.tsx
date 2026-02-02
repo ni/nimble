@@ -11,7 +11,7 @@ interface ChildrenProp {
     children?: ReactNode;
 }
 
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+export const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
 /**
  * Renders a frame to match visual design of existing Storybook Doc blocks.
