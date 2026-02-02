@@ -30,12 +30,6 @@ const placeholderStates = [
 ] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
-const characterLimitStates = [
-    ['empty', ''],
-    ['one line', 1]
-] as const;
-type CharacterLimitState = (typeof characterLimitStates)[number];
-
 const metadata: Meta = {
     title: 'Tests Spright/Chat Input',
     parameters: {
@@ -47,8 +41,7 @@ export default metadata;
 
 const component = (
     [valueLabel, value]: ValueState,
-    [placeholderLabel, placeholder]: PlaceholderState,
-    [characterLimitLabel, characterLimit]: CharacterLimitState
+    [placeholderLabel, placeholder]: PlaceholderState
 ): ViewTemplate => html`
     <p 
         style="
@@ -57,18 +50,17 @@ const component = (
         margin-bottom: 0px;
         "
     >    
-        ${valueLabel} value, ${placeholderLabel} placeholder, ${characterLimitLabel} character limit
+        ${valueLabel} value, ${placeholderLabel} placeholder
     </p>
     <${chatInputTag}
         placeholder="${placeholder}"
         value="${value}"
-        character-limit="${characterLimit}"
     >
     </${chatInputTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [valueStates, placeholderStates, characterLimitStates])
+    createMatrix(component, [valueStates, placeholderStates])
 );
 
 export const hidden: StoryFn = createStory(
