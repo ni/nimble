@@ -22,7 +22,7 @@ export const styles = css`
     ${display('flex')}
 
     :host {
-        min-width: ${standardPadding}};
+        min-width: ${standardPadding};
         min-height: ${standardPadding};
 
         flex-direction: row;
