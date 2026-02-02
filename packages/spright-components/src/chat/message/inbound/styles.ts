@@ -7,16 +7,12 @@ import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 import {
     bodyFont,
     bodyFontColor,
-    borderHoverColor,
-    borderWidth,
     controlSlimHeight,
-    fillSelectedColor,
     largePadding,
     mediumPadding,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { display } from '../../utilities/style/display';
-import { ChatMessageType } from './types';
+import { display } from '../../../utilities/style/display';
 
 export const styles = css`
     ${display('flex')}
@@ -26,18 +22,10 @@ export const styles = css`
         min-height: ${standardPadding};
 
         flex-direction: row;
-        justify-content: center;
+        justify-content: flex-start;
         flex-shrink: 0;
         font: ${bodyFont};
         color: ${bodyFontColor};
-    }
-
-    :host([message-type='${ChatMessageType.outbound}']) {
-        justify-content: flex-end;
-    }
-
-    :host([message-type='${ChatMessageType.inbound}']) {
-        justify-content: flex-start;
     }
 
     .container {
@@ -56,19 +44,11 @@ export const styles = css`
         overflow-x: auto;
     }
 
-    :host([message-type='${ChatMessageType.outbound}']) .message-content {
-        background: ${fillSelectedColor};
-        border: ${borderWidth} solid ${borderHoverColor};
-        border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
-        padding: ${mediumPadding};
-    }
-
     .footer-actions {
         display: none;
     }
 
-    :host([message-type='${ChatMessageType.inbound}'])
-        .footer-actions.has-content {
+    :host .footer-actions.has-content {
         display: flex;
         column-gap: ${standardPadding};
         margin-top: ${mediumPadding};
@@ -85,7 +65,7 @@ export const styles = css`
         display: none;
     }
 
-    :host([message-type='${ChatMessageType.inbound}']) .end {
+    :host .end {
         display: flex;
         column-gap: ${standardPadding};
         margin-top: ${largePadding};
