@@ -24,9 +24,6 @@ export class ChatInput extends FoundationElement {
     @attr
     public value = '';
 
-    @attr({ attribute: 'character-limit', converter: nullableNumberConverter })
-    public characterLimit?: number;
-
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
 
@@ -57,11 +54,7 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public textAreaInputHandler(): void {
-        const currentValue = this.textArea!.value;
-        this.value = this.characterLimit !== undefined
-            ? currentValue.slice(0, this.characterLimit)
-            : currentValue;
-        this.textArea!.value = this.value;
+        this.value = this.textArea!.value;
         this.disableSendButton = this.shouldDisableSendButton();
     }
 
@@ -69,10 +62,6 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public valueChanged(): void {
-        if (this.characterLimit !== undefined && this.value.length > this.characterLimit) {
-            this.value = this.value.slice(0, this.characterLimit);
-            return;
-        }
         if (this.textArea) {
             this.textArea.value = this.value;
             this.disableSendButton = this.shouldDisableSendButton();
@@ -96,8 +85,7 @@ export class ChatInput extends FoundationElement {
             return;
         }
         const eventDetail: ChatInputSendEventDetail = {
-            text: this.textArea!.value,
-            characterLimit: this.characterLimit
+            text: this.textArea!.value
         };
         this.resetInput();
         this.$emit('send', eventDetail);

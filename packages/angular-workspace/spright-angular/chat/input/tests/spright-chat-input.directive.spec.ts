@@ -58,9 +58,9 @@ describe('Spright chat input', () => {
             expect(nativeElement.value).toEqual('');
         });
 
-        it('has expected defaults for characterLimit', () => {
-            expect(directive.characterLimit).toBeUndefined();
-            expect(nativeElement.characterLimit).toBeUndefined();
+        it('has expected defaults for maxlength', () => {
+            expect(directive.maxlength).toBe(-1);
+            expect(nativeElement.maxlength).toBe(-1);
         });
     });
 
@@ -71,7 +71,7 @@ describe('Spright chat input', () => {
                     placeholder="Placeholder value"
                     send-button-label="Send button label value"
                     value="Value value"
-                    character-limit="10"
+                    maxlength="10"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -111,9 +111,9 @@ describe('Spright chat input', () => {
             expect(nativeElement.value).toBe('Value value');
         });
 
-        it('will use template string values for characterLimit', () => {
-            expect(directive.characterLimit).toBe(10);
-            expect(nativeElement.characterLimit).toBe(10);
+        it('will use template string values for maxlength', () => {
+            expect(directive.maxlength).toBe(10);
+            expect(nativeElement.maxlength).toBe(10);
         });
     });
 
@@ -124,7 +124,7 @@ describe('Spright chat input', () => {
                     [placeholder]="placeholder"
                     [sendButtonLabel]="sendButtonLabel"
                     [value]="value"
-                    [characterLimit]="characterLimit"
+                    [maxlength]="maxlength"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -135,7 +135,7 @@ describe('Spright chat input', () => {
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
             public value = 'initial';
-            public characterLimit = 20;
+            public maxlength = 20;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -187,15 +187,15 @@ describe('Spright chat input', () => {
             expect(nativeElement.value).toBe('updated value value');
         });
 
-        it('can be configured with property binding for characterLimit', () => {
-            expect(directive.characterLimit).toBe(20);
-            expect(nativeElement.characterLimit).toBe(20);
+        it('can be configured with property binding for maxlength', () => {
+            expect(directive.maxlength).toBe(20);
+            expect(nativeElement.maxlength).toBe(20);
 
-            fixture.componentInstance.characterLimit = 10;
+            fixture.componentInstance.maxlength = 10;
             fixture.detectChanges();
 
-            expect(directive.characterLimit).toBe(10);
-            expect(nativeElement.characterLimit).toBe(10);
+            expect(directive.maxlength).toBe(10);
+            expect(nativeElement.maxlength).toBe(10);
         });
     });
 
@@ -207,7 +207,7 @@ describe('Spright chat input', () => {
                     [attr.placeholder]="placeholder"
                     [attr.send-button-label]="sendButtonLabel"
                     [attr.value]="value"
-                    [attr.character-limit]="characterLimit"
+                    [attr.maxlength]="maxlength"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -218,7 +218,7 @@ describe('Spright chat input', () => {
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
             public value = 'initial';
-            public characterLimit = 20;
+            public maxlength = 20;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -269,15 +269,15 @@ describe('Spright chat input', () => {
             expect(nativeElement.value).toBe('updated value value');
         });
 
-        it('can be configured with attribute binding for characterLimit', () => {
-            expect(directive.characterLimit).toBe(20);
-            expect(nativeElement.characterLimit).toBe(20);
+        it('can be configured with attribute binding for maxlength', () => {
+            expect(directive.maxlength).toBe(20);
+            expect(nativeElement.maxlength).toBe(20);
 
-            fixture.componentInstance.characterLimit = 10;
+            fixture.componentInstance.maxlength = 10;
             fixture.detectChanges();
 
-            expect(directive.characterLimit).toBe(10);
-            expect(nativeElement.characterLimit).toBe(10);
+            expect(directive.maxlength).toBe(10);
+            expect(nativeElement.maxlength).toBe(10);
         });
     });
 });
