@@ -100,8 +100,7 @@ export const createMatrixThemeStory = <TSource>(
         const wrappedMatrixTemplate = html<TSource>`
             <div class="code-hide-top-container">${matrixTemplate}</div>
         `;
-        const fragment = renderViewTemplate(wrappedMatrixTemplate, source);
-        const content = fragment.firstElementChild!;
+        const content = renderViewTemplate(wrappedMatrixTemplate, source);
         return content;
     };
 };

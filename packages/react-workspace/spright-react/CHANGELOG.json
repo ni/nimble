@@ -2,6 +2,57 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Tue, 03 Feb 2026 14:40:29 GMT",
+      "version": "0.10.1",
+      "tag": "@ni/spright-react_v0.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.6.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Feb 2026 13:53:04 GMT",
+      "version": "0.10.0",
+      "tag": "@ni/spright-react_v0.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-react",
+            "commit": "cb3949121e6d8c2f26e0607e193a2e6e9a415e08",
+            "comment": "Add dedicated chat message components for inbound, outbound, and system messages. The original chat message component is deprecated and will be removed in a future release."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.6.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "0.9.0",
+      "tag": "@ni/spright-react_v0.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.5.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Jan 2026 21:08:50 GMT",
       "version": "0.8.4",
       "tag": "@ni/spright-react_v0.8.4",

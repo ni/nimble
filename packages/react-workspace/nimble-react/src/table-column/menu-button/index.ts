@@ -1,5 +1,5 @@
 import { TableColumnMenuButton, tableColumnMenuButtonTag } from '@ni/nimble-components/dist/esm/table-column/menu-button';
-import { type MenuButtonColumnToggleEventDetail } from '@ni/nimble-components/dist/esm/table-column/menu-button/types';
+import type { MenuButtonColumnToggleEventDetail } from '@ni/nimble-components/dist/esm/table-column/menu-button/types';
 import { wrap, type EventName } from '../../utilities/react-wrapper';
 
 export { tableColumnMenuButtonTag };
