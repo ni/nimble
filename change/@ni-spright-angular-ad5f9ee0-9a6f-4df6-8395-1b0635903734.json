@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix import syntax to obey new lint rule",
-  "packageName": "@ni/spright-angular",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
