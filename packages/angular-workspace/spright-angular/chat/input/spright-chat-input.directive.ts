@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type ChatInput, chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
-import { type ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
+import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 
 export type { ChatInput };
 export type { ChatInputSendEventDetail };
