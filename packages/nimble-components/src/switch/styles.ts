@@ -37,6 +37,7 @@ export const styles = css`
         --ni-private-switch-height: 24px;
         --ni-private-switch-indicator-size: 24px;
         --ni-private-switch-indicator-inner-size: 18px;
+        --ni-private-switch-indicator-margin: -2px;
         padding-bottom: calc(
             ${controlHeight} - var(--ni-private-switch-height)
         );
@@ -121,7 +122,7 @@ export const styles = css`
         width: var(--ni-private-switch-indicator-size);
         height: var(--ni-private-switch-indicator-size);
         border-radius: calc(var(--ni-private-switch-indicator-size) / 2);
-        margin: -2px;
+        margin: var(--ni-private-switch-indicator-margin);
         border: ${borderWidth} solid
             var(--ni-private-switch-indicator-border-color);
     }
@@ -175,7 +176,6 @@ export const styles = css`
         height: var(--ni-private-switch-indicator-inner-size);
         border-radius: calc(var(--ni-private-switch-indicator-inner-size) / 2);
         opacity: 0;
-        transition: opacity ${smallDelay} ease-in-out;
     }
 
     :host([aria-checked='true']) .checked-indicator-inner {
