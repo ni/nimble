@@ -10,6 +10,7 @@ export const template = html<ChatInput>`
         placeholder="${x => x.placeholder}"
         rows="1"
         tabindex="${x => x.tabIndex}"
+        maxlength="${x => x.maxlength}"
         @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
         @input="${x => x.textAreaInputHandler()}"
     ></textarea>

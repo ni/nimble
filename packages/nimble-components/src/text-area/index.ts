@@ -34,9 +34,6 @@ export class TextArea extends mixinErrorPattern(
     @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
     public appearanceReadOnly = false;
 
-    @attr({ converter: nullableNumberConverter })
-    public override maxlength = -1;
-
     /**
      * The width of the vertical scrollbar, if displayed.
      * @internal
