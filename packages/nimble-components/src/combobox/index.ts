@@ -145,7 +145,7 @@ export class Combobox
         const prev = this._value;
         let updatedValue = next;
 
-        if (this.$fastController.isConnected && this.options) {
+        if (this.$fastController.isConnected && this.options !== null) {
             const selectedIndex = this.findIndexOfValidOption(next);
 
             const prevSelectedValue = this.options[this.selectedIndex]?.text;
@@ -177,7 +177,7 @@ export class Combobox
      */
     public override get options(): ListboxOption[] {
         Observable.track(this, 'options');
-        return this.filteredOptions && this.filter
+        return this.filter
             ? this.filteredOptions
             : this._options;
     }
@@ -354,13 +354,13 @@ export class Combobox
             );
         }
 
-        if (!e.inputType.includes('deleteContent') && this.filter.length) {
+        if (!e.inputType.includes('deleteContent') && this.filter.length > 0) {
             if (this.isAutocompleteList && !this.open) {
                 this.open = true;
             }
 
             if (this.isAutocompleteInline) {
-                if (this.filteredOptions.length) {
+                if (this.filteredOptions.length > 0) {
                     this.selectedOptions = [this.filteredOptions[0]!];
                     this.selectedIndex = this.options.indexOf(
                         this.firstSelectedOption
@@ -526,14 +526,14 @@ export class Combobox
      * Overrides `Listbox.setDefaultSelectedOption`
      */
     public override setDefaultSelectedOption(): void {
-        if (this.$fastController.isConnected && this.options) {
+        if (this.$fastController.isConnected && this.options !== null) {
             const selectedIndex = this.options.findIndex(
                 el => !el.disabled
                     && (el.getAttribute('selected') !== null || el.selected)
             );
 
             this.selectedIndex = selectedIndex;
-            if (!this.dirtyValue && this.firstSelectedOption) {
+            if (!this.dirtyValue && this.firstSelectedOption !== null) {
                 this.value = this.firstSelectedOption.text;
             }
             this.setSelectedOptions();
@@ -662,7 +662,7 @@ export class Combobox
         if (this.open) {
             if (this.contains(document.activeElement)) {
                 this.control.focus();
-                if (this.firstSelectedOption) {
+                if (this.firstSelectedOption !== null) {
                     requestAnimationFrame(() => {
                         this.firstSelectedOption?.scrollIntoView({
                             block: 'nearest'
@@ -740,7 +740,7 @@ export class Combobox
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
-        if (this.region && this.controlWrapper) {
+        if (this.region && this.controlWrapper !== null) {
             this.region.anchorElement = this.controlWrapper;
         }
     }
@@ -749,7 +749,7 @@ export class Combobox
         _prev: HTMLElement | undefined,
         _next: HTMLElement | undefined
     ): void {
-        if (this.region && this.controlWrapper) {
+        if (this.region && this.controlWrapper !== null) {
             this.region.anchorElement = this.controlWrapper;
         }
     }
@@ -777,7 +777,7 @@ export class Combobox
      * Focus and set the content of the control based on the first selected option.
      */
     private setInputToSelection(): void {
-        if (this.firstSelectedOption) {
+        if (this.firstSelectedOption !== null) {
             this.control.value = this.firstSelectedOption.text;
             this.control.focus();
         }
@@ -787,7 +787,7 @@ export class Combobox
      * Focus, set and select the content of the control based on the first selected option.
      */
     private setInlineSelection(): void {
-        if (this.firstSelectedOption) {
+        if (this.firstSelectedOption !== null) {
             this.setInputToSelection();
             this.control.setSelectionRange(
                 this.filter.length,

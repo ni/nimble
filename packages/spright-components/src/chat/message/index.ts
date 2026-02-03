@@ -49,7 +49,7 @@ export class ChatMessage extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        this.footerActionsIsEmpty = !next?.length;
+        this.footerActionsIsEmpty = next === undefined || next.length === 0;
     }
 }
 applyMixins(ChatMessage, StartEnd);

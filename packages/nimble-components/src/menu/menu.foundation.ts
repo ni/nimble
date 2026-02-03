@@ -251,7 +251,7 @@ export class Menu extends FoundationElement {
         const menuItems = this.menuItems.filter(this.isMenuItemElement);
 
         // if our focus index is not -1 we have items
-        if (menuItems.length) {
+        if (menuItems.length > 0) {
             this.focusIndex = 0;
         }
 

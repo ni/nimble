@@ -50,10 +50,8 @@ export function arrayToTree<TData extends TableRecord>(
             };
         }
 
-        // if we track orphans, delete this item from the orphan set if it is in it
-        if (orphanIds) {
-            orphanIds.delete(itemId);
-        }
+        // delete this item from the orphan set if it is in it
+        orphanIds.delete(itemId);
 
         // add the current item's data to the item in the lookup table
         lookup[itemId]!.clientRecord = item;
@@ -77,10 +75,8 @@ export function arrayToTree<TData extends TableRecord>(
                     originalIndex: undefined
                 };
 
-                // if we track orphans, add the generated parent to the orphan list
-                if (orphanIds) {
-                    orphanIds.add(parentId);
-                }
+                // add the generated parent to the orphan list
+                orphanIds.add(parentId);
             }
 
             // add the current item to the parent
@@ -88,7 +84,7 @@ export function arrayToTree<TData extends TableRecord>(
         }
     }
 
-    if (orphanIds?.size) {
+    if (orphanIds.size > 0) {
         const orphans = Array.from(orphanIds.values()).join(',');
         throw new Error(
             `The items array contains orphans that point to the following parentIds: [${orphans}]. These parentIds do not exist in the items array.`
@@ -111,7 +107,7 @@ export function arrayToTree<TData extends TableRecord>(
  */
 export function countNodes(tree: TableNodePartial[]): number {
     return tree.reduce(
-        (sum, n) => sum + 1 + (n.subRows! && countNodes(n.subRows)),
+        (sum, n) => sum + 1 + (n.subRows !== undefined ? countNodes(n.subRows) : 0),
         0
     );
 }

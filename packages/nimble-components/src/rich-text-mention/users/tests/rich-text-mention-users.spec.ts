@@ -70,9 +70,7 @@ describe('RichTextMentionUsers', () => {
     }
 
     afterEach(async () => {
-        if (disconnect) {
-            await disconnect();
-        }
+        await disconnect();
     });
 
     it('can construct an element instance', () => {
