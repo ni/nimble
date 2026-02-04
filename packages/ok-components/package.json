@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-components",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "NI Ok Components",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
@@ -37,8 +37,8 @@
     "@ni/fast-element": "^10.0.0",
     "@ni/fast-foundation": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.1.0",
-    "@ni/spright-components": "^6.6.0",
+    "@ni/nimble-components": "^35.1.1",
+    "@ni/spright-components": "^6.6.1",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
