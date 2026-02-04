@@ -34,8 +34,8 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
-    "@ni/fast-element": "^10.0.0",
-    "@ni/fast-foundation": "^10.1.2",
+    "@ni/fast-element": "^10.1.0",
+    "@ni/fast-foundation": "^10.1.5",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "^35.1.1",
     "@ni/spright-components": "^6.6.1",
