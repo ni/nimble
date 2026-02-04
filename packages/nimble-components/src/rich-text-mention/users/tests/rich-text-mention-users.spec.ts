@@ -75,7 +75,7 @@ describe('RichTextMentionUsers', () => {
         }
     });
 
-    fit('can construct an element instance', () => {
+    it('can construct an element instance', () => {
         expect(document.createElement(richTextMentionUsersTag)).toBeInstanceOf(
             RichTextMentionUsers
         );
