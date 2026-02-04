@@ -11,7 +11,6 @@ This spec describes a set of components that can be used to compose a chat inter
    - system
    - outbound
 - chat conversation: a layout component that allows slotting messages and an input
-- chat disclaimer: a static legal message that can appear within a conversation
 
 ### Background
 
@@ -87,7 +86,7 @@ All end text buttons must meet the following criteria
 
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
-1. Includes a slot to place an input component below the messages and a slot for the disclaimer below that.
+1. Includes a slot to place an input component below the messages and a slot for a legal disclaimer below that.
 1. Only appearance of its own is to set a background color.
 
 #### Chat input
@@ -107,11 +106,6 @@ All end text buttons must meet the following criteria
 1. Includes slots for specifying additional content like a button for attaching files and chips for viewing/clearing attached files
 1. Styling for default, focus, and rollover states
 1. Displays errors via the standard red `!` icon and error text
-
-#### Chat disclaimer
-
-1. A short message ("AI-generated content may be incorrect") and static link to more information ("[View Terms and Conditions](https://www.ni.com/content/dam/web/pdfs/legal/terms_and_conditions_generative_ai.pdf)").
-1. The link `target` will be configurable. Some clients require the link to be configured to open in a new browser context since they are hosted in an embedded pane. Other clients follow best practices which prefer opening links in the same context.
 
 ### Risks and Challenges
 
@@ -159,7 +153,10 @@ These components are competing against possible implementations within applicati
         <nimble-spinner></nimble-spinner>
     </spright-chat-message-system>
     <spright-chat-input slot="input></spright-chat-input>
-    <spright-chat-disclaimer slot="end"></spright-chat-disclaimer>
+    <span slot="end">
+        <span>AI-generated content may be incorrect.</span>
+        <a href="...">View terms and conditions</a>
+    </span>
 </spright-chat-conversation>
 ```
 
@@ -283,7 +280,7 @@ Instead of clients slotting the login button, the component could expose attribu
 - _Slots_
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
     - a single chat input can optionally be added to the `input` slot. It will be placed below the messages.
-    - a single chat disclaimer can optionally be added to the `end` slot. It will be placed below the input.
+    - chat disclaimer content can optionally be added to the `end` slot. It will be placed below the input. The slot will apply color and font size styles to text and anchor content to match the visual design spec. See [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/ChatbotViewFooter.razor) for reference.
 
 #### Input
 
@@ -328,18 +325,6 @@ Any of these approaches would achieve the goal of exposing the ability to get an
 In the case of the auto-clearing being undesirable, a `resetInput()` method was proposed that users of the component would be required to call every time a `send` event occurred.
 
 [Some concern](https://github.com/ni/nimble/pull/2611#discussion_r2110130708) was raised with having the 'Send' button (or pressing \<Enter\>) automatically clearing the text, however there is enough basis to do so both in that this is designed behavior for the control (there is no expectation that the text field should maintain any text after the send event occurs), and we already have a similar UX semantic with the clear button for the `Select`.
-
-#### Disclaimer
-
-- _Component Name_ `spright-chat-disclaimer`
-- _Props/Attrs_
-    - `target` - an attribute which is forwarded to the link's `target` attribute. Defaults to `_self`.
-    - User-visible strings will be be specified via the chat label provider. The link URL will not be configurable.
-- _Methods_
-- _Events_
-- _CSS Classes and CSS Custom Properties that affect the component_
-- _How native CSS Properties (height, width, etc.) affect the component_
-- _Slots_
 
 ### Anatomy
 
@@ -423,14 +408,6 @@ to implement the ability to grow the height of the text area as the user types. 
 [is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility) (though it should land in Safari soon).
 Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
 that changes before the feature is available in all supported browsers, we will revisit this decision and consider implementing a JavaScript-based resizing solution.
-
-#### Disclaimer
-
-The template will simply contain a `span` and a `nimble-anchor` with contents populated by label provider strings.
-
-Most styling can be achieved with existing tokens and APIs. The visual design calls for some anchor styling which is not available today (grey text, smaller font size). Since this is the only known use case for this design, we can implement it by overriding anchor token values in the disclaimer component rather than adding new public API to the anchor.
-
-We can use [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/ChatbotViewFooter.razor) for reference.
 
 ### Native form integration
 
