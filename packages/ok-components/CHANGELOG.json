@@ -2,6 +2,33 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Wed, 04 Feb 2026 01:29:10 GMT",
+      "version": "0.2.3",
+      "tag": "@ni/ok-components_v0.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "6d4d58fd3901c8c8e956b1b66c147f98e35973fd",
+            "comment": "Update fast-element and fast-foundation dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.1.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.6.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Feb 2026 14:40:29 GMT",
       "version": "0.2.2",
       "tag": "@ni/ok-components_v0.2.2",

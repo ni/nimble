@@ -24,8 +24,8 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
     "@ni-private/eslint-config-nimble": "*",
-    "@ni/fast-element": "^10.0.0",
-    "@ni/fast-foundation": "^10.1.1",
+    "@ni/fast-element": "^10.1.0",
+    "@ni/fast-foundation": "^10.1.5",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-react": "*",
