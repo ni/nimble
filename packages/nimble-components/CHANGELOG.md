@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 04 Feb 2026 01:29:10 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.2.0
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Minor changes
+
+- Add Stepper components ([ni/nimble@1143c37](https://github.com/ni/nimble/commit/1143c3764bee89f48c9b5c6af837a882fa6f06a1))
 
 ## 35.1.2
 

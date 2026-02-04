@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 04 Feb 2026 08:13:24 GMT",
+      "version": "35.2.0",
+      "tag": "@ni/nimble-components_v35.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1143c3764bee89f48c9b5c6af837a882fa6f06a1",
+            "comment": "Add Stepper components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Feb 2026 01:29:10 GMT",
       "version": "35.1.2",
       "tag": "@ni/nimble-components_v35.1.2",

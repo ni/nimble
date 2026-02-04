@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add Stepper components",
-  "packageName": "@ni/nimble-components",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
