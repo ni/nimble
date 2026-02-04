@@ -183,7 +183,7 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
 
         this.activetab = undefined;
         let firstFocusableTab: HTMLElement | undefined;
-        for (const [index, tab] of this.tabs.entries()) {
+        this.tabs.forEach((tab: HTMLElement, index: number) => {
             const tabId: string = this.tabIds[index]!;
             const isActiveTab = this.activeid === tabId;
             if (!firstFocusableTab && this.isFocusableElement(tab)) {
@@ -207,10 +207,11 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
 
             tab.style[gridVerticalProperty] = '';
             tab.style[gridHorizontalProperty] = `${index + 1}`;
-        }
+        });
 
         if (
             firstFocusableTab
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             && (!this.activetab || !this.isFocusableElement(this.activetab))
         ) {
             firstFocusableTab.setAttribute('tabindex', '0');
