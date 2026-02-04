@@ -22,5 +22,6 @@ export class NimbleLabelProviderCoreWithDefaultsDirective {
         this.elementRef.nativeElement.loading = $localize`:Nimble loading - loading|:Loading…`;
         this.elementRef.nativeElement.scrollBackward = $localize`:Nimble scroll backward|:Scroll backward`;
         this.elementRef.nativeElement.scrollForward = $localize`:Nimble scroll forward|:Scroll forward`;
+        this.elementRef.nativeElement.itemRemove = $localize`:Nimble item - remove|:Remove`;
     }
 }
