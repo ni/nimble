@@ -211,6 +211,7 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
 
         if (
             firstFocusableTab
+            // False positive. See: https://github.com/typescript-eslint/typescript-eslint/issues/12036
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             && (!this.activetab || !this.isFocusableElement(this.activetab))
         ) {
