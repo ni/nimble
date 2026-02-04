@@ -31,8 +31,6 @@ export const componentsNimbleConfig = defineConfig([
             // Strict rules components have not adopted yet
             // See: https://github.com/ni/nimble/issues/2777
             '@typescript-eslint/no-unnecessary-condition': 'off',
-            '@typescript-eslint/strict-boolean-expressions': 'off',
-            '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'off'
         },
     },
     {
