@@ -1,8 +1,94 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Fri, 26 Dec 2025 05:48:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.3.2
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.0
+
+## 32.3.1
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.2
+
+## 32.3.0
+
+Wed, 04 Feb 2026 00:56:35 GMT
+
+### Minor changes
+
+- NimbleLabelProviderCoreDirective: Add itemRemove label, update scrollForward/scrollBackward to allow scroll-forward/scroll-backward binding. ([ni/nimble@babcd06](https://github.com/ni/nimble/commit/babcd0690855a7003ecd7c56c64a98d7b96d9d43))
+
+## 32.2.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.1
+
+## 32.2.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.1.0
+
+## 32.1.1
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Internal change to icon pattern ([ni/nimble@ea48f0f](https://github.com/ni/nimble/commit/ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63))
+- Bump @ni/nimble-components to v35.0.3
+
+## 32.1.0
+
+Fri, 23 Jan 2026 16:37:46 GMT
+
+### Minor changes
+
+- Angular integration for nimble-chip component ([ni/nimble@fed6c36](https://github.com/ni/nimble/commit/fed6c36b6fe971d4699a6b8c1b55084f7fe8a651))
+
+## 32.0.2
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-components to v35.0.2
+- Bump @ni/unit-format to v1.0.2
+
+## 32.0.1
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.1
+- Bump @ni/unit-format to v1.0.1
+
+## 32.0.0
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Major changes
+
+- Breaking: `@ni/nimble-angular/pipes` unit scales renamed, i.e. `byteUnitScale` to `unitScaleByte` ([ni/nimble@e26c67a](https://github.com/ni/nimble/commit/e26c67af559e81c7a7869429869483dc17ec2fb1))
+- Bump @ni/nimble-components to v35.0.0
+- Bump @ni/unit-format to v1.0.0
 
 ## 31.0.1
 

@@ -16,18 +16,18 @@ import { NimbleCheckbox } from '@ni/nimble-react/checkbox';
 import { NimbleRadioGroup } from '@ni/nimble-react/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/radio';
 import { NimbleTextField } from '@ni/nimble-react/text-field';
-import { NimbleDialog, type Dialog, type DialogRef, DialogUserDismissed } from '@ni/nimble-react/dialog';
-import { NimbleDrawer, type Drawer, type DrawerRef, DrawerUserDismissed, DrawerLocation } from '@ni/nimble-react/drawer';
+import { NimbleDialog, type Dialog, DialogUserDismissed, fromDialogRef } from '@ni/nimble-react/dialog';
+import { NimbleDrawer, type Drawer, DrawerUserDismissed, DrawerLocation, fromDrawerRef } from '@ni/nimble-react/drawer';
 import { NimbleMenu } from '@ni/nimble-react/menu';
 import { NimbleMenuItem, type MenuItemChangeEvent } from '@ni/nimble-react/menu-item';
 import { NimbleAnchorMenuItem } from '@ni/nimble-react/anchor-menu-item';
 import { NimbleMenuButton } from '@ni/nimble-react/menu-button';
 import { NimbleIconAdd } from '@ni/nimble-react/icons/add';
-import { NimbleIconCheck } from '@ni/nimble-react/icons/check';
+import { iconCheckTag, NimbleIconCheck } from '@ni/nimble-react/icons/check';
 import { NimbleIconXmarkCheck } from '@ni/nimble-react/icons/xmark-check';
 import { NimbleSpinner } from '@ni/nimble-react/spinner';
 import { NimbleSwitch } from '@ni/nimble-react/switch';
-import { NimbleTable, type Table, type TableRef, type TableRowExpandToggleEvent, type TableRecord, type TableSetRecordHierarchyOptions } from '@ni/nimble-react/table';
+import { NimbleTable, type Table, type TableRowExpandToggleEvent, type TableRecord, type TableSetRecordHierarchyOptions, fromTableRef } from '@ni/nimble-react/table';
 import { NimbleTableColumnText } from '@ni/nimble-react/table-column/text';
 import { NimbleTableColumnAnchor } from '@ni/nimble-react/table-column/anchor';
 import { NimbleTableColumnDateText } from '@ni/nimble-react/table-column/date-text';
@@ -58,7 +58,9 @@ import { NimbleMappingUser } from '@ni/nimble-react/mapping/user';
 import { NimbleRichTextViewer } from '@ni/nimble-react/rich-text/viewer';
 import { SprightChatConversation } from '@ni/spright-react/chat/conversation';
 import { SprightChatInput } from '@ni/spright-react/chat/input';
-import { SprightChatMessage } from '@ni/spright-react/chat/message';
+import { SprightChatMessageInbound } from '@ni/spright-react/chat/message/inbound';
+import { SprightChatMessageOutbound } from '@ni/spright-react/chat/message/outbound';
+import { SprightChatMessageSystem } from '@ni/spright-react/chat/message/system';
 import { NimbleIconCopyText } from '@ni/nimble-react/icons/copy-text';
 import { NimbleIconWebviCustom } from '@ni/nimble-react/icons/webvi-custom';
 
@@ -668,9 +670,7 @@ export function App(): React.JSX.Element {
                                 <div className="sub-container">
                                     <div className="container-label">Dialog</div>
                                     <NimbleDialog
-                                        // Note: Generic types such as Dialog require using the workaround ref type
-                                        // See: https://github.com/ni/nimble/issues/2784
-                                        ref={dialogRef as unknown as DialogRef}
+                                        ref={fromDialogRef(dialogRef)}
                                     >
                                         <span slot="title">This is a dialog</span>
                                         <div>It opened when you pushed the button</div>
@@ -691,9 +691,7 @@ export function App(): React.JSX.Element {
                                 <div className="sub-container">
                                     <div className="container-label">Drawer</div>
                                     <NimbleDrawer
-                                        // Note: Generic types such as Drawer require using the workaround ref type
-                                        // See: https://github.com/ni/nimble/issues/2784
-                                        ref={drawerRef as unknown as DrawerRef}
+                                        ref={fromDrawerRef(drawerRef)}
                                         location={drawerLocation}
                                     >
                                         <header>This is a drawer</header>
@@ -931,9 +929,7 @@ export function App(): React.JSX.Element {
                                 <div className="sub-container">
                                     <div className="container-label">Table</div>
                                     <NimbleTable
-                                        // Note: Generic types such as Table require using the workaround ref type
-                                        // See: https://github.com/ni/nimble/issues/2784
-                                        ref={tableRef as unknown as TableRef}
+                                        ref={fromTableRef(tableRef)}
                                         idFieldName="id"
                                         parentIdFieldName="parentId"
                                         selectionMode="multiple"
@@ -970,7 +966,7 @@ export function App(): React.JSX.Element {
                                             <NimbleMappingIcon
                                                 keyValue="success"
                                                 text="Success"
-                                                icon="nimble-icon-check"
+                                                icon={iconCheckTag}
                                                 severity="success"
                                                 textHidden>
                                             </NimbleMappingIcon>
@@ -1028,9 +1024,7 @@ export function App(): React.JSX.Element {
                                 <div className="sub-container">
                                     <div className="container-label">Table with delayed hierarchy</div>
                                     <NimbleTable
-                                        // Note: Generic types such as Table require using the workaround ref type
-                                        // See: https://github.com/ni/nimble/issues/2784
-                                        ref={delayedHierarchyTableRef as unknown as TableRef}
+                                        ref={fromTableRef(delayedHierarchyTableRef)}
                                         idFieldName="id" parentIdFieldName="parentId" selectionMode="multiple"
                                         onRowExpandToggle={onRowExpandToggle}
                                     >
@@ -1169,12 +1163,12 @@ export function App(): React.JSX.Element {
                                 <div className="sub-container">
                                     <div className="container-label">Chat Conversation and Messages (Spright)</div>
                                     <SprightChatConversation>
-                                        <SprightChatMessage>To start, press any key.</SprightChatMessage>
-                                        <SprightChatMessage messageType="outbound">Where is the Any key?</SprightChatMessage>
-                                        <SprightChatMessage>
+                                        <SprightChatMessageSystem>To start, press any key.</SprightChatMessageSystem>
+                                        <SprightChatMessageOutbound>Where is the Any key?</SprightChatMessageOutbound>
+                                        <SprightChatMessageSystem>
                                             <NimbleSpinner appearance="accent"></NimbleSpinner>
-                                        </SprightChatMessage>
-                                        <SprightChatMessage messageType="inbound">
+                                        </SprightChatMessageSystem>
+                                        <SprightChatMessageInbound>
                                             <NimbleButton slot="footer-actions" appearance='ghost' contentHidden>
                                                 <NimbleIconCopyText slot="start"></NimbleIconCopyText>
                                                 Copy
@@ -1184,11 +1178,11 @@ export function App(): React.JSX.Element {
                                                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
                                             <NimbleButton slot="end" appearance="block">Order a tab</NimbleButton>
                                             <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
-                                        </SprightChatMessage>
+                                        </SprightChatMessageInbound>
                                         {chatUserMessages.map((message, index) => (
-                                            <SprightChatMessage key={index} messageType="outbound">
+                                            <SprightChatMessageOutbound key={index}>
                                                 <span>{message}</span>
-                                            </SprightChatMessage>
+                                            </SprightChatMessageOutbound>
                                         ))}
                                         <SprightChatInput
                                             slot="input"

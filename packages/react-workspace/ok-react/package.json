@@ -1,15 +1,26 @@
 {
   "name": "@ni/ok-react",
-  "version": "0.4.0",
+  "version": "0.5.4",
   "description": "React components for NI Ok Components",
   "keywords": [
     "ni",
     "ok",
     "react"
   ],
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "lint": "eslint .",
+    "format": "eslint . --fix",
+    "pack": "npm pack",
+    "invoke-publish": "npm publish"
+  },
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
     "./*": {
       "types": "./dist/esm/*.d.ts",
       "import": "./dist/esm/*/index.js"
@@ -18,16 +29,10 @@
   "typesVersions": {
     "*": {
       "*": [
+        "dist/esm/*",
         "dist/esm/*/index.d.ts"
       ]
     }
-  },
-  "scripts": {
-    "build": "tsc -p ./tsconfig.json",
-    "lint": "eslint .",
-    "format": "eslint . --fix",
-    "pack": "npm pack",
-    "invoke-publish": "npm publish"
   },
   "repository": {
     "type": "git",
@@ -38,14 +43,14 @@
   },
   "author": "National Instruments",
   "license": "MIT",
-  "devDependencies": {
-    "@ni/ok-components": "^0.1.23",
-    "@ni-private/eslint-config-nimble": "*",
-    "typescript": "~5.8.3"
-  },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/ok-components": "^0.1.23",
+    "@ni/ok-components": "^0.2.4",
     "react": "^17 || ^18 || ^19"
+  },
+  "devDependencies": {
+    "@ni/ok-components": "^0.2.4",
+    "@ni-private/eslint-config-nimble": "*",
+    "typescript": "~5.8.3"
   }
 }

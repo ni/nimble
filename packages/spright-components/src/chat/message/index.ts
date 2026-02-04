@@ -25,6 +25,7 @@ export type ChatMessageOptions = FoundationElementDefinition & StartEndOptions;
 
 /**
  * A Spright component for displaying a chat message
+ * @deprecated Use specific message component types instead
  */
 export class ChatMessage extends FoundationElement {
     /**

@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Wed, 17 Dec 2025 23:15:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.14.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Add forklift icon ([ni/nimble@98fb615](https://github.com/ni/nimble/commit/98fb6159317ad0e8e7cdbbff1cbb18972749c2cb))
+
+## 8.13.7
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
 
 ## 8.13.6
 

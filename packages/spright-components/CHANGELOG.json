@@ -2,6 +2,171 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 04 Feb 2026 08:13:24 GMT",
+      "version": "6.6.3",
+      "tag": "@ni/spright-components_v6.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.2.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Feb 2026 01:29:10 GMT",
+      "version": "6.6.2",
+      "tag": "@ni/spright-components_v6.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "6d4d58fd3901c8c8e956b1b66c147f98e35973fd",
+            "comment": "Update fast-element and fast-foundation dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.1.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Feb 2026 14:40:29 GMT",
+      "version": "6.6.1",
+      "tag": "@ni/spright-components_v6.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "aad1c1447cb1752602f4cae4e455a7abe0556b06",
+            "comment": "Fix import syntax to obey new lint rule"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.1.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Feb 2026 13:53:04 GMT",
+      "version": "6.6.0",
+      "tag": "@ni/spright-components_v6.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "cb3949121e6d8c2f26e0607e193a2e6e9a415e08",
+            "comment": "Add dedicated chat message components for inbound, outbound, and system messages. The original chat message component is deprecated and will be removed in a future release."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "6.5.0",
+      "tag": "@ni/spright-components_v6.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Jan 2026 21:08:50 GMT",
+      "version": "6.4.27",
+      "tag": "@ni/spright-components_v6.4.27",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Jan 2026 03:36:17 GMT",
+      "version": "6.4.26",
+      "tag": "@ni/spright-components_v6.4.26",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "8dad67eea4b456fee7f4f5e1071e1924753092d0",
+            "comment": "consistent module package format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.0.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.9",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 18 Jan 2026 00:56:49 GMT",
+      "version": "6.4.25",
+      "tag": "@ni/spright-components_v6.4.25",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.0.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Jan 2026 18:15:56 GMT",
+      "version": "6.4.24",
+      "tag": "@ni/spright-components_v6.4.24",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Dec 2025 05:48:06 GMT",
       "version": "6.4.23",
       "tag": "@ni/spright-components_v6.4.23",

@@ -1,7 +1,7 @@
 import type { Button } from '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { waitTimeout } from '../../utilities/testing/component';
-import { type Breadcrumb } from '..';
+import type { Breadcrumb } from '..';
 import { breadcrumbItemTag } from '../../breadcrumb-item';
 
 /**

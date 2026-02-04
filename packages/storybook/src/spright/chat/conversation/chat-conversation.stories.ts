@@ -14,8 +14,9 @@ import {
     chatInputTag
 } from '@ni/spright-components/dist/esm/chat/input';
 import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
-import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
-import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
+import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
+import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
+import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { iconCopyTextTag } from '@ni/nimble-components/dist/esm/icons/copy-text';
@@ -59,22 +60,22 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             }
         </style>
         <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
-            <${chatMessageTag} message-type="${() => ChatMessageType.system}">
+            <${chatMessageSystemTag}>
                 To start, press any key.
-            </${chatMessageTag}>
-            <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
+            </${chatMessageSystemTag}>
+            <${chatMessageOutboundTag}>
                 Where is the Any key?
-            </${chatMessageTag}>
-            <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
+            </${chatMessageOutboundTag}>
+            <${chatMessageOutboundTag}>
                 <${richTextViewerTag} markdown="${() => markdownExample}"></${richTextViewerTag}>
-            </${chatMessageTag}>
-            <${chatMessageTag} message-type="${() => ChatMessageType.system}">
+            </${chatMessageOutboundTag}>
+            <${chatMessageSystemTag}>
                 <${spinnerTag}
                     style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
                     appearance="${() => SpinnerAppearance.accent}"
                 ></${spinnerTag}>
-            </${chatMessageTag}>
-            <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
+            </${chatMessageSystemTag}>
+            <${chatMessageInboundTag}>
                 <${buttonTag} slot='footer-actions' appearance='ghost' title='Copy' content-hidden>
                     <${iconCopyTextTag} slot='start'></${iconCopyTextTag}>
                     Copy
@@ -107,7 +108,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 <${buttonTag} slot='end' appearance='block'>
                     Check core temperature
                 </${buttonTag}>
-            </${chatMessageTag}>
+            </${chatMessageInboundTag}>
             ${when(x => x.input, html<ChatConversationArgs, ChatInput>`
                 <${chatInputTag} slot='input' placeholder='Type a message' send-button-label='Send'
                     @send="${(x2, c2) => x2.sendMessage(c2.event as CustomEvent<ChatInputSendEventDetail>, x2.conversationRef)}"
@@ -140,8 +141,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         appearance: 'default',
         input: true,
         sendMessage: (event, conversationRef) => {
-            const message = document.createElement(chatMessageTag);
-            message.messageType = ChatMessageType.outbound;
+            const message = document.createElement(chatMessageOutboundTag);
             const span = document.createElement('span');
             span.textContent = event.detail.text;
             // Preserves new lines and trailing spaces that the user entered

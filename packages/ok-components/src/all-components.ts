@@ -4,7 +4,6 @@
  * that are required instead of leveraging this file.
  */
 
-import '@ni/nimble-components/dist/esm/all-components';
 import '@ni/spright-components/dist/esm/all-components';
 
 import './button';
