@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "35.2.0",
+  "version": "35.2.1",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:icons && npm run build:workers && npm run build:components && npm run build:scss",

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 04 Feb 2026 23:25:16 GMT",
+      "version": "35.2.1",
+      "tag": "@ni/nimble-components_v35.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a410090ddbc5c82fbabec6dc67850997d65bd756",
+            "comment": "Enable two lint rules and fix violations"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Feb 2026 08:13:24 GMT",
       "version": "35.2.0",
       "tag": "@ni/nimble-components_v35.2.0",

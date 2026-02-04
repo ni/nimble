@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Feb 2026 23:25:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.2.1
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Enable two lint rules and fix violations ([ni/nimble@a410090](https://github.com/ni/nimble/commit/a410090ddbc5c82fbabec6dc67850997d65bd756))
 
 ## 35.2.0
 
