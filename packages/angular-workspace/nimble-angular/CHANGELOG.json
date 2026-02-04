@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 04 Feb 2026 00:56:35 GMT",
+      "version": "32.3.0",
+      "tag": "@ni/nimble-angular_v32.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "babcd0690855a7003ecd7c56c64a98d7b96d9d43",
+            "comment": "NimbleLabelProviderCoreDirective: Add itemRemove label, update scrollForward/scrollBackward to allow scroll-forward/scroll-backward binding."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Feb 2026 14:40:29 GMT",
       "version": "32.2.1",
       "tag": "@ni/nimble-angular_v32.2.1",

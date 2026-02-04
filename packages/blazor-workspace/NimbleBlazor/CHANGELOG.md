@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 03 Feb 2026 14:40:29 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Feb 2026 00:56:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.12.0
+
+Wed, 04 Feb 2026 00:56:35 GMT
+
+### Minor changes
+
+- Add ItemRemove to NimbleLabelProviderCore ([ni/nimble@babcd06](https://github.com/ni/nimble/commit/babcd0690855a7003ecd7c56c64a98d7b96d9d43))
 
 ## 20.11.2
 
