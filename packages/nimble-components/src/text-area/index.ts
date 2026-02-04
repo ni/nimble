@@ -1,4 +1,4 @@
-import { attr, DOM, nullableNumberConverter, observable } from '@ni/fast-element';
+import { attr, DOM, observable } from '@ni/fast-element';
 import {
     DesignSystem,
     TextArea as FoundationTextArea
