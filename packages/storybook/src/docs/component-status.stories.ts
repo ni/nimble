@@ -496,6 +496,9 @@ const components = [
     },
     {
         componentName: 'Stepper',
+        componentHref: './?path=/docs/incubating-stepper--docs',
+        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=11742-71097&p=f&t=U3UnPlU4awyN4ybh-0',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/624',
         issueLabel: '#624',
         library: 'nimble',
