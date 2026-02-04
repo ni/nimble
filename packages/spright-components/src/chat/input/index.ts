@@ -27,7 +27,7 @@ export class ChatInput extends FoundationElement {
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
 
-    @attr({ converter: nullableNumberConverter })
+    @attr({ attribute: 'maxlength', converter: nullableNumberConverter })
     public maxlength?: number;
 
     /**

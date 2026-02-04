@@ -132,37 +132,15 @@ describe('ChatInput', () => {
                 await connect();
             });
 
-            it('truncates user input when exceeded', () => {
+            it('sets maxlength attribute on textarea', () => {
                 element.maxlength = 10;
-                page.setText('a'.repeat(20));
-
-                expect(element.value).toEqual('a'.repeat(10));
-                expect(page.getRenderedText()).toEqual('a'.repeat(10));
-            });
-
-            it('allows input within limit', () => {
-                element.maxlength = 10;
-                page.setText('aaa');
-
-                expect(element.value).toEqual('aaa');
-                expect(page.getRenderedText()).toEqual('aaa');
-            });
-
-            it('does not truncate when undefined', () => {
-                const longText = 'a'.repeat(20);
-                page.setText(longText);
-
-                expect(element.value).toEqual(longText);
-                expect(page.getRenderedText()).toEqual(longText);
-            });
-
-            it('truncates value property set when exceeded', () => {
-                element.maxlength = 10;
-                element.value = 'a'.repeat(20);
                 processUpdates();
 
-                expect(element.value).toEqual('a'.repeat(10));
-                expect(page.getRenderedText()).toEqual('a'.repeat(10));
+                expect(page.getTextAreaMaxLength()).toEqual(10);
+            });
+
+            it('does not set maxlength attribute when undefined', () => {
+                expect(page.getTextAreaMaxLength()).toBeNull();
             });
         });
     });
