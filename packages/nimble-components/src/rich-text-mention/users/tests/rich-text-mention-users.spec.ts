@@ -52,7 +52,7 @@ async function updatePatternAttribute(
 describe('RichTextMentionUsers', () => {
     let element: RichTextMentionUsers;
     let connect: () => Promise<void>;
-    let disconnect: () => Promise<void>;
+    let disconnect: (() => Promise<void>) | undefined;
 
     async function setup(options: {
         mappings: BasicUserMentionMapping[],
@@ -70,10 +70,12 @@ describe('RichTextMentionUsers', () => {
     }
 
     afterEach(async () => {
-        await disconnect();
+        if (disconnect) {
+            await disconnect();
+        }
     });
 
-    it('can construct an element instance', () => {
+    fit('can construct an element instance', () => {
         expect(document.createElement(richTextMentionUsersTag)).toBeInstanceOf(
             RichTextMentionUsers
         );
