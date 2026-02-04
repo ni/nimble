@@ -1,8 +1,34 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 02 Feb 2026 13:53:04 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.6.3
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.0
+
+## 6.6.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Update fast-element and fast-foundation dependencies ([ni/nimble@6d4d58f](https://github.com/ni/nimble/commit/6d4d58fd3901c8c8e956b1b66c147f98e35973fd))
+- Bump @ni/nimble-components to v35.1.2
+
+## 6.6.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Fix import syntax to obey new lint rule ([ni/nimble@aad1c14](https://github.com/ni/nimble/commit/aad1c1447cb1752602f4cae4e455a7abe0556b06))
+- Bump @ni/nimble-components to v35.1.1
 
 ## 6.6.0
 
