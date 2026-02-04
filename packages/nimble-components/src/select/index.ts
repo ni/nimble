@@ -235,7 +235,7 @@ export class Select
         const prev = this._value;
         let newValue = next;
 
-        if (this.options != null && this.options.length > 0) {
+        if (this.options !== undefined && this.options.length > 0) {
             const newValueIndex = this.options.findIndex(
                 el => el.value === newValue
             );
@@ -277,7 +277,7 @@ export class Select
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
-        if (this.anchoredRegion != null && this.control != null) {
+        if (this.anchoredRegion !== undefined && this.control !== undefined) {
             this.anchoredRegion.anchorElement = this.control;
         }
     }
@@ -289,7 +289,7 @@ export class Select
         _prev: HTMLElement | undefined,
         _next: HTMLElement | undefined
     ): void {
-        if (this.anchoredRegion != null && this.control != null) {
+        if (this.anchoredRegion !== undefined && this.control !== undefined) {
             this.anchoredRegion.anchorElement = this.control;
         }
     }
@@ -1277,7 +1277,7 @@ export class Select
                         ? option.cloneNode()
                         : null);
 
-                if (proxyOption != null) {
+                if (proxyOption !== null) {
                     this.proxy.options.add(proxyOption);
                 }
             });
@@ -1313,7 +1313,7 @@ export class Select
         }
 
         const selectedOption = this.firstSelectedOption;
-        if (selectedOption != null) {
+        if (selectedOption !== null) {
             this.selectedOptionObserver?.observe(selectedOption, {
                 characterData: true,
                 subtree: true,

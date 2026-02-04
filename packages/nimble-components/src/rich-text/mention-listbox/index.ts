@@ -277,7 +277,7 @@ export class RichTextMentionListbox extends FoundationListbox {
      * Overrides: `Listbox.focusAndScrollOptionIntoView`
      */
     protected override focusAndScrollOptionIntoView(): void {
-        if (this.open && this.firstSelectedOption != null) {
+        if (this.open && this.firstSelectedOption !== null) {
             requestAnimationFrame(() => {
                 this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
             });

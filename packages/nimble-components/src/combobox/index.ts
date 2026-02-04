@@ -145,7 +145,7 @@ export class Combobox
         const prev = this._value;
         let updatedValue = next;
 
-        if (this.$fastController.isConnected && this.options != null) {
+        if (this.$fastController.isConnected) {
             const selectedIndex = this.findIndexOfValidOption(next);
 
             const prevSelectedValue = this.options[this.selectedIndex]?.text;
@@ -526,14 +526,14 @@ export class Combobox
      * Overrides `Listbox.setDefaultSelectedOption`
      */
     public override setDefaultSelectedOption(): void {
-        if (this.$fastController.isConnected && this.options != null) {
+        if (this.$fastController.isConnected) {
             const selectedIndex = this.options.findIndex(
                 el => !el.disabled
-                    && (el.getAttribute('selected') != null || el.selected)
+                    && (el.getAttribute('selected') !== null || el.selected)
             );
 
             this.selectedIndex = selectedIndex;
-            if (!this.dirtyValue && this.firstSelectedOption != null) {
+            if (!this.dirtyValue && this.firstSelectedOption !== null) {
                 this.value = this.firstSelectedOption.text;
             }
             this.setSelectedOptions();
@@ -662,7 +662,7 @@ export class Combobox
         if (this.open) {
             if (this.contains(document.activeElement)) {
                 this.control.focus();
-                if (this.firstSelectedOption != null) {
+                if (this.firstSelectedOption !== null) {
                     requestAnimationFrame(() => {
                         this.firstSelectedOption?.scrollIntoView({
                             block: 'nearest'
@@ -740,7 +740,7 @@ export class Combobox
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
-        if (this.region && this.controlWrapper != null) {
+        if (this.region) {
             this.region.anchorElement = this.controlWrapper;
         }
     }
@@ -749,7 +749,7 @@ export class Combobox
         _prev: HTMLElement | undefined,
         _next: HTMLElement | undefined
     ): void {
-        if (this.region && this.controlWrapper != null) {
+        if (this.region) {
             this.region.anchorElement = this.controlWrapper;
         }
     }
