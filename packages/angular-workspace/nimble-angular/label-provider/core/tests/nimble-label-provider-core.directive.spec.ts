@@ -221,18 +221,18 @@ describe('Nimble Label Provider Core', () => {
         @Component({
             template: `
                 <nimble-label-provider-core #labelProvider
-                    [popupDismiss]="popupDismiss"
-                    [numericDecrement]="numericDecrement"
-                    [numericIncrement]="numericIncrement"
-                    [popupIconError]="popupIconError"
-                    [popupIconWarning]="popupIconWarning"
-                    [popupIconInformation]="popupIconInformation"
-                    [filterSearch]="filterSearch"
-                    [filterNoResults]="filterNoResults"
+                    [popup-dismiss]="popupDismiss"
+                    [numeric-decrement]="numericDecrement"
+                    [numeric-increment]="numericIncrement"
+                    [popup-icon-error]="popupIconError"
+                    [popup-icon-warning]="popupIconWarning"
+                    [popup-icon-information]="popupIconInformation"
+                    [filter-search]="filterSearch"
+                    [filter-no-results]="filterNoResults"
                     [loading]="loading"
-                    [scrollBackward]="scrollBackward"
-                    [scrollForward]="scrollForward"
-                    [itemRemove]="itemRemove"
+                    [scroll-backward]="scrollBackward"
+                    [scroll-forward]="scrollForward"
+                    [item-remove]="itemRemove"
                     >
                 </nimble-label-provider-core>
             `,

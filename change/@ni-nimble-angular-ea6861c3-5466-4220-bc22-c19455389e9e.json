@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add itemRemove label to NimbleLabelProviderCoreDirective",
+  "comment": "NimbleLabelProviderCoreDirective: Add itemRemove label, update scrollForward/scrollBackward to allow scroll-forward/scroll-backward binding.",
   "packageName": "@ni/nimble-angular",
   "email": "20709258+msmithNI@users.noreply.github.com",
   "dependentChangeType": "patch"
