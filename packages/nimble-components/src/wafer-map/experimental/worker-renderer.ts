@@ -69,7 +69,7 @@ export class WorkerRenderer {
         await this.matrixRenderer.drawWafer();
         if (
             !snapshot.dieLabelsHidden
-            && snapshot.dieDimensions !== undefined
+            && snapshot.dieDimensions != null
             && snapshot.dieDimensions.width
                 * snapshot.dieDimensions.height
                 * (snapshot.transform.k !== 0 ? snapshot.transform.k : 1)

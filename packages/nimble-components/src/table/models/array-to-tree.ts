@@ -107,7 +107,7 @@ export function arrayToTree<TData extends TableRecord>(
  */
 export function countNodes(tree: TableNodePartial[]): number {
     return tree.reduce(
-        (sum, n) => sum + 1 + (n.subRows !== undefined ? countNodes(n.subRows) : 0),
+        (sum, n) => sum + 1 + (n.subRows != null ? countNodes(n.subRows) : 0),
         0
     );
 }
