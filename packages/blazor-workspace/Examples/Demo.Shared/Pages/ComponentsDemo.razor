@@ -79,7 +79,7 @@
             <NimbleCardButton>
                 <span class="card-button-content">Card Button</span>
             </NimbleCardButton>
-            <NimbleCardButton selected>
+            <NimbleCardButton Selected="true">
                 <span class="card-button-content">Selected Card Button</span>
             </NimbleCardButton>
         </div>
@@ -102,7 +102,7 @@
         <div class="sub-container">
             <div class="container-label">Dialog</div>
             <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDialogAsync">Open Dialog</NimbleButton>
-            <NimbleTextField readonly Value="@DialogClosedReason">Closed reason</NimbleTextField>
+            <NimbleTextField ReadOnly="true" Value="@DialogClosedReason">Closed reason</NimbleTextField>
             <NimbleDialog TCloseReason="DialogResult" @ref="_dialog">
                 <span slot="title">Have a nice day</span>
                 <div>And also a nice week</div>
@@ -118,7 +118,7 @@
                 <NimbleListOption Value="@DrawerLocation.Left.ToString()">Drawer: Left-side</NimbleListOption>
                 <NimbleListOption Value="@DrawerLocation.Right.ToString()">Drawer: Right-side</NimbleListOption>
             </NimbleSelect>
-            <NimbleTextField readonly Value="@DrawerClosedReason">Closed reason</NimbleTextField>
+            <NimbleTextField ReadOnly="true" Value="@DrawerClosedReason">Closed reason</NimbleTextField>
             <NimbleDrawer TCloseReason="DialogResult" Location="_drawerLocation" @ref="_drawer">
                 <header>Have a nice day</header>
                 <section>And also a nice week</section>
