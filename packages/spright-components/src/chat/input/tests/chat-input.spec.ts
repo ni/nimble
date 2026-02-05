@@ -132,14 +132,14 @@ describe('ChatInput', () => {
                 await connect();
             });
 
-            it('sets maxlength attribute on textarea', () => {
-                element.maxlength = 10;
+            it('sets maxLength attribute on textarea', () => {
+                element.maxLength = 10;
                 processUpdates();
 
                 expect(page.getTextAreaMaxLength()).toEqual(10);
             });
 
-            it('maxlength defaults to -1 when undefined', () => {
+            it('maxLength defaults to -1 when undefined', () => {
                 expect(page.getTextAreaMaxLength()).toBe(-1);
             });
         });
