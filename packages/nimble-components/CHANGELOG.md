@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 05 Feb 2026 07:19:38 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.2.2
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- visual design updates for switch control ([ni/nimble@fb39fd3](https://github.com/ni/nimble/commit/fb39fd3a30350346e342dca1b9d212ee9b581263))
+
+## 35.2.1
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Enable two lint rules and fix violations ([ni/nimble@a410090](https://github.com/ni/nimble/commit/a410090ddbc5c82fbabec6dc67850997d65bd756))
 
 ## 35.2.0
 
