@@ -66,11 +66,5 @@ window.DemoShared = window.DemoShared ?? {
             const result = prefersColorSchemeDarkMediaQuery.matches;
             return result;
         },
-    },
-    IconDynamic: {
-        registerIconDynamic: function (name, url) {
-            const registerIconDynamic = window.customElements.get('ok-icon-dynamic').registerIconDynamic;
-            registerIconDynamic(name, url);
-        }
     }
 };
