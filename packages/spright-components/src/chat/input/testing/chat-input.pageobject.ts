@@ -50,8 +50,7 @@ export class ChatInputPageObject {
     }
 
     public getTextAreaMaxLength(): number | null {
-        const maxLength = this.element.textArea!.getAttribute('maxlength');
-        return maxLength ? parseInt(maxLength, 10) : null;
+        return this.element.textArea!.maxLength;
     }
 
     public getPlaceholder(): string {

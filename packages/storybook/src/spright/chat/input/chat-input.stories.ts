@@ -53,7 +53,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         maxlength: {
             name: 'maxlength',
             description:
-                'The maximum number of characters allowed. Input will be silently truncated to this limit.',
+                'The maximum number of characters allowed. Input will be silently truncated to this limit. Defaults to no limit (-1).',
             control: { type: 'number' },
             table: { category: apiCategory.attributes }
         },
@@ -70,7 +70,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
     },
     args: {
         placeholder: 'Type a message',
-        sendButtonLabel: 'Send'
+        sendButtonLabel: 'Send',
+        maxlength: -1,
     }
 };
 

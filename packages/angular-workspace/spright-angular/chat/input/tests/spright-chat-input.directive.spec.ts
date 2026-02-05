@@ -59,8 +59,8 @@ describe('Spright chat input', () => {
         });
 
         it('has expected defaults for maxlength', () => {
-            expect(directive.maxlength).toBeUndefined();
-            expect(nativeElement.maxlength).toBeUndefined();
+            expect(directive.maxlength).toBe(-1);
+            expect(nativeElement.maxlength).toBe(-1);
         });
     });
 

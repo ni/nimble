@@ -139,8 +139,8 @@ describe('ChatInput', () => {
                 expect(page.getTextAreaMaxLength()).toEqual(10);
             });
 
-            it('does not set maxlength attribute when undefined', () => {
-                expect(page.getTextAreaMaxLength()).toBeNull();
+            it('maxlength defaults to -1 when undefined', () => {
+                expect(page.getTextAreaMaxLength()).toBe(-1);
             });
         });
     });

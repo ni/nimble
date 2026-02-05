@@ -4,5 +4,4 @@
  */
 export interface ChatInputSendEventDetail {
     text: string;
-    maxlength?: number;
 }
