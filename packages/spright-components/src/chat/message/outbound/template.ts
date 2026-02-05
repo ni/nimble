@@ -1,7 +1,5 @@
 import { html, ViewTemplate } from '@ni/fast-element';
-import {
-    type FoundationElementTemplate
-} from '@ni/fast-foundation';
+import type { FoundationElementTemplate } from '@ni/fast-foundation';
 import type { ChatMessageOutbound } from '.';
 
 export const template: FoundationElementTemplate<

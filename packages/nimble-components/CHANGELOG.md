@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.2.0
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Minor changes
+
+- Add Stepper components ([ni/nimble@1143c37](https://github.com/ni/nimble/commit/1143c3764bee89f48c9b5c6af837a882fa6f06a1))
+
+## 35.1.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Update fast-element and fast-foundation dependencies ([ni/nimble@6d4d58f](https://github.com/ni/nimble/commit/6d4d58fd3901c8c8e956b1b66c147f98e35973fd))
+
+## 35.1.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Fix import syntax to obey new lint rule ([ni/nimble@aad1c14](https://github.com/ni/nimble/commit/aad1c1447cb1752602f4cae4e455a7abe0556b06))
 
 ## 35.1.0
 
