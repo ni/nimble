@@ -52,7 +52,7 @@ async function updatePatternAttribute(
 describe('RichTextMentionUsers', () => {
     let element: RichTextMentionUsers;
     let connect: () => Promise<void>;
-    let disconnect: () => Promise<void>;
+    let disconnect: (() => Promise<void>) | undefined;
 
     async function setup(options: {
         mappings: BasicUserMentionMapping[],
