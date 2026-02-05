@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "visual design updates for switch control",
-  "packageName": "@ni/nimble-components",
-  "email": "alice.darrow@emerson.com",
-  "dependentChangeType": "patch"
-}
