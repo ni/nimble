@@ -12,6 +12,7 @@ interface ChatInputArgs {
     placeholder: string;
     sendButtonLabel: string;
     stopButtonLabel: string;
+    maxlength: number | undefined;
     value: string;
     processing: boolean;
     send: undefined;
@@ -35,7 +36,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             send-button-label="${x => x.sendButtonLabel}"
             stop-button-label="${x => x.stopButtonLabel}"
             processing="${x => x.processing}"
-            value="${x => x.value}"    
+            maxlength="${x => x.maxlength}"
+            value="${x => x.value}"
         >
         </${chatInputTag}>
     `),
@@ -57,6 +59,13 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             name: 'stop-button-label',
             description:
                 'Text to use for a `title` and ARIA attributes on the stop button.',
+            table: { category: apiCategory.attributes }
+        },
+        maxlength: {
+            name: 'maxlength',
+            description:
+                'The maximum number of characters allowed. Input will be silently truncated to this limit. Defaults to no limit (-1).',
+            control: { type: 'number' },
             table: { category: apiCategory.attributes }
         },
         value: {
@@ -84,7 +93,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         placeholder: 'Type a message',
         sendButtonLabel: 'Send',
         stopButtonLabel: 'Stop',
-        processing: false,
+        processing: false,,
+        maxlength: -1,
     }
 };
 

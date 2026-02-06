@@ -41,6 +41,7 @@ public class NimbleLabelProviderCoreTests
     [InlineData(nameof(NimbleLabelProviderCore.Loading))]
     [InlineData(nameof(NimbleLabelProviderCore.ScrollBackward))]
     [InlineData(nameof(NimbleLabelProviderCore.ScrollForward))]
+    [InlineData(nameof(NimbleLabelProviderCore.ItemRemove))]
     public void NimbleLabelProviderCore_LabelIsSet(string propertyName)
     {
         var labelValue = propertyName + "UpdatedValue";

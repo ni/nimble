@@ -47,6 +47,14 @@ export class SprightChatInputDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'processing', value);
     }
 
+    public get maxLength(): number | undefined {
+        return this.elementRef.nativeElement.maxLength;
+    }
+
+    @Input('maxlength') public set maxLength(value: number | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'maxLength', value);
+    }
+
     public get value(): string | undefined {
         return this.elementRef.nativeElement.value;
     }

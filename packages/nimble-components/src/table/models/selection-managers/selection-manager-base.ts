@@ -129,7 +129,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
         const allRows: TanStackRow<TableNode<TData>>[] = [];
         for (const row of topLevelRows) {
             allRows.push(row);
-            if (row.subRows?.length) {
+            if (row.subRows?.length > 0) {
                 allRows.push(...this.getOrderedRows(row.subRows));
             }
         }
