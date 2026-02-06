@@ -28,7 +28,7 @@ public static class OkIconDynamic
             throw new ArgumentException($"Tag name must start with '{IconDynamicTagPrefix}'.", nameof(tagName));
         }
 
-        var name = tagName.Substring(IconDynamicTagPrefix.Length);
+        var name = tagName[IconDynamicTagPrefix.Length..];
         if (name.Length == 0)
         {
             throw new ArgumentException($"Tag name must include an icon name after '{IconDynamicTagPrefix}'.", nameof(tagName));
