@@ -65,15 +65,15 @@ export class Tracker<TrackedItemsList extends readonly string[]> {
     }
 
     public allTracked(): boolean {
-        return Object.values(this.trackedItems).every(x => x);
+        return Object.values<boolean>(this.trackedItems).every(x => x);
     }
 
     public anyTracked(): boolean {
-        return Object.values(this.trackedItems).some(x => x);
+        return Object.values<boolean>(this.trackedItems).some(x => x);
     }
 
     public noneTracked(): boolean {
-        return Object.values(this.trackedItems).every(x => !x);
+        return Object.values<boolean>(this.trackedItems).every(x => !x);
     }
 
     public onTrackingChange(): void {}

@@ -1,8 +1,57 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 05 Feb 2026 07:19:38 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.10.5
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.5
+
+## 0.10.4
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.4
+
+## 0.10.3
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.3
+
+## 0.10.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.2
+
+## 0.10.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.1
+
+## 0.10.0
+
+Mon, 02 Feb 2026 13:53:04 GMT
+
+### Minor changes
+
+- Add dedicated chat message components for inbound, outbound, and system messages. The original chat message component is deprecated and will be removed in a future release. ([ni/nimble@cb39491](https://github.com/ni/nimble/commit/cb3949121e6d8c2f26e0607e193a2e6e9a415e08))
+- Bump @ni/spright-components to v6.6.0
 
 ## 0.9.0
 
