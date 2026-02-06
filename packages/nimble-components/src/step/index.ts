@@ -1,4 +1,8 @@
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import {
+    Button as FoundationButton,
+    type ButtonOptions,
+    DesignSystem
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -11,9 +15,9 @@ declare global {
 /**
  * A nimble-styled step for a stepper
  */
-export class Step extends FoundationElement {}
+export class Step extends FoundationButton {}
 
-const nimbleStep = Step.compose({
+const nimbleStep = Step.compose<ButtonOptions>({
     baseName: 'step',
     template,
     styles

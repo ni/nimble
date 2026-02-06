@@ -1,6 +1,8 @@
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { DesignSystem, type AnchorOptions } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
+import { AnchorBase } from '../anchor-base';
+import { mixinSeverityPattern } from '../patterns/severity/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -11,12 +13,15 @@ declare global {
 /**
  * A nimble-styled anchor step for a stepper
  */
-export class AnchorStep extends FoundationElement {}
+export class AnchorStep extends mixinSeverityPattern(AnchorBase) {}
 
-const nimbleAnchorStep = AnchorStep.compose({
+const nimbleAnchorStep = AnchorStep.compose<AnchorOptions>({
     baseName: 'anchor-step',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorStep());
