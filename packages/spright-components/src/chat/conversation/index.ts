@@ -19,6 +19,21 @@ export class ChatConversation extends FoundationElement {
 
     /** @internal */
     @observable
+    public toolbarEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedToolbarElements?: HTMLElement[];
+
+    public slottedToolbarElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.toolbarEmpty = !next?.length;
+    }
+
+    /** @internal */
+    @observable
     public inputEmpty = true;
 
     /** @internal */

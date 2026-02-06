@@ -10,7 +10,9 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
     NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule, NimbleIconXmarkCheckModule,
-    NimbleListOptionGroupModule } from '@ni/nimble-angular';
+    NimbleListOptionGroupModule, 
+    NimbleIconPencilToRectangleModule,
+    NimbleIconMessagesSparkleModule} from '@ni/nimble-angular';
 import { NimbleCardModule } from '@ni/nimble-angular/card';
 import { NimbleChipModule } from '@ni/nimble-angular/chip';
 import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
@@ -115,6 +117,8 @@ import { CustomAppComponent } from './customapp/customapp.component';
         NimbleRichTextMentionUsersModule,
         NimbleMappingSpinnerModule,
         NimbleMappingEmptyModule,
+        NimbleIconPencilToRectangleModule,
+        NimbleIconMessagesSparkleModule,
         OkButtonModule,
         SprightChatConversationModule,
         SprightChatInputModule,
