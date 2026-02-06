@@ -93,7 +93,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         placeholder: 'Type a message',
         sendButtonLabel: 'Send',
         stopButtonLabel: 'Stop',
-        processing: false,,
+        processing: false,
         maxlength: -1,
     }
 };

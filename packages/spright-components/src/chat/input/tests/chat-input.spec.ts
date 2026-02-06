@@ -54,6 +54,10 @@ describe('ChatInput', () => {
         it('has disabled send button', () => {
             expect(page.isSendButtonEnabled()).toBeFalse();
         });
+
+        it('is not processing', () => {
+            expect(page.isProcessing()).toBeFalse();
+        });
     });
 
     describe('value property set', () => {
@@ -92,6 +96,14 @@ describe('ChatInput', () => {
             element.value = '';
             processUpdates();
             expect(page.isSendButtonEnabled()).toBeFalse();
+        });
+
+        it('to processing state enabled stop button', () => {
+            element.value = 'new value';
+            processUpdates();
+            element.processing = true;
+            processUpdates();
+            expect(page.isStopButtonEnabled()).toBeTrue();
         });
     });
 
@@ -259,6 +271,24 @@ describe('ChatInput', () => {
             processUpdates();
             expect(page.getSendButtonTitle()).toEqual('Send it!');
             expect(page.getSendButtonTextContent()).toEqual('Send it!');
+        });
+    });
+
+    describe('stopButtonLabel', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        it('defaults to undefined', () => {
+            expect(element.stopButtonLabel).toBeUndefined();
+        });
+
+        it('affects button title and ARIA', () => {
+            element.stopButtonLabel = 'Stop it!';
+            element.processing = true;
+            processUpdates();
+            expect(page.getStopButtonTitle()).toEqual('Stop it!');
+            expect(page.getStopButtonTextContent()).toEqual('Stop it!');
         });
     });
 

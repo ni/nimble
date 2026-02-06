@@ -104,7 +104,7 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public stopButtonClickHandler(): void {
-        if (this.processing === false) {
+        if (!this.processing) {
             return;
         }
         const eventDetail: ChatInputStopEventDetail = {};

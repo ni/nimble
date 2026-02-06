@@ -18,6 +18,14 @@ export class ChatInputPageObject {
         return !this.getSendButton().disabled;
     }
 
+    public isStopButtonEnabled(): boolean {
+        return !this.getStopButton().disabled;
+    }
+
+    public isProcessing(): boolean {
+        return this.element.processing;
+    }
+
     public isTextAreaFocused(): boolean {
         return this.element.textArea === this.element.shadowRoot?.activeElement;
     }
@@ -26,12 +34,24 @@ export class ChatInputPageObject {
         this.getSendButton().click();
     }
 
+    public clickStopButton(): void {
+        this.getStopButton().click();
+    }
+
     public getSendButtonTitle(): string {
         return this.getSendButton().title;
     }
 
+    public getStopButtonTitle(): string {
+        return this.getStopButton().title;
+    }
+
     public getSendButtonTextContent(): string {
         return this.getSendButton().textContent?.trim() ?? '';
+    }
+
+    public getStopButtonTextContent(): string {
+        return this.getStopButton().textContent?.trim() ?? '';
     }
 
     public getSendButtonTabIndex(): string | null {
@@ -84,6 +104,11 @@ export class ChatInputPageObject {
     private getSendButton(): Button {
         const sendButton = this.element.shadowRoot!.querySelector<Button>('.send-button')!;
         return sendButton;
+    }
+
+    private getStopButton(): Button {
+        const stopButton = this.element.shadowRoot!.querySelector<Button>('.stop-button')!;
+        return stopButton;
     }
 
     private async sendEnterKeyEvents(shiftKey: boolean): Promise<void> {
