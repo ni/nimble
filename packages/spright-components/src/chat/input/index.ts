@@ -30,7 +30,7 @@ export class ChatInput extends FoundationElement {
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
 
-    @attr({ attribute: 'processing', mode: 'boolean'  })
+    @attr({ attribute: 'processing', mode: 'boolean' })
     public processing = false;
 
     /**
@@ -87,7 +87,6 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public sendButtonClickHandler(): void {
-        console.log('sendButtonClickHandler called with processing:', this.processing, 'and value:', this.value);
         if (this.shouldDisableSendButton()) {
             return;
         }
@@ -102,7 +101,6 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public stopButtonClickHandler(): void {
-        console.log('stopButtonClickHandler called with processing:', this.processing);
         if (this.processing === false) {
             return;
         }

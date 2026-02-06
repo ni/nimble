@@ -3,7 +3,8 @@ import { type ChatInput, chatInputTag } from '@ni/spright-components/dist/esm/ch
 import { type ChatInputSendEventDetail, type ChatInputStopEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 
 export type { ChatInput };
-export type { ChatInputSendEventDetail, ChatInputStopEventDetail };
+export type { ChatInputSendEventDetail };
+export type { ChatInputStopEventDetail };
 export { chatInputTag };
 
 /**
