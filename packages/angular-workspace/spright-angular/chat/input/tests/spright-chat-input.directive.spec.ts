@@ -57,6 +57,11 @@ describe('Spright chat input', () => {
             expect(directive.value).toEqual('');
             expect(nativeElement.value).toEqual('');
         });
+
+        it('has expected defaults for maxLength', () => {
+            expect(directive.maxLength).toBe(-1);
+            expect(nativeElement.maxLength).toBe(-1);
+        });
     });
 
     describe('with template string values', () => {
@@ -66,6 +71,7 @@ describe('Spright chat input', () => {
                     placeholder="Placeholder value"
                     send-button-label="Send button label value"
                     value="Value value"
+                    maxlength="10"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -104,6 +110,11 @@ describe('Spright chat input', () => {
             expect(directive.value).toBe('Value value');
             expect(nativeElement.value).toBe('Value value');
         });
+
+        it('will use template string values for maxLength', () => {
+            expect(directive.maxLength).toBe(10);
+            expect(nativeElement.maxLength).toBe(10);
+        });
     });
 
     describe('with property bound values', () => {
@@ -113,6 +124,7 @@ describe('Spright chat input', () => {
                     [placeholder]="placeholder"
                     [sendButtonLabel]="sendButtonLabel"
                     [value]="value"
+                    [maxlength]="maxLength"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -123,6 +135,7 @@ describe('Spright chat input', () => {
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
             public value = 'initial';
+            public maxLength = 20;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -173,6 +186,17 @@ describe('Spright chat input', () => {
             expect(directive.value).toBe('updated value value');
             expect(nativeElement.value).toBe('updated value value');
         });
+
+        it('can be configured with property binding for maxLength', () => {
+            expect(directive.maxLength).toBe(20);
+            expect(nativeElement.maxLength).toBe(20);
+
+            fixture.componentInstance.maxLength = 10;
+            fixture.detectChanges();
+
+            expect(directive.maxLength).toBe(10);
+            expect(nativeElement.maxLength).toBe(10);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -183,6 +207,7 @@ describe('Spright chat input', () => {
                     [attr.placeholder]="placeholder"
                     [attr.send-button-label]="sendButtonLabel"
                     [attr.value]="value"
+                    [attr.maxlength]="maxLength"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -193,6 +218,7 @@ describe('Spright chat input', () => {
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
             public value = 'initial';
+            public maxLength = 20;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -241,6 +267,17 @@ describe('Spright chat input', () => {
 
             expect(directive.value).toBe('updated value value');
             expect(nativeElement.value).toBe('updated value value');
+        });
+
+        it('can be configured with attribute binding for maxLength', () => {
+            expect(directive.maxLength).toBe(20);
+            expect(nativeElement.maxLength).toBe(20);
+
+            fixture.componentInstance.maxLength = 10;
+            fixture.detectChanges();
+
+            expect(directive.maxLength).toBe(10);
+            expect(nativeElement.maxLength).toBe(10);
         });
     });
 });

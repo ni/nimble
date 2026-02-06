@@ -79,7 +79,7 @@
             <NimbleCardButton>
                 <span class="card-button-content">Card Button</span>
             </NimbleCardButton>
-            <NimbleCardButton selected>
+            <NimbleCardButton Selected="true">
                 <span class="card-button-content">Selected Card Button</span>
             </NimbleCardButton>
         </div>
@@ -102,7 +102,7 @@
         <div class="sub-container">
             <div class="container-label">Dialog</div>
             <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDialogAsync">Open Dialog</NimbleButton>
-            <NimbleTextField readonly Value="@DialogClosedReason">Closed reason</NimbleTextField>
+            <NimbleTextField ReadOnly="true" Value="@DialogClosedReason">Closed reason</NimbleTextField>
             <NimbleDialog TCloseReason="DialogResult" @ref="_dialog">
                 <span slot="title">Have a nice day</span>
                 <div>And also a nice week</div>
@@ -118,7 +118,7 @@
                 <NimbleListOption Value="@DrawerLocation.Left.ToString()">Drawer: Left-side</NimbleListOption>
                 <NimbleListOption Value="@DrawerLocation.Right.ToString()">Drawer: Right-side</NimbleListOption>
             </NimbleSelect>
-            <NimbleTextField readonly Value="@DrawerClosedReason">Closed reason</NimbleTextField>
+            <NimbleTextField ReadOnly="true" Value="@DrawerClosedReason">Closed reason</NimbleTextField>
             <NimbleDrawer TCloseReason="DialogResult" Location="_drawerLocation" @ref="_drawer">
                 <header>Have a nice day</header>
                 <section>And also a nice week</section>
@@ -435,16 +435,16 @@
         <div class="sub-container">
             <div class="container-label">Chat Conversation and Messages (Spright)</div>
             <SprightChatConversation class="conversation">
-                <SprightChatMessage message-type="system">
+                <SprightChatMessageSystem>
                     To start, press any key.
-                </SprightChatMessage>
-                <SprightChatMessage message-type="outbound">
+                </SprightChatMessageSystem>
+                <SprightChatMessageOutbound>
                     Where is the Any key?
-                </SprightChatMessage>
-                <SprightChatMessage>
+                </SprightChatMessageOutbound>
+                <SprightChatMessageSystem>
                     <NimbleSpinner Appearance="SpinnerAppearance.Accent"></NimbleSpinner>
-                </SprightChatMessage>
-                <SprightChatMessage message-type="inbound">
+                </SprightChatMessageSystem>
+                <SprightChatMessageInbound>
                     <NimbleButton slot="footer-actions" Appearance=ButtonAppearance.Ghost ContentHidden="true">
                         <NimbleIconCopyText slot="start"></NimbleIconCopyText>
                         Copy
@@ -458,12 +458,12 @@
                     <NimbleButton slot="end" Appearance=ButtonAppearance.Block>
                         Check core temperature
                     </NimbleButton>
-                </SprightChatMessage>
+                </SprightChatMessageInbound>
                 @foreach(var message in _userMessages)
                 {
-                    <SprightChatMessage MessageType="ChatMessageType.Outbound">
+                    <SprightChatMessageOutbound>
                         @message
-                    </SprightChatMessage>
+                    </SprightChatMessageOutbound>
                 }
                 <SprightChatInput slot="input" Placeholder="Type here" Send="UpdateUserMessages"></SprightChatInput>
             </SprightChatConversation>

@@ -58,7 +58,9 @@ import { NimbleMappingUser } from '@ni/nimble-react/mapping/user';
 import { NimbleRichTextViewer } from '@ni/nimble-react/rich-text/viewer';
 import { SprightChatConversation } from '@ni/spright-react/chat/conversation';
 import { SprightChatInput } from '@ni/spright-react/chat/input';
-import { SprightChatMessage } from '@ni/spright-react/chat/message';
+import { SprightChatMessageInbound } from '@ni/spright-react/chat/message/inbound';
+import { SprightChatMessageOutbound } from '@ni/spright-react/chat/message/outbound';
+import { SprightChatMessageSystem } from '@ni/spright-react/chat/message/system';
 import { NimbleIconCopyText } from '@ni/nimble-react/icons/copy-text';
 import { NimbleIconWebviCustom } from '@ni/nimble-react/icons/webvi-custom';
 
@@ -1161,12 +1163,12 @@ export function App(): React.JSX.Element {
                                 <div className="sub-container">
                                     <div className="container-label">Chat Conversation and Messages (Spright)</div>
                                     <SprightChatConversation>
-                                        <SprightChatMessage>To start, press any key.</SprightChatMessage>
-                                        <SprightChatMessage messageType="outbound">Where is the Any key?</SprightChatMessage>
-                                        <SprightChatMessage>
+                                        <SprightChatMessageSystem>To start, press any key.</SprightChatMessageSystem>
+                                        <SprightChatMessageOutbound>Where is the Any key?</SprightChatMessageOutbound>
+                                        <SprightChatMessageSystem>
                                             <NimbleSpinner appearance="accent"></NimbleSpinner>
-                                        </SprightChatMessage>
-                                        <SprightChatMessage messageType="inbound">
+                                        </SprightChatMessageSystem>
+                                        <SprightChatMessageInbound>
                                             <NimbleButton slot="footer-actions" appearance='ghost' contentHidden>
                                                 <NimbleIconCopyText slot="start"></NimbleIconCopyText>
                                                 Copy
@@ -1176,11 +1178,11 @@ export function App(): React.JSX.Element {
                                                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
                                             <NimbleButton slot="end" appearance="block">Order a tab</NimbleButton>
                                             <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
-                                        </SprightChatMessage>
+                                        </SprightChatMessageInbound>
                                         {chatUserMessages.map((message, index) => (
-                                            <SprightChatMessage key={index} messageType="outbound">
+                                            <SprightChatMessageOutbound key={index}>
                                                 <span>{message}</span>
-                                            </SprightChatMessage>
+                                            </SprightChatMessageOutbound>
                                         ))}
                                         <SprightChatInput
                                             slot="input"

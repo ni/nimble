@@ -1,0 +1,27 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { stepperTag } from '@ni/nimble-components/dist/esm/stepper';
+import * as stepperStories from './stepper.stories';
+import { Tag } from '../../utilities/story-layout';
+
+<Meta of={stepperStories} />
+<Title of={stepperStories} />
+
+The <Tag name={stepperTag} /> is a form of progress indicator through a multiple step task indicating completed, current, and future steps.
+
+<Canvas of={stepperStories.stepper} />
+
+## API
+
+<Controls of={stepperStories.stepper} />
+<ComponentApisLink />
+
+{/* ## Styling */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

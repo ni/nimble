@@ -471,12 +471,12 @@
         <div class="sub-container">
             <div class="container-label">Chat Conversation and Messages (Spright)</div>
             <spright-chat-conversation>
-                <spright-chat-message>To start, press any key.</spright-chat-message>
-                <spright-chat-message message-type="outbound">Where is the Any key?</spright-chat-message>
-                <spright-chat-message>
+                <spright-chat-message-system>To start, press any key.</spright-chat-message-system>
+                <spright-chat-message-outbound>Where is the Any key?</spright-chat-message-outbound>
+                <spright-chat-message-system>
                     <nimble-spinner appearance="accent"></nimble-spinner>
-                </spright-chat-message>
-                <spright-chat-message message-type="inbound">
+                </spright-chat-message-system>
+                <spright-chat-message-inbound>
                     <nimble-button slot="footer-actions" appearance='ghost' content-hidden>
                         <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
                         Copy
@@ -486,8 +486,8 @@
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
                     <nimble-button slot="end" appearance="block">Order a tab</nimble-button>
                     <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
-                </spright-chat-message>
-                <spright-chat-message message-type="outbound" *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message>
+                </spright-chat-message-inbound>
+                <spright-chat-message-outbound *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message-outbound>
                 <spright-chat-input slot="input" placeholder="Type here" (send)="onChatInputSend($event)"></spright-chat-input>
             </spright-chat-conversation>
         </div>

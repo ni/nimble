@@ -1326,7 +1326,7 @@ export class Table<
             (x, y) => x.columnInternals.currentSortIndex!
                 - y.columnInternals.currentSortIndex!
         );
-        this.firstSortedColumn = sortedColumns.length
+        this.firstSortedColumn = sortedColumns.length > 0
             ? sortedColumns[0]
             : undefined;
 
