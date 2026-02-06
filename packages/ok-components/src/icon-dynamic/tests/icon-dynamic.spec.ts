@@ -30,18 +30,20 @@ describe('IconDynamic', () => {
         expect(element.shadowRoot?.childNodes.length).toBe(0);
     });
 
-    it('should throw for invalid icon names', () => {
-        expect(() => IconDynamic.registerIconDynamic('a', dynamicIconDataUri)).toThrow();
-        expect(() => IconDynamic.registerIconDynamic('Aaa', dynamicIconDataUri)).toThrow();
-        expect(() => IconDynamic.registerIconDynamic('a1', dynamicIconDataUri)).toThrow();
-        expect(() => IconDynamic.registerIconDynamic('a-', dynamicIconDataUri)).toThrow();
+    it('should throw for invalid icon tag names', () => {
+        expect(() => IconDynamic.registerIconDynamic('awesome', dynamicIconDataUri)).toThrow();
+        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-a', dynamicIconDataUri)).toThrow();
+        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-Aaa', dynamicIconDataUri)).toThrow();
+        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-a1', dynamicIconDataUri)).toThrow();
+        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-a-', dynamicIconDataUri)).toThrow();
+        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-', dynamicIconDataUri)).toThrow();
     });
 
     it('should register a new dynamic icon tag', async () => {
         const name = 'kiwi';
         const tagName = `ok-icon-dynamic-${name}`;
 
-        IconDynamic.registerIconDynamic(name, dynamicIconDataUri);
+        IconDynamic.registerIconDynamic(tagName, dynamicIconDataUri);
         await customElements.whenDefined(tagName);
 
         expect(customElements.get(tagName)).toBeDefined();
@@ -51,7 +53,7 @@ describe('IconDynamic', () => {
         const name = 'banana';
         const tagName = `ok-icon-dynamic-${name}`;
 
-        IconDynamic.registerIconDynamic(name, dynamicIconDataUri);
+        IconDynamic.registerIconDynamic(tagName, dynamicIconDataUri);
         await customElements.whenDefined(tagName);
 
         const dynamicIcon = document.createElement(tagName);
@@ -70,8 +72,8 @@ describe('IconDynamic', () => {
         const firstTagName = `ok-icon-dynamic-${firstName}`;
         const secondTagName = `ok-icon-dynamic-${secondName}`;
 
-        IconDynamic.registerIconDynamic(firstName, dynamicIconDataUri);
-        IconDynamic.registerIconDynamic(secondName, dynamicIconDataUri);
+        IconDynamic.registerIconDynamic(firstTagName, dynamicIconDataUri);
+        IconDynamic.registerIconDynamic(secondTagName, dynamicIconDataUri);
 
         await Promise.all([
             customElements.whenDefined(firstTagName),

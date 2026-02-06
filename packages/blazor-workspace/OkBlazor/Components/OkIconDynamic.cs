@@ -9,7 +9,6 @@ namespace OkBlazor;
 public static class OkIconDynamic
 {
     private const string RegisterIconDynamicMethodName = "OkBlazor.IconDynamic.registerIconDynamic";
-    private const string IconDynamicTagPrefix = "ok-icon-dynamic-";
 
     /// <summary>
     /// Registers a dynamic icon that can be used by Ok components.
@@ -23,17 +22,6 @@ public static class OkIconDynamic
         ArgumentNullException.ThrowIfNull(javascriptRuntime);
         ArgumentNullException.ThrowIfNull(tagName);
         ArgumentNullException.ThrowIfNull(url);
-        if (!tagName.StartsWith(IconDynamicTagPrefix, StringComparison.Ordinal))
-        {
-            throw new ArgumentException($"Tag name must start with '{IconDynamicTagPrefix}'.", nameof(tagName));
-        }
-
-        var name = tagName[IconDynamicTagPrefix.Length..];
-        if (name.Length == 0)
-        {
-            throw new ArgumentException($"Tag name must include an icon name after '{IconDynamicTagPrefix}'.", nameof(tagName));
-        }
-
-        return javascriptRuntime.InvokeVoidAsync(RegisterIconDynamicMethodName, name, url);
+        return javascriptRuntime.InvokeVoidAsync(RegisterIconDynamicMethodName, tagName, url);
     }
 }

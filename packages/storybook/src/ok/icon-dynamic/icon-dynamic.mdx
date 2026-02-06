@@ -20,14 +20,15 @@ import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 ### Registration
 
-Register icons before use. Names must be lowercase letters and at least two
-characters long. The <code>registerIconDynamic</code> call throws if the name
-is invalid. For example:
+Register icons before use. Tag names must start with
+<code>ok-icon-dynamic-</code> and the name suffix must be lowercase letters and
+at least two characters long. The <code>registerIconDynamic</code> call throws
+if the tag name is invalid. For example:
 
 ```ts
 customElements
     .get('ok-icon-dynamic')
-    .registerIconDynamic('awesome', 'data:image/png;base64,...');
+    .registerIconDynamic('ok-icon-dynamic-awesome', 'data:image/png;base64,...');
 ```
 
 #### Blazor

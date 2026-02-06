@@ -15,7 +15,7 @@ declare global {
 /**
  * Base class for dynamic icons. Not intended to be used directly, instead use to register dynamic icons:
  * ```
- * customElements.get('ok-icon-dynamic').registerIconDynamic('awesome', '<img data uri or arbitrary url>');
+ * customElements.get('ok-icon-dynamic').registerIconDynamic('ok-icon-dynamic-awesome', '<img data uri or arbitrary url>');
  * ```
  * After calling successfully, the icon can be used like any other icon:
  * ```
@@ -28,7 +28,12 @@ export class IconDynamic extends Icon {
         super();
     }
 
-    public static registerIconDynamic(name: string, url: string): void {
+    public static registerIconDynamic(tagName: string, url: string): void {
+        const tagPrefix = 'ok-icon-dynamic-';
+        if (!tagName.startsWith(tagPrefix)) {
+            throw new Error(`Icon tag name must start with '${tagPrefix}', provided name: ${tagName}`);
+        }
+        const name = tagName.substring(tagPrefix.length);
         if (!/^[a-z][a-z]+$/.test(name)) {
             throw new Error(`Icon name must be lowercase [a-z] and at least two characters long, provided name: ${name}`);
         }
