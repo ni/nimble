@@ -7,7 +7,7 @@
         "noEmit": true,
         "strict": true,
         "experimentalDecorators": true,
-        "target": "ES2020",
+        "target": "ES2022",
         "module": "ES2020",
         "allowJs": true,
         "importHelpers": true,
@@ -15,11 +15,9 @@
         "sourceMap": true,
         "inlineSources": true,
         "lib": [
+            "ES2022",
             "DOM",
             "DOM.Iterable",
-            "ES2015",
-            "ES2016.Array.Include",
-            "ES2017.Object"
         ],
         // Whitelist imported @types instead of using them all
         "types": ["jasmine", "offscreencanvas"],

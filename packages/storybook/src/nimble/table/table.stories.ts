@@ -19,8 +19,8 @@ import {
     tokenNames
 } from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
 import {
-    addLabelUseMetadata,
-    type LabelUserArgs
+    createLocalizableLabelArgTypes,
+    type LocalizableLabelArgs
 } from '../label-provider/base/label-user-stories-utils';
 import {
     apiCategory,
@@ -30,7 +30,7 @@ import {
 } from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
 
-interface BaseTableArgs extends LabelUserArgs {
+interface BaseTableArgs extends LocalizableLabelArgs {
     tableRef: Table;
     updateData: (args: BaseTableArgs) => void;
 }
@@ -64,7 +64,6 @@ const metadata: Meta<BaseTableArgs> = {
 };
 
 export default metadata;
-addLabelUseMetadata(metadata, labelProviderTableTag);
 
 interface TableArgs extends BaseTableArgs {
     selectionMode: keyof typeof TableRowSelectionMode;
@@ -510,7 +509,8 @@ export const table: StoryObj<TableArgs> = {
             name: 'Fit rows height',
             description: fitRowsHeightDescription,
             table: { category: apiCategory.styles }
-        }
+        },
+        ...createLocalizableLabelArgTypes(labelProviderTableTag)
     },
     args: {
         data: ExampleDataType.simpleData,
@@ -568,7 +568,7 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
             options: Object.keys(TableRecordDelayedHierarchyState),
             control: { type: 'radio' }
         },
-        usedLabels: {
+        localizableLabels: {
             table: {
                 disable: true
             }
