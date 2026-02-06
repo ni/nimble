@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type ChatInput, chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
-import { type ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
+import { type ChatInputSendEventDetail, type ChatInputStopEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 
 export type { ChatInput };
-export type { ChatInputSendEventDetail };
+export type { ChatInputSendEventDetail, ChatInputStopEventDetail };
 export { chatInputTag };
 
 /**
@@ -28,6 +28,22 @@ export class SprightChatInputDirective {
 
     @Input('send-button-label') public set sendButtonLabel(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'sendButtonLabel', value);
+    }
+
+    public get stopButtonLabel(): string | undefined {
+        return this.elementRef.nativeElement.stopButtonLabel;
+    }
+
+    @Input('stop-button-label') public set stopButtonLabel(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'stopButtonLabel', value);
+    }
+
+    public get processing(): boolean {
+        return this.elementRef.nativeElement.processing;
+    }
+
+    @Input('processing') public set processing(value: boolean) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'processing', value);
     }
 
     public get value(): string | undefined {

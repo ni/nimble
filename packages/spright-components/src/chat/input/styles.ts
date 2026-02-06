@@ -87,4 +87,10 @@ export const styles = css`
         width: 80px;
         margin: ${mediumPadding};
     }
+
+    .stop-button {
+        align-self: flex-end;
+        width: 80px;
+        margin: ${mediumPadding};
+    }
 `;

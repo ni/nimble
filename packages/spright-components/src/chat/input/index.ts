@@ -3,7 +3,7 @@ import { keyEnter } from '@ni/fast-web-utilities';
 import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
-import type { ChatInputSendEventDetail } from './types';
+import type { ChatInputSendEventDetail, ChatInputStopEventDetail } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,11 +21,17 @@ export class ChatInput extends FoundationElement {
     @attr({ attribute: 'send-button-label' })
     public sendButtonLabel?: string;
 
+    @attr({ attribute: 'stop-button-label' })
+    public stopButtonLabel?: string;
+
     @attr
     public value = '';
 
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
+
+    @attr({ attribute: 'processing', mode: 'boolean'  })
+    public processing = false;
 
     /**
      * @internal
@@ -81,6 +87,7 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public sendButtonClickHandler(): void {
+        console.log('sendButtonClickHandler called with processing:', this.processing, 'and value:', this.value);
         if (this.shouldDisableSendButton()) {
             return;
         }
@@ -89,6 +96,18 @@ export class ChatInput extends FoundationElement {
         };
         this.resetInput();
         this.$emit('send', eventDetail);
+    }
+
+    /**
+     * @internal
+     */
+    public stopButtonClickHandler(): void {
+        console.log('stopButtonClickHandler called with processing:', this.processing);
+        if (this.processing === false) {
+            return;
+        }
+        const eventDetail: ChatInputStopEventDetail = {};
+        this.$emit('stop', eventDetail);
     }
 
     private shouldDisableSendButton(): boolean {
