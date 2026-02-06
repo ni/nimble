@@ -29,7 +29,7 @@ Also tracked by [AzDO User Story 2042565](https://ni.visualstudio.com/DevCentral
 
 ### Prior Art/Examples
 
-[Material Dialog](https://material.angular.io/components/dialog/overview)
+[Material Dialog](https://material.angular.dev/components/dialog/overview)
 
 [FAST Foundation Dialog](https://github.com/microsoft/fast/tree/1e4a383fada3a4895623e6b54088f9f2a07c7a78/packages/web-components/fast-foundation/src/dialog) -- does little other than managing focus and interaction based on the `modal` state
 
