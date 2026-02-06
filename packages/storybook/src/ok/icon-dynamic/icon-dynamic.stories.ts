@@ -17,10 +17,10 @@ const metadata: Meta<OkIconDynamicArgs> = {
     title: 'Ok/Icon Dynamic',
     render: (args, context) => {
         const renderStory = createUserSelectedThemeStory(html`
-            <div class="icon-dynamic-container"></div>
+            <div data-dynamic-icon-placeholder></div>
         `);
         const content = renderStory(args, context);
-        const container = content.querySelector('.icon-dynamic-container');
+
         void customElements.whenDefined(iconDynamicTag).then(() => {
             const iconDynamic = customElements.get(iconDynamicTag) as typeof IconDynamic | undefined;
             if (!iconDynamic) {
@@ -32,13 +32,16 @@ const metadata: Meta<OkIconDynamicArgs> = {
                 iconDynamic.registerIconDynamic(args.iconName, dynamicIconDataUri);
             }
 
-            if (content.querySelector(tagName)) {
-                return;
-            }
-
             const previewIcon = document.createElement(tagName);
-            container?.replaceWith(previewIcon);
+
+            const placeholder = content.querySelector('[data-dynamic-icon-placeholder]');
+            if (placeholder) {
+                placeholder.replaceWith(previewIcon);
+            } else {
+                content.prepend(previewIcon);
+            }
         });
+
         return content;
     },
     argTypes: {
