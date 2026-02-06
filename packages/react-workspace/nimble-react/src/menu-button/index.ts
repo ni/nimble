@@ -1,5 +1,5 @@
 import { MenuButton, menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
-import { type MenuButtonToggleEventDetail } from '@ni/nimble-components/dist/esm/menu-button/types';
+import type { MenuButtonToggleEventDetail } from '@ni/nimble-components/dist/esm/menu-button/types';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 import type { MenuItemChangeEvent } from '../menu-item';
 
