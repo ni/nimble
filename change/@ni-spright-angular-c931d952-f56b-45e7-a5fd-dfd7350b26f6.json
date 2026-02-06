@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Angular 20 update",
+  "packageName": "@ni/spright-angular",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
