@@ -25,8 +25,9 @@ const metadata: Meta<StepperArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/624'
     })}
     <${stepperTag}>
-        <${anchorStepTag}></${anchorStepTag}>
-        <${stepTag}></${stepTag}>
+        <${anchorStepTag}>anchorstep</${anchorStepTag}>
+        -
+        <${stepTag}>step</${stepTag}>
     </${stepperTag}>
     `),
     argTypes: {
