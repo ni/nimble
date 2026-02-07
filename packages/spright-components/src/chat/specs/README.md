@@ -86,6 +86,7 @@ All end text buttons must meet the following criteria
 1. Accepts text input in a text area
     - the text area height is a single line initially but grows its height to fit the entered text up to its max-height
     - the text area has configurable placeholder text
+    - the text area has configurable max length
 1. Includes a "Send" button for the user to submit the current input text
     - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
     - pressing Enter while the text area has focus will behave the same as clicking "Send"
@@ -236,6 +237,7 @@ All message types will share the following API:
     - `placeholder` - text to display in the text area when no text has been entered
     - `send-disabled` - boolean attribute that causes the "Send" button to be disabled even if there is text or other slotted content
     - `error-visible` and `error-text` - standard attributes for showing an error icon and red text below the control
+    - `maxlength` - number attribute that silently truncates the message
 - _Methods_
 - _Events_
     - `send` - emitted when the user clicks the "Send" button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents. Not cancelable.

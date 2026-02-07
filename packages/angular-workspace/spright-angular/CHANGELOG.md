@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Thu, 05 Feb 2026 07:19:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 06 Feb 2026 12:05:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.3.0
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Minor changes
+
+- Add maxlength to ChatInput. ([ni/nimble@eeacf5f](https://github.com/ni/nimble/commit/eeacf5f6ff2a0b196bfbd35cc208a7ca27082a07))
+- Bump @ni/spright-components to v6.7.0
 
 ## 8.2.5
 

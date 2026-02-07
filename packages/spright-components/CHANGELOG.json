@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Fri, 06 Feb 2026 12:05:46 GMT",
+      "version": "6.7.0",
+      "tag": "@ni/spright-components_v6.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "eeacf5f6ff2a0b196bfbd35cc208a7ca27082a07",
+            "comment": "Add maxlength to ChatInput."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Feb 2026 07:19:38 GMT",
       "version": "6.6.5",
       "tag": "@ni/spright-components_v6.6.5",

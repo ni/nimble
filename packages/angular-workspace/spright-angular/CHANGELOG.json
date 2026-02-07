@@ -2,6 +2,27 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Fri, 06 Feb 2026 12:05:46 GMT",
+      "version": "8.3.0",
+      "tag": "@ni/spright-angular_v8.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "eeacf5f6ff2a0b196bfbd35cc208a7ca27082a07",
+            "comment": "Add maxlength to ChatInput."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.7.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Feb 2026 07:19:38 GMT",
       "version": "8.2.5",
       "tag": "@ni/spright-angular_v8.2.5",
