@@ -125,27 +125,22 @@ In order to use the Nimble design tokens as SCSS in Blazor projects (which resul
 ```xml
 <PropertyGroup>
     <NimbleBlazor_CopyScssFiles>true</NimbleBlazor_CopyScssFiles>
-    <!-- Optional: Override default destination directory of Styles/nimble-components, relative to project directory -->
-    <NimbleBlazor_ScssProjectDestinationDirectory>Styles/nimble-components</NimbleBlazor_ScssProjectDestinationDirectory>
+    <!-- Optional: Override default destination directory of NimbleDesignTokens, relative to project directory -->
+    <NimbleBlazor_ScssProjectDestinationDirectory>NimbleDesignTokens</NimbleBlazor_ScssProjectDestinationDirectory>
 </PropertyGroup>
 ```
 2. Add a NuGet package reference to `AspNetCore.SassCompiler` in your Blazor Project.
 3. Add a file `sasscompiler.json` to your project directory:
 ```json
 {
-  "Source": [],
-  "Target": "",
-  "Arguments": "--style=expanded --silence-deprecation=import --error-css --no-source-maps",
-  "GenerateScopedCss": true,
-  "ScopedCssFolders": ["Components"],
-  "IncludePaths": ["Components", "Styles/nimble-components"]
+  "Arguments": "--style=expanded --silence-deprecation=import --error-css --no-source-map"
 }
 ```
-The project-relative directories containing your Razor files should be in both `ScopedCssFolders` and `IncludePaths`. The
-directory containing the Nimble SCSS should be in `IncludePaths`. See the [package docs](https://github.com/koenvzeijl/AspNetCore.SassCompiler) for additional options.
+By default, your Razor files and accompanying SCSS can be in `Views`, `Pages`, `Shared`, `Components` folders (or subfolders), and non-scoped SCSS can be in `Styles` (which will be placed in `wwwroot/css` after building).  
+See the [package docs](https://github.com/koenvzeijl/AspNetCore.SassCompiler) for additional options.
 
 4. Build the project. This ensures the Nimble SCSS has been copied locally.
-5. Add new SCSS files for your Razor components (e.g. `MyComponent.razor.scss`), and `@import '../Styles/nimble-components/tokens';` in it (updating the import relative path as needed).  
+5. Add new SCSS files for your Razor components (e.g. `MyComponent.razor.scss`), and `@import '../NimbleDesignTokens/tokens';` in it (updating the import relative path as needed).  
 Note: You can use `@forward`/`@use` with `AspNetCore.SassCompiler`, but IntelliSense currently only works correctly with `@import`.
 6. Use the `$ni-nimble-...` variables in your Blazor application SCSS.
 
