@@ -1,8 +1,10 @@
 import { css } from '@ni/fast-element';
 import {
     Black15,
-    Black7,
+    Black75,
     Black91,
+    DigitalGreenLight,
+    PowerGreen,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { display } from '../utilities/style/display';
@@ -16,7 +18,6 @@ import {
     controlLabelDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
-    fillHoverColor,
     smallDelay
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
@@ -34,7 +35,9 @@ export const styles = css`
         flex-direction: column;
         cursor: pointer;
         --ni-private-switch-height: 24px;
-        --ni-private-switch-indicator-size: 16px;
+        --ni-private-switch-indicator-size: 24px;
+        --ni-private-switch-indicator-inner-size: 18px;
+        --ni-private-switch-indicator-margin: -2px;
         padding-bottom: calc(
             ${controlHeight} - var(--ni-private-switch-height)
         );
@@ -72,18 +75,34 @@ export const styles = css`
         display: flex;
         height: var(--ni-private-switch-height);
         width: calc(var(--ni-private-switch-height) * 2);
-        background-color: ${fillHoverColor};
+        background-color: var(--ni-private-switch-background-color);
         border-radius: calc(var(--ni-private-switch-height) / 2);
         align-items: center;
-        border: calc(${borderWidth} * 2) solid transparent;
+        border: calc(${borderWidth}) solid transparent;
+    }
+
+    :host([aria-checked='true']) .switch {
+        background-color: var(--ni-private-switch-background-selected-color);
+    }
+
+    :host([aria-checked='true']:hover) .switch {
+        background-color: var(--ni-private-switch-background-selected-rollover-color);
+    }
+
+    :host(${focusVisible}) .switch {
+        border-color: ${borderHoverColor};
+    }
+
+    :host(${focusVisible}[aria-checked='true']) .switch {
+        background-color: var(--ni-private-switch-background-selected-rollover-color);
     }
 
     :host([disabled]) .switch {
         background-color: var(--ni-private-switch-background-disabled-color);
     }
 
-    :host(${focusVisible}) .switch {
-        border-color: ${borderHoverColor};
+    :host([disabled]:hover) .switch {
+        background-color: var(--ni-private-switch-background-disabled-color);
     }
 
     .checked-indicator-spacer {
@@ -103,51 +122,81 @@ export const styles = css`
         width: var(--ni-private-switch-indicator-size);
         height: var(--ni-private-switch-indicator-size);
         border-radius: calc(var(--ni-private-switch-indicator-size) / 2);
-        margin: calc(
-            calc(
-                    var(--ni-private-switch-height) - var(
-                            --ni-private-switch-indicator-size
-                        )
-                ) /
-                2
-        );
+        margin: var(--ni-private-switch-indicator-margin);
         border: ${borderWidth} solid
             var(--ni-private-switch-indicator-border-color);
+    }
+
+    :host([aria-checked='true']) .checked-indicator {
+        border-color: var(--ni-private-switch-indicator-border-selected-color);
     }
 
     :host(:hover) .checked-indicator {
         border: calc(${borderWidth} * 2) solid ${borderHoverColor};
     }
 
+    :host(${focusVisible}) .checked-indicator {
+        border: calc(${borderWidth} * 2) solid ${borderHoverColor};
+    }
+
     :host([disabled]) .checked-indicator {
-        background-color: var(
-            --ni-private-switch-indicator-background-disabled-color
-        );
+        background-color: transparent;
         border: ${borderWidth} solid
             var(--ni-private-switch-indicator-border-disabled-color);
     }
 
-    :host(${focusVisible}) .checked-indicator {
-        border: ${borderWidth} solid ${borderHoverColor};
+    :host([disabled]:hover) .checked-indicator {
+        background-color: transparent;
+        border: ${borderWidth} solid
+            var(--ni-private-switch-indicator-border-disabled-color);
+    }
+
+    :host([disabled]${focusVisible}) .checked-indicator {
+        background-color: transparent;
+        border: ${borderWidth} solid
+            var(--ni-private-switch-indicator-border-disabled-color);
+    }
+
+    :host([disabled]:active) .checked-indicator-inner {
+        background-color: var(
+            --ni-private-switch-indicator-border-disabled-color
+        );
+        opacity: 0;
+    }
+
+    :host([disabled]${focusVisible}) .checked-indicator-inner {
+        background-color: var(
+            --ni-private-switch-indicator-border-disabled-color
+        );
+        opacity: 0;
     }
 
     .checked-indicator-inner {
-        width: calc(var(--ni-private-switch-indicator-size) / 2);
-        height: calc(var(--ni-private-switch-indicator-size) / 2);
-        border-radius: calc(var(--ni-private-switch-indicator-size) / 4);
-        background-color: var(--ni-private-switch-indicator-border-color);
+        width: var(--ni-private-switch-indicator-inner-size);
+        height: var(--ni-private-switch-indicator-inner-size);
+        border-radius: calc(var(--ni-private-switch-indicator-inner-size) / 2);
         opacity: 0;
-        transition: opacity ${smallDelay} ease-in-out;
+    }
+
+    :host([aria-checked='true']) .checked-indicator-inner {
+        opacity: 0;
+    }
+
+    :host(${focusVisible}) .checked-indicator-inner {
+        opacity: 1;
+        background-color: var(--ni-private-switch-indicator-background-color);
+        border: 1px solid var(--ni-private-switch-indicator-border-selected-color);
+    }
+
+    :host(:active) .checked-indicator-inner {
+        opacity: 1;
+        background-color: var(--ni-private-switch-indicator-background-active-color);
     }
 
     :host([disabled]) .checked-indicator-inner {
         background-color: var(
             --ni-private-switch-indicator-border-disabled-color
         );
-    }
-
-    :host([aria-checked='true']) .checked-indicator-inner {
-        opacity: 1;
     }
 
     slot[name='checked-message']::slotted(*) {
@@ -165,20 +214,39 @@ export const styles = css`
         Theme.light,
         css`
             :host {
+                --ni-private-switch-background-color: ${hexToRgbaCssColor(Black91, 0.1)};
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                     Black91,
                     0.07
                 )};
+                --ni-private-switch-background-selected-color: ${hexToRgbaCssColor(
+                    DigitalGreenLight,
+                    0.6
+                )};
+                --ni-private-switch-background-selected-rollover-color: ${hexToRgbaCssColor(
+                    DigitalGreenLight,
+                    0.3
+                )};
                 --ni-private-switch-indicator-background-color: ${White};
                 --ni-private-switch-indicator-background-disabled-color: ${hexToRgbaCssColor(
-                    White,
-                    0.1
+                    Black91,
+                    0.15
                 )};
-                --ni-private-switch-indicator-border-color: ${Black91};
-                --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
+                --ni-private-switch-indicator-background-active-color: ${hexToRgbaCssColor(
+                    DigitalGreenLight,
+                     0.3
+)};
+
+                --ni-private-switch-indicator-border-color: ${hexToRgbaCssColor(
                     Black91,
                     0.3
                 )};
+                --ni-private-switch-indicator-border-selected-color: ${DigitalGreenLight};
+                --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
+                    Black91,
+                    0.15
+                )};
+                
             }
         `
     ),
@@ -186,22 +254,36 @@ export const styles = css`
         Theme.dark,
         css`
             :host {
+                --ni-private-switch-background-color: ${hexToRgbaCssColor(Black15, 0.1)};
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                     Black15,
                     0.07
                 )};
-                --ni-private-switch-indicator-background-color: ${hexToRgbaCssColor(
-                    Black91,
+                --ni-private-switch-background-selected-color: ${hexToRgbaCssColor(
+                    PowerGreen,
+                    0.6
+                )};
+                --ni-private-switch-background-selected-rollover-color: ${hexToRgbaCssColor(
+                    PowerGreen,
                     0.3
                 )};
+                --ni-private-switch-indicator-background-color: ${Black75};
                 --ni-private-switch-indicator-background-disabled-color: ${hexToRgbaCssColor(
-                    Black91,
+                    Black15,
                     0.1
                 )};
-                --ni-private-switch-indicator-border-color: ${Black7};
-                --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
-                    Black7,
+                --ni-private-switch-indicator-background-active-color: ${hexToRgbaCssColor(
+                    PowerGreen,
+                     0.3
+                )};
+                --ni-private-switch-indicator-border-color: ${hexToRgbaCssColor(
+                    Black15,
                     0.3
+                )};
+                --ni-private-switch-indicator-border-selected-color: ${PowerGreen};
+                --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
+                    Black15,
+                    0.15
                 )};
             }
         `
@@ -210,19 +292,39 @@ export const styles = css`
         Theme.color,
         css`
             :host {
+                --ni-private-switch-background-color: ${hexToRgbaCssColor(
+                    White,
+                    0.1
+                )};
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                     White,
                     0.07
                 )};
+                --ni-private-switch-background-selected-color: ${hexToRgbaCssColor(
+                    White,
+                    0.6
+                )};
+                --ni-private-switch-background-selected-rollover-color: ${hexToRgbaCssColor(
+                    White,
+                    0.3
+                )};
                 --ni-private-switch-indicator-background-color: ${hexToRgbaCssColor(
                     White,
-                    0.1
+                    0.3
                 )};
                 --ni-private-switch-indicator-background-disabled-color: ${hexToRgbaCssColor(
                     White,
                     0.1
                 )};
-                --ni-private-switch-indicator-border-color: ${White};
+                --ni-private-switch-indicator-background-active-color: ${hexToRgbaCssColor(
+                    White,
+                     0.3
+                )};
+                --ni-private-switch-indicator-border-color: ${hexToRgbaCssColor(
+                    White,
+                    0.3
+                )};
+                --ni-private-switch-indicator-border-selected-color: ${White} ;
                 --ni-private-switch-indicator-border-disabled-color: ${hexToRgbaCssColor(
                     White,
                     0.3

@@ -235,7 +235,7 @@ export class Select
         const prev = this._value;
         let newValue = next;
 
-        if (this.options?.length) {
+        if (this.options !== undefined && this.options.length > 0) {
             const newValueIndex = this.options.findIndex(
                 el => el.value === newValue
             );
@@ -277,7 +277,7 @@ export class Select
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
-        if (this.anchoredRegion && this.control) {
+        if (this.anchoredRegion !== undefined && this.control !== undefined) {
             this.anchoredRegion.anchorElement = this.control;
         }
     }
@@ -289,7 +289,7 @@ export class Select
         _prev: HTMLElement | undefined,
         _next: HTMLElement | undefined
     ): void {
-        if (this.anchoredRegion && this.control) {
+        if (this.anchoredRegion !== undefined && this.control !== undefined) {
             this.anchoredRegion.anchorElement = this.control;
         }
     }
@@ -475,9 +475,7 @@ export class Select
     ): void {
         super.multipleChanged(prev, next);
 
-        if (this.proxy) {
-            this.proxy.multiple = next;
-        }
+        this.proxy.multiple = next;
     }
 
     /**
@@ -549,7 +547,7 @@ export class Select
             this.emitFilterInputEvent();
         }
 
-        if (e.inputType.includes('deleteContent') || !this.filter.length) {
+        if (e.inputType.includes('deleteContent') || this.filter.length === 0) {
             return true;
         }
 
@@ -747,7 +745,7 @@ export class Select
         if (this.$fastController.isConnected) {
             const typeaheadMatches = this.getTypeaheadMatches();
 
-            if (typeaheadMatches.length) {
+            if (typeaheadMatches.length > 0) {
                 const activeOptionIndex = this.options.indexOf(
                     typeaheadMatches[0] as ListOption
                 );
@@ -908,9 +906,7 @@ export class Select
     ): void {
         super.sizeChanged(prev, next);
 
-        if (this.proxy) {
-            this.proxy.size = next;
-        }
+        this.proxy.size = next;
     }
 
     protected openChanged(): void {
@@ -1273,15 +1269,15 @@ export class Select
      * @internal
      */
     private setProxyOptions(): void {
-        if (this.proxy instanceof HTMLSelectElement && this.options) {
+        if (this.proxy instanceof HTMLSelectElement && this.options !== null) {
             this.proxy.options.length = 0;
             this.options.forEach(option => {
                 const proxyOption = option.proxy
-                    || (option instanceof HTMLOptionElement
+                    ?? (option instanceof HTMLOptionElement
                         ? option.cloneNode()
                         : null);
 
-                if (proxyOption) {
+                if (proxyOption !== null) {
                     this.proxy.options.add(proxyOption);
                 }
             });
@@ -1317,7 +1313,7 @@ export class Select
         }
 
         const selectedOption = this.firstSelectedOption;
-        if (selectedOption) {
+        if (selectedOption !== null) {
             this.selectedOptionObserver?.observe(selectedOption, {
                 characterData: true,
                 subtree: true,

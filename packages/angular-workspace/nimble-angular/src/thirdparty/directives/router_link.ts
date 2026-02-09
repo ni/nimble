@@ -5,7 +5,7 @@
  * - Copy `isUrlTree` function from url_tree.ts into this file instead of importing
  * - Hardcode `isAnchorElement` to `true` so that the directive will correctly set the `href` on elements within nimble that represent anchors
  * - Make `href` a `@HostBindinding` to avoid using Angular's private sanitization APIs because `href` bindings automatically are sanitized by
- *   Angular (see https://angular.io/guide/security#sanitization-and-security-contexts). Implementations leveraging RouterLink should have a test
+ *   Angular (see https://angular.dev/best-practices/security#sanitization-and-security-contexts). Implementations leveraging RouterLink should have a test
  *   ensuring sanitization is called.
  * - Comment out uneccessary export of the deprecated `RouterLinkWithHref`
  */

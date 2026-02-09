@@ -60,7 +60,7 @@ ComboboxOptions
                 />
                 <div class="indicator" part="indicator" aria-hidden="true">
                     <slot name="indicator">
-                        ${definition.indicator || ''}
+                        ${definition.indicator ?? ''}
                     </slot>
                 </div>
             </slot>

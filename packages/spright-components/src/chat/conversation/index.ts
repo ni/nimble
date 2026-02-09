@@ -37,7 +37,7 @@ export class ChatConversation extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        this.inputEmpty = !next?.length;
+        this.inputEmpty = next === undefined || next.length === 0;
     }
 
     public slottedToolbarElementsChanged(
