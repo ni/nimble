@@ -301,10 +301,6 @@ export class CustomAppComponent implements AfterViewInit {
         this.chatUserMessages.push(chatInputSendEvent.detail.text);
     }
 
-    public confirmNewChat(): void {
-        console.log('Starting new chat');
-    }
-
     private setDynamicSelectItems(dynamicSelectItems: ComboboxItem[]): void {
         if (this.dynamicSelectValue && !dynamicSelectItems.includes(this.dynamicSelectValue)) {
             this.dynamicSelectItems = [...dynamicSelectItems, this.dynamicSelectValue];

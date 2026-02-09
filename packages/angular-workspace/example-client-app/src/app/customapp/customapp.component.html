@@ -471,28 +471,14 @@
         <div class="sub-container">
             <div class="container-label">Chat Conversation and Messages (Spright)</div>
             <spright-chat-conversation>
-                <!-- <div style="background: red; padding: 16px; border: 2px solid blue;">
-                        <p>Space to add toolbar</p> -->
-                        <nimble-toolbar slot="toolbar" > 
-                                <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
-                                <span class="toolbar-title" i18n>SystemLink Nigel</span>
-                                <nimble-button appearance="ghost"
-                                        i18n-title title="Create new chat"slot="end"
-                                        (click)="confirmNewChat()">
-                                    <nimble-icon-pencil-to-rectangle></nimble-icon-pencil-to-rectangle>
-                                </nimble-button>
-                        </nimble-toolbar>
-                <!-- </div> -->
-                <!-- <nimble-toolbar>
-                     <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
-                    <span class="toolbar-title" i18n>SystemLink Nigel</span>
-                    <nimble-button appearance="ghost"
-                            i18n-title title="Create new chat"slot="end"
-                            (click)="confirmNewChat()">
-                        <nimble-icon-pencil-to-rectangle></nimble-icon-pencil-to-rectangle>
-                    </nimble-button> 
-                </nimble-toolbar> -->
-
+                <nimble-toolbar slot="toolbar" > 
+                        <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
+                        <span class="toolbar-title" i18n>SystemLink Nigel</span>
+                        <nimble-button appearance="ghost"
+                                i18n-title title="Create new chat">
+                            <nimble-icon-pencil-to-rectangle></nimble-icon-pencil-to-rectangle>
+                        </nimble-button>
+                </nimble-toolbar>
                 <spright-chat-message-system>To start, press any key.</spright-chat-message-system>
                 <spright-chat-message-outbound>Where is the Any key?</spright-chat-message-outbound>
                 <spright-chat-message-system>

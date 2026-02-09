@@ -31,4 +31,10 @@ describe('ChatConversation', () => {
         await connect();
         expect(element.shadowRoot?.querySelector('SLOT')).not.toBeNull();
     });
+
+    it('should have a toolbar slot element in the shadow DOM', async () => {
+        await connect();
+        const toolbarSlot = element.shadowRoot?.querySelector('slot[name="toolbar"]');
+        expect(toolbarSlot).not.toBeNull();
+    });
 });
