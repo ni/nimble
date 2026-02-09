@@ -3,7 +3,7 @@
  * Copied from https://github.com/angular/angular/blob/19.2.15/packages/router/test/integration/integration_helpers.ts
  * with the following modifications:
  * - modify imports
- * - uniquify all 'link-cmp' selectors to avoid NG0912 component ID collision. Approach based on: https://angular.io/errors/NG0912#debugging-the-error
+ * - uniquify all 'link-cmp' selectors to avoid NG0912 component ID collision. Approach based on: https://angular.dev/errors/NG0912#debugging-the-error
  */
 
 /**
