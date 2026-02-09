@@ -13,6 +13,8 @@ interface ChatInputArgs {
     sendButtonLabel: string;
     maxlength: number | undefined;
     value: string;
+    errorText: string;
+    errorVisible: boolean;
     send: undefined;
 }
 
@@ -33,6 +35,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             send-button-label="${x => x.sendButtonLabel}"
             maxlength="${x => x.maxlength}"
             value="${x => x.value}"
+            error-text="${x => x.errorText}"
+            ?error-visible="${x => x.errorVisible}"
         >
         </${chatInputTag}>
     `),
@@ -62,6 +66,18 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             control: { type: 'text' },
             table: { category: apiCategory.attributes }
         },
+        errorText: {
+            name: 'error-text',
+            description: 'Error text to display below the input.',
+            control: { type: 'text' },
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: 'Whether the error message is visible.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
         send: {
             description:
                 'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input.',
@@ -72,6 +88,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         placeholder: 'Type a message',
         sendButtonLabel: 'Send',
         maxlength: -1,
+        errorText: '',
+        errorVisible: false
     }
 };
 
