@@ -12,19 +12,19 @@
       "value": "#804AD9ff",
       "type": "color"
     },
-    "Information10_LightUI": {
+    "InformationLight10": {
       "value": "#F3EDFCff",
       "type": "color"
     },
-    "Information10_DarkUI": {
+    "InformationDark10": {
       "value": "#413D4Cff",
       "type": "color"
     },
-    "Information30_LightUI": {
+    "InformationLight30": {
       "value": "#D9C9F4ff",
       "type": "color"
     },
-    "Information30_DarkUI": {
+    "InformationDark30": {
       "value": "#574873ff",
       "type": "color"
     },
@@ -36,19 +36,19 @@
       "value": "#FF8126ff",
       "type": "color"
     },
-    "Warning10_LightUI": {
+    "WarningLight10": {
       "value": "#FFEDE6ff",
       "type": "color"
     },
-    "Warning10_DarkUI": {
+    "WarningDark10": {
       "value": "#4A3E36ff",
       "type": "color"
     },
-    "Warning20_LightUI": {
+    "WarningLight20": {
       "value": "#FFDBCCff",
       "type": "color"
     },
-    "Warning20_DarkUI": {
+    "WarningDark20": {
       "value": "#5E4635ff",
       "type": "color"
     },
