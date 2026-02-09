@@ -118,7 +118,7 @@ Blazor doesn't have built-in support for using/ building SCSS files, however Nim
 
 For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Theme-aware tokens"](https://nimble.ni.dev/storybook/?path=/story/tokens-theme-aware-tokens--theme-aware-tokens&args=propertyFormat:CSS).
 
-**Experimental: Nimble Tokens SCSS file support**
+**Recommended:** Nimble Tokens SCSS file support
 
 In order to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense and compile-time checking for the Nimble tokens and variables):
 1. In the `.csproj` where you have a `PackageReference` to NimbleBlazor, add the following:
