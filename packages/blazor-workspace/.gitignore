@@ -13,6 +13,9 @@ OkBlazor/wwwroot/OkBlazor.HybridWorkaround.js
 Examples/Demo.Shared/NimbleDesignTokens/
 Examples/Demo.Shared/Pages/*.css
 Examples/Demo.Shared/Shared/*.css
+Examples/Demo.Client/wwwroot/css/*.css
+Examples/Demo.Server/wwwroot/css/*.css
+Examples/Demo.Hybrid/wwwroot/css/*.css
 build/generate-playwright-version-properties/dist/
 artifacts/
 bin/

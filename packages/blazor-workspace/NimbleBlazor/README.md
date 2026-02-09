@@ -144,7 +144,7 @@ See the [package docs](https://github.com/koenvzeijl/AspNetCore.SassCompiler) fo
 Note: You can use `@forward`/`@use` with `AspNetCore.SassCompiler`, but IntelliSense currently only works correctly with `@import`.
 6. Use the `$ni-nimble-...` variables in your Blazor application SCSS.
 
-The SCSS compilation happens before the rest of Blazor's compilation, so this approach works fine with Blazor CSS isolation.
+When using this approach, we recommend fully switching your app over to SCSS. The SCSS compilation happens before the rest of Blazor's compilation, so it works fine with Blazor CSS isolation.
 
 ### Localization (Optional)
 
