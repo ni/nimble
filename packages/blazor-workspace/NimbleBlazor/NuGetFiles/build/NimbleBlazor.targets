@@ -1,0 +1,10 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <NimbleBlazor_CopyScssFiles Condition="'$(NimbleBlazor_CopyScssFiles)'==''">false</NimbleBlazor_CopyScssFiles>
+    <NimbleBlazor_ScssProjectDestinationDirectory Condition="'$(NimbleBlazor_ScssProjectDestinationDirectory)'==''">Styles/nimble-components</NimbleBlazor_ScssProjectDestinationDirectory>
+  </PropertyGroup>
+  <Target Name="CopyScssStyles" BeforeTargets="Build" Condition="'$(NimbleBlazor_CopyScssFiles)'=='true'">
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../files/nimble-components/tokens.scss" DestinationFolder="$(ProjectDir)/$(NimbleBlazor_ScssProjectDestinationDirectory)" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../files/nimble-components/tokens-internal.scss" DestinationFolder="$(ProjectDir)/$(NimbleBlazor_ScssProjectDestinationDirectory)" />
+  </Target>
+</Project>
