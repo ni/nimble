@@ -10,6 +10,9 @@ SprightBlazor/wwwroot/SprightBlazor.HybridWorkaround.js
 OkBlazor/wwwroot/nimble-tokens/
 OkBlazor/wwwroot/ok-components/
 OkBlazor/wwwroot/OkBlazor.HybridWorkaround.js
+Examples/Demo.Shared/NimbleDesignTokens/
+Examples/Demo.Shared/Pages/*.css
+Examples/Demo.Shared/Shared/*.css
 build/generate-playwright-version-properties/dist/
 artifacts/
 bin/
