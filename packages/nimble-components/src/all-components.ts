@@ -7,6 +7,7 @@
 import './anchor';
 import './anchor-button';
 import './anchor-menu-item';
+import './anchor-step';
 import './anchor-tab';
 import './anchor-tabs';
 import './anchor-tree-item';
@@ -40,6 +41,8 @@ import './rich-text/editor';
 import './rich-text/viewer';
 import './select';
 import './spinner';
+import './step';
+import './stepper';
 import './switch';
 import './tab';
 import './tab-panel';

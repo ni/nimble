@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type ChatInput, chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
-import { type ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
+import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 
 export type { ChatInput };
 export type { ChatInputSendEventDetail };
@@ -28,6 +28,14 @@ export class SprightChatInputDirective {
 
     @Input('send-button-label') public set sendButtonLabel(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'sendButtonLabel', value);
+    }
+
+    public get maxLength(): number | undefined {
+        return this.elementRef.nativeElement.maxLength;
+    }
+
+    @Input('maxlength') public set maxLength(value: number | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'maxLength', value);
     }
 
     public get value(): string | undefined {

@@ -56,12 +56,12 @@ AnchorOptions
 }<span
         part="start"
         ${ref('startContainer')}
-        class="${_x => (definition.start ? 'start' : null)}"
+        class="${_x => (definition.start !== undefined ? 'start' : null)}"
         ><slot
             name="start"
             ${ref('start')}
             @slotchange="${x => x.handleStartContentChange()}">
-            ${definition.start || ''}
+            ${definition.start ?? ''}
         </slot
     ></span
     ><span
@@ -74,11 +74,11 @@ AnchorOptions
     ><span
         part="end"
         ${ref('endContainer')}
-        class=${_x => (definition.end ? 'end' : null)}
+        class=${_x => (definition.end !== undefined ? 'end' : null)}
         ><slot
             name="end"
             ${ref('end')}
             @slotchange="${x => x.handleEndContentChange()}">
-            ${definition.end || ''}
+            ${definition.end ?? ''}
         </slot
     ></span></a></div>`;

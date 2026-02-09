@@ -126,6 +126,23 @@ describe('ChatInput', () => {
             await page.pressShiftEnterKey();
             expect(element.value).toEqual('new value\n');
         });
+
+        describe('maxlength', () => {
+            beforeEach(async () => {
+                await connect();
+            });
+
+            it('sets maxLength attribute on textarea', () => {
+                element.maxLength = 10;
+                processUpdates();
+
+                expect(page.getTextAreaMaxLength()).toEqual(10);
+            });
+
+            it('maxLength defaults to -1 when undefined', () => {
+                expect(page.getTextAreaMaxLength()).toBe(-1);
+            });
+        });
     });
 
     describe('send', () => {

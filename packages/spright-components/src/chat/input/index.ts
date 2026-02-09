@@ -30,6 +30,9 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
 
+    @attr({ attribute: 'maxlength', converter: nullableNumberConverter })
+    public maxLength?: number = -1;
+
     /**
      * @internal
      */
