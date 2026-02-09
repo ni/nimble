@@ -42,8 +42,8 @@ if (target === 'nimble') {
     const designTokensSrcPattern = 'tokens*.scss';
     const destination = path.resolve(import.meta.dirname, '../NimbleBlazor/NuGetFiles/files');
     console.log(`Copying Nimble token SCSS from: "${componentsBasePath}\\${designTokensSrcPattern}"`);
-    prepareDestinationDirectory(destination, 'nimble-components');
-    copyFiles(componentsBasePath, designTokensSrcPattern, destination, 'nimble-components');
+    prepareDestinationDirectory(destination, 'NimbleDesignTokens');
+    copyFiles(componentsBasePath, designTokensSrcPattern, destination, 'NimbleDesignTokens');
 }
 
 function resolvePackagePath(packageName) {

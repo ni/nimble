@@ -124,9 +124,9 @@ In order to use the Nimble design tokens as SCSS in Blazor projects (which resul
 1. In the `.csproj` where you have a `PackageReference` to NimbleBlazor, add the following:
 ```xml
 <PropertyGroup>
-    <NimbleBlazor_CopyScssFiles>true</NimbleBlazor_CopyScssFiles>
-    <!-- Optional: Override default destination directory of NimbleDesignTokens, relative to project directory -->
-    <NimbleBlazor_ScssProjectDestinationDirectory>NimbleDesignTokens</NimbleBlazor_ScssProjectDestinationDirectory>
+    <NimbleBlazor_CopyNimbleDesignTokens>true</NimbleBlazor_CopyNimbleDesignTokens>
+    <!-- Optional: Override default destination directory of Nimble tokens, relative to project directory -->
+    <!--  <NimbleBlazor_NimbleDesignTokensDestinationDirectory>CustomDirectory</NimbleBlazor_NimbleDesignTokensDestinationDirectory> -->
 </PropertyGroup>
 ```
 2. Add a NuGet package reference to `AspNetCore.SassCompiler` in your Blazor Project.
