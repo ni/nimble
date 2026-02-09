@@ -44,7 +44,7 @@ export class ChatConversation extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        this.toolbarEmpty = !next?.length;
+        this.toolbarEmpty = next === undefined || next.length === 0;
     }
 }
 
