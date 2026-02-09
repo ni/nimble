@@ -60,7 +60,7 @@ describe('Spright chat input', () => {
 
         it('has expected defaults for processing', () => {
             expect(directive.processing).toBeFalse();
-            expect(nativeElement.processing ).toBeFalse();
+            expect(nativeElement.processing).toBeFalse();
         });
 
         it('has expected defaults for value', () => {
@@ -159,6 +159,7 @@ describe('Spright chat input', () => {
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
             public stopButtonLabel = 'initial';
+            public value = 'initial';
             public processing = false;
             public maxLength = 20;
         }
