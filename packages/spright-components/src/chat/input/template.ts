@@ -34,6 +34,7 @@ export const template = html<ChatInput>`
         <${buttonTag}
             class="stop-button"
             appearance="block"
+            appearance-variant="primary"
             @click=${x => x.stopButtonClickHandler()}
             tabindex="${x => x.tabIndex}"
             title=${x => x.stopButtonLabel}
