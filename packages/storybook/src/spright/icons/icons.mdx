@@ -1,0 +1,21 @@
+import { Meta, Controls, Canvas, Title } from '@storybook/addon-docs/blocks';
+import * as iconsStories from './icons.stories';
+import { iconCalendarCalibrationTag, iconCalendarMaintenanceTag, iconCalendarReservationTag, iconCalendarTestPlanTag, iconCalendarTransportOrderTag } from '@ni/spright-components/dist/esm/icons';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { Tag } from '../../utilities/story-layout';
+
+<Meta of={iconsStories} />
+<Title of={iconsStories} />
+
+<div>
+    Spright custom icons extend Nimble's icon infrastructure with specialized styling and colors.
+    Spright icons can be slotted into other components or used independently.
+    Each icon is available as a custom element. For example,
+    <Tag name={iconCalendarCalibrationTag} openClose />.
+</div>
+
+<Canvas of={iconsStories.icons} />
+
+{/* ## Styling */}
+
+{/* ## Examples */}
