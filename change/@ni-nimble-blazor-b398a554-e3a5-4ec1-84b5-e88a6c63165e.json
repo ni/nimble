@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Improved SCSS support for Nimble Blazor (see README). Include token SCSS in NuGet package.",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
