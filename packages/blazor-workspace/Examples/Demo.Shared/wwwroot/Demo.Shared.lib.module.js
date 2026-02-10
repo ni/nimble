@@ -66,5 +66,5 @@ window.DemoShared = window.DemoShared ?? {
             const result = prefersColorSchemeDarkMediaQuery.matches;
             return result;
         },
-    }
+    },
 };
