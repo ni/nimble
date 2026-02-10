@@ -2,6 +2,27 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Tue, 10 Feb 2026 21:22:58 GMT",
+      "version": "0.3.0",
+      "tag": "@ni/ok-blazor_v0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "ae64cd9de627d12a105e007a77e6e124c529025c",
+            "comment": "adding icon dynamic"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v0.2.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 Feb 2026 12:05:46 GMT",
       "version": "0.2.8",
       "tag": "@ni/ok-blazor_v0.2.8",
