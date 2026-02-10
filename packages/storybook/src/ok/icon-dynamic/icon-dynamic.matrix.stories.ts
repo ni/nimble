@@ -19,11 +19,9 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = (): ViewTemplate => {
-    if (!customElements.get(tagName)) {
-        IconDynamic.registerIconDynamic(tagName, url);
-    }
+IconDynamic.registerIconDynamic(tagName, url);
 
+const component = (): ViewTemplate => {
     return html`<${tagName}></${tagName}>`;
 };
 
