@@ -29,15 +29,22 @@ const nimbleTokensPath = resolvePackagePath('@ni/nimble-tokens');
 const componentsBasePath = path.resolve(componentsPath, 'dist');
 const componentsSrcPattern = 'all-components-bundle.min.*';
 
-const tokensBasePath = path.resolve(nimbleTokensPath, 'dist/fonts');
-const tokensSrcPattern = '**';
+const fontTokensBasePath = path.resolve(nimbleTokensPath, 'dist/fonts');
+const fontTokensSrcPattern = '**';
 
 console.log(`Copying components bundle from: "${componentsBasePath}\\${componentsSrcPattern}"`);
 prepareDestinationDirectory(destinationDirectory, componentPackageName);
 copyFiles(componentsBasePath, componentsSrcPattern, destinationDirectory, componentPackageName);
-console.log(`Copying fonts from: "${tokensBasePath}\\${tokensSrcPattern}"`);
+console.log(`Copying fonts from: "${fontTokensBasePath}\\${fontTokensSrcPattern}"`);
 prepareDestinationDirectory(destinationDirectory, 'nimble-tokens');
-copyFiles(tokensBasePath, tokensSrcPattern, destinationDirectory, 'nimble-tokens');
+copyFiles(fontTokensBasePath, fontTokensSrcPattern, destinationDirectory, 'nimble-tokens');
+if (target === 'nimble') {
+    const designTokensSrcPattern = 'tokens*.scss';
+    const destination = path.resolve(import.meta.dirname, '../NimbleBlazor/NuGetFiles/files');
+    console.log(`Copying Nimble token SCSS from: "${componentsBasePath}\\${designTokensSrcPattern}"`);
+    prepareDestinationDirectory(destination, 'NimbleDesignTokens');
+    copyFiles(componentsBasePath, designTokensSrcPattern, destination, 'NimbleDesignTokens');
+}
 
 function resolvePackagePath(packageName) {
     return path.dirname(require.resolve(`${packageName}/package.json`));

@@ -7,10 +7,13 @@
     <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <NimbleBlazor_CopyNimbleDesignTokens>true</NimbleBlazor_CopyNimbleDesignTokens>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Remove="packages.lock.json" />
+    <Content Remove="sasscompiler.json" />
+    <None Include="sasscompiler.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +22,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.97.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,5 +38,9 @@
     <ProjectReference Include="..\..\OkBlazor\OkBlazor.csproj" />
     <ProjectReference Include="..\..\SprightBlazor\SprightBlazor.csproj" />
   </ItemGroup>
-
+  <!--
+    Since examples are in the same solution as NimbleBlazor, manually import .targets to copy Nimble
+    token SCSS. See NimbleBlazor README for correct workflow for external clients to use SCSS.
+  -->
+  <Import Project="../../NimbleBlazor/NuGetFiles/build/NimbleBlazor.targets" />
 </Project>
