@@ -18,12 +18,18 @@ import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 ## Usage
 
-### Registration
+Dynamic Icons must first be registered before they can be used.
+
+### Register Dynamic Icon
 
 Register icons before use. Tag names must start with
 <code>ok-icon-dynamic-</code> and the name suffix must be lowercase letters and
 at least two characters long. The <code>registerIconDynamic</code> call throws
-if the tag name is invalid. For example:
+if the tag name is invalid.
+
+#### TypeScript
+
+Access the `DynamicIcon.registerIconDynamic` static helper function via the class reference or via the custom element registration:
 
 ```ts
 customElements
@@ -33,7 +39,7 @@ customElements
 
 #### Blazor
 
-Register once after first render using the OkBlazor helper:
+Register once after first render using the `OkIconDynamic.RegisterIconDynamicAsync` helper:
 
 ```cs
 @inject IJSRuntime JSRuntime
@@ -50,10 +56,10 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 }
 ```
 
-### Use the generated tag name
+### Use Dynamic Icon
 
 After registration, use the generated tag name directly or in components that
-accept an `icon` attribute.
+accepts an icon tag name via an `icon` attribute.
 
 ```html
 <ok-icon-dynamic-awesome></ok-icon-dynamic-awesome>
