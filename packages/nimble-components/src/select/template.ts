@@ -96,7 +96,7 @@ SelectOptions
                     `)}
                     <div aria-hidden="true" class="indicator" part="indicator">
                         <slot name="indicator">
-                            ${definition.indicator || ''}
+                            ${definition.indicator ?? ''}
                         </slot>
                     </div>
                 </slot>

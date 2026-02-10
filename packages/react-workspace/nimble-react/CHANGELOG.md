@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 05 Feb 2026 07:19:38 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.11.5
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.2
+
+## 0.11.4
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.1
+
+## 0.11.3
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.0
+
+## 0.11.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.2
+
+## 0.11.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Fix import syntax to obey new lint rule ([ni/nimble@aad1c14](https://github.com/ni/nimble/commit/aad1c1447cb1752602f4cae4e455a7abe0556b06))
+- Bump @ni/nimble-components to v35.1.1
 
 ## 0.11.0
 
