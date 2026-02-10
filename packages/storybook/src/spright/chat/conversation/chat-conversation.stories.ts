@@ -5,6 +5,9 @@ import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
+import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
+import { iconPencilToRectangleTag } from '@ni/nimble-components/dist/esm/icons/pencil-to-rectangle';
+import { iconMessagesSparkleTag } from '@ni/nimble-components/dist/esm/icons/messages-sparkle';
 import {
     ChatConversation,
     chatConversationTag
@@ -62,14 +65,12 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         </style>
         <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
             ${when(x => x.toolbar, html<ChatConversationArgs>`
-                <${buttonTag} slot='toolbar' appearance='ghost' content-hidden>
-                    <${iconArrowRotateRightTag} slot='start'></${iconArrowRotateRightTag}>
-                    New Chat
-                </${buttonTag}>
-                <${buttonTag} slot='toolbar' appearance='ghost' content-hidden>
-                    <${iconCopyTextTag} slot='start'></${iconCopyTextTag}>
-                    Copy All
-                </${buttonTag}>
+                <${toolbarTag} slot='toolbar' class='toolbar'>
+                            <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
+                            <${buttonTag} appearance="ghost" slot="end" title="Create new chat">
+                                <${iconPencilToRectangleTag} slot="end"></${iconPencilToRectangleTag}>
+                            </${buttonTag}>
+                </${toolbarTag}>
             `)}
             <${chatMessageSystemTag}>
                 To start, press any key.
@@ -130,11 +131,6 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     argTypes: {
         appearance: {
             options: Object.keys(ChatConversationAppearance),
-            toolbar: {
-                description:
-                'A slot to optionally include toolbar content which will be displayed on top of the conversation.',
-                table: { category: apiCategory.slots }
-            },
             control: { type: 'radio' },
             description: 'The appearance of the chat conversation.',
             table: { category: apiCategory.attributes }
@@ -145,18 +141,23 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message).',
             table: { category: apiCategory.slots }
         },
+        toolbar: {
+            description:
+                'A slot to optionally include toolbar content which will be displayed on top of the conversation.',
+            table: { category: apiCategory.slots }
+        },
         input: {
             description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages.`,
             table: { category: apiCategory.slots }
         },
         sendMessage: {
-            toolbar: true,
             table: { disable: true }
         }
     },
     args: {
         appearance: 'default',
         input: true,
+        toolbar: true,
         sendMessage: (event, conversationRef) => {
             const message = document.createElement(chatMessageOutboundTag);
             const span = document.createElement('span');
