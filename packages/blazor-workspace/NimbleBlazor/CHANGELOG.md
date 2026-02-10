@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 05 Feb 2026 07:19:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 10 Feb 2026 05:54:13 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.13.0
+
+Tue, 10 Feb 2026 05:54:13 GMT
+
+### Minor changes
+
+- Improved SCSS support for Nimble Blazor (see README). Include token SCSS in NuGet package. ([ni/nimble@9f52015](https://github.com/ni/nimble/commit/9f52015ca3357e99df18b4d10a93a91df897a3a9))
 
 ## 20.12.4
 
