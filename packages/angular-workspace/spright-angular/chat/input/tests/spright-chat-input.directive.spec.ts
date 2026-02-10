@@ -62,6 +62,16 @@ describe('Spright chat input', () => {
             expect(directive.maxLength).toBe(-1);
             expect(nativeElement.maxLength).toBe(-1);
         });
+
+        it('has expected defaults for errorText', () => {
+            expect(directive.errorText).toBeUndefined();
+            expect(nativeElement.errorText).toBeUndefined();
+        });
+
+        it('has expected defaults for errorVisible', () => {
+            expect(directive.errorVisible).toBe(false);
+            expect(nativeElement.errorVisible).toBe(false);
+        });
     });
 
     describe('with template string values', () => {
@@ -72,6 +82,8 @@ describe('Spright chat input', () => {
                     send-button-label="Send button label value"
                     value="Value value"
                     maxlength="10"
+                    error-text="Error text value"
+                    error-visible
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -115,6 +127,16 @@ describe('Spright chat input', () => {
             expect(directive.maxLength).toBe(10);
             expect(nativeElement.maxLength).toBe(10);
         });
+
+        it('will use template string values for errorText', () => {
+            expect(directive.errorText).toBe('Error text value');
+            expect(nativeElement.errorText).toBe('Error text value');
+        });
+
+        it('will use template string values for errorVisible', () => {
+            expect(directive.errorVisible).toBe(true);
+            expect(nativeElement.errorVisible).toBe(true);
+        });
     });
 
     describe('with property bound values', () => {
@@ -125,6 +147,8 @@ describe('Spright chat input', () => {
                     [sendButtonLabel]="sendButtonLabel"
                     [value]="value"
                     [maxlength]="maxLength"
+                    [errorText]="errorText"
+                    [errorVisible]="errorVisible"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -136,6 +160,8 @@ describe('Spright chat input', () => {
             public sendButtonLabel = 'initial';
             public value = 'initial';
             public maxLength = 20;
+            public errorText = 'initial';
+            public errorVisible = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -197,17 +223,40 @@ describe('Spright chat input', () => {
             expect(directive.maxLength).toBe(10);
             expect(nativeElement.maxLength).toBe(10);
         });
+
+        it('can be configured with property binding for errorText', () => {
+            expect(directive.errorText).toBe('initial');
+            expect(nativeElement.errorText).toBe('initial');
+
+            fixture.componentInstance.errorText = 'updated errorText value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('updated errorText value');
+            expect(nativeElement.errorText).toBe('updated errorText value');
+        });
+
+        it('can be configured with property binding for errorVisible', () => {
+            expect(directive.errorVisible).toBe(true);
+            expect(nativeElement.errorVisible).toBe(true);
+
+            fixture.componentInstance.errorVisible = false;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBe(false);
+            expect(nativeElement.errorVisible).toBe(false);
+        });
     });
 
     describe('with attribute bound values', () => {
         @Component({
             template: `
                 <spright-chat-input #chatInput
-                    [attr.error-text]="errorText"
                     [attr.placeholder]="placeholder"
                     [attr.send-button-label]="sendButtonLabel"
                     [attr.value]="value"
                     [attr.maxlength]="maxLength"
+                    [attr.error-text]="errorText"
+                    [attr.error-visible]="errorVisible"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -219,6 +268,8 @@ describe('Spright chat input', () => {
             public sendButtonLabel = 'initial';
             public value = 'initial';
             public maxLength = 20;
+            public errorText = 'initial';
+            public errorVisible = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -278,6 +329,28 @@ describe('Spright chat input', () => {
 
             expect(directive.maxLength).toBe(10);
             expect(nativeElement.maxLength).toBe(10);
+        });
+
+        it('can be configured with attribute binding for errorVisible', () => {
+            expect(directive.errorVisible).toBe(true);
+            expect(nativeElement.errorVisible).toBe(true);
+
+            fixture.componentInstance.errorVisible = false;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBe(false);
+            expect(nativeElement.errorVisible).toBe(false);
+        });
+
+        it('can be configured with attribute binding for errorText', () => {
+            expect(directive.errorText).toBe('initial');
+            expect(nativeElement.errorText).toBe('initial');
+
+            fixture.componentInstance.errorText = 'updated errorText value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('updated errorText value');
+            expect(nativeElement.errorText).toBe('updated errorText value');
         });
     });
 });

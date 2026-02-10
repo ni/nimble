@@ -10,10 +10,12 @@ import {
     popupBorderColor,
     borderHoverColor,
     smallDelay,
-    failColor
+    failColor,
+    iconSize,
+    errorTextFontLineHeight
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { display } from '../../utilities/style/display';
 import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
+import { display } from '../../utilities/style/display';
 
 export const styles = css`
     ${display('flex')}
@@ -24,6 +26,10 @@ export const styles = css`
         height: auto;
         outline: none;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
+    }
+
+    :host([error-visible]) {
+        margin-bottom: calc(${errorTextFontLineHeight} + 2px);
     }
 
     .container {
@@ -58,8 +64,20 @@ export const styles = css`
     :host(:focus-within) .container {
         border-bottom-color: ${borderHoverColor};
     }
+
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
+    }
         
     :host([error-visible]) .container {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]:hover) .container::after {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]:focus-within) .container {
         border-bottom-color: ${failColor};
     }
 
@@ -87,6 +105,26 @@ export const styles = css`
 
     textarea::placeholder {
         color: ${controlLabelFontColor};
+    }
+
+    .input-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+        display: inline-flex;
+        position: absolute;
+        top: ${mediumPadding};
+        right: var(--ni-private-scrollbar-width);
+    }
+
+    :host([error-visible]) textarea {
+        padding-right: calc(${iconSize} + ${mediumPadding});
     }
 
     .send-button {

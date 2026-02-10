@@ -1,19 +1,28 @@
 import { html, ref } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconPaperPlaneTag } from '@ni/nimble-components/dist/esm/icons/paper-plane';
+import { iconExclamationMarkTag } from '@ni/nimble-components/dist/esm/icons/exclamation-mark';
+import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
 import type { ChatInput } from '.';
 
 export const template = html<ChatInput>`
 <div class="container">
-    <textarea
-        ${ref('textArea')}
-        placeholder="${x => x.placeholder}"
-        rows="1"
-        tabindex="${x => x.tabIndex}"
-        maxlength="${x => x.maxLength}"
-        @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
-        @input="${x => x.textAreaInputHandler()}"
-    ></textarea>
+    <div class="input-container">
+        <textarea
+            ${ref('textArea')}
+            placeholder="${x => x.placeholder}"
+            rows="1"
+            tabindex="${x => x.tabIndex}"
+            maxlength="${x => x.maxLength}"
+            @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
+            @input="${x => x.textAreaInputHandler()}"
+        ></textarea>
+        <${iconExclamationMarkTag}
+            severity="error"
+            class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"
+            style="--ni-private-scrollbar-width: ${x => x.scrollbarWidth}px;"
+        ></${iconExclamationMarkTag}>
+    </div>
     <${buttonTag}
         class="send-button"
         appearance="block"
@@ -27,4 +36,5 @@ export const template = html<ChatInput>`
         ${x => x.sendButtonLabel}
         <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
     </${buttonTag}>    
+    ${errorTextTemplate}
 </div>`;

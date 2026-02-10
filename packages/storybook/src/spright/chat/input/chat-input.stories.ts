@@ -88,7 +88,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         placeholder: 'Type a message',
         sendButtonLabel: 'Send',
         maxlength: -1,
-        errorText: '',
+        errorText: 'Error description',
         errorVisible: false
     }
 };

@@ -1,6 +1,6 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { attr, nullableNumberConverter, observable, html } from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable, html, DOM } from '@ni/fast-element';
 import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error/types';
 import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
 import { iconExclamationMarkTag } from '@ni/nimble-components/dist/esm/icons/exclamation-mark';
@@ -46,6 +46,16 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public disableSendButton = true;
 
     /**
+     * The width of the vertical scrollbar, if displayed.
+     * @internal
+     */
+    @observable
+    public scrollbarWidth = -1;
+
+    private resizeObserver?: ResizeObserver;
+    private updateScrollbarWidthQueued = false;
+
+    /**
      * @internal
      */
     public textAreaKeydownHandler(e: KeyboardEvent): boolean {
@@ -62,6 +72,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
         this.disableSendButton = this.shouldDisableSendButton();
+        this.queueUpdateScrollbarWidth();
     }
 
     /**
@@ -71,6 +82,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         if (this.textArea) {
             this.textArea.value = this.value;
             this.disableSendButton = this.shouldDisableSendButton();
+            this.queueUpdateScrollbarWidth();
         }
     }
 
@@ -81,6 +93,16 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         super.connectedCallback();
         this.textArea!.value = this.value;
         this.disableSendButton = this.shouldDisableSendButton();
+        this.resizeObserver = new ResizeObserver(() => this.onResize());
+        this.resizeObserver.observe(this);
+    }
+
+    /**
+     * @internal
+     */
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.resizeObserver?.disconnect();
     }
 
     /**
@@ -108,6 +130,25 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
             this.textArea.value = '';
             this.textArea.focus();
         }
+    }
+
+    private onResize(): void {
+        this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
+    }
+
+    private queueUpdateScrollbarWidth(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.updateScrollbarWidthQueued) {
+            this.updateScrollbarWidthQueued = true;
+            DOM.queueUpdate(() => this.updateScrollbarWidth());
+        }
+    }
+
+    private updateScrollbarWidth(): void {
+        this.updateScrollbarWidthQueued = false;
+        this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
     }
 }
 

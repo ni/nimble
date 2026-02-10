@@ -30,6 +30,13 @@ const placeholderStates = [
 ] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
+const errorStates = [
+    ['empty', ''],
+    ['one line', 'Error description'],
+    ['multi line', `${loremIpsum} ${loremIpsum} ${loremIpsum}`]
+] as const;
+type ErrorState = (typeof errorStates)[number];
+
 const metadata: Meta = {
     title: 'Tests Spright/Chat Input',
     parameters: {
@@ -41,7 +48,8 @@ export default metadata;
 
 const component = (
     [valueLabel, value]: ValueState,
-    [placeholderLabel, placeholder]: PlaceholderState
+    [placeholderLabel, placeholder]: PlaceholderState,
+    [errorLabel, error]: ErrorState
 ): ViewTemplate => html`
     <p 
         style="
@@ -50,17 +58,19 @@ const component = (
         margin-bottom: 0px;
         "
     >    
-        ${valueLabel} value, ${placeholderLabel} placeholder
+        ${valueLabel} value, ${placeholderLabel} placeholder, ${errorLabel} error
     </p>
     <${chatInputTag}
         placeholder="${placeholder}"
         value="${value}"
+        error-visible="${error !== ''}"
+        error-text="${error}"
     >
     </${chatInputTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [valueStates, placeholderStates])
+    createMatrix(component, [valueStates, placeholderStates, errorStates])
 );
 
 export const hidden: StoryFn = createStory(
