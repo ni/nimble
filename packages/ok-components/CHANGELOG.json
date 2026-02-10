@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 10 Feb 2026 21:22:58 GMT",
+      "version": "0.2.8",
+      "tag": "@ni/ok-components_v0.2.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "ae64cd9de627d12a105e007a77e6e124c529025c",
+            "comment": "Add ok-icon-dynamic"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 Feb 2026 12:05:46 GMT",
       "version": "0.2.7",
       "tag": "@ni/ok-components_v0.2.7",
