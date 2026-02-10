@@ -363,7 +363,7 @@ const conversationWithToolbar = (
                 <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
                 <${buttonTag} appearance="ghost" slot="end" title="Create new chat" content-hidden>
                     Create new chat
-                    <${iconPencilToRectangleTag} slot="end"></${iconPencilToRectangleTag}>
+                    <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
                 </${buttonTag}>
             </${toolbarTag}>
             <${chatMessageInboundTag}>
