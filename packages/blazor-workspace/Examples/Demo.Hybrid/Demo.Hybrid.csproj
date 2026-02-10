@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.97.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.100" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.23" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
