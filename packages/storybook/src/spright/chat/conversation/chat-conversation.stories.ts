@@ -37,6 +37,7 @@ import { isChromatic } from '../../../utilities/isChromatic';
 interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
     content: string;
+    toolbar: boolean;
     input: boolean;
     conversationRef: ChatConversation;
     sendMessage: (
@@ -60,6 +61,16 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             }
         </style>
         <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
+            ${when(x => x.toolbar, html<ChatConversationArgs>`
+                <${buttonTag} slot='toolbar' appearance='ghost' content-hidden>
+                    <${iconArrowRotateRightTag} slot='start'></${iconArrowRotateRightTag}>
+                    New Chat
+                </${buttonTag}>
+                <${buttonTag} slot='toolbar' appearance='ghost' content-hidden>
+                    <${iconCopyTextTag} slot='start'></${iconCopyTextTag}>
+                    Copy All
+                </${buttonTag}>
+            `)}
             <${chatMessageSystemTag}>
                 To start, press any key.
             </${chatMessageSystemTag}>
@@ -119,6 +130,11 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     argTypes: {
         appearance: {
             options: Object.keys(ChatConversationAppearance),
+            toolbar: {
+                description:
+                'A slot to optionally include toolbar content which will be displayed on top of the conversation.',
+                table: { category: apiCategory.slots }
+            },
             control: { type: 'radio' },
             description: 'The appearance of the chat conversation.',
             table: { category: apiCategory.attributes }
@@ -134,6 +150,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             table: { category: apiCategory.slots }
         },
         sendMessage: {
+            toolbar: true,
             table: { disable: true }
         }
     },

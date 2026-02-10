@@ -13,6 +13,7 @@ import {
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
+import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import { createStory } from '../../../utilities/storybook';
@@ -346,6 +347,32 @@ const conversationWithInput = (
 
 export const conversationWithInputSizing: StoryFn = createMatrixThemeStory(html`
     ${createMatrix(conversationWithInput, [heightStates])}
+`);
+
+const conversationWithToolbar = (
+    [heightLabel, height]: HeightStates,
+): ViewTemplate => html`
+    <div style="width: 300px; padding: 8px;">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: ${height};
+        ">
+            <${buttonTag} slot='toolbar' appearance='ghost' content-hidden>
+                <${iconArrowRotateRightTag} slot='start'></${iconArrowRotateRightTag}>
+                New Chat
+            </${buttonTag}>
+            <${chatMessageInboundTag}>
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageInboundTag}>
+            <${chatMessageOutboundTag} message-type="outbound">
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageOutboundTag}>
+        </${chatConversationTag}>
+    </div>
+`;
+
+export const conversationWithToolbarSizing: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(conversationWithToolbar, [heightStates])}
 `);
 
 const conversationWithAppearance = ([
