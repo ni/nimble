@@ -7,7 +7,7 @@ import {
     createMatrixThemeStory
 } from '../../utilities/matrix';
 
-const tagName = 'ok-icon-dynamic-awesome';
+const tagName = 'ok-icon-dynamic-simple';
 const url = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="black"/></svg>';
 
 const metadata: Meta = {
