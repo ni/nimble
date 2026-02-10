@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "adding icon dynamic",
+  "packageName": "@ni/ok-blazor",
+  "email": "5265744+hellovolcano@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
