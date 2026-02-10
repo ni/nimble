@@ -50,9 +50,9 @@ ButtonOptions
                 <slot ${slotted('defaultSlottedContent')}></slot>
             </div>
             <div class="content">
-                <div class="title">
+                <div class="title-wrapper">
                     ${startSlotTemplate(context, definition)}
-                    <slot name="title"></slot>
+                    <div class="title"><slot name="title"></slot></div>
                     ${endSlotTemplate(context, definition)}
                     <div class="line"></div>
                 </div>

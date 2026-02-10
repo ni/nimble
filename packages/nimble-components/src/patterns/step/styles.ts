@@ -6,7 +6,9 @@ import {
     smallPadding,
     bodyFont,
     errorTextFont,
+    controlSlimHeight,
 } from '../../theme-provider/design-tokens';
+import {styles as severityStyles} from '../severity/styles';
 
 // import { accessiblyHidden } from '../../utilities/style/accessibly-hidden';
 
@@ -15,7 +17,7 @@ export const styles = css`
 
     @layer base {
         ${display('inline-flex')}
-
+        ${severityStyles}
         :host {
             height: 46px;
             color: ${buttonLabelFontColor};
@@ -23,6 +25,13 @@ export const styles = css`
             white-space: nowrap;
             outline: none;
             border: 1px solid red;
+        }
+
+        .container {
+            display: inline-flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
 
         .control { 
@@ -49,17 +58,23 @@ export const styles = css`
             height: 32px;
             width: 32px;
             border: 1px solid purple;
+            flex: none;
         }
 
         .content {
             display: inline-flex;
+            width: 100%;
             flex-direction: column;
-            gap: ${smallPadding};
             padding-top: ${smallPadding};
         }
 
-        .title {
+        .title-wrapper {
             display: inline-flex;
+            height: ${controlSlimHeight};
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            gap: ${smallPadding};
             font: ${bodyFont};
         }
 
@@ -67,14 +82,20 @@ export const styles = css`
             display: none;
         }
 
+        .title {
+            display: inline-block;
+            flex: none;
+        }
+
         [part='end'] {
             display: none;
         }
         
         .line {
-            display: block;
-            height: 5px;
-            border: 1px solid green;
+            display: inline-block;
+            flex: 1;
+            height: 1px;
+            background: green;
         }
 
         .subtitle {
