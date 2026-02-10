@@ -1,5 +1,7 @@
-﻿.example-root {
-    background-color: var(--ni-nimble-application-background-color);
+﻿@import '../NimbleDesignTokens/tokens';
+
+.example-root {
+    background-color: $ni-nimble-application-background-color;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -8,7 +10,7 @@
 }
 
 .header {
-    background-color: var(--ni-nimble-header-background-color);
+    background-color: $ni-nimble-header-background-color;
     display: flex;
     justify-content: flex-end;
 }

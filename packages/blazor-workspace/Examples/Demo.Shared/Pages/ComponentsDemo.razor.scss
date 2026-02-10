@@ -1,0 +1,60 @@
+﻿@import '../NimbleDesignTokens/tokens';
+
+.content-container {
+    width: 100%;
+    box-sizing: border-box;
+    font: $ni-nimble-body-font;
+    color: $ni-nimble-body-font-color;
+    padding: 0px 2px 0px 10px;
+}
+
+.container-label {
+    font: $ni-nimble-group-header-font;
+    color: $ni-nimble-group-header-font-color;
+    padding-bottom: $ni-nimble-standard-padding;
+}
+
+.container {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+}
+
+.sub-container {
+    margin: $ni-nimble-standard-padding;
+}
+
+::deep .table {
+    max-height: 500px;
+}
+
+::deep .table-update-button {
+    margin-top: $ni-nimble-small-padding;
+}
+
+.drawer-location-select {
+    width: 200px;
+}
+
+::deep nimble-toolbar::part(positioning-region) {
+    background-color: $ni-nimble-section-background-color;
+}
+
+.card-button-content {
+    display: flex;
+    margin: $ni-nimble-standard-padding
+}
+
+.drawer-footer {
+    gap: $ni-nimble-standard-padding;
+}
+
+.rich-text-viewer-container {
+    border: $ni-nimble-border-width solid rgba($ni-nimble-action-rgb-partial-color, 0.3);
+    padding: $ni-nimble-small-padding;
+    width: 350px;
+}
+
+::deep spright-chat-conversation {
+    max-width: 700px;
+}
