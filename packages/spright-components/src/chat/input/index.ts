@@ -52,7 +52,7 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public textAreaKeydownHandler(e: KeyboardEvent): boolean {
-        if (e.key === keyEnter && !e.shiftKey) {
+        if (e.key === keyEnter && !e.shiftKey && !this.processing) {
             this.sendButtonClickHandler();
             return false;
         }
@@ -109,6 +109,8 @@ export class ChatInput extends FoundationElement {
         }
         const eventDetail: ChatInputStopEventDetail = {};
         this.$emit('stop', eventDetail);
+        this.textArea?.blur();
+        this.processing = false;
     }
 
     private shouldDisableSendButton(): boolean {

@@ -39,11 +39,11 @@ export class SprightChatInputDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'stopButtonLabel', value);
     }
 
-    public get processing(): boolean {
+    public get processing(): boolean | undefined {
         return this.elementRef.nativeElement.processing;
     }
 
-    @Input('processing') public set processing(value: boolean) {
+    @Input('processing') public set processing(value: boolean | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'processing', value);
     }
 

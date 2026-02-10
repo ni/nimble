@@ -82,12 +82,7 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .send-button {
-        align-self: flex-end;
-        width: 80px;
-        margin: ${mediumPadding};
-    }
-
+    .send-button,
     .stop-button {
         align-self: flex-end;
         width: 80px;

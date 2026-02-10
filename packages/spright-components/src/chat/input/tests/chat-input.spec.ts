@@ -35,6 +35,14 @@ describe('ChatInput', () => {
         expect(page.isTextAreaFocused()).toBeTrue();
     });
 
+    it('to processing state enables stop button', async () => {
+        await connect();
+        element.processing = true;
+        processUpdates();
+
+        expect(page.isStopButtonEnabled()).toBeTrue();
+    });
+
     describe('initial state', () => {
         beforeEach(async () => {
             await connect();
@@ -96,14 +104,6 @@ describe('ChatInput', () => {
             element.value = '';
             processUpdates();
             expect(page.isSendButtonEnabled()).toBeFalse();
-        });
-
-        it('to processing state enabled stop button', () => {
-            element.value = 'new value';
-            processUpdates();
-            element.processing = true;
-            processUpdates();
-            expect(page.isStopButtonEnabled()).toBeTrue();
         });
     });
 
@@ -250,6 +250,60 @@ describe('ChatInput', () => {
             const spy = jasmine.createSpy();
             element.addEventListener('send', spy);
             element.value = 'new value';
+            processUpdates();
+            await page.pressShiftEnterKey();
+
+            expect(spy).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('stop', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        it('via button click triggers stop event', async () => {
+            const spy = jasmine.createSpy();
+            const stopListener = waitForEvent(element, 'stop', spy);
+            element.processing = true;
+            processUpdates();
+
+            page.clickStopButton();
+
+            await stopListener;
+            expect(spy).toHaveBeenCalledOnceWith(
+                new CustomEvent('stop', {})
+            );
+        });
+
+        it('does not clear input, does not set focus, and switches to send button', () => {
+            element.processing = true;
+            page.setText('new value');
+            processUpdates();
+            page.clickStopButton();
+            processUpdates();
+
+            expect(element.value).toEqual('new value');
+            expect(page.getRenderedText()).toEqual('new value');
+            expect(page.textAreaHasFocus()).toBeFalse();
+            expect(element.processing).toBeFalse();
+            expect(page.isSendButtonEnabled()).toBeTrue();
+        });
+
+        it('Enter does not trigger stop event', async () => {
+            const spy = jasmine.createSpy();
+            element.addEventListener('stop', spy);
+            element.processing = true;
+            processUpdates();
+            await page.pressEnterKey();
+
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('Shift-Enter does not trigger stop event', async () => {
+            const spy = jasmine.createSpy();
+            element.addEventListener('stop', spy);
+            element.processing = true;
             processUpdates();
             await page.pressShiftEnterKey();
 

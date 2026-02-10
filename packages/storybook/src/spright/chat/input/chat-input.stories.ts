@@ -74,18 +74,18 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             table: { category: apiCategory.attributes }
         },
         processing: {
-            description: 'The string within the chat input.',
+            description: 'Shows the stop button instead of the send button when set to true.',
             control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
         send: {
             description:
-                'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input.',
+                'Emitted when the user clicks the \'Send\' button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input.',
             table: { category: apiCategory.events }
         },
         stop: {
             description:
-                'Emitted when the user clicks the button. Includes `ChatInputStopEventDetail`.',
+                'Emitted when the user clicks the \'Stop\' button. Includes `ChatInputStopEventDetail`.',
             table: { category: apiCategory.events }
         }
     },
