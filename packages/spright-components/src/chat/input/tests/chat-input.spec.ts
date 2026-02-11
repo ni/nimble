@@ -145,7 +145,7 @@ describe('ChatInput', () => {
             processUpdates();
             const sendSpy = jasmine.createSpy();
             element.addEventListener('send', sendSpy);
-            
+
             await page.pressEnterKey();
 
             expect(sendSpy).not.toHaveBeenCalled();
