@@ -7,3 +7,4 @@
 import '@ni/spright-components/dist/esm/all-components';
 
 import './button';
+import './icon-dynamic';
