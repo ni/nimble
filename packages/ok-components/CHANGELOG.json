@@ -2,6 +2,42 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Wed, 11 Feb 2026 03:47:57 GMT",
+      "version": "0.2.9",
+      "tag": "@ni/ok-components_v0.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.2.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.7.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 Feb 2026 21:22:58 GMT",
+      "version": "0.2.8",
+      "tag": "@ni/ok-components_v0.2.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "ae64cd9de627d12a105e007a77e6e124c529025c",
+            "comment": "Add ok-icon-dynamic"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 Feb 2026 12:05:46 GMT",
       "version": "0.2.7",
       "tag": "@ni/ok-components_v0.2.7",
