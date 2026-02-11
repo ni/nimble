@@ -144,7 +144,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         },
         toolbar: {
             description:
-                'A slot to optionally include a \`${toolbarTag}\` which will be displayed on top of the conversation.',
+                `A slot to optionally include a \`${toolbarTag}\` which will be displayed on top of the conversation.`,
             table: { category: apiCategory.slots }
         },
         input: {
