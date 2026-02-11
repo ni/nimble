@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.7.0",
+  "version": "6.7.1",
   "description": "NI Spright Components",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
@@ -37,7 +37,7 @@
     "@ni/fast-element": "^10.1.0",
     "@ni/fast-foundation": "^10.1.5",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.2.2",
+    "@ni/nimble-components": "^35.2.3",
     "tslib": "^2.2.0"
   },
   "devDependencies": {

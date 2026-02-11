@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 11 Feb 2026 03:47:57 GMT",
+      "version": "8.15.0",
+      "tag": "@ni/nimble-tokens_v8.15.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "727c71e6a2d40b70d5ab2c18bbf14a51f35ab3f7",
+            "comment": "Add base colors for the new variants of calendar events"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 27 Jan 2026 23:05:34 GMT",
       "version": "8.14.0",
       "tag": "@ni/nimble-tokens_v8.14.0",
