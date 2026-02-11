@@ -1,6 +1,6 @@
 import { css } from '@ni/fast-element';
-import { display } from '../../utilities/style/display';
 import { calendarEventBorderStatic3Color, iconSize } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { display } from '../../utilities/style/display';
 import { userSelectNone } from '../../utilities/style/user-select';
 
 export const styles = css`

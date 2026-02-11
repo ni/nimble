@@ -1,6 +1,6 @@
 import { css } from '@ni/fast-element';
+import { calendarEventBorderStatic4Color, iconSize } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
-import { calendarEventBorderStatic4Color } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { userSelectNone } from '../../utilities/style/user-select';
 
 export const styles = css`
@@ -9,8 +9,8 @@ export const styles = css`
     :host {
         align-items: center;
         ${userSelectNone}
-        width: 16px;
-        height: 16px;
+        width: ${iconSize};
+        height: ${iconSize};
     }
 
     .icon {
