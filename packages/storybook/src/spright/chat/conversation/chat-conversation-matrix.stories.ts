@@ -372,6 +372,7 @@ const conversationWithToolbar = (
             <${chatMessageOutboundTag} message-type="outbound">
                 <span>Conversation is ${heightLabel} than the height of the messages.</span>
             </${chatMessageOutboundTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
     </div>
 `;

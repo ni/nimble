@@ -24,7 +24,6 @@ export const styles = css`
 
     .toolbar {
         display: flex;
-        flex-direction: column;
     }
 
     .toolbar.toolbar-empty {

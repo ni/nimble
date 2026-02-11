@@ -78,7 +78,7 @@ All end text buttons must meet the following criteria
 
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
-1. Includes a slot to place toolbar content (such as buttons or menu buttons) on top of the conversation.
+1. Includes a slot to place a toolbar (and its content such as buttons or menu buttons) on top of the conversation.
 1. Includes a slot to place an input component below the messages.
 1. Only appearance of its own is to set a background color.
 
@@ -178,12 +178,12 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ```html
 <nimble-toolbar slot="toolbar" > 
-        <nimble-icon-messages-spark slot="start"></nimble-icon-messages-sparkle>
-        <span class="toolbar-title" i18n>AI Assistant</span>
-        <nimble-button appearance="ghost"
-                i18n-title title="Create new chat" slot="end">
-            <nimble-icon-pencil-to-rectangle></nimble-icon-pencil-to-rectangle>
-        </nimble-button>
+    <nimble-icon-messages-spark slot="start"></nimble-icon-messages-sparkle>
+    <span class="toolbar-title">AI Assistant</span>
+    <nimble-button appearance="ghost" content-hidden title="Create new chat" slot="end">
+        Create new chat
+        <nimble-icon-pencil-to-rectangle slot="start"></nimble-icon-pencil-to-rectangle>
+    </nimble-button>
 </nimble-toolbar>
 ```
 
@@ -241,7 +241,7 @@ All message types will share the following API:
 - _Slots_
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
     - a single chat input can optionally be added to the `input` slot. It will be placed below the messages
-    - optional slot for toolbar content (such as buttons or menu buttons) that will be displayed above the messages. This can be used for actions like starting a new conversation, copying all messages, or other conversation-level operations.
+    - a toolbar can optionally be added to the `toolbar` slot. The toolbar will be displayed above the messages. The toolbar content can be buttons or menus used for actions like starting a new conversation, copying all messages, or other conversation-level operations.
 
 #### Input
 

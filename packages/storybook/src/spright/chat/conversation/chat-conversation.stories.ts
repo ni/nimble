@@ -65,12 +65,12 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         </style>
         <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
             ${when(x => x.toolbar, html<ChatConversationArgs>`
-                <${toolbarTag} slot='toolbar' class='toolbar'>
-                            <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
-                            <${buttonTag} appearance="ghost" slot="end" title="Create new chat" content-hidden>
-                                Create new chat
-                                <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
-                            </${buttonTag}>
+                <${toolbarTag} slot='toolbar'>
+                    <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
+                    <${buttonTag} appearance="ghost" slot="end" title="Create new chat" content-hidden>
+                        Create new chat
+                        <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
+                    </${buttonTag}>
                 </${toolbarTag}>
             `)}
             <${chatMessageSystemTag}>
@@ -144,7 +144,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         },
         toolbar: {
             description:
-                'A slot to optionally include toolbar content which will be displayed on top of the conversation.',
+                'A slot to optionally include a \`${toolbarTag}\` which will be displayed on top of the conversation.',
             table: { category: apiCategory.slots }
         },
         input: {
