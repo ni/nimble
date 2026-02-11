@@ -3,7 +3,7 @@ import { keyEnter } from '@ni/fast-web-utilities';
 import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
-import type { ChatInputSendEventDetail, ChatInputStopEventDetail } from './types';
+import type { ChatInputSendEventDetail } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -52,7 +52,10 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public textAreaKeydownHandler(e: KeyboardEvent): boolean {
-        if (e.key === keyEnter && !e.shiftKey && !this.processing) {
+        if (e.key === keyEnter && !e.shiftKey) {
+            if (this.processing) {
+                return false;
+            }
             this.sendButtonClickHandler();
             return false;
         }
@@ -107,10 +110,8 @@ export class ChatInput extends FoundationElement {
         if (!this.processing) {
             return;
         }
-        const eventDetail: ChatInputStopEventDetail = {};
-        this.$emit('stop', eventDetail);
+        this.$emit('stop');
         this.textArea?.blur();
-        this.processing = false;
     }
 
     private shouldDisableSendButton(): boolean {

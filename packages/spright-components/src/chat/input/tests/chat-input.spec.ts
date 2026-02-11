@@ -40,7 +40,7 @@ describe('ChatInput', () => {
         element.processing = true;
         processUpdates();
 
-        expect(page.isStopButtonEnabled()).toBeTrue();
+        expect(page.isButtonEnabled()).toBeTrue();
     });
 
     describe('initial state', () => {
@@ -60,7 +60,7 @@ describe('ChatInput', () => {
         });
 
         it('has disabled send button', () => {
-            expect(page.isSendButtonEnabled()).toBeFalse();
+            expect(page.isButtonEnabled()).toBeFalse();
         });
 
         it('is not processing', () => {
@@ -95,7 +95,7 @@ describe('ChatInput', () => {
         it('to non-empty value enables send button', () => {
             element.value = 'new value';
             processUpdates();
-            expect(page.isSendButtonEnabled()).toBeTrue();
+            expect(page.isButtonEnabled()).toBeTrue();
         });
 
         it('to empty value disables send button', () => {
@@ -103,7 +103,7 @@ describe('ChatInput', () => {
             processUpdates();
             element.value = '';
             processUpdates();
-            expect(page.isSendButtonEnabled()).toBeFalse();
+            expect(page.isButtonEnabled()).toBeFalse();
         });
     });
 
@@ -124,19 +124,32 @@ describe('ChatInput', () => {
 
         it('to non-empty value enables send button', () => {
             page.setText('new value');
-            expect(page.isSendButtonEnabled()).toBeTrue();
+            expect(page.isButtonEnabled()).toBeTrue();
         });
 
         it('to empty value disables send button', () => {
             page.setText('new value');
             page.setText('');
-            expect(page.isSendButtonEnabled()).toBeFalse();
+            expect(page.isButtonEnabled()).toBeFalse();
         });
 
         it('Shift-Enter adds newline', async () => {
             page.setText('new value');
             await page.pressShiftEnterKey();
             expect(element.value).toEqual('new value\n');
+        });
+
+        it('Enter does not trigger send event when processing', async () => {
+            element.processing = true;
+            element.value = 'value';
+            processUpdates();
+            const sendSpy = jasmine.createSpy();
+            element.addEventListener('send', sendSpy);
+            
+            await page.pressEnterKey();
+
+            expect(sendSpy).not.toHaveBeenCalled();
+            expect(element.value).toBe('value');
         });
 
         describe('maxlength', () => {
@@ -225,7 +238,7 @@ describe('ChatInput', () => {
             expect(element.value).toEqual('');
             expect(page.getRenderedText()).toEqual('');
             expect(page.textAreaHasFocus()).toBeTrue();
-            expect(page.isSendButtonEnabled()).toBeFalse();
+            expect(page.isButtonEnabled()).toBeFalse();
         });
 
         it('via button click with no text triggers no send event', () => {
@@ -276,7 +289,7 @@ describe('ChatInput', () => {
             );
         });
 
-        it('does not clear input, does not set focus, and switches to send button', () => {
+        it('does not clear input, does not set focus', () => {
             element.processing = true;
             page.setText('new value');
             processUpdates();
@@ -286,8 +299,6 @@ describe('ChatInput', () => {
             expect(element.value).toEqual('new value');
             expect(page.getRenderedText()).toEqual('new value');
             expect(page.textAreaHasFocus()).toBeFalse();
-            expect(element.processing).toBeFalse();
-            expect(page.isSendButtonEnabled()).toBeTrue();
         });
 
         it('Enter does not trigger stop event', async () => {
@@ -323,8 +334,8 @@ describe('ChatInput', () => {
         it('affects button title and ARIA', () => {
             element.sendButtonLabel = 'Send it!';
             processUpdates();
-            expect(page.getSendButtonTitle()).toEqual('Send it!');
-            expect(page.getSendButtonTextContent()).toEqual('Send it!');
+            expect(page.getButtonTitle()).toEqual('Send it!');
+            expect(page.getButtonTextContent()).toEqual('Send it!');
         });
     });
 
@@ -341,8 +352,8 @@ describe('ChatInput', () => {
             element.stopButtonLabel = 'Stop it!';
             element.processing = true;
             processUpdates();
-            expect(page.getStopButtonTitle()).toEqual('Stop it!');
-            expect(page.getStopButtonTextContent()).toEqual('Stop it!');
+            expect(page.getButtonTitle()).toEqual('Stop it!');
+            expect(page.getButtonTextContent()).toEqual('Stop it!');
         });
     });
 
@@ -362,7 +373,7 @@ describe('ChatInput', () => {
 
             expect(element.getAttribute('tabindex')).toEqual('-1');
             expect(element.tabIndex).toEqual(-1);
-            expect(page.getSendButtonTabIndex()).toEqual('-1');
+            expect(page.getButtonTabIndex()).toEqual('-1');
             expect(page.getTextAreaTabIndex()).toEqual('-1');
         });
 
@@ -374,7 +385,7 @@ describe('ChatInput', () => {
 
             expect(element.getAttribute('tabindex')).toBeNull();
             expect(element.tabIndex).toBeNull();
-            expect(page.getSendButtonTabIndex()).toBeNull();
+            expect(page.getButtonTabIndex()).toBeNull();
             expect(page.getTextAreaTabIndex()).toBeNull();
         });
     });

@@ -31,8 +31,8 @@ const placeholderStates = [
 type PlaceholderState = (typeof placeholderStates)[number];
 
 const processingStates = [
-    ['not', false],
-    ['', true]
+    ['', false],
+    ['processing', true]
 ] as const;
 type ProcessingState = (typeof processingStates)[number];
 
@@ -57,7 +57,7 @@ const component = (
         margin-bottom: 0px;
         "
     >    
-        ${valueLabel} value, ${placeholderLabel} placeholder, ${processingLabel} processing
+        ${valueLabel} value, ${placeholderLabel} placeholder, ${processingLabel}
     </p>
     <${chatInputTag}
         placeholder="${placeholder}"

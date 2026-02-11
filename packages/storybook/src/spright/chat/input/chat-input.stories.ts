@@ -85,7 +85,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         },
         stop: {
             description:
-                'Emitted when the user clicks the \'Stop\' button. Includes `ChatInputStopEventDetail`.',
+                'Emitted when the user clicks the \'Stop\' button.',
             table: { category: apiCategory.events }
         }
     },
