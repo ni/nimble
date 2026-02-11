@@ -23,6 +23,7 @@ The breakpoint table column provides a visual indicator for debugging breakpoint
 - Resizable column width
 - Context menu for disabling or enabling breakpoints
 - Updates to the nimble table to modify column ordering or pin columns
+- Implementing keyboard shortcuts
 
 ## Implementation / Design
 
@@ -32,9 +33,9 @@ Typical usage:
 
 ```html
 <nimble-table>
-    <spright-table-column-breakpoint breakpoint-field-name="breakpointState">
+    <ok-table-column-breakpoint field-name="breakpointState">
         <!-- Column header can be empty or contain accessibility label -->
-    </spright-table-column-breakpoint>
+    </ok-table-column-breakpoint>
     <!-- Other columns -->
 </nimble-table>
 ```
@@ -45,11 +46,11 @@ Typical usage:
 
 _Element Name_
 
-- `spright-table-column-breakpoint`
+- `ok-table-column-breakpoint`
 
 _Props/Attrs_
 
-- `breakpoint-field-name`: string - The field name in the data record that contains the breakpoint state
+- `field-name`: string - The field name in the data record that contains the breakpoint state
 
 _Content_
 
@@ -57,7 +58,7 @@ _Content_
 
 _Events_
 
-- `breakpoint-toggle`: Emitted when a breakpoint is toggled via click or keyboard interaction
+- `breakpoint-column-toggle`: Emitted when a breakpoint is toggled via click or keyboard interaction
   ```ts
   interface BreakpointToggleEventDetail {
       recordId: string;
@@ -70,7 +71,7 @@ _Events_
 
 _Element Name_
 
-- `spright-table-column-breakpoint-cell-view`
+- `ok-table-column-breakpoint-cell-view`
 
 _Rendering_
 
@@ -81,6 +82,10 @@ The cell view will render a breakpoint indicator based on the current state:
 - **Hit**: Filled red circle with highlight/border indicating active state within the indicator itself
 
 Each indicator will have a minimum 24x24 pixel hit target.
+
+_DOM / Hit Target_
+
+The indicator will be implemented as a native `<button>` with a fixed 24x24 hit target. The button will be visually transparent (no background, border, or shadow) so only the breakpoint icon is visible. The icon for the current state will be slotted inside the button. 
 
 #### Breakpoint States
 
@@ -95,13 +100,9 @@ enum BreakpointState {
 }
 ```
 
-#### Group Header View Element
-
-No new group header view element.
-
 ### Sorting / Grouping
 
-The breakpoint column will not be sortable or groupable.
+The breakpoint column will not be sortable or groupable. No new group header view element.
 
 ### Sizing
 
@@ -115,9 +116,9 @@ When the breakpoint state is `undefined` or `null`, the cell will render in the 
 
 The following events from the cell view will be delegated to the column:
 
-- `click` events from the breakpoint indicator will be delegated as `breakpoint-toggle` events
+- `breakpoint-column-toggle`
 
-Both events will include the `recordId` to identify the row where the interaction occurred.
+The event will include the `recordId` to identify the row where the interaction occurred.
 
 ### Interactions
 
@@ -130,7 +131,6 @@ Interactive elements:
 
 - Verify breakpoint state transitions (Off ↔ Enabled ↔ Disabled ↔ Hit)
 - Test click-to-toggle functionality
-- Verify keyboard shortcuts (Ctrl+B, F9) work when row/cell is focused
 - Test right-click event delegation for client callback implementation
 - Verify tooltip display on hover/focus
 - Verify proper event delegation with correct recordId values
@@ -152,9 +152,9 @@ Tooltips will use the standard HTML `title` attribute, with built-in default tex
 - High contrast support for different breakpoint states
 - Minimum 24x24 pixel hit targets for web accessibility
 
-### Angular Integration
+### Framework Integration
 
-- Add new table column and events to Angular and Blazor wrappers.
+- Standard Blazor wrapper
 
 ## Open Issues
 
