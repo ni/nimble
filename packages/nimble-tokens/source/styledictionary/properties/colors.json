@@ -12,8 +12,44 @@
       "value": "#804AD9ff",
       "type": "color"
     },
+    "InformationLight10": {
+      "value": "#F3EDFCff",
+      "type": "color"
+    },
+    "InformationDark10": {
+      "value": "#413D4Cff",
+      "type": "color"
+    },
+    "InformationLight30": {
+      "value": "#D9C9F4ff",
+      "type": "color"
+    },
+    "InformationDark30": {
+      "value": "#574873ff",
+      "type": "color"
+    },
+    "InformationDarkTypography": {
+      "value": "#C9ABFFff",
+      "type": "color"
+    },
     "Warning100_DarkUI": {
       "value": "#FF8126ff",
+      "type": "color"
+    },
+    "WarningLight10": {
+      "value": "#FFEDE6ff",
+      "type": "color"
+    },
+    "WarningDark10": {
+      "value": "#4A3E36ff",
+      "type": "color"
+    },
+    "WarningLight20": {
+      "value": "#FFDBCCff",
+      "type": "color"
+    },
+    "WarningDark20": {
+      "value": "#5E4635ff",
       "type": "color"
     },
     "Pass100_LightUI": {
@@ -120,8 +156,16 @@
       "value": "#FF4B00ff",
       "type": "color"
     },
+    "Black91V10": {
+      "value": "#E8E8E8ff",
+      "type": "color"
+    },
     "Black30": {
       "value": "#D3D5D6ff",
+      "type": "color"
+    },
+    "Black82V100": {
+      "value": "#6E6F70ff",
       "type": "color"
     },
     "Black50": {
@@ -240,6 +284,22 @@
       "value": "#E54C8Aff",
       "type": "color"
     },
+    "NI Tulip 10": {
+      "value": "#FDEEF4ff",
+      "type": "color"
+    },
+    "NI Tulip Dark 10": {
+      "value": "#483A41ff",
+      "type": "color"
+    },
+    "NI Tulip 20": {
+      "value": "#FADBE8ff",
+      "type": "color"
+    },
+    "NI Tulip Dark 20": {
+      "value": "#593B49ff",
+      "type": "color"
+    },
     "NI Indigo": {
       "value": "#8E78B7ff",
       "type": "color"
@@ -254,6 +314,50 @@
     },
     "NI Sea Dark 2": {
       "value": "#00685Fff",
+      "type": "color"
+    },
+    "NI Spec 10": {
+      "value": "#E6F6FBff",
+      "type": "color"
+    },
+    "NI Spec Dark 10": {
+      "value": "#304147ff",
+      "type": "color"
+    },
+    "NI Spec 20": {
+      "value": "#CCECF6ff",
+      "type": "color"
+    },
+    "NI Spec Dark 20": {
+      "value": "#2B4C57ff",
+      "type": "color"
+    },
+    "NI Spec": {
+      "value": "#00A1D4ff",
+      "type": "color"
+    },
+    "BrownLight10": {
+      "value": "#F1EEEBff",
+      "type": "color"
+    },
+    "BrownDark10": {
+      "value": "#403E3Dff",
+      "type": "color"
+    },
+    "BrownLight20": {
+      "value": "#E2DCD7ff",
+      "type": "color"
+    },
+    "BrownDark20": {
+      "value": "#4A4440ff",
+      "type": "color"
+    },
+    "BrownLight": {
+      "value": "#6F4E37ff",
+      "type": "color"
+    },
+    "BrownDark": {
+      "value": "#9B7A60ff",
       "type": "color"
     }
   }

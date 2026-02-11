@@ -17,7 +17,7 @@ export class RichTextValidator {
     }
 
     public isValid(): boolean {
-        return Object.values(this.getValidity()).every(x => x === false);
+        return Object.values(this.getValidity()).every(x => !x);
     }
 
     public validate(mentions: RichTextMention[]): void {

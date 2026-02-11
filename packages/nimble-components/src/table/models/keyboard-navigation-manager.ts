@@ -1137,7 +1137,7 @@ export class KeyboardNavigationManager<
         return undefined;
     }
 
-    private isInTable(start: Element): boolean {
+    private isInTable(start: Element | null): boolean {
         let possibleMatch = start;
         while (possibleMatch && possibleMatch !== this.table) {
             possibleMatch = possibleMatch.parentElement

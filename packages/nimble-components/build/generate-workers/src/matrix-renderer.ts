@@ -231,7 +231,7 @@ export class MatrixRenderer {
                 ) {
                     continue;
                 }
-                let label = `${this.values[columnStartIndex] || 'NaN'}${this.renderConfig.dieLabelsSuffix}`;
+                let label = `${this.values[columnStartIndex] ?? 'NaN'}${this.renderConfig.dieLabelsSuffix}`;
                 if (label.length >= this.renderConfig.maxCharacters) {
                     label = `${label.substring(0, this.renderConfig.maxCharacters)}…`;
                 }

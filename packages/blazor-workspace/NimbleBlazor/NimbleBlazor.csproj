@@ -29,6 +29,17 @@
     <Content Remove="**\*.json" />
     <Content Remove="**\*.config" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="NuGetFiles/files/**/*.*">
+      <Pack>True</Pack>
+      <PackagePath>files/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+    </Content>
+    <Content Include="NuGetFiles/build/*.*">
+      <Pack>True</Pack>
+      <PackagePath>build/%(Filename)%(Extension)</PackagePath>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="CodeAnalysisDictionary.xml" />
@@ -44,8 +55,8 @@
 
   <ItemGroup>
     <PackageReference Include="Apache.Arrow" Version="[22.1.0]" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.22" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.23" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

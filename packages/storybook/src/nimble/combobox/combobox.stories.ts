@@ -236,14 +236,6 @@ const metadata: Meta<ComboboxArgs> = {
 
 export default metadata;
 
-export const underlineCombobox: StoryObj<ComboboxArgs> = {
+export const combobox: StoryObj<ComboboxArgs> = {
     args: { appearance: DropdownAppearance.underline }
-};
-
-export const outlineCombobox: StoryObj<ComboboxArgs> = {
-    args: { appearance: DropdownAppearance.outline }
-};
-
-export const blockCombobox: StoryObj<ComboboxArgs> = {
-    args: { appearance: DropdownAppearance.block }
 };

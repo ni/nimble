@@ -49,6 +49,10 @@ export class ChatInputPageObject {
         return this.element.textArea!.getAttribute('tabindex');
     }
 
+    public getTextAreaMaxLength(): number | null {
+        return this.element.textArea!.maxLength;
+    }
+
     public getPlaceholder(): string {
         if (this.element.textArea!.value) {
             throw Error('Placeholder not visible');
