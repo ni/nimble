@@ -23,8 +23,7 @@ export const styles = css`
     }
 
     .toolbar {
-        display: flex;
-        flex-direction: column;
+        display: block;
     }
 
     .toolbar.toolbar-empty {
