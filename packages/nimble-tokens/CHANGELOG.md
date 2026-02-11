@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 11 Feb 2026 03:47:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.15.0
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Minor changes
+
+- Add base colors for the new variants of calendar events ([ni/nimble@727c71e](https://github.com/ni/nimble/commit/727c71e6a2d40b70d5ab2c18bbf14a51f35ab3f7))
 
 ## 8.14.0
 
