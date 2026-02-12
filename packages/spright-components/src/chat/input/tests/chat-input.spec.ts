@@ -68,7 +68,7 @@ describe('ChatInput', () => {
             element.sendButtonLabel = sendLabel;
             processUpdates();
             expect(page.getButtonTitle()).toEqual(sendLabel);
-            expect(page.getButtonIcon()).toEqual('nimble-icon-paper-plane');
+            expect(page.buttonHasSendIcon()).toBeTrue();
             expect(page.isProcessing()).toBeFalse();
         });
 
@@ -78,7 +78,7 @@ describe('ChatInput', () => {
             element.stopButtonLabel = stopLabel;
             processUpdates();
             expect(page.getButtonTitle()).toEqual(stopLabel);
-            expect(page.getButtonIcon()).toEqual('nimble-icon-stop-square');
+            expect(page.buttonHasStopIcon()).toBeTrue();
         });
     });
 

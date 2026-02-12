@@ -1,5 +1,7 @@
 import { keyEnter } from '@ni/fast-web-utilities';
 import { Button } from '@ni/nimble-components/dist/esm/button';
+import { iconPaperPlaneTag } from '@ni/nimble-components/dist/esm/icons/paper-plane';
+import { iconStopSquareTag } from '@ni/nimble-components/dist/esm/icons/stop-square';
 import {
     processUpdates,
     waitForUpdatesAsync
@@ -42,14 +44,12 @@ export class ChatInputPageObject {
         return this.getActionButton().title;
     }
 
-    public getButtonIcon(): string {
-        if (this.getActionButton().querySelector('nimble-icon-paper-plane')) {
-            return 'nimble-icon-paper-plane';
-        }
-        if (this.getActionButton().querySelector('nimble-icon-stop-square')) {
-            return 'nimble-icon-stop-square';
-        }
-        return '';
+    public buttonHasSendIcon(): boolean {
+        return this.getActionButton().querySelector(iconPaperPlaneTag) !== null;
+    }
+
+    public buttonHasStopIcon(): boolean {
+        return this.getActionButton().querySelector(iconStopSquareTag) !== null;
     }
 
     public getButtonTextContent(): string {
