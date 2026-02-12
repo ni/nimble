@@ -22,6 +22,14 @@ export const styles = css`
         border-color: transparent;
     }
 
+    .toolbar {
+        display: block;
+    }
+
+    .toolbar.toolbar-empty {
+        display: none;
+    }
+
     .messages {
         flex: 1;
         display: flex;
