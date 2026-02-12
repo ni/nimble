@@ -168,6 +168,7 @@ describe('ChatInput', () => {
 
         it('Enter does not trigger stop event when not processing', async () => {
             element.processing = false;
+            element.value = 'value';
             processUpdates();
             const stopSpy = jasmine.createSpy();
             element.addEventListener('stop', stopSpy);
