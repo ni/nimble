@@ -11,8 +11,7 @@ import {
     borderHoverColor,
     smallDelay,
     failColor,
-    iconSize,
-    errorTextFontLineHeight
+    iconSize
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
 import { display } from '../../utilities/style/display';
@@ -26,10 +25,6 @@ export const styles = css`
         height: auto;
         outline: none;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
-    }
-
-    :host([error-visible]) {
-        margin-bottom: calc(${errorTextFontLineHeight} + 2px);
     }
 
     .container {
@@ -116,7 +111,7 @@ export const styles = css`
         display: none;
     }
 
-    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+    :host([error-visible]) .error-icon {
         display: inline-flex;
         position: absolute;
         top: ${mediumPadding};

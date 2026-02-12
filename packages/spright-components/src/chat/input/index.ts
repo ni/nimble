@@ -160,7 +160,10 @@ const sprightChatInput = ChatInput.compose({
         delegatesFocus: true
     },
     end: html<ChatInput>`
-        <${iconExclamationMarkTag} severity="error" class="error-icon"></${iconExclamationMarkTag}>
+        <${iconExclamationMarkTag}
+            severity="error"
+            class="error-icon"
+        ></${iconExclamationMarkTag}>
         ${errorTextTemplate}
     `
 });

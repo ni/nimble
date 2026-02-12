@@ -19,8 +19,8 @@ export const template = html<ChatInput>`
         ></textarea>
         <${iconExclamationMarkTag}
             severity="error"
-            class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"
-            style="--ni-private-scrollbar-width: ${x => x.scrollbarWidth}px;"
+            class="error-icon scrollbar-width-calculated"
+            style="--ni-private-scrollbar-width: ${x => (x.scrollbarWidth >= 0 ? x.scrollbarWidth : 0)}px;"
         ></${iconExclamationMarkTag}>
     </div>
     <${buttonTag}

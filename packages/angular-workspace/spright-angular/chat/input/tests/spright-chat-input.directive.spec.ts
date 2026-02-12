@@ -161,7 +161,7 @@ describe('Spright chat input', () => {
             public value = 'initial';
             public maxLength = 20;
             public errorText = 'initial';
-            public errorVisible = true;
+            public errorVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -236,14 +236,14 @@ describe('Spright chat input', () => {
         });
 
         it('can be configured with property binding for errorVisible', () => {
-            expect(directive.errorVisible).toBe(true);
-            expect(nativeElement.errorVisible).toBe(true);
-
-            fixture.componentInstance.errorVisible = false;
-            fixture.detectChanges();
-
             expect(directive.errorVisible).toBe(false);
             expect(nativeElement.errorVisible).toBe(false);
+
+            fixture.componentInstance.errorVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBe(true);
+            expect(nativeElement.errorVisible).toBe(true);
         });
     });
 
@@ -269,7 +269,7 @@ describe('Spright chat input', () => {
             public value = 'initial';
             public maxLength = 20;
             public errorText = 'initial';
-            public errorVisible = true;
+            public errorVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -332,14 +332,14 @@ describe('Spright chat input', () => {
         });
 
         it('can be configured with attribute binding for errorVisible', () => {
-            expect(directive.errorVisible).toBe(true);
-            expect(nativeElement.errorVisible).toBe(true);
-
-            fixture.componentInstance.errorVisible = false;
-            fixture.detectChanges();
-
             expect(directive.errorVisible).toBe(false);
             expect(nativeElement.errorVisible).toBe(false);
+
+            fixture.componentInstance.errorVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBe(true);
+            expect(nativeElement.errorVisible).toBe(true);
         });
 
         it('can be configured with attribute binding for errorText', () => {

@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { type ChatInput, chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 
@@ -58,7 +59,7 @@ export class SprightChatInputDirective {
         return this.elementRef.nativeElement.errorVisible;
     }
 
-    @Input('error-visible') public set errorVisible(value: boolean | '' | null) {
+    @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', value !== null && value !== false);
     }
 
