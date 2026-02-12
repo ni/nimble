@@ -294,4 +294,32 @@ describe('ChatInput', () => {
             expect(page.getTextAreaTabIndex()).toBeNull();
         });
     });
+
+    describe('error state', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        it('does not show error by default', () => {
+            expect(element.errorVisible).toBeFalse();
+        });
+
+        it('does not show error message by default', () => {
+            expect(element.errorText).toBeUndefined();
+        });
+
+        it('shows error when errorVisible is set', () => {
+            element.errorVisible = true;
+            processUpdates();
+            expect(element.errorVisible).toBeTrue();
+        });
+
+        it('shows error message when errorText is set', () => {
+            const errorMsg = 'Test error message';
+            element.errorText = errorMsg;
+            element.errorVisible = true;
+            processUpdates();
+            expect(element.errorText).toEqual(errorMsg);
+        });
+    });
 });
