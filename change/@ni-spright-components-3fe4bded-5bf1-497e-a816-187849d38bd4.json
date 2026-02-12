@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add slot for toolbar in conversation component",
-  "packageName": "@ni/spright-components",
-  "email": "89146546+codrutaserban@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
