@@ -11,8 +11,7 @@ declare global {
 }
 
 /**
- * Custom Spright icon for calendar maintenance using wrench-hammer SVG
- * with calendar event border color
+ * Spright calendar icon for maintenance events
  */
 export class IconCalendarMaintenance extends IconSvg {
     public constructor() {

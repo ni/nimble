@@ -11,8 +11,7 @@ declare global {
 }
 
 /**
- * Custom Spright icon for calendar reservation using calendar-week SVG
- * with calendar event border color
+ * Spright calendar icon for reservation events
  */
 export class IconCalendarReservation extends IconSvg {
     public constructor() {

@@ -11,8 +11,7 @@ declare global {
 }
 
 /**
- * Custom Spright icon for calendar test plan using rectangle-check-lines SVG
- * with calendar event border color
+ * Spright calendar icon for test plan events
  */
 export class IconCalendarTestPlan extends IconSvg {
     public constructor() {

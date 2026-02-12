@@ -11,8 +11,7 @@ declare global {
 }
 
 /**
- * Custom Spright icon for calendar transport order using forklift SVG
- * with calendar event border color
+ * Spright calendar icon for transport order events
  */
 export class IconCalendarTransportOrder extends IconSvg {
     public constructor() {

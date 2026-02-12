@@ -11,8 +11,7 @@ declare global {
 }
 
 /**
- * Custom Spright icon for calendar calibration using calipers SVG
- * with calendar event border color
+ * Spright calendar icon for calibration events
  */
 export class IconCalendarCalibration extends IconSvg {
     public constructor() {

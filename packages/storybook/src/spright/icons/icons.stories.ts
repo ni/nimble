@@ -13,23 +13,23 @@ import { createUserSelectedThemeStory,
 const data = [
     {
         tag: iconCalendarCalibrationTag,
-        description: 'Custom Spright icon for calendar calibration using calipers SVG with calendar event border color'
+        metaphor: 'calibration, quality, measurement, standards'
     },
     {
         tag: iconCalendarMaintenanceTag,
-        description: 'Custom Spright icon for calendar maintenance using wrench-hammer SVG with calendar event border color'
+        metaphor: 'maintenance, repair, service, tools'
     },
     {
         tag: iconCalendarReservationTag,
-        description: 'Custom Spright icon for calendar reservation using calendar-week SVG with calendar event border color'
+        metaphor: 'reservation, booking, schedule, time slot'
     },
     {
         tag: iconCalendarTestPlanTag,
-        description: 'Custom Spright icon for calendar test plan using rectangle-check-lines SVG with calendar event border color'
+        metaphor: 'testing, verification, quality assurance, checklist'
     },
     {
         tag: iconCalendarTransportOrderTag,
-        description: 'Custom Spright icon for calendar transport order using forklift SVG with calendar event border color'
+        metaphor: 'logistics, delivery, transport, shipping'
     }
 ];
 
@@ -93,8 +93,8 @@ export const icons: StoryObj<IconArgs> = {
             <${tableColumnTextTag} field-name="tag">
                 Tag Name
             </${tableColumnTextTag}>
-            <${tableColumnTextTag} sorting-disabled field-name="description">
-                Description
+            <${tableColumnTextTag} sorting-disabled field-name="metaphor">
+                Metaphors
             </${tableColumnTextTag}>
         </${tableTag}>
     `)
