@@ -14,6 +14,9 @@ import {
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
+import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
+import { iconPencilToRectangleTag } from '@ni/nimble-components/dist/esm/icons/pencil-to-rectangle';
+import { iconMessagesSparkleTag } from '@ni/nimble-components/dist/esm/icons/messages-sparkle';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import { createStory } from '../../../utilities/storybook';
 import {
@@ -346,6 +349,36 @@ const conversationWithInput = (
 
 export const conversationWithInputSizing: StoryFn = createMatrixThemeStory(html`
     ${createMatrix(conversationWithInput, [heightStates])}
+`);
+
+const conversationWithToolbar = (
+    [heightLabel, height]: HeightStates,
+): ViewTemplate => html`
+    <div style="width: 300px; padding: 8px;">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: ${height};
+        ">
+            <${toolbarTag} slot='toolbar' class='toolbar'>
+                <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
+                <${buttonTag} appearance="ghost" slot="end" title="Create new chat" content-hidden>
+                    Create new chat
+                    <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
+                </${buttonTag}>
+            </${toolbarTag}>
+            <${chatMessageInboundTag}>
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageInboundTag}>
+            <${chatMessageOutboundTag} message-type="outbound">
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageOutboundTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
+        </${chatConversationTag}>
+    </div>
+`;
+
+export const conversationWithToolbarSizing: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(conversationWithToolbar, [heightStates])}
 `);
 
 const conversationWithAppearance = ([
