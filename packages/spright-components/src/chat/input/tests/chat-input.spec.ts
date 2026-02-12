@@ -63,18 +63,22 @@ describe('ChatInput', () => {
             expect(page.isButtonEnabled()).toBeFalse();
         });
 
-        it('button uses send title ', () => {
-            element.sendButtonLabel = 'Send';
+        it('shows send button when not processing', () => {
+            const sendLabel = 'Send';
+            element.sendButtonLabel = sendLabel;
             processUpdates();
-            expect(page.getButtonTitle()).toEqual('Send');
-        });
-
-        it('button uses send icon', () => {
+            expect(page.getButtonTitle()).toEqual(sendLabel);
             expect(page.getButtonIcon()).toEqual('nimble-icon-paper-plane');
+            expect(page.isProcessing()).toBeFalse();
         });
 
-        it('is not processing', () => {
-            expect(page.isProcessing()).toBeFalse();
+        it('shows stop button when processing', () => {
+            element.processing = true;
+            const stopLabel = 'Stop';
+            element.stopButtonLabel = stopLabel;
+            processUpdates();
+            expect(page.getButtonTitle()).toEqual(stopLabel);
+            expect(page.getButtonIcon()).toEqual('nimble-icon-stop-square');
         });
     });
 
