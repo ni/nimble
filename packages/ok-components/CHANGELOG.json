@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Thu, 12 Feb 2026 08:33:01 GMT",
+      "version": "0.2.10",
+      "tag": "@ni/ok-components_v0.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Feb 2026 03:47:57 GMT",
       "version": "0.2.9",
       "tag": "@ni/ok-components_v0.2.9",
