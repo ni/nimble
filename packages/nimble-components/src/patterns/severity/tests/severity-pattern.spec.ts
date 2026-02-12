@@ -1,4 +1,4 @@
-import { customElement } from '@ni/fast-element';
+import { css, customElement } from '@ni/fast-element';
 import { FoundationElement } from '@ni/fast-foundation';
 import {
     type Fixture,
@@ -15,7 +15,7 @@ const elementName = uniqueElementName();
 @customElement({
     name: elementName,
     template: severityTextTemplate,
-    styles
+    styles: css`${styles}`
 })
 class TestSeverityPattern extends mixinSeverityPattern(FoundationElement) {}
 
