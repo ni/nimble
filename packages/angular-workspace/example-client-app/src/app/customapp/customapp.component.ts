@@ -59,6 +59,9 @@ export class CustomAppComponent implements AfterViewInit {
         { first: 'Mister', last: 'Smithers' }
     ];
 
+    public chatInputErrorVisible = false;
+    public chatInputErrorText = '';
+
     public dynamicSelectItems: ComboboxItem[] = [];
 
     public comboboxSelectedOption?: ComboboxItem;
@@ -298,7 +301,15 @@ export class CustomAppComponent implements AfterViewInit {
 
     public onChatInputSend(e: Event): void {
         const chatInputSendEvent = (e as CustomEvent<ChatInputSendEventDetail>);
-        this.chatUserMessages.push(chatInputSendEvent.detail.text);
+        const text = chatInputSendEvent.detail.text;
+        if (text === 'error') {
+            this.chatInputErrorVisible = true;
+            this.chatInputErrorText = 'An error has occurred!';
+        } else {
+            this.chatInputErrorVisible = false;
+            this.chatInputErrorText = '';
+            this.chatUserMessages.push(text);
+        }
     }
 
     private setDynamicSelectItems(dynamicSelectItems: ComboboxItem[]): void {

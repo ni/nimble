@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { SprightChatInputDirective, type ChatInput } from '../spright-chat-input.directive';
 import { SprightChatInputModule } from '../spright-chat-input.module';
-import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 
 describe('Spright chat input', () => {
     describe('module', () => {
