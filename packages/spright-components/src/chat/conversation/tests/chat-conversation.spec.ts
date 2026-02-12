@@ -27,7 +27,7 @@ describe('ChatConversation', () => {
         );
     });
 
-    it('should have a slot element in the shadow DOM', async () => {
+    it('should have a default unnamed slot element in the shadow DOM', async () => {
         await connect();
         const unnamedSlot = element.shadowRoot?.querySelector('slot:not([name])');
         expect(unnamedSlot).not.toBeNull();
