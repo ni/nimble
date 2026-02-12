@@ -131,7 +131,6 @@ Interactive elements:
 
 - Verify breakpoint state transitions (Off ↔ Enabled ↔ Disabled ↔ Hit)
 - Test click-to-toggle functionality
-- Test right-click event delegation for client callback implementation
 - Verify tooltip display on hover/focus
 - Verify proper event delegation with correct recordId values
 - Test that column appears leftmost in table layout
