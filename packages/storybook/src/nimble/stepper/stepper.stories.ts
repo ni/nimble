@@ -6,7 +6,7 @@ import { stepTag } from '@ni/nimble-components/dist/esm/step';
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    incubatingWarning
+    // incubatingWarning
 } from '../../utilities/storybook';
 import { ExampleStepType } from './types';
 
@@ -20,10 +20,10 @@ const metadata: Meta<StepperArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-    ${incubatingWarning({
+    ${'' /* incubatingWarning({
         componentName: stepperTag,
         statusLink: 'https://github.com/ni/nimble/issues/624'
-    })}
+    }) */}
     <${stepperTag}>
         <${anchorStepTag} severity="error" href="#" severity-text="Error Description" style="width:150px">
             😀

@@ -5,6 +5,7 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
+        border: 1px solid blue;
         gap: 0px;
     }
 `;

@@ -6,6 +6,7 @@ export const styles = css`
     ${'' /* Button specific styles */}
     @layer base {
         .control {
+            font: inherit;
             border: none;
             text-align: start;
         }

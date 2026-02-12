@@ -7,8 +7,13 @@ import {
     bodyFont,
     errorTextFont,
     controlSlimHeight,
+    borderRgbPartialColor,
+    borderHoverColor,
+    borderWidth,
+    smallDelay,
 } from '../../theme-provider/design-tokens';
-import {styles as severityStyles} from '../severity/styles';
+import { styles as severityStyles } from '../severity/styles';
+import { focusVisible } from '../../utilities/style/focus';
 
 // import { accessiblyHidden } from '../../utilities/style/accessibly-hidden';
 
@@ -31,7 +36,6 @@ export const styles = css`
             display: inline-flex;
             width: 100%;
             height: 100%;
-            position: relative;
         }
 
         .control { 
@@ -40,7 +44,6 @@ export const styles = css`
             justify-content: flex-start;
             height: 100%;
             width: 100%;
-            font: inherit;
             color: inherit;
             background-color: transparent;
             gap: ${smallPadding};
@@ -48,17 +51,45 @@ export const styles = css`
             outline: none;
             margin: 0; 
             padding: 0 ${smallPadding} 0 0;
-            position: relative;
         }
 
         .icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            flex: none;
             height: 32px;
             width: 32px;
-            border: 1px solid purple;
-            flex: none;
+            border: 2px solid transparent;
+            border-radius: 100%;
+            background-image: radial-gradient(
+                closest-side,
+                rgba(${borderRgbPartialColor}, 0.1) calc(100% - 1px/var(--ni-private-device-resolution)),
+                transparent 100%
+            );
+            background-origin: border-box;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: relative;
+            transition:
+                box-shadow ${smallDelay} ease-in-out,
+                border-color ${smallDelay} ease-in-out,
+                background-size ${smallDelay} ease-in-out;
+        }
+
+        .icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            outline: 0px solid transparent;
+            border: 1px solid transparent;
+            border-radius: 100%;
+            color: transparent;
+            background-clip: border-box;
+            transition: outline ${smallDelay} ease-in-out;
         }
 
         .content {
@@ -104,9 +135,22 @@ export const styles = css`
     }
 
     @layer hover {
+        .control:hover .icon {
+            border-color: ${borderHoverColor};
+            background-size: calc(100% - 6px) calc(100% - 6px);
+        }
     }
 
     @layer focusVisible {
+        .control${focusVisible} .icon {
+            border-color: ${borderHoverColor};
+            background-size: calc(100% - 6px) calc(100% - 6px);
+        }
+
+        .control${focusVisible} .icon::before {
+            outline: ${borderWidth} solid ${borderHoverColor};
+            outline-offset: -2px;
+        }
     }
 
     @layer active {

@@ -1,11 +1,13 @@
-import { css } from '@ni/fast-element';
+import { cssPartial } from '@ni/fast-element';
 import {
     failColor,
     errorTextFont,
     errorTextFontLineHeight
 } from '../../theme-provider/design-tokens';
 
-export const styles = css`
+// These styles end up inside a @layer block so must use the
+// cssPartial tag instead of the css tag
+export const styles = cssPartial`
     .severity-text {
         display: none;
     }
