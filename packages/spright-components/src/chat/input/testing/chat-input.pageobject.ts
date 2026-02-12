@@ -42,6 +42,16 @@ export class ChatInputPageObject {
         return this.getActionButton().title;
     }
 
+    public getButtonIcon(): string {
+        if (this.getActionButton().querySelector('nimble-icon-paper-plane')) {
+            return 'nimble-icon-paper-plane';
+        }
+        if (this.getActionButton().querySelector('nimble-icon-stop-square')) {
+            return 'nimble-icon-stop-square';
+        }
+        return '';
+    }
+
     public getButtonTextContent(): string {
         return this.getActionButton().textContent?.trim() ?? '';
     }

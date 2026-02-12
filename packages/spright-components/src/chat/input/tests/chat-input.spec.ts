@@ -63,6 +63,16 @@ describe('ChatInput', () => {
             expect(page.isButtonEnabled()).toBeFalse();
         });
 
+        it('button uses send title ', () => {
+            element.sendButtonLabel = 'Send';
+            processUpdates();
+            expect(page.getButtonTitle()).toEqual('Send');
+        });
+
+        it('button uses send icon', () => {
+            expect(page.getButtonIcon()).toEqual('nimble-icon-paper-plane');
+        });
+
         it('is not processing', () => {
             expect(page.isProcessing()).toBeFalse();
         });
@@ -150,6 +160,17 @@ describe('ChatInput', () => {
 
             expect(sendSpy).not.toHaveBeenCalled();
             expect(element.value).toBe('value');
+        });
+
+        it('Enter does not trigger stop event when not processing', async () => {
+            element.processing = false;
+            processUpdates();
+            const stopSpy = jasmine.createSpy();
+            element.addEventListener('stop', stopSpy);
+
+            await page.pressEnterKey();
+
+            expect(stopSpy).not.toHaveBeenCalled();
         });
 
         describe('maxlength', () => {
