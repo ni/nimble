@@ -1,8 +1,49 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 12 Feb 2026 08:33:01 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.8.0
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Minor changes
+
+- Add slot for toolbar in conversation component ([ni/nimble@10d3d4c](https://github.com/ni/nimble/commit/10d3d4c5df5bec1da72e7179ccf5c41b43f9e20c))
+
+## 6.7.1
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.3
+
+## 6.7.0
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Minor changes
+
+- Add maxlength to ChatInput. ([ni/nimble@eeacf5f](https://github.com/ni/nimble/commit/eeacf5f6ff2a0b196bfbd35cc208a7ca27082a07))
+
+## 6.6.5
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.2
+
+## 6.6.4
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Enable two lint rules and fix violations ([ni/nimble@a410090](https://github.com/ni/nimble/commit/a410090ddbc5c82fbabec6dc67850997d65bd756))
+- Bump @ni/nimble-components to v35.2.1
 
 ## 6.6.3
 

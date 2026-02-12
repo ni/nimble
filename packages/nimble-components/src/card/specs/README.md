@@ -41,7 +41,7 @@ documentation for the title should indicate that it is required for accessibilit
 `nimble-banner` documentation.
 
 Some component libraries provide a card component with additional built-in, pre-styled content or pre-styled child
-components to use inside the card component (header, footer, actions, etc.). See the [Angular Material `mat-card` component](https://v5.material.angular.io/components/card/overview)
+components to use inside the card component (header, footer, actions, etc.). See the [Angular Material `mat-card` component](https://material.angular.dev/components/card/overview)
 for an example. We could add similar content in the future, but it is not required at this time.
 
 Here is an example usage for the `nimble-card` component:

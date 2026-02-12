@@ -2,6 +2,18 @@
   "version": 1,
   "dependencies": {
     "net8.0-windows7.0": {
+      "AspNetCore.SassCompiler": {
+        "type": "Direct",
+        "requested": "[1.97.1, )",
+        "resolved": "1.97.1",
+        "contentHash": "6O6qf/MVXglqaIVPIFbI3ZH1Y8Zl3C/uR/FLjElc4kMGgvuZsSwy93VIuz2fPitqjUeE7szFbkxrnvNf68LDKA==",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Binder": "3.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Options": "3.1.0"
+        }
+      },
       "Microsoft.AspNetCore.Components.WebView": {
         "type": "Direct",
         "requested": "[8.0.23, )",
@@ -228,6 +240,17 @@
         "resolved": "8.0.0",
         "contentHash": "OK+670i7esqlQrPjdIKRbsyMCe9g5kSLpRRQGSr4Q58AOYEe/hCnfLZprh7viNisSUUQZmMrbbuDaIrP+V1ebQ=="
       },
+      "Microsoft.Extensions.Hosting.Abstractions": {
+        "type": "Transitive",
+        "resolved": "3.1.0",
+        "contentHash": "LiOP1ceFaPBxaE28SOjtORzOVCJk33TT5VQ/Cg5EoatZh1dxpPAgAV/0ruzWKQE7WAHU3F1H9Z6rFgsQwIb9uQ==",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.0"
+        }
+      },
       "Microsoft.Extensions.Logging": {
         "type": "Transitive",
         "resolved": "8.0.1",
@@ -334,6 +357,7 @@
       "demo.shared": {
         "type": "Project",
         "dependencies": {
+          "AspNetCore.SassCompiler": "[1.97.1, )",
           "Microsoft.AspNetCore.Components.Web": "[8.0.23, )",
           "NI.CSharp.Analyzers": "[2.0.35, )",
           "NimbleBlazor": "[1.0.0, )",

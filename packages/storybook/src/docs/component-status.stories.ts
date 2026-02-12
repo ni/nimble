@@ -275,6 +275,15 @@ const components = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Icon Dynamic',
+        componentHref: './?path=/docs/ok-icon-dynamic--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Icon Menu Button',
         componentHref: './?path=/docs/components-menu-button--docs#icon-button',
         designHref:

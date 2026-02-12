@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-react",
-  "version": "0.10.3",
+  "version": "0.10.8",
   "description": "React components for NI Spright",
   "keywords": [
     "ni",
@@ -45,11 +45,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/spright-components": "^6.6.3",
+    "@ni/spright-components": "^6.8.0",
     "react": "^17 || ^18 || ^19"
   },
   "devDependencies": {
-    "@ni/spright-components": "^6.6.3",
+    "@ni/spright-components": "^6.8.0",
     "@ni-private/eslint-config-nimble": "*",
     "typescript": "~5.8.3"
   }

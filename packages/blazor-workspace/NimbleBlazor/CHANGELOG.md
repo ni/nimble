@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 11 Feb 2026 03:47:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.13.1
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.3
+- Bump @ni/nimble-tokens to v8.15.0
+
+## 20.13.0
+
+Tue, 10 Feb 2026 05:54:13 GMT
+
+### Minor changes
+
+- Improved SCSS support for Nimble Blazor (see README). Include token SCSS in NuGet package. ([ni/nimble@9f52015](https://github.com/ni/nimble/commit/9f52015ca3357e99df18b4d10a93a91df897a3a9))
+
+## 20.12.4
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.2
+
+## 20.12.3
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.1
 
 ## 20.12.2
 
