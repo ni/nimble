@@ -11,6 +11,7 @@ import {
     borderHoverColor,
     borderWidth,
     smallDelay,
+    fillSelectedColor,
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
@@ -30,8 +31,10 @@ export const styles = css`
             white-space: nowrap;
             outline: none;
             border: 1px solid red;
+            --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
         }
 
+        ${'' /* Container wrapper for severity text to position against */}
         .container {
             display: inline-flex;
             width: 100%;
@@ -65,7 +68,10 @@ export const styles = css`
             border-radius: 100%;
             background-image: radial-gradient(
                 closest-side,
-                rgba(${borderRgbPartialColor}, 0.1) calc(100% - 1px/var(--ni-private-device-resolution)),
+                ${'' /* Workaround to prevent aliasing on radial-gradient boundaries, see:
+                        https://frontendmasters.com/blog/obsessing-over-smooth-radial-gradient-disc-edges
+                    */}
+                var(--ni-private-step-icon-background-color) calc(100% - 1px/var(--ni-private-device-resolution)),
                 transparent 100%
             );
             background-origin: border-box;
@@ -86,11 +92,14 @@ export const styles = css`
             height: 100%;
             pointer-events: none;
             outline: 0px solid transparent;
+            outline-offset: 0px;
             border: 1px solid transparent;
             border-radius: 100%;
             color: transparent;
             background-clip: border-box;
-            transition: outline ${smallDelay} ease-in-out;
+            transition:
+                outline-offset ${smallDelay} ease-in-out,
+                outline ${smallDelay} ease-in-out;
         }
 
         .content {
@@ -127,7 +136,11 @@ export const styles = css`
             display: inline-block;
             flex: 1;
             height: 1px;
-            background: green;
+            background: rgba(${borderRgbPartialColor}, 0.1);
+            transform: scale(1, 1);
+            transition:
+                background-color ${smallDelay} ease-in-out,
+                transform ${smallDelay} ease-in-out;
         }
 
         .subtitle {
@@ -139,6 +152,11 @@ export const styles = css`
         .control:hover .icon {
             border-color: ${borderHoverColor};
             background-size: calc(100% - 6px) calc(100% - 6px);
+        }
+
+        .control:hover .line {
+            background-color: ${borderHoverColor};
+            transform: scale(1, 2);
         }
     }
 
@@ -152,9 +170,29 @@ export const styles = css`
             outline: ${borderWidth} solid ${borderHoverColor};
             outline-offset: -2px;
         }
+
+        .control${focusVisible} .line {
+            background-color: ${borderHoverColor};
+            transform: scale(1, 2);
+        }
     }
 
     @layer active {
+        .control:active .icon {
+            border-color: ${borderHoverColor};
+            --ni-private-step-icon-background-color: ${fillSelectedColor};
+            background-size: 100% 100%;
+        }
+
+        .control:active .icon::before {
+            outline: 0px solid transparent;
+            outline-offset: 0px;
+        }
+
+        .control:active .line {
+            background-color: ${borderHoverColor};
+            transform: scale(1, 1);
+        }
     }
 
     @layer disabled {

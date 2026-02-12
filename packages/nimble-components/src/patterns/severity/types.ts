@@ -5,7 +5,6 @@ export const Severity = {
     error: 'error',
     warning: 'warning',
     success: 'success',
-    information: 'information'
 } as const;
 export type Severity = (typeof Severity)[keyof typeof Severity];
 
