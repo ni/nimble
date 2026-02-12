@@ -19,7 +19,7 @@ import { focusVisible } from '../../utilities/style/focus';
 // import { accessiblyHidden } from '../../utilities/style/accessibly-hidden';
 
 export const styles = css`
-    @layer base, checked, hover, focusVisible, active, disabled, top;
+    @layer base, hover, focusVisible, active, disabled, top;
 
     @layer base {
         ${display('inline-flex')}
