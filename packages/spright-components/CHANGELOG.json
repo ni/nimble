@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 12 Feb 2026 22:17:28 GMT",
+      "version": "6.9.0",
+      "tag": "@ni/spright-components_v6.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "7c1e94b10be383e55b6581122aed499a8608ce00",
+            "comment": "Add cancel button to chat input."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 Feb 2026 08:33:01 GMT",
       "version": "6.8.0",
       "tag": "@ni/spright-components_v6.8.0",
