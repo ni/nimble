@@ -141,7 +141,7 @@ Interactive elements:
 
 ### Internationalization
 
-Tooltips will use the standard HTML `title` attribute, with built-in default text ("Add breakpoint" / "Remove breakpoint"). If applications need custom tooltip text, they can override the `title` attribute on the column element. This follows the same pattern as other nimble components.
+Tooltips will use label provider strings for the default text ("Add breakpoint" / "Remove breakpoint"). 
 
 ### Accessibility
 
