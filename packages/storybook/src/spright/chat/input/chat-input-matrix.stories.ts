@@ -30,6 +30,12 @@ const placeholderStates = [
 ] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
+const processingStates = [
+    ['', false],
+    ['processing', true]
+] as const;
+type ProcessingState = (typeof processingStates)[number];
+
 const errorStates = [
     ['empty', ''],
     ['one line', 'Error description'],
@@ -49,6 +55,7 @@ export default metadata;
 const component = (
     [valueLabel, value]: ValueState,
     [placeholderLabel, placeholder]: PlaceholderState,
+    [processingLabel, processing]: ProcessingState,
     [errorLabel, error]: ErrorState
 ): ViewTemplate => html`
     <p 
@@ -58,11 +65,12 @@ const component = (
         margin-bottom: 0px;
         "
     >    
-        ${valueLabel} value, ${placeholderLabel} placeholder, ${errorLabel} error
+        ${valueLabel} value, ${placeholderLabel} placeholder, ${processingLabel}, ${errorLabel} error
     </p>
     <${chatInputTag}
         placeholder="${placeholder}"
         value="${value}"
+        processing="${processing}"
         error-visible="${error !== ''}"
         error-text="${error}"
     >
@@ -70,7 +78,7 @@ const component = (
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [valueStates, placeholderStates, errorStates])
+    createMatrix(component, [valueStates, placeholderStates, processingStates, errorStates])
 );
 
 export const hidden: StoryFn = createStory(

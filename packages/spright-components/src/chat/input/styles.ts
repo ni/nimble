@@ -122,7 +122,7 @@ export const styles = css`
         padding-right: calc(${iconSize} + ${mediumPadding});
     }
 
-    .send-button {
+    .action-button {
         align-self: flex-end;
         width: 80px;
         margin: ${mediumPadding};

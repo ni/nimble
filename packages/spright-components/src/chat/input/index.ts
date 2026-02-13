@@ -24,6 +24,9 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @attr({ attribute: 'send-button-label' })
     public sendButtonLabel?: string;
 
+    @attr({ attribute: 'stop-button-label' })
+    public stopButtonLabel?: string;
+
     @attr
     public value = '';
 
@@ -32,6 +35,9 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
 
     @attr({ attribute: 'maxlength', converter: nullableNumberConverter })
     public maxLength?: number = -1;
+
+    @attr({ attribute: 'processing', mode: 'boolean' })
+    public processing = false;
 
     /**
      * @internal
@@ -60,6 +66,9 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
      */
     public textAreaKeydownHandler(e: KeyboardEvent): boolean {
         if (e.key === keyEnter && !e.shiftKey) {
+            if (this.processing) {
+                return false;
+            }
             this.sendButtonClickHandler();
             return false;
         }
@@ -117,6 +126,17 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         };
         this.resetInput();
         this.$emit('send', eventDetail);
+    }
+
+    /**
+     * @internal
+     */
+    public stopButtonClickHandler(): void {
+        if (!this.processing) {
+            return;
+        }
+        this.$emit('stop');
+        this.textArea?.blur();
     }
 
     private shouldDisableSendButton(): boolean {
