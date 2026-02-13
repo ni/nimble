@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/router/test/router_link_spec.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/packages/router/test/router_link_spec.ts
  * with the following modifications:
  * - replace import of Angular's RouterLink with our forked version
  * - define TestRouterLinkDirective to use in tests, and add it to declarations of testing modules
@@ -16,23 +16,26 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import {Component, Directive, inject, signal, provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {Component, inject, signal, provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {Router, RouterLink, RouterModule, provideRouter} from '@angular/router';
+import {Directive} from '@angular/core';
 
 describe('RouterLink', () => {
   // [Nimble] Defining test directive to use instead of RouterLink
-  @Directive({ selector: '[routerLink]' })
+  @Directive({ selector: '[routerLink]', standalone: false })
   class TestRouterLinkDirective extends RouterLink {}
 
-  // [Nimble] Don't use Zoneless change detection for these tests
-  // beforeEach(() => {
-  //   TestBed.configureTestingModule({providers: [provideExperimentalZonelessChangeDetection()]});
-  // });
+  beforeEach(() => {
+    TestBed.configureTestingModule({providers: [provideExperimentalZonelessChangeDetection()]});
+  });
 
   it('does not modify tabindex if already set on non-anchor element', async () => {
-    @Component({template: `<div [routerLink]="link" tabindex="1"></div>`})
+    @Component({
+      template: `<div [routerLink]="link" tabindex="1"></div>`,
+      standalone: false,
+    })
     class LinkComponent {
       link: string | null | undefined = '/';
     }
@@ -62,6 +65,7 @@ describe('RouterLink', () => {
           [skipLocationChange]="skipLocationChange()"
           [replaceUrl]="replaceUrl()"></div>
       `,
+      standalone: false,
     })
     class LinkComponent {
       link = signal<string | null | undefined>('/');
@@ -149,6 +153,7 @@ describe('RouterLink', () => {
             [skipLocationChange]="skipLocationChange()"
             [replaceUrl]="replaceUrl()"></a>
         `,
+        standalone: false,
       })
       class LinkComponent {
         link = signal<string | null | undefined>('/');
@@ -216,7 +221,10 @@ describe('RouterLink', () => {
     });
 
     it('should handle routerLink in svg templates', async () => {
-      @Component({template: `<svg><a routerLink="test"></a></svg>`})
+      @Component({
+        template: `<svg><a routerLink="test"></a></svg>`,
+        standalone: false,
+      })
       class LinkComponent {}
 
       TestBed.configureTestingModule({
@@ -235,7 +243,6 @@ describe('RouterLink', () => {
 
   it('can use a UrlTree as the input', async () => {
     @Component({
-      standalone: true,
       template: '<a [routerLink]="urlTree">link</a>',
       imports: [RouterLink],
     })
@@ -250,9 +257,8 @@ describe('RouterLink', () => {
     expect(fixture.nativeElement.innerHTML).toContain('href="/a/b/c"');
   });
 
-  it('cannnot use a UrlTree with queryParams', () => {
+  it('cannot use a UrlTree with queryParams', () => {
     @Component({
-      standalone: true,
       template: '<a [routerLink]="urlTree" [queryParams]="{}">link</a>',
       imports: [RouterLink],
     })

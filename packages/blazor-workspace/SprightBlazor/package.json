@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-blazor",
-  "version": "4.7.21",
+  "version": "4.9.9",
   "description": "Blazor components for Spright",
   "scripts": {
     "invoke-pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
@@ -9,6 +9,7 @@
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"../dist/SprightBlazor.*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:noop": "echo \"noop command to swallow npm args\""
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -25,7 +26,7 @@
     "!*"
   ],
   "peerDependencies": {
-    "@ni/spright-components": "^6.4.21",
+    "@ni/spright-components": "^6.9.0",
     "cross-env": "^10.1.0",
     "rimraf": "^6.0.0"
   }

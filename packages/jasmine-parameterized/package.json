@@ -1,6 +1,6 @@
 {
   "name": "@ni/jasmine-parameterized",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "Utilities to write parameterized jasmine tests",
   "keywords": [
     "jasmine",
@@ -21,6 +21,26 @@
     "test:browser": "karma start karma.conf.cjs --browsers=ChromeHeadlessOpt --single-run",
     "test:browser:debugger": "karma start karma.conf.cjs --browsers=ChromeDebugging"
   },
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*",
+        "dist/esm/*/index.d.ts"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -28,16 +48,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      }
-    }
-  },
-  "types": "./dist/esm/index.d.ts",
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
@@ -52,6 +62,6 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
     "playwright": "1.54.1",
-    "typescript": "~5.4.5"
+    "typescript": "~5.8.3"
   }
 }

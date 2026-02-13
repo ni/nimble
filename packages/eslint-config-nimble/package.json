@@ -2,34 +2,36 @@
     "name": "@ni-private/eslint-config-nimble",
     "version": "1.0.0",
     "private": true,
-    "type": "module",
     "description": "Shared ESLint configuration for FAST web component development",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/ni/nimble.git"
-    },
-    "keywords": [
-        "eslint",
-        "eslintconfig",
-        "ni",
-        "nimble"
-    ],
-    "author": "National Instruments",
-    "license": "MIT",
+    "keywords": ["eslint", "eslintconfig", "ni", "nimble"],
     "scripts": {
         "lint": "eslint .",
         "format": "eslint . --fix"
     },
+    "type": "module",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "import": "./index.js"
+        },
+        "./*": {
+            "import": "./*/index.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ni/nimble.git"
+    },
+    
+    "author": "National Instruments",
+    "license": "MIT",
     "files": [
         "**/*.js",
         "!/eslint.config.*"
     ],
-    "exports": {
-        ".": "./index.js"
-    },
     "peerDependencies": {
         "@eslint/markdown": "^7.5.1",
-        "@ni/eslint-config-angular": "^10.0.3",
+        "@ni/eslint-config-angular": "^11.0.0",
         "@ni/eslint-config-javascript": "^5.1.2",
         "@ni/eslint-config-typescript": "^5.0.3",
         "eslint": "^9.36.0",

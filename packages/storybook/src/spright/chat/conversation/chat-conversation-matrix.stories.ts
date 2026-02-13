@@ -2,6 +2,9 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, repeat, ViewTemplate } from '@ni/fast-element';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
+import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
+import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
+import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
 import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
 import {
@@ -11,6 +14,9 @@ import {
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
+import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
+import { iconPencilToRectangleTag } from '@ni/nimble-components/dist/esm/icons/pencil-to-rectangle';
+import { iconMessagesSparkleTag } from '@ni/nimble-components/dist/esm/icons/messages-sparkle';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import { createStory } from '../../../utilities/storybook';
 import {
@@ -25,9 +31,19 @@ const messageTypeStates = [
     ['system', ChatMessageType.system]
 ] as const;
 type MessageTypeStates = (typeof messageTypeStates)[number];
-const outboundState = messageTypeStates[0];
-const inboundState = messageTypeStates[1];
-const systemState = messageTypeStates[2];
+const outboundTypeState = messageTypeStates[0];
+const inboundTypeState = messageTypeStates[1];
+const systemTypeState = messageTypeStates[2];
+
+const messageComponentStates = [
+    ['outbound', chatMessageOutboundTag],
+    ['inbound', chatMessageInboundTag],
+    ['system', chatMessageSystemTag]
+] as const;
+type MessageComponentStates = (typeof messageComponentStates)[number];
+const outboundComponentState = messageComponentStates[0];
+const inboundComponentState = messageComponentStates[1];
+const systemComponentState = messageComponentStates[2];
 
 const metadata: Meta = {
     title: 'Tests Spright/Chat Conversation',
@@ -64,7 +80,7 @@ const appearanceStates = [
 ] as const;
 type AppearanceStates = (typeof appearanceStates)[number];
 
-const componentSizing = (
+const messageTypeSizing = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
     [viewportLabel, viewportWidth, viewportHeight]: ViewportStates,
     [contentWidthLabel, contentWidth]: ContentWidthStates,
@@ -102,8 +118,8 @@ const componentSizing = (
 `;
 
 export const outboundSizing: StoryFn = createStory(html`
-    ${createMatrix(componentSizing, [
-        [outboundState],
+    ${createMatrix(messageTypeSizing, [
+        [outboundTypeState],
         viewportStates,
         contentWidthStates,
         contentHeightStates
@@ -111,8 +127,8 @@ export const outboundSizing: StoryFn = createStory(html`
 `);
 
 export const inboundSizing: StoryFn = createStory(html`
-    ${createMatrix(componentSizing, [
-        [inboundState],
+    ${createMatrix(messageTypeSizing, [
+        [inboundTypeState],
         viewportStates,
         contentWidthStates,
         contentHeightStates
@@ -120,8 +136,72 @@ export const inboundSizing: StoryFn = createStory(html`
 `);
 
 export const systemSizing: StoryFn = createStory(html`
-    ${createMatrix(componentSizing, [
-        [systemState],
+    ${createMatrix(messageTypeSizing, [
+        [systemTypeState],
+        viewportStates,
+        contentWidthStates,
+        contentHeightStates
+    ])}
+`);
+
+const messageComponentSizing = (
+    [_messageTypeLabel, messageComponentType]: MessageComponentStates,
+    [viewportLabel, viewportWidth, viewportHeight]: ViewportStates,
+    [contentWidthLabel, contentWidth]: ContentWidthStates,
+    [contentHeightLabel, contentHeight]: ContentHeightStates
+): ViewTemplate => html`
+    <p 
+        style="
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        margin-bottom: 0px;
+        "
+    >
+        viewport:${() => viewportLabel}, content:${() => contentWidthLabel},${() => contentHeightLabel}
+    </p>
+    <div style="
+        width: ${viewportWidth};
+        height: ${viewportHeight};
+        border: 1px dashed red;
+    ">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: 100%;
+        ">
+            <${messageComponentType}>
+                <div style="
+                    width: ${contentWidth};
+                    height: ${contentHeight};
+                    background: blue;
+                    display: inline-block;
+                "
+                ></div>
+            </${messageComponentType}>
+        </${chatConversationTag}>
+    </div>
+`;
+
+export const outboundMessageSizing: StoryFn = createStory(html`
+    ${createMatrix(messageComponentSizing, [
+        [outboundComponentState],
+        viewportStates,
+        contentWidthStates,
+        contentHeightStates
+    ])}
+`);
+
+export const inboundMessageSizing: StoryFn = createStory(html`
+    ${createMatrix(messageComponentSizing, [
+        [inboundComponentState],
+        viewportStates,
+        contentWidthStates,
+        contentHeightStates
+    ])}
+`);
+
+export const systemMessageSizing: StoryFn = createStory(html`
+    ${createMatrix(messageComponentSizing, [
+        [systemComponentState],
         viewportStates,
         contentWidthStates,
         contentHeightStates
@@ -144,7 +224,7 @@ const endButtonStates = [
 ] as const;
 type EndButtonStates = (typeof endButtonStates)[number];
 
-const slottedButtons = (
+const slottedButtonsMessageTypes = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
     [footerActionsLabel, footerActions]: FooterActionsStates,
     [endButtonsLabel, endButtons]: EndButtonStates
@@ -187,8 +267,56 @@ const slottedButtons = (
 `;
 
 export const slottedButtonsSizing: StoryFn = createMatrixThemeStory(html`
-    ${createMatrix(slottedButtons, [
+    ${createMatrix(slottedButtonsMessageTypes, [
         messageTypeStates,
+        footerActionsStates,
+        endButtonStates
+    ])}
+`);
+
+const slottedButtonsInboundMessageComponent = (
+    [footerActionsLabel, footerActions]: FooterActionsStates,
+    [endButtonsLabel, endButtons]: EndButtonStates
+): ViewTemplate => html`
+    <p 
+        style="
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        margin-bottom: 0px;
+        "
+    >
+        footer-actions:${() => footerActionsLabel}, end:${() => endButtonsLabel}
+    </p>
+    <div style="width: 600px;">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: 100%;
+        ">
+            <${chatMessageInboundTag}>
+                <div style="
+                    width: 100px;
+                    border: 1px blue solid;
+                    display: inline-block;
+                "
+                >Placeholder text</div>
+                ${repeat(() => footerActions, html<string>`
+                    <${buttonTag} content-hidden slot="footer-actions" appearance="ghost">
+                        <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
+                        ${x => x}
+                    </${buttonTag}>
+                `)}
+                ${repeat(() => endButtons, html<string>`
+                    <${buttonTag} slot="end" appearance="block">
+                        ${x => x}
+                    </${buttonTag}>
+                `)}
+            </${chatMessageInboundTag}>
+        </${chatConversationTag}>
+    </div>
+`;
+
+export const slottedButtonsInboundMessageSizing: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(slottedButtonsInboundMessageComponent, [
         footerActionsStates,
         endButtonStates
     ])}
@@ -208,12 +336,12 @@ const conversationWithInput = (
             width: 100%;
             height: ${height};
         ">
-            <${chatMessageTag} message-type="inbound">
+            <${chatMessageInboundTag}>
                 <span>Conversation is ${heightLabel} than the height of the messages.</span>
-            </${chatMessageTag}>
-            <${chatMessageTag} message-type="outbound">
+            </${chatMessageInboundTag}>
+            <${chatMessageOutboundTag} message-type="outbound">
                 <span>Conversation is ${heightLabel} than the height of the messages.</span>
-            </${chatMessageTag}>
+            </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
     </div>
@@ -221,6 +349,36 @@ const conversationWithInput = (
 
 export const conversationWithInputSizing: StoryFn = createMatrixThemeStory(html`
     ${createMatrix(conversationWithInput, [heightStates])}
+`);
+
+const conversationWithToolbar = (
+    [heightLabel, height]: HeightStates,
+): ViewTemplate => html`
+    <div style="width: 300px; padding: 8px;">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: ${height};
+        ">
+            <${toolbarTag} slot='toolbar' class='toolbar'>
+                <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
+                <${buttonTag} appearance="ghost" slot="end" title="Create new chat" content-hidden>
+                    Create new chat
+                    <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
+                </${buttonTag}>
+            </${toolbarTag}>
+            <${chatMessageInboundTag}>
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageInboundTag}>
+            <${chatMessageOutboundTag} message-type="outbound">
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageOutboundTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
+        </${chatConversationTag}>
+    </div>
+`;
+
+export const conversationWithToolbarSizing: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(conversationWithToolbar, [heightStates])}
 `);
 
 const conversationWithAppearance = ([
@@ -237,12 +395,12 @@ const conversationWithAppearance = ([
         appearance: ${() => appearanceLabel}
     </p>
     <${chatConversationTag} appearance="${() => appearance}">
-        <${chatMessageTag} message-type="inbound">
+        <${chatMessageInboundTag}>
             <span>Hello.</span>
-        </${chatMessageTag}>
-        <${chatMessageTag} message-type="outbound">
+        </${chatMessageInboundTag}>
+        <${chatMessageOutboundTag}>
             <span>Greetings!</span>
-        </${chatMessageTag}>
+        </${chatMessageOutboundTag}>
         <${chatInputTag} slot='input'></${chatInputTag}>
     </${chatConversationTag}>
 `;

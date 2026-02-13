@@ -2,33 +2,32 @@
     "name": "@ni-private/site",
     "version": "1.0.0",
     "private": true,
+    "type": "module",
     "description": "A meta package used for creating GitHub pages site contents",
     "scripts": {
-        "build": "npm run build:landing && npm run build:eleventy",
-        "build:eleventy": "eleventy",
-        "build:landing": "tsc && vite --config ./vite.config.js build landing",
-        "pack": "npm pack",
+        "start": "vite",
+        "build": "tsc -b && vite build",
         "lint": "eslint .",
-        "start:eleventy": "eleventy --serve",
-        "start:landing": "vite landing"
+        "format": "eslint . --fix",
+        "pack": "npm pack"
     },
+    "files": [
+        "dist",
+        "!*.tgz",
+        "!dist/storybook/blazor-client-app"
+    ],
     "dependencies": {
         "@ni/nimble-components": "*"
     },
     "devDependencies": {
-        "@11ty/eleventy": "^3.0.0",
         "@ni-private/angular-workspace": "*",
         "@ni-private/blazor-workspace": "*",
         "@ni-private/eslint-config-nimble": "*",
         "@ni-private/performance": "*",
         "@ni-private/react-client-app": "*",
         "@ni-private/storybook": "*",
-        "typescript": "~5.4.5",
-        "vite": "^7.0.0"
-    },
-    "files": [
-        "dist",
-        "!*.tgz",
-        "!dist/storybook/blazor-client-app"
-    ]
+        "typescript": "~5.8.3",
+        "vite": "^7.0.0",
+        "vite-plugin-static-copy": "^3.1.4"
+    }
 }

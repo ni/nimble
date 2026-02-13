@@ -23,7 +23,7 @@ public partial class ComponentsDemo
     private NimbleWaferMap? _waferMap;
     private string? DrawerClosedReason { get; set; }
     private string? SelectedRadio { get; set; } = "2";
-    private bool BannerOpen { get; set; }
+    private bool BannerOpen { get; set; } = true;
     private readonly List<PersonTableRecord> _delayedHierarchyTableData = new()
     {
         new PersonTableRecord("jacqueline-bouvier", null, "Jacqueline", "Bouvier", 80, true),

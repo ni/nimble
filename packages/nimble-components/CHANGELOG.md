@@ -1,8 +1,119 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 11 Feb 2026 03:47:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.2.3
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.15.0
+
+## 35.2.2
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- visual design updates for switch control ([ni/nimble@fb39fd3](https://github.com/ni/nimble/commit/fb39fd3a30350346e342dca1b9d212ee9b581263))
+
+## 35.2.1
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Enable two lint rules and fix violations ([ni/nimble@a410090](https://github.com/ni/nimble/commit/a410090ddbc5c82fbabec6dc67850997d65bd756))
+
+## 35.2.0
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Minor changes
+
+- Add Stepper components ([ni/nimble@1143c37](https://github.com/ni/nimble/commit/1143c3764bee89f48c9b5c6af837a882fa6f06a1))
+
+## 35.1.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Update fast-element and fast-foundation dependencies ([ni/nimble@6d4d58f](https://github.com/ni/nimble/commit/6d4d58fd3901c8c8e956b1b66c147f98e35973fd))
+
+## 35.1.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Fix import syntax to obey new lint rule ([ni/nimble@aad1c14](https://github.com/ni/nimble/commit/aad1c1447cb1752602f4cae4e455a7abe0556b06))
+
+## 35.1.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.14.0
+
+## 35.0.3
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- SVGIcon proto ([ni/nimble@ea48f0f](https://github.com/ni/nimble/commit/ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63))
+
+## 35.0.2
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-tokens to v8.13.7
+- Bump @ni/unit-format to v1.0.2
+- Bump @ni/jasmine-parameterized to v1.0.9
+
+## 35.0.1
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/unit-format to v1.0.1
+- Bump @ni/jasmine-parameterized to v1.0.8
+
+## 35.0.0
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Major changes
+
+- Breaking: Rename `NumberTextUnitFormat` to `UnitFormatNumberText` ([ni/nimble@e26c67a](https://github.com/ni/nimble/commit/e26c67af559e81c7a7869429869483dc17ec2fb1))
+- Bump @ni/unit-format to v1.0.0
+
+## 34.10.3
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- remove flatbuffers peerdep workaround ([ni/nimble@aa38dfa](https://github.com/ni/nimble/commit/aa38dfa69ff4dd4926f7f6f2da4d317fe83304b5))
+
+## 34.10.2
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-tokens to v8.13.6
+- Bump @ni/jasmine-parameterized to v1.0.7
 
 ## 34.10.1
 

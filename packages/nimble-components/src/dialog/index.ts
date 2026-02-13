@@ -103,7 +103,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        this.footerIsEmpty = !next?.length;
+        this.footerIsEmpty = next === undefined || next.length === 0;
     }
 
     /**

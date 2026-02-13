@@ -1,7 +1,29 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "strict": true,
+    "experimentalDecorators": true,
+    "target": "ES2020",
+    "module": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+
+    // Used for improved nimble dev workflow, not needed in normal apps
+    // Keep in sync with vite.config.mjs
+    "paths": {
+      "@ni/nimble-react/*": [
+          "../nimble-react/src/*"
+      ],
+      "@ni/spright-react/*": [
+          "../spright-react/src/*"
+      ],
+      "@ni/ok-react/*": ["../ok-react/src/*"]
+    }
+  },
+  "include": ["src"],
 }

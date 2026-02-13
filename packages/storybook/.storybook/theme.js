@@ -1,54 +1,92 @@
-import { create } from 'storybook/theming';
-import {
-    Black91,
-    Brand85,
-    White,
-    Black7,
-    Black15,
-    DigitalGreenDark105,
-    Black30,
-    Black,
-    Black75
-} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import logo from './nimble-ui-logo.svg';
+import { create, getPreferredColorScheme } from 'storybook/theming';
+import { tokenValues } from '@ni/nimble-components/dist/esm/theme-provider/design-token-values';
+import logoLight from './nimble-light.svg';
+import logoDark from './nimble-dark.svg';
 
-export default create({
+const light = create({
     base: 'light',
-    colorPrimary: Brand85,
-    colorSecondary: DigitalGreenDark105,
+
+    // Brand
+    brandTitle: 'Nimble components',
+    brandUrl: 'https://nimble.ni.dev/',
+    brandTarget: '_self',
+    brandImage: logoLight,
+
+    // Brand colors
+    colorPrimary: tokenValues.linkProminentFontColor.light,
+    colorSecondary: tokenValues.linkProminentFontColor.light,
 
     // UI
-    appBg: White,
-    appContentBg: White,
-    appBorderColor: Black30,
-    appBorderRadius: 5,
-
-    // Typography
-    fontBase: '"Open Sans", sans-serif',
-    fontCode: 'monospace',
+    appBg: tokenValues.applicationBackgroundColor.light,
+    appContentBg: tokenValues.applicationBackgroundColor.light,
+    appHoverBg: tokenValues.fillHoverColor.light,
+    appPreviewBg: tokenValues.applicationBackgroundColor.light,
+    appBorderColor: tokenValues.tableRowBorderColor.light,
+    appBorderRadius: 1,
 
     // Text colors
-    textColor: Black91,
-    textInverseColor: Black15,
-    textMutedColor: Black75,
+    textColor: tokenValues.bodyFontColor.light,
+    textInverseColor: tokenValues.bodyFontColor.dark,
+    textMutedColor: tokenValues.bodyDisabledFontColor.light,
 
     // Toolbar default and active colors
-    barTextColor: White,
-    barHoverColor: Black15,
-    barSelectedColor: Black7,
-    barBg: Brand85,
+    barTextColor: tokenValues.bodyFontColor.light,
+    barHoverColor: tokenValues.borderHoverColor.light,
+    barSelectedColor: tokenValues.borderHoverColor.light,
+    barBg: tokenValues.headerBackgroundColor.light,
 
     // Form colors
-    buttonBg: White,
-    buttonBorder: Black75,
-    booleanBg: White,
-    booleanSelectedBg: Black30,
-    inputBg: White,
-    inputBorder: Black75,
-    inputTextColor: Black,
-    inputBorderRadius: 4,
-
-    brandTitle: 'Nimble components',
-    brandUrl: 'https://github.com/ni/nimble',
-    brandImage: logo
+    buttonBg: tokenValues.buttonFillPrimaryColor.light,
+    buttonBorder: tokenValues.popupBorderColor.light,
+    booleanBg: tokenValues.fillHoverColor.light,
+    booleanSelectedBg: tokenValues.fillSelectedColor.light,
+    inputBg: tokenValues.applicationBackgroundColor.light,
+    inputBorder: tokenValues.tableRowBorderColor.light,
+    inputTextColor: tokenValues.bodyFontColor.light,
+    inputBorderRadius: 1,
 });
+
+const dark = create({
+    base: 'dark',
+
+    // Brand
+    brandTitle: 'Nimble components',
+    brandUrl: 'https://nimble.ni.dev/',
+    brandTarget: '_self',
+    brandImage: logoDark,
+
+    // Brand colors
+    colorPrimary: tokenValues.linkProminentFontColor.dark,
+    colorSecondary: tokenValues.linkProminentFontColor.dark,
+
+    // UI
+    appBg: tokenValues.applicationBackgroundColor.dark,
+    appContentBg: tokenValues.applicationBackgroundColor.dark,
+    appHoverBg: tokenValues.fillHoverColor.dark,
+    appPreviewBg: tokenValues.applicationBackgroundColor.dark,
+    appBorderColor: tokenValues.tableRowBorderColor.dark,
+    appBorderRadius: 1,
+
+    // Text colors
+    textColor: tokenValues.bodyFontColor.dark,
+    textInverseColor: tokenValues.bodyFontColor.light,
+    textMutedColor: tokenValues.bodyDisabledFontColor.dark,
+
+    // Toolbar default and active colors
+    barTextColor: tokenValues.bodyFontColor.dark,
+    barHoverColor: tokenValues.borderHoverColor.dark,
+    barSelectedColor: tokenValues.borderHoverColor.dark,
+    barBg: tokenValues.headerBackgroundColor.dark,
+
+    // Form colors
+    buttonBg: tokenValues.buttonFillPrimaryColor.dark,
+    buttonBorder: tokenValues.popupBorderColor.dark,
+    booleanBg: tokenValues.fillHoverColor.dark,
+    booleanSelectedBg: tokenValues.fillSelectedColor.dark,
+    inputBg: tokenValues.applicationBackgroundColor.dark,
+    inputBorder: tokenValues.tableRowBorderColor.dark,
+    inputTextColor: tokenValues.bodyFontColor.dark,
+    inputBorderRadius: 1,
+});
+
+export const theme = getPreferredColorScheme() === 'dark' ? dark : light;

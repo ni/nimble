@@ -8,4 +8,4 @@ React Components for Ok web components built using [`@lit/react`](https://lit.de
 
 ## Getting Started
 
-See the [`react-client-app`](/packages/react-workspace/react-client-app/) for an example React application.
+See [`react-client-app`](/packages/react-workspace/react-client-app/) for an example React application.

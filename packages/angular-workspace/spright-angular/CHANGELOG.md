@@ -1,8 +1,158 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 12 Feb 2026 22:17:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.4.0
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Minor changes
+
+- Add cancel button to chat input. ([ni/nimble@7c1e94b](https://github.com/ni/nimble/commit/7c1e94b10be383e55b6581122aed499a8608ce00))
+- Bump @ni/spright-components to v6.9.0
+
+## 8.3.3
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.8.0
+
+## 8.3.2
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.7.1
+
+## 8.3.1
+
+Sat, 07 Feb 2026 03:16:38 GMT
+
+### Patches
+
+- Update links to angular.io in documentation ([ni/nimble@152ebf2](https://github.com/ni/nimble/commit/152ebf2574a4f54cf8bbec4de1cc490d0e1be166))
+
+## 8.3.0
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Minor changes
+
+- Add maxlength to ChatInput. ([ni/nimble@eeacf5f](https://github.com/ni/nimble/commit/eeacf5f6ff2a0b196bfbd35cc208a7ca27082a07))
+- Bump @ni/spright-components to v6.7.0
+
+## 8.2.5
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.5
+
+## 8.2.4
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.4
+
+## 8.2.3
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.3
+
+## 8.2.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.2
+
+## 8.2.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Fix import syntax to obey new lint rule ([ni/nimble@aad1c14](https://github.com/ni/nimble/commit/aad1c1447cb1752602f4cae4e455a7abe0556b06))
+- Bump @ni/spright-components to v6.6.1
+
+## 8.2.0
+
+Mon, 02 Feb 2026 13:53:04 GMT
+
+### Minor changes
+
+- Add dedicated chat message components for inbound, outbound, and system messages. The original chat message component is deprecated and will be removed in a future release. ([ni/nimble@cb39491](https://github.com/ni/nimble/commit/cb3949121e6d8c2f26e0607e193a2e6e9a415e08))
+- Bump @ni/spright-components to v6.6.0
+
+## 8.1.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.5.0
+
+## 8.0.5
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.27
+
+## 8.0.4
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/spright-components to v6.4.26
+
+## 8.0.3
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.25
+
+## 8.0.2
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.24
+
+## 8.0.1
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.23
+
+## 8.0.0
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Major changes
+
+- Update Angular dependencies and forked files to v19.2 ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/spright-components to v6.4.22
 
 ## 7.8.22
 

@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-react",
-  "version": "0.2.21",
+  "version": "0.5.11",
   "description": "React components for NI Ok Components",
   "keywords": [
     "ni",
@@ -14,6 +14,26 @@
     "pack": "npm pack",
     "invoke-publish": "npm publish"
   },
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*",
+        "dist/esm/*/index.d.ts"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -23,14 +43,14 @@
   },
   "author": "National Instruments",
   "license": "MIT",
-  "devDependencies": {
-    "@ni/ok-components": "^0.1.21",
-    "@ni-private/eslint-config-nimble": "*",
-    "typescript": "~5.4.5"
-  },
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/ok-components": "^0.1.21",
-    "react": "^16 || ^17 || ^18"
+    "@ni/ok-components": "^0.2.11",
+    "react": "^17 || ^18 || ^19"
+  },
+  "devDependencies": {
+    "@ni/ok-components": "^0.2.11",
+    "@ni-private/eslint-config-nimble": "*",
+    "typescript": "~5.8.3"
   }
 }

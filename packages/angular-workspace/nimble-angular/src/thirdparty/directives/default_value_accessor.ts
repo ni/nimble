@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/default_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/packages/forms/src/directives/default_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Update implementation of `_isAndroid()` to not use private APIs
@@ -81,7 +81,7 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>(
  * const firstNameControl = new FormControl();
  * ```
  *
- * ```
+ * ```html
  * <input type="text" [formControl]="firstNameControl">
  * ```
  *
@@ -90,7 +90,7 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>(
  * processing. In order to attach the default value accessor to a custom element, add the
  * `ngDefaultControl` attribute as shown below.
  *
- * ```
+ * ```html
  * <custom-input-component ngDefaultControl [(ngModel)]="value"></custom-input-component>
  * ```
  *
@@ -112,6 +112,7 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>(
     '(compositionend)': '$any(this)._compositionEnd($event.target.value)',
   },
   providers: [DEFAULT_VALUE_ACCESSOR],
+  standalone: false,
 })
 */
 @Directive()
@@ -132,7 +133,7 @@ export class DefaultValueAccessor extends BaseControlValueAccessor implements Co
 
   /**
    * Sets the "value" property on the input element.
-   * @nodoc
+   * @docs-private
    */
   writeValue(value: any): void {
     const normalizedValue = value == null ? '' : value;

@@ -1,4 +1,4 @@
-import { dirname, join } from 'node:path';
+import * as path from 'node:path';
 import { createRequire } from 'node:module';
 import remarkGfm from 'remark-gfm';
 
@@ -31,6 +31,7 @@ export async function viteFinal(config) {
     // Support Chromatic Turbosnap in a monorepo
     // See: https://github.com/chromaui/chromatic-cli/issues/1149#issuecomment-2936493954
     // Keep in sync with tsconfig.json
+    // To test changes check the built preview-stats.json file for .ts vs .js references of mapped paths
     config.resolve.alias = [
         {
             find: '@ni/nimble-components/dist/esm',
@@ -45,16 +46,20 @@ export async function viteFinal(config) {
             replacement: '@ni/ok-components/src'
         },
         {
-            find: '@ni/nimble-react/dist/esm',
-            replacement: '@ni/nimble-react/src'
+            find: /^@ni\/nimble-react\/styles\/(.*)/,
+            replacement: `${getAbsolutePath('@ni/nimble-react')}/styles/$1.scss`
         },
         {
-            find: '@ni/spright-react/dist/esm',
-            replacement: '@ni/spright-react/src'
+            find: /^@ni\/nimble-react\/(.*)/,
+            replacement: `${getAbsolutePath('@ni/nimble-react')}/src/$1/index.ts`
         },
         {
-            find: '@ni/ok-react/dist/esm',
-            replacement: '@ni/ok-react/src'
+            find: /^@ni\/spright-react\/(.*)/,
+            replacement: `${getAbsolutePath('@ni/spright-react')}/src/$1/index.ts`
+        },
+        {
+            find: /^@ni\/ok-react\/(.*)/,
+            replacement: `${getAbsolutePath('@ni/ok-react')}/src/$1/index.ts`
         },
     ];
 
@@ -67,5 +72,5 @@ export const framework = {
 };
 
 function getAbsolutePath(value) {
-    return dirname(require.resolve(join(value, 'package.json')));
+    return path.dirname(require.resolve(path.join(value, 'package.json')));
 }

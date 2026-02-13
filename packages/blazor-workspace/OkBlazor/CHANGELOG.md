@@ -1,8 +1,162 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 12 Feb 2026 22:17:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.3.3
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.11
+
+## 0.3.2
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.10
+
+## 0.3.1
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.9
+
+## 0.3.0
+
+Tue, 10 Feb 2026 21:22:58 GMT
+
+### Minor changes
+
+- adding icon dynamic ([ni/nimble@ae64cd9](https://github.com/ni/nimble/commit/ae64cd9de627d12a105e007a77e6e124c529025c))
+- Bump @ni/ok-components to v0.2.8
+
+## 0.2.8
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.7
+
+## 0.2.7
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.6
+
+## 0.2.6
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.5
+
+## 0.2.5
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.4
+
+## 0.2.4
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.3
+
+## 0.2.3
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.2
+
+## 0.2.2
+
+Mon, 02 Feb 2026 13:53:04 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.1
+
+## 0.2.1
+
+Mon, 02 Feb 2026 01:28:18 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@992fb97](https://github.com/ni/nimble/commit/992fb977d902550215089a76969052eb9597d7b7))
+
+## 0.2.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v0.2.0
+
+## 0.1.27
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.27
+
+## 0.1.26
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/ok-components to v0.1.26
+
+## 0.1.25
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.25
+
+## 0.1.24
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.24
+
+## 0.1.23
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.23
+
+## 0.1.22
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.22
 
 ## 0.1.21
 

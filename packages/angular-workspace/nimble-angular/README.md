@@ -6,7 +6,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular.svg)](https://www.npmjs.com/package/@ni/nimble-angular)
 
-NI-styled UI components for [Angular](https://angular.io) applications
+NI-styled UI components for [Angular](https://angular.dev) applications
 
 ## Getting started
 
@@ -106,7 +106,7 @@ The standard way to use these in Angular (for localized apps using `@angular/loc
         <router-outlet></router-outlet>
     </nimble-theme-provider>
     ```
-3. Follow [the standard Angular internationalization guidance](https://angular.io/guide/i18n-common-overview) to extract the localizable strings, translate them, and merge translations back into the application. 
+3. Follow [the standard Angular internationalization guidance](https://angular.dev/guide/i18n) to extract the localizable strings, translate them, and merge translations back into the application. 
 
 ### Learn more
 
@@ -126,7 +126,7 @@ For best results, always use `ngModel`, `formControl`, or `formControlName` bind
 
 ### Using Nimble breadcrumb with Angular's RouterLink
 
-`nimble-breadcrumb-item` supports the [Angular RouterLink directive](https://angular.io/api/router/RouterLink) for breadcrumb navigation in an Angular app using routing.
+`nimble-breadcrumb-item` supports the [Angular RouterLink directive](https://angular.dev/api/router/RouterLink) for breadcrumb navigation in an Angular app using routing.
 However, the attribute name `nimbleRouterLink` should be used instead of `routerLink` - for example:
 ```html
 <nimble-breadcrumb-item [nimbleRouterLink]="breadcrumb.url">
@@ -143,7 +143,7 @@ To avoid this, call `processUpdates()` after each `fakeAsync` test. This will sy
 
 ## Angular Support Policy
 
-`@ni/nimble-angular` supports Angular 18. To see the exact version it's tested against, view the library's `package.json`.
+`@ni/nimble-angular` supports Angular 19. To see the exact version it's tested against, view the library's `package.json`.
 
 If your application uses an older Angular version you can temporarily use an older version of `@ni/nimble-angular` (versions exist back to Angular 12) but it will not contain the latest features so it's preferable to update the application's Angular dependency.
 

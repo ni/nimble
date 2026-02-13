@@ -1,11 +1,11 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/router/src/directives/router_link.ts
+ * Copied from https://github.com/angular/angular/blob/19.2.15/packages/router/src/directives/router_link.ts
  * with the following modifications:
  * - Copy `isUrlTree` function from url_tree.ts into this file instead of importing
  * - Hardcode `isAnchorElement` to `true` so that the directive will correctly set the `href` on elements within nimble that represent anchors
  * - Make `href` a `@HostBindinding` to avoid using Angular's private sanitization APIs because `href` bindings automatically are sanitized by
- *   Angular (see https://angular.io/guide/security#sanitization-and-security-contexts). Implementations leveraging RouterLink should have a test
+ *   Angular (see https://angular.dev/best-practices/security#sanitization-and-security-contexts). Implementations leveraging RouterLink should have a test
  *   ensuring sanitization is called.
  * - Comment out uneccessary export of the deprecated `RouterLinkWithHref`
  */
@@ -38,13 +38,13 @@ import {
 } from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 
+// import {RuntimeErrorCode} from '../errors';
 import {type Event, NavigationEnd} from '@angular/router';
 import type {QueryParamsHandling} from '@angular/router';
 import {Router} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import type {Params} from '@angular/router';
 import {UrlTree} from '@angular/router';
-// import {RuntimeErrorCode} from '../errors';
 
 // [Nimble] Copied from https://github.com/angular/angular/blob/18.2.13/packages/router/src/url_tree.ts
 function isUrlTree(v: any): v is UrlTree {
@@ -95,7 +95,7 @@ function isUrlTree(v: any): v is UrlTree {
  *
  * The following link adds a query parameter and a fragment to the generated URL:
  *
- * ```
+ * ```html
  * <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" fragment="education">
  *   link to user component
  * </a>
@@ -112,7 +112,7 @@ function isUrlTree(v: any): v is UrlTree {
  *
  * For example:
  *
- * ```
+ * ```html
  * <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" queryParamsHandling="merge">
  *   link to user component
  * </a>
@@ -129,7 +129,7 @@ function isUrlTree(v: any): v is UrlTree {
  * [`History.state` property](https://developer.mozilla.org/en-US/docs/Web/API/History#Properties).
  * For example:
  *
- * ```
+ * ```html
  * <a [routerLink]="['/user/bob']" [state]="{tracingId: 123}">
  *   link to user component
  * </a>
@@ -139,7 +139,7 @@ function isUrlTree(v: any): v is UrlTree {
  * navigation-state value. For example, to capture the `tracingId` during the `NavigationStart`
  * event:
  *
- * ```
+ * ```ts
  * // Get NavigationStart events
  * router.events.pipe(filter(e => e instanceof NavigationStart)).subscribe(e => {
  *   const navigation = router.getCurrentNavigation();
@@ -154,7 +154,6 @@ function isUrlTree(v: any): v is UrlTree {
 /* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector: '[routerLink]',
-  standalone: true,
 })
 */
 @Directive()
@@ -287,7 +286,7 @@ export class RouterLink implements OnChanges, OnDestroy {
     this.applyAttributeValue('tabindex', newTabIndex);
   }
 
-  /** @nodoc */
+  /** @docs-private */
   // TODO(atscott): Remove changes parameter in major version as a breaking change.
   ngOnChanges(changes?: SimpleChanges) {
     /* [Nimble] Comment out extra error handling that uses ngDevMode and RuntimeErrorCode
@@ -342,7 +341,7 @@ export class RouterLink implements OnChanges, OnDestroy {
     }
   }
 
-  /** @nodoc */
+  /** @docs-private */
   @HostListener('click', [
     '$event.button',
     '$event.ctrlKey',
@@ -387,7 +386,7 @@ export class RouterLink implements OnChanges, OnDestroy {
     return !this.isAnchorElement;
   }
 
-  /** @nodoc */
+  /** @docs-private */
   ngOnDestroy(): any {
     this.subscription?.unsubscribe();
   }

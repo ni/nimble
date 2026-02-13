@@ -33,7 +33,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Anchor',
@@ -46,7 +47,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Anchor Button',
@@ -59,7 +61,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Anchor Tabs',
@@ -72,7 +75,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Anchor Tree Item',
@@ -83,7 +87,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Badge',
@@ -92,7 +97,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Banner',
@@ -105,7 +111,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Breadcrumb',
@@ -118,7 +125,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Card',
@@ -131,7 +139,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.incubating
+        blazorStatus: ComponentFrameworkStatus.incubating,
+        reactStatus: ComponentFrameworkStatus.incubating
     },
     {
         componentName: 'Card button',
@@ -144,7 +153,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Chat Conversation',
@@ -155,7 +165,8 @@ const components = [
         library: 'spright',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Checkbox',
@@ -166,7 +177,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Chip',
@@ -176,8 +188,9 @@ const components = [
         designLabel: 'Figma',
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Combobox',
@@ -190,7 +203,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Date picker',
@@ -199,7 +213,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Date Time Text',
@@ -208,7 +223,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Dialog',
@@ -221,7 +237,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Drawer',
@@ -232,7 +249,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Filter Builder (Query Builder)',
@@ -241,7 +259,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Icon Button',
@@ -252,7 +271,17 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Icon Dynamic',
+        componentHref: './?path=/docs/ok-icon-dynamic--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Icon Menu Button',
@@ -265,7 +294,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Icons',
@@ -273,7 +303,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Label',
@@ -282,7 +313,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Menu',
@@ -293,7 +325,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Menu Button',
@@ -306,7 +339,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Number Field',
@@ -319,7 +353,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Picker (Chip)',
@@ -331,7 +366,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Progress Bar',
@@ -340,7 +376,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Query Builder',
@@ -349,7 +386,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Radio',
@@ -362,7 +400,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Rich Text Editor',
@@ -375,7 +414,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.incubating
     },
     {
         componentName: 'Rich Text Viewer',
@@ -388,7 +428,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.incubating
+        blazorStatus: ComponentFrameworkStatus.incubating,
+        reactStatus: ComponentFrameworkStatus.incubating
     },
     {
         componentName: 'Search Field',
@@ -400,7 +441,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Select (Dropdown)',
@@ -411,7 +453,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Skeleton',
@@ -420,7 +463,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Slider',
@@ -432,7 +476,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Spinner',
@@ -445,7 +490,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Split Button',
@@ -454,16 +500,21 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Stepper',
+        componentHref: './?path=/docs/incubating-stepper--docs',
+        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=11742-71097&p=f&t=U3UnPlU4awyN4ybh-0',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/624',
         issueLabel: '#624',
-        library: 'future',
-        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        library: 'nimble',
+        componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Switch',
@@ -476,7 +527,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Table',
@@ -489,7 +541,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Tabs',
@@ -500,7 +553,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Text Button',
@@ -511,7 +565,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Text Area',
@@ -522,7 +577,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Text Field',
@@ -533,7 +589,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Toast',
@@ -545,7 +602,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Toggle Button Group',
@@ -557,7 +615,8 @@ const components = [
         library: 'future',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Toggle Icon Button',
@@ -569,7 +628,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Toolbar',
@@ -579,7 +639,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Tooltip',
@@ -592,7 +653,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.incubating
+        blazorStatus: ComponentFrameworkStatus.incubating,
+        reactStatus: ComponentFrameworkStatus.incubating
     },
     {
         componentName: 'Tree View',
@@ -603,7 +665,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Wafer Map',
@@ -613,7 +676,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.incubating
+        blazorStatus: ComponentFrameworkStatus.incubating,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     }
 ] as const;
 
@@ -685,6 +749,14 @@ const metadata: Meta<TableArgs> = {
                 ?column-hidden="${x => x.library === 'future'}"
             >
                 Blazor
+                ${iconMappings}
+            </${tableColumnMappingTag}>
+            <${tableColumnMappingTag}
+                column-id="react-status-column"
+                field-name="reactStatus"
+                ?column-hidden="${x => x.library === 'future'}"
+            >
+                React
                 ${iconMappings}
             </${tableColumnMappingTag}>
         </${tableTag}>

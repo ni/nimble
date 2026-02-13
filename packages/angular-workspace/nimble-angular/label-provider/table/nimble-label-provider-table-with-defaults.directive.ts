@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 import type { LabelProviderTable } from '@ni/nimble-components/dist/esm/label-provider/table';
 
-import '@angular/localize/init';
-
 /**
  * Directive for nimble-label-provider-table which will initialize all of the labels with $localize-tagged strings, for apps
  * using @angular/localize.

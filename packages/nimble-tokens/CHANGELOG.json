@@ -2,6 +2,66 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 11 Feb 2026 03:47:57 GMT",
+      "version": "8.15.0",
+      "tag": "@ni/nimble-tokens_v8.15.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "727c71e6a2d40b70d5ab2c18bbf14a51f35ab3f7",
+            "comment": "Add base colors for the new variants of calendar events"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "8.14.0",
+      "tag": "@ni/nimble-tokens_v8.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "98fb6159317ad0e8e7cdbbff1cbb18972749c2cb",
+            "comment": "Add forklift icon"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Jan 2026 03:36:17 GMT",
+      "version": "8.13.7",
+      "tag": "@ni/nimble-tokens_v8.13.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8dad67eea4b456fee7f4f5e1071e1924753092d0",
+            "comment": "consistent module package format"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "8.13.6",
+      "tag": "@ni/nimble-tokens_v8.13.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Bump typescript version in all packages (to 5.8.3)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Dec 2025 21:45:22 GMT",
       "version": "8.13.5",
       "tag": "@ni/nimble-tokens_v8.13.5",

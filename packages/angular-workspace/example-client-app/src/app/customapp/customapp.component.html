@@ -1,11 +1,10 @@
-<div class="content container">
-    <p>
-        Explore the components below to see the Nimble components in action. See the <a
-        href="https://ni.github.io/nimble/storybook/">Nimble
-        component docs</a> for additional usage details.
-        Navigate to the <a href="../index.html">parent page</a>.
-    </p>
+<div class="content-container">
     <div class="container">
+        <div class="sub-container">
+            Explore the components below to see the Nimble components in action.
+            See the <nimble-anchor href="https://nimble.ni.dev/storybook/">Nimble component docs</nimble-anchor> for additional usage details.
+            Navigate to the <nimble-anchor href="../index.html">parent page</nimble-anchor>.
+        </div>
         <div class="sub-container">
             <div class="container-label">Anchor</div>
             <div><nimble-anchor href="#" appearance="prominent">Site root</nimble-anchor></div>
@@ -34,16 +33,16 @@
             <nimble-button appearance="ghost">Ghost Button</nimble-button>
         </div>
         <div class="sub-container">
-            <div class="container-label">Buttons - Toggle</div>
-            <nimble-toggle-button appearance="outline">Outline Toggle Button</nimble-toggle-button>
-            <nimble-toggle-button appearance="block">Block Toggle Button</nimble-toggle-button>
-            <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
-        </div>
-        <div class="sub-container">
             <div class="container-label">Buttons - Anchor</div>
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="outline">Outline Anchor Button</nimble-anchor-button>
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="block">Block Anchor Button</nimble-anchor-button>
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="ghost">Ghost Anchor Button</nimble-anchor-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons - Toggle</div>
+            <nimble-toggle-button appearance="outline">Outline Toggle Button</nimble-toggle-button>
+            <nimble-toggle-button appearance="block">Block Toggle Button</nimble-toggle-button>
+            <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
         </div>
         <div class="sub-container">
             <div class="container-label">Card</div>
@@ -73,6 +72,13 @@
             <nimble-checkbox>Checkbox label</nimble-checkbox>
             <nimble-checkbox>Checkbox label</nimble-checkbox>
             <nimble-checkbox>Checkbox label</nimble-checkbox>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Chip</div>
+            <nimble-chip>Outline Chip</nimble-chip>
+            <nimble-chip appearance="block">Block Chip</nimble-chip>
+            <nimble-chip removable (remove)="onChipRemove()">Removable Chip</nimble-chip>
+            <nimble-chip disabled>Disabled Chip</nimble-chip>
         </div>
         <div class="sub-container">
             <div class="container-label">Radio Buttons</div>
@@ -465,12 +471,20 @@
         <div class="sub-container">
             <div class="container-label">Chat Conversation and Messages (Spright)</div>
             <spright-chat-conversation>
-                <spright-chat-message>To start, press any key.</spright-chat-message>
-                <spright-chat-message message-type="outbound">Where is the Any key?</spright-chat-message>
-                <spright-chat-message>
+                <nimble-toolbar slot="toolbar" > 
+                    <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
+                    <span class="toolbar-title">AI Assistant</span>
+                    <nimble-button appearance="ghost" content-hidden title="Create new chat" slot="end">
+                        Create new chat
+                        <nimble-icon-pencil-to-rectangle slot="start"></nimble-icon-pencil-to-rectangle>
+                    </nimble-button>
+                </nimble-toolbar>
+                <spright-chat-message-system>To start, press any key.</spright-chat-message-system>
+                <spright-chat-message-outbound>Where is the Any key?</spright-chat-message-outbound>
+                <spright-chat-message-system>
                     <nimble-spinner appearance="accent"></nimble-spinner>
-                </spright-chat-message>
-                <spright-chat-message message-type="inbound">
+                </spright-chat-message-system>
+                <spright-chat-message-inbound>
                     <nimble-button slot="footer-actions" appearance='ghost' content-hidden>
                         <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
                         Copy
@@ -480,8 +494,8 @@
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
                     <nimble-button slot="end" appearance="block">Order a tab</nimble-button>
                     <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
-                </spright-chat-message>
-                <spright-chat-message message-type="outbound" *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message>
+                </spright-chat-message-inbound>
+                <spright-chat-message-outbound *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message-outbound>
                 <spright-chat-input slot="input" placeholder="Type here" (send)="onChatInputSend($event)"></spright-chat-input>
             </spright-chat-conversation>
         </div>

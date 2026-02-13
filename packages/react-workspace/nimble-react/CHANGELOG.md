@@ -1,8 +1,159 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 11 Feb 2026 03:47:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.11.6
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.3
+- Bump @ni/nimble-tokens to v8.15.0
+
+## 0.11.5
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.2
+
+## 0.11.4
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.1
+
+## 0.11.3
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.0
+
+## 0.11.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.2
+
+## 0.11.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Fix import syntax to obey new lint rule ([ni/nimble@aad1c14](https://github.com/ni/nimble/commit/aad1c1447cb1752602f4cae4e455a7abe0556b06))
+- Bump @ni/nimble-components to v35.1.1
+
+## 0.11.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.1.0
+- Bump @ni/nimble-tokens to v8.14.0
+
+## 0.10.5
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.3
+
+## 0.10.4
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-components to v35.0.2
+- Bump @ni/nimble-tokens to v8.13.7
+
+## 0.10.3
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.1
+
+## 0.10.2
+
+Sat, 17 Jan 2026 21:02:32 GMT
+
+### Patches
+
+- Simplify icon export paths ([ni/nimble@e6ea842](https://github.com/ni/nimble/commit/e6ea8421529512a2fc7397cfec9d408397b140fc))
+
+## 0.10.1
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.0
+
+## 0.10.0
+
+Thu, 15 Jan 2026 05:18:11 GMT
+
+### Minor changes
+
+- Create fromDialogRef, fromDrawerRef, and fromTableRef helpers ([ni/nimble@414a6b5](https://github.com/ni/nimble/commit/414a6b5000e34f9a3cb6bc8c7594f05dec69e277))
+
+## 0.9.0
+
+Fri, 02 Jan 2026 06:16:54 GMT
+
+### Minor changes
+
+- Switch to package exports ([ni/nimble@66f9a70](https://github.com/ni/nimble/commit/66f9a70c13c5a2f8605b86036f1faded63e2bf93))
+
+## 0.8.2
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.3
+
+## 0.8.1
+
+Wed, 24 Dec 2025 23:16:44 GMT
+
+### Patches
+
+- Export Theme type from ThemeProvider ([ni/nimble@76a4daf](https://github.com/ni/nimble/commit/76a4daff934119d14006bdab4859fc05c21cf42d))
+
+## 0.8.0
+
+Wed, 24 Dec 2025 01:13:38 GMT
+
+### Minor changes
+
+- React 19 support ([ni/nimble@f02af57](https://github.com/ni/nimble/commit/f02af57ebb0bd171e3778b06bb05ad1d140317bf))
+
+## 0.7.12
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-components to v34.10.2
+- Bump @ni/nimble-tokens to v8.13.6
 
 ## 0.7.11
 

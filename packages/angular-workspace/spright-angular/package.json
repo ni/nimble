@@ -1,11 +1,12 @@
 {
   "name": "@ni/spright-angular",
-  "version": "7.8.22",
+  "version": "8.4.0",
   "description": "Angular components for NI Spright",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/spright-angular && npm publish",
     "invoke-publish:setup": "cd ../ && npm run build:spright"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -21,12 +22,13 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
-  "peerDependencies": {
-    "@angular/common": "^18.2.13",
-    "@angular/core": "^18.2.13",
-    "@ni/spright-components": "^6.4.21"
-  },
   "dependencies": {
     "tslib": "^2.2.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^19.2.17",
+    "@angular/core": "^19.2.17",
+    "@angular/localize": "^19.2.17",
+    "@ni/spright-components": "^6.9.0"
   }
 }

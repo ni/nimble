@@ -3,37 +3,50 @@
 -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <style>
-    /* 
-       Storybook 10's toolbar icons (specifically the addon icons on the right) 
-       sometimes default to a dark grey (fgColor.default) instead of using barTextColor.
-       Since our toolbar background is dark green (Brand85), we force these icons to be white.
-       See: https://github.com/storybookjs/storybook/issues/32789
-    */
-    .sb-bar button {
-        color: #ffffff !important; /* White */
-    }
-    .sb-bar button svg {
-        fill: #ffffff !important;
-    }
-    
-    /* Hover state: Black15 (#f1f1f2) */
-    .sb-bar button:hover {
-        color: #f1f1f2 !important;
-    }
-    .sb-bar button:hover svg {
-        fill: #f1f1f2 !important;
-    }
+    /* top-level html and loading spinner are not theme aware*/
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #363738; /* application bg color dark */
+            color: #f1f1f2; /* body font color dark */
+        }
 
-    /* Selected/Active state: Black7 (#f5f5f5) */
-    .sb-bar button:active, 
-    .sb-bar button[aria-pressed="true"], 
-    .sb-bar button[class*="selected"] {
-        color: #f5f5f5 !important;
-    }
-    .sb-bar button:active svg, 
-    .sb-bar button[aria-pressed="true"] svg, 
-    .sb-bar button[class*="selected"] svg {
-        fill: #f5f5f5 !important;
+        #main-preview-heading + div > div:first-child {
+            background-color: #363738; /* application bg color dark */
+        }
     }
 </style>
+<style>
+    @namespace xlink 'http://www.w3.org/1999/xlink';
 
+    [xlink|href="#icon--document"] {
+        color:#009921; /* pass light */
+    }
+    [xlink|href="#icon--component"] {
+        color:#161617; /* icon color light */
+    }
+    [xlink|href="#icon--story"] {
+        color:#ff4b00; /* warn light */
+    }
+    [xlink|href="#icon--group"] {
+        color:#161617; /* icon color light */
+    }
+
+    @media (prefers-color-scheme: dark) {
+        [xlink|href="#icon--document"] {
+            color:#00c12b; /* pass dark */
+        }
+        [xlink|href="#icon--component"] {
+            color:#f1f1f2; /* icon color dark */
+        }
+        [xlink|href="#icon--story"] {
+            color:#ff8126; /* warn dark */
+        }
+        [xlink|href="#icon--group"] {
+            color:#f1f1f2; /* icon color dark */
+        }
+    }
+
+    [data-selected="true"] [xlink|href] {
+        color:#f1f1f2; /* icon color dark */
+    }
+</style>

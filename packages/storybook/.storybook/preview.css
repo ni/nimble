@@ -3,3 +3,22 @@ by the storybook.ts createStory helpers */
 .code-hide-top-container {
     display: contents;
 }
+
+/* doc pages loading skeleton not theme aware
+see: https://github.com/storybookjs/storybook/discussions/26088 */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #363738; /* application bg color dark */
+        color: #f1f1f2; /* body font color dark */
+    }
+
+    .sb-wrapper,
+    .sb-previewBlock_body,
+    .sb-previewBlock_header {
+        background-color: #363738; /* application bg color dark */
+    }
+
+    .sb-argstableBlock-body td {
+        background: gray;
+    }
+}
