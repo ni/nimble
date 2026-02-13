@@ -18,11 +18,6 @@ export const template = html<ChatInput>`
             @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
             @input="${x => x.textAreaInputHandler()}"
         ></textarea>
-        <${iconExclamationMarkTag}
-            severity="error"
-            class="error-icon scrollbar-width-calculated"
-            style="--ni-private-scrollbar-width: ${x => (x.scrollbarWidth >= 0 ? x.scrollbarWidth : 0)}px;"
-        ></${iconExclamationMarkTag}>
     </div>
     <${buttonTag}
         class="action-button"
@@ -41,5 +36,10 @@ export const template = html<ChatInput>`
             html`<${iconPaperPlaneTag} slot="start"></${iconPaperPlaneTag}>`
         )}
     </${buttonTag}>
+    <${iconExclamationMarkTag}
+        severity="error"
+        class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"
+        style="--ni-private-scrollbar-width: ${x => x.scrollbarWidth}px;"
+    ></${iconExclamationMarkTag}>
     ${errorTextTemplate}
 </div>`;

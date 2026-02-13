@@ -5,7 +5,8 @@ import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    placeholderDescription
+    placeholderDescription,
+    errorTextDescription
 } from '../../../utilities/storybook';
 
 interface ChatInputArgs {
@@ -84,7 +85,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         },
         errorText: {
             name: 'error-text',
-            description: 'Error text to display below the input.',
+            description: errorTextDescription,
             control: { type: 'text' },
             table: { category: apiCategory.attributes }
         },

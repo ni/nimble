@@ -1,9 +1,7 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { attr, nullableNumberConverter, observable, html, DOM } from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable, DOM } from '@ni/fast-element';
 import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error/types';
-import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
-import { iconExclamationMarkTag } from '@ni/nimble-components/dist/esm/icons/exclamation-mark';
 import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
@@ -81,6 +79,20 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
         this.disableSendButton = this.shouldDisableSendButton();
+        this.queueUpdateScrollbarWidth();
+    }
+
+    // If a property can affect whether a scrollbar is visible, we need to
+    // call queueUpdateScrollbarWidth() when it changes. The exceptions are
+    // properties that affect size (e.g. height, width, cols, rows), because
+    // we already have a ResizeObserver handling those changes. Also,
+    // a change to errorVisible cannot cause scrollbar visibility to change,
+    // because we always reserve space for the error icon.
+
+    /**
+     * @internal
+     */
+    public placeholderChanged(): void {
         this.queueUpdateScrollbarWidth();
     }
 
@@ -179,13 +191,6 @@ const sprightChatInput = ChatInput.compose({
     shadowOptions: {
         delegatesFocus: true
     },
-    end: html<ChatInput>`
-        <${iconExclamationMarkTag}
-            severity="error"
-            class="error-icon"
-        ></${iconExclamationMarkTag}>
-        ${errorTextTemplate}
-    `
 });
 
 DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatInput());

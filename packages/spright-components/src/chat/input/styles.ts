@@ -102,16 +102,11 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .input-container {
-        position: relative;
-        width: 100%;
-    }
-
-    .error-icon {
+    :host([error-visible]) .error-icon {
         display: none;
     }
 
-    :host([error-visible]) .error-icon {
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
         display: inline-flex;
         position: absolute;
         top: ${mediumPadding};
