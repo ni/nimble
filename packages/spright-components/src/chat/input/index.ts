@@ -190,7 +190,7 @@ const sprightChatInput = ChatInput.compose({
     styles,
     shadowOptions: {
         delegatesFocus: true
-    },
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatInput());

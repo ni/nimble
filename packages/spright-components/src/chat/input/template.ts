@@ -8,17 +8,15 @@ import type { ChatInput } from '.';
 
 export const template = html<ChatInput>`
 <div class="container">
-    <div class="input-container">
-        <textarea
-            ${ref('textArea')}
-            placeholder="${x => x.placeholder}"
-            rows="1"
-            tabindex="${x => x.tabIndex}"
-            maxlength="${x => x.maxLength}"
-            @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
-            @input="${x => x.textAreaInputHandler()}"
-        ></textarea>
-    </div>
+    <textarea
+        ${ref('textArea')}
+        placeholder="${x => x.placeholder}"
+        rows="1"
+        tabindex="${x => x.tabIndex}"
+        maxlength="${x => x.maxLength}"
+        @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
+        @input="${x => x.textAreaInputHandler()}"
+    ></textarea>
     <${buttonTag}
         class="action-button"
         appearance="block"

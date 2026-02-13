@@ -10,8 +10,7 @@ import {
     popupBorderColor,
     borderHoverColor,
     smallDelay,
-    failColor,
-    iconSize
+    failColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
 import { display } from '../../utilities/style/display';
@@ -111,10 +110,6 @@ export const styles = css`
         position: absolute;
         top: ${mediumPadding};
         right: var(--ni-private-scrollbar-width);
-    }
-
-    :host([error-visible]) textarea {
-        padding-right: calc(${iconSize} + ${mediumPadding});
     }
 
     .action-button {
