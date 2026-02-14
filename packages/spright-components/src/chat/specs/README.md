@@ -89,8 +89,8 @@ All end text buttons must meet the following criteria
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
 1. Includes a slot to place a toolbar (and its content such as buttons or menu buttons) on top of the conversation.
-1. Includes a slot to place an input component below the messages
-1. Includes a slot for a legal disclaimer below that
+1. Includes a slot to place an input component below the messages.
+1. Includes a slot for a legal disclaimer below that.
 1. Only appearance of its own is to set a background color.
 
 #### Chat input
