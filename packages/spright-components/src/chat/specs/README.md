@@ -6,10 +6,10 @@ This spec describes a set of components that can be used to compose a chat inter
 
 - chat input: a text input, button, and related components for users to compose and send new messages
 - chat messages: each a single entry in a chat conversation, including some content and metadata about the message
-- chat message welcome content: one type of message content that welcomes the user to the chat experience and allows them to login
    - inbound
    - system
    - outbound
+   - welcome
 - chat conversation: a layout component that allows slotting messages and an input
 
 ### Background
@@ -75,12 +75,14 @@ All end text buttons must meet the following criteria
 1. The `apperance` attribute is set to `block`
 1. The buttons only have text
 
-#### Chat message welcome content
+##### Welcome message features
 
-1. Contains welcome content that can be slotted into a message
-1. Content includes text ("Welcome to Nigel™ AI") and an image to brand the chat experience
-1. If the user is not logged in, displays a button or anchor button to launch the external login process
-1. If the user is logged in, displays text ("Chat below to get started") explaining the first step the user should take
+1. Centered horizontally within a conversation, similar to system messages
+1. Displays a fixed image to brand the chat experience
+1. Displays client-provided title (e.g. "Welcome to Nigel™ AI") and sub-title (e.g. "Chat below to get started", "Log in to get started") text
+1. Allows content to be added in the default slot for purposes including:
+   - If the user is not logged in, slot a button or anchor button to launch the external login process
+   - If the user is logged in, slot buttons offering suggested outbound messages
 
 #### Chat conversation
 
@@ -179,13 +181,11 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-message message-type="system">
-        <spright-chat-welcome-message-content>
+    <spright-chat-welcome-message title="Welcome to Nigel AI" sub-title="Log in to get started">
             <nimble-anchor-button appearance="block" appearance-variant="primary" href="/login">
                 Login
             </nimble-anchor-button>
-        </spright-chat-welcome-message-content>
-    </spright-chat-message>
+    </spright-chat-welcome-message>
 </spright-chat-conversation>
 ```
 
@@ -214,6 +214,7 @@ Message components will be created with the following names:
 - `spright-chat-message-inbound`
 - `spright-chat-message-outbound`
 - `spright-chat-message-system`
+- `spright-chat-message-welcome`
 
 ##### Messages common API
 
@@ -228,40 +229,24 @@ All message types will share the following API:
     - A message will grow its height to fit its content, with no maximum height.
     - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
 - _Slots_
-    - `footer-actions`
-        - Action buttons to display after the main content.
     - `end`
-        - Buttons with text that are displayed at the bottom after any action buttons.
+        - Buttons with text that are displayed at the bottom after any other content.
     - `(default)`
         - arbitrary content can be added to the default slot to be displayed within the message
-
-#### Message welcome content
-
-- _Component Name_ `spright-chat-welcome-message-content`
-- _Props/Attrs_
-    - User-visible strings will be be specified via the chat label provider.
-- _Methods_
-- _Events_
-- _CSS Classes and CSS Custom Properties that affect the component_
-- _How native CSS Properties (height, width, etc.) affect the component_
-- _Slots_
-    - default slot can be used to provide a login button or anchor button. If not provided, the component will show the post-login instructions instead. We will provide usage guidance suggesting the button content ("Login") and appearance (primary block).
-
-##### Message welcome content API alternatives
-
-Instead of clients slotting the login button, the component could expose attributes that are forwarded to a button that is managed by the component. This would improve consistency and avoid the need for usage guidance about how to configure the button. However it would require a rather large API surface:
- - whether to use a button or anchor button
- - `login-disabled` attribute
- - if using a button: `loginclick` event
- - if using an anchor button: `login-href` attribute
 
 ##### Inbound message additional API
 
 - _Slots_
     - `footer-actions`
         - Action buttons to display after the main content.
-    - `end`
-        - Buttons with text that are displayed at the bottom after any action buttons.
+
+##### Welcome message additional API
+
+- _Props/Attrs_
+    - `title` - string attribute for the primary welcome message
+    - `subtitle` - string attribute for a secondary welcome message. Naming is aligned with `nimble-dialog`
+- _Slots_
+    - default slot can be used to provide content below the icon, title, and subtitle. For example, a login button or suggested outbound messages.
 
 #### Conversation
 
@@ -347,7 +332,7 @@ A message is simply a `div` which will styled with background / border / rounded
 </template>
 ```
 
-#### Message welcome content
+##### Welcome message
 
 The template will include an `svg` element to render the image. The image requires different svg contents for dark and light themes (they use different gradient parameters). The gradient content will be specified in a new design token, `messageWelcomeContentGradient`, and the template will read the correct gradient value for the current theme using `messageWelcomeContentGradient.getValueFor()`.
 
