@@ -79,7 +79,7 @@ All end text buttons must meet the following criteria
 
 1. Centered horizontally within a conversation, similar to system messages
 1. Displays a fixed image to brand the chat experience
-1. Displays client-provided title (e.g. "Welcome to Nigel™ AI") and sub-title (e.g. "Chat below to get started", "Log in to get started") text
+1. Displays client-provided title (e.g. "Welcome to Nigel™ AI") and subtitle (e.g. "Chat below to get started", "Log in to get started") text
 1. Allows content to be added in the default slot for purposes including:
    - If the user is not logged in, slot a button or anchor button to launch the external login process
    - If the user is logged in, slot buttons offering suggested outbound messages
@@ -184,7 +184,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-welcome-message title="Welcome to Nigel AI" sub-title="Log in to get started">
+    <spright-chat-welcome-message title="Welcome to Nigel AI" subtitle="Log in to get started">
             <nimble-anchor-button appearance="block" appearance-variant="primary" href="/login">
                 Login
             </nimble-anchor-button>
