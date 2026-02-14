@@ -334,11 +334,7 @@ A message is simply a `div` which will styled with background / border / rounded
 
 ##### Welcome message
 
-The template will include an `svg` element to render the image. The image requires different svg contents for dark and light themes (they use different gradient parameters). The gradient content will be specified in a new design token, `messageWelcomeContentGradient`, and the template will read the correct gradient value for the current theme using `messageWelcomeContentGradient.getValueFor()`.
-
-A `slot` element will be used to host the login button.
-
-Text content will be placed in `div` elements, conditionally shown if there is no slotted login button. We will use our standard pattern to detect whether there is slotted content (see #2579).
+The template will include an `svg` element to render the image. The image requires different svg contents for dark and light themes (they use different gradient parameters). The gradient content will be specified in a new design token.
 
 We can use [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/StartPage.razor) and [images](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/NigelLocalService/wwwroot/Images/two-chat-sparkle_green_DarkUI_48x48.svg) for reference.
 
