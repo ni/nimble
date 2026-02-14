@@ -53,9 +53,24 @@ describe('Spright chat input', () => {
             expect(nativeElement.sendButtonLabel).toBeUndefined();
         });
 
+        it('has expected defaults for stopButtonLabel', () => {
+            expect(directive.stopButtonLabel).toBeUndefined();
+            expect(nativeElement.stopButtonLabel).toBeUndefined();
+        });
+
+        it('has expected defaults for processing', () => {
+            expect(directive.processing).toBeFalse();
+            expect(nativeElement.processing).toBeFalse();
+        });
+
         it('has expected defaults for value', () => {
             expect(directive.value).toEqual('');
             expect(nativeElement.value).toEqual('');
+        });
+
+        it('has expected defaults for maxLength', () => {
+            expect(directive.maxLength).toBe(-1);
+            expect(nativeElement.maxLength).toBe(-1);
         });
     });
 
@@ -65,7 +80,10 @@ describe('Spright chat input', () => {
                 <spright-chat-input #chatInput
                     placeholder="Placeholder value"
                     send-button-label="Send button label value"
+                    stop-button-label="Stop button label value"
+                    processing="true"
                     value="Value value"
+                    maxlength="10"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -100,9 +118,24 @@ describe('Spright chat input', () => {
             expect(nativeElement.sendButtonLabel).toBe('Send button label value');
         });
 
+        it('will use template string values for stopButtonLabel', () => {
+            expect(directive.stopButtonLabel).toBe('Stop button label value');
+            expect(nativeElement.stopButtonLabel).toBe('Stop button label value');
+        });
+
+        it('will use template string values for processing', () => {
+            expect(directive.processing).toBeTrue();
+            expect(nativeElement.processing).toBeTrue();
+        });
+
         it('will use template string values for value', () => {
             expect(directive.value).toBe('Value value');
             expect(nativeElement.value).toBe('Value value');
+        });
+
+        it('will use template string values for maxLength', () => {
+            expect(directive.maxLength).toBe(10);
+            expect(nativeElement.maxLength).toBe(10);
         });
     });
 
@@ -112,7 +145,10 @@ describe('Spright chat input', () => {
                 <spright-chat-input #chatInput
                     [placeholder]="placeholder"
                     [sendButtonLabel]="sendButtonLabel"
+                    [stopButtonLabel]="stopButtonLabel"
+                    [processing]="processing"
                     [value]="value"
+                    [maxlength]="maxLength"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -122,7 +158,10 @@ describe('Spright chat input', () => {
             @ViewChild('chatInput', { read: ElementRef }) public elementRef: ElementRef<ChatInput>;
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
+            public stopButtonLabel = 'initial';
             public value = 'initial';
+            public processing = false;
+            public maxLength = 20;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -163,6 +202,28 @@ describe('Spright chat input', () => {
             expect(nativeElement.sendButtonLabel).toBe('updated sendButtonLabel value');
         });
 
+        it('can be configured with property binding for stopButtonLabel', () => {
+            expect(directive.stopButtonLabel).toBe('initial');
+            expect(nativeElement.stopButtonLabel).toBe('initial');
+
+            fixture.componentInstance.stopButtonLabel = 'updated stopButtonLabel value';
+            fixture.detectChanges();
+
+            expect(directive.stopButtonLabel).toBe('updated stopButtonLabel value');
+            expect(nativeElement.stopButtonLabel).toBe('updated stopButtonLabel value');
+        });
+
+        it('can be configured with property binding for processing', () => {
+            expect(directive.processing).toBeFalse();
+            expect(nativeElement.processing).toBeFalse();
+
+            fixture.componentInstance.processing = true;
+            fixture.detectChanges();
+
+            expect(directive.processing).toBeTrue();
+            expect(nativeElement.processing).toBeTrue();
+        });
+
         it('can be configured with property binding for value', () => {
             expect(directive.value).toBe('initial');
             expect(nativeElement.value).toBe('initial');
@@ -173,6 +234,17 @@ describe('Spright chat input', () => {
             expect(directive.value).toBe('updated value value');
             expect(nativeElement.value).toBe('updated value value');
         });
+
+        it('can be configured with property binding for maxLength', () => {
+            expect(directive.maxLength).toBe(20);
+            expect(nativeElement.maxLength).toBe(20);
+
+            fixture.componentInstance.maxLength = 10;
+            fixture.detectChanges();
+
+            expect(directive.maxLength).toBe(10);
+            expect(nativeElement.maxLength).toBe(10);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -182,7 +254,10 @@ describe('Spright chat input', () => {
                     [attr.error-text]="errorText"
                     [attr.placeholder]="placeholder"
                     [attr.send-button-label]="sendButtonLabel"
+                    [attr.stop-button-label]="stopButtonLabel"
+                    [attr.processing]="processing"
                     [attr.value]="value"
+                    [attr.maxlength]="maxLength"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -192,7 +267,10 @@ describe('Spright chat input', () => {
             @ViewChild('chatInput', { read: ElementRef }) public elementRef: ElementRef<ChatInput>;
             public placeholder = 'initial';
             public sendButtonLabel = 'initial';
+            public stopButtonLabel = 'initial';
+            public processing = false;
             public value = 'initial';
+            public maxLength = 20;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -232,6 +310,28 @@ describe('Spright chat input', () => {
             expect(nativeElement.sendButtonLabel).toBe('updated sendButtonLabel value');
         });
 
+        it('can be configured with attribute binding for stopButtonLabel', () => {
+            expect(directive.stopButtonLabel).toBe('initial');
+            expect(nativeElement.stopButtonLabel).toBe('initial');
+
+            fixture.componentInstance.stopButtonLabel = 'updated stopButtonLabel value';
+            fixture.detectChanges();
+
+            expect(directive.stopButtonLabel).toBe('updated stopButtonLabel value');
+            expect(nativeElement.stopButtonLabel).toBe('updated stopButtonLabel value');
+        });
+
+        it('can be configured with attribute binding for processing', () => {
+            expect(directive.processing).toBe(false);
+            expect(nativeElement.processing).toBe(false);
+
+            fixture.componentInstance.processing = true;
+            fixture.detectChanges();
+
+            expect(directive.processing).toBe(true);
+            expect(nativeElement.processing).toBe(true);
+        });
+
         it('can be configured with attribute binding for value', () => {
             expect(directive.value).toBe('initial');
             expect(nativeElement.value).toBe('initial');
@@ -241,6 +341,17 @@ describe('Spright chat input', () => {
 
             expect(directive.value).toBe('updated value value');
             expect(nativeElement.value).toBe('updated value value');
+        });
+
+        it('can be configured with attribute binding for maxLength', () => {
+            expect(directive.maxLength).toBe(20);
+            expect(nativeElement.maxLength).toBe(20);
+
+            fixture.componentInstance.maxLength = 10;
+            fixture.detectChanges();
+
+            expect(directive.maxLength).toBe(10);
+            expect(nativeElement.maxLength).toBe(10);
         });
     });
 });

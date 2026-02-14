@@ -5,6 +5,9 @@ import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
+import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
+import { iconPencilToRectangleTag } from '@ni/nimble-components/dist/esm/icons/pencil-to-rectangle';
+import { iconMessagesSparkleTag } from '@ni/nimble-components/dist/esm/icons/messages-sparkle';
 import {
     ChatConversation,
     chatConversationTag
@@ -37,6 +40,7 @@ import { isChromatic } from '../../../utilities/isChromatic';
 interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
     content: string;
+    toolbar: boolean;
     input: boolean;
     conversationRef: ChatConversation;
     sendMessage: (
@@ -60,6 +64,15 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             }
         </style>
         <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
+            ${when(x => x.toolbar, html<ChatConversationArgs>`
+                <${toolbarTag} slot='toolbar'>
+                    <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
+                    <${buttonTag} appearance="ghost" slot="end" title="Create new chat" content-hidden>
+                        Create new chat
+                        <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
+                    </${buttonTag}>
+                </${toolbarTag}>
+            `)}
             <${chatMessageSystemTag}>
                 To start, press any key.
             </${chatMessageSystemTag}>
@@ -129,6 +142,11 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message).',
             table: { category: apiCategory.slots }
         },
+        toolbar: {
+            description:
+                `A slot to optionally include a \`${toolbarTag}\` which will be displayed on top of the conversation.`,
+            table: { category: apiCategory.slots }
+        },
         input: {
             description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages.`,
             table: { category: apiCategory.slots }
@@ -140,6 +158,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     args: {
         appearance: 'default',
         input: true,
+        toolbar: true,
         sendMessage: (event, conversationRef) => {
             const message = document.createElement(chatMessageOutboundTag);
             const span = document.createElement('span');

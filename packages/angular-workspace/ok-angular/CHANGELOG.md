@@ -1,8 +1,72 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 12 Feb 2026 22:17:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.1.12
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.11
+
+## 1.1.11
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.10
+
+## 1.1.10
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.9
+
+## 1.1.9
+
+Tue, 10 Feb 2026 21:22:58 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.8
+
+## 1.1.8
+
+Sat, 07 Feb 2026 03:16:38 GMT
+
+### Patches
+
+- Update links to angular.io in documentation ([ni/nimble@152ebf2](https://github.com/ni/nimble/commit/152ebf2574a4f54cf8bbec4de1cc490d0e1be166))
+
+## 1.1.7
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.7
+
+## 1.1.6
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.6
+
+## 1.1.5
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.5
 
 ## 1.1.4
 

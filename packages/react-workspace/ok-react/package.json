@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-react",
-  "version": "0.5.4",
+  "version": "0.5.11",
   "description": "React components for NI Ok Components",
   "keywords": [
     "ni",
@@ -45,11 +45,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/ok-components": "^0.2.4",
+    "@ni/ok-components": "^0.2.11",
     "react": "^17 || ^18 || ^19"
   },
   "devDependencies": {
-    "@ni/ok-components": "^0.2.4",
+    "@ni/ok-components": "^0.2.11",
     "@ni-private/eslint-config-nimble": "*",
     "typescript": "~5.8.3"
   }

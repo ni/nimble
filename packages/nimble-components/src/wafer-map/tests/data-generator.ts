@@ -3,7 +3,7 @@ import type { WaferMapDie } from '../types';
 import type { IValueGenerator } from './value-generator';
 
 const valueToString = (value: number): string => {
-    return value % 1 ? value.toFixed(2) : Math.trunc(value).toString();
+    return value % 1 !== 0 ? value.toFixed(2) : Math.trunc(value).toString();
 };
 
 const generateStringValue = (

@@ -2,6 +2,129 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Thu, 12 Feb 2026 22:17:28 GMT",
+      "version": "0.2.11",
+      "tag": "@ni/ok-components_v0.2.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 Feb 2026 08:33:01 GMT",
+      "version": "0.2.10",
+      "tag": "@ni/ok-components_v0.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Feb 2026 03:47:57 GMT",
+      "version": "0.2.9",
+      "tag": "@ni/ok-components_v0.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.2.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.7.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 Feb 2026 21:22:58 GMT",
+      "version": "0.2.8",
+      "tag": "@ni/ok-components_v0.2.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "ae64cd9de627d12a105e007a77e6e124c529025c",
+            "comment": "Add ok-icon-dynamic"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 06 Feb 2026 12:05:46 GMT",
+      "version": "0.2.7",
+      "tag": "@ni/ok-components_v0.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.7.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Feb 2026 07:19:38 GMT",
+      "version": "0.2.6",
+      "tag": "@ni/ok-components_v0.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.2.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.6.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Feb 2026 23:25:16 GMT",
+      "version": "0.2.5",
+      "tag": "@ni/ok-components_v0.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.2.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.6.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Feb 2026 08:13:24 GMT",
       "version": "0.2.4",
       "tag": "@ni/ok-components_v0.2.4",

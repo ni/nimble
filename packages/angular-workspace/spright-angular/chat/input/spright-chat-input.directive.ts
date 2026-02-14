@@ -30,6 +30,30 @@ export class SprightChatInputDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'sendButtonLabel', value);
     }
 
+    public get stopButtonLabel(): string | undefined {
+        return this.elementRef.nativeElement.stopButtonLabel;
+    }
+
+    @Input('stop-button-label') public set stopButtonLabel(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'stopButtonLabel', value);
+    }
+
+    public get processing(): boolean | undefined {
+        return this.elementRef.nativeElement.processing;
+    }
+
+    @Input('processing') public set processing(value: boolean | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'processing', value);
+    }
+
+    public get maxLength(): number | undefined {
+        return this.elementRef.nativeElement.maxLength;
+    }
+
+    @Input('maxlength') public set maxLength(value: number | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'maxLength', value);
+    }
+
     public get value(): string | undefined {
         return this.elementRef.nativeElement.value;
     }

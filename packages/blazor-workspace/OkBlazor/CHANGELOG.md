@@ -1,8 +1,65 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Wed, 04 Feb 2026 08:13:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 12 Feb 2026 22:17:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.3.3
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.11
+
+## 0.3.2
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.10
+
+## 0.3.1
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.9
+
+## 0.3.0
+
+Tue, 10 Feb 2026 21:22:58 GMT
+
+### Minor changes
+
+- adding icon dynamic ([ni/nimble@ae64cd9](https://github.com/ni/nimble/commit/ae64cd9de627d12a105e007a77e6e124c529025c))
+- Bump @ni/ok-components to v0.2.8
+
+## 0.2.8
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.7
+
+## 0.2.7
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.6
+
+## 0.2.6
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.5
 
 ## 0.2.5
 

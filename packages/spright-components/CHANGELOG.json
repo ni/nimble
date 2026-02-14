@@ -2,6 +2,102 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 12 Feb 2026 22:17:28 GMT",
+      "version": "6.9.0",
+      "tag": "@ni/spright-components_v6.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "7c1e94b10be383e55b6581122aed499a8608ce00",
+            "comment": "Add cancel button to chat input."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 Feb 2026 08:33:01 GMT",
+      "version": "6.8.0",
+      "tag": "@ni/spright-components_v6.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "89146546+codrutaserban@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "10d3d4c5df5bec1da72e7179ccf5c41b43f9e20c",
+            "comment": "Add slot for toolbar in conversation component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Feb 2026 03:47:57 GMT",
+      "version": "6.7.1",
+      "tag": "@ni/spright-components_v6.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.2.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 06 Feb 2026 12:05:46 GMT",
+      "version": "6.7.0",
+      "tag": "@ni/spright-components_v6.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "eeacf5f6ff2a0b196bfbd35cc208a7ca27082a07",
+            "comment": "Add maxlength to ChatInput."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Feb 2026 07:19:38 GMT",
+      "version": "6.6.5",
+      "tag": "@ni/spright-components_v6.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.2.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Feb 2026 23:25:16 GMT",
+      "version": "6.6.4",
+      "tag": "@ni/spright-components_v6.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "a410090ddbc5c82fbabec6dc67850997d65bd756",
+            "comment": "Enable two lint rules and fix violations"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.2.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Feb 2026 08:13:24 GMT",
       "version": "6.6.3",
       "tag": "@ni/spright-components_v6.6.3",

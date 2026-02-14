@@ -88,7 +88,9 @@ All end text buttons must meet the following criteria
 
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
-1. Includes a slot to place an input component below the messages and a slot for a legal disclaimer below that.
+1. Includes a slot to place a toolbar (and its content such as buttons or menu buttons) on top of the conversation.
+1. Includes a slot to place an input component below the messages
+1. Includes a slot for a legal disclaimer below that
 1. Only appearance of its own is to set a background color.
 
 #### Chat input
@@ -96,6 +98,7 @@ All end text buttons must meet the following criteria
 1. Accepts text input in a text area
     - the text area height is a single line initially but grows its height to fit the entered text up to its max-height
     - the text area has configurable placeholder text
+    - the text area has configurable max length
 1. Includes a "Send" button for the user to submit the current input text
     - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
     - pressing Enter while the text area has focus will behave the same as clicking "Send"
@@ -206,6 +209,19 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 <spright-chat-input placeholder="Ask Nigel"> </spright-chat-input>
 ```
 
+#### Toolbar example
+
+```html
+<nimble-toolbar slot="toolbar" > 
+    <nimble-icon-messages-spark slot="start"></nimble-icon-messages-sparkle>
+    <span class="toolbar-title">AI Assistant</span>
+    <nimble-button appearance="ghost" content-hidden title="Create new chat" slot="end">
+        Create new chat
+        <nimble-icon-pencil-to-rectangle slot="start"></nimble-icon-pencil-to-rectangle>
+    </nimble-button>
+</nimble-toolbar>
+```
+
 ### API
 
 #### Messages
@@ -264,7 +280,8 @@ All message types will share the following API:
     - The conversation will have a minimum width that clients are discouraged from overriding.
 - _Slots_
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
-    - a single chat input can optionally be added to the `input` slot. It will be placed below the messages.
+    - a single chat input can optionally be added to the `input` slot. It will be placed below the messages
+    - a toolbar can optionally be added to the `toolbar` slot. The toolbar will be displayed above the messages. The toolbar content can be buttons or menus used for actions like starting a new conversation, copying all messages, or other conversation-level operations.
     - chat disclaimer content can optionally be added to the `end` slot. It will be placed below the input. The slot will apply color and font size styles to text and anchor content to match the visual design spec. See [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/ChatbotViewFooter.razor) for reference.
 
 #### Input
@@ -276,6 +293,7 @@ All message types will share the following API:
     - `placeholder` - text to display in the text area when no text has been entered
     - `send-disabled` - boolean attribute that causes the "Send" button to be disabled even if there is text or other slotted content
     - `error-visible` and `error-text` - standard attributes for showing an error icon and red text below the control
+    - `maxlength` - number attribute that silently truncates the message
 - _Methods_
 - _Events_
     - `send` - emitted when the user clicks the "Send" button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents. Not cancelable.
@@ -344,6 +362,9 @@ Other than setting a background, a conversation has no appearance of its own and
 
 ```html
 <template>
+    <div class="toolbar">
+        <slot name="toolbar"></slot>
+    </div>
     <div class="messages">
         <slot></slot>
     </div>
