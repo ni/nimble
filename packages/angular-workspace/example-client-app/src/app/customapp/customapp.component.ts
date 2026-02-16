@@ -301,15 +301,7 @@ export class CustomAppComponent implements AfterViewInit {
 
     public onChatInputSend(e: Event): void {
         const chatInputSendEvent = (e as CustomEvent<ChatInputSendEventDetail>);
-        const text = chatInputSendEvent.detail.text;
-        if (text === 'error') {
-            this.chatInputErrorVisible = true;
-            this.chatInputErrorText = 'An error has occurred!';
-        } else {
-            this.chatInputErrorVisible = false;
-            this.chatInputErrorText = '';
-            this.chatUserMessages.push(text);
-        }
+        this.chatUserMessages.push(chatInputSendEvent.detail.text);
     }
 
     private setDynamicSelectItems(dynamicSelectItems: ComboboxItem[]): void {
