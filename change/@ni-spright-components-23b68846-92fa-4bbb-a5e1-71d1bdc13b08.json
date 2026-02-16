@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add error for chat input.",
-  "packageName": "@ni/spright-components",
-  "email": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
