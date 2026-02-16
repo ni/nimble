@@ -249,70 +249,6 @@
             </NimbleSwitch>
         </div>
         <div class="sub-container">
-            <div class="container-label">Table</div>
-            <NimbleTable TData="SimpleTableRecord" @ref="_table" IdFieldName="Id" ParentIdFieldName="ParentId" SelectionMode="TableRowSelectionMode.Multiple" class="table">
-                <NimbleTableColumnText
-                    FieldName="StringValue1"
-                    ActionMenuSlot="action-menu"
-                    ActionMenuLabel="Action menu"
-                    FractionalWidth="2"
-                    MinPixelWidth="300"
-                    SortDirection="TableColumnSortDirection.Ascending"
-                    SortIndex="0"
-                >
-                    <NimbleIconCheck title="String 1"></NimbleIconCheck>
-                </NimbleTableColumnText>
-                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel">Link</NimbleTableColumnAnchor>
-                <NimbleTableColumnDateText FieldName="Date">Date</NimbleTableColumnDateText>
-                <NimbleTableColumnMapping FieldName="StatusCode" TKey="int">
-                    <NimbleMappingText Key="100" Text="Status message 1"></NimbleMappingText>
-                    <NimbleMappingText Key="101" Text="Status message 2"></NimbleMappingText>
-                    Status
-                </NimbleTableColumnMapping>
-                <NimbleTableColumnMapping FieldName="Result" TKey="string" WidthMode="MappingColumnWidthMode.IconSize">
-                    <NimbleMappingIcon
-                        Key=@("success")
-                        Text="Success"
-                        Icon="nimble-icon-check"
-                        Severity="IconSeverity.Success"
-                        TextHidden="true">
-                    </NimbleMappingIcon>
-                    <NimbleMappingSpinner
-                        Key=@("calculating")
-                        Text="Calculating"
-                        TextHidden="true">
-                    </NimbleMappingSpinner>
-                    <NimbleMappingEmpty
-                        Key=@("unknown")
-                        Text="Unknown">
-                    </NimbleMappingEmpty>
-                    <NimbleIconXmarkCheck title="Result"></NimbleIconXmarkCheck>
-                </NimbleTableColumnMapping>
-                <NimbleTableColumnNumberText FieldName="Number">Number</NimbleTableColumnNumberText>
-                <NimbleTableColumnDurationText FieldName="Duration">Duration</NimbleTableColumnDurationText>
-                <NimbleTableColumnText FieldName="StringValue2" MinPixelWidth="400" GroupIndex="0">String 2</NimbleTableColumnText>
-                <NimbleTableColumnMenuButton FieldName="ColorString" MenuSlot="color-menu" MenuButtonColumnBeforeToggle="OnMenuButtonColumnBeforeToggle">Color</NimbleTableColumnMenuButton>
-
-                <NimbleMenu slot="action-menu">
-                    <NimbleMenuItem>Item 1</NimbleMenuItem>
-                    <NimbleMenuItem>Item 2</NimbleMenuItem>
-                    <NimbleMenuItem>Item 3</NimbleMenuItem>
-                </NimbleMenu>
-
-                <NimbleMenu slot="color-menu">
-                    @foreach(var color in PossibleColors)
-                    {
-                        <NimbleMenuItem @onchange=@(_ => OnColorSelected(color))>
-                            @if (color == CurrentColor)
-                            {
-                                <NimbleIconCheck slot="start"></NimbleIconCheck>
-                            }
-                            @color
-                        </NimbleMenuItem>
-                    }
-                </NimbleMenu>
-            </NimbleTable>
-            <NimbleButton class="table-update-button" @onclick=@(_ => AddTableRows(10))>Add rows</NimbleButton>
         </div>
         <div class="sub-container">
             <div class="container-label">Table with delayed hierarchy</div>
@@ -475,6 +411,46 @@
         <div class="sub-container">
             <div class="container-label">Button (Ok)</div>
             <OkButton>Ok</OkButton>
+        </div>
+              <div class="sub-container">
+            <div class="container-label">Table</div>
+            <NimbleTable TData="SimpleTableRecord" @ref="_table" IdFieldName="Id" ParentIdFieldName="ParentId" SelectionMode="TableRowSelectionMode.Multiple" class="table">
+                <NimbleTableColumnText
+                    FieldName="StringValue1"
+                    ActionMenuSlot="action-menu"
+                    ActionMenuLabel="Action menu"
+                    FractionalWidth="2"
+                    MinPixelWidth="300"
+                    SortDirection="TableColumnSortDirection.Ascending"
+                    SortIndex="0"
+                >
+                    <NimbleIconCheck title="String 1"></NimbleIconCheck>
+                </NimbleTableColumnText>
+                <NimbleTableColumnMapping FieldName="Result" TKey="string" WidthMode="MappingColumnWidthMode.IconSize">
+                    <NimbleMappingIcon
+                        Key=@("success")
+                        Text="Success"
+                        Icon="ok-icon-dynamic-awesome"
+                        TextHidden="true">
+                    </NimbleMappingIcon>
+                    <NimbleMappingSpinner
+                        Key=@("calculating")
+                        Text="Calculating"
+                        TextHidden="true">
+                    </NimbleMappingSpinner>
+                    <NimbleMappingIcon
+                        Key=@("unknown")
+                        Icon="ok-icon-dynamic-awesomer"
+                        Text="Unknown">
+                    </NimbleMappingIcon>
+                    <NimbleIconXmarkCheck title="Result"></NimbleIconXmarkCheck>
+                </NimbleTableColumnMapping>
+                <NimbleTableColumnNumberText FieldName="Number">Number</NimbleTableColumnNumberText>
+                <NimbleTableColumnDurationText FieldName="Duration">Duration</NimbleTableColumnDurationText>
+                <NimbleTableColumnText FieldName="StringValue2" MinPixelWidth="400" GroupIndex="0">String 2</NimbleTableColumnText>
+                <NimbleTableColumnMenuButton FieldName="ColorString" MenuSlot="color-menu" MenuButtonColumnBeforeToggle="OnMenuButtonColumnBeforeToggle">Color</NimbleTableColumnMenuButton>
+            </NimbleTable>
+            <NimbleButton class="table-update-button" @onclick=@(_ => AddTableRows(10))>Add rows</NimbleButton>
         </div>
     </div>
 </div>
