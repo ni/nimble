@@ -59,9 +59,6 @@ export class CustomAppComponent implements AfterViewInit {
         { first: 'Mister', last: 'Smithers' }
     ];
 
-    public chatInputErrorVisible = false;
-    public chatInputErrorText = '';
-
     public dynamicSelectItems: ComboboxItem[] = [];
 
     public comboboxSelectedOption?: ComboboxItem;
