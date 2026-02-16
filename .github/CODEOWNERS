@@ -16,8 +16,8 @@
 /packages/nimble-components/src/wafer-map @rajsite @jattasNI @munteannatan
 /packages/nimble-components/src/rich-text @rajsite @jattasNI @vivinkrishna-ni
 /packages/nimble-components/src/rich-text-mention @rajsite @jattasNI @vivinkrishna-ni
-/packages/spright-components/src/chat @jattasNI
-/packages/spright-components/src/table-column/breakpoint @jattasNI
+/**/chat/** @jattasNI
+/**/breakpoint/** @jattasNI
 /packages/nimble-tokens @rajsite @jattasNI @fredvisser
 /packages/storybook/.storybook @rajsite @jattasNI @fredvisser
 
