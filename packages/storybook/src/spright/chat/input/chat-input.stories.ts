@@ -5,7 +5,8 @@ import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    placeholderDescription
+    placeholderDescription,
+    errorTextDescription
 } from '../../../utilities/storybook';
 
 interface ChatInputArgs {
@@ -15,6 +16,8 @@ interface ChatInputArgs {
     maxlength: number | undefined;
     value: string;
     processing: boolean;
+    errorText: string;
+    errorVisible: boolean;
     send: undefined;
     stop: undefined;
 }
@@ -38,6 +41,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             processing="${x => x.processing}"
             maxlength="${x => x.maxlength}"
             value="${x => x.value}"
+            error-text="${x => x.errorText}"
+            ?error-visible="${x => x.errorVisible}"
         >
         </${chatInputTag}>
     `),
@@ -78,6 +83,18 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
+        errorText: {
+            name: 'error-text',
+            description: errorTextDescription,
+            control: { type: 'text' },
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: 'Whether the error message is visible.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
         send: {
             description:
                 'Emitted when the user clicks the \'Send\' button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input.',
@@ -95,6 +112,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         stopButtonLabel: 'Stop',
         processing: false,
         maxlength: -1,
+        errorText: 'Error description',
+        errorVisible: false
     }
 };
 
