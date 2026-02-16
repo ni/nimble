@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/19.2.15/packages/router/test/integration/integration_helpers.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/router/test/integration/integration_helpers.ts
  * with the following modifications:
  * - modify imports
  * - uniquify all 'link-cmp' selectors to avoid NG0912 component ID collision. Approach based on: https://angular.dev/errors/NG0912#debugging-the-error
@@ -14,8 +14,8 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 import {CommonModule} from '@angular/common';
-import {Component, NgModule, Type} from '@angular/core';
-import {ComponentFixture, tick, TestBed} from '@angular/core/testing';
+import {Component, NgModule, Type, signal} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {
   ActivatedRoute,
   type Event,
@@ -32,6 +32,7 @@ import {
 } from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {timeout} from './helpers';
 
 export const ROUTER_DIRECTIVES = [RouterLink, RouterLinkActive, RouterOutlet];
 
@@ -164,15 +165,15 @@ export class ModuleWithBlankCmpAsRoute {}
   template:
     'team {{id | async}} ' +
     '[ <router-outlet></router-outlet>, right: <router-outlet name="right"></router-outlet> ]' +
-    '<a [routerLink]="routerLink" skipLocationChange></a>' +
-    '<button [routerLink]="routerLink" skipLocationChange></button>',
+    '<a [routerLink]="routerLink()" skipLocationChange></a>' +
+    '<button [routerLink]="routerLink()" skipLocationChange></button>',
   standalone: false,
 })
 export class TeamCmp {
   id: Observable<string>;
   recordedParams: Params[] = [];
   snapshotParams: Params[] = [];
-  routerLink = ['.'];
+  readonly routerLink = signal(['.']);
 
   constructor(public route: ActivatedRoute) {
     this.id = route.params.pipe(map((p: Params) => p['id']));
@@ -265,11 +266,11 @@ export class RouteCmp {
 
 @Component({
   selector: 'link-cmp:not([nimble-unused-8])',
-  template: `<div *ngIf="show"><a [routerLink]="['./simple']">link</a></div> <router-outlet></router-outlet>`,
+  template: `<div *ngIf="show()"><a [routerLink]="['./simple']">link</a></div> <router-outlet></router-outlet>`,
   standalone: false,
 })
 export class RelativeLinkInIfCmp {
-  show: boolean = false;
+  show = signal(false);
 }
 
 @Component({
@@ -369,16 +370,19 @@ export class ConditionalThrowingCmp {
   }
 }
 
-export function advance(fixture: ComponentFixture<unknown>, millis?: number): void {
-  tick(millis);
+export async function advance(
+  fixture: ComponentFixture<unknown>,
+  millis: number = 1,
+): Promise<void> {
+  await timeout(millis);
   fixture.detectChanges();
 }
 
-export function createRoot<T>(router: Router, type: Type<T>): ComponentFixture<T> {
+export async function createRoot<T>(router: Router, type: Type<T>): Promise<ComponentFixture<T>> {
   const f = TestBed.createComponent<T>(type);
-  advance(f);
+  await advance(f);
   router.initialNavigation();
-  advance(f);
+  await advance(f);
   return f;
 }
 
