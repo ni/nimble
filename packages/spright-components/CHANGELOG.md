@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 11 Feb 2026 03:47:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 12 Feb 2026 22:17:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.9.0
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Minor changes
+
+- Add cancel button to chat input. ([ni/nimble@7c1e94b](https://github.com/ni/nimble/commit/7c1e94b10be383e55b6581122aed499a8608ce00))
+
+## 6.8.0
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Minor changes
+
+- Add slot for toolbar in conversation component ([ni/nimble@10d3d4c](https://github.com/ni/nimble/commit/10d3d4c5df5bec1da72e7179ccf5c41b43f9e20c))
 
 ## 6.7.1
 
