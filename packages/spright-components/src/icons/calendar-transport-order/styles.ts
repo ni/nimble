@@ -1,26 +1,11 @@
 import { css } from '@ni/fast-element';
-import { calendarEventBorderStatic6Color, iconSize } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { display } from '../../utilities/style/display';
-import { userSelectNone } from '../../utilities/style/user-select';
+import { calendarEventBorderTransportOrderColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { styles as iconSvgStyles } from '@ni/nimble-components/dist/esm/icon-svg/styles';
 
 export const styles = css`
-    ${display('inline-flex')}
-
-    :host {
-        align-items: center;
-        ${userSelectNone}
-        width: ${iconSize};
-        height: ${iconSize};
-    }
-
-    .icon {
-        display: contents;
-    }
+    ${iconSvgStyles}
 
     .icon svg {
-        display: inline-flex;
-        fill: ${calendarEventBorderStatic6Color};
-        width: 100%;
-        height: 100%;
+        fill: ${calendarEventBorderTransportOrderColor};
     }
 `;
