@@ -2,6 +2,42 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Thu, 12 Feb 2026 22:17:28 GMT",
+      "version": "8.4.0",
+      "tag": "@ni/spright-angular_v8.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "7c1e94b10be383e55b6581122aed499a8608ce00",
+            "comment": "Add cancel button to chat input."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 Feb 2026 08:33:01 GMT",
+      "version": "8.3.3",
+      "tag": "@ni/spright-angular_v8.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Feb 2026 03:47:57 GMT",
       "version": "8.3.2",
       "tag": "@ni/spright-angular_v8.3.2",

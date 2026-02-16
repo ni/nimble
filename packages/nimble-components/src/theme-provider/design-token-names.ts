@@ -270,37 +270,35 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color',
     calendarGridBorderColor: 'calendar-grid-border-color',
     calendarGroupHeaderBackgroundColor: 'calendar-group-header-background-color',
-    calendarEventBackgroundStatic2Color:
-        'calendar-event-background-static-2-color',
-    calendarEventBackgroundHoverStatic2Color:
-        'calendar-event-background-hover-static-2-color',
-    calendarEventBorderStatic2Color: 'calendar-event-border-static-2-color',
-    calendarEventStatic2FontColor: 'calendar-event-static-2-font-color',
-    calendarEventBackgroundStatic3Color:
-        'calendar-event-background-static-3-color',
-    calendarEventBackgroundHoverStatic3Color:
-        'calendar-event-background-hover-static-3-color',
-    calendarEventBorderStatic3Color: 'calendar-event-border-static-3-color',
-    calendarEventBackgroundStatic4Color:
-        'calendar-event-background-static-4-color',
-    calendarEventBackgroundHoverStatic4Color:
-        'calendar-event-background-hover-static-4-color',
-    calendarEventBorderStatic4Color: 'calendar-event-border-static-4-color',
-    calendarEventBackgroundStatic5Color:
-        'calendar-event-background-static-5-color',
-    calendarEventBackgroundHoverStatic5Color:
-        'calendar-event-background-hover-static-5-color',
-    calendarEventBorderStatic5Color: 'calendar-event-border-static-5-color',
-    calendarEventBackgroundStatic6Color:
-        'calendar-event-background-static-6-color',
-    calendarEventBackgroundHoverStatic6Color:
-        'calendar-event-background-hover-static-6-color',
-    calendarEventBorderStatic6Color: 'calendar-event-border-static-6-color',
-    calendarEventBackgroundStatic7Color:
-        'calendar-event-background-static-7-color',
-    calendarEventBackgroundHoverStatic7Color:
-        'calendar-event-background-hover-static-7-color',
-    calendarEventBorderStatic7Color: 'calendar-event-border-static-7-color'
+    calendarEventBackgroundJobColor:
+        'calendar-event-background-job-color',
+    calendarEventBackgroundHoverJobColor:
+        'calendar-event-background-hover-job-color',
+    calendarEventBorderJobColor: 'calendar-event-border-job-color',
+    calendarEventJobFontColor: 'calendar-event-job-font-color',
+    calendarEventBackgroundMaintenanceColor:
+        'calendar-event-background-maintenance-color',
+    calendarEventBackgroundHoverMaintenanceColor:
+        'calendar-event-background-hover-maintenance-color',
+    calendarEventBorderMaintenanceColor: 'calendar-event-border-maintenance-color',
+    calendarEventBackgroundCalibrationColor:
+        'calendar-event-background-calibration-color',
+    calendarEventBackgroundHoverCalibrationColor:
+        'calendar-event-background-hover-calibration-color',
+    calendarEventBorderCalibrationColor: 'calendar-event-border-calibration-color',
+    calendarEventBackgroundReservationColor:
+        'calendar-event-background-reservation-color',
+    calendarEventBackgroundHoverReservationColor:
+        'calendar-event-background-hover-reservation-color',
+    calendarEventBorderReservationColor: 'calendar-event-border-reservation-color',
+    calendarEventBackgroundTransportOrderColor:
+        'calendar-event-background-transport-order-color',
+    calendarEventBackgroundHoverTransportOrderColor:
+        'calendar-event-background-hover-transport-order-color',
+    calendarEventBorderTransportOrderColor: 'calendar-event-border-transport-order-color',
+    calendarEventBackgroundAggregateAvailabilityColor:
+        'calendar-event-background-aggregate-availability-color',
+    calendarEventBorderAggregateAvailabilityColor: 'calendar-event-border-aggregate-availability-color'
 };
 
 const prefix = 'ni-nimble';

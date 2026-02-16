@@ -27,8 +27,21 @@ describe('ChatConversation', () => {
         );
     });
 
-    it('should have a slot element in the shadow DOM', async () => {
+    it('should have a default unnamed slot element in the shadow DOM', async () => {
         await connect();
-        expect(element.shadowRoot?.querySelector('SLOT')).not.toBeNull();
+        const unnamedSlot = element.shadowRoot?.querySelector('slot:not([name])');
+        expect(unnamedSlot).not.toBeNull();
+    });
+
+    it('should have an input slot element in the shadow DOM', async () => {
+        await connect();
+        const inputSlot = element.shadowRoot?.querySelector('slot[name="input"]');
+        expect(inputSlot).not.toBeNull();
+    });
+
+    it('should have a toolbar slot element in the shadow DOM', async () => {
+        await connect();
+        const toolbarSlot = element.shadowRoot?.querySelector('slot[name="toolbar"]');
+        expect(toolbarSlot).not.toBeNull();
     });
 });

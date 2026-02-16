@@ -2,6 +2,36 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Thu, 12 Feb 2026 22:17:28 GMT",
+      "version": "0.10.9",
+      "tag": "@ni/spright-react_v0.10.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 Feb 2026 08:33:01 GMT",
+      "version": "0.10.8",
+      "tag": "@ni/spright-react_v0.10.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Feb 2026 03:47:57 GMT",
       "version": "0.10.7",
       "tag": "@ni/spright-react_v0.10.7",

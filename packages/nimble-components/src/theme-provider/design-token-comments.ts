@@ -329,35 +329,33 @@ export const comments: { readonly [key in TokenName]: string } = {
     calendarGridBorderColor: 'Border color for the calendar grid',
     calendarGroupHeaderBackgroundColor:
         'Background color for the calendar resource group header',
-    calendarEventBackgroundStatic2Color:
-        'Background color for second static calendar events',
-    calendarEventBackgroundHoverStatic2Color:
-        'Color while hovering second static calendar events',
-    calendarEventBorderStatic2Color: 'Border color for second static calendar events',
-    calendarEventStatic2FontColor: 'Font color for second static calendar events',
-    calendarEventBackgroundStatic3Color:
-        'Background color for third static calendar events',
-    calendarEventBackgroundHoverStatic3Color:
-        'Color while hovering third static calendar events',
-    calendarEventBorderStatic3Color: 'Border color for third static calendar events',
-    calendarEventBackgroundStatic4Color:
-        'Background color for fourth static calendar events',
-    calendarEventBackgroundHoverStatic4Color:
-        'Color while hovering fourth static calendar events',
-    calendarEventBorderStatic4Color: 'Border color for fourth static calendar events',
-    calendarEventBackgroundStatic5Color:
-        'Background color for fifth static calendar events',
-    calendarEventBackgroundHoverStatic5Color:
-        'Color while hovering fifth static calendar events',
-    calendarEventBorderStatic5Color: 'Border color for fifth static calendar events',
-    calendarEventBackgroundStatic6Color:
-        'Background color for sixth static calendar events',
-    calendarEventBackgroundHoverStatic6Color:
-        'Color while hovering sixth static calendar events',
-    calendarEventBorderStatic6Color: 'Border color for sixth static calendar events',
-    calendarEventBackgroundStatic7Color:
-        'Background color for seventh static calendar events',
-    calendarEventBackgroundHoverStatic7Color:
-        'Color while hovering seventh static calendar events',
-    calendarEventBorderStatic7Color: 'Border color for seventh static calendar events'
+    calendarEventBackgroundJobColor:
+        'Background color for job calendar events',
+    calendarEventBackgroundHoverJobColor:
+        'Color while hovering job calendar events',
+    calendarEventBorderJobColor: 'Border color for job calendar events',
+    calendarEventJobFontColor: 'Font color for job calendar events',
+    calendarEventBackgroundMaintenanceColor:
+        'Background color for maintenance calendar events',
+    calendarEventBackgroundHoverMaintenanceColor:
+        'Color while hovering maintenance calendar events',
+    calendarEventBorderMaintenanceColor: 'Border color for maintenance calendar events',
+    calendarEventBackgroundCalibrationColor:
+        'Background color for calibration calendar events',
+    calendarEventBackgroundHoverCalibrationColor:
+        'Color while hovering calibration calendar events',
+    calendarEventBorderCalibrationColor: 'Border color for calibration calendar events',
+    calendarEventBackgroundReservationColor:
+        'Background color for reservation calendar events',
+    calendarEventBackgroundHoverReservationColor:
+        'Color while hovering reservation calendar events',
+    calendarEventBorderReservationColor: 'Border color for reservation calendar events',
+    calendarEventBackgroundTransportOrderColor:
+        'Background color for transport order calendar events',
+    calendarEventBackgroundHoverTransportOrderColor:
+        'Color while hovering transport order calendar events',
+    calendarEventBorderTransportOrderColor: 'Border color for transport order calendar events',
+    calendarEventBackgroundAggregateAvailabilityColor:
+        'Background color for aggregate availability calendar events',
+    calendarEventBorderAggregateAvailabilityColor: 'Border color for aggregate availability calendar events'
 };
