@@ -30,6 +30,9 @@ export const styles = css`
             outline: none;
             border: none;
             --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-step-icon-background-size: 100% 100%;
+            ${'' /* 6px = (2px icon border + 1px inset) * 2 sides */}
+            --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
         }
 
         ${'' /* Container wrapper for severity text to position against */}
@@ -73,7 +76,7 @@ export const styles = css`
                 transparent 100%
             );
             background-origin: border-box;
-            background-size: 100% 100%;
+            background-size: var(--ni-private-step-icon-background-size);
             background-repeat: no-repeat;
             background-position: center center;
             position: relative;
@@ -149,7 +152,7 @@ export const styles = css`
     @layer hover {
         .control:hover .icon {
             border-color: ${borderHoverColor};
-            background-size: calc(100% - 6px) calc(100% - 6px);
+            background-size: var(--ni-private-step-icon-background-inset-size);
         }
 
         .control:hover .line {
@@ -161,7 +164,7 @@ export const styles = css`
     @layer focusVisible {
         .control${focusVisible} .icon {
             border-color: ${borderHoverColor};
-            background-size: calc(100% - 6px) calc(100% - 6px);
+            background-size: var(--ni-private-step-icon-background-inset-size);
         }
 
         .control${focusVisible} .icon::before {
@@ -179,7 +182,7 @@ export const styles = css`
         .control:active .icon {
             border-color: ${borderHoverColor};
             --ni-private-step-icon-background-color: ${fillSelectedColor};
-            background-size: 100% 100%;
+            background-size: var(--ni-private-step-icon-background-size);
         }
 
         .control:active .icon::before {
