@@ -18,7 +18,8 @@ export const styles = cssPartial`
         color: ${failColor};
         width: 100%;
         position: absolute;
-        bottom: calc(-1 * (${errorTextFontLineHeight} + 2px));
+        ${'' /* The -2px modifier of the bottom position is to intentionally have the severity text slightly overlap the control by 2px */}
+        bottom: calc(-1 * (${errorTextFontLineHeight} - 2px));
         left: 0px;
         overflow: hidden;
         text-overflow: ellipsis;

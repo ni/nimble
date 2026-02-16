@@ -16,8 +16,6 @@ import {
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
 
-// import { accessiblyHidden } from '../../utilities/style/accessibly-hidden';
-
 export const styles = css`
     @layer base, hover, focusVisible, active, disabled, top;
 
@@ -30,7 +28,7 @@ export const styles = css`
             font: ${buttonLabelFont};
             white-space: nowrap;
             outline: none;
-            border: 1px solid red;
+            border: none;
             --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
         }
 
