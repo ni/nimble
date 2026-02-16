@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 16 Feb 2026 18:09:13 GMT",
+      "version": "35.3.0",
+      "tag": "@ni/nimble-components_v35.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "695c1db25df1ec50ff3ca64c55172d7106f21067",
+            "comment": "Add more calendar theme-aware tokens for providing multiple variance of event cards"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Feb 2026 03:47:57 GMT",
       "version": "35.2.3",
       "tag": "@ni/nimble-components_v35.2.3",
