@@ -25,12 +25,12 @@ const metadata: Meta<StepperArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/624'
     }) */}
     <${stepperTag}>
-        <${anchorStepTag} severity="error" href="#" severity-text="Error Description" style="width:150px">
+        <${anchorStepTag} severity="success" href="#" severity-text="Error Description" style="width:150px">
             😀
             <div slot="title">Title</div>
             <div slot="subtitle">Subtitle</div>
         </${anchorStepTag}>
-        <${stepTag} severity="error" severity-text="Error Description" style="width:150px">
+        <${stepTag} severity="success" severity-text="Error Description" style="width:150px">
             😀
             <div slot="title">Title</div>
             <div slot="subtitle">Subtitle</div></${stepTag}>

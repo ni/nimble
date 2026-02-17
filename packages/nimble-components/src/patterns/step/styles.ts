@@ -12,6 +12,7 @@ import {
     borderWidth,
     smallDelay,
     fillSelectedColor,
+    passColor
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
@@ -29,10 +30,6 @@ export const styles = css`
             white-space: nowrap;
             outline: none;
             border: none;
-            --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
-            --ni-private-step-icon-background-size: 100% 100%;
-            ${'' /* 6px = (2px icon border + 1px inset) * 2 sides */}
-            --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
         }
 
         ${'' /* Container wrapper for severity text to position against */}
@@ -56,6 +53,21 @@ export const styles = css`
             outline: none;
             margin: 0; 
             padding: 0 ${smallPadding} 0 0;
+            --ni-private-step-icon-background-default-size: 100% 100%;
+            ${'' /* 6px = (2px icon border + 1px inset) * 2 sides */}
+            --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
+
+            --ni-private-step-icon-border-color: transparent;
+            --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-step-icon-outline-inset-color: transparent;
+            --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+        }
+
+        :host([severity="success"]) .control {
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-color: ${passColor};
+            --ni-private-step-icon-outline-inset-color: ${passColor};
+            --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
         }
 
         .icon {
@@ -65,7 +77,7 @@ export const styles = css`
             flex: none;
             height: 32px;
             width: 32px;
-            border: 2px solid transparent;
+            border: 2px solid var(--ni-private-step-icon-border-color);
             border-radius: 100%;
             background-image: radial-gradient(
                 closest-side,
@@ -76,12 +88,11 @@ export const styles = css`
                 transparent 100%
             );
             background-origin: border-box;
-            background-size: var(--ni-private-step-icon-background-size);
+            background-size: var(--ni-private-step-icon-background-default-size);
             background-repeat: no-repeat;
             background-position: center center;
             position: relative;
             transition:
-                box-shadow ${smallDelay} ease-in-out,
                 border-color ${smallDelay} ease-in-out,
                 background-size ${smallDelay} ease-in-out;
         }
@@ -92,15 +103,18 @@ export const styles = css`
             width: 100%;
             height: 100%;
             pointer-events: none;
-            outline: 0px solid transparent;
+            outline-color: var(--ni-private-step-icon-outline-inset-color);
+            outline-style: solid;
+            outline-width: 0px;
             outline-offset: 0px;
             border: 1px solid transparent;
             border-radius: 100%;
             color: transparent;
             background-clip: border-box;
             transition:
-                outline-offset ${smallDelay} ease-in-out,
-                outline ${smallDelay} ease-in-out;
+                outline-color ${smallDelay} ease-in-out,
+                outline-width ${smallDelay} ease-in-out,
+                outline-offset ${smallDelay} ease-in-out;
         }
 
         .content {
@@ -137,7 +151,7 @@ export const styles = css`
             display: inline-block;
             flex: 1;
             height: 1px;
-            background: rgba(${borderRgbPartialColor}, 0.1);
+            background: var(--ni-private-step-line-color);
             transform: scale(1, 1);
             transition:
                 background-color ${smallDelay} ease-in-out,
@@ -150,48 +164,77 @@ export const styles = css`
     }
 
     @layer hover {
+        .control:hover {
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="success"]) .control:hover {
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-line-color: ${passColor};
+        }
+
         .control:hover .icon {
-            border-color: ${borderHoverColor};
             background-size: var(--ni-private-step-icon-background-inset-size);
         }
 
         .control:hover .line {
-            background-color: ${borderHoverColor};
             transform: scale(1, 2);
         }
     }
 
     @layer focusVisible {
+        .control${focusVisible} {
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="success"]) .control${focusVisible} {
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-color: ${passColor};
+            --ni-private-step-icon-outline-inset-color: ${passColor};
+            --ni-private-step-line-color: ${passColor};
+        }
+    
         .control${focusVisible} .icon {
-            border-color: ${borderHoverColor};
             background-size: var(--ni-private-step-icon-background-inset-size);
         }
 
         .control${focusVisible} .icon::before {
-            outline: ${borderWidth} solid ${borderHoverColor};
+            outline-width: ${borderWidth};
             outline-offset: -2px;
         }
 
         .control${focusVisible} .line {
-            background-color: ${borderHoverColor};
             transform: scale(1, 2);
         }
     }
 
     @layer active {
-        .control:active .icon {
-            border-color: ${borderHoverColor};
+        .control:active {
+            --ni-private-step-icon-border-color: ${borderHoverColor};
             --ni-private-step-icon-background-color: ${fillSelectedColor};
-            background-size: var(--ni-private-step-icon-background-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="success"]) .control:active {
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
+            --ni-private-step-line-color: ${passColor};
+        }
+
+        .control:active .icon {
+            background-size: var(--ni-private-step-icon-background-default-size);
         }
 
         .control:active .icon::before {
-            outline: 0px solid transparent;
+            outline-width: 0px;
             outline-offset: 0px;
         }
 
         .control:active .line {
-            background-color: ${borderHoverColor};
             transform: scale(1, 1);
         }
     }
