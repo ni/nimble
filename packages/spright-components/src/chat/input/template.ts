@@ -2,6 +2,8 @@ import { html, ref, when } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconPaperPlaneTag } from '@ni/nimble-components/dist/esm/icons/paper-plane';
 import { iconStopSquareTag } from '@ni/nimble-components/dist/esm/icons/stop-square';
+import { iconExclamationMarkTag } from '@ni/nimble-components/dist/esm/icons/exclamation-mark';
+import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
 import type { ChatInput } from '.';
 
 export const template = html<ChatInput>`
@@ -32,4 +34,10 @@ export const template = html<ChatInput>`
             html`<${iconPaperPlaneTag} slot="start"></${iconPaperPlaneTag}>`
         )}
     </${buttonTag}>
+    <${iconExclamationMarkTag}
+        severity="error"
+        class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"
+        style="--ni-private-scrollbar-width: ${x => x.scrollbarWidth}px;"
+    ></${iconExclamationMarkTag}>
+    ${errorTextTemplate}
 </div>`;

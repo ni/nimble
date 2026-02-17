@@ -1,6 +1,7 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable, DOM } from '@ni/fast-element';
+import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
@@ -14,7 +15,7 @@ declare global {
 /**
  * A Spright component for composing and sending a chat message
  */
-export class ChatInput extends FoundationElement {
+export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @attr
     public placeholder?: string;
 
@@ -49,6 +50,16 @@ export class ChatInput extends FoundationElement {
     public disableSendButton = true;
 
     /**
+     * The width of the vertical scrollbar, if displayed.
+     * @internal
+     */
+    @observable
+    public scrollbarWidth = -1;
+
+    private resizeObserver?: ResizeObserver;
+    private updateScrollbarWidthQueued = false;
+
+    /**
      * @internal
      */
     public textAreaKeydownHandler(e: KeyboardEvent): boolean {
@@ -68,6 +79,21 @@ export class ChatInput extends FoundationElement {
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
         this.disableSendButton = this.shouldDisableSendButton();
+        this.queueUpdateScrollbarWidth();
+    }
+
+    // If a property can affect whether a scrollbar is visible, we need to
+    // call queueUpdateScrollbarWidth() when it changes. The exceptions are
+    // properties that affect size (e.g. height, width, cols, rows), because
+    // we already have a ResizeObserver handling those changes. Also,
+    // a change to errorVisible cannot cause scrollbar visibility to change,
+    // because we always reserve space for the error icon.
+
+    /**
+     * @internal
+     */
+    public placeholderChanged(): void {
+        this.queueUpdateScrollbarWidth();
     }
 
     /**
@@ -77,6 +103,7 @@ export class ChatInput extends FoundationElement {
         if (this.textArea) {
             this.textArea.value = this.value;
             this.disableSendButton = this.shouldDisableSendButton();
+            this.queueUpdateScrollbarWidth();
         }
     }
 
@@ -87,6 +114,16 @@ export class ChatInput extends FoundationElement {
         super.connectedCallback();
         this.textArea!.value = this.value;
         this.disableSendButton = this.shouldDisableSendButton();
+        this.resizeObserver = new ResizeObserver(() => this.onResize());
+        this.resizeObserver.observe(this);
+    }
+
+    /**
+     * @internal
+     */
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.resizeObserver?.disconnect();
     }
 
     /**
@@ -125,6 +162,25 @@ export class ChatInput extends FoundationElement {
             this.textArea.value = '';
             this.textArea.focus();
         }
+    }
+
+    private onResize(): void {
+        this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
+    }
+
+    private queueUpdateScrollbarWidth(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.updateScrollbarWidthQueued) {
+            this.updateScrollbarWidthQueued = true;
+            DOM.queueUpdate(() => this.updateScrollbarWidth());
+        }
+    }
+
+    private updateScrollbarWidth(): void {
+        this.updateScrollbarWidthQueued = false;
+        this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
     }
 }
 
