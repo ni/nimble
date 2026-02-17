@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 16 Feb 2026 18:09:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 16 Feb 2026 22:59:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.10.0
+
+Mon, 16 Feb 2026 22:59:33 GMT
+
+### Minor changes
+
+- Add error for chat input. ([ni/nimble@9ae47da](https://github.com/ni/nimble/commit/9ae47daa41807bbd8353b1920b473c1b5abc23e8))
 
 ## 6.9.1
 
