@@ -12,7 +12,8 @@ import {
     borderWidth,
     smallDelay,
     fillSelectedColor,
-    passColor
+    passColor,
+    failColor
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
@@ -53,14 +54,24 @@ export const styles = css`
             outline: none;
             margin: 0; 
             padding: 0 ${smallPadding} 0 0;
-            --ni-private-step-icon-background-default-size: 100% 100%;
+            --ni-private-step-icon-background-full-size: 100% 100%;
             ${'' /* 6px = (2px icon border + 1px inset) * 2 sides */}
             --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
+            --ni-private-step-icon-background-none-size: 0% 0%;
 
             --ni-private-step-icon-border-color: transparent;
             --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-icon-outline-inset-color: transparent;
             --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+        }
+
+        :host([severity="error"]) .control {
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
+            --ni-private-step-line-color: ${failColor};
         }
 
         :host([severity="success"]) .control {
@@ -77,8 +88,10 @@ export const styles = css`
             flex: none;
             height: 32px;
             width: 32px;
-            border: 2px solid var(--ni-private-step-icon-border-color);
+            border-style: solid;
             border-radius: 100%;
+            border-color: var(--ni-private-step-icon-border-color);
+            border-width: 1px;
             background-image: radial-gradient(
                 closest-side,
                 ${'' /* Workaround to prevent aliasing on radial-gradient boundaries, see:
@@ -88,13 +101,14 @@ export const styles = css`
                 transparent 100%
             );
             background-origin: border-box;
-            background-size: var(--ni-private-step-icon-background-default-size);
+            background-size: var(--ni-private-step-icon-background-size);
             background-repeat: no-repeat;
             background-position: center center;
             position: relative;
             transition:
                 border-color ${smallDelay} ease-in-out,
-                background-size ${smallDelay} ease-in-out;
+                border-width ${smallDelay} ease-in-out,
+                background-size ${smallDelay} ease-out;
         }
 
         .icon::before {
@@ -166,7 +180,14 @@ export const styles = css`
     @layer hover {
         .control:hover {
             --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="error"]) .control:hover {
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${failColor};
         }
 
         :host([severity="success"]) .control:hover {
@@ -175,7 +196,7 @@ export const styles = css`
         }
 
         .control:hover .icon {
-            background-size: var(--ni-private-step-icon-background-inset-size);
+            border-width: 2px;
         }
 
         .control:hover .line {
@@ -187,18 +208,25 @@ export const styles = css`
         .control${focusVisible} {
             --ni-private-step-icon-border-color: ${borderHoverColor};
             --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="error"]) .control${focusVisible} {
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-outline-inset-color: ${failColor};
+            --ni-private-step-line-color: ${failColor};
         }
 
         :host([severity="success"]) .control${focusVisible} {
             --ni-private-step-icon-border-color: ${passColor};
-            --ni-private-step-icon-background-color: ${passColor};
             --ni-private-step-icon-outline-inset-color: ${passColor};
             --ni-private-step-line-color: ${passColor};
         }
     
         .control${focusVisible} .icon {
-            background-size: var(--ni-private-step-icon-background-inset-size);
+            border-width: 2px;
         }
 
         .control${focusVisible} .icon::before {
@@ -215,8 +243,15 @@ export const styles = css`
         .control:active {
             --ni-private-step-icon-border-color: ${borderHoverColor};
             --ni-private-step-icon-background-color: ${fillSelectedColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-icon-outline-inset-color: transparent;
             --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="error"]) .control:active {
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
+            --ni-private-step-line-color: ${failColor};
         }
 
         :host([severity="success"]) .control:active {
@@ -226,7 +261,7 @@ export const styles = css`
         }
 
         .control:active .icon {
-            background-size: var(--ni-private-step-icon-background-default-size);
+            border-width: 2px;
         }
 
         .control:active .icon::before {
