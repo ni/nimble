@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add custom colored spright icons for the different variance of calendar events",
+  "packageName": "@ni/spright-components",
+  "email": "vivin.krishna.r.n@emerson.com",
+  "dependentChangeType": "patch"
+}

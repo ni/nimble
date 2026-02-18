@@ -38,6 +38,7 @@
     "@ni/fast-foundation": "^10.1.5",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "^35.3.0",
+    "@ni/nimble-tokens": "^8.15.0",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
