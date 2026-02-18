@@ -31,6 +31,7 @@ interface AnchorStepArgs {
     severityText: string;
     title: string;
     subtitle: string;
+    selected: boolean;
 }
 export const anchorStep: StoryObj<AnchorStepArgs> = {
     render: createUserSelectedThemeStory(html`
@@ -39,6 +40,7 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
                 severity="${x => AnchorStepSeverity[x.severity]}"
                 href="${x => (x.href === '' ? undefined : x.href)}"
                 severity-text="${x => x.severityText}"
+                selected="${x => x.selected}"
                 style="width:150px"
             >
                 😀
@@ -78,7 +80,11 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
         subtitle: {
             description: 'step subtitle',
             table: { category: apiCategory.slots }
-        }
+        },
+        selected: {
+            description: 'Styles that indicate the control selected.',
+            table: { category: apiCategory.attributes }
+        },
     },
     args: {
         href: 'https://nimble.ni.dev',
@@ -86,7 +92,8 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
         severity: 'default',
         severityText: 'Helper message',
         title: 'Title',
-        subtitle: 'Subtitle'
+        subtitle: 'Subtitle',
+        selected: false,
     }
 };
 
@@ -96,6 +103,7 @@ interface StepArgs {
     severityText: string;
     title: string;
     subtitle: string;
+    selected: boolean;
 }
 export const step: StoryObj<StepArgs> = {
     render: createUserSelectedThemeStory(html`
@@ -103,6 +111,7 @@ export const step: StoryObj<StepArgs> = {
             <${stepTag}
                 severity="${x => StepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
+                selected="${x => x.selected}"
                 style="width:150px"
             >
                 😀
@@ -135,14 +144,19 @@ export const step: StoryObj<StepArgs> = {
         subtitle: {
             description: 'step subtitle',
             table: { category: apiCategory.slots }
-        }
+        },
+        selected: {
+            description: 'Styles that indicate the control selected.',
+            table: { category: apiCategory.attributes }
+        },
     },
     args: {
         disabled: false,
         severity: 'default',
         severityText: 'Helper message',
         title: 'Title',
-        subtitle: 'Subtitle'
+        subtitle: 'Subtitle',
+        selected: false,
     }
 };
 
