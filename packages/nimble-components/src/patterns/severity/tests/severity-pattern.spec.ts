@@ -17,7 +17,9 @@ const elementName = uniqueElementName();
     template: severityTextTemplate,
     styles: css`${styles}`
 })
-class TestSeverityPattern extends mixinSeverityPattern(FoundationElement) {}
+class TestSeverityPattern extends mixinSeverityPattern(FoundationElement) {
+    public override severity: Severity;
+}
 
 async function setup(): Promise<Fixture<TestSeverityPattern>> {
     return await fixture(elementName);
