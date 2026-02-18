@@ -153,7 +153,11 @@ Tooltips will use label provider strings for the default text ("Add breakpoint" 
 
 ### Framework Integration
 
-- Standard Blazor wrapper
+- Standard Blazor wrapper, including:
+    - Add `BreakpointState` enum (ensure values serialize correctly within table data)
+    - Add `breakpoint-column-toggle` event on the column
+    - Add the new column component
+    - Add a component-specific label provider (`ok-label-provider-table-column-breakpoint`) for tooltip strings
 
 ## Open Issues
 
