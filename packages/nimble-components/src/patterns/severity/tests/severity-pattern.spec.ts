@@ -1,4 +1,4 @@
-import { css, customElement } from '@ni/fast-element';
+import { attr, css, customElement } from '@ni/fast-element';
 import { FoundationElement } from '@ni/fast-foundation';
 import {
     type Fixture,
@@ -18,6 +18,7 @@ const elementName = uniqueElementName();
     styles: css`${styles}`
 })
 class TestSeverityPattern extends mixinSeverityPattern(FoundationElement) {
+    @attr
     public override severity: Severity;
 }
 
