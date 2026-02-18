@@ -13,7 +13,8 @@ import {
     smallDelay,
     fillSelectedColor,
     passColor,
-    failColor
+    failColor,
+    warningColor
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
@@ -72,6 +73,14 @@ export const styles = css`
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
             --ni-private-step-icon-outline-inset-color: transparent;
             --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([severity="warning"]) .control {
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
+            --ni-private-step-line-color: ${warningColor};
         }
 
         :host([severity="success"]) .control {
@@ -190,6 +199,12 @@ export const styles = css`
             --ni-private-step-line-color: ${failColor};
         }
 
+        :host([severity="warning"]) .control:hover {
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${warningColor};
+        }
+
         :host([severity="success"]) .control:hover {
             --ni-private-step-icon-border-color: ${passColor};
             --ni-private-step-line-color: ${passColor};
@@ -217,6 +232,13 @@ export const styles = css`
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
             --ni-private-step-icon-outline-inset-color: ${failColor};
             --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([severity="warning"]) .control${focusVisible} {
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-outline-inset-color: ${warningColor};
+            --ni-private-step-line-color: ${warningColor};
         }
 
         :host([severity="success"]) .control${focusVisible} {
@@ -252,6 +274,12 @@ export const styles = css`
             --ni-private-step-icon-border-color: ${failColor};
             --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
             --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([severity="warning"]) .control:active {
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
+            --ni-private-step-line-color: ${warningColor};
         }
 
         :host([severity="success"]) .control:active {
