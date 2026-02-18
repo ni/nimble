@@ -5,15 +5,21 @@ import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    placeholderDescription
+    placeholderDescription,
+    errorTextDescription
 } from '../../../utilities/storybook';
 
 interface ChatInputArgs {
     placeholder: string;
     sendButtonLabel: string;
+    stopButtonLabel: string;
     maxlength: number | undefined;
     value: string;
+    processing: boolean;
+    errorText: string;
+    errorVisible: boolean;
     send: undefined;
+    stop: undefined;
 }
 
 const metadata: Meta<ChatInputArgs> = {
@@ -21,7 +27,7 @@ const metadata: Meta<ChatInputArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['send']
+            handles: ['send', 'stop']
         }
     }
 };
@@ -31,8 +37,12 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         <${chatInputTag}
             placeholder="${x => x.placeholder}"
             send-button-label="${x => x.sendButtonLabel}"
+            stop-button-label="${x => x.stopButtonLabel}"
+            processing="${x => x.processing}"
             maxlength="${x => x.maxlength}"
             value="${x => x.value}"
+            error-text="${x => x.errorText}"
+            ?error-visible="${x => x.errorVisible}"
         >
         </${chatInputTag}>
     `),
@@ -50,6 +60,12 @@ export const chatInput: StoryObj<ChatInputArgs> = {
                 'Text to use for a `title` and ARIA attributes on the send button.',
             table: { category: apiCategory.attributes }
         },
+        stopButtonLabel: {
+            name: 'stop-button-label',
+            description:
+                'Text to use for a `title` and ARIA attributes on the stop button.',
+            table: { category: apiCategory.attributes }
+        },
         maxlength: {
             name: 'maxlength',
             description:
@@ -62,16 +78,42 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             control: { type: 'text' },
             table: { category: apiCategory.attributes }
         },
+        processing: {
+            description: 'Shows the stop button instead of the send button when set to true.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
+        errorText: {
+            name: 'error-text',
+            description: errorTextDescription,
+            control: { type: 'text' },
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: 'Whether the error message is visible.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
         send: {
             description:
-                'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input.',
+                'Emitted when the user clicks the \'Send\' button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input.',
+            table: { category: apiCategory.events }
+        },
+        stop: {
+            description:
+                'Emitted when the user clicks the \'Stop\' button.',
             table: { category: apiCategory.events }
         }
     },
     args: {
         placeholder: 'Type a message',
         sendButtonLabel: 'Send',
+        stopButtonLabel: 'Stop',
+        processing: false,
         maxlength: -1,
+        errorText: 'Error description',
+        errorVisible: false
     }
 };
 

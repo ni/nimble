@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 11 Feb 2026 03:47:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 16 Feb 2026 18:09:13 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.3.0
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Minor changes
+
+- Add more calendar theme-aware tokens for providing multiple variance of event cards ([ni/nimble@695c1db](https://github.com/ni/nimble/commit/695c1db25df1ec50ff3ca64c55172d7106f21067))
 
 ## 35.2.3
 
