@@ -4,5 +4,5 @@ import { devicePixelRatio } from '../utilities/models/device-pixel-ratio';
 
 export const template = html<Stepper>`
     <style>:host{--ni-private-device-resolution: ${() => devicePixelRatio.current};}</style>
-    <slot></slot>
+    <slot name="step"></slot>
 `;

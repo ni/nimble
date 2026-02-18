@@ -8,6 +8,8 @@ import { styles } from './styles';
 import { template } from './template';
 import type { StepPattern } from '../patterns/step/types';
 import { mixinSeverityPattern } from '../patterns/severity/types';
+import { StepInternals } from '../patterns/step/models/step-internals';
+import { StepSeverity } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,6 +21,14 @@ declare global {
  * A nimble-styled step for a stepper
  */
 export class Step extends mixinSeverityPattern(FoundationButton) implements StepPattern {
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: disabled
+     */
+    @attr()
+    public severity: StepSeverity = StepSeverity.default;
+
     /**
      * @public
      * @remarks
@@ -42,6 +52,11 @@ export class Step extends mixinSeverityPattern(FoundationButton) implements Step
      */
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
+
+    /**
+     * @internal
+     */
+    public readonly stepInternals = new StepInternals();
 }
 
 const nimbleStep = Step.compose<ButtonOptions>({

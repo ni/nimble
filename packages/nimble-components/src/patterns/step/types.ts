@@ -1,6 +1,7 @@
-import type { Severity } from '../severity/types';
+import type { SeverityPattern } from '../severity/types';
+import type { StepInternals } from './models/step-internals';
 
-export interface StepPattern {
+export interface StepPattern extends SeverityPattern {
     /**
      * Whether or not the step is disabled.
      */
@@ -17,7 +18,7 @@ export interface StepPattern {
     selected: boolean;
 
     /**
-     * The severity state of the step.
+     * @internal Internal step state set by the stepper
      */
-    severity: Severity;
+    stepInternals: StepInternals;
 }

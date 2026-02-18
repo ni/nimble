@@ -29,7 +29,7 @@ export function mixinSeverityPattern<TBase extends FASTElementConstructor>(
         /**
          * The severity state of the element
          */
-        public severity: Severity;
+        public abstract severity: Severity;
 
         /**
          * The severity text that will be displayed when a component is not in the default severity state
@@ -42,10 +42,6 @@ export function mixinSeverityPattern<TBase extends FASTElementConstructor>(
          */
         public severityHasOverflow = false;
     }
-    attr()(
-        SeverityPatternElement.prototype,
-        'severity'
-    );
     attr({ attribute: 'severity-text' })(
         SeverityPatternElement.prototype,
         'severityText'
