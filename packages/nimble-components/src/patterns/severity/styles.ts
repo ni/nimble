@@ -1,8 +1,10 @@
 import { cssPartial } from '@ni/fast-element';
 import {
     failColor,
+    errorTextFontLineHeight,
+    warningColor,
     errorTextFont,
-    errorTextFontLineHeight
+    buttonLabelFontColor
 } from '../../theme-provider/design-tokens';
 
 // These styles end up inside a @layer block so must use the
@@ -12,10 +14,10 @@ export const styles = cssPartial`
         display: none;
     }
 
-    :host([severity]) .severity-text {
+    .severity-text {
         display: block;
         font: ${errorTextFont};
-        color: ${failColor};
+        color: ${buttonLabelFontColor};
         width: 100%;
         position: absolute;
         ${'' /* The -2px modifier of the bottom position is to intentionally have the severity text slightly overlap the control by 2px */}
@@ -24,6 +26,14 @@ export const styles = cssPartial`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+    
+    :host([severity="error"]) .severity-text {
+        color: ${failColor};
+    }
+    
+    :host([severity="warning"]) .severity-text {
+        color: ${warningColor};
     }
 
     :host([severity]) .severity-text:empty {
