@@ -37,8 +37,9 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
     render: createUserSelectedThemeStory(html`
         <${stepperTag}>
             <${anchorStepTag}
-                severity="${x => AnchorStepSeverity[x.severity]}"
                 href="${x => (x.href === '' ? undefined : x.href)}"
+                disabled?="${x => x.disabled}"
+                severity="${x => AnchorStepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 selected="${x => x.selected}"
                 style="width:150px"
@@ -109,12 +110,13 @@ export const step: StoryObj<StepArgs> = {
     render: createUserSelectedThemeStory(html`
         <${stepperTag}>
             <${stepTag}
+                ?disabled="${x => x.disabled}"
                 severity="${x => StepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 selected="${x => x.selected}"
                 style="width:150px"
             >
-                😀
+                1
                 ${when(x => x.title, html<StepArgs>`<div slot="title">${x => x.title}</div>`)}
                 ${when(x => x.subtitle, html<StepArgs>`<div slot="subtitle">${x => x.subtitle}</div>`)}
             </${stepTag}>

@@ -14,10 +14,13 @@ import {
     fillSelectedColor,
     passColor,
     failColor,
-    warningColor
+    warningColor,
+    buttonLabelDisabledFontColor,
+    iconColor
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
+import { userSelectNone } from '../../utilities/style/user-select';
 
 export const styles = css`
     @layer base, hover, focusVisible, active, disabled, top;
@@ -60,6 +63,7 @@ export const styles = css`
             --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
             --ni-private-step-icon-background-none-size: 0% 0%;
 
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
             --ni-private-step-icon-border-color: transparent;
             --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
@@ -89,6 +93,7 @@ export const styles = css`
         }
 
         :host([selected]) .control {
+            --ni-private-step-icon-color: ${borderHoverColor};
             --ni-private-step-icon-border-color: ${borderHoverColor};
             --ni-private-step-icon-background-color: rgb(from ${borderHoverColor} r g b / 30%);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
@@ -102,6 +107,10 @@ export const styles = css`
             flex: none;
             height: 32px;
             width: 32px;
+            ${userSelectNone};
+            font: ${buttonLabelFont};
+            color: var(--ni-private-step-icon-color);
+            ${iconColor.cssCustomProperty}: var(--ni-private-step-icon-color);
             border-style: solid;
             border-radius: 100%;
             border-color: var(--ni-private-step-icon-border-color);
@@ -221,6 +230,7 @@ export const styles = css`
         }
 
         :host([selected]) .control:hover {
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
             --ni-private-step-icon-border-color: ${borderHoverColor};
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-line-color: ${borderHoverColor};
@@ -265,6 +275,7 @@ export const styles = css`
         }
 
         :host([selected]) .control${focusVisible} {
+            --ni-private-step-icon-color: ${borderHoverColor};
             --ni-private-step-icon-border-color: ${borderHoverColor};
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
             --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
@@ -311,7 +322,8 @@ export const styles = css`
             --ni-private-step-line-color: ${passColor};
         }
 
-        :host([selected]) .control:active { 
+        :host([selected]) .control:active {
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
             --ni-private-step-icon-border-color: ${borderHoverColor};
             --ni-private-step-icon-background-color: rgb(from ${borderHoverColor} r g b / 30%);
             --ni-private-step-line-color: ${borderHoverColor};
@@ -332,7 +344,19 @@ export const styles = css`
     }
 
     @layer disabled {
+        :host([disabled]) .control {
+            cursor: default;
+            color: ${buttonLabelDisabledFontColor};
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
+            --ni-private-step-icon-border-color: transparent;
+            --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
+            --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+        }
 
+        :host([disabled]) .line {
+            transform: scale(1, 1);
+        }
     }
 
     @layer top {
