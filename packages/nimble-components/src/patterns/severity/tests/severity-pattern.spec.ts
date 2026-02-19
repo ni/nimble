@@ -62,10 +62,10 @@ describe('SeverityPatternMixin', () => {
         expect(pageObject.getDisplayedSeverityText()).toBe(severityText);
     });
 
-    it('does not show severity text when severity default', () => {
+    it('does show severity text when severity default', () => {
         const severityText = 'Something is wrong!';
         setSeverity(severityText, Severity.default);
-        expect(pageObject.getDisplayedSeverityText()).toBe('');
+        expect(pageObject.getDisplayedSeverityText()).toBe(severityText);
     });
 
     describe('overflow behavior', () => {
