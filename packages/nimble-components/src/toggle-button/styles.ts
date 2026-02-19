@@ -18,7 +18,7 @@ export const styles = css`
     ${buttonStyles}
     ${buttonAppearanceVariantStyles}
 
-    @layer base {
+    @layer checked {
         .control[aria-pressed='true'] {
             background-color: transparent;
             color: ${buttonLabelFontColor};
@@ -48,7 +48,7 @@ export const styles = css`
     appearanceBehavior(
         ButtonAppearance.outline,
         css`
-            @layer base {
+            @layer checked {
                 :host([appearance-variant='accent'])
                     .control[aria-pressed='true'] {
                     color: ${buttonAccentOutlineFontColor};
