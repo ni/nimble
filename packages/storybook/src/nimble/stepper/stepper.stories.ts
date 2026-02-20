@@ -38,7 +38,7 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
         <${stepperTag}>
             <${anchorStepTag}
                 href="${x => (x.href === '' ? undefined : x.href)}"
-                disabled?="${x => x.disabled}"
+                ?disabled="${x => x.disabled}"
                 severity="${x => AnchorStepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 selected="${x => x.selected}"
