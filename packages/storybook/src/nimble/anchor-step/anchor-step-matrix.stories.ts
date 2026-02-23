@@ -11,7 +11,6 @@ import {
 } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
-import { textCustomizationWrapper } from '../../utilities/text-customization';
 import { severityStates, type SeverityStates } from '../stepper/types';
 
 const metadata: Meta = {
@@ -68,11 +67,5 @@ export const hidden: StoryFn = createStory(
         html`<${anchorStepTag} hidden
             >Hidden Anchor Button</${anchorStepTag}
         >`
-    )
-);
-
-export const textCustomized: StoryFn = createMatrixThemeStory(
-    textCustomizationWrapper(
-        html`<${anchorStepTag}>Anchor Button</${anchorStepTag}>`
     )
 );

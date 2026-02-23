@@ -41,7 +41,7 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
                 ?disabled="${x => x.disabled}"
                 severity="${x => AnchorStepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
-                selected="${x => x.selected}"
+                ?selected="${x => x.selected}"
                 style="width:150px"
             >
                 1
@@ -113,7 +113,7 @@ export const step: StoryObj<StepArgs> = {
                 ?disabled="${x => x.disabled}"
                 severity="${x => StepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
-                selected="${x => x.selected}"
+                ?selected="${x => x.selected}"
                 style="width:150px"
             >
                 1

@@ -22,8 +22,8 @@ export default metadata;
 
 const component = (): ViewTemplate => html`
     <${stepperTag}>
-        <${anchorStepTag}></${anchorStepTag}>
-        <${stepTag}></${stepTag}>
+        <${anchorStepTag}>1</${anchorStepTag}>
+        <${stepTag}>1</${stepTag}>
     </${stepperTag}>
 `;
 
