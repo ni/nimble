@@ -106,8 +106,8 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
     - disabled: boolean (standard, i.e. visually disabled and interactions prevented)
     - readonly: boolean (standard, i.e. visually not disabled, interactions other than tab focus prevented)
     - selected: boolean (visual change only, no behavior) (aligned with card button)
-    - severity: default / error / warning / success / information (aligned with icon)
-    - severity-text: string (if provided, only renders during warning, error, and information severity)
+    - severity: default / error / warning / success (similar to icon and banner but different subset)
+    - severity-text: string (always shown but styled based on severity)
   <!--
   - Properties (not attribute reflected)
   - Methods
@@ -259,7 +259,7 @@ No additional support beyond discussion in API section on CSS sizing.
 - *Localization* -->
 
 Label providers for visibly hidden step states:
-- Reuse `popupIconError`, `popupIconInformation`, `popupIconWarning`
+- Reuse `popupIconError`, `popupIconWarning`
 - Add (for consistency but maybe unexpected naming): `popupIconComplete`, `popupIconCurrent` 
 
 ### Security
