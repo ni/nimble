@@ -84,16 +84,22 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
 - `nimble-stepper`
   - Attributes
     - orientation: vertical / horizontal (aligned with radio group and wafer)
-  <!-- - Properties (not attribute reflected)
+  <!--
+  - Properties (not attribute reflected)
   - Methods
   - Events
-  - CSS custom properties -->
+  - CSS custom properties
+  -->
   - CSS native properties
     - Will respond to width / height sizing (on the axis corresponding to orientation) and show overflow scroll buttons following the pattern of breadcrumb
+      - Vertical use of this pattern is new and not captured in interaction or visual design. If expensive may fallback to other requirements (control overflow hidden and app must sze correctly, etc).
   - Slots
-    -  default: supports `nimble-step` and `nimble-anchor-step` children
-  <!-- - Parts
-  - Localizable labels -->
+    - default: unused
+    - step: supports `nimble-step` and `nimble-anchor-step` children (aligned with tabs use of a tab slot)
+  <!--
+  - Parts
+  - Localizable labels
+  -->
 
 - `nimble-step`
   - Attributes
@@ -102,34 +108,46 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
     - selected: boolean (visual change only, no behavior) (aligned with card button)
     - severity: default / error / warning / success / information (aligned with icon)
     - severity-text: string (if provided, only renders during warning, error, and information severity)
-  <!-- - Properties (not attribute reflected)
-  - Methods -->
+  <!--
+  - Properties (not attribute reflected)
+  - Methods
+  -->
   - Events
     - click (aligned to button, not emitted on disable)
-  <!-- - CSS custom properties
-  - CSS native properties -->
+  <!--
+  - CSS custom properties
+  - CSS native properties
+  -->
   - Slots
     - default: supports nimble icons, will render inside the circle and have color controlled via iconColor token
     - title: Title content (aligned with dialog)
     - subtitle: Subtitle content  (aligned with dialog)
-  <!-- - Parts
-  - Localizable labels -->
+  <!--
+  - Parts
+  - Localizable labels
+  -->
 
 - `nimble-anchor-step`
   - Attributes
     - All `nimble-step` attributes
     - `<a>` attributes (href, target, etc)
       - href: null / undefined should behave like disabled (seems inconsistent across controls)
-  <!-- - Properties (not attribute reflected)
-  - Methods -->
+  <!--
+  - Properties (not attribute reflected)
+  - Methods
+  -->
   - Events
     - click (aligned to anchor-button, not emitted on disable)
-  <!-- - CSS custom properties
-  - CSS native properties -->
+  <!--
+  - CSS custom properties
+  - CSS native properties
+  -->
   - Slots
     - All `nimble-step` slots
-  <!-- - Parts
-  - Localizable labels -->
+  <!--
+  - Parts
+  - Localizable labels
+  -->
 
 ### Anatomy 
 <!-- 
@@ -290,4 +308,4 @@ No unique concerns. Use common link docs.
 
 <!-- *Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.* -->
 
-Visual design does not currently represent full matrix of states: `severity` x `selected` x `interaction` (hover, mouse down, tab focus). 
+None.
