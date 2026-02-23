@@ -126,7 +126,7 @@ For best results, always use `ngModel`, `formControl`, or `formControlName` bind
 
 ### Using Nimble breadcrumb with Angular's RouterLink
 
-`nimble-breadcrumb-item` supports the [Angular RouterLink directive](https://angular.io/api/router/RouterLink) for breadcrumb navigation in an Angular app using routing.
+`nimble-breadcrumb-item` supports the [Angular RouterLink directive](https://angular.dev/api/router/RouterLink) for breadcrumb navigation in an Angular app using routing.
 However, the attribute name `nimbleRouterLink` should be used instead of `routerLink` - for example:
 ```html
 <nimble-breadcrumb-item [nimbleRouterLink]="breadcrumb.url">

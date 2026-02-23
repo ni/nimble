@@ -5,7 +5,10 @@
 This spec describes a set of components that can be used to compose a chat interface. This includes:
 
 - chat input: a text input, button, and related components for users to compose and send new messages
-- chat message: a single entry in a chat conversation, including some content and metadata about the message
+- chat messages: each a single entry in a chat conversation, including some content and metadata about the message
+   - inbound
+   - system
+   - outbound
 - chat conversation: a layout component that allows slotting messages and an input
 
 ### Background
@@ -40,12 +43,24 @@ The message component will allow slotting arbitrary content, but any efforts to 
 
 #### Chat message
 
-The `spright-chat-message` has the following slot elements.
+##### Common features
+
+The all Spright chat messages have the following slot elements.
 
 1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+
+The components also contains the following features:
+
+1. Layout content to the right, center, or left of parent container depending on the type of the message
+1. Size based on content size with maximum width (but not height) based on parent's width.
+1. Change the styling of the message depending on the type of message. For example: render outbound messages in a bubble with the tail pointing to the right but render system messages with no styling.
+
+##### Inbound message additional features
+
+In addition, inbound messages will add support these slots:
+
 1. `footer-actions` slot which is used to add action buttons below the main content.
 1. `end` slot which is used to add text buttons. They are below any action buttons.
-
 Nimble will set the height of the action buttons to `$ni-nimble-control-slim-height`. All action buttons must meet the following criteria
 
 1. They are `nimble-button`s or any other button variant (toggle button, menu button, etc)
@@ -59,16 +74,11 @@ All end text buttons must meet the following criteria
 1. The `apperance` attribute is set to `block`
 1. The buttons only have text
 
-The component also contains the following features:
-
-1. Layout content to the right, center, or left of parent container depending on metadata about who sent the message.
-1. Size based on content size with maximum width (but not height) based on parent's width.
-1. Change the styling of the message depending on metadata about who sent the message. For example: render user messages in a bubble with the tail pointing to the right but render system messages with no styling.
-
 #### Chat conversation
 
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
+1. Includes a slot to place a toolbar (and its content such as buttons or menu buttons) on top of the conversation.
 1. Includes a slot to place an input component below the messages.
 1. Only appearance of its own is to set a background color.
 
@@ -77,6 +87,7 @@ The component also contains the following features:
 1. Accepts text input in a text area
     - the text area height is a single line initially but grows its height to fit the entered text up to its max-height
     - the text area has configurable placeholder text
+    - the text area has configurable max length
 1. Includes a "Send" button for the user to submit the current input text
     - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
     - pressing Enter while the text area has focus will behave the same as clicking "Send"
@@ -118,15 +129,15 @@ These components are competing against possible implementations within applicati
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-message message-type="inbound">
+    <spright-chat-message-inbound>
         Hi, how can I help?
-    </spright-chat-message>
-    <spright-chat-message message-type="outbound">
+    </spright-chat-message-inbound>
+    <spright-chat-message-outbound>
         I need to analyze my data to find anomalies.
-    </spright-chat-message>
-    <spright-chat-message message-type="system">
+    </spright-chat-message-outbound>
+    <spright-chat-message-system>
         <nimble-spinner></nimble-spinner>
-    </spright-chat-message>
+    </spright-chat-message-system>
     <spright-chat-input slot="input></spright-chat-input>
 </spright-chat-conversation>
 ```
@@ -135,9 +146,9 @@ These components are competing against possible implementations within applicati
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-message message-type="inbound">
+    <spright-chat-message-inbound>
         <nimble-rich-text-viewer id="welcome"></nimble-rich-text-viewer>
-    </spright-chat-message>
+    </spright-chat-message-inbound>
 </spright-chat-conversation>
 ```
 
@@ -150,10 +161,10 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 
 ```html
-<spright-chat-message message-type="inbound">
+<spright-chat-message-inbound>
     <nimble-button appearance="block" slot="end">Help with my taxes</nimble-button>
     <nimble-button appearance="block" slot="end">Provide me some life advice</nimble-button>
-</spright-chat-message>
+</spright-chat-message-inbound>
 ```
 
 
@@ -163,13 +174,33 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 <spright-chat-input placeholder="Ask Nigel"> </spright-chat-input>
 ```
 
+#### Toolbar example
+
+```html
+<nimble-toolbar slot="toolbar" > 
+    <nimble-icon-messages-spark slot="start"></nimble-icon-messages-sparkle>
+    <span class="toolbar-title">AI Assistant</span>
+    <nimble-button appearance="ghost" content-hidden title="Create new chat" slot="end">
+        Create new chat
+        <nimble-icon-pencil-to-rectangle slot="start"></nimble-icon-pencil-to-rectangle>
+    </nimble-button>
+</nimble-toolbar>
+```
+
 ### API
 
-#### Message
+#### Messages
 
-- _Component Name_ `spright-chat-message`
+Message components will be created with the following names:
+- `spright-chat-message-inbound`
+- `spright-chat-message-outbound`
+- `spright-chat-message-system`
+
+##### Messages common API
+
+All message types will share the following API:
+
 - _Props/Attrs_
-    - `message-type = "inbound" | "outbound" | "system"`
 - _Methods_
 - _Events_
 - _CSS Classes and CSS Custom Properties that affect the component_
@@ -184,6 +215,14 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
         - Buttons with text that are displayed at the bottom after any action buttons.
     - `(default)`
         - arbitrary content can be added to the default slot to be displayed within the message
+
+##### Inbound message additional API
+
+- _Slots_
+    - `footer-actions`
+        - Action buttons to display after the main content.
+    - `end`
+        - Buttons with text that are displayed at the bottom after any action buttons.
 
 #### Conversation
 
@@ -201,7 +240,8 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - The conversation will have a minimum width that clients are discouraged from overriding.
 - _Slots_
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
-    - a single chat input can optionally be added to the `input` slot. It will be placed below the messages.
+    - a single chat input can optionally be added to the `input` slot. It will be placed below the messages
+    - a toolbar can optionally be added to the `toolbar` slot. The toolbar will be displayed above the messages. The toolbar content can be buttons or menus used for actions like starting a new conversation, copying all messages, or other conversation-level operations.
 
 #### Input
 
@@ -212,6 +252,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - `placeholder` - text to display in the text area when no text has been entered
     - `send-disabled` - boolean attribute that causes the "Send" button to be disabled even if there is text or other slotted content
     - `error-visible` and `error-text` - standard attributes for showing an error icon and red text below the control
+    - `maxlength` - number attribute that silently truncates the message
 - _Methods_
 - _Events_
     - `send` - emitted when the user clicks the "Send" button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents. Not cancelable.
@@ -274,6 +315,9 @@ Other than setting a background, a conversation has no appearance of its own and
 
 ```html
 <template>
+    <div class="toolbar">
+        <slot name="toolbar"></slot>
+    </div>
     <div class="messages">
         <slot></slot>
     </div>

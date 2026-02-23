@@ -328,5 +328,34 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Background fill color for the editable calendar event grab handle',
     calendarGridBorderColor: 'Border color for the calendar grid',
     calendarGroupHeaderBackgroundColor:
-        'Background color for the calendar resource group header'
+        'Background color for the calendar resource group header',
+    calendarEventBackgroundJobColor:
+        'Background color for job calendar events',
+    calendarEventBackgroundHoverJobColor:
+        'Color while hovering job calendar events',
+    calendarEventBorderJobColor: 'Border color for job calendar events',
+    calendarEventJobFontColor: 'Font color for job calendar events',
+    calendarEventBackgroundMaintenanceColor:
+        'Background color for maintenance calendar events',
+    calendarEventBackgroundHoverMaintenanceColor:
+        'Color while hovering maintenance calendar events',
+    calendarEventBorderMaintenanceColor: 'Border color for maintenance calendar events',
+    calendarEventBackgroundCalibrationColor:
+        'Background color for calibration calendar events',
+    calendarEventBackgroundHoverCalibrationColor:
+        'Color while hovering calibration calendar events',
+    calendarEventBorderCalibrationColor: 'Border color for calibration calendar events',
+    calendarEventBackgroundReservationColor:
+        'Background color for reservation calendar events',
+    calendarEventBackgroundHoverReservationColor:
+        'Color while hovering reservation calendar events',
+    calendarEventBorderReservationColor: 'Border color for reservation calendar events',
+    calendarEventBackgroundTransportOrderColor:
+        'Background color for transport order calendar events',
+    calendarEventBackgroundHoverTransportOrderColor:
+        'Color while hovering transport order calendar events',
+    calendarEventBorderTransportOrderColor: 'Border color for transport order calendar events',
+    calendarEventBackgroundAggregateAvailabilityColor:
+        'Background color for aggregate availability calendar events',
+    calendarEventBorderAggregateAvailabilityColor: 'Border color for aggregate availability calendar events'
 };

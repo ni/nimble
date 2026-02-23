@@ -1,8 +1,80 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 16 Feb 2026 18:09:13 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.3.7
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.0
+
+## 32.3.6
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.3
+
+## 32.3.5
+
+Sat, 07 Feb 2026 03:16:38 GMT
+
+### Patches
+
+- Update links to angular.io in documentation ([ni/nimble@152ebf2](https://github.com/ni/nimble/commit/152ebf2574a4f54cf8bbec4de1cc490d0e1be166))
+
+## 32.3.4
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.2
+
+## 32.3.3
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.1
+
+## 32.3.2
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.0
+
+## 32.3.1
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.2
+
+## 32.3.0
+
+Wed, 04 Feb 2026 00:56:35 GMT
+
+### Minor changes
+
+- NimbleLabelProviderCoreDirective: Add itemRemove label, update scrollForward/scrollBackward to allow scroll-forward/scroll-backward binding. ([ni/nimble@babcd06](https://github.com/ni/nimble/commit/babcd0690855a7003ecd7c56c64a98d7b96d9d43))
+
+## 32.2.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.1
 
 ## 32.2.0
 

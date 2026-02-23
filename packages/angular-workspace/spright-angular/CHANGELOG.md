@@ -1,8 +1,117 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Tue, 27 Jan 2026 23:05:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 16 Feb 2026 22:59:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.5.0
+
+Mon, 16 Feb 2026 22:59:33 GMT
+
+### Minor changes
+
+- Add error for chat input. ([ni/nimble@9ae47da](https://github.com/ni/nimble/commit/9ae47daa41807bbd8353b1920b473c1b5abc23e8))
+- Bump @ni/spright-components to v6.10.0
+
+## 8.4.1
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.9.1
+
+## 8.4.0
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Minor changes
+
+- Add cancel button to chat input. ([ni/nimble@7c1e94b](https://github.com/ni/nimble/commit/7c1e94b10be383e55b6581122aed499a8608ce00))
+- Bump @ni/spright-components to v6.9.0
+
+## 8.3.3
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.8.0
+
+## 8.3.2
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.7.1
+
+## 8.3.1
+
+Sat, 07 Feb 2026 03:16:38 GMT
+
+### Patches
+
+- Update links to angular.io in documentation ([ni/nimble@152ebf2](https://github.com/ni/nimble/commit/152ebf2574a4f54cf8bbec4de1cc490d0e1be166))
+
+## 8.3.0
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Minor changes
+
+- Add maxlength to ChatInput. ([ni/nimble@eeacf5f](https://github.com/ni/nimble/commit/eeacf5f6ff2a0b196bfbd35cc208a7ca27082a07))
+- Bump @ni/spright-components to v6.7.0
+
+## 8.2.5
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.5
+
+## 8.2.4
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.4
+
+## 8.2.3
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.3
+
+## 8.2.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.2
+
+## 8.2.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Fix import syntax to obey new lint rule ([ni/nimble@aad1c14](https://github.com/ni/nimble/commit/aad1c1447cb1752602f4cae4e455a7abe0556b06))
+- Bump @ni/spright-components to v6.6.1
+
+## 8.2.0
+
+Mon, 02 Feb 2026 13:53:04 GMT
+
+### Minor changes
+
+- Add dedicated chat message components for inbound, outbound, and system messages. The original chat message component is deprecated and will be removed in a future release. ([ni/nimble@cb39491](https://github.com/ni/nimble/commit/cb3949121e6d8c2f26e0607e193a2e6e9a415e08))
+- Bump @ni/spright-components to v6.6.0
 
 ## 8.1.0
 

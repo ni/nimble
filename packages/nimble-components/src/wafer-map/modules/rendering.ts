@@ -108,7 +108,7 @@ export class RenderingModule {
         }
         const dieWidth = this.wafermap.dataManager.dieDimensions.width;
         const dieHeight = this.wafermap.dataManager.dieDimensions.height;
-        const dieSize = dieWidth * dieHeight * (this.wafermap.transform.k || 1);
+        const dieSize = dieWidth * dieHeight * (this.wafermap.transform.k !== 0 ? this.wafermap.transform.k : 1);
         if (dieSize >= this.minDieDim) {
             const fontsize = this.wafermap.dataManager.labelsFontSize;
             const context = this.wafermap.canvasContext;

@@ -45,6 +45,19 @@ export default defineConfig([
         }
     },
     {
+        files: ['**/*.tsx'],
+        rules: {
+            // The React components should use PascalCase
+            '@typescript-eslint/naming-convention': [
+                'error',
+                {
+                    selector: 'variable',
+                    format: ['camelCase', 'PascalCase'],
+                },
+            ],
+        },
+    },
+    {
         files: ['**/build/**/*.js'],
         rules: {
             // Build scripts should give verbose logging

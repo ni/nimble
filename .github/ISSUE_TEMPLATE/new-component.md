@@ -14,7 +14,7 @@ labels: 'new component,enhancement,triage'
 ## 💁 Proposed Solution
 
 - FAST component: <!-- e.g. https://explore.fast.design/components/fast-button -->
-- Other reference components: <!-- e.g. https://material.angular.io/components/button/overview -->
+- Other reference components: <!-- e.g. https://material.angular.dev/components/button/overview -->
 
 <!-- List any requirements/features beyond what is provided by the FAST component. -->
 

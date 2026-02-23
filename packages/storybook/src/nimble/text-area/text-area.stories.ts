@@ -180,10 +180,6 @@ const metadata: Meta<TextAreaArgs> = {
 
 export default metadata;
 
-export const outlineTextArea: StoryObj<TextAreaArgs> = {
+export const textArea: StoryObj<TextAreaArgs> = {
     args: { label: 'Outline Text Area', appearance: TextAreaAppearance.outline }
-};
-
-export const blockTextArea: StoryObj<TextAreaArgs> = {
-    args: { label: 'Block Text Area', appearance: TextAreaAppearance.block }
 };

@@ -9,12 +9,15 @@ import {
     mediumPadding,
     popupBorderColor,
     borderHoverColor,
-    smallDelay
+    smallDelay,
+    failColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
 import { display } from '../../utilities/style/display';
 
 export const styles = css`
     ${display('flex')}
+    ${errorStyles}
 
     :host {
         width: 100%;
@@ -56,6 +59,22 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
+    }
+        
+    :host([error-visible]) .container {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]:hover) .container::after {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]:focus-within) .container {
+        border-bottom-color: ${failColor};
+    }
+
     @media (prefers-reduced-motion) {
         .container::after {
             transition-duration: 0s;
@@ -82,7 +101,18 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .send-button {
+    :host([error-visible]) .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+        display: inline-flex;
+        position: absolute;
+        top: ${mediumPadding};
+        right: var(--ni-private-scrollbar-width);
+    }
+
+    .action-button {
         align-self: flex-end;
         width: 80px;
         margin: ${mediumPadding};
