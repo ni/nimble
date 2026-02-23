@@ -1,7 +1,11 @@
-import { html, ref, slotted, ViewTemplate } from '@ni/fast-element';
+import { html, ref, slotted, ViewTemplate, when } from '@ni/fast-element';
 import { type FoundationElementTemplate, type AnchorOptions, startSlotTemplate, endSlotTemplate } from '@ni/fast-foundation';
 import type { AnchorStep } from '.';
 import { severityTextTemplate } from '../patterns/severity/template';
+import { Severity } from '../patterns/severity/types';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { iconTriangleFilledTag } from '../icons/triangle-filled';
+import { iconCheckTag } from '../icons/check';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<AnchorStep>,
@@ -47,8 +51,13 @@ AnchorOptions
                 aria-roledescription="${x => x.ariaRoledescription}"
                 ${ref('control')}
             >
-                <div class="icon">
-                    <slot ${slotted('defaultSlottedContent')}></slot>
+                <div class="icon"> 
+                    <div class="icon-slot"><slot ${slotted('defaultSlottedContent')}></slot></div>
+                    <div class="icon-severity">
+                        ${when(x => x.severity === Severity.error, html`<${iconExclamationMarkTag}></${iconExclamationMarkTag}>`)}
+                        ${when(x => x.severity === Severity.warning, html`<${iconTriangleFilledTag}></${iconTriangleFilledTag}>`)}
+                        ${when(x => x.severity === Severity.success, html`<${iconCheckTag}></${iconCheckTag}>`)}
+                    </div>
                 </div>
                 <div class="content">
                     <div class="title-wrapper">

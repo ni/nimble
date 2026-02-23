@@ -1,7 +1,11 @@
-import { html, ref, slotted, ViewTemplate } from '@ni/fast-element';
+import { html, ref, slotted, ViewTemplate, when } from '@ni/fast-element';
 import { endSlotTemplate, startSlotTemplate, type ButtonOptions, type FoundationElementTemplate } from '@ni/fast-foundation';
 import type { Step } from '.';
 import { severityTextTemplate } from '../patterns/severity/template';
+import { iconCheckTag } from '../icons/check';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { iconTriangleFilledTag } from '../icons/triangle-filled';
+import { Severity } from '../patterns/severity/types';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<Step>,
@@ -52,7 +56,12 @@ ButtonOptions
                 ${ref('control')}
             >
                 <div class="icon"> 
-                    <slot ${slotted('defaultSlottedContent')}></slot>
+                    <div class="icon-slot"><slot ${slotted('defaultSlottedContent')}></slot></div>
+                    <div class="icon-severity">
+                        ${when(x => x.severity === Severity.error, html`<${iconExclamationMarkTag}></${iconExclamationMarkTag}>`)}
+                        ${when(x => x.severity === Severity.warning, html`<${iconTriangleFilledTag}></${iconTriangleFilledTag}>`)}
+                        ${when(x => x.severity === Severity.success, html`<${iconCheckTag}></${iconCheckTag}>`)}
+                    </div>
                 </div>
                 <div class="content">
                     <div class="title-wrapper">

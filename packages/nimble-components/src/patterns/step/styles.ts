@@ -1,4 +1,5 @@
 import { css } from '@ni/fast-element';
+import { Black15, Black91, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { display } from '../../utilities/style/display';
 import {
     buttonLabelFont,
@@ -21,6 +22,8 @@ import {
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
 import { userSelectNone } from '../../utilities/style/user-select';
+import { themeBehavior } from '../../utilities/style/theme';
+import { Theme } from '../../theme-provider/types';
 
 export const styles = css`
     @layer base, hover, focusVisible, active, disabled, top;
@@ -72,6 +75,7 @@ export const styles = css`
         }
 
         :host([severity="error"]) .control {
+            --ni-private-step-icon-color: ${failColor};
             --ni-private-step-icon-border-color: ${failColor};
             --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
@@ -79,6 +83,7 @@ export const styles = css`
         }
 
         :host([severity="warning"]) .control {
+            --ni-private-step-icon-color: ${warningColor};
             --ni-private-step-icon-border-color: ${warningColor};
             --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
@@ -86,6 +91,7 @@ export const styles = css`
         }
 
         :host([severity="success"]) .control {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${passColor};
             --ni-private-step-icon-background-color: ${passColor};
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
@@ -158,6 +164,36 @@ export const styles = css`
                 outline-offset ${smallDelay} ease-in-out;
         }
 
+        .icon-slot {
+            display: contents;
+        }
+
+        :host([severity="error"]) .icon-slot,
+        :host([severity="warning"]) .icon-slot,
+        :host([severity="success"]) .icon-slot {
+            display: none;
+        }
+
+        :host([selected]) .icon-slot,
+        :host([disabled]) .icon-slot {
+            display: contents;
+        }
+
+        .icon-severity {
+            display: none;
+        }
+
+        :host([severity="error"]) .icon-severity,
+        :host([severity="warning"]) .icon-severity,
+        :host([severity="success"]) .icon-severity {
+            display: contents;
+        }
+
+        :host([selected]) .icon-severity,
+        :host([disabled]) .icon-severity {
+            display: none;
+        }
+
         .content {
             display: inline-flex;
             width: 100%;
@@ -202,6 +238,21 @@ export const styles = css`
         .subtitle {
             font: ${errorTextFont};
         }
+
+        .severity-text {
+            display: none;
+            color: ${buttonLabelFontColor};
+        }
+
+        :host([severity="error"]) .severity-text {
+            display: block;
+            color: ${failColor};
+        }
+
+        :host([severity="warning"]) .severity-text {
+            display: block;
+            color: ${warningColor};
+        }
     }
 
     @layer hover {
@@ -224,6 +275,7 @@ export const styles = css`
         }
 
         :host([severity="success"]) .control:hover {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${passColor};
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-line-color: ${passColor};
@@ -268,6 +320,7 @@ export const styles = css`
         }
 
         :host([severity="success"]) .control${focusVisible} {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${passColor};
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-icon-outline-inset-color: transparent;
@@ -317,6 +370,7 @@ export const styles = css`
         }
 
         :host([severity="success"]) .control:active {
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
             --ni-private-step-icon-border-color: ${passColor};
             --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
             --ni-private-step-line-color: ${passColor};
@@ -347,7 +401,7 @@ export const styles = css`
         :host([disabled]) .control {
             cursor: default;
             color: ${buttonLabelDisabledFontColor};
-            --ni-private-step-icon-color: ${buttonLabelFontColor};
+            --ni-private-step-icon-color: rgb(from ${buttonLabelFontColor} r g b / 30%);
             --ni-private-step-icon-border-color: transparent;
             --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
@@ -366,4 +420,29 @@ export const styles = css`
             }
         }
     }
-`;
+`.withBehaviors(
+    themeBehavior(
+        Theme.light,
+        css`
+            .control {
+                --ni-private-step-icon-inverse-color: ${White};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            .control {
+                --ni-private-step-icon-inverse-color: ${Black91};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            .control {
+                --ni-private-step-icon-inverse-color: ${Black15};
+            }
+        `
+    )
+);

@@ -34,7 +34,7 @@ const component = (
         >
                 <div slot="title">${() => severityName}</div>
                 <div slot="subtitle">Subtitle</div>
-            😀
+            1
         </${stepTag}>
     </${stepperTag}>
 `;

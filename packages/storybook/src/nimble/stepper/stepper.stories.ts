@@ -44,7 +44,7 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
                 selected="${x => x.selected}"
                 style="width:150px"
             >
-                😀
+                1
                 ${when(x => x.title, html<AnchorStepArgs>`<div slot="title">${x => x.title}</div>`)}
                 ${when(x => x.subtitle, html<AnchorStepArgs>`<div slot="subtitle">${x => x.subtitle}</div>`)}
             </${anchorStepTag}>
@@ -174,12 +174,12 @@ export const stepper: StoryObj<StepperArgs> = {
     }) */}
     <${stepperTag}>
         <${anchorStepTag} severity="success" href="#" severity-text="Error Description" style="width:150px">
-            😀
+            1
             <div slot="title">Title</div>
             <div slot="subtitle">Subtitle</div>
         </${anchorStepTag}>
         <${stepTag} severity="success" severity-text="Error Description" style="width:150px">
-            😀
+            1
             <div slot="title">Title</div>
             <div slot="subtitle">Subtitle</div></${stepTag}>
         </${stepperTag}>

@@ -8,7 +8,4 @@ export const severityTextTemplate = html<SeverityPattern>`
         ${overflow('severityHasOverflow')}
         title="${x => (x.severityHasOverflow && x.severityText ? x.severityText : undefined)}"
         aria-live="polite"
-    >
-        ${x => x.severityText}
-    </div>
-`;
+    >${x => x.severityText}</div>`;

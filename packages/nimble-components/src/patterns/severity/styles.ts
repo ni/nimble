@@ -12,10 +12,6 @@ import {
 export const styles = cssPartial`
     .severity-text {
         display: none;
-    }
-
-    .severity-text {
-        display: block;
         font: ${errorTextFont};
         color: ${buttonLabelFontColor};
         width: 100%;
@@ -29,14 +25,15 @@ export const styles = cssPartial`
     }
     
     :host([severity="error"]) .severity-text {
+        display: block;
         color: ${failColor};
     }
-    
+
     :host([severity="warning"]) .severity-text {
+        display: block;
         color: ${warningColor};
     }
-
-    :host([severity]) .severity-text:empty {
+    .severity-text:empty {
         display: none;
     }
 `;
