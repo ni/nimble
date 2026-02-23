@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "NimbleBlazor styling (::deep/SCSS) documentation updates",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
