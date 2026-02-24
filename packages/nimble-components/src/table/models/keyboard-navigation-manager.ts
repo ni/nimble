@@ -258,25 +258,26 @@ export class KeyboardNavigationManager<
 
     private readonly onTableFocusIn = (event: FocusEvent): void => {
         this.focusWithinTable = true;
-        this.updateFocusStateFromActiveElement(false);
+        this.updateFocusStateFromActiveElement();
 
         // Sets initial focus on the appropriate table content
         const actionMenuOpen = this.table.openActionMenuRecordId !== undefined;
-        if (
-            (event.target === this.table
-                || this.focusType === TableFocusType.none)
-            && !actionMenuOpen
-        ) {
-            let focusHeader = true;
-            if (
-                this.hasRowOrCellFocusType()
-                && this.scrollToAndFocusRow(this.rowIndex)
-            ) {
-                focusHeader = false;
-            }
-            if (focusHeader && !this.setFocusOnHeader()) {
+        if (actionMenuOpen) {
+            return;
+        }
+
+        if (this.focusType === TableFocusType.none) {
+            this.setDefaultFocus();
+            if (this.focusType === TableFocusType.none) {
                 // nothing to focus
                 this.table.blur();
+            }
+        } else if (event.target === this.table) {
+            // restore focus to last focused element
+            if (this.hasRowOrCellFocusType() && this.rowIndexIsValid(this.rowIndex)) {
+                this.scrollToAndFocusRow(this.rowIndex);
+            } else if (this.hasHeaderFocusType()) {
+                this.focusHeaderElement();
             }
         }
     };
@@ -300,13 +301,22 @@ export class KeyboardNavigationManager<
         event: CustomEvent<TableCell>
     ): void => {
         event.stopPropagation();
-        this.updateFocusStateFromActiveElement(false);
+        this.updateFocusStateFromActiveElement();
     };
 
     private readonly onCellFocusIn = (event: CustomEvent<TableCell>): void => {
         event.stopPropagation();
         const cell = event.detail;
-        this.updateFocusStateFromActiveElement(true);
+        const row = this.updateFocusStateFromActiveElement();
+        if (row) {
+            if (
+                this.hasRowOrCellFocusType()
+                && this.rowIndex !== row.resolvedRowIndex
+            ) {
+                this.setRowFocusState(row.resolvedRowIndex);
+            }
+        }
+
         // Currently, clicking a non-interactive cell only updates the focus state to that row, it
         // doesn't focus the cell. If we revisit this, we most likely need to set the cells to tabindex=-1
         // upfront too, so their focusing behavior is consistent whether they've been previously keyboard
@@ -829,50 +839,53 @@ export class KeyboardNavigationManager<
         return false;
     }
 
-    private updateFocusStateFromActiveElement(setRowFocus: boolean): void {
+    private updateFocusStateFromActiveElement(): TableRow | TableGroupRow | undefined {
         // If the user is interacting with the table with non-keyboard methods (like mouse), we need to
         // update our focus state based on the current active/focused element
-        const activeElement = this.getActiveElement();
-        if (activeElement) {
-            const row = this.getContainingRow(activeElement);
-            if (row) {
-                if (!(row instanceof TableGroupRow)) {
-                    const cell = this.getContainingCell(activeElement);
-                    if (cell) {
-                        const columnIndex = this.table.visibleColumns.indexOf(
-                            cell.column!
-                        );
-                        if (cell.actionMenuButton === activeElement) {
-                            this.setCellActionMenuFocusState(
-                                row.resolvedRowIndex!,
-                                columnIndex,
-                                false
-                            );
-                            return;
-                        }
-                        const contentIndex = cell.cellView.tabbableChildren.indexOf(
-                            activeElement
-                        );
-                        if (contentIndex > -1) {
-                            this.setCellContentFocusState(
-                                contentIndex,
-                                row.resolvedRowIndex!,
-                                columnIndex,
-                                false
-                            );
-                            return;
-                        }
-                    }
-                }
-                if (
-                    setRowFocus
-                    && this.hasRowOrCellFocusType()
-                    && this.rowIndex !== row.resolvedRowIndex
-                ) {
-                    this.setRowFocusState(row.resolvedRowIndex);
-                }
+        const { activeElement, row, cell } = this.getActiveElementCellAndRow();
+        if (!cell) {
+            return row;
+        }
+
+        const columnIndex = this.table.visibleColumns.indexOf(cell.column!);
+
+        if (cell.actionMenuButton === activeElement) {
+            this.setCellActionMenuFocusState(
+                row!.resolvedRowIndex!,
+                columnIndex,
+                false
+            );
+        } else {
+            const contentIndex = cell.cellView.tabbableChildren.indexOf(activeElement!);
+            if (contentIndex > -1) {
+                this.setCellContentFocusState(
+                    contentIndex,
+                    row!.resolvedRowIndex!,
+                    columnIndex,
+                    false
+                );
             }
         }
+        return row;
+    }
+
+    private getActiveElementCellAndRow(): { activeElement?: HTMLElement, row?: TableRow | TableGroupRow, cell?: TableCell } {
+        const activeElement = this.getActiveElement();
+        if (!activeElement) {
+            return {};
+        }
+
+        const row = this.getContainingRow(activeElement);
+        if (!row) {
+            return { activeElement };
+        }
+
+        if (row instanceof TableGroupRow) {
+            return { activeElement, row };
+        }
+
+        const cell = this.getContainingCell(activeElement);
+        return { activeElement, row, cell };
     }
 
     private focusElement(
@@ -918,14 +931,6 @@ export class KeyboardNavigationManager<
         }
     }
 
-    private setFocusOnHeader(): boolean {
-        if (this.hasHeaderFocusType()) {
-            return this.focusHeaderElement();
-        }
-        this.setDefaultFocus();
-        return this.focusType !== TableFocusType.none;
-    }
-
     private setDefaultFocus(): void {
         const headerElements = this.getTableHeaderFocusableElements();
         if (
@@ -941,22 +946,20 @@ export class KeyboardNavigationManager<
         totalRowIndex: number,
         scrollOptions?: ScrollToOptions
     ): boolean {
-        if (totalRowIndex >= 0 && totalRowIndex < this.table.tableData.length) {
-            switch (this.focusType) {
-                case TableFocusType.none:
-                case TableFocusType.headerActions:
-                case TableFocusType.columnHeader:
-                    this.setRowFocusState(totalRowIndex);
-                    break;
-                default:
-                    break;
-            }
-            this.rowIndex = totalRowIndex;
-            this.virtualizer.scrollToIndex(totalRowIndex, scrollOptions);
-            this.focusCurrentRow(true);
-            return true;
+        if (!this.rowIndexIsValid(totalRowIndex)) {
+            return false;
         }
-        return false;
+        if (!this.hasRowOrCellFocusType()) {
+            this.setRowFocusState();
+        }
+        this.rowIndex = totalRowIndex;
+        this.virtualizer.scrollToIndex(totalRowIndex, scrollOptions);
+        this.focusCurrentRow(true);
+        return true;
+    }
+
+    private rowIndexIsValid(rowIndex: number): boolean {
+        return rowIndex >= 0 && rowIndex < this.table.tableData.length;
     }
 
     private focusCurrentRow(allowScroll: boolean): boolean {
