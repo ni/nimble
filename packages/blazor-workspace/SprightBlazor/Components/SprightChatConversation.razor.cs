@@ -5,6 +5,12 @@ namespace SprightBlazor;
 public partial class SprightChatConversation : ComponentBase
 {
     /// <summary>
+    /// The content to display in the toolbar slot.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? Toolbar { get; set; }
+
+    /// <summary>
     /// The child content of the element.
     /// </summary>
     [Parameter]

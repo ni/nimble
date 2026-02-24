@@ -28,4 +28,17 @@ public class SprightChatConversationTests
         var exception = Record.Exception(() => context.RenderComponent<SprightChatConversation>(ComponentParameter.CreateParameter("class", "foo")));
         Assert.Null(exception);
     }
+
+    [Fact]
+    public void SprightChatConversation_WithToolbar_RendersContent()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = context.RenderComponent<SprightChatConversation>(parameters => parameters
+            .Add(p => p.Toolbar, "<button slot=\"toolbar\">Toolbar Button</button>"));
+
+        Assert.Contains("slot=\"toolbar\"", component.Markup);
+        Assert.Contains("Toolbar Button", component.Markup);
+    }
 }
