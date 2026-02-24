@@ -78,7 +78,7 @@ All end text buttons must meet the following criteria
 ##### Welcome message features
 
 1. Centered horizontally within a conversation, similar to system messages
-1. Displays a fixed image to brand the chat experience
+1. Displays an image to brand the chat experience
 1. Displays client-provided title (e.g. "Welcome to Nigel™ AI") and subtitle (e.g. "Chat below to get started", "Log in to get started") text
 1. Allows content to be added in the default slot for purposes including:
    - If the user is not logged in, slot a button or anchor button to launch the external login process
@@ -262,6 +262,7 @@ All message types will share the following API:
     - `title` - string attribute for the primary welcome message
     - `subtitle` - string attribute for a secondary welcome message. Naming is aligned with `nimble-dialog`
 - _Slots_
+    - `brand-icon` slot can be used to customize the brand image. By default it will display a new icon `spright-icon-nigel-chat` which is a theme-aware custom icon (a custom element that derives from `IconSvg`)
     - default slot can be used to provide content below the icon, title, and subtitle. For example, a login button or suggested outbound messages.
 
 #### Conversation
