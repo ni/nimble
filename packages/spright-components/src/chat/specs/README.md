@@ -184,11 +184,11 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-welcome-message title="Welcome to Nigel AI" subtitle="Log in to get started">
+    <spright-chat-message-welcome title="Welcome to Nigel AI" subtitle="Log in to get started">
             <nimble-anchor-button appearance="block" appearance-variant="primary" href="/login">
                 Login
             </nimble-anchor-button>
-    </spright-chat-welcome-message>
+    </spright-chat-message-welcome>
 </spright-chat-conversation>
 ```
 
