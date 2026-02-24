@@ -6,7 +6,8 @@ export const comments: { readonly [key in TokenName]: string } = {
     actionRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     applicationBackgroundColor: 'Primary background color for the application',
-    dividerBackgroundColor: 'Divider background color',
+    dividerBackgroundColor: 'Non-interactive divider background color',
+    splitterBackgroundColor: 'Interactive splitter background color',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
     sectionBackgroundImage: 'Gradient background image for sections.',
