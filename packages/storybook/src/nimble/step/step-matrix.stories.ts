@@ -27,7 +27,6 @@ const component = (
 ): ViewTemplate => html`
     <${stepperTag}>
         <${stepTag}
-            style="width: 200px;"
             severity-text="Severity Text"
             severity="${() => severity}"
         >

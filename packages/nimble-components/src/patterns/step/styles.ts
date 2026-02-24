@@ -17,7 +17,8 @@ import {
     failColor,
     warningColor,
     buttonLabelDisabledFontColor,
-    iconColor
+    iconColor,
+    menuMinWidth
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
@@ -38,6 +39,7 @@ export const styles = css`
             white-space: nowrap;
             outline: none;
             border: none;
+            min-width: ${menuMinWidth};
         }
 
         ${'' /* Container wrapper for severity text to position against */}

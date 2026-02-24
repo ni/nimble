@@ -1,5 +1,6 @@
 import { html, when } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html-vite';
+import { action } from 'storybook/actions';
 import { stepperTag } from '@ni/nimble-components/dist/esm/stepper';
 import { anchorStepTag } from '@ni/nimble-components/dist/esm/anchor-step';
 import { stepTag } from '@ni/nimble-components/dist/esm/step';
@@ -9,20 +10,17 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription,
-    // incubatingWarning
+    incubatingWarning
 } from '../../utilities/storybook';
 import { ExampleStepType } from './types';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 const metadata: Meta = {
-    title: 'Incubating/Stepper',
-    parameters: {
-        actions: {}
-    },
+    title: 'Components/Stepper',
 };
 export default metadata;
 
-const severityTextDescription = 'A message to be displayed explaining the current severity level of the control. Always visible when set with style based on control severity.';
+const severityTextDescription = 'A message explaining the state of the step. Only visible when `severity` is set to `error` or `warning`.';
 
 interface AnchorStepArgs {
     href: string;
@@ -38,11 +36,11 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
         <${stepperTag}>
             <${anchorStepTag}
                 href="${x => (x.href === '' ? undefined : x.href)}"
+                target="${x => (x.href === '#' ? '_self' : undefined)}"
                 ?disabled="${x => x.disabled}"
                 severity="${x => AnchorStepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 ?selected="${x => x.selected}"
-                style="width:150px"
             >
                 1
                 ${when(x => x.title, html<AnchorStepArgs>`<div slot="title">${x => x.title}</div>`)}
@@ -67,28 +65,29 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
         severity: {
             options: Object.keys(AnchorStepSeverity),
             control: { type: 'radio' },
-            description: 'Severity of the step',
+            description: 'Severity of the step.',
             table: { category: apiCategory.attributes }
         },
         severityText: {
+            name: 'severity-text',
             description: severityTextDescription,
             table: { category: apiCategory.attributes }
         },
         title: {
-            description: 'step title',
+            description: 'The step title.',
             table: { category: apiCategory.slots }
         },
         subtitle: {
-            description: 'step subtitle',
+            description: 'The step subtitle.',
             table: { category: apiCategory.slots }
         },
         selected: {
-            description: 'Styles that indicate the control selected.',
+            description: 'Styles that indicate the control is selected.',
             table: { category: apiCategory.attributes }
         },
     },
     args: {
-        href: 'https://nimble.ni.dev',
+        href: '#',
         disabled: false,
         severity: 'default',
         severityText: 'Helper message',
@@ -105,6 +104,7 @@ interface StepArgs {
     title: string;
     subtitle: string;
     selected: boolean;
+    click: undefined;
 }
 export const step: StoryObj<StepArgs> = {
     render: createUserSelectedThemeStory(html`
@@ -114,7 +114,7 @@ export const step: StoryObj<StepArgs> = {
                 severity="${x => StepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 ?selected="${x => x.selected}"
-                style="width:150px"
+                @click="${(_x, c) => action(c.event.type)({})}"
             >
                 1
                 ${when(x => x.title, html<StepArgs>`<div slot="title">${x => x.title}</div>`)}
@@ -132,25 +132,32 @@ export const step: StoryObj<StepArgs> = {
         severity: {
             options: Object.keys(StepSeverity),
             control: { type: 'radio' },
-            description: 'Severity of the step',
+            description: 'Severity of the step.',
             table: { category: apiCategory.attributes }
         },
         severityText: {
+            name: 'severity-text',
             description: severityTextDescription,
             table: { category: apiCategory.attributes }
         },
         title: {
-            description: 'step title',
+            description: 'The step title.',
             table: { category: apiCategory.slots }
         },
         subtitle: {
-            description: 'step subtitle',
+            description: 'The step subtitle.',
             table: { category: apiCategory.slots }
         },
         selected: {
-            description: 'Styles that indicate the control selected.',
+            description: 'Styles that indicate the control is selected.',
             table: { category: apiCategory.attributes }
         },
+        click: {
+            description:
+                'Event emitted when the button is activated by either keyboard or mouse.',
+            table: { category: apiCategory.events },
+            control: false
+        }
     },
     args: {
         disabled: false,
@@ -168,17 +175,25 @@ interface StepperArgs {
 
 export const stepper: StoryObj<StepperArgs> = {
     render: createUserSelectedThemeStory(html`
-    ${'' /* incubatingWarning({
+    ${incubatingWarning({
         componentName: stepperTag,
         statusLink: 'https://github.com/ni/nimble/issues/624'
-    }) */}
+    })}
     <${stepperTag}>
-        <${anchorStepTag} severity="success" href="#" severity-text="Error Description" style="width:150px">
+        <${anchorStepTag}
+            severity="success"
+            href="#"
+            target="_self"
+            severity-text="Error Description"
+        >
             1
             <div slot="title">Title</div>
             <div slot="subtitle">Subtitle</div>
         </${anchorStepTag}>
-        <${stepTag} severity="success" severity-text="Error Description" style="width:150px">
+        <${stepTag}
+            severity="error"
+            severity-text="Error Description"
+        >
             1
             <div slot="title">Title</div>
             <div slot="subtitle">Subtitle</div></${stepTag}>
@@ -186,8 +201,8 @@ export const stepper: StoryObj<StepperArgs> = {
     `),
     argTypes: {
         stepType: {
-            name: 'default',
-            description: 'Content to be displayed inside the stepper.',
+            name: 'step',
+            description: `Add child \`${stepTag}\` or \`${anchorStepTag}\` components. The components will target the \`step\` slot by default.`,
             table: { category: apiCategory.slots },
             control: false
         }

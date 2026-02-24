@@ -28,7 +28,7 @@ const component = (
     <${stepperTag}>
         <${anchorStepTag}
             href="#"
-            style="width: 200px;"
+            target="_self"
             severity-text="Severity Text"
             severity="${() => severity}"
         >
