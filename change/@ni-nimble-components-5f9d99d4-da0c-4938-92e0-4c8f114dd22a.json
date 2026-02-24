@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add theme aware token for splitter background",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
