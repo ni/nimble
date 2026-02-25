@@ -43,6 +43,10 @@ function registerEvents(Blazor) {
             };
         }
     });
+
+    Blazor.registerCustomEventType('sprightchatinputstop', {
+        browserEventName: 'stop'
+    });
 }
 
 function handleRuntimeStarted() {
