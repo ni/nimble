@@ -37,6 +37,7 @@ export class ChatConversation extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
+        // eslint-disable-next-line no-console
         console.log('here 1');
         this.inputEmpty = next === undefined || next.length === 0;
     }
@@ -45,11 +46,9 @@ export class ChatConversation extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        const hasToolbarContent =
-            next?.some(element =>
-                element.childElementCount > 0 || element.querySelector('*') !== null
-            ) ?? false;
-
+        // eslint-disable-next-line no-console
+        console.log('here 2');
+        const hasToolbarContent = next?.some(element => element.childElementCount > 0 || element.querySelector('*') !== null) ?? false;
         this.toolbarEmpty = !hasToolbarContent;
     }
 }

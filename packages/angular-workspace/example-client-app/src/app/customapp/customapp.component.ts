@@ -224,7 +224,7 @@ export class CustomAppComponent implements AfterViewInit {
 
     public async openNewChatDialog(): Promise<void> {
         const confirmed = await this.newChatDialog.show();
-        if (confirmed) {
+        if (confirmed === true) {
             alert('New chat created - conversation cleared');
         }
     }
