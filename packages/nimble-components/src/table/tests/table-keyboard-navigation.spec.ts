@@ -586,8 +586,8 @@ describe('Table keyboard navigation', () => {
             });
 
             // This test relies on :focus-visible styling for the action menus to show, and programmatic focus / key events don't seem to
-            // trigger that for Firefox/WebKit.
-            it('when a row is focused, all action menus in that row are visible (and otherwise hidden) #SkipFirefox #SkipWebkit', async () => {
+            // trigger that for the headless WebKit browser.
+            it('when a row is focused, all action menus in that row are visible (and otherwise hidden) #SkipWebkit', async () => {
                 await addActionMenu(column2);
                 await addActionMenu(column3);
                 await sendKeyPressesToTable(keyArrowDown, keyArrowLeft); // focus row
@@ -601,8 +601,8 @@ describe('Table keyboard navigation', () => {
             });
 
             // This test relies on :focus-visible styling for the action menus to show, and programmatic focus / key events don't seem to
-            // trigger that for Firefox/WebKit.
-            it('when a cell is focused, its action menu is visible #SkipFirefox #SkipWebkit', async () => {
+            // trigger that for the headless WebKit browser.
+            it('when a cell is focused, its action menu is visible #SkipWebkit', async () => {
                 await addActionMenu(column1);
 
                 await sendKeyPressToTable(keyArrowDown);
@@ -1490,10 +1490,11 @@ describe('Table keyboard navigation', () => {
             await disconnect();
         });
 
-        it('when column header is scrolled out of view, tabbing to the table (focusing the table without any pointer events) focuses the header and scrolls it into view', () => {
+        it('when column header is scrolled out of view, tabbing to the table (focusing the table without any pointer events) focuses the header and scrolls it into view', async () => {
             scrollHeaderOutOfView();
 
             element.focus();
+            await waitForUpdatesAsync();
 
             expect(currentFocusedElement()).toBe(firstHeader);
             expect(isFullyVisible(firstHeader)).toBeTrue();
