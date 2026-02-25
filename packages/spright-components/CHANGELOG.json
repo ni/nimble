@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 25 Feb 2026 20:09:12 GMT",
+      "version": "6.10.0",
+      "tag": "@ni/spright-components_v6.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "8782f8e5abcbe3c6145b1d015f879dfba67f6bd5",
+            "comment": "Spec updates for new chat components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Feb 2026 22:59:33 GMT",
       "version": "6.10.0",
       "tag": "@ni/spright-components_v6.10.0",

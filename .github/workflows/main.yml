@@ -66,7 +66,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci
-        timeout-minutes: 10
+        timeout-minutes: 20
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
@@ -107,6 +107,7 @@ jobs:
 
       # Validate (Lint and Test)
       - run: npm run validate
+        timeout-minutes: 20
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
