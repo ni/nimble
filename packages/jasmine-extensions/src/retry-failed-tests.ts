@@ -21,6 +21,11 @@ export function retryFailedTests(
     // @ts-expect-error Global Jasmine Spec type undefined
     jasmine.Spec = function retrySpec(attrs: any): jasmine.Spec {
         const spec = new originalSpecConstructor(attrs);
+        spec.accessPrivateResult = function () {
+            // We're accessing an internal API.
+            // This accommodates for a breaking change from v5 to v6
+            return this.getResult() || this.doneEvent();
+        }
         const originalTestFn = spec.queueableFn.fn;
         const beforeAfterFns = spec.beforeAndAfterFns();
 
@@ -29,7 +34,27 @@ export function retryFailedTests(
             let returnValue;
             let that = this;
 
-            for (let i = 0; i < retries; ++i) {
+            let i = 0;
+            let failed = false;
+            do {
+                if (i !== 0) {
+                    // Retry cleanup/wait/setup
+                    console.log(`\
+FAILED: ${spec.getFullName()}
+${getFailureDetails(spec.accessPrivateResult())}
+
+Retrying... (${i}/${retries})`);
+                    for (let j = 0; j < beforeAfterFns.afters.length; j += 1) {
+                        await run(that, beforeAfterFns.afters[j].fn);
+                    }
+                    await new Promise(resolve => {
+                        setTimeout(resolve, millisecondsBetweenRetries);
+                    });
+                    for (let j = 0; j < beforeAfterFns.befores.length; j += 1) {
+                        await run(that, beforeAfterFns.befores[j].fn);
+                    }
+                }
+
                 spec.reset();
                 returnValue = undefined;
                 exceptionCaught = undefined;
@@ -39,31 +64,8 @@ export function retryFailedTests(
                 } catch (exception) {
                     exceptionCaught = exception;
                 }
-                const failed =
-                    !spec.markedPending &&
-                    (exceptionCaught ||
-                        spec.result.failedExpectations.length != 0);
-                if (!failed) {
-                    break;
-                }
-
-                if (millisecondsBetweenRetries && i != retries - 1) {
-                    console.log(
-                        `\
-Test "${spec.getFullName()}" failed, attempting retry ${i + 1}.
-Will clean-up last run by running afterEach, re-setup by running beforeEach, wait ${millisecondsBetweenRetries}ms, and rerun the test.
-${spec.result.failedExpectations.map((x: {message: string}) => (x.message))}`);
-                    for (let j = 0; j < beforeAfterFns.afters.length; j += 1) {
-                        await run(that, beforeAfterFns.afters[j].fn);
-                    }
-                    for (let j = 0; j < beforeAfterFns.befores.length; j += 1) {
-                        await run(that, beforeAfterFns.befores[j].fn);
-                    }
-                    await new Promise(resolve => {
-                        setTimeout(resolve, millisecondsBetweenRetries);
-                    });
-                }
-            }
+                failed = spec.accessPrivateResult().status === 'failed' || exceptionCaught !== undefined;
+            } while (failed && ++i <= retries);
 
             if (exceptionCaught) {
                 throw exceptionCaught;
@@ -73,5 +75,11 @@ ${spec.result.failedExpectations.map((x: {message: string}) => (x.message))}`);
 
         return spec;
     };
+
+    function getFailureDetails(result: any): string {
+        return (result.failedExpectations as { message: string }[])
+            .map(x => `        ${x.message}`)
+            .join('\n');
+    }
 }
 /* eslint-enable */

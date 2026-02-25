@@ -120,6 +120,9 @@ module.exports = config => {
                     alias: {
                         '/base': '',
                     }
+                },
+                define: {
+                    TEST_RETRY_COUNT: config.retries === undefined ? undefined : JSON.stringify(config.retries)
                 }
             }
         }
