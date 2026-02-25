@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix chat conversation toolbar error.",
+  "packageName": "@ni/spright-components",
+  "email": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
