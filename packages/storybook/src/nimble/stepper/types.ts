@@ -14,3 +14,19 @@ export const severityStates = [
     ['Success', Severity.success]
 ] as const;
 export type SeverityStates = (typeof severityStates)[number];
+
+export const selectedStates = [
+    ['', false],
+    ['Selected', true],
+] as const;
+export type SelectedState = (typeof selectedStates)[number];
+export const selectedStateNotSelected = selectedStates[0];
+
+export const stepContentStates = [
+    ['Absent', undefined, undefined, undefined],
+    ['Empty', '', '', ''],
+    ['Short', 'Title', 'Subtitle', 'Severity text'],
+    ['Long', 'Title That is very long and very interesting', 'Subtitle that is very long and very interesting', 'Severity text that is very long and very interesting'],
+] as const;
+export type StepContentStates = (typeof stepContentStates)[number];
+export const stepContentStateDefault = stepContentStates[0];

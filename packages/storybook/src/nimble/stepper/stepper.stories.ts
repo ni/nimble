@@ -43,8 +43,8 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
                 ?selected="${x => x.selected}"
             >
                 1
-                ${when(x => x.title, html<AnchorStepArgs>`<div slot="title">${x => x.title}</div>`)}
-                ${when(x => x.subtitle, html<AnchorStepArgs>`<div slot="subtitle">${x => x.subtitle}</div>`)}
+                ${when(x => x.title, html<AnchorStepArgs>`<span slot="title">${x => x.title}</span>`)}
+                ${when(x => x.subtitle, html<AnchorStepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
             </${anchorStepTag}>
         </${stepperTag}>
     `),
@@ -117,8 +117,8 @@ export const step: StoryObj<StepArgs> = {
                 @click="${(_x, c) => action(c.event.type)({})}"
             >
                 1
-                ${when(x => x.title, html<StepArgs>`<div slot="title">${x => x.title}</div>`)}
-                ${when(x => x.subtitle, html<StepArgs>`<div slot="subtitle">${x => x.subtitle}</div>`)}
+                ${when(x => x.title, html<StepArgs>`<span slot="title">${x => x.title}</span>`)}
+                ${when(x => x.subtitle, html<StepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
             </${stepTag}>
         </${stepperTag}>
     `),
@@ -187,17 +187,18 @@ export const stepper: StoryObj<StepperArgs> = {
             severity-text="Error Description"
         >
             1
-            <div slot="title">Title</div>
-            <div slot="subtitle">Subtitle</div>
+            <span slot="title">Title</span>
+            <span slot="subtitle">Subtitle</span>
         </${anchorStepTag}>
         <${stepTag}
             severity="error"
             severity-text="Error Description"
         >
             1
-            <div slot="title">Title</div>
-            <div slot="subtitle">Subtitle</div></${stepTag}>
-        </${stepperTag}>
+            <span slot="title">Title</span>
+            <span slot="subtitle">Subtitle</span>
+        </${stepTag}>
+    </${stepperTag}>
     `),
     argTypes: {
         stepType: {

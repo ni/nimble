@@ -18,7 +18,8 @@ import {
     warningColor,
     buttonLabelDisabledFontColor,
     iconColor,
-    menuMinWidth
+    menuMinWidth,
+    standardPadding
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
@@ -34,12 +35,12 @@ export const styles = css`
         ${severityStyles}
         :host {
             height: 46px;
+            width: ${menuMinWidth};
             color: ${buttonLabelFontColor};
             font: ${buttonLabelFont};
             white-space: nowrap;
             outline: none;
             border: none;
-            min-width: ${menuMinWidth};
         }
 
         ${'' /* Container wrapper for severity text to position against */}
@@ -198,7 +199,8 @@ export const styles = css`
 
         .content {
             display: inline-flex;
-            width: 100%;
+            ${'' /* Control width - icon size */}
+            width: calc(100% - 32px);
             flex-direction: column;
             padding-top: ${smallPadding};
         }
@@ -220,6 +222,11 @@ export const styles = css`
         .title {
             display: inline-block;
             flex: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            ${'' /* Content width - (gap + line min width) */}
+            max-width: calc(100% - (${smallPadding} + ${standardPadding}));
         }
 
         [part='end'] {
@@ -229,6 +236,7 @@ export const styles = css`
         .line {
             display: inline-block;
             flex: 1;
+            min-width: ${standardPadding};
             height: 1px;
             background: var(--ni-private-step-line-color);
             transform: scale(1, 1);
@@ -239,6 +247,11 @@ export const styles = css`
 
         .subtitle {
             font: ${errorTextFont};
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            ${'' /* Content width */}
+            max-width: 100%;
         }
 
         .severity-text {

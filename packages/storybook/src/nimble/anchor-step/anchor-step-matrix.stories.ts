@@ -1,7 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
-import { html, ViewTemplate } from '@ni/fast-element';
+import { html, ViewTemplate, when } from '@ni/fast-element';
 import { anchorStepTag } from '@ni/nimble-components/dist/esm/anchor-step';
 import { stepperTag } from '@ni/nimble-components/dist/esm/stepper';
+import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -11,7 +12,8 @@ import {
 } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
-import { severityStates, type SeverityStates } from '../stepper/types';
+import { selectedStates, severityStates, stepContentStateDefault, stepContentStates, type SelectedState, type SeverityStates, type StepContentStates } from '../stepper/types';
+import { disabledStates, type DisabledState } from '../../utilities/states';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Step',
@@ -23,34 +25,58 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [disabledName, disabled]: DisabledState,
+    [selectedName, selected]: SelectedState,
     [severityName, severity]: SeverityStates,
+    [contentName, titleContent, subtitleContent, severityTextContent]: StepContentStates,
 ): ViewTemplate => html`
-    <${stepperTag}>
-        <${anchorStepTag}
-            href="#"
-            target="_self"
-            severity-text="Severity Text"
-            severity="${() => severity}"
-        >
-                <div slot="title">${() => severityName}</div>
-                <div slot="subtitle">Subtitle</div>
-            1
-        </${anchorStepTag}>
-    </${stepperTag}>
+    <div>
+        <div>${disabledName} ${selectedName} Severity(${severityName}) Content(${contentName})</div>
+        <${stepperTag} style="padding-bottom: 16px;">
+            <${anchorStepTag}
+                href="#"
+                target="_self"
+                ?disabled=${() => disabled}
+                ?selected=${() => selected}
+                severity-text="${() => severityTextContent}"
+                severity="${() => severity}"
+            >
+                ${when(() => titleContent !== undefined, html`<span slot="title">${() => titleContent}</span>`)}
+                ${when(() => subtitleContent !== undefined, html`<span slot="subtitle">${() => subtitleContent}</span>`)}
+                1
+            </${anchorStepTag}>
+        </${stepperTag}>
+    </div>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        severityStates
-    ])
-);
+export const themeMatrix: StoryFn = createMatrixThemeStory(html`
+    <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+    ">
+    ${createMatrix(component, [
+        disabledStates,
+        selectedStates,
+        severityStates,
+        stepContentStates,
+    ])}
+    </div>
+`);
 
 const interactionStatesHover = cartesianProduct([
-    severityStates
+    disabledStates,
+    selectedStates,
+    severityStates,
+    [stepContentStateDefault],
 ] as const);
 
 const interactionStates = cartesianProduct([
-    severityStates
+    disabledStates,
+    selectedStates,
+    severityStates,
+    [stepContentStateDefault],
 ] as const);
 
 export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
