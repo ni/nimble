@@ -1,8 +1,32 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 12 Feb 2026 22:17:28 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 25 Feb 2026 20:09:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.10.0
+
+Wed, 25 Feb 2026 20:09:12 GMT
+
+### Minor changes
+
+- add blazor wrapper for chat input changes ([ni/nimble@fbe2cde](https://github.com/ni/nimble/commit/fbe2cde8721c22155287580128bb58710b336861))
+
+## 4.9.11
+
+Mon, 16 Feb 2026 22:59:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.0
+
+## 4.9.10
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.9.1
 
 ## 4.9.9
 

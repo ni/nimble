@@ -269,7 +269,36 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     calendarEventFillBlockedColor: 'calendar-event-fill-blocked-color',
     calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color',
     calendarGridBorderColor: 'calendar-grid-border-color',
-    calendarGroupHeaderBackgroundColor: 'calendar-group-header-background-color'
+    calendarGroupHeaderBackgroundColor: 'calendar-group-header-background-color',
+    calendarEventBackgroundJobColor:
+        'calendar-event-background-job-color',
+    calendarEventBackgroundHoverJobColor:
+        'calendar-event-background-hover-job-color',
+    calendarEventBorderJobColor: 'calendar-event-border-job-color',
+    calendarEventJobFontColor: 'calendar-event-job-font-color',
+    calendarEventBackgroundMaintenanceColor:
+        'calendar-event-background-maintenance-color',
+    calendarEventBackgroundHoverMaintenanceColor:
+        'calendar-event-background-hover-maintenance-color',
+    calendarEventBorderMaintenanceColor: 'calendar-event-border-maintenance-color',
+    calendarEventBackgroundCalibrationColor:
+        'calendar-event-background-calibration-color',
+    calendarEventBackgroundHoverCalibrationColor:
+        'calendar-event-background-hover-calibration-color',
+    calendarEventBorderCalibrationColor: 'calendar-event-border-calibration-color',
+    calendarEventBackgroundReservationColor:
+        'calendar-event-background-reservation-color',
+    calendarEventBackgroundHoverReservationColor:
+        'calendar-event-background-hover-reservation-color',
+    calendarEventBorderReservationColor: 'calendar-event-border-reservation-color',
+    calendarEventBackgroundTransportOrderColor:
+        'calendar-event-background-transport-order-color',
+    calendarEventBackgroundHoverTransportOrderColor:
+        'calendar-event-background-hover-transport-order-color',
+    calendarEventBorderTransportOrderColor: 'calendar-event-border-transport-order-color',
+    calendarEventBackgroundAggregateAvailabilityColor:
+        'calendar-event-background-aggregate-availability-color',
+    calendarEventBorderAggregateAvailabilityColor: 'calendar-event-border-aggregate-availability-color'
 };
 
 const prefix = 'ni-nimble';

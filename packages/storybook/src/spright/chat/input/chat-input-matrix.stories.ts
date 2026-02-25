@@ -36,6 +36,13 @@ const processingStates = [
 ] as const;
 type ProcessingState = (typeof processingStates)[number];
 
+const errorStates = [
+    ['empty', ''],
+    ['one line', 'Error description'],
+    ['multi line', `${loremIpsum} ${loremIpsum} ${loremIpsum}`]
+] as const;
+type ErrorState = (typeof errorStates)[number];
+
 const metadata: Meta = {
     title: 'Tests Spright/Chat Input',
     parameters: {
@@ -48,7 +55,8 @@ export default metadata;
 const component = (
     [valueLabel, value]: ValueState,
     [placeholderLabel, placeholder]: PlaceholderState,
-    [processingLabel, processing]: ProcessingState
+    [processingLabel, processing]: ProcessingState,
+    [errorLabel, error]: ErrorState
 ): ViewTemplate => html`
     <p 
         style="
@@ -57,18 +65,20 @@ const component = (
         margin-bottom: 0px;
         "
     >    
-        ${valueLabel} value, ${placeholderLabel} placeholder, ${processingLabel}
+        ${valueLabel} value, ${placeholderLabel} placeholder, ${processingLabel}, ${errorLabel} error
     </p>
     <${chatInputTag}
         placeholder="${placeholder}"
         value="${value}"
         processing="${processing}"
+        error-visible="${error !== ''}"
+        error-text="${error}"
     >
     </${chatInputTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [valueStates, placeholderStates, processingStates])
+    createMatrix(component, [valueStates, placeholderStates, processingStates, errorStates])
 );
 
 export const hidden: StoryFn = createStory(

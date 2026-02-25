@@ -2,7 +2,14 @@
 <spright-chat-input 
     @attributes="AdditionalAttributes"
     placeholder="@Placeholder"
+    send-button-label="@SendButtonLabel"
+    stop-button-label="@StopButtonLabel"
+    processing="@Processing"
     value="@Value"
-    @onsprightchatinputsend="(__value) => HandleChatInputSend(__value)">
+    maxlength="@MaxLength"
+    error-text="@ErrorText"
+    error-visible="@ErrorVisible"
+    @onsprightchatinputsend="(__value) => HandleChatInputSend(__value)"
+    @onsprightchatinputstop="(__value) => HandleChatInputStop(__value)">
     @ChildContent
 </spright-chat-input>
