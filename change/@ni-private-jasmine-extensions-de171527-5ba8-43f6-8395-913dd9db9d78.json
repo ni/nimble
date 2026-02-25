@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Make test retries configurable and disable when debugging",
+  "packageName": "@ni-private/jasmine-extensions",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
