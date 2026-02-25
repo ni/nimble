@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add blazor wrapper for chat input changes",
-  "packageName": "@ni/spright-blazor",
-  "email": "5265744+hellovolcano@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

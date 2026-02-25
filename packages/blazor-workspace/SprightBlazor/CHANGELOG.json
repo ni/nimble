@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Wed, 25 Feb 2026 20:09:12 GMT",
+      "version": "4.10.0",
+      "tag": "@ni/spright-blazor_v4.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "fbe2cde8721c22155287580128bb58710b336861",
+            "comment": "add blazor wrapper for chat input changes"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Feb 2026 22:59:33 GMT",
       "version": "4.9.11",
       "tag": "@ni/spright-blazor_v4.9.11",
