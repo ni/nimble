@@ -139,6 +139,7 @@ export class CustomAppComponent implements AfterViewInit {
     private readonly recordsWithLoadedChildren = new Set<string>();
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
+    @ViewChild('newChatDialog', { read: NimbleDialogDirective }) private readonly newChatDialog: NimbleDialogDirective<boolean>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
     @ViewChild('editor', { read: NimbleRichTextEditorDirective }) private readonly editor: NimbleRichTextEditorDirective;
     @ViewChild('delayedHierarchyTable', { read: NimbleTableDirective }) private readonly delayedHierarchyTable: NimbleTableDirective<PersonTableRecord>;
@@ -219,6 +220,17 @@ export class CustomAppComponent implements AfterViewInit {
 
     public closeDrawer(reason: string): void {
         this.drawer.close(reason);
+    }
+
+    public async openNewChatDialog(): Promise<void> {
+        const confirmed = await this.newChatDialog.show();
+        if (confirmed) {
+            alert('New chat created - conversation cleared');
+        }
+    }
+
+    public closeNewChatDialog(confirmed: boolean): void {
+        this.newChatDialog.close(confirmed);
     }
 
     public onTabToolbarButtonClick(): void {

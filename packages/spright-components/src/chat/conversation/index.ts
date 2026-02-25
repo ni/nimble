@@ -37,6 +37,7 @@ export class ChatConversation extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
+        console.log('here 1');
         this.inputEmpty = next === undefined || next.length === 0;
     }
 
@@ -44,7 +45,12 @@ export class ChatConversation extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        this.toolbarEmpty = next === undefined || next.length === 0;
+        const hasToolbarContent =
+            next?.some(element =>
+                element.childElementCount > 0 || element.querySelector('*') !== null
+            ) ?? false;
+
+        this.toolbarEmpty = !hasToolbarContent;
     }
 }
 

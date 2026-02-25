@@ -101,6 +101,12 @@
             <nimble-button (click)="openDialog()">Open Dialog</nimble-button>
             <nimble-text-field readonly [ngModel]="dialogCloseReason">Closed Reason</nimble-text-field>
         </div>
+        <nimble-dialog #newChatDialog>
+            <span slot="title">Create new chat</span>
+            <div>Creating a new chat permanently deletes the current chat from memory.</div>
+            <nimble-button slot="footer" (click)="closeNewChatDialog(false)" appearance="outline">Cancel</nimble-button>
+            <nimble-button slot="footer" (click)="closeNewChatDialog(true)">Create</nimble-button>
+        </nimble-dialog>
         <div class="sub-container">
             <div class="container-label">Drawer</div>
             <nimble-drawer #drawer [location]="drawerLocation">
@@ -467,6 +473,22 @@
                     <nimble-tree-item>Child 2-3</nimble-tree-item>
                 </nimble-tree-item>
             </nimble-tree-view>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Toolbar with Dialog (Test Case)</div>
+            <div style="border: 1px solid #ccc; padding: 16px; border-radius: 4px;">
+                <p>This reproduces the toolbar focus management issue when opening a dialog from a toolbar button.</p>
+                <nimble-toolbar>
+                    <nimble-button slot="start" appearance="outline">Basic button</nimble-button>
+                    <nimble-button (click)="openNewChatDialog()" slot="end" appearance="ghost" content-hidden title="Create new chat">
+                        Create new chat
+                        <nimble-icon-pencil-to-rectangle slot="start"></nimble-icon-pencil-to-rectangle>
+                    </nimble-button>
+                </nimble-toolbar>
+                <p style="margin-top: 12px; font-size: 12px; color: #666;">
+                    Click "Create new chat" to open a confirmation dialog. The toolbar focus management error should appear in the console.
+                </p>
+            </div>
         </div>
         <div class="sub-container">
             <div class="container-label">Chat Conversation and Messages (Spright)</div>
