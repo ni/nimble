@@ -54,6 +54,7 @@ export class KeyboardNavigationManager<
     private columnIndex = -1;
     private focusWithinTable = false;
     private isCurrentlyFocusingElement = false;
+    private focusedViaPointer = false;
     private readonly tableNotifier: Notifier;
     private readonly virtualizerNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
@@ -94,6 +95,10 @@ export class KeyboardNavigationManager<
         );
         this.table.addEventListener('keydown', this.onKeyDown as EventListener);
         this.table.addEventListener(
+            'pointerdown',
+            this.onPointerDown as EventListener
+        );
+        this.table.addEventListener(
             'focusin',
             this.onTableFocusIn as EventListener
         );
@@ -129,6 +134,10 @@ export class KeyboardNavigationManager<
         this.table.removeEventListener(
             'keydown',
             this.onKeyDown as EventListener
+        );
+        this.table.removeEventListener(
+            'pointerdown',
+            this.onPointerDown as EventListener
         );
         this.table.removeEventListener(
             'focusin',
@@ -262,24 +271,23 @@ export class KeyboardNavigationManager<
 
         // Sets initial focus on the appropriate table content
         const actionMenuOpen = this.table.openActionMenuRecordId !== undefined;
-        if (actionMenuOpen) {
-            return;
-        }
-
-        if (this.focusType === TableFocusType.none) {
-            this.setDefaultFocus();
+        if (!actionMenuOpen) {
             if (this.focusType === TableFocusType.none) {
-                // nothing to focus
-                this.table.blur();
-            }
-        } else if (event.target === this.table) {
-            // restore focus to last focused element
-            if (this.hasRowOrCellFocusType() && this.rowIndexIsValid(this.rowIndex)) {
-                this.scrollToAndFocusRow(this.rowIndex);
-            } else if (this.hasHeaderFocusType()) {
-                this.focusHeaderElement();
+                this.setDefaultFocus();
+                if (this.focusType === TableFocusType.none) {
+                    // nothing to focus
+                    this.table.blur();
+                }
+            } else if (event.target === this.table) {
+                // restore focus to last focused element
+                if (this.hasRowOrCellFocusType() && this.rowIndexIsValid(this.rowIndex)) {
+                    this.scrollToAndFocusRow(this.rowIndex);
+                } else if (this.hasHeaderFocusType()) {
+                    this.focusHeaderElement();
+                }
             }
         }
+        this.focusedViaPointer = false;
     };
 
     private readonly onTableFocusOut = (): void => {
@@ -392,6 +400,10 @@ export class KeyboardNavigationManager<
                 }
             }
         }
+    };
+
+    private readonly onPointerDown = (): void => {
+        this.focusedViaPointer = true;
     };
 
     private readonly onViewportKeyDown = (event: KeyboardEvent): void => {
@@ -636,7 +648,7 @@ export class KeyboardNavigationManager<
             this.headerActionIndex = nextFocusState.headerActionIndex ?? this.headerActionIndex;
             this.cellContentIndex = nextFocusState.cellContentIndex ?? this.cellContentIndex;
             if (this.hasRowOrCellFocusType()) {
-                this.focusCurrentRow(false);
+                this.focusCurrentRow(!this.focusedViaPointer);
             } else {
                 this.focusHeaderElement();
             }
@@ -954,7 +966,7 @@ export class KeyboardNavigationManager<
         }
         this.rowIndex = totalRowIndex;
         this.virtualizer.scrollToIndex(totalRowIndex, scrollOptions);
-        this.focusCurrentRow(true);
+        this.focusCurrentRow(!this.focusedViaPointer);
         return true;
     }
 
@@ -1040,7 +1052,7 @@ export class KeyboardNavigationManager<
                 break;
         }
         if (focusableElement) {
-            this.focusElement(focusableElement);
+            this.focusElement(focusableElement, { preventScroll: this.focusedViaPointer });
             return true;
         }
         return false;
@@ -1210,7 +1222,7 @@ export class KeyboardNavigationManager<
     ): boolean {
         if (rowElements?.selectionCheckbox) {
             this.focusType = TableFocusType.rowSelectionCheckbox;
-            this.focusCurrentRow(true);
+            this.focusCurrentRow(!this.focusedViaPointer);
             return true;
         }
         return false;
@@ -1364,7 +1376,7 @@ export class KeyboardNavigationManager<
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
         if (focusElement) {
-            this.focusCurrentRow(true);
+            this.focusCurrentRow(!this.focusedViaPointer);
         }
     }
 

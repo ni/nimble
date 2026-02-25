@@ -189,34 +189,42 @@ describe('Table keyboard navigation', () => {
             );
         const newCellContent = newFocus !== newRow && newFocus !== newCell ? newFocus : undefined;
 
-        newFocus.click();
+        const pointerDownEvent = new PointerEvent('pointerdown', {
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+            button: 0, // Primary button (left mouse button)
+            buttons: 1
+        });
+        newFocus.dispatchEvent(pointerDownEvent);
+        newFocus.focus();
         oldCellContent?.dispatchEvent(new FocusEvent('blur'));
         oldCell?.dispatchEvent(new FocusEvent('blur'));
         oldRow?.dispatchEvent(new FocusEvent('blur'));
         newRow?.dispatchEvent(new FocusEvent('focusin'));
         newCell?.dispatchEvent(new FocusEvent('focusin'));
         newCellContent?.dispatchEvent(new FocusEvent('focusin'));
-        newFocus.focus();
+        newFocus.click();
         await waitForUpdatesAsync();
     }
 
-    describe('with non-interactive columns', () => {
-        const nonInteractiveColumnName = uniqueElementName();
-        @customElement({
-            name: nonInteractiveColumnName
-        })
-        class TestNonInteractiveTableColumn extends mixinSortableColumnAPI(mixinGroupableColumnAPI(TableColumn)) {
-            protected override getColumnInternalsOptions(): ColumnInternalsOptions {
-                return {
-                    cellRecordFieldNames: ['value'],
-                    cellViewTag: tableColumnEmptyCellViewTag,
-                    groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                    delegatedEvents: [],
-                    validator: new ColumnValidator<[]>([])
-                };
-            }
+    const nonInteractiveColumnName = uniqueElementName();
+    @customElement({
+        name: nonInteractiveColumnName
+    })
+    class TestNonInteractiveTableColumn extends mixinSortableColumnAPI(mixinGroupableColumnAPI(TableColumn)) {
+        protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+            return {
+                cellRecordFieldNames: ['value'],
+                cellViewTag: tableColumnEmptyCellViewTag,
+                groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                delegatedEvents: [],
+                validator: new ColumnValidator<[]>([])
+            };
         }
+    }
 
+    describe('with non-interactive columns', () => {
         async function setupNonInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag} id-field-name="id">
@@ -1418,6 +1426,97 @@ describe('Table keyboard navigation', () => {
                     expect(currentFocusedElement()).not.toBe(cellContent);
                 });
             });
+        });
+    });
+
+    describe('in scrollable viewport:', () => {
+        let scrollableDiv: HTMLDivElement;
+        let firstHeader: HTMLElement;
+        let secondHeader: HTMLElement;
+
+        async function setupTableInScrollableViewport(): Promise<Fixture<HTMLDivElement>> {
+            return await fixture<HTMLDivElement>(html`
+                <div style="height: 100px; overflow: auto;">
+                    <${tableTag} id-field-name="id">
+                        <${nonInteractiveColumnName} id="first-column" column-id="column-1"></${nonInteractiveColumnName}>
+                        <${nonInteractiveColumnName} id="second-column" column-id="column-2"></${nonInteractiveColumnName}>
+                    </${tableTag}>
+                </div>
+            `);
+        }
+
+        async function setupTable(): Promise<void> {
+            const data = createTableData(4);
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+        }
+
+        function scrollHeaderOutOfView(): number {
+            const topOfSecondRow = pageObject.getRow(1).getBoundingClientRect().top;
+            scrollableDiv.scrollTop = topOfSecondRow;
+            expect(isFullyVisible(firstHeader)).toBeFalse();
+            return topOfSecondRow;
+        }
+
+        function isFullyVisible(elt: HTMLElement): boolean {
+            const elementRect = elt.getBoundingClientRect();
+            const containerRect = scrollableDiv.getBoundingClientRect();
+
+            return (
+                elementRect.top >= containerRect.top
+                && elementRect.bottom <= containerRect.bottom
+                && elementRect.left >= containerRect.left
+                && elementRect.right <= containerRect.right
+            );
+        }
+
+        beforeEach(async () => {
+            const fixtureResult = await setupTableInScrollableViewport();
+            scrollableDiv = fixtureResult.element;
+            connect = fixtureResult.connect;
+            disconnect = fixtureResult.disconnect;
+
+            element = scrollableDiv.querySelector<Table<SimpleTableRecord>>(tableTag)!;
+            pageObject = new TablePageObject<SimpleTableRecord>(element);
+
+            await setupTable();
+            firstHeader = pageObject.getHeaderElement(0);
+            secondHeader = pageObject.getHeaderElement(1);
+            expect(isFullyVisible(firstHeader)).toBeTrue();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('when column header is scrolled out of view, tabbing to the table (focusing the table without any pointer events) focuses the header and scrolls it into view', () => {
+            scrollHeaderOutOfView();
+
+            element.focus();
+
+            expect(currentFocusedElement()).toBe(firstHeader);
+            expect(isFullyVisible(firstHeader)).toBeTrue();
+        });
+
+        it('when column header is scrolled out of view, clicking on the table focuses the header without scrolling the viewport', async () => {
+            const initialScrollOffset = scrollHeaderOutOfView();
+
+            await clickAndSendFocusEvents(element);
+
+            expect(currentFocusedElement()).toBe(firstHeader);
+            expect(scrollableDiv.scrollTop).toBe(initialScrollOffset);
+            expect(isFullyVisible(firstHeader)).toBeFalse();
+        });
+
+        it('when column header is focused but scrolled out of view, pressing RightArrow focuses the nextheader and scrolls it into view', async () => {
+            element.focus();
+            scrollHeaderOutOfView();
+
+            await sendKeyPressToTable(keyArrowRight);
+
+            expect(currentFocusedElement()).toBe(secondHeader);
+            expect(isFullyVisible(firstHeader)).toBeTrue();
         });
     });
 });
