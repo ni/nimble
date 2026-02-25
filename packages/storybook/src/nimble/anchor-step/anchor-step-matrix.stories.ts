@@ -12,7 +12,7 @@ import {
 } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
-import { selectedStates, severityStates, stepContentStateDefault, stepContentStates, type SelectedState, type SeverityStates, type StepContentStates } from '../stepper/types';
+import { selectedStates, severityStates, stepContentStateShort, stepContentStates, type SelectedState, type SeverityStates, type StepContentStates } from '../stepper/types';
 import { disabledStates, type DisabledState } from '../../utilities/states';
 
 const metadata: Meta = {
@@ -30,8 +30,8 @@ const component = (
     [severityName, severity]: SeverityStates,
     [contentName, titleContent, subtitleContent, severityTextContent]: StepContentStates,
 ): ViewTemplate => html`
-    <div>
-        <div>${disabledName} ${selectedName} Severity(${severityName}) Content(${contentName})</div>
+    <div style="display: inline-flex; flex-direction: column;">
+        <div style="padding-right: 16px;">${disabledName} ${selectedName} Severity(${severityName}) Content(${contentName})</div>
         <${stepperTag} style="padding-bottom: 16px;">
             <${anchorStepTag}
                 href="#"
@@ -69,14 +69,14 @@ const interactionStatesHover = cartesianProduct([
     disabledStates,
     selectedStates,
     severityStates,
-    [stepContentStateDefault],
+    [stepContentStateShort],
 ] as const);
 
 const interactionStates = cartesianProduct([
     disabledStates,
     selectedStates,
     severityStates,
-    [stepContentStateDefault],
+    [stepContentStateShort],
 ] as const);
 
 export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(

@@ -29,4 +29,4 @@ export const stepContentStates = [
     ['Long', 'Title That is very long and very interesting', 'Subtitle that is very long and very interesting', 'Severity text that is very long and very interesting'],
 ] as const;
 export type StepContentStates = (typeof stepContentStates)[number];
-export const stepContentStateDefault = stepContentStates[0];
+export const stepContentStateShort = stepContentStates[2];
