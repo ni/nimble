@@ -9,6 +9,7 @@ This spec describes a set of components that can be used to compose a chat inter
    - inbound
    - system
    - outbound
+   - welcome
 - chat conversation: a layout component that allows slotting messages and an input
 
 ### Background
@@ -47,7 +48,7 @@ The message component will allow slotting arbitrary content, but any efforts to 
 
 The all Spright chat messages have the following slot elements.
 
-1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, a spinner, or welcome content.
 
 The components also contains the following features:
 
@@ -74,12 +75,22 @@ All end text buttons must meet the following criteria
 1. The `apperance` attribute is set to `block`
 1. The buttons only have text
 
+##### Welcome message features
+
+1. Centered horizontally within a conversation, similar to system messages
+1. Displays an image to brand the chat experience
+1. Displays client-provided title (e.g. "Welcome to Nigel™ AI") and subtitle (e.g. "Chat below to get started", "Log in to get started") text
+1. Allows content to be added in the default slot for purposes including:
+   - If the user is not logged in, slot a button or anchor button to launch the external login process
+   - If the user is logged in, slot buttons offering suggested outbound messages
+
 #### Chat conversation
 
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
 1. Includes a slot to place a toolbar (and its content such as buttons or menu buttons) on top of the conversation.
 1. Includes a slot to place an input component below the messages.
+1. Includes a slot for a legal disclaimer below that.
 1. Only appearance of its own is to set a background color.
 
 #### Chat input
@@ -111,6 +122,10 @@ These components are competing against possible implementations within applicati
 
 ![ ](spec-images/chat-conversation.png)
 
+**Screenshot of Figma design of chat welcome message when login is visible (light mode)**
+
+![ ](spec-images/chat-welcome-login.png)
+
 **Screenshot of Figma design of chat input component (light mode)**
 
 ![ ](spec-images/chat-input.png)
@@ -118,6 +133,10 @@ These components are competing against possible implementations within applicati
 **Screenshot of Figma design of chat components embeded within larger pane (dark mode)**
 
 ![ ](spec-images/chat-pane.png)
+
+**Screenshot of Figma design of chat disclaimer (light mode)**
+
+![ ](spec-images/chat-disclaimer.png)
 
 ---
 
@@ -139,6 +158,10 @@ These components are competing against possible implementations within applicati
         <nimble-spinner></nimble-spinner>
     </spright-chat-message-system>
     <spright-chat-input slot="input></spright-chat-input>
+    <span slot="end">
+        <span>AI-generated content may be incorrect.</span>
+        <a href="...">View terms and conditions</a>
+    </span>
 </spright-chat-conversation>
 ```
 
@@ -155,6 +178,18 @@ These components are competing against possible implementations within applicati
 ```js
 const richText = document.querySelector('#welcome');
 richText.markdown = 'Welcome **Homer**, how can I help?';
+```
+
+#### Welcome message example
+
+```html
+<spright-chat-conversation>
+    <spright-chat-message-welcome title="Welcome to Nigel AI" subtitle="Log in to get started">
+            <nimble-anchor-button appearance="block" appearance-variant="primary" href="/login">
+                Login
+            </nimble-anchor-button>
+    </spright-chat-message-welcome>
+</spright-chat-conversation>
 ```
 
 #### Prompt buttons message example
@@ -195,6 +230,7 @@ Message components will be created with the following names:
 - `spright-chat-message-inbound`
 - `spright-chat-message-outbound`
 - `spright-chat-message-system`
+- `spright-chat-message-welcome`
 
 ##### Messages common API
 
@@ -209,10 +245,8 @@ All message types will share the following API:
     - A message will grow its height to fit its content, with no maximum height.
     - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
 - _Slots_
-    - `footer-actions`
-        - Action buttons to display after the main content.
     - `end`
-        - Buttons with text that are displayed at the bottom after any action buttons.
+        - Buttons with text that are displayed at the bottom after any other content.
     - `(default)`
         - arbitrary content can be added to the default slot to be displayed within the message
 
@@ -221,8 +255,15 @@ All message types will share the following API:
 - _Slots_
     - `footer-actions`
         - Action buttons to display after the main content.
-    - `end`
-        - Buttons with text that are displayed at the bottom after any action buttons.
+
+##### Welcome message additional API
+
+- _Props/Attrs_
+    - `title` - string attribute for the primary welcome message
+    - `subtitle` - string attribute for a secondary welcome message. Naming is aligned with `nimble-dialog`
+- _Slots_
+    - `brand-icon` slot can be used to customize the brand image. By default it will display a new icon `spright-icon-nigel-chat` which is a theme-aware custom icon (a custom element that derives from `IconSvg`)
+    - default slot can be used to provide content below the icon, title, and subtitle. For example, a login button or suggested outbound messages.
 
 #### Conversation
 
@@ -242,6 +283,7 @@ All message types will share the following API:
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
     - a single chat input can optionally be added to the `input` slot. It will be placed below the messages
     - a toolbar can optionally be added to the `toolbar` slot. The toolbar will be displayed above the messages. The toolbar content can be buttons or menus used for actions like starting a new conversation, copying all messages, or other conversation-level operations.
+    - chat disclaimer content can optionally be added to the `end` slot. It will be placed below the input. The slot will apply color and font size styles to text and anchor content to match the visual design spec. See [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/ChatbotViewFooter.razor) for reference.
 
 #### Input
 
@@ -308,6 +350,12 @@ A message is simply a `div` which will styled with background / border / rounded
     </div>
 </template>
 ```
+
+##### Welcome message
+
+The template will include an `svg` element to render the image. The image requires different svg contents for dark and light themes (they use different gradient parameters). The gradient content will be specified in a new design token.
+
+We can use [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/StartPage.razor) and [images](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/NigelLocalService/wwwroot/Images/two-chat-sparkle_green_DarkUI_48x48.svg) for reference.
 
 #### Conversation
 
@@ -434,7 +482,7 @@ On mobile, typing a newline in the input will be difficult as most on-screen key
 
 ### Globalization
 
-Most content is provided by applications so they are responsible for localization. For the input component "Send" and "Stop" button titles and accessible labels we will add label provider strings. These supply default labels which applications can localize or replace with custom labels. These will be added to a new Spright chat label provider.
+Most content is provided by applications so they are responsible for localization. For components with user-visible text we will add label provider strings. These supply default labels which applications can localize or replace with custom labels. These will be added to a new Spright chat label provider.
 
 Defining the behavior for RTL languages is initially out of scope. But the API can easily be extended to support changing the layout for an RTL language when that is desired.
 
