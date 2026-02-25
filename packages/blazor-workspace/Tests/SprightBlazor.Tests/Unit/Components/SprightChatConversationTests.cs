@@ -36,7 +36,7 @@ public class SprightChatConversationTests
         context.JSInterop.Mode = JSRuntimeMode.Loose;
 
         var component = context.RenderComponent<SprightChatConversation>(parameters => parameters
-            .Add(p => p.Toolbar, "<button slot=\"toolbar\">Toolbar Button</button>"));
+            .AddChildContent("<button slot=\"toolbar\">Toolbar Button</button>"));
 
         Assert.Contains("slot=\"toolbar\"", component.Markup);
         Assert.Contains("Toolbar Button", component.Markup);
