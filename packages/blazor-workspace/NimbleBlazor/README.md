@@ -110,7 +110,7 @@ MyComponent.razor.css
 }
 ```
 
-Components _must_ be wrapped in a containing element in order to work with the `::deep` pseduo-selector. For more info see the [Microsoft docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-9.0#child-component-support).
+`::deep` targets all descendants in a component's scoped styles, so `::deep` styles should be written as targeted as possible (typically adding CSS classes to the selector). Components also _must_ be wrapped in a containing element in order to work with the `::deep` pseudo-selector. For more info see the [Microsoft docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-9.0#child-component-support).
 
 #### Using Nimble Design Tokens (CSS/SCSS)
 
@@ -144,8 +144,10 @@ See the [package docs](https://github.com/koenvzeijl/AspNetCore.SassCompiler) fo
 Note: You can use `@forward`/`@use` with `AspNetCore.SassCompiler`, but IntelliSense currently only works correctly with `@import`.
 6. Use the `$ni-nimble-...` variables in your Blazor application SCSS.
 
-When using this approach, we recommend fully switching your app over to SCSS, including updating app CSS styles in `wwwroot/css` to instead be SCSS files in `Styles`. 
-SCSS compilation happens before the rest of Blazor's compilation, so it works fine with Blazor CSS isolation.
+Other notes:
+- When using this approach, we recommend fully switching your app over to SCSS, including updating app CSS styles in `wwwroot/css` to instead be SCSS files in `Styles`.
+- SCSS compilation happens before the rest of Blazor's compilation, so it works fine with Blazor CSS isolation.
+- When using `::deep` in an SCSS file (needed when targeting Nimble components specifically), Visual Studio may show a warning (which can be ignored): _::deep is only allowed in file names ending with ".razor.css" or ".cshtml.css"_. See [aspnetcore#58572](https://github.com/dotnet/aspnetcore/issues/58572).
 
 ### Localization (Optional)
 

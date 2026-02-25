@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 16 Feb 2026 18:09:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 23 Feb 2026 21:53:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.13.3
+
+Mon, 23 Feb 2026 21:53:42 GMT
+
+### Patches
+
+- NimbleBlazor styling (::deep/SCSS) documentation updates ([ni/nimble@c33055e](https://github.com/ni/nimble/commit/c33055ef27c98fbb0ccebda03079e57877a84a42))
 
 ## 20.13.2
 
