@@ -13,7 +13,6 @@ const karmaJasmineSpecTags = require('karma-jasmine-spec-tags');
 const karmaChromeLauncher = require('karma-chrome-launcher');
 const karmaFirefoxLauncher = require('karma-firefox-launcher');
 const karmaWebkitLauncher = require('karma-webkit-launcher');
-const jasmineExtensions = require('@ni-private/jasmine-extensions');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [
@@ -42,13 +41,11 @@ module.exports = config => {
         processKillTimeout: 10000,
         frameworks: [
             'vite',
-            'jasmine-extensions',
             'jasmine',
             'jasmine-spec-tags'
         ],
         plugins: [
             karmaVite,
-            jasmineExtensions,
             karmaJasmine,
             karmaJasmineHtmlReporter,
             karmaJasmineSpecTags,
