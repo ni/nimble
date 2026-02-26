@@ -17,9 +17,6 @@ concurrency:
 env:
   GITHUB_SERVICE_USER: "rajsite"
   GITHUB_SERVICE_EMAIL: "rajsite@users.noreply.github.com"
-  LC_ALL: "en_US.UTF-8"
-  LANG: "en_US.UTF-8"
-  LANGUAGE: "en_US.UTF-8"
   TZ: "America/Chicago"
   HAS_GITHUBPAGESDEPLOYTOKEN: ${{secrets.GITHUBPAGESDEPLOYTOKEN != ''}}
   HAS_CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN != ''}}
@@ -51,10 +48,11 @@ jobs:
       # Remove existing dotnet installs, both package managed versions and manual versions
       # See https://github.com/dotnet/sdk/issues/39635#issuecomment-3075858666
       - name: Remove any existing .NET installations
+        shell: pwsh
         run: |
           dotnet --info
-          sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
-          sudo rm -rf /usr/share/dotnet/
+          Get-Package -Name "Microsoft .NET*" -ErrorAction SilentlyContinue | Uninstall-Package -Force
+          Remove-Item -Path "$env:ProgramFiles\dotnet" -Recurse -Force -ErrorAction SilentlyContinue
 
       # Install dependencies
       - name: Install .NET
