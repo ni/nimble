@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 26 Feb 2026 19:23:52 GMT",
+      "version": "32.3.7",
+      "tag": "@ni/nimble-angular_v32.3.7",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b67eff72c2f8a878b7cbfdd2f36391a43b966b88",
+            "comment": "Change to test plugin"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Feb 2026 18:09:13 GMT",
       "version": "32.3.7",
       "tag": "@ni/nimble-angular_v32.3.7",

@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Convert jasmine-extensions into a karma plugin",
-  "packageName": "@ni-private/jasmine-extensions",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
