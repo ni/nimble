@@ -1,10 +1,11 @@
 process.env.CHROME_BIN = require('playwright').chromium.executablePath();
-
 const path = require('path');
 const karmaVite = require('karma-vite');
 const karmaJasmine = require('karma-jasmine');
 const karmaJasmineHtmlReporter = require('karma-jasmine-html-reporter');
 const karmaChromeLauncher = require('karma-chrome-launcher');
+// eslint-disable-next-line import/no-unresolved
+const jasmineExtensions = require('@ni-private/jasmine-extensions');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [
@@ -33,6 +34,7 @@ module.exports = config => {
         processKillTimeout: 10000,
         frameworks: [
             'vite',
+            'jasmine-extensions', // todo fix order after insertion fixed, should be after
             'jasmine',
         ],
         plugins: [
@@ -40,10 +42,11 @@ module.exports = config => {
             karmaJasmine,
             karmaJasmineHtmlReporter,
             karmaChromeLauncher,
+            jasmineExtensions,
         ],
         files: [
             {
-                pattern: 'src/tests/setup.ts',
+                pattern: 'src/tests/setup-browser.ts',
                 type: 'module',
                 watched: false,
                 served: false,

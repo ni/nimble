@@ -1,7 +1,7 @@
 {
     "spec_dir": ".",
     "spec_files": [
-      "dist/esm/tests/setup.js",
+      "dist/esm/tests/setup-node.js",
       "dist/esm/**/*.spec.js"
     ],
     "env": {
