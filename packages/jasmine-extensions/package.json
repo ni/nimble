@@ -37,6 +37,7 @@
       "import": "./dist/esm/*/index.js"
     }
   },
+  "main": "./dist/esm/index.js",
   "typesVersions": {
     "*": {
       "*": [
