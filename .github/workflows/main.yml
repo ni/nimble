@@ -29,7 +29,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: windows-latest
     steps:
       - name: Sync repo (with publish token)
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
@@ -85,12 +85,16 @@ jobs:
         run: npm run build
 
       - name: Sign assemblies
+        shell: pwsh
+        env:
+          CERT: ${{ secrets.SIGNING_CERTIFICATE }}
+          CERT_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
         run: |
-          echo "${{ secrets.CODE_SIGN_CERT }}" | base64 -d > cert.pfx
-          for name in "NimbleBlazor" "OkBlazor" "SprightBlazor"
-          do
-            signtool sign /v /f cert.pfx /p ${{ secrets.CODE_SIGN_CERT_PASSWORD }} /t http://timestamp.digicert.com "./packages/blazor-workspace/$name/bin/Release/net8.0/*.dll"
-          done
+          [System.Convert]::FromBase64String($env:CERT) | Set-Content -Path cert.pfx -AsByteStream
+          $names = @("NimbleBlazor", "OkBlazor", "SprightBlazor")
+          foreach ($name in $names) {
+            & signtool sign /v /f cert.pfx /p $env:CERT_PASSWORD /t http://timestamp.digicert.com "./packages/blazor-workspace/$name/bin/Release/net8.0/*.dll"
+          }
 
       - name: Pack
         run: npm run pack
