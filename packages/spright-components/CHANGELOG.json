@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 26 Feb 2026 19:23:52 GMT",
+      "version": "6.10.0",
+      "tag": "@ni/spright-components_v6.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "b67eff72c2f8a878b7cbfdd2f36391a43b966b88",
+            "comment": "Change to test plugin"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 25 Feb 2026 20:09:12 GMT",
       "version": "6.10.0",
       "tag": "@ni/spright-components_v6.10.0",
