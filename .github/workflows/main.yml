@@ -29,7 +29,6 @@ jobs:
     runs-on: windows-latest
     env:
       DOTNET_INSTALL_DIR: "private_dotnet"
-      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
     steps:
       - name: Sync repo (with publish token)
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
@@ -52,12 +51,6 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           global-json-file: packages/blazor-workspace/global.json
-
-      - name: Configure NuGet
-        shell: pwsh
-        run: |
-          dotnet nuget locals all --clear
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 
       - name: Restore .NET project dependencies
         run: dotnet restore --locked-mode
