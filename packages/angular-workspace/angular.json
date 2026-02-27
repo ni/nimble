@@ -34,6 +34,8 @@
             "tsConfig": "nimble-angular/tsconfig.spec.json",
             "karmaConfig": "nimble-angular/karma.conf.cjs",
             "polyfills": [
+              "zone.js",
+              "zone.js/testing",
               "@angular/localize/init"
             ]
           }
@@ -80,6 +82,8 @@
             "tsConfig": "ok-angular/tsconfig.spec.json",
             "karmaConfig": "ok-angular/karma.conf.cjs",
             "polyfills": [
+              "zone.js",
+              "zone.js/testing",
               "@angular/localize/init"
             ]
           }
@@ -126,6 +130,8 @@
             "tsConfig": "spright-angular/tsconfig.spec.json",
             "karmaConfig": "spright-angular/karma.conf.cjs",
             "polyfills": [
+              "zone.js",
+              "zone.js/testing",
               "@angular/localize/init"
             ]
           }
