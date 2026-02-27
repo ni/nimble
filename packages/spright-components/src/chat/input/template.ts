@@ -21,7 +21,7 @@ export const template = html<ChatInput>`
         class="action-button"
         appearance="block"
         appearance-variant="${x => (x.processing ? 'primary' : 'accent')}"
-        ?disabled=${x => (x.processing ? false : x.disableSendButton)}
+        ?disabled=${x => (x.processing ? false : (x.sendDisabled || x.disableSendButton))}
         @click=${x => (x.processing ? x.stopButtonClickHandler() : x.sendButtonClickHandler())}
         tabindex="${x => x.tabIndex}"
         title=${x => (x.processing ? x.stopButtonLabel : x.sendButtonLabel)}

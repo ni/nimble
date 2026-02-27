@@ -48,6 +48,14 @@ export class SprightChatInputDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'processing', value);
     }
 
+    public get sendDisabled(): boolean | undefined {
+        return this.elementRef.nativeElement.sendDisabled;
+    }
+
+    @Input('send-disabled') public set sendDisabled(value: boolean | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'sendDisabled', value);
+    }
+
     public get maxLength(): number | undefined {
         return this.elementRef.nativeElement.maxLength;
     }

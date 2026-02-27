@@ -16,6 +16,7 @@ interface ChatInputArgs {
     maxlength: number | undefined;
     value: string;
     processing: boolean;
+    sendDisabled: boolean;
     errorText: string;
     errorVisible: boolean;
     send: undefined;
@@ -39,6 +40,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             send-button-label="${x => x.sendButtonLabel}"
             stop-button-label="${x => x.stopButtonLabel}"
             processing="${x => x.processing}"
+            ?send-disabled="${x => x.sendDisabled}"
             maxlength="${x => x.maxlength}"
             value="${x => x.value}"
             error-text="${x => x.errorText}"
@@ -83,6 +85,12 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
+        sendDisabled: {
+            name: 'send-disabled',
+            description: 'Whether the send button is disabled.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
         errorText: {
             name: 'error-text',
             description: errorTextDescription,
@@ -111,6 +119,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         sendButtonLabel: 'Send',
         stopButtonLabel: 'Stop',
         processing: false,
+        sendDisabled: false,
         maxlength: -1,
         errorText: 'Error description',
         errorVisible: false
