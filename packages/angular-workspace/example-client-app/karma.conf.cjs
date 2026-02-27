@@ -33,8 +33,7 @@ module.exports = config => {
         basePath: '',
         frameworks: [
             'jasmine-extensions',
-            'jasmine',
-            '@angular/build'
+            'jasmine'
         ],
         plugins: [
             jasmineExtensions,
