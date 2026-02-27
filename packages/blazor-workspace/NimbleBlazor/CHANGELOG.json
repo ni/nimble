@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 23 Feb 2026 21:53:42 GMT",
+      "version": "20.13.3",
+      "tag": "@ni/nimble-blazor_v20.13.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c33055ef27c98fbb0ccebda03079e57877a84a42",
+            "comment": "NimbleBlazor styling (::deep/SCSS) documentation updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Feb 2026 18:09:13 GMT",
       "version": "20.13.2",
       "tag": "@ni/nimble-blazor_v20.13.2",

@@ -8,6 +8,7 @@ const karmaJasmineHtmlReporter = require('karma-jasmine-html-reporter');
 const karmaSpecReporter = require('karma-spec-reporter');
 const karmaCoverage = require('karma-coverage');
 const karmaAngular = require('@angular-devkit/build-angular/plugins/karma');
+const jasmineExtensions = require('@ni-private/jasmine-extensions');
 const path = require('path');
 
 const commonChromeFlags = [
@@ -31,8 +32,13 @@ const commonChromeFlags = [
 module.exports = config => {
     config.set({
         basePath: '',
-        frameworks: ['jasmine', '@angular-devkit/build-angular'],
+        frameworks: [
+            'jasmine-extensions',
+            'jasmine',
+            '@angular-devkit/build-angular'
+        ],
         plugins: [
+            jasmineExtensions,
             karmaJasmine,
             karmaChromeLauncher,
             karmaJasmineHtmlReporter,

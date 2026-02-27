@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Thu, 26 Feb 2026 19:23:52 GMT",
+      "version": "0.2.13",
+      "tag": "@ni/ok-components_v0.2.13",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "b67eff72c2f8a878b7cbfdd2f36391a43b966b88",
+            "comment": "Change to test plugin"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Feb 2026 22:59:33 GMT",
       "version": "0.2.13",
       "tag": "@ni/ok-components_v0.2.13",

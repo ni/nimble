@@ -49,6 +49,54 @@ public class SprightChatInputTests
         Assert.Contains("placeholder", chatInput.Markup);
     }
 
+    [Fact]
+    public void SprightChatInputSendButtonLabel_AttributeIsSet()
+    {
+        var chatInput = RenderWithPropertySet(x => x.SendButtonLabel, "Send now");
+
+        Assert.Contains("send-button-label", chatInput.Markup);
+    }
+
+    [Fact]
+    public void SprightChatInputStopButtonLabel_AttributeIsSet()
+    {
+        var chatInput = RenderWithPropertySet(x => x.StopButtonLabel, "Cancel");
+
+        Assert.Contains("stop-button-label", chatInput.Markup);
+    }
+
+    [Fact]
+    public void SprightChatInputProcessing_AttributeIsSet()
+    {
+        var chatInput = RenderWithPropertySet(x => x.Processing, true);
+
+        Assert.Contains("processing", chatInput.Markup);
+    }
+
+    [Fact]
+    public void SprightChatInputMaxLength_AttributeIsSet()
+    {
+        var chatInput = RenderWithPropertySet(x => x.MaxLength, 100);
+
+        Assert.Contains("maxlength", chatInput.Markup);
+    }
+
+    [Fact]
+    public void SprightChatInputErrorText_AttributeIsSet()
+    {
+        var chatInput = RenderWithPropertySet(x => x.ErrorText, "Invalid input");
+
+        Assert.Contains("error-text=\"Invalid input\"", chatInput.Markup);
+    }
+
+    [Fact]
+    public void SprightChatInputErrorVisible_AttributeIsSet()
+    {
+        var chatInput = RenderWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", chatInput.Markup);
+    }
+
     private IRenderedComponent<SprightChatInput> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatInput, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

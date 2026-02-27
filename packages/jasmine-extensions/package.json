@@ -3,31 +3,41 @@
   "version": "0.0.1",
   "private": "true",
   "description": "Utilities to modify the runtime behavior of jasmine",
-  "keywords": ["jasmine", "extensions", "retry", "retries", "elevate log"],
+  "keywords": [
+    "jasmine",
+    "extensions",
+    "retry",
+    "retries",
+    "elevate log"
+  ],
   "scripts": {
-    "build": "tsc -b",
+    "build": "npm run build:js && npm run build:bundle",
+    "build:js": "tsc -b",
+    "build:bundle": "rollup --config",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish",
     "tdd": "npm run build && npm run test",
-    "test": "npm run test:node && npm run test:browser",
-    "test:node": "jasmine",
-    "test:browser": "karma start karma.conf.cjs --browsers=ChromeHeadlessOpt --single-run",
-    "test:browser:debugger": "karma start karma.conf.cjs --browsers=ChromeDebugging"
+    "test": "npm run test-node && npm run test-browser",
+    "test-node": "jasmine",
+    "test-browser": "karma start karma.conf.cjs --browsers=ChromeHeadlessOpt --single-run",
+    "test-browser-debugger": "karma start karma.conf.cjs --browsers=ChromeDebugging"
   },
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/esm/index.d.ts",
-      "import": "./dist/esm/index.js"
+      "import": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./*": {
       "types": "./dist/esm/*.d.ts",
       "import": "./dist/esm/*/index.js"
     }
   },
+  "main": "./dist/esm/index.js",
   "typesVersions": {
     "*": {
       "*": [
@@ -47,7 +57,9 @@
   "license": "MIT",
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "@types/jasmine": "^5.1.4",
+    "@types/karma": "^6.3.9",
     "jasmine": "^5.1.0",
     "jasmine-core": "^5.1.2",
     "karma": "^6.3.0",
@@ -57,6 +69,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
     "playwright": "1.54.1",
+    "rollup": "^4.12.0",
     "typescript": "~5.8.3"
   }
 }
