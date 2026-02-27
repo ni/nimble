@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-useless-path-segments
-import { applyExtensions } from '../index.js';
+import { applyExtensions } from '../apply-extensions/index.js';
 
 applyExtensions();
 

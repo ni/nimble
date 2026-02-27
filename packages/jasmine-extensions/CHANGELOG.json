@@ -1,0 +1,20 @@
+{
+  "name": "@ni-private/jasmine-extensions",
+  "entries": [
+    {
+      "date": "Thu, 26 Feb 2026 19:23:52 GMT",
+      "version": "0.0.1",
+      "tag": "@ni-private/jasmine-extensions_v0.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni-private/jasmine-extensions",
+            "commit": "b67eff72c2f8a878b7cbfdd2f36391a43b966b88",
+            "comment": "Convert jasmine-extensions into a karma plugin"
+          }
+        ]
+      }
+    }
+  ]
+}

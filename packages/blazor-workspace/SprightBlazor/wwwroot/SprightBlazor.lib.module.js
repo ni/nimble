@@ -39,7 +39,7 @@ function registerEvents(Blazor) {
         browserEventName: 'send',
         createEventArgs: event => {
             return {
-                text: event.target.value
+                text: event.detail.text
             };
         }
     });
