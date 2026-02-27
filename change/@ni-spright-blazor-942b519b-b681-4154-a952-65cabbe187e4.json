@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Payload is in detail.text",
+  "packageName": "@ni/spright-blazor",
+  "email": "5265744+hellovolcano@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
