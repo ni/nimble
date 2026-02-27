@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 16 Feb 2026 18:09:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 27 Feb 2026 23:55:43 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.3.1
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Don't scroll table element into view if focused by mouse click ([ni/nimble@978850f](https://github.com/ni/nimble/commit/978850fd81b876b6d3a619f57f190082b5a7279c))
 
 ## 35.3.0
 
