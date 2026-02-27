@@ -33,8 +33,7 @@ module.exports = config => {
         basePath: '',
         frameworks: [
             'jasmine-extensions',
-            'jasmine',
-            '@angular/build'
+            'jasmine'
         ],
         plugins: [
             jasmineExtensions,
@@ -42,7 +41,7 @@ module.exports = config => {
             karmaChromeLauncher,
             karmaJasmineHtmlReporter,
             karmaSpecReporter,
-            karmaCoverage,
+            karmaCoverage
         ],
         client: {
             jasmine: {
