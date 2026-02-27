@@ -148,6 +148,14 @@ export class KeyboardNavigationManager<
             this.onPointerDown as EventListener
         );
         this.table.removeEventListener(
+            'pointerup',
+            this.onPointerUpOrCancel as EventListener
+        );
+        this.table.removeEventListener(
+            'pointercancel',
+            this.onPointerUpOrCancel as EventListener
+        );
+        this.table.removeEventListener(
             'focusin',
             this.onTableFocusIn as EventListener
         );
