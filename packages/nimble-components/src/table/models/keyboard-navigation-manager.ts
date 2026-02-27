@@ -99,6 +99,14 @@ export class KeyboardNavigationManager<
             this.onPointerDown as EventListener
         );
         this.table.addEventListener(
+            'pointerup',
+            this.onPointerUpOrCancel as EventListener
+        );
+        this.table.addEventListener(
+            'pointercancel',
+            this.onPointerUpOrCancel as EventListener
+        );
+        this.table.addEventListener(
             'focusin',
             this.onTableFocusIn as EventListener
         );
@@ -273,22 +281,29 @@ export class KeyboardNavigationManager<
         const actionMenuOpen = this.table.openActionMenuRecordId !== undefined;
         if (!actionMenuOpen) {
             if (this.focusType === TableFocusType.none) {
-                this.setDefaultFocus();
-                if (this.focusType === TableFocusType.none) {
-                    // nothing to focus
-                    this.table.blur();
-                }
+                this.focusSomethingOtherThanTheTable();
             } else if (event.target === this.table) {
                 // restore focus to last focused element
                 if (this.hasRowOrCellFocusType() && this.rowIndexIsValid(this.rowIndex)) {
                     this.scrollToAndFocusRow(this.rowIndex);
                 } else if (this.hasHeaderFocusType()) {
                     this.focusHeaderElement();
+                } else {
+                    // should only get here if focusType was row/cell, but rowIndex was invalid
+                    this.focusSomethingOtherThanTheTable();
                 }
             }
         }
         this.focusedViaPointer = false;
     };
+
+    private focusSomethingOtherThanTheTable(): void {
+        this.setDefaultFocus();
+        if (this.focusType === TableFocusType.none) {
+            // nothing within the table to focus
+            this.table.blur();
+        }
+    }
 
     private readonly onTableFocusOut = (): void => {
         this.focusWithinTable = false;
@@ -404,6 +419,10 @@ export class KeyboardNavigationManager<
 
     private readonly onPointerDown = (): void => {
         this.focusedViaPointer = true;
+    };
+
+    private readonly onPointerUpOrCancel = (): void => {
+        this.focusedViaPointer = false;
     };
 
     private readonly onViewportKeyDown = (event: KeyboardEvent): void => {
