@@ -37,6 +37,9 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @attr({ attribute: 'processing', mode: 'boolean' })
     public processing = false;
 
+    @attr({ attribute: 'send-disabled', mode: 'boolean' })
+    public sendDisabled = false;
+
     /**
      * @internal
      */
@@ -44,6 +47,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public textArea?: HTMLTextAreaElement;
 
     /**
+     * Tracks whether the send button should be disabled based on input value
      * @internal
      */
     @observable
