@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Wed, 25 Feb 2026 20:09:12 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 27 Feb 2026 23:55:43 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.10.2
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.1
+
+## 4.10.1
+
+Fri, 27 Feb 2026 17:30:58 GMT
+
+### Patches
+
+- Payload is in detail.text ([ni/nimble@fe90c20](https://github.com/ni/nimble/commit/fe90c208be53b91a8a027cc1d1f99f31b2deed11))
 
 ## 4.10.0
 
