@@ -52,15 +52,15 @@
     "zone.js": "^0.15.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.19",
+    "@angular/build": "^19.2.19",
     "@angular/cli": "^19.2.19",
     "@angular/compiler-cli": "^19.2.17",
     "@lhci/cli": "^0.15.0",
-    "@ni/fast-web-utilities": "^10.0.0",
     "@ni-private/eslint-config-nimble": "*",
+    "@ni-private/jasmine-extensions": "*",
     "@ni/eslint-config-angular": "^11.0.1",
     "@ni/eslint-config-javascript": "^5.1.2",
-    "@ni-private/jasmine-extensions": "*",
+    "@ni/fast-web-utilities": "^10.0.0",
     "@ni/jasmine-parameterized": "*",
     "@ni/nimble-tokens": "*",
     "@rollup/plugin-node-resolve": "^16.0.0",
