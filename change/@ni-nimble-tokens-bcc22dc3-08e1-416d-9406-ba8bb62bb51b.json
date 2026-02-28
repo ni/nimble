@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add token for Black77",
+  "packageName": "@ni/nimble-tokens",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
