@@ -3,5 +3,5 @@
   "comment": "Add custom elements manifest generation",
   "packageName": "@ni/ok-components",
   "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "none"
 }
