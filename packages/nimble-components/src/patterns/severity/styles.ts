@@ -2,9 +2,9 @@ import { cssPartial } from '@ni/fast-element';
 import {
     failColor,
     errorTextFontLineHeight,
-    warningColor,
     errorTextFont,
-    buttonLabelFontColor
+    buttonLabelFontColor,
+    warningFontColor
 } from '../../theme-provider/design-tokens';
 
 // These styles end up inside a @layer block so must use the
@@ -31,7 +31,7 @@ export const styles = cssPartial`
 
     :host([severity="warning"]) .severity-text {
         display: block;
-        color: ${warningColor};
+        color: ${warningFontColor};
     }
     .severity-text:empty {
         display: none;

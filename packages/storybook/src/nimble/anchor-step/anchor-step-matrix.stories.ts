@@ -52,7 +52,7 @@ const component = (
 export const themeMatrix: StoryFn = createMatrixThemeStory(html`
     <div style="
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: ${'1fr '.repeat(stepContentStates.length)};
         font: var(${bodyFont.cssCustomProperty});
         color: var(${bodyFontColor.cssCustomProperty});
     ">

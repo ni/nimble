@@ -30,6 +30,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     borderRgbPartialColor: 'border-rgb-partial-color',
     failColor: 'fail-color',
     warningColor: 'warning-color',
+    warningFontColor: 'warning-font-color',
     passColor: 'pass-color',
     informationColor: 'information-color',
     borderHoverColor: 'border-hover-color',

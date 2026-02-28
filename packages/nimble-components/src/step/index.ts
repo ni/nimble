@@ -62,7 +62,10 @@ export class Step extends mixinSeverityPattern(FoundationButton) implements Step
 const nimbleStep = Step.compose<ButtonOptions>({
     baseName: 'step',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleStep());

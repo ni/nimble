@@ -26,6 +26,7 @@ export const stepContentStates = [
     ['Absent', undefined, undefined, undefined],
     ['Empty', '', '', ''],
     ['Short', 'Title', 'Subtitle', 'Severity text'],
+    ['NoSubtitle', 'Title', undefined, 'Severity text'],
     ['Long', 'Title That is very long and very interesting', 'Subtitle that is very long and very interesting', 'Severity text that is very long and very interesting'],
 ] as const;
 export type StepContentStates = (typeof stepContentStates)[number];

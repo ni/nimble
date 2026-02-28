@@ -48,7 +48,7 @@ describe('SeverityPatternMixin', () => {
         await disconnect();
     });
 
-    it('defaults severity to Severity.default to false', () => {
+    it('defaults severity to Severity.default', () => {
         expect(element.severity).toBe(Severity.default);
     });
 
@@ -57,14 +57,26 @@ describe('SeverityPatternMixin', () => {
     });
 
     it('shows severity text when severity error', () => {
-        const severityText = 'Something is wrong!';
+        const severityText = 'Something is error!';
         setSeverity(severityText, Severity.error);
         expect(pageObject.getDisplayedSeverityText()).toBe(severityText);
     });
 
+    it('shows severity text when severity warning', () => {
+        const severityText = 'Something is warning!';
+        setSeverity(severityText, Severity.warning);
+        expect(pageObject.getDisplayedSeverityText()).toBe(severityText);
+    });
+
     it('does not show severity text when severity default', () => {
-        const severityText = 'Something is wrong!';
+        const severityText = 'Nothing has happened!';
         setSeverity(severityText, Severity.default);
+        expect(pageObject.getDisplayedSeverityText()).toBe('');
+    });
+
+    it('does not show severity text when severity success', () => {
+        const severityText = 'Everything is good!';
+        setSeverity(severityText, Severity.success);
         expect(pageObject.getDisplayedSeverityText()).toBe('');
     });
 

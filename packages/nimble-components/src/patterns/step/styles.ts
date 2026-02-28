@@ -19,7 +19,9 @@ import {
     buttonLabelDisabledFontColor,
     iconColor,
     menuMinWidth,
-    standardPadding
+    standardPadding,
+    controlHeight,
+    errorTextFontLineHeight
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
@@ -34,7 +36,8 @@ export const styles = css`
         ${display('inline-flex')}
         ${severityStyles}
         :host {
-            height: 46px;
+            ${'' /* Based on text layout: Top padding + title height + subtitle height + bottom padding */}
+            height: calc(${smallPadding} + ${controlSlimHeight} + ${errorTextFontLineHeight} + ${smallPadding});
             width: ${menuMinWidth};
             color: ${buttonLabelFontColor};
             font: ${buttonLabelFont};
@@ -114,8 +117,8 @@ export const styles = css`
             align-items: center;
             justify-content: center;
             flex: none;
-            height: 32px;
-            width: 32px;
+            height: ${controlHeight};
+            width: ${controlHeight};
             ${userSelectNone};
             font: ${buttonLabelFont};
             color: var(--ni-private-step-icon-color);
@@ -203,6 +206,7 @@ export const styles = css`
             width: calc(100% - 32px);
             flex-direction: column;
             padding-top: ${smallPadding};
+            padding-bottom: ${smallPadding};
         }
 
         .title-wrapper {
@@ -252,21 +256,6 @@ export const styles = css`
             text-overflow: ellipsis;
             ${'' /* Content width */}
             max-width: 100%;
-        }
-
-        .severity-text {
-            display: none;
-            color: ${buttonLabelFontColor};
-        }
-
-        :host([severity="error"]) .severity-text {
-            display: block;
-            color: ${failColor};
-        }
-
-        :host([severity="warning"]) .severity-text {
-            display: block;
-            color: ${warningColor};
         }
     }
 
@@ -420,6 +409,7 @@ export const styles = css`
             --ni-private-step-icon-border-color: transparent;
             --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
             --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
         }
 
@@ -439,24 +429,34 @@ export const styles = css`
     themeBehavior(
         Theme.light,
         css`
-            .control {
-                --ni-private-step-icon-inverse-color: ${White};
+            @layer base {
+                .control {
+                    --ni-private-step-icon-inverse-color: ${White};
+                }
             }
         `
     ),
     themeBehavior(
         Theme.dark,
         css`
-            .control {
-                --ni-private-step-icon-inverse-color: ${Black91};
+            @layer base {
+                .control {
+                    --ni-private-step-icon-inverse-color: ${Black91};
+                }
             }
         `
     ),
     themeBehavior(
         Theme.color,
         css`
-            .control {
-                --ni-private-step-icon-inverse-color: ${Black15};
+            @layer base {
+                .control {
+                    --ni-private-step-icon-inverse-color: ${Black15};
+                }
+
+                :host([severity="success"]) .control {
+                    --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
+                }
             }
         `
     )
