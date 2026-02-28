@@ -14,7 +14,7 @@ import {
 import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
-    @layer base, hover, focusVisible, active, disabled;
+    @layer base, hover, focusVisible, active, disabled, top;
 
     @layer base {
         ${display('inline-flex')}

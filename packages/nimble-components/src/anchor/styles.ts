@@ -12,7 +12,7 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    @layer base, hover, focusVisible, active, disabled;
+    @layer base, hover, focusVisible, active, disabled, top;
 
     @layer base {
         ${display('inline')}
