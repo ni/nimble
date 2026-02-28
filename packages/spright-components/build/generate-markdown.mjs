@@ -7,7 +7,9 @@ console.log(`Custom elements manifest JSON path "${manifestJSONPath}"`);
 
 const manifest = JSON.parse(fs.readFileSync(manifestJSONPath, 'utf-8'));
 const markdown = customElementsManifestToMarkdown(manifest, {
-    private: 'hidden'
+    private: 'hidden',
+    omitDeclarations: ['mixins', 'variables', 'functions', 'exports'],
+    omitSections: ['mixins', 'main-heading'],
 });
 
 const manifestMarkdownPath = path.resolve(import.meta.dirname, '../dist/custom-elements.md');

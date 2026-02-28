@@ -8,7 +8,6 @@ export default {
     exclude: [
         '**/icons/**',
         '**/models/**',
-        '**/patterns/**',
         '**/tests/**',
         '**/testing/**',
         '**/utilities/**',

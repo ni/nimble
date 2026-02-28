@@ -47,7 +47,7 @@
   "dependencies": {
     "@ni/fast-colors": "^10.0.0",
     "@ni/fast-element": "^10.1.0",
-    "@ni/fast-foundation": "^10.1.5",
+    "@ni/fast-foundation": "^10.2.1",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-tokens": "^8.15.0",
     "@ni/unit-format": "^1.0.2",
