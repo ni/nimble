@@ -16,7 +16,6 @@ export default {
         '**/design-token*.ts',
         '**/*styles.ts',
         '**/*template.ts',
-        '**/*types.ts',
     ],
     outdir: 'dist',
     packagejson: false,
