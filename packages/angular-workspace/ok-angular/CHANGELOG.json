@@ -2,6 +2,21 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Sat, 28 Feb 2026 00:50:55 GMT",
+      "version": "1.1.16",
+      "tag": "@ni/ok-angular_v1.1.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "dc702d8999d88b69c70206ad85bda58667c4a4bc",
+            "comment": "Update to @angular/build"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Feb 2026 23:55:43 GMT",
       "version": "1.1.15",
       "tag": "@ni/ok-angular_v1.1.15",

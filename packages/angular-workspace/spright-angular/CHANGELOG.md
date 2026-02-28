@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Fri, 27 Feb 2026 23:55:43 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 28 Feb 2026 00:50:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.5.2
+
+Sat, 28 Feb 2026 00:50:55 GMT
+
+### Patches
+
+- Update to @angular/build ([ni/nimble@dc702d8](https://github.com/ni/nimble/commit/dc702d8999d88b69c70206ad85bda58667c4a4bc))
 
 ## 8.5.1
 
