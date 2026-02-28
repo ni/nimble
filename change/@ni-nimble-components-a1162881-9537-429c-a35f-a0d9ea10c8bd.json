@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add custom elements manifest generation",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
