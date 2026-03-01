@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Consistent tsconfig types setting",
-  "packageName": "@ni-private/jasmine-extensions",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
