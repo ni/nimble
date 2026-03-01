@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update dependencies",
+  "packageName": "@ni/unit-format",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
