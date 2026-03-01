@@ -36,8 +36,8 @@
 		"@ni/ok-components": "*",
 		"@ni/spright-components": "*",
 		"cross-env": "^10.1.0",
-		"glob": "^13.0.6",
-		"playwright": "1.58.1",
+		"glob": "^11.0.0",
+		"playwright": "1.54.1",
 		"globals": "^14.0.0"
 	}
 }
