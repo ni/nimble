@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 27 Feb 2026 23:55:43 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 01 Mar 2026 01:21:41 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.3.2
+
+Sun, 01 Mar 2026 01:21:41 GMT
+
+### Patches
+
+- Add custom elements manifest generation ([ni/nimble@668e03a](https://github.com/ni/nimble/commit/668e03a753512409940384aa4a327a487d0b31cb))
 
 ## 35.3.1
 
