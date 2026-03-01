@@ -1,6 +1,6 @@
 {
-  "type": "patch",
-  "comment": "Update dependencies",
+  "type": "none",
+  "comment": "Update devDependencies",
   "packageName": "@ni-private/jasmine-extensions",
   "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
