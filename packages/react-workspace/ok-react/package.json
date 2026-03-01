@@ -45,11 +45,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/ok-components": "^0.2.14",
+    "@ni/ok-components": "^0.2.15",
     "react": "^17 || ^18 || ^19"
   },
   "devDependencies": {
-    "@ni/ok-components": "^0.2.14",
+    "@ni/ok-components": "^0.2.15",
     "@ni-private/eslint-config-nimble": "*",
     "typescript": "~5.8.3"
   }

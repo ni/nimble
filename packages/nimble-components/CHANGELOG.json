@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sun, 01 Mar 2026 01:21:41 GMT",
+      "version": "35.3.2",
+      "tag": "@ni/nimble-components_v35.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "668e03a753512409940384aa4a327a487d0b31cb",
+            "comment": "Add custom elements manifest generation"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Feb 2026 23:55:43 GMT",
       "version": "35.3.1",
       "tag": "@ni/nimble-components_v35.3.1",

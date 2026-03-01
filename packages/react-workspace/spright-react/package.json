@@ -45,11 +45,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/spright-components": "^6.10.1",
+    "@ni/spright-components": "^6.10.2",
     "react": "^17 || ^18 || ^19"
   },
   "devDependencies": {
-    "@ni/spright-components": "^6.10.1",
+    "@ni/spright-components": "^6.10.2",
     "@ni-private/eslint-config-nimble": "*",
     "typescript": "~5.8.3"
   }

@@ -2,6 +2,33 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Sun, 01 Mar 2026 01:21:41 GMT",
+      "version": "0.2.15",
+      "tag": "@ni/ok-components_v0.2.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "668e03a753512409940384aa4a327a487d0b31cb",
+            "comment": "Add custom elements manifest generation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.3.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.10.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Feb 2026 23:55:43 GMT",
       "version": "0.2.14",
       "tag": "@ni/ok-components_v0.2.14",
