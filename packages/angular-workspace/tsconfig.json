@@ -43,6 +43,7 @@
       "es2020",
       "dom"
     ],
+    "types": [],
     "verbatimModuleSyntax": true,
     "useDefineForClassFields": false
   },
