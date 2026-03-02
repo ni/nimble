@@ -145,7 +145,8 @@ import {
     Black22,
     PowerGreen30,
     DigitalGreenLight30,
-    PowerGreenDark50
+    PowerGreenDark50,
+    WarningTypographyLightUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
@@ -185,6 +186,7 @@ export const tokenValues = {
     borderRgbPartialColor: hexToRgbPartialThemeColor(alias.lineColor),
     failColor: alias.failColor,
     warningColor: createThemeColor(Warning100LightUi, Warning100DarkUi, White),
+    warningFontColor: createThemeColor(WarningTypographyLightUi, Warning100DarkUi, White),
     passColor: createThemeColor(Pass100LightUi, Pass100DarkUi, White),
     informationColor: createThemeColor(Information100LightUi, Information100DarkUi, White),
     borderHoverColor: createThemeColor(DigitalGreenLight, PowerGreen, White),

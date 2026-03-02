@@ -21,6 +21,7 @@ export const borderColor = createThemeColorToken(tokenNames.borderColor, tokenVa
 export const borderRgbPartialColor = createThemeColorToken(tokenNames.borderRgbPartialColor, tokenValues.borderRgbPartialColor);
 export const failColor = createThemeColorToken(tokenNames.failColor, tokenValues.failColor);
 export const warningColor = createThemeColorToken(tokenNames.warningColor, tokenValues.warningColor);
+export const warningFontColor = createThemeColorToken(tokenNames.warningFontColor, tokenValues.warningFontColor);
 export const passColor = createThemeColorToken(tokenNames.passColor, tokenValues.passColor);
 export const informationColor = createThemeColorToken(tokenNames.informationColor, tokenValues.informationColor);
 export const borderHoverColor = createThemeColorToken(tokenNames.borderHoverColor, tokenValues.borderHoverColor);

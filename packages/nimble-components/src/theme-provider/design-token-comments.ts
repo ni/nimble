@@ -37,6 +37,8 @@ export const comments: { readonly [key in TokenName]: string } = {
     failColor: 'Used to highlight errors or invalid input',
     warningColor:
         'Used to highlight invalid input or for icons to indicate that a process errored or failed',
+    warningFontColor:
+        'Used to highlight message text indicating that a process errored or failed',
     passColor:
         'Used to highlight a correct state or the successful completion of a process',
     informationColor:
