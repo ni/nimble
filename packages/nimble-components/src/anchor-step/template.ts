@@ -52,7 +52,7 @@ AnchorOptions
                 ${ref('control')}
             >
                 <div class="icon"> 
-                    <div class="icon-slot"><slot ${slotted('defaultSlottedContent')}></slot></div>
+                    <div class="icon-slot"><slot ${slotted('defaultSlottedContent')}>${x => x.stepInternals.position}</slot></div>
                     <div class="icon-severity">
                         ${when(x => x.severity === Severity.error, html`<${iconExclamationMarkTag}></${iconExclamationMarkTag}>`)}
                         ${when(x => x.severity === Severity.warning, html`<${iconTriangleFilledTag}></${iconTriangleFilledTag}>`)}

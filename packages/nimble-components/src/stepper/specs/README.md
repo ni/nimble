@@ -107,7 +107,7 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
     - readonly: boolean (standard, i.e. visually not disabled, interactions other than tab focus prevented)
     - selected: boolean (visual change only, no behavior) (aligned with card button)
     - severity: default / error / warning / success (similar to icon and banner but different subset)
-    - severity-text: string (always shown but styled based on severity)
+    - severity-text: string (shown for error and warning severities)
   <!--
   - Properties (not attribute reflected)
   - Methods

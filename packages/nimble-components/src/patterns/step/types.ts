@@ -18,7 +18,8 @@ export interface StepPattern extends SeverityPattern {
     selected: boolean;
 
     /**
-     * @internal Internal step state set by the stepper
+     * Internal step state set by the stepper
+     * @internal
      */
     stepInternals: StepInternals;
 }

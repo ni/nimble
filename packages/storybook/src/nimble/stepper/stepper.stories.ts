@@ -180,24 +180,12 @@ export const stepper: StoryObj<StepperArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/624'
     })}
     <${stepperTag}>
-        <${anchorStepTag}
-            severity="success"
-            href="#"
-            target="_self"
-            severity-text="Error Description"
-        >
-            1
-            <span slot="title">Title</span>
-            <span slot="subtitle">Subtitle</span>
-        </${anchorStepTag}>
-        <${stepTag}
-            severity="error"
-            severity-text="Error Description"
-        >
-            1
-            <span slot="title">Title</span>
-            <span slot="subtitle">Subtitle</span>
-        </${stepTag}>
+        ${when(x => x.stepType === ExampleStepType.simple, html`
+            <${stepTag}><span slot="title">Moe</span><span slot="subtitle">Lost his bar</span></${stepTag}>
+            <${stepTag}><span slot="title">Barney</span><span slot="subtitle">Lost Moe's bar</span></${stepTag}>
+            <${stepTag}><span slot="title">Principal Skinner</span><span slot="subtitle">Lost his oil well</span></${stepTag}>
+            <${stepTag}><span slot="title">Willie</span><span slot="subtitle">No crystal slop bucket</span></${stepTag}>
+        `)}
     </${stepperTag}>
     `),
     argTypes: {

@@ -10,4 +10,7 @@ export class StepInternals {
 
     @observable
     public last = false;
+
+    @observable
+    public position = '';
 }
