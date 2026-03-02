@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-components",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "description": "NI Ok Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",
@@ -42,8 +42,8 @@
     "@ni/fast-element": "^10.1.0",
     "@ni/fast-foundation": "^10.2.1",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.3.2",
-    "@ni/spright-components": "^6.10.2",
+    "@ni/nimble-components": "^35.3.3",
+    "@ni/spright-components": "^6.10.3",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
@@ -67,7 +67,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
     "karma-webkit-launcher": "^2.6.0",
-    "playwright": "1.54.1",
+    "playwright": "1.58.1",
     "rollup": "^4.12.0",
     "rollup-plugin-sourcemaps2": "^0.5.0",
     "typescript": "~5.8.3"
