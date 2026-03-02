@@ -1,8 +1,25 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Mon, 16 Feb 2026 22:59:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Mar 2026 00:16:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.3.7
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Update dependencies ([ni/nimble@e14152d](https://github.com/ni/nimble/commit/e14152d77e2bd52a55e701147ab67b4474975476))
+- Bump @ni/ok-components to v0.2.16
+
+## 0.3.6
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.14
 
 ## 0.3.5
 

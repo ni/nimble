@@ -8,6 +8,7 @@ public class ChatInputSendEventArgs : EventArgs
 }
 
 [EventHandler("onsprightchatinputsend", typeof(ChatInputSendEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onsprightchatinputstop", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 public static class EventHandlers
 {
 }

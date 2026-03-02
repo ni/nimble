@@ -1,6 +1,6 @@
 {
   "name": "@ni/unit-format",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "NumberFormat aligned library to format numbers with scaled units.",
   "keywords": [
     "units",
@@ -61,7 +61,7 @@
     "karma-jasmine-html-reporter": "^2.0.0",
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
-    "playwright": "1.54.1",
+    "playwright": "1.58.1",
     "typescript": "~5.8.3"
   }
 }
