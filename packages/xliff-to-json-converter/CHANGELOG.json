@@ -2,6 +2,21 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Sun, 01 Mar 2026 21:43:06 GMT",
+      "version": "1.1.15",
+      "tag": "@ni/xliff-to-json-converter_v1.1.15",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "2a202bec1c083c13d4f614579aab47b215c6e244",
+            "comment": "Consistent tsconfig types setting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jan 2026 03:36:17 GMT",
       "version": "1.1.15",
       "tag": "@ni/xliff-to-json-converter_v1.1.15",

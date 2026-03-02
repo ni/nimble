@@ -2,6 +2,57 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 00:16:21 GMT",
+      "version": "32.3.10",
+      "tag": "@ni/nimble-angular_v32.3.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.3.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/unit-format to v1.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 28 Feb 2026 00:50:55 GMT",
+      "version": "32.3.9",
+      "tag": "@ni/nimble-angular_v32.3.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "dc702d8999d88b69c70206ad85bda58667c4a4bc",
+            "comment": "Update to @angular/build"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 27 Feb 2026 23:55:43 GMT",
+      "version": "32.3.8",
+      "tag": "@ni/nimble-angular_v32.3.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Feb 2026 19:23:52 GMT",
       "version": "32.3.7",
       "tag": "@ni/nimble-angular_v32.3.7",
