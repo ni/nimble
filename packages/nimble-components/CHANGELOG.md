@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 02 Mar 2026 00:16:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Mar 2026 17:43:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.3.4
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- step and anchor-step ([ni/nimble@7b528b9](https://github.com/ni/nimble/commit/7b528b96c6462eb69faf6c9ae10986782ca353f7))
 
 ## 35.3.3
 
