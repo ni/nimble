@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 18:11:33 GMT",
+      "version": "35.4.0",
+      "tag": "@ni/nimble-components_v35.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8c04925fec84772102d7fbd07482e67081b029b5",
+            "comment": "Add theme aware token for splitter background"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.16.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Mar 2026 17:43:16 GMT",
       "version": "35.3.4",
       "tag": "@ni/nimble-components_v35.3.4",

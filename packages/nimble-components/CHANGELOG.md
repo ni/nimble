@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 02 Mar 2026 17:43:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Mar 2026 18:11:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.4.0
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Minor changes
+
+- Add theme aware token for splitter background ([ni/nimble@8c04925](https://github.com/ni/nimble/commit/8c04925fec84772102d7fbd07482e67081b029b5))
+- Bump @ni/nimble-tokens to v8.16.0
 
 ## 35.3.4
 
