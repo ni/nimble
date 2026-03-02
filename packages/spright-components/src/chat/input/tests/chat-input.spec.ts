@@ -212,6 +212,15 @@ describe('ChatInput', () => {
             expect(stopSpy).not.toHaveBeenCalled();
         });
 
+        it('emits input event when setting text', () => {
+            const inputSpy = jasmine.createSpy();
+            element.addEventListener('input', inputSpy);
+
+            page.setText('new value');
+
+            expect(inputSpy).toHaveBeenCalled();
+        });
+
         describe('maxlength', () => {
             beforeEach(async () => {
                 await connect();
