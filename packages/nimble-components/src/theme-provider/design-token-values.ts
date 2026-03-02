@@ -177,7 +177,7 @@ export const tokenValues = {
         `linear-gradient(${ForestGreen}, ${hexToRgbaCssColor(ForestGreen, 0)})`,
     ),
     dividerBackgroundColor: createThemeColor(Black15, Black80, ForestGreen),
-    splitterBackgroundColor: createThemeColor(Black30, Black77V100, ForestGreen),
+    dividerBackgroundDynamicColor: createThemeColor(Black30, Black77V100, ForestGreen),
     fillSelectedColor: hexToRgbaCssThemeColor(alias.fillSelectedColor, 0.2, 0.2, 0.2),
     fillSelectedRgbPartialColor: hexToRgbPartialThemeColor(alias.fillSelectedColor),
     fillHoverSelectedColor: hexToRgbaCssThemeColor(alias.fillSelectedColor, 0.15, 0.15, 0.15),
