@@ -2,6 +2,27 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 00:16:21 GMT",
+      "version": "0.3.7",
+      "tag": "@ni/ok-blazor_v0.3.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "e14152d77e2bd52a55e701147ab67b4474975476",
+            "comment": "Update dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v0.2.16",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Feb 2026 23:55:43 GMT",
       "version": "0.3.6",
       "tag": "@ni/ok-blazor_v0.3.6",

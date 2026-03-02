@@ -2,6 +2,29 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 00:16:21 GMT",
+      "version": "35.3.3",
+      "tag": "@ni/nimble-components_v35.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e14152d77e2bd52a55e701147ab67b4474975476",
+            "comment": "Update devDependencies"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 01 Mar 2026 01:21:41 GMT",
       "version": "35.3.2",
       "tag": "@ni/nimble-components_v35.3.2",
