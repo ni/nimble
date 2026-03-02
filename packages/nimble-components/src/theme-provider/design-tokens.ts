@@ -11,6 +11,7 @@ export const headerBackgroundColor = createThemeColorToken(tokenNames.headerBack
 export const sectionBackgroundColor = createThemeColorToken(tokenNames.sectionBackgroundColor, tokenValues.sectionBackgroundColor);
 export const sectionBackgroundImage = createThemeColorToken(tokenNames.sectionBackgroundImage, tokenValues.sectionBackgroundImage);
 export const dividerBackgroundColor = createThemeColorToken(tokenNames.dividerBackgroundColor, tokenValues.dividerBackgroundColor);
+export const dividerBackgroundDynamicColor = createThemeColorToken(tokenNames.dividerBackgroundDynamicColor, tokenValues.dividerBackgroundDynamicColor);
 export const fillSelectedColor = createThemeColorToken(tokenNames.fillSelectedColor, tokenValues.fillSelectedColor);
 export const fillSelectedRgbPartialColor = createThemeColorToken(tokenNames.fillSelectedRgbPartialColor, tokenValues.fillSelectedRgbPartialColor);
 export const fillHoverSelectedColor = createThemeColorToken(tokenNames.fillHoverSelectedColor, tokenValues.fillHoverSelectedColor);

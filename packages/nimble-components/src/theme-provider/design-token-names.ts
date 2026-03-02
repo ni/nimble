@@ -11,6 +11,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     actionRgbPartialColor: 'action-rgb-partial-color',
     applicationBackgroundColor: 'application-background-color',
     dividerBackgroundColor: 'divider-background-color',
+    dividerBackgroundDynamicColor: 'divider-background-dynamic-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
     sectionBackgroundImage: 'section-background-image',
