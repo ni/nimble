@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 17:43:16 GMT",
+      "version": "35.3.4",
+      "tag": "@ni/nimble-components_v35.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7b528b96c6462eb69faf6c9ae10986782ca353f7",
+            "comment": "step and anchor-step"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Mar 2026 00:16:21 GMT",
       "version": "35.3.3",
       "tag": "@ni/nimble-components_v35.3.3",
