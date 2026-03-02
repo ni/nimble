@@ -1,8 +1,36 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Mon, 16 Feb 2026 22:59:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Mar 2026 00:16:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.16
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.3
+- Bump @ni/spright-components to v6.10.3
+
+## 0.2.15
+
+Sun, 01 Mar 2026 01:21:41 GMT
+
+### Patches
+
+- Add custom elements manifest generation ([ni/nimble@668e03a](https://github.com/ni/nimble/commit/668e03a753512409940384aa4a327a487d0b31cb))
+- Bump @ni/nimble-components to v35.3.2
+- Bump @ni/spright-components to v6.10.2
+
+## 0.2.14
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.1
+- Bump @ni/spright-components to v6.10.1
 
 ## 0.2.13
 

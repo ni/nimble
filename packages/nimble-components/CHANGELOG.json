@@ -2,6 +2,59 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 00:16:21 GMT",
+      "version": "35.3.3",
+      "tag": "@ni/nimble-components_v35.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e14152d77e2bd52a55e701147ab67b4474975476",
+            "comment": "Update devDependencies"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 01 Mar 2026 01:21:41 GMT",
+      "version": "35.3.2",
+      "tag": "@ni/nimble-components_v35.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "668e03a753512409940384aa4a327a487d0b31cb",
+            "comment": "Add custom elements manifest generation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 27 Feb 2026 23:55:43 GMT",
+      "version": "35.3.1",
+      "tag": "@ni/nimble-components_v35.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "978850fd81b876b6d3a619f57f190082b5a7279c",
+            "comment": "Don't scroll table element into view if focused by mouse click"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Feb 2026 19:23:52 GMT",
       "version": "35.3.0",
       "tag": "@ni/nimble-components_v35.3.0",

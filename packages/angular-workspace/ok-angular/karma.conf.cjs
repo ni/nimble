@@ -7,7 +7,6 @@ const karmaChromeLauncher = require('karma-chrome-launcher');
 const karmaJasmineHtmlReporter = require('karma-jasmine-html-reporter');
 const karmaSpecReporter = require('karma-spec-reporter');
 const karmaCoverage = require('karma-coverage');
-const karmaAngular = require('@angular-devkit/build-angular/plugins/karma');
 const jasmineExtensions = require('@ni-private/jasmine-extensions');
 const path = require('path');
 
@@ -34,8 +33,7 @@ module.exports = config => {
         basePath: '',
         frameworks: [
             'jasmine-extensions',
-            'jasmine',
-            '@angular-devkit/build-angular'
+            'jasmine'
         ],
         plugins: [
             jasmineExtensions,
@@ -43,8 +41,7 @@ module.exports = config => {
             karmaChromeLauncher,
             karmaJasmineHtmlReporter,
             karmaSpecReporter,
-            karmaCoverage,
-            karmaAngular
+            karmaCoverage
         ],
         client: {
             jasmine: {
