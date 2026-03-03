@@ -202,8 +202,8 @@ export const styles = css`
 
         .content {
             display: inline-flex;
-            ${'' /* Control width - icon size */}
-            width: calc(100% - 32px);
+            ${'' /* Control width - (icon size + gap) */}
+            width: calc(100% - (${controlHeight} + ${smallPadding}));
             flex-direction: column;
             padding-top: ${smallPadding};
             padding-bottom: ${smallPadding};

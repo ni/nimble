@@ -2,11 +2,11 @@ import { Severity } from '@ni/nimble-components/dist/esm/patterns/severity/types
 
 export const ExampleStepType = {
     simple: 'simple',
-    someComplete: 'someComplete',
-    someWarning: 'someWarning',
-    someError: 'someError',
-    many: 'many',
-    wide: 'wide'
+    // someComplete: 'someComplete',
+    // someWarning: 'someWarning',
+    // someError: 'someError',
+    // many: 'many',
+    // wide: 'wide'
 } as const;
 export type ExampleStepType = (typeof ExampleStepType)[keyof typeof ExampleStepType];
 

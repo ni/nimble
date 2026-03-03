@@ -1,4 +1,4 @@
-import { html, when } from '@ni/fast-element';
+import { html, repeat, when } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { action } from 'storybook/actions';
 import { stepperTag } from '@ni/nimble-components/dist/esm/stepper';
@@ -169,6 +169,18 @@ export const step: StoryObj<StepArgs> = {
     }
 };
 
+const simple = [
+    { title: 'Investigate Moe', subtitle: 'Lost his bar' },
+    { title: 'Investigate Barney', subtitle: 'Lost Moe\'s bar' },
+    { title: 'Investigate Skinner', subtitle: 'Lost his oil well' },
+    { title: 'Investigate Willie', subtitle: 'No crystal slop bucket' },
+] as const;
+
+const stepSets = {
+    [ExampleStepType.simple]: simple
+} as const;
+type StepSet = typeof stepSets[ExampleStepType][number];
+
 interface StepperArgs {
     stepType: ExampleStepType;
 }
@@ -180,11 +192,8 @@ export const stepper: StoryObj<StepperArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/624'
     })}
     <${stepperTag}>
-        ${when(x => x.stepType === ExampleStepType.simple, html`
-            <${stepTag}><span slot="title">Moe</span><span slot="subtitle">Lost his bar</span></${stepTag}>
-            <${stepTag}><span slot="title">Barney</span><span slot="subtitle">Lost Moe's bar</span></${stepTag}>
-            <${stepTag}><span slot="title">Principal Skinner</span><span slot="subtitle">Lost his oil well</span></${stepTag}>
-            <${stepTag}><span slot="title">Willie</span><span slot="subtitle">No crystal slop bucket</span></${stepTag}>
+        ${repeat(x => stepSets[x.stepType], html<StepSet>`
+            <${stepTag}><span slot="title">${x => x.title}</span><span slot="subtitle">${x => x.subtitle}</span></${stepTag}>
         `)}
     </${stepperTag}>
     `),
