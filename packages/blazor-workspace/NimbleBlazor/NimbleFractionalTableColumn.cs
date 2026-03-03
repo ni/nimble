@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 public abstract class NimbleFractionalTableColumn : NimbleTableColumn, IFractionalWidthColumn
 {

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 public partial class NimbleRichTextViewer : ComponentBase
 {

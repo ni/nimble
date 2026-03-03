@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 public partial class NimbleDialog<TCloseReason> : ComponentBase
 {

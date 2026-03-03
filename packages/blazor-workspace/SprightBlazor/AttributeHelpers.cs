@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SprightBlazor;
+namespace NationalInstruments.SprightBlazor;
 
 internal static class AttributeHelpers
 {

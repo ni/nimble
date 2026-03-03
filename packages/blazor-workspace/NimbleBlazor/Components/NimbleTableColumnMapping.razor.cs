@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 public partial class NimbleTableColumnMapping<TKey> : NimbleTableColumnEnumBase<TKey>, IFractionalWidthColumn
 {

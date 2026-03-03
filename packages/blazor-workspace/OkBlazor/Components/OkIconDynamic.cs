@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.JSInterop;
 
-namespace OkBlazor;
+namespace NationalInstruments.OkBlazor;
 
 /// <summary>
 /// Helper methods for registering dynamic icons with Ok components.

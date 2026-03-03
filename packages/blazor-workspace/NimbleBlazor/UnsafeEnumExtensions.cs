@@ -1,4 +1,4 @@
-﻿namespace NimbleBlazor;
+﻿namespace NationalInstruments.NimbleBlazor;
 
 /// <summary>
 /// This class provides an unsafe means of retrieving the string name of an enum value.

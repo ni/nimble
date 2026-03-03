@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 /// <summary>
 /// Base class for Nimble icons.

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 public interface ITableValidity
 {

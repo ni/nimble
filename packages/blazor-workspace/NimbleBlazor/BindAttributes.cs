@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 // Checkbox like items
 [BindElement("nimble-checkbox", null, "checked", "onchange")]

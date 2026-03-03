@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 internal sealed class TableColumnSortDirectionConverter : JsonConverter<TableColumnSortDirection>
 {

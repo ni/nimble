@@ -1,4 +1,4 @@
-﻿namespace SprightBlazor;
+﻿namespace NationalInstruments.SprightBlazor;
 
 public enum ChatMessageType
 {

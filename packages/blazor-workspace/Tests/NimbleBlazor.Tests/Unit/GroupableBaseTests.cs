@@ -4,7 +4,7 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
 #nullable enable
-namespace NimbleBlazor.Tests.Unit;
+namespace NationalInstruments.NimbleBlazor.Tests.Unit;
 
 public abstract class GroupableBaseTests<T> where T : ComponentBase, IGroupableColumn
 {

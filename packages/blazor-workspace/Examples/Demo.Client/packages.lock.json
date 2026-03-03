@@ -35,15 +35,15 @@
       },
       "Microsoft.NET.ILLink.Tasks": {
         "type": "Direct",
-        "requested": "[8.0.24, )",
-        "resolved": "8.0.24",
-        "contentHash": "1gnadp//+DoGJvV4AFdzPqYPxkypaWYjYMCr7KAacV0iadsHz1nU+rrkoxBCna4FCmeKH49CisEwa7g94/MbEg=="
+        "requested": "[8.0.23, )",
+        "resolved": "8.0.23",
+        "contentHash": "GqHiB1HbbODWPbY/lc5xLQH8siEEhNA0ptpJCC6X6adtAYNEzu5ZlqV3YHA3Gh7fuEwgA8XqVwMtH2KNtuQM1Q=="
       },
       "Microsoft.NET.Sdk.WebAssembly.Pack": {
         "type": "Direct",
-        "requested": "[8.0.24, )",
-        "resolved": "8.0.24",
-        "contentHash": "+yUq82k8/JYeOmQo2e1QDTNRSgsBksmvkfk/o4GYcRLY42ukFtvnvQb/9BoTkB4jbS8xKRnRIa7mT7mcfRC1CQ=="
+        "requested": "[10.0.2, )",
+        "resolved": "10.0.2",
+        "contentHash": "ZDAtI9V2EQajyccTZ67JtJWMCIpK3ZFgwqNHyfMieossRdB90WJ+IbYVKObLOLIv9Vkc3eJcrJD2CeffsF/nUA=="
       },
       "NI.CSharp.Analyzers": {
         "type": "Direct",
@@ -353,25 +353,25 @@
           "AspNetCore.SassCompiler": "[1.97.1, )",
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )",
           "NI.CSharp.Analyzers": "[2.0.35, )",
-          "NimbleBlazor": "[1.0.0, )",
-          "OkBlazor": "[1.0.0, )",
-          "SprightBlazor": "[1.0.0, )"
+          "NationalInstruments.NimbleBlazor": "[1.0.0, )",
+          "NationalInstruments.OkBlazor": "[1.0.0, )",
+          "NationalInstruments.SprightBlazor": "[1.0.0, )"
         }
       },
-      "nimbleblazor": {
+      "NationalInstruments.NimbleBlazor": {
         "type": "Project",
         "dependencies": {
           "Apache.Arrow": "[22.1.0, 22.1.0]",
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"
         }
       },
-      "okblazor": {
+      "NationalInstruments.OkBlazor": {
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"
         }
       },
-      "sprightblazor": {
+      "NationalInstruments.SprightBlazor": {
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"

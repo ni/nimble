@@ -2,7 +2,7 @@
 using Microsoft.Playwright;
 using Xunit;
 
-namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
+namespace NationalInstruments.NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
 public class WaferMapTests : NimbleInteractiveAcceptanceTestsBase
 {

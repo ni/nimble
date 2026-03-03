@@ -35,7 +35,7 @@ for (const key of Object.keys(icons)) {
     const componentName = `Nimble${className}`; // e.g. "NimbleIconArrowExpanderLeft"
 
     const directiveFileContents = `${generatedFilePrefix}
-@namespace NimbleBlazor
+@namespace NationalInstruments.NimbleBlazor
 @inherits NimbleIconBase
 <${elementName}
     severity="@Severity.ToAttributeValue()"

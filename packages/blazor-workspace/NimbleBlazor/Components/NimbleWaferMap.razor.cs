@@ -4,7 +4,7 @@ using Apache.Arrow.Ipc;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 /// <summary>
 /// A visualization widget which displays the location and color code of integrated circuits on a silicon wafer.

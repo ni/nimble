@@ -1,6 +1,6 @@
 ﻿// Suppressing rule "Identifiers should not contain type names" because "long" and "short" come from the underlying API
 #pragma warning disable CA1720
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 public enum DateTextFormat
 {

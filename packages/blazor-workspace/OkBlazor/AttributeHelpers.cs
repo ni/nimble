@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace OkBlazor;
+namespace NationalInstruments.OkBlazor;
 
 internal static class AttributeHelpers
 {

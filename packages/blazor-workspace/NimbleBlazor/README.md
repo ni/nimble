@@ -33,7 +33,7 @@ Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://
         - Visual Studio: "Project" >> "Manage NuGet Packages". Click the gear/Settings button. Add a new Package Source ("NimbleBlazor") as `[NimbleRepoDirectory]\packages\blazor-workspace\dist` and commit/ close Settings. Pick "NimbleBlazor" in the "Package Source" dropdown, and ensure "Include prerelease" is checked. Search for "NimbleBlazor", select it and click the "Install" button.
         - VS Code: Run the command `dotnet add package NimbleBlazor --source [NimbleRepoDirectory]\packages\blazor-workspace\dist` in the Terminal window.
 2. Add required references to Blazor code
-    - Open `_Imports.razor`, and add a new line at the bottom: `@using NimbleBlazor`
+    - Open `_Imports.razor`, and add a new line at the bottom: `@using NationalInstruments.NimbleBlazor`
     - Open the HTML page (generally `App.razor` for Blazor Web Apps, or `wwwroot/index.html` for Blazor WebAssembly / Hybrid)
 
       At the bottom of the `<head>` section (right before `</head>`), add  

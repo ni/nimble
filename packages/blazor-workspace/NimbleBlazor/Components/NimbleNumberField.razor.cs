@@ -2,7 +2,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 /// <summary>
 /// The Blazor wrapper for the 'nimble-number-field' web component

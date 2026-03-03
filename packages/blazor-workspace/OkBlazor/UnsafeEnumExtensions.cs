@@ -1,4 +1,4 @@
-﻿namespace OkBlazor;
+﻿namespace NationalInstruments.OkBlazor;
 
 /// <summary>
 /// This class provides an unsafe means of retrieving the string name of an enum value.

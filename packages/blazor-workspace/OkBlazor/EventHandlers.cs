@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace OkBlazor;
+namespace NationalInstruments.OkBlazor;
 
 public static class EventHandlers
 {

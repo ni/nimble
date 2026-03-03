@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace SprightBlazor;
+namespace NationalInstruments.SprightBlazor;
 
 /// <summary>
 /// SprightChatMessage is deprecated. Use specific message component types instead.

@@ -1,4 +1,4 @@
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 public enum DialogCloseReason
 {

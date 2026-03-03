@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace SprightBlazor;
+namespace NationalInstruments.SprightBlazor;
 
 public partial class SprightChatConversation : ComponentBase
 {

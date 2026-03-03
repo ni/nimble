@@ -647,7 +647,7 @@
           "xunit.abstractions": "2.0.3"
         }
       },
-      "nimbleblazor": {
+      "NationalInstruments.NimbleBlazor": {
         "type": "Project",
         "dependencies": {
           "Apache.Arrow": "[22.1.0, 22.1.0]",

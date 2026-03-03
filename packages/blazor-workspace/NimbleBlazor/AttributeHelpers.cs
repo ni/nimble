@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace NimbleBlazor;
+namespace NationalInstruments.NimbleBlazor;
 
 internal static class AttributeHelpers
 {
