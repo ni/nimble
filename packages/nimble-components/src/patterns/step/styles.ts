@@ -1,0 +1,463 @@
+import { css } from '@ni/fast-element';
+import { Black15, Black91, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../../utilities/style/display';
+import {
+    buttonLabelFont,
+    buttonLabelFontColor,
+    smallPadding,
+    bodyFont,
+    errorTextFont,
+    controlSlimHeight,
+    borderRgbPartialColor,
+    borderHoverColor,
+    borderWidth,
+    smallDelay,
+    fillSelectedColor,
+    passColor,
+    failColor,
+    warningColor,
+    buttonLabelDisabledFontColor,
+    iconColor,
+    menuMinWidth,
+    standardPadding,
+    controlHeight,
+    errorTextFontLineHeight
+} from '../../theme-provider/design-tokens';
+import { styles as severityStyles } from '../severity/styles';
+import { focusVisible } from '../../utilities/style/focus';
+import { userSelectNone } from '../../utilities/style/user-select';
+import { themeBehavior } from '../../utilities/style/theme';
+import { Theme } from '../../theme-provider/types';
+
+export const styles = css`
+    @layer base, hover, focusVisible, active, disabled, top;
+
+    @layer base {
+        ${display('inline-flex')}
+        ${severityStyles}
+        :host {
+            ${'' /* Based on text layout: Top padding + title height + subtitle height + bottom padding */}
+            height: calc(${smallPadding} + ${controlSlimHeight} + ${errorTextFontLineHeight} + ${smallPadding});
+            width: ${menuMinWidth};
+            color: ${buttonLabelFontColor};
+            font: ${buttonLabelFont};
+            white-space: nowrap;
+            outline: none;
+            border: none;
+        }
+
+        ${'' /* Container wrapper for severity text to position against */}
+        .container {
+            display: inline-flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .control { 
+            display: inline-flex;
+            align-items: start;
+            justify-content: flex-start;
+            height: 100%;
+            width: 100%;
+            color: inherit;
+            background-color: transparent;
+            gap: ${smallPadding};
+            cursor: pointer;
+            outline: none;
+            margin: 0; 
+            padding: 0 ${smallPadding} 0 0;
+            --ni-private-step-icon-background-full-size: 100% 100%;
+            ${'' /* 6px = (2px icon border + 1px inset) * 2 sides */}
+            --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
+            --ni-private-step-icon-background-none-size: 0% 0%;
+
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
+            --ni-private-step-icon-border-color: transparent;
+            --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
+            --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+        }
+
+        :host([severity="error"]) .control {
+            --ni-private-step-icon-color: ${failColor};
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([severity="warning"]) .control {
+            --ni-private-step-icon-color: ${warningColor};
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${warningColor};
+        }
+
+        :host([severity="success"]) .control {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-color: ${passColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
+            --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+        }
+
+        :host([selected]) .control {
+            --ni-private-step-icon-color: ${borderHoverColor};
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-background-color: rgb(from ${borderHoverColor} r g b / 30%);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+            height: ${controlHeight};
+            width: ${controlHeight};
+            ${userSelectNone};
+            font: ${buttonLabelFont};
+            color: var(--ni-private-step-icon-color);
+            ${iconColor.cssCustomProperty}: var(--ni-private-step-icon-color);
+            border-style: solid;
+            border-radius: 100%;
+            border-color: var(--ni-private-step-icon-border-color);
+            border-width: 1px;
+            background-image: radial-gradient(
+                closest-side,
+                ${'' /* Workaround to prevent aliasing on radial-gradient boundaries, see:
+                        https://frontendmasters.com/blog/obsessing-over-smooth-radial-gradient-disc-edges
+                    */}
+                var(--ni-private-step-icon-background-color) calc(100% - 1px/var(--ni-private-device-resolution)),
+                transparent 100%
+            );
+            background-origin: border-box;
+            background-size: var(--ni-private-step-icon-background-size);
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: relative;
+            transition:
+                border-color ${smallDelay} ease-in-out,
+                border-width ${smallDelay} ease-in-out,
+                background-size ${smallDelay} ease-out;
+        }
+
+        :host([selected]) .icon {
+            border-width: 2px;
+        }
+
+        .icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            outline-color: var(--ni-private-step-icon-outline-inset-color);
+            outline-style: solid;
+            outline-width: 0px;
+            outline-offset: 0px;
+            border: 1px solid transparent;
+            border-radius: 100%;
+            color: transparent;
+            background-clip: border-box;
+            transition:
+                outline-color ${smallDelay} ease-in-out,
+                outline-width ${smallDelay} ease-in-out,
+                outline-offset ${smallDelay} ease-in-out;
+        }
+
+        .icon-slot {
+            display: contents;
+        }
+
+        :host([severity="error"]) .icon-slot,
+        :host([severity="warning"]) .icon-slot,
+        :host([severity="success"]) .icon-slot {
+            display: none;
+        }
+
+        :host([selected]) .icon-slot,
+        :host([disabled]) .icon-slot {
+            display: contents;
+        }
+
+        .icon-severity {
+            display: none;
+        }
+
+        :host([severity="error"]) .icon-severity,
+        :host([severity="warning"]) .icon-severity,
+        :host([severity="success"]) .icon-severity {
+            display: contents;
+        }
+
+        :host([selected]) .icon-severity,
+        :host([disabled]) .icon-severity {
+            display: none;
+        }
+
+        .content {
+            display: inline-flex;
+            ${'' /* Control width - icon size */}
+            width: calc(100% - 32px);
+            flex-direction: column;
+            padding-top: ${smallPadding};
+            padding-bottom: ${smallPadding};
+        }
+
+        .title-wrapper {
+            display: inline-flex;
+            height: ${controlSlimHeight};
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            gap: ${smallPadding};
+            font: ${bodyFont};
+        }
+
+        [part='start'] {
+            display: none;
+        }
+
+        .title {
+            display: inline-block;
+            flex: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            ${'' /* Content width - (gap + line min width) */}
+            max-width: calc(100% - (${smallPadding} + ${standardPadding}));
+        }
+
+        [part='end'] {
+            display: none;
+        }
+        
+        .line {
+            display: inline-block;
+            flex: 1;
+            min-width: ${standardPadding};
+            height: 1px;
+            background: var(--ni-private-step-line-color);
+            transform: scale(1, 1);
+            transition:
+                background-color ${smallDelay} ease-in-out,
+                transform ${smallDelay} ease-in-out;
+        }
+
+        .subtitle {
+            font: ${errorTextFont};
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            ${'' /* Content width */}
+            max-width: 100%;
+        }
+    }
+
+    @layer hover {
+        .control:hover {
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="error"]) .control:hover {
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([severity="warning"]) .control:hover {
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${warningColor};
+        }
+
+        :host([severity="success"]) .control:hover {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
+            --ni-private-step-line-color: ${passColor};
+        }
+
+        :host([selected]) .control:hover {
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        .control:hover .icon {
+            border-width: 2px;
+        }
+
+        .control:hover .line {
+            transform: scale(1, 2);
+        }
+    }
+
+    @layer focusVisible {
+        .control${focusVisible} {
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="error"]) .control${focusVisible} {
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-outline-inset-color: ${failColor};
+            --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([severity="warning"]) .control${focusVisible} {
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-outline-inset-color: ${warningColor};
+            --ni-private-step-line-color: ${warningColor};
+        }
+
+        :host([severity="success"]) .control${focusVisible} {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
+            --ni-private-step-line-color: ${passColor};
+        }
+
+        :host([selected]) .control${focusVisible} {
+            --ni-private-step-icon-color: ${borderHoverColor};
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+    
+        .control${focusVisible} .icon {
+            border-width: 2px;
+        }
+
+        .control${focusVisible} .icon::before {
+            outline-width: ${borderWidth};
+            outline-offset: -2px;
+        }
+
+        .control${focusVisible} .line {
+            transform: scale(1, 2);
+        }
+    }
+
+    @layer active {
+        .control:active {
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-background-color: ${fillSelectedColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([severity="error"]) .control:active {
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
+            --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([severity="warning"]) .control:active {
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
+            --ni-private-step-line-color: ${warningColor};
+        }
+
+        :host([severity="success"]) .control:active {
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
+            --ni-private-step-line-color: ${passColor};
+        }
+
+        :host([selected]) .control:active {
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
+            --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-background-color: rgb(from ${borderHoverColor} r g b / 30%);
+            --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        .control:active .icon {
+            border-width: 2px;
+        }
+
+        .control:active .icon::before {
+            outline-width: 0px;
+            outline-offset: 0px;
+        }
+
+        .control:active .line {
+            transform: scale(1, 1);
+        }
+    }
+
+    @layer disabled {
+        :host([disabled]) .control {
+            cursor: default;
+            color: ${buttonLabelDisabledFontColor};
+            --ni-private-step-icon-color: rgb(from ${buttonLabelFontColor} r g b / 30%);
+            --ni-private-step-icon-border-color: transparent;
+            --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
+            --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+        }
+
+        :host([disabled]) .line {
+            transform: scale(1, 1);
+        }
+    }
+
+    @layer top {
+        @media (prefers-reduced-motion) {
+            .control {
+                transition-duration: 0s;
+            }
+        }
+    }
+`.withBehaviors(
+    themeBehavior(
+        Theme.light,
+        css`
+            @layer base {
+                .control {
+                    --ni-private-step-icon-inverse-color: ${White};
+                }
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            @layer base {
+                .control {
+                    --ni-private-step-icon-inverse-color: ${Black91};
+                }
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            @layer base {
+                .control {
+                    --ni-private-step-icon-inverse-color: ${Black15};
+                }
+
+                :host([severity="success"]) .control {
+                    --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
+                }
+            }
+        `
+    )
+);
