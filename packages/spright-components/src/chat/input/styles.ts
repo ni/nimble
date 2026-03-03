@@ -101,6 +101,32 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
+    .divider {
+        width: 100%;
+        height: ${borderWidth};
+        background-color: ${popupBorderColor};
+    }
+
+    .bottom-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: ${mediumPadding};
+        padding-bottom: calc(${mediumPadding} - ${borderWidth});
+    }
+
+    .bottom-section:not([show-counter]) {
+        padding-bottom: ${mediumPadding};
+    }
+
+    .counter {
+        font: ${bodyFont};
+        color: ${controlLabelFontColor};
+        flex-shrink: 0;
+        margin-left: ${mediumPadding};
+    }
+
     :host([error-visible]) .error-icon {
         display: none;
     }
@@ -112,9 +138,9 @@ export const styles = css`
         right: var(--ni-private-scrollbar-width);
     }
 
-    .action-button {
-        align-self: flex-end;
+    .bottom-section .action-button {
         width: 80px;
-        margin: ${mediumPadding};
+        margin: 0;
+        margin-left: auto;
     }
 `;

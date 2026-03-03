@@ -48,6 +48,14 @@ export class SprightChatInputDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'processing', value);
     }
 
+    public get showCounter(): boolean {
+        return this.elementRef.nativeElement.showCounter;
+    }
+
+    @Input('show-counter') public set showCounter(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'showCounter', toBooleanProperty(value));
+    }
+
     public get maxLength(): number | undefined {
         return this.elementRef.nativeElement.maxLength;
     }

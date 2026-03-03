@@ -43,6 +43,19 @@ const errorStates = [
 ] as const;
 type ErrorState = (typeof errorStates)[number];
 
+const showCounterStates = [
+    ['', false],
+    ['counter', true]
+] as const;
+type ShowCounterState = (typeof showCounterStates)[number];
+
+const showCounterMaxLengthStates = [
+    ['no counter', false, 'no limit', -1],
+    ['counter', true, 'no limit', -1],
+    ['counter', true, 'limit 100', 100]
+] as const;
+type ShowCounterMaxLengthState = (typeof showCounterMaxLengthStates)[number];
+
 const metadata: Meta = {
     title: 'Tests Spright/Chat Input',
     parameters: {
@@ -56,7 +69,8 @@ const component = (
     [valueLabel, value]: ValueState,
     [placeholderLabel, placeholder]: PlaceholderState,
     [processingLabel, processing]: ProcessingState,
-    [errorLabel, error]: ErrorState
+    [errorLabel, error]: ErrorState,
+    [showCounterLabel, showCounter, maxLengthLabel, maxLength]: ShowCounterMaxLengthState
 ): ViewTemplate => html`
     <p 
         style="
@@ -65,20 +79,36 @@ const component = (
         margin-bottom: 0px;
         "
     >    
-        ${valueLabel} value, ${placeholderLabel} placeholder, ${processingLabel}, ${errorLabel} error
+        ${valueLabel} value, ${placeholderLabel} placeholder, ${processingLabel}, ${errorLabel} error, ${showCounterLabel}, ${maxLengthLabel}
     </p>
-    <${chatInputTag}
-        placeholder="${placeholder}"
-        value="${value}"
-        processing="${processing}"
-        error-visible="${error !== ''}"
-        error-text="${error}"
-    >
-    </${chatInputTag}>
+    ${showCounter
+        ? html`
+            <${chatInputTag}
+                placeholder="${placeholder}"
+                value="${value}"
+                processing="${processing}"
+                error-visible="${error !== ''}"
+                error-text="${error}"
+                show-counter
+                maxlength="${maxLength}"
+            >
+            </${chatInputTag}>
+        `
+        : html`
+            <${chatInputTag}
+                placeholder="${placeholder}"
+                value="${value}"
+                processing="${processing}"
+                error-visible="${error !== ''}"
+                error-text="${error}"
+                maxlength="${maxLength}"
+            >
+            </${chatInputTag}>
+        `}
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [valueStates, placeholderStates, processingStates, errorStates])
+    createMatrix(component, [valueStates, placeholderStates, processingStates, errorStates, showCounterMaxLengthStates])
 );
 
 export const hidden: StoryFn = createStory(
@@ -92,7 +122,8 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
 );
 
 const componentWithPlaceholder = (
-    [_, placeholder]: PlaceholderState
+    [_, placeholder]: PlaceholderState,
+    [__, showCounter]: ShowCounterState
 ): ViewTemplate => html`
     <p 
         style="
@@ -102,13 +133,23 @@ const componentWithPlaceholder = (
         "
     >    
     </p>
-    <${chatInputTag}
-        placeholder="${placeholder}"
-    >
-    </${chatInputTag}>
+    ${showCounter
+        ? html`
+            <${chatInputTag}
+                placeholder="${placeholder}"
+                show-counter
+            >
+            </${chatInputTag}>
+        `
+        : html`
+            <${chatInputTag}
+                placeholder="${placeholder}"
+            >
+            </${chatInputTag}>
+        `}
 `;
 
-const interactionStates = cartesianProduct([placeholderStates] as const);
+const interactionStates = cartesianProduct([placeholderStates, showCounterStates] as const);
 
 export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(componentWithPlaceholder, {

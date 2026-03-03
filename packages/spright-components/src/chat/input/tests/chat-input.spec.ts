@@ -80,6 +80,34 @@ describe('ChatInput', () => {
             expect(page.getButtonTitle()).toEqual(stopLabel);
             expect(page.buttonHasStopIcon()).toBeTrue();
         });
+
+        it('does not show a character counter by default', () => {
+            expect(page.isCounterVisible()).toBeFalse();
+        });
+    });
+
+    describe('character counter', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        it('shows the current character count when enabled', () => {
+            element.showCounter = true;
+            element.value = 'abc';
+            processUpdates();
+
+            expect(page.isCounterVisible()).toBeTrue();
+            expect(page.getCounterText()).toEqual('3');
+        });
+
+        it('includes maxLength when it is set', () => {
+            element.showCounter = true;
+            element.maxLength = 10;
+            element.value = 'aaaa';
+            processUpdates();
+
+            expect(page.getCounterText()).toEqual('4/10');
+        });
     });
 
     describe('value property set', () => {

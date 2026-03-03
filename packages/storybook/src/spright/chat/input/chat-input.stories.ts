@@ -18,6 +18,7 @@ interface ChatInputArgs {
     processing: boolean;
     errorText: string;
     errorVisible: boolean;
+    showCounter: boolean;
     send: undefined;
     stop: undefined;
 }
@@ -43,6 +44,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             value="${x => x.value}"
             error-text="${x => x.errorText}"
             ?error-visible="${x => x.errorVisible}"
+            ?show-counter="${x => x.showCounter}"
         >
         </${chatInputTag}>
     `),
@@ -95,6 +97,12 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
+        showCounter: {
+            name: 'show-counter',
+            description: 'Whether to show a character counter in the bottom-left of the input.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
         send: {
             description:
                 'Emitted when the user clicks the \'Send\' button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input.',
@@ -113,7 +121,8 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         processing: false,
         maxlength: -1,
         errorText: 'Error description',
-        errorVisible: false
+        errorVisible: false,
+        showCounter: false
     }
 };
 

@@ -83,6 +83,11 @@ describe('Spright chat input', () => {
             expect(directive.errorVisible).toBe(false);
             expect(nativeElement.errorVisible).toBe(false);
         });
+
+        it('has expected defaults for showCounter', () => {
+            expect(directive.showCounter).toBe(false);
+            expect(nativeElement.showCounter).toBe(false);
+        });
     });
 
     describe('with template string values', () => {
@@ -97,6 +102,7 @@ describe('Spright chat input', () => {
                     maxlength="10"
                     error-text="Error text value"
                     error-visible
+                    show-counter
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -160,6 +166,11 @@ describe('Spright chat input', () => {
             expect(directive.errorVisible).toBe(true);
             expect(nativeElement.errorVisible).toBe(true);
         });
+
+        it('will use template string values for showCounter', () => {
+            expect(directive.showCounter).toBe(true);
+            expect(nativeElement.showCounter).toBe(true);
+        });
     });
 
     describe('with property bound values', () => {
@@ -174,6 +185,7 @@ describe('Spright chat input', () => {
                     [maxlength]="maxLength"
                     [errorText]="errorText"
                     [errorVisible]="errorVisible"
+                    [showCounter]="showCounter"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -189,6 +201,7 @@ describe('Spright chat input', () => {
             public maxLength = 20;
             public errorText = 'initial';
             public errorVisible: BooleanValueOrAttribute = null;
+            public showCounter = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -294,6 +307,17 @@ describe('Spright chat input', () => {
             expect(directive.errorVisible).toBe(true);
             expect(nativeElement.errorVisible).toBe(true);
         });
+
+        it('can be configured with property binding for showCounter', () => {
+            expect(directive.showCounter).toBe(false);
+            expect(nativeElement.showCounter).toBe(false);
+
+            fixture.componentInstance.showCounter = true;
+            fixture.detectChanges();
+
+            expect(directive.showCounter).toBe(true);
+            expect(nativeElement.showCounter).toBe(true);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -308,6 +332,7 @@ describe('Spright chat input', () => {
                     [attr.maxlength]="maxLength"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
+                    [attr.show-counter]="showCounter"
                     >
                 </spright-chat-input>`,
             standalone: false
@@ -323,6 +348,7 @@ describe('Spright chat input', () => {
             public maxLength = 20;
             public errorText = 'initial';
             public errorVisible: BooleanValueOrAttribute = null;
+            public showCounter: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -426,6 +452,17 @@ describe('Spright chat input', () => {
 
             expect(directive.errorText).toBe('updated errorText value');
             expect(nativeElement.errorText).toBe('updated errorText value');
+        });
+
+        it('can be configured with attribute binding for showCounter', () => {
+            expect(directive.showCounter).toBe(false);
+            expect(nativeElement.showCounter).toBe(false);
+
+            fixture.componentInstance.showCounter = true;
+            fixture.detectChanges();
+
+            expect(directive.showCounter).toBe(true);
+            expect(nativeElement.showCounter).toBe(true);
         });
     });
 });

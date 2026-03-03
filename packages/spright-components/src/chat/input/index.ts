@@ -37,6 +37,9 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @attr({ attribute: 'processing', mode: 'boolean' })
     public processing = false;
 
+    @attr({ attribute: 'show-counter', mode: 'boolean' })
+    public showCounter = false;
+
     /**
      * @internal
      */

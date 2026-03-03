@@ -17,23 +17,37 @@ export const template = html<ChatInput>`
         @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
         @input="${x => x.textAreaInputHandler()}"
     ></textarea>
-    <${buttonTag}
-        class="action-button"
-        appearance="block"
-        appearance-variant="${x => (x.processing ? 'primary' : 'accent')}"
-        ?disabled=${x => (x.processing ? false : x.disableSendButton)}
-        @click=${x => (x.processing ? x.stopButtonClickHandler() : x.sendButtonClickHandler())}
-        tabindex="${x => x.tabIndex}"
-        title=${x => (x.processing ? x.stopButtonLabel : x.sendButtonLabel)}
-        content-hidden
-    >
-        ${x => (x.processing ? x.stopButtonLabel : x.sendButtonLabel)}
+    ${when(
+        x => x.showCounter,
+        html`<div class="divider"></div>`
+    )}
+    <div class="bottom-section" ?show-counter="${x => x.showCounter}">
         ${when(
-            x => x.processing,
-            html`<${iconStopSquareTag} slot="start"></${iconStopSquareTag}>`,
-            html`<${iconPaperPlaneTag} slot="start"></${iconPaperPlaneTag}>`
+            x => x.showCounter,
+            html`<div class="counter">
+                ${(x: ChatInput) => (x.maxLength !== undefined && x.maxLength > -1
+                    ? `${x.value.length}/${x.maxLength}`
+                    : `${x.value.length}`)}
+            </div>`
         )}
-    </${buttonTag}>
+        <${buttonTag}
+            class="action-button"
+            appearance="block"
+            appearance-variant="${x => (x.processing ? 'primary' : 'accent')}"
+            ?disabled=${x => (x.processing ? false : x.disableSendButton)}
+            @click=${x => (x.processing ? x.stopButtonClickHandler() : x.sendButtonClickHandler())}
+            tabindex="${x => x.tabIndex}"
+            title=${x => (x.processing ? x.stopButtonLabel : x.sendButtonLabel)}
+            content-hidden
+        >
+            ${x => (x.processing ? x.stopButtonLabel : x.sendButtonLabel)}
+            ${when(
+                x => x.processing,
+                html`<${iconStopSquareTag} slot="start"></${iconStopSquareTag}>`,
+                html`<${iconPaperPlaneTag} slot="start"></${iconPaperPlaneTag}>`
+            )}
+        </${buttonTag}>
+    </div>
     <${iconExclamationMarkTag}
         severity="error"
         class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"

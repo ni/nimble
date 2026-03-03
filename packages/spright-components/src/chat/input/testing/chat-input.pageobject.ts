@@ -86,6 +86,14 @@ export class ChatInputPageObject {
         return this.element.textArea!.value;
     }
 
+    public isCounterVisible(): boolean {
+        return this.getCounterElement() !== null;
+    }
+
+    public getCounterText(): string | null {
+        return this.getCounterElement()?.textContent?.trim() ?? null;
+    }
+
     public setText(text: string): void {
         this.element.textArea!.focus();
         this.element.textArea!.value = text;
@@ -120,5 +128,9 @@ export class ChatInputPageObject {
         }
 
         await waitForUpdatesAsync();
+    }
+
+    private getCounterElement(): HTMLElement | null {
+        return this.element.shadowRoot?.querySelector<HTMLElement>('.counter') ?? null;
     }
 }
