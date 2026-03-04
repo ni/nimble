@@ -27,6 +27,7 @@ import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
 import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-down';
 import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '@ni/nimble-components/dist/esm/icons/three-dots-line';
+import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
 import {
@@ -41,6 +42,7 @@ interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
     content: string;
     toolbar: boolean;
+    start: boolean;
     input: boolean;
     conversationRef: ChatConversation;
     sendMessage: (
@@ -72,6 +74,12 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                         <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
                     </${buttonTag}>
                 </${toolbarTag}>
+            `)}
+            ${when(x => x.start, html<ChatConversationArgs>`
+                <${bannerTag} slot="start" severity="information">
+                    <span slot="title">Title of the banner</span>
+                    This is the message text of this banner. It tells you something interesting.
+                </${bannerTag}>
             `)}
             <${chatMessageSystemTag}>
                 To start, press any key.
@@ -147,6 +155,11 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 `A slot to optionally include a \`${toolbarTag}\` which will be displayed on top of the conversation.`,
             table: { category: apiCategory.slots }
         },
+        start: {
+            description:
+                'A slot to optionally include content (such as banners) which will be displayed below the toolbar and above the messages.',
+            table: { category: apiCategory.slots }
+        },
         input: {
             description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages.`,
             table: { category: apiCategory.slots }
@@ -159,6 +172,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         appearance: 'default',
         input: true,
         toolbar: true,
+        start: true,
         sendMessage: (event, conversationRef) => {
             const message = document.createElement(chatMessageOutboundTag);
             const span = document.createElement('span');

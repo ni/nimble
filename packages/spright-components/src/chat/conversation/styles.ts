@@ -30,6 +30,15 @@ export const styles = css`
         display: none;
     }
 
+    .start {
+        display: block;
+        padding: ${standardPadding} ${standardPadding} 0px ${standardPadding};
+    }
+
+    .start.start-empty {
+        display: none;
+    }
+
     .messages {
         flex: 1;
         display: flex;
