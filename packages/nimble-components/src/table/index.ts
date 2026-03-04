@@ -210,6 +210,46 @@ export class Table<
     /**
      * @internal
      */
+    @volatile
+    public get pinnedColumnOffset(): number {
+        let offset = 0;
+        for (const column of this.pinnedColumns) {
+            if (column.columnInternals.currentPixelWidth) {
+                const coercedPixelWidth = Math.max(
+                    column.columnInternals.minPixelWidth,
+                    column.columnInternals.currentPixelWidth
+                );
+                offset += coercedPixelWidth;
+            }
+        }
+        return offset;
+    }
+
+    /**
+     * @internal
+     */
+    @volatile
+    public get pinnedColumnsGridTemplateColumns(): string {
+        return this.pinnedColumns.map(column => {
+                const {
+                    minPixelWidth,
+                    currentPixelWidth
+                } = column.columnInternals;
+                if (currentPixelWidth !== undefined) {
+                    const coercedPixelWidth = Math.max(
+                        minPixelWidth,
+                        currentPixelWidth
+                    );
+                    return `${coercedPixelWidth}px`;
+                }
+            })
+            .join(' ');
+
+    }
+
+    /**
+     * @internal
+     */
     public readonly headerRowActionContainer!: HTMLElement;
 
     /**

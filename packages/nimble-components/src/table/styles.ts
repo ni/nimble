@@ -121,6 +121,11 @@ export const styles = css`
         visibility: visible;
     }
 
+    .pinned-columns-header-container {
+        display: grid;
+        grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
+    }
+
     .header-container {
         display: flex;
         align-items: center;

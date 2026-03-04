@@ -26,6 +26,7 @@ export const styles = css`
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
         grid-template-columns:
+            calc(var(--ni-private-table-group-row-pinned-column-offset))
             calc(
                 ${controlHeight} *
                     (var(--ni-private-table-group-row-indent-level) + 1)
@@ -35,6 +36,7 @@ export const styles = css`
 
     :host([selectable]) {
         grid-template-columns:
+            calc(var(--ni-private-table-group-row-pinned-column-offset))
             ${controlHeight}
             calc(
                 ${controlHeight} *

@@ -26,6 +26,7 @@ import {
 
 const simpleData = [
     {
+        id: '1',
         firstName: 'Ralph',
         lastName: 'Wiggum',
         status: 'fail',
@@ -33,6 +34,7 @@ const simpleData = [
         gender: 'male'
     },
     {
+        id: '2',
         firstName: 'Marge',
         lastName: 'Simpson',
         status: 'success',
@@ -40,6 +42,7 @@ const simpleData = [
         gender: 'female'
     },
     {
+        id: '3',
         firstName: 'Homer',
         lastName: 'Simpson',
         status: 'calculating',
@@ -47,6 +50,7 @@ const simpleData = [
         gender: 'male'
     },
     {
+        id: '4',
         firstName: 'Bart',
         lastName: 'Simpson',
         status: 'success',
@@ -54,6 +58,7 @@ const simpleData = [
         gender: 'male'
     },
     {
+        id: '5',
         firstName: 'Abbey',
         lastName: '?',
         status: 'unknown',
@@ -89,6 +94,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+            id-field-name="id"
         >
             <${tableColumnTextTag} field-name="firstName" >
                 Name
@@ -100,8 +106,14 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
-            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}">
+            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" pinned>
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
+            
+                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
+                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
+            </${tableColumnMappingTag}>
+            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" pinned>
+                <${iconXmarkTag} title="Is child"></${iconXmarkTag}> 
             
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
                 <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>

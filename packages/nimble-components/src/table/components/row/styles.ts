@@ -115,6 +115,11 @@ export const styles = css`
         width: ${mediumPadding};
     }
 
+    .pinned-cell-container {
+        display: grid;
+        grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
+    }
+
     .cell-container {
         display: grid;
         width: 100%;

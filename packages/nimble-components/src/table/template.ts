@@ -49,14 +49,12 @@ export const template = html<Table>`
             --ni-private-table-row-grid-columns: ${x => (x.rowGridColumns ? x.rowGridColumns : '')};
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
+            --ni-private-table-pinned-columns-row-grid-columns: ${x => x.pinnedColumnsGridTemplateColumns};
             ">
             <div role="rowgroup" class="header-row-container">
                 <div class="header-row" role="row">
-                    ${repeat(x => x.pinnedColumns, html<TableColumn, Table>`
-                            <div class="header-container">
-                                ${when((_, c) => c.index > 0, html<TableColumn, Table>`
-                                    <div class="column-divider left"></div>
-                                `)}
+                    <div class="pinned-columns-header-container">
+                        ${repeat(x => x.pinnedColumns, html<TableColumn, Table>`
                                     <${tableHeaderTag}
                                         class="header"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}
@@ -69,11 +67,8 @@ export const template = html<Table>`
                                     >
                                         <slot name="${x => x.slot}"></slot>
                                     </${tableHeaderTag}>
-                                ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
-                                    <div class="column-divider right"></div>
-                                `)}                        
-                            </div>
-                        `, { positioning: true })}
+                            `, { positioning: true })}
+                    </div>
                     <span role="${x => (x.showRowOperationColumn ? 'columnheader' : '')}" class="header-row-action-container" ${ref('headerRowActionContainer')}>
                         ${when(x => x.showRowOperationColumn, html<Table>`
                             <span class="accessibly-hidden">
@@ -170,6 +165,7 @@ export const template = html<Table>`
                                     :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
                                     ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
+                                    :pinnedColumnOffset="${(_, c) => c.parent.pinnedColumnOffset}"
                                     :immediateChildCount="${(x, c) => c.parent.tableData[x.index]?.immediateChildCount}"
                                     :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
                                     ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"

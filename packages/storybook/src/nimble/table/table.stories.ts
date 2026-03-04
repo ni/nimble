@@ -292,6 +292,7 @@ export const table: StoryObj<TableArgs> = {
                 column-id="first-name-column"
                 field-name="firstName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
+                pinned
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
