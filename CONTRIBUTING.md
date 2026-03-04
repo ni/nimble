@@ -9,6 +9,9 @@ To submit changes to Nimble, the first step is to build the monorepo which requi
 - Install Node.js version 24+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from <https://nodejs.org/en/download/>
 - Install .NET 8 SDK (`8.0.418` or higher) which can be downloaded from <https://dotnet.microsoft.com/en-us/download>
    - Run `dotnet --info` to verify the required version of the SDK is installed. A `v8` install is required, but it's fine if later versions are installed too.
+- If running on an IT-managed system, set env var `NODE_USE_SYSTEM_CA=1`
+   - This avoids errors during `npm install` like `playwright Error: unable to get local issuer certificate`. See Node docs: [Adding CA Certificates from the System Store](https://nodejs.org/en/learn/http/enterprise-network-configuration#adding-ca-certificates-from-the-system-store).
+
 
 From the `nimble` directory:
 
