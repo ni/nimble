@@ -1,6 +1,12 @@
 import { css } from '@ni/fast-element';
-import { display } from '../utilities/style/display';
+import { styles as stepStyles } from '../patterns/step/styles';
 
 export const styles = css`
-    ${display('flex')}
+    ${stepStyles}
+    ${'' /* Anchor specific styles */}
+    @layer base {
+        .control {
+            text-decoration: none;
+        }
+    }
 `;
