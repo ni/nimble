@@ -32,7 +32,6 @@ export const styles = css`
 
     .start {
         display: block;
-        padding: ${standardPadding} ${standardPadding} 0px ${standardPadding};
     }
 
     .start.start-empty {

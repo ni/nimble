@@ -76,7 +76,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${toolbarTag}>
             `)}
             ${when(x => x.start, html<ChatConversationArgs>`
-                <${bannerTag} slot="start" severity="information">
+                <${bannerTag} open slot="start" severity="information">
                     <span slot="title">Title of the banner</span>
                     This is the message text of this banner. It tells you something interesting.
                 </${bannerTag}>

@@ -6,7 +6,7 @@ export const template = html<ChatConversation>`
     <slot name="toolbar" ${slotted({ property: 'slottedToolbarElements' })}></slot>
 </div>
 <div class="start ${x => (x.startEmpty ? 'start-empty' : '')}">
-    <slot name="start" ${slotted({ property: 'slottedStartElements'})}></slot>
+    <slot name="start" ${slotted({ property: 'slottedStartElements' })}></slot>
 </div>
 <div class="messages"><slot></slot></div>
 <div class="input ${x => (x.inputEmpty ? 'input-empty' : '')}">
