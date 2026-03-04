@@ -29,7 +29,7 @@ export const template = html<TableRow>`
     >
         <span class="pinned-cell-container">
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
-                ${when(x => x.pinned, html<TableColumn, TableRow>`
+                ${when(x => !x.columnHidden && x.pinned, html<TableColumn, TableRow>`
                     <${tableCellTag}
                         class="cell"
                         :cellState="${(_, c) => c.parent.cellStates[c.index]}"

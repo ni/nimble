@@ -747,7 +747,7 @@ export class Table<
             this.visibleColumns = this.columns.filter(
                 column => !column.columnHidden && !column.pinned
             );
-            this.pinnedColumns = this.columns.filter(column => column.pinned);
+            this.pinnedColumns = this.columns.filter(column => column.pinned && !column.columnHidden);
         }
 
         if (this.tableUpdateTracker.requiresKeyboardFocusReset) {
@@ -1135,6 +1135,7 @@ export class Table<
             )
         );
         this.tableValidator.validateColumnConfigurations(this.columns);
+        this.tableValidator.validatePinnedColumnConfigurations(this.columns);
         if (this.dataHierarchyManager) {
             this.validateWithData(this.dataHierarchyManager.getAllRecords());
         }

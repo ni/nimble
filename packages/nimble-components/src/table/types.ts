@@ -79,6 +79,7 @@ export interface TableValidity extends ValidityObject {
     readonly idFieldNameNotConfigured: boolean;
     readonly invalidColumnConfiguration: boolean;
     readonly invalidParentIdConfiguration: boolean;
+    readonly invalidPinnedColumnConfiguration: boolean;
 }
 
 /**

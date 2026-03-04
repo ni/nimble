@@ -21,6 +21,7 @@ export class TableValidator<TData extends TableRecord> {
     private idFieldNameNotConfigured = false;
     private invalidColumnConfiguration = false;
     private invalidParentIdConfiguration = false;
+    private invalidPinnedColumnConfiguration = false;
 
     private readonly recordIds = new Set<string>();
 
@@ -35,7 +36,8 @@ export class TableValidator<TData extends TableRecord> {
             duplicateGroupIndex: this.duplicateGroupIndex,
             idFieldNameNotConfigured: this.idFieldNameNotConfigured,
             invalidColumnConfiguration: this.invalidColumnConfiguration,
-            invalidParentIdConfiguration: this.invalidParentIdConfiguration
+            invalidParentIdConfiguration: this.invalidParentIdConfiguration,
+            invalidPinnedColumnConfiguration: this.invalidPinnedColumnConfiguration
         };
     }
 
@@ -152,7 +154,17 @@ export class TableValidator<TData extends TableRecord> {
         this.invalidColumnConfiguration = columns.some(
             x => !x.columnInternals.validator.isColumnValid
         );
+
         return !this.invalidColumnConfiguration;
+    }
+
+    public validatePinnedColumnConfigurations(
+        columns: readonly TableColumn[]
+    ): boolean {
+        this.invalidPinnedColumnConfiguration = columns.some(
+            x => x.pinned && x.columnInternals.currentPixelWidth === undefined
+        );
+        return !this.invalidPinnedColumnConfiguration;
     }
 
     public getPresentRecordIds(
