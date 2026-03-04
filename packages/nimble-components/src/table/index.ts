@@ -251,6 +251,12 @@ export class Table<
 
     /**
      * @internal
+     */
+    @observable
+    public pinnedColumns: TableColumn[] = [];
+
+    /**
+     * @internal
      * This value determines the size of the viewport area when a user has created horizontal scrollable
      * space through a column resize operation.
      */
@@ -699,8 +705,9 @@ export class Table<
         if (this.tableUpdateTracker.updateColumnWidths) {
             this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
             this.visibleColumns = this.columns.filter(
-                column => !column.columnHidden
+                column => !column.columnHidden && !column.pinned
             );
+            this.pinnedColumns = this.columns.filter(column => column.pinned);
         }
 
         if (this.tableUpdateTracker.requiresKeyboardFocusReset) {

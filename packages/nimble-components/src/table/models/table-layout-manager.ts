@@ -362,7 +362,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private getVisibleColumns(): TableColumn[] {
-        return this.table.columns.filter(column => !column.columnHidden);
+        return this.table.columns.filter(column => !column.columnHidden && !column.pinned);
     }
 
     private getLeftColumnIndexFromDivider(dividerIndex: number): number {

@@ -52,6 +52,28 @@ export const template = html<Table>`
             ">
             <div role="rowgroup" class="header-row-container">
                 <div class="header-row" role="row">
+                    ${repeat(x => x.pinnedColumns, html<TableColumn, Table>`
+                            <div class="header-container">
+                                ${when((_, c) => c.index > 0, html<TableColumn, Table>`
+                                    <div class="column-divider left"></div>
+                                `)}
+                                    <${tableHeaderTag}
+                                        class="header"
+                                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}
+                                        sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
+                                        ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                        ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
+                                        @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
+                                        @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
+                                        :alignment="${x => x.columnInternals.headerAlignment}"
+                                    >
+                                        <slot name="${x => x.slot}"></slot>
+                                    </${tableHeaderTag}>
+                                ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
+                                    <div class="column-divider right"></div>
+                                `)}                        
+                            </div>
+                        `, { positioning: true })}
                     <span role="${x => (x.showRowOperationColumn ? 'columnheader' : '')}" class="header-row-action-container" ${ref('headerRowActionContainer')}>
                         ${when(x => x.showRowOperationColumn, html<Table>`
                             <span class="accessibly-hidden">

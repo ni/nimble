@@ -29,7 +29,8 @@ const trackedItems = [
     'columnDefinition',
     'actionMenuSlots',
     'selectionMode',
-    'actionMenusPreserveSelection'
+    'actionMenusPreserveSelection',
+    'columnPinned'
 ] as const;
 
 /**
@@ -109,6 +110,7 @@ export class TableUpdateTracker<
             this.isTracked('columnSortDisabled')
             || this.isTracked('columnDefinition')
             || this.isTracked('columnHidden')
+            || this.isTracked('columnPinned')
             || this.isTracked('selectionMode')
             || this.isTracked('actionMenuSlots')
         );
@@ -160,6 +162,12 @@ export class TableUpdateTracker<
         } else if (isColumnProperty(changedColumnProperty, 'columnHidden')) {
             this.track('columnWidths');
             this.track('columnHidden');
+        }else if (isColumnProperty(changedColumnProperty, 'columnHidden')) {
+            this.track('columnWidths');
+            this.track('columnHidden');
+        } else if (isColumnProperty(changedColumnProperty, 'pinned')) {
+            this.track('columnWidths');
+            this.track('columnPinned');
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.track('actionMenuSlots');
         } else if (
