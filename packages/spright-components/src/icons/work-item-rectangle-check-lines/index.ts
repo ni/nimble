@@ -6,27 +6,27 @@ import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-icon-calendar-test-plan': IconCalendarTestPlan;
+        'spright-icon-work-item-rectangle-check-lines': IconWorkItemRectangleCheckLines;
     }
 }
 
 /**
- * Spright calendar icon for test plan events
+ * Spright rectangle check lines icon for test plan work items
  */
-export class IconCalendarTestPlan extends IconSvg {
+export class IconWorkItemRectangleCheckLines extends IconSvg {
     public constructor() {
         super(rectangleCheckLines16X16);
     }
 }
 
-const sprightIconCalendarTestPlan = IconCalendarTestPlan.compose({
-    baseName: 'icon-calendar-test-plan',
+const sprightIconWorkItemRectangleCheckLines = IconWorkItemRectangleCheckLines.compose({
+    baseName: 'icon-work-item-rectangle-check-lines',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('spright')
-    .register(sprightIconCalendarTestPlan());
+    .register(sprightIconWorkItemRectangleCheckLines());
 
-export const iconCalendarTestPlanTag = 'spright-icon-calendar-test-plan';
+export const iconWorkItemRectangleCheckLinesTag = 'spright-icon-work-item-rectangle-check-lines';

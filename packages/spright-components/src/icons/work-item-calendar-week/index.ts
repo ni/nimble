@@ -6,27 +6,27 @@ import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-icon-calendar-reservation': IconCalendarReservation;
+        'spright-icon-work-item-calendar-week': IconWorkItemCalendarWeek;
     }
 }
 
 /**
- * Spright calendar icon for reservation events
+ * Spright calendar week icon for reservation work items
  */
-export class IconCalendarReservation extends IconSvg {
+export class IconWorkItemCalendarWeek extends IconSvg {
     public constructor() {
         super(calendarWeek16X16);
     }
 }
 
-const sprightIconCalendarReservation = IconCalendarReservation.compose({
-    baseName: 'icon-calendar-reservation',
+const sprightIconWorkItemCalendarWeek = IconWorkItemCalendarWeek.compose({
+    baseName: 'icon-work-item-calendar-week',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('spright')
-    .register(sprightIconCalendarReservation());
+    .register(sprightIconWorkItemCalendarWeek());
 
-export const iconCalendarReservationTag = 'spright-icon-calendar-reservation';
+export const iconWorkItemCalendarWeekTag = 'spright-icon-work-item-calendar-week';

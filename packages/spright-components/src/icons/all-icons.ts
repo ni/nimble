@@ -1,5 +1,5 @@
-export { IconCalendarCalibration, iconCalendarCalibrationTag } from './calendar-calibration';
-export { IconCalendarMaintenance, iconCalendarMaintenanceTag } from './calendar-maintenance';
-export { IconCalendarReservation, iconCalendarReservationTag } from './calendar-reservation';
-export { IconCalendarTestPlan, iconCalendarTestPlanTag } from './calendar-test-plan';
-export { IconCalendarTransportOrder, iconCalendarTransportOrderTag } from './calendar-transport-order';
+export { IconWorkItemCalendarWeek } from './work-item-calendar-week';
+export { IconWorkItemCalipers } from './work-item-calipers';
+export { IconWorkItemForklift } from './work-item-forklift';
+export { IconWorkItemRectangleCheckLines } from './work-item-rectangle-check-lines';
+export { IconWorkItemWrenchHammer } from './work-item-wrench-hammer';

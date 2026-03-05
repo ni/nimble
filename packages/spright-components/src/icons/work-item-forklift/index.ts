@@ -6,27 +6,27 @@ import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-icon-calendar-transport-order': IconCalendarTransportOrder;
+        'spright-icon-work-item-forklift': IconWorkItemForklift;
     }
 }
 
 /**
- * Spright calendar icon for transport order events
+ * Spright forklift icon for transport work items
  */
-export class IconCalendarTransportOrder extends IconSvg {
+export class IconWorkItemForklift extends IconSvg {
     public constructor() {
         super(forklift16X16);
     }
 }
 
-const sprightIconCalendarTransportOrder = IconCalendarTransportOrder.compose({
-    baseName: 'icon-calendar-transport-order',
+const sprightIconWorkItemForklift = IconWorkItemForklift.compose({
+    baseName: 'icon-work-item-forklift',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('spright')
-    .register(sprightIconCalendarTransportOrder());
+    .register(sprightIconWorkItemForklift());
 
-export const iconCalendarTransportOrderTag = 'spright-icon-calendar-transport-order';
+export const iconWorkItemForkliftTag = 'spright-icon-work-item-forklift';

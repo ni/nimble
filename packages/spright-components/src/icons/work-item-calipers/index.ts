@@ -6,27 +6,27 @@ import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-icon-calendar-calibration': IconCalendarCalibration;
+        'spright-icon-work-item-calipers': IconWorkItemCalipers;
     }
 }
 
 /**
- * Spright calendar icon for calibration events
+ * Spright calipers icon for calibration work items
  */
-export class IconCalendarCalibration extends IconSvg {
+export class IconWorkItemCalipers extends IconSvg {
     public constructor() {
         super(calipers16X16);
     }
 }
 
-const sprightIconCalendarCalibration = IconCalendarCalibration.compose({
-    baseName: 'icon-calendar-calibration',
+const sprightIconWorkItemCalipers = IconWorkItemCalipers.compose({
+    baseName: 'icon-work-item-calipers',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('spright')
-    .register(sprightIconCalendarCalibration());
+    .register(sprightIconWorkItemCalipers());
 
-export const iconCalendarCalibrationTag = 'spright-icon-calendar-calibration';
+export const iconWorkItemCalipersTag = 'spright-icon-work-item-calipers';

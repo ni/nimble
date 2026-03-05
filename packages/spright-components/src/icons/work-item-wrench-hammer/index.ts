@@ -6,27 +6,27 @@ import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-icon-calendar-maintenance': IconCalendarMaintenance;
+        'spright-icon-work-item-wrench-hammer': IconWorkItemWrenchHammer;
     }
 }
 
 /**
- * Spright calendar icon for maintenance events
+ * Spright wrench hammer icon for maintenance work items
  */
-export class IconCalendarMaintenance extends IconSvg {
+export class IconWorkItemWrenchHammer extends IconSvg {
     public constructor() {
         super(wrenchHammer16X16);
     }
 }
 
-const sprightIconCalendarMaintenance = IconCalendarMaintenance.compose({
-    baseName: 'icon-calendar-maintenance',
+const sprightIconWorkItemWrenchHammer = IconWorkItemWrenchHammer.compose({
+    baseName: 'icon-work-item-wrench-hammer',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('spright')
-    .register(sprightIconCalendarMaintenance());
+    .register(sprightIconWorkItemWrenchHammer());
 
-export const iconCalendarMaintenanceTag = 'spright-icon-calendar-maintenance';
+export const iconWorkItemWrenchHammerTag = 'spright-icon-work-item-wrench-hammer';
