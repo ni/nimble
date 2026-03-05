@@ -1,14 +1,18 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.10.0",
+  "version": "6.10.5",
   "description": "NI Spright Components",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
+    "build": "npm run build:components && npm run build:cem",
     "build-bundle": "rollup --config",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish",
+    "build:components": "tsc -p ./tsconfig.json",
+    "build:cem": "npm run build:cem:config && npm run build:cem:markdown",
+    "build:cem:config": "cem analyze --config ./custom-elements-manifest.config.mjs",
+    "build:cem:markdown": "node build/generate-markdown.mjs",
     "test-chrome-debugger": "karma start karma.conf.cjs --browsers=ChromeDebugging --skip-tags SkipChrome",
     "test-chrome": "karma start karma.conf.headless.cjs --browsers=ChromeHeadlessOpt --single-run --skip-tags SkipChrome",
     "test-firefox-debugger": "karma start karma.conf.cjs --browsers=FirefoxDebugging --skip-tags SkipFirefox",
@@ -33,15 +37,18 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
+  "customElements": "dist/custom-elements.json",
   "dependencies": {
     "@ni/fast-element": "^10.1.0",
-    "@ni/fast-foundation": "^10.1.5",
+    "@ni/fast-foundation": "^10.2.1",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.3.0",
-    "@ni/nimble-tokens": "^8.15.0",
+    "@ni/nimble-components": "^35.4.0",
+    "@ni/nimble-tokens": "^8.16.0",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "@custom-elements-manifest/to-markdown": "^0.1.0",
     "@ni-private/eslint-config-nimble": "*",
     "@ni-private/jasmine-extensions": "^0.0.1",
     "@ni/jasmine-parameterized": "^1.0.9",
@@ -61,7 +68,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
     "karma-webkit-launcher": "^2.6.0",
-    "playwright": "1.54.1",
+    "playwright": "1.58.1",
     "rollup": "^4.12.0",
     "rollup-plugin-sourcemaps2": "^0.5.0",
     "typescript": "~5.8.3"

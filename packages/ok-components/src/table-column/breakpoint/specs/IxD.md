@@ -22,7 +22,7 @@ Use with the Nimble Table when displaying code, especially in environments where
 ### Anatomy
 
 **Breakpoint states**
-![Breakpoint States](./specs/spec-images/States.png)
+![Breakpoint States](./spec-images/States.png)
 
 > Note, not yet approved by visual design: Breakpoints should appear to the left of checkboxes for multiselect
 

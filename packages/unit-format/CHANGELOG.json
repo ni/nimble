@@ -2,6 +2,21 @@
   "name": "@ni/unit-format",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 00:16:21 GMT",
+      "version": "1.0.3",
+      "tag": "@ni/unit-format_v1.0.3",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "e14152d77e2bd52a55e701147ab67b4474975476",
+            "comment": "Update devDependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jan 2026 03:36:17 GMT",
       "version": "1.0.2",
       "tag": "@ni/unit-format_v1.0.2",

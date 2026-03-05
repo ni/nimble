@@ -61,3 +61,4 @@ StyleCop.Cache
 UpgradeLog.htm
 .idea
 *.svclog
+dotnet-sdk*

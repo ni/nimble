@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 18:11:33 GMT",
+      "version": "8.16.0",
+      "tag": "@ni/nimble-tokens_v8.16.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8c04925fec84772102d7fbd07482e67081b029b5",
+            "comment": "Add token for Black77"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Feb 2026 03:47:57 GMT",
       "version": "8.15.0",
       "tag": "@ni/nimble-tokens_v8.15.0",

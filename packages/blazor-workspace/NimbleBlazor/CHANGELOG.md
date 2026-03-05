@@ -1,8 +1,50 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 16 Feb 2026 18:09:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Mar 2026 18:11:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.13.7
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.4.0
+- Bump @ni/nimble-tokens to v8.16.0
+
+## 20.13.6
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.4
+
+## 20.13.5
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Update dependencies ([ni/nimble@e14152d](https://github.com/ni/nimble/commit/e14152d77e2bd52a55e701147ab67b4474975476))
+- Bump @ni/nimble-components to v35.3.3
+
+## 20.13.4
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.1
+
+## 20.13.3
+
+Mon, 23 Feb 2026 21:53:42 GMT
+
+### Patches
+
+- NimbleBlazor styling (::deep/SCSS) documentation updates ([ni/nimble@c33055e](https://github.com/ni/nimble/commit/c33055ef27c98fbb0ccebda03079e57877a84a42))
 
 ## 20.13.2
 

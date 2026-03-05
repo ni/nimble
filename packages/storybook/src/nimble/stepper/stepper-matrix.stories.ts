@@ -3,6 +3,7 @@ import type { Meta, StoryFn } from '@storybook/html-vite';
 import { stepperTag } from '@ni/nimble-components/dist/esm/stepper';
 import { anchorStepTag } from '@ni/nimble-components/dist/esm/anchor-step';
 import { stepTag } from '@ni/nimble-components/dist/esm/step';
+import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -21,9 +22,10 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (): ViewTemplate => html`
+    <span style="font: var(${bodyFont.cssCustomProperty}); color: var(${bodyFontColor.cssCustomProperty});">WIP</span>
     <${stepperTag}>
-        <${anchorStepTag}></${anchorStepTag}>
-        <${stepTag}></${stepTag}>
+        <${anchorStepTag}>1</${anchorStepTag}>
+        <${stepTag}>1</${stepTag}>
     </${stepperTag}>
 `;
 

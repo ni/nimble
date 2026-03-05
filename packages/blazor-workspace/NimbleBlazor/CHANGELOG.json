@@ -2,6 +2,93 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 02 Mar 2026 18:11:33 GMT",
+      "version": "20.13.7",
+      "tag": "@ni/nimble-blazor_v20.13.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v35.4.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-tokens to v8.16.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 17:43:16 GMT",
+      "version": "20.13.6",
+      "tag": "@ni/nimble-blazor_v20.13.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v35.3.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 00:16:21 GMT",
+      "version": "20.13.5",
+      "tag": "@ni/nimble-blazor_v20.13.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e14152d77e2bd52a55e701147ab67b4474975476",
+            "comment": "Update dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v35.3.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 27 Feb 2026 23:55:43 GMT",
+      "version": "20.13.4",
+      "tag": "@ni/nimble-blazor_v20.13.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v35.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 Feb 2026 21:53:42 GMT",
+      "version": "20.13.3",
+      "tag": "@ni/nimble-blazor_v20.13.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c33055ef27c98fbb0ccebda03079e57877a84a42",
+            "comment": "NimbleBlazor styling (::deep/SCSS) documentation updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Feb 2026 18:09:13 GMT",
       "version": "20.13.2",
       "tag": "@ni/nimble-blazor_v20.13.2",

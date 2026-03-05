@@ -1,8 +1,48 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Mon, 16 Feb 2026 22:59:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Mar 2026 18:11:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.5.5
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.5
+
+## 8.5.4
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.4
+
+## 8.5.3
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.3
+
+## 8.5.2
+
+Sat, 28 Feb 2026 00:50:55 GMT
+
+### Patches
+
+- Update to @angular/build ([ni/nimble@dc702d8](https://github.com/ni/nimble/commit/dc702d8999d88b69c70206ad85bda58667c4a4bc))
+
+## 8.5.1
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.1
 
 ## 8.5.0
 
