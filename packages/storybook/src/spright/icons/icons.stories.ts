@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html, ref, repeat } from '@ni/fast-element';
-import { iconCalendarCalibrationTag, iconCalendarMaintenanceTag, iconCalendarReservationTag, iconCalendarTestPlanTag, iconCalendarTransportOrderTag } from '@ni/spright-components/dist/esm/icons';
+import { iconCalendarCalibrationTag, iconCalendarMaintenanceTag, iconCalendarReservationTag, iconCalendarTestPlanTag, iconCalendarTransportOrderTag } from '@ni/spright-components/dist/esm/icons/all-icons';
 
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
