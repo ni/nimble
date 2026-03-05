@@ -2,6 +2,27 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Thu, 05 Mar 2026 15:59:37 GMT",
+      "version": "8.6.0",
+      "tag": "@ni/spright-angular_v8.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "ed3b6d00b8804a0cee3f076643f61ddd5208f630",
+            "comment": "Expose sendDisabled attribute."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Mar 2026 18:11:33 GMT",
       "version": "8.5.5",
       "tag": "@ni/spright-angular_v8.5.5",

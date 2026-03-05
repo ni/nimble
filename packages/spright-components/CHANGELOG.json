@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 05 Mar 2026 15:59:37 GMT",
+      "version": "6.11.0",
+      "tag": "@ni/spright-components_v6.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "ed3b6d00b8804a0cee3f076643f61ddd5208f630",
+            "comment": "Expose sendDisabled attribute."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Mar 2026 18:11:33 GMT",
       "version": "6.10.5",
       "tag": "@ni/spright-components_v6.10.5",

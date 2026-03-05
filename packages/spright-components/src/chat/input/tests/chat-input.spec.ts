@@ -121,6 +121,40 @@ describe('ChatInput', () => {
         });
     });
 
+    describe('sendDisabled', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        it('disables send button when true even with non-empty value', () => {
+            element.value = 'new value';
+            element.sendDisabled = true;
+            processUpdates();
+
+            expect(page.isButtonEnabled()).toBeFalse();
+        });
+
+        it('enables send button when false and value is non-empty', () => {
+            element.value = 'new value';
+            element.sendDisabled = true;
+            processUpdates();
+
+            element.sendDisabled = false;
+            processUpdates();
+
+            expect(page.isButtonEnabled()).toBeTrue();
+        });
+
+        it('enables stop button while processing even when sendDisabled is true', () => {
+            element.value = 'new value';
+            element.sendDisabled = true;
+            element.processing = true;
+            processUpdates();
+
+            expect(page.isButtonEnabled()).toBeTrue();
+        });
+    });
+
     describe('user input', () => {
         beforeEach(async () => {
             await connect();
@@ -176,6 +210,15 @@ describe('ChatInput', () => {
             await page.pressEnterKey();
 
             expect(stopSpy).not.toHaveBeenCalled();
+        });
+
+        it('emits input event when setting text', () => {
+            const inputSpy = jasmine.createSpy();
+            element.addEventListener('input', inputSpy);
+
+            page.setText('new value');
+
+            expect(inputSpy).toHaveBeenCalled();
         });
 
         describe('maxlength', () => {
