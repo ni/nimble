@@ -51,7 +51,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
      * @internal
      */
     @observable
-    public disableSendButton = true;
+    public isInputEmpty = true;
 
     /**
      * The width of the vertical scrollbar, if displayed.
@@ -82,7 +82,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
      */
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
-        this.disableSendButton = this.shouldDisableSendButton();
+        this.isInputEmpty = this.shouldDisableSendButton();
         this.queueUpdateScrollbarWidth();
     }
 
@@ -106,7 +106,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public valueChanged(): void {
         if (this.textArea) {
             this.textArea.value = this.value;
-            this.disableSendButton = this.shouldDisableSendButton();
+            this.isInputEmpty = this.shouldDisableSendButton();
             this.queueUpdateScrollbarWidth();
         }
     }
@@ -117,7 +117,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.textArea!.value = this.value;
-        this.disableSendButton = this.shouldDisableSendButton();
+        this.isInputEmpty = this.shouldDisableSendButton();
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
     }
@@ -161,7 +161,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
 
     private resetInput(): void {
         this.value = '';
-        this.disableSendButton = true;
+        this.isInputEmpty = true;
         if (this.textArea) {
             this.textArea.value = '';
             this.textArea.focus();

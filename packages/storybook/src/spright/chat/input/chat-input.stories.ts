@@ -87,7 +87,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         },
         sendDisabled: {
             name: 'send-disabled',
-            description: 'Whether the send button is disabled.',
+            description: 'Whether the send button is explicitly disabled. In addition the component will automatically disable the send button when the input is empty; that state is not reflected in this attribute.',
             control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
