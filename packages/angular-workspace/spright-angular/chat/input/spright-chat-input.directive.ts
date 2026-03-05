@@ -81,4 +81,8 @@ export class SprightChatInputDirective {
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<ChatInput>) {}
+
+    public characterCount(value?: string): number {
+        return this.elementRef.nativeElement.characterCount(value);
+    }
 }

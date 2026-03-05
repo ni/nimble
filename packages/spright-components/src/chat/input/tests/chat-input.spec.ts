@@ -121,6 +121,26 @@ describe('ChatInput', () => {
         });
     });
 
+    describe('characterCount', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        it('counts regular ASCII text characters', () => {
+            expect(element.characterCount('aaaaa')).toBe(5);
+        });
+
+        it('uses value property when no argument provided', () => {
+            element.value = 'test';
+            expect(element.characterCount()).toBe(4);
+        });
+
+        it('counts grapheme clusters as single characters', () => {
+            const emoji = '👨‍👩‍👧‍👦';
+            expect(element.characterCount(emoji)).toBe(1);
+        });
+    });
+
     describe('user input', () => {
         beforeEach(async () => {
             await connect();

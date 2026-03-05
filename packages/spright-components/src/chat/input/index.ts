@@ -6,6 +6,10 @@ import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
 
+interface GraphemeSegmenter {
+    segment(input: string): Iterable<unknown>;
+}
+
 declare global {
     interface HTMLElementTagNameMap {
         'spright-chat-input': ChatInput;
@@ -55,6 +59,8 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
      */
     @observable
     public scrollbarWidth = -1;
+
+    private graphemeSegmenter?: GraphemeSegmenter;
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
@@ -116,6 +122,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         this.disableSendButton = this.shouldDisableSendButton();
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
+        this.initializeGraphemeSegmenter();
     }
 
     /**
@@ -149,6 +156,37 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         }
         this.$emit('stop');
         this.textArea?.blur();
+    }
+
+    /**
+     * @internal
+     */
+    public characterCount(value = this.value): number {
+        if (this.graphemeSegmenter) {
+            let count = 0;
+            for (const segment of this.graphemeSegmenter.segment(value)) {
+                if (segment !== undefined) {
+                    count += 1;
+                }
+            }
+            return count;
+        }
+
+        return Array.from(value).length;
+    }
+
+    private initializeGraphemeSegmenter(): void {
+        if (!this.graphemeSegmenter) {
+            const intlWithSegmenter = globalThis.Intl as typeof Intl & {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
+                Segmenter?: new (locales?: string | string[], options?: { granularity: 'grapheme' }) => GraphemeSegmenter
+            };
+            if (intlWithSegmenter.Segmenter) {
+                this.graphemeSegmenter = new intlWithSegmenter.Segmenter(undefined, {
+                    granularity: 'grapheme'
+                });
+            }
+        }
     }
 
     private shouldDisableSendButton(): boolean {
