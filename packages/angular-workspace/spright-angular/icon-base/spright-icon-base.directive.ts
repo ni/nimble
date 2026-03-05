@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Icon } from '@ni/nimble-components/dist/esm/icon-base';
-import type { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
+import { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
 
-export { Icon };
+export { Icon, IconSeverity };
 
 /**
  * Base class for the spright icon directives
