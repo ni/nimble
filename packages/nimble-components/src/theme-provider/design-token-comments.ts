@@ -6,7 +6,8 @@ export const comments: { readonly [key in TokenName]: string } = {
     actionRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     applicationBackgroundColor: 'Primary background color for the application',
-    dividerBackgroundColor: 'Divider background color',
+    dividerBackgroundColor: 'Background color for static / non-movable dividers',
+    dividerBackgroundDynamicColor: 'Background color for dynamic / movable dividers',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
     sectionBackgroundImage: 'Gradient background image for sections.',
@@ -37,6 +38,8 @@ export const comments: { readonly [key in TokenName]: string } = {
     failColor: 'Used to highlight errors or invalid input',
     warningColor:
         'Used to highlight invalid input or for icons to indicate that a process errored or failed',
+    warningFontColor:
+        'Used to highlight message text indicating that a process errored or failed',
     passColor:
         'Used to highlight a correct state or the successful completion of a process',
     informationColor:
@@ -299,21 +302,21 @@ export const comments: { readonly [key in TokenName]: string } = {
     mentionFontWeight: 'Font weight for mention views',
     mentionFontLineHeight: 'Font line height for mention views',
     calendarEventBackgroundStaticColor:
-        'Background color for static calendar events',
+        'Background color for static / non-movable calendar events',
     calendarEventBackgroundDynamicColor:
-        'Background color for dynamic calendar events',
+        'Background color for dynamic / movable calendar events',
     calendarEventBackgroundTransientColor:
         'Background color for transient calendar events',
-    calendarEventBorderStaticColor: 'Border color for static calendar events',
+    calendarEventBorderStaticColor: 'Border color for static / non-movable calendar events',
     calendarEventBorderTransientColor:
         'Border color for transient calendar events',
-    calendarEventStaticFontColor: 'Font color for static calendar events',
-    calendarEventDynamicFontColor: 'Font color for dynamic calendar events',
+    calendarEventStaticFontColor: 'Font color for static / non-movable calendar events',
+    calendarEventDynamicFontColor: 'Font color for dynamic / movable calendar events',
     calendarEventTransientFontColor: 'Font color for transient calendar events',
     calendarEventBackgroundHoverStaticColor:
-        'Color while hovering static calendar events',
+        'Color while hovering static / non-movable calendar events',
     calendarEventBackgroundHoverDynamicColor:
-        'Color while hovering dynamic calendar events',
+        'Color while hovering dynamic / movable calendar events',
     calendarEventBackgroundHoverTransientColor:
         'Color while hovering transient calendar events',
     calendarEventOuterBorderHighlightedColor:
