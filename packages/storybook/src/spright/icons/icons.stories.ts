@@ -1,37 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html, ref, repeat } from '@ni/fast-element';
-import { iconCalendarCalibrationTag, iconCalendarMaintenanceTag, iconCalendarReservationTag, iconCalendarTestPlanTag, iconCalendarTransportOrderTag } from '@ni/spright-components/dist/esm/icons/all-icons';
 
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { createUserSelectedThemeStory,
-    fastParameters } from '../../utilities/storybook';
+import { iconMetadata } from '@ni/spright-components/dist/esm/icon-base/tests/icon-metadata';
+import * as sprightIconComponentsMap from '@ni/spright-components/dist/esm/icons/all-icons';
+import { createUserSelectedThemeStory, fastParameters } from '../../utilities/storybook';
 
-const data = [
-    {
-        tag: iconCalendarCalibrationTag,
-        metaphor: 'calibration, quality, measurement, standards'
-    },
-    {
-        tag: iconCalendarMaintenanceTag,
-        metaphor: 'maintenance, repair, service, tools'
-    },
-    {
-        tag: iconCalendarReservationTag,
-        metaphor: 'reservation, booking, schedule, time slot'
-    },
-    {
-        tag: iconCalendarTestPlanTag,
-        metaphor: 'testing, verification, quality assurance, checklist'
-    },
-    {
-        tag: iconCalendarTransportOrderTag,
-        metaphor: 'logistics, delivery, transport, shipping'
-    }
-];
+type IconName = keyof typeof sprightIconComponentsMap;
+const data = Object.entries(sprightIconComponentsMap).map(
+    ([iconClassName, iconClass]) => ({
+        tag: customElements.getName(iconClass),
+        metaphor: iconMetadata[iconClassName as IconName].tags.join(', ')
+    })
+);
 
 type Data = (typeof data)[number];
 

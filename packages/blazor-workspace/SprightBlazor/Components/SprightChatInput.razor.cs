@@ -20,6 +20,12 @@ public partial class SprightChatInput : ComponentBase
     public string? StopButtonLabel { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the send button is explicitly disabled. In addition the component will automatically disable the send button when the input is empty; that state is not reflected in this attribute.
+    /// </summary>
+    [Parameter]
+    public bool? SendDisabled { get; set; }
+
+    /// <summary>
     /// Gets or sets whether the input is in processing mode
     /// </summary>
     [Parameter]
