@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.10.5",
+  "version": "6.11.0",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",
