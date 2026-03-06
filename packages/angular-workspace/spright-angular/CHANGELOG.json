@@ -2,6 +2,27 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Fri, 06 Mar 2026 15:56:52 GMT",
+      "version": "8.7.0",
+      "tag": "@ni/spright-angular_v8.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "3b0199c151e906efe28421d1c48f023986ba5f85",
+            "comment": "Add custom colored spright icons for the different variance of calendar events"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.13.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 Mar 2026 13:42:07 GMT",
       "version": "8.6.1",
       "tag": "@ni/spright-angular_v8.6.1",

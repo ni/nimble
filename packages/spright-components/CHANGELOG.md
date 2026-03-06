@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Fri, 06 Mar 2026 13:42:07 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 06 Mar 2026 15:56:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.13.0
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Minor changes
+
+- Add custom colored spright icons for the different variance of calendar events ([ni/nimble@3b0199c](https://github.com/ni/nimble/commit/3b0199c151e906efe28421d1c48f023986ba5f85))
 
 ## 6.12.0
 
