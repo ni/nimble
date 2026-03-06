@@ -90,6 +90,10 @@ export const styles = css`
     .header-row-action-container {
         display: flex;
         align-items: center;
+        position: sticky;
+        background: ${applicationBackgroundColor};
+        left: var(--ni-private-table-pinned-column-offset);
+        z-index: ${ZIndexLevels.zIndex1000};
     }
 
     .checkbox-container {
@@ -124,6 +128,10 @@ export const styles = css`
     .pinned-columns-header-container {
         display: grid;
         grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
+        position: sticky;
+        left: 0;
+        z-index: ${ZIndexLevels.zIndex1000};
+        background: ${applicationBackgroundColor};
     }
 
     .header-container {

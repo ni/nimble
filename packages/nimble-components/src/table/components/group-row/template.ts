@@ -36,7 +36,7 @@ export const template = html<TableGroupRow>`
             </span>
         `)}
 
-        <span role="gridcell">
+        <span role="gridcell" class="expand-collapse-button-container ${x => (x.selectable ? 'selectable' : '')}">
             <${buttonTag}
                 appearance="${ButtonAppearance.ghost}"
                 content-hidden

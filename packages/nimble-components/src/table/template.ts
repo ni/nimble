@@ -50,6 +50,7 @@ export const template = html<Table>`
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
             --ni-private-table-pinned-columns-row-grid-columns: ${x => x.pinnedColumnsGridTemplateColumns};
+            --ni-private-table-pinned-column-offset: ${x => x.pinnedColumnOffset}px;
             ">
             <div role="rowgroup" class="header-row-container">
                 <div class="header-row" role="row">

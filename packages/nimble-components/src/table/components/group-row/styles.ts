@@ -8,7 +8,8 @@ import {
     controlHeight,
     fillHoverColor,
     mediumPadding,
-    standardPadding
+    standardPadding,
+    tableRowBorderColor
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
@@ -16,6 +17,7 @@ import { themeBehavior } from '../../../utilities/style/theme';
 import { userSelectNone } from '../../../utilities/style/user-select';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 import { focusVisible } from '../../../utilities/style/focus';
+import { ZIndexLevels } from '../../../utilities/style/types';
 
 export const styles = css`
     ${display('grid')}
@@ -63,6 +65,25 @@ export const styles = css`
         outline-offset: calc(-2 * ${borderWidth});
     }
 
+    .pinned-column-spacer {
+        position: sticky;
+        left: 0;
+        background: ${tableRowBorderColor};
+        z-index: ${ZIndexLevels.zIndex1000};
+        height: 100%;
+    }
+
+    .expand-collapse-button-container {
+        position: sticky;
+        background: ${tableRowBorderColor};
+        left: var(--ni-private-table-pinned-column-offset);
+        z-index: ${ZIndexLevels.zIndex1000};
+    }
+
+    .expand-collapse-button-container.selectable {
+        left: calc(var(--ni-private-table-pinned-column-offset) + 32px);
+    }
+
     .expand-collapse-button {
         margin-left: calc(
             ${mediumPadding} + ${standardPadding} * 2 *
@@ -90,6 +111,10 @@ export const styles = css`
 
     .checkbox-container {
         display: flex;
+        position: sticky;
+        left: var(--ni-private-table-pinned-column-offset);
+        z-index: ${ZIndexLevels.zIndex1000};
+        background: ${tableRowBorderColor};
     }
 
     .selection-checkbox {
