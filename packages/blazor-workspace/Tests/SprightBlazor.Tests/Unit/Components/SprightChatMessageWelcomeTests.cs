@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
@@ -30,4 +31,22 @@ public class SprightChatMessageWelcomeTests
         Assert.Null(exception);
     }
 
+    [Theory]
+    [InlineData("Welcome to Nigel", "title=\"Welcome to Nigel\"")]
+    [InlineData("Log in to continue", "subtitle=\"Log in to continue\"")]
+    public void SprightChatMessageWelcome_AttributeIsSet(string value, string expectedAttribute)
+    {
+        var message = expectedAttribute.StartsWith("title", StringComparison.Ordinal)
+            ? RenderWithPropertySet(x => x.Title, value)
+            : RenderWithPropertySet(x => x.Subtitle, value);
+
+        Assert.Contains(expectedAttribute, message.Markup);
+    }
+
+    private IRenderedComponent<SprightChatMessageWelcome> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatMessageWelcome, TProperty>> propertyGetter, TProperty propertyValue)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<SprightChatMessageWelcome>(p => p.Add(propertyGetter, propertyValue));
+    }
 }
