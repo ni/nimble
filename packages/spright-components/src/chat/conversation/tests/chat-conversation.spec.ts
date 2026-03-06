@@ -44,4 +44,10 @@ describe('ChatConversation', () => {
         const toolbarSlot = element.shadowRoot?.querySelector('slot[name="toolbar"]');
         expect(toolbarSlot).not.toBeNull();
     });
+
+    it('should have a start slot element in the shadow DOM', async () => {
+        await connect();
+        const startSlot = element.shadowRoot?.querySelector('slot[name="start"]');
+        expect(startSlot).not.toBeNull();
+    });
 });
