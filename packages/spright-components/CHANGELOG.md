@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 05 Mar 2026 15:59:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 06 Mar 2026 13:42:07 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.12.0
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Minor changes
+
+- Add start slot in conversation component ([ni/nimble@4ba0c27](https://github.com/ni/nimble/commit/4ba0c276c01b35e3de215e2fba40984c58ebed24))
 
 ## 6.11.0
 
