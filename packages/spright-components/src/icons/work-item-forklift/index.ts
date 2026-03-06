@@ -11,7 +11,7 @@ declare global {
 }
 
 /**
- * Spright forklift icon for transport work items
+ * Spright forklift icon for transport order work items
  */
 export class IconWorkItemForklift extends IconSvg {
     public constructor() {

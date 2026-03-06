@@ -5,7 +5,7 @@ import { IconSeverity } from '../spright-icon-base.directive';
 
 // As the icons have identical apis, testing every icon is unnecessary.
 // One icon is tested to represent them all.
-describe('Spright icon calendar calibration', () => {
+describe('Spright icon calendar week', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [SprightIconWorkItemCalendarWeekDirective]
