@@ -30,6 +30,14 @@ export const styles = css`
         display: none;
     }
 
+    .start {
+        display: block;
+    }
+
+    .start.start-empty {
+        display: none;
+    }
+
     .messages {
         flex: 1;
         display: flex;
