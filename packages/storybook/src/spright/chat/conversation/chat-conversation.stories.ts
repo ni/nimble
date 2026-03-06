@@ -20,6 +20,7 @@ import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/c
 import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
+import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { iconCopyTextTag } from '@ni/nimble-components/dist/esm/icons/copy-text';
@@ -41,6 +42,7 @@ import { isChromatic } from '../../../utilities/isChromatic';
 interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
     content: string;
+    welcome: boolean;
     toolbar: boolean;
     start: boolean;
     input: boolean;
@@ -80,6 +82,13 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     <span slot="title">Title of the banner</span>
                     This is the message text of this banner. It tells you something interesting.
                 </${bannerTag}>
+            `)}
+            ${when(x => x.welcome, html<ChatConversationArgs>`
+                <${chatMessageWelcomeTag} title="Welcome to Nigel\u2122 AI" subtitle="Chat below to get started">
+                    <${iconMessagesSparkleTag} slot="brand-icon"></${iconMessagesSparkleTag}>
+                    <${buttonTag} appearance="block">Help me analyze test data</${buttonTag}>
+                    <${buttonTag} appearance="block">Summarize recent test results</${buttonTag}>
+                </${chatMessageWelcomeTag}>
             `)}
             <${chatMessageSystemTag}>
                 To start, press any key.
@@ -160,6 +169,11 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 'A slot to optionally include content (such as banners) which will be displayed below the toolbar and above the messages.',
             table: { category: apiCategory.slots }
         },
+        welcome: {
+            description:
+                `Toggle a \`${chatMessageWelcomeTag}\` in the default slot to display a welcome message with a brand icon, title, subtitle, and suggested prompt buttons.`,
+            table: { category: apiCategory.slots }
+        },
         input: {
             description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages.`,
             table: { category: apiCategory.slots }
@@ -170,6 +184,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     },
     args: {
         appearance: 'default',
+        welcome: true,
         input: true,
         toolbar: true,
         start: true,
