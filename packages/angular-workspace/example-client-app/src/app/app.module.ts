@@ -37,6 +37,7 @@ import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-m
 import { OkButtonModule } from 'ok-angular/button/ok-button.module';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
+import { SprightIconWorkItemCalendarWeekDirective } from '@ni/spright-angular/icons/work-item-calendar-week';
 import { SprightChatMessageInboundModule } from '@ni/spright-angular/chat/message/inbound';
 import { SprightChatMessageOutboundModule } from '@ni/spright-angular/chat/message/outbound';
 import { SprightChatMessageSystemModule } from '@ni/spright-angular/chat/message/system';
@@ -125,6 +126,7 @@ import { CustomAppComponent } from './customapp/customapp.component';
         SprightChatMessageInboundModule,
         SprightChatMessageOutboundModule,
         SprightChatMessageSystemModule,
+        SprightIconWorkItemCalendarWeekDirective,
         SprightRectangleModule,
         RouterModule.forRoot(
             [

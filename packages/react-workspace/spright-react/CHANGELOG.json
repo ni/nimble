@@ -2,6 +2,81 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Fri, 06 Mar 2026 15:56:52 GMT",
+      "version": "0.10.18",
+      "tag": "@ni/spright-react_v0.10.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.13.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 06 Mar 2026 13:42:07 GMT",
+      "version": "0.10.17",
+      "tag": "@ni/spright-react_v0.10.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.12.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Mar 2026 15:59:37 GMT",
+      "version": "0.10.16",
+      "tag": "@ni/spright-react_v0.10.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 18:11:33 GMT",
+      "version": "0.10.15",
+      "tag": "@ni/spright-react_v0.10.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.10.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 17:43:16 GMT",
+      "version": "0.10.14",
+      "tag": "@ni/spright-react_v0.10.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.10.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Mar 2026 00:16:21 GMT",
       "version": "0.10.13",
       "tag": "@ni/spright-react_v0.10.13",

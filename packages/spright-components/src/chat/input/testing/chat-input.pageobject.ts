@@ -89,7 +89,7 @@ export class ChatInputPageObject {
     public setText(text: string): void {
         this.element.textArea!.focus();
         this.element.textArea!.value = text;
-        this.element.textAreaInputHandler();
+        this.element.textArea!.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         processUpdates();
     }
 

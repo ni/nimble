@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Wed, 11 Feb 2026 03:47:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Mar 2026 18:11:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.16.0
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Minor changes
+
+- Add token for Black77 ([ni/nimble@8c04925](https://github.com/ni/nimble/commit/8c04925fec84772102d7fbd07482e67081b029b5))
 
 ## 8.15.0
 

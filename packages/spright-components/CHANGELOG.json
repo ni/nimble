@@ -2,6 +2,81 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Fri, 06 Mar 2026 15:56:52 GMT",
+      "version": "6.13.0",
+      "tag": "@ni/spright-components_v6.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "3b0199c151e906efe28421d1c48f023986ba5f85",
+            "comment": "Add custom colored spright icons for the different variance of calendar events"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 06 Mar 2026 13:42:07 GMT",
+      "version": "6.12.0",
+      "tag": "@ni/spright-components_v6.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "87716396+OliverCosma@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "4ba0c276c01b35e3de215e2fba40984c58ebed24",
+            "comment": "Add start slot in conversation component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Mar 2026 15:59:37 GMT",
+      "version": "6.11.0",
+      "tag": "@ni/spright-components_v6.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "ed3b6d00b8804a0cee3f076643f61ddd5208f630",
+            "comment": "Expose sendDisabled attribute."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 18:11:33 GMT",
+      "version": "6.10.5",
+      "tag": "@ni/spright-components_v6.10.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.4.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 17:43:16 GMT",
+      "version": "6.10.4",
+      "tag": "@ni/spright-components_v6.10.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.3.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Mar 2026 00:16:21 GMT",
       "version": "6.10.3",
       "tag": "@ni/spright-components_v6.10.3",

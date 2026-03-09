@@ -1,8 +1,48 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 02 Mar 2026 00:16:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 06 Mar 2026 15:56:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.13.0
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Minor changes
+
+- Add custom colored spright icons for the different variance of calendar events ([ni/nimble@3b0199c](https://github.com/ni/nimble/commit/3b0199c151e906efe28421d1c48f023986ba5f85))
+
+## 6.12.0
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Minor changes
+
+- Add start slot in conversation component ([ni/nimble@4ba0c27](https://github.com/ni/nimble/commit/4ba0c276c01b35e3de215e2fba40984c58ebed24))
+
+## 6.11.0
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Minor changes
+
+- Expose sendDisabled attribute. ([ni/nimble@ed3b6d0](https://github.com/ni/nimble/commit/ed3b6d00b8804a0cee3f076643f61ddd5208f630))
+
+## 6.10.5
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.4.0
+
+## 6.10.4
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.4
 
 ## 6.10.3
 

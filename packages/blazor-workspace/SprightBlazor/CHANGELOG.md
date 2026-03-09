@@ -1,8 +1,49 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Mon, 02 Mar 2026 00:16:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 06 Mar 2026 15:56:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.11.2
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.13.0
+
+## 4.11.1
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.12.0
+
+## 4.11.0
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Minor changes
+
+- Add send-disabled attribute to chat input. ([ni/nimble@ed3b6d0](https://github.com/ni/nimble/commit/ed3b6d00b8804a0cee3f076643f61ddd5208f630))
+- Bump @ni/spright-components to v6.11.0
+
+## 4.10.5
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.5
+
+## 4.10.4
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.4
 
 ## 4.10.3
 
