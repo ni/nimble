@@ -63,17 +63,10 @@ ButtonOptions
                         ${when(x => x.severity === Severity.success, html`<${iconCheckTag}></${iconCheckTag}>`)}
                     </div>
                 </div>
-                <div class="content">
-                    <div class="title-wrapper">
-                        ${startSlotTemplate(context, definition)}
-                        <div class="title"><slot name="title"></slot></div>
-                        ${endSlotTemplate(context, definition)}
-                        <div class="line"></div>
-                    </div>
-                    <div class="subtitle">
-                        <slot name="subtitle"></slot>
-                    </div>
-                </div>
+                <div class="top-spacer"></div>
+                <div class="title">${startSlotTemplate(context, definition)}<slot name="title"></slot>${endSlotTemplate(context, definition)}</div>
+                <div class="line"></div>
+                <div class="subtitle"><slot name="subtitle"></slot></div>
             </button>
             ${severityTextTemplate}
         </div>

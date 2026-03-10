@@ -4,7 +4,8 @@ import {
     errorTextFontLineHeight,
     errorTextFont,
     buttonLabelFontColor,
-    warningFontColor
+    warningFontColor,
+    smallPadding
 } from '../../theme-provider/design-tokens';
 
 // These styles end up inside a @layer block so must use the
@@ -18,6 +19,7 @@ export const styles = cssPartial`
         position: absolute;
         ${'' /* The -2px modifier of the bottom position is to intentionally have the severity text slightly overlap the control by 2px */}
         bottom: calc(-1 * (${errorTextFontLineHeight} - 2px));
+        padding: 0 ${smallPadding} 0 0;
         left: 0px;
         overflow: hidden;
         text-overflow: ellipsis;

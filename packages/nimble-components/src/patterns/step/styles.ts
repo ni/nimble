@@ -54,19 +54,24 @@ export const styles = css`
             position: relative;
         }
 
-        .control { 
-            display: inline-flex;
-            align-items: start;
-            justify-content: flex-start;
+        .control {
+            display: inline-grid;
             height: 100%;
             width: 100%;
+            grid-template-columns: 32px minmax(0, auto) 1fr;
+            grid-template-rows: min-content min-content min-content;
+            column-gap: 4px;
+            grid-template-areas:
+                "icon top-spacer top-spacer"
+                "icon title line"
+                "icon subtitle subtitle";
+            align-items: start;
+            margin: 0;
+            padding: 0 ${smallPadding} 0 0;
             color: inherit;
             background-color: transparent;
-            gap: ${smallPadding};
             cursor: pointer;
             outline: none;
-            margin: 0; 
-            padding: 0 ${smallPadding} 0 0;
             --ni-private-step-icon-background-full-size: 100% 100%;
             ${'' /* 6px = (2px icon border + 1px inset) * 2 sides */}
             --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
@@ -113,6 +118,7 @@ export const styles = css`
         }
 
         .icon {
+            grid-area: icon;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -200,23 +206,9 @@ export const styles = css`
             display: none;
         }
 
-        .content {
-            display: inline-flex;
-            ${'' /* Control width - (icon size + gap) */}
-            width: calc(100% - (${controlHeight} + ${smallPadding}));
-            flex-direction: column;
-            padding-top: ${smallPadding};
-            padding-bottom: ${smallPadding};
-        }
-
-        .title-wrapper {
-            display: inline-flex;
-            height: ${controlSlimHeight};
-            flex-direction: row;
-            align-items: center;
-            justify-content: start;
-            gap: ${smallPadding};
-            font: ${bodyFont};
+        .top-spacer {
+            grid-area: top-spacer;
+            height: ${smallPadding};
         }
 
         [part='start'] {
@@ -224,22 +216,24 @@ export const styles = css`
         }
 
         .title {
+            grid-area: title;
+            height: ${controlSlimHeight};
             display: inline-block;
-            flex: none;
+            align-content: center;
+            font: ${bodyFont};
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            ${'' /* Content width - (gap + line min width) */}
-            max-width: calc(100% - (${smallPadding} + ${standardPadding}));
         }
 
         [part='end'] {
             display: none;
         }
-        
+
         .line {
+            grid-area: line;
+            align-self: center;
             display: inline-block;
-            flex: 1;
             min-width: ${standardPadding};
             height: 1px;
             background: var(--ni-private-step-line-color);
@@ -250,12 +244,14 @@ export const styles = css`
         }
 
         .subtitle {
+            grid-area: subtitle;
+            display: inline-block;
+            height: ${errorTextFontLineHeight};
+            align-content: center;
             font: ${errorTextFont};
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            ${'' /* Content width */}
-            max-width: 100%;
         }
     }
 
@@ -338,7 +334,7 @@ export const styles = css`
             --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
             --ni-private-step-line-color: ${borderHoverColor};
         }
-    
+
         .control${focusVisible} .icon {
             border-width: 2px;
         }
