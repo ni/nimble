@@ -191,7 +191,7 @@ export const stepper: StoryObj<StepperArgs> = {
         componentName: stepperTag,
         statusLink: 'https://github.com/ni/nimble/issues/624'
     })}
-    <${stepperTag}>
+    <${stepperTag} orientation="vertical">
         ${repeat(x => stepSets[x.stepType], html<StepSet>`
             <${stepTag}><span slot="title">${x => x.title}</span><span slot="subtitle">${x => x.subtitle}</span></${stepTag}>
         `)}

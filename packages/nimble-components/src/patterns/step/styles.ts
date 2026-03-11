@@ -36,8 +36,6 @@ export const styles = css`
         ${display('inline-flex')}
         ${severityStyles}
         :host {
-            ${'' /* Based on text layout: Top padding + title height + subtitle height + bottom padding */}
-            height: calc(${smallPadding} + ${controlSlimHeight} + ${errorTextFontLineHeight} + ${smallPadding});
             width: ${menuMinWidth};
             color: ${buttonLabelFontColor};
             font: ${buttonLabelFont};
@@ -58,13 +56,20 @@ export const styles = css`
             display: inline-grid;
             height: 100%;
             width: 100%;
-            grid-template-columns: 32px minmax(0, auto) 1fr;
-            grid-template-rows: min-content min-content min-content;
-            column-gap: 4px;
             grid-template-areas:
                 "icon top-spacer top-spacer"
                 "icon title line"
                 "icon subtitle subtitle";
+            grid-template-columns:
+                ${controlHeight} ${'' /* Icon width */}
+                minmax(0, auto)  ${'' /* Allow title to shrink to zero (below content size) but otherwise grow up to content size */}
+                1fr; ${'' /* Line is only fr unit so fills remaining space */}
+            grid-template-rows:
+                min-content
+                min-content
+                min-content;
+            column-gap: 4px;
+
             align-items: start;
             margin: 0;
             padding: 0 ${smallPadding} 0 0;
@@ -83,6 +88,50 @@ export const styles = css`
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-icon-outline-inset-color: transparent;
             --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+        }
+
+        .container.last .control {
+            grid-template-areas:
+                "icon top-spacer"
+                "icon title"
+                "icon subtitle";
+            grid-template-columns:
+                ${controlHeight}
+                minmax(0, auto);
+            grid-template-rows:
+                min-content
+                min-content
+                min-content;
+        }
+
+        .container.vertical .control {
+            grid-template-areas:
+                "icon top-spacer"
+                "icon title"
+                "line subtitle"
+                "line .";
+            grid-template-columns:
+                ${controlHeight}
+                minmax(0, auto);
+            grid-template-rows:
+                min-content
+                min-content
+                min-content
+                1fr;
+        }
+
+        .container.vertical.last .control {
+            grid-template-areas:
+                "icon top-spacer"
+                "icon title"
+                "icon subtitle";
+            grid-template-columns:
+                ${controlHeight}
+                minmax(0, auto);
+            grid-template-rows:
+                min-content
+                min-content
+                min-content;
         }
 
         :host([severity="error"]) .control {
@@ -138,7 +187,7 @@ export const styles = css`
                 ${'' /* Workaround to prevent aliasing on radial-gradient boundaries, see:
                         https://frontendmasters.com/blog/obsessing-over-smooth-radial-gradient-disc-edges
                     */}
-                var(--ni-private-step-icon-background-color) calc(100% - 1px/var(--ni-private-device-resolution)),
+                var(--ni-private-step-icon-background-color) calc(100% - 1px/var(--ni-private-device-pixel-ratio, 1)),
                 transparent 100%
             );
             background-origin: border-box;
@@ -233,14 +282,28 @@ export const styles = css`
         .line {
             grid-area: line;
             align-self: center;
+            justify-self: center;
             display: inline-block;
+            width: 100%;
             min-width: ${standardPadding};
             height: 1px;
+            min-height: 1px;
             background: var(--ni-private-step-line-color);
             transform: scale(1, 1);
             transition:
                 background-color ${smallDelay} ease-in-out,
                 transform ${smallDelay} ease-in-out;
+        }
+
+        .container.last .line {
+            display: none;
+        }
+
+        .container.vertical .line {
+            width: 1px;
+            min-width: 1px;
+            height: 100%;
+            min-height: ${standardPadding};
         }
 
         .subtitle {
@@ -295,6 +358,10 @@ export const styles = css`
         .control:hover .line {
             transform: scale(1, 2);
         }
+
+        .container.vertical .control:hover .line {
+            transform: scale(2, 1);
+        }
     }
 
     @layer focusVisible {
@@ -346,6 +413,10 @@ export const styles = css`
 
         .control${focusVisible} .line {
             transform: scale(1, 2);
+        }
+
+        .container.vertical .control${focusVisible} .line {
+            transform: scale(2, 1);
         }
     }
 
