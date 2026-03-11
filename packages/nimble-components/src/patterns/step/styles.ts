@@ -20,7 +20,7 @@ import {
     iconColor,
     standardPadding,
     controlHeight,
-    errorTextFontLineHeight
+    errorTextFontLineHeight,
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
@@ -48,6 +48,8 @@ export const styles = css`
             width: 100%;
             height: 100%;
             position: relative;
+            --ni-private-step-content-height: calc(${smallPadding} + ${controlSlimHeight} + ${errorTextFontLineHeight});
+            --ni-private-step-content-offset: calc(${controlHeight} + ${smallPadding});
         }
 
         .control {
@@ -60,11 +62,11 @@ export const styles = css`
                 "icon subtitle subtitle";
             grid-template-columns:
                 ${controlHeight} ${'' /* Icon width */}
-                minmax(0, auto)  ${'' /* Allow title to shrink to zero (below content size) but otherwise grow up to content size */}
+                minmax(2em, auto)  ${'' /* Allow title to shrink to 2em (i.e. smaller than content size) but otherwise grow up to content size */}
                 1fr; ${'' /* Line is only fr unit so fills remaining space */}
             grid-template-rows:
-                min-content
-                min-content
+                ${smallPadding}
+                ${controlSlimHeight}
                 min-content;
             column-gap: 4px;
 
@@ -95,25 +97,45 @@ export const styles = css`
                 "icon subtitle";
             grid-template-columns:
                 ${controlHeight}
-                minmax(0, auto);
+                minmax(2em, auto);
             grid-template-rows:
-                min-content
-                min-content
+                ${smallPadding}
+                ${controlSlimHeight}
                 min-content;
         }
 
         .container.vertical .control {
+            ${''/*
+            Defines an interaction area clip-path that leaves out the severity text so it is easily selectable:
+            1----------------2
+            |    title       |
+            |    subtitle    |
+            |  4-------------3
+            |  | severity-text
+            |  |
+            6--5
+            */}
+            clip-path: polygon(
+                0% 0%,
+                100% 0%,
+                100% var(--ni-private-step-content-height),
+                var(--ni-private-step-content-offset) var(--ni-private-step-content-height),
+                var(--ni-private-step-content-offset) 100%,
+                0% 100%
+            );
             grid-template-areas:
                 "icon top-spacer"
                 "icon title"
+                "icon subtitle"
                 "line subtitle"
                 "line .";
             grid-template-columns:
                 ${controlHeight}
-                minmax(0, auto);
+                minmax(2em, auto);
             grid-template-rows:
-                min-content
-                min-content
+                ${smallPadding}
+                ${controlSlimHeight}
+                calc(${controlHeight} - ${smallPadding} - ${controlSlimHeight})
                 min-content
                 1fr;
         }
@@ -125,10 +147,10 @@ export const styles = css`
                 "icon subtitle";
             grid-template-columns:
                 ${controlHeight}
-                minmax(0, auto);
+                minmax(2em, auto);
             grid-template-rows:
-                min-content
-                min-content
+                ${smallPadding}
+                ${controlSlimHeight}
                 min-content;
         }
 
@@ -315,6 +337,17 @@ export const styles = css`
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        .severity-text {
+            width: 100%;
+            left: 0px;
+            top: var(--ni-private-step-content-height);
+        }
+
+        .container.vertical .severity-text {
+            width: calc(100% - var(--ni-private-step-content-offset));
+            left: var(--ni-private-step-content-offset);
         }
     }
 

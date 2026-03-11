@@ -2,9 +2,7 @@ import { Severity } from '@ni/nimble-components/dist/esm/patterns/severity/types
 
 export const ExampleStepType = {
     simple: 'simple',
-    // someComplete: 'someComplete',
-    // someWarning: 'someWarning',
-    // someError: 'someError',
+    severity: 'severity',
     // many: 'many',
     // wide: 'wide'
 } as const;

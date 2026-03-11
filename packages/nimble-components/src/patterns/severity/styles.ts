@@ -1,7 +1,6 @@
 import { cssPartial } from '@ni/fast-element';
 import {
     failColor,
-    errorTextFontLineHeight,
     errorTextFont,
     buttonLabelFontColor,
     warningFontColor,
@@ -15,12 +14,8 @@ export const styles = cssPartial`
         display: none;
         font: ${errorTextFont};
         color: ${buttonLabelFontColor};
-        width: 100%;
         position: absolute;
-        ${'' /* The -2px modifier of the bottom position is to intentionally have the severity text slightly overlap the control by 2px */}
-        bottom: calc(-1 * (${errorTextFontLineHeight} - 2px));
         padding: 0 ${smallPadding} 0 0;
-        left: 0px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

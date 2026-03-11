@@ -6,6 +6,7 @@ import { anchorStepTag } from '@ni/nimble-components/dist/esm/anchor-step';
 import { stepTag } from '@ni/nimble-components/dist/esm/step';
 import { AnchorStepSeverity } from '@ni/nimble-components/dist/esm/anchor-step/types';
 import { StepSeverity } from '@ni/nimble-components/dist/esm/step/types';
+import { StepperOrientation } from '@ni/nimble-components/dist/esm/stepper/types';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -169,20 +170,36 @@ export const step: StoryObj<StepArgs> = {
     }
 };
 
-const simple = [
-    { title: 'Investigate Moe', subtitle: 'Lost his bar' },
-    { title: 'Investigate Barney', subtitle: 'Lost Moe\'s bar' },
-    { title: 'Investigate Skinner', subtitle: 'Lost his oil well' },
-    { title: 'Investigate Willie', subtitle: 'No crystal slop bucket' },
-] as const;
+interface StepSetItem {
+    title: string;
+    subtitle: string;
+    severityText?: string;
+    severity: StepSeverity;
+}
 
-const stepSets = {
-    [ExampleStepType.simple]: simple
-} as const;
-type StepSet = typeof stepSets[ExampleStepType][number];
+const simple: readonly StepSetItem[] = [
+    { title: 'Investigate Moe', subtitle: 'Lost his bar', severityText: undefined, severity: StepSeverity.default },
+    { title: 'Investigate Barney', subtitle: 'Lost Moe\'s bar', severityText: undefined, severity: StepSeverity.default },
+    { title: 'Investigate Skinner', subtitle: 'Lost his oil well', severityText: undefined, severity: StepSeverity.default },
+    { title: 'Investigate Willie', subtitle: 'No crystal slop bucket', severityText: undefined, severity: StepSeverity.default },
+];
+
+const severity: readonly StepSetItem[] = [
+    { title: 'Default', subtitle: 'The default severity', severityText: 'Not visible', severity: StepSeverity.default },
+    { title: 'Error', subtitle: 'The error severity', severityText: 'Oh no! An Error!', severity: StepSeverity.error },
+    { title: 'Warning', subtitle: 'The warning severity', severityText: 'Be aware of a warning!', severity: StepSeverity.warning },
+    { title: 'Success', subtitle: 'The success severity', severityText: 'Not visible', severity: StepSeverity.success },
+];
+
+const stepSets: { [key in ExampleStepType]: readonly StepSetItem[] } = {
+    [ExampleStepType.simple]: simple,
+    [ExampleStepType.severity]: severity,
+};
+type StepSet = StepSetItem;
 
 interface StepperArgs {
     stepType: ExampleStepType;
+    orientation: StepperOrientation;
 }
 
 export const stepper: StoryObj<StepperArgs> = {
@@ -191,9 +208,17 @@ export const stepper: StoryObj<StepperArgs> = {
         componentName: stepperTag,
         statusLink: 'https://github.com/ni/nimble/issues/624'
     })}
-    <${stepperTag} orientation="vertical">
+    <${stepperTag}
+        orientation="${x => x.orientation}"
+    >
         ${repeat(x => stepSets[x.stepType], html<StepSet>`
-            <${stepTag}><span slot="title">${x => x.title}</span><span slot="subtitle">${x => x.subtitle}</span></${stepTag}>
+            <${stepTag}
+                severity="${x => x.severity}"
+                severity-text="${x => x.severityText}"
+            >
+                <span slot="title">${x => x.title}</span>
+                <span slot="subtitle">${x => x.subtitle}</span>
+            </${stepTag}>
         `)}
     </${stepperTag}>
     `),
@@ -202,10 +227,26 @@ export const stepper: StoryObj<StepperArgs> = {
             name: 'step',
             description: `Add child \`${stepTag}\` or \`${anchorStepTag}\` components. The components will target the \`step\` slot by default.`,
             table: { category: apiCategory.slots },
-            control: false
-        }
+            options: Object.keys(ExampleStepType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleStepType.simple]: 'Simple default step items',
+                    [ExampleStepType.severity]: 'Steps with various severities',
+                }
+            },
+        },
+        orientation: {
+            options: Object.values(StepperOrientation),
+            control: {
+                type: 'radio'
+            },
+            description: 'The orientation of the steps.',
+            table: { category: apiCategory.attributes }
+        },
     },
     args: {
-        stepType: ExampleStepType.simple
+        stepType: ExampleStepType.simple,
+        orientation: StepperOrientation.horizontal,
     }
 };

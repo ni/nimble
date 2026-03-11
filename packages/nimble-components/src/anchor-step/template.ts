@@ -1,4 +1,4 @@
-import { html, ref, slotted, ViewTemplate, when } from '@ni/fast-element';
+import { html, ref, ViewTemplate, when } from '@ni/fast-element';
 import { type FoundationElementTemplate, type AnchorOptions, startSlotTemplate, endSlotTemplate } from '@ni/fast-foundation';
 import type { AnchorStep } from '.';
 import { severityTextTemplate } from '../patterns/severity/template';
@@ -52,7 +52,7 @@ AnchorOptions
                 ${ref('control')}
             >
                 <div class="icon"> 
-                    <div class="icon-slot"><slot ${slotted('defaultSlottedContent')}>${x => x.stepInternals.position}</slot></div>
+                    <div class="icon-slot"><slot name="step-indicator">${x => x.stepInternals.position}</slot></div>
                     <div class="icon-severity">
                         ${when(x => x.severity === Severity.error, html`<${iconExclamationMarkTag}></${iconExclamationMarkTag}>`)}
                         ${when(x => x.severity === Severity.warning, html`<${iconTriangleFilledTag}></${iconTriangleFilledTag}>`)}
