@@ -4,7 +4,6 @@ import {
     errorTextFont,
     buttonLabelFontColor,
     warningFontColor,
-    smallPadding
 } from '../../theme-provider/design-tokens';
 
 // These styles end up inside a @layer block so must use the
@@ -15,7 +14,7 @@ export const styles = cssPartial`
         font: ${errorTextFont};
         color: ${buttonLabelFontColor};
         position: absolute;
-        padding: 0 ${smallPadding} 0 0;
+        padding: 0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

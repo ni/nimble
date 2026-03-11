@@ -72,7 +72,7 @@ export const styles = css`
 
             align-items: start;
             margin: 0;
-            padding: 0 ${smallPadding} 0 0;
+            padding: 0;
             color: inherit;
             background-color: transparent;
             cursor: pointer;
@@ -310,6 +310,7 @@ export const styles = css`
             height: 1px;
             min-height: 1px;
             background: var(--ni-private-step-line-color);
+            background-clip: content-box;
             transform: scale(1, 1);
             transition:
                 background-color ${smallDelay} ease-in-out,
@@ -324,6 +325,7 @@ export const styles = css`
             width: 1px;
             min-width: 1px;
             height: 100%;
+            padding-top: ${smallPadding};
             min-height: ${standardPadding};
         }
 

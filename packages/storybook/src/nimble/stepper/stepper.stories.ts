@@ -185,10 +185,10 @@ const simple: readonly StepSetItem[] = [
 ];
 
 const severity: readonly StepSetItem[] = [
-    { title: 'Default', subtitle: 'The default severity', severityText: 'Not visible', severity: StepSeverity.default },
+    { title: 'Default', subtitle: 'The default severity', severityText: undefined, severity: StepSeverity.default },
     { title: 'Error', subtitle: 'The error severity', severityText: 'Oh no! An Error!', severity: StepSeverity.error },
     { title: 'Warning', subtitle: 'The warning severity', severityText: 'Be aware of a warning!', severity: StepSeverity.warning },
-    { title: 'Success', subtitle: 'The success severity', severityText: 'Not visible', severity: StepSeverity.success },
+    { title: 'Success', subtitle: 'The success severity', severityText: undefined, severity: StepSeverity.success },
 ];
 
 const stepSets: { [key in ExampleStepType]: readonly StepSetItem[] } = {

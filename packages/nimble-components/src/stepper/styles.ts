@@ -1,12 +1,13 @@
 import { css } from '@ni/fast-element';
 import { display } from '../utilities/style/display';
+import { smallPadding } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('inline-flex')}
 
     :host {
         border: none;
-        gap: 0px;
+        gap: ${smallPadding};
     }
 
     :host([orientation="vertical"]) {
