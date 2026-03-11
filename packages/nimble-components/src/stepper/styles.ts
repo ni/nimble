@@ -16,4 +16,8 @@ export const styles = css`
         flex-direction: column;
         --ni-private-step-height: 100px;
     }
+
+    slot[name="step"]::slotted(*) {
+        flex-grow: 1;
+    }
 `;

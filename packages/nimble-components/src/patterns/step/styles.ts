@@ -18,7 +18,6 @@ import {
     warningColor,
     buttonLabelDisabledFontColor,
     iconColor,
-    menuMinWidth,
     standardPadding,
     controlHeight,
     errorTextFontLineHeight
@@ -36,7 +35,6 @@ export const styles = css`
         ${display('inline-flex')}
         ${severityStyles}
         :host {
-            width: ${menuMinWidth};
             color: ${buttonLabelFontColor};
             font: ${buttonLabelFont};
             white-space: nowrap;
@@ -266,6 +264,7 @@ export const styles = css`
 
         .title {
             grid-area: title;
+            min-width: 1em;
             height: ${controlSlimHeight};
             display: inline-block;
             align-content: center;
@@ -309,6 +308,7 @@ export const styles = css`
         .subtitle {
             grid-area: subtitle;
             display: inline-block;
+            min-width: 1em;
             height: ${errorTextFontLineHeight};
             align-content: center;
             font: ${errorTextFont};
