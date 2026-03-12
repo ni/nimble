@@ -18,8 +18,9 @@ export const styles = cssPartial`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        width: 100%;
     }
-    
+
     :host([severity="error"]) .severity-text {
         display: block;
         color: ${failColor};

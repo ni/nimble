@@ -348,7 +348,6 @@ export const styles = css`
         }
 
         .severity-text {
-            width: 100%;
             left: 0px;
             top: var(--ni-private-step-content-height);
         }
