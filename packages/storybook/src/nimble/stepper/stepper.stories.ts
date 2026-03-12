@@ -185,7 +185,7 @@ const simple: readonly StepSetItem[] = [
     { title: 'Check Skinner', subtitle: 'Lost his oil well' },
     { title: 'Check Willie', subtitle: 'No crystal slop bucket' },
     { title: 'Check Maggie', subtitle: 'Just an innocent baby' },
-    { title: 'Present result', subtitle: 'Reveal who is responsible' },
+    { title: 'Share results', subtitle: 'Reveal who is responsible' },
 ];
 
 const severity: readonly StepSetItem[] = [
@@ -194,7 +194,7 @@ const severity: readonly StepSetItem[] = [
     { title: 'Check Skinner', subtitle: 'Lost his oil well', severityText: 'Two many drillers', severity: StepSeverity.warning },
     { title: 'Check Willie', subtitle: 'No crystal slop bucket', severity: StepSeverity.success },
     { title: 'Check Maggie', subtitle: 'Just an innocent baby', disabled: true },
-    { title: 'Present result', subtitle: 'Reveal who is responsible', selected: true },
+    { title: 'Share results', subtitle: 'Reveal who is responsible', selected: true },
 ];
 
 const stepSets: { [key in ExampleStepType]: readonly StepSetItem[] } = {

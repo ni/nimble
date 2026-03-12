@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
-import { html, ViewTemplate, when } from '@ni/fast-element';
+import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import { anchorStepTag } from '@ni/nimble-components/dist/esm/anchor-step';
 import { stepperTag } from '@ni/nimble-components/dist/esm/stepper';
 import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -12,7 +12,7 @@ import {
 } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
-import { selectedStates, severityStates, stepContentStateShort, stepContentStates, type SelectedState, type SeverityStates, type StepContentStates } from '../stepper/types';
+import { selectedStates, severityStates, stepContentStateShort, stepContentStates, stepLayoutStates, type SelectedState, type SeverityStates, type StepContentStates, type StepLayoutStates } from '../stepper/types';
 import { disabledStates, type DisabledState } from '../../utilities/states';
 
 const metadata: Meta = {
@@ -26,25 +26,22 @@ export default metadata;
 
 const component = (
     [disabledName, disabled]: DisabledState,
+    [layoutName, isLast, orientation]: StepLayoutStates,
     [selectedName, selected]: SelectedState,
     [severityName, severity]: SeverityStates,
     [contentName, titleContent, subtitleContent, severityTextContent]: StepContentStates,
 ): ViewTemplate => html`
     <div style="display: inline-flex; flex-direction: column;">
-        <div style="padding-right: 16px;">${disabledName} ${selectedName} Severity(${severityName}) Content(${contentName})</div>
-        <${stepperTag} style="padding-bottom: 16px;">
-            <${anchorStepTag}
-                href="#"
-                target="_self"
-                ?disabled=${() => disabled}
-                ?selected=${() => selected}
-                severity-text="${() => severityTextContent}"
-                severity="${() => severity}"
-            >
-                ${when(() => titleContent !== undefined, html`<span slot="title">${() => titleContent}</span>`)}
-                ${when(() => subtitleContent !== undefined, html`<span slot="subtitle">${() => subtitleContent}</span>`)}
-                1
-            </${anchorStepTag}>
+        <div style="padding-right: 16px;">${disabledName} ${selectedName} Severity(${severityName}) Layout(${layoutName}) Content(${contentName})</div>
+        <${stepperTag} style="padding-bottom: 16px; width: 200px; height: 100px;" orientation="${() => orientation}">
+            ${repeat(() => [isLast, !isLast], html`
+                <${anchorStepTag} href="#" target="_self"
+                    ?disabled=${() => disabled} ?selected=${() => selected} severity-text="${() => severityTextContent}" severity="${() => severity}"
+                    style="${currentIsLast => (currentIsLast ? 'display:none;' : '')}">
+                    ${when(() => titleContent !== undefined, html`<span slot="title">${() => titleContent}</span>`)}
+                    ${when(() => subtitleContent !== undefined, html`<span slot="subtitle">${() => subtitleContent}</span>`)}
+                </${anchorStepTag}>
+            `)}
         </${stepperTag}>
     </div>
 `;
@@ -58,6 +55,7 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(html`
     ">
     ${createMatrix(component, [
         disabledStates,
+        stepLayoutStates,
         selectedStates,
         severityStates,
         stepContentStates,
@@ -67,6 +65,7 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(html`
 
 const interactionStatesHover = cartesianProduct([
     disabledStates,
+    stepLayoutStates,
     selectedStates,
     severityStates,
     [stepContentStateShort],
@@ -74,6 +73,7 @@ const interactionStatesHover = cartesianProduct([
 
 const interactionStates = cartesianProduct([
     disabledStates,
+    stepLayoutStates,
     selectedStates,
     severityStates,
     [stepContentStateShort],

@@ -64,7 +64,7 @@ export const styles = css`
                 "icon subtitle subtitle";
             grid-template-columns:
                 ${controlHeight} ${'' /* Icon width */}
-                minmax(2em, auto)  ${'' /* Allow title to shrink to 2em (i.e. smaller than content size) but otherwise grow up to content size */}
+                min-content ${'' /* Show the full title and subtitle */}
                 1fr; ${'' /* Line is only fr unit so fills remaining space */}
             grid-template-rows:
                 ${smallPadding}
@@ -99,7 +99,7 @@ export const styles = css`
                 "icon subtitle";
             grid-template-columns:
                 ${controlHeight}
-                minmax(2em, auto);
+                min-content;
             grid-template-rows:
                 ${smallPadding}
                 ${controlSlimHeight}
@@ -133,7 +133,7 @@ export const styles = css`
                 "line .";
             grid-template-columns:
                 ${controlHeight}
-                minmax(2em, auto);
+                min-content;
             grid-template-rows:
                 ${smallPadding}
                 ${controlSlimHeight}
@@ -149,7 +149,7 @@ export const styles = css`
                 "icon subtitle";
             grid-template-columns:
                 ${controlHeight}
-                minmax(2em, auto);
+                min-content;
             grid-template-rows:
                 ${smallPadding}
                 ${controlSlimHeight}
@@ -288,7 +288,7 @@ export const styles = css`
 
         .title {
             grid-area: title;
-            min-width: 1em;
+            min-width: min-content;
             height: ${controlSlimHeight};
             display: inline-block;
             align-content: center;
@@ -338,7 +338,7 @@ export const styles = css`
         .subtitle {
             grid-area: subtitle;
             display: inline-block;
-            min-width: 1em;
+            min-width: min-content;
             height: ${errorTextFontLineHeight};
             align-content: center;
             font: ${errorTextFont};

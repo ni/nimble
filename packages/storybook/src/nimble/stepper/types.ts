@@ -1,4 +1,5 @@
 import { Severity } from '@ni/nimble-components/dist/esm/patterns/severity/types';
+import { StepperOrientation } from '@ni/nimble-components/dist/esm/stepper/types';
 
 export const ExampleStepType = {
     simple: 'simple',
@@ -28,7 +29,21 @@ export const stepContentStates = [
     ['Empty', '', '', ''],
     ['Short', 'Title', 'Subtitle', 'Severity text'],
     ['NoSubtitle', 'Title', undefined, 'Severity text'],
-    ['Long', 'Title That is very long and very interesting', 'Subtitle that is very long and very interesting', 'Severity text that is very long and very interesting'],
+    ['LongSeverity', 'Title is short', 'Subtitle is short', 'Severity text that is very long and very interesting'],
 ] as const;
 export type StepContentStates = (typeof stepContentStates)[number];
 export const stepContentStateShort = stepContentStates[2];
+
+export const orientationStates = [
+    ['Horizontal', StepperOrientation.horizontal],
+    ['Vertical', StepperOrientation.vertical],
+] as const;
+export type OrientationStates = (typeof orientationStates)[number];
+
+export const stepLayoutStates = [
+    ['First Horizontal', false, 'horizontal'],
+    ['Last Horizontal', true, 'horizontal'],
+    ['First Vertical', false, 'vertical'],
+    ['Last Vertical', true, 'vertical'],
+] as const;
+export type StepLayoutStates = (typeof stepLayoutStates)[number];
