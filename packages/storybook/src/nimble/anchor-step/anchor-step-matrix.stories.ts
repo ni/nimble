@@ -10,10 +10,10 @@ import {
     cartesianProduct,
     createMatrixInteractionsFromStates
 } from '../../utilities/matrix';
-import { createStory } from '../../utilities/storybook';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { selectedStates, severityStates, stepContentStateShort, stepContentStates, stepLayoutStates, type SelectedState, type SeverityStates, type StepContentStates, type StepLayoutStates } from '../stepper/types';
-import { disabledStates, type DisabledState } from '../../utilities/states';
+import { backgroundStates, disabledStates, type DisabledState } from '../../utilities/states';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Step',
@@ -21,6 +21,17 @@ const metadata: Meta = {
         ...sharedMatrixParameters()
     }
 };
+
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
 
 export default metadata;
 
@@ -33,7 +44,7 @@ const component = (
 ): ViewTemplate => html`
     <div style="display: inline-flex; flex-direction: column;">
         <div style="padding-right: 16px;">${disabledName} ${selectedName} Severity(${severityName}) Layout(${layoutName}) Content(${contentName})</div>
-        <${stepperTag} style="padding-bottom: 16px; width: 200px; height: 100px;" orientation="${() => orientation}">
+        <${stepperTag} style="padding-bottom: 16px; width: 200px; height: 80px;" orientation="${() => orientation}">
             ${repeat(() => [isLast, !isLast], html`
                 <${anchorStepTag} href="#" target="_self"
                     ?disabled=${() => disabled} ?selected=${() => selected} severity-text="${() => severityTextContent}" severity="${() => severity}"
@@ -46,12 +57,13 @@ const component = (
     </div>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(html`
+const matrixTemplate = html`
     <div style="
         display: grid;
         grid-template-columns: ${'1fr '.repeat(stepContentStates.length)};
         font: var(${bodyFont.cssCustomProperty});
         color: var(${bodyFontColor.cssCustomProperty});
+        width: 1800px;
     ">
     ${createMatrix(component, [
         disabledStates,
@@ -61,7 +73,11 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(html`
         stepContentStates,
     ])}
     </div>
-`);
+`;
+
+export const lightTheme: StoryFn = createFixedThemeStory(matrixTemplate, lightThemeWhiteBackground);
+export const darkTheme: StoryFn = createFixedThemeStory(matrixTemplate, darkThemeBlackBackground);
+export const colorTheme: StoryFn = createFixedThemeStory(matrixTemplate, colorThemeDarkGreenBackground);
 
 const interactionStatesHover = cartesianProduct([
     disabledStates,
