@@ -174,21 +174,27 @@ interface StepSetItem {
     title: string;
     subtitle: string;
     severityText?: string;
-    severity: StepSeverity;
+    severity?: StepSeverity;
+    disabled?: boolean;
+    selected?: boolean;
 }
 
 const simple: readonly StepSetItem[] = [
-    { title: 'Investigate Moe', subtitle: 'Lost his bar', severityText: undefined, severity: StepSeverity.default },
-    { title: 'Investigate Barney', subtitle: 'Lost Moe\'s bar', severityText: undefined, severity: StepSeverity.default },
-    { title: 'Investigate Skinner', subtitle: 'Lost his oil well', severityText: undefined, severity: StepSeverity.default },
-    { title: 'Investigate Willie', subtitle: 'No crystal slop bucket', severityText: undefined, severity: StepSeverity.default },
+    { title: 'Check Moe', subtitle: 'Lost his bar' },
+    { title: 'Check Barney', subtitle: 'Lost Moe\'s bar' },
+    { title: 'Check Skinner', subtitle: 'Lost his oil well' },
+    { title: 'Check Willie', subtitle: 'No crystal slop bucket' },
+    { title: 'Check Maggie', subtitle: 'Just an innocent baby' },
+    { title: 'Present result', subtitle: 'Reveal who is responsible' },
 ];
 
 const severity: readonly StepSetItem[] = [
-    { title: 'Investigate Moe', subtitle: 'Lost his bar', severityText: undefined, severity: StepSeverity.default },
-    { title: 'Investigate Barney', subtitle: 'Lost Moe\'s bar', severityText: 'Something smells funny', severity: StepSeverity.error },
-    { title: 'Investigate Skinner', subtitle: 'Lost his oil well', severityText: 'Two many drillers', severity: StepSeverity.warning },
-    { title: 'Investigate Willie', subtitle: 'No crystal slop bucket', severityText: undefined, severity: StepSeverity.success },
+    { title: 'Check Moe', subtitle: 'Lost his bar' },
+    { title: 'Check Barney', subtitle: 'Lost Moe\'s bar', severityText: 'Something smells funny', severity: StepSeverity.error },
+    { title: 'Check Skinner', subtitle: 'Lost his oil well', severityText: 'Two many drillers', severity: StepSeverity.warning },
+    { title: 'Check Willie', subtitle: 'No crystal slop bucket', severity: StepSeverity.success },
+    { title: 'Check Maggie', subtitle: 'Just an innocent baby', disabled: true },
+    { title: 'Present result', subtitle: 'Reveal who is responsible', selected: true },
 ];
 
 const stepSets: { [key in ExampleStepType]: readonly StepSetItem[] } = {
@@ -215,6 +221,8 @@ export const stepper: StoryObj<StepperArgs> = {
             <${stepTag}
                 severity="${x => x.severity}"
                 severity-text="${x => x.severityText}"
+                ?disabled="${x => x.disabled}"
+                ?selected="${x => x.selected}"
             >
                 <span slot="title">${x => x.title}</span>
                 <span slot="subtitle">${x => x.subtitle}</span>
