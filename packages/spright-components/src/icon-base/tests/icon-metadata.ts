@@ -25,4 +25,7 @@ export const iconMetadata: {
     IconWorkItemWrenchHammer: {
         tags: ['maintenance', 'repair', 'service', 'tools']
     },
+    IconWorkItemUserHelmetSafety: {
+        tags: ['job', 'work', 'worker', 'operator', 'technician', 'safety']
+    }
 };
