@@ -22,10 +22,10 @@ export const iconMetadata: {
     IconWorkItemRectangleCheckLines: {
         tags: ['testing', 'verification', 'quality assurance', 'checklist']
     },
-    IconWorkItemWrenchHammer: {
-        tags: ['maintenance', 'repair', 'service', 'tools']
-    },
     IconWorkItemUserHelmetSafety: {
         tags: ['job', 'work', 'worker', 'operator', 'technician', 'safety']
+    },
+    IconWorkItemWrenchHammer: {
+        tags: ['maintenance', 'repair', 'service', 'tools']
     }
 };
