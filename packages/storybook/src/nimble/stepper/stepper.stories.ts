@@ -185,10 +185,10 @@ const simple: readonly StepSetItem[] = [
 ];
 
 const severity: readonly StepSetItem[] = [
-    { title: 'Default', subtitle: 'The default severity', severityText: undefined, severity: StepSeverity.default },
-    { title: 'Error', subtitle: 'The error severity', severityText: 'Oh no! An Error!', severity: StepSeverity.error },
-    { title: 'Warning', subtitle: 'The warning severity', severityText: 'Be aware of a warning!', severity: StepSeverity.warning },
-    { title: 'Success', subtitle: 'The success severity', severityText: undefined, severity: StepSeverity.success },
+    { title: 'Investigate Moe', subtitle: 'Lost his bar', severityText: undefined, severity: StepSeverity.default },
+    { title: 'Investigate Barney', subtitle: 'Lost Moe\'s bar', severityText: 'Something smells funny', severity: StepSeverity.error },
+    { title: 'Investigate Skinner', subtitle: 'Lost his oil well', severityText: 'Two many drillers', severity: StepSeverity.warning },
+    { title: 'Investigate Willie', subtitle: 'No crystal slop bucket', severityText: undefined, severity: StepSeverity.success },
 ];
 
 const stepSets: { [key in ExampleStepType]: readonly StepSetItem[] } = {

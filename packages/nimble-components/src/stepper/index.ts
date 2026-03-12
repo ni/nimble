@@ -38,7 +38,7 @@ export class Stepper extends FoundationElement {
         this.steps.forEach((step, index) => {
             step.stepInternals.orientation = this.orientation;
             step.stepInternals.last = index === lastIndex;
-            step.stepInternals.position = `${index + 1}`;
+            step.stepInternals.position = index + 1;
         });
     }
 }

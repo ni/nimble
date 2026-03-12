@@ -8,6 +8,8 @@ export const coreLabelDefaults: { readonly [key in TokenName]: string } = {
     numericDecrementLabel: 'Decrement',
     popupIconErrorLabel: 'Error',
     popupIconWarningLabel: 'Warning',
+    popupIconCompletedLabel: 'Completed',
+    popupIconCurrentLabel: 'Current',
     popupIconInformationLabel: 'Information',
     filterSearchLabel: 'Search',
     filterNoResultsLabel: 'No items found',

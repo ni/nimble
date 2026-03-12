@@ -14,6 +14,10 @@ export const styles = css`
         flex-direction: column;
     }
 
+    ol {
+        display: contents;
+    }
+
     slot[name="step"]::slotted(*) {
         flex-grow: 1;
     }

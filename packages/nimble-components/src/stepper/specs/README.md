@@ -120,7 +120,7 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
   -->
   - Slots
     - default: unused
-    - step-indicator: supports nimble icons or text, will render inside the circle and have color controlled via iconColor token / text color (aligned with checked indicator, group header indicator, etc)
+    - step-indicator: supports nimble icons or text, will render inside the circle for default severity and have color controlled via iconColor token / text color (aligned with checked indicator, group header indicator, etc)
     - title: Title content (aligned with dialog)
     - subtitle: Subtitle content  (aligned with dialog)
   <!--

@@ -27,6 +27,7 @@ import { focusVisible } from '../../utilities/style/focus';
 import { userSelectNone } from '../../utilities/style/user-select';
 import { themeBehavior } from '../../utilities/style/theme';
 import { Theme } from '../../theme-provider/types';
+import { accessiblyHidden } from '../../utilities/style/accessibly-hidden';
 
 export const styles = css`
     @layer base, hover, focusVisible, active, disabled, top;
@@ -48,6 +49,7 @@ export const styles = css`
             width: 100%;
             height: 100%;
             position: relative;
+            list-style: none;
             --ni-private-step-content-height: calc(${smallPadding} + ${controlSlimHeight} + ${errorTextFontLineHeight});
             --ni-private-step-content-offset: calc(${controlHeight} + ${smallPadding});
         }
@@ -245,18 +247,22 @@ export const styles = css`
                 outline-offset ${smallDelay} ease-in-out;
         }
 
-        .icon-slot {
+        .current-label {
+            ${accessiblyHidden}
+        }
+
+        .step-indicator {
             display: contents;
         }
 
-        :host([severity="error"]) .icon-slot,
-        :host([severity="warning"]) .icon-slot,
-        :host([severity="success"]) .icon-slot {
+        :host([severity="error"]) .step-indicator,
+        :host([severity="warning"]) .step-indicator,
+        :host([severity="success"]) .step-indicator {
             display: none;
         }
 
-        :host([selected]) .icon-slot,
-        :host([disabled]) .icon-slot {
+        :host([selected]) .step-indicator,
+        :host([disabled]) .step-indicator {
             display: contents;
         }
 
@@ -280,10 +286,6 @@ export const styles = css`
             height: ${smallPadding};
         }
 
-        [part='start'] {
-            display: none;
-        }
-
         .title {
             grid-area: title;
             min-width: 1em;
@@ -294,6 +296,10 @@ export const styles = css`
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        [part='start'] {
+            display: none;
         }
 
         [part='end'] {

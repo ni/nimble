@@ -1,7 +1,7 @@
 import type { SeverityPattern } from '../severity/types';
 import type { StepInternals } from './models/step-internals';
 
-export interface StepPattern extends SeverityPattern {
+export interface StepPattern extends SeverityPattern, HTMLElement {
     /**
      * Whether or not the step is disabled.
      */
