@@ -3,5 +3,5 @@
   "comment": "Add user helmet safety icon",
   "packageName": "@ni/nimble-tokens",
   "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "minor"
 }
