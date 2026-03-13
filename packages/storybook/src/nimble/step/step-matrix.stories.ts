@@ -62,7 +62,7 @@ const matrixTemplate = html`
         grid-template-columns: ${'1fr '.repeat(stepContentStates.length)};
         font: var(${bodyFont.cssCustomProperty});
         color: var(${bodyFontColor.cssCustomProperty});
-        width: 1800px;
+        width: 1200px;
     ">
     ${createMatrix(component, [
         disabledStates,
