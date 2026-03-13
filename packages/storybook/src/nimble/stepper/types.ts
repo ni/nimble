@@ -4,8 +4,6 @@ import { StepperOrientation } from '@ni/nimble-components/dist/esm/stepper/types
 export const ExampleStepType = {
     simple: 'simple',
     severity: 'severity',
-    // many: 'many',
-    // wide: 'wide'
 } as const;
 export type ExampleStepType = (typeof ExampleStepType)[keyof typeof ExampleStepType];
 
@@ -25,14 +23,16 @@ export type SelectedState = (typeof selectedStates)[number];
 export const selectedStateNotSelected = selectedStates[0];
 
 export const stepContentStates = [
-    ['Absent', undefined, undefined, undefined],
-    ['Empty', '', '', ''],
-    ['Short', 'Title', 'Subtitle', 'Severity text'],
-    ['NoSubtitle', 'Title', undefined, 'Severity text'],
-    ['LongSeverity', 'Title is short', 'Subtitle is short', 'Severity text that is very long and very interesting'],
+    ['Absent', undefined, undefined, undefined, false],
+    ['Empty', '', '', '', false],
+    ['Short', 'Title', 'Subtitle', 'Severity text', false],
+    ['NoSubtitle', 'Title', undefined, 'Severity text', false],
+    ['LongSeverity', 'Title is short', 'Subtitle is short', 'Severity text that is very long and very interesting', false],
+    ['StepIndicator', 'Title', 'Subtitle', 'Severity text', true]
 ] as const;
 export type StepContentStates = (typeof stepContentStates)[number];
 export const stepContentStateShort = stepContentStates[2];
+export const stepContentStateStepIndicator = stepContentStates[5];
 
 export const orientationStates = [
     ['Horizontal', StepperOrientation.horizontal],
