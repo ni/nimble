@@ -6,7 +6,6 @@ import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-pr
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory,
     cartesianProduct,
     createMatrixInteractionsFromStates
 } from '../../utilities/matrix';
@@ -75,9 +74,9 @@ const matrixTemplate = html`
     </div>
 `;
 
-export const lightTheme: StoryFn = createFixedThemeStory(matrixTemplate, lightThemeWhiteBackground);
-export const darkTheme: StoryFn = createFixedThemeStory(matrixTemplate, darkThemeBlackBackground);
-export const colorTheme: StoryFn = createFixedThemeStory(matrixTemplate, colorThemeDarkGreenBackground);
+export const matrix$LightTheme: StoryFn = createFixedThemeStory(matrixTemplate, lightThemeWhiteBackground);
+export const matrix$DarkTheme: StoryFn = createFixedThemeStory(matrixTemplate, darkThemeBlackBackground);
+export const matrix$ColorTheme: StoryFn = createFixedThemeStory(matrixTemplate, colorThemeDarkGreenBackground);
 
 const interactionStatesHover = cartesianProduct([
     disabledStates,
@@ -95,14 +94,16 @@ const interactionStates = cartesianProduct([
     [stepContentStateShort],
 ] as const);
 
-export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsFromStates(component, {
-        hover: interactionStatesHover,
-        hoverActive: interactionStates,
-        active: interactionStates,
-        focus: interactionStates
-    })
-);
+const interactionsTemplate = createMatrixInteractionsFromStates(component, {
+    hover: interactionStatesHover,
+    hoverActive: interactionStates,
+    active: interactionStates,
+    focus: interactionStates
+});
+
+export const interactions$LightTheme: StoryFn = createFixedThemeStory(interactionsTemplate, lightThemeWhiteBackground);
+export const interactions$DarkTheme: StoryFn = createFixedThemeStory(interactionsTemplate, darkThemeBlackBackground);
+export const interactions$ColorTheme: StoryFn = createFixedThemeStory(interactionsTemplate, colorThemeDarkGreenBackground);
 
 export const hidden: StoryFn = createStory(
     hiddenWrapper(
