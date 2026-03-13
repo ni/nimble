@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Mon, 02 Mar 2026 18:11:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 12 Mar 2026 16:41:20 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.17.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Add user helmet safety icon ([ni/nimble@df7e198](https://github.com/ni/nimble/commit/df7e198f0d86f240b6baf32bcb6cc05aeea35b08))
 
 ## 8.16.0
 

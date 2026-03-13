@@ -687,6 +687,9 @@ export const iconMetadata: {
     IconUser: {
         tags: ['admin', 'account']
     },
+    IconUserHelmetSafety: {
+        tags: ['job', 'work', 'worker', 'operator', 'technician', 'safety']
+    },
     IconWatch: {
         tags: ['status', 'waiting']
     },

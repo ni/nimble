@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 12 Mar 2026 16:41:20 GMT",
+      "version": "8.17.0",
+      "tag": "@ni/nimble-tokens_v8.17.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "df7e198f0d86f240b6baf32bcb6cc05aeea35b08",
+            "comment": "Add user helmet safety icon"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Mar 2026 18:11:33 GMT",
       "version": "8.16.0",
       "tag": "@ni/nimble-tokens_v8.16.0",
