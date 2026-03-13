@@ -8,14 +8,10 @@ export const styles = css`
     :host {
         border: none;
         gap: ${smallPadding};
-        overflow-x: auto;
-        overflow-y: hidden;
     }
 
     :host([orientation="vertical"]) {
         flex-direction: column;
-        overflow-x: hidden;
-        overflow-y: auto;
     }
 
     ol {

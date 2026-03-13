@@ -57,9 +57,18 @@ AnchorOptions
                     <span class="current-label">${x => (x.selected ? popupIconCurrentLabel.getValueFor(x) : '')}</span>
                     <div class="step-indicator"><slot name="step-indicator"><span aria-hidden="true">${x => x.stepInternals.position}</span></slot></div>
                     <div class="icon-severity">
-                        ${when(x => x.severity === Severity.error, html<StepPattern>`<${iconExclamationMarkTag} role="img" aria-label="${x => popupIconErrorLabel.getValueFor(x)}"></${iconExclamationMarkTag}>`)}
-                        ${when(x => x.severity === Severity.warning, html<StepPattern>`<${iconTriangleFilledTag} role="img" aria-label="${x => popupIconWarningLabel.getValueFor(x)}"></${iconTriangleFilledTag}>`)}
-                        ${when(x => x.severity === Severity.success, html<StepPattern>`<${iconCheckTag} role="img" aria-label="${x => popupIconCompletedLabel.getValueFor(x)}"></${iconCheckTag}>`)}
+                        ${when(
+                            x => x.severity === Severity.error,
+                            html<StepPattern>`<${iconExclamationMarkTag} role="img" aria-label="${x => popupIconErrorLabel.getValueFor(x)}"></${iconExclamationMarkTag}>`
+                        )}
+                        ${when(
+                            x => x.severity === Severity.warning,
+                            html<StepPattern>`<${iconTriangleFilledTag} role="img" aria-label="${x => popupIconWarningLabel.getValueFor(x)}"></${iconTriangleFilledTag}>`
+                        )}
+                        ${when(
+                            x => x.severity === Severity.success,
+                            html<StepPattern>`<${iconCheckTag} role="img" aria-label="${x => popupIconCompletedLabel.getValueFor(x)}"></${iconCheckTag}>`
+                        )}
                     </div>
                 </div>
                 <div class="top-spacer"></div>
