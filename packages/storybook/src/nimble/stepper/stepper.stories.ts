@@ -31,19 +31,19 @@ interface AnchorStepArgs {
     title: string;
     subtitle: string;
     selected: boolean;
+    stepIndicator: undefined;
 }
 export const anchorStep: StoryObj<AnchorStepArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${stepperTag}>
+        <${stepperTag} class="code-hide-top-container">
             <${anchorStepTag}
-                href="${x => (x.href === '' ? undefined : x.href)}"
-                target="${x => (x.href === '#' ? '_self' : undefined)}"
                 ?disabled="${x => x.disabled}"
                 severity="${x => AnchorStepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 ?selected="${x => x.selected}"
+                href="${x => (x.href === '' ? undefined : x.href)}"
+                target="${x => (x.href === '#' ? '_self' : undefined)}"
             >
-                1
                 ${when(x => x.title, html<AnchorStepArgs>`<span slot="title">${x => x.title}</span>`)}
                 ${when(x => x.subtitle, html<AnchorStepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
             </${anchorStepTag}>
@@ -86,6 +86,12 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
             description: 'Styles that indicate the control is selected.',
             table: { category: apiCategory.attributes }
         },
+        stepIndicator: {
+            name: 'step-indicator',
+            description: 'Override the step number text shown in the default severity. Generally should be unused, reach out to nimble design system if needed.',
+            table: { category: apiCategory.slots },
+            control: false
+        },
     },
     args: {
         href: '#',
@@ -106,10 +112,11 @@ interface StepArgs {
     subtitle: string;
     selected: boolean;
     click: undefined;
+    stepIndicator: undefined;
 }
 export const step: StoryObj<StepArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${stepperTag}>
+        <${stepperTag} class="code-hide-top-container">
             <${stepTag}
                 ?disabled="${x => x.disabled}"
                 severity="${x => StepSeverity[x.severity]}"
@@ -117,7 +124,6 @@ export const step: StoryObj<StepArgs> = {
                 ?selected="${x => x.selected}"
                 @click="${(_x, c) => action(c.event.type)({})}"
             >
-                1
                 ${when(x => x.title, html<StepArgs>`<span slot="title">${x => x.title}</span>`)}
                 ${when(x => x.subtitle, html<StepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
             </${stepTag}>
@@ -158,7 +164,13 @@ export const step: StoryObj<StepArgs> = {
                 'Event emitted when the button is activated by either keyboard or mouse.',
             table: { category: apiCategory.events },
             control: false
-        }
+        },
+        stepIndicator: {
+            name: 'step-indicator',
+            description: 'Override the step number text shown in the default severity. Generally should be unused, reach out to nimble design system if needed.',
+            table: { category: apiCategory.slots },
+            control: false
+        },
     },
     args: {
         disabled: false,
