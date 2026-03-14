@@ -2,7 +2,7 @@ import { html, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
-import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
+import { ChipAppearance, ChipSize } from '@ni/nimble-components/dist/esm/chip/types';
 import {
     apiCategory,
     appearanceDescription,
@@ -13,6 +13,7 @@ import {
 
 interface ChipArgs {
     appearance: keyof typeof ChipAppearance;
+    size: keyof typeof ChipSize;
     removable: boolean;
     content: string;
     icon: boolean;
@@ -24,7 +25,7 @@ const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
-        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?disabled="${x => x.disabled}">
+        <${chipTag} appearance="${x => x.appearance}" size="${x => ChipSize[x.size]}" ?removable="${x => x.removable}" ?disabled="${x => x.disabled}">
             ${x => x.content}
             ${when(x => x.icon, html`
                 <nimble-icon-check slot="start"></nimble-icon-check>
@@ -35,6 +36,12 @@ const metadata: Meta<ChipArgs> = {
         appearance: {
             description: appearanceDescription({ componentName: 'chip' }),
             options: Object.keys(ChipAppearance),
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
+        },
+        size: {
+            description: 'Size of the chip. Use `small` for the 24px version.',
+            options: Object.keys(ChipSize),
             control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
@@ -68,6 +75,7 @@ const metadata: Meta<ChipArgs> = {
     },
     args: {
         appearance: 'outline',
+        size: 'normal',
         removable: false,
         content: 'Homer Simpson',
         icon: false,

@@ -7,6 +7,7 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
+    controlSlimHeight,
     iconColor,
     iconSize,
     mediumPadding,
@@ -14,7 +15,8 @@ import {
 } from '../theme-provider/design-tokens';
 import { display } from '../utilities/style/display';
 import { appearanceBehavior } from '../utilities/style/appearance';
-import { ChipAppearance } from './types';
+import { sizeBehavior } from '../utilities/style/size';
+import { ChipAppearance, ChipSize } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -77,6 +79,14 @@ export const styles = css`
             :host([disabled]) {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 border-color: transparent;
+            }
+        `
+    ),
+    sizeBehavior(
+        ChipSize.small,
+        css`
+            :host {
+                height: ${controlSlimHeight};
             }
         `
     )

@@ -3,6 +3,7 @@ import { Chip, chipTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { ChipPageObject } from '../testing/chip.pageobject';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { ChipSize } from '../types';
 
 async function setup(): Promise<Fixture<Chip>> {
     return await fixture<Chip>(html`<${chipTag}></${chipTag}>`);
@@ -85,6 +86,26 @@ describe('Chip', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRemoveButtonTabIndex()).toBeNull();
+    });
+
+    it('has expected defaults for size', () => {
+        expect(element.size).toBeUndefined();
+    });
+
+    it('can set size to small', async () => {
+        element.size = ChipSize.small;
+        await waitForUpdatesAsync();
+        expect(element.size).toBe(ChipSize.small);
+        expect(element.getAttribute('size')).toBe('small');
+    });
+
+    it('can set size back to normal', async () => {
+        element.size = ChipSize.small;
+        await waitForUpdatesAsync();
+        element.size = ChipSize.normal;
+        await waitForUpdatesAsync();
+        expect(element.size).toBeUndefined();
+        expect(element.hasAttribute('size')).toBeFalse();
     });
 
     describe('title overflow', () => {

@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type Chip, chipTag } from '@ni/nimble-components/dist/esm/chip';
-import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
+import { ChipAppearance, ChipSize } from '@ni/nimble-components/dist/esm/chip/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Chip };
 export { chipTag };
-export { ChipAppearance };
+export { ChipAppearance, ChipSize };
 
 /**
  * Directive to provide Angular integration for the chip.
@@ -37,6 +37,14 @@ export class NimbleChipDirective {
 
     @Input() public set appearance(value: ChipAppearance) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
+    }
+
+    public get size(): ChipSize {
+        return this.elementRef.nativeElement.size;
+    }
+
+    @Input() public set size(value: ChipSize) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'size', value);
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Chip>) {}
