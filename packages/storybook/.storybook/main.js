@@ -20,7 +20,8 @@ export const addons = [
     },
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('storybook-addon-pseudo-states')
+    getAbsolutePath('storybook-addon-pseudo-states'),
+    '@github-ui/storybook-addon-performance-panel/universal',
 ];
 
 export async function viteFinal(config) {
