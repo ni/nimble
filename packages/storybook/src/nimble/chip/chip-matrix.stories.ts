@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate, when } from '@ni/fast-element';
 import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
-import { ChipAppearance, ChipSize } from '@ni/nimble-components/dist/esm/chip/types';
+import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import {
     controlLabelFont,
@@ -22,12 +22,6 @@ const appearanceStates = [
     ['Block', ChipAppearance.block]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
-
-const sizeStates = [
-    ['Normal', ChipSize.normal],
-    ['Small', ChipSize.small]
-] as const;
-type SizeState = (typeof sizeStates)[number];
 
 const removableStates = [
     ['Removable', true],
@@ -70,7 +64,6 @@ export default metadata;
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
-    [sizeName, size]: SizeState,
     [removableName, removable]: RemovableStates,
     [showStartSlotIconName, showStartSlotIcon]: ShowStartSlotIconState,
     [labelName, label]: LabelState,
@@ -78,11 +71,10 @@ const component = (
 ): ViewTemplate => html`
     <div style="display: flex; flex-direction: column;">
         <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
-            ${appearanceName}, ${sizeName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${disabledName ? `(${disabledName})` : ''} 
+            ${appearanceName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${disabledName ? `(${disabledName})` : ''} 
         </label> 
         <${chipTag}
             appearance="${() => appearance}"
-            size="${() => size}"
             ?removable="${() => removable}"
             ?disabled=${() => disabled}
             style="margin-right: 8px; margin-bottom: 8px; ${() => width};">
@@ -96,7 +88,6 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
-        sizeStates,
         removableStates,
         showStartSlotIconStates,
         labelStates,
@@ -107,7 +98,6 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
 const interactionStates = cartesianProduct([
     disabledStates,
     appearanceStates,
-    sizeStates,
     removableStates,
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],
@@ -117,7 +107,6 @@ const interactionStates = cartesianProduct([
 const interactionStatesHover = cartesianProduct([
     disabledStates,
     appearanceStates,
-    sizeStates,
     removableStates,
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],

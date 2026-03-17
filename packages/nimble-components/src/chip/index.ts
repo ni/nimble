@@ -10,7 +10,7 @@ import {
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { ChipAppearance, ChipSize } from './types';
+import { ChipAppearance } from './types';
 import { slotTextContent } from '../utilities/models/slot-text-content';
 import { itemRemoveLabel } from '../label-provider/core/label-tokens';
 
@@ -36,9 +36,6 @@ export class Chip extends FoundationElement {
 
     @attr()
     public appearance: ChipAppearance = ChipAppearance.outline;
-
-    @attr()
-    public size: ChipSize;
 
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;

@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add small (24px) size variant to nimble-chip",
-  "packageName": "@ni/nimble-angular",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

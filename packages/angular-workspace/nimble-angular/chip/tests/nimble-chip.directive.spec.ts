@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
-import { type Chip, ChipAppearance, ChipSize, NimbleChipDirective } from '../nimble-chip.directive';
+import { type Chip, ChipAppearance, NimbleChipDirective } from '../nimble-chip.directive';
 import { NimbleChipModule } from '../nimble-chip.module';
 
 describe('Nimble chip', () => {
@@ -58,11 +58,6 @@ describe('Nimble chip', () => {
             expect(directive.appearance).toBe(ChipAppearance.outline);
             expect(nativeElement.appearance).toBe(ChipAppearance.outline);
         });
-
-        it('has expected defaults for size', () => {
-            expect(directive.size).toBeUndefined();
-            expect(nativeElement.size).toBeUndefined();
-        });
     });
 
     describe('with template string values', () => {
@@ -71,8 +66,7 @@ describe('Nimble chip', () => {
                 <nimble-chip #chip
                     removable
                     disabled
-                    appearance="block"
-                    size="small">
+                    appearance="block">
                 </nimble-chip>`,
             standalone: false
         })
@@ -110,11 +104,6 @@ describe('Nimble chip', () => {
             expect(directive.appearance).toBe(ChipAppearance.block);
             expect(nativeElement.appearance).toBe(ChipAppearance.block);
         });
-
-        it('will use template string values for size', () => {
-            expect(directive.size).toBe(ChipSize.small);
-            expect(nativeElement.size).toBe(ChipSize.small);
-        });
     });
 
     describe('with property bound values', () => {
@@ -123,8 +112,7 @@ describe('Nimble chip', () => {
                 <nimble-chip #chip
                     [removable]="removable"
                     [disabled]="disabled"
-                    [appearance]="appearance"
-                    [size]="size">
+                    [appearance]="appearance">
                 </nimble-chip>
             `,
             standalone: false
@@ -135,7 +123,6 @@ describe('Nimble chip', () => {
             public removable = false;
             public disabled = false;
             public appearance: ChipAppearance = ChipAppearance.outline;
-            public size: ChipSize = ChipSize.normal;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -185,17 +172,6 @@ describe('Nimble chip', () => {
             expect(directive.appearance).toBe(ChipAppearance.block);
             expect(nativeElement.appearance).toBe(ChipAppearance.block);
         });
-
-        it('can be configured with property binding for size', () => {
-            expect(directive.size).toBeUndefined();
-            expect(nativeElement.size).toBeUndefined();
-
-            fixture.componentInstance.size = ChipSize.small;
-            fixture.detectChanges();
-
-            expect(directive.size).toBe(ChipSize.small);
-            expect(nativeElement.size).toBe(ChipSize.small);
-        });
     });
 
     describe('with attribute bound values', () => {
@@ -204,8 +180,7 @@ describe('Nimble chip', () => {
                 <nimble-chip #chip
                     [attr.removable]="removable"
                     [attr.disabled]="disabled"
-                    [attr.appearance]="appearance"
-                    [attr.size]="size">
+                    [attr.appearance]="appearance">
                 </nimble-chip>
             `,
             standalone: false
@@ -216,7 +191,6 @@ describe('Nimble chip', () => {
             public removable: BooleanValueOrAttribute = null;
             public disabled: BooleanValueOrAttribute = null;
             public appearance: ChipAppearance = ChipAppearance.outline;
-            public size: ChipSize = ChipSize.normal;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -265,17 +239,6 @@ describe('Nimble chip', () => {
 
             expect(directive.appearance).toBe(ChipAppearance.block);
             expect(nativeElement.appearance).toBe(ChipAppearance.block);
-        });
-
-        it('can be configured with attribute binding for size', () => {
-            expect(directive.size).toBeUndefined();
-            expect(nativeElement.size).toBeUndefined();
-
-            fixture.componentInstance.size = ChipSize.small;
-            fixture.detectChanges();
-
-            expect(directive.size).toBe(ChipSize.small);
-            expect(nativeElement.size).toBe(ChipSize.small);
         });
     });
 });
