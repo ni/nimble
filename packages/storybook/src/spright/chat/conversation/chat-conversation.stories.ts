@@ -27,6 +27,7 @@ import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
 import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-down';
 import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '@ni/nimble-components/dist/esm/icons/three-dots-line';
+import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
@@ -137,8 +138,9 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 ></${chatInputTag}>
             `)}
             ${when(x => x.end, html<ChatConversationArgs>`
-                <span slot='end'>AI-generated content may be incorrect.</span>
-                <a slot='end' href='https://www.ni.com' target='_blank'>View Terms and Conditions</a>
+                <span slot='end'>
+                    AI-generated content may be incorrect. <${anchorTag} href='https://www.ni.com' target='_blank'>View Terms and Conditions</${anchorTag}>
+                </span>
             `)}
         </${chatConversationTag}>
     `),
@@ -171,7 +173,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         },
         end: {
             description:
-                'A slot to optionally include disclaimer content (such as legal text and links) which will be displayed below the input. The slot applies color and font size styles to text and anchor content.',
+                `A slot to optionally include disclaimer content (such as legal text and links) which will be displayed below the input. The slot applies color and font size styles to text and \`${anchorTag}\` content.`,
             table: { category: apiCategory.slots }
         },
         sendMessage: {

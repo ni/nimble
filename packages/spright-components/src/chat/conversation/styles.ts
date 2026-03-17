@@ -8,7 +8,7 @@ import {
     bodyFont,
     placeholderFontColor,
     smallPadding,
-    linkFont
+    linkFontColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -48,17 +48,16 @@ export const styles = css`
         justify-content: center;
         gap: ${smallPadding};
         padding: ${smallPadding} ${standardPadding};
-        color: ${placeholderFontColor};
-        font: ${bodyFont};
     }
 
     .end.end-empty {
         display: none;
     }
 
-    .end ::slotted(a) {
+    ::slotted([slot="end"]) {
         color: ${placeholderFontColor};
-        font: ${linkFont};
+        font: ${bodyFont};
+        ${linkFontColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
     .messages {
