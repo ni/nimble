@@ -8,7 +8,7 @@ async function setup(): Promise<Fixture<ChatConversation>> {
     );
 }
 
-fdescribe('ChatConversation', () => {
+describe('ChatConversation', () => {
     let element: ChatConversation;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
