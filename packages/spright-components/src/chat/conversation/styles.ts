@@ -4,7 +4,11 @@ import {
     borderWidth,
     sectionBackgroundImage,
     mediumPadding,
-    standardPadding
+    standardPadding,
+    bodyFont,
+    placeholderFontColor,
+    smallPadding,
+    linkFont
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -36,6 +40,25 @@ export const styles = css`
 
     .start.start-empty {
         display: none;
+    }
+
+    .end {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: ${smallPadding};
+        padding: ${smallPadding} ${standardPadding};
+        color: ${placeholderFontColor};
+        font: ${bodyFont};
+    }
+
+    .end.end-empty {
+        display: none;
+    }
+
+    .end ::slotted(a) {
+        color: ${placeholderFontColor};
+        font: ${linkFont};
     }
 
     .messages {

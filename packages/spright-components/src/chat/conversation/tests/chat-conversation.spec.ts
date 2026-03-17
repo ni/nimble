@@ -50,4 +50,24 @@ describe('ChatConversation', () => {
         const startSlot = element.shadowRoot?.querySelector('slot[name="start"]');
         expect(startSlot).not.toBeNull();
     });
+
+    it('should have an end slot element in the shadow DOM', async () => {
+        await connect();
+        const endSlot = element.shadowRoot?.querySelector('slot[name="end"]');
+        expect(endSlot).not.toBeNull();
+    });
+
+    it('should support multiple elements in the end slot', async () => {
+        await disconnect();
+        ({ element, connect, disconnect } = await fixture<ChatConversation>(
+            html`<${chatConversationTag}>
+                <span slot="end">AI-generated content may be incorrect.</span>
+                <a slot="end" href="#">View Terms and Conditions</a>
+            </${chatConversationTag}>`
+        ));
+        await connect();
+        const endSlot = element.shadowRoot?.querySelector('slot[name="end"]') as HTMLSlotElement;
+        const assignedElements = endSlot.assignedElements();
+        expect(assignedElements.length).toBe(2);
+    });
 });

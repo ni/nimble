@@ -443,6 +443,42 @@ export const conversationWithToolbarAndStartSizing: StoryFn = createMatrixThemeS
     ${createMatrix(conversationWithToolbarAndStart, [heightStates])}
 `);
 
+const conversationWithToolbarAndStartAndEnd = (
+    [heightLabel, height]: HeightStates,
+): ViewTemplate => html`
+    <div style="width: 300px; padding: 8px;">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: ${height};
+        ">
+            <${toolbarTag} slot='toolbar' class='toolbar'>
+                <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
+                <${buttonTag} appearance="ghost" slot="end" title="Create new chat" content-hidden>
+                    Create new chat
+                    <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
+                </${buttonTag}>
+            </${toolbarTag}>
+            <${bannerTag} open slot="start" severity="information">
+                <span slot="title">Banner Title</span>
+                This is a banner in the start slot.
+            </${bannerTag}>
+            <${chatMessageInboundTag}>
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageInboundTag}>
+            <${chatMessageOutboundTag} message-type="outbound">
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageOutboundTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
+            <span slot='end'>AI-generated content may be incorrect.</span>
+            <a slot='end' href='#'>View Terms and Conditions</a>
+        </${chatConversationTag}>
+    </div>
+`;
+
+export const conversationWithToolbarAndStartAndEndSizing: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(conversationWithToolbarAndStartAndEnd, [heightStates])}
+`);
+
 const conversationWithAppearance = ([
     appearanceLabel,
     appearance

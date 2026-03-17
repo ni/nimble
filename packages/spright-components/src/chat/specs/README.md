@@ -158,11 +158,9 @@ These components are competing against possible implementations within applicati
     <spright-chat-message-system>
         <nimble-spinner></nimble-spinner>
     </spright-chat-message-system>
-    <spright-chat-input slot="input></spright-chat-input>
-    <span slot="end">
-        <span>AI-generated content may be incorrect.</span>
-        <a href="...">View terms and conditions</a>
-    </span>
+    <spright-chat-input slot="input"></spright-chat-input>
+    <span slot="end">AI-generated content may be incorrect.</span>
+    <a slot="end" href="...">View terms and conditions</a>
 </spright-chat-conversation>
 ```
 
