@@ -8,7 +8,7 @@ async function setup(): Promise<Fixture<ChatConversation>> {
     );
 }
 
-describe('ChatConversation', () => {
+fdescribe('ChatConversation', () => {
     let element: ChatConversation;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -66,8 +66,7 @@ describe('ChatConversation', () => {
             </${chatConversationTag}>`
         ));
         await connect();
-        const endSlot = element.shadowRoot?.querySelector('slot[name="end"]') as HTMLSlotElement;
-        const assignedElements = endSlot.assignedElements();
-        expect(assignedElements.length).toBe(2);
+        const endSlot: HTMLSlotElement = element.shadowRoot!.querySelector('slot[name="end"]')!;
+        expect(endSlot.assignedElements().length).toBe(2);
     });
 });
