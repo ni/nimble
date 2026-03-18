@@ -57,6 +57,7 @@ ButtonOptions
                 aria-roledescription="${x => x.ariaRoledescription}"
                 ${ref('control')}
             >
+                <div class="icon-background"></div>
                 <div class="icon">
                     <span class="current-label">${x => (x.selected ? popupIconCurrentLabel.getValueFor(x) : '')}</span>
                     <div class="step-indicator"><slot name="step-indicator"><span aria-hidden="true">${x => x.stepInternals.position}</span></slot></div>
