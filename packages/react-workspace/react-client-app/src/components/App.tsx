@@ -1193,8 +1193,10 @@ export function App(): React.JSX.Element {
                                             placeholder="Type here"
                                             onSend={onChatInputSend}
                                         ></SprightChatInput>
-                                        <span slot="end">AI-generated content may be incorrect.</span>
-                                        <a slot="end" href="https://www.ni.com" target="_blank" rel="noreferrer">View Terms and Conditions</a>
+                                        <span slot="end">
+                                            AI-generated content may be incorrect. 
+                                            <NimbleAnchor href="https://www.ni.com" target="_blank" rel="noreferrer">View Terms and Conditions</NimbleAnchor>
+                                        </span>
                                     </SprightChatConversation>
                                 </div>
                                 <div className="sub-container">

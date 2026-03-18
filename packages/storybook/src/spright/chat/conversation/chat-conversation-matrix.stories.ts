@@ -14,6 +14,7 @@ import {
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
+import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
 import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
 import { iconPencilToRectangleTag } from '@ni/nimble-components/dist/esm/icons/pencil-to-rectangle';
@@ -469,8 +470,10 @@ const conversationWithToolbarAndStartAndEnd = (
                 <span>Conversation is ${heightLabel} than the height of the messages.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
-            <span slot='end'>AI-generated content may be incorrect.</span>
-            <a slot='end' href='#'>View Terms and Conditions</a>
+            <span slot='end'>
+                AI-generated content may be incorrect.
+                <${anchorTag} href='https://www.ni.com' target='_blank'>View Terms and Conditions</${anchorTag}>
+            </span>
         </${chatConversationTag}>
     </div>
 `;
