@@ -132,7 +132,7 @@ export const step: StoryObj<StepArgs> = {
     argTypes: {
         disabled: {
             description: disabledDescription({
-                componentName: 'anchor step'
+                componentName: 'step'
             }),
             table: { category: apiCategory.attributes }
         },
@@ -203,7 +203,7 @@ const simple: readonly StepSetItem[] = [
 const severity: readonly StepSetItem[] = [
     { title: 'Check Moe', subtitle: 'Lost his bar' },
     { title: 'Check Barney', subtitle: 'Lost Moe\'s bar', severityText: 'Something smells funny', severity: StepSeverity.error },
-    { title: 'Check Skinner', subtitle: 'Lost his oil well', severityText: 'Two many drillers', severity: StepSeverity.warning },
+    { title: 'Check Skinner', subtitle: 'Lost his oil well', severityText: 'Too many drillers', severity: StepSeverity.warning },
     { title: 'Check Willie', subtitle: 'No crystal slop bucket', severity: StepSeverity.success },
     { title: 'Check Maggie', subtitle: 'Just an innocent baby', disabled: true },
     { title: 'Share results', subtitle: 'Reveal who is responsible', selected: true },
