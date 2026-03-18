@@ -18,16 +18,16 @@ import {
     warningColor,
     buttonLabelDisabledFontColor,
     iconColor,
-    menuMinWidth,
     standardPadding,
     controlHeight,
-    errorTextFontLineHeight
+    errorTextFontLineHeight,
 } from '../../theme-provider/design-tokens';
 import { styles as severityStyles } from '../severity/styles';
 import { focusVisible } from '../../utilities/style/focus';
 import { userSelectNone } from '../../utilities/style/user-select';
 import { themeBehavior } from '../../utilities/style/theme';
 import { Theme } from '../../theme-provider/types';
+import { accessiblyHidden } from '../../utilities/style/accessibly-hidden';
 
 export const styles = css`
     @layer base, hover, focusVisible, active, disabled, top;
@@ -36,9 +36,6 @@ export const styles = css`
         ${display('inline-flex')}
         ${severityStyles}
         :host {
-            ${'' /* Based on text layout: Top padding + title height + subtitle height + bottom padding */}
-            height: calc(${smallPadding} + ${controlSlimHeight} + ${errorTextFontLineHeight} + ${smallPadding});
-            width: ${menuMinWidth};
             color: ${buttonLabelFontColor};
             font: ${buttonLabelFont};
             white-space: nowrap;
@@ -52,21 +49,36 @@ export const styles = css`
             width: 100%;
             height: 100%;
             position: relative;
+            list-style: none;
+            --ni-private-step-content-height: calc(${smallPadding} + ${controlSlimHeight} + ${errorTextFontLineHeight});
+            --ni-private-step-content-offset: calc(${controlHeight} + ${smallPadding});
         }
 
-        .control { 
-            display: inline-flex;
-            align-items: start;
-            justify-content: flex-start;
+        .control {
+            display: inline-grid;
             height: 100%;
             width: 100%;
+            grid-template-areas:
+                "icon top-spacer top-spacer"
+                "icon title line"
+                "icon subtitle subtitle";
+            grid-template-columns:
+                ${controlHeight} ${'' /* Icon width */}
+                min-content ${'' /* Show the full title and subtitle */}
+                1fr; ${'' /* Line is only fr unit so fills remaining space */}
+            grid-template-rows:
+                ${smallPadding}
+                ${controlSlimHeight}
+                min-content;
+            column-gap: 4px;
+
+            align-items: start;
+            margin: 0;
+            padding: 0;
             color: inherit;
             background-color: transparent;
-            gap: ${smallPadding};
             cursor: pointer;
             outline: none;
-            margin: 0; 
-            padding: 0 ${smallPadding} 0 0;
             --ni-private-step-icon-background-full-size: 100% 100%;
             ${'' /* 6px = (2px icon border + 1px inset) * 2 sides */}
             --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
@@ -78,6 +90,70 @@ export const styles = css`
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-icon-outline-inset-color: transparent;
             --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+        }
+
+        .container.last .control {
+            grid-template-areas:
+                "icon top-spacer"
+                "icon title"
+                "icon subtitle";
+            grid-template-columns:
+                ${controlHeight}
+                min-content;
+            grid-template-rows:
+                ${smallPadding}
+                ${controlSlimHeight}
+                min-content;
+        }
+
+        .container.vertical .control {
+            ${''/*
+            Defines an interaction area clip-path that leaves out the severity text so it is easily selectable:
+            1----------------2
+            |    title       |
+            |    subtitle    |
+            |  4-------------3
+            |  | severity-text
+            |  |
+            6--5
+            */}
+            clip-path: polygon(
+                0% 0%,
+                100% 0%,
+                100% var(--ni-private-step-content-height),
+                var(--ni-private-step-content-offset) var(--ni-private-step-content-height),
+                var(--ni-private-step-content-offset) 100%,
+                0% 100%
+            );
+            grid-template-areas:
+                "icon top-spacer"
+                "icon title"
+                "icon subtitle"
+                "line subtitle"
+                "line .";
+            grid-template-columns:
+                ${controlHeight}
+                min-content;
+            grid-template-rows:
+                ${smallPadding}
+                ${controlSlimHeight}
+                calc(${controlHeight} - ${smallPadding} - ${controlSlimHeight})
+                min-content
+                1fr;
+        }
+
+        .container.vertical.last .control {
+            grid-template-areas:
+                "icon top-spacer"
+                "icon title"
+                "icon subtitle";
+            grid-template-columns:
+                ${controlHeight}
+                min-content;
+            grid-template-rows:
+                ${smallPadding}
+                ${controlSlimHeight}
+                min-content;
         }
 
         :host([severity="error"]) .control {
@@ -113,6 +189,7 @@ export const styles = css`
         }
 
         .icon {
+            grid-area: icon;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -132,7 +209,7 @@ export const styles = css`
                 ${'' /* Workaround to prevent aliasing on radial-gradient boundaries, see:
                         https://frontendmasters.com/blog/obsessing-over-smooth-radial-gradient-disc-edges
                     */}
-                var(--ni-private-step-icon-background-color) calc(100% - 1px/var(--ni-private-device-resolution)),
+                var(--ni-private-step-icon-background-color) calc(100% - 1px/var(--ni-private-device-pixel-ratio, 1)),
                 transparent 100%
             );
             background-origin: border-box;
@@ -170,18 +247,22 @@ export const styles = css`
                 outline-offset ${smallDelay} ease-in-out;
         }
 
-        .icon-slot {
+        .current-label {
+            ${accessiblyHidden}
+        }
+
+        .step-indicator {
             display: contents;
         }
 
-        :host([severity="error"]) .icon-slot,
-        :host([severity="warning"]) .icon-slot,
-        :host([severity="success"]) .icon-slot {
+        :host([severity="error"]) .step-indicator,
+        :host([severity="warning"]) .step-indicator,
+        :host([severity="success"]) .step-indicator {
             display: none;
         }
 
-        :host([selected]) .icon-slot,
-        :host([disabled]) .icon-slot {
+        :host([selected]) .step-indicator,
+        :host([disabled]) .step-indicator {
             display: contents;
         }
 
@@ -200,62 +281,80 @@ export const styles = css`
             display: none;
         }
 
-        .content {
-            display: inline-flex;
-            ${'' /* Control width - icon size */}
-            width: calc(100% - 32px);
-            flex-direction: column;
-            padding-top: ${smallPadding};
-            padding-bottom: ${smallPadding};
+        .top-spacer {
+            grid-area: top-spacer;
+            height: ${smallPadding};
         }
 
-        .title-wrapper {
-            display: inline-flex;
+        .title {
+            grid-area: title;
+            min-width: min-content;
             height: ${controlSlimHeight};
-            flex-direction: row;
-            align-items: center;
-            justify-content: start;
-            gap: ${smallPadding};
+            display: inline-block;
+            align-content: center;
             font: ${bodyFont};
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         [part='start'] {
             display: none;
         }
 
-        .title {
-            display: inline-block;
-            flex: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            ${'' /* Content width - (gap + line min width) */}
-            max-width: calc(100% - (${smallPadding} + ${standardPadding}));
-        }
-
         [part='end'] {
             display: none;
         }
-        
+
         .line {
+            grid-area: line;
+            align-self: center;
+            justify-self: center;
             display: inline-block;
-            flex: 1;
+            width: 100%;
             min-width: ${standardPadding};
             height: 1px;
+            min-height: 1px;
             background: var(--ni-private-step-line-color);
+            background-clip: content-box;
             transform: scale(1, 1);
             transition:
                 background-color ${smallDelay} ease-in-out,
                 transform ${smallDelay} ease-in-out;
         }
 
+        .container.last .line {
+            display: none;
+        }
+
+        .container.vertical .line {
+            width: 1px;
+            min-width: 1px;
+            height: 100%;
+            padding-top: ${smallPadding};
+            min-height: ${standardPadding};
+        }
+
         .subtitle {
+            grid-area: subtitle;
+            display: inline-block;
+            min-width: min-content;
+            height: ${errorTextFontLineHeight};
+            align-content: center;
             font: ${errorTextFont};
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            ${'' /* Content width */}
-            max-width: 100%;
+        }
+
+        .severity-text {
+            left: 0px;
+            top: var(--ni-private-step-content-height);
+        }
+
+        .container.vertical .severity-text {
+            width: calc(100% - var(--ni-private-step-content-offset));
+            left: var(--ni-private-step-content-offset);
         }
     }
 
@@ -299,6 +398,10 @@ export const styles = css`
         .control:hover .line {
             transform: scale(1, 2);
         }
+
+        .container.vertical .control:hover .line {
+            transform: scale(2, 1);
+        }
     }
 
     @layer focusVisible {
@@ -338,7 +441,7 @@ export const styles = css`
             --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
             --ni-private-step-line-color: ${borderHoverColor};
         }
-    
+
         .control${focusVisible} .icon {
             border-width: 2px;
         }
@@ -350,6 +453,10 @@ export const styles = css`
 
         .control${focusVisible} .line {
             transform: scale(1, 2);
+        }
+
+        .container.vertical .control${focusVisible} .line {
+            transform: scale(2, 1);
         }
     }
 

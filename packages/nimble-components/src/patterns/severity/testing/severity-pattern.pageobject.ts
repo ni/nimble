@@ -35,6 +35,14 @@ export class SeverityPatternPageObject {
         processUpdates();
     }
 
+    public clickSeverityText(): void {
+        const severityTextDiv = this.getSeverityTextElement();
+        if (!severityTextDiv) {
+            throw new Error('Severity text element not found');
+        }
+        severityTextDiv.click();
+    }
+
     private getSeverityTextElement(): HTMLDivElement | null {
         return this.element.shadowRoot!.querySelector('.severity-text');
     }

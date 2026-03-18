@@ -1,9 +1,9 @@
 import { Severity } from '@ni/nimble-components/dist/esm/patterns/severity/types';
+import { StepperOrientation } from '@ni/nimble-components/dist/esm/stepper/types';
 
 export const ExampleStepType = {
     simple: 'simple',
-    many: 'many',
-    wide: 'wide'
+    severity: 'severity',
 } as const;
 export type ExampleStepType = (typeof ExampleStepType)[keyof typeof ExampleStepType];
 
@@ -23,11 +23,27 @@ export type SelectedState = (typeof selectedStates)[number];
 export const selectedStateNotSelected = selectedStates[0];
 
 export const stepContentStates = [
-    ['Absent', undefined, undefined, undefined],
-    ['Empty', '', '', ''],
-    ['Short', 'Title', 'Subtitle', 'Severity text'],
-    ['NoSubtitle', 'Title', undefined, 'Severity text'],
-    ['Long', 'Title That is very long and very interesting', 'Subtitle that is very long and very interesting', 'Severity text that is very long and very interesting'],
+    ['Absent', undefined, undefined, undefined, false],
+    ['Empty', '', '', '', false],
+    ['Short', 'Title', 'Subtitle', 'Severity text', false],
+    ['NoSubtitle', 'Title', undefined, 'Severity text', false],
+    ['LongSeverity', 'Title is short', 'Subtitle is short', 'Severity text that is very long and very interesting', false],
+    ['StepIndicator', 'Title', 'Subtitle', 'Severity text', true]
 ] as const;
 export type StepContentStates = (typeof stepContentStates)[number];
 export const stepContentStateShort = stepContentStates[2];
+export const stepContentStateStepIndicator = stepContentStates[5];
+
+export const orientationStates = [
+    ['Horizontal', StepperOrientation.horizontal],
+    ['Vertical', StepperOrientation.vertical],
+] as const;
+export type OrientationStates = (typeof orientationStates)[number];
+
+export const stepLayoutStates = [
+    ['First Horizontal', false, 'horizontal'],
+    ['Last Horizontal', true, 'horizontal'],
+    ['First Vertical', false, 'vertical'],
+    ['Last Vertical', true, 'vertical'],
+] as const;
+export type StepLayoutStates = (typeof stepLayoutStates)[number];
