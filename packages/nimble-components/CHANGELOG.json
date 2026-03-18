@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 Mar 2026 21:46:50 GMT",
+      "version": "35.5.1",
+      "tag": "@ni/nimble-components_v35.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d0d8415fb709e2518877fdcacd981e69b262c58f",
+            "comment": "Stepper orientation and position"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 Mar 2026 16:41:20 GMT",
       "version": "35.5.0",
       "tag": "@ni/nimble-components_v35.5.0",
