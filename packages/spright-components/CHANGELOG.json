@@ -2,6 +2,27 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 19 Mar 2026 14:12:53 GMT",
+      "version": "6.14.3",
+      "tag": "@ni/spright-components_v6.14.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "452fa5a0cd2dfd16749eeeeecf4b3eea771719ae",
+            "comment": "Bump fast-foundation version to 10.2.2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.5.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Mar 2026 21:46:50 GMT",
       "version": "6.14.2",
       "tag": "@ni/spright-components_v6.14.2",
