@@ -122,7 +122,9 @@ export const step: StoryObj<StepArgs> = {
                 severity="${x => StepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 ?selected="${x => x.selected}"
-                @click="${(_x, c) => action(c.event.type)({})}"
+                @click="${(_x, c) => {
+                    action(c.event.type)({});
+                }}"
             >
                 ${when(x => x.title, html<StepArgs>`<span slot="title">${x => x.title}</span>`)}
                 ${when(x => x.subtitle, html<StepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
