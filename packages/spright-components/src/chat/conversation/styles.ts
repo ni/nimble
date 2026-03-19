@@ -2,13 +2,13 @@ import { css } from '@ni/fast-element';
 import {
     applicationBackgroundColor,
     borderWidth,
+    dividerBackgroundColor,
     sectionBackgroundImage,
     mediumPadding,
     standardPadding,
     bodyFont,
     placeholderFontColor,
-    smallPadding,
-    linkFontColor
+    linkFontColor,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -46,8 +46,8 @@ export const styles = css`
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: ${smallPadding};
-        padding: ${smallPadding} ${standardPadding};
+        padding: 2px ${standardPadding};
+        border-top: ${borderWidth} solid ${dividerBackgroundColor};
     }
 
     .end.end-empty {

@@ -1195,7 +1195,7 @@ export function App(): React.JSX.Element {
                                         ></SprightChatInput>
                                         <span slot="end">
                                             AI-generated content may be incorrect.
-                                            <NimbleAnchor href="https://www.ni.com" target="_blank" rel="noreferrer">View Terms and Conditions</NimbleAnchor>
+                                            <NimbleAnchor href="https://www.ni.com" target="_blank">View Terms and Conditions</NimbleAnchor>
                                         </span>
                                     </SprightChatConversation>
                                 </div>
