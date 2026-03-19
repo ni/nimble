@@ -8,4 +8,5 @@ export const severityTextTemplate = html<SeverityPattern>`
         ${overflow('severityHasOverflow')}
         title="${x => (x.severityHasOverflow && x.severityText ? x.severityText : undefined)}"
         aria-live="polite"
+        @click="${(_x, c) => c.event.stopImmediatePropagation()}"
     >${x => x.severityText}</div>`;

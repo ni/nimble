@@ -1,8 +1,67 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Mon, 02 Mar 2026 18:11:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 19 Mar 2026 14:12:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.8.3
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.3
+
+## 8.8.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.2
+
+## 8.8.1
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.1
+
+## 8.8.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Add work item job icon directives ([ni/nimble@df7e198](https://github.com/ni/nimble/commit/df7e198f0d86f240b6baf32bcb6cc05aeea35b08))
+- Bump @ni/spright-components to v6.14.0
+
+## 8.7.0
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Minor changes
+
+- Add custom colored spright icons for the different variance of calendar events ([ni/nimble@3b0199c](https://github.com/ni/nimble/commit/3b0199c151e906efe28421d1c48f023986ba5f85))
+- Bump @ni/spright-components to v6.13.0
+
+## 8.6.1
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.12.0
+
+## 8.6.0
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Minor changes
+
+- Expose sendDisabled attribute. ([ni/nimble@ed3b6d0](https://github.com/ni/nimble/commit/ed3b6d00b8804a0cee3f076643f61ddd5208f630))
+- Bump @ni/spright-components to v6.11.0
 
 ## 8.5.5
 

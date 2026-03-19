@@ -14,12 +14,10 @@ export const styles = css`
     :host {
         flex-direction: column;
         background: ${applicationBackgroundColor};
-        border: ${borderWidth} solid ${applicationBackgroundColor};
     }
 
     :host([appearance='overlay']) {
         background: none;
-        border-color: transparent;
     }
 
     .toolbar {
@@ -27,6 +25,14 @@ export const styles = css`
     }
 
     .toolbar.toolbar-empty {
+        display: none;
+    }
+
+    .start {
+        display: block;
+    }
+
+    .start.start-empty {
         display: none;
     }
 

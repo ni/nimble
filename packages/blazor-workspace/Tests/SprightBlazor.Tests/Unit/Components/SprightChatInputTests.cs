@@ -66,6 +66,14 @@ public class SprightChatInputTests
     }
 
     [Fact]
+    public void SprightChatInputSendDisabled_AttributeIsSet()
+    {
+        var chatInput = RenderWithPropertySet(x => x.SendDisabled, true);
+
+        Assert.Contains("send-disabled", chatInput.Markup);
+    }
+
+    [Fact]
     public void SprightChatInputProcessing_AttributeIsSet()
     {
         var chatInput = RenderWithPropertySet(x => x.Processing, true);

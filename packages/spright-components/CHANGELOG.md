@@ -1,8 +1,67 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 02 Mar 2026 18:11:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 19 Mar 2026 14:12:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.14.3
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump fast-foundation version to 10.2.2 ([ni/nimble@452fa5a](https://github.com/ni/nimble/commit/452fa5a0cd2dfd16749eeeeecf4b3eea771719ae))
+- Bump @ni/nimble-components to v35.5.2
+
+## 6.14.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
+
+## 6.14.1
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Remove border from chat conversation ([ni/nimble@dd37c89](https://github.com/ni/nimble/commit/dd37c89516d889c67d35e93a9751bd4706036f0c))
+
+## 6.14.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Add work item job icon ([ni/nimble@df7e198](https://github.com/ni/nimble/commit/df7e198f0d86f240b6baf32bcb6cc05aeea35b08))
+- Bump @ni/nimble-components to v35.5.0
+- Bump @ni/nimble-tokens to v8.17.0
+
+## 6.13.0
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Minor changes
+
+- Add custom colored spright icons for the different variance of calendar events ([ni/nimble@3b0199c](https://github.com/ni/nimble/commit/3b0199c151e906efe28421d1c48f023986ba5f85))
+
+## 6.12.0
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Minor changes
+
+- Add start slot in conversation component ([ni/nimble@4ba0c27](https://github.com/ni/nimble/commit/4ba0c276c01b35e3de215e2fba40984c58ebed24))
+
+## 6.11.0
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Minor changes
+
+- Expose sendDisabled attribute. ([ni/nimble@ed3b6d0](https://github.com/ni/nimble/commit/ed3b6d00b8804a0cee3f076643f61ddd5208f630))
 
 ## 6.10.5
 

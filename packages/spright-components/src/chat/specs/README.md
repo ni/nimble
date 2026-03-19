@@ -89,6 +89,7 @@ All end text buttons must meet the following criteria
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
 1. Includes a slot to place a toolbar (and its content such as buttons or menu buttons) on top of the conversation.
+1. Includes a slot to place content (such as banners) below the toolbar and above the messages.
 1. Includes a slot to place an input component below the messages.
 1. Includes a slot for a legal disclaimer below that.
 1. Only appearance of its own is to set a background color.
@@ -222,6 +223,15 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 </nimble-toolbar>
 ```
 
+#### Start slot example
+
+```html
+<nimble-banner open slot="start" severity="information">
+    <span slot="title">Important Notice</span>
+    This conversation may contain AI-generated content. Please review carefully.
+</nimble-banner>
+```
+
 ### API
 
 #### Messages
@@ -283,6 +293,7 @@ All message types will share the following API:
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
     - a single chat input can optionally be added to the `input` slot. It will be placed below the messages
     - a toolbar can optionally be added to the `toolbar` slot. The toolbar will be displayed above the messages. The toolbar content can be buttons or menus used for actions like starting a new conversation, copying all messages, or other conversation-level operations.
+    - content can optionally be added to the `start` slot. It will be placed below the toolbar and above the messages. This slot is intended for content like banners that provide important information to the user.
     - chat disclaimer content can optionally be added to the `end` slot. It will be placed below the input. The slot will apply color and font size styles to text and anchor content to match the visual design spec. See [the existing Blazor implementation](https://dev.azure.com/ni/DevCentral/_git/ASW?path=/Source/MeasurementServices/AiAssistants/Controls/Components/ChatbotViewFooter.razor) for reference.
 
 #### Input
@@ -365,6 +376,9 @@ Other than setting a background, a conversation has no appearance of its own and
 <template>
     <div class="toolbar">
         <slot name="toolbar"></slot>
+    </div>
+    <div class="start">
+        <slot name="start"></slot>
     </div>
     <div class="messages">
         <slot></slot>

@@ -1163,6 +1163,10 @@ export function App(): React.JSX.Element {
                                 <div className="sub-container">
                                     <div className="container-label">Chat Conversation and Messages (Spright)</div>
                                     <SprightChatConversation>
+                                        <NimbleBanner slot="start" open severity="information">
+                                            <span slot="title">Title of the banner</span>
+                                            This is the message text of this banner. It tells you something interesting.
+                                        </NimbleBanner>
                                         <SprightChatMessageSystem>To start, press any key.</SprightChatMessageSystem>
                                         <SprightChatMessageOutbound>Where is the Any key?</SprightChatMessageOutbound>
                                         <SprightChatMessageSystem>
