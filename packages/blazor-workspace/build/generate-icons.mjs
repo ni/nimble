@@ -15,7 +15,7 @@ const generatedFilePrefix = `@* AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
  // See generation source in blazor-workspace/build/generate-icons *@\n`;
 
 const packageDirectory = path.resolve(import.meta.dirname, '../');
-const iconsDirectory = path.resolve(packageDirectory, 'NimbleBlazor/Components/Icons');
+const iconsDirectory = path.resolve(packageDirectory, 'NimbleBlazor/Source/Icons');
 console.log(iconsDirectory);
 
 if (fs.existsSync(iconsDirectory)) {
