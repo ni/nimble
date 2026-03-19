@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 12 Mar 2026 16:41:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 18 Mar 2026 21:46:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.5.1
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Stepper orientation and position ([ni/nimble@d0d8415](https://github.com/ni/nimble/commit/d0d8415fb709e2518877fdcacd981e69b262c58f))
 
 ## 35.5.0
 

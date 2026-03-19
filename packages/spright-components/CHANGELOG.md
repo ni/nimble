@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 12 Mar 2026 16:41:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 18 Mar 2026 21:46:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.14.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
+
+## 6.14.1
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Remove border from chat conversation ([ni/nimble@dd37c89](https://github.com/ni/nimble/commit/dd37c89516d889c67d35e93a9751bd4706036f0c))
 
 ## 6.14.0
 

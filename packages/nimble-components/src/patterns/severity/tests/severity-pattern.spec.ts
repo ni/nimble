@@ -80,6 +80,13 @@ describe('SeverityPatternMixin', () => {
         expect(pageObject.getDisplayedSeverityText()).toBe('');
     });
 
+    it('does not trigger click events if clicked', () => {
+        const clickEvent = jasmine.createSpy();
+        element.addEventListener('click', clickEvent);
+        pageObject.clickSeverityText();
+        expect(clickEvent).toHaveBeenCalledTimes(0);
+    });
+
     describe('overflow behavior', () => {
         beforeEach(() => {
             element.style.display = 'block';

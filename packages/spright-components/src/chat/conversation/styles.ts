@@ -18,12 +18,10 @@ export const styles = css`
     :host {
         flex-direction: column;
         background: ${applicationBackgroundColor};
-        border: ${borderWidth} solid ${applicationBackgroundColor};
     }
 
     :host([appearance='overlay']) {
         background: none;
-        border-color: transparent;
     }
 
     .toolbar {

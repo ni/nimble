@@ -107,7 +107,7 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
     - readonly: boolean (standard, i.e. visually not disabled, interactions other than tab focus prevented)
     - selected: boolean (visual change only, no behavior) (aligned with card button)
     - severity: default / error / warning / success (similar to icon and banner but different subset)
-    - severity-text: string (always shown but styled based on severity)
+    - severity-text: string (shown for error and warning severities)
   <!--
   - Properties (not attribute reflected)
   - Methods
@@ -119,7 +119,8 @@ The `step` elements will primarily render a provided nimble icon (and new nimble
   - CSS native properties
   -->
   - Slots
-    - default: supports nimble icons, will render inside the circle and have color controlled via iconColor token
+    - default: unused
+    - step-indicator: supports nimble icons or text, will render inside the circle for default severity and have color controlled via iconColor token / text color (aligned with checked indicator, group header indicator, etc)
     - title: Title content (aligned with dialog)
     - subtitle: Subtitle content  (aligned with dialog)
   <!--
