@@ -38,11 +38,11 @@ Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://
 
       At the bottom of the `<head>` section (right before `</head>`), add  
       ```html
-      <link href="_content/NimbleBlazor/nimble-tokens/css/fonts.css" rel="stylesheet" />
+      <link href="_content/NationalInstruments.NimbleBlazor/nimble-tokens/css/fonts.css" rel="stylesheet" />
       ```
       At the bottom of the `<body>` section (right before `</body>`), add  
       ```html
-      <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
+      <script src="_content/NationalInstruments.NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
       ```
 
 Additional Resources: [`dotnet add package` documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-add-package)
