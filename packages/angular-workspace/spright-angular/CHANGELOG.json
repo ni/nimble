@@ -2,6 +2,21 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Thu, 19 Mar 2026 20:13:51 GMT",
+      "version": "9.0.0",
+      "tag": "@ni/spright-angular_v9.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "7b9569e12f7a218f64addcafd03d0cdeed1c9e09",
+            "comment": "Angular 20 update"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 19 Mar 2026 14:12:53 GMT",
       "version": "8.8.3",
       "tag": "@ni/spright-angular_v8.8.3",
