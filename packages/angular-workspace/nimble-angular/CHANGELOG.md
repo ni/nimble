@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 19 Mar 2026 14:12:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 19 Mar 2026 20:13:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.0.0
+
+Thu, 19 Mar 2026 20:13:51 GMT
+
+### Major changes
+
+- Angular 20 update ([ni/nimble@7b9569e](https://github.com/ni/nimble/commit/7b9569e12f7a218f64addcafd03d0cdeed1c9e09))
 
 ## 32.4.2
 
