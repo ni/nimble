@@ -5,8 +5,8 @@
     <IsPackable>false</IsPackable>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <RootNamespace>SprightBlazor.Tests</RootNamespace>
-    <AssemblyName>SprightBlazor.Tests</AssemblyName>
+    <RootNamespace>NationalInstruments.SprightBlazor.Tests</RootNamespace>
+    <AssemblyName>NationalInstruments.SprightBlazor.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

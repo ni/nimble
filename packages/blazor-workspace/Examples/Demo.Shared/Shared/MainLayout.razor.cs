@@ -2,7 +2,7 @@ using Apache.Arrow;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
-using NimbleBlazor;
+using NationalInstruments.NimbleBlazor;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Demo.Shared;

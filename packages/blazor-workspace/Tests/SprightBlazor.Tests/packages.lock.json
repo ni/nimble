@@ -517,7 +517,7 @@
           "xunit.abstractions": "2.0.3"
         }
       },
-      "sprightblazor": {
+      "NationalInstruments.SprightBlazor": {
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"

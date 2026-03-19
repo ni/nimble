@@ -16,7 +16,7 @@ Any project using OkBlazor components will typically also be using NimbleBlazor 
     <body>
         ...
         <!-- Do NOT also include the nimble-components bundle or spright-components bundle! -->
-        <script src="_content/OkBlazor/ok-components/all-components-bundle.min.js"></script>
+        <script src="_content/NationalInstruments.OkBlazor/ok-components/all-components-bundle.min.js"></script>
     </body>
     ```  
 

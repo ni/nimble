@@ -6,6 +6,8 @@
     <GenerateProgramFile>false</GenerateProgramFile>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <RootNamespace>NationalInstruments.OkBlazor.Tests.Acceptance</RootNamespace>
+    <AssemblyName>NationalInstruments.OkBlazor.Tests.Acceptance</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using BlazorWorkspace.Testing.Acceptance;
 
-namespace NimbleBlazor.Tests.Acceptance;
+namespace NationalInstruments.NimbleBlazor.Tests.Acceptance;
 
 /// <summary>
 /// Main entry point which spins up the web server and allows loading the Razor fixtures/pages in a browser
