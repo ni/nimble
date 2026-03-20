@@ -60,7 +60,6 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @observable
     public scrollbarWidth = -1;
 
-    private static readonly maxContentLines = 6;
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 
@@ -199,7 +198,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         const lineHeight = parseFloat(computedStyle.lineHeight);
         const paddingTop = parseFloat(computedStyle.paddingTop);
         const paddingBottom = parseFloat(computedStyle.paddingBottom);
-        const maxHeight = ChatInput.maxContentLines * lineHeight
+        const maxHeight = lineHeight * 6
             + paddingTop
             + paddingBottom;
 
