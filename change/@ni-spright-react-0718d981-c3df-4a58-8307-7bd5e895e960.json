@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add welcome message for spright chat conversation",
+  "packageName": "@ni/spright-react",
+  "email": "5265744+hellovolcano@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
