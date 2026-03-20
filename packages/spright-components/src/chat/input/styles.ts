@@ -87,10 +87,9 @@ export const styles = css`
         background-color: transparent;
 
         width: 100%;
+        box-sizing: border-box;
         resize: none;
-        height: auto;
-        max-height: calc(6lh + 2 * ${mediumPadding});
-        field-sizing: content;
+        overflow-y: hidden;
 
         border-width: 0px;
         outline: none;

@@ -83,6 +83,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
         this.isInputEmpty = this.shouldDisableSendButton();
+        this.adjustTextAreaHeight();
         this.queueUpdateScrollbarWidth();
     }
 
@@ -107,6 +108,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         if (this.textArea) {
             this.textArea.value = this.value;
             this.isInputEmpty = this.shouldDisableSendButton();
+            this.adjustTextAreaHeight();
             this.queueUpdateScrollbarWidth();
         }
     }
@@ -118,6 +120,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         super.connectedCallback();
         this.textArea!.value = this.value;
         this.isInputEmpty = this.shouldDisableSendButton();
+        this.adjustTextAreaHeight();
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
     }
@@ -164,11 +167,13 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         this.isInputEmpty = true;
         if (this.textArea) {
             this.textArea.value = '';
+            this.adjustTextAreaHeight();
             this.textArea.focus();
         }
     }
 
     private onResize(): void {
+        this.adjustTextAreaHeight();
         this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
     }
 
@@ -179,6 +184,30 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         if (!this.updateScrollbarWidthQueued) {
             this.updateScrollbarWidthQueued = true;
             DOM.queueUpdate(() => this.updateScrollbarWidth());
+        }
+    }
+
+    private adjustTextAreaHeight(): void {
+        if (!this.textArea) {
+            return;
+        }
+        const textArea = this.textArea;
+        textArea.style.height = 'auto';
+
+        const computedStyle = getComputedStyle(textArea);
+        const lineHeight = parseFloat(computedStyle.lineHeight);
+        const paddingTop = parseFloat(computedStyle.paddingTop);
+        const paddingBottom = parseFloat(computedStyle.paddingBottom);
+        const maxHeight = lineHeight * 6
+            + paddingTop
+            + paddingBottom;
+
+        if (textArea.scrollHeight > maxHeight) {
+            textArea.style.height = `${maxHeight}px`;
+            textArea.style.overflowY = 'auto';
+        } else {
+            textArea.style.height = `${textArea.scrollHeight}px`;
+            textArea.style.overflowY = 'hidden';
         }
     }
 
