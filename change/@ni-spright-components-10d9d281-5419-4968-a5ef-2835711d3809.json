@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "replace field-sizing with js approach",
-  "packageName": "@ni/spright-components",
-  "email": "5265744+hellovolcano@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
