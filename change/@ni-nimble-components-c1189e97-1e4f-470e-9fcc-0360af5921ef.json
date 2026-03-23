@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Stepper orientation and position",
-  "packageName": "@ni/nimble-components",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -1,8 +1,32 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Mon, 16 Mar 2026 19:23:09 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 19 Mar 2026 20:13:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 9.0.0
+
+Thu, 19 Mar 2026 20:13:51 GMT
+
+### Major changes
+
+- Angular 20 update ([ni/nimble@7b9569e](https://github.com/ni/nimble/commit/7b9569e12f7a218f64addcafd03d0cdeed1c9e09))
+
+## 8.8.3
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.3
+
+## 8.8.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.2
 
 ## 8.8.1
 

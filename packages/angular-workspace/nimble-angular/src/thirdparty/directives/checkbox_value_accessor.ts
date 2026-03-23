@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/19.2.15/packages/forms/src/directives/checkbox_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/checkbox_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from the CheckboxControlValueAccessor's `@Directive` decorator
@@ -58,7 +58,7 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = {
 @Directive({
   selector:
     'input[type=checkbox][formControlName],input[type=checkbox][formControl],input[type=checkbox][ngModel]',
-  host: {'(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()'},
+  host: {'(change)': 'onChange($any($event.target).checked)', '(blur)': 'onTouched()'},
   providers: [CHECKBOX_VALUE_ACCESSOR],
   standalone: false,
 })

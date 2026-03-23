@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/19.2.15/ppackages/private/testing/src/browser_utils.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/private/testing/src/browser_utils.ts
  * with the following modifications:
  * - Comment out everything not used by other forked files
  */
