@@ -192,23 +192,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
             return;
         }
         const textArea = this.textArea;
-        textArea.style.height = 'auto';
-
-        const computedStyle = getComputedStyle(textArea);
-        const lineHeight = parseFloat(computedStyle.lineHeight);
-        const paddingTop = parseFloat(computedStyle.paddingTop);
-        const paddingBottom = parseFloat(computedStyle.paddingBottom);
-        const maxHeight = lineHeight * 6
-            + paddingTop
-            + paddingBottom;
-
-        if (textArea.scrollHeight > maxHeight) {
-            textArea.style.height = `${maxHeight}px`;
-            textArea.style.overflowY = 'auto';
-        } else {
-            textArea.style.height = `${textArea.scrollHeight}px`;
-            textArea.style.overflowY = 'hidden';
-        }
+        textArea.style.height = `${textArea.scrollHeight}px`;
     }
 
     private updateScrollbarWidth(): void {
