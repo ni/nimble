@@ -16,6 +16,11 @@ declare global {
  * A Spright component for composing and sending a chat message
  */
 export class ChatInput extends mixinErrorPattern(FoundationElement) {
+    private static readonly fieldSizingSupported = CSS.supports(
+        'field-sizing',
+        'content'
+    );
+
     @attr
     public placeholder?: string;
 
@@ -188,10 +193,11 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     }
 
     private adjustTextAreaHeight(): void {
-        if (!this.textArea) {
+        if (ChatInput.fieldSizingSupported || !this.textArea) {
             return;
         }
         const textArea = this.textArea;
+        textArea.style.height = 'auto';
         textArea.style.height = `${textArea.scrollHeight}px`;
     }
 

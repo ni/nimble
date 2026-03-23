@@ -90,6 +90,7 @@ export const styles = css`
         resize: none;
         height: auto;
         max-height: calc(6lh + 2 * ${mediumPadding});
+        field-sizing: content;
         border-width: 0px;
         outline: none;
         padding: ${mediumPadding};
