@@ -192,6 +192,8 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         }
     }
 
+    // Workaround for browsers that do not support the CSS property `field-sizing: content`
+    // See https://github.com/ni/nimble/issues/2902
     private adjustTextAreaHeight(): void {
         if (ChatInput.fieldSizingSupported || !this.textArea) {
             return;
