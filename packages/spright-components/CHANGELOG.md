@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 19 Mar 2026 14:12:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 23 Mar 2026 22:18:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.14.4
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- replace field-sizing with js approach ([ni/nimble@2309573](https://github.com/ni/nimble/commit/230957398badde38a5f2fc5116cd7eef9a9cfdfa))
 
 ## 6.14.3
 
