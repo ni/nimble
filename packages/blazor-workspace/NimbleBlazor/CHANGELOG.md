@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 19 Mar 2026 14:12:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 24 Mar 2026 22:49:20 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.14.3
+
+Tue, 24 Mar 2026 22:49:20 GMT
+
+### Patches
+
+- Minor README change to test nuget publishing ([ni/nimble@cc77ce0](https://github.com/ni/nimble/commit/cc77ce00918ffa501722ab524b60fd846ae20a76))
 
 ## 20.14.2
 
