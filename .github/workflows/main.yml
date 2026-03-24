@@ -24,7 +24,7 @@ env:
   HAS_GITHUBPAGESDEPLOYTOKEN: ${{secrets.GITHUBPAGESDEPLOYTOKEN != ''}}
   HAS_CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN != ''}}
   HAS_LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN != ''}}
-  HAS_NUGET_TOKEN: ${{secrets.NUGET_TOKEN != ''}}
+  HAS_NUGET_USER: ${{secrets.NUGET_USER != ''}}
   TURBO_RUN_SUMMARY: true
 
 jobs:
@@ -130,15 +130,22 @@ jobs:
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
       # Release
+      - name: Nuget login
+        if: env.HAS_NUGET_USER == 'true' && startsWith(github.ref, 'refs/heads/main')
+        uses: NuGet/login@v1
+        id: nugetlogin
+        with:
+          user: ${{ secrets.NUGET_USER }}
       - name: Publish packages
-        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NUGET_TOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
+        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NUGET_USER == 'true' && startsWith(github.ref, 'refs/heads/main')
         env:
-          NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+          NUGET_SECRET_TOKEN: ${{steps.nugetlogin.outputs.NUGET_API_KEY}}
         run: |
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
           npm run invoke-publish
 
+      # Build summary
       - uses: charpeni/turborepo-summary-action@v1
         if: always()
 
