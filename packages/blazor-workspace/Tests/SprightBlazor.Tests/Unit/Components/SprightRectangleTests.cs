@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace NationalInstruments.SprightBlazor.Tests.Unit.Components;
+namespace SprightBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="SprightRectangle"/>.

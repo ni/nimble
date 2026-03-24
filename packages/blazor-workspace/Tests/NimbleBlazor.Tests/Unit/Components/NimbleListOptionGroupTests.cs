@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
-namespace NationalInstruments.NimbleBlazor.Tests.Unit.Components;
+namespace NimbleBlazor.Tests.Unit.Components;
 
 public class NimbleListOptionGroupTests
 {

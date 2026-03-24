@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 #nullable enable
-namespace NationalInstruments.NimbleBlazor.Tests.Unit;
+namespace NimbleBlazor.Tests.Unit;
 
 public abstract class NimbleTableColumnTests<T> where T : NimbleTableColumn
 {

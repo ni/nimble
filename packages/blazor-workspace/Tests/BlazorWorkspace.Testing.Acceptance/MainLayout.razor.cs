@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
-using NationalInstruments.NimbleBlazor;
+using NimbleBlazor;
 
 namespace BlazorWorkspace.Testing.Acceptance;
 

@@ -1,7 +1,7 @@
 using BlazorWorkspace.Testing.Acceptance;
 using IStartup = BlazorWorkspace.Testing.Acceptance.IStartup;
 
-namespace NationalInstruments.NimbleBlazor.Tests.Acceptance;
+namespace NimbleBlazor.Tests.Acceptance;
 
 /// <summary>
 /// Test fixture which starts up a Blazor Server web server

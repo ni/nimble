@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace NationalInstruments.OkBlazor.Tests.Unit.Components;
+namespace OkBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="OkButton"/>.

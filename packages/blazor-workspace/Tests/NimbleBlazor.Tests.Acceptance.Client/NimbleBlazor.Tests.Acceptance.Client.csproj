@@ -6,8 +6,6 @@
     <Nullable>enable</Nullable>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <RootNamespace>NationalInstruments.NimbleBlazor.Tests.Acceptance.Client</RootNamespace>
-    <AssemblyName>NationalInstruments.NimbleBlazor.Tests.Acceptance.Client</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

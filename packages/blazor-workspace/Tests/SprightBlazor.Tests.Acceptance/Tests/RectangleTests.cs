@@ -2,7 +2,7 @@
 using Microsoft.Playwright;
 using Xunit;
 
-namespace NationalInstruments.SprightBlazor.Tests.Acceptance;
+namespace SprightBlazor.Tests.Acceptance;
 
 public class RectangleTests : SprightInteractiveAcceptanceTestsBase
 {

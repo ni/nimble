@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Bunit;
 using Xunit;
 #nullable enable
-namespace NationalInstruments.NimbleBlazor.Tests.Unit.Components;
+namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleTable"/>

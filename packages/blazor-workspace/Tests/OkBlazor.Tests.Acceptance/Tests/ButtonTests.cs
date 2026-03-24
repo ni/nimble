@@ -2,7 +2,7 @@
 using Microsoft.Playwright;
 using Xunit;
 
-namespace NationalInstruments.OkBlazor.Tests.Acceptance;
+namespace OkBlazor.Tests.Acceptance;
 
 public class ButtonTests : OkInteractiveAcceptanceTestsBase
 {

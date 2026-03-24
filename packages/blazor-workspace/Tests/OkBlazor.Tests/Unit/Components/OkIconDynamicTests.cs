@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using Xunit;
 
-namespace NationalInstruments.OkBlazor.Tests.Unit.Components;
+namespace OkBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="OkIconDynamic"/>.

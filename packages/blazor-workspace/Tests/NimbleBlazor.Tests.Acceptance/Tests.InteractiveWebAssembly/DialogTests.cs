@@ -2,7 +2,7 @@
 using Microsoft.Playwright;
 using Xunit;
 
-namespace NationalInstruments.NimbleBlazor.Tests.Acceptance.InteractiveWebAssembly;
+namespace NimbleBlazor.Tests.Acceptance.InteractiveWebAssembly;
 
 public class DialogTests : NimbleInteractiveAcceptanceTestsBase
 {

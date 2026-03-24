@@ -2,7 +2,7 @@
 using Bunit;
 using Xunit;
 
-namespace NationalInstruments.NimbleBlazor.Tests.Unit.Components;
+namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleThemeProvider"/>.

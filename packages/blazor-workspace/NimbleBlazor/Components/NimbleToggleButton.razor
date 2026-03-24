@@ -1,0 +1,13 @@
+@namespace NimbleBlazor
+@inherits NimbleInputBase<bool>
+<nimble-toggle-button
+    current-checked="@BindConverter.FormatValue(CurrentValue)"
+    @onnimblecheckedchange="(__value) => CurrentValue = __value.Checked"
+    appearance="@Appearance.ToAttributeValue()"
+    appearance-variant="@AppearanceVariant.ToAttributeValue()"
+    disabled="@Disabled"
+    autofocus="@AutoFocus"
+    content-hidden="@ContentHidden"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-toggle-button>

@@ -1,7 +1,7 @@
 ﻿using BlazorWorkspace.Testing.Acceptance;
 using Xunit;
 
-namespace NationalInstruments.OkBlazor.Tests.Acceptance;
+namespace OkBlazor.Tests.Acceptance;
 
 public abstract class OkInteractiveAcceptanceTestsBase : AcceptanceTestsBase, IClassFixture<OkBlazorWebHostServerFixture>
 {

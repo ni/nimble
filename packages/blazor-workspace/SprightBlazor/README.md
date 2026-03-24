@@ -16,7 +16,7 @@ Any project using SprightBlazor components will typically also be using NimbleBl
     <body>
         ...
         <!-- Do NOT also include the nimble-components bundle! -->
-        <script src="_content/NationalInstruments.SprightBlazor/spright-components/all-components-bundle.min.js"></script>
+        <script src="_content/SprightBlazor/spright-components/all-components-bundle.min.js"></script>
     </body>
     ```  
 

@@ -2,7 +2,7 @@
 using Microsoft.Playwright;
 using Xunit;
 
-namespace NationalInstruments.NimbleBlazor.Tests.Acceptance.StaticSSR;
+namespace NimbleBlazor.Tests.Acceptance.StaticSSR;
 
 public class TextFieldTests : NimbleAcceptanceTestsBase
 {

@@ -1,7 +1,7 @@
 ﻿using BlazorWorkspace.Testing.Acceptance;
 using Xunit;
 
-namespace NationalInstruments.SprightBlazor.Tests.Acceptance;
+namespace SprightBlazor.Tests.Acceptance;
 
 public abstract class SprightInteractiveAcceptanceTestsBase : AcceptanceTestsBase, IClassFixture<SprightBlazorWebHostServerFixture>
 {

@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
-namespace NationalInstruments.NimbleBlazor.Tests.Unit;
+namespace NimbleBlazor.Tests.Unit;
 
 /// <summary>
 /// Tests for <see cref="NimbleAnchorBase"/>.

@@ -1,7 +1,7 @@
 ﻿using BlazorWorkspace.Testing.Acceptance;
 using Xunit;
 
-namespace NationalInstruments.NimbleBlazor.Tests.Acceptance;
+namespace NimbleBlazor.Tests.Acceptance;
 
 public abstract class NimbleAcceptanceTestsBase : AcceptanceTestsBase, IClassFixture<NimbleBlazorWebHostServerFixture>
 {

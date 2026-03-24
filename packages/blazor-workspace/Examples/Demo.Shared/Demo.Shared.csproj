@@ -42,5 +42,5 @@
     Since examples are in the same solution as NimbleBlazor, manually import .targets to copy Nimble
     token SCSS. See NimbleBlazor README for correct workflow for external clients to use SCSS.
   -->
-  <Import Project="../../NimbleBlazor/NuGetFiles/build/NationalInstruments.NimbleBlazor.targets" />
+  <Import Project="../../NimbleBlazor/NuGetFiles/build/NimbleBlazor.targets" />
 </Project>

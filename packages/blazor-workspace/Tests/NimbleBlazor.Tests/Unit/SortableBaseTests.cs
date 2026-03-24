@@ -4,7 +4,7 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
 #nullable enable
-namespace NationalInstruments.NimbleBlazor.Tests.Unit;
+namespace NimbleBlazor.Tests.Unit;
 
 public abstract class SortableBaseTests<T> where T : ComponentBase, ISortableColumn
 {

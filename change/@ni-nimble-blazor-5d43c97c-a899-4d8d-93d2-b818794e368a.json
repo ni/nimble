@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Prepend NationalInstruments to Blazor namespaces",
-  "packageName": "@ni/nimble-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

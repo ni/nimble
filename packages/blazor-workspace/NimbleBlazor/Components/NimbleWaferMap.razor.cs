@@ -1,0 +1,189 @@
+﻿using System.Text.Json;
+using Apache.Arrow;
+using Apache.Arrow.Ipc;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+
+namespace NimbleBlazor;
+
+/// <summary>
+/// A visualization widget which displays the location and color code of integrated circuits on a silicon wafer.
+/// </summary>
+public partial class NimbleWaferMap : ComponentBase
+{
+    private ElementReference _waferMap;
+    private bool _colorScaleUpdated;
+    private WaferMapColorScale? _colorScale;
+    private bool _highlightedTagsUpdated;
+    private IEnumerable<string>? _highlightedTags;
+    private readonly JsonSerializerOptions _options = new() { MaxDepth = 3 };
+    internal static string GetWaferMapValidityMethodName = "NimbleBlazor.WaferMap.getValidity";
+    internal static string SetWaferMapDiesMethodName = "NimbleBlazor.WaferMap.setDies";
+    internal static string SetWaferMapDiesTableMethodName = "NimbleBlazor.WaferMap.setDiesTable";
+    internal static string SetWaferMapColorScaleMethodName = "NimbleBlazor.WaferMap.setColorScale";
+    internal static string SetWaferMapHighlightedTagsMethodName = "NimbleBlazor.WaferMap.setHighlightedTags";
+
+    [Inject]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    /// <summary>
+    /// Represents the starting point and the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map canvas.
+    /// </summary>
+    [Parameter]
+    public WaferMapOriginLocation? OriginLocation { get; set; }
+
+    /// <summary>
+    /// Represents the X coordinate of the minimum corner of the grid bounding box for rendering the wafer map.
+    /// </summary>
+    [Parameter]
+    public double? GridMinX { get; set; }
+
+    /// <summary>
+    /// Represents the X coordinate of the maximum corner of the grid bounding box for rendering the wafer map.
+    /// </summary>
+    [Parameter]
+    public double? GridMaxX { get; set; }
+
+    /// <summary>
+    /// Represents the Y coordinate of the minimum corner of the grid bounding box for rendering the wafer map.
+    /// </summary>
+    [Parameter]
+    public double? GridMinY { get; set; }
+
+    /// <summary>
+    /// Represents the Y coordinate of the maximum corner of the grid bounding box for rendering the wafer map.
+    /// </summary>
+    [Parameter]
+    public double? GridMaxY { get; set; }
+
+    /// <summary>
+    /// Represents the orientation of the notch on the wafer map outline.
+    /// </summary>
+    [Parameter]
+    public WaferMapOrientation? Orientation { get; set; }
+
+    /// <summary>
+    /// Represents the number of characters allowed to be displayed within a single die, including the label suffix.
+    /// </summary>
+    [Parameter]
+    public double? MaxCharacters { get; set; }
+
+    /// <summary>
+    /// Represents a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
+    /// </summary>
+    [Parameter]
+    public bool? DieLabelsHidden { get; set; }
+
+    /// <summary>
+    /// Represents a string that can be added as a label in the end of the each data information in the wafer map dies value.
+    /// </summary>
+    [Parameter]
+    public string? DieLabelsSuffix { get; set; }
+
+    /// <summary>
+    /// Represents an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
+    /// </summary>
+    [Parameter]
+    public WaferMapColorScaleMode? ColorScaleMode { get; set; }
+
+    /// <summary>
+    /// Represents a list of strings of dies that will be highlighted in the wafer map view.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<string>? HighlightedTags
+    {
+        get
+        {
+            return _highlightedTags;
+        }
+        set
+        {
+            _highlightedTags = value;
+            _highlightedTagsUpdated = true;
+        }
+    }
+
+    /// <summary>
+    /// Represents the color spectrum which shows the status of the dies on the wafer.
+    /// </summary>
+    [Parameter]
+    public WaferMapColorScale? ColorScale
+    {
+        get
+        {
+            return _colorScale;
+        }
+        set
+        {
+            _colorScale = value;
+            _colorScaleUpdated = true;
+        }
+    }
+
+    /// <summary>
+    /// Sets the data in the wafer map.
+    /// </summary>
+    /// <param name="data">The input data, an array of `WaferMapDie`, which fills the wafer map with content</param>
+    public async Task SetDataAsync(IEnumerable<WaferMapDie> data)
+    {
+        await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesMethodName, _waferMap, JsonSerializer.Serialize(data, _options));
+    }
+
+    /// <summary>
+    /// Sets the data in the wafer map.
+    /// </summary>
+    /// <param name="data">The input data, an Apache.Arrow.RecordBatch, which fills the wafer map with content</param>
+    public async Task SetDataAsync(RecordBatch data)
+    {
+        var stream = new MemoryStream();
+        var writer = new ArrowStreamWriter(stream, data.Schema);
+        await writer.WriteRecordBatchAsync(data);
+        await writer.WriteEndAsync();
+        await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesTableMethodName, _waferMap, stream.ToArray());
+    }
+
+    /// <summary>
+    /// Will be triggered to inform the user that the state of hovering over a die has changed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<WaferMapHoverDieChangedEventArgs> HoverDieChanged { get; set; }
+
+    /// <summary>
+    /// Called when the 'die-hover' event is fired on the web component.
+    /// </summary>
+    /// <param name="eventArgs">The configuration of the columns</param>
+    protected async void HandleDieHoverChange(WaferMapHoverDieChangedEventArgs eventArgs)
+    {
+        await HoverDieChanged.InvokeAsync(eventArgs);
+    }
+
+    /// <summary>
+    /// Returns an object of boolean values that represents the validity states that the wafer map's configuration can be in.
+    /// </summary>
+    public async Task<IWaferMapValidity> GetValidityAsync()
+    {
+        return await JSRuntime!.InvokeAsync<WaferMapValidity>(GetWaferMapValidityMethodName, _waferMap);
+    }
+
+    /// <summary>
+    /// Any additional attributes that did not match known properties.
+    /// </summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    /// <inheritdoc/>
+    /// <exception cref="JsonException"></exception>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_colorScaleUpdated)
+        {
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapColorScaleMethodName, _waferMap, JsonSerializer.Serialize(_colorScale, _options));
+        }
+        _colorScaleUpdated = false;
+        if (_highlightedTagsUpdated)
+        {
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapHighlightedTagsMethodName, _waferMap, JsonSerializer.Serialize(_highlightedTags, _options));
+        }
+        _highlightedTagsUpdated = false;
+    }
+}

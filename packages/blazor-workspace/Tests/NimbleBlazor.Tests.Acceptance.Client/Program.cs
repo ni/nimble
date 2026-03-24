@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-namespace NationalInstruments.NimbleBlazor.Tests.Acceptance.Client;
+namespace NimbleBlazor.Tests.Acceptance.Client;
 
 internal static class Program
 {

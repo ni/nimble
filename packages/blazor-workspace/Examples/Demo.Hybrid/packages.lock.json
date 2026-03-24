@@ -360,25 +360,25 @@
           "AspNetCore.SassCompiler": "[1.97.1, )",
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )",
           "NI.CSharp.Analyzers": "[2.0.35, )",
-          "NationalInstruments.NimbleBlazor": "[1.0.0, )",
-          "NationalInstruments.OkBlazor": "[1.0.0, )",
-          "NationalInstruments.SprightBlazor": "[1.0.0, )"
+          "NimbleBlazor": "[1.0.0, )",
+          "OkBlazor": "[1.0.0, )",
+          "SprightBlazor": "[1.0.0, )"
         }
       },
-      "NationalInstruments.NimbleBlazor": {
+      "nimbleblazor": {
         "type": "Project",
         "dependencies": {
           "Apache.Arrow": "[22.1.0, 22.1.0]",
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"
         }
       },
-      "NationalInstruments.OkBlazor": {
+      "okblazor": {
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"
         }
       },
-      "NationalInstruments.SprightBlazor": {
+      "sprightblazor": {
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"

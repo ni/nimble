@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
-namespace NationalInstruments.SprightBlazor.Tests.Unit.Components;
+namespace SprightBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Test for <see cref="SprightChatMessage"/>.

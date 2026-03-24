@@ -318,7 +318,7 @@
         "resolved": "4.5.4",
         "contentHash": "zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg=="
       },
-      "NationalInstruments.NimbleBlazor": {
+      "nimbleblazor": {
         "type": "Project",
         "dependencies": {
           "Apache.Arrow": "[22.1.0, 22.1.0]",

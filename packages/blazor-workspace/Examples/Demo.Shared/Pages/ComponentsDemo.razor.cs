@@ -2,8 +2,8 @@
 using System.Globalization;
 using Apache.Arrow;
 using Apache.Arrow.Types;
-using NationalInstruments.NimbleBlazor;
-using NationalInstruments.SprightBlazor;
+using NimbleBlazor;
+using SprightBlazor;
 
 namespace Demo.Shared.Pages;
 
