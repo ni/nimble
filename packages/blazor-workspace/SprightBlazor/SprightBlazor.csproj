@@ -17,7 +17,6 @@
     <PackageTags>Web Components, .NET, Spright, Nimble, FAST, Blazor, .NET 8.0</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageId>SprightBlazor</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
