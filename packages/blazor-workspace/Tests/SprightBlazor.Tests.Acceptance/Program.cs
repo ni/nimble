@@ -1,6 +1,6 @@
 ﻿using BlazorWorkspace.Testing.Acceptance;
 
-namespace SprightBlazor.Tests.Acceptance;
+namespace NationalInstruments.SprightBlazor.Tests.Acceptance;
 
 /// <summary>
 /// Main entry point which spins up the web server and allows loading the Razor fixtures/pages in a browser

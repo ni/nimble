@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace NimbleBlazor.Tests.Unit;
+namespace NationalInstruments.NimbleBlazor.Tests.Unit;
 
 internal sealed class CultureScope : IDisposable
 {

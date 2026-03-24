@@ -4,7 +4,7 @@ using AngleSharp.Dom;
 using Bunit;
 using Xunit;
 
-namespace NimbleBlazor.Tests.Unit.Components;
+namespace NationalInstruments.NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleTabs"/>

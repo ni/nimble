@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace NimbleBlazor.Tests.Unit;
+namespace NationalInstruments.NimbleBlazor.Tests.Unit;
 
 /// <summary>
 /// Tests for the <see cref="AttributeHelpers"/> class.

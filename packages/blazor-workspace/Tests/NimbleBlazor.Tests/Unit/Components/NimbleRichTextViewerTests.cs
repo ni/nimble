@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
-namespace NimbleBlazor.Tests.Unit.Components;
+namespace NationalInstruments.NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Test for <see cref="NimbleRichTextViewer"/>

@@ -655,20 +655,20 @@
           "Microsoft.NET.Test.Sdk": "[17.14.1, )",
           "Microsoft.Playwright": "[1.58.0, 1.58.0]",
           "NI.CSharp.Analyzers": "[2.0.35, )",
-          "NimbleBlazor": "[1.0.0, )",
+          "NationalInstruments.NimbleBlazor": "[1.0.0, )",
           "System.ComponentModel": "[4.3.0, )",
           "xunit": "[2.9.3, )",
           "xunit.extensibility.execution": "[2.9.3, )"
         }
       },
-      "nimbleblazor": {
+      "NationalInstruments.NimbleBlazor": {
         "type": "Project",
         "dependencies": {
           "Apache.Arrow": "[22.1.0, 22.1.0]",
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"
         }
       },
-      "sprightblazor": {
+      "NationalInstruments.SprightBlazor": {
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.24, )"

@@ -1,7 +1,7 @@
 ﻿using BlazorWorkspace.Testing.Acceptance;
 using Xunit;
 
-namespace NimbleBlazor.Tests.Acceptance;
+namespace NationalInstruments.NimbleBlazor.Tests.Acceptance;
 
 [CollectionDefinition(nameof(PlaywrightFixture))]
 public class SharedPlaywrightCollectionDefinition : ICollectionFixture<PlaywrightFixture>

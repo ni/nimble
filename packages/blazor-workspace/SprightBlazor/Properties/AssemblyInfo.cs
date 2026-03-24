@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("SprightBlazor.Tests")]
+[assembly: InternalsVisibleTo("NationalInstruments.SprightBlazor.Tests")]

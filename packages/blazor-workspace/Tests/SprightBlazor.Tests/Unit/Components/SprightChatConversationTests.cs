@@ -1,7 +1,7 @@
 ﻿using Bunit;
 using Xunit;
 
-namespace SprightBlazor.Tests.Unit.Components;
+namespace NationalInstruments.SprightBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Test for <see cref="SprightChatConversation"/>.

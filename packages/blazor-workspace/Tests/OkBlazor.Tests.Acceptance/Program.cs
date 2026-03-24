@@ -1,6 +1,6 @@
 ﻿using BlazorWorkspace.Testing.Acceptance;
 
-namespace OkBlazor.Tests.Acceptance;
+namespace NationalInstruments.OkBlazor.Tests.Acceptance;
 
 /// <summary>
 /// Main entry point which spins up the web server and allows loading the Razor fixtures/pages in a browser
