@@ -17,6 +17,7 @@
     <PackageTags>Web Components, .NET, Ok, Nimble, FAST, Blazor, .NET 8.0</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>OkBlazor</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
