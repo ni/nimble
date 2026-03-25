@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 25 Mar 2026 19:20:53 GMT",
+      "version": "6.15.1",
+      "tag": "@ni/spright-components_v6.15.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "739ef4a9edee8177bcaf631c6a915b952fdfe57f",
+            "comment": "Use lighter weight font for chat conversation end slot"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 25 Mar 2026 16:53:38 GMT",
       "version": "6.15.0",
       "tag": "@ni/spright-components_v6.15.0",

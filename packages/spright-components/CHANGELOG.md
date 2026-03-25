@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 25 Mar 2026 16:53:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 25 Mar 2026 19:20:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.15.1
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Use lighter weight font for chat conversation end slot ([ni/nimble@739ef4a](https://github.com/ni/nimble/commit/739ef4a9edee8177bcaf631c6a915b952fdfe57f))
 
 ## 6.15.0
 
