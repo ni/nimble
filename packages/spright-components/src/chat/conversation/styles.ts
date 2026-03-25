@@ -8,6 +8,7 @@ import {
     standardPadding,
     controlLabelFont,
     placeholderFontColor,
+    linkFont,
     linkFontColor,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
@@ -55,6 +56,7 @@ export const styles = css`
     ::slotted([slot="end"]) {
         color: ${placeholderFontColor};
         font: ${controlLabelFont};
+        ${linkFont.cssCustomProperty}: ${controlLabelFont};
         ${linkFontColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
