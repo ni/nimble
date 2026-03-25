@@ -325,7 +325,7 @@ export const slottedButtonsInboundMessageSizing: StoryFn = createMatrixThemeStor
 `);
 
 const heightStates = [
-    ['shorter', '200px'],
+    ['shorter', '250px'],
     ['taller', '500px']
 ] as const;
 type HeightStates = (typeof heightStates)[number];
