@@ -14,6 +14,7 @@ import {
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
+import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
 import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
 import { iconPencilToRectangleTag } from '@ni/nimble-components/dist/esm/icons/pencil-to-rectangle';
@@ -324,8 +325,8 @@ export const slottedButtonsInboundMessageSizing: StoryFn = createMatrixThemeStor
 `);
 
 const heightStates = [
-    ['shorter', '200px'],
-    ['taller', '300px']
+    ['shorter', '250px'],
+    ['taller', '500px']
 ] as const;
 type HeightStates = (typeof heightStates)[number];
 
@@ -338,10 +339,10 @@ const conversationWithInput = (
             height: ${height};
         ">
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
@@ -368,10 +369,10 @@ const conversationWithToolbar = (
                 </${buttonTag}>
             </${toolbarTag}>
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
@@ -395,10 +396,10 @@ const conversationWithStart = (
                 This is a banner in the start slot.
             </${bannerTag}>
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
@@ -429,10 +430,10 @@ const conversationWithToolbarAndStart = (
                 This is a banner in the start slot.
             </${bannerTag}>
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
@@ -441,6 +442,44 @@ const conversationWithToolbarAndStart = (
 
 export const conversationWithToolbarAndStartSizing: StoryFn = createMatrixThemeStory(html`
     ${createMatrix(conversationWithToolbarAndStart, [heightStates])}
+`);
+
+const conversationWithToolbarAndStartAndEnd = (
+    [heightLabel, height]: HeightStates,
+): ViewTemplate => html`
+    <div style="width: 300px; padding: 8px;">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: ${height};
+        ">
+            <${toolbarTag} slot='toolbar' class='toolbar'>
+                <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
+                <${buttonTag} appearance="ghost" slot="end" title="Create new chat" content-hidden>
+                    Create new chat
+                    <${iconPencilToRectangleTag} slot="start"></${iconPencilToRectangleTag}>
+                </${buttonTag}>
+            </${toolbarTag}>
+            <${bannerTag} open slot="start" severity="information">
+                <span slot="title">Banner Title</span>
+                This is a banner in the start slot.
+            </${bannerTag}>
+            <${chatMessageInboundTag}>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
+            </${chatMessageInboundTag}>
+            <${chatMessageOutboundTag} message-type="outbound">
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
+            </${chatMessageOutboundTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
+            <span slot='end'>
+                AI-generated content may be incorrect.
+                <${anchorTag} href='https://www.ni.com' target='_blank'>View Terms and Conditions</${anchorTag}>
+            </span>
+        </${chatConversationTag}>
+    </div>
+`;
+
+export const conversationWithToolbarAndStartAndEndSizing: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(conversationWithToolbarAndStartAndEnd, [heightStates])}
 `);
 
 const conversationWithAppearance = ([

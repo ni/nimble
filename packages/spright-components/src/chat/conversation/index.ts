@@ -41,6 +41,14 @@ export class ChatConversation extends FoundationElement {
     @observable
     public readonly slottedStartElements?: HTMLElement[];
 
+    /** @internal */
+    @observable
+    public endEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedEndElements?: HTMLElement[];
+
     public slottedInputElementsChanged(
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
@@ -60,6 +68,13 @@ export class ChatConversation extends FoundationElement {
         next: HTMLElement[] | undefined
     ): void {
         this.startEmpty = next === undefined || next.length === 0;
+    }
+
+    public slottedEndElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.endEmpty = next === undefined || next.length === 0;
     }
 }
 

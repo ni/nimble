@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add end slot for spright chat component",
+  "packageName": "@ni/spright-components",
+  "email": "oliver.cosma@ni.com",
+  "dependentChangeType": "patch"
+}
