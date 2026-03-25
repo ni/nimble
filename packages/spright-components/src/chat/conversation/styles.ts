@@ -3,10 +3,10 @@ import {
     applicationBackgroundColor,
     borderWidth,
     dividerBackgroundColor,
+    errorTextFont,
     sectionBackgroundImage,
     mediumPadding,
     standardPadding,
-    controlLabelFont,
     placeholderFontColor,
     linkFont,
     linkFontColor,
@@ -54,9 +54,9 @@ export const styles = css`
     }
 
     ::slotted([slot="end"]) {
+        font: ${errorTextFont};
         color: ${placeholderFontColor};
-        font: ${controlLabelFont};
-        ${linkFont.cssCustomProperty}: ${controlLabelFont};
+        ${linkFont.cssCustomProperty}: ${errorTextFont};
         ${linkFontColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
