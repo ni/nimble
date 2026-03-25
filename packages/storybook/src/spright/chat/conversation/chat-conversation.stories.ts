@@ -64,7 +64,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     render: createUserSelectedThemeStory(html`
         <style class='code-hide'>
             ${chatConversationTag} {
-                max-height: 600px;
+                max-height: 750px;
             }
         </style>
         <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
