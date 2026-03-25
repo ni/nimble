@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 25 Mar 2026 16:53:38 GMT",
+      "version": "6.15.0",
+      "tag": "@ni/spright-components_v6.15.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "oliver.cosma@ni.com",
+            "package": "@ni/spright-components",
+            "commit": "c10c7be74dbbac326972d1cf87ba9c8829e99e55",
+            "comment": "Add end slot for spright chat component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Mar 2026 22:18:57 GMT",
       "version": "6.14.4",
       "tag": "@ni/spright-components_v6.14.4",

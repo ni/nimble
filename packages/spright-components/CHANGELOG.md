@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 23 Mar 2026 22:18:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 25 Mar 2026 16:53:38 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.15.0
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Minor changes
+
+- Add end slot for spright chat component ([ni/nimble@c10c7be](https://github.com/ni/nimble/commit/c10c7be74dbbac326972d1cf87ba9c8829e99e55))
 
 ## 6.14.4
 
