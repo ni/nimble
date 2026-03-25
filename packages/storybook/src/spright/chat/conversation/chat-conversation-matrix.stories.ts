@@ -339,10 +339,10 @@ const conversationWithInput = (
             height: ${height};
         ">
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
@@ -369,10 +369,10 @@ const conversationWithToolbar = (
                 </${buttonTag}>
             </${toolbarTag}>
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
@@ -396,10 +396,10 @@ const conversationWithStart = (
                 This is a banner in the start slot.
             </${bannerTag}>
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
@@ -430,10 +430,10 @@ const conversationWithToolbarAndStart = (
                 This is a banner in the start slot.
             </${bannerTag}>
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
@@ -464,10 +464,10 @@ const conversationWithToolbarAndStartAndEnd = (
                 This is a banner in the start slot.
             </${bannerTag}>
             <${chatMessageInboundTag}>
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageInboundTag}>
             <${chatMessageOutboundTag} message-type="outbound">
-                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+                <span>Conversation is ${heightLabel} than the height of the messages. Lorem ipsum dolor sit amet.</span>
             </${chatMessageOutboundTag}>
             <${chatInputTag} slot='input'></${chatInputTag}>
             <span slot='end'>
