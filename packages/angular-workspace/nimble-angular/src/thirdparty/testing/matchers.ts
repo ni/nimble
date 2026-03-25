@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/19.2.15/packages/private/testing/matchers/index.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/private/testing/matchers/index.ts
  * with the following modifications:
  * - Update imports
  * - Comment out everything other than what is needed to use `toHaveText` matcher because `toHaveText` is the only matcher required by the copied
@@ -22,8 +22,7 @@
 // import {ComponentFixture} from '@angular/core/testing';
 // import {By} from '@angular/platform-browser';
 
-// [Nimble] Update imports
-import {childNodesAsList, isCommentNode} from './browser_utils';
+import {childNodesAsList, /*hasClass, hasStyle,*/ isCommentNode} from './browser_utils';
 
 /**
  * Jasmine matchers that check Angular specific conditions.

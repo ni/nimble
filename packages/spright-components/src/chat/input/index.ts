@@ -16,6 +16,11 @@ declare global {
  * A Spright component for composing and sending a chat message
  */
 export class ChatInput extends mixinErrorPattern(FoundationElement) {
+    private static readonly fieldSizingSupported = CSS.supports(
+        'field-sizing',
+        'content'
+    );
+
     @attr
     public placeholder?: string;
 
@@ -83,6 +88,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
         this.isInputEmpty = this.shouldDisableSendButton();
+        this.adjustTextAreaHeight();
         this.queueUpdateScrollbarWidth();
     }
 
@@ -107,6 +113,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         if (this.textArea) {
             this.textArea.value = this.value;
             this.isInputEmpty = this.shouldDisableSendButton();
+            this.adjustTextAreaHeight();
             this.queueUpdateScrollbarWidth();
         }
     }
@@ -118,6 +125,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         super.connectedCallback();
         this.textArea!.value = this.value;
         this.isInputEmpty = this.shouldDisableSendButton();
+        this.adjustTextAreaHeight();
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
     }
@@ -164,11 +172,13 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         this.isInputEmpty = true;
         if (this.textArea) {
             this.textArea.value = '';
+            this.adjustTextAreaHeight();
             this.textArea.focus();
         }
     }
 
     private onResize(): void {
+        this.adjustTextAreaHeight();
         this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
     }
 
@@ -180,6 +190,17 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
             this.updateScrollbarWidthQueued = true;
             DOM.queueUpdate(() => this.updateScrollbarWidth());
         }
+    }
+
+    // Workaround for browsers that do not support the CSS property `field-sizing: content`
+    // See https://github.com/ni/nimble/issues/2902
+    private adjustTextAreaHeight(): void {
+        if (ChatInput.fieldSizingSupported || !this.textArea) {
+            return;
+        }
+        const textArea = this.textArea;
+        textArea.style.height = 'auto';
+        textArea.style.height = `${textArea.scrollHeight}px`;
     }
 
     private updateScrollbarWidth(): void {

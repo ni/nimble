@@ -2,6 +2,42 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 23 Mar 2026 22:18:57 GMT",
+      "version": "6.14.4",
+      "tag": "@ni/spright-components_v6.14.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "230957398badde38a5f2fc5116cd7eef9a9cfdfa",
+            "comment": "replace field-sizing with js approach"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Mar 2026 14:12:53 GMT",
+      "version": "6.14.3",
+      "tag": "@ni/spright-components_v6.14.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "452fa5a0cd2dfd16749eeeeecf4b3eea771719ae",
+            "comment": "Bump fast-foundation version to 10.2.2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.5.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Mar 2026 21:46:50 GMT",
       "version": "6.14.2",
       "tag": "@ni/spright-components_v6.14.2",
