@@ -80,7 +80,8 @@ export const styles = css`
             cursor: pointer;
             outline: none;
             --ni-private-step-icon-background-full-size: scale(1,1);
-            --ni-private-step-icon-background-inset-size: scale(0.75, 0.75);
+            ${'' /* (32px - 2 * (2px focus border + 1px inset gap)) / 32px = .8125 */}
+            --ni-private-step-icon-background-inset-size: scale(0.8125, 0.8125);
             --ni-private-step-icon-background-none-size: scale(0,0);
 
             --ni-private-step-icon-color: ${buttonLabelFontColor};
@@ -195,9 +196,8 @@ export const styles = css`
             width: ${controlHeight};
             ${userSelectNone};
             background-color:  var(--ni-private-step-icon-background-color);
-            background-clip: content-box;
             transform: var(--ni-private-step-icon-background-size);
-            border: 1px solid transparent;
+            border: none;
             border-radius: 100%;
             transition:
                 transform ${smallDelay} ease-in-out;
@@ -215,7 +215,7 @@ export const styles = css`
             font: ${buttonLabelFont};
             color: var(--ni-private-step-icon-color);
             ${iconColor.cssCustomProperty}: var(--ni-private-step-icon-color);
-            border: 1px solid transparent;
+            border: none;
             border-radius: 100%;
             box-shadow: inset 0px 0px 0px var(--ni-private-step-icon-border-width) var(--ni-private-step-icon-border-color);
             position: relative;
@@ -238,10 +238,9 @@ export const styles = css`
             outline-style: solid;
             outline-width: 0px;
             outline-offset: 0px;
-            border: 1px solid transparent;
+            border: none;
             border-radius: 100%;
             color: transparent;
-            background-clip: border-box;
             transition:
                 outline-color ${smallDelay} ease-in-out,
                 outline-width ${smallDelay} ease-in-out,
@@ -449,7 +448,8 @@ export const styles = css`
 
         .control${focusVisible} .icon::before {
             outline-width: ${borderWidth};
-            outline-offset: -2px;
+            ${'' /* -1px control to outline edge -2px focus border -1px inset gap */}
+            outline-offset: -4px;
         }
 
         .control${focusVisible} .line {
