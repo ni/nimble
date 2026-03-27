@@ -220,7 +220,6 @@ export const styles = css`
             box-shadow: inset 0px 0px 0px var(--ni-private-step-icon-border-width) var(--ni-private-step-icon-border-color);
             position: relative;
             transition:
-                border-color ${smallDelay} ease-in-out,
                 box-shadow ${smallDelay} ease-in-out;
         }
 
