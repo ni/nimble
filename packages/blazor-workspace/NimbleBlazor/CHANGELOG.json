@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 24 Mar 2026 22:49:20 GMT",
+      "version": "20.14.3",
+      "tag": "@ni/nimble-blazor_v20.14.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "cc77ce00918ffa501722ab524b60fd846ae20a76",
+            "comment": "Minor README change to test nuget publishing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 19 Mar 2026 14:12:53 GMT",
       "version": "20.14.2",
       "tag": "@ni/nimble-blazor_v20.14.2",

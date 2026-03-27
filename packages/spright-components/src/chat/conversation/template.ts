@@ -13,4 +13,7 @@ export const template = html<ChatConversation>`
     <slot name="input" ${slotted({ property: 'slottedInputElements' })}>
     </slot>
 </div>
+<div class="end ${x => (x.endEmpty ? 'end-empty' : '')}">
+    <slot name="end" ${slotted({ property: 'slottedEndElements' })}></slot>
+</div>
 `;

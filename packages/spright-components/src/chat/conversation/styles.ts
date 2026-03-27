@@ -2,9 +2,14 @@ import { css } from '@ni/fast-element';
 import {
     applicationBackgroundColor,
     borderWidth,
+    dividerBackgroundColor,
+    errorTextFont,
     sectionBackgroundImage,
     mediumPadding,
-    standardPadding
+    standardPadding,
+    placeholderFontColor,
+    linkFont,
+    linkFontColor,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -34,6 +39,25 @@ export const styles = css`
 
     .start.start-empty {
         display: none;
+    }
+
+    .end {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 2px ${standardPadding};
+        border-top: ${borderWidth} solid ${dividerBackgroundColor};
+    }
+
+    .end.end-empty {
+        display: none;
+    }
+
+    ::slotted([slot="end"]) {
+        font: ${errorTextFont};
+        color: ${placeholderFontColor};
+        ${linkFont.cssCustomProperty}: ${errorTextFont};
+        ${linkFontColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
     .messages {

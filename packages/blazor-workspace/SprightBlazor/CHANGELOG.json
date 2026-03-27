@@ -2,6 +2,51 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Wed, 25 Mar 2026 19:20:53 GMT",
+      "version": "4.11.9",
+      "tag": "@ni/spright-blazor_v4.11.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.15.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 25 Mar 2026 16:53:38 GMT",
+      "version": "4.11.8",
+      "tag": "@ni/spright-blazor_v4.11.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.15.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 Mar 2026 22:18:57 GMT",
+      "version": "4.11.7",
+      "tag": "@ni/spright-blazor_v4.11.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.14.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 19 Mar 2026 14:12:53 GMT",
       "version": "4.11.6",
       "tag": "@ni/spright-blazor_v4.11.6",
