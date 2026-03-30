@@ -8,7 +8,7 @@ import { Step } from '..';
 import { template } from '../template';
 
 const button = Step.compose({
-    baseName: 'button',
+    baseName: 'step',
     template
 });
 
