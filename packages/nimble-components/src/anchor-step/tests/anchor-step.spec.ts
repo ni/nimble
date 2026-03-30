@@ -41,7 +41,8 @@ describe('AnchorStep', () => {
 
     it('should clear `href` on the internal control when disabled', async () => {
         await connect();
-        element.control!.setAttribute('href', 'http://www.ni.com');
+        element.setAttribute('href', 'http://www.ni.com');
+        await waitForUpdatesAsync();
 
         element.disabled = true;
         await waitForUpdatesAsync();
