@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix background sizing Add a dedicated element for icon background that can scale its whole size and switch to box-shadow for smooth border size animations",
-  "packageName": "@ni/nimble-components",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

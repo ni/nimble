@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 19 Mar 2026 14:12:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 30 Mar 2026 15:49:59 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.5.3
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Fix background sizing Add a dedicated element for icon background that can scale its whole size and switch to box-shadow for smooth border size animations ([ni/nimble@2e21c7f](https://github.com/ni/nimble/commit/2e21c7f5547d6b96c4dd7fb9ee88b5f62501485c))
 
 ## 35.5.2
 

@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Mon, 30 Mar 2026 15:49:59 GMT",
+      "version": "4.11.10",
+      "tag": "@ni/spright-blazor_v4.11.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.15.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 25 Mar 2026 19:20:53 GMT",
       "version": "4.11.9",
       "tag": "@ni/spright-blazor_v4.11.9",
