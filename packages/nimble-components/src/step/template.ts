@@ -55,6 +55,7 @@ ButtonOptions
                 aria-pressed="${x => x.ariaPressed}"
                 aria-relevant="${x => x.ariaRelevant}"
                 aria-roledescription="${x => x.ariaRoledescription}"
+                @click="${(x, c) => x.onClick(c.event)}"
                 ${ref('control')}
             >
                 <div class="icon-background"></div>

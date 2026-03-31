@@ -12,8 +12,14 @@ import {
 } from '../../utilities/matrix';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
-import { selectedStates, severityStates, stepContentStates, stepContentStateShort, stepContentStateStepIndicator, stepLayoutStates, type SelectedState, type SeverityStates, type StepContentStates, type StepLayoutStates } from '../stepper/types';
-import { disabledStates, type DisabledState, backgroundStates } from '../../utilities/states';
+import {
+    selectedStates, type SelectedState,
+    severityStates, type SeverityStates,
+    stepContentStates, stepContentStateShort, stepContentStateStepIndicator, type StepContentStates,
+    stepLayoutStates, type StepLayoutStates,
+    stepManipulationStates, type StepManipulationState
+} from '../stepper/types';
+import { backgroundStates } from '../../utilities/states';
 
 const metadata: Meta = {
     title: 'Tests/Step',
@@ -36,18 +42,18 @@ if (remaining.length > 0) {
 export default metadata;
 
 const component = (
-    [disabledName, disabled]: DisabledState,
+    [manipulationName, readonly, disabled]: StepManipulationState,
     [layoutName, isLast, orientation]: StepLayoutStates,
     [selectedName, selected]: SelectedState,
     [severityName, severity]: SeverityStates,
     [contentName, titleContent, subtitleContent, severityTextContent, stepIndicatorVisible]: StepContentStates,
 ): ViewTemplate => html`
     <div style="display: inline-flex; flex-direction: column; width: min-content;">
-        <div style="padding-right: 16px;">${disabledName} ${selectedName} Severity(${severityName}) Layout(${layoutName}) Content(${contentName})</div>
+        <div style="padding-right: 16px;">${manipulationName} ${selectedName} Severity(${severityName}) Layout(${layoutName}) Content(${contentName})</div>
         <${stepperTag} style="padding-bottom: 16px; width: 200px; height: 80px;" orientation="${() => orientation}">
             ${repeat(() => [isLast, !isLast], html`
                 <${stepTag}
-                    ?disabled=${() => disabled} ?selected=${() => selected} severity-text="${() => severityTextContent}" severity="${() => severity}"
+                    ?disabled=${() => disabled} ?readonly=${() => readonly} ?selected=${() => selected} severity-text="${() => severityTextContent}" severity="${() => severity}"
                     style="${currentIsLast => (currentIsLast ? 'display:none;' : '')}">
                     ${when(() => titleContent !== undefined, html`<span slot="title">${() => titleContent}</span>`)}
                     ${when(() => subtitleContent !== undefined, html`<span slot="subtitle">${() => subtitleContent}</span>`)}
@@ -67,7 +73,7 @@ const matrixTemplate = html`
         width: 1200px;
     ">
     ${createMatrix(component, [
-        disabledStates,
+        stepManipulationStates,
         stepLayoutStates,
         selectedStates,
         severityStates,
@@ -81,7 +87,7 @@ export const matrix$DarkTheme: StoryFn = createFixedThemeStory(matrixTemplate, d
 export const matrix$ColorTheme: StoryFn = createFixedThemeStory(matrixTemplate, colorThemeDarkGreenBackground);
 
 const interactionStatesHover = cartesianProduct([
-    disabledStates,
+    stepManipulationStates,
     stepLayoutStates,
     selectedStates,
     severityStates,
@@ -89,7 +95,7 @@ const interactionStatesHover = cartesianProduct([
 ] as const);
 
 const interactionStates = cartesianProduct([
-    disabledStates,
+    stepManipulationStates,
     stepLayoutStates,
     selectedStates,
     severityStates,

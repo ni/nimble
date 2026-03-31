@@ -62,6 +62,16 @@ export class AnchorStep extends mixinSeverityPattern(AnchorBase) implements Step
      * @internal
      */
     public readonly stepInternals = new StepInternals();
+
+    /**
+     * @internal
+     */
+    public onClick(e: Event): void {
+        if (this.readOnly) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+    }
 }
 
 const nimbleAnchorStep = AnchorStep.compose<AnchorOptions>({
