@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Readonly state behavior",
+  "comment": "Add readonly behavior to step and anchor step",
   "packageName": "@ni/nimble-components",
   "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
