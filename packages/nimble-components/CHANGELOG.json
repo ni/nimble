@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 Apr 2026 21:32:03 GMT",
+      "version": "35.5.4",
+      "tag": "@ni/nimble-components_v35.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "810c60a6bd0e111013e4d9681079b67d3360183f",
+            "comment": "Update deps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 30 Mar 2026 15:49:59 GMT",
       "version": "35.5.3",
       "tag": "@ni/nimble-components_v35.5.3",
