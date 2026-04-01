@@ -69,7 +69,7 @@
   ],
   "overrides": {
     "karma-vite": {
-      "vite": "^8"
+      "vite": "^7"
     }
   },
   "devDependencies": {

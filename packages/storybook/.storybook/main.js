@@ -1,7 +1,6 @@
 import * as path from 'node:path';
 import { createRequire } from 'node:module';
 import remarkGfm from 'remark-gfm';
-import react from '@vitejs/plugin-react-swc';
 
 const require = createRequire(import.meta.url);
 
@@ -32,7 +31,6 @@ export async function viteFinal(config) {
     // Keep in sync with tsconfig.json
     // To test changes check the built preview-stats.json file for .ts vs .js references of mapped paths
     return mergeConfig(config, {
-        plugins: [react()],
         build: {
             minify: false
         },
