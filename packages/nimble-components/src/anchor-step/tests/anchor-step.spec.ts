@@ -3,6 +3,7 @@ import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorStep, anchorStepTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
+import { AnchorStepPageObject } from '../testing/anchor-step.pageobject';
 
 async function setup(): Promise<Fixture<AnchorStep>> {
     return await fixture<AnchorStep>(
@@ -14,9 +15,11 @@ describe('AnchorStep', () => {
     let element: AnchorStep;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
+    let pageObject: AnchorStepPageObject;
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
+        pageObject = new AnchorStepPageObject(element);
     });
 
     afterEach(async () => {
@@ -109,5 +112,36 @@ describe('AnchorStep', () => {
         await waitForUpdatesAsync();
 
         expect(element.control!.hasAttribute('tabindex')).toBeFalse();
+    });
+
+    describe('click event', () => {
+        it('should fire when clicked', async () => {
+            const stepClicked = jasmine.createSpy();
+            element.addEventListener('click', stepClicked);
+            await connect();
+
+            pageObject.click();
+            expect(stepClicked.calls.count()).toEqual(1);
+        });
+
+        it('should not fire when disabled', async () => {
+            const stepClicked = jasmine.createSpy();
+            element.addEventListener('click', stepClicked);
+            element.disabled = true;
+            await connect();
+
+            pageObject.click();
+            expect(stepClicked.calls.count()).toEqual(0);
+        });
+
+        it('should not fire when readonly', async () => {
+            const stepClicked = jasmine.createSpy();
+            element.addEventListener('click', stepClicked);
+            element.readOnly = true;
+            await connect();
+
+            pageObject.click();
+            expect(stepClicked.calls.count()).toEqual(0);
+        });
     });
 });

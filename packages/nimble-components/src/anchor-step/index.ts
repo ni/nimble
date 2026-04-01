@@ -67,7 +67,7 @@ export class AnchorStep extends mixinSeverityPattern(AnchorBase) implements Step
      * @internal
      */
     public onClick(e: Event): void {
-        if (this.readOnly) {
+        if (this.disabled || this.readOnly) {
             e.preventDefault();
             e.stopImmediatePropagation();
         }
