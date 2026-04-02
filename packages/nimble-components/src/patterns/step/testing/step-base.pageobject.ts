@@ -42,4 +42,8 @@ export abstract class StepBasePageObject<T extends StepPattern = StepPattern> {
         }
         return label;
     }
+
+    public click(): void {
+        this.element.control!.click();
+    }
 }

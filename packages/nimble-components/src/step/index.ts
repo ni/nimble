@@ -57,6 +57,16 @@ export class Step extends mixinSeverityPattern(FoundationButton) implements Step
      * @internal
      */
     public readonly stepInternals = new StepInternals();
+
+    /**
+     * @internal
+     */
+    public onClick(e: Event): void {
+        if (this.disabled || this.readOnly) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+    }
 }
 
 const nimbleStep = Step.compose<ButtonOptions>({
