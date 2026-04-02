@@ -7,8 +7,7 @@ import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
 import {
     createMatrix,
     sharedMatrixParameters,
-    cartesianProduct,
-    createMatrixInteractionsFromStates
+    createMatrixInteractions
 } from '../../utilities/matrix';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
@@ -208,73 +207,137 @@ export const matrix$ColorTheme$ReadOnly$Disabled: StoryFn = createFixedThemeStor
     colorThemeDarkGreenBackground
 );
 
-const interactionStates$ReadOnlyAbsent$DisabledAbsent = cartesianProduct([
-    [stepManipulationState.none],
-    stepLayoutStates,
-    selectedStates,
-    severityStates,
-    [stepContentStateShort, stepContentStateStepIndicator],
-] as const);
-const interactionsTemplate$ReadOnlyAbsent$DisabledAbsent = createMatrixInteractionsFromStates(component, {
-    hover: interactionStates$ReadOnlyAbsent$DisabledAbsent,
-    hoverActive: interactionStates$ReadOnlyAbsent$DisabledAbsent,
-    active: interactionStates$ReadOnlyAbsent$DisabledAbsent,
-    focus: interactionStates$ReadOnlyAbsent$DisabledAbsent
-});
-export const interactions$LightTheme$ReadOnlyAbsent$DisabledAbsent: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnlyAbsent$DisabledAbsent, lightThemeWhiteBackground);
-export const interactions$DarkTheme$ReadOnlyAbsent$DisabledAbsent: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnlyAbsent$DisabledAbsent, darkThemeBlackBackground);
-export const interactions$ColorTheme$ReadOnlyAbsent$DisabledAbsent: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnlyAbsent$DisabledAbsent, colorThemeDarkGreenBackground);
+export const interactions$LightTheme$ReadOnlyAbsent$DisabledAbsent: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.none],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    lightThemeWhiteBackground
+);
 
-const interactionStates$ReadOnlyAbsent$Disabled = cartesianProduct([
-    [stepManipulationState.disabled],
-    stepLayoutStates,
-    selectedStates,
-    severityStates,
-    [stepContentStateShort, stepContentStateStepIndicator],
-] as const);
-const interactionsTemplate$ReadOnlyAbsent$Disabled = createMatrixInteractionsFromStates(component, {
-    hover: interactionStates$ReadOnlyAbsent$Disabled,
-    hoverActive: interactionStates$ReadOnlyAbsent$Disabled,
-    active: interactionStates$ReadOnlyAbsent$Disabled,
-    focus: interactionStates$ReadOnlyAbsent$Disabled
-});
-export const interactions$LightTheme$ReadOnlyAbsent$Disabled: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnlyAbsent$Disabled, lightThemeWhiteBackground);
-export const interactions$DarkTheme$ReadOnlyAbsent$Disabled: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnlyAbsent$Disabled, darkThemeBlackBackground);
-export const interactions$ColorTheme$ReadOnlyAbsent$Disabled: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnlyAbsent$Disabled, colorThemeDarkGreenBackground);
+export const interactions$LightTheme$ReadOnlyAbsent$Disabled: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.disabled],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    lightThemeWhiteBackground
+);
 
-const interactionStates$ReadOnly$DisabledAbsent = cartesianProduct([
-    [stepManipulationState.readOnly],
-    stepLayoutStates,
-    selectedStates,
-    severityStates,
-    [stepContentStateShort, stepContentStateStepIndicator],
-] as const);
-const interactionsTemplate$ReadOnly$DisabledAbsent = createMatrixInteractionsFromStates(component, {
-    hover: interactionStates$ReadOnly$DisabledAbsent,
-    hoverActive: interactionStates$ReadOnly$DisabledAbsent,
-    active: interactionStates$ReadOnly$DisabledAbsent,
-    focus: interactionStates$ReadOnly$DisabledAbsent
-});
-export const interactions$LightTheme$ReadOnly$DisabledAbsent: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnly$DisabledAbsent, lightThemeWhiteBackground);
-export const interactions$DarkTheme$ReadOnly$DisabledAbsent: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnly$DisabledAbsent, darkThemeBlackBackground);
-export const interactions$ColorTheme$ReadOnly$DisabledAbsent: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnly$DisabledAbsent, colorThemeDarkGreenBackground);
+export const interactions$LightTheme$ReadOnly$DisabledAbsent: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.readOnly],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    lightThemeWhiteBackground
+);
 
-const interactionStates$ReadOnly$Disabled = cartesianProduct([
-    [stepManipulationState.readOnlyDisabled],
-    stepLayoutStates,
-    selectedStates,
-    severityStates,
-    [stepContentStateShort, stepContentStateStepIndicator],
-] as const);
-const interactionsTemplate$ReadOnly$Disabled = createMatrixInteractionsFromStates(component, {
-    hover: interactionStates$ReadOnly$Disabled,
-    hoverActive: interactionStates$ReadOnly$Disabled,
-    active: interactionStates$ReadOnly$Disabled,
-    focus: interactionStates$ReadOnly$Disabled
-});
-export const interactions$LightTheme$ReadOnly$Disabled: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnly$Disabled, lightThemeWhiteBackground);
-export const interactions$DarkTheme$ReadOnly$Disabled: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnly$Disabled, darkThemeBlackBackground);
-export const interactions$ColorTheme$ReadOnly$Disabled: StoryFn = createFixedThemeStory(interactionsTemplate$ReadOnly$Disabled, colorThemeDarkGreenBackground);
+export const interactions$LightTheme$ReadOnly$Disabled: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.readOnlyDisabled],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const interactions$DarkTheme$ReadOnlyAbsent$DisabledAbsent: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.none],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    darkThemeBlackBackground
+);
+
+export const interactions$DarkTheme$ReadOnlyAbsent$Disabled: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.disabled],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    darkThemeBlackBackground
+);
+
+export const interactions$DarkTheme$ReadOnly$DisabledAbsent: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.readOnly],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    darkThemeBlackBackground
+);
+
+export const interactions$DarkTheme$ReadOnly$Disabled: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.readOnlyDisabled],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    darkThemeBlackBackground
+);
+
+export const interactions$ColorTheme$ReadOnlyAbsent$DisabledAbsent: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.none],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const interactions$ColorTheme$ReadOnlyAbsent$Disabled: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.disabled],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const interactions$ColorTheme$ReadOnly$DisabledAbsent: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.readOnly],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const interactions$ColorTheme$ReadOnly$Disabled: StoryFn = createFixedThemeStory(
+    createMatrixInteractions(component, [
+        [stepManipulationState.readOnlyDisabled],
+        stepLayoutStates,
+        selectedStates,
+        severityStates,
+        [stepContentStateShort, stepContentStateStepIndicator],
+    ]),
+    colorThemeDarkGreenBackground
+);
 
 export const hidden: StoryFn = createStory(
     hiddenWrapper(
