@@ -312,9 +312,9 @@ export const styles = css`
             min-width: ${standardPadding};
             height: 1px;
             min-height: 1px;
+            transform: scale(1, 1);
             background: var(--ni-private-step-line-color);
             background-clip: content-box;
-            transform: scale(1, 1);
             transition:
                 background-color ${smallDelay} ease-in-out,
                 transform ${smallDelay} ease-in-out;
@@ -328,8 +328,8 @@ export const styles = css`
             width: 1px;
             min-width: 1px;
             height: 100%;
-            padding-top: ${smallPadding};
             min-height: ${standardPadding};
+            padding-top: ${smallPadding};
         }
 
         .subtitle {
