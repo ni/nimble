@@ -191,10 +191,10 @@ export const fullBleedDescription = (options: {
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
 export const disabledDescription = (options: {
     componentName: string
-}): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
+}): string => `Styles the ${options.componentName} as disabled and prevents focus and user interactions.`;
 export const readonlyDescription = (options: {
     componentName: string
-}): string => `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
+}): string => `Styles the ${options.componentName} as readonly and allows focus but prevents other interactions.`;
 export const appearanceReadOnlyDescription = (options: {
     componentName: string
 }): string => `Styles the ${options.componentName} as readonly when the component is disabled. This is useful for applications that use a forms library that sets \`disabled\` on components but don't want those components to have a disabled appearance. This property has no impact on the control when it is not disabled.`;
