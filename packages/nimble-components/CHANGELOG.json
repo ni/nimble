@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 02 Apr 2026 21:37:25 GMT",
+      "version": "35.5.5",
+      "tag": "@ni/nimble-components_v35.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cf19bdf837d815be34f2297ae42ff6ebfa81e598",
+            "comment": "Add readonly behavior to step and anchor step"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Apr 2026 21:32:03 GMT",
       "version": "35.5.4",
       "tag": "@ni/nimble-components_v35.5.4",

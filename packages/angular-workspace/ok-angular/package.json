@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-angular",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Angular components for NI OK Components",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/ok-angular && npm publish",
@@ -29,6 +29,6 @@
     "@angular/common": "^20.3.15",
     "@angular/core": "^20.3.15",
     "@angular/localize": "^20.3.15",
-    "@ni/ok-components": "^0.3.8"
+    "@ni/ok-components": "^0.3.9"
   }
 }
