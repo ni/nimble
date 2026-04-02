@@ -233,7 +233,8 @@ export const styles = css`
             outline-color: var(--ni-private-step-icon-outline-inset-color);
             outline-style: solid;
             outline-width: 0px;
-            outline-offset: 0px;
+            ${'' /* outline-offset should always be <=-1 to always render inset */}
+            outline-offset: -1px;
             border: none;
             border-radius: 100%;
             color: transparent;
@@ -509,7 +510,7 @@ export const styles = css`
 
         .control:active .icon::before {
             outline-width: 0px;
-            outline-offset: 0px;
+            outline-offset: -1px;
         }
 
         :host([readonly]) .control:active .icon::before {
