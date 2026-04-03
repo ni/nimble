@@ -14,17 +14,21 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     private readonly tanStackTable: TanStackTable<TableNode<TData>>;
     private selectionManager: SelectionManagerBase<TData>;
     private actionMenusPreserveSelection: boolean;
+    private selectionFollowsFocus: boolean;
 
     public constructor(
         tanStackTable: TanStackTable<TableNode<TData>>,
         selectionMode: TableRowSelectionMode,
-        actionMenusPreserveSelection: boolean
+        actionMenusPreserveSelection: boolean,
+        selectionFollowsFocus: boolean
     ) {
         this.tanStackTable = tanStackTable;
         this.actionMenusPreserveSelection = actionMenusPreserveSelection;
+        this.selectionFollowsFocus = selectionFollowsFocus;
         this.selectionManager = this.createSelectionManager(
             selectionMode,
-            actionMenusPreserveSelection
+            actionMenusPreserveSelection,
+            selectionFollowsFocus
         );
     }
 
@@ -70,12 +74,21 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
         return this.selectionManager.handleActionMenuOpening(rowState);
     }
 
+    public handleRowFocus(rowState: TableRowState | undefined): boolean {
+        if (!rowState) {
+            return false;
+        }
+
+        return this.selectionManager.handleRowFocus(rowState);
+    }
+
     public handleSelectionModeChanged(
         selectionMode: TableRowSelectionMode
     ): void {
         this.selectionManager = this.createSelectionManager(
             selectionMode,
-            this.actionMenusPreserveSelection
+            this.actionMenusPreserveSelection,
+            this.selectionFollowsFocus
         );
     }
 
@@ -87,6 +100,13 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
         this.selectionManager.updateActionMenusPreserveSelection(
             actionMenusPreserveSelection
         );
+    }
+
+    public handleSelectionFollowsFocusChanged(
+        selectionFollowsFocus: boolean
+    ): void {
+        this.selectionFollowsFocus = selectionFollowsFocus;
+        this.selectionManager.updateSelectionFollowsFocus(selectionFollowsFocus);
     }
 
     public handleSelectionReset(): void {
@@ -112,23 +132,27 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
 
     private createSelectionManager(
         selectionMode: TableRowSelectionMode,
-        actionMenusPreserveSelection: boolean
+        actionMenusPreserveSelection: boolean,
+        selectionFollowsFocus: boolean
     ): SelectionManagerBase<TData> {
         switch (selectionMode) {
             case TableRowSelectionMode.multiple:
                 return new MultiSelectionManager(
                     this.tanStackTable,
-                    actionMenusPreserveSelection
+                    actionMenusPreserveSelection,
+                    selectionFollowsFocus
                 );
             case TableRowSelectionMode.single:
                 return new SingleSelectionManager(
                     this.tanStackTable,
-                    actionMenusPreserveSelection
+                    actionMenusPreserveSelection,
+                    selectionFollowsFocus
                 );
             case TableRowSelectionMode.none:
                 return new DisabledSelectionManager(
                     this.tanStackTable,
-                    actionMenusPreserveSelection
+                    actionMenusPreserveSelection,
+                    selectionFollowsFocus
                 );
             default:
                 throw new Error('unknown selection mode found');

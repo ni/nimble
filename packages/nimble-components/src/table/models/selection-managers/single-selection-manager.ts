@@ -32,4 +32,12 @@ export class SingleSelectionManager<
 
         return this.handleRowClick(rowState, false, false);
     }
+
+    public override handleRowFocus(rowState: TableRowState): boolean {
+        if (!this.selectionFollowsFocus || rowState.isGroupRow) {
+            return false;
+        }
+
+        return this.selectSingleRow(rowState);
+    }
 }

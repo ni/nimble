@@ -219,10 +219,21 @@ describe('Nimble table', () => {
             expect(nativeElement.actionMenusPreserveSelection).toBeFalse();
         });
 
+        it('has expected defaults for selectionFollowsFocus', () => {
+            expect(directive.selectionFollowsFocus).toBeFalse();
+            expect(nativeElement.selectionFollowsFocus).toBeFalse();
+        });
+
         it('can use the directive to set actionMenusPreserveSelection', () => {
             directive.actionMenusPreserveSelection = true;
             expect(directive.actionMenusPreserveSelection).toBeTrue();
             expect(nativeElement.actionMenusPreserveSelection).toBeTrue();
+        });
+
+        it('can use the directive to set selectionFollowsFocus', () => {
+            directive.selectionFollowsFocus = true;
+            expect(directive.selectionFollowsFocus).toBeTrue();
+            expect(nativeElement.selectionFollowsFocus).toBeTrue();
         });
     });
 
@@ -242,6 +253,7 @@ describe('Nimble table', () => {
                     [parentIdFieldName]="parentIdFieldName"
                     [selectionMode]="selectionMode"
                     [actionMenusPreserveSelection]="actionMenusPreserveSelection"
+                    [selectionFollowsFocus]="selectionFollowsFocus"
                 >
                 </nimble-table>
             `,
@@ -256,6 +268,7 @@ describe('Nimble table', () => {
             public parentIdFieldName = 'parentField1';
             public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
             public actionMenusPreserveSelection = false;
+            public selectionFollowsFocus = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -325,6 +338,17 @@ describe('Nimble table', () => {
             expect(directive.actionMenusPreserveSelection).toBeTrue();
             expect(nativeElement.actionMenusPreserveSelection).toBeTrue();
         });
+
+        it('can be configured with property binding for selectionFollowsFocus', () => {
+            expect(directive.selectionFollowsFocus).toBeFalse();
+            expect(nativeElement.selectionFollowsFocus).toBeFalse();
+
+            fixture.componentInstance.selectionFollowsFocus = true;
+            fixture.detectChanges();
+
+            expect(directive.selectionFollowsFocus).toBeTrue();
+            expect(nativeElement.selectionFollowsFocus).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -342,6 +366,7 @@ describe('Nimble table', () => {
                     [attr.parent-id-field-name]="parentIdFieldName"
                     [attr.selection-mode]="selectionMode"
                     [attr.action-menus-preserve-selection]="actionMenusPreserveSelection"
+                    [attr.selection-follows-focus]="selectionFollowsFocus"
                 >
                 </nimble-table>
             `,
@@ -359,6 +384,7 @@ describe('Nimble table', () => {
             public parentIdFieldName = 'parentField1';
             public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
             public actionMenusPreserveSelection: BooleanValueOrAttribute = null;
+            public selectionFollowsFocus: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -419,6 +445,17 @@ describe('Nimble table', () => {
             expect(directive.actionMenusPreserveSelection).toBeTrue();
             expect(nativeElement.actionMenusPreserveSelection).toBeTrue();
         });
+
+        it('can be configured with attribute binding for selectionFollowsFocus', () => {
+            expect(directive.selectionFollowsFocus).toBeFalse();
+            expect(nativeElement.selectionFollowsFocus).toBeFalse();
+
+            fixture.componentInstance.selectionFollowsFocus = '';
+            fixture.detectChanges();
+
+            expect(directive.selectionFollowsFocus).toBeTrue();
+            expect(nativeElement.selectionFollowsFocus).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -439,6 +476,7 @@ describe('Nimble table', () => {
                     parent-id-field-name="${parentIdField}"
                     selection-mode="${selectionMode}"
                     action-menus-preserve-selection
+                    selection-follows-focus
                 >
                 </nimble-table>
             `,
@@ -482,6 +520,11 @@ describe('Nimble table', () => {
         it('will use template string values for actionMenusPreserveSelection', () => {
             expect(directive.actionMenusPreserveSelection).toBeTrue();
             expect(nativeElement.actionMenusPreserveSelection).toBeTrue();
+        });
+
+        it('will use template string values for selectionFollowsFocus', () => {
+            expect(directive.selectionFollowsFocus).toBeTrue();
+            expect(nativeElement.selectionFollowsFocus).toBeTrue();
         });
     });
 });

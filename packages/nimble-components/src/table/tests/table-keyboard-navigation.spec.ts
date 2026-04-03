@@ -956,6 +956,79 @@ describe('Table keyboard navigation', () => {
 
                 expect(currentFocusedElement()).toBe(document.body);
             });
+
+            describe('with selection-follows-focus enabled', () => {
+                beforeEach(async () => {
+                    element.selectionMode = TableRowSelectionMode.single;
+                    element.selectionFollowsFocus = true;
+                    await waitForUpdatesAsync();
+                    element.focus();
+                    await waitForUpdatesAsync();
+                    await sendKeyPressToTable(keyArrowDown);
+                });
+
+                it('PageDown and PageUp update selection as row focus moves', async () => {
+                    await sendKeyPressToTable(keyArrowLeft);
+
+                    let selectionChangeListener = waitForEvent(
+                        element,
+                        'selection-change'
+                    );
+                    await sendKeyPressToTable(keyPageDown);
+                    await selectionChangeListener;
+
+                    let focusedElement = currentFocusedElement();
+                    expect(focusedElement).toBeInstanceOf(TableRow);
+                    const pageDownRecordId = (focusedElement as TableRow).recordId;
+                    expect(pageDownRecordId).toBeDefined();
+                    let selectedRecordIds = await element.getSelectedRecordIds();
+                    expect(selectedRecordIds).toEqual([pageDownRecordId!]);
+
+                    selectionChangeListener = waitForEvent(
+                        element,
+                        'selection-change'
+                    );
+                    await sendKeyPressToTable(keyPageUp);
+                    await selectionChangeListener;
+
+                    focusedElement = currentFocusedElement();
+                    expect(focusedElement).toBeInstanceOf(TableRow);
+                    const pageUpRecordId = (focusedElement as TableRow).recordId;
+                    expect(pageUpRecordId).toBeDefined();
+                    selectedRecordIds = await element.getSelectedRecordIds();
+                    expect(selectedRecordIds).toEqual([pageUpRecordId!]);
+                });
+
+                it('Ctrl-End and Ctrl-Home update selection as cell focus moves between the last and first rows', async () => {
+                    let selectionChangeListener = waitForEvent(
+                        element,
+                        'selection-change'
+                    );
+                    await sendKeyPressToTable(keyEnd, { ctrlKey: true });
+                    await selectionChangeListener;
+
+                    let focusedElement = currentFocusedElement();
+                    expect(focusedElement).toBeInstanceOf(TableCell);
+                    const ctrlEndRecordId = (focusedElement as TableCell).recordId;
+                    expect(ctrlEndRecordId).toBeDefined();
+                    let selectedRecordIds = await element.getSelectedRecordIds();
+                    expect(selectedRecordIds).toEqual([ctrlEndRecordId!]);
+
+                    selectionChangeListener = waitForEvent(
+                        element,
+                        'selection-change'
+                    );
+                    await sendKeyPressToTable(keyHome, { ctrlKey: true });
+                    await selectionChangeListener;
+
+                    focusedElement = currentFocusedElement();
+                    expect(focusedElement).toBeInstanceOf(TableCell);
+                    const ctrlHomeRecordId = (focusedElement as TableCell).recordId;
+                    expect(ctrlHomeRecordId).toBeDefined();
+                    selectedRecordIds = await element.getSelectedRecordIds();
+                    expect(selectedRecordIds).toEqual([ctrlHomeRecordId!]);
+                });
+            });
         });
 
         it('for a simple table with no columns sortable, on initial table focus, the 1st row is focused', async () => {
@@ -1004,6 +1077,140 @@ describe('Table keyboard navigation', () => {
                 await sendKeyPressToTable(keySpace, { shiftKey: true });
 
                 expect(row.selected).toBe(false);
+            });
+        });
+
+        describe('for a single-selection table with selection-follows-focus enabled', () => {
+            beforeEach(async () => {
+                await setupBasicTable();
+                element.selectionMode = TableRowSelectionMode.single;
+                element.selectionFollowsFocus = true;
+                await waitForUpdatesAsync();
+                element.focus();
+                await waitForUpdatesAsync();
+            });
+
+            it('DownArrow updates selection when row focus moves to the next row', async () => {
+                await sendKeyPressesToTable(keyArrowDown, keyArrowLeft);
+
+                const selectionChangeListener = waitForEvent(
+                    element,
+                    'selection-change'
+                );
+                await sendKeyPressToTable(keyArrowDown);
+                await selectionChangeListener;
+
+                expect(currentFocusedElement()).toBe(pageObject.getRow(1));
+                expect(await element.getSelectedRecordIds()).toEqual(['1']);
+            });
+
+            it('DownArrow updates selection when cell focus moves to the next row in the same column', async () => {
+                await sendKeyPressesToTable(keyArrowDown, keyArrowRight);
+
+                const selectionChangeListener = waitForEvent(
+                    element,
+                    'selection-change'
+                );
+                await sendKeyPressToTable(keyArrowDown);
+                await selectionChangeListener;
+
+                expect(currentFocusedElement()).toBe(pageObject.getCell(1, 1));
+                expect(await element.getSelectedRecordIds()).toEqual(['1']);
+            });
+
+            it('End and Home update selection when row focus moves to the last and first rows', async () => {
+                await sendKeyPressesToTable(keyArrowDown, keyArrowLeft);
+
+                let selectionChangeListener = waitForEvent(
+                    element,
+                    'selection-change'
+                );
+                await sendKeyPressToTable(keyEnd);
+                await selectionChangeListener;
+
+                expect(currentFocusedElement()).toBe(pageObject.getRow(3));
+                expect(await element.getSelectedRecordIds()).toEqual(['3']);
+
+                selectionChangeListener = waitForEvent(
+                    element,
+                    'selection-change'
+                );
+                await sendKeyPressToTable(keyHome);
+                await selectionChangeListener;
+
+                expect(currentFocusedElement()).toBe(pageObject.getRow(0));
+                expect(await element.getSelectedRecordIds()).toEqual(['0']);
+            });
+
+            it('does not emit selection-change when keyboard navigation focuses the already selected row', async () => {
+                await element.setSelectedRecordIds(['1']);
+                await sendKeyPressesToTable(keyArrowDown, keyArrowLeft);
+
+                const selectionChangeSpy = jasmine.createSpy();
+                element.addEventListener('selection-change', selectionChangeSpy);
+
+                await sendKeyPressToTable(keyArrowDown);
+
+                expect(selectionChangeSpy).not.toHaveBeenCalled();
+                expect(await element.getSelectedRecordIds()).toEqual(['1']);
+            });
+
+            it('does not change selection when the table is initially focused', async () => {
+                const selectionChangeSpy = jasmine.createSpy();
+                element.addEventListener('selection-change', selectionChangeSpy);
+
+                await element.setSelectedRecordIds(['2']);
+                currentFocusedElement()?.blur();
+                element.focus();
+                await waitForUpdatesAsync();
+
+                expect(selectionChangeSpy).not.toHaveBeenCalled();
+                expect(await element.getSelectedRecordIds()).toEqual(['2']);
+            });
+
+            it('does not change selection when focus is restored after tabbing away and back', async () => {
+                await sendKeyPressesToTable(keyArrowDown, keyArrowLeft);
+                await element.setSelectedRecordIds(['2']);
+
+                const selectionChangeSpy = jasmine.createSpy();
+                element.addEventListener('selection-change', selectionChangeSpy);
+
+                const tabEvent = await sendKeyPressToTable(keyTab);
+                await verifyLastTabKeyEventBehavior(tabEvent);
+
+                element.focus();
+                await waitForUpdatesAsync();
+
+                expect(currentFocusedElement()).toBe(pageObject.getRow(0));
+                expect(selectionChangeSpy).not.toHaveBeenCalled();
+                expect(await element.getSelectedRecordIds()).toEqual(['2']);
+            });
+        });
+
+        describe('for selection-follows-focus outside single selection', () => {
+            it('is ignored when selection mode is none', async () => {
+                await setupBasicTable();
+                element.selectionFollowsFocus = true;
+                await waitForUpdatesAsync();
+                element.focus();
+                await waitForUpdatesAsync();
+
+                await sendKeyPressesToTable(keyArrowDown, keyArrowLeft, keyArrowDown);
+
+                expect(await element.getSelectedRecordIds()).toEqual([]);
+            });
+
+            it('is ignored when selection mode is multiple', async () => {
+                await setupBasicTable();
+                element.selectionMode = TableRowSelectionMode.multiple;
+                element.selectionFollowsFocus = true;
+                await waitForUpdatesAsync();
+                element.focus();
+                await waitForUpdatesAsync();
+
+                await sendKeyPressesToTable(keyArrowDown, keyArrowLeft, keyArrowDown);
+
+                expect(await element.getSelectedRecordIds()).toEqual([]);
             });
         });
 
@@ -1176,6 +1383,18 @@ describe('Table keyboard navigation', () => {
 
                 await verifyLastTabKeyEventBehavior(keyEvent);
             });
+
+            it('selection-follows-focus does not select a focused group row', async () => {
+                element.selectionMode = TableRowSelectionMode.single;
+                element.selectionFollowsFocus = true;
+                await waitForUpdatesAsync();
+                element.focus();
+                await waitForUpdatesAsync();
+                await sendKeyPressToTable(keyArrowDown);
+
+                expect(currentFocusedElement()).toBeInstanceOf(TableGroupRow);
+                expect(await element.getSelectedRecordIds()).toEqual([]);
+            });
         });
 
         describe('for a table with hierarchy', () => {
@@ -1231,6 +1450,34 @@ describe('Table keyboard navigation', () => {
 
                 expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
                 expect(pageObject.getRow(0).expanded).toBe(true);
+            });
+
+            it('selection-follows-focus selects hierarchical parent and child rows as focus moves between them', async () => {
+                element.selectionMode = TableRowSelectionMode.single;
+                element.selectionFollowsFocus = true;
+                await waitForUpdatesAsync();
+                element.focus();
+                await waitForUpdatesAsync();
+
+                let selectionChangeListener = waitForEvent(
+                    element,
+                    'selection-change'
+                );
+                await sendKeyPressToTable(keyArrowDown);
+                await selectionChangeListener;
+
+                expect(currentFocusedElement()).toBe(pageObject.getRow(0));
+                expect(await element.getSelectedRecordIds()).toEqual(['0']);
+
+                selectionChangeListener = waitForEvent(
+                    element,
+                    'selection-change'
+                );
+                await sendKeyPressToTable(keyArrowDown);
+                await selectionChangeListener;
+
+                expect(currentFocusedElement()).toBe(pageObject.getRow(1));
+                expect(await element.getSelectedRecordIds()).toEqual(['1']);
             });
         });
     });

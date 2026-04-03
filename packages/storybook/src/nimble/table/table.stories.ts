@@ -68,6 +68,7 @@ export default metadata;
 interface TableArgs extends BaseTableArgs {
     selectionMode: keyof typeof TableRowSelectionMode;
     actionMenusPreserveSelection: boolean;
+    selectionFollowsFocus: boolean;
     idFieldName: undefined;
     parentIdFieldName: undefined;
     validity: undefined;
@@ -284,6 +285,7 @@ export const table: StoryObj<TableArgs> = {
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
             ?action-menus-preserve-selection="${x => x.actionMenusPreserveSelection}"
+            ?selection-follows-focus="${x => x.selectionFollowsFocus}"
             id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
@@ -357,6 +359,13 @@ export const table: StoryObj<TableArgs> = {
             name: 'action-menus-preserve-selection',
             description:
                 'When present, action menus will preserve the current selection instead of changing it. When absent (default), opening action menus will automatically select the row.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
+        selectionFollowsFocus: {
+            name: 'selection-follows-focus',
+            description:
+                'When present, single-selection tables will update selection as keyboard row navigation moves focus. This is intended for master-detail workflows and is ignored when selection mode is `none` or `multiple`.',
             control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
@@ -516,6 +525,7 @@ export const table: StoryObj<TableArgs> = {
         data: ExampleDataType.simpleData,
         selectionMode: TableRowSelectionMode.single,
         actionMenusPreserveSelection: false,
+        selectionFollowsFocus: false,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,

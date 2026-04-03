@@ -96,6 +96,9 @@ export class Table<
     @attr({ attribute: 'action-menus-preserve-selection', mode: 'boolean' })
     public actionMenusPreserveSelection = false;
 
+    @attr({ attribute: 'selection-follows-focus', mode: 'boolean' })
+    public selectionFollowsFocus = false;
+
     /**
      * @internal
      */
@@ -348,7 +351,8 @@ export class Table<
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode,
-            this.actionMenusPreserveSelection
+            this.actionMenusPreserveSelection,
+            this.selectionFollowsFocus
         );
         this.expansionManager = new ExpansionManager(this.table);
     }
@@ -496,6 +500,17 @@ export class Table<
     /** @internal */
     public onRowBlur(event: FocusEvent): void {
         this.keyboardNavigationManager.onRowBlur(event);
+    }
+
+    /** @internal */
+    public onKeyboardNavigateToRow(rowIndex: number): void {
+        const selectionChanged = this.selectionManager.handleRowFocus(
+            this.tableData[rowIndex]
+        );
+
+        if (selectionChanged) {
+            void this.emitSelectionChangeEvent();
+        }
     }
 
     /** @internal */
@@ -696,6 +711,12 @@ export class Table<
             );
         }
 
+        if (this.tableUpdateTracker.updateSelectionFollowsFocus) {
+            this.selectionManager.handleSelectionFollowsFocusChanged(
+                this.selectionFollowsFocus
+            );
+        }
+
         if (this.tableUpdateTracker.updateColumnWidths) {
             this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
             this.visibleColumns = this.columns.filter(
@@ -785,6 +806,17 @@ export class Table<
         }
 
         this.tableUpdateTracker.trackActionMenusPreserveSelectionChanged();
+    }
+
+    protected selectionFollowsFocusChanged(
+        _prev: boolean,
+        _next: boolean
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.tableUpdateTracker.trackSelectionFollowsFocusChanged();
     }
 
     protected idFieldNameChanged(

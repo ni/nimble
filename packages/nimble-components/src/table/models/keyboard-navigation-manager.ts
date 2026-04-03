@@ -810,7 +810,7 @@ export class KeyboardNavigationManager<
                 }
 
                 if (rowIndex < this.rowIndex && rowIndex >= 0) {
-                    return this.scrollToAndFocusRow(rowIndex, scrollOptions);
+                    return this.navigateToRow(rowIndex, scrollOptions);
                 }
                 if (rowIndex === -1) {
                     const headerElements = this.getTableHeaderFocusableElements();
@@ -842,11 +842,11 @@ export class KeyboardNavigationManager<
         switch (this.focusType) {
             case TableFocusType.headerActions: {
                 this.setRowFocusState(0);
-                return this.scrollToAndFocusRow(0);
+                return this.navigateToRow(0);
             }
             case TableFocusType.columnHeader: {
                 this.setCellFocusState(this.columnIndex, 0, false);
-                return this.scrollToAndFocusRow(0);
+                return this.navigateToRow(0);
             }
             case TableFocusType.row:
             case TableFocusType.rowSelectionCheckbox:
@@ -867,7 +867,7 @@ export class KeyboardNavigationManager<
                     rowIndex > this.rowIndex
                     && rowIndex < this.table.tableData.length
                 ) {
-                    return this.scrollToAndFocusRow(rowIndex, scrollOptions);
+                    return this.navigateToRow(rowIndex, scrollOptions);
                 }
                 return false;
             }
@@ -979,6 +979,18 @@ export class KeyboardNavigationManager<
         ) {
             this.focusType = TableFocusType.none;
         }
+    }
+
+    private navigateToRow(
+        totalRowIndex: number,
+        scrollOptions?: ScrollToOptions
+    ): boolean {
+        const focused = this.scrollToAndFocusRow(totalRowIndex, scrollOptions);
+        if (focused) {
+            this.table.onKeyboardNavigateToRow(totalRowIndex);
+        }
+
+        return focused;
     }
 
     private scrollToAndFocusRow(

@@ -76,6 +76,14 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenusPreserveSelection', toBooleanProperty(value));
     }
 
+    public get selectionFollowsFocus(): BooleanValueOrAttribute {
+        return this.elementRef.nativeElement.selectionFollowsFocus;
+    }
+
+    @Input('selection-follows-focus') public set selectionFollowsFocus(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selectionFollowsFocus', toBooleanProperty(value));
+    }
+
     public get validity(): TableValidity {
         return this.elementRef.nativeElement.validity;
     }

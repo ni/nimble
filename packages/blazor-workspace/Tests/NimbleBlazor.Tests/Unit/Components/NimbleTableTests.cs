@@ -107,6 +107,24 @@ public class NimbleTableTests
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
+    [Theory]
+    [InlineData(null, @"<nimble-table((?!selection-follows-focus).)*>")]
+    [InlineData(false, @"selection-follows-focus=""False""")]
+    [InlineData(true, @"selection-follows-focus=""True""")]
+    public void NimbleTable_WithSelectionFollowsFocusAttribute_HasTableMarkup(bool? value, string expectedMarkup)
+    {
+        var table = RenderWithPropertySet<bool?, TableRowData>(x => x.SelectionFollowsFocus, value);
+
+        if (value is null)
+        {
+            Assert.Matches(expectedMarkup, table.Markup);
+        }
+        else
+        {
+            Assert.Contains(expectedMarkup, table.Markup);
+        }
+    }
+
     [Fact]
     public async Task NimbleTable_GivenSupportedData_ThrowsNoExceptionAsync()
     {

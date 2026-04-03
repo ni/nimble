@@ -37,6 +37,9 @@ public partial class NimbleTable<TData> : ComponentBase
     public bool? ActionMenusPreserveSelection { get; set; }
 
     [Parameter]
+    public bool? SelectionFollowsFocus { get; set; }
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
