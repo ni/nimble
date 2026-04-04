@@ -35,6 +35,7 @@ import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer'
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
 import { OkButtonModule } from 'ok-angular/button/ok-button.module';
+import { OkSearchInputModule } from 'ok-angular/search-input/ok-search-input.module';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
 import { SprightIconWorkItemCalendarWeekDirective } from '@ni/spright-angular/icons/work-item-calendar-week';
@@ -121,6 +122,7 @@ import { CustomAppComponent } from './customapp/customapp.component';
         NimbleIconPencilToRectangleModule,
         NimbleIconMessagesSparkleModule,
         OkButtonModule,
+        OkSearchInputModule,
         SprightChatConversationModule,
         SprightChatInputModule,
         SprightChatMessageInboundModule,

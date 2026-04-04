@@ -1,0 +1,15 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as searchInputStories from './search-input.stories';
+
+<Meta of={searchInputStories} />
+<Title of={searchInputStories} />
+
+A search field with a leading magnifying glass icon and a clear affordance when a value is present.
+
+It supports `block`, `outline`, `ghost`, and `super-ghost` appearances. Height can be adjusted by client CSS via `--ok-search-input-height` rather than separate built-in size variants.
+
+<Canvas of={searchInputStories.defaultStory} />
+
+## API
+
+<Controls of={searchInputStories.defaultStory} />

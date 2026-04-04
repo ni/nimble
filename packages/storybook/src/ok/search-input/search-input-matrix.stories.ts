@@ -1,0 +1,97 @@
+import type { Meta, StoryFn } from '@storybook/html-vite';
+import { html, ViewTemplate } from '@ni/fast-element';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { searchInputTag } from '@ni/ok-components/dist/esm/search-input';
+import { SearchInputAppearance } from '@ni/ok-components/dist/esm/search-input/types';
+import {
+    createMatrixInteractionsFromStates,
+    createMatrixThemeStory,
+    sharedMatrixParameters
+} from '../../utilities/matrix';
+
+const metadata: Meta = {
+    title: 'Tests Ok/Search Input',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
+
+type SearchInputMatrixState = readonly [string, keyof typeof SearchInputAppearance];
+
+const searchInputStates: SearchInputMatrixState[] = [
+    ['block', 'block'],
+    ['outline', 'outline'],
+    ['ghost', 'ghost'],
+    ['super-ghost', 'superGhost']
+];
+
+const searchField = (
+    label: string,
+    appearance: keyof typeof SearchInputAppearance
+): ViewTemplate => html`
+    <div style="display: grid; grid-template-columns: 152px 160px; align-items: center; row-gap: 0; column-gap: 10px; margin-bottom: 14px;">
+        <div style="font-size: 12px; color: inherit;">${() => label}</div>
+        <${searchInputTag}
+            appearance="${() => SearchInputAppearance[appearance]}"
+            placeholder="Search..."
+            style="width: 124px; --ok-search-input-height: 32px;"
+        ></${searchInputTag}>
+    </div>
+`;
+
+export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
+    <div style="padding: 28px 32px; width: 760px;">
+        ${searchField('Search_Block_Light_32', 'block')}
+        ${searchField('Search_Outline_Light_32', 'outline')}
+        ${searchField('Search_Ghost_Light_32', 'ghost')}
+        ${searchField('Search_SuperGhost_Light_32', 'superGhost')}
+    </div>
+`);
+
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(
+        (label: string, appearance: keyof typeof SearchInputAppearance): ViewTemplate => html`
+            <div style="display: inline-flex; flex-direction: column; gap: 12px; margin: 0 20px 24px 0; min-width: 140px;">
+                <div style="font-size: 12px; color: inherit; min-height: 16px;">${() => label}</div>
+                <${searchInputTag}
+                    appearance="${() => SearchInputAppearance[appearance]}"
+                    placeholder="Search..."
+                    style="width: 124px; --ok-search-input-height: 32px;"
+                ></${searchInputTag}>
+            </div>
+        `,
+        {
+            hover: searchInputStates,
+            hoverActive: [],
+            active: [],
+            focus: searchInputStates
+        }
+    )
+);
+
+export const typedThemeMatrix: StoryFn = createMatrixThemeStory(html`
+    <div style="padding: 28px 32px; width: 760px;">
+        ${searchField('Typed_Block_Light_32', 'block')}
+        ${searchField('Typed_Outline_Light_32', 'outline')}
+        ${searchField('Typed_Ghost_Light_32', 'ghost')}
+        ${searchField('Typed_SuperGhost_Light_32', 'superGhost')}
+    </div>
+`);
+
+typedThemeMatrix.play = async ({ step }): Promise<void> => {
+    const searchInputs = Array.from(document.querySelectorAll<HTMLElement>(searchInputTag));
+
+    await step('Type search text into each input', async () => {
+        await Promise.all(searchInputs.map(async searchInput => {
+            const input = searchInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+
+            if (input) {
+                input.value = 'Search';
+                input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+                await waitForUpdatesAsync();
+            }
+        }));
+    });
+};
