@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "feat: add OK search-input",
+  "packageName": "@ni/ok-angular",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
