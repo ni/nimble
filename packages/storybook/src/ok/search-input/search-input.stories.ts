@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
-import { fn } from 'storybook/test';
 import { searchInputTag } from '@ni/ok-components/dist/esm/search-input';
 import { SearchInputAppearance } from '@ni/ok-components/dist/esm/search-input/types';
 import {
@@ -14,8 +13,8 @@ interface SearchInputArgs {
     appearance: keyof typeof SearchInputAppearance;
     placeholder: string;
     initialSearchValue: string;
-    input: (e: Event) => void;
-    change: (e: Event) => void;
+    input?: (e: Event) => void;
+    change?: (e: Event) => void;
 }
 
 const metadata: Meta<SearchInputArgs> = {
@@ -26,8 +25,6 @@ const metadata: Meta<SearchInputArgs> = {
                 appearance="${x => SearchInputAppearance[x.appearance]}"
                 placeholder="${x => x.placeholder}"
                 value="${x => x.initialSearchValue}"
-                @input="${(x, c) => x.input(c.event)}"
-                @change="${(x, c) => x.change(c.event)}"
             ></${searchInputTag}>
         </div>
     `),
@@ -58,9 +55,7 @@ const metadata: Meta<SearchInputArgs> = {
     args: {
         appearance: 'outline',
         placeholder: 'Search',
-        initialSearchValue: '',
-        input: fn(),
-        change: fn()
+        initialSearchValue: ''
     }
 };
 
