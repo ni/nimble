@@ -34,6 +34,7 @@ import { NimbleTableColumnMenuButtonModule } from '@ni/nimble-angular/table-colu
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
+import { OkAccordionItemModule } from 'ok-angular/accordion-item/ok-accordion-item.module';
 import { OkButtonModule } from 'ok-angular/button/ok-button.module';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
@@ -120,6 +121,7 @@ import { CustomAppComponent } from './customapp/customapp.component';
         NimbleMappingEmptyModule,
         NimbleIconPencilToRectangleModule,
         NimbleIconMessagesSparkleModule,
+        OkAccordionItemModule,
         OkButtonModule,
         SprightChatConversationModule,
         SprightChatInputModule,
