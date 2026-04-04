@@ -1,0 +1,65 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as accordionItemStories from './accordion-item.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+
+<Meta of={accordionItemStories} />
+<Title of={accordionItemStories} />
+
+An accordion item is a collapsible section that can be expanded or collapsed
+to show or hide its content. It uses a header with an expander icon to toggle
+visibility.
+
+<Canvas of={accordionItemStories.outline} />
+
+## API
+
+<Controls of={accordionItemStories.outline} />
+<ComponentApisLink />
+
+## Appearance
+
+### Ghost
+
+No borders or background. Use for nested accordions or minimal visual chrome.
+
+<Canvas of={accordionItemStories.ghost} />
+
+### Outline
+
+A bottom border divider between items. This is the default appearance.
+
+<Canvas of={accordionItemStories.outline} />
+
+### Block
+
+A filled background on each header row.
+
+<Canvas of={accordionItemStories.block} />
+
+## Examples
+
+### Outline Group
+
+Multiple outline accordion items used together as a form layout (e.g. checkout flow).
+
+<Canvas of={accordionItemStories.outlineGroup} />
+
+### Block Group
+
+Multiple block accordion items for settings or configuration panels.
+
+<Canvas of={accordionItemStories.blockGroup} />
+
+### Nested Accordion
+
+Accordion items nested inside other accordion items. Per the design spec, nested
+accordions should always use the ghost appearance.
+
+<Canvas of={accordionItemStories.nestedAccordion} />
+
+### Mixed Content
+
+Accordion items containing various types of interactive content — checkboxes,
+selects, and number fields.
+
+<Canvas of={accordionItemStories.mixedContent} />
