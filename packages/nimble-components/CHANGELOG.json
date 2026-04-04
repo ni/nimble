@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 02 Apr 2026 21:37:25 GMT",
+      "version": "35.5.5",
+      "tag": "@ni/nimble-components_v35.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cf19bdf837d815be34f2297ae42ff6ebfa81e598",
+            "comment": "Add readonly behavior to step and anchor step"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Apr 2026 21:32:03 GMT",
+      "version": "35.5.4",
+      "tag": "@ni/nimble-components_v35.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "810c60a6bd0e111013e4d9681079b67d3360183f",
+            "comment": "Update deps"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 30 Mar 2026 15:49:59 GMT",
+      "version": "35.5.3",
+      "tag": "@ni/nimble-components_v35.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2e21c7f5547d6b96c4dd7fb9ee88b5f62501485c",
+            "comment": "Fix background sizing Add a dedicated element for icon background that can scale its whole size and switch to box-shadow for smooth border size animations"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 19 Mar 2026 14:12:53 GMT",
       "version": "35.5.2",
       "tag": "@ni/nimble-components_v35.5.2",

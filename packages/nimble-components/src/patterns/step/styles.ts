@@ -79,13 +79,14 @@ export const styles = css`
             background-color: transparent;
             cursor: pointer;
             outline: none;
-            --ni-private-step-icon-background-full-size: 100% 100%;
-            ${'' /* 6px = (2px icon border + 1px inset) * 2 sides */}
-            --ni-private-step-icon-background-inset-size: calc(100% - 6px) calc(100% - 6px);
-            --ni-private-step-icon-background-none-size: 0% 0%;
+            --ni-private-step-icon-background-full-size: scale(1,1);
+            ${'' /* (32px - 2 * (2px focus border + 1px inset gap)) / 32px = .8125 */}
+            --ni-private-step-icon-background-inset-size: scale(0.8125, 0.8125);
+            --ni-private-step-icon-background-none-size: scale(0,0);
 
             --ni-private-step-icon-color: ${buttonLabelFontColor};
             --ni-private-step-icon-border-color: transparent;
+            --ni-private-step-icon-border-width: 1px;
             --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-icon-outline-inset-color: transparent;
@@ -183,9 +184,24 @@ export const styles = css`
         :host([selected]) .control {
             --ni-private-step-icon-color: ${borderHoverColor};
             --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-border-width: 2px;
             --ni-private-step-icon-background-color: rgb(from ${borderHoverColor} r g b / 30%);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
             --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        .icon-background {
+            grid-area: icon;
+            display: inline-block;
+            height: ${controlHeight};
+            width: ${controlHeight};
+            ${userSelectNone};
+            background-color:  var(--ni-private-step-icon-background-color);
+            transform: var(--ni-private-step-icon-background-size);
+            border: none;
+            border-radius: 100%;
+            transition:
+                transform ${smallDelay} ease-in-out;
         }
 
         .icon {
@@ -200,31 +216,12 @@ export const styles = css`
             font: ${buttonLabelFont};
             color: var(--ni-private-step-icon-color);
             ${iconColor.cssCustomProperty}: var(--ni-private-step-icon-color);
-            border-style: solid;
+            border: none;
             border-radius: 100%;
-            border-color: var(--ni-private-step-icon-border-color);
-            border-width: 1px;
-            background-image: radial-gradient(
-                closest-side,
-                ${'' /* Workaround to prevent aliasing on radial-gradient boundaries, see:
-                        https://frontendmasters.com/blog/obsessing-over-smooth-radial-gradient-disc-edges
-                    */}
-                var(--ni-private-step-icon-background-color) calc(100% - 1px/var(--ni-private-device-pixel-ratio, 1)),
-                transparent 100%
-            );
-            background-origin: border-box;
-            background-size: var(--ni-private-step-icon-background-size);
-            background-repeat: no-repeat;
-            background-position: center center;
+            box-shadow: inset 0px 0px 0px var(--ni-private-step-icon-border-width) var(--ni-private-step-icon-border-color);
             position: relative;
             transition:
-                border-color ${smallDelay} ease-in-out,
-                border-width ${smallDelay} ease-in-out,
-                background-size ${smallDelay} ease-out;
-        }
-
-        :host([selected]) .icon {
-            border-width: 2px;
+                box-shadow ${smallDelay} ease-in-out;
         }
 
         .icon::before {
@@ -236,11 +233,11 @@ export const styles = css`
             outline-color: var(--ni-private-step-icon-outline-inset-color);
             outline-style: solid;
             outline-width: 0px;
-            outline-offset: 0px;
-            border: 1px solid transparent;
+            ${'' /* outline-offset should always be <=-1 to always render inset */}
+            outline-offset: -1px;
+            border: none;
             border-radius: 100%;
             color: transparent;
-            background-clip: border-box;
             transition:
                 outline-color ${smallDelay} ease-in-out,
                 outline-width ${smallDelay} ease-in-out,
@@ -315,9 +312,9 @@ export const styles = css`
             min-width: ${standardPadding};
             height: 1px;
             min-height: 1px;
+            transform: scale(1, 1);
             background: var(--ni-private-step-line-color);
             background-clip: content-box;
-            transform: scale(1, 1);
             transition:
                 background-color ${smallDelay} ease-in-out,
                 transform ${smallDelay} ease-in-out;
@@ -331,8 +328,8 @@ export const styles = css`
             width: 1px;
             min-width: 1px;
             height: 100%;
-            padding-top: ${smallPadding};
             min-height: ${standardPadding};
+            padding-top: ${smallPadding};
         }
 
         .subtitle {
@@ -361,6 +358,7 @@ export const styles = css`
     @layer hover {
         .control:hover {
             --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-border-width: 2px;
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-line-color: ${borderHoverColor};
         }
@@ -391,8 +389,12 @@ export const styles = css`
             --ni-private-step-line-color: ${borderHoverColor};
         }
 
-        .control:hover .icon {
-            border-width: 2px;
+        :host([readonly]) .control:hover {
+            --ni-private-step-icon-color: revert-layer;
+            --ni-private-step-icon-border-color: revert-layer;
+            --ni-private-step-icon-border-width: revert-layer;
+            --ni-private-step-icon-background-size: revert-layer;
+            --ni-private-step-line-color: revert-layer;
         }
 
         .control:hover .line {
@@ -402,11 +404,16 @@ export const styles = css`
         .container.vertical .control:hover .line {
             transform: scale(2, 1);
         }
+
+        :host([readonly]) .container .control:hover .line {
+            transform: revert-layer;
+        }
     }
 
     @layer focusVisible {
         .control${focusVisible} {
             --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-border-width: 2px;
             --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-line-color: ${borderHoverColor};
@@ -442,13 +449,10 @@ export const styles = css`
             --ni-private-step-line-color: ${borderHoverColor};
         }
 
-        .control${focusVisible} .icon {
-            border-width: 2px;
-        }
-
         .control${focusVisible} .icon::before {
             outline-width: ${borderWidth};
-            outline-offset: -2px;
+            ${'' /* -1px control to outline edge -2px focus border -1px inset gap */}
+            outline-offset: -4px;
         }
 
         .control${focusVisible} .line {
@@ -463,6 +467,7 @@ export const styles = css`
     @layer active {
         .control:active {
             --ni-private-step-icon-border-color: ${borderHoverColor};
+            --ni-private-step-icon-border-width: 2px;
             --ni-private-step-icon-background-color: ${fillSelectedColor};
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-line-color: ${borderHoverColor};
@@ -494,26 +499,45 @@ export const styles = css`
             --ni-private-step-line-color: ${borderHoverColor};
         }
 
-        .control:active .icon {
-            border-width: 2px;
+        :host([readonly]) .control:active {
+            --ni-private-step-icon-color: revert-layer;
+            --ni-private-step-icon-border-color: revert-layer;
+            --ni-private-step-icon-border-width: revert-layer;
+            --ni-private-step-icon-background-color: revert-layer;
+            --ni-private-step-icon-background-size: revert-layer;
+            --ni-private-step-line-color: revert-layer;
         }
 
         .control:active .icon::before {
             outline-width: 0px;
-            outline-offset: 0px;
+            outline-offset: -1px;
+        }
+
+        :host([readonly]) .control:active .icon::before {
+            outline-width: revert-layer;
+            outline-offset: revert-layer;
         }
 
         .control:active .line {
             transform: scale(1, 1);
         }
+
+        :host([readonly]) .control:active .line {
+            transform: revert-layer;
+        }
     }
 
     @layer disabled {
+        :host([readonly]) .control {
+            cursor: default;
+        }
+
         :host([disabled]) .control {
             cursor: default;
             color: ${buttonLabelDisabledFontColor};
             --ni-private-step-icon-color: rgb(from ${buttonLabelFontColor} r g b / 30%);
             --ni-private-step-icon-border-color: transparent;
+            --ni-private-step-icon-border-width: 1px;
             --ni-private-step-icon-background-color: rgba(${borderRgbPartialColor}, 0.1);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-icon-outline-inset-color: transparent;

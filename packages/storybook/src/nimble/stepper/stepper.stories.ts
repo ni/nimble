@@ -11,7 +11,8 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription,
-    incubatingWarning
+    incubatingWarning,
+    readonlyDescription
 } from '../../utilities/storybook';
 import { ExampleStepType } from './types';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
@@ -26,6 +27,7 @@ const severityTextDescription = 'A message explaining the state of the step. Onl
 interface AnchorStepArgs {
     href: string;
     disabled: boolean;
+    readonly: boolean;
     severity: keyof typeof AnchorStepSeverity;
     severityText: string;
     title: string;
@@ -38,6 +40,7 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
         <${stepperTag} class="code-hide-top-container">
             <${anchorStepTag}
                 ?disabled="${x => x.disabled}"
+                ?readonly="${x => x.readonly}"
                 severity="${x => AnchorStepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 ?selected="${x => x.selected}"
@@ -61,6 +64,10 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
             description: disabledDescription({
                 componentName: 'anchor step'
             }),
+            table: { category: apiCategory.attributes }
+        },
+        readonly: {
+            description: readonlyDescription({ componentName: 'anchor step' }),
             table: { category: apiCategory.attributes }
         },
         severity: {
@@ -96,6 +103,7 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
     args: {
         href: '#',
         disabled: false,
+        readonly: false,
         severity: 'default',
         severityText: 'Helper message',
         title: 'Title',
@@ -106,6 +114,7 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
 
 interface StepArgs {
     disabled: boolean;
+    readonly: boolean;
     severity: keyof typeof StepSeverity;
     severityText: string;
     title: string;
@@ -119,6 +128,7 @@ export const step: StoryObj<StepArgs> = {
         <${stepperTag} class="code-hide-top-container">
             <${stepTag}
                 ?disabled="${x => x.disabled}"
+                ?readonly="${x => x.readonly}"
                 severity="${x => StepSeverity[x.severity]}"
                 severity-text="${x => x.severityText}"
                 ?selected="${x => x.selected}"
@@ -136,6 +146,10 @@ export const step: StoryObj<StepArgs> = {
             description: disabledDescription({
                 componentName: 'step'
             }),
+            table: { category: apiCategory.attributes }
+        },
+        readonly: {
+            description: readonlyDescription({ componentName: 'anchor step' }),
             table: { category: apiCategory.attributes }
         },
         severity: {
@@ -176,6 +190,7 @@ export const step: StoryObj<StepArgs> = {
     },
     args: {
         disabled: false,
+        readonly: false,
         severity: 'default',
         severityText: 'Helper message',
         title: 'Title',

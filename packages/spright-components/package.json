@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.15.1",
+  "version": "6.15.4",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",
@@ -42,7 +42,7 @@
     "@ni/fast-element": "^10.1.0",
     "@ni/fast-foundation": "^10.2.2",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.5.2",
+    "@ni/nimble-components": "^35.5.5",
     "@ni/nimble-tokens": "^8.17.0",
     "tslib": "^2.2.0"
   },
@@ -55,7 +55,7 @@
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.0",
-    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-terser": "^1.0.0",
     "@types/jasmine": "^5.1.4",
     "concurrently": "^9.0.0",
     "jasmine-core": "^5.1.2",
