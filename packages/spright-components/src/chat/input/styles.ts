@@ -5,13 +5,19 @@ import {
     bodyFontColor,
     borderWidth,
     controlLabelFontColor,
+    controlSlimHeight,
     elevation2BoxShadow,
     mediumPadding,
     popupBorderColor,
     borderHoverColor,
     smallDelay,
-    failColor
+    failColor,
+    standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
+import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
 import { display } from '../../utilities/style/display';
 
@@ -116,5 +122,43 @@ export const styles = css`
         align-self: flex-end;
         width: 80px;
         margin: ${mediumPadding};
+    }
+
+    .attachments {
+        display: none;
+    }
+
+    .attachments.has-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: ${standardPadding};
+        padding: ${mediumPadding};
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .footer-actions {
+        display: none;
+        flex: 1;
+    }
+
+    .footer-actions.has-content {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        column-gap: ${standardPadding};
+        margin: ${mediumPadding};
+    }
+
+    .footer-actions ::slotted(${buttonTag}),
+    .footer-actions ::slotted(${toggleButtonTag}),
+    .footer-actions ::slotted(${anchorButtonTag}),
+    .footer-actions ::slotted(${menuButtonTag}) {
+        height: ${controlSlimHeight};
     }
 `;

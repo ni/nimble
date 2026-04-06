@@ -1,6 +1,8 @@
 import { html } from '@ni/fast-element';
 import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatInputPageObject } from '../testing/chat-input.pageobject';
@@ -456,6 +458,77 @@ describe('ChatInput', () => {
             expect(element.tabIndex).toBeNull();
             expect(page.getButtonTabIndex()).toBeNull();
             expect(page.getTextAreaTabIndex()).toBeNull();
+        });
+    });
+
+    describe('footer-actions slot', () => {
+        it('should have a footer-actions slot element in the shadow DOM', async () => {
+            await connect();
+            const footerActionsSlot = element.shadowRoot?.querySelector('slot[name="footer-actions"]');
+            expect(footerActionsSlot).not.toBeNull();
+        });
+
+        it('should support content in the footer-actions slot', async () => {
+            await disconnect();
+            ({ element, connect, disconnect } = await fixture<ChatInput>(
+                html`<${chatInputTag}>
+                    <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>Attach</${buttonTag}>
+                </${chatInputTag}>`
+            ));
+            page = new ChatInputPageObject(element);
+            await connect();
+            expect(page.getFooterActionsSlotElements().length).toBe(1);
+        });
+    });
+
+    describe('attachments slot', () => {
+        it('should have an attachments slot element in the shadow DOM', async () => {
+            await connect();
+            const attachmentsSlot = element.shadowRoot?.querySelector('slot[name="attachments"]');
+            expect(attachmentsSlot).not.toBeNull();
+        });
+
+        it('should support content in the attachments slot', async () => {
+            await disconnect();
+            ({ element, connect, disconnect } = await fixture<ChatInput>(
+                html`<${chatInputTag}>
+                    <${chipTag} slot="attachments">Placeholder.txt</${chipTag}>
+                </${chatInputTag}>`
+            ));
+            page = new ChatInputPageObject(element);
+            await connect();
+            expect(page.getAttachmentsSlotElements().length).toBe(1);
+        });
+
+        it('does not enable send button when attachments are present and text is empty', async () => {
+            await disconnect();
+            ({ element, connect, disconnect } = await fixture<ChatInput>(
+                html`<${chatInputTag}>
+                    <${chipTag} slot="attachments">Placeholder.txt</${chipTag}>
+                </${chatInputTag}>`
+            ));
+            page = new ChatInputPageObject(element);
+            await connect();
+            processUpdates();
+            expect(page.isButtonEnabled()).toBeFalse();
+        });
+
+        it('clears attachments on send', async () => {
+            await disconnect();
+            ({ element, connect, disconnect } = await fixture<ChatInput>(
+                html`<${chatInputTag}>
+                    <${chipTag} slot="attachments">Placeholder.txt</${chipTag}>
+                </${chatInputTag}>`
+            ));
+            page = new ChatInputPageObject(element);
+            await connect();
+            page.setText('message');
+            processUpdates();
+
+            page.clickSendButton();
+            processUpdates();
+
+            expect(page.getAttachmentsSlotElements().length).toBe(0);
         });
     });
 });

@@ -65,8 +65,38 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @observable
     public scrollbarWidth = -1;
 
+    /** @internal */
+    @observable
+    public footerActionsIsEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedFooterActionsElements?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public attachmentsIsEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedAttachmentsElements?: HTMLElement[];
+
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
+
+    public slottedFooterActionsElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.footerActionsIsEmpty = next === undefined || next.length === 0;
+    }
+
+    public slottedAttachmentsElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.attachmentsIsEmpty = next === undefined || next.length === 0;
+    }
 
     /**
      * @internal
@@ -170,10 +200,19 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     private resetInput(): void {
         this.value = '';
         this.isInputEmpty = true;
+        this.clearAttachments();
         if (this.textArea) {
             this.textArea.value = '';
             this.adjustTextAreaHeight();
             this.textArea.focus();
+        }
+    }
+
+    private clearAttachments(): void {
+        if (this.slottedAttachmentsElements) {
+            for (const el of [...this.slottedAttachmentsElements]) {
+                el.remove();
+            }
         }
     }
 

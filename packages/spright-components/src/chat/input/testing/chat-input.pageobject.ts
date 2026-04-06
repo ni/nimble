@@ -86,6 +86,16 @@ export class ChatInputPageObject {
         return this.element.textArea!.value;
     }
 
+    public getAttachmentsSlotElements(): Element[] {
+        const slot = this.element.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="attachments"]');
+        return slot?.assignedElements() ?? [];
+    }
+
+    public getFooterActionsSlotElements(): Element[] {
+        const slot = this.element.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="footer-actions"]');
+        return slot?.assignedElements() ?? [];
+    }
+
     public setText(text: string): void {
         this.element.textArea!.focus();
         this.element.textArea!.value = text;
