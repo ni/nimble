@@ -1,4 +1,4 @@
-import { html, ref, slotted, when } from '@ni/fast-element';
+import { html, ref, slotted } from '@ni/fast-element';
 import { Listbox } from '@ni/fast-foundation';
 import type { RichTextMentionListbox } from '.';
 import { anchoredRegionTag } from '../../anchored-region';
@@ -38,11 +38,9 @@ export const template = html<RichTextMentionListbox>`
                     })}
                 >
                 </slot>
-                ${when(x => x.filteredOptions.length === 0, html<RichTextMentionListbox>`
-                    <span class="no-results-label">
-                        ${x => filterNoResultsLabel.getValueFor(x)}
-                    </span>
-                `)}
+                <span class="no-results-label" ?hidden="${x => x.filteredOptions.length > 0}">
+                    ${x => filterNoResultsLabel.getValueFor(x)}
+                </span>
             </div>
         </${anchoredRegionTag}>
     </template>

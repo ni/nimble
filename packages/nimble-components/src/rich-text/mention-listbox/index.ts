@@ -160,16 +160,31 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @internal
      */
     public filterOptions(): void {
+        let newFilteredOptions: ListboxOption[];
         if (!this.filter) {
-            this.filteredOptions = this._options;
+            newFilteredOptions = this._options;
         } else {
             const normalizedFilter = diacriticInsensitiveStringNormalizer(
                 this.filter
             );
-            this.filteredOptions = this._options.filter(o => diacriticInsensitiveStringNormalizer(o.text).includes(
+            newFilteredOptions = this._options.filter(o => diacriticInsensitiveStringNormalizer(o.text).includes(
                 normalizedFilter
             ));
         }
+
+        // Skip the observable assignment when both old and new are empty.
+        // Different empty array references would trigger an @observable
+        // notification, queuing a deferred DOM.queueUpdate for the
+        // when-directive that can crash with "parentNode is null" if the
+        // DOM markers are in an inconsistent state during processing.
+        if (
+            newFilteredOptions.length === 0
+            && this.filteredOptions.length === 0
+        ) {
+            return;
+        }
+
+        this.filteredOptions = newFilteredOptions;
 
         this._options.forEach(o => {
             o.hidden = !this.filteredOptions.includes(o);
@@ -196,8 +211,21 @@ export class RichTextMentionListbox extends FoundationListbox {
         prev: Element[] | undefined,
         next: Element[]
     ): void {
-        super.slottedOptionsChanged(prev, next);
-        this.filterOptions();
+        if (this.open) {
+            super.slottedOptionsChanged(prev, next);
+            this.filterOptions();
+        } else {
+            // When closed, silently update the internal options list without
+            // calling super. The base class triggers observable notifications
+            // (options, selectedIndex, selectedOptions) that queue deferred
+            // FAST binding updates via DOM.queueUpdate. These deferred tasks
+            // can crash with "parentNode is null" when they try to update
+            // when-directive DOM markers that were detached between the
+            // enqueue and requestAnimationFrame execution.
+            this._options = next.filter(
+                (o): o is ListboxOption => o instanceof ListboxOption
+            );
+        }
     }
 
     /**
@@ -236,8 +264,17 @@ export class RichTextMentionListbox extends FoundationListbox {
             this.anchorElementIntersectionObserver.unobserve(prev);
         }
         if (this.region && this.anchorElement) {
-            this.region.anchorElement = this.anchorElement;
-            this.region.update();
+            if (this.region.anchorElement !== null) {
+                // When the anchored region already has an anchor, set the backing
+                // field directly and call update() to reposition. This avoids
+                // going through the observable setter which triggers requestReset()
+                // and tears down initialLayoutComplete, corrupting FAST's
+                // when-directive DOM markers during deferred binding updates.
+                (this.region as unknown as { [key: string]: unknown })._anchorElement = this.anchorElement;
+                this.region.update();
+            } else {
+                this.region.anchorElement = this.anchorElement;
+            }
             this.anchorElementIntersectionObserver.observe(next);
         }
     }
@@ -285,6 +322,13 @@ export class RichTextMentionListbox extends FoundationListbox {
     }
 
     private setOpen(value: boolean): void {
+        if (!value && this.open) {
+            // Clear stale filtered options by writing the backing field
+            // directly. Using the @observable setter would queue a deferred
+            // binding update for the when-directive, which can crash with
+            // "parentNode is null" if the DOM markers are being torn down.
+            (this as unknown as { [key: string]: unknown })._filteredOptions = [];
+        }
         this.open = value;
     }
 }
