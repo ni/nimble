@@ -22,4 +22,10 @@ export interface StepPattern extends SeverityPattern, HTMLElement {
      * @internal
      */
     stepInternals: StepInternals;
+
+    /**
+     * Primary control for interactions
+     * @internal
+     */
+    control?: HTMLElement;
 }

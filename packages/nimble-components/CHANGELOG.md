@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 30 Mar 2026 15:49:59 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.5.5
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Add readonly behavior to step and anchor step ([ni/nimble@cf19bdf](https://github.com/ni/nimble/commit/cf19bdf837d815be34f2297ae42ff6ebfa81e598))
+
+## 35.5.4
+
+Wed, 01 Apr 2026 21:32:03 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
 
 ## 35.5.3
 
