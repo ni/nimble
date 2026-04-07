@@ -10,7 +10,7 @@ async function setup(
     subtitle?: string
 ): Promise<Fixture<ChatMessageWelcome>> {
     const titleAttr = welcomeTitle
-        ? `title="${welcomeTitle}"`
+        ? `welcome-title="${welcomeTitle}"`
         : '';
     const subtitleAttr = subtitle ? `subtitle="${subtitle}"` : '';
     return await fixture<ChatMessageWelcome>(

@@ -1,11 +1,8 @@
 import { attr } from '@ni/fast-element';
 import {
-    applyMixins,
     DesignSystem,
     FoundationElement,
-    StartEnd,
-    type FoundationElementDefinition,
-    type StartEndOptions
+    type FoundationElementDefinition
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -20,19 +17,18 @@ declare global {
  * SprightChatMessageWelcome configuration options
  * @public
  */
-export type ChatMessageWelcomeOptions = FoundationElementDefinition & StartEndOptions;
+export type ChatMessageWelcomeOptions = FoundationElementDefinition;
 
 /**
  * A Spright component for displaying a welcome chat message
  */
 export class ChatMessageWelcome extends FoundationElement {
-    @attr({ attribute: 'title' })
+    @attr({ attribute: 'welcome-title' })
     public welcomeTitle?: string;
 
     @attr
     public subtitle?: string;
 }
-applyMixins(ChatMessageWelcome, StartEnd);
 
 const sprightChatMessageWelcome = ChatMessageWelcome.compose({
     baseName: 'chat-message-welcome',

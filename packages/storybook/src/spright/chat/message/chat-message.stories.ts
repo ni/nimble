@@ -10,7 +10,6 @@ import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/view
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
-import { iconMessagesSparkleTag } from '@ni/nimble-components/dist/esm/icons/messages-sparkle';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
 import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-down';
 import { isChromatic } from '../../../utilities/isChromatic';
@@ -164,19 +163,14 @@ interface ChatMessageWelcomeArgs {
     welcomeTitle: string;
     subtitle: string;
     defaultSlot: boolean;
-    brandIcon: boolean;
-    endButtons: boolean;
 }
 
 export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageWelcomeTag}
-            title="${x => x.welcomeTitle}"
+            welcome-title="${x => x.welcomeTitle}"
             subtitle="${x => x.subtitle}"
         >
-            ${when(x => x.brandIcon, html`
-                <${iconMessagesSparkleTag} slot="brand-icon"></${iconMessagesSparkleTag}>
-            `)}
             ${when(x => x.defaultSlot, html`
                 <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
                     Login
@@ -188,15 +182,11 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
                     What can you do?
                 </${buttonTag}>
             `)}
-            ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end" appearance="block">Suggested prompt 1</${buttonTag}>
-                <${buttonTag} slot="end" appearance="block">Suggested prompt 2</${buttonTag}>
-            `)}
         </${chatMessageWelcomeTag}>
     `),
     argTypes: {
         welcomeTitle: {
-            name: 'title',
+            name: 'welcome-title',
             description: 'The primary welcome title text displayed in the message.',
             table: { category: apiCategory.attributes }
         },
@@ -208,23 +198,11 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
             name: 'default',
             description: 'Content to display below the icon, title, and subtitle. For example, a login button or suggested outbound messages.',
             table: { category: apiCategory.slots }
-        },
-        brandIcon: {
-            name: 'brand-icon',
-            description: 'A slot to customize the brand image displayed at the top of the welcome message.',
-            table: { category: apiCategory.slots }
-        },
-        endButtons: {
-            name: 'end',
-            description: 'Place 0 or more text buttons below the main welcome content.',
-            table: { category: apiCategory.slots }
         }
     },
     args: {
         welcomeTitle: 'Welcome to Nigel\u2122 AI',
         subtitle: 'Chat below to get started',
-        defaultSlot: true,
-        brandIcon: true,
-        endButtons: false
+        defaultSlot: true
     }
 };

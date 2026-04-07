@@ -84,8 +84,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${bannerTag}>
             `)}
             ${when(x => x.welcome, html<ChatConversationArgs>`
-                <${chatMessageWelcomeTag} title="Welcome to Nigel\u2122 AI" subtitle="Chat below to get started">
-                    <${iconMessagesSparkleTag} slot="brand-icon"></${iconMessagesSparkleTag}>
+                <${chatMessageWelcomeTag} welcome-title="Welcome to Nigel\u2122 AI" subtitle="Chat below to get started">
                     <${buttonTag} appearance="block">Help me analyze test data</${buttonTag}>
                     <${buttonTag} appearance="block">Summarize recent test results</${buttonTag}>
                 </${chatMessageWelcomeTag}>
@@ -170,9 +169,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             table: { category: apiCategory.slots }
         },
         welcome: {
-            description:
-                `Toggle a \`${chatMessageWelcomeTag}\` in the default slot to display a welcome message with a brand icon, title, subtitle, and suggested prompt buttons.`,
-            table: { category: apiCategory.slots }
+            table: { disable: true }
         },
         input: {
             description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages.`,

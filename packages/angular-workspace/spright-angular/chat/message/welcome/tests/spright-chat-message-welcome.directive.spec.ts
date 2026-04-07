@@ -43,8 +43,8 @@ describe('Spright chat message welcome', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('has expected defaults for title', () => {
-            expect(directive.title).toBeUndefined();
+        it('has expected defaults for welcomeTitle', () => {
+            expect(directive.welcomeTitle).toBeUndefined();
             expect(nativeElement.welcomeTitle).toBeUndefined();
         });
 
@@ -57,7 +57,7 @@ describe('Spright chat message welcome', () => {
     describe('with template string values', () => {
         @Component({
             template: `
-                <spright-chat-message-welcome #message title="Welcome title" subtitle="Welcome subtitle">
+                <spright-chat-message-welcome #message welcome-title="Welcome title" subtitle="Welcome subtitle">
                     Content
                 </spright-chat-message-welcome>`,
             standalone: false
@@ -82,8 +82,8 @@ describe('Spright chat message welcome', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('will use template string values for title', () => {
-            expect(directive.title).toBe('Welcome title');
+        it('will use template string values for welcomeTitle', () => {
+            expect(directive.welcomeTitle).toBe('Welcome title');
             expect(nativeElement.welcomeTitle).toBe('Welcome title');
         });
 
@@ -96,7 +96,7 @@ describe('Spright chat message welcome', () => {
     describe('with property bound values', () => {
         @Component({
             template: `
-                <spright-chat-message-welcome #message [title]="title" [subtitle]="subtitle">
+                <spright-chat-message-welcome #message [welcomeTitle]="title" [subtitle]="subtitle">
                     Content
                 </spright-chat-message-welcome>`,
             standalone: false
@@ -123,8 +123,8 @@ describe('Spright chat message welcome', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for title and subtitle', () => {
-            expect(directive.title).toBe('initial title');
+        it('can be configured with property binding for welcomeTitle and subtitle', () => {
+            expect(directive.welcomeTitle).toBe('initial title');
             expect(nativeElement.welcomeTitle).toBe('initial title');
             expect(directive.subtitle).toBe('initial subtitle');
             expect(nativeElement.subtitle).toBe('initial subtitle');
@@ -133,7 +133,7 @@ describe('Spright chat message welcome', () => {
             fixture.componentInstance.subtitle = 'updated subtitle';
             fixture.detectChanges();
 
-            expect(directive.title).toBe('updated title');
+            expect(directive.welcomeTitle).toBe('updated title');
             expect(nativeElement.welcomeTitle).toBe('updated title');
             expect(directive.subtitle).toBe('updated subtitle');
             expect(nativeElement.subtitle).toBe('updated subtitle');

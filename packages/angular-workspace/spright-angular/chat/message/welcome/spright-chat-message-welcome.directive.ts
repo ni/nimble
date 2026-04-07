@@ -12,11 +12,11 @@ export { chatMessageWelcomeTag };
     standalone: false
 })
 export class SprightChatMessageWelcomeDirective {
-    public get title(): string | undefined {
+    public get welcomeTitle(): string | undefined {
         return this.elementRef.nativeElement.welcomeTitle;
     }
 
-    @Input() public set title(value: string | undefined) {
+    @Input('welcome-title') public set welcomeTitle(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'welcomeTitle', value);
     }
 

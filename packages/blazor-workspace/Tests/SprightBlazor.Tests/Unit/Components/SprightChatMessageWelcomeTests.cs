@@ -32,12 +32,12 @@ public class SprightChatMessageWelcomeTests
     }
 
     [Theory]
-    [InlineData("Welcome to Nigel", "title=\"Welcome to Nigel\"")]
+    [InlineData("Welcome to Nigel", "welcome-title=\"Welcome to Nigel\"")]
     [InlineData("Log in to continue", "subtitle=\"Log in to continue\"")]
     public void SprightChatMessageWelcome_AttributeIsSet(string value, string expectedAttribute)
     {
-        var message = expectedAttribute.StartsWith("title", StringComparison.Ordinal)
-            ? RenderWithPropertySet(x => x.Title, value)
+        var message = expectedAttribute.StartsWith("welcome-title", StringComparison.Ordinal)
+            ? RenderWithPropertySet(x => x.WelcomeTitle, value)
             : RenderWithPropertySet(x => x.Subtitle, value);
 
         Assert.Contains(expectedAttribute, message.Markup);

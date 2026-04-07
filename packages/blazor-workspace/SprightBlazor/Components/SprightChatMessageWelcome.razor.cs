@@ -8,7 +8,7 @@ public partial class SprightChatMessageWelcome : ComponentBase
     /// Gets or sets the primary welcome title text.
     /// </summary>
     [Parameter]
-    public string? Title { get; set; }
+    public string? WelcomeTitle { get; set; }
 
     /// <summary>
     /// Gets or sets the secondary subtitle text.

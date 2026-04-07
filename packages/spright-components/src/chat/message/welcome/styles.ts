@@ -62,9 +62,4 @@ export const styles = css`
         gap: ${mediumPadding};
     }
 
-    .end {
-        display: flex;
-        column-gap: ${standardPadding};
-        margin-top: ${mediumPadding};
-    }
 `;

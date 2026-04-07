@@ -10,6 +10,9 @@ export const iconMetadata: {
     readonly [key in IconName]: IconMetadata;
 } = {
     /* eslint-disable @typescript-eslint/naming-convention */
+    IconNigelChat: {
+        tags: ['nigel', 'chat', 'brand', 'welcome', 'ai']
+    },
     IconWorkItemCalendarWeek: {
         tags: ['reservation', 'booking', 'schedule', 'time slot']
     },
