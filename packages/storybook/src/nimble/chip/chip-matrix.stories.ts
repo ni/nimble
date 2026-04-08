@@ -101,7 +101,7 @@ const component = (
     </div>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+const createThemeMatrix = (selectableState: SelectableState): StoryFn => createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -109,9 +109,15 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
         showStartSlotIconStates,
         labelStates,
         widthStates,
-        selectableStates,
+        [selectableState],
         [selectedStates[0]] // Only not selected
     ])
+);
+
+export const themeMatrix: StoryFn = createThemeMatrix(selectableStates[0]);
+
+export const selectableThemeMatrix: StoryFn = createThemeMatrix(
+    selectableStates[1]
 );
 
 const interactionStates = cartesianProduct([
