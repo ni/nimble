@@ -16,9 +16,6 @@ declare global {
  */
 export class IconNigelChat extends IconSvg {
     public constructor() {
-        // TODO: Replace with theme-aware SVG from the Nigel chat brand assets
-        // (two-chat-sparkle with gradient, different for dark/light themes).
-        // See spec: packages/spright-components/src/chat/specs/README.md
         super(messagesSparkle16X16);
     }
 }
