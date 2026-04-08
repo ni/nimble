@@ -29,6 +29,7 @@ import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-dow
 import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '@ni/nimble-components/dist/esm/icons/three-dots-line';
 import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
@@ -84,12 +85,6 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     <span slot="title">Title of the banner</span>
                     This is the message text of this banner. It tells you something interesting.
                 </${bannerTag}>
-            `)}
-            ${when(x => x.welcome, html<ChatConversationArgs>`
-                <${chatMessageWelcomeTag} welcome-title="Welcome to Nigel\u2122 AI" subtitle="Chat below to get started">
-                    <${buttonTag} appearance="block">Help me analyze test data</${buttonTag}>
-                    <${buttonTag} appearance="block">Summarize recent test results</${buttonTag}>
-                </${chatMessageWelcomeTag}>
             `)}
             <${chatMessageSystemTag}>
                 To start, press any key.
@@ -175,9 +170,6 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 'A slot to optionally include content (such as banners) which will be displayed below the toolbar and above the messages.',
             table: { category: apiCategory.slots }
         },
-        welcome: {
-            table: { disable: true }
-        },
         input: {
             description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages.`,
             table: { category: apiCategory.slots }
@@ -193,7 +185,6 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     },
     args: {
         appearance: 'default',
-        welcome: true,
         input: true,
         toolbar: true,
         start: true,
@@ -212,6 +203,50 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 inline: 'start'
             });
         }
+    }
+};
+
+export const welcomeLogin: StoryObj<ChatConversationArgs> = {
+    parameters: {
+        actions: {}
+    },
+    render: createUserSelectedThemeStory(html`
+        <style class='code-hide'>
+            ${chatConversationTag} {
+                max-height: 750px;
+            }
+        </style>
+        <${chatConversationTag} appearance="${x => x.appearance}">
+            <${chatMessageWelcomeTag} welcome-title="Welcome to Nigel\u2122 AI" subtitle="Log in to get started">
+                <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
+                    Login
+                </${anchorButtonTag}>
+            </${chatMessageWelcomeTag}>
+        </${chatConversationTag}>
+    `),
+    argTypes: {
+        appearance: {
+            options: Object.keys(ChatConversationAppearance),
+            control: { type: 'radio' },
+            description: 'The appearance of the chat conversation.',
+            table: { category: apiCategory.attributes }
+        },
+        content: { table: { disable: true } },
+        welcome: { table: { disable: true } },
+        toolbar: { table: { disable: true } },
+        start: { table: { disable: true } },
+        input: { table: { disable: true } },
+        end: { table: { disable: true } },
+        sendMessage: { table: { disable: true } },
+        conversationRef: { table: { disable: true } }
+    },
+    args: {
+        appearance: 'default',
+        end: false,
+        welcome: false,
+        toolbar: false,
+        start: false,
+        input: false
     }
 };
 

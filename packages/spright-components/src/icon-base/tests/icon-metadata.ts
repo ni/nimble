@@ -11,7 +11,7 @@ export const iconMetadata: {
 } = {
     /* eslint-disable @typescript-eslint/naming-convention */
     IconNigelChat: {
-        tags: ['nigel', 'chat', 'brand', 'welcome', 'ai']
+        tags: ['nigel', 'chat', 'ai']
     },
     IconWorkItemCalendarWeek: {
         tags: ['reservation', 'booking', 'schedule', 'time slot']

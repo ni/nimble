@@ -78,6 +78,6 @@ export const messageWelcomeHidden: StoryFn = createStory(
 
 export const messageWelcomeTextCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<${chatMessageWelcomeTag} title="Welcome" subtitle="Get started">Welcome Message</${chatMessageWelcomeTag}>`
+        html`<${chatMessageWelcomeTag} welcome-title="Welcome" subtitle="Get started">Welcome Message</${chatMessageWelcomeTag}>`
     )
 );

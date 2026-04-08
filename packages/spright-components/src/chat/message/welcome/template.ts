@@ -7,7 +7,7 @@ import { iconNigelChatTag } from '../../../icons/nigel-chat';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<ChatMessageWelcome>
-> = (_context, _definition) => html<ChatMessageWelcome>`
+> = () => html<ChatMessageWelcome>`
     <div class="container">
         <div class="brand-icon">
             <slot name="brand-icon">

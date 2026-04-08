@@ -25,9 +25,7 @@ describe('ChatMessageWelcome', () => {
     let disconnect: () => Promise<void>;
 
     afterEach(async () => {
-        if (typeof disconnect === 'function') {
-            await disconnect();
-        }
+        await disconnect();
     });
 
     it('can construct an element instance', () => {
@@ -89,15 +87,23 @@ describe('ChatMessageWelcome', () => {
         expect(brandIconSlot).not.toBeNull();
     });
 
-    it('should render both title and subtitle when both are set', async () => {
+    it('should display the welcome title when both title and subtitle are set', async () => {
         ({ element, connect, disconnect } = await setup(
             'Welcome to Nigel AI',
             'Chat below to get started'
         ));
         await connect();
         const titleDiv = element.shadowRoot?.querySelector('.title');
-        const subtitleDiv = element.shadowRoot?.querySelector('.subtitle');
         expect(titleDiv?.textContent?.trim()).toBe('Welcome to Nigel AI');
+    });
+
+    it('should display the subtitle when both title and subtitle are set', async () => {
+        ({ element, connect, disconnect } = await setup(
+            'Welcome to Nigel AI',
+            'Chat below to get started'
+        ));
+        await connect();
+        const subtitleDiv = element.shadowRoot?.querySelector('.subtitle');
         expect(subtitleDiv?.textContent?.trim()).toBe(
             'Chat below to get started'
         );

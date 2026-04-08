@@ -61,5 +61,4 @@ export const styles = css`
         overflow-x: auto;
         gap: ${mediumPadding};
     }
-
 `;
