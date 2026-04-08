@@ -25,9 +25,9 @@ export {
     type ChipSelectionMode as ChipSelectionModeType
 } from './types';
 
-export type ChipOptions = FoundationElementDefinition &
-    StartOptions &
-    EndOptions;
+export type ChipOptions = FoundationElementDefinition
+    & StartOptions
+    & EndOptions;
 
 /**
  * A Nimble chip component

@@ -11,7 +11,8 @@ export type NavigationGuard = (rowRecordId: string | undefined, href: string) =>
  * return false to prevent the link's default click handler from also performing the navigation.
  */
 @Directive({
-    selector: 'nimble-table-column-anchor[navigationGuard]'
+    selector: 'nimble-table-column-anchor[navigationGuard]',
+    standalone: false
 })
 export class NimbleTableColumnAnchorNavigationGuardDirective {
     @Input()

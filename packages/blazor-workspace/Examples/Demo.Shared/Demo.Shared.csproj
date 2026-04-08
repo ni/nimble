@@ -7,21 +7,13 @@
     <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
-    <NoWarn>CA1716;LRT001;NU1701;CA1707;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
-    <NoWarn>CA1716;LRT001;NU1701;CA1707;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
+    <NimbleBlazor_CopyNimbleDesignTokens>true</NimbleBlazor_CopyNimbleDesignTokens>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Remove="packages.lock.json" />
+    <Content Remove="sasscompiler.json" />
+    <None Include="sasscompiler.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +21,8 @@
     <None Include="packages.lock.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.98.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.22" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.25" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,5 +38,9 @@
     <ProjectReference Include="..\..\OkBlazor\OkBlazor.csproj" />
     <ProjectReference Include="..\..\SprightBlazor\SprightBlazor.csproj" />
   </ItemGroup>
-
+  <!--
+    Since examples are in the same solution as NimbleBlazor, manually import .targets to copy Nimble
+    token SCSS. See NimbleBlazor README for correct workflow for external clients to use SCSS.
+  -->
+  <Import Project="../../NimbleBlazor/NuGetFiles/build/NimbleBlazor.targets" />
 </Project>

@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/checkbox_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/checkbox_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from the CheckboxControlValueAccessor's `@Directive` decorator
@@ -18,6 +18,8 @@ import {Directive, forwardRef, type Provider} from '@angular/core';
 
 import {
   BuiltInControlValueAccessor,
+  // ControlValueAccessor,
+  // NG_VALUE_ACCESSOR,
 } from './control_value_accessor';
 import type {ControlValueAccessor} from '@angular/forms';
 
@@ -44,7 +46,7 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = {
  * const rememberLoginControl = new FormControl();
  * ```
  *
- * ```
+ * ```html
  * <input type="checkbox" [formControl]="rememberLoginControl">
  * ```
  *
@@ -56,8 +58,9 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = {
 @Directive({
   selector:
     'input[type=checkbox][formControlName],input[type=checkbox][formControl],input[type=checkbox][ngModel]',
-  host: {'(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()'},
+  host: {'(change)': 'onChange($any($event.target).checked)', '(blur)': 'onTouched()'},
   providers: [CHECKBOX_VALUE_ACCESSOR],
+  standalone: false,
 })
 */
 @Directive()
@@ -67,7 +70,7 @@ export class CheckboxControlValueAccessor
 {
   /**
    * Sets the "checked" property on the input element.
-   * @nodoc
+   * @docs-private
    */
   writeValue(value: any): void {
     this.setProperty('checked', value);

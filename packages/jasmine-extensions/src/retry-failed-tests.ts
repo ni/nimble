@@ -17,9 +17,9 @@ export function retryFailedTests(
 
     const setTimeout = globalThis.setTimeout;
     // @ts-expect-error Global Jasmine Spec type undefined
-    const originalSpecConstructor = jasmine.Spec;
+    const originalSpecConstructor = globalThis.jasmine.Spec;
     // @ts-expect-error Global Jasmine Spec type undefined
-    jasmine.Spec = function retrySpec(attrs: any): jasmine.Spec {
+    globalThis.jasmine.Spec = function retrySpec(attrs: any): jasmine.Spec {
         const spec = new originalSpecConstructor(attrs);
         const originalTestFn = spec.queueableFn.fn;
         const beforeAfterFns = spec.beforeAndAfterFns();

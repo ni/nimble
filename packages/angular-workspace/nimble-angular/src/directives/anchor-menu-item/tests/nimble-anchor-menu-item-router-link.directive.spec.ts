@@ -11,7 +11,8 @@ describe('Nimble anchor menu item RouterLinkDirective', () => {
                 Anchor Text
             </nimble-anchor-menu-item>
             <router-outlet></router-outlet>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
     }

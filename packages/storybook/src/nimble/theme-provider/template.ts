@@ -122,7 +122,6 @@ const templateForTokenName = (
     return template;
 };
 
-// prettier-ignore
 export const component = html<TokenArgs>`
     <style>
         table {

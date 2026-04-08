@@ -40,7 +40,8 @@ describe('NimbleTableColumnText', () => {
                         placeholder="Custom placeholder"
                     ></nimble-table-column-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnTextDirective }) public directive: NimbleTableColumnTextDirective;
@@ -155,7 +156,8 @@ describe('NimbleTableColumnText', () => {
                         [placeholder]="placeholder"
                     ></nimble-table-column-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnTextDirective }) public directive: NimbleTableColumnTextDirective;
@@ -412,7 +414,8 @@ describe('NimbleTableColumnText', () => {
                         [attr.placeholder]="placeholder"
                     ></nimble-table-column-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnTextDirective }) public directive: NimbleTableColumnTextDirective;

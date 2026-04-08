@@ -1,0 +1,79 @@
+import { Meta, Controls, Canvas, Title } from '@storybook/addon-docs/blocks';
+import * as iconDynamicStories from './icon-dynamic.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+
+<Meta of={iconDynamicStories} />
+<Title of={iconDynamicStories} />
+
+<div>
+    Dynamic icons allow you to use a custom icon inside Nimble elements.
+</div>
+
+<Canvas of={iconDynamicStories.iconDynamic} />
+
+## API
+
+<Controls of={iconDynamicStories.iconDynamic} />
+<ComponentApisLink />
+
+## Usage
+
+Dynamic Icons must first be registered before they can be used.
+
+### Register Dynamic Icon
+
+Register icons before use. Tag names must start with
+<code>ok-icon-dynamic-</code> and the name suffix must be lowercase letters and
+at least two characters long. The <code>registerIconDynamic</code> call throws
+if the tag name is invalid.
+
+#### TypeScript
+
+Access the `DynamicIcon.registerIconDynamic` static helper function via the class reference or via the custom element registration:
+
+```ts
+customElements
+    .get('ok-icon-dynamic')
+    .registerIconDynamic('ok-icon-dynamic-awesome', 'data:image/png;base64,...');
+```
+
+#### Blazor
+
+Register once after first render using the `OkIconDynamic.RegisterIconDynamicAsync` helper:
+
+```cs
+@inject IJSRuntime JSRuntime
+
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    if (firstRender)
+    {
+        await OkIconDynamic.RegisterIconDynamicAsync(
+            JSRuntime,
+            "ok-icon-dynamic-awesome",
+            "data:image/png;base64,...");
+    }
+}
+```
+
+### Use Dynamic Icon
+
+After registration, use the generated tag name directly or in components that
+accepts an icon tag name via an `icon` attribute.
+
+```html
+<ok-icon-dynamic-awesome></ok-icon-dynamic-awesome>
+<nimble-mapping-icon icon="ok-icon-dynamic-awesome"></nimble-mapping-icon>
+```
+### Performance Considerations
+
+#### Sizing
+
+Images are rendered at the <code>iconSize</code> design token (16px by
+default). For best results, size your images to 16x16 before registering to ensure 
+clarity at the final size.
+
+#### Source format
+
+While relative and absolute paths are supported, it is recommended to provide
+a base64-encoded image.

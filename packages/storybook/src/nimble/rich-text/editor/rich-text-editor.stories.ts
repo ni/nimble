@@ -10,8 +10,8 @@ import {
     richTextEditorTag
 } from '@ni/nimble-components/dist/esm/rich-text/editor';
 import {
-    addLabelUseMetadata,
-    type LabelUserArgs
+    createLocalizableLabelArgTypes,
+    type LocalizableLabelArgs
 } from '../../label-provider/base/label-user-stories-utils';
 import { richTextMarkdownString } from '../../../utilities/rich-text-markdown-string';
 import {
@@ -27,8 +27,7 @@ import {
     validityDescription
 } from '../../../utilities/storybook';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface RichTextEditorArgs extends LabelUserArgs {
+interface RichTextEditorArgs extends LocalizableLabelArgs {
     data: ExampleDataType;
     mentionData: MentionDataType;
     footerActionButtons: boolean;
@@ -95,7 +94,6 @@ const metadata: Meta<RichTextEditorArgs> = {
             handles: ['input']
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
     ${incubatingWarning({
@@ -253,7 +251,8 @@ const metadata: Meta<RichTextEditorArgs> = {
             }),
             control: false,
             table: { category: apiCategory.methods }
-        }
+        },
+        ...createLocalizableLabelArgTypes(labelProviderRichTextTag)
     },
     args: {
         data: exampleDataType.markdownString,
@@ -277,9 +276,6 @@ const metadata: Meta<RichTextEditorArgs> = {
         checkValidity: undefined
     }
 };
-
-addLabelUseMetadata(metadata, labelProviderRichTextTag);
-
 export default metadata;
 
 export const richTextEditor: StoryObj<RichTextEditorArgs> = {};

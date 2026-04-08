@@ -10,7 +10,8 @@ export { anchorMenuItemTag };
  * Directive to provide Angular integration for the anchor menu item.
  */
 @Directive({
-    selector: 'nimble-anchor-menu-item'
+    selector: 'nimble-anchor-menu-item',
+    standalone: false
 })
 export class NimbleAnchorMenuItemDirective extends NimbleAnchorBaseDirective<AnchorMenuItem> {
     public get disabled(): boolean {

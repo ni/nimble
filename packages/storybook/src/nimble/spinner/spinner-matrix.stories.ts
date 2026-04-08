@@ -40,7 +40,6 @@ const metadata: Meta = {
 export default metadata;
 
 // Disable animation in Chromatic because it intermittently causes shapshot differences
-// prettier-ignore
 const component = (
     [stateName, state]: SizeState,
     [appearanceName, appearance]: AppearanceState,

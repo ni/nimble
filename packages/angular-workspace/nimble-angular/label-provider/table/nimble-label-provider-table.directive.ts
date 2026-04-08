@@ -8,7 +8,8 @@ export type { LabelProviderTable };
  * To use the Nimble-provided strings declared via $localize, instead use NimbleLabelProviderTableWithDefaultsDirective.
  */
 @Directive({
-    selector: 'nimble-label-provider-table'
+    selector: 'nimble-label-provider-table',
+    standalone: false
 })
 export class NimbleLabelProviderTableDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<LabelProviderTable>) {
@@ -51,7 +52,6 @@ export class NimbleLabelProviderTableDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('collapse-all') public set collapseAll(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'collapseAll', value);
     }

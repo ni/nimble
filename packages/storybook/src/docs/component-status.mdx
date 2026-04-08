@@ -1,7 +1,9 @@
 import { Story, Meta } from '@storybook/addon-docs/blocks';
 import {
     componentStatus,
-    componentStatusFuture
+    componentStatusFuture,
+    componentStatusSpright,
+    componentStatusOk
 } from './component-status.stories';
 import '@ni/nimble-components/dist/esm/icons/check';
 import '@ni/nimble-components/dist/esm/icons/triangle';
@@ -11,23 +13,68 @@ import '@ni/nimble-components/dist/esm/icons/xmark';
 
 # Component Status
 
+Components are organized into several different libraries based on their
+intended use:
+
+- **Nimble Components**: General purpose components that are suitable for use in
+  each and every application.
+- **Spright Components**: Application-specific or context-specific components
+  that may be purpose built or coupled to specific technologies, products, or
+  domains.
+- **Ok Components**: Components that are leveraging Nimble infrastructure but
+  have varied ownership.
+
 Here are components that are either implemented or on the roadmap for Nimble.
 Something missing?
 [File a request](https://github.com/ni/nimble/issues/new/choose)!
 
-## Ready or incubating
+## Nimble Components
+
+- Very general purpose, low-level core primitives
+  (["Atoms"](https://atomicdesign.bradfrost.com/chapter-2/#atoms)).
+- Focused on API consistency and compatibility between other Nimble components.
+- Alignment with native HTML elements and the web platform APIs where
+  comparable.
+- Nimble developers own and actively maintain for upgrades, issues, etc.
 
 <p>
     <Story of={componentStatus} />
 </p>
 
-### Legend
+## Spright Components
 
-| Icon                                                             | Description                                                                                                                                                              |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <nimble-icon-check severity="success"></nimble-icon-check>       | The component is ready for general use.                                                                                                                                  |
-| <nimble-icon-triangle severity="warning"></nimble-icon-triangle> | The component is "[incubating](/docs/incubating-docs--docs)". These are not ready for general use and may make breaking changes without a "major" semantic version bump. |
-| <nimble-icon-xmark severity="error"></nimble-icon-xmark>         | The component doesn't exist yet. Please submit requests by commenting on the linked issue.                                                                               |
+- Purpose built components that may be application, product, or domain specific.
+- Frequently higher-level compositions of components
+  (["Molecules"](https://atomicdesign.bradfrost.com/chapter-2/#atoms)) or
+  low-level primitives that are not general purpose.
+- Encouraged to align with Nimble component patterns but have more flexibility.
+- Nimble developers co-own and enforce technical implementation along with
+  component-specific owners to maintain Nimble standards.
+
+<p>
+    <Story of={componentStatusSpright} />
+</p>
+
+## Ok Components
+
+- Components that leverage Nimble infrastructure varying from production quality
+  to undergoing rapid iterative development.
+- Users should consult with component-specific owners before leveraging in new
+  applications.
+- Nimble infrastructure owned by Nimble developers but components owned by
+  component-specific owners.
+
+<p>
+    <Story of={componentStatusOk} />
+</p>
+
+## Legend
+
+| Icon                                                             | Description                                                                                                                                             |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <nimble-icon-check severity="success"></nimble-icon-check>       | Ready for general use.                                                                                                                                  |
+| <nimble-icon-triangle severity="warning"></nimble-icon-triangle> | "[incubating](/docs/incubating-docs--docs)". These are not ready for general use and may make breaking changes without a "major" semantic version bump. |
+| <nimble-icon-xmark severity="error"></nimble-icon-xmark>         | Doesn't exist yet. Please submit requests by commenting on the linked issue.                                                                            |
 
 ## Future work
 

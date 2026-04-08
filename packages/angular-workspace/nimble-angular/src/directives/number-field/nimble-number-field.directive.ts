@@ -11,7 +11,8 @@ export { NumberFieldAppearance };
  * Directive to provide Angular integration for the number field.
  */
 @Directive({
-    selector: 'nimble-number-field'
+    selector: 'nimble-number-field',
+    standalone: false
 })
 export class NimbleNumberFieldDirective {
     public get appearance(): NumberFieldAppearance {

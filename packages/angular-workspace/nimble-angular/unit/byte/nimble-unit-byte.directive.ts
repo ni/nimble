@@ -9,7 +9,8 @@ export { unitByteTag };
  * Directive to provide Angular integration for the byte unit element used by the number-text column.
  */
 @Directive({
-    selector: 'nimble-unit-byte'
+    selector: 'nimble-unit-byte',
+    standalone: false
 })
 export class NimbleUnitByteDirective {
     public get binary(): boolean {

@@ -22,7 +22,8 @@ describe('Nimble combobox', () => {
         @Component({
             template: `
                 <nimble-combobox #combobox></nimble-combobox>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('combobox', { read: NimbleComboboxDirective }) public directive: NimbleComboboxDirective;
@@ -140,7 +141,8 @@ describe('Nimble combobox', () => {
                     appearance-readonly
                     full-bleed
                 >
-                </nimble-combobox>`
+                </nimble-combobox>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('combobox', { read: NimbleComboboxDirective }) public directive: NimbleComboboxDirective;
@@ -229,7 +231,8 @@ describe('Nimble combobox', () => {
                     [full-bleed]="fullBleed"
                 >
                 </nimble-combobox>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('combobox', { read: NimbleComboboxDirective }) public directive: NimbleComboboxDirective;
@@ -389,7 +392,8 @@ describe('Nimble combobox', () => {
                     [attr.full-bleed]="fullBleed"
                 >
                 </nimble-combobox>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('combobox', { read: NimbleComboboxDirective }) public directive: NimbleComboboxDirective;
@@ -544,7 +548,8 @@ describe('Nimble combobox', () => {
                 <nimble-combobox #combobox>
                     <nimble-list-option *ngFor="let option of autoCompleteOptions" [ngValue]="option">{{ option.name }}</nimble-list-option>
                 </nimble-combobox>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('combobox', { read: NimbleComboboxDirective }) public directive: NimbleComboboxDirective;

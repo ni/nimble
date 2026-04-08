@@ -5,7 +5,7 @@ import type {
     TableColumnMenuButtonCellRecord,
     TableColumnMenuButtonColumnConfig
 } from '..';
-import { template } from './templates';
+import { template } from './template';
 import { styles } from './styles';
 import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';

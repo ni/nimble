@@ -19,7 +19,8 @@ describe('Nimble radio group', () => {
         @Component({
             template: `
                 <nimble-radio-group #radioGroup></nimble-radio-group>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
@@ -103,7 +104,8 @@ describe('Nimble radio group', () => {
                     error-text="error text"
                     error-visible
                     required-visible
-                ></nimble-radio-group>`
+                ></nimble-radio-group>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
@@ -166,7 +168,8 @@ describe('Nimble radio group', () => {
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
                     [required-visible]="requiredVisible"
-                ></nimble-radio-group>`
+                ></nimble-radio-group>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
@@ -271,7 +274,8 @@ describe('Nimble radio group', () => {
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
                     [attr.required-visible]="requiredVisible"
-                ></nimble-radio-group>`
+                ></nimble-radio-group>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;

@@ -953,7 +953,6 @@ describe('Markdown parser', () => {
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
 
-        // prettier-ignore
         async function setup(
             mappings: BasicUserMentionMapping[],
             pattern = ''

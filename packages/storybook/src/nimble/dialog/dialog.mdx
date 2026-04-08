@@ -97,6 +97,16 @@ private class DialogData
 }
 ```
 
+### React
+
+When assigning a ref created with `useRef` to a `NimbleDialog`, make sure to use the `fromDialogRef` helper to avoid type issues due to the generic component reference. For example:
+
+```tsx
+<NimbleDialog ref={fromDialogRef(dialogRef)}></NimbleDialog>
+```
+
+For more information see [ni/nimble#2784](https://github.com/ni/nimble/issues/2784).
+
 {/* ## Examples */}
 
 {/* ## Accessibility */}

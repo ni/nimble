@@ -13,6 +13,7 @@ import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 import { radioTag } from '@ni/nimble-components/dist/esm/radio';
+import { Tag } from '../../utilities/story-layout';
 
 <Meta of={selectStories} />
 <Title of={selectStories} />
@@ -75,6 +76,10 @@ Any select without a default selected option should provide placeholder text.
 Placeholder text should always follow the pattern "Select [thing(s)]", for
 example "Select country". Use sentence casing and don't include punctuation at
 the end of the prompt.
+
+*Note: In React avoid setting `selected` on the placeholder element. Instead mark the
+placeholder as `disabled` and `hidden` and ensure that it is the first option
+in the list. See [#2783](https://github.com/ni/nimble/issues/2783) for more detail.*
 
 <Canvas of={selectStories.placeholder} />
 

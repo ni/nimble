@@ -1,9 +1,15 @@
 @use '@ni/nimble-angular/styles/tokens' as *;
 
-.content {
+:host {
+    display: contents;
+}
+
+.content-container {
     width: 100%;
     box-sizing: border-box;
     font: $ni-nimble-body-font;
+    color: $ni-nimble-body-font-color;
+    padding: 0px 2px 0px 10px;
 }
 
 .container-label {
@@ -12,30 +18,14 @@
     padding-bottom: $ni-nimble-standard-padding;
 }
 
-p, a {
-    color: $ni-nimble-control-label-font-color;
-}
-
 .container {
-    background-color: $ni-nimble-application-background-color;
-    display: inline-flex;
+    display: flex;
     justify-content: left;
     flex-direction: column;
-    padding: 0px 2px 0px 10px;
 }
 
 .sub-container {
     margin: $ni-nimble-standard-padding;
-}
-
-.sub-container > * {
-    margin-right: $ni-nimble-standard-padding;
-}
-
-.theme-select {
-    display: block;
-    width: 150px;
-    min-width: unset;
 }
 
 .drawer-location-select {

@@ -6,7 +6,7 @@
 // or from property bindings, ie <my-element [my-number]="someNumber"></my-element>
 // So setters for our directives accept both string values from template attributes and
 // the expected property type. This file has helpers for common property types.
-// More context: https://v13.angular.io/guide/template-typecheck#input-setter-coercion
+// More context: https://angular.dev/tools/cli/template-typecheck#input-setter-coercion
 
 type BooleanAttribute = '' | null;
 export type BooleanValueOrAttribute = boolean | BooleanAttribute;

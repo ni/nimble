@@ -26,7 +26,6 @@ const metadata: Meta<SwitchArgs> = {
             handles: ['change']
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${switchTag}
             ?checked="${x => x.checked}"

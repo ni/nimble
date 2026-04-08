@@ -11,7 +11,6 @@ import { iconTimesTag } from '../icons/times';
 import { ButtonAppearance } from '../button/types';
 import { ChipSelectionMode } from './types';
 
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Chip>,
 ChipOptions

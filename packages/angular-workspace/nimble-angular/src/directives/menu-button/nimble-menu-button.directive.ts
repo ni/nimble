@@ -11,7 +11,8 @@ export type { MenuButtonToggleEventDetail };
  * Directive to provide Angular integration for the menu button.
  */
 @Directive({
-    selector: 'nimble-menu-button'
+    selector: 'nimble-menu-button',
+    standalone: false
 })
 export class NimbleMenuButtonDirective {
     public get appearance(): ButtonAppearance {

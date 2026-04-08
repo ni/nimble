@@ -11,7 +11,8 @@ describe('Nimble LabelProviderRichText withDefaults directive', () => {
         template: `
         <nimble-label-provider-rich-text withDefaults #labelProvider>
         </nimble-label-provider-rich-text>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('labelProvider', { static: true }) public labelProvider: ElementRef<LabelProviderRichText>;

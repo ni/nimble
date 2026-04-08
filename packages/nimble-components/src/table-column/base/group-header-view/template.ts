@@ -6,7 +6,7 @@ const validateGroupHeaderViewTemplate = (groupHeaderViewTag: string): void => {
     let instance;
     try {
         instance = document.createElement(groupHeaderViewTag);
-    } catch (ex) {
+    } catch (_ex) {
         // Swallow construction error to report a better one
     }
     if (!(instance instanceof TableGroupHeaderView)) {

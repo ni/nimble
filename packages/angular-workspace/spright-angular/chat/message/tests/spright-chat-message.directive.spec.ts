@@ -20,7 +20,8 @@ describe('Spright chat message', () => {
         @Component({
             template: `
                 <spright-chat-message #message>Content</spright-chat-message>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('message', { read: SprightChatMessageDirective }) public directive: SprightChatMessageDirective;
@@ -54,7 +55,8 @@ describe('Spright chat message', () => {
                 <spright-chat-message #message
                     message-type="inbound">
                     Content
-                </spright-chat-message>`
+                </spright-chat-message>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('message', { read: SprightChatMessageDirective }) public directive: SprightChatMessageDirective;
@@ -88,7 +90,8 @@ describe('Spright chat message', () => {
                 <spright-chat-message #message
                     [messageType]="messageType">
                     Content
-                </spright-chat-message>`
+                </spright-chat-message>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('message', { read: SprightChatMessageDirective }) public directive: SprightChatMessageDirective;
@@ -129,7 +132,8 @@ describe('Spright chat message', () => {
                 <spright-chat-message #message
                     [attr.message-type]="messageType">
                     Content
-                </spright-chat-message>`
+                </spright-chat-message>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('message', { read: SprightChatMessageDirective }) public directive: SprightChatMessageDirective;

@@ -8,11 +8,12 @@ import {
 } from '@storybook/addon-docs/blocks';
 import TargetDocs from '../patterns/anchor/target-docs.mdx';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
-import StylingDocs from '../patterns/button/styling-docs.mdx';
+import StylingDocs from '../patterns/button/button-styling-docs.mdx';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import * as anchorButtonStories from './anchor-button.stories';
+import { Tag } from '../../utilities/story-layout';
 
 <Meta of={anchorButtonStories} />
 <Title of={anchorButtonStories} />
@@ -23,11 +24,11 @@ navigates like an anchor/link when pressed.
 Use <Tag name={buttonTag} /> if you want a button that triggers an action or
 event.
 
-<Canvas of={anchorButtonStories.outlineAnchorButton} />
+<Canvas of={anchorButtonStories.anchorButton} />
 
 ## API
 
-<Controls of={anchorButtonStories.outlineAnchorButton} />
+<Controls of={anchorButtonStories.anchorButton} />
 
 <ComponentApisLink />
 

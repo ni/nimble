@@ -1,4 +1,4 @@
-import { DurationPipe, NumberTextPipe, byteUnitScale, byte1024UnitScale, celsiusUnitScale, fahrenheitUnitScale, voltUnitScale } from '@ni/nimble-angular/pipes';
+import { DurationPipe, NumberTextPipe, unitScaleByte, unitScaleByte1024, unitScaleCelsius, unitScaleFahrenheit, unitScaleVolt } from '@ni/nimble-angular/pipes';
 
 describe('Pipes', () => {
     it('exports DurationPipe', () => {
@@ -9,23 +9,23 @@ describe('Pipes', () => {
         expect(new NumberTextPipe('en')).toBeTruthy();
     });
 
-    it('exports byteUnitScale', () => {
-        expect(byteUnitScale).toBeTruthy();
+    it('exports unitScaleByte', () => {
+        expect(unitScaleByte).toBeTruthy();
     });
 
-    it('exports byte1024UnitScale', () => {
-        expect(byte1024UnitScale).toBeTruthy();
+    it('exports unitScaleByte1024', () => {
+        expect(unitScaleByte1024).toBeTruthy();
     });
 
-    it('exports celsiusUnitScale', () => {
-        expect(celsiusUnitScale).toBeTruthy();
+    it('exports unitScaleCelsius', () => {
+        expect(unitScaleCelsius).toBeTruthy();
     });
 
-    it('exports fahrenheitUnitScale', () => {
-        expect(fahrenheitUnitScale).toBeTruthy();
+    it('exports unitScaleFahrenheit', () => {
+        expect(unitScaleFahrenheit).toBeTruthy();
     });
 
-    it('exports voltUnitScale', () => {
-        expect(voltUnitScale).toBeTruthy();
+    it('exports unitScaleVolt', () => {
+        expect(unitScaleVolt).toBeTruthy();
     });
 });

@@ -31,8 +31,6 @@
 
 *Screenshots and/or links to existing, canonical, or exemplary implementations of the component.*
 
----
-
 ## Design
 
 *Describe the design of the component, thinking through several perspectives:*
@@ -85,7 +83,9 @@
 
 *Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
 
----
+### Interactions
+
+*Work with Interaction Design to create Figma files and other design assets. Be sure to account for the various interactions from mouse, keyboard, and touch.*
 
 ## Implementation
 
@@ -111,7 +111,7 @@
   - *Components which delegate focus require all global ARIA attributes to be enumerated*
   - *Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems.*
 - *Behavior with browser configurations like "Prefers reduced motion"*
-- *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component.*
+- *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](https://nimble.ni.dev/storybook/index.html?path=/docs/tests-anchor-patterns--docs). The story should be updated to include the new component.*
 
 ### Mobile
 
@@ -159,7 +159,6 @@
 
 *What additions or changes are needed for user documentation and demos? Are there any architectural/engineering docs we should create as well, perhaps due to some interesting technical challenge or design decisions related to this component?*
 
----
 ## Open Issues
 
 *Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*

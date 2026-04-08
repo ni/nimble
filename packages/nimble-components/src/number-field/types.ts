@@ -8,5 +8,4 @@ export const NumberFieldAppearance = {
     frameless: 'frameless'
 } as const;
 
-export type NumberFieldAppearance =
-    (typeof NumberFieldAppearance)[keyof typeof NumberFieldAppearance];
+export type NumberFieldAppearance = (typeof NumberFieldAppearance)[keyof typeof NumberFieldAppearance];

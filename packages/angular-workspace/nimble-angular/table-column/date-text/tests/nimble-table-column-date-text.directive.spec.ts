@@ -44,7 +44,8 @@ describe('NimbleTableColumnDateText', () => {
                     <nimble-table-column-date-text #column field-name="field1">
                     </nimble-table-column-date-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnDateTextDirective }) public directive: NimbleTableColumnDateTextDirective;
@@ -119,7 +120,8 @@ describe('NimbleTableColumnDateText', () => {
                         placeholder="Custom placeholder"
                     ></nimble-table-column-date-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnDateTextDirective }) public directive: NimbleTableColumnDateTextDirective;
@@ -348,7 +350,8 @@ describe('NimbleTableColumnDateText', () => {
                         [placeholder]="placeholder"
                     ></nimble-table-column-date-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnDateTextDirective }) public directive: NimbleTableColumnDateTextDirective;
@@ -1061,7 +1064,8 @@ describe('NimbleTableColumnDateText', () => {
                         [attr.placeholder]="placeholder"
                     ></nimble-table-column-date-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnDateTextDirective }) public directive: NimbleTableColumnDateTextDirective;

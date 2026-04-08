@@ -10,7 +10,7 @@ export class ChipPageObject {
 
     public isRemoveButtonVisible(): boolean {
         const removeButton = this.getRemoveButton();
-        return removeButton ? removeButton !== null : false;
+        return !!removeButton;
     }
 
     public getRemoveButtonTextContent(): string {

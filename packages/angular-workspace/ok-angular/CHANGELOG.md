@@ -1,8 +1,412 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.0.6
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.9
+
+## 2.0.5
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.8
+
+## 2.0.4
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.7
+
+## 2.0.3
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.6
+
+## 2.0.2
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.5
+
+## 2.0.1
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.4
+
+## 2.0.0
+
+Thu, 19 Mar 2026 20:13:51 GMT
+
+### Major changes
+
+- Angular 20 update ([ni/nimble@7b9569e](https://github.com/ni/nimble/commit/7b9569e12f7a218f64addcafd03d0cdeed1c9e09))
+
+## 1.2.3
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.3
+
+## 1.2.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.2
+
+## 1.2.1
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.1
+
+## 1.2.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v0.3.0
+
+## 1.1.22
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.21
+
+## 1.1.21
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.20
+
+## 1.1.20
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.19
+
+## 1.1.19
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.18
+
+## 1.1.18
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.17
+
+## 1.1.17
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.16
+
+## 1.1.16
+
+Sat, 28 Feb 2026 00:50:55 GMT
+
+### Patches
+
+- Update to @angular/build ([ni/nimble@dc702d8](https://github.com/ni/nimble/commit/dc702d8999d88b69c70206ad85bda58667c4a4bc))
+
+## 1.1.15
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.14
+
+## 1.1.14
+
+Mon, 16 Feb 2026 22:59:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.13
+
+## 1.1.13
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.12
+
+## 1.1.12
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.11
+
+## 1.1.11
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.10
+
+## 1.1.10
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.9
+
+## 1.1.9
+
+Tue, 10 Feb 2026 21:22:58 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.8
+
+## 1.1.8
+
+Sat, 07 Feb 2026 03:16:38 GMT
+
+### Patches
+
+- Update links to angular.io in documentation ([ni/nimble@152ebf2](https://github.com/ni/nimble/commit/152ebf2574a4f54cf8bbec4de1cc490d0e1be166))
+
+## 1.1.7
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.7
+
+## 1.1.6
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.6
+
+## 1.1.5
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.5
+
+## 1.1.4
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.4
+
+## 1.1.3
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.3
+
+## 1.1.2
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.2
+
+## 1.1.1
+
+Mon, 02 Feb 2026 13:53:04 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.2.1
+
+## 1.1.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v0.2.0
+
+## 1.0.5
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.27
+
+## 1.0.4
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/ok-components to v0.1.26
+
+## 1.0.3
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.25
+
+## 1.0.2
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.24
+
+## 1.0.1
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.23
+
+## 1.0.0
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Major changes
+
+- Update Angular dependencies and forked files to v19.2 ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/ok-components to v0.1.22
+
+## 0.1.22
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.21
+
+## 0.1.21
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.20
+
+## 0.1.20
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.19
+
+## 0.1.19
+
+Tue, 09 Dec 2025 00:59:48 GMT
+
+### Patches
+
+- Add "standalone: false" to every directive, component, pipe decorator ([ni/nimble@b8d39ab](https://github.com/ni/nimble/commit/b8d39ab52baa53977f131fc2631ee55241cdda9f))
+
+## 0.1.18
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.18
+
+## 0.1.17
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.17
+
+## 0.1.16
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.16
+
+## 0.1.15
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/ok-components to v0.1.15
+
+## 0.1.14
+
+Thu, 04 Dec 2025 19:09:56 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.1.14
+
+## 0.1.12
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/ok-components to v0.1.12
 
 ## 0.1.10
 

@@ -110,7 +110,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
                 if (node.type.name.startsWith(mentionPluginPrefix)) {
                     hasMention = true;
                 }
-                const continueDescent = hasMention === false;
+                const continueDescent = !hasMention;
                 return continueDescent;
             });
             return !hasMention;
@@ -718,7 +718,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
 applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 

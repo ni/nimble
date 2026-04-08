@@ -20,7 +20,8 @@ describe('Nimble radio control value accessor', () => {
                         {{ button.name }}
                     </nimble-radio>
                 </nimble-radio-group>
-             `
+             `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { static: true }) public radioGroup: ElementRef<RadioGroup>;
@@ -117,7 +118,8 @@ describe('Nimble radio control value accessor', () => {
                         </nimble-radio>
                     </nimble-radio-group>
                 </form>
-                `
+                `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { static: true }) public radioGroup: ElementRef<RadioGroup>;

@@ -1,6 +1,7 @@
-import { TreeItem } from '@ni/nimble-components/dist/esm/tree-item';
+import { TreeItem, treeItemTag } from '@ni/nimble-components/dist/esm/tree-item';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
+export { treeItemTag };
 export { type TreeItem };
 export const NimbleTreeItem = wrap(TreeItem, {
     events: {

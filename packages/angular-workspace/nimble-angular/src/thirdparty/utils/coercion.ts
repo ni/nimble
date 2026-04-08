@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/core/src/util/coercion.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/core/src/util/coercion.ts
  * with no modifications so that the `booleanAttribute` function can be used by the forked directive
  * in `router_link.ts` without depending on private Angular APIs.
  */
@@ -18,10 +18,12 @@
  * Intended to be used as a transform function of an input.
  *
  *  @usageNotes
- *  ```typescript
- *  @Input({ transform: booleanAttribute }) status!: boolean;
+ *  ```ts
+ *  status = input({ transform: booleanAttribute });
  *  ```
  * @param value Value to be transformed.
+ *
+ * @see [Built-in transformations](guide/components/inputs#built-in-transformations)
  *
  * @publicApi
  */
@@ -36,11 +38,12 @@ export function booleanAttribute(value: unknown): boolean {
  * @param fallbackValue Value to use if the provided value can't be parsed as a number.
  *
  *  @usageNotes
- *  ```typescript
- *  @Input({ transform: numberAttribute }) id!: number;
+ *  ```ts
+ *  status = input({ transform: numberAttribute });
  *  ```
  *
  * @publicApi
+ * @see [Built-in transformations](guide/components/inputs#built-in-transformations)
  */
 export function numberAttribute(value: unknown, fallbackValue = NaN): number {
   // parseFloat(value) handles most of the cases we're interested in (it treats null, empty string,

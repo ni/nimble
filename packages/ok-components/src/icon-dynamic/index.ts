@@ -1,0 +1,68 @@
+/* eslint-disable max-classes-per-file */
+import { DesignSystem } from '@ni/fast-foundation';
+import { html, css } from '@ni/fast-element';
+import { Icon } from '@ni/nimble-components/dist/esm/icon-base';
+import { styles } from './styles';
+import { template } from './template';
+import { display } from '../utilities/style/display';
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'ok-icon-dynamic': IconDynamic;
+    }
+}
+
+/**
+ * Base class for dynamic icons. Not intended to be used directly, instead use to register dynamic icons:
+ * ```
+ * customElements.get('ok-icon-dynamic').registerIconDynamic('ok-icon-dynamic-awesome', '<img data uri or arbitrary url>');
+ * ```
+ * After calling successfully, the icon can be used like any other icon:
+ * ```
+ * <ok-icon-dynamic-awesome></ok-icon-dynamic-awesome>
+ * <nimble-mapping-icon icon="ok-icon-dynamic-awesome"></nimble-mapping-icon>
+ * ```
+ */
+export class IconDynamic extends Icon {
+    public constructor(/** @internal */ public readonly url: string) {
+        super();
+    }
+
+    public static registerIconDynamic(tagName: string, url: string): void {
+        const tagPrefix = 'ok-icon-dynamic-';
+        if (!tagName.startsWith(tagPrefix)) {
+            throw new Error(`Icon tag name must start with '${tagPrefix}', provided name: ${tagName}`);
+        }
+        const name = tagName.substring(tagPrefix.length);
+        if (!/^[a-z][a-z]+$/.test(name)) {
+            throw new Error(`Icon name must be lowercase [a-z] and at least two characters long, provided name: ${name}`);
+        }
+        const iconClassName = `IconDynamic${name.charAt(0).toUpperCase() + name.slice(1)}`;
+        const iconClassContainer = {
+            // Class name for expression should come object literal assignment, helpful for stack traces, etc.
+            [iconClassName]: class extends IconDynamic {
+                constructor() {
+                    super(url);
+                }
+            }
+        } as const;
+        const iconClass = iconClassContainer[iconClassName]!;
+        const baseName = `icon-dynamic-${name}`;
+        const composedIcon = iconClass.compose({
+            baseName,
+            template,
+            styles
+        });
+
+        DesignSystem.getOrCreate().withPrefix('ok').register(composedIcon());
+    }
+}
+
+const okIconDynamic = IconDynamic.compose({
+    baseName: 'icon-dynamic',
+    template: html`<template></template>`,
+    styles: css`${display('none')}`
+});
+
+DesignSystem.getOrCreate().withPrefix('ok').register(okIconDynamic());
+export const iconDynamicTag = 'ok-icon-dynamic';

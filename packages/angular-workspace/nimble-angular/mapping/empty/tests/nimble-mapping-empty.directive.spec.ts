@@ -31,7 +31,8 @@ describe('NimbleMappingEmpty', () => {
                         </nimble-mapping-empty>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingEmptyDirective }) public directive: NimbleMappingEmptyDirective;
@@ -77,7 +78,8 @@ describe('NimbleMappingEmpty', () => {
                         </nimble-mapping-empty>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingEmptyDirective }) public directive: NimbleMappingEmptyDirective;
@@ -137,7 +139,8 @@ describe('NimbleMappingEmpty', () => {
                         </nimble-mapping-empty>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingEmptyDirective }) public directive: NimbleMappingEmptyDirective;

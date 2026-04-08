@@ -35,7 +35,8 @@ describe('Nimble anchor', () => {
         @Component({
             template: `
                 <nimble-anchor #anchor></nimble-anchor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchor', { read: NimbleAnchorDirective }) public directive: NimbleAnchorDirective;
@@ -124,7 +125,8 @@ describe('Nimble anchor', () => {
                     contenteditable="true"
                     >
                 </nimble-anchor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchor', { read: NimbleAnchorDirective }) public directive: NimbleAnchorDirective;
@@ -213,7 +215,8 @@ describe('Nimble anchor', () => {
                     [contentEditable]="contentEditable"
                     >
                 </nimble-anchor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchor', { read: NimbleAnchorDirective }) public directive: NimbleAnchorDirective;
@@ -372,7 +375,8 @@ describe('Nimble anchor', () => {
                     [attr.contenteditable]="contentEditable"
                     >
                 </nimble-anchor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchor', { read: NimbleAnchorDirective }) public directive: NimbleAnchorDirective;

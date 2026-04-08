@@ -9,7 +9,8 @@ export { breadcrumbItemTag };
  * Directive to provide Angular integration for the breadcrumb item.
  */
 @Directive({
-    selector: 'nimble-breadcrumb-item'
+    selector: 'nimble-breadcrumb-item',
+    standalone: false
 })
 export class NimbleBreadcrumbItemDirective extends NimbleAnchorBaseDirective<BreadcrumbItem> {
     public constructor(renderer: Renderer2, elementRef: ElementRef<BreadcrumbItem>) {

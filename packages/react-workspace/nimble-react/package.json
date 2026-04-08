@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-react",
-  "version": "0.7.0",
+  "version": "0.12.5",
   "description": "React components for the NI Nimble Design System",
   "keywords": [
     "ni",
@@ -9,36 +9,53 @@
   ],
   "scripts": {
     "build": "npm run build:icons && npm run build:components",
-    "build:icons": "npm run build:icons:bundle && npm run build:icons:run",
-    "build:icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
-    "build:icons:run": "node build/generate-icons/dist/index.js",
+    "build:icons": "node build/generate-icons.mjs",
     "build:components": "tsc -p ./tsconfig.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
     "invoke-publish": "npm publish"
   },
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./styles/*": "./styles/*",
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "types": "./dist/esm/*.d.ts",
+      "import": "./dist/esm/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/esm/*",
+        "dist/esm/*/index.d.ts"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/react-workspace/nimble-react"
+    "url": "git+https://github.com/ni/nimble.git"
   },
   "publishConfig": {
     "access": "public"
   },
   "author": "National Instruments",
   "license": "MIT",
+  "peerDependencies": {
+    "@lit/react": "^1.0.8",
+    "@ni/nimble-components": "^35.5.5",
+    "react": "^17 || ^18 || ^19"
+  },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-tokens": "^8.13.2",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "rollup": "^4.12.0",
-    "typescript": "~5.4.5"
-  },
-  "peerDependencies": {
-    "@lit/react": "^1.0.8",
-    "@ni/nimble-components": "^34.8.0",
-    "react": "^16 || ^17 || ^18"
+    "@ni/nimble-components": "^35.5.5",
+    "@ni/nimble-tokens": "^8.17.0",
+    "typescript": "~5.8.3"
   }
 }

@@ -11,7 +11,7 @@ locales.
 
 ## Links To Relevant Work Items and Reference Material
 
-[IxD Design/Requirements Document](IxD.md)
+N/A
 
 ## Implementation / Design
 

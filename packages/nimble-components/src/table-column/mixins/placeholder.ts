@@ -4,7 +4,6 @@ import type { TableColumn } from '../base';
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
 // Because the 'placeholder' mixin doesn't depend on any properties of the TableColumn, there are no properties to pick.
 type TableColumnWithPlaceholder = Pick<TableColumn, never>;
-// prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TableColumnWithPlaceholderConstructor = abstract new (...args: any[]) => TableColumnWithPlaceholder;
 
@@ -24,7 +23,6 @@ export function mixinColumnWithPlaceholderAPI<
         public abstract placeholderChanged(): void;
     }
     attr({ attribute: 'placeholder' })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         ColumnWithPlaceholder.prototype,
         'placeholder'
     );

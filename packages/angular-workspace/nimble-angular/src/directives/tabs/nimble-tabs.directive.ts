@@ -8,7 +8,8 @@ export { tabsTag };
  * Directive to provide Angular integration for the tabs element.
  */
 @Directive({
-    selector: 'nimble-tabs'
+    selector: 'nimble-tabs',
+    standalone: false
 })
 export class NimbleTabsDirective {
     public get activeid(): string {

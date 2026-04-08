@@ -11,7 +11,8 @@ export { mappingSpinnerTag };
  * Directive to provide Angular integration for the mapping spinner element used by the spinner column.
  */
 @Directive({
-    selector: 'nimble-mapping-spinner'
+    selector: 'nimble-mapping-spinner',
+    standalone: false
 })
 export class NimbleMappingSpinnerDirective extends NimbleMappingDirective<MappingKey> {
     public get text(): string | undefined {

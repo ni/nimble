@@ -9,6 +9,7 @@ import {
     backgroundStates,
     defaultBackgroundState
 } from './states';
+import { transformSource } from './transformSource';
 
 export const fastParameters = () => ({
     a11y: { disable: true },
@@ -23,15 +24,25 @@ export const fastParameters = () => ({
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
  * Bindings, such as event binding, will be active.
+ * The first element child of the fragment will be returned.
  */
 export const renderViewTemplate = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     source: TSource
-): DocumentFragment => {
+): Element => {
     const template = document.createElement('template');
     const fragment = template.content;
     viewTemplate.render(source, fragment);
-    return fragment;
+    const content = fragment.firstElementChild!;
+    // Capture the outerHTML content before the node is attached to the DOM
+    // to workaround outerHTML being called after the element is attached to the DOM
+    // https://github.com/ni/nimble/issues/2706
+    const outerHtml = content.outerHTML;
+    const value = transformSource(outerHtml);
+    Object.defineProperty(content, 'outerHTML', {
+        value,
+    });
+    return content;
 };
 
 /**
@@ -44,8 +55,7 @@ export const createStory = <TSource>(
         const wrappedViewTemplate = html<TSource>`
             <div class="code-hide-top-container">${viewTemplate}</div>
         `;
-        const fragment = renderViewTemplate(wrappedViewTemplate, source);
-        const content = fragment.firstElementChild!;
+        const content = renderViewTemplate(wrappedViewTemplate, source);
         return content;
     };
 };
@@ -76,8 +86,7 @@ export const createUserSelectedThemeStory = <TSource>(
                 ${viewTemplate}
             </${themeProviderTag}>
         `;
-        const fragment = renderViewTemplate(wrappedViewTemplate, source);
-        const content = fragment.firstElementChild!;
+        const content = renderViewTemplate(wrappedViewTemplate, source);
         return content;
     };
 };
@@ -113,8 +122,7 @@ export const createFixedThemeStory = <TSource>(
                 </div>
             </${themeProviderTag}>
         `;
-        const fragment = renderViewTemplate(wrappedViewTemplate, source);
-        const content = fragment.firstElementChild!;
+        const content = renderViewTemplate(wrappedViewTemplate, source);
         return content;
     };
 };
@@ -183,10 +191,10 @@ export const fullBleedDescription = (options: {
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
 export const disabledDescription = (options: {
     componentName: string
-}): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
+}): string => `Styles the ${options.componentName} as disabled and prevents focus and user interactions.`;
 export const readonlyDescription = (options: {
     componentName: string
-}): string => `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
+}): string => `Styles the ${options.componentName} as readonly and allows focus but prevents other interactions.`;
 export const appearanceReadOnlyDescription = (options: {
     componentName: string
 }): string => `Styles the ${options.componentName} as readonly when the component is disabled. This is useful for applications that use a forms library that sets \`disabled\` on components but don't want those components to have a disabled appearance. This property has no impact on the control when it is not disabled.`;

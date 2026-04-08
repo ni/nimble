@@ -57,7 +57,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [footerHiddenName, footerHidden]: FooterHiddenState,
@@ -99,7 +98,6 @@ const longTextPlayFunction = (): void => {
     ));
 };
 
-// prettier-ignore
 const editorSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
     [heightLabel, heightStyle]: [string, string]
@@ -123,7 +121,6 @@ const editorSizingTestCase = (
     </div>
 `;
 
-// prettier-ignore
 const slotButtonsTextCase = (
     slotButton: SlotButtons
 ): ViewTemplate => html`
@@ -184,7 +181,6 @@ export const slottedButtons: StoryFn = createStory(html`
     ${createMatrix(slotButtonsTextCase, [slotButtons])}
 `);
 
-// prettier-ignore
 const mobileWidthComponent = html`
     <${richTextEditorTag} style="margin: 20px; width: 360px; height: 250px;">
         <${richTextMentionUsersTag} pattern="^user:(.*)">

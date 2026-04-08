@@ -8,7 +8,8 @@ export { menuTag };
  * Directive to provide Angular integration for the menu.
  */
 @Directive({
-    selector: 'nimble-menu'
+    selector: 'nimble-menu',
+    standalone: false
 })
 export class NimbleMenuDirective {
 }

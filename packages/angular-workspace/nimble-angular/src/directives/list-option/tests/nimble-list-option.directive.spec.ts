@@ -22,7 +22,8 @@ describe('Nimble listbox option', () => {
         @Component({
             template: `
                 <nimble-list-option #listOption></nimble-list-option>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('listOption', { read: NimbleListOptionDirective }) public directive: NimbleListOptionDirective;
@@ -68,7 +69,8 @@ describe('Nimble listbox option', () => {
                     selected
                     hidden
                 ></nimble-list-option>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('listOption', { read: NimbleListOptionDirective }) public directive: NimbleListOptionDirective;
@@ -114,7 +116,8 @@ describe('Nimble listbox option', () => {
                     [selected]="selected"
                     [hidden]="hidden"
                 ></nimble-list-option>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('listOption', { read: NimbleListOptionDirective }) public directive: NimbleListOptionDirective;
@@ -182,7 +185,8 @@ describe('Nimble listbox option', () => {
                     [attr.selected]="selected"
                     [attr.hidden]="hidden">
                 </nimble-list-option>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('listOption', { read: NimbleListOptionDirective }) public directive: NimbleListOptionDirective;

@@ -18,7 +18,8 @@ describe('Nimble theme provider', () => {
         @Component({
             template: `
                 <nimble-theme-provider #themeProvider></nimble-theme-provider>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('themeProvider', { read: NimbleThemeProviderDirective }) public directive: NimbleThemeProviderDirective;
@@ -71,7 +72,8 @@ describe('Nimble theme provider', () => {
                     theme="dark"
                     lang="de-DE">
                 </nimble-theme-provider>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('themeProvider', { read: NimbleThemeProviderDirective }) public directive: NimbleThemeProviderDirective;
@@ -111,7 +113,8 @@ describe('Nimble theme provider', () => {
                     [theme]="theme"
                     [lang]="lang">
                 </nimble-theme-provider>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('themeProvider', { read: NimbleThemeProviderDirective }) public directive: NimbleThemeProviderDirective;
@@ -165,7 +168,8 @@ describe('Nimble theme provider', () => {
                     [attr.theme]="theme"
                     [attr.lang]="lang">
                 </nimble-theme-provider>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('themeProvider', { read: NimbleThemeProviderDirective }) public directive: NimbleThemeProviderDirective;

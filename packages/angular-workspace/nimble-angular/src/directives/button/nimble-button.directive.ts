@@ -11,7 +11,8 @@ export type { ButtonType };
  * Directive to provide Angular integration for the button.
  */
 @Directive({
-    selector: 'nimble-button'
+    selector: 'nimble-button',
+    standalone: false
 })
 export class NimbleButtonDirective {
     public get appearance(): ButtonAppearance {

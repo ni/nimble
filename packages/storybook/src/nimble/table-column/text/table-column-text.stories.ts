@@ -72,7 +72,6 @@ const metadata: Meta<SharedTableArgs> = {
             handles: sharedTableActions
         }
     },
-    // prettier-ignore
     argTypes: {
         ...sharedTableArgTypes,
         selectionMode: {
@@ -98,7 +97,6 @@ interface TextColumnTableArgs extends SharedTableArgs {
 
 export const textColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {},
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
         <${tableTag}
             ${ref('tableRef')}

@@ -9,7 +9,8 @@ export { richTextMentionUsersTag };
  * Directive to provide Angular integration for the rich text mention users element.
  */
 @Directive({
-    selector: 'nimble-rich-text-mention-users'
+    selector: 'nimble-rich-text-mention-users',
+    standalone: false
 })
 
 export class NimbleRichTextMentionUsersDirective extends NimbleRichTextMentionDirective<RichTextMentionUsers> {}

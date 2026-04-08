@@ -10,7 +10,8 @@ export { TreeViewSelectionMode };
  * Directive to provide Angular integration for the tree view.
  */
 @Directive({
-    selector: 'nimble-tree-view'
+    selector: 'nimble-tree-view',
+    standalone: false
 })
 export class NimbleTreeViewDirective {
     public get selectionMode(): TreeViewSelectionMode {

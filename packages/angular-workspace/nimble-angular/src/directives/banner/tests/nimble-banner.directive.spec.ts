@@ -20,7 +20,8 @@ describe('Nimble banner', () => {
         @Component({
             template: `
                 <nimble-banner #banner></nimble-banner>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('banner', { read: NimbleBannerDirective }) public directive: NimbleBannerDirective;
@@ -71,7 +72,8 @@ describe('Nimble banner', () => {
                     severity="error"
                     title-hidden
                     prevent-dismiss>
-                </nimble-banner>`
+                </nimble-banner>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('banner', { read: NimbleBannerDirective }) public directive: NimbleBannerDirective;
@@ -122,7 +124,8 @@ describe('Nimble banner', () => {
                     [severity]="severity"
                     [title-hidden]="titleHidden"
                     [prevent-dismiss]="preventDismiss">
-                </nimble-banner>`
+                </nimble-banner>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('banner', { read: NimbleBannerDirective }) public directive: NimbleBannerDirective;
@@ -201,7 +204,8 @@ describe('Nimble banner', () => {
                     [attr.severity]="severity"
                     [attr.title-hidden]="titleHidden"
                     [attr.prevent-dismiss]="preventDismiss">
-                </nimble-banner>`
+                </nimble-banner>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('banner', { read: NimbleBannerDirective }) public directive: NimbleBannerDirective;

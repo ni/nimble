@@ -16,7 +16,8 @@ describe('Nimble tabs', () => {
             <nimble-tab-panel>Tab Content Two</nimble-tab-panel>
             <nimble-tab-panel>Tab Content Three</nimble-tab-panel>
         </nimble-tabs>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('tabs', { static: true }) public tabs: ElementRef<Tabs>;

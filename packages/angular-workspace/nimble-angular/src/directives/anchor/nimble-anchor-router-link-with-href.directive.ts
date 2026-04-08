@@ -14,7 +14,10 @@ import { RouterLink } from '../../thirdparty/directives/router_link';
  * Note: Clients need to use [nimbleRouterLink] instead of [routerLink], so that there
  * won't also be an active RouterLink directive incorrectly handling navigation.
  */
-@Directive({ selector: 'nimble-anchor[nimbleRouterLink]' })
+@Directive({
+    selector: 'nimble-anchor[nimbleRouterLink]',
+    standalone: false
+})
 export class NimbleAnchorRouterLinkWithHrefDirective extends RouterLink {
     @Input()
     public set nimbleRouterLink(commands: never[] | string | null | undefined) {

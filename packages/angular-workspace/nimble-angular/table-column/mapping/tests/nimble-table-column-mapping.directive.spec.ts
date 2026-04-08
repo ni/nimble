@@ -40,7 +40,8 @@ describe('NimbleTableColumnMapping', () => {
                         width-mode="icon-size"
                     ></nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnMappingDirective }) public directive: NimbleTableColumnMappingDirective;
@@ -155,7 +156,8 @@ describe('NimbleTableColumnMapping', () => {
                         [width-mode]="widthMode"
                     ></nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnMappingDirective }) public directive: NimbleTableColumnMappingDirective;
@@ -412,7 +414,8 @@ describe('NimbleTableColumnMapping', () => {
                         [attr.width-mode]="widthMode"
                     ></nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnMappingDirective }) public directive: NimbleTableColumnMappingDirective;

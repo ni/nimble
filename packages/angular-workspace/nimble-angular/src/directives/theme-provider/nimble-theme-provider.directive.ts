@@ -11,7 +11,8 @@ export { Theme };
  * Directive for Angular integration for the theme provider
  */
 @Directive({
-    selector: 'nimble-theme-provider'
+    selector: 'nimble-theme-provider',
+    standalone: false
 })
 export class NimbleThemeProviderDirective {
     public get theme(): Theme {

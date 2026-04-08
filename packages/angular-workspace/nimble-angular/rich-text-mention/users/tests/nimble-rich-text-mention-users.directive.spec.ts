@@ -23,7 +23,8 @@ describe('NimbleRichTextMentionUsers', () => {
                 <nimble-rich-text-editor>
                     <nimble-rich-text-mention-users #users></nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('users', { read: NimbleRichTextMentionUsersDirective }) public directive: NimbleRichTextMentionUsersDirective;
@@ -62,7 +63,8 @@ describe('NimbleRichTextMentionUsers', () => {
                 <nimble-rich-text-editor>
                     <nimble-rich-text-mention-users pattern="^user:(.*)" button-label="Mention User" #users></nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('users', { read: NimbleRichTextMentionUsersDirective }) public directive: NimbleRichTextMentionUsersDirective;
@@ -106,7 +108,8 @@ describe('NimbleRichTextMentionUsers', () => {
                 <nimble-rich-text-editor>
                     <nimble-rich-text-mention-users [pattern]="pattern" [buttonLabel]="buttonLabel" #users></nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('users', { read: NimbleRichTextMentionUsersDirective }) public directive: NimbleRichTextMentionUsersDirective;
@@ -159,7 +162,8 @@ describe('NimbleRichTextMentionUsers', () => {
                 <nimble-rich-text-editor>
                     <nimble-rich-text-mention-users [attr.pattern]="pattern" [attr.button-label]="buttonLabel" #users></nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('users', { read: NimbleRichTextMentionUsersDirective }) public directive: NimbleRichTextMentionUsersDirective;

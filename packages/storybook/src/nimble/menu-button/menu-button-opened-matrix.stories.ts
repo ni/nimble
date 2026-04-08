@@ -22,7 +22,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = ([
     position,
     positionStyle

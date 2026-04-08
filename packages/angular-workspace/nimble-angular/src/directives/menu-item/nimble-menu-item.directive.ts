@@ -9,7 +9,8 @@ export { menuItemTag };
  * Directive to provide Angular integration for the menu.
  */
 @Directive({
-    selector: 'nimble-menu-item'
+    selector: 'nimble-menu-item',
+    standalone: false
 })
 export class NimbleMenuItemDirective {
     public get disabled(): boolean {

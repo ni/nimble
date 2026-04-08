@@ -157,7 +157,7 @@ export class ExpansionManager<TData extends TableRecord> {
 
         return (
             this.hierarchyOptions.get(id)?.delayedHierarchyState
-                === TableRecordDelayedHierarchyState.loadingChildren ?? false
+                === TableRecordDelayedHierarchyState.loadingChildren
         );
     }
 

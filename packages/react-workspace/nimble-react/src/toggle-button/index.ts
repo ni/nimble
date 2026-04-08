@@ -1,6 +1,7 @@
-import { ToggleButton } from '@ni/nimble-components/dist/esm/toggle-button';
+import { ToggleButton, toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
+export { toggleButtonTag };
 export { type ToggleButton };
 export const NimbleToggleButton = wrap(ToggleButton, {
     events: {

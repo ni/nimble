@@ -8,7 +8,8 @@ export { toolbarTag };
  * Directive to provide Angular integration for the toolbar.
  */
 @Directive({
-    selector: 'nimble-toolbar'
+    selector: 'nimble-toolbar',
+    standalone: false
 })
 export class NimbleToolbarDirective {
 }

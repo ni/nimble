@@ -62,7 +62,6 @@ const metadata: Meta<MenuArgs> = {
 export default metadata;
 
 export const menu: StoryObj<MenuArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
             ${repeat(x => x.itemOptions, html<ItemArgs>`
@@ -152,7 +151,6 @@ export const menu: StoryObj<MenuArgs> = {
 };
 
 export const menuItem: StoryObj<MenuItemArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
             <${menuItemTag} ?disabled="${x => x.disabled}">
@@ -192,7 +190,6 @@ export const menuItem: StoryObj<MenuItemArgs> = {
 };
 
 export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
             <${anchorMenuItemTag} ?disabled="${x => x.disabled}" href="${x => x.href}">
@@ -238,7 +235,6 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
 };
 
 export const nestedMenu: StoryObj<MenuArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <div style="width: 600px; height: 300px;">
             <${menuTag}>
@@ -286,7 +282,6 @@ export const nestedMenu: StoryObj<MenuArgs> = {
 };
 
 export const customMenu: StoryObj<MenuArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style>
             .header-wrapper {

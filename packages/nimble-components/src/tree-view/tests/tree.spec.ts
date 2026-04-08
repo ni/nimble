@@ -26,7 +26,6 @@ class Model {
 
 async function setup(source: Model): Promise<Fixture<TreeView>> {
     return await fixture<TreeView>(
-        // prettier-ignore
         html<Model>`
         <${treeViewTag} ${ref('treeView')}>
             <${treeItemTag} ${ref('root1')}>Root1

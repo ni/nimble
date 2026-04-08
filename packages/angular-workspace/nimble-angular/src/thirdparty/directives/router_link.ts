@@ -1,11 +1,11 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/18.2.13/packages/router/src/directives/router_link.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/router/src/directives/router_link.ts
  * with the following modifications:
  * - Copy `isUrlTree` function from url_tree.ts into this file instead of importing
  * - Hardcode `isAnchorElement` to `true` so that the directive will correctly set the `href` on elements within nimble that represent anchors
  * - Make `href` a `@HostBindinding` to avoid using Angular's private sanitization APIs because `href` bindings automatically are sanitized by
- *   Angular (see https://angular.io/guide/security#sanitization-and-security-contexts). Implementations leveraging RouterLink should have a test
+ *   Angular (see https://angular.dev/best-practices/security#sanitization-and-security-contexts). Implementations leveraging RouterLink should have a test
  *   ensuring sanitization is called.
  * - Comment out uneccessary export of the deprecated `RouterLinkWithHref`
  */
@@ -25,26 +25,30 @@ import {
   booleanAttribute,
   Directive,
   ElementRef,
+  HostAttributeToken,
   HostBinding,
   HostListener,
+  inject,
   Inject,
   Input,
   type OnChanges,
   type OnDestroy,
   Renderer2,
   ɵRuntimeError as RuntimeError,
+  signal,
   type SimpleChanges,
-  ɵɵsanitizeUrlOrResourceUrl,
+  untracked,
+  ɵINTERNAL_APPLICATION_ERROR_HANDLER,
 } from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
-
+// import {RuntimeErrorCode} from '../errors';
 import {type Event, NavigationEnd} from '@angular/router';
 import type {QueryParamsHandling} from '@angular/router';
 import {Router} from '@angular/router';
+import {ROUTER_CONFIGURATION} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import type {Params} from '@angular/router';
-import {UrlTree} from '@angular/router';
-// import {RuntimeErrorCode} from '../errors';
+import {/*isUrlTree,*/ UrlTree} from '@angular/router';
 
 // [Nimble] Copied from https://github.com/angular/angular/blob/18.2.13/packages/router/src/url_tree.ts
 function isUrlTree(v: any): v is UrlTree {
@@ -95,7 +99,7 @@ function isUrlTree(v: any): v is UrlTree {
  *
  * The following link adds a query parameter and a fragment to the generated URL:
  *
- * ```
+ * ```html
  * <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" fragment="education">
  *   link to user component
  * </a>
@@ -112,7 +116,7 @@ function isUrlTree(v: any): v is UrlTree {
  *
  * For example:
  *
- * ```
+ * ```html
  * <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" queryParamsHandling="merge">
  *   link to user component
  * </a>
@@ -129,7 +133,7 @@ function isUrlTree(v: any): v is UrlTree {
  * [`History.state` property](https://developer.mozilla.org/en-US/docs/Web/API/History#Properties).
  * For example:
  *
- * ```
+ * ```html
  * <a [routerLink]="['/user/bob']" [state]="{tracingId: 123}">
  *   link to user component
  * </a>
@@ -139,13 +143,19 @@ function isUrlTree(v: any): v is UrlTree {
  * navigation-state value. For example, to capture the `tracingId` during the `NavigationStart`
  * event:
  *
- * ```
+ * ```ts
  * // Get NavigationStart events
  * router.events.pipe(filter(e => e instanceof NavigationStart)).subscribe(e => {
  *   const navigation = router.getCurrentNavigation();
  *   tracingService.trace({id: navigation.extras.state.tracingId});
  * });
  * ```
+ *
+ * ### RouterLink compatible custom elements
+ *
+ * In order to make a custom element work with routerLink, the corresponding custom
+ * element must implement the `href` attribute and must list `href` in the array of
+ * the static property/getter `observedAttributes`.
  *
  * @ngModule RouterModule
  *
@@ -154,22 +164,34 @@ function isUrlTree(v: any): v is UrlTree {
 /* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector: '[routerLink]',
-  standalone: true,
+  host: {
+    '[attr.href]': 'reactiveHref()',
+  },
 })
 */
 @Directive()
 export class RouterLink implements OnChanges, OnDestroy {
+  /** @nodoc */
+  protected readonly reactiveHref = signal<string | null>(null);
   /**
    * Represents an `href` attribute value applied to a host element,
-   * when a host element is `<a>`. For other tags, the value is `null`.
+   * when a host element is an `<a>`/`<area>` tag or a compatible custom element.
+   * For other tags, the value is `null`.
    */
   // [Nimble] Make `href` a `@HostBinding`
-  // href: string | null = null;
-  @HostBinding('attr.href') href: string|null = null;
+  @HostBinding('attr.href') href: string | null = null;
+  // get href() {
+  //   return untracked(this.reactiveHref);
+  // }
+  // /** @deprecated */
+  // set href(value: string | null) {
+  //   this.reactiveHref.set(value);
+  // }
 
   /**
    * Represents the `target` attribute on a host element.
-   * This is only used when the host element is an `<a>` tag.
+   * This is only used when the host element is
+   * an `<a>`/`<area>` tag or a compatible custom element.
    */
   @HostBinding('attr.target') @Input() target?: string;
 
@@ -219,13 +241,16 @@ export class RouterLink implements OnChanges, OnDestroy {
    */
   @Input() relativeTo?: ActivatedRoute | null;
 
-  /** Whether a host element is an `<a>` tag. */
+  /** Whether a host element is an `<a>`/`<area>` tag or a compatible custom element. */
   private isAnchorElement: boolean;
 
   private subscription?: Subscription;
 
   /** @internal */
   onChanges = new Subject<RouterLink>();
+
+  private readonly applicationErrorHandler = inject(ɵINTERNAL_APPLICATION_ERROR_HANDLER);
+  private readonly options = inject(ROUTER_CONFIGURATION, {optional: true});
 
   constructor(
     private router: Router,
@@ -236,20 +261,65 @@ export class RouterLink implements OnChanges, OnDestroy {
     // [Nimble] Need Inject decorator
     @Inject(LocationStrategy) private locationStrategy?: LocationStrategy,
   ) {
+    // [Nimble] No need to initialize reactiveHref
+    // // Set the initial href value to whatever exists on the host element already
+    // this.reactiveHref.set(inject(new HostAttributeToken('href'), {optional: true}));
     // [Nimble] Hard-coding `isAnchorElement` to `true`
-    // const tagName = el.nativeElement.tagName?.toLowerCase();
-    // this.isAnchorElement = tagName === 'a' || tagName === 'area';
     this.isAnchorElement = true;
+    // const tagName = el.nativeElement.tagName?.toLowerCase();
+    // this.isAnchorElement =
+    //   tagName === 'a' ||
+    //   tagName === 'area' ||
+    //   !!(
+    //     // Avoid breaking in an SSR context where customElements might not be defined.
+    //     (
+    //       typeof customElements === 'object' &&
+    //       // observedAttributes is an optional static property/getter on a custom element.
+    //       // The spec states that this must be an array of strings.
+    //       (
+    //         customElements.get(tagName) as {observedAttributes?: string[]} | undefined
+    //       )?.observedAttributes?.includes?.('href')
+    //     )
+    //   );
 
-    if (this.isAnchorElement) {
-      this.subscription = router.events.subscribe((s: Event) => {
-        if (s instanceof NavigationEnd) {
-          this.updateHref();
-        }
-      });
+    /* [Nimble] There was a bug here in version 20.3.15 which was fixed in 21.0.9. I have backported the fix.
+       See: https://github.com/angular/angular/commit/41cd4a6af800cf7807c46862c99ae036457d8fa7
+    if (!this.isAnchorElement) {
+      this.subscribeToNavigationEventsIfNecessary();
     } else {
       this.setTabIndexIfNotOnNativeEl('0');
     }
+    if (this.isAnchorElement) {
+      this.setTabIndexIfNotOnNativeEl('0');
+      this.subscribeToNavigationEventsIfNecessary();
+    }
+    */
+  }
+
+  private subscribeToNavigationEventsIfNecessary() {
+    if (this.subscription !== undefined || !this.isAnchorElement) {
+      return;
+    }
+
+    /* [Nimble] Also part of backport
+    // preserving fragment in router state
+    let createSubcription = this.preserveFragment;
+    // preserving or merging with query params in router state
+    const dependsOnRouterState = (handling?: QueryParamsHandling | null) =>
+      handling === 'merge' || handling === 'preserve';
+    createSubcription ||= dependsOnRouterState(this.queryParamsHandling);
+    createSubcription ||=
+      !this.queryParamsHandling && !dependsOnRouterState(this.options?.defaultQueryParamsHandling);
+    if (!createSubcription) {
+      return;
+    }
+    */
+
+    this.subscription = this.router.events.subscribe((s: Event) => {
+      if (s instanceof NavigationEnd) {
+        this.updateHref();
+      }
+    });
   }
 
   /**
@@ -287,9 +357,9 @@ export class RouterLink implements OnChanges, OnDestroy {
     this.applyAttributeValue('tabindex', newTabIndex);
   }
 
-  /** @nodoc */
+  /** @docs-private */
   // TODO(atscott): Remove changes parameter in major version as a breaking change.
-  ngOnChanges(changes?: SimpleChanges) {
+  ngOnChanges(changes?: SimpleChanges): void {
     /* [Nimble] Comment out extra error handling that uses ngDevMode and RuntimeErrorCode
     if (
       ngDevMode &&
@@ -308,13 +378,14 @@ export class RouterLink implements OnChanges, OnDestroy {
     */
     if (this.isAnchorElement) {
       this.updateHref();
+      this.subscribeToNavigationEventsIfNecessary();
     }
     // This is subscribed to by `RouterLinkActive` so that it knows to update when there are changes
     // to the RouterLinks it's tracking.
     this.onChanges.next(this);
   }
 
-  private routerLinkInput: any[] | UrlTree | null = null;
+  private routerLinkInput: readonly any[] | UrlTree | null = null;
 
   /**
    * Commands to pass to {@link Router#createUrlTree} or a `UrlTree`.
@@ -326,7 +397,7 @@ export class RouterLink implements OnChanges, OnDestroy {
    * @see {@link Router#createUrlTree}
    */
   @Input()
-  set routerLink(commandsOrUrlTree: any[] | string | UrlTree | null | undefined) {
+  set routerLink(commandsOrUrlTree: readonly any[] | string | UrlTree | null | undefined) {
     if (commandsOrUrlTree == null) {
       this.routerLinkInput = null;
       this.setTabIndexIfNotOnNativeEl(null);
@@ -342,7 +413,7 @@ export class RouterLink implements OnChanges, OnDestroy {
     }
   }
 
-  /** @nodoc */
+  /** @docs-private */
   @HostListener('click', [
     '$event.button',
     '$event.ctrlKey',
@@ -379,7 +450,10 @@ export class RouterLink implements OnChanges, OnDestroy {
       state: this.state,
       info: this.info,
     };
-    this.router.navigateByUrl(urlTree, extras);
+    // navigateByUrl is mocked frequently in tests... Reduce breakages when adding `catch`
+    this.router.navigateByUrl(urlTree, extras)?.catch((e) => {
+      this.applicationErrorHandler(e);
+    });
 
     // Return `false` for `<a>` elements to prevent default action
     // and cancel the native behavior, since the navigation is handled
@@ -387,41 +461,20 @@ export class RouterLink implements OnChanges, OnDestroy {
     return !this.isAnchorElement;
   }
 
-  /** @nodoc */
+  /** @docs-private */
   ngOnDestroy(): any {
     this.subscription?.unsubscribe();
   }
 
   private updateHref(): void {
     const urlTree = this.urlTree;
+    // [Nimble] Set `href` directly instead of using `reactiveHref` since we made `href` a `@HostBinding`
     this.href =
+    // this.reactiveHref.set(
       urlTree !== null && this.locationStrategy
-        ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree))
+        ? (this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree)) ?? '')
         : null;
-
-    /**
-     * [Nimble] Remove sanitization code and applying the `href` attribute in favor of changing `href`
-     * to be a `@HostBinding`. This avoids the need of calling into private Angular sanitization code.
-     */
-    // const sanitizedValue =
-    //   this.href === null
-    //     ? null
-    //     : // This class represents a directive that can be added to both `<a>` elements,
-    //       // as well as other elements. As a result, we can't define security context at
-    //       // compile time. So the security context is deferred to runtime.
-    //       // The `ɵɵsanitizeUrlOrResourceUrl` selects the necessary sanitizer function
-    //       // based on the tag and property names. The logic mimics the one from
-    //       // `packages/compiler/src/schema/dom_security_schema.ts`, which is used at compile time.
-    //       //
-    //       // Note: we should investigate whether we can switch to using `@HostBinding('attr.href')`
-    //       // instead of applying a value via a renderer, after a final merge of the
-    //       // `RouterLinkWithHref` directive.
-    //       ɵɵsanitizeUrlOrResourceUrl(
-    //         this.href,
-    //         this.el.nativeElement.tagName.toLowerCase(),
-    //         'href',
-    //       );
-    // this.applyAttributeValue('href', sanitizedValue);
+    //);
   }
 
   private applyAttributeValue(attrName: string, attrValue: string | null) {
@@ -440,7 +493,8 @@ export class RouterLink implements OnChanges, OnDestroy {
     } else if (isUrlTree(this.routerLinkInput)) {
       return this.routerLinkInput;
     }
-    return this.router.createUrlTree(this.routerLinkInput, {
+    // [Nimble] Add type assertion to allow passing `readonly any[]` to `createUrlTree` which expects `any[]`
+    return this.router.createUrlTree(this.routerLinkInput as any[], {
       // If the `relativeTo` input is not defined, we want to use `this.route` by default.
       // Otherwise, we should use the value provided by the user in the input.
       relativeTo: this.relativeTo !== undefined ? this.relativeTo : this.route,
@@ -453,12 +507,13 @@ export class RouterLink implements OnChanges, OnDestroy {
 }
 
 // [Nimble] Remove extra export for deprecated Angular API
-// /**
-//  * @description
-//  * An alias for the `RouterLink` directive.
-//  * Deprecated since v15, use `RouterLink` directive instead.
-//  *
-//  * @deprecated use `RouterLink` directive instead.
-//  * @publicApi
-//  */
+/**
+ * @description
+ * An alias for the `RouterLink` directive.
+ * Deprecated since v15, use `RouterLink` directive instead.
+ *
+export { RouterLink as RouterLinkWithHref };
+nstead.
+ * @publicApi
+ */
 // export {RouterLink as RouterLinkWithHref};

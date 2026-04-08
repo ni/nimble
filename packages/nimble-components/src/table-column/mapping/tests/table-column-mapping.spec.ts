@@ -52,12 +52,11 @@ interface ModelFixture<T> extends Fixture<T> {
 
 describe('TableColumnMapping', () => {
     let connect: () => Promise<void>;
-    let disconnect: () => Promise<void>;
+    let disconnect: (() => Promise<void>) | undefined;
     let pageObject: TablePageObject<SimpleTableRecord>;
     let columnPageObject: TableColumnMappingPageObject<SimpleTableRecord>;
     let model: Model;
 
-    // prettier-ignore
     async function setup(options: {
         keyType: MappingKeyType,
         iconMappings?: TestIconMapping[],
@@ -441,7 +440,6 @@ describe('TableColumnMapping', () => {
             ).toBeTrue();
         });
 
-        // prettier-ignore
         async function setupInvalidMappings(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag} style="width: 700px">

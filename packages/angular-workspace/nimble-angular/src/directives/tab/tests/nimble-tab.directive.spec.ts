@@ -21,7 +21,8 @@ describe('Nimble tab', () => {
         @Component({
             template: `
                 <nimble-tab #tab></nimble-tab>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('tab', { read: NimbleTabDirective }) public directive: NimbleTabDirective;
@@ -55,7 +56,8 @@ describe('Nimble tab', () => {
                 <nimble-tab #tab
                     disabled
                 ></nimble-tab>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('tab', { read: NimbleTabDirective }) public directive: NimbleTabDirective;
@@ -89,7 +91,8 @@ describe('Nimble tab', () => {
                 <nimble-tab #tab
                     [disabled]="disabled"
                 ></nimble-tab>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('tab', { read: NimbleTabDirective }) public directive: NimbleTabDirective;
@@ -131,7 +134,8 @@ describe('Nimble tab', () => {
                 <nimble-tab #tab
                     [attr.disabled]="disabled">
                 </nimble-tab>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('tab', { read: NimbleTabDirective }) public directive: NimbleTabDirective;

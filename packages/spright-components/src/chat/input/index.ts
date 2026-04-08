@@ -1,6 +1,7 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable, DOM } from '@ni/fast-element';
+import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
@@ -14,18 +15,35 @@ declare global {
 /**
  * A Spright component for composing and sending a chat message
  */
-export class ChatInput extends FoundationElement {
+export class ChatInput extends mixinErrorPattern(FoundationElement) {
+    private static readonly fieldSizingSupported = CSS.supports(
+        'field-sizing',
+        'content'
+    );
+
     @attr
     public placeholder?: string;
 
     @attr({ attribute: 'send-button-label' })
     public sendButtonLabel?: string;
 
+    @attr({ attribute: 'stop-button-label' })
+    public stopButtonLabel?: string;
+
     @attr
     public value = '';
 
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
+
+    @attr({ attribute: 'maxlength', converter: nullableNumberConverter })
+    public maxLength?: number = -1;
+
+    @attr({ attribute: 'processing', mode: 'boolean' })
+    public processing = false;
+
+    @attr({ attribute: 'send-disabled', mode: 'boolean' })
+    public sendDisabled = false;
 
     /**
      * @internal
@@ -34,16 +52,30 @@ export class ChatInput extends FoundationElement {
     public textArea?: HTMLTextAreaElement;
 
     /**
+     * Tracks whether the send button should be disabled based on input value
      * @internal
      */
     @observable
-    public disableSendButton = true;
+    public isInputEmpty = true;
+
+    /**
+     * The width of the vertical scrollbar, if displayed.
+     * @internal
+     */
+    @observable
+    public scrollbarWidth = -1;
+
+    private resizeObserver?: ResizeObserver;
+    private updateScrollbarWidthQueued = false;
 
     /**
      * @internal
      */
     public textAreaKeydownHandler(e: KeyboardEvent): boolean {
         if (e.key === keyEnter && !e.shiftKey) {
+            if (this.processing) {
+                return false;
+            }
             this.sendButtonClickHandler();
             return false;
         }
@@ -55,7 +87,23 @@ export class ChatInput extends FoundationElement {
      */
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
-        this.disableSendButton = this.shouldDisableSendButton();
+        this.isInputEmpty = this.shouldDisableSendButton();
+        this.adjustTextAreaHeight();
+        this.queueUpdateScrollbarWidth();
+    }
+
+    // If a property can affect whether a scrollbar is visible, we need to
+    // call queueUpdateScrollbarWidth() when it changes. The exceptions are
+    // properties that affect size (e.g. height, width, cols, rows), because
+    // we already have a ResizeObserver handling those changes. Also,
+    // a change to errorVisible cannot cause scrollbar visibility to change,
+    // because we always reserve space for the error icon.
+
+    /**
+     * @internal
+     */
+    public placeholderChanged(): void {
+        this.queueUpdateScrollbarWidth();
     }
 
     /**
@@ -64,7 +112,9 @@ export class ChatInput extends FoundationElement {
     public valueChanged(): void {
         if (this.textArea) {
             this.textArea.value = this.value;
-            this.disableSendButton = this.shouldDisableSendButton();
+            this.isInputEmpty = this.shouldDisableSendButton();
+            this.adjustTextAreaHeight();
+            this.queueUpdateScrollbarWidth();
         }
     }
 
@@ -74,7 +124,18 @@ export class ChatInput extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.textArea!.value = this.value;
-        this.disableSendButton = this.shouldDisableSendButton();
+        this.isInputEmpty = this.shouldDisableSendButton();
+        this.adjustTextAreaHeight();
+        this.resizeObserver = new ResizeObserver(() => this.onResize());
+        this.resizeObserver.observe(this);
+    }
+
+    /**
+     * @internal
+     */
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.resizeObserver?.disconnect();
     }
 
     /**
@@ -91,17 +152,60 @@ export class ChatInput extends FoundationElement {
         this.$emit('send', eventDetail);
     }
 
+    /**
+     * @internal
+     */
+    public stopButtonClickHandler(): void {
+        if (!this.processing) {
+            return;
+        }
+        this.$emit('stop');
+        this.textArea?.blur();
+    }
+
     private shouldDisableSendButton(): boolean {
         return this.textArea!.value.length === 0;
     }
 
     private resetInput(): void {
         this.value = '';
-        this.disableSendButton = true;
+        this.isInputEmpty = true;
         if (this.textArea) {
             this.textArea.value = '';
+            this.adjustTextAreaHeight();
             this.textArea.focus();
         }
+    }
+
+    private onResize(): void {
+        this.adjustTextAreaHeight();
+        this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
+    }
+
+    private queueUpdateScrollbarWidth(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.updateScrollbarWidthQueued) {
+            this.updateScrollbarWidthQueued = true;
+            DOM.queueUpdate(() => this.updateScrollbarWidth());
+        }
+    }
+
+    // Workaround for browsers that do not support the CSS property `field-sizing: content`
+    // See https://github.com/ni/nimble/issues/2902
+    private adjustTextAreaHeight(): void {
+        if (ChatInput.fieldSizingSupported || !this.textArea) {
+            return;
+        }
+        const textArea = this.textArea;
+        textArea.style.height = 'auto';
+        textArea.style.height = `${textArea.scrollHeight}px`;
+    }
+
+    private updateScrollbarWidth(): void {
+        this.updateScrollbarWidthQueued = false;
+        this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
     }
 }
 

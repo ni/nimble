@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
@@ -21,4 +22,14 @@ public partial class NimbleTableColumnMapping<TKey> : NimbleTableColumnEnumBase<
     /// </summary>
     [Parameter]
     public MappingColumnWidthMode? WidthMode { get; set; }
+
+    /// <summary>
+    /// The fractional/proportional width formatted with the invariant culture.
+    /// </summary>
+    protected string FractionalWidthAsString => FractionalWidth.ToString(CultureInfo.InvariantCulture);
+
+    /// <summary>
+    /// The minimum column width formatted with the invariant culture.
+    /// </summary>
+    protected string? MinPixelWidthAsString => MinPixelWidth?.ToString(CultureInfo.InvariantCulture);
 }

@@ -15,7 +15,8 @@ describe('Nimble text field control value accessor', () => {
     @Component({
         template: `
             <nimble-text-field #textField [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-text-field>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('textField', { static: true }) public textField: ElementRef<TextField>;

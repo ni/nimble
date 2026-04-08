@@ -35,7 +35,8 @@ describe('Nimble Label Provider Table', () => {
         @Component({
             template: `
                 <nimble-label-provider-table #labelProvider></nimble-label-provider-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;
@@ -160,7 +161,8 @@ describe('Nimble Label Provider Table', () => {
                     group-row-placeholder-empty="${label16}"
                     >
                 </nimble-label-provider-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;
@@ -267,25 +269,26 @@ describe('Nimble Label Provider Table', () => {
         @Component({
             template: `
                 <nimble-label-provider-table #labelProvider
-                    [cellActionMenu]="cellActionMenu"
-                    [columnHeaderGrouped]="columnHeaderGrouped"
-                    [groupCollapse]="groupCollapse"
-                    [groupExpand]="groupExpand"
-                    [rowCollapse]="rowCollapse"
-                    [rowExpand]="rowExpand"
-                    [collapseAll]="collapseAll"
-                    [columnHeaderSortedAscending]="columnHeaderSortedAscending"
-                    [columnHeaderSortedDescending]="columnHeaderSortedDescending"
-                    [selectAll]="selectAll"
-                    [groupSelectAll]="groupSelectAll"
-                    [rowSelect]="rowSelect"
-                    [rowOperationColumn]="rowOperationColumn"
-                    [rowLoading]="rowLoading"
-                    [groupRowPlaceholderNoValue]="groupRowPlaceholderNoValue"
-                    [groupRowPlaceholderEmpty]="groupRowPlaceholderEmpty"
+                    [cell-action-menu]="cellActionMenu"
+                    [column-header-grouped]="columnHeaderGrouped"
+                    [group-collapse]="groupCollapse"
+                    [group-expand]="groupExpand"
+                    [row-collapse]="rowCollapse"
+                    [row-expand]="rowExpand"
+                    [collapse-all]="collapseAll"
+                    [column-header-sorted-ascending]="columnHeaderSortedAscending"
+                    [column-header-sorted-descending]="columnHeaderSortedDescending"
+                    [select-all]="selectAll"
+                    [group-select-all]="groupSelectAll"
+                    [row-select]="rowSelect"
+                    [row-operation-column]="rowOperationColumn"
+                    [row-loading]="rowLoading"
+                    [group-row-placeholder-no-value]="groupRowPlaceholderNoValue"
+                    [group-row-placeholder-empty]="groupRowPlaceholderEmpty"
                     >
                 </nimble-label-provider-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;
@@ -522,7 +525,8 @@ describe('Nimble Label Provider Table', () => {
                     [attr.group-row-placeholder-empty]="groupRowPlaceholderEmpty"
                     >
                 </nimble-label-provider-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;

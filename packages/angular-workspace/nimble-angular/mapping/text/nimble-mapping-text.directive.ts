@@ -10,7 +10,8 @@ export { mappingTextTag };
  * Directive to provide Angular integration for the mapping text element used by the mapping column.
  */
 @Directive({
-    selector: 'nimble-mapping-text'
+    selector: 'nimble-mapping-text',
+    standalone: false
 })
 export class NimbleMappingTextDirective extends NimbleMappingDirective<MappingKey> {
     public get text(): string | undefined {

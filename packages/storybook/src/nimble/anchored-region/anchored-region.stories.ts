@@ -17,7 +17,6 @@ interface AnchoredRegionArgs {
 const metadata: Meta<AnchoredRegionArgs> = {
     title: 'Tests/Anchored Region',
     parameters: {},
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchoredRegionArgs>`
         <style>
             .container {

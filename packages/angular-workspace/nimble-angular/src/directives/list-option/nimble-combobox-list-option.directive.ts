@@ -6,7 +6,8 @@ import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-
  * Directive to provide Angular integration for the list option when used with a combobox.
  */
 @Directive({
-    selector: 'nimble-list-option'
+    selector: 'nimble-list-option',
+    standalone: false
 })
 export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestroy {
     /**

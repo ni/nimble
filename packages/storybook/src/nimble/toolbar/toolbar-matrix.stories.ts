@@ -25,7 +25,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = html`
     <${toolbarTag}>
         <${buttonTag} appearance="ghost" slot="start">

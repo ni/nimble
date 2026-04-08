@@ -339,9 +339,7 @@ export class RichTextEditorPageObject {
             }
         };
 
-        if (tiptapEditor) {
-            processNode(tiptapEditor);
-        }
+        processNode(tiptapEditor);
 
         return tagNames.slice(1, -1);
     }

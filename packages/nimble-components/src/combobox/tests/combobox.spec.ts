@@ -18,7 +18,6 @@ describe('Combobox', () => {
 
     describe('with common setup', () => {
         async function setup(): Promise<Fixture<Combobox>> {
-            // prettier-ignore
             const viewTemplate = html`
                 <${comboboxTag}>
                     <${listOptionTag}>One</${listOptionTag}>
@@ -492,7 +491,6 @@ describe('Combobox', () => {
 
     describe('with template attributes', () => {
         async function setup(): Promise<Fixture<Combobox>> {
-            // prettier-ignore
             const viewTemplate = html`
                 <${comboboxTag}
                     open
@@ -531,7 +529,6 @@ describe('Combobox', () => {
 
     describe('with many options', () => {
         async function setupWithManyOptions(): Promise<Fixture<Combobox>> {
-            // prettier-ignore
             const viewTemplate = html`
                 <${comboboxTag}
                     autocomplete="inline"
@@ -585,7 +582,6 @@ describe('Combobox', () => {
 
     describe('within a div', () => {
         async function setupInDiv(): Promise<Fixture<Combobox>> {
-            // prettier-ignore
             const viewTemplate = html`
                 <div style="overflow: auto;">
                     <<${comboboxTag}>>

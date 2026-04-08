@@ -53,7 +53,6 @@ const largeTableData = Array.from(Array(500), (_, i) => {
     };
 });
 
-// prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag}>
@@ -65,7 +64,6 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-// prettier-ignore
 async function setupInteractiveTests(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag}>

@@ -21,7 +21,7 @@
             "ES2017.Object"
         ],
         // Whitelist imported @types instead of using them all
-        "types": ["jasmine", "webpack-env", "offscreencanvas"],
+        "types": ["jasmine", "offscreencanvas"],
         "verbatimModuleSyntax": true,
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,

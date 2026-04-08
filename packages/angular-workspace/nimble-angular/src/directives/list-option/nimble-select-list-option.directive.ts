@@ -7,7 +7,8 @@ import { NgSelectOption } from '../../thirdparty/directives/select_control_value
  * Directive to provide Angular integration for the list option when used with a select.
  */
 @Directive({
-    selector: 'nimble-list-option'
+    selector: 'nimble-list-option',
+    standalone: false
 })
 export class NimbleSelectListOptionDirective extends NgSelectOption {
     public constructor(

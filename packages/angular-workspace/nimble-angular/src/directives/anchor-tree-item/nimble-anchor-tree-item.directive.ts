@@ -10,7 +10,8 @@ export { anchorTreeItemTag };
  * Directive to provide Angular integration for the anchor tree item.
  */
 @Directive({
-    selector: 'nimble-anchor-tree-item'
+    selector: 'nimble-anchor-tree-item',
+    standalone: false
 })
 export class NimbleAnchorTreeItemDirective extends NimbleAnchorBaseDirective<AnchorTreeItem> {
     public get disabled(): boolean {

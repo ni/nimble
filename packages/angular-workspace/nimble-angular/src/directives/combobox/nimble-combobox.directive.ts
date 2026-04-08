@@ -13,6 +13,7 @@ export { ComboboxAutocomplete };
  */
 @Directive({
     selector: 'nimble-combobox',
+    standalone: false
 })
 export class NimbleComboboxDirective {
     public get appearance(): DropdownAppearance {

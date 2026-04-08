@@ -43,10 +43,11 @@ interface PersonTableRecord extends TableRecord {
 @Component({
     selector: 'example-customapp',
     templateUrl: './customapp.component.html',
-    styleUrls: ['./customapp.component.scss']
+    styleUrls: ['./customapp.component.scss'],
+    standalone: false
 })
 export class CustomAppComponent implements AfterViewInit {
-    public bannerOpen = false;
+    public bannerOpen = true;
     public dialogCloseReason: string;
     public drawerCloseReason: string;
     public drawerLocation: DrawerLocation = DrawerLocation.right;
@@ -156,6 +157,10 @@ export class CustomAppComponent implements AfterViewInit {
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
         alert(`${menuItemText} selected`);
+    }
+
+    public onChipRemove(): void {
+        alert('Chip removed');
     }
 
     public onDynamicSelectFilterInput(e: Event): void {

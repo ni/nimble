@@ -3,10 +3,16 @@ import {
     Black,
     Black7,
     Black15,
+    Black22,
+    Black30,
+    Black77V100,
     Black80,
+    Black82,
+    Black82V100,
     Black85,
     Black88,
     Black91,
+    Black91V10,
     White,
     ForestGreen,
     DigitalGreenLight,
@@ -92,6 +98,15 @@ import {
     TooltipCaptionLineHeight,
     Information100LightUi,
     Information100DarkUi,
+    InformationLight10,
+    InformationDark10,
+    InformationLight30,
+    InformationDark30,
+    InformationDarkTypography,
+    WarningLight10,
+    WarningDark10,
+    WarningLight20,
+    WarningDark20,
     DigitalGreenDark,
     PowerGreen,
     GridHeaderFamily,
@@ -112,14 +127,28 @@ import {
     NiSeaDark2,
     NiSky,
     NiTulip,
+    NiTulip10,
+    NiTulipDark10,
+    NiTulip20,
+    NiTulipDark20,
+    NiSpec10,
+    NiSpecDark10,
+    NiSpec20,
+    NiSpecDark20,
+    NiSpec,
+    BrownLight10,
+    BrownDark10,
+    BrownLight20,
+    BrownDark20,
+    BrownLight,
+    BrownDark,
     DigitalGreenLight10,
     PowerGreen10,
     DigitalGreenDark110,
-    Black82,
-    Black22,
     PowerGreen30,
     DigitalGreenLight30,
-    PowerGreenDark50
+    PowerGreenDark50,
+    WarningTypographyLightUi
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
@@ -149,6 +178,7 @@ export const tokenValues = {
         `linear-gradient(${ForestGreen}, ${hexToRgbaCssColor(ForestGreen, 0)})`,
     ),
     dividerBackgroundColor: createThemeColor(Black15, Black80, ForestGreen),
+    dividerBackgroundDynamicColor: createThemeColor(Black30, Black77V100, ForestGreen),
     fillSelectedColor: hexToRgbaCssThemeColor(alias.fillSelectedColor, 0.2, 0.2, 0.2),
     fillSelectedRgbPartialColor: hexToRgbPartialThemeColor(alias.fillSelectedColor),
     fillHoverSelectedColor: hexToRgbaCssThemeColor(alias.fillSelectedColor, 0.15, 0.15, 0.15),
@@ -159,6 +189,7 @@ export const tokenValues = {
     borderRgbPartialColor: hexToRgbPartialThemeColor(alias.lineColor),
     failColor: alias.failColor,
     warningColor: createThemeColor(Warning100LightUi, Warning100DarkUi, White),
+    warningFontColor: createThemeColor(WarningTypographyLightUi, Warning100DarkUi, White),
     passColor: createThemeColor(Pass100LightUi, Pass100DarkUi, White),
     informationColor: createThemeColor(Information100LightUi, Information100DarkUi, White),
     borderHoverColor: createThemeColor(DigitalGreenLight, PowerGreen, White),
@@ -202,6 +233,24 @@ export const tokenValues = {
     calendarGrabHandleBackgroundColor: createThemeColor(DigitalGreenLight, PowerGreen, PowerGreen),
     calendarGridBorderColor: createThemeColor(Black22, Black80, Black80),
     calendarGroupHeaderBackgroundColor: createThemeColor(Black7, hexToRgbaCssColor(Black91, 0.1), hexToRgbaCssColor(Black91, 0.1)),
+    calendarEventBackgroundJobColor: createThemeColor(InformationLight10, InformationDark10, InformationDark10),
+    calendarEventBackgroundHoverJobColor: createThemeColor(InformationLight30, InformationDark30, InformationDark30),
+    calendarEventBorderJobColor: createThemeColor(Information100LightUi, Information100DarkUi, Information100DarkUi),
+    calendarEventJobFontColor: createThemeColor(Information100LightUi, InformationDarkTypography, InformationDarkTypography),
+    calendarEventBackgroundMaintenanceColor: createThemeColor(WarningLight10, WarningDark10, WarningDark10),
+    calendarEventBackgroundHoverMaintenanceColor: createThemeColor(WarningLight20, WarningDark20, WarningDark20),
+    calendarEventBorderMaintenanceColor: createThemeColor(Warning100LightUi, Warning100DarkUi, Warning100DarkUi),
+    calendarEventBackgroundCalibrationColor: createThemeColor(NiTulip10, NiTulipDark10, NiTulipDark10),
+    calendarEventBackgroundHoverCalibrationColor: createThemeColor(NiTulip20, NiTulipDark20, NiTulipDark20),
+    calendarEventBorderCalibrationColor: createThemeColor(NiTulip, NiTulip, NiTulip),
+    calendarEventBackgroundReservationColor: createThemeColor(NiSpec10, NiSpecDark10, NiSpecDark10),
+    calendarEventBackgroundHoverReservationColor: createThemeColor(NiSpec20, NiSpecDark20, NiSpecDark20),
+    calendarEventBorderReservationColor: createThemeColor(NiSpec, NiSpec, NiSpec),
+    calendarEventBackgroundTransportOrderColor: createThemeColor(BrownLight10, BrownDark10, BrownDark10),
+    calendarEventBackgroundHoverTransportOrderColor: createThemeColor(BrownLight20, BrownDark20, BrownDark20),
+    calendarEventBorderTransportOrderColor: createThemeColor(BrownLight, BrownDark, BrownDark),
+    calendarEventBackgroundAggregateAvailabilityColor: createThemeColor(Black91V10, Black82, Black82),
+    calendarEventBorderAggregateAvailabilityColor: hexToRgbaCssThemeColor(createThemeColor(Black91, Black82V100, Black82V100), 0.5, 1, 1),
     controlHeight: '32px',
     controlSlimHeight: '24px',
     smallPadding: '4px',
@@ -483,12 +532,11 @@ function createThemeColor(light: string, dark: string, color: string): ThemeColo
     } as const;
 }
 
-type Font<T extends string> =
-    {
-        [K in `${T}Font` | `${T}FontFamily` | `${T}FontWeight` | `${T}FontSize` | `${T}FontLineHeight`]: string;
-    } & {
-        [K in `${T}FontColor` | `${T}DisabledFontColor`]: ThemeColor;
-    };
+type Font<T extends string> = {
+    [K in `${T}Font` | `${T}FontFamily` | `${T}FontWeight` | `${T}FontSize` | `${T}FontLineHeight`]: string;
+} & {
+    [K in `${T}FontColor` | `${T}DisabledFontColor`]: ThemeColor;
+};
 
 function createFont<T extends string>(
     token: T,

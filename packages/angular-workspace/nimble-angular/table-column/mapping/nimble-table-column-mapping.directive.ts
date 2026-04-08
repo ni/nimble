@@ -13,7 +13,8 @@ export { tableColumnMappingTag };
  * Directive to provide Angular integration for the table column element for mapped text/icons/spinners.
  */
 @Directive({
-    selector: 'nimble-table-column-mapping'
+    selector: 'nimble-table-column-mapping',
+    standalone: false
 })
 export class NimbleTableColumnMappingDirective extends NimbleTableColumnBaseDirective<TableColumnMapping> {
     public get fieldName(): string | undefined {

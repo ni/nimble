@@ -24,7 +24,6 @@ interface HierarchicalTableRecord extends TableRecord {
     stringData3?: string | null;
 }
 
-// prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag} id-field-name="id">
@@ -34,7 +33,6 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-// prettier-ignore
 async function setupWithHierarchy(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag} id-field-name="id" parent-id-field-name="parentId">

@@ -19,6 +19,7 @@ const metadata: Meta = {
 
 export default metadata;
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
 
@@ -36,6 +37,7 @@ type GroupedState = (typeof groupedStates)[number];
 
 const optionsOutsideGroupStates = [false, true] as const;
 type OptionsOutsideGroupState = (typeof optionsOutsideGroupStates)[number];
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 interface SelectMatrixStoryOptions {
     positionState: PositionState;
@@ -48,7 +50,6 @@ interface SelectMatrixStoryOptions {
     manyOptions?: boolean;
 }
 
-// prettier-ignore
 const component = ({
     positionState, filterMode, loadingVisible, placeholder, grouped, optionsOutsideGroup, slottedLabel, manyOptions
 }: SelectMatrixStoryOptions): ViewTemplate => html`

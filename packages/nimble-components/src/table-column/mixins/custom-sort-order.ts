@@ -7,7 +7,6 @@ import type { ColumnValidator } from '../base/models/column-validator';
 type CustomSortOrderTableColumn<
     TColumnValidator extends ColumnValidator<['invalidCustomSortWithGrouping']>
 > = Pick<TableColumn<unknown, TColumnValidator>, 'columnInternals'>;
-// prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CustomSortOrderTableColumnConstructor<TColumnValidator extends ColumnValidator<['invalidCustomSortWithGrouping']>> = abstract new (...args: any[]) => CustomSortOrderTableColumn<TColumnValidator>;
 
@@ -101,7 +100,6 @@ export function mixinCustomSortOrderColumnAPI<
     }
 
     attr({ attribute: 'sort-by-field-name' })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         CustomSortOrderColumn.prototype,
         'sortByFieldName'
     );

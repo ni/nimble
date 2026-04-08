@@ -47,7 +47,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [alignmentName, alignment]: AlignmentState,
     [placeholderName, placeholder]: PlaceholderState

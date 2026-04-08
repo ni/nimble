@@ -1,8 +1,329 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.14.6
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.5
+
+## 20.14.5
+
+Wed, 01 Apr 2026 21:32:03 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+- Bump @ni/nimble-components to v35.5.4
+
+## 20.14.4
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.3
+
+## 20.14.3
+
+Tue, 24 Mar 2026 22:49:20 GMT
+
+### Patches
+
+- Minor README change to test nuget publishing ([ni/nimble@cc77ce0](https://github.com/ni/nimble/commit/cc77ce00918ffa501722ab524b60fd846ae20a76))
+
+## 20.14.2
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.2
+
+## 20.14.1
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
+
+## 20.14.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.5.0
+- Bump @ni/nimble-tokens to v8.17.0
+
+## 20.13.7
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.4.0
+- Bump @ni/nimble-tokens to v8.16.0
+
+## 20.13.6
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.4
+
+## 20.13.5
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Update dependencies ([ni/nimble@e14152d](https://github.com/ni/nimble/commit/e14152d77e2bd52a55e701147ab67b4474975476))
+- Bump @ni/nimble-components to v35.3.3
+
+## 20.13.4
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.1
+
+## 20.13.3
+
+Mon, 23 Feb 2026 21:53:42 GMT
+
+### Patches
+
+- NimbleBlazor styling (::deep/SCSS) documentation updates ([ni/nimble@c33055e](https://github.com/ni/nimble/commit/c33055ef27c98fbb0ccebda03079e57877a84a42))
+
+## 20.13.2
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.0
+
+## 20.13.1
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.3
+- Bump @ni/nimble-tokens to v8.15.0
+
+## 20.13.0
+
+Tue, 10 Feb 2026 05:54:13 GMT
+
+### Minor changes
+
+- Improved SCSS support for Nimble Blazor (see README). Include token SCSS in NuGet package. ([ni/nimble@9f52015](https://github.com/ni/nimble/commit/9f52015ca3357e99df18b4d10a93a91df897a3a9))
+
+## 20.12.4
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.2
+
+## 20.12.3
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.1
+
+## 20.12.2
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.0
+
+## 20.12.1
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.2
+
+## 20.12.0
+
+Wed, 04 Feb 2026 00:56:35 GMT
+
+### Minor changes
+
+- Add ItemRemove to NimbleLabelProviderCore ([ni/nimble@babcd06](https://github.com/ni/nimble/commit/babcd0690855a7003ecd7c56c64a98d7b96d9d43))
+
+## 20.11.2
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.1
+
+## 20.11.1
+
+Mon, 02 Feb 2026 01:28:18 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@992fb97](https://github.com/ni/nimble/commit/992fb977d902550215089a76969052eb9597d7b7))
+
+## 20.11.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.1.0
+- Bump @ni/nimble-tokens to v8.14.0
+
+## 20.10.7
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.3
+
+## 20.10.6
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-components to v35.0.2
+- Bump @ni/nimble-tokens to v8.13.7
+
+## 20.10.5
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.1
+
+## 20.10.4
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.0
+
+## 20.10.3
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.3
+
+## 20.10.2
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.2
+- Bump @ni/nimble-tokens to v8.13.6
+
+## 20.10.1
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.1
+
+## 20.10.0
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Minor changes
+
+- add action menus preserve selection attribute to table ([ni/nimble@1c2b96b](https://github.com/ni/nimble/commit/1c2b96bfe343440df93424577ae771127b1d4184))
+- Bump @ni/nimble-components to v34.10.0
+
+### Patches
+
+- Adopt turborepo build ([ni/nimble@806acad](https://github.com/ni/nimble/commit/806acadef5963de6fb99720d2bf558d93a6965b4))
+
+## 20.9.8
+
+Tue, 09 Dec 2025 17:55:53 GMT
+
+### Patches
+
+- Always format doubles in razor files using the invariant culture ([ni/nimble@353ae98](https://github.com/ni/nimble/commit/353ae989bdd4e1310e0cfcd60c091182d5f2ff05))
+
+## 20.9.7
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.9.0
+
+## 20.9.6
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- markdown linting ([ni/nimble@65cc5e7](https://github.com/ni/nimble/commit/65cc5e77bca7ed431fba155a4ed6c56a41c0add7))
+- Bump @ni/nimble-components to v34.8.6
+
+## 20.9.5
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.5
+
+## 20.9.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.4
+
+## 20.9.3
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.3
+- Bump @ni/nimble-tokens to v8.13.5
+
+## 20.9.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.2
+- Bump @ni/nimble-tokens to v8.13.4
 
 ## 20.9.0
 

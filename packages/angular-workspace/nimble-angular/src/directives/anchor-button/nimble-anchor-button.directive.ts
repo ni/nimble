@@ -11,7 +11,8 @@ export { anchorButtonTag };
  * Directive to provide Angular integration for the anchor button.
  */
 @Directive({
-    selector: 'nimble-anchor-button'
+    selector: 'nimble-anchor-button',
+    standalone: false
 })
 export class NimbleAnchorButtonDirective extends NimbleAnchorBaseDirective<AnchorButton> {
     public get appearance(): ButtonAppearance {

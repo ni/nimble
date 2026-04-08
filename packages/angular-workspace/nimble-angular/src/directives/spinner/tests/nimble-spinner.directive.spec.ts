@@ -21,7 +21,8 @@ describe('Nimble Spinner', () => {
         @Component({
             template: `
                 <nimble-spinner #spinner></nimble-spinner>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('spinner', { read: NimbleSpinnerDirective }) public directive: NimbleSpinnerDirective;
@@ -55,7 +56,8 @@ describe('Nimble Spinner', () => {
                 <nimble-spinner #spinner
                     appearance="accent">
                 </nimble-spinner>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('spinner', { read: NimbleSpinnerDirective }) public directive: NimbleSpinnerDirective;
@@ -89,7 +91,8 @@ describe('Nimble Spinner', () => {
                 <nimble-spinner #spinner
                     [appearance]="appearance">
                 </nimble-spinner>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('spinner', { read: NimbleSpinnerDirective }) public directive: NimbleSpinnerDirective;
@@ -130,7 +133,8 @@ describe('Nimble Spinner', () => {
                 <nimble-spinner #spinner
                     [attr.appearance]="appearance">
                 </nimble-spinner>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('spinner', { read: NimbleSpinnerDirective }) public directive: NimbleSpinnerDirective;

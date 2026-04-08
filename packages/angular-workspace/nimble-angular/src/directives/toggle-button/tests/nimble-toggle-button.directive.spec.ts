@@ -22,7 +22,8 @@ describe('Nimble toggle button', () => {
         @Component({
             template: `
                 <nimble-toggle-button #toggleButton></nimble-toggle-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('toggleButton', { read: NimbleToggleButtonDirective }) public directive: NimbleToggleButtonDirective;
@@ -79,7 +80,8 @@ describe('Nimble toggle button', () => {
                     appearance-variant="${ButtonAppearanceVariant.primary}"
                     content-hidden
                     checked>
-                </nimble-toggle-button>`
+                </nimble-toggle-button>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('toggleButton', { read: NimbleToggleButtonDirective }) public directive: NimbleToggleButtonDirective;
@@ -137,7 +139,8 @@ describe('Nimble toggle button', () => {
                     [content-hidden]="contentHidden"
                     [checked]="checked">
                 </nimble-toggle-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('toggleButton', { read: NimbleToggleButtonDirective }) public directive: NimbleToggleButtonDirective;
@@ -230,7 +233,8 @@ describe('Nimble toggle button', () => {
                     [attr.content-hidden]="contentHidden"
                     [attr.checked]="checked">
                 </nimble-toggle-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('toggleButton', { read: NimbleToggleButtonDirective }) public directive: NimbleToggleButtonDirective;

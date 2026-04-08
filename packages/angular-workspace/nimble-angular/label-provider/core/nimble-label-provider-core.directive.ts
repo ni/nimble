@@ -8,7 +8,8 @@ export type { LabelProviderCore };
  * To use the Nimble-provided strings declared via $localize, instead use NimbleLabelProviderTableWithDefaultsDirective.
  */
 @Directive({
-    selector: 'nimble-label-provider-core'
+    selector: 'nimble-label-provider-core',
+    standalone: false
 })
 export class NimbleLabelProviderCoreDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<LabelProviderCore>) {
@@ -90,7 +91,7 @@ export class NimbleLabelProviderCoreDirective {
         return this.elementRef.nativeElement.scrollBackward;
     }
 
-    @Input('scrollBackward') public set scrollBackward(value: string | undefined) {
+    @Input('scroll-backward') public set scrollBackward(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'scrollBackward', value);
     }
 
@@ -98,7 +99,15 @@ export class NimbleLabelProviderCoreDirective {
         return this.elementRef.nativeElement.scrollForward;
     }
 
-    @Input('scrollForward') public set scrollForward(value: string | undefined) {
+    @Input('scroll-forward') public set scrollForward(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'scrollForward', value);
+    }
+
+    public get itemRemove(): string | undefined {
+        return this.elementRef.nativeElement.itemRemove;
+    }
+
+    @Input('item-remove') public set itemRemove(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'itemRemove', value);
     }
 }

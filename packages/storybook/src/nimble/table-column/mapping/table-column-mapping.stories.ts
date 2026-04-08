@@ -84,7 +84,6 @@ to \`default\`, the column will be resizable and be sized based on its fractiona
 should not be the right-most column in the table.`;
 
 export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<MappingColumnTableArgs>`
         <${tableTag}
             ${ref('tableRef')}

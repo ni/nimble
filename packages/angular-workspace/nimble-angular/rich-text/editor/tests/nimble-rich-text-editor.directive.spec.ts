@@ -21,7 +21,8 @@ describe('Nimble Rich Text Editor', () => {
         @Component({
             template: `
                 <nimble-rich-text-editor #editor></nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('editor', { read: NimbleRichTextEditorDirective }) public directive: NimbleRichTextEditorDirective;
@@ -104,7 +105,8 @@ describe('Nimble Rich Text Editor', () => {
                     error-text="Error text"
                     placeholder="Placeholder value"
                     >
-                </nimble-rich-text-editor>`
+                </nimble-rich-text-editor>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('editor', { read: NimbleRichTextEditorDirective }) public directive: NimbleRichTextEditorDirective;
@@ -162,7 +164,8 @@ describe('Nimble Rich Text Editor', () => {
                     [error-text]="errorText"
                     [placeholder]="placeholder"
                     >
-                </nimble-rich-text-editor>`
+                </nimble-rich-text-editor>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('editor', { read: NimbleRichTextEditorDirective }) public directive: NimbleRichTextEditorDirective;
@@ -279,7 +282,8 @@ describe('Nimble Rich Text Editor', () => {
                     [attr.error-text]="errorText"
                     [attr.placeholder]="placeholder"
                     >
-                </nimble-rich-text-editor>`
+                </nimble-rich-text-editor>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('editor', { read: NimbleRichTextEditorDirective }) public directive: NimbleRichTextEditorDirective;

@@ -21,7 +21,8 @@ describe('Nimble text field', () => {
         @Component({
             template: `
                 <nimble-text-field #textField></nimble-text-field>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('textField', { read: NimbleTextFieldDirective }) public directive: NimbleTextFieldDirective;
@@ -239,7 +240,8 @@ describe('Nimble text field', () => {
                     required-visible
                     appearance-readonly
                 >
-                </nimble-text-field>`
+                </nimble-text-field>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('textField', { read: NimbleTextFieldDirective }) public directive: NimbleTextFieldDirective;
@@ -369,7 +371,8 @@ describe('Nimble text field', () => {
                     [required-visible]="requiredVisible"
                     [appearance-readonly]="appearanceReadOnly"
                 >
-                </nimble-text-field>`
+                </nimble-text-field>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('textField', { read: NimbleTextFieldDirective }) public directive: NimbleTextFieldDirective;
@@ -618,7 +621,8 @@ describe('Nimble text field', () => {
                     [attr.required-visible]="requiredVisible"
                     [attr.appearance-readonly]="appearanceReadOnly"
                 >
-                </nimble-text-field>`
+                </nimble-text-field>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('textField', { read: NimbleTextFieldDirective }) public directive: NimbleTextFieldDirective;

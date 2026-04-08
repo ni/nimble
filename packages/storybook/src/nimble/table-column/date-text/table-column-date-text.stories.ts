@@ -66,7 +66,6 @@ const metadata: Meta<SharedTableArgs> = {
             handles: sharedTableActions
         }
     },
-    // prettier-ignore
     argTypes: {
         ...sharedTableArgTypes,
         selectionMode: {
@@ -119,7 +118,6 @@ Note: The exact formatting of the resulting date time string is browser-specific
 
 export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {},
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
         <${tableTag}
             ${ref('tableRef')}

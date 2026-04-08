@@ -9,7 +9,8 @@ export { spinnerTag };
  * Directive to provide Angular integration for the spinner.
  */
 @Directive({
-    selector: 'nimble-spinner'
+    selector: 'nimble-spinner',
+    standalone: false
 })
 export class NimbleSpinnerDirective {
     public get appearance(): SpinnerAppearance {

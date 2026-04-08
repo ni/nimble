@@ -1,8 +1,432 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.3.9
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.5
+- Bump @ni/spright-components to v6.15.4
+
+## 0.3.8
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+- Bump @ni/nimble-components to v35.5.4
+- Bump @ni/spright-components to v6.15.3
+
+## 0.3.7
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.3
+- Bump @ni/spright-components to v6.15.2
+
+## 0.3.6
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.1
+
+## 0.3.5
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.0
+
+## 0.3.4
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.4
+
+## 0.3.3
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump fast-foundation version to 10.2.2 ([ni/nimble@452fa5a](https://github.com/ni/nimble/commit/452fa5a0cd2dfd16749eeeeecf4b3eea771719ae))
+- Bump @ni/nimble-components to v35.5.2
+- Bump @ni/spright-components to v6.14.3
+
+## 0.3.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
+- Bump @ni/spright-components to v6.14.2
+
+## 0.3.1
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.1
+
+## 0.3.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.5.0
+- Bump @ni/spright-components to v6.14.0
+
+## 0.2.21
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.13.0
+
+## 0.2.20
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.12.0
+
+## 0.2.19
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.11.0
+
+## 0.2.18
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.4.0
+- Bump @ni/spright-components to v6.10.5
+
+## 0.2.17
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.4
+- Bump @ni/spright-components to v6.10.4
+
+## 0.2.16
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.3
+- Bump @ni/spright-components to v6.10.3
+
+## 0.2.15
+
+Sun, 01 Mar 2026 01:21:41 GMT
+
+### Patches
+
+- Add custom elements manifest generation ([ni/nimble@668e03a](https://github.com/ni/nimble/commit/668e03a753512409940384aa4a327a487d0b31cb))
+- Bump @ni/nimble-components to v35.3.2
+- Bump @ni/spright-components to v6.10.2
+
+## 0.2.14
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.1
+- Bump @ni/spright-components to v6.10.1
+
+## 0.2.13
+
+Mon, 16 Feb 2026 22:59:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.0
+
+## 0.2.12
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.0
+- Bump @ni/spright-components to v6.9.1
+
+## 0.2.11
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.9.0
+
+## 0.2.10
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.8.0
+
+## 0.2.9
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.3
+- Bump @ni/spright-components to v6.7.1
+
+## 0.2.8
+
+Tue, 10 Feb 2026 21:22:58 GMT
+
+### Patches
+
+- Add ok-icon-dynamic ([ni/nimble@ae64cd9](https://github.com/ni/nimble/commit/ae64cd9de627d12a105e007a77e6e124c529025c))
+
+## 0.2.7
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.7.0
+
+## 0.2.6
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.2
+- Bump @ni/spright-components to v6.6.5
+
+## 0.2.5
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.1
+- Bump @ni/spright-components to v6.6.4
+
+## 0.2.4
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.0
+- Bump @ni/spright-components to v6.6.3
+
+## 0.2.3
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Update fast-element and fast-foundation dependencies ([ni/nimble@6d4d58f](https://github.com/ni/nimble/commit/6d4d58fd3901c8c8e956b1b66c147f98e35973fd))
+- Bump @ni/nimble-components to v35.1.2
+- Bump @ni/spright-components to v6.6.2
+
+## 0.2.2
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.1
+- Bump @ni/spright-components to v6.6.1
+
+## 0.2.1
+
+Mon, 02 Feb 2026 13:53:04 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.0
+
+## 0.2.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.1.0
+- Bump @ni/spright-components to v6.5.0
+
+## 0.1.27
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.3
+- Bump @ni/spright-components to v6.4.27
+
+## 0.1.26
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-components to v35.0.2
+- Bump @ni/spright-components to v6.4.26
+- Bump @ni/jasmine-parameterized to v1.0.9
+
+## 0.1.25
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.1
+- Bump @ni/spright-components to v6.4.25
+- Bump @ni/jasmine-parameterized to v1.0.8
+
+## 0.1.24
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.0
+- Bump @ni/spright-components to v6.4.24
+
+## 0.1.23
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.3
+- Bump @ni/spright-components to v6.4.23
+
+## 0.1.22
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-components to v34.10.2
+- Bump @ni/spright-components to v6.4.22
+- Bump @ni/jasmine-parameterized to v1.0.7
+
+## 0.1.21
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.1
+- Bump @ni/spright-components to v6.4.21
+
+## 0.1.20
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Patches
+
+- Adopt turborepo build ([ni/nimble@806acad](https://github.com/ni/nimble/commit/806acadef5963de6fb99720d2bf558d93a6965b4))
+- Bump @ni/nimble-components to v34.10.0
+- Bump @ni/spright-components to v6.4.20
+
+## 0.1.19
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.9.0
+- Bump @ni/spright-components to v6.4.19
+
+## 0.1.18
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.6
+- Bump @ni/spright-components to v6.4.18
+
+## 0.1.17
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.5
+- Bump @ni/spright-components to v6.4.17
+
+## 0.1.16
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.8.4
+- Bump @ni/spright-components to v6.4.16
+
+## 0.1.15
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/nimble-components to v34.8.3
+- Bump @ni/spright-components to v6.4.15
+- Bump @ni/jasmine-parameterized to v1.0.6
+
+## 0.1.14
+
+Thu, 04 Dec 2025 19:09:56 GMT
+
+### Patches
+
+- doc updates ([ni/nimble@a210907](https://github.com/ni/nimble/commit/a210907bff6aad25602a66f17d0f0b98cc759a05))
+- Bump @ni/spright-components to v6.4.14
+
+## 0.1.12
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/nimble-components to v34.8.2
+- Bump @ni/spright-components to v6.4.12
+- Bump @ni/jasmine-parameterized to v1.0.5
 
 ## 0.1.10
 

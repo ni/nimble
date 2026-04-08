@@ -21,14 +21,6 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702,8669,1591</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>CS8669</NoWarn>
-  </PropertyGroup>
-
   <!-- 
     Need to explicitly exclude json and config files from Content, or they will get copied to the output directory.
     See: https://github.com/dotnet/sdk/issues/25587#issuecomment-1134731799
@@ -36,6 +28,17 @@
   <ItemGroup>
     <Content Remove="**\*.json" />
     <Content Remove="**\*.config" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="NuGetFiles/files/**/*.*">
+      <Pack>True</Pack>
+      <PackagePath>files/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+    </Content>
+    <Content Include="NuGetFiles/build/*.*">
+      <Pack>True</Pack>
+      <PackagePath>build/%(Filename)%(Extension)</PackagePath>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -52,8 +55,8 @@
 
   <ItemGroup>
     <PackageReference Include="Apache.Arrow" Version="[22.1.0]" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.22" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.25" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,7 +69,7 @@
     <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
-  <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run copy-resources:nimble" WorkingDirectory=".." />
+  <Target Name="CopyResources" BeforeTargets="BeforeBuild">
+    <Exec Command="npm run copy-resources-nimble" WorkingDirectory=".." />
   </Target>
 </Project>

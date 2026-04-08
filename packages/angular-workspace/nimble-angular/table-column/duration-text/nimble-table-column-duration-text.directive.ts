@@ -10,7 +10,8 @@ export { tableColumnDurationTextTag };
  * Directive to provide Angular integration for the table column element for duration text.
  */
 @Directive({
-    selector: 'nimble-table-column-duration-text'
+    selector: 'nimble-table-column-duration-text',
+    standalone: false
 })
 export class NimbleTableColumnDurationTextDirective extends NimbleTableColumnBaseDirective<TableColumnDurationText> {
     public get fieldName(): string | undefined {

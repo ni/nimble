@@ -14,8 +14,6 @@
 
 *State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.* 
 
----
-
 ## Design
 
 *Include code snippets showing basic component use and any interesting configurations.*
@@ -42,7 +40,6 @@
 
 *Summarize the component's form integration. Is it built in to FAST, requiring custom development, or not necessary?*
 
-
 ### Angular integration
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
@@ -61,13 +58,11 @@
 - *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
 - *Tooling: Any new tools, updates to tools, code generation, etc?*
 - *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc.*
-    - *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component.*
+    - *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](https://nimble.ni.dev/storybook/index.html?path=/docs/tests-anchor-patterns--docs). The story should be updated to include the new component.*
 - *Mobile: small screens, touch interactions, mobile-specific integrations*
 - *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*
 - *Performance: does the FAST component meet Nimble's performance requirements?*
 - *Security: Any requirements for security?*
-
----
 
 ## Open Issues
 

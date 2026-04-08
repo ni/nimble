@@ -8,7 +8,8 @@ export { anchorTabsTag };
  * Directive to provide Angular integration for the anchor tabs element.
  */
 @Directive({
-    selector: 'nimble-anchor-tabs'
+    selector: 'nimble-anchor-tabs',
+    standalone: false
 })
 export class NimbleAnchorTabsDirective {
     public get activeid(): string {

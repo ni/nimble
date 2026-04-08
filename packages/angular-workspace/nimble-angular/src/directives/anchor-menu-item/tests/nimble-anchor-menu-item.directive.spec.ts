@@ -33,7 +33,8 @@ describe('Nimble anchor menu item', () => {
         @Component({
             template: `
                 <nimble-anchor-menu-item #menuItem></nimble-anchor-menu-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuItem', { read: NimbleAnchorMenuItemDirective }) public directive: NimbleAnchorMenuItemDirective;
@@ -110,7 +111,8 @@ describe('Nimble anchor menu item', () => {
                     disabled
                     >
                 </nimble-anchor-menu-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuItem', { read: NimbleAnchorMenuItemDirective }) public directive: NimbleAnchorMenuItemDirective;
@@ -187,7 +189,8 @@ describe('Nimble anchor menu item', () => {
                     [disabled]="disabled"
                     >
                 </nimble-anchor-menu-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuItem', { read: NimbleAnchorMenuItemDirective }) public directive: NimbleAnchorMenuItemDirective;
@@ -320,7 +323,8 @@ describe('Nimble anchor menu item', () => {
                     [attr.disabled]="disabled"
                     >
                 </nimble-anchor-menu-item>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('menuItem', { read: NimbleAnchorMenuItemDirective }) public directive: NimbleAnchorMenuItemDirective;

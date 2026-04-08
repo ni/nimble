@@ -28,7 +28,6 @@ describe('TableColumnDurationText', () => {
     let pageObject: TableColumnDurationTextPageObject<SimpleTableRecord>;
     let column: TableColumnDurationText;
 
-    // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
         return await fixture<Table<SimpleTableRecord>>(
             html`<${themeProviderTag} lang="en-US">

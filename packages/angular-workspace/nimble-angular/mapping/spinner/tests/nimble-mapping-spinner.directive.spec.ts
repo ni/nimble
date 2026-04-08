@@ -32,7 +32,8 @@ describe('NimbleMappingSpinner', () => {
                         </nimble-mapping-spinner>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingSpinnerDirective }) public directive: NimbleMappingSpinnerDirective;
@@ -84,7 +85,8 @@ describe('NimbleMappingSpinner', () => {
                         </nimble-mapping-spinner>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingSpinnerDirective }) public directive: NimbleMappingSpinnerDirective;
@@ -157,7 +159,8 @@ describe('NimbleMappingSpinner', () => {
                         </nimble-mapping-spinner>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingSpinnerDirective }) public directive: NimbleMappingSpinnerDirective;

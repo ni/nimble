@@ -9,7 +9,8 @@ export type { RichTextValidity };
  * Directive to provide Angular integration for the rich text viewer element.
  */
 @Directive({
-    selector: 'nimble-rich-text-viewer'
+    selector: 'nimble-rich-text-viewer',
+    standalone: false
 })
 
 export class NimbleRichTextViewerDirective {

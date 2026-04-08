@@ -1,14 +1,15 @@
 import { attr } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
-import { template } from './template';
-import { styles } from './styles';
+import { FoundationElement } from '@ni/fast-foundation';
 import type { IconSeverity } from './types';
 
 /**
- * The base class for icon components
+ * The base class for icon components. Implementors:
+ * - Should not increase the API surface area, consumers of icons would not expect additional attributes to configure
+ * - Should not add interactive components to the template, expect to be visual only
+ * - Should respond well to sizing of the element
+ * - Should respond to configuration of the severity attribute and other tokens such as theme
  */
-export class Icon extends FoundationElement {
+export abstract class Icon extends FoundationElement {
     /**
      * @public
      * @remarks
@@ -16,20 +17,4 @@ export class Icon extends FoundationElement {
      */
     @attr
     public severity: IconSeverity;
-
-    public constructor(/** @internal */ public readonly icon: NimbleIcon) {
-        super();
-    }
 }
-
-type IconClass = typeof Icon;
-
-export const registerIcon = (baseName: string, iconClass: IconClass): void => {
-    const composedIcon = iconClass.compose({
-        baseName,
-        template,
-        styles
-    });
-
-    DesignSystem.getOrCreate().withPrefix('nimble').register(composedIcon());
-};

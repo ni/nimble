@@ -40,7 +40,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (): ViewTemplate => html`
     <${tableTag} id-field-name="id" style="height: 220px">
         <${tableColumnMenuButtonTag}

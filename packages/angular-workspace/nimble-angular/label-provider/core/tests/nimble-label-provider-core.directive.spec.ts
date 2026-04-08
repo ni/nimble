@@ -14,7 +14,8 @@ describe('Nimble Label Provider Core', () => {
     const label8 = 'String 8';
     const label9 = 'String 9';
     const label10 = 'String 10';
-    const label11 = 'String `11';
+    const label11 = 'String 11';
+    const label12 = 'String 12';
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -30,7 +31,8 @@ describe('Nimble Label Provider Core', () => {
         @Component({
             template: `
                 <nimble-label-provider-core #labelProvider></nimble-label-provider-core>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderCoreDirective }) public directive: NimbleLabelProviderCoreDirective;
@@ -106,6 +108,11 @@ describe('Nimble Label Provider Core', () => {
             expect(directive.scrollForward).toBeUndefined();
             expect(nativeElement.scrollForward).toBeUndefined();
         });
+
+        it('has expected defaults for itemRemove', () => {
+            expect(directive.itemRemove).toBeUndefined();
+            expect(nativeElement.itemRemove).toBeUndefined();
+        });
     });
 
     describe('with template string values', () => {
@@ -123,9 +130,11 @@ describe('Nimble Label Provider Core', () => {
                     loading="${label9}"
                     scroll-backward="${label10}"
                     scroll-forward="${label11}"
+                    item-remove="${label12}"
                     >
                 </nimble-label-provider-core>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderCoreDirective }) public directive: NimbleLabelProviderCoreDirective;
@@ -201,26 +210,33 @@ describe('Nimble Label Provider Core', () => {
             expect(directive.scrollForward).toBe(label11);
             expect(nativeElement.scrollForward).toBe(label11);
         });
+
+        it('will use template string values for itemRemove', () => {
+            expect(directive.itemRemove).toBe(label12);
+            expect(nativeElement.itemRemove).toBe(label12);
+        });
     });
 
     describe('with property bound values', () => {
         @Component({
             template: `
                 <nimble-label-provider-core #labelProvider
-                    [popupDismiss]="popupDismiss"
-                    [numericDecrement]="numericDecrement"
-                    [numericIncrement]="numericIncrement"
-                    [popupIconError]="popupIconError"
-                    [popupIconWarning]="popupIconWarning"
-                    [popupIconInformation]="popupIconInformation"
-                    [filterSearch]="filterSearch"
-                    [filterNoResults]="filterNoResults"
+                    [popup-dismiss]="popupDismiss"
+                    [numeric-decrement]="numericDecrement"
+                    [numeric-increment]="numericIncrement"
+                    [popup-icon-error]="popupIconError"
+                    [popup-icon-warning]="popupIconWarning"
+                    [popup-icon-information]="popupIconInformation"
+                    [filter-search]="filterSearch"
+                    [filter-no-results]="filterNoResults"
                     [loading]="loading"
-                    [scrollBackward]="scrollBackward"
-                    [scrollForward]="scrollForward"
+                    [scroll-backward]="scrollBackward"
+                    [scroll-forward]="scrollForward"
+                    [item-remove]="itemRemove"
                     >
                 </nimble-label-provider-core>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderCoreDirective }) public directive: NimbleLabelProviderCoreDirective;
@@ -236,6 +252,7 @@ describe('Nimble Label Provider Core', () => {
             public loading = label1;
             public scrollBackward = label1;
             public scrollForward = label1;
+            public itemRemove = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -373,6 +390,17 @@ describe('Nimble Label Provider Core', () => {
             expect(directive.scrollForward).toBe(label2);
             expect(nativeElement.scrollForward).toBe(label2);
         });
+
+        it('can be configured with property binding for itemRemove', () => {
+            expect(directive.itemRemove).toBe(label1);
+            expect(nativeElement.itemRemove).toBe(label1);
+
+            fixture.componentInstance.itemRemove = label2;
+            fixture.detectChanges();
+
+            expect(directive.itemRemove).toBe(label2);
+            expect(nativeElement.itemRemove).toBe(label2);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -390,9 +418,11 @@ describe('Nimble Label Provider Core', () => {
                     [attr.loading]="loading"
                     [attr.scroll-backward]="scrollBackward"
                     [attr.scroll-forward]="scrollForward"
+                    [attr.item-remove]="itemRemove"
                     >
                 </nimble-label-provider-core>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderCoreDirective }) public directive: NimbleLabelProviderCoreDirective;
@@ -408,6 +438,7 @@ describe('Nimble Label Provider Core', () => {
             public loading = label1;
             public scrollBackward = label1;
             public scrollForward = label1;
+            public itemRemove = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -544,6 +575,17 @@ describe('Nimble Label Provider Core', () => {
 
             expect(directive.scrollForward).toBe(label2);
             expect(nativeElement.scrollForward).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for itemRemove', () => {
+            expect(directive.itemRemove).toBe(label1);
+            expect(nativeElement.itemRemove).toBe(label1);
+
+            fixture.componentInstance.itemRemove = label2;
+            fixture.detectChanges();
+
+            expect(directive.itemRemove).toBe(label2);
+            expect(nativeElement.itemRemove).toBe(label2);
         });
     });
 });

@@ -8,6 +8,7 @@ export { cardTag };
  * Directive to provide Angular integration for the card.
  */
 @Directive({
-    selector: 'nimble-card'
+    selector: 'nimble-card',
+    standalone: false
 })
 export class NimbleCardDirective { }

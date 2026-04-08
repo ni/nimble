@@ -18,7 +18,8 @@ describe('Nimble breadcrumb', () => {
         @Component({
             template: `
                 <nimble-breadcrumb #target></nimble-breadcrumb>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('target', { read: NimbleBreadcrumbDirective }) public directive: NimbleBreadcrumbDirective;
@@ -52,7 +53,8 @@ describe('Nimble breadcrumb', () => {
                 <nimble-breadcrumb #target
                     appearance="prominent"
                 >
-                </nimble-breadcrumb>`
+                </nimble-breadcrumb>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('target', { read: NimbleBreadcrumbDirective }) public directive: NimbleBreadcrumbDirective;
@@ -87,7 +89,8 @@ describe('Nimble breadcrumb', () => {
                     [appearance]="appearance"
                 >
                 </nimble-breadcrumb>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('target', { read: NimbleBreadcrumbDirective }) public directive: NimbleBreadcrumbDirective;
@@ -129,7 +132,8 @@ describe('Nimble breadcrumb', () => {
                     [attr.appearance]="appearance"
                 >
                 </nimble-breadcrumb>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('target', { read: NimbleBreadcrumbDirective }) public directive: NimbleBreadcrumbDirective;

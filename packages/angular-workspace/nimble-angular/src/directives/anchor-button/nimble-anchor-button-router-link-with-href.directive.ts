@@ -15,7 +15,10 @@ import { DisableableRouterLinkWithHrefDirective } from '../anchor-base/disableab
  * Note: Clients need to use [nimbleRouterLink] instead of [routerLink], so that there
  * won't also be an active RouterLink directive incorrectly handling navigation.
  */
-@Directive({ selector: 'nimble-anchor-button[nimbleRouterLink]' })
+@Directive({
+    selector: 'nimble-anchor-button[nimbleRouterLink]',
+    standalone: false
+})
 export class NimbleAnchorButtonRouterLinkWithHrefDirective extends DisableableRouterLinkWithHrefDirective<AnchorButton> {
     @Input()
     public set nimbleRouterLink(commands: never[] | string | null | undefined) {

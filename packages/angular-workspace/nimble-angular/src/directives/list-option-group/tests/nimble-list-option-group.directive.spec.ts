@@ -22,7 +22,8 @@ describe('Nimble listbox option group', () => {
         @Component({
             template: `
                 <nimble-list-option-group #listOptionGroup></nimble-list-option-group>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('listOptionGroup', { read: NimbleListOptionGroupDirective }) public directive: NimbleListOptionGroupDirective;
@@ -62,7 +63,8 @@ describe('Nimble listbox option group', () => {
                     hidden
                     label="foo"
                 ></nimble-list-option-group>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('listOptionGroup', { read: NimbleListOptionGroupDirective }) public directive: NimbleListOptionGroupDirective;
@@ -102,7 +104,8 @@ describe('Nimble listbox option group', () => {
                     [label]="label"
                     [hidden]="hidden"
                 ></nimble-list-option-group>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('listOptionGroup', { read: NimbleListOptionGroupDirective }) public directive: NimbleListOptionGroupDirective;
@@ -157,7 +160,8 @@ describe('Nimble listbox option group', () => {
                     [attr.label]="label"
                     [attr.hidden]="hidden">
                 </nimble-list-option-group>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('listOptionGroup', { read: NimbleListOptionGroupDirective }) public directive: NimbleListOptionGroupDirective;

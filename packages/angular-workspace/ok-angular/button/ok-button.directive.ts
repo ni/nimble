@@ -8,6 +8,7 @@ export { buttonTag };
  * Directive to provide Angular integration for the button.
  */
 @Directive({
-    selector: 'ok-button'
+    selector: 'ok-button',
+    standalone: false
 })
 export class OkButtonDirective { }

@@ -11,7 +11,8 @@ export { radioGroupTag };
  * Directive to provide Angular integration for the radio group.
  */
 @Directive({
-    selector: 'nimble-radio-group'
+    selector: 'nimble-radio-group',
+    standalone: false
 })
 export class NimbleRadioGroupDirective {
     public get disabled(): boolean {

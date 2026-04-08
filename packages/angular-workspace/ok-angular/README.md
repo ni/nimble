@@ -6,7 +6,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/ok-angular.svg)](https://www.npmjs.com/package/@ni/ok-angular)
 
-Ok components for [Angular](https://angular.io) applications
+Ok components for [Angular](https://angular.dev) applications
 
 ## Getting started
 

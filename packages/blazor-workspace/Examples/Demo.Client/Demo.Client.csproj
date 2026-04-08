@@ -12,27 +12,17 @@
     <Content Remove="packages.lock.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.22" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.22" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.25" PrivateAssets="all" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.98.0" />
   </ItemGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
-    <NoWarn>;NU1701;CA1707;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
-    <NoWarn>;NU1701;CA1707;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
     <None Include="packages.lock.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,7 +21,8 @@ describe('Nimble checkbox', () => {
         @Component({
             template: `
                 <nimble-checkbox #checkbox></nimble-checkbox>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('checkbox', { read: NimbleCheckboxDirective }) public directive: NimbleCheckboxDirective;
@@ -78,7 +79,8 @@ describe('Nimble checkbox', () => {
                     indeterminate
                     error-visible
                     error-text="Error message">
-                </nimble-checkbox>`
+                </nimble-checkbox>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('checkbox', { read: NimbleCheckboxDirective }) public directive: NimbleCheckboxDirective;
@@ -136,7 +138,8 @@ describe('Nimble checkbox', () => {
                     [error-text]="errorText"
                     [error-visible]="errorVisible">
                 </nimble-checkbox>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('checkbox', { read: NimbleCheckboxDirective }) public directive: NimbleCheckboxDirective;
@@ -228,7 +231,8 @@ describe('Nimble checkbox', () => {
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible">
                 </nimble-checkbox>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('checkbox', { read: NimbleCheckboxDirective }) public directive: NimbleCheckboxDirective;

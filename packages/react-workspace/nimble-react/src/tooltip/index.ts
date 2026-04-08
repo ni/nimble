@@ -1,6 +1,7 @@
-import { Tooltip } from '@ni/nimble-components/dist/esm/tooltip';
+import { Tooltip, tooltipTag } from '@ni/nimble-components/dist/esm/tooltip';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
+export { tooltipTag };
 export { type Tooltip };
 export const NimbleTooltip = wrap(Tooltip, {
     events: {

@@ -304,7 +304,7 @@ function updateLinkAndMentionNodes(
     fragment.forEach(node => {
         if (node.isText && node.marks.length > 0) {
             const linkMark = node.marks.find(
-                mark => mark.type.name === 'link' && mark.attrs
+                mark => mark.type.name === 'link'
             );
             if (linkMark) {
                 // Checks if the link is valid link or not

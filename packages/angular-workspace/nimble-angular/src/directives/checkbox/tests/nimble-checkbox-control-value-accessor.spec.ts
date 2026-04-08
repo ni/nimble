@@ -14,7 +14,8 @@ describe('Nimble checkbox control value accessor', () => {
     @Component({
         template: `
             <nimble-checkbox #checkbox [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-checkbox>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('checkbox', { static: true }) public checkbox: ElementRef<Checkbox>;
@@ -104,7 +105,8 @@ parameterizeSuite(testCases, (suite, name, value) => {
                     #checkbox
                     [formControl]="testFormControl"
                 ></nimble-checkbox>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('checkbox', { static: true }) public checkbox: ElementRef<Checkbox>;

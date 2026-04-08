@@ -26,6 +26,28 @@ public abstract class FractionalWidthBaseTests<T> where T : ComponentBase, IFrac
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
+    [Fact]
+    public void NimbleTableColumnFractionalWidth_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.FractionalWidth, 1.5);
+
+            Assert.Contains("fractional-width=\"1.5\"", numberField.Markup);
+        }
+    }
+
+    [Fact]
+    public void NimbleTableColumnMinPixelWidth_WithGermanCulture_FormatsValueWithPeriod()
+    {
+        using (new CultureScope("de-DE"))
+        {
+            var numberField = RenderWithPropertySet(x => x.MinPixelWidth, 1.5);
+
+            Assert.Contains("min-pixel-width=\"1.5\"", numberField.Markup);
+        }
+    }
+
     private IRenderedComponent<T> RenderWithPropertySet<TProperty>(Expression<Func<T, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

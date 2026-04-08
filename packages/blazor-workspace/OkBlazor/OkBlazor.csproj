@@ -21,14 +21,6 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702,8669,1591</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>CS8669</NoWarn>
-  </PropertyGroup>
-
   <!-- 
     Need to explicitly exclude json and config files from Content, or they will get copied to the output directory.
     See: https://github.com/dotnet/sdk/issues/25587#issuecomment-1134731799
@@ -51,8 +43,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.22" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.25" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,6 +58,6 @@
   </ItemGroup>
 
   <Target Name="CopyResources" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run copy-resources:ok" WorkingDirectory=".." />
+    <Exec Command="npm run copy-resources-ok" WorkingDirectory=".." />
   </Target>
 </Project>

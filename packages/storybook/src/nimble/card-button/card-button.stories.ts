@@ -24,7 +24,6 @@ const metadata: Meta<CardButtonArgs> = {
             handles: ['click']
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style>
             .wrapper {

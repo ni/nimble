@@ -33,7 +33,8 @@ describe('Nimble anchor tab', () => {
         @Component({
             template: `
                 <nimble-anchor-tab #anchorTab></nimble-anchor-tab>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchorTab', { read: NimbleAnchorTabDirective }) public directive: NimbleAnchorTabDirective;
@@ -104,7 +105,8 @@ describe('Nimble anchor tab', () => {
                     type="${type1}"
                     >
                 </nimble-anchor-tab>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchorTab', { read: NimbleAnchorTabDirective }) public directive: NimbleAnchorTabDirective;
@@ -175,7 +177,8 @@ describe('Nimble anchor tab', () => {
                     [type]="type"
                     >
                 </nimble-anchor-tab>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchorTab', { read: NimbleAnchorTabDirective }) public directive: NimbleAnchorTabDirective;
@@ -295,7 +298,8 @@ describe('Nimble anchor tab', () => {
                     [attr.type]="type"
                     >
                 </nimble-anchor-tab>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('anchorTab', { read: NimbleAnchorTabDirective }) public directive: NimbleAnchorTabDirective;

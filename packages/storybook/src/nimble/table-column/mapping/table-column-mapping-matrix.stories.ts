@@ -52,7 +52,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (): ViewTemplate => html`
     <${tableTag} id-field-name="id" style="height: 600px; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}">
         <${tableColumnMappingTag}

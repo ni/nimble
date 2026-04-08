@@ -1,4 +1,5 @@
 import { html } from '@ni/fast-element';
+import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { ChatConversation, chatConversationTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
@@ -27,8 +28,48 @@ describe('ChatConversation', () => {
         );
     });
 
-    it('should have a slot element in the shadow DOM', async () => {
+    it('should have a default unnamed slot element in the shadow DOM', async () => {
         await connect();
-        expect(element.shadowRoot?.querySelector('SLOT')).not.toBeNull();
+        const unnamedSlot = element.shadowRoot?.querySelector('slot:not([name])');
+        expect(unnamedSlot).not.toBeNull();
+    });
+
+    it('should have an input slot element in the shadow DOM', async () => {
+        await connect();
+        const inputSlot = element.shadowRoot?.querySelector('slot[name="input"]');
+        expect(inputSlot).not.toBeNull();
+    });
+
+    it('should have a toolbar slot element in the shadow DOM', async () => {
+        await connect();
+        const toolbarSlot = element.shadowRoot?.querySelector('slot[name="toolbar"]');
+        expect(toolbarSlot).not.toBeNull();
+    });
+
+    it('should have a start slot element in the shadow DOM', async () => {
+        await connect();
+        const startSlot = element.shadowRoot?.querySelector('slot[name="start"]');
+        expect(startSlot).not.toBeNull();
+    });
+
+    it('should have an end slot element in the shadow DOM', async () => {
+        await connect();
+        const endSlot = element.shadowRoot?.querySelector('slot[name="end"]');
+        expect(endSlot).not.toBeNull();
+    });
+
+    it('should support content in the end slot', async () => {
+        await disconnect();
+        ({ element, connect, disconnect } = await fixture<ChatConversation>(
+            html`<${chatConversationTag}>
+                <span slot="end">
+                    AI-generated content may be incorrect. 
+                    <${anchorTag} href="https://www.ni.com" target="_blank">View Terms and Conditions</${anchorTag}>
+                </span>
+            </${chatConversationTag}>`
+        ));
+        await connect();
+        const endSlot: HTMLSlotElement = element.shadowRoot!.querySelector('slot[name="end"]')!;
+        expect(endSlot.assignedElements().length).toBe(1);
     });
 });

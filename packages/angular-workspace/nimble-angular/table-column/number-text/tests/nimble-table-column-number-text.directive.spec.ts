@@ -25,7 +25,8 @@ describe('NimbleTableColumnNumberText', () => {
                     <nimble-table-column-number-text #column field-name="field1">
                     </nimble-table-column-number-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnNumberTextDirective }) public directive: NimbleTableColumnNumberTextDirective;
@@ -83,7 +84,8 @@ describe('NimbleTableColumnNumberText', () => {
                         placeholder="Custom placeholder"
                     ></nimble-table-column-number-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnNumberTextDirective }) public directive: NimbleTableColumnNumberTextDirective;
@@ -216,7 +218,8 @@ describe('NimbleTableColumnNumberText', () => {
                         [placeholder]="placeholder"
                     ></nimble-table-column-number-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnNumberTextDirective }) public directive: NimbleTableColumnNumberTextDirective;
@@ -534,7 +537,8 @@ describe('NimbleTableColumnNumberText', () => {
                         [attr.placeholder]="placeholder"
                     ></nimble-table-column-number-text>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('column', { read: NimbleTableColumnNumberTextDirective }) public directive: NimbleTableColumnNumberTextDirective;

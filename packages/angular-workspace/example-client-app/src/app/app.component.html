@@ -2,8 +2,14 @@
     <nimble-label-provider-core withDefaults></nimble-label-provider-core>
     <nimble-label-provider-rich-text withDefaults></nimble-label-provider-rich-text>
     <nimble-label-provider-table withDefaults></nimble-label-provider-table>
-    <example-header [(theme)]="theme"></example-header>
-    <div class="router-outlet-wrapper">
-        <router-outlet></router-outlet>
+    <div class="example-root">
+        <div class="header">
+            <nimble-select class="theme-select" appearance="frameless" [(ngModel)]="theme">
+                <nimble-list-option *ngFor="let item of themes" [ngValue]="item">{{ item | titlecase}} Theme</nimble-list-option>
+            </nimble-select>
+        </div>
+        <div class="content-container-wrapper">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </nimble-theme-provider>

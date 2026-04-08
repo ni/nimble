@@ -138,7 +138,6 @@ When the \`loading-visible\` attribute is set, a loading spinner will be display
 
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
         <${selectTag}

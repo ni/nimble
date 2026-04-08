@@ -9,7 +9,7 @@ const labelTemplate = createRequiredVisibleLabelTemplate(html<TextArea>`
     <label
         part="label"
         for="control"
-        class="${x => (x.defaultSlottedNodes?.length ? 'label' : 'label label__hidden')}"
+        class="${x => (x.defaultSlottedNodes?.length > 0 ? 'label' : 'label label__hidden')}"
     >
         <slot ${slotted('defaultSlottedNodes')}></slot>
     </label>

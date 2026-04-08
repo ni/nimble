@@ -9,4 +9,8 @@ import '@ni/nimble-components/dist/esm/all-components';
 import './chat/conversation';
 import './chat/input';
 import './chat/message';
+import './chat/message/inbound';
+import './chat/message/outbound';
+import './chat/message/system';
+import './icons/all-icons';
 import './rectangle';

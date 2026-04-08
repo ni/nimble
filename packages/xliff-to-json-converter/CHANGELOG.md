@@ -1,8 +1,40 @@
 # Change Log - @ni/xliff-to-json-converter
 
-<!-- This log was last generated on Mon, 03 Nov 2025 20:20:29 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 20 Jan 2026 03:36:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.1.15
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+
+## 1.1.14
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+
+## 1.1.13
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+
+## 1.1.12
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
 
 ## 1.1.10
 

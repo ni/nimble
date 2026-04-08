@@ -20,7 +20,8 @@ describe('Nimble select', () => {
         @Component({
             template: `
                 <nimble-select #select></nimble-select>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('select', { read: NimbleSelectDirective }) public directive: NimbleSelectDirective;
@@ -138,7 +139,8 @@ describe('Nimble select', () => {
                     full-bleed
                 >
                 </nimble-select>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('select', { read: NimbleSelectDirective }) public directive: NimbleSelectDirective;
@@ -227,7 +229,8 @@ describe('Nimble select', () => {
                     [full-bleed]="fullBleed"
                 >
                 </nimble-select>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('select', { read: NimbleSelectDirective }) public directive: NimbleSelectDirective;
@@ -386,7 +389,8 @@ describe('Nimble select', () => {
                     [attr.full-bleed]="fullBleed"
                 >
                 </nimble-select>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('select', { read: NimbleSelectDirective }) public directive: NimbleSelectDirective;

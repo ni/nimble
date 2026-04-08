@@ -12,7 +12,8 @@ export { mappingIconTag };
  * Directive to provide Angular integration for the mapping icon element used by the mapping column.
  */
 @Directive({
-    selector: 'nimble-mapping-icon'
+    selector: 'nimble-mapping-icon',
+    standalone: false
 })
 export class NimbleMappingIconDirective extends NimbleMappingDirective<MappingKey> {
     public get text(): string | undefined {

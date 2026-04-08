@@ -8,7 +8,8 @@ export { unitFahrenheitTag };
  * Directive to provide Angular integration for the Fahrenheit unit element used by the number-text column.
  */
 @Directive({
-    selector: 'nimble-unit-fahrenheit'
+    selector: 'nimble-unit-fahrenheit',
+    standalone: false
 })
 export class NimbleUnitFahrenheitDirective {
 }

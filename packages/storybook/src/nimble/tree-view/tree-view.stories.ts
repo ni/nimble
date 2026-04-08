@@ -94,7 +94,6 @@ export const treeItem: StoryObj<ItemArgs> = {
             table: { category: apiCategory.attributes }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${treeViewTag}>
             <${treeItemTag} ?expanded="${x => x.expanded}" ?selected="${x => x.selected}" ?disabled="${x => x.disabled}">
@@ -153,7 +152,6 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
             table: { category: apiCategory.slots }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${treeViewTag}>
             <${anchorTreeItemTag} ?selected="${x => x.selected}" ?disabled="${x => x.disabled}" href="${x => x.href}">
@@ -198,7 +196,6 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
             table: { category: apiCategory.events }
         }
     },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${treeViewTag} selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`

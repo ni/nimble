@@ -35,7 +35,8 @@ describe('NimbleMappingIcon', () => {
                         </nimble-mapping-icon>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingIconDirective }) public directive: NimbleMappingIconDirective;
@@ -99,7 +100,8 @@ describe('NimbleMappingIcon', () => {
                         </nimble-mapping-icon>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingIconDirective }) public directive: NimbleMappingIconDirective;
@@ -198,7 +200,8 @@ describe('NimbleMappingIcon', () => {
                         </nimble-mapping-icon>
                     </nimble-table-column-mapping>
                 </nimble-table>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingIconDirective }) public directive: NimbleMappingIconDirective;

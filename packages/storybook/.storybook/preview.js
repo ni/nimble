@@ -3,20 +3,11 @@ import { SyntaxHighlighter } from 'storybook/internal/components';
 import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
 import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
 import './preview.css';
-import { transformSource } from './transformSource';
 import {
     backgroundStates,
     defaultBackgroundState
 } from '../src/utilities/states';
-import {
-    Container,
-    Column,
-    Do,
-    Dont,
-    Frame,
-    Divider,
-    Tag
-} from './blocks/StoryLayout';
+import { theme } from './theme';
 
 SyntaxHighlighter.registerLanguage('cs', csharp);
 
@@ -37,20 +28,21 @@ const parameters = {
             // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
             order: [
                 'Getting Started',
+                'Using Storybook',
                 'Components',
-                ['Status Table'],
+                // Intentionally no docs for 'Components'
                 'Incubating',
                 ['Docs'],
                 'Tokens',
-                ['Docs'],
+                // Intentionally no docs for 'Tokens'
                 'Tests',
                 ['Docs'],
                 'Spright',
-                ['Docs'],
+                // Intentionally no docs for 'Spright'
                 'Tests Spright',
                 ['Docs'],
                 'Ok',
-                ['Docs'],
+                // Intentionally no docs for 'Ok'
                 'Tests Ok',
                 ['Docs'],
                 'Internal',
@@ -65,19 +57,8 @@ const parameters = {
     },
     docs: {
         controls: { sort: 'alpha' },
-        source: {
-            transform: transformSource
-        },
         toc: { headingSelector: 'h1, h2, h3' },
-        components: {
-            Container,
-            Column,
-            Do,
-            Dont,
-            Frame,
-            Divider,
-            Tag
-        }
+        theme
     }
 };
 
@@ -122,5 +103,5 @@ configureActions({
     depth: 1
 });
 
-// Update the GUID on this line to trigger a turbosnap full rebuild: 4affe2f2-215a-4d52-b841-b4eeb06a9e61
+// Update the GUID on this line to trigger a turbosnap full rebuild: 4F8A9E2B-1C7D-4A3E-B5F6-9D8C7E6A5B4C
 // See https://www.chromatic.com/docs/turbosnap/#full-rebuilds

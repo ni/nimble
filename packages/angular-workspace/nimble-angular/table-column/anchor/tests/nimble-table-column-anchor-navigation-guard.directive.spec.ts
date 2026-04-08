@@ -19,7 +19,8 @@ describe('Nimble anchor table column navigation guard', () => {
                     Link
                 </nimble-table-column-anchor>
             </nimble-table>
-        `
+        `,
+        standalone: false
     })
     class TestHostBasicComponent {
         @ViewChild('table', { static: true }) public table: ElementRef<Table>;
@@ -36,7 +37,8 @@ describe('Nimble anchor table column navigation guard', () => {
                     Link
                 </nimble-table-column-anchor>
             </nimble-table>
-        `
+        `,
+        standalone: false
     })
     class TestHostWithTargetComponent {
         @ViewChild('table', { static: true }) public table: ElementRef<Table>;

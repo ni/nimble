@@ -66,7 +66,6 @@ export default metadata;
 const widthStates = ['', '250px'] as const;
 type WidthState = (typeof widthStates)[number];
 
-// prettier-ignore
 const component = (
     toolbar: TabsToolbarState,
     [disabledName, disabled]: DisabledState,

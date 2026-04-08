@@ -26,7 +26,8 @@ describe('NimbleMappingUser', () => {
                         <nimble-mapping-user #mapping></nimble-mapping-user>
                     </nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingUserDirective }) public directive: NimbleMappingUserDirective;
@@ -72,7 +73,8 @@ describe('NimbleMappingUser', () => {
                         </nimble-mapping-user>
                     </nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingUserDirective }) public directive: NimbleMappingUserDirective;
@@ -118,7 +120,8 @@ describe('NimbleMappingUser', () => {
                         </nimble-mapping-user>
                     </nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingUserDirective }) public directive: NimbleMappingUserDirective;
@@ -178,7 +181,8 @@ describe('NimbleMappingUser', () => {
                         </nimble-mapping-user>
                     </nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('mapping', { read: NimbleMappingUserDirective }) public directive: NimbleMappingUserDirective;

@@ -43,7 +43,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [checkedName, checked]: CheckedState,

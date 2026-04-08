@@ -13,7 +13,8 @@ describe('Nimble anchor tabs', () => {
             <nimble-anchor-tab id="2" #tab>Tab Two</nimble-anchor-tab>
             <nimble-anchor-tab id="3" #tab>Tab Three</nimble-anchor-tab>
         </nimble-anchor-tabs>
-         `
+         `,
+        standalone: false
     })
     class TestHostComponent {
         @ViewChild('tabs', { static: true }) public tabs: ElementRef<AnchorTabs>;

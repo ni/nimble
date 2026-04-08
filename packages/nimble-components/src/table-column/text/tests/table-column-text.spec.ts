@@ -19,7 +19,6 @@ class ElementReferences {
     public column!: TableColumnText;
 }
 
-// prettier-ignore
 async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
         html`<${themeProviderTag} lang="en-US">

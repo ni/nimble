@@ -19,7 +19,8 @@ describe('Nimble card button', () => {
         @Component({
             template: `
                 <nimble-card-button #cardButton></nimble-card-button>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('cardButton', { read: NimbleCardButtonDirective }) public directive: NimbleCardButtonDirective;
@@ -58,7 +59,8 @@ describe('Nimble card button', () => {
                 <nimble-card-button #cardButton
                     disabled
                     selected>
-                </nimble-card-button>`
+                </nimble-card-button>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('cardButton', { read: NimbleCardButtonDirective }) public directive: NimbleCardButtonDirective;
@@ -97,7 +99,8 @@ describe('Nimble card button', () => {
             <nimble-card-button #cardButton
                 [disabled]="disabled"
                 [selected]="selected">
-            </nimble-card-button>`
+            </nimble-card-button>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('cardButton', { read: NimbleCardButtonDirective }) public directive: NimbleCardButtonDirective;
@@ -150,7 +153,8 @@ describe('Nimble card button', () => {
                 <nimble-card-button #cardButton
                     [attr.disabled]="disabled"
                     [attr.selected]="selected">
-                </nimble-card-button>`
+                </nimble-card-button>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('cardButton', { read: NimbleCardButtonDirective }) public directive: NimbleCardButtonDirective;

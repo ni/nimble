@@ -1,8 +1,288 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 01 Dec 2025 19:34:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.5.5
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Add readonly behavior to step and anchor step ([ni/nimble@cf19bdf](https://github.com/ni/nimble/commit/cf19bdf837d815be34f2297ae42ff6ebfa81e598))
+
+## 35.5.4
+
+Wed, 01 Apr 2026 21:32:03 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+
+## 35.5.3
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Fix background sizing Add a dedicated element for icon background that can scale its whole size and switch to box-shadow for smooth border size animations ([ni/nimble@2e21c7f](https://github.com/ni/nimble/commit/2e21c7f5547d6b96c4dd7fb9ee88b5f62501485c))
+
+## 35.5.2
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump fast-foundation version to 10.2.2 ([ni/nimble@452fa5a](https://github.com/ni/nimble/commit/452fa5a0cd2dfd16749eeeeecf4b3eea771719ae))
+
+## 35.5.1
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Stepper orientation and position ([ni/nimble@d0d8415](https://github.com/ni/nimble/commit/d0d8415fb709e2518877fdcacd981e69b262c58f))
+
+## 35.5.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.17.0
+
+## 35.4.0
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Minor changes
+
+- Add theme aware token for splitter background ([ni/nimble@8c04925](https://github.com/ni/nimble/commit/8c04925fec84772102d7fbd07482e67081b029b5))
+- Bump @ni/nimble-tokens to v8.16.0
+
+## 35.3.4
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- step and anchor-step ([ni/nimble@7b528b9](https://github.com/ni/nimble/commit/7b528b96c6462eb69faf6c9ae10986782ca353f7))
+
+## 35.3.3
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/unit-format to v1.0.3
+
+## 35.3.2
+
+Sun, 01 Mar 2026 01:21:41 GMT
+
+### Patches
+
+- Add custom elements manifest generation ([ni/nimble@668e03a](https://github.com/ni/nimble/commit/668e03a753512409940384aa4a327a487d0b31cb))
+
+## 35.3.1
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Don't scroll table element into view if focused by mouse click ([ni/nimble@978850f](https://github.com/ni/nimble/commit/978850fd81b876b6d3a619f57f190082b5a7279c))
+
+## 35.3.0
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Minor changes
+
+- Add more calendar theme-aware tokens for providing multiple variance of event cards ([ni/nimble@695c1db](https://github.com/ni/nimble/commit/695c1db25df1ec50ff3ca64c55172d7106f21067))
+
+## 35.2.3
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.15.0
+
+## 35.2.2
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- visual design updates for switch control ([ni/nimble@fb39fd3](https://github.com/ni/nimble/commit/fb39fd3a30350346e342dca1b9d212ee9b581263))
+
+## 35.2.1
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Enable two lint rules and fix violations ([ni/nimble@a410090](https://github.com/ni/nimble/commit/a410090ddbc5c82fbabec6dc67850997d65bd756))
+
+## 35.2.0
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Minor changes
+
+- Add Stepper components ([ni/nimble@1143c37](https://github.com/ni/nimble/commit/1143c3764bee89f48c9b5c6af837a882fa6f06a1))
+
+## 35.1.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Update fast-element and fast-foundation dependencies ([ni/nimble@6d4d58f](https://github.com/ni/nimble/commit/6d4d58fd3901c8c8e956b1b66c147f98e35973fd))
+
+## 35.1.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Fix import syntax to obey new lint rule ([ni/nimble@aad1c14](https://github.com/ni/nimble/commit/aad1c1447cb1752602f4cae4e455a7abe0556b06))
+
+## 35.1.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.14.0
+
+## 35.0.3
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- SVGIcon proto ([ni/nimble@ea48f0f](https://github.com/ni/nimble/commit/ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63))
+
+## 35.0.2
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-tokens to v8.13.7
+- Bump @ni/unit-format to v1.0.2
+- Bump @ni/jasmine-parameterized to v1.0.9
+
+## 35.0.1
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/unit-format to v1.0.1
+- Bump @ni/jasmine-parameterized to v1.0.8
+
+## 35.0.0
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Major changes
+
+- Breaking: Rename `NumberTextUnitFormat` to `UnitFormatNumberText` ([ni/nimble@e26c67a](https://github.com/ni/nimble/commit/e26c67af559e81c7a7869429869483dc17ec2fb1))
+- Bump @ni/unit-format to v1.0.0
+
+## 34.10.3
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- remove flatbuffers peerdep workaround ([ni/nimble@aa38dfa](https://github.com/ni/nimble/commit/aa38dfa69ff4dd4926f7f6f2da4d317fe83304b5))
+
+## 34.10.2
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-tokens to v8.13.6
+- Bump @ni/jasmine-parameterized to v1.0.7
+
+## 34.10.1
+
+Wed, 10 Dec 2025 22:42:37 GMT
+
+### Patches
+
+- Fix typo in menu button column file name ([ni/nimble@1a8e710](https://github.com/ni/nimble/commit/1a8e710d60bbd317c87735ed43ad777030f0f681))
+
+## 34.10.0
+
+Tue, 09 Dec 2025 23:54:32 GMT
+
+### Minor changes
+
+- add action menus preserve selection attribute to table ([ni/nimble@1c2b96b](https://github.com/ni/nimble/commit/1c2b96bfe343440df93424577ae771127b1d4184))
+
+### Patches
+
+- Adopt turborepo build ([ni/nimble@806acad](https://github.com/ni/nimble/commit/806acadef5963de6fb99720d2bf558d93a6965b4))
+
+## 34.9.0
+
+Tue, 09 Dec 2025 06:58:39 GMT
+
+### Minor changes
+
+- Add keyValue accessor to Mapping base class for React compatibility ([ni/nimble@72ca616](https://github.com/ni/nimble/commit/72ca6168a2df4d5b70b860f724cefc6338e78ae8))
+
+## 34.8.6
+
+Mon, 08 Dec 2025 23:33:42 GMT
+
+### Patches
+
+- markdown linting ([ni/nimble@65cc5e7](https://github.com/ni/nimble/commit/65cc5e77bca7ed431fba155a4ed6c56a41c0add7))
+
+## 34.8.5
+
+Sat, 06 Dec 2025 00:45:19 GMT
+
+### Patches
+
+- Remove prettier inline disables and update docs ([ni/nimble@aabdf2f](https://github.com/ni/nimble/commit/aabdf2f08ccf6c41b1131a886450f5366fd43123))
+
+## 34.8.4
+
+Thu, 04 Dec 2025 23:41:33 GMT
+
+### Patches
+
+- Minor update to remove unreachable statement in table dynamic child loading check ([ni/nimble@18b6b62](https://github.com/ni/nimble/commit/18b6b62ccf69d6f488239dc02e88d91ec31a37d6))
+
+## 34.8.3
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+- Bump @ni/nimble-tokens to v8.13.5
+- Bump @ni/jasmine-parameterized to v1.0.6
+
+## 34.8.2
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
+- Bump @ni/nimble-tokens to v8.13.4
+- Bump @ni/jasmine-parameterized to v1.0.5
 
 ## 34.8.0
 

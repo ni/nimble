@@ -15,5 +15,4 @@ export const TextFieldAppearance = {
     frameless: 'frameless'
 } as const;
 
-export type TextFieldAppearance =
-    (typeof TextFieldAppearance)[keyof typeof TextFieldAppearance];
+export type TextFieldAppearance = (typeof TextFieldAppearance)[keyof typeof TextFieldAppearance];

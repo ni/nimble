@@ -83,6 +83,7 @@ const data = [
     }
 ] as const;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const selectionModeStates = Object.values(TableRowSelectionMode);
 type SelectionModeState = (typeof selectionModeStates)[number];
 
@@ -99,7 +100,6 @@ const hierarchyStates = [
 ] as const;
 type HierarchyState = (typeof hierarchyStates)[number];
 
-// prettier-ignore
 const component = (
     selectionMode: SelectionModeState,
     [groupedStateName, groupedState]: GroupedState,

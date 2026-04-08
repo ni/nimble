@@ -37,7 +37,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// prettier-ignore
 const component = (
     parentIcon: IconVisibleState,
     [showSubMenu, childIcon, advancedSubMenu]: SubMenuState

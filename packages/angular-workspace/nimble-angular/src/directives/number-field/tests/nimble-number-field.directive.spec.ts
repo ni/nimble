@@ -19,7 +19,8 @@ describe('Nimble number field', () => {
         @Component({
             template: `
                 <nimble-number-field #numberField></nimble-number-field>
-            `
+            `,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('numberField', { read: NimbleNumberFieldDirective }) public directive: NimbleNumberFieldDirective;
@@ -194,7 +195,8 @@ describe('Nimble number field', () => {
                     full-bleed
                     disabled
                 >
-                </nimble-number-field>`
+                </nimble-number-field>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('numberField', { read: NimbleNumberFieldDirective }) public directive: NimbleNumberFieldDirective;
@@ -300,7 +302,8 @@ describe('Nimble number field', () => {
                 [full-bleed]="fullBleed"
                 [disabled]="disabled"
             >
-            </nimble-number-field>`
+            </nimble-number-field>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('numberField', { read: NimbleNumberFieldDirective }) public directive: NimbleNumberFieldDirective;
@@ -497,7 +500,8 @@ describe('Nimble number field', () => {
                     [attr.full-bleed]="fullBleed"
                     [attr.disabled]="disabled"
                 >
-                </nimble-number-field>`
+                </nimble-number-field>`,
+            standalone: false
         })
         class TestHostComponent {
             @ViewChild('numberField', { read: NimbleNumberFieldDirective }) public directive: NimbleNumberFieldDirective;

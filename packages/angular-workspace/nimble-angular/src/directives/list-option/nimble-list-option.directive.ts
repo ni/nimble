@@ -14,7 +14,8 @@ export { listOptionTag };
  * (e.g. `nimble-combobox-list-option.directive.ts` and `nimble-select-list-option.directive.ts`).
  */
 @Directive({
-    selector: 'nimble-list-option'
+    selector: 'nimble-list-option',
+    standalone: false
 })
 export class NimbleListOptionDirective {
     public get disabled(): boolean {

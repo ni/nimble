@@ -10,7 +10,8 @@ export { anchorTabTag };
  * Directive to provide Angular integration for the anchor tab.
  */
 @Directive({
-    selector: 'nimble-anchor-tab'
+    selector: 'nimble-anchor-tab',
+    standalone: false
 })
 export class NimbleAnchorTabDirective extends NimbleAnchorBaseDirective<AnchorTab> {
     public get disabled(): boolean {

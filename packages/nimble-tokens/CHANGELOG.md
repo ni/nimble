@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Mon, 10 Nov 2025 23:09:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 12 Mar 2026 16:41:20 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.17.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Add user helmet safety icon ([ni/nimble@df7e198](https://github.com/ni/nimble/commit/df7e198f0d86f240b6baf32bcb6cc05aeea35b08))
+
+## 8.16.0
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Minor changes
+
+- Add token for Black77 ([ni/nimble@8c04925](https://github.com/ni/nimble/commit/8c04925fec84772102d7fbd07482e67081b029b5))
+
+## 8.15.0
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Minor changes
+
+- Add base colors for the new variants of calendar events ([ni/nimble@727c71e](https://github.com/ni/nimble/commit/727c71e6a2d40b70d5ab2c18bbf14a51f35ab3f7))
+
+## 8.14.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Add forklift icon ([ni/nimble@98fb615](https://github.com/ni/nimble/commit/98fb6159317ad0e8e7cdbbff1cbb18972749c2cb))
+
+## 8.13.7
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+
+## 8.13.6
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+
+## 8.13.5
+
+Thu, 04 Dec 2025 21:45:22 GMT
+
+### Patches
+
+- Upgrade to ESLint v9 and update the configuration to use the flat configuration format ([ni/nimble@f8f9367](https://github.com/ni/nimble/commit/f8f93677c34da2f3f992077c864ad3cc5541669b))
+
+## 8.13.4
+
+Thu, 04 Dec 2025 03:43:28 GMT
+
+### Patches
+
+- Remove directory path from package.json to resolve README linking issue ([ni/nimble@bf1d4a8](https://github.com/ni/nimble/commit/bf1d4a84926cbdd3332713b91c509f3de07d1420))
 
 ## 8.13.2
 

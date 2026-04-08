@@ -11,7 +11,8 @@ export { TooltipSeverity };
  * Directive to provide Angular integration for the tooltip.
  */
 @Directive({
-    selector: 'nimble-tooltip'
+    selector: 'nimble-tooltip',
+    standalone: false
 })
 export class NimbleTooltipDirective {
     public get anchor(): string {

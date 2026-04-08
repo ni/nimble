@@ -8,7 +8,8 @@ export { unitVoltTag };
  * Directive to provide Angular integration for the volt unit element used by the number-text column.
  */
 @Directive({
-    selector: 'nimble-unit-volt'
+    selector: 'nimble-unit-volt',
+    standalone: false
 })
 export class NimbleUnitVoltDirective {
 }

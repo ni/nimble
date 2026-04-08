@@ -1,4 +1,5 @@
 *
+!/styles/*
 !/dist/*.*
 !/dist/esm/**
 /dist/esm/**/tests

@@ -2,6 +2,634 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 02 Apr 2026 21:37:25 GMT",
+      "version": "35.5.5",
+      "tag": "@ni/nimble-components_v35.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cf19bdf837d815be34f2297ae42ff6ebfa81e598",
+            "comment": "Add readonly behavior to step and anchor step"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Apr 2026 21:32:03 GMT",
+      "version": "35.5.4",
+      "tag": "@ni/nimble-components_v35.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "810c60a6bd0e111013e4d9681079b67d3360183f",
+            "comment": "Update deps"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 30 Mar 2026 15:49:59 GMT",
+      "version": "35.5.3",
+      "tag": "@ni/nimble-components_v35.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2e21c7f5547d6b96c4dd7fb9ee88b5f62501485c",
+            "comment": "Fix background sizing Add a dedicated element for icon background that can scale its whole size and switch to box-shadow for smooth border size animations"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Mar 2026 14:12:53 GMT",
+      "version": "35.5.2",
+      "tag": "@ni/nimble-components_v35.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "452fa5a0cd2dfd16749eeeeecf4b3eea771719ae",
+            "comment": "Bump fast-foundation version to 10.2.2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Mar 2026 21:46:50 GMT",
+      "version": "35.5.1",
+      "tag": "@ni/nimble-components_v35.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d0d8415fb709e2518877fdcacd981e69b262c58f",
+            "comment": "Stepper orientation and position"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 Mar 2026 16:41:20 GMT",
+      "version": "35.5.0",
+      "tag": "@ni/nimble-components_v35.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.17.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 18:11:33 GMT",
+      "version": "35.4.0",
+      "tag": "@ni/nimble-components_v35.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8c04925fec84772102d7fbd07482e67081b029b5",
+            "comment": "Add theme aware token for splitter background"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.16.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 17:43:16 GMT",
+      "version": "35.3.4",
+      "tag": "@ni/nimble-components_v35.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7b528b96c6462eb69faf6c9ae10986782ca353f7",
+            "comment": "step and anchor-step"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 02 Mar 2026 00:16:21 GMT",
+      "version": "35.3.3",
+      "tag": "@ni/nimble-components_v35.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e14152d77e2bd52a55e701147ab67b4474975476",
+            "comment": "Update devDependencies"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 01 Mar 2026 01:21:41 GMT",
+      "version": "35.3.2",
+      "tag": "@ni/nimble-components_v35.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "668e03a753512409940384aa4a327a487d0b31cb",
+            "comment": "Add custom elements manifest generation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 27 Feb 2026 23:55:43 GMT",
+      "version": "35.3.1",
+      "tag": "@ni/nimble-components_v35.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "978850fd81b876b6d3a619f57f190082b5a7279c",
+            "comment": "Don't scroll table element into view if focused by mouse click"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Feb 2026 19:23:52 GMT",
+      "version": "35.3.0",
+      "tag": "@ni/nimble-components_v35.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b67eff72c2f8a878b7cbfdd2f36391a43b966b88",
+            "comment": "Change to test plugin"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 16 Feb 2026 18:09:13 GMT",
+      "version": "35.3.0",
+      "tag": "@ni/nimble-components_v35.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "695c1db25df1ec50ff3ca64c55172d7106f21067",
+            "comment": "Add more calendar theme-aware tokens for providing multiple variance of event cards"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Feb 2026 03:47:57 GMT",
+      "version": "35.2.3",
+      "tag": "@ni/nimble-components_v35.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.15.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Feb 2026 07:19:38 GMT",
+      "version": "35.2.2",
+      "tag": "@ni/nimble-components_v35.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "alice.darrow@emerson.com",
+            "package": "@ni/nimble-components",
+            "commit": "fb39fd3a30350346e342dca1b9d212ee9b581263",
+            "comment": "visual design updates for switch control"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Feb 2026 23:25:16 GMT",
+      "version": "35.2.1",
+      "tag": "@ni/nimble-components_v35.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a410090ddbc5c82fbabec6dc67850997d65bd756",
+            "comment": "Enable two lint rules and fix violations"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Feb 2026 08:13:24 GMT",
+      "version": "35.2.0",
+      "tag": "@ni/nimble-components_v35.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1143c3764bee89f48c9b5c6af837a882fa6f06a1",
+            "comment": "Add Stepper components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Feb 2026 01:29:10 GMT",
+      "version": "35.1.2",
+      "tag": "@ni/nimble-components_v35.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6d4d58fd3901c8c8e956b1b66c147f98e35973fd",
+            "comment": "Update fast-element and fast-foundation dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Feb 2026 14:40:29 GMT",
+      "version": "35.1.1",
+      "tag": "@ni/nimble-components_v35.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aad1c1447cb1752602f4cae4e455a7abe0556b06",
+            "comment": "Fix import syntax to obey new lint rule"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 27 Jan 2026 23:05:34 GMT",
+      "version": "35.1.0",
+      "tag": "@ni/nimble-components_v35.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Jan 2026 21:08:50 GMT",
+      "version": "35.0.3",
+      "tag": "@ni/nimble-components_v35.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63",
+            "comment": "SVGIcon proto"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Jan 2026 03:36:17 GMT",
+      "version": "35.0.2",
+      "tag": "@ni/nimble-components_v35.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8dad67eea4b456fee7f4f5e1071e1924753092d0",
+            "comment": "consistent module package format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.13.7",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.9",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 18 Jan 2026 00:56:49 GMT",
+      "version": "35.0.1",
+      "tag": "@ni/nimble-components_v35.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Jan 2026 18:15:56 GMT",
+      "version": "35.0.0",
+      "tag": "@ni/nimble-components_v35.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e26c67af559e81c7a7869429869483dc17ec2fb1",
+            "comment": "Breaking: Rename `NumberTextUnitFormat` to `UnitFormatNumberText`"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Dec 2025 05:48:06 GMT",
+      "version": "34.10.3",
+      "tag": "@ni/nimble-components_v34.10.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aa38dfa69ff4dd4926f7f6f2da4d317fe83304b5",
+            "comment": "remove flatbuffers peerdep workaround"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Dec 2025 23:15:32 GMT",
+      "version": "34.10.2",
+      "tag": "@ni/nimble-components_v34.10.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5796d17bb92450e5027c46f52aa9ea86d64dca92",
+            "comment": "Bump typescript version in all packages (to 5.8.3)"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.13.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Dec 2025 02:47:13 GMT",
+      "version": "34.10.1",
+      "tag": "@ni/nimble-components_v34.10.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "324367966279f70ca2291c0842e90523a6f0797e",
+            "comment": "Clean-up missed prettier references"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 13 Dec 2025 22:42:32 GMT",
+      "version": "34.10.1",
+      "tag": "@ni/nimble-components_v34.10.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fc03c70e4061694b75b137901ff3edafb5810830",
+            "comment": "Dev change only, switch to karma-vite"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Dec 2025 22:42:37 GMT",
+      "version": "34.10.1",
+      "tag": "@ni/nimble-components_v34.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1a8e710d60bbd317c87735ed43ad777030f0f681",
+            "comment": "Fix typo in menu button column file name"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Dec 2025 23:54:32 GMT",
+      "version": "34.10.0",
+      "tag": "@ni/nimble-components_v34.10.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "806acadef5963de6fb99720d2bf558d93a6965b4",
+            "comment": "Adopt turborepo build"
+          }
+        ],
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1c2b96bfe343440df93424577ae771127b1d4184",
+            "comment": "add action menus preserve selection attribute to table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Dec 2025 06:58:39 GMT",
+      "version": "34.9.0",
+      "tag": "@ni/nimble-components_v34.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "72ca6168a2df4d5b70b860f724cefc6338e78ae8",
+            "comment": "Add keyValue accessor to Mapping base class for React compatibility"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Dec 2025 23:33:42 GMT",
+      "version": "34.8.6",
+      "tag": "@ni/nimble-components_v34.8.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "65cc5e77bca7ed431fba155a4ed6c56a41c0add7",
+            "comment": "markdown linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 06 Dec 2025 00:45:19 GMT",
+      "version": "34.8.5",
+      "tag": "@ni/nimble-components_v34.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aabdf2f08ccf6c41b1131a886450f5366fd43123",
+            "comment": "Remove prettier inline disables and update docs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 23:41:33 GMT",
+      "version": "34.8.4",
+      "tag": "@ni/nimble-components_v34.8.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "18b6b62ccf69d6f488239dc02e88d91ec31a37d6",
+            "comment": "Minor update to remove unreachable statement in table dynamic child loading check"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 21:45:22 GMT",
+      "version": "34.8.3",
+      "tag": "@ni/nimble-components_v34.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f8f93677c34da2f3f992077c864ad3cc5541669b",
+            "comment": "Upgrade to ESLint v9 and update the configuration to use the flat configuration format"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.13.5",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Dec 2025 03:43:28 GMT",
+      "version": "34.8.2",
+      "tag": "@ni/nimble-components_v34.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf1d4a84926cbdd3332713b91c509f3de07d1420",
+            "comment": "Remove directory path from package.json to resolve README linking issue"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.13.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Dec 2025 19:34:20 GMT",
       "version": "34.8.0",
       "tag": "@ni/nimble-components_v34.8.0",

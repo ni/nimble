@@ -1,7 +1,8 @@
-import { Menu } from '@ni/nimble-components/dist/esm/menu';
+import { Menu, menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 import type { MenuItemChangeEvent } from '../menu-item';
 
+export { menuTag };
 export { type Menu };
 export const NimbleMenu = wrap(Menu, {
     events: {

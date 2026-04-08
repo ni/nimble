@@ -1,26 +1,6 @@
 # Contributing to Spright Components
 
-This package generally uses the same tooling and policies as Nimble components. See the [`nimble-components` CONTRIBUTING doc](/packages/nimble-components/CONTRIBUTING.md) for an overview. For details on whether a component belongs in Nimble or Spright, refer to the [README](/packages/spright-components/README.md). This document describes ways in which Spright development differs from Nimble.
-
-The following table compares the requirements for components developed in Spright vs Nimble:
-
-|                        | `nimble-components` | `spright-components` |
-| ---------------------- | :-----------------: | :------------------: |
-| Approved spec          |         🟢          |          🟢          |
-| Unit tests             |         🟢          |          🟢          |
-| Storybook visual tests |         🟢          |          🟢          |
-| Storybook API docs     |         🟢          |          🟢          |
-| Storybook usage docs   |         🟢          |          🟡          |
-| Approved VxD\*         |         🟢          |          🟡          |
-| Approved IxD\*         |         🟢          |          🟡          |
-| Angular/Blazor support |         🟢          |          🟡          |
-| Proper a11y            |         🟢          |          🟡          |
-| Minimal tech debt      |         🟢          |          🟡          |
-| Mobile support         |         🟡          |          🟡          |
-
-🟢 = required\
-🟡 = optional\
-\*By an interaction and/or visual designer
+This package generally uses the same tooling as Nimble components. See the [`nimble-components` CONTRIBUTING doc](/packages/nimble-components/CONTRIBUTING.md) for an overview.
 
 ## Code ownership
 

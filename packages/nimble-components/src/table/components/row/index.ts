@@ -35,7 +35,7 @@ declare global {
 }
 
 /** Represents a single row (element) in the Table's data  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface TableDataRecord extends TableRecord {}
 
 /**
@@ -313,6 +313,7 @@ export class TableRow<
             newState: menuButtonEventDetail.newState,
             oldState: menuButtonEventDetail.oldState,
             recordIds: [this.recordId!],
+            operatingRecordId: this.recordId!,
             columnId: column.columnId
         };
         this.$emit(eventType, detail);

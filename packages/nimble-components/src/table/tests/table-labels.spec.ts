@@ -37,7 +37,6 @@ const simpleTableData = [
     }
 ] as const;
 
-// prettier-ignore
 async function setup(): Promise<Fixture<ThemeProvider>> {
     return await fixture<ThemeProvider>(
         html`

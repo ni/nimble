@@ -6,6 +6,14 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/ok-components.svg)](https://www.npmjs.com/package/@ni/ok-components)
 
-Experimental components built using the same technologies (FAST, native web components, etc.) as other nimble packages, but not part of the core design system.
+Components built using the same technologies (FAST, native web components, etc.) as other nimble packages, but not part of the core design system.
 
-The `ok-components` package is intended for components that do not belong in [`nimble-components`](/packages/nimble-components) due to being prototypes or experimental.
+Compared to the general purpose components in the `nimble-components` library, `ok-components` are components that are leveraging Nimble infrastructure but have varied ownership. See individual component documentation for details.
+
+## Getting Started
+
+Follow the [Nimble Components: Getting Started](/packages/nimble-components/README.md#getting-started) topic.
+
+## Contributing
+
+Follow the instructions in [CONTRIBUTING.md](/packages/ok-components/CONTRIBUTING.md) to modify this library.

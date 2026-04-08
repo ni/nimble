@@ -81,13 +81,13 @@ To allow end-users to enter a custom value, use a [**combobox**](/packages/nimbl
 
 > NOTE: SEE FUTURE CONSIDERATIONS FOR MULTI-SELECTION
 
-To allow end-users to multi-select list options, use a [**tag picker**](/packages/nimble-components/src/tag-picker/specs/IxD.md).
+To allow end-users to multi-select list options, use a **tag picker**.
 
 ![ ](spec-images/select-alternative-picker.png)
 
-To allow end-users to select from fewer than three options, use a [**radio group**](/packages/nimble-components/src/radio-group/specs/IxD.md).
+To allow end-users to select from fewer than three options, use a [**radio group**](/packages/nimble-components/src/radio-group/).
 
-To allow end-users to trigger an action instead of make a selection, use a [**menu button**](/packages/nimble-components/src/menu-button/specs/IxD.md).
+To allow end-users to trigger an action instead of make a selection, use a [**menu button**](/packages/nimble-components/src/menu-button/).
 
 ## Design
 

@@ -84,7 +84,7 @@ _The key elements of the component's public API surface:_
 
 - Component Name: `nimble-wafer-map`
 - Props/Attrs:
-    - `dies` - this represents the input data, an array of `WaferMapDie`, which fills the wafer map with content.\
+    - `dies` - this represents the input data, an array of `WaferMapDie`, which fills the wafer map with content.  
       The **WaferMapDie** object contains the following attributes:
         - x: number
         - y: number
@@ -100,9 +100,9 @@ _The key elements of the component's public API surface:_
     - `gridMinY` - represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y value of the bounding box of the input dies coordinates.
     - `gridMaxX` - represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum X value of the bounding box of the input dies coordinates.
     - `gridMaxY` - represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum Y value of the bounding box of the input dies coordinates.
-    - `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
+    - `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.  
       The objects we use internally for the colorScale are [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal) and [d3.scaleLinear](https://observablehq.com/@d3/d3-scalelinear). Basically, what this does is it associates a specific string (or in our case a value) with a specific color. The values which are not specified in the array, will be calculated as a interpolation from the provided colors for the linear scale or will be assigned to one of the specified color values from the provided colors for the ordinal scale.
-      In the following example the colorScale object is defined as `WaferMapColorScale(['red', 'blue', 'green'], [1, 2, 8]);` and uses an internal linear scale\
+      In the following example the colorScale object is defined as `WaferMapColorScale(['red', 'blue', 'green'], [1, 2, 8]);` and uses an internal linear scale  
       The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     - `maxCharacters` - represents the number of characters allowed to be displayed within a single die, including the label suffix. As the die values are strings, we must have the liberty of limiting how many characters we are willing to display within a single die.
     - `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
@@ -217,7 +217,7 @@ Whenever the loading of the wafer data (can and will happen in case we have many
 
 ### Accessibility
 
-Important: this is out of scope for the current implementation.\
+Important: this is out of scope for the current implementation.  
 Since the `nimble-wafer-map` component was designed to display tens of thousands of data points, it's challenging to provide Accessibility functionality which can read out loud the values displayed in a meaningful manner.
 Based on the WAI documentation on [Complex Images](https://www.w3.org/WAI/tutorials/images/complex/), in the future we could provide a paragraph containing information about the name of the wafer that is displayed, the LOT where the wafer comes from and a general overview (e.g. % of the faulty dies on the wafer) of the status. This might give a pretty good description about what the displayed nimble component shows to the user. In order to achieve this, the ["img"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role) role will be set for the `<div class="WaferMapContainer">` tag.
 Please note that in the initial implementation we do not plan to gather and summarize any of this information so this will be part of future updates to this component.

@@ -10,14 +10,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>LRT001;SA1633;NU1701;CA1707;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>LRT001;SA1633;NU1701;CA1707;CS0122;CS1573;CA1515;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
-
   <ItemGroup>
     <Content Remove="packages.lock.json" />
   </ItemGroup>
@@ -34,9 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.98.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.100" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.22" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.25" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
   </ItemGroup>
 
   <ItemGroup>

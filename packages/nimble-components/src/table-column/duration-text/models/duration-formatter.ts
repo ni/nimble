@@ -64,14 +64,14 @@ export class DurationFormatter {
 
         const hours = Math.floor((milliseconds / millisecondsPerHour) % 24);
         remainingTime -= hours * millisecondsPerHour;
-        if (hours) {
+        if (hours !== 0) {
             const formattedHours = this.hoursFormatter.format(hours);
             result.push(formattedHours);
         }
 
         const minutes = Math.floor((milliseconds / millisecondsPerMinute) % 60);
         remainingTime -= minutes * millisecondsPerMinute;
-        if (minutes) {
+        if (minutes !== 0) {
             const formattedMinutes = this.minutesFormatter.format(minutes);
             result.push(formattedMinutes);
         }

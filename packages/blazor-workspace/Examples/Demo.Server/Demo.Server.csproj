@@ -8,17 +8,6 @@
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
-    <NoWarn>LRT001;NU1701;CA1707;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningsNotAsErrors>;CS0122</WarningsNotAsErrors>
-    <NoWarn>LRT001;NU1701;CA1707;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
-  </PropertyGroup>
-
   <ItemGroup>
     <Content Remove="packages.lock.json" />
   </ItemGroup>
@@ -28,7 +17,8 @@
     <None Include="packages.lock.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.98.0" />
   </ItemGroup>
 
   <ItemGroup>

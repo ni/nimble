@@ -1,0 +1,22 @@
+diff --git a/node_modules/@types/mdx/index.d.ts b/node_modules/@types/mdx/index.d.ts
+index 113a020..bd24ea2 100644
+--- a/node_modules/@types/mdx/index.d.ts
++++ b/node_modules/@types/mdx/index.d.ts
+@@ -53,6 +53,7 @@
+ declare module "*.mdx" {
+     // eslint-disable-next-line @definitelytyped/no-self-import
+     import { Element, MDXProps } from "mdx/types";
++    import {JSX} from 'react';
+ 
+     /**
+      * An function component which renders the MDX content using JSX.
+diff --git a/node_modules/@types/mdx/types.d.ts b/node_modules/@types/mdx/types.d.ts
+index 498bb69..d858bc7 100644
+--- a/node_modules/@types/mdx/types.d.ts
++++ b/node_modules/@types/mdx/types.d.ts
+@@ -1,4 +1,5 @@
+ // Internal helper types
++import {JSX} from 'react';
+ 
+ /**
+  * This is the global JSX.ElementType if it’s defined, otherwise never.
