@@ -1,14 +1,13 @@
 import { html, ViewTemplate, when } from '@ni/fast-element';
-import {
-    type FoundationElementTemplate
+import type {
+    FoundationElementTemplate
 } from '@ni/fast-foundation';
-import type { ChatMessageWelcome, ChatMessageWelcomeOptions } from '.';
+import type { ChatMessageWelcome } from '.';
 import { iconNigelChatTag } from '../../../icons/nigel-chat';
 
 export const template: FoundationElementTemplate<
-ViewTemplate<ChatMessageWelcome>,
-ChatMessageWelcomeOptions
-> = (context, definition) => html<ChatMessageWelcome>`
+ViewTemplate<ChatMessageWelcome>
+> = (_context, _definition) => html<ChatMessageWelcome>`
     <div class="container">
         <div class="brand-icon">
             <slot name="brand-icon">

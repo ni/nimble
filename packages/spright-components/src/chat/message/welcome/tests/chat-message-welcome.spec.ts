@@ -25,7 +25,9 @@ describe('ChatMessageWelcome', () => {
     let disconnect: () => Promise<void>;
 
     afterEach(async () => {
-        await disconnect();
+        if (typeof disconnect === 'function') {
+            await disconnect();
+        }
     });
 
     it('can construct an element instance', () => {
