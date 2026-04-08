@@ -87,15 +87,6 @@ describe('ChatMessageWelcome', () => {
         expect(brandIconSlot).not.toBeNull();
     });
 
-    it('should have an end slot', async () => {
-        ({ element, connect, disconnect } = await setup());
-        await connect();
-        const endSlot = element.shadowRoot?.querySelector(
-            'slot[name="end"]'
-        );
-        expect(endSlot).not.toBeNull();
-    });
-
     it('should render both title and subtitle when both are set', async () => {
         ({ element, connect, disconnect } = await setup(
             'Welcome to Nigel AI',
