@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Adds support for selection-mode on the nimble-chip component to allow for toggleable chips.",
+  "comment": "Adds support for selectable nimble-chip behavior and selected state.",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"

@@ -1,10 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate, when } from '@ni/fast-element';
 import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
-import {
-    ChipAppearance,
-    ChipSelectionMode
-} from '@ni/nimble-components/dist/esm/chip/types';
+import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import {
     controlLabelFont,
@@ -56,12 +53,12 @@ const widthStates = [
 type WidthState = (typeof widthStates)[number];
 const widthStatesOnlyDefault = widthStates[0];
 
-const selectionModeStates = [
-    ['Not Selectable', ChipSelectionMode.none],
-    ['Selectable', ChipSelectionMode.single]
+const selectableStates = [
+    ['Not Selectable', false],
+    ['Selectable', true]
 ] as const;
-type SelectionModeState = (typeof selectionModeStates)[number];
-const selectionModeStatesOnlySelectable = selectionModeStates[1];
+type SelectableState = (typeof selectableStates)[number];
+const selectableStatesOnlySelectable = selectableStates[1];
 
 const selectedStates = [
     ['Not Selected', false],
@@ -84,18 +81,18 @@ const component = (
     [showStartSlotIconName, showStartSlotIcon]: ShowStartSlotIconState,
     [labelName, label]: LabelState,
     [widthName, width]: WidthState,
-    [selectionModeName, selectionMode]: SelectionModeState,
+    [selectableName, selectable]: SelectableState,
     [selectedName, selected]: SelectedState
 ): ViewTemplate => html`
     <div style="display: flex; flex-direction: column;">
         <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
-            ${appearanceName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${selectionModeName}, ${selectedName}, ${disabledName ? `(${disabledName})` : ''} 
+            ${appearanceName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${selectableName}, ${selectedName}, ${disabledName ? `(${disabledName})` : ''} 
         </label> 
         <${chipTag}
             appearance="${() => appearance}"
             ?removable="${() => removable}"
             ?disabled=${() => disabled}
-            selection-mode="${() => selectionMode}"
+            ?selectable="${() => selectable}"
             ?selected=${() => selected}
             style="margin-right: 8px; margin-bottom: 8px; ${() => width};">
                 ${when(() => showStartSlotIcon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
@@ -112,7 +109,7 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
         showStartSlotIconStates,
         labelStates,
         widthStates,
-        [selectionModeStates[0]], // Only non-selectable
+        selectableStates,
         [selectedStates[0]] // Only not selected
     ])
 );
@@ -124,7 +121,7 @@ const interactionStates = cartesianProduct([
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],
     [widthStatesOnlyDefault],
-    [selectionModeStatesOnlySelectable],
+    [selectableStatesOnlySelectable],
     selectedStates
 ] as const);
 
@@ -135,7 +132,7 @@ const interactionStatesHover = cartesianProduct([
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],
     [widthStatesOnlyDefault],
-    [selectionModeStatesOnlySelectable],
+    [selectableStatesOnlySelectable],
     selectedStates
 ] as const);
 

@@ -3,8 +3,3 @@ export const ChipAppearance = {
     block: 'block'
 } as const;
 export type ChipAppearance = (typeof ChipAppearance)[keyof typeof ChipAppearance];
-
-export const ChipSelectionMode = {
-    none: undefined,
-    single: 'single'
-} as const;

@@ -45,17 +45,15 @@ export const styles = css`
             outline-offset: 0;
         }
 
-        :host([selection-mode='single']) {
+        :host([selectable]) {
             cursor: pointer;
         }
 
-        :host(
-            [selection-mode='single']:not([selected]):not([appearance='block'])
-        ) {
+        :host([selectable]:not([selected]):not([appearance='block'])) {
             border-color: rgba(${borderRgbPartialColor}, 0.3);
         }
 
-        :host([selected]) {
+        :host([selectable][selected]) {
             background-color: ${fillSelectedColor};
             border-color: rgba(${actionRgbPartialColor}, 0.3);
         }
@@ -87,7 +85,7 @@ export const styles = css`
     }
 
     @layer hover {
-        :host([selection-mode='single']:hover:not([disabled])) {
+        :host([selectable]:hover:not([disabled])) {
             border-color: ${borderHoverColor};
             outline: calc(${borderWidth} * 2) solid ${borderHoverColor};
             outline-offset: calc(-2 * ${borderWidth});
@@ -96,7 +94,7 @@ export const styles = css`
     }
 
     @layer focusVisible {
-        :host([selection-mode='single']${focusVisible}:not([disabled])) {
+        :host([selectable]${focusVisible}:not([disabled])) {
             border-color: ${borderHoverColor};
             outline: calc(${borderWidth} * 2) solid ${borderHoverColor};
             outline-offset: calc(-2 * ${borderWidth});
@@ -109,7 +107,7 @@ export const styles = css`
 
     @layer active {
         :host(
-            [selection-mode='single']:active:not([disabled]):not(
+            [selectable]:active:not([disabled]):not(
                     [remove-button-active]
                 )
         ) {

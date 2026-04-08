@@ -11,7 +11,7 @@ import {
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { ChipAppearance, ChipSelectionMode } from './types';
+import { ChipAppearance } from './types';
 import { slotTextContent } from '../utilities/models/slot-text-content';
 import { itemRemoveLabel } from '../label-provider/core/label-tokens';
 
@@ -20,10 +20,6 @@ declare global {
         'nimble-chip': Chip;
     }
 }
-export {
-    ChipSelectionMode,
-    type ChipSelectionMode as ChipSelectionModeType
-} from './types';
 
 export type ChipOptions = FoundationElementDefinition
     & StartOptions
@@ -39,8 +35,8 @@ export class Chip extends FoundationElement {
     @attr({ mode: 'boolean' })
     public disabled = false;
 
-    @attr({ attribute: 'selection-mode' })
-    public selectionMode: ChipSelectionMode;
+    @attr({ mode: 'boolean' })
+    public selectable = false;
 
     @attr({ mode: 'boolean' })
     public selected = false;
@@ -105,7 +101,7 @@ export class Chip extends FoundationElement {
             return false;
         }
 
-        if (this.selectionMode === ChipSelectionMode.single) {
+        if (this.selectable) {
             e.stopPropagation();
             this.selected = !this.selected;
             this.$emit('selected-change');
@@ -121,7 +117,7 @@ export class Chip extends FoundationElement {
         }
         switch (e.key) {
             case keySpace:
-                if (this.selectionMode === ChipSelectionMode.single) {
+                if (this.selectable) {
                     e.stopPropagation();
                     this.selected = !this.selected;
                     this.$emit('selected-change');
@@ -139,12 +135,12 @@ export class Chip extends FoundationElement {
         }
         switch (e.key) {
             case keySpace:
-                if (this.selectionMode === ChipSelectionMode.single) {
+                if (this.selectable) {
                     return false;
                 }
                 return true;
             case keyEnter:
-                if (this.selectionMode === ChipSelectionMode.single) {
+                if (this.selectable) {
                     e.stopPropagation();
                     this.selected = !this.selected;
                     this.$emit('selected-change');
@@ -205,10 +201,7 @@ export class Chip extends FoundationElement {
         event.stopPropagation();
     }
 
-    protected selectionModeChanged(
-        _oldValue: ChipSelectionMode | undefined,
-        _newValue: ChipSelectionMode | undefined
-    ): void {
+    protected selectableChanged(_oldValue: boolean, _newValue: boolean): void {
         this.updateManagedTabIndex();
     }
 
@@ -230,7 +223,7 @@ export class Chip extends FoundationElement {
             return;
         }
 
-        const shouldManage = this.selectionMode === ChipSelectionMode.single && !this.disabled;
+        const shouldManage = this.selectable && !this.disabled;
 
         if (shouldManage) {
             if (!this.hasAttribute('tabindex')) {

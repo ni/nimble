@@ -1,5 +1,5 @@
 import { html } from '@ni/fast-element';
-import { Chip, chipTag, ChipSelectionMode } from '..';
+import { Chip, chipTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { ChipPageObject } from '../testing/chip.pageobject';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -55,12 +55,12 @@ describe('Chip', () => {
         expect(element.selected).toBeFalse();
     });
 
-    it('selectionMode defaults to undefined', () => {
-        expect(element.selectionMode).toBeUndefined();
+    it('selectable property defaults to false', () => {
+        expect(element.selectable).toBeFalse();
     });
 
-    it('clicking chip toggles selected state and emits selected-change event when selectionMode is single', async () => {
-        element.selectionMode = ChipSelectionMode.single;
+    it('clicking chip toggles selected state and emits selected-change event when selectable', async () => {
+        element.selectable = true;
         const changeEvent = jasmine.createSpy();
         element.addEventListener('selected-change', changeEvent);
 
@@ -77,7 +77,7 @@ describe('Chip', () => {
         expect(changeEvent).toHaveBeenCalledTimes(2);
     });
 
-    it('clicking chip does not toggle selected state when selectionMode is none', async () => {
+    it('clicking chip does not toggle selected state when not selectable', async () => {
         const changeEvent = jasmine.createSpy();
         element.addEventListener('selected-change', changeEvent);
 
@@ -88,8 +88,8 @@ describe('Chip', () => {
         expect(changeEvent).not.toHaveBeenCalled();
     });
 
-    it('pressing Space toggles selected state and emits selected-change event when selectionMode is single', async () => {
-        element.selectionMode = ChipSelectionMode.single;
+    it('pressing Space toggles selected state and emits selected-change event when selectable', async () => {
+        element.selectable = true;
         const changeEvent = jasmine.createSpy();
         element.addEventListener('selected-change', changeEvent);
 
@@ -100,8 +100,8 @@ describe('Chip', () => {
         expect(changeEvent).toHaveBeenCalledTimes(1);
     });
 
-    it('pressing Enter toggles selected state and emits selected-change event when selectionMode is single', async () => {
-        element.selectionMode = ChipSelectionMode.single;
+    it('pressing Enter toggles selected state and emits selected-change event when selectable', async () => {
+        element.selectable = true;
         const changeEvent = jasmine.createSpy();
         element.addEventListener('selected-change', changeEvent);
 
@@ -112,8 +112,29 @@ describe('Chip', () => {
         expect(changeEvent).toHaveBeenCalledTimes(1);
     });
 
+    it('applies button semantics when selectable', async () => {
+        element.selectable = true;
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('role')).toBe('button');
+        expect(element.getAttribute('aria-pressed')).toBe('false');
+
+        element.selected = true;
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('aria-pressed')).toBe('true');
+    });
+
+    it('does not apply button semantics when not selectable', async () => {
+        element.selected = true;
+        await waitForUpdatesAsync();
+
+        expect(element.hasAttribute('role')).toBeFalse();
+        expect(element.hasAttribute('aria-pressed')).toBeFalse();
+    });
+
     it('clicking when disabled does not toggle selected state', async () => {
-        element.selectionMode = ChipSelectionMode.single;
+        element.selectable = true;
         element.disabled = true;
         const changeEvent = jasmine.createSpy();
         element.addEventListener('selected-change', changeEvent);
@@ -125,15 +146,15 @@ describe('Chip', () => {
         expect(changeEvent).not.toHaveBeenCalled();
     });
 
-    it('applies tabindex of 0 when selectionMode is single', async () => {
-        element.selectionMode = ChipSelectionMode.single;
+    it('applies tabindex of 0 when selectable', async () => {
+        element.selectable = true;
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('tabindex')).toBe('0');
     });
 
     it('removes internally managed tabindex when disabled', async () => {
-        element.selectionMode = ChipSelectionMode.single;
+        element.selectable = true;
         await waitForUpdatesAsync();
 
         element.disabled = true;
@@ -146,14 +167,14 @@ describe('Chip', () => {
         element.setAttribute('tabindex', '-1');
         await waitForUpdatesAsync();
 
-        element.selectionMode = ChipSelectionMode.single;
+        element.selectable = true;
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('tabindex')).toBe('-1');
     });
 
     it('does not toggle selection when remove button is clicked', async () => {
-        element.selectionMode = ChipSelectionMode.single;
+        element.selectable = true;
         element.removable = true;
         await waitForUpdatesAsync();
         const changeEvent = jasmine.createSpy();
@@ -176,7 +197,7 @@ describe('Chip', () => {
 
     it('should not set tabindex on the remove button when chip is selectable', async () => {
         element.removable = true;
-        element.selectionMode = ChipSelectionMode.single;
+        element.selectable = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
         expect(pageObject.getRemoveButtonTabIndex()).toBe('-1');
@@ -184,7 +205,6 @@ describe('Chip', () => {
 
     it('should reflect `tabindex` value to the internal button when chip is not selectable', async () => {
         element.removable = true;
-        element.selectionMode = ChipSelectionMode.none;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
 
@@ -196,7 +216,6 @@ describe('Chip', () => {
 
     it('should clear `tabindex` attribute from the internal button when removed from host and chip is not selectable', async () => {
         element.removable = true;
-        element.selectionMode = ChipSelectionMode.none;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
 
@@ -209,7 +228,7 @@ describe('Chip', () => {
     describe('remove button mousedown state', () => {
         beforeEach(async () => {
             element.removable = true;
-            element.selectionMode = ChipSelectionMode.single;
+            element.selectable = true;
             await waitForUpdatesAsync();
         });
 
@@ -282,7 +301,7 @@ describe('Chip', () => {
     describe('escape key removes chip', () => {
         it('emits remove event when Escape is pressed on selectable removable chip', async () => {
             element.removable = true;
-            element.selectionMode = ChipSelectionMode.single;
+            element.selectable = true;
             await waitForUpdatesAsync();
 
             const removeEvent = jasmine.createSpy();
@@ -296,7 +315,6 @@ describe('Chip', () => {
 
         it('emits remove event when Escape is pressed on non-selectable removable chip', async () => {
             element.removable = true;
-            element.selectionMode = ChipSelectionMode.none;
             await waitForUpdatesAsync();
 
             const removeEvent = jasmine.createSpy();
@@ -310,7 +328,7 @@ describe('Chip', () => {
 
         it('does not emit remove event when Escape is pressed on non-removable chip', async () => {
             element.removable = false;
-            element.selectionMode = ChipSelectionMode.single;
+            element.selectable = true;
             await waitForUpdatesAsync();
 
             const removeEvent = jasmine.createSpy();
@@ -324,7 +342,7 @@ describe('Chip', () => {
 
         it('does not emit remove event when Escape is pressed on disabled chip', async () => {
             element.removable = true;
-            element.selectionMode = ChipSelectionMode.single;
+            element.selectable = true;
             element.disabled = true;
             await waitForUpdatesAsync();
 

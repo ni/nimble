@@ -2,10 +2,7 @@ import { html, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
-import {
-    ChipAppearance,
-    ChipSelectionMode
-} from '@ni/nimble-components/dist/esm/chip/types';
+import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import {
     apiCategory,
     appearanceDescription,
@@ -16,7 +13,7 @@ import {
 
 interface ChipArgs {
     appearance: keyof typeof ChipAppearance;
-    selectionMode: keyof typeof ChipSelectionMode;
+    selectable: boolean;
     selected: boolean;
     removable: boolean;
     content: string;
@@ -32,7 +29,7 @@ const metadata: Meta<ChipArgs> = {
     ${disableStorybookZoomTransform}
         <${chipTag}
             appearance="${x => x.appearance}"
-            selection-mode="${x => x.selectionMode}"
+            ?selectable="${x => x.selectable}"
             ?selected="${x => x.selected}"
             ?removable="${x => x.removable}"
             ?disabled="${x => x.disabled}"
@@ -50,16 +47,15 @@ const metadata: Meta<ChipArgs> = {
             control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
-        selectionMode: {
-            name: 'selection-mode',
-            description: 'Controls whether the chip is selectable.',
-            options: Object.keys(ChipSelectionMode),
-            control: { type: 'radio' },
+        selectable: {
+            name: 'selectable',
+            description: 'Whether the chip behaves like a toggle button for local selection state.',
+            control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
         selected: {
             name: 'selected',
-            description: 'Whether the chip is selected.',
+            description: 'Whether the chip is selected. Only affects selectable chips.',
             table: { category: apiCategory.attributes }
         },
         removable: {
@@ -85,20 +81,20 @@ const metadata: Meta<ChipArgs> = {
             table: { category: apiCategory.slots }
         },
         remove: {
-            description: 'Emitted when the user presses the remove button.',
+            description: 'Emitted when the user presses the remove button or presses Escape on a removable chip.',
             table: { category: apiCategory.events },
             control: false
         },
         selectedChange: {
             name: 'selected-change',
-            description: 'Emitted when the user toggles the chip.',
+            description: 'Emitted when the user toggles a selectable chip.',
             table: { category: apiCategory.events },
             control: false
         }
     },
     args: {
         appearance: 'outline',
-        selectionMode: 'none',
+        selectable: false,
         selected: false,
         removable: false,
         content: 'Homer Simpson',

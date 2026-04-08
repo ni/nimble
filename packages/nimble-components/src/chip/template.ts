@@ -9,15 +9,14 @@ import { overflow } from '../utilities/directive/overflow';
 import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
 import { ButtonAppearance } from '../button/types';
-import { ChipSelectionMode } from './types';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<Chip>,
 ChipOptions
 > = (context, definition) => html<Chip>`
     <template
-        role="${x => (x.selectionMode === ChipSelectionMode.single ? 'button' : undefined)}"
-        aria-pressed="${x => (x.selectionMode === ChipSelectionMode.single ? x.selected : undefined)}"
+        role="${x => (x.selectable ? 'button' : undefined)}"
+        aria-pressed="${x => (x.selectable ? x.selected : undefined)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         @keyup="${(x, c) => x.keyupHandler(c.event as KeyboardEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
@@ -41,7 +40,7 @@ ChipOptions
                 class="remove-button"
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
-                tabindex="${x => (x.selectionMode === ChipSelectionMode.single ? '-1' : x.tabIndex)}"
+                tabindex="${x => (x.selectable ? '-1' : x.tabIndex)}"
                 @mousedown="${(x, c) => x.handleRemoveMousedown(c.event as MouseEvent)}"
                 @click="${(x, c) => x.handleRemoveClick(c.event as MouseEvent)}"
                 @keyup="${(x, c) => x.handleRemoveKeyup(c.event as KeyboardEvent)}"
