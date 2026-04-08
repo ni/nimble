@@ -114,10 +114,27 @@ const createThemeMatrix = (selectableState: SelectableState): StoryFn => createM
     ])
 );
 
+const createSelectableThemeMatrix = (selectedState: SelectedState): StoryFn => createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        removableStates,
+        showStartSlotIconStates,
+        labelStates,
+        widthStates,
+        [selectableStates[1]],
+        [selectedState]
+    ])
+);
+
 export const themeMatrix: StoryFn = createThemeMatrix(selectableStates[0]);
 
-export const selectableThemeMatrix: StoryFn = createThemeMatrix(
-    selectableStates[1]
+export const selectableThemeMatrix: StoryFn = createSelectableThemeMatrix(
+    selectedStates[0]
+);
+
+export const selectableSelectedThemeMatrix: StoryFn = createSelectableThemeMatrix(
+    selectedStates[1]
 );
 
 const interactionStates = cartesianProduct([
