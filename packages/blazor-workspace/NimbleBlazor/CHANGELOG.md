@@ -1,8 +1,66 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 02 Mar 2026 18:11:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.14.6
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.5
+
+## 20.14.5
+
+Wed, 01 Apr 2026 21:32:03 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+- Bump @ni/nimble-components to v35.5.4
+
+## 20.14.4
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.3
+
+## 20.14.3
+
+Tue, 24 Mar 2026 22:49:20 GMT
+
+### Patches
+
+- Minor README change to test nuget publishing ([ni/nimble@cc77ce0](https://github.com/ni/nimble/commit/cc77ce00918ffa501722ab524b60fd846ae20a76))
+
+## 20.14.2
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.2
+
+## 20.14.1
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
+
+## 20.14.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.5.0
+- Bump @ni/nimble-tokens to v8.17.0
 
 ## 20.13.7
 

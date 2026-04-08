@@ -1,8 +1,7 @@
-import { html } from '@ni/fast-element';
+import { html, slotted } from '@ni/fast-element';
 import type { Stepper } from '.';
-import { devicePixelRatio } from '../utilities/models/device-pixel-ratio';
 
-export const template = html<Stepper>`
-    <style>:host{--ni-private-device-resolution: ${() => devicePixelRatio.current};}</style>
-    <slot name="step"></slot>
-`;
+export const template = html<Stepper>`<ol><slot
+        name="step"
+        ${slotted('steps')}
+    ></slot></ol>`;

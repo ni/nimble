@@ -1,8 +1,92 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Fri, 06 Mar 2026 15:56:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.15.4
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.5
+
+## 6.15.3
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+- Bump @ni/nimble-components to v35.5.4
+
+## 6.15.2
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.3
+
+## 6.15.1
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Use lighter weight font for chat conversation end slot ([ni/nimble@739ef4a](https://github.com/ni/nimble/commit/739ef4a9edee8177bcaf631c6a915b952fdfe57f))
+
+## 6.15.0
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Minor changes
+
+- Add end slot for spright chat component ([ni/nimble@c10c7be](https://github.com/ni/nimble/commit/c10c7be74dbbac326972d1cf87ba9c8829e99e55))
+
+## 6.14.4
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- replace field-sizing with js approach ([ni/nimble@2309573](https://github.com/ni/nimble/commit/230957398badde38a5f2fc5116cd7eef9a9cfdfa))
+
+## 6.14.3
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump fast-foundation version to 10.2.2 ([ni/nimble@452fa5a](https://github.com/ni/nimble/commit/452fa5a0cd2dfd16749eeeeecf4b3eea771719ae))
+- Bump @ni/nimble-components to v35.5.2
+
+## 6.14.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
+
+## 6.14.1
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Remove border from chat conversation ([ni/nimble@dd37c89](https://github.com/ni/nimble/commit/dd37c89516d889c67d35e93a9751bd4706036f0c))
+
+## 6.14.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Add work item job icon ([ni/nimble@df7e198](https://github.com/ni/nimble/commit/df7e198f0d86f240b6baf32bcb6cc05aeea35b08))
+- Bump @ni/nimble-components to v35.5.0
+- Bump @ni/nimble-tokens to v8.17.0
 
 ## 6.13.0
 

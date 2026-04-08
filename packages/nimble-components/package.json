@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "35.4.0",
+  "version": "35.5.5",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:icons && npm run build:workers && npm run build:components && npm run build:scss && npm run build:cem",
@@ -47,9 +47,9 @@
   "dependencies": {
     "@ni/fast-colors": "^10.0.0",
     "@ni/fast-element": "^10.1.0",
-    "@ni/fast-foundation": "^10.2.1",
+    "@ni/fast-foundation": "^10.2.2",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-tokens": "^8.16.0",
+    "@ni/nimble-tokens": "^8.17.0",
     "@ni/unit-format": "^1.0.3",
     "@tanstack/table-core": "^8.19.3",
     "@tanstack/virtual-core": "^3.10.6",
@@ -94,7 +94,7 @@
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.0",
-    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-terser": "^1.0.0",
     "@types/jasmine": "^5.1.4",
     "@types/offscreencanvas": "^2019.7.3",
     "concurrently": "^9.0.0",
