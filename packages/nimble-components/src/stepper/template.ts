@@ -11,7 +11,6 @@ import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
 import { iconArrowExpanderUpTag } from '../icons/arrow-expander-up';
 import { iconArrowExpanderDownTag } from '../icons/arrow-expander-down';
 
-// prettier-ignore
 export const template = html<Stepper>`
     ${when(x => x.showScrollButtons, html<Stepper>`
         <${buttonTag}

@@ -250,8 +250,8 @@ describe('Stepper', () => {
                         });
 
                         it('should hide scroll buttons when the steps no longer overflow the container', async () => {
-                            await stepperPageObject.setStepperScrollAxisSize(200);
-                            await stepperPageObject.setStepperScrollAxisSize(3000);
+                            await stepperPageObject.setStepperScrollAxisSize(200); // first stepper overflow
+                            await stepperPageObject.setStepperScrollAxisSize(3000); // then stepper fit
                             expect(stepperPageObject.areScrollButtonsVisible()).toBeFalse();
                         });
 
