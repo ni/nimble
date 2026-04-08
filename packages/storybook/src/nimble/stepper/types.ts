@@ -4,6 +4,8 @@ import { StepperOrientation } from '@ni/nimble-components/dist/esm/stepper/types
 export const ExampleStepType = {
     simple: 'simple',
     severity: 'severity',
+    many: 'many',
+    wide: 'wide'
 } as const;
 export type ExampleStepType = (typeof ExampleStepType)[keyof typeof ExampleStepType];
 

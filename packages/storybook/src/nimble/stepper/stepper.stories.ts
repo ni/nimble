@@ -226,9 +226,31 @@ const severity: readonly StepSetItem[] = [
     { title: 'Share results', subtitle: 'Reveal who is responsible', selected: true },
 ];
 
+const many = Array.from({ length: 20 }).map((_x, i, arr) => ({
+    title: `Step ${i + 1}`,
+    subtitle: `On step ${i + 1} of ${arr.length}`,
+}));
+
+const wide = [
+    {
+        title: 'Step 1 that is too long and should probably be shorter but is not and sometimes you have to pick which battles to fight and which to let go of',
+        subtitle: 'On step 1 of 3'
+    },
+    {
+        title: 'Page 2 that is also long but not too long',
+        subtitle: 'On step 2 of 3',
+    },
+    {
+        title: 'Short',
+        subtitle: 'On step 3 of 3',
+    }
+] as const;
+
 const stepSets: { [key in ExampleStepType]: readonly StepSetItem[] } = {
     [ExampleStepType.simple]: simple,
     [ExampleStepType.severity]: severity,
+    [ExampleStepType.many]: many,
+    [ExampleStepType.wide]: wide,
 };
 type StepSet = StepSetItem;
 
@@ -243,9 +265,14 @@ export const stepper: StoryObj<StepperArgs> = {
         componentName: stepperTag,
         statusLink: 'https://github.com/ni/nimble/issues/624'
     })}
+    <style class="code-hide">
+        ${stepperTag} {
+            max-width: 100%;
+            max-height: 500px;
+        }
+    </style>
     <${stepperTag}
         orientation="${x => x.orientation}"
-        style="width: 860px;"
     >
         ${repeat(x => stepSets[x.stepType], html<StepSet>`
             <${stepTag}
@@ -271,6 +298,8 @@ export const stepper: StoryObj<StepperArgs> = {
                 labels: {
                     [ExampleStepType.simple]: 'Simple default step items',
                     [ExampleStepType.severity]: 'Steps with various severities',
+                    [ExampleStepType.many]: 'Many steps',
+                    [ExampleStepType.wide]: 'Wide steps',
                 }
             },
         },
