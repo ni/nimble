@@ -1,8 +1,8 @@
 import {
     DesignSystem,
-    AnchoredRegion as FoundationAnchoredRegion,
-    anchoredRegionTemplate as template
+    AnchoredRegion as FoundationAnchoredRegion
 } from '@ni/fast-foundation';
+import { template } from './template';
 import { styles } from './styles';
 
 declare global {
@@ -22,7 +22,8 @@ declare global {
 /**
  * A nimble-styled anchored region control.
  */
-export class AnchoredRegion extends FoundationAnchoredRegion {}
+export class AnchoredRegion extends FoundationAnchoredRegion {
+}
 
 const nimbleAnchoredRegion = AnchoredRegion.compose({
     baseName: 'anchored-region',

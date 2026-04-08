@@ -15,4 +15,12 @@ export const styles = css`
         display: block;
         visibility: hidden;
     }
+
+    slot {
+        display: none;
+    }
+
+    :host(.loaded) slot {
+        display: contents;
+    }
 `;
