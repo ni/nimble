@@ -8,7 +8,10 @@ import {
     controlHeight,
     fillHoverColor,
     iconColor,
+    iconSize,
+    mediumPadding,
     placeholderFontColor,
+    smallPadding,
     smallDelay,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -20,7 +23,8 @@ export const styles = css`
     :host {
         --ok-search-input-height: ${controlHeight};
         --ok-search-input-inline-padding: ${standardPadding};
-        --ok-search-input-leading-space: calc(var(--ok-search-input-inline-padding) + 16px);
+        --ok-search-input-leading-inset: ${mediumPadding};
+        --ok-search-input-leading-space: calc(var(--ok-search-input-leading-inset) + ${iconSize} + ${smallPadding});
         --ok-search-input-trailing-space: calc(var(--ok-search-input-inline-padding) + 20px);
         --ok-search-input-border-color: rgba(${borderRgbPartialColor}, 0.3);
         --ok-search-input-border-radius: 0px;
@@ -94,7 +98,7 @@ export const styles = css`
     }
 
     .search-input-icon {
-        inset-inline-start: var(--ok-search-input-inline-padding);
+        inset-inline-start: var(--ok-search-input-leading-inset);
         pointer-events: none;
     }
 

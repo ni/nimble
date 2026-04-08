@@ -1,10 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { SearchInput } from '@ni/ok-components/dist/esm/search-input';
 import { searchInputTag } from '@ni/ok-components/dist/esm/search-input';
-import type { SearchInputAppearance } from '@ni/ok-components/dist/esm/search-input/types';
+import { SearchInputAppearance } from '@ni/ok-components/dist/esm/search-input/types';
 
 export type { SearchInput };
 export { searchInputTag };
+export { SearchInputAppearance };
 
 /**
  * Directive to provide Angular integration for the search input.

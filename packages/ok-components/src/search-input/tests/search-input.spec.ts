@@ -50,11 +50,14 @@ describe('SearchInput', () => {
         await connect();
         await waitForUpdatesAsync();
 
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('input');
         const clearButton = element.shadowRoot?.querySelector<HTMLButtonElement>('.search-input-clear');
+        clearButton?.focus();
         clearButton?.click();
         await waitForUpdatesAsync();
 
         expect(element.value).toBe('');
+        expect(element.shadowRoot?.activeElement).toBe(input);
     });
 
     it('emits one input and one change event for a single input interaction', async () => {

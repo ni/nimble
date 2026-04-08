@@ -10,9 +10,9 @@ import {
 } from '../../utilities/storybook';
 
 interface SearchInputArgs {
-    appearance: keyof typeof SearchInputAppearance;
+    appearance: SearchInputAppearance;
     placeholder: string;
-    initialSearchValue: string;
+    value: string;
     input?: (e: Event) => void;
     change?: (e: Event) => void;
 }
@@ -22,16 +22,16 @@ const metadata: Meta<SearchInputArgs> = {
     render: createUserSelectedThemeStory(html<SearchInputArgs>`
         <div style="width: 320px; padding: 16px;">
             <${searchInputTag}
-                appearance="${x => SearchInputAppearance[x.appearance]}"
+                appearance="${x => x.appearance}"
                 placeholder="${x => x.placeholder}"
-                value="${x => x.initialSearchValue}"
+                value="${x => x.value}"
             ></${searchInputTag}>
         </div>
     `),
     argTypes: {
         appearance: {
             description: appearanceDescription({ componentName: 'search input' }),
-            options: Object.keys(SearchInputAppearance),
+            options: Object.values(SearchInputAppearance),
             control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
@@ -39,9 +39,9 @@ const metadata: Meta<SearchInputArgs> = {
             description: placeholderDescription({ componentName: 'search input' }),
             table: { category: apiCategory.attributes }
         },
-        initialSearchValue: {
-            description: 'Initial text rendered in the search input.',
-            table: { category: apiCategory.nonAttributeProperties }
+        value: {
+            description: 'The current text rendered in the search input.',
+            table: { category: apiCategory.attributes }
         },
         input: {
             table: { category: apiCategory.events },
@@ -53,9 +53,9 @@ const metadata: Meta<SearchInputArgs> = {
         }
     },
     args: {
-        appearance: 'outline',
+        appearance: SearchInputAppearance.outline,
         placeholder: 'Search',
-        initialSearchValue: ''
+        value: ''
     }
 };
 

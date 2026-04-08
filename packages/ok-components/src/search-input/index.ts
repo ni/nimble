@@ -26,31 +26,28 @@ export class SearchInput extends FoundationElement {
     @attr
     public appearance: SearchInputAppearanceType = SearchInputAppearance.outline;
 
-    private inputElement: HTMLInputElement | null = null;
-
-    public handleInput(event: Event): void {
+    public handleInput(event: Event): boolean {
         const input = event.target as HTMLInputElement;
         this.value = input.value;
+        return true;
     }
 
-    public handleChange(event: Event): void {
+    public handleChange(event: Event): boolean {
         const input = event.target as HTMLInputElement;
         this.value = input.value;
+        return true;
     }
 
-    public captureInputRef(element: HTMLInputElement | null): void {
-        this.inputElement = element;
-    }
-
-    public clear(): void {
+    public clear(): boolean {
         if (this.value === '') {
-            return;
+            return true;
         }
 
         this.value = '';
-        this.inputElement?.focus();
+        this.shadowRoot?.querySelector<HTMLInputElement>('.search-input')?.focus();
         this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        return true;
     }
 }
 

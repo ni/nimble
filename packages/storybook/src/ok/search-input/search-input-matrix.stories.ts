@@ -4,6 +4,10 @@ import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/asyn
 import { searchInputTag } from '@ni/ok-components/dist/esm/search-input';
 import { SearchInputAppearance } from '@ni/ok-components/dist/esm/search-input/types';
 import {
+    bodyFont,
+    bodyFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import {
     createMatrixInteractionsFromStates,
     createMatrixThemeStory,
     sharedMatrixParameters
@@ -27,6 +31,13 @@ const searchInputStates: SearchInputMatrixState[] = [
     ['super-ghost', 'superGhost']
 ];
 
+const matrixContainerStyle = `
+    padding: 28px 32px;
+    width: 760px;
+    font: var(${bodyFont.cssCustomProperty});
+    color: var(${bodyFontColor.cssCustomProperty});
+`;
+
 const searchField = (
     label: string,
     appearance: keyof typeof SearchInputAppearance
@@ -42,7 +53,7 @@ const searchField = (
 `;
 
 export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
-    <div style="padding: 28px 32px; width: 760px;">
+    <div style="${matrixContainerStyle}">
         ${searchField('Search_Block_Light_32', 'block')}
         ${searchField('Search_Outline_Light_32', 'outline')}
         ${searchField('Search_Ghost_Light_32', 'ghost')}
@@ -72,7 +83,7 @@ export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const typedThemeMatrix: StoryFn = createMatrixThemeStory(html`
-    <div style="padding: 28px 32px; width: 760px;">
+    <div style="${matrixContainerStyle}">
         ${searchField('Typed_Block_Light_32', 'block')}
         ${searchField('Typed_Outline_Light_32', 'outline')}
         ${searchField('Typed_Ghost_Light_32', 'ghost')}
