@@ -245,6 +245,7 @@ export const stepper: StoryObj<StepperArgs> = {
     })}
     <${stepperTag}
         orientation="${x => x.orientation}"
+        style="width: 860px;"
     >
         ${repeat(x => stepSets[x.stepType], html<StepSet>`
             <${stepTag}
