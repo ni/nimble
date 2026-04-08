@@ -39,14 +39,7 @@ export class Stepper extends FoundationElement {
      */
     public readonly startScrollButton?: HTMLElement;
 
-    private readonly listResizeObserver: ResizeObserver;
-
-    public constructor() {
-        super();
-        this.listResizeObserver = new ResizeObserver(_ => {
-            this.handleListOverflow();
-        });
-    }
+    private listIntersectionObserver?: IntersectionObserver;
 
     /**
      * @internal
@@ -84,12 +77,25 @@ export class Stepper extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.listResizeObserver.observe(this.list);
+        // Unlike other scrollable implementations, the steps fill the space
+        // of the container instead of the container sized to the items.
+        // We can't rely on the resizing of the container so instead
+        // track intersection of all steps inside the container.
+        // Found in manual testing that can get in states of partial occlusion
+        // before tabbing / using arrow keys triggers an intersection change.
+        // Hopefully the reliable solution is container scroll state queries when available:
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Conditional_rules/Container_scroll-state_queries
+        this.listIntersectionObserver = new IntersectionObserver(_ => {
+            this.handleListOverflow();
+        }, {
+            root: this.list,
+            threshold: 1.0
+        });
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.listResizeObserver.disconnect();
+        this.listIntersectionObserver?.disconnect();
     }
 
     private orientationChanged(): void {
@@ -98,7 +104,10 @@ export class Stepper extends FoundationElement {
 
     private stepsChanged(): void {
         this.updateStepInternals();
-        this.handleListOverflow();
+        this.listIntersectionObserver?.disconnect();
+        if (this.steps) {
+            this.steps.forEach(step => this.listIntersectionObserver?.observe(step));
+        }
     }
 
     private updateStepInternals(): void {
