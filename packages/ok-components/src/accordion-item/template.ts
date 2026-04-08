@@ -8,10 +8,7 @@ export const template = html<AccordionItem>`
     <details
         class="accordion-item-details"
         ?open="${x => x.expanded}"
-        @toggle="${(x, c) => {
-        const details = c.event.target as HTMLDetailsElement;
-        x.expanded = details.open;
-    }}"
+        @toggle="${(x, c) => x.handleToggle(c.event)}"
     >
         <summary
             class="accordion-item-summary"

@@ -23,7 +23,12 @@ export class AccordionItem extends FoundationElement {
     public expanded = false;
 
     @attr()
-    public appearance: AccordionItemAppearance = AccordionItemAppearance.outline;
+    public appearance: AccordionItemAppearance = AccordionItemAppearance.ghost;
+
+    public handleToggle(event: Event): boolean {
+        this.expanded = (event.target as HTMLDetailsElement).open;
+        return true;
+    }
 }
 
 const okAccordionItem = AccordionItem.compose({

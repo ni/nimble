@@ -4,30 +4,42 @@ import {
     bodyPlus1EmphasizedFontColor,
     borderHoverColor,
     borderRgbPartialColor,
+    controlHeight,
     dividerWidth,
     iconSize,
-    mediumDelay,
     mediumPadding,
+    mediumDelay,
     smallDelay,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { appearanceBehavior } from '@ni/nimble-components/dist/esm/utilities/style/appearance';
 import { display } from '../utilities/style/display';
+import { userSelectNone } from '../utilities/style/user-select';
 import { AccordionItemAppearance } from './types';
 
 export const styles = css`
     ${display('block')}
 
+    :host {
+        border-bottom: ${dividerWidth} solid transparent;
+    }
+
     .accordion-item-details > .accordion-item-summary {
         display: flex;
         box-sizing: border-box;
-        height: 36px;
+        height: calc(${controlHeight} + (2 * ${dividerWidth}));
         align-items: center;
-        margin-left: calc(-1 * ${mediumPadding});
+        margin-left: 0;
+        padding-left: ${mediumPadding};
         border: ${dividerWidth} solid transparent;
+        outline: ${dividerWidth} solid transparent;
+        outline-offset: -1px;
         list-style: none;
         cursor: pointer;
-        user-select: none;
+        ${userSelectNone}
+        transition:
+            border-color ${smallDelay} ease-in,
+            outline-color ${smallDelay} ease-in;
     }
 
     .accordion-item-details > .accordion-item-summary::-webkit-details-marker {
@@ -39,8 +51,7 @@ export const styles = css`
     }
 
     .accordion-item-details > .accordion-item-summary:hover {
-        border: ${dividerWidth} solid ${borderHoverColor};
-        transition: ${smallDelay} ease-in;
+        border-color: ${borderHoverColor};
     }
 
     .accordion-item-details > .accordion-item-summary:focus-visible {
@@ -63,7 +74,6 @@ export const styles = css`
         width: 100%;
         position: relative;
         font: ${bodyPlus1EmphasizedFont};
-        line-height: 20px;
         color: ${bodyPlus1EmphasizedFontColor};
         text-align: left;
         display: block;
@@ -76,8 +86,8 @@ export const styles = css`
     .accordion-item-content {
         display: flex;
         flex-direction: column;
-        gap: ${mediumPadding};
-        margin-left: calc(${iconSize} + ${mediumPadding});
+        gap: ${standardPadding};
+        margin-left: calc(${iconSize} + (2 * ${mediumPadding}));
         margin-top: ${mediumPadding};
         padding-bottom: ${standardPadding};
     }
@@ -87,31 +97,20 @@ export const styles = css`
         css`
             :host {
                 border-bottom: ${dividerWidth} solid rgba(${borderRgbPartialColor}, 0.2);
+                border-bottom-color: rgba(${borderRgbPartialColor}, 0.2);
             }
         `
     ),
     appearanceBehavior(
         AccordionItemAppearance.block,
         css`
-            :host {
-                margin-bottom: 2px;
-            }
-
             .accordion-item-details > .accordion-item-summary {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-                margin-left: 0;
-                padding-left: 0;
-                border: none;
             }
 
             .accordion-item-details > .accordion-item-summary:hover {
-                border: none;
-                outline: ${dividerWidth} solid ${borderHoverColor};
-                outline-offset: -1px;
-            }
-
-            .accordion-item-content {
-                margin-left: calc(${iconSize} + (2 * ${mediumPadding}));
+                border-color: transparent;
+                outline-color: ${borderHoverColor};
             }
         `
     )

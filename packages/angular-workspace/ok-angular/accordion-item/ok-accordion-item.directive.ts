@@ -1,10 +1,11 @@
 import { booleanAttribute, Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { AccordionItem } from '@ni/ok-components/dist/esm/accordion-item';
 import { accordionItemTag } from '@ni/ok-components/dist/esm/accordion-item';
-import type { AccordionItemAppearance } from '@ni/ok-components/dist/esm/accordion-item/types';
+import { AccordionItemAppearance } from '@ni/ok-components/dist/esm/accordion-item/types';
 
 export type { AccordionItem };
 export { accordionItemTag };
+export { AccordionItemAppearance };
 
 /**
  * Directive to provide Angular integration for the accordion item.

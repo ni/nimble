@@ -2,6 +2,10 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
 import { accordionItemTag } from '@ni/ok-components/dist/esm/accordion-item';
 import { AccordionItemAppearance } from '@ni/ok-components/dist/esm/accordion-item/types';
+import {
+    bodyFont,
+    bodyFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { checkboxTag } from '@ni/nimble-components/dist/esm/checkbox';
@@ -18,20 +22,32 @@ interface AccordionItemArgs {
     appearance: AccordionItemAppearance;
 }
 
+const accordionContentStyle = `
+    font: var(${bodyFont.cssCustomProperty});
+    color: var(${bodyFontColor.cssCustomProperty});
+`;
+
+const accordionGroupStyle = `
+    width: 400px;
+    ${accordionContentStyle}
+`;
+
 const metadata: Meta<AccordionItemArgs> = {
     title: 'Ok/Accordion Item',
     parameters: {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${accordionItemTag}
-            header="${x => x.header}"
-            ?expanded="${x => x.expanded}"
-            appearance="${x => x.appearance}"
-        >
-            <${textFieldTag} placeholder="Enter name" appearance="underline"></${textFieldTag}>
-            <${textFieldTag} placeholder="Enter category" appearance="underline"></${textFieldTag}>
-        </${accordionItemTag}>
+        <div style="${accordionContentStyle}">
+            <${accordionItemTag}
+                header="${x => x.header}"
+                ?expanded="${x => x.expanded}"
+                appearance="${x => x.appearance}"
+            >
+                <${textFieldTag} placeholder="Enter name" appearance="underline"></${textFieldTag}>
+                <${textFieldTag} placeholder="Enter category" appearance="underline"></${textFieldTag}>
+            </${accordionItemTag}>
+        </div>
     `),
     argTypes: {
         header: {
@@ -55,7 +71,7 @@ const metadata: Meta<AccordionItemArgs> = {
     args: {
         header: 'Expanded Accordion',
         expanded: true,
-        appearance: AccordionItemAppearance.outline
+        appearance: AccordionItemAppearance.ghost
     }
 };
 
@@ -87,7 +103,7 @@ export const block: StoryObj<AccordionItemArgs> = {
 
 export const outlineGroup: StoryObj<AccordionItemArgs> = {
     render: createUserSelectedThemeStory(html`
-        <div style="width: 400px;">
+        <div style="${accordionGroupStyle}">
             <${accordionItemTag} header="Shipping" appearance="${x => x.appearance}" expanded>
                 <${textFieldTag} appearance="underline">Address</${textFieldTag}>
                 <${textFieldTag} appearance="underline">City</${textFieldTag}>
@@ -117,9 +133,33 @@ export const outlineGroup: StoryObj<AccordionItemArgs> = {
     }
 };
 
+export const ghostGroup: StoryObj<AccordionItemArgs> = {
+    render: createUserSelectedThemeStory(html`
+        <div style="${accordionGroupStyle}">
+            <${accordionItemTag} header="Asset details" appearance="${x => x.appearance}" expanded>
+                <p style="margin: 0px;">Serial number: PXI-12345</p>
+                <p style="margin: 0px;">Location: Lab 2</p>
+            </${accordionItemTag}>
+            <${accordionItemTag} header="Ownership" appearance="${x => x.appearance}">
+                <p style="margin: 0px;">Assigned to calibration operations.</p>
+            </${accordionItemTag}>
+            <${accordionItemTag} header="Notes" appearance="${x => x.appearance}">
+                <p style="margin: 0px;">Ghost appearance keeps related sections visually lightweight.</p>
+            </${accordionItemTag}>
+        </div>
+    `),
+    args: {
+        appearance: AccordionItemAppearance.ghost
+    },
+    argTypes: {
+        header: { control: false, table: { disable: true } },
+        expanded: { control: false, table: { disable: true } }
+    }
+};
+
 export const blockGroup: StoryObj<AccordionItemArgs> = {
     render: createUserSelectedThemeStory(html`
-        <div style="width: 400px;">
+        <div style="${accordionGroupStyle}">
             <${accordionItemTag} header="General" appearance="${x => x.appearance}" expanded>
                 <${textFieldTag} appearance="underline">Project name</${textFieldTag}>
                 <${textFieldTag} appearance="underline">Description</${textFieldTag}>
@@ -145,7 +185,7 @@ export const blockGroup: StoryObj<AccordionItemArgs> = {
 
 export const nestedAccordion: StoryObj<AccordionItemArgs> = {
     render: createUserSelectedThemeStory(html`
-        <div style="width: 400px;">
+        <div style="${accordionGroupStyle}">
             <${accordionItemTag} header="Versioning" appearance="${x => x.appearance}" expanded>
                 <${accordionItemTag} header="GET / API information" appearance="ghost" expanded>
                     <p style="margin: 0;">Returns information about API versions and available operations.</p>
@@ -178,7 +218,7 @@ export const nestedAccordion: StoryObj<AccordionItemArgs> = {
 
 export const mixedContent: StoryObj<AccordionItemArgs> = {
     render: createUserSelectedThemeStory(html`
-        <div style="width: 400px;">
+        <div style="${accordionGroupStyle}">
             <${accordionItemTag} header="Size" appearance="${x => x.appearance}" expanded>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
                     <${checkboxTag}>XS</${checkboxTag}>

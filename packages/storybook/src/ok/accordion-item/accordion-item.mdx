@@ -9,24 +9,24 @@ An accordion item is a collapsible section that can be expanded or collapsed
 to show or hide its content. It uses a header with an expander icon to toggle
 visibility.
 
-<Canvas of={accordionItemStories.outline} />
+<Canvas of={accordionItemStories.ghost} />
 
 ## API
 
-<Controls of={accordionItemStories.outline} />
+<Controls of={accordionItemStories.ghost} />
 <ComponentApisLink />
 
 ## Appearance
 
 ### Ghost
 
-No borders or background. Use for nested accordions or minimal visual chrome.
+No borders or background. This is the default appearance. Use for nested accordions or minimal visual chrome.
 
 <Canvas of={accordionItemStories.ghost} />
 
 ### Outline
 
-A bottom border divider between items. This is the default appearance.
+A bottom border divider between items.
 
 <Canvas of={accordionItemStories.outline} />
 
@@ -37,6 +37,12 @@ A filled background on each header row.
 <Canvas of={accordionItemStories.block} />
 
 ## Examples
+
+### Ghost Group
+
+Multiple ghost accordion items for compact, low-chrome groupings of related information.
+
+<Canvas of={accordionItemStories.ghostGroup} />
 
 ### Outline Group
 

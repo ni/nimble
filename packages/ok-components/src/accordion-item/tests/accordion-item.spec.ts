@@ -90,10 +90,22 @@ describe('AccordionItem', () => {
         expect(titleSpan?.textContent?.trim()).toBe('New Header');
     });
 
-    it('should default to outline appearance', async () => {
+    it('should update expanded when the details element toggles', async () => {
+        ({ element, connect, disconnect } = await setup(false));
+        await connect();
+        const details = element.shadowRoot?.querySelector('details');
+        expect(details).not.toBeNull();
+
+        details!.open = true;
+        details!.dispatchEvent(new Event('toggle'));
+
+        expect(element.expanded).toBeTrue();
+    });
+
+    it('should default to ghost appearance', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        expect(element.appearance).toBe(AccordionItemAppearance.outline);
+        expect(element.appearance).toBe(AccordionItemAppearance.ghost);
     });
 
     it('should reflect appearance attribute', async () => {
