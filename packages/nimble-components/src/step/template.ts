@@ -55,8 +55,10 @@ ButtonOptions
                 aria-pressed="${x => x.ariaPressed}"
                 aria-relevant="${x => x.ariaRelevant}"
                 aria-roledescription="${x => x.ariaRoledescription}"
+                @click="${(x, c) => x.onClick(c.event)}"
                 ${ref('control')}
             >
+                <div class="icon-background"></div>
                 <div class="icon">
                     <span class="current-label">${x => (x.selected ? popupIconCurrentLabel.getValueFor(x) : '')}</span>
                     <div class="step-indicator"><slot name="step-indicator"><span aria-hidden="true">${x => x.stepInternals.position}</span></slot></div>

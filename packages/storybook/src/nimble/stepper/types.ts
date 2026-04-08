@@ -47,3 +47,18 @@ export const stepLayoutStates = [
     ['Last Vertical', true, 'vertical'],
 ] as const;
 export type StepLayoutStates = (typeof stepLayoutStates)[number];
+
+export const stepManipulationStates = [
+    ['', false, false],
+    ['Disabled', false, true],
+    ['Read-Only', true, false],
+    ['Read-Only Disabled', true, true],
+] as const;
+export type StepManipulationState = (typeof stepManipulationStates)[number];
+
+export const stepManipulationState = {
+    none: stepManipulationStates[0],
+    disabled: stepManipulationStates[1],
+    readOnly: stepManipulationStates[2],
+    readOnlyDisabled: stepManipulationStates[3],
+} as const;
