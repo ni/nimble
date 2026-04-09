@@ -8,6 +8,7 @@ import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/messa
 import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
+import { iconMessageBotTag } from '@ni/nimble-components/dist/esm/icons/message-bot';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
@@ -162,7 +163,9 @@ export const chatMessageImage: StoryObj<ChatMessageInboundArgs> = {
 interface ChatMessageWelcomeArgs {
     welcomeTitle: string;
     subtitle: string;
-    defaultSlot: boolean;
+    brandIcon: boolean;
+    loginButton: boolean;
+    suggestions: boolean;
 }
 
 export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
@@ -171,10 +174,15 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
             welcome-title="${x => x.welcomeTitle}"
             subtitle="${x => x.subtitle}"
         >
-            ${when(x => x.defaultSlot, html`
+            ${when(x => x.brandIcon, html`
+                <${iconMessageBotTag} slot="brand-icon"></${iconMessageBotTag}>
+            `)}
+            ${when(x => x.loginButton, html`
                 <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
                     Login
                 </${anchorButtonTag}>
+            `)}
+            ${when(x => x.suggestions, html`
                 <${buttonTag} appearance="block">
                     Help me get started
                 </${buttonTag}>
@@ -194,15 +202,27 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
             description: 'The secondary subtitle text displayed below the title.',
             table: { category: apiCategory.attributes }
         },
-        defaultSlot: {
-            name: 'default',
-            description: 'Content to display below the icon, title, and subtitle. For example, a login button or suggested outbound messages.',
+        brandIcon: {
+            name: 'brand-icon',
+            description: 'Customize the brand image displayed above the title. By default, the Nigel AI icon is shown.',
+            table: { category: apiCategory.slots }
+        },
+        loginButton: {
+            name: 'Show login button',
+            description: 'Slot a login anchor button below the title and subtitle.',
+            table: { category: apiCategory.slots }
+        },
+        suggestions: {
+            name: 'Show suggestions',
+            description: 'Slot suggested outbound messages buttons below the title and subtitle.',
             table: { category: apiCategory.slots }
         }
     },
     args: {
         welcomeTitle: 'Welcome to Nigel\u2122 AI',
         subtitle: 'Chat below to get started',
-        defaultSlot: true
+        brandIcon: false,
+        loginButton: true,
+        suggestions: false
     }
 };
