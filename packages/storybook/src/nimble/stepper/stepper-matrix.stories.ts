@@ -11,7 +11,7 @@ import {
 } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
-import { orientationStates, type OrientationStates } from './types';
+import { sizeStates, type SizeStates } from './types';
 
 const metadata: Meta = {
     title: 'Tests/Stepper',
@@ -23,17 +23,19 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
-    [orientationName, orientation]: OrientationStates
+    [sizeName, orientation, sizeStyle]: SizeStates,
 ): ViewTemplate => html`
-<div style="display: inline-flex; flex-direction: row; gap: 16px;">
-    <div style="padding-right: 16px;">${orientationName}</div>
-    <${stepperTag} orientation=${() => orientation}>
-        <${stepTag}><span slot="title">Step 1</span><span slot="subtitle">first</span></${stepTag}>
-        <${stepTag}><span slot="title">Step 2</span><span slot="subtitle">last</span></${stepTag}>
+<div style="display: inline-flex; flex-direction: column; gap: 16px;">
+    <div style="padding-right: 16px;">${sizeName}</div>
+    <${stepperTag} orientation=${() => orientation} style="${sizeStyle}">
+        <${stepTag}><span slot="title">Step 1 and a decent amount of text</span><span slot="subtitle">first</span></${stepTag}>
+        <${stepTag}><span slot="title">Step 2 and a decent amount of text</span><span slot="subtitle">first</span></${stepTag}>
+        <${stepTag}><span slot="title">Step 3 and a decent amount of text</span><span slot="subtitle">first</span></${stepTag}>
     </${stepperTag}>
-    <${stepperTag} orientation=${() => orientation}>
-        <${anchorStepTag} href="#" target="_self"><span slot="title">Anchor Step 1</span><span slot="subtitle">first</span></${anchorStepTag}>
-        <${anchorStepTag} href="#" target="_self"><span slot="title">Anchor Step 2</span><span slot="subtitle">last</span></${anchorStepTag}>
+    <${stepperTag} orientation=${() => orientation} style="${sizeStyle}">
+        <${anchorStepTag} href="#" target="_self"><span slot="title">Anchor Step 1 and a decent amount of text</span><span slot="subtitle">first</span></${anchorStepTag}>
+        <${anchorStepTag} href="#" target="_self"><span slot="title">Anchor Step 2 and a decent amount of text</span><span slot="subtitle">first</span></${anchorStepTag}>
+        <${anchorStepTag} href="#" target="_self"><span slot="title">Anchor Step 3 and a decent amount of text</span><span slot="subtitle">first</span></${anchorStepTag}>
     </${stepperTag}>
 </div>
 `;
@@ -46,7 +48,7 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(html`
             color: var(${bodyFontColor.cssCustomProperty});
         ">
     ${createMatrix(component, [
-        orientationStates
+        sizeStates
     ])}
     </div>
 `);
