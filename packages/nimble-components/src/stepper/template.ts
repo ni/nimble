@@ -21,8 +21,11 @@ export const template = html<Stepper>`
             ${ref('startScrollButton')}
         >
             ${x => scrollForwardLabel.getValueFor(x)}
-            ${when(x => x.orientation === 'horizontal', html`<${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>`)}
-            ${when(x => x.orientation === 'vertical', html`<${iconArrowExpanderUpTag} slot="start"></${iconArrowExpanderUpTag}>`)}
+            ${when(
+                x => x.isHorizontal(),
+                html`<${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>`,
+                html`<${iconArrowExpanderUpTag} slot="start"></${iconArrowExpanderUpTag}>`
+            )}
         </${buttonTag}>
     `)}
     <ol ${ref('list')} class="list"><slot
@@ -37,8 +40,11 @@ export const template = html<Stepper>`
             @click="${x => x.onScrollEndClick()}"
         >
             ${x => scrollBackwardLabel.getValueFor(x)}
-            ${when(x => x.orientation === 'horizontal', html`<${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>`)}
-            ${when(x => x.orientation === 'vertical', html`<${iconArrowExpanderDownTag} slot="start"></${iconArrowExpanderDownTag}>`)}
+            ${when(
+                x => x.isHorizontal(),
+                html`<${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>`,
+                html`<${iconArrowExpanderDownTag} slot="start"></${iconArrowExpanderDownTag}>`
+            )}
         </${buttonTag}>
     `)}
 `;

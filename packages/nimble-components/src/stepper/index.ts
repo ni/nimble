@@ -18,9 +18,7 @@ export class Stepper extends FoundationElement {
     @attr
     public orientation: StepperOrientation = StepperOrientation.horizontal;
 
-    /**
-     * @internal
-     */
+    /** @internal */
     @observable
     public showScrollButtons = false;
 
@@ -28,23 +26,17 @@ export class Stepper extends FoundationElement {
     @observable
     public steps?: (StepPattern)[];
 
-    /**
-     * @internal
-     */
+    /** @internal */
     public list!: HTMLElement;
 
-    /**
-     * @internal
-     */
+    /** @internal */
     public readonly startScrollButton?: HTMLElement;
 
     private listIntersectionObserver?: IntersectionObserver;
 
-    /**
-     * @internal
-     */
+    /** @internal */
     public onScrollStartClick(): void {
-        if (this.orientation === StepperOrientation.horizontal) {
+        if (this.isHorizontal()) {
             this.list.scrollBy({
                 left: -this.list.clientWidth,
                 behavior: 'smooth'
@@ -57,11 +49,9 @@ export class Stepper extends FoundationElement {
         }
     }
 
-    /**
-     * @internal
-     */
+    /** @internal */
     public onScrollEndClick(): void {
-        if (this.orientation === StepperOrientation.horizontal) {
+        if (this.isHorizontal()) {
             this.list.scrollBy({
                 left: this.list.clientWidth,
                 behavior: 'smooth'
@@ -74,6 +64,7 @@ export class Stepper extends FoundationElement {
         }
     }
 
+    /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
         // Steps fill parent container so can't rely on a resize observer to track their space usage.
@@ -87,9 +78,15 @@ export class Stepper extends FoundationElement {
         });
     }
 
+    /** @internal */
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.listIntersectionObserver?.disconnect();
+    }
+
+    /** @internal */
+    public isHorizontal(): boolean {
+        return this.orientation !== StepperOrientation.vertical;
     }
 
     private orientationChanged(): void {
@@ -110,26 +107,27 @@ export class Stepper extends FoundationElement {
         }
         const lastIndex = this.steps.length - 1;
         this.steps.forEach((step, index) => {
-            step.stepInternals.orientation = this.orientation;
+            step.stepInternals.orientation = this.isHorizontal()
+                ? StepperOrientation.horizontal
+                : StepperOrientation.vertical;
             step.stepInternals.last = index === lastIndex;
             step.stepInternals.position = index + 1;
         });
     }
 
     private handleListOverflow(): void {
-        const isHorizontal = this.orientation === StepperOrientation.horizontal;
-        let listVisibleSize = isHorizontal
+        let listVisibleSize = this.isHorizontal()
             ? this.list.clientWidth
             : this.list.clientHeight;
         if (listVisibleSize !== undefined) {
-            const buttonSize = isHorizontal
+            const buttonSize = this.isHorizontal()
                 ? this.startScrollButton?.clientWidth ?? 0
                 : this.startScrollButton?.clientHeight ?? 0;
             listVisibleSize = Math.ceil(listVisibleSize);
             if (this.showScrollButtons) {
                 listVisibleSize += buttonSize * 2;
             }
-            const listScrollSize = isHorizontal
+            const listScrollSize = this.isHorizontal()
                 ? this.list.scrollWidth
                 : this.list.scrollHeight;
             this.showScrollButtons = listVisibleSize < listScrollSize;
