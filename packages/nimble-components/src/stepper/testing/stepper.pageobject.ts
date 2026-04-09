@@ -69,11 +69,11 @@ export class StepperPageObject {
         await waitForUpdatesAsync();
     }
 
-    public async addStep(label?: string): Promise<void> {
+    public async addStep(title?: string): Promise<void> {
         const step = document.createElement(stepTag);
         step.appendChild(Object.assign(document.createElement('span'), {
             slot: 'title',
-            textContent: label
+            textContent: title ?? ''
         }));
         this.element.appendChild(step);
         await waitForUpdatesAsync();
@@ -88,5 +88,23 @@ export class StepperPageObject {
         steps[index]!.remove();
         await waitForUpdatesAsync();
         await waitForUpdatesAsync(); // wait for overflow check queued by stepsChanged
+    }
+
+    public async updateStepTitle(
+        index: number,
+        title: string
+    ): Promise<void> {
+        const steps = this.element.steps;
+        if (!steps || index >= steps.length) {
+            throw new Error(`Step with index ${index} not found`);
+        }
+        const step = steps[index]!;
+        const titleSlot = step.querySelector('[slot="title"]');
+        if (!titleSlot) {
+            throw new Error(`No slot="title" element found to update for step with index ${index}`);
+        }
+        titleSlot.textContent = title;
+        await waitForUpdatesAsync();
+        await waitForUpdatesAsync();
     }
 }

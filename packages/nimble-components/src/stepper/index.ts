@@ -29,7 +29,6 @@ export class Stepper extends FoundationElement {
     public steps?: (StepPattern)[];
 
     /**
-     * A reference to the list element
      * @internal
      */
     public list!: HTMLElement;
@@ -77,14 +76,9 @@ export class Stepper extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        // Unlike other scrollable implementations, the steps fill the space
-        // of the container instead of the container sized to the items.
-        // We can't rely on the resizing of the container so instead
-        // track intersection of all steps inside the container.
-        // Found in manual testing that can get in states of partial occlusion
-        // before tabbing / using arrow keys triggers an intersection change.
-        // Hopefully the reliable solution is container scroll state queries when available:
-        // https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Conditional_rules/Container_scroll-state_queries
+        // Steps fill parent container so can't rely on a resize observer to track their space usage.
+        // Instead directly track each step's occlusion with intersection observer which is more compute intensive.
+        // When available can switch to container scroll state queries, see: https://github.com/ni/nimble/issues/2922
         this.listIntersectionObserver = new IntersectionObserver(_ => {
             this.handleListOverflow();
         }, {
