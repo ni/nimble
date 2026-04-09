@@ -77,6 +77,9 @@ export const styles = css`
         color: ${bodyPlus1EmphasizedFontColor};
         text-align: left;
         display: block;
+        /* Preserve descenders within the ellipsis clip region without shifting the text. */
+        padding-bottom: 2px;
+        margin-bottom: -2px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
