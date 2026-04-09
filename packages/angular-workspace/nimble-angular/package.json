@@ -3,8 +3,17 @@
   "version": "33.0.3",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
+    "build": "npm run build:generate-icons && npm run build:library",
+    "build:generate-icons": "node ./build/generate-icons.mjs",
+    "build:library": "ng build @ni/nimble-angular",
+    "lint": "ng lint @ni/nimble-angular",
+    "format": "ng lint @ni/nimble-angular --fix",
+    "test": "ng test @ni/nimble-angular --watch=false",
+    "tdd": "ng test @ni/nimble-angular --browsers=Chrome",
+    "watch": "ng build @ni/nimble-angular --watch --configuration development",
+    "pack": "cd ../dist/nimble-angular && npm pack",
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/nimble-angular && npm publish",
-    "invoke-publish:setup": "cd ../ && npm run build:nimble"
+    "invoke-publish:setup": "npm run build:library"
   },
   "type": "module",
   "exports": {

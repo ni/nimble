@@ -60,6 +60,7 @@
     "packages/angular-workspace/nimble-angular",
     "packages/angular-workspace/spright-angular",
     "packages/angular-workspace/ok-angular",
+    "packages/angular-workspace/example-client-app",
     "packages/blazor-workspace",
     "packages/blazor-workspace/NimbleBlazor",
     "packages/blazor-workspace/SprightBlazor",

@@ -217,7 +217,7 @@
                 "example-client-app/src/favicon.ico",
                 {
                   "glob": "package.json",
-                  "input": "./example-client-app/build-assets",
+                  "input": "./example-client-app",
                   "output": "/"
                 }
               ],

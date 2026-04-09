@@ -3,7 +3,7 @@ module.exports = {
         collect: {
             // Serve from dist folder so Angular project name is part of url path
             // and shows up in GitHub status checks
-            staticDistDir: './dist/',
+            staticDistDir: '../dist/',
             url: [
                 'http://localhost/example-client-app/#/customapp'
             ],

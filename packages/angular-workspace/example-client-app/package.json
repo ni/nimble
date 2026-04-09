@@ -1,0 +1,20 @@
+{
+    "name": "@ni-private/example-client-app",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "Dummy package.json to establish build ordering in turborepo for the example app. Should only have dependencies listed to monorepo packages, nothing from a registry.",
+    "scripts": {
+        "start": "ng serve",
+        "performance": "lhci autorun"
+    },
+    "devDependencies": {
+        "@ni/nimble-angular": "*",
+        "@ni/spright-angular": "*",
+        "@ni/ok-angular": "*"
+    },
+    "files": [
+        "*",
+        "!*.tgz"
+    ]
+}
