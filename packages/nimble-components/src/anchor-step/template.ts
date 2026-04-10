@@ -8,6 +8,7 @@ import { iconTriangleFilledTag } from '../icons/triangle-filled';
 import { iconCheckTag } from '../icons/check';
 import type { StepPattern } from '../patterns/step/types';
 import { popupIconCurrentLabel, popupIconErrorLabel, popupIconWarningLabel, popupIconCompletedLabel } from '../label-provider/core/label-tokens';
+import { StepperOrientation } from '../stepper/types';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<AnchorStep>,
@@ -16,7 +17,7 @@ AnchorOptions
     <template slot="step">
         <li class="
             container
-            ${x => (x.stepInternals.orientation === 'vertical' ? 'vertical' : '')}
+            ${x => (x.stepInternals.orientation === StepperOrientation.vertical ? 'vertical' : '')}
             ${x => (x.stepInternals.last ? 'last' : '')}
         ">
             <a
