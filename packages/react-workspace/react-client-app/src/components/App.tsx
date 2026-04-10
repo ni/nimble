@@ -26,6 +26,9 @@ import { NimbleIconAdd } from '@ni/nimble-react/icons/add';
 import { iconCheckTag, NimbleIconCheck } from '@ni/nimble-react/icons/check';
 import { NimbleIconXmarkCheck } from '@ni/nimble-react/icons/xmark-check';
 import { NimbleSpinner } from '@ni/nimble-react/spinner';
+import { NimbleStepper } from '@ni/nimble-react/stepper';
+import { NimbleStep } from '@ni/nimble-react/step';
+import { NimbleAnchorStep } from '@ni/nimble-react/anchor-step';
 import { NimbleSwitch } from '@ni/nimble-react/switch';
 import { NimbleTable, type Table, type TableRowExpandToggleEvent, type TableRecord, type TableSetRecordHierarchyOptions, fromTableRef } from '@ni/nimble-react/table';
 import { NimbleTableColumnText } from '@ni/nimble-react/table-column/text';
@@ -916,6 +919,22 @@ export function App(): React.JSX.Element {
                                 <div className="sub-container">
                                     <div className="container-label">Spinner</div>
                                     <NimbleSpinner aria-label="Loading example content"></NimbleSpinner>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Stepper</div>
+                                    <NimbleStepper>
+                                        <NimbleStep>Step 1</NimbleStep>
+                                        <NimbleStep selected>Step 2</NimbleStep>
+                                        <NimbleStep>Step 3</NimbleStep>
+                                    </NimbleStepper>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Stepper - Anchor</div>
+                                    <NimbleStepper>
+                                        <NimbleAnchorStep href="https://nimble.ni.dev">Step 1</NimbleAnchorStep>
+                                        <NimbleAnchorStep href="https://ni.com" selected>Step 2</NimbleAnchorStep>
+                                        <NimbleAnchorStep href="https://google.com">Step 3</NimbleAnchorStep>
+                                    </NimbleStepper>
                                 </div>
                                 <div className="sub-container">
                                     <div className="container-label">Switch</div>

@@ -240,6 +240,22 @@
             <NimbleSpinner></NimbleSpinner>
         </div>
         <div class="sub-container">
+            <div class="container-label">Stepper</div>
+            <NimbleStepper>
+                <NimbleStep>Step 1</NimbleStep>
+                <NimbleStep Selected="true">Step 2</NimbleStep>
+                <NimbleStep>Step 3</NimbleStep>
+            </NimbleStepper>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Stepper - Anchor</div>
+            <NimbleStepper>
+                <NimbleAnchorStep Href="https://nimble.ni.dev">Step 1</NimbleAnchorStep>
+                <NimbleAnchorStep Href="https://ni.com" Selected="true">Step 2</NimbleAnchorStep>
+                <NimbleAnchorStep Href="https://google.com">Step 3</NimbleAnchorStep>
+            </NimbleStepper>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Switch</div>
             <NimbleSwitch>Switch</NimbleSwitch>
             <NimbleSwitch Value="true">

@@ -34,6 +34,9 @@ import { NimbleTableColumnMenuButtonModule } from '@ni/nimble-angular/table-colu
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
+import { NimbleStepperModule } from '@ni/nimble-angular/stepper';
+import { NimbleStepModule } from '@ni/nimble-angular/step';
+import { NimbleAnchorStepModule } from '@ni/nimble-angular/anchor-step';
 import { OkButtonModule } from 'ok-angular/button/ok-button.module';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
@@ -128,6 +131,9 @@ import { CustomAppComponent } from './customapp/customapp.component';
         SprightChatMessageSystemModule,
         SprightIconWorkItemCalendarWeekDirective,
         SprightRectangleModule,
+        NimbleStepperModule,
+        NimbleStepModule,
+        NimbleAnchorStepModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
