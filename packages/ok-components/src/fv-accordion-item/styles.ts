@@ -11,7 +11,9 @@ import {
     mediumPadding,
     mediumDelay,
     smallDelay,
-    standardPadding
+    standardPadding,
+    smallPadding,
+    borderWidth
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { appearanceBehavior } from '@ni/nimble-components/dist/esm/utilities/style/appearance';
 import { display } from '../utilities/style/display';
@@ -31,7 +33,6 @@ export const styles = css`
         height: calc(${controlHeight} + (2 * ${dividerWidth}));
         align-items: center;
         margin-left: 0;
-        padding-left: ${mediumPadding};
         border: ${dividerWidth} solid transparent;
         outline: ${dividerWidth} solid transparent;
         outline-offset: -1px;
@@ -62,7 +63,7 @@ export const styles = css`
 
     .accordion-item-icon {
         transition: transform ${mediumDelay} ease-in;
-        margin: calc(${mediumPadding} - ${dividerWidth});
+        margin: calc(${smallPadding} - ${borderWidth});
         min-width: ${iconSize};
     }
 
