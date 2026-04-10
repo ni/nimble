@@ -200,19 +200,10 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     private resetInput(): void {
         this.value = '';
         this.isInputEmpty = true;
-        this.clearAttachments();
         if (this.textArea) {
             this.textArea.value = '';
             this.adjustTextAreaHeight();
             this.textArea.focus();
-        }
-    }
-
-    private clearAttachments(): void {
-        if (this.slottedAttachmentsElements) {
-            for (const el of [...this.slottedAttachmentsElements]) {
-                el.remove();
-            }
         }
     }
 

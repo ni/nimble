@@ -40,6 +40,8 @@ Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 const attachmentsDescription = `An area to slot content adjacent to the text input area. Intended to be used for adding chips that represent attached files.
 
 When using removable chips, the chip's \`remove\` event bubbles through the chat input. Listen for the \`remove\` event and remove the chip from the DOM to clear the attachment.
+
+On send button click or Enter key press, the \`send\` event includes the text input value but does not include information about attachments. Implementers will need to track attachments separately and correlate them with the send event as needed.
 `;
 
 const metadata: Meta<ChatInputArgs> = {
@@ -73,9 +75,9 @@ export const chatInput: StoryObj<ChatInputArgs> = {
                     <${iconAddTag} slot="start"></${iconAddTag}>
                     Attach
                 </${buttonTag}>
-                <${selectTag} slot="footer-actions">
-                    <${listOptionTag} value="option1">Sudden Valley</${listOptionTag}>
-                    <${listOptionTag} value="option2">Banana Stand</${listOptionTag}>
+                <${selectTag} slot="footer-actions" title="Worker of the Week">
+                    <${listOptionTag} value="option1">Inanimate Carbon Rod</${listOptionTag}>
+                    <${listOptionTag} value="option2">Homer Simpson</${listOptionTag}>
                 </${selectTag}>
             `)}
         </${chatInputTag}>

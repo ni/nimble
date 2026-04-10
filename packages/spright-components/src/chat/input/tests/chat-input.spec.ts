@@ -477,7 +477,8 @@ describe('ChatInput', () => {
             ));
             page = new ChatInputPageObject(element);
             await connect();
-            expect(page.getFooterActionsSlotElements().length).toBe(1);
+            const footerActionsSlot: HTMLSlotElement = element.shadowRoot!.querySelector('slot[name="footer-actions"]')!;
+            expect(footerActionsSlot.assignedElements().length).toBe(1);
         });
     });
 
@@ -511,24 +512,6 @@ describe('ChatInput', () => {
             await connect();
             processUpdates();
             expect(page.isButtonEnabled()).toBeFalse();
-        });
-
-        it('clears attachments on send', async () => {
-            await disconnect();
-            ({ element, connect, disconnect } = await fixture<ChatInput>(
-                html`<${chatInputTag}>
-                    <${chipTag} slot="attachments">Placeholder.txt</${chipTag}>
-                </${chatInputTag}>`
-            ));
-            page = new ChatInputPageObject(element);
-            await connect();
-            page.setText('message');
-            processUpdates();
-
-            page.clickSendButton();
-            processUpdates();
-
-            expect(page.getAttachmentsSlotElements().length).toBe(0);
         });
     });
 });
