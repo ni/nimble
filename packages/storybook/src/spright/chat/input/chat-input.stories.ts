@@ -34,7 +34,7 @@ const footerActionsDescription = `Place 0 or more buttons to the left of the sen
 
 The buttons should have the \`ghost\` appearance and \`content-hidden\`.
 
-Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
+Spright will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 `;
 
 const attachmentsDescription = `An area to slot content adjacent to the text input area. Intended to be used for adding chips that represent attached files.
@@ -49,7 +49,7 @@ const metadata: Meta<ChatInputArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['send', 'stop', 'remove']
+            handles: ['send', 'stop']
         }
     }
 };
@@ -69,6 +69,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         >
             ${when(x => x.attachments, html`
                 <${chipTag} slot="attachments" removable>Placeholder.txt</${chipTag}>
+                <${chipTag} slot="attachments" removable>Image.png</${chipTag}>
             `)}
             ${when(x => x.footerActions, html`
                 <${buttonTag} slot="footer-actions" appearance="ghost" title="Attach" content-hidden>

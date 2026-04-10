@@ -131,7 +131,7 @@ export const styles = css`
     .attachments.has-content {
         display: flex;
         flex-wrap: wrap;
-        gap: ${standardPadding};
+        gap: ${mediumPadding};
         padding: ${mediumPadding};
     }
 
