@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 09 Apr 2026 19:17:36 GMT",
+      "version": "35.5.6",
+      "tag": "@ni/nimble-components_v35.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6648f6e70ee2479e8decb1b2a0e6e85c2b45e074",
+            "comment": "Implement scrollable stepper"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Apr 2026 21:37:25 GMT",
       "version": "35.5.5",
       "tag": "@ni/nimble-components_v35.5.5",
