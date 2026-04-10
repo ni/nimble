@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix tsconfig deprecations",
+  "packageName": "@ni/ok-react",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
