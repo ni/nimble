@@ -13,6 +13,7 @@ import { NimbleListOption } from '@ni/nimble-react/list-option';
 import { NimbleListOptionGroup } from '@ni/nimble-react/list-option-group';
 import { NimbleCardButton } from '@ni/nimble-react/card-button';
 import { NimbleCheckbox } from '@ni/nimble-react/checkbox';
+import { NimbleChip } from '@ni/nimble-react/chip';
 import { NimbleRadioGroup } from '@ni/nimble-react/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/radio';
 import { NimbleTextField } from '@ni/nimble-react/text-field';
@@ -648,6 +649,13 @@ export function App(): React.JSX.Element {
                                     <NimbleCheckbox>Checkbox label</NimbleCheckbox>
                                     <NimbleCheckbox>Checkbox label</NimbleCheckbox>
                                     <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+                                </div>
+                                <div className="sub-container">
+                                    <div className="container-label">Chip</div>
+                                    <NimbleChip>Outline Chip</NimbleChip>
+                                    <NimbleChip appearance="block">Block Chip</NimbleChip>
+                                    <NimbleChip removable>Removable Chip</NimbleChip>
+                                    <NimbleChip disabled>Disabled Chip</NimbleChip>
                                 </div>
                                 <div className="sub-container">
                                     <div className="container-label">Radio Buttons</div>
