@@ -18,6 +18,9 @@
 /packages/nimble-components/src/rich-text-mention @rajsite @jattasNI @vivinkrishna-ni
 /**/chat/** @jattasNI
 /**/breakpoint/** @jattasNI
+/packages/ok-components/src/fv-* @rajsite @jattasNI @fredvisser
+/packages/angular-workspace/ok-angular/fv-* @rajsite @mollykreis @fredvisser
+/packages/storybook/src/ok/fv-* @rajsite @jattasNI @fredvisser
 /packages/nimble-tokens @rajsite @jattasNI @fredvisser
 /packages/storybook/.storybook @rajsite @jattasNI @fredvisser
 

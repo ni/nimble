@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { accordionItemTag } from '@ni/ok-components/dist/esm/accordion-item';
-import { AccordionItemAppearance } from '@ni/ok-components/dist/esm/accordion-item/types';
+import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv-accordion-item';
+import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv-accordion-item/types';
 import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import {
     createMatrix,
@@ -18,14 +18,14 @@ const expandedStates = [
 type ExpandedState = (typeof expandedStates)[number];
 
 const appearanceStates = [
-    ['Ghost', AccordionItemAppearance.ghost],
-    ['Outline', AccordionItemAppearance.outline],
-    ['Block', AccordionItemAppearance.block]
+    ['Ghost', FvAccordionItemAppearance.ghost],
+    ['Outline', FvAccordionItemAppearance.outline],
+    ['Block', FvAccordionItemAppearance.block]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
 const metadata: Meta = {
-    title: 'Tests Ok/Accordion Item',
+    title: 'Tests Ok/Fv Accordion Item',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -37,14 +37,14 @@ const component = (
     [expandedName, expanded]: ExpandedState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <${accordionItemTag}
+    <${fvAccordionItemTag}
         header="${() => `${appearanceName} ${expandedName}`}"
         ?expanded="${() => expanded}"
         appearance="${() => appearance}"
         style="margin-right: 8px; margin-bottom: 8px; width: 300px;">
         <${textFieldTag} placeholder="Enter name" appearance="underline"></${textFieldTag}>
         <${textFieldTag} placeholder="Enter category" appearance="underline"></${textFieldTag}>
-    </${accordionItemTag}>
+    </${fvAccordionItemTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
@@ -53,6 +53,6 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hidden: StoryFn = createStory(
     hiddenWrapper(
-        html`<${accordionItemTag} hidden header="Hidden">Content</${accordionItemTag}>`
+        html`<${fvAccordionItemTag} hidden header="Hidden">Content</${fvAccordionItemTag}>`
     )
 );

@@ -1,24 +1,24 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { AccordionItem, accordionItemTag } from '..';
-import { AccordionItemAppearance } from '../types';
+import { FvAccordionItem, fvAccordionItemTag } from '..';
+import { FvAccordionItemAppearance } from '../types';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 async function setup(
     expanded = false
-): Promise<Fixture<AccordionItem>> {
-    return await fixture<AccordionItem>(
-        html`<${accordionItemTag}
+): Promise<Fixture<FvAccordionItem>> {
+    return await fixture<FvAccordionItem>(
+        html`<${fvAccordionItemTag}
             header="Test Header"
             ?expanded="${() => expanded}"
         >
             <span>Test content</span>
-        </${accordionItemTag}>`
+        </${fvAccordionItemTag}>`
     );
 }
 
-describe('AccordionItem', () => {
-    let element: AccordionItem;
+describe('FvAccordionItem', () => {
+    let element: FvAccordionItem;
     let connect: () => Promise<void>;
     let disconnect: (() => Promise<void>) | undefined;
 
@@ -28,8 +28,8 @@ describe('AccordionItem', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(accordionItemTag)).toBeInstanceOf(
-            AccordionItem
+        expect(document.createElement(fvAccordionItemTag)).toBeInstanceOf(
+            FvAccordionItem
         );
     });
 
@@ -105,13 +105,13 @@ describe('AccordionItem', () => {
     it('should default to ghost appearance', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        expect(element.appearance).toBe(AccordionItemAppearance.ghost);
+        expect(element.appearance).toBe(FvAccordionItemAppearance.ghost);
     });
 
     it('should reflect appearance attribute', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        element.appearance = AccordionItemAppearance.ghost;
+        element.appearance = FvAccordionItemAppearance.ghost;
         await waitForUpdatesAsync();
         expect(element.getAttribute('appearance')).toBe('ghost');
     });
@@ -119,7 +119,7 @@ describe('AccordionItem', () => {
     it('should support block appearance', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        element.appearance = AccordionItemAppearance.block;
+        element.appearance = FvAccordionItemAppearance.block;
         await waitForUpdatesAsync();
         expect(element.getAttribute('appearance')).toBe('block');
     });

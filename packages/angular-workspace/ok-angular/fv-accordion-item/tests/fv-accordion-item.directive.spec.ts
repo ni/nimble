@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { OkAccordionItemModule } from '../ok-accordion-item.module';
+import { OkFvAccordionItemModule } from '../fv-accordion-item.module';
 
-describe('Ok accordion item', () => {
+describe('Ok fv accordion item', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [OkAccordionItemModule]
+                imports: [OkFvAccordionItemModule]
             });
         });
 
         it('custom element is defined', () => {
-            expect(customElements.get('ok-accordion-item')).not.toBeUndefined();
+            expect(customElements.get('ok-fv-accordion-item')).not.toBeUndefined();
         });
     });
 });

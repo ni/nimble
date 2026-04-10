@@ -3,11 +3,11 @@ import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
 import { styles } from './styles';
 import { template } from './template';
-import { AccordionItemAppearance } from './types';
+import { FvAccordionItemAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'ok-accordion-item': AccordionItem;
+        'ok-fv-accordion-item': FvAccordionItem;
     }
 }
 
@@ -15,7 +15,7 @@ declare global {
  * An accordion item component that can be expanded or collapsed to
  * show or hide its content.
  */
-export class AccordionItem extends FoundationElement {
+export class FvAccordionItem extends FoundationElement {
     @attr
     public header = '';
 
@@ -23,7 +23,7 @@ export class AccordionItem extends FoundationElement {
     public expanded = false;
 
     @attr()
-    public appearance: AccordionItemAppearance = AccordionItemAppearance.ghost;
+    public appearance: FvAccordionItemAppearance = FvAccordionItemAppearance.ghost;
 
     public handleToggle(event: Event): boolean {
         this.expanded = (event.target as HTMLDetailsElement).open;
@@ -31,13 +31,13 @@ export class AccordionItem extends FoundationElement {
     }
 }
 
-const okAccordionItem = AccordionItem.compose({
-    baseName: 'accordion-item',
+const okFvAccordionItem = FvAccordionItem.compose({
+    baseName: 'fv-accordion-item',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('ok')
-    .register(okAccordionItem());
-export const accordionItemTag = 'ok-accordion-item';
+    .register(okFvAccordionItem());
+export const fvAccordionItemTag = 'ok-fv-accordion-item';

@@ -1,20 +1,20 @@
 import { booleanAttribute, Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { AccordionItem } from '@ni/ok-components/dist/esm/accordion-item';
-import { accordionItemTag } from '@ni/ok-components/dist/esm/accordion-item';
-import { AccordionItemAppearance } from '@ni/ok-components/dist/esm/accordion-item/types';
+import type { FvAccordionItem } from '@ni/ok-components/dist/esm/fv-accordion-item';
+import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv-accordion-item';
+import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv-accordion-item/types';
 
-export type { AccordionItem };
-export { accordionItemTag };
-export { AccordionItemAppearance };
+export type { FvAccordionItem };
+export { fvAccordionItemTag };
+export { FvAccordionItemAppearance };
 
 /**
  * Directive to provide Angular integration for the accordion item.
  */
 @Directive({
-    selector: 'ok-accordion-item',
+    selector: 'ok-fv-accordion-item',
     standalone: false
 })
-export class OkAccordionItemDirective {
+export class OkFvAccordionItemDirective {
     public get header(): string {
         return this.elementRef.nativeElement.header;
     }
@@ -33,17 +33,17 @@ export class OkAccordionItemDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'expanded', value);
     }
 
-    public get appearance(): AccordionItemAppearance {
+    public get appearance(): FvAccordionItemAppearance {
         return this.elementRef.nativeElement.appearance;
     }
 
     @Input()
-    public set appearance(value: AccordionItemAppearance) {
+    public set appearance(value: FvAccordionItemAppearance) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 
     public constructor(
-        private readonly elementRef: ElementRef<AccordionItem>,
+        private readonly elementRef: ElementRef<FvAccordionItem>,
         private readonly renderer: Renderer2
     ) {}
 }

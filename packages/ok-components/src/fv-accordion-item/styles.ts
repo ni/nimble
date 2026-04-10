@@ -15,7 +15,7 @@ import {
 import { appearanceBehavior } from '@ni/nimble-components/dist/esm/utilities/style/appearance';
 import { display } from '../utilities/style/display';
 import { userSelectNone } from '../utilities/style/user-select';
-import { AccordionItemAppearance } from './types';
+import { FvAccordionItemAppearance } from './types';
 
 export const styles = css`
     ${display('block')}
@@ -96,7 +96,7 @@ export const styles = css`
     }
 `.withBehaviors(
     appearanceBehavior(
-        AccordionItemAppearance.outline,
+        FvAccordionItemAppearance.outline,
         css`
             :host {
                 border-bottom: ${dividerWidth} solid rgba(${borderRgbPartialColor}, 0.2);
@@ -105,7 +105,7 @@ export const styles = css`
         `
     ),
     appearanceBehavior(
-        AccordionItemAppearance.block,
+        FvAccordionItemAppearance.block,
         css`
             .accordion-item-details > .accordion-item-summary {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
