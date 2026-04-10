@@ -3,6 +3,7 @@
         "declaration": true,
         "esModuleInterop": true,
         "moduleResolution": "bundler",
+        "rootDir": "src",
         "outDir": "dist/esm",
         "strict": true,
         "experimentalDecorators": true,

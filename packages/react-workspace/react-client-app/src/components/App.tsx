@@ -68,7 +68,6 @@ import { SprightRectangle } from '@ni/spright-react/rectangle';
 
 import { OkButton } from '@ni/ok-react/button';
 
-import './App.scss';
 import { useRef, useState, useEffect } from 'react';
 
 interface ComboboxItem {

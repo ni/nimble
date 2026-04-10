@@ -1,14 +1,3 @@
 @use '@ni/nimble-react/styles/fonts' as *;
-
-html, body {
-    width: 100%;
-    height: 100%;
-}
-
-body {
-    margin: 0px;
-}
-
-#root {
-    display: contents;
-}
+@use './global.scss' as *;
+@use './components/App.scss' as *;

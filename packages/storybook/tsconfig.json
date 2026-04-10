@@ -4,6 +4,7 @@
         "esModuleInterop": true,
         "moduleResolution": "bundler",
         "incremental": true,
+        "rootDir": "../",
         "noEmit": true,
         "strict": true,
         "experimentalDecorators": true,
@@ -34,16 +35,12 @@
         // Keep in sync with .storybook/main.js vite config
         // To test changes check the built tsconfig.tsbuildinfo file for .ts vs .d.ts references of mapped paths
         "paths": {
-            "@ni/nimble-components/dist/esm/*": ["../nimble-components/src/*"],
-            "@ni/spright-components/dist/esm/*": ["../spright-components/src/*"],
-            "@ni/ok-components/dist/esm/*": ["../ok-components/src/*"],
-            "@ni/nimble-react/*": [
-                "../react-workspace/nimble-react/src/*"
-            ],
-            "@ni/spright-react/*": [
-                "../react-workspace/spright-react/src/*"
-            ],
-            "@ni/ok-react/*": ["../react-workspace/ok-react/src/*"]
+            "@ni/nimble-components/dist/esm/*": ["./nimble-components/src/*"],
+            "@ni/spright-components/dist/esm/*": ["./spright-components/src/*"],
+            "@ni/ok-components/dist/esm/*": ["./ok-components/src/*"],
+            "@ni/nimble-react/*": ["./react-workspace/nimble-react/src/*"],
+            "@ni/spright-react/*": ["./react-workspace/spright-react/src/*"],
+            "@ni/ok-react/*": ["./react-workspace/ok-react/src/*"]
         }
     },
     "include": ["src"]
