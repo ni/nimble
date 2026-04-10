@@ -7,6 +7,7 @@ import {
     controlHeight,
     dividerWidth,
     iconSize,
+    largePadding,
     mediumPadding,
     mediumDelay,
     smallDelay,
@@ -61,7 +62,7 @@ export const styles = css`
 
     .accordion-item-icon {
         transition: transform ${mediumDelay} ease-in;
-        margin: ${mediumPadding};
+        margin: calc(${mediumPadding} - ${dividerWidth});
         min-width: ${iconSize};
     }
 
@@ -90,7 +91,7 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         gap: ${standardPadding};
-        margin-left: calc(${iconSize} + (2 * ${mediumPadding}));
+        margin-left: ${largePadding};
         margin-top: ${mediumPadding};
         padding-bottom: ${standardPadding};
     }
