@@ -11,8 +11,7 @@ import {
     popupBorderColor,
     borderHoverColor,
     smallDelay,
-    failColor,
-    standardPadding
+    failColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
@@ -151,7 +150,7 @@ export const styles = css`
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        column-gap: ${standardPadding};
+        column-gap: ${mediumPadding};
         margin: ${mediumPadding};
     }
 
