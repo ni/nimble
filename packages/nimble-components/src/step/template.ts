@@ -8,6 +8,7 @@ import { iconTriangleFilledTag } from '../icons/triangle-filled';
 import { Severity } from '../patterns/severity/types';
 import { popupIconCompletedLabel, popupIconCurrentLabel, popupIconErrorLabel, popupIconWarningLabel } from '../label-provider/core/label-tokens';
 import type { StepPattern } from '../patterns/step/types';
+import { StepperOrientation } from '../stepper/types';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<Step>,
@@ -16,7 +17,7 @@ ButtonOptions
     <template slot="step">
         <li class="
             container
-            ${x => (x.stepInternals.orientation === 'vertical' ? 'vertical' : '')}
+            ${x => (x.stepInternals.orientation === StepperOrientation.vertical ? 'vertical' : '')}
             ${x => (x.stepInternals.last ? 'last' : '')}
         ">
             <button

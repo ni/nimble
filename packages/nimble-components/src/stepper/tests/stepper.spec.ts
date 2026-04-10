@@ -11,6 +11,8 @@ import { AnchorStepPageObject } from '../../anchor-step/testing/anchor-step.page
 import type { StepBasePageObject } from '../../patterns/step/testing/step-base.pageobject';
 import { Severity } from '../../patterns/severity/types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { StepperPageObject } from '../testing/stepper.pageobject';
+import { StepperOrientation } from '../types';
 
 describe('Stepper', () => {
     it('can construct an element instance', () => {
@@ -199,6 +201,145 @@ describe('Stepper', () => {
                     model.labelProvider.popupIconCurrent = 'Custom current';
                     await waitForUpdatesAsync();
                     expect(model.stepPageObject.getSelectedStateLabel()).toBe('Custom current');
+                });
+            });
+            const orientationTests = [
+                { name: StepperOrientation.horizontal },
+                { name: StepperOrientation.vertical },
+            ] as const;
+            parameterizeSuite(orientationTests, (orientationSuite, orientationName) => {
+                orientationSuite(`orientation (${orientationName})`, () => {
+                    describe('step buttons', () => {
+                        let stepperPageObject: StepperPageObject;
+                        let element: Stepper;
+                        let connect: () => Promise<void>;
+                        let disconnect: () => Promise<void>;
+
+                        async function setupScroll(): Promise<Fixture<Stepper>> {
+                            return await fixture<Stepper>(
+                                html`
+                                    <${stepperTag} orientation="${orientationName}">
+                                        <${value.stepTypeTag}><span slot="title"></span></${value.stepTypeTag}>
+                                        <${value.stepTypeTag}><span slot="title"></span></${value.stepTypeTag}>
+                                        <${value.stepTypeTag}><span slot="title"></span></${value.stepTypeTag}>
+                                        <${value.stepTypeTag}><span slot="title"></span></${value.stepTypeTag}>
+                                        <${value.stepTypeTag}><span slot="title"></span></${value.stepTypeTag}>
+                                        <${value.stepTypeTag}><span slot="title"></span></${value.stepTypeTag}>
+                                    </${stepperTag}>
+                                `
+                            );
+                        }
+
+                        beforeEach(async () => {
+                            ({ element, connect, disconnect } = await setupScroll());
+                            await connect();
+                            stepperPageObject = new StepperPageObject(element);
+                        });
+
+                        afterEach(async () => {
+                            await disconnect();
+                        });
+
+                        it('should not show scroll buttons when the steps fit within the container', () => {
+                            expect(stepperPageObject.areScrollButtonsVisible()).toBeFalse();
+                        });
+
+                        it('should show scroll buttons when the steps overflow the container', async () => {
+                            await stepperPageObject.setStepperScrollAxisSize(200);
+                            expect(stepperPageObject.areScrollButtonsVisible()).toBeTrue();
+                        });
+
+                        it('should hide scroll buttons when the steps no longer overflow the container', async () => {
+                            await stepperPageObject.setStepperScrollAxisSize(200); // first stepper overflow
+                            await stepperPageObject.setStepperScrollAxisSize(3000); // then stepper fit
+                            expect(stepperPageObject.areScrollButtonsVisible()).toBeFalse();
+                        });
+
+                        it('should scroll backward when the start scroll button is clicked', async () => {
+                            await stepperPageObject.setStepperScrollAxisSize(200);
+                            await stepperPageObject.scrollStepIntoViewByIndex(5);
+                            const currentScrollOffset = stepperPageObject.getStepperViewScrollOffset();
+                            await stepperPageObject.clickScrollStartButton();
+                            expect(
+                                stepperPageObject.getStepperViewScrollOffset()
+                            ).toBeLessThan(currentScrollOffset);
+                        });
+
+                        it('should not scroll backward when already at the start', async () => {
+                            await stepperPageObject.setStepperScrollAxisSize(200);
+                            await stepperPageObject.clickScrollStartButton();
+                            expect(stepperPageObject.getStepperViewScrollOffset()).toBe(0);
+                        });
+
+                        it('should scroll forward when the end scroll button is clicked', async () => {
+                            await stepperPageObject.setStepperScrollAxisSize(200);
+                            await stepperPageObject.clickScrollEndButton();
+                            expect(
+                                stepperPageObject.getStepperViewScrollOffset()
+                            ).toBeGreaterThan(0);
+                        });
+
+                        it('should not scroll forward when already at the end', async () => {
+                            await stepperPageObject.setStepperScrollAxisSize(200);
+                            await stepperPageObject.scrollStepIntoViewByIndex(5);
+                            const currentScrollOffset = stepperPageObject.getStepperViewScrollOffset();
+                            await stepperPageObject.clickScrollEndButton();
+                            expect(stepperPageObject.getStepperViewScrollOffset()).toBe(
+                                currentScrollOffset
+                            );
+                        });
+
+                        it('should show scroll buttons when a new step is added and steps overflow the container', async () => {
+                            await stepperPageObject.setStepperScrollAxisSize(400);
+                            expect(stepperPageObject.areScrollButtonsVisible()).toBeFalse();
+                            // Title impact horizontal size but not vertical size
+                            // Add several steps to cause either horizontal or vertical overflow
+                            await stepperPageObject.addStep();
+                            await stepperPageObject.addStep();
+                            await stepperPageObject.addStep();
+                            await stepperPageObject.addStep();
+                            expect(stepperPageObject.areScrollButtonsVisible()).toBeTrue();
+                        });
+
+                        it('should hide scroll buttons when a step is removed and steps no longer overflow the container', async () => {
+                            await stepperPageObject.setStepperScrollAxisSize(400);
+                            // Title impact horizontal size but not vertical size
+                            // Add several steps to cause either horizontal or vertical overflow
+                            await stepperPageObject.addStep();
+                            await stepperPageObject.addStep();
+                            await stepperPageObject.addStep();
+                            await stepperPageObject.addStep();
+                            expect(stepperPageObject.areScrollButtonsVisible()).toBeTrue();
+                            await stepperPageObject.removeStepByIndex(9);
+                            await stepperPageObject.removeStepByIndex(8);
+                            await stepperPageObject.removeStepByIndex(7);
+                            await stepperPageObject.removeStepByIndex(6);
+                            expect(stepperPageObject.areScrollButtonsVisible()).toBeFalse();
+                        });
+
+                        // Title contents only impact overflow in horizontal orientation
+                        if (orientationName === StepperOrientation.horizontal) {
+                            it('should show scroll buttons when step title is updated and steps overflow the container', async () => {
+                                await stepperPageObject.setStepperScrollAxisSize(450);
+                                expect(stepperPageObject.areScrollButtonsVisible()).toBeFalse();
+                                await stepperPageObject.updateStepTitle(
+                                    0,
+                                    'New Item With Extremely Long Name'
+                                );
+                                expect(stepperPageObject.areScrollButtonsVisible()).toBeTrue();
+                            });
+
+                            it('should hide scroll buttons when step title is updated and steps no longer overflow the container', async () => {
+                                await stepperPageObject.setStepperScrollAxisSize(550);
+                                await stepperPageObject.addStep(
+                                    'New Item With Extremely Long Name'
+                                );
+                                expect(stepperPageObject.areScrollButtonsVisible()).toBeTrue();
+                                await stepperPageObject.updateStepTitle(6, 'Item 6');
+                                expect(stepperPageObject.areScrollButtonsVisible()).toBeFalse();
+                            });
+                        }
+                    });
                 });
             });
         });
