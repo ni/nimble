@@ -1,8 +1,8 @@
 import {
     DesignSystem,
-    AnchoredRegion as FoundationAnchoredRegion,
-    anchoredRegionTemplate as template
+    AnchoredRegion as FoundationAnchoredRegion
 } from '@ni/fast-foundation';
+import { template } from './template';
 import { styles } from './styles';
 
 declare global {
