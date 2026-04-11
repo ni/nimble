@@ -77,31 +77,16 @@ const metadata: Meta<AccordionItemArgs> = {
 
 export default metadata;
 
-export const ghost: StoryObj<AccordionItemArgs> = {
+export const fvAccordionItem: StoryObj<AccordionItemArgs> = {
+    name: 'FV Accordion Item',
     args: {
-        header: 'Ghost Accordion',
+        header: 'Expanded Accordion',
         expanded: true,
         appearance: FvAccordionItemAppearance.ghost
     }
 };
 
-export const outline: StoryObj<AccordionItemArgs> = {
-    args: {
-        header: 'Outline Accordion',
-        expanded: true,
-        appearance: FvAccordionItemAppearance.outline
-    }
-};
-
-export const block: StoryObj<AccordionItemArgs> = {
-    args: {
-        header: 'Block Accordion',
-        expanded: true,
-        appearance: FvAccordionItemAppearance.block
-    }
-};
-
-export const outlineGroup: StoryObj<AccordionItemArgs> = {
+export const groupedItems: StoryObj<AccordionItemArgs> = {
     render: createUserSelectedThemeStory(html`
         <div style="${accordionGroupStyle}">
             <${fvAccordionItemTag} header="Shipping" appearance="${x => x.appearance}" expanded>
@@ -133,57 +118,7 @@ export const outlineGroup: StoryObj<AccordionItemArgs> = {
     }
 };
 
-export const ghostGroup: StoryObj<AccordionItemArgs> = {
-    render: createUserSelectedThemeStory(html`
-        <div style="${accordionGroupStyle}">
-            <${fvAccordionItemTag} header="Asset details" appearance="${x => x.appearance}" expanded>
-                <p style="margin: 0px;">Serial number: PXI-12345</p>
-                <p style="margin: 0px;">Location: Lab 2</p>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Ownership" appearance="${x => x.appearance}">
-                <p style="margin: 0px;">Assigned to calibration operations.</p>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Notes" appearance="${x => x.appearance}">
-                <p style="margin: 0px;">Ghost appearance keeps related sections visually lightweight.</p>
-            </${fvAccordionItemTag}>
-        </div>
-    `),
-    args: {
-        appearance: FvAccordionItemAppearance.ghost
-    },
-    argTypes: {
-        header: { control: false, table: { disable: true } },
-        expanded: { control: false, table: { disable: true } }
-    }
-};
-
-export const blockGroup: StoryObj<AccordionItemArgs> = {
-    render: createUserSelectedThemeStory(html`
-        <div style="${accordionGroupStyle}">
-            <${fvAccordionItemTag} header="General" appearance="${x => x.appearance}" expanded>
-                <${textFieldTag} appearance="underline">Project name</${textFieldTag}>
-                <${textFieldTag} appearance="underline">Description</${textFieldTag}>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Configuration" appearance="${x => x.appearance}">
-                <${checkboxTag}>Enable notifications</${checkboxTag}>
-                <${checkboxTag}>Auto-save</${checkboxTag}>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Advanced" appearance="${x => x.appearance}">
-                <${numberFieldTag} appearance="underline">Timeout (ms)</${numberFieldTag}>
-                <${numberFieldTag} appearance="underline">Max retries</${numberFieldTag}>
-            </${fvAccordionItemTag}>
-        </div>
-    `),
-    args: {
-        appearance: FvAccordionItemAppearance.block
-    },
-    argTypes: {
-        header: { control: false, table: { disable: true } },
-        expanded: { control: false, table: { disable: true } }
-    }
-};
-
-export const nestedAccordion: StoryObj<AccordionItemArgs> = {
+export const nestedItems: StoryObj<AccordionItemArgs> = {
     render: createUserSelectedThemeStory(html`
         <div style="${accordionGroupStyle}">
             <${fvAccordionItemTag} header="Versioning" appearance="${x => x.appearance}" expanded>

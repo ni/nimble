@@ -9,59 +9,39 @@ An accordion item is a collapsible section that can be expanded or collapsed
 to show or hide its content. It uses a header with an expander icon to toggle
 visibility.
 
-<Canvas of={accordionItemStories.ghost} />
+<Canvas of={accordionItemStories.fvAccordionItem} />
 
 ## API
 
-<Controls of={accordionItemStories.ghost} />
+<Controls of={accordionItemStories.fvAccordionItem} />
 <ComponentApisLink />
 
 ## Appearance
 
-### Ghost
+Use the story controls on the primary canvas to switch between `ghost`, `outline`,
+and `block` appearances.
 
-No borders or background. This is the default appearance. Use for nested accordions or minimal visual chrome.
+`ghost` is the default and works well for lightweight or nested content.
 
-<Canvas of={accordionItemStories.ghost} />
+`outline` adds a divider between grouped items.
 
-### Outline
-
-A bottom border divider between items.
-
-<Canvas of={accordionItemStories.outline} />
-
-### Block
-
-A filled background on each header row.
-
-<Canvas of={accordionItemStories.block} />
+`block` gives each summary row a filled background for settings-style layouts.
 
 ## Examples
 
-### Ghost Group
+### Grouped Items
 
-Multiple ghost accordion items for compact, low-chrome groupings of related information.
+Multiple accordion items used together as a form-style group. Use the appearance
+control to compare the grouped layouts.
 
-<Canvas of={accordionItemStories.ghostGroup} />
+<Canvas of={accordionItemStories.groupedItems} />
 
-### Outline Group
-
-Multiple outline accordion items used together as a form layout (e.g. checkout flow).
-
-<Canvas of={accordionItemStories.outlineGroup} />
-
-### Block Group
-
-Multiple block accordion items for settings or configuration panels.
-
-<Canvas of={accordionItemStories.blockGroup} />
-
-### Nested Accordion
+### Nested Items
 
 Accordion items nested inside other accordion items. Per the design spec, nested
 accordions should always use the ghost appearance.
 
-<Canvas of={accordionItemStories.nestedAccordion} />
+<Canvas of={accordionItemStories.nestedItems} />
 
 ### Mixed Content
 
