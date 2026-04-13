@@ -79,7 +79,7 @@ describe('Nimble step', () => {
         @Component({
             template: `
                 <nimble-step #step
-                    severity="${severity1}"
+                    severity="error"
                     severity-text="${severityText1}"
                     disabled
                     readonly
@@ -109,8 +109,8 @@ describe('Nimble step', () => {
         });
 
         it('will use template string values for severity', () => {
-            expect(directive.severity).toBe(severity1);
-            expect(nativeElement.severity).toBe(severity1);
+            expect(directive.severity).toBe(StepSeverity.error);
+            expect(nativeElement.severity).toBe(StepSeverity.error);
         });
 
         it('will use template string values for severityText', () => {
