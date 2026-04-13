@@ -70,6 +70,7 @@ import { ComboboxSectionComponent } from './customapp/combobox-section.component
 import { RichTextEditorSectionComponent } from './customapp/rich-text-editor-section.component';
 import { RichTextViewerSectionComponent } from './customapp/rich-text-viewer-section.component';
 import { SpinnerSectionComponent } from './customapp/spinner-section.component';
+import { StepperSectionComponent } from './customapp/stepper-section.component';
 import { SwitchSectionComponent } from './customapp/switch-section.component';
 import { TableSectionComponent } from './customapp/table-section.component';
 import { DelayedHierarchyTableSectionComponent } from './customapp/delayed-hierarchy-table-section.component';
@@ -112,6 +113,7 @@ import { OkButtonSectionComponent } from './customapp/ok-button-section.componen
         RichTextEditorSectionComponent,
         RichTextViewerSectionComponent,
         SpinnerSectionComponent,
+        StepperSectionComponent,
         SwitchSectionComponent,
         TableSectionComponent,
         DelayedHierarchyTableSectionComponent,
