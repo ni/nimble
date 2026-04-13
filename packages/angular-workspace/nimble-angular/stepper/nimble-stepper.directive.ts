@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type Stepper, stepperTag } from '@ni/nimble-components/dist/esm/stepper';
-import type { StepperOrientation } from '@ni/nimble-components/dist/esm/stepper/types';
+import { StepperOrientation } from '@ni/nimble-components/dist/esm/stepper/types';
 
 export type { Stepper };
 export { stepperTag };
