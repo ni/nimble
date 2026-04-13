@@ -1,9 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleStepperModule } from '../nimble-stepper.module';
-import { NimbleStepperDirective, type Stepper, type StepperOrientation } from '../nimble-stepper.directive';
+import { NimbleStepperDirective, type Stepper, StepperOrientation } from '../nimble-stepper.directive';
 
 describe('Nimble stepper', () => {
+    const orientation1 = StepperOrientation.horizontal;
+    const orientation2 = StepperOrientation.vertical;
+
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -44,8 +47,8 @@ describe('Nimble stepper', () => {
         });
 
         it('has expected defaults for orientation', () => {
-            expect(directive.orientation).toBe('horizontal');
-            expect(nativeElement.orientation).toBe('horizontal');
+            expect(directive.orientation).toBe(StepperOrientation.horizontal);
+            expect(nativeElement.orientation).toBe(StepperOrientation.horizontal);
         });
     });
 
@@ -79,8 +82,8 @@ describe('Nimble stepper', () => {
         });
 
         it('will use template string values for orientation', () => {
-            expect(directive.orientation).toBe('vertical');
-            expect(nativeElement.orientation).toBe('vertical');
+            expect(directive.orientation).toBe(StepperOrientation.vertical);
+            expect(nativeElement.orientation).toBe(StepperOrientation.vertical);
         });
     });
 
@@ -96,7 +99,7 @@ describe('Nimble stepper', () => {
         class TestHostComponent {
             @ViewChild('stepper', { read: NimbleStepperDirective }) public directive: NimbleStepperDirective;
             @ViewChild('stepper', { read: ElementRef }) public elementRef: ElementRef<Stepper>;
-            public orientation: StepperOrientation = 'horizontal';
+            public orientation: StepperOrientation = orientation1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -115,14 +118,14 @@ describe('Nimble stepper', () => {
         });
 
         it('can be configured with property binding for orientation', () => {
-            expect(directive.orientation).toBe('horizontal');
-            expect(nativeElement.orientation).toBe('horizontal');
+            expect(directive.orientation).toBe(orientation1);
+            expect(nativeElement.orientation).toBe(orientation1);
 
-            fixture.componentInstance.orientation = 'vertical';
+            fixture.componentInstance.orientation = orientation2;
             fixture.detectChanges();
 
-            expect(directive.orientation).toBe('vertical');
-            expect(nativeElement.orientation).toBe('vertical');
+            expect(directive.orientation).toBe(orientation2);
+            expect(nativeElement.orientation).toBe(orientation2);
         });
     });
 
@@ -138,7 +141,7 @@ describe('Nimble stepper', () => {
         class TestHostComponent {
             @ViewChild('stepper', { read: NimbleStepperDirective }) public directive: NimbleStepperDirective;
             @ViewChild('stepper', { read: ElementRef }) public elementRef: ElementRef<Stepper>;
-            public orientation: StepperOrientation = 'horizontal';
+            public orientation: StepperOrientation = orientation1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -157,14 +160,14 @@ describe('Nimble stepper', () => {
         });
 
         it('can be configured with attribute binding for orientation', () => {
-            expect(directive.orientation).toBe('horizontal');
-            expect(nativeElement.orientation).toBe('horizontal');
+            expect(directive.orientation).toBe(orientation1);
+            expect(nativeElement.orientation).toBe(orientation1);
 
-            fixture.componentInstance.orientation = 'vertical';
+            fixture.componentInstance.orientation = orientation2;
             fixture.detectChanges();
 
-            expect(directive.orientation).toBe('vertical');
-            expect(nativeElement.orientation).toBe('vertical');
+            expect(directive.orientation).toBe(orientation2);
+            expect(nativeElement.orientation).toBe(orientation2);
         });
     });
 });
