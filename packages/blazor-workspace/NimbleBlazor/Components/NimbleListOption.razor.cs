@@ -34,12 +34,8 @@ public partial class NimbleListOption : ComponentBase
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        Context = string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name);
-
-        if (Context == null)
-        {
-            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(NimbleSelect)} " +
+        Context = (string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name))
+            ?? throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(NimbleSelect)} " +
                 $"with a matching 'Name' property, if specified.");
-        }
     }
 }

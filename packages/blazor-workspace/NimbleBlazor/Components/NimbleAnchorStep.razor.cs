@@ -8,7 +8,7 @@ public partial class NimbleAnchorStep : NimbleAnchorBase
     /// The severity of the step (default, error, warning, success).
     /// </summary>
     [Parameter]
-    public StepSeverity? Severity { get; set; }
+    public AnchorStepSeverity? Severity { get; set; }
 
     /// <summary>
     /// Whether the step is disabled.
