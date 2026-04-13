@@ -1,19 +1,21 @@
 @namespace Demo.Shared.Pages.Sections
 
-<SubContainer Label="Drawer">
-    <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDrawerAsync">Open Drawer</NimbleButton>
-    <NimbleSelect class="drawer-location-select" @bind-Value="@DrawerLocationAsString">
-        Drawer Location
-        <NimbleListOption Value="@DrawerLocation.Left.ToString()">Drawer: Left-side</NimbleListOption>
-        <NimbleListOption Value="@DrawerLocation.Right.ToString()">Drawer: Right-side</NimbleListOption>
-    </NimbleSelect>
-    <NimbleTextField ReadOnly="true" Value="@DrawerClosedReason">Closed reason</NimbleTextField>
-    <NimbleDrawer TCloseReason="DialogResult" Location="_drawerLocation" @ref="_drawer">
-        <header>Have a nice day</header>
-        <section>And also a nice week</section>
-        <footer class="drawer-footer">
-            <NimbleButton @onclick='() => CloseDrawerAsync(DialogResult.OK)'>OK</NimbleButton>
-            <NimbleButton @onclick='() => CloseDrawerAsync(DialogResult.Cancel)'>Cancel</NimbleButton>
-        </footer>
-    </NimbleDrawer>
-</SubContainer>
+<div>
+    <SubContainer Label="Drawer">
+        <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDrawerAsync">Open Drawer</NimbleButton>
+        <NimbleSelect class="drawer-location-select" @bind-Value="@DrawerLocationAsString">
+            Drawer Location
+            <NimbleListOption Value="@DrawerLocation.Left.ToString()">Drawer: Left-side</NimbleListOption>
+            <NimbleListOption Value="@DrawerLocation.Right.ToString()">Drawer: Right-side</NimbleListOption>
+        </NimbleSelect>
+        <NimbleTextField ReadOnly="true" Value="@DrawerClosedReason">Closed reason</NimbleTextField>
+        <NimbleDrawer TCloseReason="DialogResult" Location="_drawerLocation" @ref="_drawer">
+            <header>Have a nice day</header>
+            <section>And also a nice week</section>
+            <footer class="drawer-footer">
+                <NimbleButton @onclick='() => CloseDrawerAsync(DialogResult.OK)'>OK</NimbleButton>
+                <NimbleButton @onclick='() => CloseDrawerAsync(DialogResult.Cancel)'>Cancel</NimbleButton>
+            </footer>
+        </NimbleDrawer>
+    </SubContainer>
+</div>

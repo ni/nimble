@@ -1,10 +1,12 @@
 @namespace Demo.Shared.Pages.Sections
 
-<SubContainer Label="Rich Text Viewer">
-    <div class="rich-text-viewer-container">
-        <NimbleRichTextViewer Markdown="@MarkdownString"></NimbleRichTextViewer>
-    </div>
-</SubContainer>
+<div>
+    <SubContainer Label="Rich Text Viewer">
+        <div class="rich-text-viewer-container">
+            <NimbleRichTextViewer Markdown="@MarkdownString"></NimbleRichTextViewer>
+        </div>
+    </SubContainer>
+</div>
 
 @code {
     public const string MarkdownString = "Supported rich text formatting options:\n" +

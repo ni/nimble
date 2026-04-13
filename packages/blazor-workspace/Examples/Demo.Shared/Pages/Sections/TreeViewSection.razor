@@ -1,18 +1,20 @@
 @namespace Demo.Shared.Pages.Sections
 
-<SubContainer Label="Tree View">
-    <NimbleTreeView>
-        <NimbleTreeItem>
-            Parent 1
-            <NimbleTreeItem>Child 1</NimbleTreeItem>
-            <NimbleAnchorTreeItem Href="https://nimble.ni.dev">Child 2 (link)</NimbleAnchorTreeItem>
-            <NimbleTreeItem Disabled="true">Child 3</NimbleTreeItem>
-        </NimbleTreeItem>
-        <NimbleTreeItem Expanded="true">
-            Parent 2
-            <NimbleTreeItem Selected="true">Child 2-1</NimbleTreeItem>
-            <NimbleTreeItem>Child 2-2</NimbleTreeItem>
-            <NimbleTreeItem>Child 2-3</NimbleTreeItem>
-        </NimbleTreeItem>
-    </NimbleTreeView>
-</SubContainer>
+<div>
+    <SubContainer Label="Tree View">
+        <NimbleTreeView>
+            <NimbleTreeItem>
+                Parent 1
+                <NimbleTreeItem>Child 1</NimbleTreeItem>
+                <NimbleAnchorTreeItem Href="https://nimble.ni.dev">Child 2 (link)</NimbleAnchorTreeItem>
+                <NimbleTreeItem Disabled="true">Child 3</NimbleTreeItem>
+            </NimbleTreeItem>
+            <NimbleTreeItem Expanded="true">
+                Parent 2
+                <NimbleTreeItem Selected="true">Child 2-1</NimbleTreeItem>
+                <NimbleTreeItem>Child 2-2</NimbleTreeItem>
+                <NimbleTreeItem>Child 2-3</NimbleTreeItem>
+            </NimbleTreeItem>
+        </NimbleTreeView>
+    </SubContainer>
+</div>
