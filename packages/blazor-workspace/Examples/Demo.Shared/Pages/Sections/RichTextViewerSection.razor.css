@@ -1,0 +1,5 @@
+::deep .rich-text-viewer-container {
+  border: var(--ni-nimble-border-width) solid rgba(var(--ni-nimble-action-rgb-partial-color), 0.3);
+  padding: var(--ni-nimble-small-padding);
+  width: 350px;
+}

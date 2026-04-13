@@ -1,0 +1,7 @@
+::deep .table {
+  max-height: 500px;
+}
+
+::deep .table-update-button {
+  margin-top: var(--ni-nimble-small-padding);
+}

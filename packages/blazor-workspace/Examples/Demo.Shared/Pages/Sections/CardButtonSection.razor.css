@@ -1,0 +1,4 @@
+::deep .card-button-content {
+  display: flex;
+  margin: var(--ni-nimble-standard-padding);
+}

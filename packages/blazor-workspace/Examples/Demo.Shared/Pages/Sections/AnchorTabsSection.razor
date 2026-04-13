@@ -1,0 +1,24 @@
+@namespace Demo.Shared.Pages.Sections
+
+<SubContainer Label="Tabs - Anchor">
+    <NimbleAnchorTabs ActiveId="@ActiveAnchorTabId">
+        <NimbleAnchorTab id="a-tab-1" href="https://nimble.ni.dev">Tab 1</NimbleAnchorTab>
+        <NimbleAnchorTab id="a-tab-2" href="https://ni.com">Tab 2</NimbleAnchorTab>
+        <NimbleAnchorTab id="a-tab-3" Disabled="true">Tab 3 (Disabled)</NimbleAnchorTab>
+        <NimbleTabsToolbar>
+            <NimbleButton>Toolbar Button</NimbleButton>
+        </NimbleTabsToolbar>
+    </NimbleAnchorTabs>
+    <label id="activeAnchorTab">
+        Active tab:
+    </label>
+    <NimbleSelect @bind-Value="@ActiveAnchorTabId" aria-labelledby="activeAnchorTab">
+        <NimbleListOption Value="a-tab-1">Tab 1</NimbleListOption>
+        <NimbleListOption Value="a-tab-2">Tab 2</NimbleListOption>
+        <NimbleListOption Value="a-tab-3">Tab 3</NimbleListOption>
+    </NimbleSelect>
+</SubContainer>
+
+@code {
+    private string? ActiveAnchorTabId { get; set; } = "a-tab-1";
+}
