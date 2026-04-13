@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
-import { type AnchorStep, NimbleAnchorStepDirective, type AnchorStepSeverity } from '../nimble-anchor-step.directive';
+import { AnchorStepSeverity, type AnchorStep, NimbleAnchorStepDirective } from '../nimble-anchor-step.directive';
 import { NimbleAnchorStepModule } from '../nimble-anchor-step.module';
 
 describe('Nimble anchor step', () => {
@@ -19,6 +19,10 @@ describe('Nimble anchor step', () => {
     const target2 = '_blank';
     const type1 = 'text/plain';
     const type2 = 'application/javascript';
+    const severity1 = AnchorStepSeverity.default;
+    const severity2 = AnchorStepSeverity.error;
+    const severityText1 = 'hello';
+    const severityText2 = 'world';
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -97,6 +101,16 @@ describe('Nimble anchor step', () => {
             expect(nativeElement.severity).toBeUndefined();
         });
 
+        it('has expected defaults for severity', () => {
+            expect(directive.severity).toBe(AnchorStepSeverity.default);
+            expect(nativeElement.severity).toBe(AnchorStepSeverity.default);
+        });
+
+        it('has expected defaults for severityText', () => {
+            expect(directive.severityText).toBeUndefined();
+            expect(nativeElement.severityText).toBeUndefined();
+        });
+
         it('has expected defaults for disabled', () => {
             expect(directive.disabled).toBeFalse();
             expect(nativeElement.disabled).toBeFalse();
@@ -125,6 +139,7 @@ describe('Nimble anchor step', () => {
                     target="${target1}"
                     type="${type1}"
                     severity="error"
+                    severity-text="${severityText1}"
                     disabled
                     readonly
                     selected
@@ -189,8 +204,13 @@ describe('Nimble anchor step', () => {
         });
 
         it('will use template string values for severity', () => {
-            expect(directive.severity).toBe('error');
-            expect(nativeElement.severity).toBe('error');
+            expect(directive.severity).toBe(AnchorStepSeverity.error);
+            expect(nativeElement.severity).toBe(AnchorStepSeverity.error);
+        });
+
+        it('will use template string values for severityText', () => {
+            expect(directive.severityText).toBe(severityText1);
+            expect(nativeElement.severityText).toBe(severityText1);
         });
 
         it('will use template string values for disabled', () => {
@@ -221,6 +241,7 @@ describe('Nimble anchor step', () => {
                     [target]="target"
                     [type]="type"
                     [severity]="severity"
+                    [severityText]="severityText"
                     [disabled]="disabled"
                     [readOnly]="readOnly"
                     [selected]="selected"
@@ -239,7 +260,8 @@ describe('Nimble anchor step', () => {
             public rel = rel1;
             public target = target1;
             public type = type1;
-            public severity: AnchorStepSeverity;
+            public severity: AnchorStepSeverity = severity1;
+            public severityText = severityText1;
             public disabled = false;
             public readOnly = false;
             public selected = false;
@@ -338,14 +360,25 @@ describe('Nimble anchor step', () => {
         });
 
         it('can be configured with property binding for severity', () => {
-            expect(directive.severity).toBeUndefined();
-            expect(nativeElement.severity).toBeUndefined();
+            expect(directive.severity).toBe(severity1);
+            expect(nativeElement.severity).toBe(severity1);
 
-            fixture.componentInstance.severity = 'error';
+            fixture.componentInstance.severity = severity2;
             fixture.detectChanges();
 
-            expect(directive.severity).toBe('error');
-            expect(nativeElement.severity).toBe('error');
+            expect(directive.severity).toBe(severity2);
+            expect(nativeElement.severity).toBe(severity2);
+        });
+
+        it('can be configured with property binding for severityText', () => {
+            expect(directive.severityText).toBe(severityText1);
+            expect(nativeElement.severityText).toBe(severityText1);
+
+            fixture.componentInstance.severityText = severityText2;
+            fixture.detectChanges();
+
+            expect(directive.severityText).toBe(severityText2);
+            expect(nativeElement.severityText).toBe(severityText2);
         });
 
         it('can be configured with property binding for disabled', () => {
@@ -394,6 +427,7 @@ describe('Nimble anchor step', () => {
                     [attr.target]="target"
                     [attr.type]="type"
                     [attr.severity]="severity"
+                    [attr.severity-text]="severityText"
                     [attr.disabled]="disabled"
                     [attr.readonly]="readOnly"
                     [attr.selected]="selected"
@@ -412,7 +446,8 @@ describe('Nimble anchor step', () => {
             public rel = rel1;
             public target = target1;
             public type = type1;
-            public severity: AnchorStepSeverity;
+            public severity: AnchorStepSeverity = severity1;
+            public severityText = severityText1;
             public disabled: BooleanValueOrAttribute = null;
             public readOnly: BooleanValueOrAttribute = null;
             public selected: BooleanValueOrAttribute = null;
@@ -511,14 +546,25 @@ describe('Nimble anchor step', () => {
         });
 
         it('can be configured with attribute binding for severity', () => {
-            expect(directive.severity).toBeUndefined();
-            expect(nativeElement.severity).toBeUndefined();
+            expect(directive.severity).toBe(severity1);
+            expect(nativeElement.severity).toBe(severity1);
 
-            fixture.componentInstance.severity = 'warning';
+            fixture.componentInstance.severity = severity2;
             fixture.detectChanges();
 
-            expect(directive.severity).toBe('warning');
-            expect(nativeElement.severity).toBe('warning');
+            expect(directive.severity).toBe(severity2);
+            expect(nativeElement.severity).toBe(severity2);
+        });
+
+        it('can be configured with attribute binding for severityText', () => {
+            expect(directive.severityText).toBe(severityText1);
+            expect(nativeElement.severityText).toBe(severityText1);
+
+            fixture.componentInstance.severityText = severityText2;
+            fixture.detectChanges();
+
+            expect(directive.severityText).toBe(severityText2);
+            expect(nativeElement.severityText).toBe(severityText2);
         });
 
         it('can be configured with attribute binding for disabled', () => {

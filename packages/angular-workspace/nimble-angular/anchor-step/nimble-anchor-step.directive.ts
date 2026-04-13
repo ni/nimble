@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type AnchorStep, anchorStepTag } from '@ni/nimble-components/dist/esm/anchor-step';
-import type { AnchorStepSeverity } from '@ni/nimble-components/dist/esm/anchor-step/types';
+import { AnchorStepSeverity } from '@ni/nimble-components/dist/esm/anchor-step/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleAnchorBaseDirective } from '../src/directives/anchor-base/nimble-anchor-base.directive';
 
@@ -22,6 +22,14 @@ export class NimbleAnchorStepDirective extends NimbleAnchorBaseDirective<AnchorS
 
     @Input() public set severity(value: AnchorStepSeverity) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'severity', value);
+    }
+
+    public get severityText(): string | undefined {
+        return this.elementRef.nativeElement.severityText;
+    }
+
+    @Input('severity-text') public set severityText(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'severityText', value);
     }
 
     public get disabled(): boolean {

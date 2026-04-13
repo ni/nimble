@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type Step, stepTag } from '@ni/nimble-components/dist/esm/step';
-import type { StepSeverity } from '@ni/nimble-components/dist/esm/step/types';
+import { StepSeverity } from '@ni/nimble-components/dist/esm/step/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Step };
@@ -21,6 +21,14 @@ export class NimbleStepDirective {
 
     @Input() public set severity(value: StepSeverity) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'severity', value);
+    }
+
+    public get severityText(): string | undefined {
+        return this.elementRef.nativeElement.severityText;
+    }
+
+    @Input('severity-text') public set severityText(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'severityText', value);
     }
 
     public get disabled(): boolean {

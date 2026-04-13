@@ -2,9 +2,14 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleStepModule } from '../nimble-step.module';
-import { NimbleStepDirective, type Step, type StepSeverity } from '../nimble-step.directive';
+import { NimbleStepDirective, StepSeverity, type Step } from '../nimble-step.directive';
 
 describe('Nimble step', () => {
+    const severity1 = StepSeverity.default;
+    const severity2 = StepSeverity.error;
+    const severityText1 = 'hello';
+    const severityText2 = 'world';
+
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -45,8 +50,13 @@ describe('Nimble step', () => {
         });
 
         it('has expected defaults for severity', () => {
-            expect(directive.severity).toBeUndefined();
-            expect(nativeElement.severity).toBeUndefined();
+            expect(directive.severity).toBe(StepSeverity.default);
+            expect(nativeElement.severity).toBe(StepSeverity.default);
+        });
+
+        it('has expected defaults for severityText', () => {
+            expect(directive.severityText).toBeUndefined();
+            expect(nativeElement.severityText).toBeUndefined();
         });
 
         it('has expected defaults for disabled', () => {
@@ -69,7 +79,8 @@ describe('Nimble step', () => {
         @Component({
             template: `
                 <nimble-step #step
-                    severity="error"
+                    severity="${severity1}"
+                    severity-text="${severityText1}"
                     disabled
                     readonly
                     selected
@@ -98,8 +109,13 @@ describe('Nimble step', () => {
         });
 
         it('will use template string values for severity', () => {
-            expect(directive.severity).toBe('error');
-            expect(nativeElement.severity).toBe('error');
+            expect(directive.severity).toBe(severity1);
+            expect(nativeElement.severity).toBe(severity1);
+        });
+
+        it('will use template string values for severityText', () => {
+            expect(directive.severityText).toBe(severityText1);
+            expect(nativeElement.severityText).toBe(severityText1);
         });
 
         it('will use template string values for disabled', () => {
@@ -123,6 +139,7 @@ describe('Nimble step', () => {
             template: `
                 <nimble-step #step
                     [severity]="severity"
+                    [severityText]="severityText"
                     [disabled]="disabled"
                     [readOnly]="readOnly"
                     [selected]="selected"
@@ -133,7 +150,8 @@ describe('Nimble step', () => {
         class TestHostComponent {
             @ViewChild('step', { read: NimbleStepDirective }) public directive: NimbleStepDirective;
             @ViewChild('step', { read: ElementRef }) public elementRef: ElementRef<Step>;
-            public severity: StepSeverity;
+            public severity: StepSeverity = severity1;
+            public severityText = severityText1;
             public disabled = false;
             public readOnly = false;
             public selected = false;
@@ -155,14 +173,25 @@ describe('Nimble step', () => {
         });
 
         it('can be configured with property binding for severity', () => {
-            expect(directive.severity).toBeUndefined();
-            expect(nativeElement.severity).toBeUndefined();
+            expect(directive.severity).toBe(severity1);
+            expect(nativeElement.severity).toBe(severity1);
 
-            fixture.componentInstance.severity = 'error';
+            fixture.componentInstance.severity = severity2;
             fixture.detectChanges();
 
-            expect(directive.severity).toBe('error');
-            expect(nativeElement.severity).toBe('error');
+            expect(directive.severity).toBe(severity2);
+            expect(nativeElement.severity).toBe(severity2);
+        });
+
+        it('can be configured with property binding for severityText', () => {
+            expect(directive.severityText).toBe(severityText1);
+            expect(nativeElement.severityText).toBe(severityText1);
+
+            fixture.componentInstance.severityText = severityText2;
+            fixture.detectChanges();
+
+            expect(directive.severityText).toBe(severityText2);
+            expect(nativeElement.severityText).toBe(severityText2);
         });
 
         it('can be configured with property binding for disabled', () => {
@@ -204,6 +233,7 @@ describe('Nimble step', () => {
             template: `
                 <nimble-step #step
                     [attr.severity]="severity"
+                    [attr.severity-text]="severityText"
                     [attr.disabled]="disabled"
                     [attr.readonly]="readOnly"
                     [attr.selected]="selected"
@@ -214,7 +244,8 @@ describe('Nimble step', () => {
         class TestHostComponent {
             @ViewChild('step', { read: NimbleStepDirective }) public directive: NimbleStepDirective;
             @ViewChild('step', { read: ElementRef }) public elementRef: ElementRef<Step>;
-            public severity: StepSeverity;
+            public severity: StepSeverity = severity1;
+            public severityText = severityText1;
             public disabled: BooleanValueOrAttribute = null;
             public readOnly: BooleanValueOrAttribute = null;
             public selected: BooleanValueOrAttribute = null;
@@ -236,14 +267,25 @@ describe('Nimble step', () => {
         });
 
         it('can be configured with attribute binding for severity', () => {
-            expect(directive.severity).toBeUndefined();
-            expect(nativeElement.severity).toBeUndefined();
+            expect(directive.severity).toBe(severity1);
+            expect(nativeElement.severity).toBe(severity1);
 
-            fixture.componentInstance.severity = 'warning';
+            fixture.componentInstance.severity = severity2;
             fixture.detectChanges();
 
-            expect(directive.severity).toBe('warning');
-            expect(nativeElement.severity).toBe('warning');
+            expect(directive.severity).toBe(severity2);
+            expect(nativeElement.severity).toBe(severity2);
+        });
+
+        it('can be configured with attribute binding for severityText', () => {
+            expect(directive.severityText).toBe(severityText1);
+            expect(nativeElement.severityText).toBe(severityText1);
+
+            fixture.componentInstance.severityText = severityText2;
+            fixture.detectChanges();
+
+            expect(directive.severityText).toBe(severityText2);
+            expect(nativeElement.severityText).toBe(severityText2);
         });
 
         it('can be configured with attribute binding for disabled', () => {
