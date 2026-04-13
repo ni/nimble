@@ -34,8 +34,8 @@ public class NimbleStepperTests
     }
 
     [Theory]
-    [InlineData(Orientation.Horizontal, "horizontal")]
-    [InlineData(Orientation.Vertical, "vertical")]
+    [InlineData(Orientation.Horizontal, "orientation=\"horizontal\"")]
+    [InlineData(Orientation.Vertical, "orientation=\"vertical\"")]
     public void StepperOrientation_AttributeIsSet(Orientation value, string expectedAttribute)
     {
         var stepper = RenderWithPropertySet(x => x.Orientation, value);
