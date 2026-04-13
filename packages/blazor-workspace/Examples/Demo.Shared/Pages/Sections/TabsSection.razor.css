@@ -1,5 +1,0 @@
-::deep .container-label {
-  font: var(--ni-nimble-group-header-font);
-  color: var(--ni-nimble-group-header-font-color);
-  padding-bottom: var(--ni-nimble-standard-padding);
-}

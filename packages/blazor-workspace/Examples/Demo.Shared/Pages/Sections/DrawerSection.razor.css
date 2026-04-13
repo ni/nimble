@@ -1,7 +1,0 @@
-::deep .drawer-location-select {
-  width: 200px;
-}
-
-::deep .drawer-footer {
-  gap: var(--ni-nimble-standard-padding);
-}
