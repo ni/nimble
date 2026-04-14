@@ -2,7 +2,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type AnchorStep, anchorStepTag } from '@ni/nimble-components/dist/esm/anchor-step';
 import { AnchorStepSeverity } from '@ni/nimble-components/dist/esm/anchor-step/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
-import { NimbleAnchorBaseDirective } from '@ni/nimble-angular/anchor-base';
+import { NimbleAnchorBaseDirective } from '@ni/nimble-angular';
 
 export type { AnchorStep };
 export { anchorStepTag };
