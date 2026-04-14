@@ -1,0 +1,56 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Chat Conversation and Messages (Spright)">
+        <SprightChatConversation class="conversation">
+            <NimbleBanner slot="start" Open="true" Severity="BannerSeverity.Information">
+                <span slot="title">Title of the banner</span>
+                This is the message text of this banner. It tells you something interesting.
+            </NimbleBanner>
+            <SprightChatMessageSystem>
+                To start, press any key.
+            </SprightChatMessageSystem>
+            <SprightChatMessageOutbound>
+                Where is the Any key?
+            </SprightChatMessageOutbound>
+            <SprightChatMessageSystem>
+                <NimbleSpinner Appearance="SpinnerAppearance.Accent"></NimbleSpinner>
+            </SprightChatMessageSystem>
+            <SprightChatMessageInbound>
+                <NimbleButton slot="footer-actions" Appearance=ButtonAppearance.Ghost ContentHidden="true">
+                    <NimbleIconCopyText slot="start"></NimbleIconCopyText>
+                    Copy
+                </NimbleButton>
+                <NimbleIconWebviCustom style="height: 100px; width: 100px;"></NimbleIconWebviCustom>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                <NimbleButton slot="end" Appearance=ButtonAppearance.Block>
+                    Order a tab
+                </NimbleButton>
+                <NimbleButton slot="end" Appearance=ButtonAppearance.Block>
+                    Check core temperature
+                </NimbleButton>
+            </SprightChatMessageInbound>
+            @foreach(var message in _userMessages)
+            {
+                <SprightChatMessageOutbound>
+                    @message
+                </SprightChatMessageOutbound>
+            }
+            <SprightChatInput slot="input" Placeholder="Type here" Send="UpdateUserMessages"></SprightChatInput>
+            <span slot="end">
+                AI-generated content may be incorrect.
+                <NimbleAnchor Href="https://www.ni.com" Target="_blank">View Terms and Conditions</NimbleAnchor>
+            </span>
+        </SprightChatConversation>
+    </SubContainer>
+</div>
+
+@code {
+    private List<string> _userMessages = new List<string>();
+
+    public void UpdateUserMessages(ChatInputSendEventArgs e)
+    {
+        _userMessages.Add(e.Text);
+    }
+}

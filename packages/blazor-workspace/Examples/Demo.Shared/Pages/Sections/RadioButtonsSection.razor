@@ -1,0 +1,17 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Radio Buttons">
+        <NimbleRadioGroup Name="options" @bind-Value="@SelectedRadio">
+            <span slot="label">Options</span>
+            <NimbleRadio Value="1">Option 1</NimbleRadio>
+            <NimbleRadio Value="2">Option 2</NimbleRadio>
+            <NimbleRadio Value="3">Option 3</NimbleRadio>
+        </NimbleRadioGroup>
+        <NimbleTextField @bind-Value="@SelectedRadio">Value</NimbleTextField>
+    </SubContainer>
+</div>
+
+@code {
+    private string? SelectedRadio { get; set; } = "2";
+}
