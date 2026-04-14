@@ -404,6 +404,10 @@ export function App(): React.JSX.Element {
         alert(`${menuItemText} selected`);
     }
 
+    function onChipRemove(): void {
+        alert('Chip removed');
+    }
+
     function loadRichTextEditorContent(): void {
         richTextEditorRef.current?.setMarkdown(markdownString);
     }
@@ -654,7 +658,7 @@ export function App(): React.JSX.Element {
                                     <div className="container-label">Chip</div>
                                     <NimbleChip>Outline Chip</NimbleChip>
                                     <NimbleChip appearance="block">Block Chip</NimbleChip>
-                                    <NimbleChip removable>Removable Chip</NimbleChip>
+                                    <NimbleChip removable onRemove={onChipRemove}>Removable Chip</NimbleChip>
                                     <NimbleChip disabled>Disabled Chip</NimbleChip>
                                 </div>
                                 <div className="sub-container">
