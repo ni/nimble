@@ -39,8 +39,8 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "customElements": "dist/custom-elements.json",
   "dependencies": {
-    "@ni/fast-element": "^10.1.0",
-    "@ni/fast-foundation": "^10.2.2",
+    "@ni/fast-element": "^10.1.1",
+    "@ni/fast-foundation": "^10.2.3",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "^35.5.6",
     "@ni/spright-components": "^6.15.5",
