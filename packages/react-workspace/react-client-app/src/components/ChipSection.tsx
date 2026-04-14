@@ -2,7 +2,6 @@ import { NimbleChip } from '@ni/nimble-react/chip';
 import { SubContainer } from './SubContainer';
 
 export function ChipSection(): React.JSX.Element {
-
     function onChipRemove(): void {
         alert('Chip removed');
     }
