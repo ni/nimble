@@ -2,6 +2,8 @@
 using System.Globalization;
 using Apache.Arrow;
 using Apache.Arrow.Types;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using NimbleBlazor;
 using SprightBlazor;
 
@@ -55,6 +57,9 @@ public partial class ComponentsDemo
 
     public DemoColor CurrentColor { get; private set; }
     public string? OpenMenuButtonColumnRecordId { get; private set; }
+
+    [Inject]
+    public IJSRuntime? JSRuntime { get; set; }
 
     [NotNull]
     public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
@@ -217,6 +222,11 @@ public partial class ComponentsDemo
     public async Task CloseDrawerAsync(DialogResult reason)
     {
         await _drawer!.CloseAsync(reason);
+    }
+
+    public async Task OnChipRemoveAsync()
+    {
+        await JSRuntime!.InvokeVoidAsync("alert", "Chip removed");
     }
 
     public void AddTableRows(int numberOfRowsToAdd)
