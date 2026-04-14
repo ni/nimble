@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Stepper, step, and anchor step component wrappers",
+  "packageName": "@ni/nimble-react",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

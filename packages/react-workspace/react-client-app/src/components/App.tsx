@@ -26,6 +26,7 @@ import { ComboboxSection } from './ComboboxSection';
 import { RichTextEditorSection } from './RichTextEditorSection';
 import { RichTextViewerSection } from './RichTextViewerSection';
 import { SpinnerSection } from './SpinnerSection';
+import { StepperSection } from './StepperSection';
 import { SwitchSection } from './SwitchSection';
 import { TableSection } from './TableSection';
 import { DelayedHierarchyTableSection } from './DelayedHierarchyTableSection';
@@ -91,6 +92,7 @@ export function App(): React.JSX.Element {
                                 <RichTextEditorSection />
                                 <RichTextViewerSection />
                                 <SpinnerSection />
+                                <StepperSection />
                                 <SwitchSection />
                                 <TableSection />
                                 <DelayedHierarchyTableSection />
