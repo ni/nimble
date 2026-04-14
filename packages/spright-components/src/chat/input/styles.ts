@@ -134,6 +134,10 @@ export const styles = css`
         padding: ${mediumPadding};
     }
 
+    .attachments ::slotted(*) {
+        height: ${controlSlimHeight};
+    }
+
     .footer {
         display: flex;
         flex-direction: row;
@@ -154,10 +158,7 @@ export const styles = css`
         margin: ${mediumPadding};
     }
 
-    .footer-actions ::slotted(${buttonTag}),
-    .footer-actions ::slotted(${toggleButtonTag}),
-    .footer-actions ::slotted(${anchorButtonTag}),
-    .footer-actions ::slotted(${menuButtonTag}) {
+    .footer-actions ::slotted(*) {
         height: ${controlSlimHeight};
     }
 `;
