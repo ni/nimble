@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update fast dependency to fix view bug in Firefox",
-  "packageName": "@ni/spright-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
