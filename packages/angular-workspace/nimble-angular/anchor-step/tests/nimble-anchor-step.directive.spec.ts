@@ -97,11 +97,6 @@ describe('Nimble anchor step', () => {
         });
 
         it('has expected defaults for severity', () => {
-            expect(directive.severity).toBeUndefined();
-            expect(nativeElement.severity).toBeUndefined();
-        });
-
-        it('has expected defaults for severity', () => {
             expect(directive.severity).toBe(AnchorStepSeverity.default);
             expect(nativeElement.severity).toBe(AnchorStepSeverity.default);
         });
@@ -243,7 +238,7 @@ describe('Nimble anchor step', () => {
                     [severity]="severity"
                     [severityText]="severityText"
                     [disabled]="disabled"
-                    [readOnly]="readOnly"
+                    [readonly]="readonly"
                     [selected]="selected"
                     >
                 </nimble-anchor-step>
@@ -263,7 +258,7 @@ describe('Nimble anchor step', () => {
             public severity: AnchorStepSeverity = severity1;
             public severityText = severityText1;
             public disabled = false;
-            public readOnly = false;
+            public readonly = false;
             public selected = false;
         }
 
@@ -396,7 +391,7 @@ describe('Nimble anchor step', () => {
             expect(directive.readOnly).toBeFalse();
             expect(nativeElement.readOnly).toBeFalse();
 
-            fixture.componentInstance.readOnly = true;
+            fixture.componentInstance.readonly = true;
             fixture.detectChanges();
 
             expect(directive.readOnly).toBeTrue();

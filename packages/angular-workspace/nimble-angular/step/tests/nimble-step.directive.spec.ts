@@ -141,7 +141,7 @@ describe('Nimble step', () => {
                     [severity]="severity"
                     [severityText]="severityText"
                     [disabled]="disabled"
-                    [readOnly]="readOnly"
+                    [readonly]="readonly"
                     [selected]="selected"
                 ></nimble-step>
             `,
@@ -153,7 +153,7 @@ describe('Nimble step', () => {
             public severity: StepSeverity = severity1;
             public severityText = severityText1;
             public disabled = false;
-            public readOnly = false;
+            public readonly = false;
             public selected = false;
         }
 
@@ -209,7 +209,7 @@ describe('Nimble step', () => {
             expect(directive.readOnly).toBeFalse();
             expect(nativeElement.readOnly).toBeFalse();
 
-            fixture.componentInstance.readOnly = true;
+            fixture.componentInstance.readonly = true;
             fixture.detectChanges();
 
             expect(directive.readOnly).toBeTrue();
@@ -235,7 +235,7 @@ describe('Nimble step', () => {
                     [attr.severity]="severity"
                     [attr.severity-text]="severityText"
                     [attr.disabled]="disabled"
-                    [attr.readonly]="readOnly"
+                    [attr.readonly]="readonly"
                     [attr.selected]="selected"
                 ></nimble-step>
             `,
@@ -247,7 +247,7 @@ describe('Nimble step', () => {
             public severity: StepSeverity = severity1;
             public severityText = severityText1;
             public disabled: BooleanValueOrAttribute = null;
-            public readOnly: BooleanValueOrAttribute = null;
+            public readonly: BooleanValueOrAttribute = null;
             public selected: BooleanValueOrAttribute = null;
         }
 
@@ -303,7 +303,7 @@ describe('Nimble step', () => {
             expect(directive.readOnly).toBeFalse();
             expect(nativeElement.readOnly).toBeFalse();
 
-            fixture.componentInstance.readOnly = '';
+            fixture.componentInstance.readonly = '';
             fixture.detectChanges();
 
             expect(directive.readOnly).toBeTrue();
