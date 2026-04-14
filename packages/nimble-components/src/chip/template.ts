@@ -14,31 +14,41 @@ export const template: FoundationElementTemplate<
 ViewTemplate<Chip>,
 ChipOptions
 > = (context, definition) => html<Chip>`
-    ${startSlotTemplate(context, definition)}
-    <span
-        class="content"
-        part="content"
-        ${overflow('hasOverflow')}
-        title=${x => (x.hasOverflow && x.elementTextContent
-    ? x.elementTextContent
-    : null)}
+    <template
+        role="${x => (x.selectable ? 'button' : undefined)}"
+        aria-pressed="${x => (x.selectable ? x.selected : undefined)}"
+        @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+        @keyup="${(x, c) => x.keyupHandler(c.event as KeyboardEvent)}"
+        @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
     >
-        <slot
-            ${ref('contentSlot')}
-            ${slotted({ property: 'content' })}
-        ></slot>
-    </span>
-    ${when(x => x.removable && !x.disabled, html<Chip>`
-        <${buttonTag}
-            class="remove-button"
-            content-hidden
-            appearance="${ButtonAppearance.ghost}"
-            tabindex="${x => x.tabIndex}"
-            @click="${x => x.handleRemoveClick()}"
+        ${startSlotTemplate(context, definition)}
+        <span
+            class="content"
+            part="content"
+            ${overflow('hasOverflow')}
+            title=${x => (x.hasOverflow && x.elementTextContent
+                ? x.elementTextContent
+                : null)}
         >
-            <${iconTimesTag} slot="start"></${iconTimesTag}>
-            ${x => x.removeButtonContent}
-        </${buttonTag}>
-    `)}
-    ${endSlotTemplate(context, definition)}
+            <slot
+                ${ref('contentSlot')}
+                ${slotted({ property: 'content' })}
+            ></slot>
+        </span>
+        ${when(x => x.removable && !x.disabled, html<Chip>`
+            <${buttonTag}
+                class="remove-button"
+                content-hidden
+                appearance="${ButtonAppearance.ghost}"
+                tabindex="${x => (x.selectable ? '-1' : x.tabIndex)}"
+                @mousedown="${(x, c) => x.handleRemoveMousedown(c.event as MouseEvent)}"
+                @click="${(x, c) => x.handleRemoveClick(c.event as MouseEvent)}"
+                @keyup="${(x, c) => x.handleRemoveKeyup(c.event as KeyboardEvent)}"
+            >
+                <${iconTimesTag} slot="start"></${iconTimesTag}>
+                ${x => x.removeButtonContent}
+            </${buttonTag}>
+        `)}
+        ${endSlotTemplate(context, definition)}
+    </template>
 `;

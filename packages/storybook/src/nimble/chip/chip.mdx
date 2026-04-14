@@ -8,7 +8,7 @@ import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 <Title of={chipStories} />
 
 A component for displaying information in a compact format. Provides an optional
-remove button to allow users to delete the chip.
+remove button and optional local selection state.
 
 <Canvas of={chipStories.chip} />
 
@@ -34,8 +34,28 @@ is:
   chips
 - all chips have the same appearance
 
+Use a selectable chip when the UI needs a compact, tag-like control that can be
+toggled in place as part of a collection of chips, such as filter tokens.
+
+Use a [toggle button](?path=/docs/components-toggle-button--docs) when the
+control is primarily a button-shaped action toggle rather than compact chip
+content.
+
 {/* ## Examples */}
 
-{/* ## Accessibility */}
+## Accessibility
+
+### Keyboard Interaction
+
+When a chip is both selectable (`selectable`) and removable:
+
+- **Space/Enter**: Toggles the chip's selected state
+- **Escape**: Removes the chip (emits the `remove` event)
+
+The remove button is non-focusable when the chip is selectable to avoid nested
+interactive controls. Instead, use the Escape key to remove a focused chip.
+
+When a chip is removable but not selectable, the remove button is focusable and
+can be activated with Space or Enter.
 
 {/* ## Resources */}
