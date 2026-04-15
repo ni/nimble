@@ -20,7 +20,6 @@ import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/c
 import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
-import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { iconCopyTextTag } from '@ni/nimble-components/dist/esm/icons/copy-text';
@@ -31,6 +30,8 @@ import { iconThreeDotsLineTag } from '@ni/nimble-components/dist/esm/icons/three
 import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
+import { iconMessageBotTag } from '@ni/nimble-components/dist/esm/icons/message-bot';
+import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
 import {
@@ -40,11 +41,11 @@ import {
 import { imgBlobUrl, markdownExample } from './story-helpers';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
+import { ExampleWelcomeSlotContent } from '../message/types';
 
 interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
     content: string;
-    welcome: boolean;
     toolbar: boolean;
     start: boolean;
     input: boolean;
@@ -206,47 +207,72 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     }
 };
 
-export const welcomeLogin: StoryObj<ChatConversationArgs> = {
-    parameters: {
-        actions: {}
-    },
+interface ChatMessageWelcomeArgs {
+    welcomeTitle: string;
+    subtitle: string;
+    brandIcon: boolean;
+    defaultSlot: ExampleWelcomeSlotContent;
+}
+
+export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
     render: createUserSelectedThemeStory(html`
-        <style class='code-hide'>
-            ${chatConversationTag} {
-                max-height: 750px;
-            }
-        </style>
-        <${chatConversationTag} appearance="${x => x.appearance}">
-            <${chatMessageWelcomeTag} welcome-title="Welcome to Nigel\u2122 AI" subtitle="Log in to get started">
+        <${chatMessageWelcomeTag}
+            welcome-title="${x => x.welcomeTitle}"
+            subtitle="${x => x.subtitle}"
+        >
+            ${when(x => x.brandIcon, html`
+                <${iconMessageBotTag} slot="brand-icon"></${iconMessageBotTag}>
+            `)}
+            ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.loginButton, html`
                 <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
                     Login
                 </${anchorButtonTag}>
-            </${chatMessageWelcomeTag}>
-        </${chatConversationTag}>
+            `)}
+            ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.suggestions, html`
+                <${buttonTag} appearance="block">
+                    Help me get started
+                </${buttonTag}>
+                <${buttonTag} appearance="block">
+                    What can you do?
+                </${buttonTag}>
+            `)}
+        </${chatMessageWelcomeTag}>
     `),
     argTypes: {
-        appearance: {
-            options: Object.keys(ChatConversationAppearance),
-            control: { type: 'radio' },
-            description: 'The appearance of the chat conversation.',
+        welcomeTitle: {
+            name: 'welcome-title',
+            description: 'The primary welcome title text displayed in the message.',
             table: { category: apiCategory.attributes }
         },
-        content: { table: { disable: true } },
-        welcome: { table: { disable: true } },
-        toolbar: { table: { disable: true } },
-        start: { table: { disable: true } },
-        input: { table: { disable: true } },
-        end: { table: { disable: true } },
-        sendMessage: { table: { disable: true } },
-        conversationRef: { table: { disable: true } }
+        subtitle: {
+            description: 'The secondary subtitle text displayed below the title.',
+            table: { category: apiCategory.attributes }
+        },
+        brandIcon: {
+            name: 'brand-icon',
+            description: 'Customize the brand image displayed above the title. By default, the Nigel AI icon is shown.',
+            table: { category: apiCategory.slots }
+        },
+        defaultSlot: {
+            name: 'default',
+            description: 'Slot content below the title and subtitle. Use a login anchor button to prompt the user to log in, or suggestion buttons to offer common actions.',
+            table: { category: apiCategory.slots },
+            options: Object.values(ExampleWelcomeSlotContent),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleWelcomeSlotContent.none]: 'None',
+                    [ExampleWelcomeSlotContent.loginButton]: 'Login button',
+                    [ExampleWelcomeSlotContent.suggestions]: 'Suggestions'
+                }
+            }
+        }
     },
     args: {
-        appearance: 'default',
-        end: false,
-        welcome: false,
-        toolbar: false,
-        start: false,
-        input: false
+        welcomeTitle: 'Welcome to Nigel™ AI',
+        subtitle: 'Chat below to get started',
+        brandIcon: false,
+        defaultSlot: ExampleWelcomeSlotContent.loginButton
     }
 };
 

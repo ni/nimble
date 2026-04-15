@@ -1,7 +1,6 @@
-import { messagesSparkle16X16 } from '@ni/nimble-tokens/dist/icons/js';
-import { IconSvg } from '@ni/nimble-components/dist/esm/icon-svg';
-import { template } from '@ni/nimble-components/dist/esm/icon-svg/template';
+import { Icon } from '@ni/nimble-components/dist/esm/icon-base';
 import { DesignSystem } from '@ni/fast-foundation';
+import { template } from './template';
 import { styles } from './styles';
 
 declare global {
@@ -14,11 +13,7 @@ declare global {
  * Spright Nigel chat brand icon.
  * Used as the default brand icon in the welcome message.
  */
-export class IconNigelChat extends IconSvg {
-    public constructor() {
-        super(messagesSparkle16X16);
-    }
-}
+export class IconNigelChat extends Icon {}
 
 const sprightIconNigelChat = IconNigelChat.compose({
     baseName: 'icon-nigel-chat',

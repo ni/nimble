@@ -4,6 +4,7 @@ import {
     chatMessageWelcomeTag
 } from '..';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
+import { ChatMessageWelcomePageObject } from '../testing/chat-message-welcome.pageobject';
 
 async function setup(
     welcomeTitle?: string,
@@ -23,6 +24,7 @@ describe('ChatMessageWelcome', () => {
     let element: ChatMessageWelcome;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
+    let pageObject: ChatMessageWelcomePageObject;
 
     afterEach(async () => {
         await disconnect();
@@ -37,10 +39,8 @@ describe('ChatMessageWelcome', () => {
     it('should have a default slot element in the shadow DOM', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        const slot = element.shadowRoot?.querySelector(
-            'slot:not([name])'
-        );
-        expect(slot).not.toBeNull();
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.getDefaultSlot()).not.toBeNull();
     });
 
     it('should display the welcome title when set', async () => {
@@ -48,8 +48,8 @@ describe('ChatMessageWelcome', () => {
             'Welcome to Nigel AI'
         ));
         await connect();
-        const titleDiv = element.shadowRoot?.querySelector('.title');
-        expect(titleDiv?.textContent?.trim()).toBe('Welcome to Nigel AI');
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.getTitleText()).toBe('Welcome to Nigel AI');
     });
 
     it('should display the subtitle when set', async () => {
@@ -58,8 +58,8 @@ describe('ChatMessageWelcome', () => {
             'Chat below to get started'
         ));
         await connect();
-        const subtitleDiv = element.shadowRoot?.querySelector('.subtitle');
-        expect(subtitleDiv?.textContent?.trim()).toBe(
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.getSubtitleText()).toBe(
             'Chat below to get started'
         );
     });
@@ -67,24 +67,29 @@ describe('ChatMessageWelcome', () => {
     it('should not render title element when title is not set', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        const titleDiv = element.shadowRoot?.querySelector('.title');
-        expect(titleDiv).toBeNull();
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.isTitleRendered()).toBeFalse();
     });
 
     it('should not render subtitle element when subtitle is not set', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        const subtitleDiv = element.shadowRoot?.querySelector('.subtitle');
-        expect(subtitleDiv).toBeNull();
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.isSubtitleRendered()).toBeFalse();
     });
 
     it('should have a brand-icon slot', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        const brandIconSlot = element.shadowRoot?.querySelector(
-            'slot[name="brand-icon"]'
-        );
-        expect(brandIconSlot).not.toBeNull();
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.getBrandIconSlot()).not.toBeNull();
+    });
+
+    it('should display the default Nigel chat icon when no brand-icon slot content is provided', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.getDefaultBrandIcon()).not.toBeNull();
     });
 
     it('should display the welcome title when both title and subtitle are set', async () => {
@@ -93,8 +98,8 @@ describe('ChatMessageWelcome', () => {
             'Chat below to get started'
         ));
         await connect();
-        const titleDiv = element.shadowRoot?.querySelector('.title');
-        expect(titleDiv?.textContent?.trim()).toBe('Welcome to Nigel AI');
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.getTitleText()).toBe('Welcome to Nigel AI');
     });
 
     it('should display the subtitle when both title and subtitle are set', async () => {
@@ -103,8 +108,8 @@ describe('ChatMessageWelcome', () => {
             'Chat below to get started'
         ));
         await connect();
-        const subtitleDiv = element.shadowRoot?.querySelector('.subtitle');
-        expect(subtitleDiv?.textContent?.trim()).toBe(
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.getSubtitleText()).toBe(
             'Chat below to get started'
         );
     });
@@ -112,8 +117,7 @@ describe('ChatMessageWelcome', () => {
     it('should display slotted content in the default slot', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        expect(
-            element.innerText.includes('Welcome content')
-        ).toBeTrue();
+        pageObject = new ChatMessageWelcomePageObject(element);
+        expect(pageObject.getInnerText().includes('Welcome content')).toBeTrue();
     });
 });

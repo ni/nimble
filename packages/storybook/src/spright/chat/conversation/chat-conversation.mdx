@@ -4,7 +4,6 @@ import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
-import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import * as conversationStories from './chat-conversation.stories';
 import * as messageStories from '../message/chat-message.stories';
 import * as inputStories from '../input/chat-input.stories';
@@ -70,16 +69,7 @@ Use the <Tag name={chatMessageSystemTag} /> element to display content in a syst
 <Canvas of={messageStories.chatMessageSpinner} />
 <Controls of={messageStories.chatMessageSpinner} />
 
-#### Welcome message
-
-Use the <Tag name={chatMessageWelcomeTag} /> element to display welcome content in the chat window.
-
-##### Welcome message content
-
-<Canvas of={messageStories.chatMessageWelcome} />
-<Controls of={messageStories.chatMessageWelcome} />
-
-### Chat input
+chat-message.stories.ts### Chat input
 
 Use the <Tag name={chatInputTag} /> element to allow the user to create and send
 chat messages.
