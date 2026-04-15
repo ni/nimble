@@ -464,8 +464,7 @@ describe('ChatInput', () => {
     describe('footer-actions slot', () => {
         it('should have a footer-actions slot element in the shadow DOM', async () => {
             await connect();
-            const footerActionsSlot = element.shadowRoot?.querySelector('slot[name="footer-actions"]');
-            expect(footerActionsSlot).not.toBeNull();
+            expect(page.hasFooterActionsSlot()).toBeTrue();
         });
 
         it('should support content in the footer-actions slot', async () => {
@@ -477,16 +476,14 @@ describe('ChatInput', () => {
             ));
             page = new ChatInputPageObject(element);
             await connect();
-            const footerActionsSlot: HTMLSlotElement = element.shadowRoot!.querySelector('slot[name="footer-actions"]')!;
-            expect(footerActionsSlot.assignedElements().length).toBe(1);
+            expect(page.getFooterActionsSlotElementCount()).toBe(1);
         });
     });
 
     describe('attachments slot', () => {
         it('should have an attachments slot element in the shadow DOM', async () => {
             await connect();
-            const attachmentsSlot = element.shadowRoot?.querySelector('slot[name="attachments"]');
-            expect(attachmentsSlot).not.toBeNull();
+            expect(page.hasAttachmentSlot()).toBeTrue();
         });
 
         it('should support content in the attachments slot', async () => {
@@ -498,7 +495,7 @@ describe('ChatInput', () => {
             ));
             page = new ChatInputPageObject(element);
             await connect();
-            expect(page.getAttachmentsSlotElements().length).toBe(1);
+            expect(page.getAttachmentsSlotElementCount()).toBe(1);
         });
 
         it('does not enable send button when attachments are present and text is empty', async () => {

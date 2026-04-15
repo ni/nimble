@@ -86,9 +86,20 @@ export class ChatInputPageObject {
         return this.element.textArea!.value;
     }
 
-    public getAttachmentsSlotElements(): Element[] {
-        const slot = this.element.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="attachments"]');
-        return slot?.assignedElements() ?? [];
+    public hasFooterActionsSlot(): boolean {
+        return this.getFooterActionsSlot() !== null;
+    }
+
+    public getFooterActionsSlotElementCount(): number {
+        return this.getFooterActionsSlot()?.assignedElements().length ?? 0;
+    }
+
+    public hasAttachmentSlot(): boolean {
+        return this.getAttachmentsSlot() !== null;
+    }
+
+    public getAttachmentsSlotElementCount(): number {
+        return this.getAttachmentsSlot()?.assignedElements().length ?? 0;
     }
 
     public setText(text: string): void {
@@ -111,6 +122,16 @@ export class ChatInputPageObject {
     private getActionButton(): Button {
         const actionButton = this.element.shadowRoot!.querySelector<Button>('.action-button')!;
         return actionButton;
+    }
+
+    private getAttachmentsSlot(): HTMLSlotElement | null {
+        const attachmentsSlot = this.element.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="attachments"]');
+        return attachmentsSlot;
+    }
+
+    private getFooterActionsSlot(): HTMLSlotElement | null {
+        const footerActionsSlot = this.element.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="footer-actions"]');
+        return footerActionsSlot;
     }
 
     private async sendEnterKeyEvents(shiftKey: boolean): Promise<void> {
