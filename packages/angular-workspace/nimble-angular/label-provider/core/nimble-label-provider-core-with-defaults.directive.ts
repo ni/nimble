@@ -16,6 +16,8 @@ export class NimbleLabelProviderCoreWithDefaultsDirective {
         this.elementRef.nativeElement.numericIncrement = $localize`:Nimble numeric - increment|:Increment`;
         this.elementRef.nativeElement.popupIconError = $localize`:Nimble popup icon - error|:Error`;
         this.elementRef.nativeElement.popupIconWarning = $localize`:Nimble popup icon - warning|:Warning`;
+        this.elementRef.nativeElement.popupIconCompleted = $localize`:Nimble popup icon - completed|:Completed`;
+        this.elementRef.nativeElement.popupIconCurrent = $localize`:Nimble popup icon - current|:Current`;
         this.elementRef.nativeElement.popupIconInformation = $localize`:Nimble popup icon - information|:Information`;
         this.elementRef.nativeElement.filterSearch = $localize`:Nimble select - search items|:Search`;
         this.elementRef.nativeElement.filterNoResults = $localize`:Nimble select - no items|:No items found`;

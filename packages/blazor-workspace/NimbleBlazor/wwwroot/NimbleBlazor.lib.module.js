@@ -34,6 +34,13 @@ function registerEvents(Blazor) {
             };
         }
     });
+    // Used by NimbleChip.razor
+    Blazor.registerCustomEventType('nimblechipremove', {
+        browserEventName: 'remove',
+        createEventArgs: _event => {
+            return {};
+        }
+    });
     // Used by NimbleTabs.razor
     // Necessary because the tab control uses a 'change' event but not a value/currentValue property,
     // and we do want to be notified of activeid changes (via the change event) for 2-way binding support.

@@ -189,8 +189,8 @@ const components = [
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Combobox',
