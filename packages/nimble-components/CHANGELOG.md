@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 14 Apr 2026 20:31:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.5.7
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Update fast dependency to fix view bug in Firefox ([ni/nimble@c2354bd](https://github.com/ni/nimble/commit/c2354bd5a997f90670c66a7c97d7e858607d2000))
+
+## 35.5.6
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Implement scrollable stepper ([ni/nimble@6648f6e](https://github.com/ni/nimble/commit/6648f6e70ee2479e8decb1b2a0e6e85c2b45e074))
 
 ## 35.5.5
 

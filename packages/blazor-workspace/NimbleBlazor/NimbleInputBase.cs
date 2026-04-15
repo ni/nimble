@@ -49,7 +49,9 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
     /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
     /// </summary>
+#pragma warning disable IDE0370 // Keep suppression which conflicts with cli
     protected EditContext EditContext { get; set; } = default!;
+#pragma warning restore IDE0370 // Keep suppression which conflicts with cli
 
     /// <summary>
     /// Gets the <see cref="FieldIdentifier"/> for the bound value.
@@ -92,12 +94,12 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
                 // Then all subclasses get nullable support almost automatically (they just have to
                 // not reject Nullable<T> based on the type itself).
                 parsingFailed = false;
-                CurrentValue = default!;
+                CurrentValue = default;
             }
             else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
             {
                 parsingFailed = false;
-                CurrentValue = parsedValue!;
+                CurrentValue = parsedValue;
             }
             else
             {
