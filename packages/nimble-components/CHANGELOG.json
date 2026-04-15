@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Apr 2026 20:31:57 GMT",
+      "version": "35.5.7",
+      "tag": "@ni/nimble-components_v35.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c2354bd5a997f90670c66a7c97d7e858607d2000",
+            "comment": "Update fast dependency to fix view bug in Firefox"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Apr 2026 19:17:36 GMT",
       "version": "35.5.6",
       "tag": "@ni/nimble-components_v35.5.6",
