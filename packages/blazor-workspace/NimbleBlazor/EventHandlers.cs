@@ -81,6 +81,7 @@ public class WaferMapHoverDieChangedEventArgs : EventArgs
 
 [EventHandler("onnimbletabsactiveidchange", typeof(TabsChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblecheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onnimblechipremove", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblemenubuttontoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblemenubuttonbeforetoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblebannertoggle", typeof(BannerToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]

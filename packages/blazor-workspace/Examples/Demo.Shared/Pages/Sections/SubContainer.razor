@@ -1,0 +1,11 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div class="sub-container">
+    <div class="container-label">@Label</div>
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

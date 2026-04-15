@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 09 Apr 2026 19:17:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 15 Apr 2026 21:42:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.1.4
+
+Wed, 15 Apr 2026 21:42:32 GMT
+
+### Patches
+
+- Angular step routerLink support ([ni/nimble@c51a849](https://github.com/ni/nimble/commit/c51a849354bd6ffbe213086adde877642a76901f))
+
+## 33.1.3
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.6.0
+
+## 33.1.2
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Update label provider core for stepper labels ([ni/nimble@8d8d724](https://github.com/ni/nimble/commit/8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4))
+- Bump @ni/nimble-components to v35.5.8
+
+## 33.1.1
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.7
+
+## 33.1.0
+
+Tue, 14 Apr 2026 15:51:17 GMT
+
+### Minor changes
+
+- Stepper, step, and anchor step component wrappers ([ni/nimble@87f02f1](https://github.com/ni/nimble/commit/87f02f195685b4cba69bccc334ce694f857a989e))
 
 ## 33.0.4
 
