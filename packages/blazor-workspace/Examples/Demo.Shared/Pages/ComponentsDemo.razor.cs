@@ -1,4 +1,4 @@
-﻿namespace Demo.Shared.Pages;
+namespace Demo.Shared.Pages;
 
 /// <summary>
 /// The components demo page

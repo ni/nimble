@@ -15,6 +15,7 @@ import { ToggleButtonsSection } from './ToggleButtonsSection';
 import { CardSection } from './CardSection';
 import { CardButtonSection } from './CardButtonSection';
 import { CheckboxSection } from './CheckboxSection';
+import { ChipSection } from './ChipSection';
 import { RadioButtonsSection } from './RadioButtonsSection';
 import { DialogSection } from './DialogSection';
 import { DrawerSection } from './DrawerSection';
@@ -81,6 +82,7 @@ export function App(): React.JSX.Element {
                                 <CardSection />
                                 <CardButtonSection />
                                 <CheckboxSection />
+                                <ChipSection />
                                 <RadioButtonsSection />
                                 <DialogSection />
                                 <DrawerSection />
