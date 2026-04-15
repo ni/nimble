@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update label provider core for stepper labels",
-  "packageName": "@ni/nimble-blazor",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
