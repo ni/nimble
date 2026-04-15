@@ -23,6 +23,12 @@ public partial class NimbleLabelProviderCore : ComponentBase
     public string? PopupIconWarning { get; set; }
 
     [Parameter]
+    public string? PopupIconCompleted { get; set; }
+
+    [Parameter]
+    public string? PopupIconCurrent { get; set; }
+
+    [Parameter]
     public string? PopupIconInformation { get; set; }
 
     [Parameter]

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 15 Apr 2026 19:06:54 GMT",
+      "version": "35.5.8",
+      "tag": "@ni/nimble-components_v35.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4",
+            "comment": "Update label provider core for stepper labels"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Apr 2026 20:31:57 GMT",
       "version": "35.5.7",
       "tag": "@ni/nimble-components_v35.5.7",
