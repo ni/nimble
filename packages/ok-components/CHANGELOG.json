@@ -2,6 +2,54 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 14 Apr 2026 20:31:57 GMT",
+      "version": "0.3.11",
+      "tag": "@ni/ok-components_v0.3.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "c2354bd5a997f90670c66a7c97d7e858607d2000",
+            "comment": "Update fast dependency to fix view bug in Firefox"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.5.7",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.15.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Apr 2026 19:17:36 GMT",
+      "version": "0.3.10",
+      "tag": "@ni/ok-components_v0.3.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.5.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.15.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Apr 2026 21:37:25 GMT",
       "version": "0.3.9",
       "tag": "@ni/ok-components_v0.3.9",

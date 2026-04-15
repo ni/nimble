@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 import { type BreadcrumbItem, breadcrumbItemTag } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
+import { NimbleAnchorBaseDirective } from '@ni/nimble-angular/anchor-base';
 
 export type { BreadcrumbItem };
 export { breadcrumbItemTag };

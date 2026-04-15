@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "35.5.5",
+  "version": "35.5.7",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:icons && npm run build:workers && npm run build:components && npm run build:scss && npm run build:cem",
@@ -46,8 +46,8 @@
   "customElements": "dist/custom-elements.json",
   "dependencies": {
     "@ni/fast-colors": "^10.0.0",
-    "@ni/fast-element": "^10.1.0",
-    "@ni/fast-foundation": "^10.2.2",
+    "@ni/fast-element": "^10.1.1",
+    "@ni/fast-foundation": "^10.2.3",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-tokens": "^8.17.0",
     "@ni/unit-format": "^1.0.3",
