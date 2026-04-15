@@ -30,19 +30,16 @@ interface ChatInputArgs {
     stop: undefined;
 }
 
-const footerActionsDescription = `Place 0 or more buttons to the left of the send/stop button.
+const footerActionsDescription = `Place 0 or more controls to the left of the send/stop button.
 
 The buttons should have the \`ghost\` appearance and \`content-hidden\`.
 
-Spright will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
+Select controls should have the \`outline\` appearance.
+
+Spright will set the height of the controls to \`$ni-nimble-control-slim-height\`.
 `;
 
-const attachmentsDescription = `An area to slot content adjacent to the text input area. Intended to be used for adding chips that represent attached files.
-
-When using removable chips, the chip's \`remove\` event bubbles through the chat input. Listen for the \`remove\` event and remove the chip from the DOM to clear the attachment.
-
-On send button click or Enter key press, the \`send\` event includes the text input value but does not include information about attachments. Implementers will need to track attachments separately and correlate them with the send event as needed.
-`;
+const attachmentsDescription = 'An area to slot content adjacent to the text input area. Intended to be used for adding chips that represent attached files.';
 
 const metadata: Meta<ChatInputArgs> = {
     title: 'Internal/Chat Input',
