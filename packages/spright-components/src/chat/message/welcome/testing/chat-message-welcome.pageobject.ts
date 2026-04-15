@@ -1,6 +1,10 @@
 import type { ChatMessageWelcome } from '..';
 import { iconNigelChatTag } from '../../../../icons/nigel-chat';
 
+/**
+ * Page object for the `spright-chat-message-welcome` component to provide consistent ways
+ * of querying and interacting with the component during tests.
+ */
 export class ChatMessageWelcomePageObject {
     public constructor(protected readonly element: ChatMessageWelcome) {}
 
