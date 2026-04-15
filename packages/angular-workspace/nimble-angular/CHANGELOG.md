@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 14 Apr 2026 20:31:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.1.3
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.6.0
+
+## 33.1.2
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Update label provider core for stepper labels ([ni/nimble@8d8d724](https://github.com/ni/nimble/commit/8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4))
+- Bump @ni/nimble-components to v35.5.8
 
 ## 33.1.1
 
