@@ -11,6 +11,7 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription,
+    incubatingWarning,
     readonlyDescription
 } from '../../utilities/storybook';
 import { ExampleStepType } from './types';
@@ -260,6 +261,10 @@ interface StepperArgs {
 
 export const stepper: StoryObj<StepperArgs> = {
     render: createUserSelectedThemeStory(html`
+    ${incubatingWarning({
+        componentName: stepperTag,
+        statusLink: 'https://github.com/ni/nimble/issues/624'
+    })}
     <style class="code-hide">
         ${stepperTag} {
             max-width: 100%;
