@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 15 Apr 2026 21:42:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.1.4
+
+Wed, 15 Apr 2026 21:42:32 GMT
+
+### Patches
+
+- Angular step routerLink support ([ni/nimble@c51a849](https://github.com/ni/nimble/commit/c51a849354bd6ffbe213086adde877642a76901f))
 
 ## 33.1.3
 
