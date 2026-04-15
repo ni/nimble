@@ -5,6 +5,9 @@ export { chipTag };
 export { type Chip };
 export const NimbleChip = wrap(Chip, {
     events: {
-        onRemove: 'remove' as EventName,
+        onRemove: 'remove' as EventName<ChipRemoveEvent>,
     }
 });
+export interface ChipRemoveEvent extends CustomEvent {
+    target: Chip;
+}
