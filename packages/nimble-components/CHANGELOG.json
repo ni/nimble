@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 15 Apr 2026 19:52:21 GMT",
+      "version": "35.6.0",
+      "tag": "@ni/nimble-components_v35.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "33a1e3439a9e6d9cab07704921bfc2a4c5658a9e",
+            "comment": "add blazor and react wrapper for nimble chip"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Apr 2026 19:06:54 GMT",
+      "version": "35.5.8",
+      "tag": "@ni/nimble-components_v35.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4",
+            "comment": "Update label provider core for stepper labels"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Apr 2026 20:31:57 GMT",
       "version": "35.5.7",
       "tag": "@ni/nimble-components_v35.5.7",

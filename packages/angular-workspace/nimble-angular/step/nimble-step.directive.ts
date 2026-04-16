@@ -43,7 +43,9 @@ export class NimbleStepDirective {
         return this.elementRef.nativeElement.readOnly;
     }
 
-    @Input() public set readOnly(value: BooleanValueOrAttribute) {
+    // readOnly property maps to the readonly attribute
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/readOnly
+    @Input('readonly') public set readOnly(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'readOnly', toBooleanProperty(value));
     }
 

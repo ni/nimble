@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type AnchorTab, anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
-import { NimbleAnchorBaseDirective } from '@ni/nimble-angular/anchor-base';
+import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
 
 export type { AnchorTab };
 export { anchorTabTag };

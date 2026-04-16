@@ -28,7 +28,7 @@ export class NimbleTextFieldDirective {
     }
 
     // readOnly property maps to the readonly attribute
-    // See: https://github.com/microsoft/fast/blob/46bb6d9aab2c37105f4434db3795e176c2354a4f/packages/web-components/fast-foundation/src/text-field/text-field.ts#L33
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/readOnly
     @Input('readonly') public set readOnly(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'readOnly', toBooleanProperty(value));
     }
