@@ -1,0 +1,16 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Tooltip">
+        <NimbleButton id="default-anchor">Default</NimbleButton>
+        <NimbleTooltip Anchor="default-anchor">Tooltip label</NimbleTooltip>
+        <NimbleButton id="fail-anchor">Fail</NimbleButton>
+        <NimbleTooltip Anchor="fail-anchor" Severity="TooltipSeverity.Error">Tooltip label</NimbleTooltip>
+        <NimbleButton id="information-anchor">Information</NimbleButton>
+        <NimbleTooltip Anchor="information-anchor" Severity="TooltipSeverity.Information">Tooltip label</NimbleTooltip>
+        <NimbleButton id="fail-icon-anchor">Fail Icon</NimbleButton>
+        <NimbleTooltip Anchor="fail-icon-anchor" Severity="TooltipSeverity.Error" IconVisible="true">Tooltip label</NimbleTooltip>
+        <NimbleButton id="information-icon-anchor">Information Icon</NimbleButton>
+        <NimbleTooltip Anchor="information-icon-anchor" Severity="TooltipSeverity.Information" IconVisible="true">Tooltip label</NimbleTooltip>
+    </SubContainer>
+</div>

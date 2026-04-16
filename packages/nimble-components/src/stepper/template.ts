@@ -1,8 +1,50 @@
-import { html } from '@ni/fast-element';
+import { html, ref, slotted, when } from '@ni/fast-element';
 import type { Stepper } from '.';
-import { devicePixelRatio } from '../utilities/models/device-pixel-ratio';
+import { buttonTag } from '../button';
+import { ButtonAppearance } from '../button/types';
+import {
+    scrollBackwardLabel,
+    scrollForwardLabel
+} from '../label-provider/core/label-tokens';
+import { iconArrowExpanderLeftTag } from '../icons/arrow-expander-left';
+import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
+import { iconArrowExpanderUpTag } from '../icons/arrow-expander-up';
+import { iconArrowExpanderDownTag } from '../icons/arrow-expander-down';
 
 export const template = html<Stepper>`
-    <style>:host{--ni-private-device-resolution: ${() => devicePixelRatio.current};}</style>
-    <slot name="step"></slot>
+    ${when(x => x.showScrollButtons, html<Stepper>`
+        <${buttonTag}
+            content-hidden
+            class="scroll-button start"
+            appearance="${ButtonAppearance.ghost}"
+            @click="${x => x.onScrollStartClick()}"
+            ${ref('startScrollButton')}
+        >
+            ${x => scrollForwardLabel.getValueFor(x)}
+            ${when(
+                x => x.isHorizontal(),
+                html`<${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>`,
+                html`<${iconArrowExpanderUpTag} slot="start"></${iconArrowExpanderUpTag}>`
+            )}
+        </${buttonTag}>
+    `)}
+    <ol ${ref('list')} class="list"><slot
+            name="step"
+            ${slotted('steps')}
+        ></slot></ol>
+    ${when(x => x.showScrollButtons, html<Stepper>`
+        <${buttonTag}
+            content-hidden
+            class="scroll-button end"
+            appearance="${ButtonAppearance.ghost}"
+            @click="${x => x.onScrollEndClick()}"
+        >
+            ${x => scrollBackwardLabel.getValueFor(x)}
+            ${when(
+                x => x.isHorizontal(),
+                html`<${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>`,
+                html`<${iconArrowExpanderDownTag} slot="start"></${iconArrowExpanderDownTag}>`
+            )}
+        </${buttonTag}>
+    `)}
 `;

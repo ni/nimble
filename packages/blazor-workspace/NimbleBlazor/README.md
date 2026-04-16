@@ -122,20 +122,20 @@ For a full list of supported variable names, see the [Nimble Storybook, "Tokens"
 
 In order to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense and compile-time checking for the Nimble tokens and variables):
 1. In the `.csproj` where you have a `PackageReference` to NimbleBlazor, add the following:
-```xml
-<PropertyGroup>
-    <NimbleBlazor_CopyNimbleDesignTokens>true</NimbleBlazor_CopyNimbleDesignTokens>
-    <!-- Optional: Override default destination directory of Nimble tokens, relative to project directory -->
-    <!--  <NimbleBlazor_NimbleDesignTokensDestinationDirectory>CustomDirectory</NimbleBlazor_NimbleDesignTokensDestinationDirectory> -->
-</PropertyGroup>
-```
+    ```xml
+    <PropertyGroup>
+        <NimbleBlazor_CopyNimbleDesignTokens>true</NimbleBlazor_CopyNimbleDesignTokens>
+        <!-- Optional: Override default destination directory of Nimble tokens, relative to project directory -->
+        <!--  <NimbleBlazor_NimbleDesignTokensDestinationDirectory>CustomDirectory</NimbleBlazor_NimbleDesignTokensDestinationDirectory> -->
+    </PropertyGroup>
+    ```
 2. Add a NuGet package reference to `AspNetCore.SassCompiler` in your Blazor Project.
 3. Add a file `sasscompiler.json` to your project directory:
-```json
-{
-  "Arguments": "--style=expanded --silence-deprecation=import --error-css --no-source-map"
-}
-```
+    ```json
+    {
+    "Arguments": "--style=expanded --silence-deprecation=import --error-css --no-source-map"
+    }
+    ```
 By default, your Razor files and accompanying SCSS can be in `Views`, `Pages`, `Shared`, `Components` folders (or subfolders), and non-scoped SCSS can be in `Styles` (which will be placed in `wwwroot/css` after building).  
 See the [package docs](https://github.com/koenvzeijl/AspNetCore.SassCompiler) for additional options.
 

@@ -1,8 +1,112 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Thu, 12 Mar 2026 16:41:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.10.32
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.8
+
+## 0.10.31
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.7
+
+## 0.10.30
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.6
+
+## 0.10.29
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.5
+
+## 0.10.28
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.4
+
+## 0.10.27
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.3
+
+## 0.10.26
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.2
+
+## 0.10.25
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.1
+
+## 0.10.24
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.0
+
+## 0.10.23
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.4
+
+## 0.10.22
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.3
+
+## 0.10.21
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.2
+
+## 0.10.20
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.1
 
 ## 0.10.19
 

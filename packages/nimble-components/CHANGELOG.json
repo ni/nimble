@@ -2,6 +2,141 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 15 Apr 2026 19:52:21 GMT",
+      "version": "35.6.0",
+      "tag": "@ni/nimble-components_v35.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "33a1e3439a9e6d9cab07704921bfc2a4c5658a9e",
+            "comment": "add blazor and react wrapper for nimble chip"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Apr 2026 19:06:54 GMT",
+      "version": "35.5.8",
+      "tag": "@ni/nimble-components_v35.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4",
+            "comment": "Update label provider core for stepper labels"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Apr 2026 20:31:57 GMT",
+      "version": "35.5.7",
+      "tag": "@ni/nimble-components_v35.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c2354bd5a997f90670c66a7c97d7e858607d2000",
+            "comment": "Update fast dependency to fix view bug in Firefox"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Apr 2026 19:17:36 GMT",
+      "version": "35.5.6",
+      "tag": "@ni/nimble-components_v35.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6648f6e70ee2479e8decb1b2a0e6e85c2b45e074",
+            "comment": "Implement scrollable stepper"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Apr 2026 21:37:25 GMT",
+      "version": "35.5.5",
+      "tag": "@ni/nimble-components_v35.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cf19bdf837d815be34f2297ae42ff6ebfa81e598",
+            "comment": "Add readonly behavior to step and anchor step"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Apr 2026 21:32:03 GMT",
+      "version": "35.5.4",
+      "tag": "@ni/nimble-components_v35.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "810c60a6bd0e111013e4d9681079b67d3360183f",
+            "comment": "Update deps"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 30 Mar 2026 15:49:59 GMT",
+      "version": "35.5.3",
+      "tag": "@ni/nimble-components_v35.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2e21c7f5547d6b96c4dd7fb9ee88b5f62501485c",
+            "comment": "Fix background sizing Add a dedicated element for icon background that can scale its whole size and switch to box-shadow for smooth border size animations"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Mar 2026 14:12:53 GMT",
+      "version": "35.5.2",
+      "tag": "@ni/nimble-components_v35.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "452fa5a0cd2dfd16749eeeeecf4b3eea771719ae",
+            "comment": "Bump fast-foundation version to 10.2.2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Mar 2026 21:46:50 GMT",
+      "version": "35.5.1",
+      "tag": "@ni/nimble-components_v35.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d0d8415fb709e2518877fdcacd981e69b262c58f",
+            "comment": "Stepper orientation and position"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 Mar 2026 16:41:20 GMT",
       "version": "35.5.0",
       "tag": "@ni/nimble-components_v35.5.0",

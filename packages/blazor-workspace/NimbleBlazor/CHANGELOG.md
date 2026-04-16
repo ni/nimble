@@ -1,8 +1,99 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 12 Mar 2026 16:41:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.16.0
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Minor changes
+
+- add blazor and react wrapper for nimble chip ([ni/nimble@33a1e34](https://github.com/ni/nimble/commit/33a1e3439a9e6d9cab07704921bfc2a4c5658a9e))
+- Bump @ni/nimble-components to v35.6.0
+
+## 20.15.2
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Update label provider core for stepper labels ([ni/nimble@8d8d724](https://github.com/ni/nimble/commit/8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4))
+- Bump @ni/nimble-components to v35.5.8
+
+## 20.15.1
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.7
+
+## 20.15.0
+
+Tue, 14 Apr 2026 15:51:17 GMT
+
+### Minor changes
+
+- Stepper, step, and anchor step component wrappers ([ni/nimble@87f02f1](https://github.com/ni/nimble/commit/87f02f195685b4cba69bccc334ce694f857a989e))
+
+## 20.14.7
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.6
+
+## 20.14.6
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.5
+
+## 20.14.5
+
+Wed, 01 Apr 2026 21:32:03 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+- Bump @ni/nimble-components to v35.5.4
+
+## 20.14.4
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.3
+
+## 20.14.3
+
+Tue, 24 Mar 2026 22:49:20 GMT
+
+### Patches
+
+- Minor README change to test nuget publishing ([ni/nimble@cc77ce0](https://github.com/ni/nimble/commit/cc77ce00918ffa501722ab524b60fd846ae20a76))
+
+## 20.14.2
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.2
+
+## 20.14.1
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
 
 ## 20.14.0
 

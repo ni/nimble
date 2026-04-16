@@ -1,4 +1,4 @@
-import { html, ref, slotted, ViewTemplate, when } from '@ni/fast-element';
+import { html, ref, ViewTemplate, when } from '@ni/fast-element';
 import { type FoundationElementTemplate, type AnchorOptions, startSlotTemplate, endSlotTemplate } from '@ni/fast-foundation';
 import type { AnchorStep } from '.';
 import { severityTextTemplate } from '../patterns/severity/template';
@@ -6,15 +6,18 @@ import { Severity } from '../patterns/severity/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { iconTriangleFilledTag } from '../icons/triangle-filled';
 import { iconCheckTag } from '../icons/check';
+import type { StepPattern } from '../patterns/step/types';
+import { popupIconCurrentLabel, popupIconErrorLabel, popupIconWarningLabel, popupIconCompletedLabel } from '../label-provider/core/label-tokens';
+import { StepperOrientation } from '../stepper/types';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<AnchorStep>,
 AnchorOptions
 > = (context, definition) => html<AnchorStep>`
     <template slot="step">
-        <div class="
+        <li class="
             container
-            ${x => (x.stepInternals.orientation === 'vertical' ? 'vertical' : '')}
+            ${x => (x.stepInternals.orientation === StepperOrientation.vertical ? 'vertical' : '')}
             ${x => (x.stepInternals.last ? 'last' : '')}
         ">
             <a
@@ -49,29 +52,34 @@ AnchorOptions
                 aria-owns="${x => x.ariaOwns}"
                 aria-relevant="${x => x.ariaRelevant}"
                 aria-roledescription="${x => x.ariaRoledescription}"
+                @click="${(x, c) => x.onClick(c.event)}"
                 ${ref('control')}
             >
-                <div class="icon"> 
-                    <div class="icon-slot"><slot ${slotted('defaultSlottedContent')}></slot></div>
+                <div class="icon-background"></div>
+                <div class="icon">
+                    <span class="current-label">${x => (x.selected ? popupIconCurrentLabel.getValueFor(x) : '')}</span>
+                    <div class="step-indicator"><slot name="step-indicator"><span aria-hidden="true">${x => x.stepInternals.position}</span></slot></div>
                     <div class="icon-severity">
-                        ${when(x => x.severity === Severity.error, html`<${iconExclamationMarkTag}></${iconExclamationMarkTag}>`)}
-                        ${when(x => x.severity === Severity.warning, html`<${iconTriangleFilledTag}></${iconTriangleFilledTag}>`)}
-                        ${when(x => x.severity === Severity.success, html`<${iconCheckTag}></${iconCheckTag}>`)}
+                        ${when(
+                            x => x.severity === Severity.error,
+                            html<StepPattern>`<${iconExclamationMarkTag} role="img" aria-label="${x => popupIconErrorLabel.getValueFor(x)}"></${iconExclamationMarkTag}>`
+                        )}
+                        ${when(
+                            x => x.severity === Severity.warning,
+                            html<StepPattern>`<${iconTriangleFilledTag} role="img" aria-label="${x => popupIconWarningLabel.getValueFor(x)}"></${iconTriangleFilledTag}>`
+                        )}
+                        ${when(
+                            x => x.severity === Severity.success,
+                            html<StepPattern>`<${iconCheckTag} role="img" aria-label="${x => popupIconCompletedLabel.getValueFor(x)}"></${iconCheckTag}>`
+                        )}
                     </div>
                 </div>
-                <div class="content">
-                    <div class="title-wrapper">
-                        ${startSlotTemplate(context, definition)}
-                        <div class="title"><slot name="title"></slot></div>
-                        ${endSlotTemplate(context, definition)}
-                        <div class="line"></div>
-                    </div>
-                    <div class="subtitle">
-                        <slot name="subtitle"></slot>
-                    </div>
-                </div>
+                <div class="top-spacer"></div>
+                <div class="title">${startSlotTemplate(context, definition)}<slot name="title"></slot>${endSlotTemplate(context, definition)}</div>
+                <div class="line"></div>
+                <div class="subtitle"><slot name="subtitle"></slot></div>
             </a>
             ${severityTextTemplate}
-        </div>
+        </li>
     </template>
 `;

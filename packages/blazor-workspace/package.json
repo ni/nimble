@@ -24,7 +24,7 @@
         "copy-resources-ok": "node build/copy-resources.mjs ok",
         "update-lock-files": "dotnet restore --force-evaluate",
         "dotnet-local": "npm run dotnet-local:download && npm run dotnet-local:extract && npm run dotnet-local:check",
-        "dotnet-local:download": "curl https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.418/dotnet-sdk-8.0.418-linux-x64.tar.gz --output dotnet-sdk.tar.gz",
+        "dotnet-local:download": "curl https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.419/dotnet-sdk-8.0.419-linux-x64.tar.gz --output dotnet-sdk.tar.gz",
         "dotnet-local:extract": "rm -rf dotnet-sdk && mkdir -p dotnet-sdk && tar -xzf dotnet-sdk.tar.gz -C dotnet-sdk",
         "dotnet-local:check": "export PATH=$PATH:$(pwd)/dotnet-sdk && dotnet --version",
         "dotnet-local-update-lock-files": "./dotnet-sdk/dotnet restore --force-evaluate"

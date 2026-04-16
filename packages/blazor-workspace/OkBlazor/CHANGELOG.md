@@ -1,8 +1,113 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Thu, 12 Mar 2026 16:41:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.4.13
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.13
+
+## 0.4.12
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.12
+
+## 0.4.11
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.11
+
+## 0.4.10
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.10
+
+## 0.4.9
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.9
+
+## 0.4.8
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+- Bump @ni/ok-components to v0.3.8
+
+## 0.4.7
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.7
+
+## 0.4.6
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.6
+
+## 0.4.5
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.5
+
+## 0.4.4
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.4
+
+## 0.4.3
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.3
+
+## 0.4.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.2
+
+## 0.4.1
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.1
 
 ## 0.4.0
 

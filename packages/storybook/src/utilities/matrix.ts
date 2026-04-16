@@ -105,6 +105,19 @@ export const createMatrixThemeStory = <TSource>(
     };
 };
 
+export function createMatrixInteractions<T extends readonly unknown[]>(
+    component: (...states: T) => ViewTemplate,
+    dimensions?: MakeTupleEntriesArrays<T>
+): ViewTemplate {
+    const states = cartesianProduct(dimensions);
+    return createMatrixInteractionsFromStates(component, {
+        hover: states,
+        hoverActive: states,
+        active: states,
+        focus: states
+    });
+}
+
 export function createMatrixInteractionsFromStates<
     THover extends readonly unknown[],
     THoverActive extends readonly unknown[],
