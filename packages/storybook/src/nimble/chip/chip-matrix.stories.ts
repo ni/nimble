@@ -25,8 +25,8 @@ const appearanceStates = [
 type AppearanceState = (typeof appearanceStates)[number];
 
 const sizeStates = [
-    ['Default', ''],
-    ['Small', `height: var(${controlSlimHeight.cssCustomProperty})`]
+    ['Default height', ''],
+    ['Small height', `height: var(${controlSlimHeight.cssCustomProperty})`]
 ] as const;
 type SizeState = (typeof sizeStates)[number];
 
