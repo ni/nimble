@@ -13,10 +13,6 @@ import {
     smallDelay,
     failColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
-import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
-import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
 import { display } from '../../utilities/style/display';
 
