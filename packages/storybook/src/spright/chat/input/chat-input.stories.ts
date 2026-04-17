@@ -1,7 +1,12 @@
 import type { HtmlRenderer, StoryObj, Meta } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
-import { html } from '@ni/fast-element';
+import { html, when } from '@ni/fast-element';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { iconAddTag } from '@ni/nimble-components/dist/esm/icons/add';
+import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -19,9 +24,22 @@ interface ChatInputArgs {
     sendDisabled: boolean;
     errorText: string;
     errorVisible: boolean;
+    footerActions: boolean;
+    attachments: boolean;
     send: undefined;
     stop: undefined;
 }
+
+const footerActionsDescription = `Place 0 or more controls to the left of the send/stop button.
+
+The buttons should have the \`ghost\` appearance and \`content-hidden\`.
+
+Select controls should have the \`outline\` appearance.
+
+Spright will set the height of the controls to \`$ni-nimble-control-slim-height\`.
+`;
+
+const attachmentsDescription = 'An area to slot content adjacent to the text input area. Intended to be used for adding chips that represent attached files.';
 
 const metadata: Meta<ChatInputArgs> = {
     title: 'Internal/Chat Input',
@@ -46,6 +64,20 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             error-text="${x => x.errorText}"
             ?error-visible="${x => x.errorVisible}"
         >
+            ${when(x => x.attachments, html`
+                <${chipTag} slot="attachments" removable>Placeholder.txt</${chipTag}>
+                <${chipTag} slot="attachments" removable>Image.png</${chipTag}>
+            `)}
+            ${when(x => x.footerActions, html`
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Attach" content-hidden>
+                    <${iconAddTag} slot="start"></${iconAddTag}>
+                    Attach
+                </${buttonTag}>
+                <${selectTag} slot="footer-actions" title="Worker of the Week">
+                    <${listOptionTag} value="option1">Inanimate Carbon Rod</${listOptionTag}>
+                    <${listOptionTag} value="option2">Homer Simpson</${listOptionTag}>
+                </${selectTag}>
+            `)}
         </${chatInputTag}>
     `),
     argTypes: {
@@ -112,6 +144,18 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             description:
                 'Emitted when the user clicks the \'Stop\' button.',
             table: { category: apiCategory.events }
+        },
+        footerActions: {
+            name: 'footer-actions',
+            description: footerActionsDescription,
+            control: { type: 'boolean' },
+            table: { category: apiCategory.slots }
+        },
+        attachments: {
+            name: 'attachments',
+            description: attachmentsDescription,
+            control: { type: 'boolean' },
+            table: { category: apiCategory.slots }
         }
     },
     args: {
@@ -122,7 +166,9 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         sendDisabled: false,
         maxlength: -1,
         errorText: 'Error description',
-        errorVisible: false
+        errorVisible: false,
+        footerActions: false,
+        attachments: false
     }
 };
 
