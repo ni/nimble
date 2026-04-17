@@ -4,6 +4,7 @@ import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
 import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
+import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import {
     sharedMatrixParameters,
     createMatrixThemeStory
@@ -66,5 +67,17 @@ export const messageSystemHidden: StoryFn = createStory(
 export const messageSystemTextCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<${chatMessageSystemTag}>System Message</${chatMessageSystemTag}>`
+    )
+);
+
+export const messageWelcomeHidden: StoryFn = createStory(
+    hiddenWrapper(
+        html`<${chatMessageWelcomeTag} hidden welcome-title="Welcome" subtitle="Get started">Hidden Chat Welcome Message</${chatMessageWelcomeTag}>`
+    )
+);
+
+export const messageWelcomeTextCustomized: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<${chatMessageWelcomeTag} welcome-title="Welcome" subtitle="Get started">Welcome Message</${chatMessageWelcomeTag}>`
     )
 );
