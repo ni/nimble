@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Re-organize blazor file layout",
+  "packageName": "@ni/ok-blazor",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
