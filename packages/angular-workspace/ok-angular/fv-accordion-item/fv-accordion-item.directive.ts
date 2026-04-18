@@ -1,7 +1,8 @@
-import { booleanAttribute, Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { FvAccordionItem } from '@ni/ok-components/dist/esm/fv-accordion-item';
 import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv-accordion-item';
 import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv-accordion-item/types';
+import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { FvAccordionItem };
 export { fvAccordionItemTag };
@@ -28,9 +29,9 @@ export class OkFvAccordionItemDirective {
         return this.elementRef.nativeElement.expanded;
     }
 
-    @Input({ transform: booleanAttribute })
-    public set expanded(value: boolean) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'expanded', value);
+    @Input()
+    public set expanded(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'expanded', toBooleanProperty(value));
     }
 
     public get appearance(): FvAccordionItemAppearance {
