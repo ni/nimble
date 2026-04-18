@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 18 Apr 2026 13:15:22 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.5.0
+
+Sat, 18 Apr 2026 13:15:22 GMT
+
+### Minor changes
+
+- Add OK accordion-item ([ni/nimble@0e9152f](https://github.com/ni/nimble/commit/0e9152f986e53a8fd371cdec3f805923c0e663f7))
+- Bump @ni/ok-components to v0.4.0
 
 ## 0.4.13
 
