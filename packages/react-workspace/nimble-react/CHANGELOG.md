@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Tue, 14 Apr 2026 20:31:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.14.0
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Minor changes
+
+- add blazor and react wrapper for nimble chip ([ni/nimble@33a1e34](https://github.com/ni/nimble/commit/33a1e3439a9e6d9cab07704921bfc2a4c5658a9e))
+- Bump @ni/nimble-components to v35.6.0
+
+## 0.13.2
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.8
 
 ## 0.13.1
 

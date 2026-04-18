@@ -2,7 +2,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type Anchor, anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
-import { NimbleAnchorBaseDirective } from '@ni/nimble-angular/anchor-base';
+import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
 
 export type { Anchor };
 export { anchorTag };
