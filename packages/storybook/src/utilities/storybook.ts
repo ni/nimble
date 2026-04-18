@@ -164,7 +164,7 @@ See the <a href="${config.statusLink}">incubating component status</a>.
 export const okWarning = (config: OkWarningConfig): string => `
 <style class="code-hide">
 #ok-warning {
-    color: red;
+    color: #c00000;
     font: var(${bodyFont.cssCustomProperty});
     padding-bottom: 16px;
 }
