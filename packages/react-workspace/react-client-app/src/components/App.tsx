@@ -39,6 +39,7 @@ import { TooltipSection } from './TooltipSection';
 import { TreeViewSection } from './TreeViewSection';
 import { ChatConversationSection } from './ChatConversationSection';
 import { RectangleSection } from './RectangleSection';
+import { OkAccordionItemSection } from './OkAccordionItemSection';
 import { OkButtonSection } from './OkButtonSection';
 
 export function App(): React.JSX.Element {
@@ -105,6 +106,7 @@ export function App(): React.JSX.Element {
                                 <TreeViewSection />
                                 <ChatConversationSection />
                                 <RectangleSection />
+                                <OkAccordionItemSection />
                                 <OkButtonSection />
                             </div>
                         </div>

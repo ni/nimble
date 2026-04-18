@@ -13,7 +13,8 @@ import { selectTag } from '@ni/nimble-components/dist/esm/select';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import {
     apiCategory,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    okWarning
 } from '../../utilities/storybook';
 
 interface AccordionItemArgs {
@@ -38,6 +39,10 @@ const metadata: Meta<AccordionItemArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
+        ${okWarning({
+            componentName: 'accordion',
+            statusLink: './?path=/docs/component-status--docs#ok-components'
+        })}
         <div style="${accordionContentStyle}">
             <${fvAccordionItemTag}
                 header="${x => x.header}"

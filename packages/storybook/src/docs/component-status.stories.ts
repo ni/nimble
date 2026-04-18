@@ -263,6 +263,17 @@ const components = [
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
+        componentName: 'FV Accordion Item',
+        componentHref: './?path=/docs/ok-fv-accordion-item--docs',
+        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=4618-64645',
+        designLabel: 'Figma',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
         componentName: 'Icon Button',
         componentHref: './?path=/docs/components-button--docs#icon-button',
         designHref:

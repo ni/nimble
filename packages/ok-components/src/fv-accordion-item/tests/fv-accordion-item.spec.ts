@@ -1,6 +1,7 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { FvAccordionItem, fvAccordionItemTag } from '..';
+import { FvAccordionItemPageObject } from '../testing/fv-accordion-item.pageobject';
 import { FvAccordionItemAppearance } from '../types';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
@@ -43,40 +44,36 @@ describe('FvAccordionItem', () => {
     it('should display the header text', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        const titleSpan = element.shadowRoot?.querySelector(
-            '.accordion-item-title'
-        );
-        expect(titleSpan?.textContent?.trim()).toBe('Test Header');
+        const pageObject = new FvAccordionItemPageObject(element);
+        expect(pageObject.getHeaderText()).toBe('Test Header');
     });
 
     it('should be collapsed by default', async () => {
         ({ element, connect, disconnect } = await setup(false));
         await connect();
-        const details = element.shadowRoot?.querySelector('details');
-        expect(details?.open).toBeFalse();
+        const pageObject = new FvAccordionItemPageObject(element);
+        expect(pageObject.isExpanded()).toBeFalse();
     });
 
     it('should be expanded when expanded attribute is set', async () => {
         ({ element, connect, disconnect } = await setup(true));
         await connect();
-        const details = element.shadowRoot?.querySelector('details');
-        expect(details?.open).toBeTrue();
+        const pageObject = new FvAccordionItemPageObject(element);
+        expect(pageObject.isExpanded()).toBeTrue();
     });
 
     it('should have a slot for content', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        const slot = element.shadowRoot?.querySelector('slot');
-        expect(slot).not.toBeNull();
+        const pageObject = new FvAccordionItemPageObject(element);
+        expect(pageObject.hasContentSlot()).toBeTrue();
     });
 
     it('should have an expander icon', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        const icon = element.shadowRoot?.querySelector(
-            'nimble-icon-arrow-expander-right'
-        );
-        expect(icon).not.toBeNull();
+        const pageObject = new FvAccordionItemPageObject(element);
+        expect(pageObject.hasExpanderIcon()).toBeTrue();
     });
 
     it('should update header when property changes', async () => {
@@ -93,11 +90,8 @@ describe('FvAccordionItem', () => {
     it('should update expanded when the details element toggles', async () => {
         ({ element, connect, disconnect } = await setup(false));
         await connect();
-        const details = element.shadowRoot?.querySelector('details');
-        expect(details).not.toBeNull();
-
-        details!.open = true;
-        details!.dispatchEvent(new Event('toggle'));
+        const pageObject = new FvAccordionItemPageObject(element);
+        await pageObject.clickSummary();
 
         expect(element.expanded).toBeTrue();
     });

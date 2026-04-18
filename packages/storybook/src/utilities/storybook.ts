@@ -143,6 +143,11 @@ export interface IncubatingWarningConfig {
     statusLink: string;
 }
 
+export interface OkWarningConfig {
+    componentName: string;
+    statusLink: string;
+}
+
 export const incubatingWarning = (config: IncubatingWarningConfig): string => `
 <style class="code-hide">
 #incubating-warning {
@@ -154,6 +159,19 @@ export const incubatingWarning = (config: IncubatingWarningConfig): string => `
 <div id="incubating-warning" class="code-hide">
 WARNING - The ${config.componentName} is still incubating. It is not recommended for application use. 
 See the <a href="${config.statusLink}">incubating component status</a>.
+</div>`;
+
+export const okWarning = (config: OkWarningConfig): string => `
+<style class="code-hide">
+#ok-warning {
+    color: red;
+    font: var(${bodyFont.cssCustomProperty});
+    padding-bottom: 16px;
+}
+</style>
+<div id="ok-warning" class="code-hide">
+WARNING - The ${config.componentName} is an ok component. These components have varying levels of quality and stability. Clients should consult with component-specific owners before leveraging in new applications.
+See the <a href="${config.statusLink}">ok component status</a>.
 </div>`;
 
 // On the Docs page, there is a div with a scale(1) transform that causes the dropdown to be
