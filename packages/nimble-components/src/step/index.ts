@@ -61,11 +61,12 @@ export class Step extends mixinSeverityPattern(FoundationButton) implements Step
     /**
      * @internal
      */
-    public onClick(e: Event): void {
+    public onClick(e: Event): boolean {
         if (this.disabled || this.readOnly) {
-            e.preventDefault();
             e.stopImmediatePropagation();
+            return false; /* Do prevent default */
         }
+        return true; /* Do not prevent default */
     }
 }
 
