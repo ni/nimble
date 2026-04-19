@@ -1,8 +1,41 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.15.8
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.6.0
+
+## 6.15.7
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.8
+
+## 6.15.6
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Update fast dependency to fix view bug in Firefox ([ni/nimble@c2354bd](https://github.com/ni/nimble/commit/c2354bd5a997f90670c66a7c97d7e858607d2000))
+- Bump @ni/nimble-components to v35.5.7
+
+## 6.15.5
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.6
 
 ## 6.15.4
 

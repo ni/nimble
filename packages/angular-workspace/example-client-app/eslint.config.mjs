@@ -46,6 +46,7 @@ export default defineConfig([
             ],
             'jsdoc/require-jsdoc': 'off',
             'jsdoc/require-description': 'off',
+            '@angular-eslint/component-max-inline-declarations': 'off',
         },
     },
     {

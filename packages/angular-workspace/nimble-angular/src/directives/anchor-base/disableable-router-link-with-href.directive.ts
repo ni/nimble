@@ -5,6 +5,7 @@ import { RouterLink } from '../../thirdparty/directives/router_link';
 
 /**
  * Base class for Nimble router link directives that go on disableable elements
+ * @internal
  */
 @Directive()
 export class DisableableRouterLinkWithHrefDirective<T extends { disabled: boolean }> extends RouterLink {

@@ -1,8 +1,49 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Thu, 02 Apr 2026 21:37:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 18 Apr 2026 13:15:22 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.1.0
+
+Sat, 18 Apr 2026 13:15:22 GMT
+
+### Minor changes
+
+- feat: add OK accordion-item ([ni/nimble@0e9152f](https://github.com/ni/nimble/commit/0e9152f986e53a8fd371cdec3f805923c0e663f7))
+- Bump @ni/ok-components to v0.4.0
+
+## 2.0.10
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.13
+
+## 2.0.9
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.12
+
+## 2.0.8
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.11
+
+## 2.0.7
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v0.3.10
 
 ## 2.0.6
 

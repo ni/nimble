@@ -1,0 +1,9 @@
+@import '../../NimbleDesignTokens/tokens';
+
+::deep .table {
+    max-height: 500px;
+}
+
+::deep .table-update-button {
+    margin-top: $ni-nimble-small-padding;
+}
