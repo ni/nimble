@@ -2,6 +2,21 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Sat, 18 Apr 2026 15:44:00 GMT",
+      "version": "0.5.1",
+      "tag": "@ni/ok-blazor_v0.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "08d3240d1aac8ad1c0d9f2172ee21e8553bf9be7",
+            "comment": "Re-organize blazor file layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 18 Apr 2026 13:15:22 GMT",
       "version": "0.5.0",
       "tag": "@ni/ok-blazor_v0.5.0",
