@@ -9,3 +9,4 @@ import '@ni/spright-components/dist/esm/all-components';
 import './fv-accordion-item';
 import './button';
 import './icon-dynamic';
+import './fv-search-input';

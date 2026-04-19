@@ -39,6 +39,7 @@ import { NimbleStepperModule } from '@ni/nimble-angular/stepper';
 import { NimbleStepModule } from '@ni/nimble-angular/step';
 import { NimbleAnchorStepModule } from '@ni/nimble-angular/anchor-step';
 import { OkButtonModule } from 'ok-angular/button/ok-button.module';
+import { OkFvSearchInputModule } from 'ok-angular/fv-search-input/fv-search-input.module';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
 import { SprightIconWorkItemCalendarWeekDirective } from '@ni/spright-angular/icons/work-item-calendar-week';
@@ -87,6 +88,7 @@ import { IconsSectionComponent } from './customapp/icons-section.component';
 import { RectangleSectionComponent } from './customapp/rectangle-section.component';
 import { OkButtonSectionComponent } from './customapp/ok-button-section.component';
 import { OkAccordionItemSectionComponent } from './customapp/ok-accordion-item-section.component';
+import { OkFvSearchInputSectionComponent } from './customapp/ok-search-input-section.component';
 
 @NgModule({
     declarations: [
@@ -130,7 +132,8 @@ import { OkAccordionItemSectionComponent } from './customapp/ok-accordion-item-s
         IconsSectionComponent,
         RectangleSectionComponent,
         OkButtonSectionComponent,
-        OkAccordionItemSectionComponent
+        OkAccordionItemSectionComponent,
+        OkFvSearchInputSectionComponent
     ],
     imports: [
         BrowserModule,
@@ -204,6 +207,7 @@ import { OkAccordionItemSectionComponent } from './customapp/ok-accordion-item-s
         NimbleIconMessagesSparkleModule,
         OkFvAccordionItemModule,
         OkButtonModule,
+        OkFvSearchInputModule,
         SprightChatConversationModule,
         SprightChatInputModule,
         SprightChatMessageInboundModule,
