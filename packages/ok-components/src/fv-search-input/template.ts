@@ -1,9 +1,9 @@
 import { html, when } from '@ni/fast-element';
 import { iconMagnifyingGlassTag } from '@ni/nimble-components/dist/esm/icons/magnifying-glass';
 import { iconTimesTag } from '@ni/nimble-components/dist/esm/icons/times';
-import type { SearchInput } from '.';
+import type { FvSearchInput } from '.';
 
-export const template = html<SearchInput>`
+export const template = html<FvSearchInput>`
     <div class="search-input-container">
         <span class="search-input-icon" aria-hidden="true">
             <${iconMagnifyingGlassTag}></${iconMagnifyingGlassTag}>
@@ -18,7 +18,7 @@ export const template = html<SearchInput>`
         />
         ${when(
             x => x.value.length > 0,
-            html<SearchInput>`
+            html<FvSearchInput>`
                 <button
                     class="search-input-clear"
                     type="button"

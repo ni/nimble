@@ -1,46 +1,60 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
-import { searchInputTag } from '@ni/ok-components/dist/esm/search-input';
-import { SearchInputAppearance } from '@ni/ok-components/dist/esm/search-input/types';
+import { fvSearchInputTag } from '@ni/ok-components/dist/esm/fv-search-input';
+import { FvSearchInputAppearance } from '@ni/ok-components/dist/esm/fv-search-input/types';
+import {
+    bodyFont,
+    bodyFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     appearanceDescription,
     apiCategory,
     createUserSelectedThemeStory,
+    okWarning,
     placeholderDescription
 } from '../../utilities/storybook';
 
 interface SearchInputArgs {
-    appearance: SearchInputAppearance;
+    appearance: FvSearchInputAppearance;
     placeholder: string;
     value: string;
     input?: (e: Event) => void;
     change?: (e: Event) => void;
 }
 
+const searchInputContentStyle = `
+    font: var(${bodyFont.cssCustomProperty});
+    color: var(${bodyFontColor.cssCustomProperty});
+`;
+
 const metadata: Meta<SearchInputArgs> = {
-    title: 'Ok/Search Input',
+    title: 'Ok/FV Search Input',
     render: createUserSelectedThemeStory(html<SearchInputArgs>`
-        <div style="width: 320px; padding: 16px;">
-            <${searchInputTag}
+        ${okWarning({
+            componentName: 'FV search input',
+            statusLink: './?path=/docs/component-status--docs#ok-components'
+        })}
+        <div style="width: 320px; padding: 16px; ${searchInputContentStyle}">
+            <${fvSearchInputTag}
                 appearance="${x => x.appearance}"
                 placeholder="${x => x.placeholder}"
                 value="${x => x.value}"
-            ></${searchInputTag}>
+            ></${fvSearchInputTag}>
         </div>
     `),
     argTypes: {
         appearance: {
-            description: appearanceDescription({ componentName: 'search input' }),
-            options: Object.values(SearchInputAppearance),
+            description: appearanceDescription({ componentName: 'FV search input' }),
+            options: Object.values(FvSearchInputAppearance),
             control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
         placeholder: {
-            description: placeholderDescription({ componentName: 'search input' }),
+            description: placeholderDescription({ componentName: 'FV search input' }),
             table: { category: apiCategory.attributes }
         },
         value: {
-            description: 'The current text rendered in the search input.',
+            description: 'The current text rendered in the FV search input.',
             table: { category: apiCategory.attributes }
         },
         input: {
@@ -53,7 +67,7 @@ const metadata: Meta<SearchInputArgs> = {
         }
     },
     args: {
-        appearance: SearchInputAppearance.outline,
+        appearance: FvSearchInputAppearance.outline,
         placeholder: 'Search',
         value: ''
     }
@@ -62,5 +76,5 @@ const metadata: Meta<SearchInputArgs> = {
 export default metadata;
 
 export const defaultStory: StoryObj<SearchInputArgs> = {
-    name: 'default'
+    name: 'FV Search Input'
 };

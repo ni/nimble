@@ -456,6 +456,15 @@ const components = [
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
+        componentName: 'FV Search Input',
+        componentHref: './?path=/docs/ok-fv-search-input--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
         componentName: 'Select (Dropdown)',
         componentHref: './?path=/docs/components-select--docs',
         designHref:

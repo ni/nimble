@@ -1,17 +1,17 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
-import { SearchInput, searchInputTag } from '..';
-import { SearchInputAppearance } from '../types';
+import { FvSearchInput, fvSearchInputTag } from '..';
+import { FvSearchInputAppearance } from '../types';
 
-async function setup(): Promise<Fixture<SearchInput>> {
-    return await fixture<SearchInput>(html`
-        <${searchInputTag} placeholder="Search assets"></${searchInputTag}>
+async function setup(): Promise<Fixture<FvSearchInput>> {
+    return await fixture<FvSearchInput>(html`
+        <${fvSearchInputTag} placeholder="Search assets"></${fvSearchInputTag}>
     `);
 }
 
-describe('SearchInput', () => {
-    let element: SearchInput;
+describe('FvSearchInput', () => {
+    let element: FvSearchInput;
     let connect: () => Promise<void>;
     let disconnect: (() => Promise<void>) | undefined;
 
@@ -21,7 +21,7 @@ describe('SearchInput', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(searchInputTag)).toBeInstanceOf(SearchInput);
+        expect(document.createElement(fvSearchInputTag)).toBeInstanceOf(FvSearchInput);
     });
 
     it('renders the configured placeholder', async () => {
@@ -84,15 +84,15 @@ describe('SearchInput', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        expect(element.appearance).toBe(SearchInputAppearance.outline);
+        expect(element.appearance).toBe(FvSearchInputAppearance.outline);
     });
 
     it('supports super-ghost appearance', async () => {
         ({ element, connect, disconnect } = await setup());
-        element.appearance = SearchInputAppearance.superGhost;
+        element.appearance = FvSearchInputAppearance.superGhost;
         await connect();
         await waitForUpdatesAsync();
 
-        expect(element.appearance).toBe(SearchInputAppearance.superGhost);
+        expect(element.appearance).toBe(FvSearchInputAppearance.superGhost);
     });
 });
