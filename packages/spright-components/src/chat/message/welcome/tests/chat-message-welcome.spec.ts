@@ -60,6 +60,7 @@ describe('ChatMessageWelcome', () => {
 
         it('should display the default Nigel chat icon when no brand-icon slot content is provided', () => {
             expect(pageObject.getSlottedBrandIconNodes().length).toBe(0);
+            expect(pageObject.hasBrandIconDefaultContent()).toBeTrue();
         });
 
         it('should display slotted content in the default slot', () => {

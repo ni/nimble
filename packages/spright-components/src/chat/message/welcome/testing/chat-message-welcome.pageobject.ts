@@ -1,4 +1,5 @@
 import type { ChatMessageWelcome } from '..';
+import { iconNigelChatTag } from '../../../../icons/nigel-chat';
 
 /**
  * Page object for the `spright-chat-message-welcome` component to provide consistent ways
@@ -33,20 +34,26 @@ export class ChatMessageWelcomePageObject {
 
     public getSlottedBrandIconNodes(): Element[] {
         const slot = this.getBrandIconSlot();
-        return (slot as HTMLSlotElement)?.assignedElements() ?? [];
+        return slot?.assignedElements() ?? [];
+    }
+
+    public hasBrandIconDefaultContent(): boolean {
+        const slot = this.getBrandIconSlot();
+        const defaultContent = slot?.children[0];
+        return defaultContent?.tagName.toLowerCase() === iconNigelChatTag;
     }
 
     public getMessageContentSlottedText(): string {
         const slot = this.getDefaultSlot();
-        const assigned = (slot as HTMLSlotElement)?.assignedNodes({ flatten: true }) ?? [];
+        const assigned = slot?.assignedNodes({ flatten: true }) ?? [];
         return assigned.map(n => n.textContent ?? '').join('');
     }
 
-    private getDefaultSlot(): Element | null | undefined {
+    private getDefaultSlot(): HTMLSlotElement | null | undefined {
         return this.element.shadowRoot?.querySelector('slot:not([name])');
     }
 
-    private getBrandIconSlot(): Element | null | undefined {
+    private getBrandIconSlot(): HTMLSlotElement | null | undefined {
         return this.element.shadowRoot?.querySelector('slot[name="brand-icon"]');
     }
 }
