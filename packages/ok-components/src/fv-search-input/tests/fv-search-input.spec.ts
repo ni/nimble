@@ -133,12 +133,12 @@ describe('FvSearchInput', () => {
         expect(element.appearance).toBe(FvSearchInputAppearance.outline);
     });
 
-    it('supports super-ghost appearance', async () => {
+    it('supports frameless appearance', async () => {
         ({ element, connect, disconnect } = await setup());
-        element.appearance = FvSearchInputAppearance.superGhost;
+        element.appearance = FvSearchInputAppearance.frameless;
         await connect();
         await waitForUpdatesAsync();
 
-        expect(element.appearance).toBe(FvSearchInputAppearance.superGhost);
+        expect(element.appearance).toBe(FvSearchInputAppearance.frameless);
     });
 });

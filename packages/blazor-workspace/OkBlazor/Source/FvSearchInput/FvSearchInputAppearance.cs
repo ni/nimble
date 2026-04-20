@@ -4,8 +4,8 @@ public enum FvSearchInputAppearance
 {
     Block,
     Outline,
-    Ghost,
-    SuperGhost
+    Underline,
+    Frameless
 }
 
 internal static class FvSearchInputAppearanceExtensions

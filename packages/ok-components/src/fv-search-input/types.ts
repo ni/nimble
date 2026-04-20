@@ -1,8 +1,8 @@
 export const FvSearchInputAppearance = {
     block: 'block',
     outline: 'outline',
-    ghost: 'ghost',
-    superGhost: 'super-ghost'
+    underline: 'underline',
+    frameless: 'frameless'
 } as const;
 
 export type FvSearchInputAppearance = (typeof FvSearchInputAppearance)[keyof typeof FvSearchInputAppearance];

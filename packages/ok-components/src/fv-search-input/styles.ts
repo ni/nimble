@@ -144,20 +144,20 @@ export const styles = css`
 
     :host([appearance='block']) .search-input-container:hover::after,
     :host([appearance='block']) .search-input-container:focus-within::after,
-    :host([appearance='ghost']) .search-input-container::after,
-    :host([appearance='super-ghost']) .search-input-container:hover::after,
-    :host([appearance='super-ghost']) .search-input-container:focus-within::after {
+    :host([appearance='underline']) .search-input-container::after,
+    :host([appearance='frameless']) .search-input-container:hover::after,
+    :host([appearance='frameless']) .search-input-container:focus-within::after {
         transform: scaleX(1);
     }
 
-    :host([appearance='ghost']) .search-input-container::after {
+    :host([appearance='underline']) .search-input-container::after {
         border-bottom-color: var(--ok-search-input-border-color);
     }
 
-    :host([appearance='ghost']) .search-input-container:hover::after,
-    :host([appearance='ghost']) .search-input-container:focus-within::after,
-    :host([appearance='super-ghost']) .search-input-container:hover::after,
-    :host([appearance='super-ghost']) .search-input-container:focus-within::after,
+    :host([appearance='underline']) .search-input-container:hover::after,
+    :host([appearance='underline']) .search-input-container:focus-within::after,
+    :host([appearance='frameless']) .search-input-container:hover::after,
+    :host([appearance='frameless']) .search-input-container:focus-within::after,
     :host([appearance='block']) .search-input-container:hover::after,
     :host([appearance='block']) .search-input-container:focus-within::after {
         border-bottom-color: ${borderHoverColor};

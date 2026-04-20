@@ -27,8 +27,8 @@ type SearchInputMatrixState = readonly [string, keyof typeof FvSearchInputAppear
 const searchInputStates: SearchInputMatrixState[] = [
     ['block', 'block'],
     ['outline', 'outline'],
-    ['ghost', 'ghost'],
-    ['super-ghost', 'superGhost']
+    ['underline', 'underline'],
+    ['frameless', 'frameless']
 ];
 
 const matrixContainerStyle = `
@@ -56,8 +56,8 @@ export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
     <div style="${matrixContainerStyle}">
         ${searchField('Search_Block_Light_32', 'block')}
         ${searchField('Search_Outline_Light_32', 'outline')}
-        ${searchField('Search_Ghost_Light_32', 'ghost')}
-        ${searchField('Search_SuperGhost_Light_32', 'superGhost')}
+        ${searchField('Search_Underline_Light_32', 'underline')}
+        ${searchField('Search_Frameless_Light_32', 'frameless')}
     </div>
 `);
 
@@ -86,8 +86,8 @@ export const typedThemeMatrix: StoryFn = createMatrixThemeStory(html`
     <div style="${matrixContainerStyle}">
         ${searchField('Typed_Block_Light_32', 'block')}
         ${searchField('Typed_Outline_Light_32', 'outline')}
-        ${searchField('Typed_Ghost_Light_32', 'ghost')}
-        ${searchField('Typed_SuperGhost_Light_32', 'superGhost')}
+        ${searchField('Typed_Underline_Light_32', 'underline')}
+        ${searchField('Typed_Frameless_Light_32', 'frameless')}
     </div>
 `);
 

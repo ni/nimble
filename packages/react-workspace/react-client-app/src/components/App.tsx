@@ -43,6 +43,7 @@ import { ChatConversationSection } from './ChatConversationSection';
 import { RectangleSection } from './RectangleSection';
 import { OkAccordionItemSection } from './OkAccordionItemSection';
 import { OkButtonSection } from './OkButtonSection';
+import { OkFvSearchInputSection } from './OkFvSearchInputSection';
 
 export function App(): React.JSX.Element {
     const prefersColorSchemeDarkMediaQuery: MediaQueryList = window.matchMedia(
@@ -112,6 +113,7 @@ export function App(): React.JSX.Element {
                                 <RectangleSection />
                                 <OkAccordionItemSection />
                                 <OkButtonSection />
+                                <OkFvSearchInputSection />
                             </div>
                         </div>
                     </div>

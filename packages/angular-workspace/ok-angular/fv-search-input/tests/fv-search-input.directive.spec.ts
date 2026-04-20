@@ -76,11 +76,11 @@ describe('Ok FV search input', () => {
             expect(directive.appearance).toBe(FvSearchInputAppearance.outline);
             expect(nativeElement.appearance).toBe(FvSearchInputAppearance.outline);
 
-            fixture.componentInstance.appearance = FvSearchInputAppearance.superGhost;
+            fixture.componentInstance.appearance = FvSearchInputAppearance.frameless;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBe(FvSearchInputAppearance.superGhost);
-            expect(nativeElement.appearance).toBe(FvSearchInputAppearance.superGhost);
+            expect(directive.appearance).toBe(FvSearchInputAppearance.frameless);
+            expect(nativeElement.appearance).toBe(FvSearchInputAppearance.frameless);
         });
     });
 });
