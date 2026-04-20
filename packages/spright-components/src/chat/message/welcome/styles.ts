@@ -40,6 +40,12 @@ export const styles = css`
         justify-content: center;
     }
 
+    slot[name='brand-icon']::slotted(*),
+    slot[name='brand-icon'] > * {
+        width: 48px;
+        height: 48px;
+    }
+
     .title {
         font: ${titlePlus1Font};
         color: ${titlePlus1FontColor};

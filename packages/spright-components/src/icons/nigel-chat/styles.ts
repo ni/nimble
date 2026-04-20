@@ -6,11 +6,6 @@ import { themeBehavior } from '@ni/nimble-components/dist/esm/utilities/style/th
 export const styles = css`
     ${iconSvgStyles}
 
-    :host {
-        width: 48px;
-        height: 48px;
-    }
-
     .dark-icon {
         display: none;
     }

@@ -20,6 +20,13 @@ async function setup(
     );
 }
 
+async function setupWithBrandIcon(): Promise<Fixture<ChatMessageWelcome>> {
+    return await fixture<ChatMessageWelcome>(
+        // prettier-ignore
+        html`<${chatMessageWelcomeTag}><div slot="brand-icon" class="custom-icon"></div></${chatMessageWelcomeTag}>`
+    );
+}
+
 describe('ChatMessageWelcome', () => {
     it('can construct an element instance', () => {
         expect(
@@ -43,10 +50,6 @@ describe('ChatMessageWelcome', () => {
             await disconnect();
         });
 
-        it('should have a default slot element in the shadow DOM', () => {
-            expect(pageObject.getDefaultSlot()).not.toBeNull();
-        });
-
         it('should not render title element when title is not set', () => {
             expect(pageObject.isTitleRendered()).toBeFalse();
         });
@@ -55,16 +58,12 @@ describe('ChatMessageWelcome', () => {
             expect(pageObject.isSubtitleRendered()).toBeFalse();
         });
 
-        it('should have a brand-icon slot', () => {
-            expect(pageObject.getBrandIconSlot()).not.toBeNull();
-        });
-
         it('should display the default Nigel chat icon when no brand-icon slot content is provided', () => {
-            expect(pageObject.getDefaultBrandIcon()).not.toBeNull();
+            expect(pageObject.getSlottedBrandIconNodes().length).toBe(0);
         });
 
         it('should display slotted content in the default slot', () => {
-            expect(pageObject.getInnerText().includes('Welcome content')).toBeTrue();
+            expect(pageObject.getMessageContentSlottedText()).toContain('Welcome content');
         });
     });
 
@@ -135,6 +134,29 @@ describe('ChatMessageWelcome', () => {
 
         it('should display the subtitle when both title and subtitle are set', () => {
             expect(pageObject.getSubtitleText()).toBe('Chat below to get started');
+        });
+    });
+
+    describe('with slotted brand-icon content', () => {
+        let element: ChatMessageWelcome;
+        let disconnect: () => Promise<void>;
+        let pageObject: ChatMessageWelcomePageObject;
+
+        beforeEach(async () => {
+            let connect: () => Promise<void>;
+            ({ element, connect, disconnect } = await setupWithBrandIcon());
+            pageObject = new ChatMessageWelcomePageObject(element);
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('should display the slotted brand-icon content', () => {
+            const slotted = pageObject.getSlottedBrandIconNodes();
+            expect(slotted.length).toBe(1);
+            expect(slotted[0]!.classList.contains('custom-icon')).toBeTrue();
         });
     });
 });

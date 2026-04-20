@@ -1,5 +1,4 @@
 import type { ChatMessageWelcome } from '..';
-import { iconNigelChatTag } from '../../../../icons/nigel-chat';
 
 /**
  * Page object for the `spright-chat-message-welcome` component to provide consistent ways
@@ -32,19 +31,22 @@ export class ChatMessageWelcomePageObject {
         return this.element.shadowRoot?.querySelector('.subtitle') !== null;
     }
 
-    public getDefaultSlot(): Element | null | undefined {
+    public getSlottedBrandIconNodes(): Element[] {
+        const slot = this.getBrandIconSlot();
+        return (slot as HTMLSlotElement)?.assignedElements() ?? [];
+    }
+
+    public getMessageContentSlottedText(): string {
+        const slot = this.getDefaultSlot();
+        const assigned = (slot as HTMLSlotElement)?.assignedNodes({ flatten: true }) ?? [];
+        return assigned.map(n => n.textContent ?? '').join('');
+    }
+
+    private getDefaultSlot(): Element | null | undefined {
         return this.element.shadowRoot?.querySelector('slot:not([name])');
     }
 
-    public getBrandIconSlot(): Element | null | undefined {
+    private getBrandIconSlot(): Element | null | undefined {
         return this.element.shadowRoot?.querySelector('slot[name="brand-icon"]');
-    }
-
-    public getDefaultBrandIcon(): Element | null | undefined {
-        return this.element.shadowRoot?.querySelector(iconNigelChatTag);
-    }
-
-    public getInnerText(): string {
-        return this.element.innerText;
     }
 }
