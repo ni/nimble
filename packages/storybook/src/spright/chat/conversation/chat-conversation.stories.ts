@@ -28,7 +28,10 @@ import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-dow
 import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '@ni/nimble-components/dist/esm/icons/three-dots-line';
 import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
+import { iconMessageBotTag } from '@ni/nimble-components/dist/esm/icons/message-bot';
+import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
 import {
@@ -38,6 +41,7 @@ import {
 import { imgBlobUrl, markdownExample } from './story-helpers';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
+import { ExampleWelcomeSlotContent } from '../message/types';
 
 interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
@@ -200,6 +204,75 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 inline: 'start'
             });
         }
+    }
+};
+
+interface ChatMessageWelcomeArgs {
+    welcomeTitle: string;
+    subtitle: string;
+    brandIcon: boolean;
+    defaultSlot: ExampleWelcomeSlotContent;
+}
+
+export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
+    render: createUserSelectedThemeStory(html`
+        <${chatMessageWelcomeTag}
+            welcome-title="${x => x.welcomeTitle}"
+            subtitle="${x => x.subtitle}"
+        >
+            ${when(x => x.brandIcon, html`
+                <${iconMessageBotTag} slot="brand-icon"></${iconMessageBotTag}>
+            `)}
+            ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.loginButton, html`
+                <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
+                    Login
+                </${anchorButtonTag}>
+            `)}
+            ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.suggestions, html`
+                <${buttonTag} appearance="block">
+                    Help me get started
+                </${buttonTag}>
+                <${buttonTag} appearance="block">
+                    What can you do?
+                </${buttonTag}>
+            `)}
+        </${chatMessageWelcomeTag}>
+    `),
+    argTypes: {
+        welcomeTitle: {
+            name: 'welcome-title',
+            description: 'The primary welcome title text displayed in the message.',
+            table: { category: apiCategory.attributes }
+        },
+        subtitle: {
+            description: 'The secondary subtitle text displayed below the title.',
+            table: { category: apiCategory.attributes }
+        },
+        brandIcon: {
+            name: 'brand-icon',
+            description: 'Customize the brand image displayed above the title. By default, the Nigel AI icon is shown.',
+            table: { category: apiCategory.slots }
+        },
+        defaultSlot: {
+            name: 'default',
+            description: 'Slot content below the title and subtitle. Use a login anchor button to prompt the user to log in, or suggestion buttons to offer common actions.',
+            table: { category: apiCategory.slots },
+            options: Object.values(ExampleWelcomeSlotContent),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleWelcomeSlotContent.none]: 'None',
+                    [ExampleWelcomeSlotContent.loginButton]: 'Login button',
+                    [ExampleWelcomeSlotContent.suggestions]: 'Suggestions'
+                }
+            }
+        }
+    },
+    args: {
+        welcomeTitle: 'Welcome to Nigel™ AI',
+        subtitle: 'Chat below to get started',
+        brandIcon: false,
+        defaultSlot: ExampleWelcomeSlotContent.loginButton
     }
 };
 
