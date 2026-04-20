@@ -72,6 +72,7 @@ import { RichTextEditorSectionComponent } from './customapp/rich-text-editor-sec
 import { RichTextViewerSectionComponent } from './customapp/rich-text-viewer-section.component';
 import { SpinnerSectionComponent } from './customapp/spinner-section.component';
 import { StepperSectionComponent } from './customapp/stepper-section.component';
+import { StepperAnchorSectionComponent } from './customapp/stepper-anchor-section.component';
 import { SwitchSectionComponent } from './customapp/switch-section.component';
 import { TableSectionComponent } from './customapp/table-section.component';
 import { DelayedHierarchyTableSectionComponent } from './customapp/delayed-hierarchy-table-section.component';
@@ -116,6 +117,7 @@ import { OkAccordionItemSectionComponent } from './customapp/ok-accordion-item-s
         RichTextViewerSectionComponent,
         SpinnerSectionComponent,
         StepperSectionComponent,
+        StepperAnchorSectionComponent,
         SwitchSectionComponent,
         TableSectionComponent,
         DelayedHierarchyTableSectionComponent,
