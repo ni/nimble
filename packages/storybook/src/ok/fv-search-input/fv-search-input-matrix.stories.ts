@@ -1,8 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { fvSearchInputTag } from '@ni/ok-components/dist/esm/fv-search-input';
+import { type FvSearchInput, fvSearchInputTag } from '@ni/ok-components/dist/esm/fv-search-input';
 import { FvSearchInputAppearance } from '@ni/ok-components/dist/esm/fv-search-input/types';
+import { FvSearchInputPageObject } from '@ni/ok-components/dist/esm/fv-search-input/testing/fv-search-input.pageobject';
 import {
     bodyFont,
     bodyFontColor
@@ -92,17 +92,12 @@ export const typedThemeMatrix: StoryFn = createMatrixThemeStory(html`
 `);
 
 typedThemeMatrix.play = async ({ step }): Promise<void> => {
-    const searchInputs = Array.from(document.querySelectorAll<HTMLElement>(fvSearchInputTag));
+    const searchInputs = Array.from(document.querySelectorAll<FvSearchInput>(fvSearchInputTag));
 
     await step('Type search text into each input', async () => {
         await Promise.all(searchInputs.map(async searchInput => {
-            const input = searchInput.shadowRoot?.querySelector<HTMLInputElement>('input');
-
-            if (input) {
-                input.value = 'Search';
-                input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-                await waitForUpdatesAsync();
-            }
+            const pageObject = new FvSearchInputPageObject(searchInput);
+            await pageObject.typeText('Search');
         }));
     });
 };

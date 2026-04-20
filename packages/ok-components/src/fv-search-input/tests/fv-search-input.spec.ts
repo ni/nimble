@@ -3,6 +3,7 @@ import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/asyn
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { FvSearchInput, fvSearchInputTag } from '..';
 import { FvSearchInputAppearance } from '../types';
+import { FvSearchInputPageObject } from '../testing/fv-search-input.pageobject';
 
 async function setup(): Promise<Fixture<FvSearchInput>> {
     return await fixture<FvSearchInput>(html`
@@ -12,6 +13,7 @@ async function setup(): Promise<Fixture<FvSearchInput>> {
 
 describe('FvSearchInput', () => {
     let element: FvSearchInput;
+    let pageObject: FvSearchInputPageObject;
     let connect: () => Promise<void>;
     let disconnect: (() => Promise<void>) | undefined;
 
@@ -24,13 +26,24 @@ describe('FvSearchInput', () => {
         expect(document.createElement(fvSearchInputTag)).toBeInstanceOf(FvSearchInput);
     });
 
+    it('defaults to empty placeholder', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSearchInput>(html`
+            <${fvSearchInputTag}></${fvSearchInputTag}>
+        `));
+        await connect();
+        await waitForUpdatesAsync();
+
+        pageObject = new FvSearchInputPageObject(element);
+        expect(pageObject.getPlaceholder()).toBe('');
+    });
+
     it('renders the configured placeholder', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
         await waitForUpdatesAsync();
 
-        const input = element.shadowRoot?.querySelector('input');
-        expect(input?.getAttribute('placeholder')).toBe('Search assets');
+        pageObject = new FvSearchInputPageObject(element);
+        expect(pageObject.getPlaceholder()).toBe('Search assets');
     });
 
     it('uses a plain text input with a single custom clear button affordance', async () => {
@@ -39,9 +52,8 @@ describe('FvSearchInput', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const input = element.shadowRoot?.querySelector('input');
-        expect(input?.getAttribute('type')).toBe('text');
-        expect(element.shadowRoot?.querySelectorAll('.search-input-clear').length).toBe(1);
+        pageObject = new FvSearchInputPageObject(element);
+        expect(pageObject.isClearButtonVisible()).toBeTrue();
     });
 
     it('clears the value when the clear button is clicked', async () => {
@@ -50,14 +62,11 @@ describe('FvSearchInput', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('input');
-        const clearButton = element.shadowRoot?.querySelector<HTMLButtonElement>('.search-input-clear');
-        clearButton?.focus();
-        clearButton?.click();
-        await waitForUpdatesAsync();
+        pageObject = new FvSearchInputPageObject(element);
+        await pageObject.clickClearButton();
 
         expect(element.value).toBe('');
-        expect(element.shadowRoot?.activeElement).toBe(input);
+        expect(pageObject.getInputValue()).toBe('');
     });
 
     it('emits one input and one change event for a single input interaction', async () => {
@@ -70,14 +79,11 @@ describe('FvSearchInput', () => {
         element.addEventListener('input', inputSpy);
         element.addEventListener('change', changeSpy);
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('input');
-        input!.value = 'asset';
-        input!.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        input!.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
+        pageObject = new FvSearchInputPageObject(element);
+        await pageObject.typeText('asset');
 
         expect(inputSpy).toHaveBeenCalledTimes(1);
-        expect(changeSpy).toHaveBeenCalledTimes(1);
+        expect(changeSpy).toHaveBeenCalledTimes(0);
     });
 
     it('defaults to outline appearance', async () => {

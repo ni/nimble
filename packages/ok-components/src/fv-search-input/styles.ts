@@ -25,7 +25,7 @@ export const styles = css`
         --ok-search-input-inline-padding: ${standardPadding};
         --ok-search-input-leading-inset: ${mediumPadding};
         --ok-search-input-leading-space: calc(var(--ok-search-input-leading-inset) + ${iconSize} + ${smallPadding});
-        --ok-search-input-trailing-space: calc(var(--ok-search-input-inline-padding) + 20px);
+        --ok-search-input-trailing-space: calc(var(--ok-search-input-inline-padding) + ${iconSize});
         --ok-search-input-border-color: rgba(${borderRgbPartialColor}, 0.3);
         --ok-search-input-border-radius: 0px;
         min-width: 120px;
