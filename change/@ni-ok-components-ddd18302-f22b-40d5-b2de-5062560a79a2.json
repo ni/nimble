@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "rename to ok-ts-icon-dynamic",
+  "comment": "Rename to ok-ts-icon-dynamic. Note: dynamic icon registration prefix also updated to ok-ts-icon-dynamic-",
   "packageName": "@ni/ok-components",
   "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"

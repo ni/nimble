@@ -15,7 +15,7 @@ const url = 'data:image/gif;base64,R0lGODlhFwAaAPIHAPfWre+9e//v3s6EITw+PP////+M/
 TsIconDynamic.registerIconDynamic(tagName, url);
 
 const metadata: Meta<OkTsIconDynamicArgs> = {
-    title: 'Ok/TS Icon Dynamic',
+    title: 'Ok/Ts Icon Dynamic',
     parameters: {
         // Icon example animates so disabling snapshot to prevent intermittency
         chromatic: { disableSnapshot: true },
