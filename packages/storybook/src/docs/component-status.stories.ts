@@ -286,8 +286,8 @@ const components = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
-        componentName: 'Icon Dynamic',
-        componentHref: './?path=/docs/ok-icon-dynamic--docs',
+        componentName: 'TS Icon Dynamic',
+        componentHref: './?path=/docs/ok-ts-icon-dynamic--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.doesNotExist,

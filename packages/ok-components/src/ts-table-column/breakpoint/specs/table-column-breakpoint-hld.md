@@ -6,7 +6,7 @@ The breakpoint table column provides a visual indicator for debugging breakpoint
 
 ### Background
 
-[IxD](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table-column/breakpoint/IxD.md)
+[IxD](/packages/ok-components/src/ts-table-column/breakpoint/specs/IxD.md)
 
 ### Features
 
@@ -33,9 +33,9 @@ Typical usage:
 
 ```html
 <nimble-table>
-    <ok-table-column-breakpoint field-name="breakpointState">
+    <ok-ts-table-column-breakpoint field-name="breakpointState">
         <!-- Column header can be empty or contain accessibility label -->
-    </ok-table-column-breakpoint>
+    </ok-ts-table-column-breakpoint>
     <!-- Other columns -->
 </nimble-table>
 ```
@@ -46,7 +46,7 @@ Typical usage:
 
 _Element Name_
 
-- `ok-table-column-breakpoint`
+- `ok-ts-table-column-breakpoint`
 
 _Props/Attrs_
 
@@ -71,7 +71,7 @@ _Events_
 
 _Element Name_
 
-- `ok-table-column-breakpoint-cell-view`
+- `ok-ts-table-column-breakpoint-cell-view`
 
 _Rendering_
 

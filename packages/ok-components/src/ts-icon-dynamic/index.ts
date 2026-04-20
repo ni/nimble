@@ -8,28 +8,28 @@ import { display } from '../utilities/style/display';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'ok-icon-dynamic': IconDynamic;
+        'ok-ts-icon-dynamic': TsIconDynamic;
     }
 }
 
 /**
  * Base class for dynamic icons. Not intended to be used directly, instead use to register dynamic icons:
  * ```
- * customElements.get('ok-icon-dynamic').registerIconDynamic('ok-icon-dynamic-awesome', '<img data uri or arbitrary url>');
+ * customElements.get('ok-ts-icon-dynamic').registerIconDynamic('ok-ts-icon-dynamic-awesome', '<img data uri or arbitrary url>');
  * ```
  * After calling successfully, the icon can be used like any other icon:
  * ```
- * <ok-icon-dynamic-awesome></ok-icon-dynamic-awesome>
- * <nimble-mapping-icon icon="ok-icon-dynamic-awesome"></nimble-mapping-icon>
+ * <ok-ts-icon-dynamic-awesome></ok-ts-icon-dynamic-awesome>
+ * <nimble-mapping-icon icon="ok-ts-icon-dynamic-awesome"></nimble-mapping-icon>
  * ```
  */
-export class IconDynamic extends Icon {
+export class TsIconDynamic extends Icon {
     public constructor(/** @internal */ public readonly url: string) {
         super();
     }
 
     public static registerIconDynamic(tagName: string, url: string): void {
-        const tagPrefix = 'ok-icon-dynamic-';
+        const tagPrefix = 'ok-ts-icon-dynamic-';
         if (!tagName.startsWith(tagPrefix)) {
             throw new Error(`Icon tag name must start with '${tagPrefix}', provided name: ${tagName}`);
         }
@@ -37,17 +37,17 @@ export class IconDynamic extends Icon {
         if (!/^[a-z][a-z]+$/.test(name)) {
             throw new Error(`Icon name must be lowercase [a-z] and at least two characters long, provided name: ${name}`);
         }
-        const iconClassName = `IconDynamic${name.charAt(0).toUpperCase() + name.slice(1)}`;
+        const iconClassName = `TsIconDynamic${name.charAt(0).toUpperCase() + name.slice(1)}`;
         const iconClassContainer = {
             // Class name for expression should come object literal assignment, helpful for stack traces, etc.
-            [iconClassName]: class extends IconDynamic {
+            [iconClassName]: class extends TsIconDynamic {
                 constructor() {
                     super(url);
                 }
             }
         } as const;
         const iconClass = iconClassContainer[iconClassName]!;
-        const baseName = `icon-dynamic-${name}`;
+        const baseName = `ts-icon-dynamic-${name}`;
         const composedIcon = iconClass.compose({
             baseName,
             template,
@@ -58,11 +58,11 @@ export class IconDynamic extends Icon {
     }
 }
 
-const okIconDynamic = IconDynamic.compose({
-    baseName: 'icon-dynamic',
+const okTsIconDynamic = TsIconDynamic.compose({
+    baseName: 'ts-icon-dynamic',
     template: html`<template></template>`,
     styles: css`${display('none')}`
 });
 
-DesignSystem.getOrCreate().withPrefix('ok').register(okIconDynamic());
-export const iconDynamicTag = 'ok-icon-dynamic';
+DesignSystem.getOrCreate().withPrefix('ok').register(okTsIconDynamic());
+export const tsIconDynamicTag = 'ok-ts-icon-dynamic';

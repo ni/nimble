@@ -1,19 +1,19 @@
 import { Meta, Controls, Canvas, Title } from '@storybook/addon-docs/blocks';
-import * as iconDynamicStories from './icon-dynamic.stories';
+import * as tsIconDynamicStories from './ts-icon-dynamic.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
-<Meta of={iconDynamicStories} />
-<Title of={iconDynamicStories} />
+<Meta of={tsIconDynamicStories} />
+<Title of={tsIconDynamicStories} />
 
 <div>
     Dynamic icons allow you to use a custom icon inside Nimble elements.
 </div>
 
-<Canvas of={iconDynamicStories.iconDynamic} />
+<Canvas of={tsIconDynamicStories.tsIconDynamic} />
 
 ## API
 
-<Controls of={iconDynamicStories.iconDynamic} />
+<Controls of={tsIconDynamicStories.tsIconDynamic} />
 <ComponentApisLink />
 
 ## Usage
@@ -23,23 +23,23 @@ Dynamic Icons must first be registered before they can be used.
 ### Register Dynamic Icon
 
 Register icons before use. Tag names must start with
-<code>ok-icon-dynamic-</code> and the name suffix must be lowercase letters and
+<code>ok-ts-icon-dynamic-</code> and the name suffix must be lowercase letters and
 at least two characters long. The <code>registerIconDynamic</code> call throws
 if the tag name is invalid.
 
 #### TypeScript
 
-Access the `DynamicIcon.registerIconDynamic` static helper function via the class reference or via the custom element registration:
+Access the `TsIconDynamic.registerIconDynamic` static helper function via the class reference or via the custom element registration:
 
 ```ts
 customElements
-    .get('ok-icon-dynamic')
-    .registerIconDynamic('ok-icon-dynamic-awesome', 'data:image/png;base64,...');
+    .get('ok-ts-icon-dynamic')
+    .registerIconDynamic('ok-ts-icon-dynamic-awesome', 'data:image/png;base64,...');
 ```
 
 #### Blazor
 
-Register once after first render using the `OkIconDynamic.RegisterIconDynamicAsync` helper:
+Register once after first render using the `OkTsIconDynamic.RegisterIconDynamicAsync` helper:
 
 ```cs
 @inject IJSRuntime JSRuntime
@@ -48,9 +48,9 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 {
     if (firstRender)
     {
-        await OkIconDynamic.RegisterIconDynamicAsync(
+        await OkTsIconDynamic.RegisterIconDynamicAsync(
             JSRuntime,
-            "ok-icon-dynamic-awesome",
+            "ok-ts-icon-dynamic-awesome",
             "data:image/png;base64,...");
     }
 }
@@ -62,8 +62,8 @@ After registration, use the generated tag name directly or in components that
 accepts an icon tag name via an `icon` attribute.
 
 ```html
-<ok-icon-dynamic-awesome></ok-icon-dynamic-awesome>
-<nimble-mapping-icon icon="ok-icon-dynamic-awesome"></nimble-mapping-icon>
+<ok-ts-icon-dynamic-awesome></ok-ts-icon-dynamic-awesome>
+<nimble-mapping-icon icon="ok-ts-icon-dynamic-awesome"></nimble-mapping-icon>
 ```
 ### Performance Considerations
 
