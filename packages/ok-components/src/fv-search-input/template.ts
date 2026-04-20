@@ -13,13 +13,10 @@ export const template = html<FvSearchInput>`
             part="control"
             id="control"
             type="text"
-            ?autofocus="${x => x.autofocus}"
-            ?disabled="${x => x.disabled}"
             aria-label="${x => x.ariaLabel}"
             aria-labelledby="${x => x.ariaLabelledby}"
             placeholder="${x => x.placeholder}"
             :value="${x => x.value}"
-            ?readonly="${x => x.readOnly}"
             @input="${x => x.handleTextInput()}"
             @change="${x => x.handleChange()}"
             ${ref('control')}

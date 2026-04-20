@@ -26,6 +26,7 @@ export class FvSearchInput extends FoundationTextField {
 
     public override handleChange(): void {
         this.value = this.control.value;
+        super.handleChange();
     }
 
     /**

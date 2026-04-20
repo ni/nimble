@@ -108,6 +108,21 @@ describe('FvSearchInput', () => {
         expect(changeSpy).toHaveBeenCalledTimes(0);
     });
 
+    it('emits a change event when the internal input commits a value change', async () => {
+        ({ element, connect, disconnect } = await setup());
+        const changeSpy = jasmine.createSpy('change');
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.addEventListener('change', changeSpy);
+
+        pageObject = new FvSearchInputPageObject(element);
+        await pageObject.commitText('asset');
+
+        expect(element.value).toBe('asset');
+        expect(changeSpy).toHaveBeenCalledTimes(1);
+    });
+
     it('emits an input event, but no change event, when cleared', async () => {
         ({ element, connect, disconnect } = await setup());
         const inputSpy = jasmine.createSpy('input');
@@ -140,5 +155,22 @@ describe('FvSearchInput', () => {
         await waitForUpdatesAsync();
 
         expect(element.appearance).toBe(FvSearchInputAppearance.frameless);
+    });
+
+    it('does not forward inherited disabled, readonly, or autofocus state to the internal input', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSearchInput>(html`
+            <${fvSearchInputTag}
+                disabled
+                readonly
+                autofocus
+            ></${fvSearchInputTag}>
+        `));
+        await connect();
+        await waitForUpdatesAsync();
+
+        pageObject = new FvSearchInputPageObject(element);
+        expect(pageObject.isInputDisabled()).toBeFalse();
+        expect(pageObject.isInputReadOnly()).toBeFalse();
+        expect(pageObject.isInputAutofocus()).toBeFalse();
     });
 });

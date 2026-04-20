@@ -35,6 +35,15 @@ export class FvSearchInputPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async commitText(text: string): Promise<void> {
+        const input = this.getInput();
+        input.value = text;
+        input.dispatchEvent(
+            new Event('change', { bubbles: true })
+        );
+        await waitForUpdatesAsync();
+    }
+
     public async clickClearButton(): Promise<void> {
         const button = this.getClearButton();
         if (!button) {
@@ -50,6 +59,18 @@ export class FvSearchInputPageObject {
         return !!this.searchInputElement.shadowRoot?.querySelector(
             '.search-input-clear'
         );
+    }
+
+    public isInputDisabled(): boolean {
+        return this.getInput().disabled;
+    }
+
+    public isInputReadOnly(): boolean {
+        return this.getInput().readOnly;
+    }
+
+    public isInputAutofocus(): boolean {
+        return this.getInput().autofocus;
     }
 
     private getInput(): HTMLInputElement {
