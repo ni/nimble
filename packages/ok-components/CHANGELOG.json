@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Sat, 18 Apr 2026 13:15:22 GMT",
+      "version": "0.4.0",
+      "tag": "@ni/ok-components_v0.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "0e9152f986e53a8fd371cdec3f805923c0e663f7",
+            "comment": "feat: add OK accordion-item"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Apr 2026 19:52:21 GMT",
       "version": "0.3.13",
       "tag": "@ni/ok-components_v0.3.13",

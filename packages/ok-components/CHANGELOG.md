@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 18 Apr 2026 13:15:22 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.4.0
+
+Sat, 18 Apr 2026 13:15:22 GMT
+
+### Minor changes
+
+- feat: add OK accordion-item ([ni/nimble@0e9152f](https://github.com/ni/nimble/commit/0e9152f986e53a8fd371cdec3f805923c0e663f7))
 
 ## 0.3.13
 

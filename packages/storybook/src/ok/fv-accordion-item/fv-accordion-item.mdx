@@ -1,0 +1,51 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as accordionItemStories from './fv-accordion-item.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+
+<Meta of={accordionItemStories} />
+<Title of={accordionItemStories} />
+
+An accordion item is a collapsible section that can be expanded or collapsed
+to show or hide its content. It uses a header with an expander icon to toggle
+visibility.
+
+<Canvas of={accordionItemStories.fvAccordionItem} />
+
+## API
+
+<Controls of={accordionItemStories.fvAccordionItem} />
+<ComponentApisLink />
+
+## Appearance
+
+Use the story controls on the primary canvas to switch between `ghost`, `outline`,
+and `block` appearances.
+
+`ghost` is the default and works well for lightweight or nested content.
+
+`outline` adds a divider between grouped items.
+
+`block` gives each summary row a filled background for settings-style layouts.
+
+## Examples
+
+### Grouped Items
+
+Multiple accordion items used together as a form-style group. Use the appearance
+control to compare the grouped layouts.
+
+<Canvas of={accordionItemStories.groupedItems} />
+
+### Nested Items
+
+Accordion items nested inside other accordion items. Per the design spec, nested
+accordions should always use the ghost appearance.
+
+<Canvas of={accordionItemStories.nestedItems} />
+
+### Mixed Content
+
+Accordion items containing various types of interactive content — checkboxes,
+selects, and number fields.
+
+<Canvas of={accordionItemStories.mixedContent} />

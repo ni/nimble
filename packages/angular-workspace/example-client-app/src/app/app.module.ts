@@ -34,6 +34,7 @@ import { NimbleTableColumnMenuButtonModule } from '@ni/nimble-angular/table-colu
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
+import { OkFvAccordionItemModule } from 'ok-angular/fv-accordion-item/fv-accordion-item.module';
 import { NimbleStepperModule } from '@ni/nimble-angular/stepper';
 import { NimbleStepModule } from '@ni/nimble-angular/step';
 import { NimbleAnchorStepModule } from '@ni/nimble-angular/anchor-step';
@@ -85,6 +86,7 @@ import { ChatConversationSectionComponent } from './customapp/chat-conversation-
 import { IconsSectionComponent } from './customapp/icons-section.component';
 import { RectangleSectionComponent } from './customapp/rectangle-section.component';
 import { OkButtonSectionComponent } from './customapp/ok-button-section.component';
+import { OkAccordionItemSectionComponent } from './customapp/ok-accordion-item-section.component';
 
 @NgModule({
     declarations: [
@@ -127,7 +129,8 @@ import { OkButtonSectionComponent } from './customapp/ok-button-section.componen
         ChatConversationSectionComponent,
         IconsSectionComponent,
         RectangleSectionComponent,
-        OkButtonSectionComponent
+        OkButtonSectionComponent,
+        OkAccordionItemSectionComponent
     ],
     imports: [
         BrowserModule,
@@ -199,6 +202,7 @@ import { OkButtonSectionComponent } from './customapp/ok-button-section.componen
         NimbleMappingEmptyModule,
         NimbleIconPencilToRectangleModule,
         NimbleIconMessagesSparkleModule,
+        OkFvAccordionItemModule,
         OkButtonModule,
         SprightChatConversationModule,
         SprightChatInputModule,
