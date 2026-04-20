@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Apr 2026 16:30:31 GMT",
+      "version": "35.6.1",
+      "tag": "@ni/nimble-components_v35.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e8e9d5f01c00596d618e681e54967a0bfd0c6fa0",
+            "comment": "Avoid prevent default on step click"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Apr 2026 19:52:21 GMT",
       "version": "35.6.0",
       "tag": "@ni/nimble-components_v35.6.0",
