@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 20 Apr 2026 16:30:31 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.11.18
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.9
+
+## 4.11.17
+
+Sat, 18 Apr 2026 15:44:00 GMT
+
+### Patches
+
+- Re-organize blazor file layout ([ni/nimble@08d3240](https://github.com/ni/nimble/commit/08d3240d1aac8ad1c0d9f2172ee21e8553bf9be7))
 
 ## 4.11.16
 

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 20 Apr 2026 16:30:31 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.6.1
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Avoid prevent default on step click ([ni/nimble@e8e9d5f](https://github.com/ni/nimble/commit/e8e9d5f01c00596d618e681e54967a0bfd0c6fa0))
 
 ## 35.6.0
 

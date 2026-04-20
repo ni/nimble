@@ -2,6 +2,42 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Mon, 20 Apr 2026 16:30:31 GMT",
+      "version": "2.1.1",
+      "tag": "@ni/ok-angular_v2.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v0.4.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 18 Apr 2026 13:15:22 GMT",
+      "version": "2.1.0",
+      "tag": "@ni/ok-angular_v2.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "0e9152f986e53a8fd371cdec3f805923c0e663f7",
+            "comment": "feat: add OK accordion-item"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v0.4.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Apr 2026 19:52:21 GMT",
       "version": "2.0.10",
       "tag": "@ni/ok-angular_v2.0.10",

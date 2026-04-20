@@ -68,8 +68,8 @@ const components = [
         componentName: 'Anchor Tabs',
         componentHref: './?path=/docs/components-anchor-tabs--docs',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b',
-        designLabel: 'XD',
+            'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A70711&mode=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/479',
         issueLabel: '#479',
         library: 'nimble',
@@ -118,8 +118,8 @@ const components = [
         componentName: 'Breadcrumb',
         componentHref: './?path=/docs/components-breadcrumb--docs',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=10133-130109&p=f&m=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/343',
         issueLabel: '#343',
         library: 'nimble',
@@ -230,8 +230,8 @@ const components = [
         componentName: 'Dialog',
         componentHref: './?path=/docs/components-dialog--docs',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=4154-22021&p=f&m=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/378',
         issueLabel: '#378',
         library: 'nimble',
@@ -244,8 +244,8 @@ const components = [
         componentName: 'Drawer',
         componentHref: './?path=/docs/components-drawer--docs',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=3727-3929&p=f&m=dev',
+        designLabel: 'Figma',
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
@@ -263,11 +263,22 @@ const components = [
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
+        componentName: 'FV Accordion Item',
+        componentHref: './?path=/docs/ok-fv-accordion-item--docs',
+        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=4618-64645',
+        designLabel: 'Figma',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
         componentName: 'Icon Button',
         componentHref: './?path=/docs/components-button--docs#icon-button',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295-77205&p=f&m=dev',
+        designLabel: 'Figma',
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
@@ -287,8 +298,8 @@ const components = [
         componentName: 'Icon Menu Button',
         componentHref: './?path=/docs/components-menu-button--docs#icon-button',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295-77205&p=f&m=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/300',
         issueLabel: '#300',
         library: 'nimble',
@@ -332,8 +343,8 @@ const components = [
         componentName: 'Menu Button',
         componentHref: './?path=/docs/components-menu-button--docs',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295-77205&p=f&m=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/300',
         issueLabel: '#300',
         library: 'nimble',
@@ -359,8 +370,8 @@ const components = [
     {
         componentName: 'Picker (Chip)',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/18a0e4f6-6541-4420-a6b5-cb79652a97dc/',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2227-78839&p=f&m=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/458',
         issueLabel: '#458',
         library: 'future',
@@ -448,8 +459,8 @@ const components = [
         componentName: 'Select (Dropdown)',
         componentHref: './?path=/docs/components-select--docs',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2227-78839&p=f&m=dev',
+        designLabel: 'Figma',
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
@@ -505,16 +516,16 @@ const components = [
     },
     {
         componentName: 'Stepper',
-        componentHref: './?path=/docs/incubating-stepper--docs',
+        componentHref: './?path=/docs/components-stepper--docs',
         designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=11742-71097&p=f&t=U3UnPlU4awyN4ybh-0',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/624',
         issueLabel: '#624',
         library: 'nimble',
-        componentStatus: ComponentFrameworkStatus.incubating,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Switch',
@@ -534,8 +545,8 @@ const components = [
         componentName: 'Table',
         componentHref: './?path=/docs/components-table--docs',
         designHref:
-            'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=5453-19325&p=f&m=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/orgs/ni/projects/11',
         issueLabel: 'project #11',
         library: 'nimble',
@@ -572,8 +583,8 @@ const components = [
         componentName: 'Text Area',
         componentHref: './?path=/docs/components-text-area--docs',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7c146e4b-c7c9-4975-a158-10e6093c522d',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2443-86867&p=f&m=dev',
+        designLabel: 'Figma',
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
@@ -623,8 +634,8 @@ const components = [
         componentHref:
             './?path=/docs/components-toggle-button--docs#icon-button',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/',
-        designLabel: 'XD',
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295-77205&p=f&m=dev',
+        designLabel: 'Figma',
         library: 'nimble',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
