@@ -6,7 +6,7 @@ The breakpoint table column provides a visual indicator for debugging breakpoint
 
 ### Background
 
-[IxD](/packages/ok-components/src/ts-table-column/breakpoint/specs/IxD.md)
+[IxD](/packages/ok-components/src/ts/table-column/breakpoint/specs/IxD.md)
 
 ### Features
 

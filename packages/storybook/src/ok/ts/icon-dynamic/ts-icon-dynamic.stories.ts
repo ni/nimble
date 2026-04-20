@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
-import { TsIconDynamic } from '@ni/ok-components/dist/esm/ts-icon-dynamic';
+import { TsIconDynamic } from '@ni/ok-components/dist/esm/ts/icon-dynamic';
 import {
     apiCategory,
     createUserSelectedThemeStory
-} from '../../utilities/storybook';
+} from '../../../utilities/storybook';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface OkTsIconDynamicArgs {}

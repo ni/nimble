@@ -4,7 +4,7 @@ import { html, css } from '@ni/fast-element';
 import { Icon } from '@ni/nimble-components/dist/esm/icon-base';
 import { styles } from './styles';
 import { template } from './template';
-import { display } from '../utilities/style/display';
+import { display } from '../../utilities/style/display';
 
 declare global {
     interface HTMLElementTagNameMap {

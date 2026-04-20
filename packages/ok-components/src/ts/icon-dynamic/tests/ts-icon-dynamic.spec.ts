@@ -1,6 +1,6 @@
 import { html } from '@ni/fast-element';
 import { TsIconDynamic, tsIconDynamicTag } from '..';
-import { fixture, type Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
 const dynamicIconDataUri = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
