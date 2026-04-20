@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'example-anchor-stepper-section',
+    selector: 'example-stepper-anchor-section',
     template: `
-        <example-sub-container label="Anchor Stepper">
+        <example-sub-container label="Stepper - Anchor">
             <nimble-stepper>
                 <nimble-anchor-step severity="success" href="https://nimble.ni.dev">
                     <span slot="title">First step</span>
@@ -22,4 +22,4 @@ import { Component } from '@angular/core';
     `,
     standalone: false
 })
-export class AnchorStepperSectionComponent {}
+export class StepperAnchorSectionComponent {}

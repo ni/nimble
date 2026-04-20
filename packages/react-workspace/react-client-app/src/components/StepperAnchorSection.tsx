@@ -2,9 +2,9 @@ import { NimbleStepper } from '@ni/nimble-react/stepper';
 import { NimbleAnchorStep } from '@ni/nimble-react/anchor-step';
 import { SubContainer } from './SubContainer';
 
-export function AnchorStepperSection(): React.JSX.Element {
+export function StepperAnchorSection(): React.JSX.Element {
     return (
-        <SubContainer label="Anchor Stepper">
+        <SubContainer label="Stepper - Anchor">
             <NimbleStepper>
                 <NimbleAnchorStep severity='success' href='https://nimble.ni.dev'>
                     <span slot="title">First step</span>

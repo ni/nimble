@@ -28,7 +28,7 @@ import { RichTextEditorSection } from './RichTextEditorSection';
 import { RichTextViewerSection } from './RichTextViewerSection';
 import { SpinnerSection } from './SpinnerSection';
 import { StepperSection } from './StepperSection';
-import { AnchorStepperSection } from './AnchorStepperSection';
+import { StepperAnchorSection } from './StepperAnchorSection';
 import { SwitchSection } from './SwitchSection';
 import { TableSection } from './TableSection';
 import { DelayedHierarchyTableSection } from './DelayedHierarchyTableSection';
@@ -97,7 +97,7 @@ export function App(): React.JSX.Element {
                                 <RichTextViewerSection />
                                 <SpinnerSection />
                                 <StepperSection />
-                                <AnchorStepperSection />
+                                <StepperAnchorSection />
                                 <SwitchSection />
                                 <TableSection />
                                 <DelayedHierarchyTableSection />
