@@ -274,6 +274,17 @@ const components = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'FV Search Input',
+        componentHref: './?path=/docs/ok-fv-search-input--docs',
+        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1453-32903',
+        designLabel: 'Figma',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
         componentName: 'Icon Button',
         componentHref: './?path=/docs/components-button--docs#icon-button',
         designHref:
@@ -454,17 +465,6 @@ const components = [
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
-    },
-    {
-        componentName: 'FV Search Input',
-        componentHref: './?path=/docs/ok-fv-search-input--docs',
-        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1453-32903',
-        designLabel: 'Figma',
-        library: 'ok',
-        componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready,
-        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Select (Dropdown)',

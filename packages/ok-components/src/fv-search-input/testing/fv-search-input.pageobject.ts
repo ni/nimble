@@ -18,6 +18,14 @@ export class FvSearchInputPageObject {
         return this.getInput().placeholder;
     }
 
+    public getInputAriaLabel(): string | null {
+        return this.getInput().getAttribute('aria-label');
+    }
+
+    public getInputAriaLabelledby(): string | null {
+        return this.getInput().getAttribute('aria-labelledby');
+    }
+
     public async typeText(text: string): Promise<void> {
         const input = this.getInput();
         input.value = text;

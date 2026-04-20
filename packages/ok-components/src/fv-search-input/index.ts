@@ -17,6 +17,12 @@ declare global {
  * A compact search input with a built-in clear affordance.
  */
 export class FvSearchInput extends FoundationElement {
+    @attr({ attribute: 'aria-label' })
+    public override ariaLabel: string | null = null;
+
+    @attr({ attribute: 'aria-labelledby' })
+    public ariaLabelledby: string | null = null;
+
     @attr
     public placeholder = '';
 
@@ -40,8 +46,8 @@ export class FvSearchInput extends FoundationElement {
 
     /**
      * Clears the current value, restores focus to the text input, and
-     * dispatches synthetic `input` and `change` events on the host so
-     * consumers observe the same event contract as a manual edit.
+     * dispatches a synthetic `input` event on the host so consumers
+     * observe the same immediate value-update contract as typing.
      * The inner <input> value is updated on the next FAST render cycle
      * via the `:value` template binding.
      */
@@ -53,7 +59,6 @@ export class FvSearchInput extends FoundationElement {
         this.value = '';
         this.shadowRoot?.querySelector<HTMLInputElement>('.search-input')?.focus();
         this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         return true;
     }
 }

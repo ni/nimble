@@ -88,7 +88,7 @@ import { IconsSectionComponent } from './customapp/icons-section.component';
 import { RectangleSectionComponent } from './customapp/rectangle-section.component';
 import { OkButtonSectionComponent } from './customapp/ok-button-section.component';
 import { OkAccordionItemSectionComponent } from './customapp/ok-accordion-item-section.component';
-import { OkFvSearchInputSectionComponent } from './customapp/ok-search-input-section.component';
+import { OkFvSearchInputSectionComponent } from './customapp/ok-fv-search-input-section.component';
 
 @NgModule({
     declarations: [

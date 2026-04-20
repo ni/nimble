@@ -11,6 +11,8 @@ export const template = html<FvSearchInput>`
         <input
             class="search-input"
             type="text"
+            aria-label="${x => x.ariaLabel}"
+            aria-labelledby="${x => x.ariaLabelledby}"
             placeholder="${x => x.placeholder}"
             :value="${x => x.value}"
             @input="${(x, c) => x.handleInput(c.event)}"

@@ -46,6 +46,28 @@ describe('FvSearchInput', () => {
         expect(pageObject.getPlaceholder()).toBe('Search assets');
     });
 
+    it('forwards aria-label to the internal input', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSearchInput>(html`
+            <${fvSearchInputTag} aria-label="Search assets"></${fvSearchInputTag}>
+        `));
+        await connect();
+        await waitForUpdatesAsync();
+
+        pageObject = new FvSearchInputPageObject(element);
+        expect(pageObject.getInputAriaLabel()).toBe('Search assets');
+    });
+
+    it('forwards aria-labelledby to the internal input', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSearchInput>(html`
+            <${fvSearchInputTag} aria-labelledby="search-label"></${fvSearchInputTag}>
+        `));
+        await connect();
+        await waitForUpdatesAsync();
+
+        pageObject = new FvSearchInputPageObject(element);
+        expect(pageObject.getInputAriaLabelledby()).toBe('search-label');
+    });
+
     it('uses a plain text input with a single custom clear button affordance', async () => {
         ({ element, connect, disconnect } = await setup());
         element.value = 'asset';
@@ -69,7 +91,7 @@ describe('FvSearchInput', () => {
         expect(pageObject.getInputValue()).toBe('');
     });
 
-    it('emits one input and one change event for a single input interaction', async () => {
+    it('emits an input event, but no change event, for a typing interaction', async () => {
         ({ element, connect, disconnect } = await setup());
         const inputSpy = jasmine.createSpy('input');
         const changeSpy = jasmine.createSpy('change');
@@ -81,6 +103,24 @@ describe('FvSearchInput', () => {
 
         pageObject = new FvSearchInputPageObject(element);
         await pageObject.typeText('asset');
+
+        expect(inputSpy).toHaveBeenCalledTimes(1);
+        expect(changeSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('emits an input event, but no change event, when cleared', async () => {
+        ({ element, connect, disconnect } = await setup());
+        const inputSpy = jasmine.createSpy('input');
+        const changeSpy = jasmine.createSpy('change');
+        element.value = 'asset';
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.addEventListener('input', inputSpy);
+        element.addEventListener('change', changeSpy);
+
+        pageObject = new FvSearchInputPageObject(element);
+        await pageObject.clickClearButton();
 
         expect(inputSpy).toHaveBeenCalledTimes(1);
         expect(changeSpy).toHaveBeenCalledTimes(0);
