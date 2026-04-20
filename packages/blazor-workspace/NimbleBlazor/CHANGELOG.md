@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 15 Apr 2026 19:52:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 18 Apr 2026 15:44:00 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.16.1
+
+Sat, 18 Apr 2026 15:44:00 GMT
+
+### Patches
+
+- Re-organize blazor file layout ([ni/nimble@08d3240](https://github.com/ni/nimble/commit/08d3240d1aac8ad1c0d9f2172ee21e8553bf9be7))
 
 ## 20.16.0
 
