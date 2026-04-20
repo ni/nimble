@@ -1,5 +1,9 @@
 import { attr } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import {
+    DesignSystem,
+    TextField as FoundationTextField,
+    type TextFieldOptions
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import {
@@ -16,32 +20,12 @@ declare global {
 /**
  * A compact search input with a built-in clear affordance.
  */
-export class FvSearchInput extends FoundationElement {
-    @attr({ attribute: 'aria-label' })
-    public override ariaLabel: string | null = null;
-
-    @attr({ attribute: 'aria-labelledby' })
-    public ariaLabelledby: string | null = null;
-
-    @attr
-    public placeholder = '';
-
-    @attr
-    public value = '';
-
+export class FvSearchInput extends FoundationTextField {
     @attr
     public appearance: FvSearchInputAppearanceType = FvSearchInputAppearance.outline;
 
-    public handleInput(event: Event): boolean {
-        const input = event.target as HTMLInputElement;
-        this.value = input.value;
-        return true;
-    }
-
-    public handleChange(event: Event): boolean {
-        const input = event.target as HTMLInputElement;
-        this.value = input.value;
-        return true;
+    public override handleChange(): void {
+        this.value = this.control.value;
     }
 
     /**
@@ -57,16 +41,20 @@ export class FvSearchInput extends FoundationElement {
         }
 
         this.value = '';
-        this.shadowRoot?.querySelector<HTMLInputElement>('.search-input')?.focus();
+        this.control.focus();
         this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         return true;
     }
 }
 
-const okFvSearchInput = FvSearchInput.compose({
+const okFvSearchInput = FvSearchInput.compose<TextFieldOptions>({
     baseName: 'fv-search-input',
+    baseClass: FoundationTextField,
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('ok').register(okFvSearchInput());

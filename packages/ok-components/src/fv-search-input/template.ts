@@ -1,4 +1,4 @@
-import { html, when } from '@ni/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import { iconMagnifyingGlassTag } from '@ni/nimble-components/dist/esm/icons/magnifying-glass';
 import { iconTimesTag } from '@ni/nimble-components/dist/esm/icons/times';
 import type { FvSearchInput } from '.';
@@ -10,13 +10,19 @@ export const template = html<FvSearchInput>`
         </span>
         <input
             class="search-input"
+            part="control"
+            id="control"
             type="text"
+            ?autofocus="${x => x.autofocus}"
+            ?disabled="${x => x.disabled}"
             aria-label="${x => x.ariaLabel}"
             aria-labelledby="${x => x.ariaLabelledby}"
             placeholder="${x => x.placeholder}"
             :value="${x => x.value}"
-            @input="${(x, c) => x.handleInput(c.event)}"
-            @change="${(x, c) => x.handleChange(c.event)}"
+            ?readonly="${x => x.readOnly}"
+            @input="${x => x.handleTextInput()}"
+            @change="${x => x.handleChange()}"
+            ${ref('control')}
         />
         ${when(
             x => x.value.length > 0,
