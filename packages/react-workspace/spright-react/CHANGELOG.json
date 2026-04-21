@@ -2,6 +2,42 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Mon, 20 Apr 2026 22:42:19 GMT",
+      "version": "0.11.0",
+      "tag": "@ni/spright-react_v0.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-react",
+            "commit": "f7e4581eb131183f6ebccd9f6337b1f54eb9be8f",
+            "comment": "Add welcome message for spright chat conversation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.16.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Apr 2026 16:30:31 GMT",
+      "version": "0.10.33",
+      "tag": "@ni/spright-react_v0.10.33",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.15.9",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Apr 2026 19:52:21 GMT",
       "version": "0.10.32",
       "tag": "@ni/spright-react_v0.10.32",

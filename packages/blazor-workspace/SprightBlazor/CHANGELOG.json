@@ -2,6 +2,57 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Mon, 20 Apr 2026 22:42:19 GMT",
+      "version": "4.12.0",
+      "tag": "@ni/spright-blazor_v4.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "f7e4581eb131183f6ebccd9f6337b1f54eb9be8f",
+            "comment": "Add welcome message for spright chat conversation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.16.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Apr 2026 16:30:31 GMT",
+      "version": "4.11.18",
+      "tag": "@ni/spright-blazor_v4.11.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.15.9",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 18 Apr 2026 15:44:00 GMT",
+      "version": "4.11.17",
+      "tag": "@ni/spright-blazor_v4.11.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "08d3240d1aac8ad1c0d9f2172ee21e8553bf9be7",
+            "comment": "Re-organize blazor file layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Apr 2026 19:52:21 GMT",
       "version": "4.11.16",
       "tag": "@ni/spright-blazor_v4.11.16",

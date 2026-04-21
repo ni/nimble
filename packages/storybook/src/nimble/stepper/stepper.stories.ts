@@ -11,7 +11,6 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription,
-    incubatingWarning,
     readonlyDescription
 } from '../../utilities/storybook';
 import { ExampleStepType } from './types';
@@ -206,6 +205,7 @@ interface StepSetItem {
     severity?: StepSeverity;
     disabled?: boolean;
     selected?: boolean;
+    href?: string;
 }
 
 const simple: readonly StepSetItem[] = [
@@ -215,6 +215,12 @@ const simple: readonly StepSetItem[] = [
     { title: 'Check Willie', subtitle: 'No crystal slop bucket' },
     { title: 'Check Maggie', subtitle: 'Just an innocent baby' },
     { title: 'Share results', subtitle: 'Reveal who is responsible' },
+];
+
+const anchors: readonly StepSetItem[] = [
+    { title: 'Step 1', subtitle: 'Visit nimble.ni.dev', href: 'https://nimble.ni.dev' },
+    { title: 'Step 2', subtitle: 'Visit ni.com', href: 'https://ni.com' },
+    { title: 'Step 3', subtitle: 'Visit google.com', href: 'https://google.com' },
 ];
 
 const severity: readonly StepSetItem[] = [
@@ -248,11 +254,11 @@ const wide = [
 
 const stepSets: { [key in ExampleStepType]: readonly StepSetItem[] } = {
     [ExampleStepType.simple]: simple,
+    [ExampleStepType.anchors]: anchors,
     [ExampleStepType.severity]: severity,
     [ExampleStepType.many]: many,
     [ExampleStepType.wide]: wide,
 };
-type StepSet = StepSetItem;
 
 interface StepperArgs {
     stepType: ExampleStepType;
@@ -261,10 +267,6 @@ interface StepperArgs {
 
 export const stepper: StoryObj<StepperArgs> = {
     render: createUserSelectedThemeStory(html`
-    ${incubatingWarning({
-        componentName: stepperTag,
-        statusLink: 'https://github.com/ni/nimble/issues/624'
-    })}
     <style class="code-hide">
         ${stepperTag} {
             max-width: 100%;
@@ -274,16 +276,33 @@ export const stepper: StoryObj<StepperArgs> = {
     <${stepperTag}
         orientation="${x => x.orientation}"
     >
-        ${repeat(x => stepSets[x.stepType], html<StepSet>`
-            <${stepTag}
-                severity="${x => x.severity}"
-                severity-text="${x => x.severityText}"
-                ?disabled="${x => x.disabled}"
-                ?selected="${x => x.selected}"
-            >
-                <span slot="title">${x => x.title}</span>
-                <span slot="subtitle">${x => x.subtitle}</span>
-            </${stepTag}>
+        ${repeat(x => stepSets[x.stepType], html<StepSetItem>`
+            ${when(
+                x => x.href,
+                html<StepSetItem>`
+                    <${anchorStepTag}
+                        severity="${x => x.severity}"
+                        severity-text="${x => x.severityText}"
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        href="${x => x.href}"
+                    >
+                        <span slot="title">${x => x.title}</span>
+                        <span slot="subtitle">${x => x.subtitle}</span>
+                    </${anchorStepTag}>
+                `,
+                html<StepSetItem>`
+                    <${stepTag}
+                        severity="${x => x.severity}"
+                        severity-text="${x => x.severityText}"
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                    >
+                        <span slot="title">${x => x.title}</span>
+                        <span slot="subtitle">${x => x.subtitle}</span>
+                    </${stepTag}>
+                `
+            )}
         `)}
     </${stepperTag}>
     `),
@@ -296,7 +315,8 @@ export const stepper: StoryObj<StepperArgs> = {
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleStepType.simple]: 'Simple default step items',
+                    [ExampleStepType.simple]: 'Simple default steps',
+                    [ExampleStepType.anchors]: 'Simple default anchor steps',
                     [ExampleStepType.severity]: 'Steps with various severities',
                     [ExampleStepType.many]: 'Many steps',
                     [ExampleStepType.wide]: 'Wide steps',

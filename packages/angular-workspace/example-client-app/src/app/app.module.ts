@@ -37,7 +37,6 @@ import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-m
 import { NimbleStepperModule } from '@ni/nimble-angular/stepper';
 import { NimbleStepModule } from '@ni/nimble-angular/step';
 import { NimbleAnchorStepModule } from '@ni/nimble-angular/anchor-step';
-import { OkButtonModule } from 'ok-angular/button/ok-button.module';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
 import { SprightIconWorkItemCalendarWeekDirective } from '@ni/spright-angular/icons/work-item-calendar-week';
@@ -47,7 +46,7 @@ import { SprightChatMessageSystemModule } from '@ni/spright-angular/chat/message
 import { SprightRectangleModule } from '@ni/spright-angular/rectangle';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
-import { SubContainerComponent } from './customapp/sub-container.component';
+import { SubContainerModule } from './customapp/sub-container/sub-container.module';
 import { OverviewSectionComponent } from './customapp/overview-section.component';
 import { AnchorSectionComponent } from './customapp/anchor-section.component';
 import { BannerSectionComponent } from './customapp/banner-section.component';
@@ -71,6 +70,7 @@ import { RichTextEditorSectionComponent } from './customapp/rich-text-editor-sec
 import { RichTextViewerSectionComponent } from './customapp/rich-text-viewer-section.component';
 import { SpinnerSectionComponent } from './customapp/spinner-section.component';
 import { StepperSectionComponent } from './customapp/stepper-section.component';
+import { StepperAnchorSectionComponent } from './customapp/stepper-anchor-section.component';
 import { SwitchSectionComponent } from './customapp/switch-section.component';
 import { TableSectionComponent } from './customapp/table-section.component';
 import { DelayedHierarchyTableSectionComponent } from './customapp/delayed-hierarchy-table-section.component';
@@ -84,13 +84,13 @@ import { TreeViewSectionComponent } from './customapp/tree-view-section.componen
 import { ChatConversationSectionComponent } from './customapp/chat-conversation-section.component';
 import { IconsSectionComponent } from './customapp/icons-section.component';
 import { RectangleSectionComponent } from './customapp/rectangle-section.component';
-import { OkButtonSectionComponent } from './customapp/ok-button-section.component';
+import { ExSectionModule } from './customapp/ex/ex-section.module';
+import { FvSectionModule } from './customapp/fv/fv-section.module';
 
 @NgModule({
     declarations: [
         AppComponent,
         CustomAppComponent,
-        SubContainerComponent,
         OverviewSectionComponent,
         AnchorSectionComponent,
         BannerSectionComponent,
@@ -114,6 +114,7 @@ import { OkButtonSectionComponent } from './customapp/ok-button-section.componen
         RichTextViewerSectionComponent,
         SpinnerSectionComponent,
         StepperSectionComponent,
+        StepperAnchorSectionComponent,
         SwitchSectionComponent,
         TableSectionComponent,
         DelayedHierarchyTableSectionComponent,
@@ -127,7 +128,6 @@ import { OkButtonSectionComponent } from './customapp/ok-button-section.componen
         ChatConversationSectionComponent,
         IconsSectionComponent,
         RectangleSectionComponent,
-        OkButtonSectionComponent
     ],
     imports: [
         BrowserModule,
@@ -199,7 +199,8 @@ import { OkButtonSectionComponent } from './customapp/ok-button-section.componen
         NimbleMappingEmptyModule,
         NimbleIconPencilToRectangleModule,
         NimbleIconMessagesSparkleModule,
-        OkButtonModule,
+        FvSectionModule,
+        ExSectionModule,
         SprightChatConversationModule,
         SprightChatInputModule,
         SprightChatMessageInboundModule,
@@ -210,6 +211,7 @@ import { OkButtonSectionComponent } from './customapp/ok-button-section.componen
         NimbleStepperModule,
         NimbleStepModule,
         NimbleAnchorStepModule,
+        SubContainerModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },

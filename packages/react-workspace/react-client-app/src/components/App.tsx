@@ -28,6 +28,7 @@ import { RichTextEditorSection } from './RichTextEditorSection';
 import { RichTextViewerSection } from './RichTextViewerSection';
 import { SpinnerSection } from './SpinnerSection';
 import { StepperSection } from './StepperSection';
+import { StepperAnchorSection } from './StepperAnchorSection';
 import { SwitchSection } from './SwitchSection';
 import { TableSection } from './TableSection';
 import { DelayedHierarchyTableSection } from './DelayedHierarchyTableSection';
@@ -40,7 +41,8 @@ import { TooltipSection } from './TooltipSection';
 import { TreeViewSection } from './TreeViewSection';
 import { ChatConversationSection } from './ChatConversationSection';
 import { RectangleSection } from './RectangleSection';
-import { OkButtonSection } from './OkButtonSection';
+import { ExSection } from './Ex/ExSection';
+import { FvSection } from './Fv/FvSection';
 
 export function App(): React.JSX.Element {
     const prefersColorSchemeDarkMediaQuery: MediaQueryList = window.matchMedia(
@@ -95,6 +97,7 @@ export function App(): React.JSX.Element {
                                 <RichTextViewerSection />
                                 <SpinnerSection />
                                 <StepperSection />
+                                <StepperAnchorSection />
                                 <SwitchSection />
                                 <TableSection />
                                 <DelayedHierarchyTableSection />
@@ -107,7 +110,8 @@ export function App(): React.JSX.Element {
                                 <TreeViewSection />
                                 <ChatConversationSection />
                                 <RectangleSection />
-                                <OkButtonSection />
+                                <FvSection />
+                                <ExSection />
                             </div>
                         </div>
                     </div>
