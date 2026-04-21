@@ -17,8 +17,8 @@
 /packages/nimble-components/src/rich-text @rajsite @jattasNI @vivinkrishna-ni
 /packages/nimble-components/src/rich-text-mention @rajsite @jattasNI @vivinkrishna-ni
 /**/chat/** @jattasNI
-/**/breakpoint/** @jattasNI
-/**/fv-*/** @jattasNI @fredvisser
+/**/ts/** @jattasNI
+/**/fv/** @jattasNI @fredvisser
 /packages/nimble-tokens @rajsite @jattasNI @fredvisser
 /packages/storybook/.storybook @rajsite @jattasNI @fredvisser
 

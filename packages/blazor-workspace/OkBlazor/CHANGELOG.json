@@ -2,6 +2,84 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Tue, 21 Apr 2026 14:27:32 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/ok-blazor_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "2479cd5030554576e4a251c457f8a764e637cdb8",
+            "comment": "Rename to ok-ts-icon-dynamic. Note: dynamic icon registration prefix also updated to ok-ts-icon-dynamic-"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Apr 2026 04:58:19 GMT",
+      "version": "0.5.5",
+      "tag": "@ni/ok-blazor_v0.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "302334bcd302adc47b77eb5a36197f8ae67dec4e",
+            "comment": "Migrate to ok-ex-button"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v0.4.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Apr 2026 03:27:50 GMT",
+      "version": "0.5.4",
+      "tag": "@ni/ok-blazor_v0.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "7a1bbdbb9ddd6e59424769d1e10490af32dfd5d6",
+            "comment": "Move files into fv project folders"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v0.4.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Apr 2026 22:42:19 GMT",
+      "version": "0.5.3",
+      "tag": "@ni/ok-blazor_v0.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v0.4.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2026 16:30:31 GMT",
       "version": "0.5.2",
       "tag": "@ni/ok-blazor_v0.5.2",

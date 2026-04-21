@@ -1,8 +1,40 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Mon, 20 Apr 2026 16:30:31 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 21 Apr 2026 14:27:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.0
+
+Tue, 21 Apr 2026 14:27:32 GMT
+
+### Major changes
+
+- Rename to ok-ts-icon-dynamic. Note: dynamic icon registration prefix also updated to ok-ts-icon-dynamic- ([ni/nimble@2479cd5](https://github.com/ni/nimble/commit/2479cd5030554576e4a251c457f8a764e637cdb8))
+
+## 0.4.4
+
+Tue, 21 Apr 2026 04:58:19 GMT
+
+### Patches
+
+- Migrate to ok-ex-button ([ni/nimble@302334b](https://github.com/ni/nimble/commit/302334bcd302adc47b77eb5a36197f8ae67dec4e))
+
+## 0.4.3
+
+Tue, 21 Apr 2026 03:27:50 GMT
+
+### Patches
+
+- Move files into fv project folders ([ni/nimble@7a1bbdb](https://github.com/ni/nimble/commit/7a1bbdbb9ddd6e59424769d1e10490af32dfd5d6))
+
+## 0.4.2
+
+Mon, 20 Apr 2026 22:42:19 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.16.0
 
 ## 0.4.1
 
