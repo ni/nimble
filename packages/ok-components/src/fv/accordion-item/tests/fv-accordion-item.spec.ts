@@ -3,7 +3,7 @@ import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/asyn
 import { FvAccordionItem, fvAccordionItemTag } from '..';
 import { FvAccordionItemPageObject } from '../testing/fv-accordion-item.pageobject';
 import { FvAccordionItemAppearance } from '../types';
-import { fixture, type Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
 async function setup(
     expanded = false

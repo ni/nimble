@@ -1,7 +1,7 @@
-import { OkFvAccordionItem } from '@ni/ok-react/fv-accordion-item';
-import { SubContainer } from './SubContainer';
+import { OkFvAccordionItem } from '@ni/ok-react/fv/accordion-item';
+import { SubContainer } from '../SubContainer';
 
-export function OkAccordionItemSection(): React.JSX.Element {
+export function FvAccordionItemSection(): React.JSX.Element {
     return (
         <SubContainer label="Accordion Item (Ok)">
             <OkFvAccordionItem header="Asset details" expanded>

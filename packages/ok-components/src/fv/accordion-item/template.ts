@@ -2,8 +2,6 @@ import { html } from '@ni/fast-element';
 import { iconArrowExpanderRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
 import type { FvAccordionItem } from '.';
 
-const arrowExpanderRightTag = iconArrowExpanderRightTag;
-
 export const template = html<FvAccordionItem>`
     <details
         class="accordion-item-details"
@@ -14,9 +12,9 @@ export const template = html<FvAccordionItem>`
             class="accordion-item-summary"
             aria-expanded="${x => x.expanded}"
         >
-            <${arrowExpanderRightTag}
+            <${iconArrowExpanderRightTag}
                 class="accordion-item-icon"
-            ></${arrowExpanderRightTag}>
+            ></${iconArrowExpanderRightTag}>
             <span class="accordion-item-title" title="${x => x.header}">
                 ${x => x.header}
             </span>

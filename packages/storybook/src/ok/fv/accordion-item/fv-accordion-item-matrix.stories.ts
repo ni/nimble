@@ -1,15 +1,15 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv-accordion-item';
-import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv-accordion-item/types';
+import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv/accordion-item';
+import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv/accordion-item/types';
 import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import {
     createMatrix,
     sharedMatrixParameters,
     createMatrixThemeStory
-} from '../../utilities/matrix';
-import { createStory } from '../../utilities/storybook';
-import { hiddenWrapper } from '../../utilities/hidden';
+} from '../../../utilities/matrix';
+import { createStory } from '../../../utilities/storybook';
+import { hiddenWrapper } from '../../../utilities/hidden';
 
 const expandedStates = [
     ['Expanded', true],
