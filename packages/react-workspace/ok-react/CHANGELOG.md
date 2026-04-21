@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Mon, 20 Apr 2026 22:42:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 21 Apr 2026 03:27:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.7.3
+
+Tue, 21 Apr 2026 03:27:50 GMT
+
+### Patches
+
+- Move files into fv project folders ([ni/nimble@7a1bbdb](https://github.com/ni/nimble/commit/7a1bbdbb9ddd6e59424769d1e10490af32dfd5d6))
+- Bump @ni/ok-components to v0.4.3
 
 ## 0.7.2
 
