@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 21 Apr 2026 18:32:19 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/ok-components_v1.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "e8c5bb98b7831046e5c9a897e6241ea9aef93367",
+            "comment": "Update OK contributing docs for project name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Apr 2026 14:27:32 GMT",
       "version": "1.0.0",
       "tag": "@ni/ok-components_v1.0.0",
