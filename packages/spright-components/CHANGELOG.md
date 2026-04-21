@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 20 Apr 2026 22:42:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 21 Apr 2026 19:47:00 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.17.0
+
+Tue, 21 Apr 2026 19:47:00 GMT
+
+### Minor changes
+
+- add footer-actions and attachments slots ([ni/nimble@ead5be1](https://github.com/ni/nimble/commit/ead5be103d14e946bff31bfa222c168e966fca88))
 
 ## 6.16.0
 
