@@ -128,6 +128,8 @@ export const styles = css`
         flex-wrap: wrap;
         gap: ${mediumPadding};
         padding: ${mediumPadding};
+        max-height: calc(${controlSlimHeight} * 3 + ${mediumPadding} * 4 );
+        overflow-y: auto;
     }
 
     .attachments ::slotted(*) {
