@@ -8,7 +8,7 @@ Code in Ok packages is owned the contributing team.
 
 The Design System team will maintain infrastructure like pipelines and dependency updates. However, if an Ok component results in excessive build times, complexity during dependency updates, test instability, or is a burden on the state of the monorepo the contributing team is expected to address issues. Failing to do so will lead to components having tests disabled, build removed, and ultimately deletion from the repository.
 
-Each set of contribution should have a short, usually 2-3 letters, project name prefix. The project name will be used to name folders to place source in each library and is used for tag / class names. Project names could be correlated to owning R&D team, project effort, or experimenting individual. For example, a project such as LabVIEW may put a collection of components under the project `lv` or personally owned components for John Doe may use a project prefix of `jd`. Reference the example project with project name `ex` in each OK library for an example of how to organize Ok contributions.
+Each set of contributions should have a short, usually 2-3 letters, project name prefix. The project name will be used to name folders to place source in each library and is used for tag / class names. Project names could be correlated to owning R&D team, project effort, or experimenting individual. For example, a project such as LabVIEW may put a collection of components under the project `lv` or personally owned components for John Doe may use a project prefix of `jd`. Reference the example project with project name `ex` in each OK library for an example of how to organize Ok contributions.
 
 ## Code quality
 
