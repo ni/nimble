@@ -1,2 +1,2 @@
-export * from './fv-accordion-item.directive';
-export * from './fv-accordion-item.module';
+export * from './ok-fv-accordion-item.directive';
+export * from './ok-fv-accordion-item.module';
