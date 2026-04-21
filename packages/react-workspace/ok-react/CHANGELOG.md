@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Tue, 21 Apr 2026 03:27:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 21 Apr 2026 04:58:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.7.4
+
+Tue, 21 Apr 2026 04:58:19 GMT
+
+### Patches
+
+- Migrate to ok-ex-button ([ni/nimble@302334b](https://github.com/ni/nimble/commit/302334bcd302adc47b77eb5a36197f8ae67dec4e))
+- Bump @ni/ok-components to v0.4.4
 
 ## 0.7.3
 
