@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { FvAccordionItem } from '@ni/ok-components/dist/esm/fv-accordion-item';
-import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv-accordion-item';
-import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv-accordion-item/types';
+import type { FvAccordionItem } from '@ni/ok-components/dist/esm/fv/accordion-item';
+import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv/accordion-item';
+import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv/accordion-item/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { FvAccordionItem };

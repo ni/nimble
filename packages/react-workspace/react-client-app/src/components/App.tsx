@@ -41,8 +41,8 @@ import { TooltipSection } from './TooltipSection';
 import { TreeViewSection } from './TreeViewSection';
 import { ChatConversationSection } from './ChatConversationSection';
 import { RectangleSection } from './RectangleSection';
-import { OkAccordionItemSection } from './OkAccordionItemSection';
 import { OkButtonSection } from './OkButtonSection';
+import { FvSection } from './Fv/FvSection';
 
 export function App(): React.JSX.Element {
     const prefersColorSchemeDarkMediaQuery: MediaQueryList = window.matchMedia(
@@ -110,7 +110,7 @@ export function App(): React.JSX.Element {
                                 <TreeViewSection />
                                 <ChatConversationSection />
                                 <RectangleSection />
-                                <OkAccordionItemSection />
+                                <FvSection />
                                 <OkButtonSection />
                             </div>
                         </div>

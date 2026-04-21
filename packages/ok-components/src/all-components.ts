@@ -6,6 +6,6 @@
 
 import '@ni/spright-components/dist/esm/all-components';
 
-import './fv-accordion-item';
+import './fv/all-fv';
 import './button';
 import './icon-dynamic';

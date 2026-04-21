@@ -16,8 +16,8 @@ import {
     borderWidth
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { appearanceBehavior } from '@ni/nimble-components/dist/esm/utilities/style/appearance';
-import { display } from '../utilities/style/display';
-import { userSelectNone } from '../utilities/style/user-select';
+import { display } from '../../utilities/style/display';
+import { userSelectNone } from '../../utilities/style/user-select';
 import { FvAccordionItemAppearance } from './types';
 
 export const styles = css`

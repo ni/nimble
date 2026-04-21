@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'example-ok-accordion-item-section',
+    selector: 'example-fv-accordion-item-section',
     template: `
         <example-sub-container label="Accordion Item (Ok)">
             <ok-fv-accordion-item i18n-header header="Asset details" [expanded]="true">
@@ -14,4 +14,4 @@ import { Component } from '@angular/core';
     `,
     standalone: false
 })
-export class OkAccordionItemSectionComponent {}
+export class FvAccordionItemSectionComponent {}

@@ -1,6 +1,5 @@
 import { attr } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
 import { styles } from './styles';
 import { template } from './template';
 import { FvAccordionItemAppearance } from './types';

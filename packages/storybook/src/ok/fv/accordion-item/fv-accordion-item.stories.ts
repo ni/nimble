@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
-import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv-accordion-item';
-import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv-accordion-item/types';
+import { fvAccordionItemTag } from '@ni/ok-components/dist/esm/fv/accordion-item';
+import { FvAccordionItemAppearance } from '@ni/ok-components/dist/esm/fv/accordion-item/types';
 import {
     bodyFont,
     bodyFontColor
@@ -15,7 +15,7 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     okWarning
-} from '../../utilities/storybook';
+} from '../../../utilities/storybook';
 
 interface AccordionItemArgs {
     header: string;
@@ -34,7 +34,7 @@ const accordionGroupStyle = `
 `;
 
 const metadata: Meta<AccordionItemArgs> = {
-    title: 'Ok/FV Accordion Item',
+    title: 'Ok/Fv Accordion Item',
     parameters: {
         actions: {}
     },
@@ -83,7 +83,6 @@ const metadata: Meta<AccordionItemArgs> = {
 export default metadata;
 
 export const fvAccordionItem: StoryObj<AccordionItemArgs> = {
-    name: 'FV Accordion Item',
     args: {
         header: 'Expanded Accordion',
         expanded: true,
