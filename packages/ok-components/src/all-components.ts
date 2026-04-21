@@ -8,5 +8,4 @@ import '@ni/spright-components/dist/esm/all-components';
 
 import './fv/all-fv';
 import './ex/all-ex';
-import './ts/icon-dynamic';
-
+import './ts/all-ts';
