@@ -1,15 +1,15 @@
 import { html } from '@ni/fast-element';
-import { IconDynamic, iconDynamicTag } from '..';
-import { fixture, type Fixture } from '../../utilities/tests/fixture';
+import { TsIconDynamic, tsIconDynamicTag } from '..';
+import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
 const dynamicIconDataUri = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
-async function setup(): Promise<Fixture<IconDynamic>> {
-    return await fixture<IconDynamic>(html`<${iconDynamicTag}></${iconDynamicTag}>`);
+async function setup(): Promise<Fixture<TsIconDynamic>> {
+    return await fixture<TsIconDynamic>(html`<${tsIconDynamicTag}></${tsIconDynamicTag}>`);
 }
 
-describe('IconDynamic', () => {
-    let element: IconDynamic;
+describe('TsIconDynamic', () => {
+    let element: TsIconDynamic;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
@@ -22,7 +22,7 @@ describe('IconDynamic', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(iconDynamicTag)).toBeInstanceOf(IconDynamic);
+        expect(document.createElement(tsIconDynamicTag)).toBeInstanceOf(TsIconDynamic);
     });
 
     it('should have an empty shadow dom', async () => {
@@ -31,19 +31,19 @@ describe('IconDynamic', () => {
     });
 
     it('should throw for invalid icon tag names', () => {
-        expect(() => IconDynamic.registerIconDynamic('awesome', dynamicIconDataUri)).toThrow();
-        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-a', dynamicIconDataUri)).toThrow();
-        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-Aaa', dynamicIconDataUri)).toThrow();
-        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-a1', dynamicIconDataUri)).toThrow();
-        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-a-', dynamicIconDataUri)).toThrow();
-        expect(() => IconDynamic.registerIconDynamic('ok-icon-dynamic-', dynamicIconDataUri)).toThrow();
+        expect(() => TsIconDynamic.registerIconDynamic('awesome', dynamicIconDataUri)).toThrow();
+        expect(() => TsIconDynamic.registerIconDynamic('ok-ts-icon-dynamic-a', dynamicIconDataUri)).toThrow();
+        expect(() => TsIconDynamic.registerIconDynamic('ok-ts-icon-dynamic-Aaa', dynamicIconDataUri)).toThrow();
+        expect(() => TsIconDynamic.registerIconDynamic('ok-ts-icon-dynamic-a1', dynamicIconDataUri)).toThrow();
+        expect(() => TsIconDynamic.registerIconDynamic('ok-ts-icon-dynamic-a-', dynamicIconDataUri)).toThrow();
+        expect(() => TsIconDynamic.registerIconDynamic('ok-ts-icon-dynamic-', dynamicIconDataUri)).toThrow();
     });
 
     it('should register a new dynamic icon tag', async () => {
         const name = 'kiwi';
-        const tagName = `ok-icon-dynamic-${name}`;
+        const tagName = `ok-ts-icon-dynamic-${name}`;
 
-        IconDynamic.registerIconDynamic(tagName, dynamicIconDataUri);
+        TsIconDynamic.registerIconDynamic(tagName, dynamicIconDataUri);
         await customElements.whenDefined(tagName);
 
         expect(customElements.get(tagName)).toBeDefined();
@@ -51,9 +51,9 @@ describe('IconDynamic', () => {
 
     it('should render an image with the registered src', async () => {
         const name = 'banana';
-        const tagName = `ok-icon-dynamic-${name}`;
+        const tagName = `ok-ts-icon-dynamic-${name}`;
 
-        IconDynamic.registerIconDynamic(tagName, dynamicIconDataUri);
+        TsIconDynamic.registerIconDynamic(tagName, dynamicIconDataUri);
         await customElements.whenDefined(tagName);
 
         const dynamicIcon = document.createElement(tagName);
@@ -69,11 +69,11 @@ describe('IconDynamic', () => {
     it('should support registering multiple dynamic icons', async () => {
         const firstName = 'apple';
         const secondName = 'orange';
-        const firstTagName = `ok-icon-dynamic-${firstName}`;
-        const secondTagName = `ok-icon-dynamic-${secondName}`;
+        const firstTagName = `ok-ts-icon-dynamic-${firstName}`;
+        const secondTagName = `ok-ts-icon-dynamic-${secondName}`;
 
-        IconDynamic.registerIconDynamic(firstTagName, dynamicIconDataUri);
-        IconDynamic.registerIconDynamic(secondTagName, dynamicIconDataUri);
+        TsIconDynamic.registerIconDynamic(firstTagName, dynamicIconDataUri);
+        TsIconDynamic.registerIconDynamic(secondTagName, dynamicIconDataUri);
 
         await Promise.all([
             customElements.whenDefined(firstTagName),
