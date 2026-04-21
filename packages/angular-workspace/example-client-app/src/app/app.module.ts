@@ -37,7 +37,6 @@ import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-m
 import { NimbleStepperModule } from '@ni/nimble-angular/stepper';
 import { NimbleStepModule } from '@ni/nimble-angular/step';
 import { NimbleAnchorStepModule } from '@ni/nimble-angular/anchor-step';
-import { OkButtonModule } from '@ni/ok-angular/button';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
 import { SprightIconWorkItemCalendarWeekDirective } from '@ni/spright-angular/icons/work-item-calendar-week';
@@ -85,7 +84,7 @@ import { TreeViewSectionComponent } from './customapp/tree-view-section.componen
 import { ChatConversationSectionComponent } from './customapp/chat-conversation-section.component';
 import { IconsSectionComponent } from './customapp/icons-section.component';
 import { RectangleSectionComponent } from './customapp/rectangle-section.component';
-import { OkButtonSectionComponent } from './customapp/ok-button-section.component';
+import { ExSectionModule } from './customapp/ex/ex-section.module';
 import { FvSectionModule } from './customapp/fv/fv-section.module';
 
 @NgModule({
@@ -129,7 +128,6 @@ import { FvSectionModule } from './customapp/fv/fv-section.module';
         ChatConversationSectionComponent,
         IconsSectionComponent,
         RectangleSectionComponent,
-        OkButtonSectionComponent,
     ],
     imports: [
         BrowserModule,
@@ -202,7 +200,7 @@ import { FvSectionModule } from './customapp/fv/fv-section.module';
         NimbleIconPencilToRectangleModule,
         NimbleIconMessagesSparkleModule,
         FvSectionModule,
-        OkButtonModule,
+        ExSectionModule,
         SprightChatConversationModule,
         SprightChatInputModule,
         SprightChatMessageInboundModule,

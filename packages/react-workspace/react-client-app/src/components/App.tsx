@@ -41,7 +41,7 @@ import { TooltipSection } from './TooltipSection';
 import { TreeViewSection } from './TreeViewSection';
 import { ChatConversationSection } from './ChatConversationSection';
 import { RectangleSection } from './RectangleSection';
-import { OkButtonSection } from './OkButtonSection';
+import { ExSection } from './Ex/ExSection';
 import { FvSection } from './Fv/FvSection';
 
 export function App(): React.JSX.Element {
@@ -111,7 +111,7 @@ export function App(): React.JSX.Element {
                                 <ChatConversationSection />
                                 <RectangleSection />
                                 <FvSection />
-                                <OkButtonSection />
+                                <ExSection />
                             </div>
                         </div>
                     </div>

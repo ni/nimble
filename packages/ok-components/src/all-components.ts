@@ -7,5 +7,5 @@
 import '@ni/spright-components/dist/esm/all-components';
 
 import './fv/all-fv';
-import './button';
+import './ex/all-ex';
 import './icon-dynamic';
