@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add welcome message for spright chat conversation",
-  "packageName": "@ni/spright-blazor",
-  "email": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
