@@ -34,7 +34,7 @@ const footerActionsDescription = `Place 0 or more controls to the left of the se
 
 The buttons should have the \`ghost\` appearance and \`content-hidden\`.
 
-Select controls should have the \`outline\` appearance.
+Select controls should have the \`underline\` appearance.
 
 Spright will set the height of the controls to \`$ni-nimble-control-slim-height\`.
 `;
@@ -73,7 +73,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
                     <${iconAddTag} slot="start"></${iconAddTag}>
                     Attach
                 </${buttonTag}>
-                <${selectTag} slot="footer-actions" title="Worker of the Week">
+                <${selectTag} appearance="underline" slot="footer-actions" title="Worker of the Week">
                     <${listOptionTag} value="option1">Inanimate Carbon Rod</${listOptionTag}>
                     <${listOptionTag} value="option2">Homer Simpson</${listOptionTag}>
                 </${selectTag}>

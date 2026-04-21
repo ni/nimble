@@ -6,6 +6,8 @@ import {
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { iconAddTag } from '@ni/nimble-components/dist/esm/icons/add';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import {
@@ -139,6 +141,10 @@ export const slottedContent: StoryFn = createMatrixThemeStory(
                 <${iconAddTag} slot="start"></${iconAddTag}>
                 Attach
             </${buttonTag}>
+            <${selectTag} appearance="underline" slot="footer-actions" title="Worker of the Week">
+                <${listOptionTag} value="option1">Inanimate Carbon Rod</${listOptionTag}>
+                <${listOptionTag} value="option2">Homer Simpson</${listOptionTag}>
+            </${selectTag}>
         </${chatInputTag}>
     `
 );
