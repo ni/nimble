@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-components",
-  "version": "0.4.4",
+  "version": "1.0.0",
   "description": "NI Ok Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",

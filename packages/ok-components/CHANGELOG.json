@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 21 Apr 2026 14:27:32 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/ok-components_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "2479cd5030554576e4a251c457f8a764e637cdb8",
+            "comment": "Rename to ok-ts-icon-dynamic. Note: dynamic icon registration prefix also updated to ok-ts-icon-dynamic-"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Apr 2026 04:58:19 GMT",
       "version": "0.4.4",
       "tag": "@ni/ok-components_v0.4.4",
