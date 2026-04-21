@@ -263,7 +263,7 @@ const components = [
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
-        componentName: 'FV Accordion Item',
+        componentName: 'Fv Accordion Item',
         componentHref: './?path=/docs/ok-fv-accordion-item--docs',
         designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=4618-64645',
         designLabel: 'Figma',
@@ -286,8 +286,8 @@ const components = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
-        componentName: 'Icon Dynamic',
-        componentHref: './?path=/docs/ok-icon-dynamic--docs',
+        componentName: 'Ts Icon Dynamic',
+        componentHref: './?path=/docs/ok-ts-icon-dynamic--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
