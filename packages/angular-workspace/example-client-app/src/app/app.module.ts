@@ -127,7 +127,7 @@ import { FvSectionModule } from './customapp/fv/fv-section.module';
         TreeViewSectionComponent,
         ChatConversationSectionComponent,
         IconsSectionComponent,
-        RectangleSectionComponent
+        RectangleSectionComponent,
     ],
     imports: [
         BrowserModule,
