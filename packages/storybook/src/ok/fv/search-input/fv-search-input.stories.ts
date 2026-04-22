@@ -13,7 +13,7 @@ import {
     createUserSelectedThemeStory,
     okWarning,
     placeholderDescription
-} from '../../utilities/storybook';
+} from '../../../utilities/storybook';
 
 interface SearchInputArgs {
     appearance: FvSearchInputAppearance;

@@ -11,7 +11,7 @@ import {
     createMatrixInteractionsFromStates,
     createMatrixThemeStory,
     sharedMatrixParameters
-} from '../../utilities/matrix';
+} from '../../../utilities/matrix';
 
 const metadata: Meta = {
     title: 'Tests Ok/Fv Search Input',
