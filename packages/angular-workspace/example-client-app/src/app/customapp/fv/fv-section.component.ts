@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'example-fv-section',
     template: `
         <example-fv-accordion-item-section></example-fv-accordion-item-section>
-        <example-ok-fv-search-input-section></example-ok-fv-search-input-section>
+        <example-fv-search-input-section></example-fv-search-input-section>
     `,
     standalone: false
 })

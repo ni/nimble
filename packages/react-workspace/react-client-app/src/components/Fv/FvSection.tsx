@@ -1,11 +1,11 @@
 import { FvAccordionItemSection } from './FvAccordionItemSection';
-import { OkFvSearchInputSection } from '../OkFvSearchInputSection';
+import { FvSearchInputSection } from './FvSearchInputSection';
 
 export function FvSection(): React.JSX.Element {
     return (
         <>
             <FvAccordionItemSection></FvAccordionItemSection>
-            <OkFvSearchInputSection></OkFvSearchInputSection>
+            <FvSearchInputSection></FvSearchInputSection>
         </>
     );
 }

@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "feat: add OK FV search-input",
+  "comment": "feat: add Ok Fv Search Input",
   "packageName": "@ni/ok-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"

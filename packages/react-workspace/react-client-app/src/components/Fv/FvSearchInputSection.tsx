@@ -1,9 +1,9 @@
 import { OkFvSearchInput } from '@ni/ok-react/fv/search-input';
-import { SubContainer } from './SubContainer';
+import { SubContainer } from '../SubContainer';
 
-export function OkFvSearchInputSection(): React.JSX.Element {
+export function FvSearchInputSection(): React.JSX.Element {
     return (
-        <SubContainer label="FV Search Input (Ok)">
+        <SubContainer label="Fv Search Input (Ok)">
             <OkFvSearchInput
                 appearance="underline"
                 placeholder="Search assets"

@@ -274,7 +274,7 @@ const components = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
-        componentName: 'FV Search Input',
+        componentName: 'Fv Search Input',
         componentHref: './?path=/docs/ok-fv-search-input--docs',
         designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1453-32903',
         designLabel: 'Figma',

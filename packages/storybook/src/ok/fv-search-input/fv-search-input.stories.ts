@@ -29,7 +29,7 @@ const searchInputContentStyle = `
 `;
 
 const metadata: Meta<SearchInputArgs> = {
-    title: 'Ok/FV Search Input',
+    title: 'Ok/Fv Search Input',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
@@ -38,7 +38,7 @@ const metadata: Meta<SearchInputArgs> = {
     },
     render: createUserSelectedThemeStory(html<SearchInputArgs>`
         ${okWarning({
-            componentName: 'FV search input',
+            componentName: 'Fv Search Input',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
         <div style="width: 320px; padding: 16px; ${searchInputContentStyle}">
@@ -51,17 +51,17 @@ const metadata: Meta<SearchInputArgs> = {
     `),
     argTypes: {
         appearance: {
-            description: appearanceDescription({ componentName: 'FV search input' }),
+            description: appearanceDescription({ componentName: 'Fv Search Input' }),
             options: Object.values(FvSearchInputAppearance),
             control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
         placeholder: {
-            description: placeholderDescription({ componentName: 'FV search input' }),
+            description: placeholderDescription({ componentName: 'Fv Search Input' }),
             table: { category: apiCategory.attributes }
         },
         value: {
-            description: 'The current text rendered in the FV search input.',
+            description: 'The current text rendered in the Fv Search Input.',
             table: { category: apiCategory.attributes }
         },
         input: {
@@ -83,5 +83,5 @@ const metadata: Meta<SearchInputArgs> = {
 export default metadata;
 
 export const defaultStory: StoryObj<SearchInputArgs> = {
-    name: 'FV Search Input'
+    name: 'Fv Search Input'
 };

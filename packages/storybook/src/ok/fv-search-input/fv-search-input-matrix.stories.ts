@@ -14,7 +14,7 @@ import {
 } from '../../utilities/matrix';
 
 const metadata: Meta = {
-    title: 'Tests Ok/FV Search Input',
+    title: 'Tests Ok/Fv Search Input',
     parameters: {
         ...sharedMatrixParameters()
     }
