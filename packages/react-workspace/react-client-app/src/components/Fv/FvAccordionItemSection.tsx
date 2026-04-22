@@ -3,7 +3,7 @@ import { SubContainer } from '../SubContainer';
 
 export function FvAccordionItemSection(): React.JSX.Element {
     return (
-        <SubContainer label="Accordion Item (Ok)">
+        <SubContainer label="Fv Accordion Item (Ok)">
             <OkFvAccordionItem header="Asset details" expanded>
                 Calibration assets can expose operator-facing status, location, and ownership details.
             </OkFvAccordionItem>
