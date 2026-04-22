@@ -1,8 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { type FvSearchInput, fvSearchInputTag } from '@ni/ok-components/dist/esm/fv-search-input';
-import { FvSearchInputAppearance } from '@ni/ok-components/dist/esm/fv-search-input/types';
-import { FvSearchInputPageObject } from '@ni/ok-components/dist/esm/fv-search-input/testing/fv-search-input.pageobject';
+import { type FvSearchInput, fvSearchInputTag } from '@ni/ok-components/dist/esm/fv/search-input';
+import { FvSearchInputAppearance } from '@ni/ok-components/dist/esm/fv/search-input/types';
+import { FvSearchInputPageObject } from '@ni/ok-components/dist/esm/fv/search-input/testing/fv-search-input.pageobject';
 import {
     bodyFont,
     bodyFontColor

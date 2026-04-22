@@ -1,8 +1,8 @@
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
 import { html } from '@ni/fast-element';
-import { fvSearchInputTag } from '@ni/ok-components/dist/esm/fv-search-input';
-import { FvSearchInputAppearance } from '@ni/ok-components/dist/esm/fv-search-input/types';
+import { fvSearchInputTag } from '@ni/ok-components/dist/esm/fv/search-input';
+import { FvSearchInputAppearance } from '@ni/ok-components/dist/esm/fv/search-input/types';
 import {
     bodyFont,
     bodyFontColor

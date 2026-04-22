@@ -1,6 +1,6 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { fixture, type Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { FvSearchInput, fvSearchInputTag } from '..';
 import { FvSearchInputAppearance } from '../types';
 import { FvSearchInputPageObject } from '../testing/fv-search-input.pageobject';

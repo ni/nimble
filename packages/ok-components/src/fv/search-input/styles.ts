@@ -15,7 +15,7 @@ import {
     smallDelay,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { display } from '../utilities/style/display';
+import { display } from '../../utilities/style/display';
 
 export const styles = css`
     ${display('inline-block')}

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { FvSearchInput } from '@ni/ok-components/dist/esm/fv-search-input';
-import { fvSearchInputTag } from '@ni/ok-components/dist/esm/fv-search-input';
-import { FvSearchInputAppearance } from '@ni/ok-components/dist/esm/fv-search-input/types';
+import type { FvSearchInput } from '@ni/ok-components/dist/esm/fv/search-input';
+import { fvSearchInputTag } from '@ni/ok-components/dist/esm/fv/search-input';
+import { FvSearchInputAppearance } from '@ni/ok-components/dist/esm/fv/search-input/types';
 
 export type { FvSearchInput };
 export { fvSearchInputTag };
