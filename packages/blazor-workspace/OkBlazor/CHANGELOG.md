@@ -1,8 +1,25 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Tue, 21 Apr 2026 04:58:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 21 Apr 2026 19:47:00 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.1
+
+Tue, 21 Apr 2026 19:47:00 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.0.1
+
+## 1.0.0
+
+Tue, 21 Apr 2026 14:27:32 GMT
+
+### Major changes
+
+- Rename to ok-ts-icon-dynamic. Note: dynamic icon registration prefix also updated to ok-ts-icon-dynamic- ([ni/nimble@2479cd5](https://github.com/ni/nimble/commit/2479cd5030554576e4a251c457f8a764e637cdb8))
+- Bump @ni/ok-components to v1.0.0
 
 ## 0.5.5
 

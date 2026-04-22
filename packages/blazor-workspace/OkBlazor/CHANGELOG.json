@@ -2,6 +2,42 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Tue, 21 Apr 2026 19:47:00 GMT",
+      "version": "1.0.1",
+      "tag": "@ni/ok-blazor_v1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Apr 2026 14:27:32 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/ok-blazor_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "2479cd5030554576e4a251c457f8a764e637cdb8",
+            "comment": "Rename to ok-ts-icon-dynamic. Note: dynamic icon registration prefix also updated to ok-ts-icon-dynamic-"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Apr 2026 04:58:19 GMT",
       "version": "0.5.5",
       "tag": "@ni/ok-blazor_v0.5.5",
