@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { type FvSearchInput, FvSearchInputAppearance, OkFvSearchInputDirective } from '../fv-search-input.directive';
-import { OkFvSearchInputModule } from '../fv-search-input.module';
+import { type FvSearchInput, FvSearchInputAppearance, OkFvSearchInputDirective } from '../ok-fv-search-input.directive';
+import { OkFvSearchInputModule } from '../ok-fv-search-input.module';
 
 describe('Ok FV search input', () => {
     describe('module', () => {

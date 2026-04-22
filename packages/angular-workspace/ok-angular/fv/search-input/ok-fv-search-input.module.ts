@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OkFvSearchInputDirective } from './fv-search-input.directive';
+import { OkFvSearchInputDirective } from './ok-fv-search-input.directive';
 
 import '@ni/ok-components/dist/esm/fv-search-input';
 
