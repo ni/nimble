@@ -48,6 +48,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NimbleBlazor\NimbleBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
