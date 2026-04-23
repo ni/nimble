@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Tue, 21 Apr 2026 19:47:00 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 22 Apr 2026 19:38:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.12.2
+
+Wed, 22 Apr 2026 19:38:49 GMT
+
+### Patches
+
+- Blazor chat message welcome project organization ([ni/nimble@cfd38c0](https://github.com/ni/nimble/commit/cfd38c0ce1480a52731bfec197eb15b37114cbc3))
 
 ## 4.12.1
 
