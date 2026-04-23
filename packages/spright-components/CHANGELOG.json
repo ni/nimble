@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 21 Apr 2026 19:47:00 GMT",
+      "version": "6.17.0",
+      "tag": "@ni/spright-components_v6.17.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "ead5be103d14e946bff31bfa222c168e966fca88",
+            "comment": "add footer-actions and attachments slots"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2026 22:42:19 GMT",
       "version": "6.16.0",
       "tag": "@ni/spright-components_v6.16.0",
