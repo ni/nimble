@@ -276,7 +276,8 @@
       "sprightblazor": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[8.0.25, )"
+          "Microsoft.AspNetCore.Components.Web": "[8.0.25, )",
+          "NimbleBlazor": "[1.0.0, )"
         }
       }
     }
