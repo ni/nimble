@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Thu, 23 Apr 2026 15:58:53 GMT",
+      "version": "4.13.0",
+      "tag": "@ni/spright-blazor_v4.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "9f6c8ee156880eb2cf988e34195d8c3073c1748a",
+            "comment": "Add wrapper for nigel chat icon."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Apr 2026 19:38:49 GMT",
       "version": "4.12.2",
       "tag": "@ni/spright-blazor_v4.12.2",

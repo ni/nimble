@@ -2,6 +2,21 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Thu, 23 Apr 2026 15:58:53 GMT",
+      "version": "0.12.0",
+      "tag": "@ni/spright-react_v0.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-react",
+            "commit": "9f6c8ee156880eb2cf988e34195d8c3073c1748a",
+            "comment": "Add wrapper for nigel chat icon."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Apr 2026 19:47:00 GMT",
       "version": "0.11.1",
       "tag": "@ni/spright-react_v0.11.1",

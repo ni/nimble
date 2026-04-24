@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Wed, 22 Apr 2026 19:38:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 23 Apr 2026 15:58:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.13.0
+
+Thu, 23 Apr 2026 15:58:53 GMT
+
+### Minor changes
+
+- Add wrapper for nigel chat icon. ([ni/nimble@9f6c8ee](https://github.com/ni/nimble/commit/9f6c8ee156880eb2cf988e34195d8c3073c1748a))
 
 ## 4.12.2
 
