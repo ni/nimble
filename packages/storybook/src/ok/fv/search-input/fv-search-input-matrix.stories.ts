@@ -47,7 +47,7 @@ const searchField = (
         <${fvSearchInputTag}
             appearance="${() => FvSearchInputAppearance[appearance]}"
             placeholder="Search..."
-            style="width: 124px; --ok-search-input-height: 32px;"
+            style="width: 124px; height: 32px;"
         ></${fvSearchInputTag}>
     </div>
 `;
@@ -69,7 +69,7 @@ export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
                 <${fvSearchInputTag}
                     appearance="${() => FvSearchInputAppearance[appearance]}"
                     placeholder="Search..."
-                    style="width: 124px; --ok-search-input-height: 32px;"
+                    style="width: 124px; height: 32px;"
                 ></${fvSearchInputTag}>
             </div>
         `,

@@ -24,7 +24,6 @@ export const styles = css`
         ${display('inline-block')}
 
         :host {
-            --ok-search-input-height: ${controlHeight};
             --ni-private-fv-search-input-inline-padding: ${standardPadding};
             --ni-private-fv-search-input-leading-inset: ${mediumPadding};
             --ni-private-fv-search-input-leading-space: calc(var(--ni-private-fv-search-input-leading-inset) + ${iconSize} + ${smallPadding});
@@ -32,6 +31,7 @@ export const styles = css`
             --ni-private-fv-search-input-border-color: rgba(${borderRgbPartialColor}, 0.3);
             --ni-private-fv-search-input-border-radius: 0px;
             min-width: 120px;
+            height: ${controlHeight};
             font: ${bodyFont};
             color: ${bodyFontColor};
         }
@@ -41,7 +41,7 @@ export const styles = css`
             display: flex;
             align-items: center;
             width: 100%;
-            height: var(--ok-search-input-height);
+            height: 100%;
             border: ${borderWidth} solid transparent;
             border-radius: var(--ni-private-fv-search-input-border-radius);
             color: inherit;
@@ -110,8 +110,8 @@ export const styles = css`
             justify-content: center;
             top: 50%;
             inset-inline-end: 2px;
-            width: calc(var(--ok-search-input-height) - 6px);
-            height: calc(var(--ok-search-input-height) - 6px);
+            height: calc(100% - 6px);
+            aspect-ratio: 1;
             padding: 0;
             transform: translateY(-50%);
             color: ${placeholderFontColor};
