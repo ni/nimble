@@ -71,7 +71,9 @@ const metadata: Meta<ChipArgs> = {
         selected: {
             name: 'selected',
             description: 'Whether the chip is selected. Only affects selectable chips.',
+            control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
+        },
         size: {
             name: 'Chip sizing',
             description:

@@ -76,6 +76,10 @@ export class Chip extends FoundationElement {
     }
 
     /** @internal */
+    @observable
+    public removeButtonTabIndex: string | null = null;
+
+    /** @internal */
     public contentSlot!: HTMLSlotElement;
 
     private managingTabIndex = false;
@@ -216,6 +220,7 @@ export class Chip extends FoundationElement {
         }
 
         this.managingTabIndex = false;
+        this.updateRemoveButtonTabIndex();
     }
 
     private updateManagedTabIndex(): void {
@@ -232,6 +237,8 @@ export class Chip extends FoundationElement {
         } else {
             this.removeManagedTabIndex();
         }
+
+        this.updateRemoveButtonTabIndex();
     }
 
     private setManagedTabIndex(value: number): void {
@@ -248,6 +255,12 @@ export class Chip extends FoundationElement {
         this.managingTabIndex = false;
         this.suppressTabIndexChanged = true;
         this.removeAttribute('tabindex');
+    }
+
+    private updateRemoveButtonTabIndex(): void {
+        this.removeButtonTabIndex = this.selectable
+            ? '-1'
+            : (this.hasAttribute('tabindex') ? `${this.tabIndex}` : null);
     }
 }
 applyMixins(Chip, StartEnd);

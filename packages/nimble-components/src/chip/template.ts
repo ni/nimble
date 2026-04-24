@@ -40,7 +40,7 @@ ChipOptions
                 class="remove-button"
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
-                tabindex="${x => (x.selectable ? '-1' : x.tabIndex)}"
+                tabindex="${x => x.removeButtonTabIndex}"
                 @mousedown="${(x, c) => x.handleRemoveMousedown(c.event as MouseEvent)}"
                 @click="${(x, c) => x.handleRemoveClick(c.event as MouseEvent)}"
                 @keyup="${(x, c) => x.handleRemoveKeyup(c.event as KeyboardEvent)}"

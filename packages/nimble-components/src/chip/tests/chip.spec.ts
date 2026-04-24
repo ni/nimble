@@ -203,6 +203,14 @@ describe('Chip', () => {
         expect(pageObject.getRemoveButtonTabIndex()).toBe('-1');
     });
 
+    it('keeps the remove button keyboard focusable by default when chip is not selectable', async () => {
+        element.removable = true;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+
+        expect(pageObject.getRemoveButtonTabIndex()).toBeNull();
+    });
+
     it('should reflect `tabindex` value to the internal button when chip is not selectable', async () => {
         element.removable = true;
         await waitForUpdatesAsync();
