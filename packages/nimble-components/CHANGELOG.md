@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 09 Apr 2026 19:17:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 20 Apr 2026 16:30:31 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.6.1
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Avoid prevent default on step click ([ni/nimble@e8e9d5f](https://github.com/ni/nimble/commit/e8e9d5f01c00596d618e681e54967a0bfd0c6fa0))
+
+## 35.6.0
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Minor changes
+
+- add blazor and react wrapper for nimble chip ([ni/nimble@33a1e34](https://github.com/ni/nimble/commit/33a1e3439a9e6d9cab07704921bfc2a4c5658a9e))
+
+## 35.5.8
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Update label provider core for stepper labels ([ni/nimble@8d8d724](https://github.com/ni/nimble/commit/8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4))
+
+## 35.5.7
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Update fast dependency to fix view bug in Firefox ([ni/nimble@c2354bd](https://github.com/ni/nimble/commit/c2354bd5a997f90670c66a7c97d7e858607d2000))
 
 ## 35.5.6
 

@@ -2,6 +2,117 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Thu, 23 Apr 2026 15:58:53 GMT",
+      "version": "0.12.0",
+      "tag": "@ni/spright-react_v0.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-react",
+            "commit": "9f6c8ee156880eb2cf988e34195d8c3073c1748a",
+            "comment": "Add wrapper for nigel chat icon."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Apr 2026 19:47:00 GMT",
+      "version": "0.11.1",
+      "tag": "@ni/spright-react_v0.11.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.17.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Apr 2026 22:42:19 GMT",
+      "version": "0.11.0",
+      "tag": "@ni/spright-react_v0.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-react",
+            "commit": "f7e4581eb131183f6ebccd9f6337b1f54eb9be8f",
+            "comment": "Add welcome message for spright chat conversation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.16.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Apr 2026 16:30:31 GMT",
+      "version": "0.10.33",
+      "tag": "@ni/spright-react_v0.10.33",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.15.9",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Apr 2026 19:52:21 GMT",
+      "version": "0.10.32",
+      "tag": "@ni/spright-react_v0.10.32",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.15.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Apr 2026 19:06:54 GMT",
+      "version": "0.10.31",
+      "tag": "@ni/spright-react_v0.10.31",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.15.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Apr 2026 20:31:57 GMT",
+      "version": "0.10.30",
+      "tag": "@ni/spright-react_v0.10.30",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.15.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Apr 2026 19:17:36 GMT",
       "version": "0.10.29",
       "tag": "@ni/spright-react_v0.10.29",

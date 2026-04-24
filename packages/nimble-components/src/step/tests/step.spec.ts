@@ -66,6 +66,8 @@ describe('Step', () => {
 
             pageObject.click();
             expect(stepClicked.calls.count()).toEqual(1);
+            const event = stepClicked.calls.first().args[0] as Event;
+            expect(event.defaultPrevented).toEqual(false);
         });
 
         it('should not fire when disabled', async () => {

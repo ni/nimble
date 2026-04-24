@@ -3,6 +3,7 @@ import type { AnchorBase } from '@ni/nimble-components/dist/esm/anchor-base';
 
 /**
  * Base class for directives providing link attributes.
+ * @internal
  */
 @Directive()
 export class NimbleAnchorBaseDirective<T extends AnchorBase> {

@@ -131,3 +131,5 @@ packages/nimble-blazor
 
 .turbo
 rollup.config-*.cjs
+
+.agents/

@@ -1,8 +1,57 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Thu, 09 Apr 2026 19:17:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 21 Apr 2026 19:47:00 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 9.1.1
+
+Tue, 21 Apr 2026 19:47:00 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.0
+
+## 9.1.0
+
+Mon, 20 Apr 2026 22:42:19 GMT
+
+### Minor changes
+
+- Add welcome message for spright chat conversation ([ni/nimble@f7e4581](https://github.com/ni/nimble/commit/f7e4581eb131183f6ebccd9f6337b1f54eb9be8f))
+- Bump @ni/spright-components to v6.16.0
+
+## 9.0.11
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.9
+
+## 9.0.10
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.8
+
+## 9.0.9
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.7
+
+## 9.0.8
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.6
 
 ## 9.0.7
 

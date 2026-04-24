@@ -1,8 +1,65 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Thu, 09 Apr 2026 19:17:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 23 Apr 2026 15:58:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.12.0
+
+Thu, 23 Apr 2026 15:58:53 GMT
+
+### Minor changes
+
+- Add wrapper for nigel chat icon. ([ni/nimble@9f6c8ee](https://github.com/ni/nimble/commit/9f6c8ee156880eb2cf988e34195d8c3073c1748a))
+
+## 0.11.1
+
+Tue, 21 Apr 2026 19:47:00 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.0
+
+## 0.11.0
+
+Mon, 20 Apr 2026 22:42:19 GMT
+
+### Minor changes
+
+- Add welcome message for spright chat conversation ([ni/nimble@f7e4581](https://github.com/ni/nimble/commit/f7e4581eb131183f6ebccd9f6337b1f54eb9be8f))
+- Bump @ni/spright-components to v6.16.0
+
+## 0.10.33
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.9
+
+## 0.10.32
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.8
+
+## 0.10.31
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.7
+
+## 0.10.30
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.6
 
 ## 0.10.29
 

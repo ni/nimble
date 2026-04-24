@@ -2,6 +2,7 @@
 NimbleBlazor/wwwroot/nimble-tokens/
 NimbleBlazor/wwwroot/nimble-components/
 NimbleBlazor/wwwroot/NimbleBlazor.HybridWorkaround.js
+NimbleBlazor/Source/Icons/
 NimbleBlazor/Components/Icons/
 NimbleBlazor/NuGetFiles/files/
 SprightBlazor/wwwroot/nimble-tokens/
@@ -11,7 +12,7 @@ OkBlazor/wwwroot/nimble-tokens/
 OkBlazor/wwwroot/ok-components/
 OkBlazor/wwwroot/OkBlazor.HybridWorkaround.js
 Examples/Demo.Shared/NimbleDesignTokens/
-Examples/Demo.Shared/Pages/*.css
+Examples/Demo.Shared/Pages/**/*.css
 Examples/Demo.Shared/Shared/*.css
 Examples/Demo.Client/wwwroot/css/*.css
 Examples/Demo.Server/wwwroot/css/*.css

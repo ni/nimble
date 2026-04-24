@@ -5,7 +5,8 @@ import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import {
     controlLabelFont,
-    controlLabelFontColor
+    controlLabelFontColor,
+    controlSlimHeight
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     createMatrix,
@@ -22,6 +23,12 @@ const appearanceStates = [
     ['Block', ChipAppearance.block]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
+
+const sizeStates = [
+    ['Default height', ''],
+    ['Small height', `height: var(${controlSlimHeight.cssCustomProperty})`]
+] as const;
+type SizeState = (typeof sizeStates)[number];
 
 const removableStates = [
     ['Removable', true],
@@ -77,6 +84,7 @@ export default metadata;
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
+    [sizeName, size]: SizeState,
     [removableName, removable]: RemovableStates,
     [showStartSlotIconName, showStartSlotIcon]: ShowStartSlotIconState,
     [labelName, label]: LabelState,
@@ -86,7 +94,7 @@ const component = (
 ): ViewTemplate => html`
     <div style="display: flex; flex-direction: column;">
         <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
-            ${appearanceName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${selectableName}, ${selectedName}, ${disabledName ? `(${disabledName})` : ''} 
+            ${appearanceName}, ${sizeName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${selectableName}, ${selectedName}, ${disabledName ? `(${disabledName})` : ''}
         </label> 
         <${chipTag}
             appearance="${() => appearance}"
@@ -94,7 +102,7 @@ const component = (
             ?disabled=${() => disabled}
             ?selectable="${() => selectable}"
             ?selected=${() => selected}
-            style="margin-right: 8px; margin-bottom: 8px; ${() => width};">
+            style="margin-right: 8px; margin-bottom: 8px; ${() => width}; ${() => size};">
                 ${when(() => showStartSlotIcon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
                 ${label}
         </${chipTag}>
@@ -105,6 +113,7 @@ const createThemeMatrix = (selectableState: SelectableState): StoryFn => createM
     createMatrix(component, [
         disabledStates,
         appearanceStates,
+        sizeStates,
         removableStates,
         showStartSlotIconStates,
         labelStates,
@@ -118,6 +127,7 @@ const createSelectableThemeMatrix = (selectedState: SelectedState): StoryFn => c
     createMatrix(component, [
         disabledStates,
         appearanceStates,
+        sizeStates,
         removableStates,
         showStartSlotIconStates,
         labelStates,
@@ -140,6 +150,7 @@ export const selectableSelectedThemeMatrix: StoryFn = createSelectableThemeMatri
 const interactionStates = cartesianProduct([
     disabledStates,
     appearanceStates,
+    sizeStates,
     removableStates,
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],
@@ -151,6 +162,7 @@ const interactionStates = cartesianProduct([
 const interactionStatesHover = cartesianProduct([
     disabledStates,
     appearanceStates,
+    sizeStates,
     removableStates,
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],

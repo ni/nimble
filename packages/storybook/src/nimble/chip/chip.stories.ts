@@ -4,6 +4,14 @@ import { withActions } from 'storybook/actions/decorator';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import {
+    controlSlimHeight
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import {
+    scssPropertyFromTokenName,
+    scssPropertySetterMarkdown,
+    tokenNames
+} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
+import {
     apiCategory,
     appearanceDescription,
     createUserSelectedThemeStory,
@@ -11,10 +19,16 @@ import {
     disableStorybookZoomTransform
 } from '../../utilities/storybook';
 
+const chipSize = {
+    default: null,
+    small: `height: var(${controlSlimHeight.cssCustomProperty});`
+} as const;
+
 interface ChipArgs {
     appearance: keyof typeof ChipAppearance;
     selectable: boolean;
     selected: boolean;
+    size: keyof typeof chipSize;
     removable: boolean;
     content: string;
     icon: boolean;
@@ -29,6 +43,7 @@ const metadata: Meta<ChipArgs> = {
     ${disableStorybookZoomTransform}
         <${chipTag}
             appearance="${x => x.appearance}"
+            style="${x => chipSize[x.size]}"
             ?selectable="${x => x.selectable}"
             ?selected="${x => x.selected}"
             ?removable="${x => x.removable}"
@@ -57,6 +72,33 @@ const metadata: Meta<ChipArgs> = {
             name: 'selected',
             description: 'Whether the chip is selected. Only affects selectable chips.',
             table: { category: apiCategory.attributes }
+        size: {
+            name: 'Chip sizing',
+            description:
+                '<p>Size of the chip component.</p><details><summary>Usage details</summary>To customize its size, set its CSS '
+                + '<span style="font-family: monospace;">height</span> to a design token.<br/><ul>'
+                + `<li>For Default (32px): No additional styling needed (uses <span style="font-family: monospace;">${scssPropertyFromTokenName(
+                    tokenNames.controlHeight
+                )}</span>).
+                </li>`
+                + `<li>For Small (24px): ${scssPropertySetterMarkdown(
+                    tokenNames.controlSlimHeight,
+                    'height'
+                )}
+                </li></ul></details>`,
+            options: Object.keys(chipSize),
+            table: { category: apiCategory.styles },
+            control: {
+                type: 'radio',
+                labels: {
+                    default: `Default - 32px - ${scssPropertyFromTokenName(
+                        tokenNames.controlHeight
+                    )}`,
+                    small: `Small - 24px - ${scssPropertyFromTokenName(
+                        tokenNames.controlSlimHeight
+                    )}`
+                }
+            }
         },
         removable: {
             name: 'removable',
@@ -96,6 +138,7 @@ const metadata: Meta<ChipArgs> = {
         appearance: 'outline',
         selectable: false,
         selected: false,
+        size: 'default',
         removable: false,
         content: 'Homer Simpson',
         icon: false,
