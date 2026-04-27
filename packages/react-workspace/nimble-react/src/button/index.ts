@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { wrap } from '../utilities/react-wrapper';
 

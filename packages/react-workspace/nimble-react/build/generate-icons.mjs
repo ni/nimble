@@ -39,7 +39,9 @@ for (const key of Object.keys(icons)) {
 
     fileCount += 1;
 
-    const iconReactWrapperContent = `${generatedFilePrefix}
+    const iconReactWrapperContent = `'use client';
+
+${generatedFilePrefix}
 import { ${className}, ${tagName} } from '@ni/nimble-components/dist/esm/icons/${fileName}';
 import { wrap } from '../../utilities/react-wrapper';
 

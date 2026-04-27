@@ -1,3 +1,5 @@
+'use client';
+
 import { Radio, radioTag } from '@ni/nimble-components/dist/esm/radio';
 import { wrap } from '../utilities/react-wrapper';
 

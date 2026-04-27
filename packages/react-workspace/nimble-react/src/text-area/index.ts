@@ -1,3 +1,5 @@
+'use client';
+
 import { TextArea, textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 

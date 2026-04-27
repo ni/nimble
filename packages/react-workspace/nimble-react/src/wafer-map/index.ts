@@ -1,3 +1,5 @@
+'use client';
+
 import { WaferMap, waferMapTag } from '@ni/nimble-components/dist/esm/wafer-map';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 

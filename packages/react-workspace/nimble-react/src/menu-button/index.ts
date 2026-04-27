@@ -1,3 +1,5 @@
+'use client';
+
 import { MenuButton, menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import type { MenuButtonToggleEventDetail } from '@ni/nimble-components/dist/esm/menu-button/types';
 import { wrap, type EventName } from '../utilities/react-wrapper';
