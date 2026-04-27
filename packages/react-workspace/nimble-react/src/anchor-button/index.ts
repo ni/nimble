@@ -1,3 +1,5 @@
+'use client';
+
 import { AnchorButton, anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { wrap } from '../utilities/react-wrapper';
 

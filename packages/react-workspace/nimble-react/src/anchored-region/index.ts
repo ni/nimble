@@ -1,3 +1,5 @@
+'use client';
+
 import { AnchoredRegion, anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import { wrap } from '../utilities/react-wrapper';
 

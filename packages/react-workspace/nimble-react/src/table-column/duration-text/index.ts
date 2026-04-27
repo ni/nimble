@@ -1,3 +1,5 @@
+'use client';
+
 import { TableColumnDurationText, tableColumnDurationTextTag } from '@ni/nimble-components/dist/esm/table-column/duration-text';
 import { wrap } from '../../utilities/react-wrapper';
 
