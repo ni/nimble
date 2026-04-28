@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "feat: add Ok Fv Search Input Blazor wrapper",
+  "packageName": "@ni/ok-blazor",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
