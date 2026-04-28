@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 28 Apr 2026 14:27:06 GMT",
+      "version": "1.1.0",
+      "tag": "@ni/ok-components_v1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "eb9e67b30b075f0f53a39d69fe39bf866b9cf81f",
+            "comment": "feat: add Ok Fv Search Input"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Apr 2026 19:47:00 GMT",
       "version": "1.0.1",
       "tag": "@ni/ok-components_v1.0.1",

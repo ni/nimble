@@ -2,6 +2,27 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Tue, 28 Apr 2026 14:27:06 GMT",
+      "version": "0.8.0",
+      "tag": "@ni/ok-react_v0.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "eb9e67b30b075f0f53a39d69fe39bf866b9cf81f",
+            "comment": "feat: add Ok Fv Search Input React wrapper"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Apr 2026 17:29:26 GMT",
       "version": "0.7.7",
       "tag": "@ni/ok-react_v0.7.7",

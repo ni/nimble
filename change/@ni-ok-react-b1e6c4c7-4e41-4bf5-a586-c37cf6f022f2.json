@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "feat: add Ok Fv Search Input React wrapper",
-  "packageName": "@ni/ok-react",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
