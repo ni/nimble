@@ -1,3 +1,5 @@
+'use client';
+
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import type {
     TableActionMenuToggleEventDetail,

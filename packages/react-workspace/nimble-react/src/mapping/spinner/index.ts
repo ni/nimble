@@ -1,3 +1,5 @@
+'use client';
+
 import { MappingSpinner, mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinner';
 import { wrap } from '../../utilities/react-wrapper';
 

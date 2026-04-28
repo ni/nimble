@@ -1,3 +1,5 @@
+'use client';
+
 import { TabsToolbar, tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
 import { wrap } from '../utilities/react-wrapper';
 

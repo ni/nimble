@@ -1,3 +1,5 @@
+'use client';
+
 import { Combobox, comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 

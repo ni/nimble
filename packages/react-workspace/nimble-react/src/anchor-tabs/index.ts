@@ -1,3 +1,5 @@
+'use client';
+
 import { AnchorTabs, anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
 import { wrap } from '../utilities/react-wrapper';
 

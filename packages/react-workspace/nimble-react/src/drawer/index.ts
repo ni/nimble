@@ -1,3 +1,5 @@
+'use client';
+
 import { Drawer, UserDismissed as DrawerUserDismissed, drawerTag } from '@ni/nimble-components/dist/esm/drawer';
 import { DrawerLocation } from '@ni/nimble-components/dist/esm/drawer/types';
 import type { RefAttributes, RefObject } from 'react';
