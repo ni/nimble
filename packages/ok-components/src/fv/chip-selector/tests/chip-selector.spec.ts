@@ -1,0 +1,221 @@
+import { html } from '@ni/fast-element';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { chipTag } from '@ni/nimble-components/dist/esm/chip';
+import { fixture, type Fixture } from '../../../utilities/tests/fixture';
+import { FvChipSelector, fvChipSelectorTag } from '..';
+
+async function setup(): Promise<Fixture<FvChipSelector>> {
+    return await fixture<FvChipSelector>(html`
+        <${fvChipSelectorTag}
+            label="Status"
+            options="Active,Paused,Error,Maintenance due"
+        ></${fvChipSelectorTag}>
+    `);
+}
+
+describe('FvChipSelector', () => {
+    let element: FvChipSelector;
+    let connect: () => Promise<void>;
+    let disconnect: (() => Promise<void>) | undefined;
+
+    afterEach(async () => {
+        await disconnect?.();
+        disconnect = undefined;
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement(fvChipSelectorTag)).toBeInstanceOf(FvChipSelector);
+    });
+
+    it('adds a value when an option is clicked', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        input.focus();
+        await waitForUpdatesAsync();
+
+        const option = element.shadowRoot?.querySelector<HTMLButtonElement>('[data-option-value="Active"]')!;
+        option.click();
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValues).toBe('Active');
+        expect(element.shadowRoot?.querySelectorAll(chipTag).length).toBe(1);
+    });
+
+    it('removes the selected value when a chip remove event is raised', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.selectedValues = 'Active,Paused';
+        await connect();
+        await waitForUpdatesAsync();
+
+        const chip = element.shadowRoot?.querySelector<HTMLElement>(`${chipTag}[data-chip-value="Paused"]`)!;
+        chip.dispatchEvent(new Event('remove', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValues).toBe('Active');
+    });
+
+    it('filters the option list based on the inline text input', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        input.value = 'main';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const visibleOptions = Array.from(
+            element.shadowRoot?.querySelectorAll<HTMLButtonElement>('.chip-selector-option') ?? []
+        ).map(option => option.textContent?.trim());
+
+        expect(visibleOptions).toEqual(['Maintenance due']);
+    });
+
+    it('filters the option list with case-insensitive diacritic-insensitive matching', async () => {
+        ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
+            <${fvChipSelectorTag}
+                label="Status"
+                options="Café,Resume,naive"
+            ></${fvChipSelectorTag}>
+        `));
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        input.value = 'CAFE';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const visibleOptions = Array.from(
+            element.shadowRoot?.querySelectorAll<HTMLButtonElement>('.chip-selector-option') ?? []
+        ).map(option => option.textContent?.trim());
+
+        expect(visibleOptions).toEqual(['Café']);
+    });
+
+    it('renders an explicit custom-value action when custom values are enabled and there is no exact match', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.allowCustomValues = true;
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        input.value = 'Paused later';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const createOption = element.shadowRoot?.querySelector<HTMLButtonElement>('.chip-selector-create-option');
+
+        expect(createOption?.textContent?.trim()).toBe("Add 'Paused later'");
+    });
+
+    it('does not render a custom-value action when the search term exactly matches an option', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.allowCustomValues = true;
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        input.value = 'Active';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelector('.chip-selector-create-option')).toBeNull();
+    });
+
+    it('adds a custom value when the explicit custom-value action is clicked', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.allowCustomValues = true;
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        input.value = 'Paused later';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const createOption = element.shadowRoot?.querySelector<HTMLButtonElement>('.chip-selector-create-option')!;
+        createOption.click();
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValues).toBe('Paused later');
+    });
+
+    it('adds a custom value with Enter when it is the active menu item', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.allowCustomValues = true;
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        input.focus();
+        input.value = 'Paused later';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValues).toBe('Paused later');
+    });
+
+    it('renders a standard label for the control', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        expect(element.shadowRoot?.querySelector('.label')?.textContent?.trim()).toBe('Status');
+    });
+
+    it('uses arrow keys and enter to select the active filtered option', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        input.focus();
+        input.value = 'a';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        await waitForUpdatesAsync();
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValues).toBe('Paused');
+    });
+
+    it('allows printable keydowns to use the browser default text entry behavior', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const event = new KeyboardEvent('keydown', {
+            key: 'a',
+            cancelable: true
+        });
+
+        const result = element.handleInputKeydown(event);
+
+        expect(result).toBeTrue();
+        expect(event.defaultPrevented).toBeFalse();
+    });
+
+    it('does not open or change selection when disabled', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.disabled = true;
+        await connect();
+
+        const menuButton = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-menu-button')!;
+        menuButton.click();
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+        expect(element.selectedValues).toBe('');
+    });
+
+    it('opens the list when the menu button is clicked', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const menuButton = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-menu-button')!;
+        menuButton.click();
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeTrue();
+    });
+});
