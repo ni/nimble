@@ -4,7 +4,8 @@ import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import { fvContextHelpTag } from '@ni/ok-components/dist/esm/fv/context-help';
 import {
     apiCategory,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    okWarning
 } from '../../../utilities/storybook';
 
 interface FvContextHelpArgs {
@@ -14,6 +15,10 @@ interface FvContextHelpArgs {
 const metadata: Meta<FvContextHelpArgs> = {
     title: 'Ok/Fv Context Help',
     render: createUserSelectedThemeStory(html`
+        ${okWarning({
+            componentName: 'fv context help',
+            statusLink: './?path=/docs/component-status--docs#ok-components'
+        })}
         <${textFieldTag}
             id="context-help-text-field"
             placeholder="Enter a schedule"

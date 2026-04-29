@@ -80,6 +80,7 @@ export const template = html<FvChipSelector>`
                 appearance="ghost"
                 ?checked="${x => x.open}"
                 ?disabled="${x => x.disabled}"
+                ${ref('captureMenuButtonRef')}
                 @click="${(x, c) => {
                     x.handleMenuButtonClick(c.event);
                     return true;

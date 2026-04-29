@@ -4,7 +4,8 @@ import { fvSummaryPanelTag } from '@ni/ok-components/dist/esm/fv/summary-panel';
 import { fvSummaryPanelTileTag } from '@ni/ok-components/dist/esm/fv/summary-panel-tile';
 import {
     apiCategory,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    okWarning
 } from '../../../utilities/storybook';
 
 interface FvSummaryPanelArgs {
@@ -28,6 +29,10 @@ const summaryItems = html<FvSummaryPanelArgs>`
 const metadata: Meta<FvSummaryPanelArgs> = {
     title: 'Ok/Fv Summary Panel',
     render: createUserSelectedThemeStory(html<FvSummaryPanelArgs>`
+        ${okWarning({
+            componentName: 'fv summary panel',
+            statusLink: './?path=/docs/component-status--docs#ok-components'
+        })}
         <${fvSummaryPanelTag}
             ?show-edit-items-button="${x => x.showEditItemsButton}"
             edit-items-button-label="${x => x.editItemsButtonLabel}"

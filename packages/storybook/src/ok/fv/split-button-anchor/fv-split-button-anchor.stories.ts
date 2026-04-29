@@ -10,7 +10,8 @@ import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    disabledDescription
+    disabledDescription,
+    okWarning
 } from '../../../utilities/storybook';
 
 interface FvSplitButtonAnchorArgs {
@@ -28,6 +29,10 @@ interface FvSplitButtonAnchorArgs {
 const metadata: Meta<FvSplitButtonAnchorArgs> = {
     title: 'Ok/Fv Split Button Anchor',
     render: createUserSelectedThemeStory(html<FvSplitButtonAnchorArgs>`
+        ${okWarning({
+            componentName: 'fv split button anchor',
+            statusLink: './?path=/docs/component-status--docs#ok-components'
+        })}
         <${fvSplitButtonAnchorTag}
             label="${x => x.label}"
             href="${x => x.href}"

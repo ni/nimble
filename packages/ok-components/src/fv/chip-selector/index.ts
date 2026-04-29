@@ -52,6 +52,8 @@ export class FvChipSelector extends FoundationElement {
 
     private inputElement: HTMLInputElement | null = null;
 
+    private menuButtonElement: (HTMLElement & { checked?: boolean }) | null = null;
+
     public disabledChanged(): void {
         if (this.disabled) {
             this.filterText = '';
@@ -61,6 +63,8 @@ export class FvChipSelector extends FoundationElement {
     }
 
     public openChanged(): void {
+        this.syncMenuButtonState();
+
         if (this.open) {
             this.syncActiveOptionValue();
             return;
@@ -111,6 +115,11 @@ export class FvChipSelector extends FoundationElement {
 
     public captureInputRef(input: HTMLInputElement | null): void {
         this.inputElement = input;
+    }
+
+    public captureMenuButtonRef(menuButton: (HTMLElement & { checked?: boolean }) | null): void {
+        this.menuButtonElement = menuButton;
+        this.syncMenuButtonState();
     }
 
     public get selectedValueList(): string[] {
@@ -363,6 +372,12 @@ export class FvChipSelector extends FoundationElement {
 
     private setOpen(nextOpen: boolean): void {
         this.open = this.disabled ? false : nextOpen;
+    }
+
+    private syncMenuButtonState(): void {
+        if (this.menuButtonElement) {
+            this.menuButtonElement.checked = this.open;
+        }
     }
 
     private moveActiveOption(direction: 1 | -1): void {

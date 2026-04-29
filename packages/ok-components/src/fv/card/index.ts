@@ -24,7 +24,7 @@ function slotHasAssignedElements(slot: HTMLSlotElement): boolean {
  * badges, footer metadata, and action content.
  */
 export class FvCard extends FoundationElement {
-    @attr
+    @attr({ attribute: 'card-title' })
     public override title = '';
 
     @attr

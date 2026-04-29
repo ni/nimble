@@ -25,7 +25,9 @@ export const styles = css`
     ${display('inline-block')}
 
     :host {
-        min-width: 240px;
+        width: 300px;
+        max-width: 100%;
+        box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
@@ -57,7 +59,7 @@ export const styles = css`
         content: '';
         position: absolute;
         inset-inline: 0;
-        inset-block-end: 0;
+        inset-block-end: -1px;
         height: 1px;
         background: transparent;
         pointer-events: none;
@@ -124,8 +126,9 @@ export const styles = css`
     .chip-selector-input {
         -webkit-appearance: none;
         appearance: none;
-        flex: 1 1 56px;
-        min-width: 56px;
+        flex: 1 1 0;
+        min-width: 0;
+        width: 0;
         padding: 0;
         border: none;
         background: transparent;
@@ -140,7 +143,8 @@ export const styles = css`
 
     .chip-selector-menu-button {
         ${controlHeight.cssCustomProperty}: 24px;
-        align-self: center;
+        align-self: flex-start;
+        margin-block: ${smallPadding};
         margin-inline: ${smallPadding};
     }
 

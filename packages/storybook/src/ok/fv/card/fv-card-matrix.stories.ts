@@ -38,7 +38,7 @@ const component = (
 ): ViewTemplate => html`
     <div style="width: 320px; margin-right: 8px; margin-bottom: 8px;">
         <${fvCardTag}
-            title="${() => `${interactionName} ${mediaName}` }"
+            card-title="${() => `${interactionName} ${mediaName}` }"
             subtitle="Storybook matrix"
             description="Verifies the card shell and media region combinations."
             interaction-mode="${() => interactionMode}"
@@ -60,6 +60,6 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hidden: StoryFn = createStory(
     hiddenWrapper(
-        html`<${fvCardTag} hidden title="Hidden Card"></${fvCardTag}>`
+        html`<${fvCardTag} hidden card-title="Hidden Card"></${fvCardTag}>`
     )
 );

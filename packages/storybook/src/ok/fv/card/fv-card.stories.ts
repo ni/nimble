@@ -87,7 +87,7 @@ const metadata: Meta<FvCardArgs> = {
         <style>${badgeStyles}</style>
         <div style="${cardExampleStyle}">
             <${fvCardTag}
-                title="${x => x.title}"
+                card-title="${x => x.title}"
                 subtitle="${x => x.subtitle}"
                 description="${x => x.description}"
                 appearance="${x => x.appearance}"
@@ -102,6 +102,7 @@ const metadata: Meta<FvCardArgs> = {
     `),
     argTypes: {
         title: {
+            name: 'card-title',
             description: 'Primary heading text for the card.',
             table: { category: apiCategory.attributes }
         },

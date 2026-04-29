@@ -1,0 +1,16 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as contextHelpStories from './fv-context-help.stories';
+
+<Meta of={contextHelpStories} />
+<Title of={contextHelpStories} />
+
+An info trigger that exposes lightweight contextual help in a tooltip.
+
+<Canvas of={contextHelpStories.fvContextHelp} />
+
+## API
+
+<Controls of={contextHelpStories.fvContextHelp} />
+
+<ComponentApisLink />

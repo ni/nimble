@@ -218,4 +218,81 @@ describe('FvChipSelector', () => {
 
         expect(element.open).toBeTrue();
     });
+
+    it('turns the menu button back off when the menu closes from an outside click', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const menuButton = element.shadowRoot?.querySelector<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button')!;
+        menuButton.click();
+        await waitForUpdatesAsync();
+
+        document.body.click();
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+        expect(menuButton.checked).toBeFalse();
+    });
+
+    it('turns the menu button back off when escape closes the menu', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const menuButton = element.shadowRoot?.querySelector<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button')!;
+
+        menuButton.click();
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+        expect(menuButton.checked).toBeFalse();
+    });
+
+    it('defaults to a 300px host width', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        expect(getComputedStyle(element).width).toBe('300px');
+    });
+
+    it('keeps the same host width after chips are selected', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const initialWidth = getComputedStyle(element).width;
+
+        element.selectedValues = 'Active,Paused,Error,Maintenance due';
+        await waitForUpdatesAsync();
+
+        expect(getComputedStyle(element).width).toBe(initialWidth);
+    });
+
+    it('keeps the inline input on the current line until chips need to wrap', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.style.width = '180px';
+        element.selectedValues = 'Maintenance due';
+        await connect();
+        await waitForUpdatesAsync();
+
+        const chip = element.shadowRoot?.querySelector<HTMLElement>(`${chipTag}[data-chip-value="Maintenance due"]`)!;
+        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+
+        expect(input.offsetTop).toBe(chip.offsetTop);
+    });
+
+    it('keeps the menu button top aligned when the selected chips wrap', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.style.width = '180px';
+        element.selectedValues = 'Active,Paused,Error';
+        await connect();
+        await waitForUpdatesAsync();
+
+        const firstChip = element.shadowRoot?.querySelector<HTMLElement>(`${chipTag}[data-chip-value="Active"]`)!;
+        const menuButton = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-menu-button')!;
+
+        expect(menuButton.offsetTop).toBe(firstChip.offsetTop);
+    });
 });

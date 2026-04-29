@@ -4,7 +4,8 @@ import { fvChipSelectorTag } from '@ni/ok-components/dist/esm/fv/chip-selector';
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    disabledDescription
+    disabledDescription,
+    okWarning
 } from '../../../utilities/storybook';
 
 interface FvChipSelectorArgs {
@@ -28,6 +29,10 @@ const metadata: Meta<FvChipSelectorArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<FvChipSelectorArgs>`
+        ${okWarning({
+            componentName: 'fv chip selector',
+            statusLink: './?path=/docs/component-status--docs#ok-components'
+        })}
         <${fvChipSelectorTag}
             label="${x => x.label}"
             options="${x => x.options}"

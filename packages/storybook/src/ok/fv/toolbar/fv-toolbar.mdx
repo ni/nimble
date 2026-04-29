@@ -1,0 +1,26 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as toolbarStories from './fv-toolbar.stories';
+
+<Meta of={toolbarStories} />
+<Title of={toolbarStories} />
+
+A simple layout container with two named slots:
+
+- `primary` for the left-aligned primary action.
+- `end` for one or more right-aligned controls.
+
+The toolbar only handles layout and spacing for slotted content.
+
+<Canvas of={toolbarStories.fvToolbar} />
+
+## API
+
+<Controls of={toolbarStories.fvToolbar} />
+
+<ComponentApisLink />
+
+## Slots
+
+- `primary`: left-aligned content, typically a primary button.
+- `end`: one or more right-aligned controls.

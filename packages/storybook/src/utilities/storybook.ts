@@ -1,6 +1,9 @@
 import { html, ViewTemplate } from '@ni/fast-element';
 import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import {
+    bodyFont,
+    warningFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
@@ -151,7 +154,7 @@ export interface OkWarningConfig {
 export const incubatingWarning = (config: IncubatingWarningConfig): string => `
 <style class="code-hide">
 #incubating-warning {
-    color: red;
+    color: var(${warningFontColor.cssCustomProperty});
     font: var(${bodyFont.cssCustomProperty});
     padding-bottom: 16px;
 }
@@ -164,7 +167,7 @@ See the <a href="${config.statusLink}">incubating component status</a>.
 export const okWarning = (config: OkWarningConfig): string => `
 <style class="code-hide">
 #ok-warning {
-    color: #c00000;
+    color: var(${warningFontColor.cssCustomProperty});
     font: var(${bodyFont.cssCustomProperty});
     padding-bottom: 16px;
 }

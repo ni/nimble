@@ -7,7 +7,7 @@ import { FvCardAppearance, FvCardInteractionMode } from '../types';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
 async function setup(
-    markup: ViewTemplate = html`<${fvCardTag} title="Plugin Manager"></${fvCardTag}>`
+    markup: ViewTemplate = html`<${fvCardTag} card-title="Plugin Manager"></${fvCardTag}>`
 ): Promise<Fixture<FvCard>> {
     return await fixture<FvCard>(
         markup
@@ -41,7 +41,7 @@ describe('FvCard', () => {
     it('reflects the outline appearance attribute', async () => {
         ({ element, connect, disconnect } = await setup(
             html`<${fvCardTag}
-                title="Plugin Manager"
+                card-title="Plugin Manager"
                 appearance="outline"
             ></${fvCardTag}>`
         ));
@@ -53,7 +53,7 @@ describe('FvCard', () => {
     it('supports the block appearance', async () => {
         ({ element, connect, disconnect } = await setup(
             html`<${fvCardTag}
-                title="Plugin Manager"
+                card-title="Plugin Manager"
                 appearance="block"
             ></${fvCardTag}>`
         ));
@@ -66,7 +66,7 @@ describe('FvCard', () => {
     it('renders a card button shell in card interaction mode', async () => {
         ({ element, connect, disconnect } = await setup(
             html`<${fvCardTag}
-                title="Plugin Manager"
+                card-title="Plugin Manager"
                 interaction-mode="card"
             ></${fvCardTag}>`
         ));
@@ -79,7 +79,7 @@ describe('FvCard', () => {
     it('renders title, subtitle, and description content', async () => {
         ({ element, connect, disconnect } = await setup(
             html`<${fvCardTag}
-                title="Plugin Manager"
+                card-title="Plugin Manager"
                 subtitle="NI Plugin Manager"
                 description="Install curated plugins."
             ></${fvCardTag}>`
@@ -94,7 +94,7 @@ describe('FvCard', () => {
     it('renders initials when no icon slot content is present', async () => {
         ({ element, connect, disconnect } = await setup(
             html`<${fvCardTag}
-                title="Feed Configuration"
+                card-title="Feed Configuration"
                 initials="fc"
             ></${fvCardTag}>`
         ));
@@ -106,7 +106,7 @@ describe('FvCard', () => {
     it('suppresses initials when icon slot content is assigned', async () => {
         ({ element, connect, disconnect } = await setup(
             html`<${fvCardTag}
-                title="Feed Configuration"
+                card-title="Feed Configuration"
                 initials="fc"
             >
                 <span slot="icon">Icon</span>
@@ -121,7 +121,7 @@ describe('FvCard', () => {
 
     it('renders footer slots when assigned', async () => {
         ({ element, connect, disconnect } = await setup(
-            html`<${fvCardTag} title="Plugin Manager">
+            html`<${fvCardTag} card-title="Plugin Manager">
                 <span slot="footer-start">Administration</span>
                 <span slot="footer-end">v1.1.1</span>
             </${fvCardTag}>`
@@ -135,7 +135,7 @@ describe('FvCard', () => {
 
     it('renders actions slot content in static mode', async () => {
         ({ element, connect, disconnect } = await setup(
-            html`<${fvCardTag} title="Plugin Manager">
+            html`<${fvCardTag} card-title="Plugin Manager">
                 <button slot="actions" type="button">Install</button>
             </${fvCardTag}>`
         ));
@@ -150,7 +150,7 @@ describe('FvCard', () => {
     it('does not render the actions row in card interaction mode', async () => {
         ({ element, connect, disconnect } = await setup(
             html`<${fvCardTag}
-                title="Plugin Manager"
+                card-title="Plugin Manager"
                 interaction-mode="card"
             >
                 <button slot="actions" type="button">Install</button>
@@ -166,7 +166,7 @@ describe('FvCard', () => {
     it('forwards disabled to the interactive shell', async () => {
         ({ element, connect, disconnect } = await setup(
             html`<${fvCardTag}
-                title="Plugin Manager"
+                card-title="Plugin Manager"
                 interaction-mode="card"
                 disabled
             ></${fvCardTag}>`
@@ -175,5 +175,14 @@ describe('FvCard', () => {
 
         const cardButton = element.shadowRoot?.querySelector(cardButtonTag);
         expect(cardButton?.hasAttribute('disabled')).toBeTrue();
+    });
+
+    it('stores the heading on card-title instead of the native title attribute', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        expect(element.getAttribute('card-title')).toBe('Plugin Manager');
+        expect(element.getAttribute('title')).toBeNull();
+        expect(element.shadowRoot?.querySelector('.title')?.textContent?.trim()).toBe('Plugin Manager');
     });
 });
