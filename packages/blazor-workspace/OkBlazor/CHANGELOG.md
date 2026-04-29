@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Tue, 21 Apr 2026 19:47:00 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 28 Apr 2026 14:27:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.1.0
+
+Tue, 28 Apr 2026 14:27:06 GMT
+
+### Minor changes
+
+- feat: add Ok Fv Search Input Blazor wrapper ([ni/nimble@eb9e67b](https://github.com/ni/nimble/commit/eb9e67b30b075f0f53a39d69fe39bf866b9cf81f))
+- Bump @ni/ok-components to v1.1.0
 
 ## 1.0.1
 

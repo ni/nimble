@@ -1,3 +1,5 @@
+'use client';
+
 import { Tooltip, tooltipTag } from '@ni/nimble-components/dist/esm/tooltip';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 

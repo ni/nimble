@@ -1,3 +1,5 @@
+'use client';
+
 import { TabPanel, tabPanelTag } from '@ni/nimble-components/dist/esm/tab-panel';
 import { wrap } from '../utilities/react-wrapper';
 

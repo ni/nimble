@@ -7,3 +7,4 @@ import './split-button-anchor';
 import './summary-panel';
 import './summary-panel-tile';
 import './toolbar';
+import './search-input';

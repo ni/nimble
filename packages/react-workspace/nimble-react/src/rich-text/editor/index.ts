@@ -1,3 +1,5 @@
+'use client';
+
 import { RichTextEditor, richTextEditorTag } from '@ni/nimble-components/dist/esm/rich-text/editor';
 import { wrap, type EventName } from '../../utilities/react-wrapper';
 
