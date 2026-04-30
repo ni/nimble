@@ -24,7 +24,6 @@ const parameters = {
     options: {
         storySort: {
             method: 'alphabetical',
-            includeNames: true,
             // Items within arrays show the sort order for children of the category above
             // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
             order: [
