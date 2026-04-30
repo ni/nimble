@@ -39,11 +39,11 @@ const metadata: Meta<FvSplitButtonArgs> = {
                 :disabled="${x => x.disabled}"
             >
                 <${menuTag} slot="menu" style="max-height: 116px; overflow-y: auto; width: 112px;">
-                    <${menuItemTag}>Line item 1</${menuItemTag}>
-                    <${menuItemTag}>Line item 2</${menuItemTag}>
-                    <${menuItemTag}>Line item 3</${menuItemTag}>
-                    <${menuItemTag}>Line item 4</${menuItemTag}>
-                    <${menuItemTag}>Loading...</${menuItemTag}>
+                    <${menuItemTag}>Open item</${menuItemTag}>
+                    <${menuItemTag}>Create copy</${menuItemTag}>
+                    <${menuItemTag}>Move to queue</${menuItemTag}>
+                    <${menuItemTag}>Review details</${menuItemTag}>
+                    <${menuItemTag}>Archive selection</${menuItemTag}>
                 </${menuTag}>
             </${fvSplitButtonTag}>
         </div>
@@ -82,7 +82,7 @@ const metadata: Meta<FvSplitButtonArgs> = {
         }
     },
     args: {
-        label: 'Line item 1',
+        label: 'Run action',
         appearance: 'outline',
         appearanceVariant: 'default',
         disabled: false

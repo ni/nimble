@@ -75,10 +75,10 @@ const metadata: Meta<FvChipSelectorArgs> = {
         }
     },
     args: {
-        label: 'Label',
-        options: 'Red,Yellow,Orange,Blue,Purple,Violet,Pink',
-        selectedValues: 'Red,Yellow,Orange',
-        placeholder: 'Select colors',
+        label: 'Selected items',
+        options: 'Duff Beer,Comic Book Guy,Santa\'s Little Helper,Snowball II,Itchy & Scratchy,Mr. Burns,Principal Skinner',
+        selectedValues: 'Duff Beer,Comic Book Guy,Santa\'s Little Helper',
+        placeholder: 'Select items',
         allowCustomValues: false,
         disabled: false,
         open: false

@@ -42,7 +42,7 @@ const metadata: Meta<FvSplitButtonAnchorArgs> = {
             :disabled="${x => x.disabled}"
         >
             <${menuTag} slot="menu" style="max-height: 116px; overflow-y: auto; width: 112px;">
-                <${menuItemTag}>Open in current tab</${menuItemTag}>
+                <${menuItemTag}>Open item</${menuItemTag}>
                 <${menuItemTag}>Open in new tab</${menuItemTag}>
                 <${menuItemTag}>Copy link</${menuItemTag}>
             </${menuTag}>
@@ -88,8 +88,8 @@ const metadata: Meta<FvSplitButtonAnchorArgs> = {
         }
     },
     args: {
-        label: 'Open results',
-        href: 'https://example.com/results',
+        label: 'Open report',
+        href: 'https://example.com/report',
         target: '_blank',
         appearance: 'outline',
         appearanceVariant: 'default',

@@ -75,8 +75,8 @@ const metadata: Meta<SearchInputArgs> = {
     },
     args: {
         appearance: FvSearchInputAppearance.outline,
-        placeholder: 'Search',
-        value: ''
+        placeholder: 'Search records',
+        value: 'Sample'
     }
 };
 

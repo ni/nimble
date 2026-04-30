@@ -22,8 +22,8 @@ const metadata: Meta<FvContextHelpArgs> = {
         })}
         <${textFieldTag}
             id="context-help-text-field"
-            placeholder="Enter a schedule"
-        >Calibration schedule 
+            placeholder="Enter support code"
+        >Support code 
             <${fvContextHelpTag}
                 text="${x => x.text}"
                 trigger-label="${x => x.triggerLabel}"
@@ -41,8 +41,8 @@ const metadata: Meta<FvContextHelpArgs> = {
         }
     },
     args: {
-        text: 'Calibration assets include service history.',
-        triggerLabel: 'Show help for calibration schedule'
+        text: 'Use the value shown in the inline help text when the field entry is unavailable.',
+        triggerLabel: 'Show help for the support code'
     }
 };
 

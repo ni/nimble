@@ -18,12 +18,12 @@ interface FvSummaryPanelArgs {
 }
 
 const summaryItems = html<FvSummaryPanelArgs>`
-    <${fvSummaryPanelTileTag} count="852" label="files" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
-    <${fvSummaryPanelTileTag} count="1234" label="test results" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
-    <${fvSummaryPanelTileTag} count="93" label="systems" text-position="${x => x.tileTextPosition}" selected></${fvSummaryPanelTileTag}>
-    <${fvSummaryPanelTileTag} count="0" label="notebooks" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
-    <${fvSummaryPanelTileTag} count="15" label="executions" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
-    <${fvSummaryPanelTileTag} count="66" label="routines" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
+    <${fvSummaryPanelTileTag} count="7" label="open items" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
+    <${fvSummaryPanelTileTag} count="39" label="pending reviews" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
+    <${fvSummaryPanelTileTag} count="5" label="active alerts" text-position="${x => x.tileTextPosition}" selected></${fvSummaryPanelTileTag}>
+    <${fvSummaryPanelTileTag} count="1" label="new task" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
+    <${fvSummaryPanelTileTag} count="12" label="saved queries" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
+    <${fvSummaryPanelTileTag} count="3" label="shared views" text-position="${x => x.tileTextPosition}"></${fvSummaryPanelTileTag}>
 `;
 
 const metadata: Meta<FvSummaryPanelArgs> = {
@@ -74,7 +74,7 @@ const metadata: Meta<FvSummaryPanelArgs> = {
     },
     args: {
         showEditItemsButton: true,
-        editItemsButtonLabel: 'Configure',
+        editItemsButtonLabel: 'Configure tiles',
         legacyStyle: false,
         tileTextPosition: 'beside'
     }

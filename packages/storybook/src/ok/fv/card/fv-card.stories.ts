@@ -95,8 +95,8 @@ const metadata: Meta<FvCardArgs> = {
                 ?disabled="${x => x.disabled}"
                 initials="${x => x.initials}"
             >
-                <span slot="footer-start" class="story-footer">Administration</span>
-                <span slot="footer-end" class="story-footer">v1.1.1</span>
+                <span slot="footer-start" class="story-footer">Leftorium</span>
+                <span slot="footer-end" class="story-footer">Ledger</span>
             </${fvCardTag}>
         </div>
     `),
@@ -137,13 +137,13 @@ const metadata: Meta<FvCardArgs> = {
         }
     },
     args: {
-        title: 'Plugin Manager',
-        subtitle: 'NI Plugin Manager',
-        description: 'A curated plugin manager for discovering and installing SystemLink extensions.',
+        title: 'Leftorium Ledger',
+        subtitle: 'Try-N-Save annex',
+        description: 'Track single-glove orders, kiosk inventory, and late-night restock notes from the mall wing.',
         appearance: FvCardAppearance.outline,
         interactionMode: FvCardInteractionMode.static,
         disabled: false,
-        initials: 'PM'
+        initials: 'LL'
     }
 };
 
@@ -151,10 +151,10 @@ export default metadata;
 
 export const fvCard: StoryObj<FvCardArgs> = {
     args: {
-        title: 'Card Title',
-        subtitle: 'A subtitle goes here',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        title: 'McBain Dailies',
+        subtitle: 'Soundstage vault',
+        description: 'Monitor reel intake, dub approvals, and pickup slips awaiting final sign-off.',
         interactionMode: FvCardInteractionMode.card,
-        initials: 'FV'
+        initials: 'MB'
     }
 };

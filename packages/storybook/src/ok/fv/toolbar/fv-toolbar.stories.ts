@@ -19,26 +19,26 @@ const metadata: Meta = {
         })}
         <div style="width: 100%;">
             <${fvToolbarTag}>
-                <${buttonTag} slot="primary">Create asset</${buttonTag}>
-                <${fvSearchInputTag} slot="end" label="Search assets"></${fvSearchInputTag}>
+                <${buttonTag} slot="primary">Create item</${buttonTag}>
+                <${fvSearchInputTag} slot="end" label="Search"></${fvSearchInputTag}>
                 <${buttonTag}
                     slot="end"
                     appearance="ghost"
                     content-hidden
-                    title="Refresh"
-                    aria-label="Refresh"
+                    title="Refresh results"
+                    aria-label="Refresh results"
                 >
-                    Refresh
+                    Refresh results
                     <${iconArrowRotateRightTag} slot="start"></${iconArrowRotateRightTag}>
                 </${buttonTag}>
                 <${buttonTag}
                     slot="end"
                     appearance="ghost"
                     content-hidden
-                    title="Configure"
-                    aria-label="Configure"
+                    title="Configure view"
+                    aria-label="Configure view"
                 >
-                    Configure
+                    Configure view
                     <${iconCogTag} slot="start"></${iconCogTag}>
                 </${buttonTag}>
             </${fvToolbarTag}>
