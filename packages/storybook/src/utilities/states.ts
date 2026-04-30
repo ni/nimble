@@ -8,11 +8,11 @@ export const backgroundStates = [
     },
     {
         name: `"${Theme.color}" theme on dark green`,
-        value: '#008557',
+        value: '#044123',
         theme: Theme.color
     },
     {
-        name: `"${Theme.dark}" theme on black`,
+        name: `"${Theme.dark}" theme on dark grey`,
         value: '#363738',
         theme: Theme.dark
     }
