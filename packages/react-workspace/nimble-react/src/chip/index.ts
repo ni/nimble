@@ -1,3 +1,5 @@
+'use client';
+
 import { Chip, chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
