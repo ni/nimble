@@ -3,17 +3,17 @@ import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 export const backgroundStates = [
     {
         name: `"${Theme.light}" theme on white`,
-        value: '#F4F4F4',
+        value: '#FFFFFF',
         theme: Theme.light
     },
     {
         name: `"${Theme.color}" theme on dark green`,
-        value: '#044123',
+        value: '#008557',
         theme: Theme.color
     },
     {
         name: `"${Theme.dark}" theme on black`,
-        value: '#252526',
+        value: '#363738',
         theme: Theme.dark
     }
 ] as const;
