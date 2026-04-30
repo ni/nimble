@@ -82,7 +82,7 @@ const metadata: Meta<FvSplitButtonAnchorArgs> = {
             control: false
         },
         change: {
-            description: 'Event emitted when a menu item selection changes within the split button anchor menu.',
+            description: 'Event emitted when the slotted nimble-menu selection changes.',
             table: { category: apiCategory.events },
             control: false
         }

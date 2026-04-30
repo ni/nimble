@@ -32,12 +32,8 @@ export const template = html<FvSplitButton>`
         <div
             class="split-button-menu"
             ?hidden="${x => !x.open}"
-            @change="${x => {
-                x.handleMenuChange();
-                return true;
-            }}"
         >
-            <slot name="menu"></slot>
+            <slot name="menu" @slotchange="${(x, c) => x.handleMenuSlotChange(c.event)}"></slot>
         </div>
     </div>
 `;

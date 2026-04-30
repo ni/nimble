@@ -1,0 +1,6 @@
+{
+  "type": "minor",
+  "comment": "Add FV card, chip selector, context help, split button, summary panel, and toolbar OK web components.",
+  "packageName": "@ni/ok-components",
+  "email": "1458528+fredvisser@users.noreply.github.com"
+}

@@ -8,7 +8,7 @@ export const template = html<FvContextHelp>`
         id="${x => x.tooltipAnchorId}"
         class="context-help-trigger"
         type="button"
-        aria-label="Show help"
+        aria-label="${x => x.triggerLabel}"
     >
         <${iconInfoTag}></${iconInfoTag}>
     </button>

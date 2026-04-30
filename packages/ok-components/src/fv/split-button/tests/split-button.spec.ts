@@ -1,4 +1,5 @@
 import { html } from '@ni/fast-element';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { FvSplitButton, fvSplitButtonTag } from '..';
@@ -72,5 +73,22 @@ describe('FvSplitButton', () => {
 
         expect(element.open).toBeFalse();
         expect(element.shadowRoot?.querySelector('.split-button-menu')?.hasAttribute('hidden')).toBeTrue();
+    });
+
+    it('closes when the slotted nimble-menu emits change', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
+            <${fvSplitButtonTag} label="Primary function">
+                <${menuTag} slot="menu"></${menuTag}>
+            </${fvSplitButtonTag}>
+        `));
+        await connect();
+
+        element.open = true;
+        await waitForUpdatesAsync();
+
+        element.querySelector(menuTag)?.dispatchEvent(new Event('change', { bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
     });
 });

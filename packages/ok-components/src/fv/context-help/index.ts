@@ -23,6 +23,9 @@ export class FvContextHelp extends FoundationElement {
     @attr
     public text = '';
 
+    @attr({ attribute: 'trigger-label' })
+    public triggerLabel = 'Show help';
+
     @attr
     public severity: FvContextHelpSeverity;
 

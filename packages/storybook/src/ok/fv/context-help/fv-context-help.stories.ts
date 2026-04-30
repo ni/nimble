@@ -10,6 +10,7 @@ import {
 
 interface FvContextHelpArgs {
     text: string;
+    triggerLabel: string;
 }
 
 const metadata: Meta<FvContextHelpArgs> = {
@@ -25,16 +26,23 @@ const metadata: Meta<FvContextHelpArgs> = {
         >Calibration schedule 
             <${fvContextHelpTag}
                 text="${x => x.text}"
+                trigger-label="${x => x.triggerLabel}"
             </${fvContextHelpTag}>
         </${textFieldTag}>
     `),
     argTypes: {
         text: {
             table: { category: apiCategory.attributes }
+        },
+        triggerLabel: {
+            name: 'trigger-label',
+            description: 'Accessible label announced for the help trigger button.',
+            table: { category: apiCategory.attributes }
         }
     },
     args: {
-        text: 'Calibration assets include service history.'
+        text: 'Calibration assets include service history.',
+        triggerLabel: 'Show help for calibration schedule'
     }
 };
 

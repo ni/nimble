@@ -4,7 +4,9 @@ import { FvContextHelp, fvContextHelpTag } from '..';
 
 async function setup(): Promise<Fixture<FvContextHelp>> {
     return await fixture<FvContextHelp>(html`
-        <${fvContextHelpTag} text="Calibration assets include scheduled maintenance history."></${fvContextHelpTag}>
+        <${fvContextHelpTag}
+            text="Calibration assets include scheduled maintenance history."
+        ></${fvContextHelpTag}>
     `);
 }
 
@@ -30,5 +32,17 @@ describe('FvContextHelp', () => {
         const button = element.shadowRoot?.querySelector('button');
 
         expect(tooltip?.getAttribute('anchor')).toBe(button?.id);
+    });
+
+    it('uses a configurable trigger label for accessible naming', async () => {
+        ({ element, connect, disconnect } = await fixture<FvContextHelp>(html`
+            <${fvContextHelpTag}
+                text="Calibration assets include scheduled maintenance history."
+                trigger-label="Show calibration help"
+            ></${fvContextHelpTag}>
+        `));
+        await connect();
+
+        expect(element.shadowRoot?.querySelector('button')?.getAttribute('aria-label')).toBe('Show calibration help');
     });
 });
