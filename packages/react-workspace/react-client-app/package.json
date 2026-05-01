@@ -15,17 +15,17 @@
     "@ni/nimble-react": "*",
     "@ni/ok-react": "*",
     "@ni/spright-react": "*",
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.4.19",
     "typescript": "~5.8.3",
-    "vite": "^7.0.0"
+    "vite": "^7.3.2"
   }
 }

@@ -26,9 +26,9 @@
     "tslib": "^2.2.0"
   },
   "peerDependencies": {
-    "@angular/common": "^20.3.15",
-    "@angular/core": "^20.3.15",
-    "@angular/localize": "^20.3.15",
+    "@angular/common": "^20.3.19",
+    "@angular/core": "^20.3.19",
+    "@angular/localize": "^20.3.19",
     "@ni/ok-components": "^1.1.1"
   }
 }
