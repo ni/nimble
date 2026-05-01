@@ -1,3 +1,5 @@
+'use client';
+
 import { LabelProviderTable, labelProviderTableTag } from '@ni/nimble-components/dist/esm/label-provider/table';
 import { wrap } from '../../utilities/react-wrapper';
 

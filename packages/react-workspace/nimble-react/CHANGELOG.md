@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Mon, 20 Apr 2026 16:30:31 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 30 Apr 2026 22:40:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.14.3
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.7.0
+
+## 0.14.2
+
+Mon, 27 Apr 2026 17:29:26 GMT
+
+### Patches
+
+- Mark all react components as 'use client' ([ni/nimble@724e1ba](https://github.com/ni/nimble/commit/724e1ba5dc42b516a2075a3468c4dd66170303dc))
 
 ## 0.14.1
 

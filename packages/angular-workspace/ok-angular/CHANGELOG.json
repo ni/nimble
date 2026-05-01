@@ -2,6 +2,42 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Thu, 30 Apr 2026 22:40:17 GMT",
+      "version": "2.2.1",
+      "tag": "@ni/ok-angular_v2.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.1.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Apr 2026 14:27:06 GMT",
+      "version": "2.2.0",
+      "tag": "@ni/ok-angular_v2.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "eb9e67b30b075f0f53a39d69fe39bf866b9cf81f",
+            "comment": "feat: add Ok Fv Search Input"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Apr 2026 19:47:00 GMT",
       "version": "2.1.6",
       "tag": "@ni/ok-angular_v2.1.6",

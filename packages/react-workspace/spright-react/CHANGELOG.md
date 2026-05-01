@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Thu, 23 Apr 2026 15:58:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 30 Apr 2026 22:40:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.12.2
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.1
+
+## 0.12.1
+
+Mon, 27 Apr 2026 17:29:26 GMT
+
+### Patches
+
+- Mark all react components as 'use client' ([ni/nimble@724e1ba](https://github.com/ni/nimble/commit/724e1ba5dc42b516a2075a3468c4dd66170303dc))
 
 ## 0.12.0
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { Dialog, UserDismissed as DialogUserDismissed, dialogTag } from '@ni/nimble-components/dist/esm/dialog';
 import type { RefAttributes, RefObject } from 'react';
 import { wrap } from '../utilities/react-wrapper';

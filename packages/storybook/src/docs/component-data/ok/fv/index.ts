@@ -11,5 +11,16 @@ export const componentDataOkFv = [
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready,
         reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Fv Search Input',
+        componentHref: './?path=/docs/ok-fv-search-input--docs',
+        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1453-32903',
+        designLabel: 'Figma',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.ready,
+        reactStatus: ComponentFrameworkStatus.ready
     }
 ] as const;

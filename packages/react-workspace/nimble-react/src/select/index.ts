@@ -1,3 +1,5 @@
+'use client';
+
 import { Select, selectTag } from '@ni/nimble-components/dist/esm/select';
 import type { SelectFilterInputEventDetail } from '@ni/nimble-components/dist/esm/select/types';
 import { wrap, type EventName } from '../utilities/react-wrapper';

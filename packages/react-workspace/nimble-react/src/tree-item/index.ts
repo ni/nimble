@@ -1,3 +1,5 @@
+'use client';
+
 import { TreeItem, treeItemTag } from '@ni/nimble-components/dist/esm/tree-item';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 

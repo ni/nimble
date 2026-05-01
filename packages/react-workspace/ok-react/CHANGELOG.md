@@ -1,8 +1,33 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Tue, 21 Apr 2026 19:47:00 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 30 Apr 2026 22:40:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.8.1
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.1.1
+
+## 0.8.0
+
+Tue, 28 Apr 2026 14:27:06 GMT
+
+### Minor changes
+
+- feat: add Ok Fv Search Input React wrapper ([ni/nimble@eb9e67b](https://github.com/ni/nimble/commit/eb9e67b30b075f0f53a39d69fe39bf866b9cf81f))
+- Bump @ni/ok-components to v1.1.0
+
+## 0.7.7
+
+Mon, 27 Apr 2026 17:29:26 GMT
+
+### Patches
+
+- Mark all react components as 'use client' ([ni/nimble@724e1ba](https://github.com/ni/nimble/commit/724e1ba5dc42b516a2075a3468c4dd66170303dc))
 
 ## 0.7.6
 
