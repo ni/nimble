@@ -1,7 +1,7 @@
 {
   "name": "@ni-private/jasmine-extensions",
   "version": "0.0.1",
-  "private": "true",
+  "private": true,
   "description": "Utilities to modify the runtime behavior of jasmine",
   "keywords": [
     "jasmine",
