@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "update deps",
+  "comment": "Dependency update May 2026",
   "packageName": "@ni/jasmine-parameterized",
   "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
