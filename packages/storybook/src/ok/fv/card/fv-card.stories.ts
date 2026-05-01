@@ -1,18 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
 import { fvCardTag } from '@ni/ok-components/dist/esm/fv/card';
+import { chipTag } from '@ni/nimble-components/dist/esm/chip';
+import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import {
     FvCardAppearance,
     type FvCardAppearance as FvCardAppearanceType,
     FvCardInteractionMode,
     type FvCardInteractionMode as FvCardInteractionModeType
 } from '@ni/ok-components/dist/esm/fv/card/types';
-import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import {
-    actionRgbPartialColor,
     bodyFont,
     bodyFontColor,
-    borderRgbPartialColor,
     controlSlimHeight,
     tooltipCaptionFont,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -38,39 +37,14 @@ const cardExampleStyle = `
     color: var(${bodyFontColor.cssCustomProperty});
 `;
 
-const badgeStyles = `
-    .story-badges {
-        display: inline-flex;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    .story-badges ${chipTag} {
+const storyStyles = `
+    .story-badge {
         height: var(${controlSlimHeight.cssCustomProperty});
     }
 
     .story-footer {
         font: var(${tooltipCaptionFont.cssCustomProperty});
         text-transform: uppercase;
-    }
-
-    nimble-theme-provider[theme='light'] .pink-badge {
-        ${bodyFontColor.cssCustomProperty}: rgb(190 45 122);
-        ${actionRgbPartialColor.cssCustomProperty}: 190, 45, 122;
-    }
-
-    nimble-theme-provider[theme='dark'] .pink-badge {
-        ${bodyFontColor.cssCustomProperty}: rgb(255 173 220);
-        ${actionRgbPartialColor.cssCustomProperty}: 255, 173, 220;
-    }
-
-    nimble-theme-provider[theme='color'] .pink-badge {
-        ${bodyFontColor.cssCustomProperty}: rgb(255 199 227);
-        ${actionRgbPartialColor.cssCustomProperty}: 255, 199, 227;
-    }
-
-    .pink-badge {
-        ${borderRgbPartialColor.cssCustomProperty}: 190, 45, 122;
     }
 `;
 
@@ -84,8 +58,8 @@ const metadata: Meta<FvCardArgs> = {
             componentName: 'fv card',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
-        <style>${badgeStyles}</style>
-        <div style="${cardExampleStyle}">
+        <style class="code-hide">${storyStyles}</style>
+        <div class="code-hide-top-container" style="${cardExampleStyle}">
             <${fvCardTag}
                 card-title="${x => x.title}"
                 subtitle="${x => x.subtitle}"
@@ -95,6 +69,13 @@ const metadata: Meta<FvCardArgs> = {
                 ?disabled="${x => x.disabled}"
                 initials="${x => x.initials}"
             >
+                <${chipTag}
+                    slot="badges"
+                    class="story-badge"
+                    appearance="${ChipAppearance.outline}"
+                >
+                    Open matte
+                </${chipTag}>
                 <span slot="footer-start" class="story-footer">Leftorium</span>
                 <span slot="footer-end" class="story-footer">Ledger</span>
             </${fvCardTag}>

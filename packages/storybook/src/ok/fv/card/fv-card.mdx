@@ -8,13 +8,6 @@ import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 The FV card is an opinionated card layout for concise title, subtitle, description,
 metadata, badge, icon, and action combinations.
 
-It uses a static card shell by default and can switch to an interactive card-button
-shell through the `interaction-mode` attribute.
-
-The heading text is configured with the `card-title` attribute so the component does not trigger the browser's native tooltip behavior.
-
-It also supports `outline` and `block` appearance modes.
-
 <Canvas of={fvCardStories.fvCard} />
 
 ## API
@@ -28,7 +21,7 @@ Use the slots to add the optional layout regions without forcing the component i
 large structured attribute payloads:
 
 - `icon`: leading media such as a Nimble icon.
-- `badges`: header-adjacent badge or status content. The Storybook examples use `nimble-chip` in outline appearance with `height: var(--ni-nimble-control-slim-height)` for a compact 24px badge treatment.
+- `badges`: header-adjacent badge or status content.
 - `footer-start`: low-emphasis metadata aligned to the left.
 - `footer-end`: low-emphasis metadata aligned to the right.
 - `actions`: footer action buttons. This slot is only rendered in static mode.
@@ -45,35 +38,3 @@ large structured attribute payloads:
 `outline` renders the card on the application background with a visible outline.
 
 `block` removes the outline and uses the repo's subtle filled surface token for the card background.
-
-## Badge Styling
-
-The card does not bake alternate success, warning, error, or branded badge colors into the component. The recommended pattern is to slot a `nimble-chip` and let the client application own any alternate palette.
-
-For an outline badge chip, clients can scope theme-aware overrides to the chip itself:
-
-- Override `bodyFontColor` to change the chip text color.
-- Override `actionRgbPartialColor` to change the outline tint.
-- Override `borderRgbPartialColor` as well if the chip may also be disabled or use block appearance.
-
-```css
-nimble-theme-provider[theme='light'] .pink-badge {
-        --ni-nimble-body-font-color: rgb(190 45 122);
-        --ni-nimble-action-rgb-partial-color: 190, 45, 122;
-}
-
-nimble-theme-provider[theme='dark'] .pink-badge {
-        --ni-nimble-body-font-color: rgb(255 173 220);
-        --ni-nimble-action-rgb-partial-color: 255, 173, 220;
-}
-
-nimble-theme-provider[theme='color'] .pink-badge {
-        --ni-nimble-body-font-color: rgb(255 199 227);
-        --ni-nimble-action-rgb-partial-color: 255, 199, 227;
-}
-
-/* Also set this when the chip can be disabled or use block appearance. */
-.pink-badge {
-        --ni-nimble-border-rgb-partial-color: 190, 45, 122;
-}
-```

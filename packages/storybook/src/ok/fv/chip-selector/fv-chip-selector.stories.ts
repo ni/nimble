@@ -4,6 +4,7 @@ import { fvChipSelectorTag } from '@ni/ok-components/dist/esm/fv/chip-selector';
 import {
     apiCategory,
     createUserSelectedThemeStory,
+    disableStorybookZoomTransform,
     disabledDescription,
     okWarning
 } from '../../../utilities/storybook';
@@ -33,6 +34,7 @@ const metadata: Meta<FvChipSelectorArgs> = {
             componentName: 'fv chip selector',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
+        ${disableStorybookZoomTransform}
         <${fvChipSelectorTag}
             label="${x => x.label}"
             options="${x => x.options}"
