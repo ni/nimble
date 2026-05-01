@@ -24,7 +24,7 @@ const metadata: Meta = {
 export default metadata;
 
 const baseMenu = html`
-    <${menuTag} slot="menu" style="width: 132px;">
+    <${menuTag} slot="menu">
         <${menuItemTag}>Open in current tab</${menuItemTag}>
         <${menuItemTag}>Open in new tab</${menuItemTag}>
         <${menuItemTag}>Copy link</${menuItemTag}>

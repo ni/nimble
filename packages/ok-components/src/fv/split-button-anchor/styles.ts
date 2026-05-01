@@ -221,7 +221,7 @@ export const styles = css`
         position: absolute;
         inset-block-start: calc(${controlHeight} + ${smallPadding});
         inset-inline-start: 0;
-        min-width: max(100%, 112px);
+        min-width: 100%;
         z-index: 2;
     }
 

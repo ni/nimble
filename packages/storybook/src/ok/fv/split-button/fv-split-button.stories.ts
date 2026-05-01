@@ -38,7 +38,7 @@ const metadata: Meta<FvSplitButtonArgs> = {
                 appearance-variant="${x => FvSplitButtonAppearanceVariant[x.appearanceVariant]}"
                 :disabled="${x => x.disabled}"
             >
-                <${menuTag} slot="menu" style="max-height: 116px; overflow-y: auto; width: 112px;">
+                <${menuTag} slot="menu">
                     <${menuItemTag}>Open item</${menuItemTag}>
                     <${menuItemTag}>Create copy</${menuItemTag}>
                     <${menuItemTag}>Move to queue</${menuItemTag}>

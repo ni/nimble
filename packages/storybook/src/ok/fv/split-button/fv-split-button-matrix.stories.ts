@@ -24,7 +24,7 @@ const metadata: Meta = {
 export default metadata;
 
 const baseMenu = html`
-    <${menuTag} slot="menu" style="max-height: 116px; overflow-y: auto; width: 112px;">
+    <${menuTag} slot="menu">
         <${menuItemTag}>Line item 1</${menuItemTag}>
         <${menuItemTag}>Line item 2</${menuItemTag}>
         <${menuItemTag}>Line item 3</${menuItemTag}>

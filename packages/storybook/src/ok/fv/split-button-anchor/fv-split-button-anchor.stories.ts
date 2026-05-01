@@ -41,7 +41,7 @@ const metadata: Meta<FvSplitButtonAnchorArgs> = {
             appearance-variant="${x => FvSplitButtonAnchorAppearanceVariant[x.appearanceVariant]}"
             :disabled="${x => x.disabled}"
         >
-            <${menuTag} slot="menu" style="max-height: 116px; overflow-y: auto; width: 112px;">
+            <${menuTag} slot="menu">
                 <${menuItemTag}>Open item</${menuItemTag}>
                 <${menuItemTag}>Open in new tab</${menuItemTag}>
                 <${menuItemTag}>Copy link</${menuItemTag}>
