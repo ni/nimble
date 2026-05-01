@@ -43,7 +43,7 @@ const metadata: Meta<AccordionItemArgs> = {
             componentName: 'accordion',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
-        <div style="${accordionContentStyle}">
+        <div class="code-hide-top-container" style="${accordionContentStyle}">
             <${fvAccordionItemTag}
                 header="${x => x.header}"
                 ?expanded="${x => x.expanded}"

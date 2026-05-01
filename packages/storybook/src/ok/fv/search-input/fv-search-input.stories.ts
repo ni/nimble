@@ -26,6 +26,8 @@ interface SearchInputArgs {
 const searchInputContentStyle = `
     font: var(${bodyFont.cssCustomProperty});
     color: var(${bodyFontColor.cssCustomProperty});
+    width: 320px; 
+    padding: 16px;
 `;
 
 const metadata: Meta<SearchInputArgs> = {
@@ -41,7 +43,7 @@ const metadata: Meta<SearchInputArgs> = {
             componentName: 'Fv Search Input',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
-        <div style="width: 320px; padding: 16px; ${searchInputContentStyle}">
+        <div class="code-hide-top-container" style="${searchInputContentStyle}">
             <${fvSearchInputTag}
                 appearance="${x => x.appearance}"
                 placeholder="${x => x.placeholder}"

@@ -31,12 +31,6 @@ interface FvCardArgs {
     initials: string;
 }
 
-const cardExampleStyle = `
-    width: 360px;
-    font: var(${bodyFont.cssCustomProperty});
-    color: var(${bodyFontColor.cssCustomProperty});
-`;
-
 const storyStyles = `
     .story-badge {
         height: var(${controlSlimHeight.cssCustomProperty});
@@ -45,6 +39,12 @@ const storyStyles = `
     .story-footer {
         font: var(${tooltipCaptionFont.cssCustomProperty});
         text-transform: uppercase;
+    }
+
+    ${fvCardTag} {
+        width: 360px;
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
     }
 `;
 
@@ -59,27 +59,25 @@ const metadata: Meta<FvCardArgs> = {
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
         <style class="code-hide">${storyStyles}</style>
-        <div class="code-hide-top-container" style="${cardExampleStyle}">
-            <${fvCardTag}
-                card-title="${x => x.title}"
-                subtitle="${x => x.subtitle}"
-                description="${x => x.description}"
-                appearance="${x => x.appearance}"
-                interaction-mode="${x => x.interactionMode}"
-                ?disabled="${x => x.disabled}"
-                initials="${x => x.initials}"
+        <${fvCardTag}
+            card-title="${x => x.title}"
+            subtitle="${x => x.subtitle}"
+            description="${x => x.description}"
+            appearance="${x => x.appearance}"
+            interaction-mode="${x => x.interactionMode}"
+            ?disabled="${x => x.disabled}"
+            initials="${x => x.initials}"
+        >
+            <${chipTag}
+                slot="badges"
+                class="story-badge"
+                appearance="${ChipAppearance.outline}"
             >
-                <${chipTag}
-                    slot="badges"
-                    class="story-badge"
-                    appearance="${ChipAppearance.outline}"
-                >
-                    Open matte
-                </${chipTag}>
-                <span slot="footer-start" class="story-footer">Leftorium</span>
-                <span slot="footer-end" class="story-footer">Ledger</span>
-            </${fvCardTag}>
-        </div>
+                Approved
+            </${chipTag}>
+            <span slot="footer-start" class="story-footer">Leftorium</span>
+            <span slot="footer-end" class="story-footer">Ledger</span>
+        </${fvCardTag}>
     `),
     argTypes: {
         title: {

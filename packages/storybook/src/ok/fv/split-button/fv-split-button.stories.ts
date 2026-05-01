@@ -31,7 +31,7 @@ const metadata: Meta<FvSplitButtonArgs> = {
             componentName: 'fv split button',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
-        <div style="padding: 16px; min-height: 220px;">
+        <div class="code-hide-top-container" style="padding: 16px; min-height: 220px;">
             <${fvSplitButtonTag}
                 label="${x => x.label}"
                 appearance="${x => FvSplitButtonAppearance[x.appearance]}"

@@ -84,14 +84,5 @@ export const componentDataOkFv = [
         angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
-    },
-    {
-        componentName: 'Fv Toolbar',
-        componentHref: './?path=/docs/ok-fv-toolbar--docs',
-        library: 'ok',
-        componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
     }
 ] as const;
