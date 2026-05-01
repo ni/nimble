@@ -22,7 +22,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.98.0" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.99.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.26" />
   </ItemGroup>
 
   <ItemGroup>

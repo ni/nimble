@@ -31,11 +31,11 @@
     "tslib": "^2.2.0"
   },
   "peerDependencies": {
-    "@angular/common": "^20.3.15",
-    "@angular/core": "^20.3.15",
-    "@angular/forms": "^20.3.15",
-    "@angular/localize": "^20.3.15",
-    "@angular/router": "^20.3.15",
+    "@angular/common": "^20.3.19",
+    "@angular/core": "^20.3.19",
+    "@angular/forms": "^20.3.19",
+    "@angular/localize": "^20.3.19",
+    "@angular/router": "^20.3.19",
     "@ni/nimble-components": "^35.7.0",
     "@ni/unit-format": "^1.0.3"
   }

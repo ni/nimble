@@ -210,7 +210,7 @@ describe('Switch', () => {
             let wasInvoked = false;
             const event = new KeyboardEvent('keydown', {
                 key: keySpace
-            } as KeyboardEventInit);
+            });
             await connect();
 
             element.addEventListener('keydown', e => {
@@ -229,7 +229,7 @@ describe('Switch', () => {
             let wasInvoked = false;
             const event = new KeyboardEvent('keydown', {
                 key: keyEnter
-            } as KeyboardEventInit);
+            });
             await connect();
 
             element.addEventListener('keydown', e => {
