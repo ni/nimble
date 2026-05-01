@@ -1,0 +1,1 @@
+export type FvContextHelpSeverity = 'error' | 'information' | undefined;

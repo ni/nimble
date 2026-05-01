@@ -1,0 +1,40 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as fvCardStories from './fv-card.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+
+<Meta of={fvCardStories} />
+<Title of={fvCardStories} />
+
+The FV card is an opinionated card layout for concise title, subtitle, description,
+metadata, badge, icon, and action combinations.
+
+<Canvas of={fvCardStories.fvCard} />
+
+## API
+
+<Controls of={fvCardStories.fvCard} />
+<ComponentApisLink />
+
+## Slots
+
+Use the slots to add the optional layout regions without forcing the component into
+large structured attribute payloads:
+
+- `icon`: leading media such as a Nimble icon.
+- `badges`: header-adjacent badge or status content.
+- `footer-start`: low-emphasis metadata aligned to the left.
+- `footer-end`: low-emphasis metadata aligned to the right.
+- `actions`: footer action buttons. This slot is only rendered in static mode.
+- default slot: additional custom body content below the description.
+
+## Interaction Modes
+
+`static` uses the Nimble card shell and supports footer actions.
+
+`card` uses the Nimble card-button shell and suppresses the default Nimble card-button hover and active background fills so clicking the tile does not change the card background color.
+
+## Appearance
+
+`outline` renders the card on the application background with a visible outline.
+
+`block` removes the outline and uses the repo's subtle filled surface token for the card background.

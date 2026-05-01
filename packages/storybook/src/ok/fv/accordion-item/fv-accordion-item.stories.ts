@@ -43,7 +43,7 @@ const metadata: Meta<AccordionItemArgs> = {
             componentName: 'accordion',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
-        <div style="${accordionContentStyle}">
+        <div class="code-hide-top-container" style="${accordionContentStyle}">
             <${fvAccordionItemTag}
                 header="${x => x.header}"
                 ?expanded="${x => x.expanded}"
@@ -74,7 +74,7 @@ const metadata: Meta<AccordionItemArgs> = {
         }
     },
     args: {
-        header: 'Expanded Accordion',
+        header: 'Section header',
         expanded: true,
         appearance: FvAccordionItemAppearance.ghost
     }
@@ -84,101 +84,32 @@ export default metadata;
 
 export const fvAccordionItem: StoryObj<AccordionItemArgs> = {
     args: {
-        header: 'Expanded Accordion',
+        header: 'Section header',
         expanded: true,
         appearance: FvAccordionItemAppearance.ghost
     }
 };
 
-export const groupedItems: StoryObj<AccordionItemArgs> = {
+export const fvAccordion: StoryObj<AccordionItemArgs> = {
     render: createUserSelectedThemeStory(html`
         <div style="${accordionGroupStyle}">
-            <${fvAccordionItemTag} header="Shipping" appearance="${x => x.appearance}" expanded>
-                <${textFieldTag} appearance="underline">Address</${textFieldTag}>
-                <${textFieldTag} appearance="underline">City</${textFieldTag}>
+            <${fvAccordionItemTag} header="Profile" appearance="${x => x.appearance}" expanded>
+                <${textFieldTag} appearance="underline" placeholder="Enter name"></${textFieldTag}>
+                <${textFieldTag} appearance="underline" placeholder="Enter role"></${textFieldTag}>
+            </${fvAccordionItemTag}>
+            <${fvAccordionItemTag} header="Preferences" appearance="${x => x.appearance}">
+                <${checkboxTag}>Enable notifications</${checkboxTag}>
+                <${checkboxTag}>Show archived items</${checkboxTag}>
+            </${fvAccordionItemTag}>
+            <${fvAccordionItemTag} header="Limits" appearance="${x => x.appearance}">
+                <${numberFieldTag} appearance="underline">Minimum</${numberFieldTag}>
+                <${numberFieldTag} appearance="underline">Maximum</${numberFieldTag}>
                 <${selectTag}>
-                    State
-                    <${listOptionTag} value="CA">California</${listOptionTag}>
-                    <${listOptionTag} value="NY">New York</${listOptionTag}>
-                    <${listOptionTag} value="TX">Texas</${listOptionTag}>
+                    Mode
+                    <${listOptionTag} value="standard">Standard</${listOptionTag}>
+                    <${listOptionTag} value="compact">Compact</${listOptionTag}>
+                    <${listOptionTag} value="detailed">Detailed</${listOptionTag}>
                 </${selectTag}>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Payment" appearance="${x => x.appearance}">
-                <${textFieldTag} appearance="underline">Card number</${textFieldTag}>
-                <${numberFieldTag} appearance="underline">CVV</${numberFieldTag}>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Delivery" appearance="${x => x.appearance}">
-                <${checkboxTag}>Express shipping</${checkboxTag}>
-                <${checkboxTag}>Gift wrapping</${checkboxTag}>
-            </${fvAccordionItemTag}>
-        </div>
-    `),
-    args: {
-        appearance: FvAccordionItemAppearance.outline
-    },
-    argTypes: {
-        header: { control: false, table: { disable: true } },
-        expanded: { control: false, table: { disable: true } }
-    }
-};
-
-export const nestedItems: StoryObj<AccordionItemArgs> = {
-    render: createUserSelectedThemeStory(html`
-        <div style="${accordionGroupStyle}">
-            <${fvAccordionItemTag} header="Versioning" appearance="${x => x.appearance}" expanded>
-                <${fvAccordionItemTag} header="GET / API information" appearance="ghost" expanded>
-                    <p style="margin: 0;">Returns information about API versions and available operations.</p>
-                </${fvAccordionItemTag}>
-                <${fvAccordionItemTag} header="GET / v2 API version information" appearance="ghost">
-                    <p style="margin: 0;">Returns details for the v2 API endpoint.</p>
-                </${fvAccordionItemTag}>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Subscriptions" appearance="${x => x.appearance}">
-                <${fvAccordionItemTag} header="List subscriptions" appearance="ghost">
-                    <p style="margin: 0;">Returns all active subscriptions.</p>
-                </${fvAccordionItemTag}>
-                <${fvAccordionItemTag} header="Create subscription" appearance="ghost">
-                    <${textFieldTag} appearance="underline">Name</${textFieldTag}>
-                </${fvAccordionItemTag}>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Tags" appearance="${x => x.appearance}">
-                <${checkboxTag}>Include archived</${checkboxTag}>
-            </${fvAccordionItemTag}>
-        </div>
-    `),
-    args: {
-        appearance: FvAccordionItemAppearance.outline
-    },
-    argTypes: {
-        header: { control: false, table: { disable: true } },
-        expanded: { control: false, table: { disable: true } }
-    }
-};
-
-export const mixedContent: StoryObj<AccordionItemArgs> = {
-    render: createUserSelectedThemeStory(html`
-        <div style="${accordionGroupStyle}">
-            <${fvAccordionItemTag} header="Size" appearance="${x => x.appearance}" expanded>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
-                    <${checkboxTag}>XS</${checkboxTag}>
-                    <${checkboxTag}>S</${checkboxTag}>
-                    <${checkboxTag}>M</${checkboxTag}>
-                    <${checkboxTag}>L</${checkboxTag}>
-                    <${checkboxTag}>XL</${checkboxTag}>
-                    <${checkboxTag}>XXL</${checkboxTag}>
-                </div>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Color" appearance="${x => x.appearance}">
-                <${selectTag}>
-                    Color
-                    <${listOptionTag} value="red">Red</${listOptionTag}>
-                    <${listOptionTag} value="blue">Blue</${listOptionTag}>
-                    <${listOptionTag} value="green">Green</${listOptionTag}>
-                </${selectTag}>
-            </${fvAccordionItemTag}>
-            <${fvAccordionItemTag} header="Price" appearance="${x => x.appearance}">
-                <${numberFieldTag} appearance="underline">Min</${numberFieldTag}>
-                <${numberFieldTag} appearance="underline">Max</${numberFieldTag}>
             </${fvAccordionItemTag}>
         </div>
     `),

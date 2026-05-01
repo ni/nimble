@@ -109,17 +109,17 @@ export const styles = css`
             align-items: center;
             justify-content: center;
             top: 50%;
-            inset-inline-end: 2px;
+            inset-inline-end: 3px;
             height: calc(100% - 6px);
             aspect-ratio: 1;
             padding: 0;
             transform: translateY(-50%);
-            color: ${placeholderFontColor};
+            color: inherit;
             border: none;
             border-radius: 2px;
             background: transparent;
             cursor: pointer;
-            ${iconColor.cssCustomProperty}: ${placeholderFontColor};
+            ${iconColor.cssCustomProperty}: currentColor;
         }
 
         :host([appearance='outline']) .search-input-container {

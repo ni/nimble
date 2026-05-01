@@ -1,0 +1,16 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as chipSelectorStories from './fv-chip-selector.stories';
+
+<Meta of={chipSelectorStories} />
+<Title of={chipSelectorStories} />
+
+A labeled chip picker with removable selections, inline text entry, filtered dropdown options, keyboard selection support, and optional explicit custom-value creation.
+
+<Canvas of={chipSelectorStories.fvChipSelector} />
+
+## API
+
+<Controls of={chipSelectorStories.fvChipSelector} />
+
+<ComponentApisLink />
