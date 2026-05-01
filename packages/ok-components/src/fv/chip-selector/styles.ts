@@ -121,6 +121,8 @@ export const styles = css`
     /* Target only the picker's internal chips, not slotted client content. */
     .chip-selector-selection-area > nimble-chip {
         ${controlHeight.cssCustomProperty}: 24px;
+        min-width: 0;
+        max-width: calc(100% - ${smallPadding});
     }
 
     .chip-selector-input {
@@ -176,6 +178,7 @@ export const styles = css`
         display: flex;
         align-items: center;
         width: 100%;
+        min-width: 0;
         min-height: ${controlHeight};
         padding: 0 ${standardPadding};
         border: none;
@@ -183,6 +186,9 @@ export const styles = css`
         color: inherit;
         font: inherit;
         text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         cursor: pointer;
     }
 

@@ -280,7 +280,45 @@ describe('FvChipSelector', () => {
         const chip = element.shadowRoot?.querySelector<HTMLElement>(`${chipTag}[data-chip-value="Maintenance due"]`)!;
         const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
 
-        expect(input.offsetTop).toBe(chip.offsetTop);
+        expect(input.offsetTop).toBeLessThan(chip.offsetTop + chip.offsetHeight);
+        expect(chip.offsetTop).toBeLessThan(input.offsetTop + input.offsetHeight);
+    });
+
+    it('constrains a selected chip to the chip-selector width when the control is narrow', async () => {
+        ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
+            <${fvChipSelectorTag}
+                label="Status"
+                options="A very long chip value that should truncate to fit the chip selector width"
+                selected-values="A very long chip value that should truncate to fit the chip selector width"
+            ></${fvChipSelectorTag}>
+        `));
+        element.style.width = '180px';
+        await connect();
+        await waitForUpdatesAsync();
+
+        const selectionArea = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-selection-area')!;
+        const chip = element.shadowRoot?.querySelector<HTMLElement>(chipTag)!;
+
+        expect(chip.offsetWidth).toBeLessThanOrEqual(selectionArea.clientWidth);
+    });
+
+    it('constrains a long dropdown option to the menu width when the control is narrow', async () => {
+        ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
+            <${fvChipSelectorTag}
+                label="Status"
+                options="A very long option value that should truncate to fit the chip selector menu width"
+                open
+            ></${fvChipSelectorTag}>
+        `));
+        element.style.width = '180px';
+        await connect();
+        await waitForUpdatesAsync();
+
+        const menu = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-menu')!;
+        const option = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option')!;
+
+        expect(option.scrollWidth).toBeGreaterThan(option.clientWidth);
+        expect(option.clientWidth).toBeLessThanOrEqual(menu.clientWidth);
     });
 
     it('keeps the menu button top aligned when the selected chips wrap', async () => {
