@@ -60,6 +60,19 @@ const widthStates = [
 type WidthState = (typeof widthStates)[number];
 const widthStatesOnlyDefault = widthStates[0];
 
+const selectableStates = [
+    ['Not Selectable', false],
+    ['Selectable', true]
+] as const;
+type SelectableState = (typeof selectableStates)[number];
+const selectableStatesOnlySelectable = selectableStates[1];
+
+const selectedStates = [
+    ['Not Selected', false],
+    ['Selected', true]
+] as const;
+type SelectedState = (typeof selectedStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Chip',
     parameters: {
@@ -75,16 +88,20 @@ const component = (
     [removableName, removable]: RemovableStates,
     [showStartSlotIconName, showStartSlotIcon]: ShowStartSlotIconState,
     [labelName, label]: LabelState,
-    [widthName, width]: WidthState
+    [widthName, width]: WidthState,
+    [selectableName, selectable]: SelectableState,
+    [selectedName, selected]: SelectedState
 ): ViewTemplate => html`
     <div style="display: flex; flex-direction: column;">
         <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
-            ${appearanceName}, ${sizeName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${disabledName ? `(${disabledName})` : ''} 
+            ${appearanceName}, ${sizeName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${selectableName}, ${selectedName}, ${disabledName ? `(${disabledName})` : ''}
         </label> 
         <${chipTag}
             appearance="${() => appearance}"
             ?removable="${() => removable}"
             ?disabled=${() => disabled}
+            ?selectable="${() => selectable}"
+            ?selected=${() => selected}
             style="margin-right: 8px; margin-bottom: 8px; ${() => width}; ${() => size};">
                 ${when(() => showStartSlotIcon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
                 ${label}
@@ -92,7 +109,7 @@ const component = (
     </div>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+const createThemeMatrix = (selectableState: SelectableState): StoryFn => createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -100,8 +117,34 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
         removableStates,
         showStartSlotIconStates,
         labelStates,
-        widthStates
+        widthStates,
+        [selectableState],
+        [selectedStates[0]] // Only not selected
     ])
+);
+
+const createSelectableThemeMatrix = (selectedState: SelectedState): StoryFn => createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        sizeStates,
+        removableStates,
+        showStartSlotIconStates,
+        labelStates,
+        widthStates,
+        [selectableStates[1]],
+        [selectedState]
+    ])
+);
+
+export const themeMatrix: StoryFn = createThemeMatrix(selectableStates[0]);
+
+export const selectableThemeMatrix: StoryFn = createSelectableThemeMatrix(
+    selectedStates[0]
+);
+
+export const selectableSelectedThemeMatrix: StoryFn = createSelectableThemeMatrix(
+    selectedStates[1]
 );
 
 const interactionStates = cartesianProduct([
@@ -111,7 +154,9 @@ const interactionStates = cartesianProduct([
     removableStates,
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],
-    [widthStatesOnlyDefault]
+    [widthStatesOnlyDefault],
+    [selectableStatesOnlySelectable],
+    selectedStates
 ] as const);
 
 const interactionStatesHover = cartesianProduct([
@@ -121,7 +166,9 @@ const interactionStatesHover = cartesianProduct([
     removableStates,
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],
-    [widthStatesOnlyDefault]
+    [widthStatesOnlyDefault],
+    [selectableStatesOnlySelectable],
+    selectedStates
 ] as const);
 
 export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
