@@ -18,7 +18,7 @@
     "apache-arrow": "21.1.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-storybook": "^10.3.6",
-    "globals": "^14.0.0",
+    "globals": "^17.6.0",
     "react": "^19.2.5"
   },
   "devDependencies": {

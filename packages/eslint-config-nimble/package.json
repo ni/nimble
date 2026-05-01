@@ -31,14 +31,14 @@
     ],
     "peerDependencies": {
         "@eslint/markdown": "^8.0.1",
-        "@ni/eslint-config-angular": "^12.0.0",
+        "@ni/eslint-config-angular": "^12.0.1",
         "@ni/eslint-config-javascript": "^5.1.4",
-        "@ni/eslint-config-typescript": "^5.0.5",
+        "@ni/eslint-config-typescript": "^5.0.6",
         "eslint": "^9.36.0",
         "eslint-plugin-jsdoc": "^62.9.0",
         "eslint-plugin-markdown-links": "^0.9.0",
         "eslint-plugin-markdown-preferences": "^0.41.1",
         "typescript-eslint": "^8.59.1",
-        "globals": "^14.0.0"
+        "globals": "^17.6.0"
     }
 }

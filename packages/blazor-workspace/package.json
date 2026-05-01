@@ -43,6 +43,6 @@
         "cross-env": "^10.1.0",
         "glob": "^13.0.6",
         "playwright": "1.58.1",
-        "globals": "^14.0.0"
+        "globals": "^17.6.0"
     }
 }
