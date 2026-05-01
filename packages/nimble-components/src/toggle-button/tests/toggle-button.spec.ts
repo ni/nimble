@@ -141,7 +141,7 @@ describe('ToggleButton', () => {
 
             const event = new KeyboardEvent('keypress', {
                 key: keySpace
-            } as KeyboardEventInit);
+            });
             element.control.dispatchEvent(event);
 
             expect(element.checked).toBe(true);
@@ -153,7 +153,7 @@ describe('ToggleButton', () => {
 
             const event = new KeyboardEvent('keypress', {
                 key: keyEnter
-            } as KeyboardEventInit);
+            });
             element.control.dispatchEvent(event);
 
             expect(element.checked).toBe(true);
