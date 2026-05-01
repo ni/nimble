@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 20 Apr 2026 16:30:31 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 30 Apr 2026 22:40:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.7.0
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Minor changes
+
+- adding the containerBackgroundColor token ([ni/nimble@c44ed3b](https://github.com/ni/nimble/commit/c44ed3bfa143f7ade46e45ef0497fd03247d750e))
 
 ## 35.6.1
 
