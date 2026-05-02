@@ -2,6 +2,33 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sat, 02 May 2026 02:01:43 GMT",
+      "version": "35.7.1",
+      "tag": "@ni/nimble-components_v35.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ec45dce8237675f6f19e17e142532070b6551ab2",
+            "comment": "Dependency update May 2026"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.10",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Apr 2026 22:40:17 GMT",
       "version": "35.7.0",
       "tag": "@ni/nimble-components_v35.7.0",

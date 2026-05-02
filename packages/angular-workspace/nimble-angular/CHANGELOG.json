@@ -2,6 +2,33 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Sat, 02 May 2026 02:01:43 GMT",
+      "version": "33.1.7",
+      "tag": "@ni/nimble-angular_v33.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ec45dce8237675f6f19e17e142532070b6551ab2",
+            "comment": "Dependency update May 2026"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.7.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/unit-format to v1.0.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Apr 2026 22:40:17 GMT",
       "version": "33.1.6",
       "tag": "@ni/nimble-angular_v33.1.6",
