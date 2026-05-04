@@ -120,7 +120,7 @@ export const openedByInteractionThemeMatrix: StoryFn = createMatrixThemeStory(ht
 
 openedByInteractionThemeMatrix.play = async ({ step }): Promise<void> => {
     const splitButtons = Array.from(document.querySelectorAll<HTMLElement & {
-        handleToggleClick: () => void;
+        handleToggleClick: () => void
     }>(fvSplitButtonTag));
 
     await step('Open each split button menu', async () => {

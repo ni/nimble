@@ -122,7 +122,7 @@ export const openedByInteractionThemeMatrix: StoryFn = createMatrixThemeStory(ht
 
 openedByInteractionThemeMatrix.play = async ({ step }): Promise<void> => {
     const splitButtonAnchors = Array.from(document.querySelectorAll<HTMLElement & {
-        handleToggleClick: () => void;
+        handleToggleClick: () => void
     }>(fvSplitButtonAnchorTag));
 
     await step('Open each split button anchor menu', async () => {
