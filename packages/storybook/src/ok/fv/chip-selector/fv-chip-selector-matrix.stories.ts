@@ -9,7 +9,7 @@ import {
 
 const selectionStates = [
     ['Empty', ''],
-    ['Selected', 'Red,Yellow,Orange,Blue']
+    ['Selected', 'Red,Yellow,Orange']
 ] as const;
 
 const openStates = [
@@ -42,7 +42,7 @@ const component = (
         </div>
         <${fvChipSelectorTag}
             label="Label"
-            options="Red,Yellow,Orange,Blue,Purple,Violet,Pink"
+            options="Red,Yellow,Orange,Blue"
             selected-values="${() => selectedValues}"
             ?open="${() => open}"
             ?disabled="${() => disabled}"

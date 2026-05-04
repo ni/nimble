@@ -55,16 +55,14 @@ const component = (
 `;
 
 export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
-    <div style="padding: 12px 18px; width: 560px;">
+    <div style="padding: 12px 18px; width: 700px; min-height: 340px;">
         ${component('outline', FvSplitButtonAppearance.outline, FvSplitButtonAppearanceVariant.default)}
         ${component('block', FvSplitButtonAppearance.block, FvSplitButtonAppearanceVariant.default)}
         ${component('ghost', FvSplitButtonAppearance.ghost, FvSplitButtonAppearanceVariant.default)}
+        ${component('accent outline', FvSplitButtonAppearance.outline, FvSplitButtonAppearanceVariant.accent)}
         ${component('', FvSplitButtonAppearance.outline, FvSplitButtonAppearanceVariant.default, true)}
         ${component('', FvSplitButtonAppearance.block, FvSplitButtonAppearanceVariant.default, true)}
         ${component('', FvSplitButtonAppearance.ghost, FvSplitButtonAppearanceVariant.default, true)}
-        <div style="margin-top: 20px;">
-            ${component('accent outline', FvSplitButtonAppearance.outline, FvSplitButtonAppearanceVariant.accent)}
-        </div>
     </div>
 `);
 
@@ -108,12 +106,11 @@ export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const openedByInteractionThemeMatrix: StoryFn = createMatrixThemeStory(html`
-    <div style="padding: 12px 18px; width: 560px;">
+    <div style="padding: 12px 18px; width: 800px; min-height: 220px;">
         ${component('outline', FvSplitButtonAppearance.outline, FvSplitButtonAppearanceVariant.default)}
         ${component('block', FvSplitButtonAppearance.block, FvSplitButtonAppearanceVariant.default)}
         ${component('ghost', FvSplitButtonAppearance.ghost, FvSplitButtonAppearanceVariant.default)}
-        <div style="margin-top: 20px;">
-            ${component('accent outline', FvSplitButtonAppearance.outline, FvSplitButtonAppearanceVariant.accent)}
+        ${component('accent outline', FvSplitButtonAppearance.outline, FvSplitButtonAppearanceVariant.accent)}
         </div>
     </div>
 `);

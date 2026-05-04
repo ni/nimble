@@ -55,16 +55,14 @@ const component = (
 `;
 
 export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
-    <div style="padding: 12px 18px; width: 560px;">
+    <div style="padding: 12px 18px; width: 800px; min-height: 250px;">
         ${component('outline', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.default)}
         ${component('block', FvSplitButtonAnchorAppearance.block, FvSplitButtonAnchorAppearanceVariant.default)}
         ${component('ghost', FvSplitButtonAnchorAppearance.ghost, FvSplitButtonAnchorAppearanceVariant.default)}
+        ${component('accent outline', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.accent)}
         ${component('', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.default, true)}
         ${component('', FvSplitButtonAnchorAppearance.block, FvSplitButtonAnchorAppearanceVariant.default, true)}
         ${component('', FvSplitButtonAnchorAppearance.ghost, FvSplitButtonAnchorAppearanceVariant.default, true)}
-        <div style="margin-top: 20px;">
-            ${component('accent outline', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.accent)}
-        </div>
     </div>
 `);
 
@@ -110,12 +108,11 @@ export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const openedByInteractionThemeMatrix: StoryFn = createMatrixThemeStory(html`
-    <div style="padding: 12px 18px; width: 560px;">
+    <div style="padding: 12px 18px; width: 800px; min-height: 160px;">
         ${component('outline', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.default)}
         ${component('block', FvSplitButtonAnchorAppearance.block, FvSplitButtonAnchorAppearanceVariant.default)}
         ${component('ghost', FvSplitButtonAnchorAppearance.ghost, FvSplitButtonAnchorAppearanceVariant.default)}
-        <div style="margin-top: 20px;">
-            ${component('accent outline', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.accent)}
+        ${component('accent outline', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.accent)}
         </div>
     </div>
 `);
