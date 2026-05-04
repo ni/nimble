@@ -53,7 +53,10 @@ describe('FvSplitButtonAnchor', () => {
         element.addEventListener('trigger', triggerSpy);
         await connect();
 
-        (element.shadowRoot?.querySelector('.split-button-primary') as HTMLAnchorElement | null)!.click();
+        const anchor = (element.shadowRoot?.querySelector('.split-button-primary') as HTMLAnchorElement | null)!;
+        anchor.addEventListener('click', event => event.preventDefault());
+
+        anchor.click();
 
         expect(triggerSpy).toHaveBeenCalled();
     });

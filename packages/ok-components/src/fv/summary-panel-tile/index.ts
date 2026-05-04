@@ -31,6 +31,23 @@ export class FvSummaryPanelTile extends FoundationElement {
 
     @attr({ attribute: 'text-position' })
     public textPosition: FvSummaryPanelTileTextPositionType = FvSummaryPanelTileTextPosition.beside;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.syncLegacyStyleAttribute();
+    }
+
+    public legacyStyleChanged(): void {
+        this.syncLegacyStyleAttribute();
+    }
+
+    private syncLegacyStyleAttribute(): void {
+        if (this.legacyStyle) {
+            this.setAttribute('legacy-style', '');
+        } else {
+            this.removeAttribute('legacy-style');
+        }
+    }
 }
 
 const okFvSummaryPanelTile = FvSummaryPanelTile.compose({

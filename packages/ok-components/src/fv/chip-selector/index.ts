@@ -216,6 +216,7 @@ export class FvChipSelector extends FoundationElement {
             return;
         }
 
+        this.setOpen(!this.open);
         this.inputElement?.focus();
     }
 
