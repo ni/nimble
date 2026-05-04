@@ -2,6 +2,35 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 04 May 2026 17:04:06 GMT",
+      "version": "6.18.0",
+      "tag": "@ni/spright-components_v6.18.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "e6817bdbabe2ac49bf7364105de4576f213841c4",
+            "comment": "Update welcome message icons"
+          }
+        ],
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.8.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-tokens to v8.18.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 02 May 2026 02:01:43 GMT",
       "version": "6.17.2",
       "tag": "@ni/spright-components_v6.17.2",
