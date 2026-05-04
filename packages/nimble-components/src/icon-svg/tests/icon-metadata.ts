@@ -467,15 +467,7 @@ export const iconMetadata: {
         tags: ['comment', 'notes', 'alarm notes', 'speech', 'bubble']
     },
     IconMessagesSparkle: {
-        tags: [
-            'nigel',
-            'chatbot',
-            'ai',
-            'chat',
-            'help',
-            'conversation',
-            'comment'
-        ]
+        tags: ['deprecated - prefer icon sparkles nested']
     },
     IconMicrophone: {
         tags: ['talk to text', 'speech', 'speak', 'sound', 'audio']
@@ -581,6 +573,17 @@ export const iconMetadata: {
     },
     IconSparkles: {
         tags: ['clean up', 'stars']
+    },
+    IconSparklesNested: {
+        tags: [
+            'nigel',
+            'chatbot',
+            'ai',
+            'chat',
+            'help',
+            'conversation',
+            'comment'
+        ]
     },
     IconSparkleSwirls: {
         tags: ['ai', 'artificial intelligence', 'magic', 'advanced automate']
