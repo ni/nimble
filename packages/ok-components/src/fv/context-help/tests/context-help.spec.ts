@@ -45,4 +45,51 @@ describe('FvContextHelp', () => {
 
         expect(element.shadowRoot?.querySelector('button')?.getAttribute('aria-label')).toBe('Show calibration help');
     });
+
+    it('renders the text attribute inside the tooltip', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const tooltip = element.shadowRoot?.querySelector('nimble-tooltip');
+        expect(tooltip?.textContent?.trim()).toBe('Calibration assets include scheduled maintenance history.');
+    });
+
+    it('passes severity to the tooltip element', async () => {
+        ({ element, connect, disconnect } = await fixture<FvContextHelp>(html`
+            <${fvContextHelpTag}
+                text="Something went wrong."
+                severity="error"
+            ></${fvContextHelpTag}>
+        `));
+        await connect();
+
+        const tooltip = element.shadowRoot?.querySelector('nimble-tooltip');
+        expect(tooltip?.getAttribute('severity')).toBe('error');
+    });
+
+    it('passes icon-visible to the tooltip element', async () => {
+        ({ element, connect, disconnect } = await fixture<FvContextHelp>(html`
+            <${fvContextHelpTag}
+                text="Important note."
+                icon-visible
+            ></${fvContextHelpTag}>
+        `));
+        await connect();
+
+        const tooltip = element.shadowRoot?.querySelector('nimble-tooltip');
+        expect(tooltip?.hasAttribute('icon-visible')).toBeTrue();
+    });
+
+    it('renders slotted content inside the tooltip', async () => {
+        ({ element, connect, disconnect } = await fixture<FvContextHelp>(html`
+            <${fvContextHelpTag}>
+                <span class="custom-content">Rich help content</span>
+            </${fvContextHelpTag}>
+        `));
+        await connect();
+
+        const tooltip = element.shadowRoot?.querySelector('nimble-tooltip');
+        const slot = tooltip?.querySelector('slot:not([name])');
+        expect(slot).not.toBeNull();
+    });
 });

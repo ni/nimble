@@ -18,6 +18,24 @@ describe('FvChipSelector', () => {
     let connect: () => Promise<void>;
     let disconnect: (() => Promise<void>) | undefined;
 
+    function getShadowRoot(): ShadowRoot {
+        if (!element.shadowRoot) {
+            throw new Error('Expected chip selector shadow root to exist');
+        }
+
+        return element.shadowRoot;
+    }
+
+    function getRequiredElement<T extends Element>(selector: string): T {
+        const foundElement = getShadowRoot().querySelector<T>(selector);
+
+        if (!foundElement) {
+            throw new Error(`Expected element matching selector ${selector}`);
+        }
+
+        return foundElement;
+    }
+
     afterEach(async () => {
         await disconnect?.();
         disconnect = undefined;
@@ -31,11 +49,11 @@ describe('FvChipSelector', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         input.focus();
         await waitForUpdatesAsync();
 
-        const option = element.shadowRoot?.querySelector<HTMLButtonElement>('[data-option-value="Active"]')!;
+        const option = getRequiredElement<HTMLButtonElement>('[data-option-value="Active"]');
         option.click();
         await waitForUpdatesAsync();
 
@@ -49,7 +67,7 @@ describe('FvChipSelector', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const chip = element.shadowRoot?.querySelector<HTMLElement>(`${chipTag}[data-chip-value="Paused"]`)!;
+        const chip = getRequiredElement<HTMLElement>(`${chipTag}[data-chip-value="Paused"]`);
         chip.dispatchEvent(new Event('remove', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
@@ -60,7 +78,7 @@ describe('FvChipSelector', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         input.value = 'main';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
@@ -81,7 +99,7 @@ describe('FvChipSelector', () => {
         `));
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         input.value = 'CAFE';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
@@ -98,7 +116,7 @@ describe('FvChipSelector', () => {
         element.allowCustomValues = true;
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         input.value = 'Paused later';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
@@ -113,7 +131,7 @@ describe('FvChipSelector', () => {
         element.allowCustomValues = true;
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         input.value = 'Active';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
@@ -126,12 +144,12 @@ describe('FvChipSelector', () => {
         element.allowCustomValues = true;
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         input.value = 'Paused later';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        const createOption = element.shadowRoot?.querySelector<HTMLButtonElement>('.chip-selector-create-option')!;
+        const createOption = getRequiredElement<HTMLButtonElement>('.chip-selector-create-option');
         createOption.click();
         await waitForUpdatesAsync();
 
@@ -143,7 +161,7 @@ describe('FvChipSelector', () => {
         element.allowCustomValues = true;
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         input.focus();
         input.value = 'Paused later';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
@@ -166,7 +184,7 @@ describe('FvChipSelector', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         input.focus();
         input.value = 'a';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
@@ -200,7 +218,7 @@ describe('FvChipSelector', () => {
         element.disabled = true;
         await connect();
 
-        const menuButton = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-menu-button')!;
+        const menuButton = getRequiredElement<HTMLElement>('.chip-selector-menu-button');
         menuButton.click();
         await waitForUpdatesAsync();
 
@@ -212,7 +230,7 @@ describe('FvChipSelector', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const menuButton = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-menu-button')!;
+        const menuButton = getRequiredElement<HTMLElement>('.chip-selector-menu-button');
         menuButton.click();
         await waitForUpdatesAsync();
 
@@ -223,7 +241,7 @@ describe('FvChipSelector', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const menuButton = element.shadowRoot?.querySelector<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button')!;
+        const menuButton = getRequiredElement<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button');
         menuButton.click();
         await waitForUpdatesAsync();
 
@@ -238,8 +256,8 @@ describe('FvChipSelector', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
-        const menuButton = element.shadowRoot?.querySelector<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button')!;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        const menuButton = getRequiredElement<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button');
 
         menuButton.click();
         await waitForUpdatesAsync();
@@ -277,8 +295,8 @@ describe('FvChipSelector', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const chip = element.shadowRoot?.querySelector<HTMLElement>(`${chipTag}[data-chip-value="Maintenance due"]`)!;
-        const input = element.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')!;
+        const chip = getRequiredElement<HTMLElement>(`${chipTag}[data-chip-value="Maintenance due"]`);
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
 
         expect(input.offsetTop).toBeLessThan(chip.offsetTop + chip.offsetHeight);
         expect(chip.offsetTop).toBeLessThan(input.offsetTop + input.offsetHeight);
@@ -296,8 +314,8 @@ describe('FvChipSelector', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const selectionArea = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-selection-area')!;
-        const chip = element.shadowRoot?.querySelector<HTMLElement>(chipTag)!;
+        const selectionArea = getRequiredElement<HTMLElement>('.chip-selector-selection-area');
+        const chip = getRequiredElement<HTMLElement>(chipTag);
 
         expect(chip.offsetWidth).toBeLessThanOrEqual(selectionArea.clientWidth);
     });
@@ -314,8 +332,8 @@ describe('FvChipSelector', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const menu = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-menu')!;
-        const option = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option')!;
+        const menu = getRequiredElement<HTMLElement>('.chip-selector-menu');
+        const option = getRequiredElement<HTMLElement>('.chip-selector-option');
 
         expect(option.scrollWidth).toBeGreaterThan(option.clientWidth);
         expect(option.clientWidth).toBeLessThanOrEqual(menu.clientWidth);
@@ -328,9 +346,85 @@ describe('FvChipSelector', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const firstChip = element.shadowRoot?.querySelector<HTMLElement>(`${chipTag}[data-chip-value="Active"]`)!;
-        const menuButton = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-menu-button')!;
+        const firstChip = getRequiredElement<HTMLElement>(`${chipTag}[data-chip-value="Active"]`);
+        const menuButton = getRequiredElement<HTMLElement>('.chip-selector-menu-button');
 
         expect(menuButton.offsetTop).toBe(firstChip.offsetTop);
+    });
+
+    it('emits a change event with the updated selection when a value is added', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const changeSpy = jasmine.createSpy('change');
+        let selectedValuesDetail: string[] | undefined;
+        element.addEventListener('change', event => {
+            selectedValuesDetail = (event as CustomEvent<{ selectedValues: string[] }>).detail.selectedValues;
+            changeSpy();
+        });
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        await waitForUpdatesAsync();
+
+        const option = getRequiredElement<HTMLButtonElement>('[data-option-value="Active"]');
+        option.click();
+        await waitForUpdatesAsync();
+
+        expect(changeSpy).toHaveBeenCalledTimes(1);
+        expect(selectedValuesDetail).toEqual(['Active']);
+    });
+
+    it('emits a change event with the updated selection when a value is removed', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.selectedValues = 'Active,Paused';
+        await connect();
+        await waitForUpdatesAsync();
+
+        const changeSpy = jasmine.createSpy('change');
+        let selectedValuesDetail: string[] | undefined;
+        element.addEventListener('change', event => {
+            selectedValuesDetail = (event as CustomEvent<{ selectedValues: string[] }>).detail.selectedValues;
+            changeSpy();
+        });
+
+        const chip = getRequiredElement<HTMLElement>(`${chipTag}[data-chip-value="Paused"]`);
+        chip.dispatchEvent(new Event('remove', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(changeSpy).toHaveBeenCalledTimes(1);
+        expect(selectedValuesDetail).toEqual(['Active']);
+    });
+
+    it('removes the last chip when Backspace is pressed with an empty filter', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.selectedValues = 'Active,Paused';
+        await connect();
+        await waitForUpdatesAsync();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValues).toBe('Active');
+    });
+
+    it('shows the placeholder when no values are selected', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        expect(input.placeholder).toBe('Select values');
+    });
+
+    it('hides the placeholder when values are selected', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.selectedValues = 'Active';
+        await connect();
+        await waitForUpdatesAsync();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        expect(input.placeholder).toBe('');
     });
 });

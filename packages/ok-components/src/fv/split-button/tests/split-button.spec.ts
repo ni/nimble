@@ -91,4 +91,41 @@ describe('FvSplitButton', () => {
 
         expect(element.open).toBeFalse();
     });
+
+    it('emits trigger when the primary button is clicked', async () => {
+        ({ element, connect, disconnect } = await setup());
+        const triggerSpy = jasmine.createSpy('trigger');
+        element.addEventListener('trigger', triggerSpy);
+        await connect();
+
+        (element.shadowRoot?.querySelector('.split-button-primary') as HTMLButtonElement | null)!.click();
+
+        expect(triggerSpy).toHaveBeenCalled();
+    });
+
+    it('closes when clicking outside the component', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        element.open = true;
+        await waitForUpdatesAsync();
+
+        document.body.click();
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+    });
+
+    it('closes when Escape is pressed', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        element.open = true;
+        await waitForUpdatesAsync();
+
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+    });
 });

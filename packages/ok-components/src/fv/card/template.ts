@@ -5,7 +5,7 @@ import { FvCardInteractionMode } from './types';
 import type { FvCard } from '.';
 
 const cardContentTemplate = html<FvCard>`
-    <div class="card-layout ${x => x.hasMedia ? 'has-media' : 'no-media'}">
+    <div class="card-layout ${x => (x.hasMedia ? 'has-media' : 'no-media')}">
         ${when(
             x => x.hasMedia,
             html<FvCard>`

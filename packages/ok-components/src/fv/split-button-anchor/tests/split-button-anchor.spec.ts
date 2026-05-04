@@ -104,4 +104,30 @@ describe('FvSplitButtonAnchor', () => {
 
         expect(element.open).toBeFalse();
     });
+
+    it('closes when clicking outside the component', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        element.open = true;
+        await waitForUpdatesAsync();
+
+        document.body.click();
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+    });
+
+    it('closes when Escape is pressed', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        element.open = true;
+        await waitForUpdatesAsync();
+
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+    });
 });

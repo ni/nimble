@@ -54,8 +54,7 @@ export class FvSummaryPanel extends FoundationElement {
 
             if (this.legacyStyle) {
                 element.setAttribute('legacy-style', '');
-            }
-            else {
+            } else {
                 element.removeAttribute('legacy-style');
             }
         }

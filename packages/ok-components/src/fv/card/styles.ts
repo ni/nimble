@@ -1,6 +1,5 @@
 import { css } from '@ni/fast-element';
 import {
-    applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
     bodyPlus1EmphasizedFont,

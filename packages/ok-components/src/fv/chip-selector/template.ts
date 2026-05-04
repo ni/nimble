@@ -52,7 +52,7 @@ export const template = html<FvChipSelector>`
                     type="text"
                     autocomplete="off"
                     spellcheck="false"
-                    placeholder="${x => x.selectedValueList.length === 0 ? x.placeholder : ''}"
+                    placeholder="${x => (x.selectedValueList.length === 0 ? x.placeholder : '')}"
                     :value="${x => x.filterText}"
                     aria-controls="${x => x.menuId}"
                     aria-activedescendant="${x => (x.open ? x.activeOptionId : null)}"
@@ -107,7 +107,7 @@ export const template = html<FvChipSelector>`
                 html<string, FvChipSelector>`
                     <button
                         id="${(x, c) => c.parent.getOptionId(x)}"
-                        class="chip-selector-option ${ (x, c) => (x === c.parent.activeOptionValue ? 'active' : '') }"
+                        class="chip-selector-option ${(x, c) => (x === c.parent.activeOptionValue ? 'active' : '')}"
                         type="button"
                         role="option"
                         aria-selected="${(x, c) => x === c.parent.activeOptionValue}"

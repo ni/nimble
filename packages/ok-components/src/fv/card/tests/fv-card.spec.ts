@@ -185,4 +185,17 @@ describe('FvCard', () => {
         expect(element.getAttribute('title')).toBeNull();
         expect(element.shadowRoot?.querySelector('.title')?.textContent?.trim()).toBe('Plugin Manager');
     });
+
+    it('renders the badges slot when badge content is assigned', async () => {
+        ({ element, connect, disconnect } = await setup(
+            html`<${fvCardTag} card-title="Plugin Manager">
+                <span slot="badges">New</span>
+            </${fvCardTag}>`
+        ));
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(element.hasBadgesContent).toBeTrue();
+        expect(element.shadowRoot?.querySelector('.badges')).not.toBeNull();
+    });
 });
