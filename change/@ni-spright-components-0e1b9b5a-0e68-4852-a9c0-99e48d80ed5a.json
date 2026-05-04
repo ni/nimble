@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update welcome message icons",
+  "packageName": "@ni/spright-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
