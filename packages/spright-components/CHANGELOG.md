@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.18.1
+
+Tue, 05 May 2026 14:11:16 GMT
+
+### Patches
+
+- Update chat welcome icon with designer feedback ([ni/nimble@f3fa5ec](https://github.com/ni/nimble/commit/f3fa5ec7a1d998ce2a569d9b7543d2f81d78bdbd))
 
 ## 6.18.0
 

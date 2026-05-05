@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 05 May 2026 14:11:16 GMT",
+      "version": "6.18.1",
+      "tag": "@ni/spright-components_v6.18.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "f3fa5ec7a1d998ce2a569d9b7543d2f81d78bdbd",
+            "comment": "Update chat welcome icon with designer feedback"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 May 2026 17:04:06 GMT",
       "version": "6.18.0",
       "tag": "@ni/spright-components_v6.18.0",

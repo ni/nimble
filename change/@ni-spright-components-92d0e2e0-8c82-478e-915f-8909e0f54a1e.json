@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update chat welcome icon with designer feedback",
-  "packageName": "@ni/spright-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
