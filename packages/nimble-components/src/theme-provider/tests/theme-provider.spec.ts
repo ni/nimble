@@ -19,6 +19,53 @@ describe('Theme Provider', () => {
         );
     });
 
+    describe('color-scheme CSS property', () => {
+        async function setup(
+            themeValue: string | undefined
+        ): Promise<Fixture<ThemeProvider>> {
+            return await fixture<ThemeProvider>(
+                html`<${themeProviderTag} ${
+                    themeValue === undefined ? '' : `theme="${themeValue}"`
+                }></${themeProviderTag}>`
+            );
+        }
+
+        let element: ThemeProvider;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('defaults to light', async () => {
+            ({ element, connect, disconnect } = await setup(undefined));
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(getComputedStyle(element).colorScheme).toBe('light');
+        });
+
+        it('uses dark for dark theme', async () => {
+            ({ element, connect, disconnect } = await setup('dark'));
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(getComputedStyle(element).colorScheme).toBe('dark');
+        });
+
+        it('updates when theme changes from light to dark', async () => {
+            ({ element, connect, disconnect } = await setup('light'));
+            await connect();
+            await waitForUpdatesAsync();
+            expect(getComputedStyle(element).colorScheme).toBe('light');
+
+            element.setAttribute('theme', 'dark');
+            await waitForUpdatesAsync();
+            expect(getComputedStyle(element).colorScheme).toBe('dark');
+        });
+    });
+
     describe('lang token', () => {
         async function setup(
             langValue: string | undefined
