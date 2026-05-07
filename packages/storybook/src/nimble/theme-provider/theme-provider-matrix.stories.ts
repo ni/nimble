@@ -35,6 +35,7 @@ const component = (stateLabel: ScrollbarState): ViewTemplate => html`
         <div>${() => stateLabel}</div>
         <div style="
             height: 200px;
+            width: 300px;
             overflow-y: auto;
             border: var(${borderWidth.cssCustomProperty}) solid var(${borderColor.cssCustomProperty});
             padding: 8px;
