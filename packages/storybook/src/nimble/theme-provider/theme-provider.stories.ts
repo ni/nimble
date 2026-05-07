@@ -124,3 +124,57 @@ export const themeProvider: StoryObj<ThemeProviderArgs> = {
         direction: Direction.ltr
     }
 };
+
+export const scrollbarColorScheme: StoryObj = {
+    render: () => html`
+        <div style="display: flex; gap: 16px; padding: 16px;">
+            ${Object.values(Theme).map(
+                themeValue => html`
+                    <${themeProviderTag} theme="${themeValue}" style="flex: 1;">
+                        <div style="
+                            display: flex;
+                            flex-direction: column;
+                            height: 300px;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            padding: 12px;
+                        ">
+                            <div style="font-weight: bold; margin-bottom: 8px;">Theme: ${themeValue}</div>
+                            <div style="
+                                flex: 1;
+                                overflow-y: auto;
+                                padding: 8px;
+                                font-size: 14px;
+                                line-height: 1.6;
+                            ">
+                                Scrollable content to demonstrate color-scheme-driven scrollbar styling.
+                                <br/><br/>
+                                The scrollbar appearance (color and style) is determined by the CSS
+                                color-scheme property set on the theme provider.
+                                <br/><br/>
+                                Light theme uses light scrollbars, dark theme uses dark scrollbars.
+                                <br/><br/>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                nisi ut aliquip ex ea commodo consequat.
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                deserunt mollit anim id est laborum.
+                            </div>
+                        </div>
+                    </${themeProviderTag}>
+                `
+            )}
+        </div>
+    `,
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    'This story displays scrollable content in each theme to demonstrate how the color-scheme CSS property affects native scrollbar rendering. Light theme shows light scrollbars, dark theme shows dark scrollbars.'
+            }
+        }
+    }
+};
