@@ -84,7 +84,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         const visibleOptions = Array.from(
-            element.shadowRoot?.querySelectorAll<HTMLElement>(`.chip-selector-option`) ?? []
+            element.shadowRoot?.querySelectorAll<HTMLElement>('.chip-selector-option') ?? []
         ).map(option => option.textContent?.trim());
 
         expect(visibleOptions).toEqual(['Maintenance due']);
@@ -105,7 +105,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         const visibleOptions = Array.from(
-            element.shadowRoot?.querySelectorAll<HTMLElement>(`.chip-selector-option`) ?? []
+            element.shadowRoot?.querySelectorAll<HTMLElement>('.chip-selector-option') ?? []
         ).map(option => option.textContent?.trim());
 
         expect(visibleOptions).toEqual(['Café']);
@@ -453,7 +453,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         expect(element.activeOptionIndex).toBe(0);
-        const activeOption = element.shadowRoot?.querySelector<HTMLElement>(`[aria-selected='true']`);
+        const activeOption = element.shadowRoot?.querySelector<HTMLElement>("[aria-selected='true']");
         expect(activeOption?.getAttribute('data-option-value')).toBe('Active');
     });
 
@@ -471,7 +471,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         expect(element.activeOptionIndex).toBe(1);
-        const activeOption = element.shadowRoot?.querySelector<HTMLElement>(`[aria-selected='true']`);
+        const activeOption = element.shadowRoot?.querySelector<HTMLElement>("[aria-selected='true']");
         expect(activeOption?.getAttribute('data-option-value')).toBe('Paused');
     });
 
