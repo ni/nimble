@@ -16,6 +16,7 @@ interface CheckboxArgs {
     checked: boolean;
     checkedProperty: undefined;
     indeterminate: boolean;
+    appearanceIndeterminate: boolean;
     disabled: boolean;
     change: undefined;
     errorVisible: boolean;
@@ -35,6 +36,7 @@ const metadata: Meta<CheckboxArgs> = {
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
             :indeterminate="${x => x.indeterminate}"
+            ?appearance-indeterminate="${x => x.appearanceIndeterminate}"
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
         >
@@ -67,6 +69,12 @@ The \`indeterminate\` state is not automatically changed when the user interacti
 </details>`,
             table: { category: apiCategory.nonAttributeProperties }
         },
+        appearanceIndeterminate: {
+            name: 'appearance-indeterminate',
+            description:
+                'Whether the checkbox should display the indeterminate (partially checked) visual appearance. Unlike the `indeterminate` property, this attribute is not cleared on user interaction, giving the application full control over the visual state.',
+            table: { category: apiCategory.attributes }
+        },
         disabled: {
             description: disabledDescription({ componentName: 'checkbox' }),
             table: { category: apiCategory.attributes }
@@ -92,6 +100,7 @@ The \`indeterminate\` state is not automatically changed when the user interacti
         label: 'Checkbox label',
         checked: false,
         indeterminate: false,
+        appearanceIndeterminate: false,
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid'
