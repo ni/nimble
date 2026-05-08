@@ -1,8 +1,39 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 30 Apr 2026 22:40:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.18.1
+
+Tue, 05 May 2026 14:11:16 GMT
+
+### Patches
+
+- Update chat welcome icon with designer feedback ([ni/nimble@f3fa5ec](https://github.com/ni/nimble/commit/f3fa5ec7a1d998ce2a569d9b7543d2f81d78bdbd))
+
+## 6.18.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.8.0
+- Bump @ni/nimble-tokens to v8.18.0
+
+### Patches
+
+- Update welcome message icons ([ni/nimble@e6817bd](https://github.com/ni/nimble/commit/e6817bdbabe2ac49bf7364105de4576f213841c4))
+
+## 6.17.2
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Dependency update May 2026 ([ni/nimble@ec45dce](https://github.com/ni/nimble/commit/ec45dce8237675f6f19e17e142532070b6551ab2))
+- Bump @ni/nimble-components to v35.7.1
+- Bump @ni/jasmine-parameterized to v1.0.10
 
 ## 6.17.1
 

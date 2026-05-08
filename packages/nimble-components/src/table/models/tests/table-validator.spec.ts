@@ -7,7 +7,6 @@ import {
 } from '../../types';
 import { TableValidator } from '../table-validator';
 import {
-    TableColumnValidationTest,
     tableColumnValidationTestTag
 } from '../../../table-column/base/tests/table-column.fixtures';
 
@@ -282,11 +281,11 @@ describe('TableValidator', () => {
                     Object.assign(
                         document.createElement(tableColumnValidationTestTag),
                         { foo: true, bar: true }
-                    ) as TableColumnValidationTest,
+                    ),
                     Object.assign(
                         document.createElement(tableColumnValidationTestTag),
                         { foo: true, bar: false }
-                    ) as TableColumnValidationTest
+                    )
                 ],
                 isValid: false,
                 name: 'is invalid when any column returns false from checkValidity'
@@ -296,11 +295,11 @@ describe('TableValidator', () => {
                     Object.assign(
                         document.createElement(tableColumnValidationTestTag),
                         { foo: true, bar: true }
-                    ) as TableColumnValidationTest,
+                    ),
                     Object.assign(
                         document.createElement(tableColumnValidationTestTag),
                         { foo: true, bar: true }
-                    ) as TableColumnValidationTest
+                    )
                 ],
                 isValid: true,
                 name: 'is valid when all columns return true from checkValidity'

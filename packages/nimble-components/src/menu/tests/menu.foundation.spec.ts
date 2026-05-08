@@ -25,12 +25,12 @@ const menuItem = MenuItem.compose({
 const arrowUpEvent = new KeyboardEvent('keydown', {
     key: keyArrowUp,
     bubbles: true
-} as KeyboardEventInit);
+});
 
 const arrowDownEvent = new KeyboardEvent('keydown', {
     key: keyArrowDown,
     bubbles: true
-} as KeyboardEventInit);
+});
 
 async function setup(): Promise<{
     element: Menu,

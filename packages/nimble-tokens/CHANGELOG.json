@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 04 May 2026 17:04:06 GMT",
+      "version": "8.18.0",
+      "tag": "@ni/nimble-tokens_v8.18.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "e6817bdbabe2ac49bf7364105de4576f213841c4",
+            "comment": "Add sparkles-nested icon"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 Mar 2026 16:41:20 GMT",
       "version": "8.17.0",
       "tag": "@ni/nimble-tokens_v8.17.0",

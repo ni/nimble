@@ -15,5 +15,6 @@ module.exports = {
         '**/docs/**',
         '**/specs/**',
         '**/tests/**',
-    ]
+    ],
+    verbose: true,
 };

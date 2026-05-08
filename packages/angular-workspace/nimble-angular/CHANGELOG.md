@@ -1,8 +1,26 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 30 Apr 2026 22:40:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.2.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.8.0
+
+## 33.1.7
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Dependency update May 2026 ([ni/nimble@ec45dce](https://github.com/ni/nimble/commit/ec45dce8237675f6f19e17e142532070b6551ab2))
+- Bump @ni/nimble-components to v35.7.1
+- Bump @ni/unit-format to v1.0.4
 
 ## 33.1.6
 

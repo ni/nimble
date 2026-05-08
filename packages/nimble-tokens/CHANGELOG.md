@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Thu, 12 Mar 2026 16:41:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.18.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Add sparkles-nested icon ([ni/nimble@e6817bd](https://github.com/ni/nimble/commit/e6817bdbabe2ac49bf7364105de4576f213841c4))
 
 ## 8.17.0
 
