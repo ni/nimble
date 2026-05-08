@@ -362,7 +362,7 @@ describe('Table action menu', () => {
         const listener = waitForEvent(element, 'action-menu-beforetoggle', spy);
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
-        } as KeyboardEventInit);
+        });
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         menuButton.region!.dispatchEvent(escEvent);
 
@@ -418,7 +418,7 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
-        } as KeyboardEventInit);
+        });
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         menuButton.region!.dispatchEvent(escEvent);
 
@@ -447,7 +447,7 @@ describe('Table action menu', () => {
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const event = new KeyboardEvent('keydown', {
             key: keyArrowDown
-        } as KeyboardEventInit);
+        });
         menuButton.toggleButton!.dispatchEvent(event);
 
         await toggleListener;
@@ -466,7 +466,7 @@ describe('Table action menu', () => {
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const event = new KeyboardEvent('keydown', {
             key: keyArrowUp
-        } as KeyboardEventInit);
+        });
         menuButton.toggleButton!.dispatchEvent(event);
 
         await toggleListener;

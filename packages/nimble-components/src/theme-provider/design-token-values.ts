@@ -170,6 +170,7 @@ const alias = {
 export const tokenValues = {
     actionRgbPartialColor: hexToRgbPartialThemeColor(createThemeColor(Black91, Black15, White)),
     applicationBackgroundColor: createThemeColor(White, Black85, ForestGreen),
+    containerBackgroundColor: hexToRgbaCssThemeColor(createThemeColor(Black91, Black15, White), 0.07, 0.1, 0.1),
     headerBackgroundColor: createThemeColor(Black7, Black88, ForestGreen),
     sectionBackgroundColor: createThemeColor(Black15, Black80, ForestGreen),
     sectionBackgroundImage: createThemeColor(

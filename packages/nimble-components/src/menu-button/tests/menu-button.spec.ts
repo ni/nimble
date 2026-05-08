@@ -424,7 +424,7 @@ describe('MenuButton', () => {
 
                 const event = new KeyboardEvent('keydown', {
                     key: keyEnter
-                } as KeyboardEventInit);
+                });
                 menuItem1.dispatchEvent(event);
                 expect(menuButton.open).toBeFalse();
             });
@@ -434,7 +434,7 @@ describe('MenuButton', () => {
 
                 const event = new KeyboardEvent('keydown', {
                     key: keyEnter
-                } as KeyboardEventInit);
+                });
                 menuItem1.dispatchEvent(event);
                 expect(document.activeElement).toEqual(element);
             });

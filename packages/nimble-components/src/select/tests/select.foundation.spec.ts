@@ -303,7 +303,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -335,7 +335,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -363,7 +363,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -393,7 +393,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -423,7 +423,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
-            } as KeyboardEventInit);
+            });
 
             const wasInput = await Promise.race([
                 new Promise(resolve => {
@@ -455,7 +455,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
-            } as KeyboardEventInit);
+            });
 
             const wasInput = await Promise.race([
                 new Promise(resolve => {
@@ -483,7 +483,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: 'Home'
-            } as KeyboardEventInit);
+            });
 
             const wasInput = await Promise.race([
                 new Promise(resolve => {
@@ -513,7 +513,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
-            } as KeyboardEventInit);
+            });
 
             const wasInput = await Promise.race([
                 new Promise(resolve => {
@@ -545,7 +545,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -575,7 +575,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -605,7 +605,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -631,7 +631,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -664,11 +664,11 @@ describe('Select', () => {
 
             const arrowDownEvent = new KeyboardEvent('keydown', {
                 key: keyArrowDown
-            } as KeyboardEventInit);
+            });
 
             const arrowUpEvent = new KeyboardEvent('keydown', {
                 key: keyArrowUp
-            } as KeyboardEventInit);
+            });
 
             expect(
                 await Promise.race([
@@ -720,7 +720,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
-            } as KeyboardEventInit);
+            });
 
             const wasInput = await Promise.race([
                 new Promise(resolve => {
@@ -750,7 +750,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
-            } as KeyboardEventInit);
+            });
 
             const wasInput = await Promise.race([
                 new Promise(resolve => {
@@ -780,7 +780,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
-            } as KeyboardEventInit);
+            });
 
             const wasInput = await Promise.race([
                 new Promise(resolve => {
@@ -806,7 +806,7 @@ describe('Select', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: 'End'
-            } as KeyboardEventInit);
+            });
 
             const wasInput = await Promise.race([
                 new Promise(resolve => {

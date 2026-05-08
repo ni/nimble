@@ -2517,7 +2517,7 @@ describe('Table', () => {
         beforeEach(async () => {
             table = Object.assign(document.createElement(tableTag), {
                 idFieldName: 'stringData'
-            }) as Table;
+            });
             await table.setData(simpleTableData);
         });
 

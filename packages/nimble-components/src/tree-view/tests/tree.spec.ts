@@ -49,7 +49,7 @@ async function pressEnterOnItem(item: TreeItem): Promise<void> {
     const enterKeyEvent = new KeyboardEvent('keydown', {
         key: keyEnter,
         bubbles: true
-    } as KeyboardEventInit);
+    });
     item.dispatchEvent(enterKeyEvent);
     await waitForUpdatesAsync();
 }

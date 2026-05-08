@@ -1,8 +1,41 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 23 Apr 2026 15:58:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.14.1
+
+Tue, 05 May 2026 14:11:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.1
+
+## 4.14.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.18.0
+
+## 4.13.2
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Dependency update May 2026 ([ni/nimble@ec45dce](https://github.com/ni/nimble/commit/ec45dce8237675f6f19e17e142532070b6551ab2))
+- Bump @ni/spright-components to v6.17.2
+
+## 4.13.1
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.1
 
 ## 4.13.0
 

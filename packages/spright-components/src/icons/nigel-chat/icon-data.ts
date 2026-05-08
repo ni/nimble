@@ -1,3 +1,46 @@
-export const nigelChatLightData = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48"><defs><linearGradient id="nigelChatGradient" gradientUnits="userSpaceOnUse" x1="24" y1="0.1611" x2="24" y2="48.1611"><stop offset="0" stop-color="#008557"/><stop offset="1" stop-color="#00C07E"/></linearGradient></defs><path fill="url(#nigelChatGradient)" d="M36.654,11.338c-1.63-1.626-3.685-2.512-5.797-2.766c2.107-0.256,4.157-1.153,5.783-2.776C38.273,4.167,39.175,2.112,39.429,0c0.251,2.115,1.139,4.174,2.774,5.805c1.63,1.626,3.685,2.512,5.797,2.766c-2.108,0.256-4.158,1.153-5.784,2.776c-1.632,1.629-2.534,3.684-2.787,5.796C39.177,15.027,38.289,12.969,36.654,11.338z M18,24v-0.5c0-1.003,0.274-1.941,0.746-2.752c0.473-0.901,1.172-1.589,2.081-2.05c0.198-0.111,0.404-0.208,0.616-0.294c0.005-0.002,0.011-0.004,0.016-0.006C22.09,18.144,22.778,18,23.5,18H28V6.5C28,4.575,26.425,3,24.5,3h-21C1.575,3,0,4.575,0,6.5v14C0,22.425,1.575,24,3.5,24h1.75L3.5,31L18,24z M20,23.5v14c0,1.925,1.575,3.5,3.5,3.5h7l14,7l-1.75-7h1.75c1.925,0,3.5-1.575,3.5-3.5V23c0-1.925-1.575-3-3.5-3h-21C21.575,20,20,21.575,20,23.5z"/></svg>';
+// Visual Design is iterating on this icon for NI Connect 2026; it's likely we will get different
+// icons for dark and light mode in future but for now they like the dark icon even on light background.
+// Both exports use the same visual but with unique IDs to avoid collisions when both are in the DOM.
+export const nigelChatLightData = `<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .nigel-chat-light-0 {
+        fill: url(#nigel-chat-gradient-light-0);
+      }
 
-export const nigelChatDarkData = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48"><defs><linearGradient id="nigelChatGradientDark" gradientUnits="userSpaceOnUse" x1="24" y1="47.8389" x2="24" y2="-0.1611"><stop offset="0" stop-color="#008557"/><stop offset="1" stop-color="#00C07E"/></linearGradient></defs><path fill="url(#nigelChatGradientDark)" d="M36.654,11.338c-1.63-1.626-3.685-2.512-5.797-2.766c2.107-0.256,4.157-1.153,5.783-2.776C38.273,4.167,39.175,2.112,39.429,0c0.251,2.115,1.139,4.174,2.774,5.805c1.63,1.626,3.685,2.512,5.797,2.766c-2.108,0.256-4.158,1.153-5.784,2.776c-1.632,1.629-2.534,3.684-2.787,5.796C39.177,15.027,38.289,12.969,36.654,11.338z M18,24v-0.5c0-1.003,0.274-1.941,0.746-2.752c0.473-0.901,1.172-1.589,2.081-2.05c0.198-0.111,0.404-0.208,0.616-0.294c0.005-0.002,0.011-0.004,0.016-0.006C22.09,18.144,22.778,18,23.5,18H28V6.5C28,4.575,26.425,3,24.5,3h-21C1.575,3,0,4.575,0,6.5v14C0,22.425,1.575,24,3.5,24h1.75L3.5,31L18,24z M20,23.5v14c0,1.925,1.575,3.5,3.5,3.5h7l14,7l-1.75-7h1.75c1.925,0,3.5-1.575,3.5-3.5V23c0-1.925-1.575-3-3.5-3h-21C21.575,20,20,21.575,20,23.5z"/></svg>';
+      .nigel-chat-light-1 {
+        fill: url(#nigel-chat-gradient-light-1);
+      }
+    </style>
+    <linearGradient id="nigel-chat-gradient-light-1" x1="11.84" y1="6.19" x2="4.84" y2="13.18" gradientTransform="translate(0 18) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00ad7c"/>
+      <stop offset="1" stop-color="#32eb96"/>
+    </linearGradient>
+    <linearGradient id="nigel-chat-gradient-light-0" x1="10.25" y1="-658.82" x2="6.95" y2="-662.11" gradientTransform="translate(0 668)" xlink:href="#nigel-chat-gradient-light-1"/>
+  </defs>
+  <path class="nigel-chat-light-1" d="M14.21,7.52l-.11-.06c-2.36-1.29-4.3-3.23-5.59-5.59l-.06-.11c-.19-.36-.7-.36-.9,0l-.06.11c-1.29,2.36-3.23,4.3-5.59,5.59l-.11.06c-.36.19-.36.7,0,.9l.11.06c2.36,1.29,4.3,3.23,5.59,5.59l.06.11c.19.36.7.36.9,0l.06-.11c1.29-2.36,3.23-4.3,5.59-5.59l.11-.06c.36-.19.36-.7,0-.9ZM12.5,7.88l-.08.04c-1.58.87-2.89,2.17-3.75,3.75l-.04.08c-.13.24-.47.24-.6,0l-.04-.08c-.87-1.58-2.17-2.89-3.75-3.75l-.08-.04c-.24-.13-.24-.47,0-.6l.08-.04c1.58-.87,2.89-2.17,3.75-3.75l.04-.08c.13-.24.47-.24.6,0l.04.08c.87,1.58,2.17,2.89,3.75,3.75l.08.04c.24.13.24.47,0,.6Z"/>
+  <path class="nigel-chat-light-0" d="M11.36,7.6l-.03.02c-1.12.61-2.04,1.53-2.65,2.65l-.02.03c-.1.18-.35.18-.45,0l-.02-.03c-.61-1.12-1.53-2.04-2.65-2.65l-.03-.02c-.18-.1-.18-.35,0-.45l.03-.02c1.12-.61,2.04-1.53,2.65-2.65l.02-.03c.1-.18.35-.18.45,0l.02.03c.61,1.12,1.53,2.04,2.65,2.65l.03.02c.18.1.18.35,0,.45Z"/>
+</svg>`;
+
+export const nigelChatDarkData = `<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .nigel-chat-dark-0 {
+        fill: url(#nigel-chat-gradient-dark-0);
+      }
+
+      .nigel-chat-dark-1 {
+        fill: url(#nigel-chat-gradient-dark-1);
+      }
+    </style>
+    <linearGradient id="nigel-chat-gradient-dark-1" x1="11.84" y1="6.19" x2="4.84" y2="13.18" gradientTransform="translate(0 18) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00ad7c"/>
+      <stop offset="1" stop-color="#32eb96"/>
+    </linearGradient>
+    <linearGradient id="nigel-chat-gradient-dark-0" x1="10.25" y1="-658.82" x2="6.95" y2="-662.11" gradientTransform="translate(0 668)" xlink:href="#nigel-chat-gradient-dark-1"/>
+  </defs>
+  <path class="nigel-chat-dark-1" d="M14.21,7.52l-.11-.06c-2.36-1.29-4.3-3.23-5.59-5.59l-.06-.11c-.19-.36-.7-.36-.9,0l-.06.11c-1.29,2.36-3.23,4.3-5.59,5.59l-.11.06c-.36.19-.36.7,0,.9l.11.06c2.36,1.29,4.3,3.23,5.59,5.59l.06.11c.19.36.7.36.9,0l.06-.11c1.29-2.36,3.23-4.3,5.59-5.59l.11-.06c.36-.19.36-.7,0-.9ZM12.5,7.88l-.08.04c-1.58.87-2.89,2.17-3.75,3.75l-.04.08c-.13.24-.47.24-.6,0l-.04-.08c-.87-1.58-2.17-2.89-3.75-3.75l-.08-.04c-.24-.13-.24-.47,0-.6l.08-.04c1.58-.87,2.89-2.17,3.75-3.75l.04-.08c.13-.24.47-.24.6,0l.04.08c.87,1.58,2.17,2.89,3.75,3.75l.08.04c.24.13.24.47,0,.6Z"/>
+  <path class="nigel-chat-dark-0" d="M11.36,7.6l-.03.02c-1.12.61-2.04,1.53-2.65,2.65l-.02.03c-.1.18-.35.18-.45,0l-.02-.03c-.61-1.12-1.53-2.04-2.65-2.65l-.03-.02c-.18-.1-.18-.35,0-.45l.03-.02c1.12-.61,2.04-1.53,2.65-2.65l.02-.03c.1-.18.35-.18.45,0l.02.03c.61,1.12,1.53,2.04,2.65,2.65l.03.02c.18.1.18.35,0,.45Z"/>
+</svg>`;

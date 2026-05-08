@@ -1,8 +1,40 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Mon, 27 Apr 2026 17:29:26 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.13.1
+
+Tue, 05 May 2026 14:11:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.1
+
+## 0.13.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.18.0
+
+## 0.12.3
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.2
+
+## 0.12.2
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.1
 
 ## 0.12.1
 

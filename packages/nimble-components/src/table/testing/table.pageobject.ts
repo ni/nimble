@@ -116,7 +116,7 @@ export class TablePageObject<T extends TableRecord> {
         const clickEvent = new MouseEvent('click', {
             shiftKey: shiftKeyDown,
             bubbles: true
-        } as MouseEventInit);
+        });
         this.getHeaderElement(columnIndex).dispatchEvent(clickEvent);
         await waitForUpdatesAsync();
     }
@@ -484,7 +484,7 @@ export class TablePageObject<T extends TableRecord> {
                 key: 'Shift',
                 shiftKey: true,
                 bubbles: true
-            } as KeyboardEventInit);
+            });
             document.dispatchEvent(shiftKeyDownEvent);
         }
 
@@ -495,7 +495,7 @@ export class TablePageObject<T extends TableRecord> {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
                 key: 'Shift',
                 bubbles: true
-            } as KeyboardEventInit);
+            });
             document.dispatchEvent(shiftKeyUpEvent);
         }
     }
@@ -516,7 +516,7 @@ export class TablePageObject<T extends TableRecord> {
                 key: 'Shift',
                 shiftKey: true,
                 bubbles: true
-            } as KeyboardEventInit);
+            });
             document.dispatchEvent(shiftKeyDownEvent);
         }
 
@@ -527,7 +527,7 @@ export class TablePageObject<T extends TableRecord> {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
                 key: 'Shift',
                 bubbles: true
-            } as KeyboardEventInit);
+            });
             document.dispatchEvent(shiftKeyUpEvent);
         }
     }
