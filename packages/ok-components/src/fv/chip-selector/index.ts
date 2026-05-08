@@ -1,5 +1,6 @@
 import { attr, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { diacriticInsensitiveStringNormalizer } from '@ni/nimble-components/dist/esm/utilities/models/string-normalizers';
 import { styles } from './styles';
@@ -42,13 +43,24 @@ export class FvChipSelector extends FoundationElement {
     public filterText = '';
 
     @observable
-    public activeOptionValue = '';
+    public activeOptionIndex = -1;
+
+    @observable
+    public activeOptionId: string | null = null;
 
     public readonly inputId = `ok-fv-chip-selector-input-${chipSelectorId += 1}`;
 
     public readonly labelId = `ok-fv-chip-selector-label-${chipSelectorId}`;
 
     public readonly menuId = `ok-fv-chip-selector-menu-${chipSelectorId}`;
+
+    /** @internal */
+    @observable
+    public readonly region?: AnchoredRegion;
+
+    /** @internal */
+    @observable
+    public readonly field?: HTMLElement;
 
     private inputElement: HTMLInputElement | null = null;
 
@@ -58,50 +70,29 @@ export class FvChipSelector extends FoundationElement {
         if (this.disabled) {
             this.filterText = '';
             this.open = false;
-            this.activeOptionValue = '';
         }
     }
 
     public openChanged(): void {
         this.syncMenuButtonState();
-
-        if (this.open) {
-            this.syncActiveOptionValue();
-            return;
+        if (!this.open) {
+            this.activeOptionIndex = -1;
         }
+    }
 
-        this.activeOptionValue = '';
+    public activeOptionIndexChanged(): void {
+        this.syncActiveOption();
     }
 
     public filterTextChanged(): void {
-        if (this.open) {
-            this.syncActiveOptionValue();
-        }
+        this.activeOptionIndex = -1;
     }
 
-    public optionsChanged(): void {
-        if (this.open) {
-            this.syncActiveOptionValue();
-        }
-    }
+    public optionsChanged(): void {}
 
-    public allowCustomValuesChanged(): void {
-        if (this.open) {
-            this.syncActiveOptionValue();
-        }
-    }
+    public allowCustomValuesChanged(): void {}
 
-    public selectedValuesChanged(): void {
-        if (this.open) {
-            this.syncActiveOptionValue();
-        }
-    }
-
-    public activeOptionValueChanged(): void {
-        if (this.open && this.activeOptionValue.length > 0) {
-            this.scrollActiveOptionIntoView();
-        }
-    }
+    public selectedValuesChanged(): void {}
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -120,6 +111,24 @@ export class FvChipSelector extends FoundationElement {
     public captureMenuButtonRef(menuButton: (HTMLElement & { checked?: boolean }) | null): void {
         this.menuButtonElement = menuButton;
         this.syncMenuButtonState();
+    }
+
+    public regionChanged(
+        _prev: AnchoredRegion | undefined,
+        _next: AnchoredRegion | undefined
+    ): void {
+        if (this.region && this.field) {
+            this.region.anchorElement = this.field;
+        }
+    }
+
+    public fieldChanged(
+        _prev: HTMLElement | undefined,
+        _next: HTMLElement | undefined
+    ): void {
+        if (this.region) {
+            this.region.anchorElement = this.field ?? null;
+        }
     }
 
     public get selectedValueList(): string[] {
@@ -176,25 +185,6 @@ export class FvChipSelector extends FoundationElement {
         return this.visibleOptionList.length === 0 && this.customValueCandidate.length === 0;
     }
 
-    public get activeOptionId(): string | undefined {
-        if (this.activeOptionValue.length === 0) {
-            return undefined;
-        }
-
-        return this.activeOptionValue === this.customValueCandidate
-            ? this.getCreateOptionId()
-            : this.getOptionId(this.activeOptionValue);
-    }
-
-    public getOptionId(value: string): string {
-        const optionIndex = this.optionList.indexOf(value);
-        return `${this.menuId}-option-${optionIndex >= 0 ? optionIndex : 0}`;
-    }
-
-    public getCreateOptionId(): string {
-        return `${this.menuId}-option-create`;
-    }
-
     public handleFieldClick(event: Event): void {
         if (this.disabled) {
             return;
@@ -210,7 +200,8 @@ export class FvChipSelector extends FoundationElement {
     }
 
     public handleMenuButtonClick(event: Event): void {
-        event.stopImmediatePropagation();
+        event.stopPropagation();
+        event.preventDefault();
 
         if (this.disabled) {
             return;
@@ -221,15 +212,9 @@ export class FvChipSelector extends FoundationElement {
     }
 
     public handleMenuButtonChange(event: Event): void {
-        event.stopImmediatePropagation();
-
-        if (this.disabled) {
-            return;
-        }
-
-        const target = event.currentTarget as HTMLElement & { checked?: boolean };
-        this.setOpen(!!target.checked);
-        this.inputElement?.focus();
+        // Prevent internal toggle-button change events from surfacing as chip-selector selection changes.
+        event.stopPropagation();
+        this.syncMenuButtonState();
     }
 
     public handleInput(event: Event): void {
@@ -249,27 +234,30 @@ export class FvChipSelector extends FoundationElement {
             return true;
         }
 
-        if (event.key === 'ArrowDown') {
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
             event.preventDefault();
             if (!this.open) {
                 this.setOpen(true);
+            }
+            const maxIndex = this.visibleOptionList.length + (this.customValueCandidate ? 1 : 0) - 1;
+            if (maxIndex < 0) {
                 return false;
             }
-
-            this.moveActiveOption(1);
+            if (event.key === 'ArrowDown') {
+                this.activeOptionIndex = Math.min(this.activeOptionIndex + 1, maxIndex);
+            } else {
+                this.activeOptionIndex = Math.max(this.activeOptionIndex - 1, 0);
+            }
             return false;
         }
 
-        if (event.key === 'ArrowUp') {
-            event.preventDefault();
-            if (!this.open) {
-                this.setOpen(true);
-                this.moveActiveOption(-1);
+        if (event.key === 'Enter') {
+            if (this.open && this.activeOptionIndex >= 0) {
+                event.preventDefault();
+                this.commitActiveOption();
                 return false;
             }
-
-            this.moveActiveOption(-1);
-            return false;
+            return true;
         }
 
         if (event.key === 'Escape') {
@@ -289,14 +277,6 @@ export class FvChipSelector extends FoundationElement {
             return false;
         }
 
-        if (event.key === 'Enter') {
-            if (this.activeOptionValue.length > 0) {
-                event.preventDefault();
-                this.addValue(this.activeOptionValue);
-                return false;
-            }
-        }
-
         return true;
     }
 
@@ -311,21 +291,24 @@ export class FvChipSelector extends FoundationElement {
         }
     }
 
-    public handleOptionClick(event: Event): void {
-        const option = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>('[data-option-value]');
-        const value = option?.getAttribute('data-option-value')?.trim();
-
+    public handleMenuClick(event: Event): void {
+        const optionEl = event.composedPath().find(
+            el => el instanceof HTMLElement && el.hasAttribute('data-option-value')
+        ) as HTMLElement | undefined;
+        const value = optionEl?.getAttribute('data-option-value')?.trim();
         if (value) {
             this.addValue(value);
         }
     }
 
-    public handleOptionPointerEnter(event: Event): void {
-        const option = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>('[data-option-value]');
-        const value = option?.getAttribute('data-option-value')?.trim();
-
+    public handleMenuItemChange(event: Event): void {
+        event.stopPropagation();
+        const menuItem = event.composedPath().find(
+            pathItem => pathItem instanceof HTMLElement && pathItem.hasAttribute('data-option-value')
+        ) as HTMLElement | undefined;
+        const value = menuItem?.getAttribute('data-option-value')?.trim();
         if (value) {
-            this.activeOptionValue = value;
+            this.addValue(value);
         }
     }
 
@@ -334,6 +317,37 @@ export class FvChipSelector extends FoundationElement {
             this.setOpen(false);
         }
     };
+
+    private syncActiveOption(): void {
+        const options = Array.from(
+            this.shadowRoot?.querySelectorAll<HTMLElement>('.chip-selector-option') ?? []
+        );
+        options.forEach((option, index) => {
+            option.setAttribute('aria-selected', String(index === this.activeOptionIndex));
+        });
+
+        if (this.activeOptionIndex < 0) {
+            this.activeOptionId = null;
+        } else if (
+            this.customValueCandidate.length > 0
+            && this.activeOptionIndex === this.visibleOptionList.length
+        ) {
+            this.activeOptionId = `${this.menuId}-option-create`;
+        } else {
+            this.activeOptionId = `${this.menuId}-option-${this.activeOptionIndex}`;
+        }
+    }
+
+    private commitActiveOption(): void {
+        const allOptions = [
+            ...this.visibleOptionList,
+            ...(this.customValueCandidate ? [this.customValueCandidate] : [])
+        ];
+        const value = allOptions[this.activeOptionIndex];
+        if (value !== undefined) {
+            this.addValue(value);
+        }
+    }
 
     private addValue(value: string): void {
         if (this.disabled) {
@@ -373,56 +387,13 @@ export class FvChipSelector extends FoundationElement {
 
     private setOpen(nextOpen: boolean): void {
         this.open = this.disabled ? false : nextOpen;
+        this.syncMenuButtonState();
     }
 
     private syncMenuButtonState(): void {
         if (this.menuButtonElement) {
             this.menuButtonElement.checked = this.open;
         }
-    }
-
-    private moveActiveOption(direction: 1 | -1): void {
-        const visibleOptions = this.getNavigableOptionValues();
-        if (visibleOptions.length === 0) {
-            this.activeOptionValue = '';
-            return;
-        }
-
-        const currentIndex = this.activeOptionValue.length > 0
-            ? visibleOptions.indexOf(this.activeOptionValue)
-            : -1;
-        const fallbackIndex = direction > 0 ? -1 : 0;
-        const normalizedIndex = currentIndex >= 0 ? currentIndex : fallbackIndex;
-        const nextIndex = (normalizedIndex + direction + visibleOptions.length) % visibleOptions.length;
-        this.activeOptionValue = visibleOptions[nextIndex] ?? '';
-    }
-
-    private syncActiveOptionValue(): void {
-        const visibleOptions = this.getNavigableOptionValues();
-        if (visibleOptions.length === 0) {
-            this.activeOptionValue = '';
-            return;
-        }
-
-        if (!visibleOptions.includes(this.activeOptionValue)) {
-            this.activeOptionValue = visibleOptions[0] ?? '';
-        }
-    }
-
-    private scrollActiveOptionIntoView(): void {
-        const activeOptionId = this.activeOptionId;
-        const activeOption = activeOptionId
-            ? this.shadowRoot?.getElementById(activeOptionId)
-            : null;
-        activeOption?.scrollIntoView({ block: 'nearest' });
-    }
-
-    private getNavigableOptionValues(): string[] {
-        const customValueCandidate = this.customValueCandidate;
-
-        return customValueCandidate.length > 0
-            ? [...this.visibleOptionList, customValueCandidate]
-            : this.visibleOptionList;
     }
 }
 

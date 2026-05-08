@@ -11,10 +11,13 @@ import {
     controlLabelDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
+    elevation2BoxShadow,
     fillHoverColor,
+    fillHoverSelectedColor,
     fillSelectedColor,
     iconColor,
     placeholderFontColor,
+    popupBorderColor,
     smallDelay,
     smallPadding,
     standardPadding
@@ -155,17 +158,17 @@ export const styles = css`
     }
 
     .chip-selector-menu {
-        position: absolute;
-        inset-inline: 0;
-        inset-block-start: calc(100% + ${smallPadding});
+        width: 100%;
+        box-sizing: border-box;
+        margin-block-start: ${smallPadding};
         display: flex;
         flex-direction: column;
         max-height: 192px;
         overflow-y: auto;
-        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
+        border: ${borderWidth} solid ${popupBorderColor};
         background: ${applicationBackgroundColor};
-        box-shadow: 0 2px 10px rgb(0 0 0 / 14%);
-        z-index: 2;
+        box-shadow: ${elevation2BoxShadow};
+        border-radius: 4px;
     }
 
     .chip-selector-menu[hidden] {
@@ -195,6 +198,14 @@ export const styles = css`
     .chip-selector-option:hover,
     .chip-selector-option.active {
         background: ${fillHoverColor};
+    }
+
+    .chip-selector-option[aria-selected='true'] {
+        background: ${fillSelectedColor};
+    }
+
+    .chip-selector-option[aria-selected='true']:hover {
+        background: ${fillHoverSelectedColor};
     }
 
     .chip-selector-option:active {

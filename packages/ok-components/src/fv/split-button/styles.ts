@@ -16,7 +16,6 @@ import {
     controlHeight,
     fillSelectedColor,
     iconColor,
-    smallPadding,
     smallDelay,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -209,20 +208,8 @@ export const styles = css`
         border-color: transparent;
     }
 
-    .split-button-menu {
-        position: absolute;
-        inset-block-start: calc(${controlHeight} + ${smallPadding});
-        inset-inline-start: 0;
+    slot[name='menu']::slotted(*) {
         min-width: 100%;
-        z-index: 2;
-    }
-
-    .split-button-menu[hidden] {
-        display: none;
-    }
-
-    .split-button-menu ::slotted(*) {
-        min-width: 100%;
-        margin: 0;
+        margin: 4px 0 0;
     }
 `;

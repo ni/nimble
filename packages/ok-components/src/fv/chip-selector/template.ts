@@ -1,7 +1,10 @@
 import { html, ref, repeat, when } from '@ni/fast-element';
+import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 import type { FvChipSelector } from '.';
 
@@ -23,6 +26,7 @@ export const template = html<FvChipSelector>`
             aria-haspopup="listbox"
             aria-disabled="${x => x.disabled}"
             aria-labelledby="${x => (x.label.length > 0 ? x.labelId : null)}"
+            ${ref('field')}
             @click="${(x, c) => {
                 x.handleFieldClick(c.event);
                 return true;
@@ -78,7 +82,7 @@ export const template = html<FvChipSelector>`
             <${toggleButtonTag}
                 class="chip-selector-menu-button"
                 appearance="ghost"
-                ?checked="${x => x.open}"
+                :checked="${x => x.open}"
                 ?disabled="${x => x.disabled}"
                 ${ref('captureMenuButtonRef')}
                 @click="${(x, c) => {
@@ -96,64 +100,67 @@ export const template = html<FvChipSelector>`
                 <${iconArrowExpanderDownTag} slot="start" class="chip-selector-menu-icon"></${iconArrowExpanderDownTag}>
             </${toggleButtonTag}>
         </div>
-        <div
-            id="${x => x.menuId}"
-            class="chip-selector-menu"
-            role="listbox"
-            ?hidden="${x => !x.open}"
-        >
-            ${repeat(
-                x => x.visibleOptionList,
-                html<string, FvChipSelector>`
-                    <button
-                        id="${(x, c) => c.parent.getOptionId(x)}"
-                        class="chip-selector-option ${(x, c) => (x === c.parent.activeOptionValue ? 'active' : '')}"
-                        type="button"
-                        role="option"
-                        aria-selected="${(x, c) => x === c.parent.activeOptionValue}"
-                        data-option-value="${x => x}"
-                        @click="${(_, c) => {
-                            c.parent.handleOptionClick(c.event);
-                            return true;
-                        }}"
-                        @pointerenter="${(_, c) => {
-                            c.parent.handleOptionPointerEnter(c.event);
+        ${when(
+            x => x.open,
+            html<FvChipSelector>`
+                <${anchoredRegionTag}
+                    class="chip-selector-anchored-region"
+                    ${ref('region')}
+                    fixed-placement
+                    auto-update-mode="auto"
+                    vertical-default-position="bottom"
+                    vertical-positioning-mode="locktodefault"
+                    horizontal-default-position="center"
+                    horizontal-positioning-mode="locktodefault"
+                    horizontal-scaling="anchor"
+                >
+                    <div @click="${(x, c) => {
+                            x.handleMenuClick(c.event);
                             return true;
                         }}"
                     >
-                        ${x => x}
-                    </button>
-                `
-            )}
-            ${when(
-                x => x.customValueCandidate.length > 0,
-                html<FvChipSelector>`
-                    <button
-                        id="${x => x.getCreateOptionId()}"
-                        class="chip-selector-option chip-selector-create-option ${x => (x.customValueCandidate === x.activeOptionValue ? 'active' : '')}"
-                        type="button"
-                        role="option"
-                        aria-selected="${x => x.customValueCandidate === x.activeOptionValue}"
-                        data-option-value="${x => x.customValueCandidate}"
-                        @click="${(x, c) => {
-                            x.handleOptionClick(c.event);
-                            return true;
-                        }}"
-                        @pointerenter="${(x, c) => {
-                            x.handleOptionPointerEnter(c.event);
-                            return true;
-                        }}"
-                    >
-                        ${x => x.createOptionLabel}
-                    </button>
-                `
-            )}
-            ${when(
-                x => x.showEmptyState,
-                html<FvChipSelector>`
-                    <div class="chip-selector-empty">No matches</div>
-                `
-            )}
-        </div>
+                        <${menuTag}
+                            id="${x => x.menuId}"
+                            class="chip-selector-menu"
+                            @change="${(_, c) => {
+                                c.event.stopPropagation();
+                                return true;
+                            }}"
+                        >
+                            ${repeat(
+                                x => x.visibleOptionList,
+                                html<string, FvChipSelector>`
+                                    <${menuItemTag}
+                                        id="${(_, c) => `${c.parent.menuId}-option-${c.index}`}"
+                                        class="chip-selector-option"
+                                        data-option-value="${x => x}"
+                                    >
+                                        ${x => x}
+                                    </${menuItemTag}>
+                                `
+                            )}
+                            ${when(
+                                x => x.customValueCandidate.length > 0,
+                                html<FvChipSelector>`
+                                    <${menuItemTag}
+                                        id="${x => `${x.menuId}-option-create`}"
+                                        class="chip-selector-option chip-selector-create-option"
+                                        data-option-value="${x => x.customValueCandidate}"
+                                    >
+                                        ${x => x.createOptionLabel}
+                                    </${menuItemTag}>
+                                `
+                            )}
+                            ${when(
+                                x => x.showEmptyState,
+                                html<FvChipSelector>`
+                                    <div class="chip-selector-empty">No matches</div>
+                                `
+                            )}
+                        </${menuTag}>
+                    </div>
+                </${anchoredRegionTag}>
+            `
+        )}
     </div>
 `;

@@ -12,6 +12,7 @@ export const styles = css`
 
     :host {
         align-items: center;
+        margin-left: 4px;
     }
 
     .context-help-trigger {

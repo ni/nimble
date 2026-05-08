@@ -1,9 +1,13 @@
-import { html } from '@ni/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
+import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import type { FvSplitButton } from '.';
 
 export const template = html<FvSplitButton>`
-    <div class="split-button-container">
+    <div
+        class="split-button-container"
+        ${ref('splitButtonContainer')}
+    >
         <button
             class="split-button-primary"
             type="button"
@@ -29,11 +33,24 @@ export const template = html<FvSplitButton>`
         >
             <${iconArrowExpanderDownTag}></${iconArrowExpanderDownTag}>
         </button>
-        <div
-            class="split-button-menu"
-            ?hidden="${x => !x.open}"
-        >
-            <slot name="menu" @slotchange="${(x, c) => x.handleMenuSlotChange(c.event)}"></slot>
-        </div>
     </div>
+    ${when(
+        x => x.open,
+        html<FvSplitButton>`
+            <${anchoredRegionTag}
+                fixed-placement
+                auto-update-mode="auto"
+                horizontal-inset
+                horizontal-positioning-mode="dynamic"
+                vertical-positioning-mode="locktodefault"
+                vertical-default-position="bottom"
+                horizontal-scaling="anchor"
+                ${ref('region')}
+            >
+                <span part="menu">
+                    <slot name="menu"></slot>
+                </span>
+            </${anchoredRegionTag}>
+        `
+    )}
 `;

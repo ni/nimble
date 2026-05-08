@@ -11,6 +11,7 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription,
+    disableStorybookZoomTransform,
     okWarning
 } from '../../../utilities/storybook';
 
@@ -32,6 +33,7 @@ const metadata: Meta<FvSplitButtonArgs> = {
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
         <div class="code-hide-top-container" style="padding: 16px; min-height: 220px;">
+            ${disableStorybookZoomTransform}
             <${fvSplitButtonTag}
                 label="${x => x.label}"
                 appearance="${x => FvSplitButtonAppearance[x.appearance]}"

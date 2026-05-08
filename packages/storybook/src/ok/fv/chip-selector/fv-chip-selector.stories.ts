@@ -22,13 +22,6 @@ interface FvChipSelectorArgs {
 
 const metadata: Meta<FvChipSelectorArgs> = {
     title: 'Ok/Fv Chip Selector',
-    parameters: {
-        docs: {
-            story: {
-                height: '200px'
-            }
-        }
-    },
     render: createUserSelectedThemeStory(html<FvChipSelectorArgs>`
         ${okWarning({
             componentName: 'fv chip selector',

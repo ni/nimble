@@ -1,5 +1,5 @@
 import { html, when } from '@ni/fast-element';
-import { iconInfoTag } from '@ni/nimble-components/dist/esm/icons/info';
+import { iconInfoCircleTag } from '@ni/nimble-components/dist/esm/icons/info-circle';
 import { tooltipTag } from '@ni/nimble-components/dist/esm/tooltip';
 import type { FvContextHelp } from '.';
 
@@ -10,7 +10,7 @@ export const template = html<FvContextHelp>`
         type="button"
         aria-label="${x => x.triggerLabel}"
     >
-        <${iconInfoTag}></${iconInfoTag}>
+        <${iconInfoCircleTag}></${iconInfoCircleTag}>
     </button>
     <${tooltipTag}
         anchor="${x => x.tooltipAnchorId}"

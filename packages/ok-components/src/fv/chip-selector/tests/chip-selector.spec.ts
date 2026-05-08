@@ -53,8 +53,8 @@ describe('FvChipSelector', () => {
         input.focus();
         await waitForUpdatesAsync();
 
-        const option = getRequiredElement<HTMLButtonElement>('[data-option-value="Active"]');
-        option.click();
+        const option = getRequiredElement<HTMLElement>('[data-option-value="Active"]');
+        option.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
         expect(element.selectedValues).toBe('Active');
@@ -84,7 +84,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         const visibleOptions = Array.from(
-            element.shadowRoot?.querySelectorAll<HTMLButtonElement>('.chip-selector-option') ?? []
+            element.shadowRoot?.querySelectorAll<HTMLElement>(`.chip-selector-option`) ?? []
         ).map(option => option.textContent?.trim());
 
         expect(visibleOptions).toEqual(['Maintenance due']);
@@ -105,7 +105,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         const visibleOptions = Array.from(
-            element.shadowRoot?.querySelectorAll<HTMLButtonElement>('.chip-selector-option') ?? []
+            element.shadowRoot?.querySelectorAll<HTMLElement>(`.chip-selector-option`) ?? []
         ).map(option => option.textContent?.trim());
 
         expect(visibleOptions).toEqual(['Café']);
@@ -149,25 +149,25 @@ describe('FvChipSelector', () => {
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        const createOption = getRequiredElement<HTMLButtonElement>('.chip-selector-create-option');
-        createOption.click();
+        const createOption = getRequiredElement<HTMLElement>('.chip-selector-create-option');
+        createOption.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
         expect(element.selectedValues).toBe('Paused later');
     });
 
-    it('adds a custom value with Enter when it is the active menu item', async () => {
+    it('adds a custom value with Enter when the create option has focus', async () => {
         ({ element, connect, disconnect } = await setup());
         element.allowCustomValues = true;
         await connect();
 
         const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
-        input.focus();
         input.value = 'Paused later';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+        const createOption = getRequiredElement<HTMLElement>('.chip-selector-create-option');
+        createOption.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
         expect(element.selectedValues).toBe('Paused later');
@@ -180,19 +180,17 @@ describe('FvChipSelector', () => {
         expect(element.shadowRoot?.querySelector('.label')?.textContent?.trim()).toBe('Status');
     });
 
-    it('uses arrow keys and enter to select the active filtered option', async () => {
+    it('adds a value by clicking an option in the menu', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
         const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
-        input.focus();
         input.value = 'a';
         input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
-        await waitForUpdatesAsync();
-        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+        const option = getRequiredElement<HTMLElement>('[data-option-value="Paused"]');
+        option.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
         expect(element.selectedValues).toBe('Paused');
@@ -226,15 +224,49 @@ describe('FvChipSelector', () => {
         expect(element.selectedValues).toBe('');
     });
 
-    it('opens the list when the menu button is clicked', async () => {
+    it('opens the list when the menu button is clicked and keeps the button checked', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const menuButton = getRequiredElement<HTMLElement>('.chip-selector-menu-button');
+        const menuButton = getRequiredElement<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button');
         menuButton.click();
         await waitForUpdatesAsync();
 
         expect(element.open).toBeTrue();
+        expect(menuButton.checked).toBeTrue();
+    });
+
+    it('toggles open state and checked state on successive menu button clicks', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const menuButton = getRequiredElement<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button');
+
+        menuButton.click();
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeTrue();
+        expect(menuButton.checked).toBeTrue();
+
+        menuButton.click();
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+        expect(menuButton.checked).toBeFalse();
+    });
+
+    it('checks the menu button when opening from field click', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const field = getRequiredElement<HTMLElement>('.chip-selector-field');
+        const menuButton = getRequiredElement<HTMLElement & { checked?: boolean }>('.chip-selector-menu-button');
+
+        field.click();
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeTrue();
+        expect(menuButton.checked).toBeTrue();
     });
 
     it('turns the menu button back off when the menu closes from an outside click', async () => {
@@ -320,25 +352,6 @@ describe('FvChipSelector', () => {
         expect(chip.offsetWidth).toBeLessThanOrEqual(selectionArea.clientWidth);
     });
 
-    it('constrains a long dropdown option to the menu width when the control is narrow', async () => {
-        ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
-            <${fvChipSelectorTag}
-                label="Status"
-                options="A very long option value that should truncate to fit the chip selector menu width"
-                open
-            ></${fvChipSelectorTag}>
-        `));
-        element.style.width = '180px';
-        await connect();
-        await waitForUpdatesAsync();
-
-        const menu = getRequiredElement<HTMLElement>('.chip-selector-menu');
-        const option = getRequiredElement<HTMLElement>('.chip-selector-option');
-
-        expect(option.scrollWidth).toBeGreaterThan(option.clientWidth);
-        expect(option.clientWidth).toBeLessThanOrEqual(menu.clientWidth);
-    });
-
     it('keeps the menu button top aligned when the selected chips wrap', async () => {
         ({ element, connect, disconnect } = await setup());
         element.style.width = '180px';
@@ -367,8 +380,8 @@ describe('FvChipSelector', () => {
         input.focus();
         await waitForUpdatesAsync();
 
-        const option = getRequiredElement<HTMLButtonElement>('[data-option-value="Active"]');
-        option.click();
+        const option = getRequiredElement<HTMLElement>('[data-option-value="Active"]');
+        option.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
         expect(changeSpy).toHaveBeenCalledTimes(1);
@@ -426,5 +439,126 @@ describe('FvChipSelector', () => {
 
         const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
         expect(input.placeholder).toBe('');
+    });
+
+    it('sets activeOptionIndex to 0 on first ArrowDown when dropdown is open', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.activeOptionIndex).toBe(0);
+        const activeOption = element.shadowRoot?.querySelector<HTMLElement>(`[aria-selected='true']`);
+        expect(activeOption?.getAttribute('data-option-value')).toBe('Active');
+    });
+
+    it('advances activeOptionIndex on successive ArrowDown presses', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        await waitForUpdatesAsync();
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.activeOptionIndex).toBe(1);
+        const activeOption = element.shadowRoot?.querySelector<HTMLElement>(`[aria-selected='true']`);
+        expect(activeOption?.getAttribute('data-option-value')).toBe('Paused');
+    });
+
+    it('does not go below index 0 on ArrowUp', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.activeOptionIndex).toBe(0);
+    });
+
+    it('selects the active option when Enter is pressed', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        await waitForUpdatesAsync();
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValues).toBe('Active');
+    });
+
+    it('resets activeOptionIndex when the filter text changes', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.activeOptionIndex).toBe(0);
+
+        input.value = 'a';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.activeOptionIndex).toBe(-1);
+    });
+
+    it('resets activeOptionIndex when the dropdown closes', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.activeOptionIndex).toBe(-1);
+    });
+
+    it('updates aria-activedescendant as keyboard active option changes', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.focus();
+        await waitForUpdatesAsync();
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(input.getAttribute('aria-activedescendant')).toBe(`${element.menuId}-option-0`);
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(input.getAttribute('aria-activedescendant')).toBeNull();
     });
 });

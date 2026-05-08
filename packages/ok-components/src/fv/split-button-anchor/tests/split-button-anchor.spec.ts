@@ -82,7 +82,6 @@ describe('FvSplitButtonAnchor', () => {
         await waitForUpdatesAsync();
 
         expect(element.open).toBeFalse();
-        expect(element.shadowRoot?.querySelector('.split-button-menu')?.hasAttribute('hidden')).toBeTrue();
     });
 
     it('closes when the slotted nimble-menu emits change', async () => {
