@@ -1,5 +1,6 @@
 import { attr, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { uniqueId } from '@ni/fast-web-utilities';
 import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { diacriticInsensitiveStringNormalizer } from '@ni/nimble-components/dist/esm/utilities/models/string-normalizers';
@@ -11,8 +12,6 @@ declare global {
         'ok-fv-chip-selector': FvChipSelector;
     }
 }
-
-let chipSelectorId = 0;
 
 /**
  * A chip picker with inline text entry, removable chips, and a dropdown option list.
@@ -48,11 +47,11 @@ export class FvChipSelector extends FoundationElement {
     @observable
     public activeOptionId: string | null = null;
 
-    public readonly inputId = `ok-fv-chip-selector-input-${chipSelectorId += 1}`;
+    public readonly inputId = uniqueId('ok-fv-chip-selector-input');
 
-    public readonly labelId = `ok-fv-chip-selector-label-${chipSelectorId}`;
+    public readonly labelId = uniqueId('ok-fv-chip-selector-label');
 
-    public readonly menuId = `ok-fv-chip-selector-menu-${chipSelectorId}`;
+    public readonly menuId = uniqueId('ok-fv-chip-selector-menu');
 
     /** @internal */
     @observable

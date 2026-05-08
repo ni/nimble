@@ -10,6 +10,12 @@ Review component changes in this repository with a code-review mindset focused o
 
 Use this skill for pull requests that add or modify component source, wrappers, Storybook stories, docs, or example app usage. Cover both the component implementation and the surrounding integration surface.
 
+## Latest Feedback To Enforce
+
+- For element IDs generated in component classes, prefer FAST `uniqueId(...)` over shared mutable module counters like `let nextId = 0`
+- For new or substantially refactored control styles, require the exact cascade layer stack `@layer base, hover, focusVisible, active, disabled, top;` and keep all control styles inside those layers
+- For stories with dropdowns, menus, popovers, or anchored regions, require `disableStorybookZoomTransform` in the story template to avoid transform-related positioning defects
+
 ## Scope
 
 Inspect changes in these areas when present:

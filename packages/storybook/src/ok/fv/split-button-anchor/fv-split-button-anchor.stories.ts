@@ -10,6 +10,7 @@ import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import {
     apiCategory,
     createUserSelectedThemeStory,
+    disableStorybookZoomTransform,
     disabledDescription,
     okWarning
 } from '../../../utilities/storybook';
@@ -33,6 +34,7 @@ const metadata: Meta<FvSplitButtonAnchorArgs> = {
             componentName: 'fv split button anchor',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
+        ${disableStorybookZoomTransform}
         <${fvSplitButtonAnchorTag}
             label="${x => x.label}"
             href="${x => x.href}"

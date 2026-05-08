@@ -1,5 +1,6 @@
 import { attr } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { uniqueId } from '@ni/fast-web-utilities';
 import '@ni/nimble-components/dist/esm/icons/info-circle';
 import '@ni/nimble-components/dist/esm/tooltip';
 import { styles } from './styles';
@@ -13,8 +14,6 @@ declare global {
         'ok-fv-context-help': FvContextHelp;
     }
 }
-
-let contextHelpId = 0;
 
 /**
  * An info trigger with an attached tooltip for lightweight contextual guidance.
@@ -32,7 +31,7 @@ export class FvContextHelp extends FoundationElement {
     @attr({ attribute: 'icon-visible', mode: 'boolean' })
     public iconVisible = false;
 
-    public readonly tooltipAnchorId = `ok-fv-context-help-${contextHelpId += 1}`;
+    public readonly tooltipAnchorId = uniqueId('ok-fv-context-help');
 }
 
 const okFvContextHelp = FvContextHelp.compose({
