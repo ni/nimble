@@ -7,12 +7,10 @@ import { Component } from '@angular/core';
             <ok-fv-split-button-anchor
                 label="Open report"
                 href="https://www.ni.com"
-                target="_blank"
-                rel="noopener noreferrer"
             >
                 <nimble-menu slot="menu">
                     <nimble-menu-item>Open item</nimble-menu-item>
-                    <nimble-menu-item>Open in new tab</nimble-menu-item>
+                    <nimble-menu-item>Open details</nimble-menu-item>
                     <nimble-menu-item>Copy link</nimble-menu-item>
                 </nimble-menu>
             </ok-fv-split-button-anchor>
