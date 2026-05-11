@@ -9,7 +9,13 @@ export class FvAccordionItemPageObject {
     public constructor(protected readonly accordionItemElement: FvAccordionItem) {}
 
     public async clickSummary(): Promise<void> {
+        const details = this.getDetails();
+        const togglePromise = new Promise<void>(resolve => {
+            details.addEventListener('toggle', () => resolve(), { once: true });
+        });
+
         this.getSummary().click();
+        await togglePromise;
         await waitForUpdatesAsync();
     }
 

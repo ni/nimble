@@ -1,0 +1,16 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as summaryPanelStories from './fv-summary-panel.stories';
+
+<Meta of={summaryPanelStories} />
+<Title of={summaryPanelStories} />
+
+A layout container for summary tiles with an optional edit-items action.
+
+<Canvas of={summaryPanelStories.fvSummaryPanel} />
+
+## API
+
+<Controls of={summaryPanelStories.fvSummaryPanel} />
+
+<ComponentApisLink />
