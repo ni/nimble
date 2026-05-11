@@ -2,6 +2,7 @@ import { defineConfig } from 'eslint/config';
 import { angularTypescriptConfig, angularTemplateConfig, ignoreAttributes } from '@ni/eslint-config-angular';
 import { typescriptNimbleConfigOverrides } from './typescript.js';
 import { javascriptNimbleConfigOverrides } from './javascript.js';
+import { fvIgnoreAttributes } from './fv/ignore-attributes.js';
 
 export const angularTypescriptNimbleConfigOverrides = defineConfig([
     {
@@ -116,6 +117,9 @@ export const angularTemplateNimbleConfigOverrides = defineConfig([
                         'placeholder',
                         'text',
                         'title',
+
+                        // Component library specific lists
+                        ...fvIgnoreAttributes
                     ],
                 },
             ],
