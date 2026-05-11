@@ -1,7 +1,7 @@
 ---
 name: component-review
 description: This skill should be used when the user asks to "review this component PR", "review this Nimble component", "review this OK component change", "check component best practices", "review Storybook and wrapper changes", or "propose review feedback responses" for component work in this repository. Also use it when updating older OK components to match newer sibling implementations and current repo review standards.
-version: 0.3.5
+version: 0.3.6
 ---
 
 # Component Review
@@ -41,6 +41,7 @@ If the review is for a pull request, inspect unresolved review comments and grou
 Review the PR structure and release metadata as part of the change quality bar:
 
 - Check beachball change files for the right change type, a client-impact-focused description, and the GitHub obfuscated email format
+- Check that each published package changed in the PR has its own change file; do not treat a component-package change file as covering Angular, React, or Blazor wrapper package changes
 - If a bumped monorepo package is only a devDependency consumer, check whether `dependentChangeType` should be `none`
 - Treat oversized or multi-purpose PRs as review feedback when the scope is hard to reason about
 - Treat vague PR titles or descriptions as review feedback when they obscure client impact, test gaps, or rollout risk
@@ -137,7 +138,9 @@ Review wrappers and example apps with repo-specific expectations:
 - Confirm Angular wrappers re-export public enum-like types when clients need them
 - Prefer `BooleanValueOrAttribute` plus `toBooleanProperty` for Angular directive boolean inputs so OK wrappers match the Nimble wrapper coercion pattern instead of relying on raw `booleanAttribute` transforms
 - Confirm wrapper property names and transforms match repo patterns
-- Do not add `i18n` markers to example-client-app strings; the example app is not localized
+- For Angular wrappers over web component attributes exposed in dash case, require `@Input('dash-case-name')` aliases on the directive setters so Angular clients can bind with the actual public attribute names instead of only camelCase wrapper property names
+- In example-client-app templates, use the actual dash-case custom-element attribute names for static attributes; treat camelCase static attributes like `interactionMode` or `selectedValues` as review feedback because they do not match the real HTML attribute contract
+- Do not add `i18n` markers to example-client-app strings; the example app is not localized. For FV example-app strings that intentionally skip localization, prefer the shared ignore list in `packages/eslint-config-nimble/ok/fv/ignore-attributes.js` over sprinkling temporary `i18n-*` markers through the examples
 - Confirm every example app that should demonstrate the component has been updated, not just the first touched app
 - Treat missing updates in Angular, Blazor, React, or other repo example apps as review feedback when the component is available there
 - Confirm build-order assumptions when wrappers consume generated `dist/esm` output from components
@@ -166,6 +169,8 @@ Run the smallest relevant validation set for the touched packages. Prefer packag
 Use the commands in <references/repository-best-practices.md> as the default validation set.
 
 When the review covers example app updates, run each relevant example app and confirm the updated component renders and behaves correctly instead of relying on static code inspection alone.
+
+When the review adds or updates wrapper default-value tests, confirm those expectations against the underlying component implementation or inherited base-class behavior instead of assuming empty-string defaults for text-like properties.
 
 Treat "example app was not run" as a testing gap unless environment constraints make runtime validation impossible.
 
