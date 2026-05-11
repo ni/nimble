@@ -17,6 +17,9 @@ import { Component } from '@angular/core';
             </ok-fv-card>
         </example-sub-container>
     `,
+    styles: [`
+        ok-fv-card { max-width: 300px; }
+    `],
     standalone: false
 })
 export class FvCardSectionComponent {}

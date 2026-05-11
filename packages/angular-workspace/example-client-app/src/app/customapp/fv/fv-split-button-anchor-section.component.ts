@@ -6,8 +6,9 @@ import { Component } from '@angular/core';
         <example-sub-container label="Fv Split Button Anchor (Ok)">
             <ok-fv-split-button-anchor
                 label="Open report"
-                href="https://example.com/report"
+                href="https://www.ni.com"
                 target="_blank"
+                rel="noopener noreferrer"
             >
                 <nimble-menu slot="menu">
                     <nimble-menu-item>Open item</nimble-menu-item>
