@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 <ok-fv-context-help
                     text="Use the value shown on the device label when the field is unavailable."
                     triggerLabel="Show help for the support code"
+                    i18n-triggerLabel
                 ></ok-fv-context-help>
             </div>
         </example-sub-container>

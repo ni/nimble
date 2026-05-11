@@ -4,10 +4,10 @@ import { Component } from '@angular/core';
     selector: 'example-fv-accordion-item-section',
     template: `
         <example-sub-container label="Fv Accordion Item (Ok)">
-            <ok-fv-accordion-item header="Asset details" [expanded]="true">
+            <ok-fv-accordion-item header="Asset details" i18n-header [expanded]="true">
                 Calibration assets can expose operator-facing status, location, and ownership details.
             </ok-fv-accordion-item>
-            <ok-fv-accordion-item header="Maintenance history">
+            <ok-fv-accordion-item header="Maintenance history" i18n-header>
                 This section starts collapsed to show the default interaction state.
             </ok-fv-accordion-item>
         </example-sub-container>

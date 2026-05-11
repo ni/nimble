@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { type FvContextHelp, type FvContextHelpSeverity, OkFvContextHelpDirective } from '../ok-fv-context-help.directive';
+import { type FvContextHelp, OkFvContextHelpDirective } from '../ok-fv-context-help.directive';
 import { OkFvContextHelpModule } from '../ok-fv-context-help.module';
 
 describe('Ok fv context help', () => {

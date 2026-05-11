@@ -6,10 +6,15 @@ import { Component } from '@angular/core';
         <example-sub-container label="Fv Card (Ok)">
             <ok-fv-card
                 card-title="Device health"
+                i18n-card-title
                 subtitle="Cell A"
+                i18n-subtitle
                 description="Track operator-facing status, ownership, and pending alerts for a selected asset."
+                i18n-description
                 initials="DH"
+                i18n-initials
                 interactionMode="card"
+                i18n-interactionMode
             >
                 <span slot="badges">Approved</span>
                 <span slot="footer-start">Updated now</span>
