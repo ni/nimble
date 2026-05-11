@@ -46,8 +46,8 @@ describe('Theme Provider', () => {
             expect(getComputedStyle(element).colorScheme).toBe('light');
         });
 
-        it('uses dark for dark theme', async () => {
-            ({ element, connect, disconnect } = await setup('dark'));
+        it('uses dark for color theme', async () => {
+            ({ element, connect, disconnect } = await setup('color'));
             await connect();
             await waitForUpdatesAsync();
 
@@ -56,67 +56,6 @@ describe('Theme Provider', () => {
 
         it('updates when theme changes from light to dark', async () => {
             ({ element, connect, disconnect } = await setup('light'));
-            await connect();
-            await waitForUpdatesAsync();
-            expect(getComputedStyle(element).colorScheme).toBe('light');
-
-            element.setAttribute('theme', 'dark');
-            await waitForUpdatesAsync();
-            expect(getComputedStyle(element).colorScheme).toBe('dark');
-        });
-    });
-
-    describe('color-scheme CSS property - all theme combinations', () => {
-        async function setup(
-            themeValue: string | undefined
-        ): Promise<Fixture<ThemeProvider>> {
-            return await fixture<ThemeProvider>(
-                html`<${themeProviderTag} ${
-                    themeValue === undefined ? '' : `theme="${themeValue}"`
-                }></${themeProviderTag}>`
-            );
-        }
-
-        let element: ThemeProvider;
-        let connect: () => Promise<void>;
-        let disconnect: () => Promise<void>;
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
-        it('uses light for color theme', async () => {
-            ({ element, connect, disconnect } = await setup('color'));
-            await connect();
-            await waitForUpdatesAsync();
-
-            expect(getComputedStyle(element).colorScheme).toBe('light');
-        });
-
-        it('updates when theme changes from light to color', async () => {
-            ({ element, connect, disconnect } = await setup('light'));
-            await connect();
-            await waitForUpdatesAsync();
-            expect(getComputedStyle(element).colorScheme).toBe('light');
-
-            element.setAttribute('theme', 'color');
-            await waitForUpdatesAsync();
-            expect(getComputedStyle(element).colorScheme).toBe('light');
-        });
-
-        it('updates when theme changes from dark to color', async () => {
-            ({ element, connect, disconnect } = await setup('dark'));
-            await connect();
-            await waitForUpdatesAsync();
-            expect(getComputedStyle(element).colorScheme).toBe('dark');
-
-            element.setAttribute('theme', 'color');
-            await waitForUpdatesAsync();
-            expect(getComputedStyle(element).colorScheme).toBe('light');
-        });
-
-        it('updates when theme changes from color to dark', async () => {
-            ({ element, connect, disconnect } = await setup('color'));
             await connect();
             await waitForUpdatesAsync();
             expect(getComputedStyle(element).colorScheme).toBe('light');

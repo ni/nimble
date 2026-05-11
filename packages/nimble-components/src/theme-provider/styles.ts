@@ -8,7 +8,8 @@ export const styles = css`
         color-scheme: light;
     }
 
-    :host([theme='dark']) {
+    :host([theme='dark']),
+    :host([theme='color']) {
         color-scheme: dark;
     }
 `;
