@@ -2,6 +2,21 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Mon, 11 May 2026 21:35:06 GMT",
+      "version": "2.4.0",
+      "tag": "@ni/ok-angular_v2.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "85a74e2e759b52a0099424a189473e3db1a54189",
+            "comment": "Add FV Angular wrappers for ok components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 May 2026 17:03:55 GMT",
       "version": "2.3.2",
       "tag": "@ni/ok-angular_v2.3.2",
