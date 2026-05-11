@@ -105,7 +105,7 @@ export const angularTemplateNimbleConfigOverrides = defineConfig([
                     checkId: false,
                     ignoreAttributes: [
                         // Attributes that SHOULD NOT ever be localized need to be added to ignoreAttributeSets
-                        // See: https://github.com/ni/javascript-styleguide/blob/main/packages/eslint-config-angular/template/options.js
+                        // See: https://github.com/ni/javascript-styleguide/blob/main/packages/eslint-config-angular/lib/template-options.js
                         ...ignoreAttributes.all,
 
                         // Attributes that SHOULD be localized in production, but we don't want to
