@@ -32,11 +32,13 @@ export class FvSummaryPanelTile extends FoundationElement {
     @attr({ attribute: 'text-position' })
     public textPosition: FvSummaryPanelTileTextPositionType = FvSummaryPanelTileTextPosition.beside;
 
+    /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
         this.syncLegacyStyleAttribute();
     }
 
+    /** @internal */
     public legacyStyleChanged(): void {
         this.syncLegacyStyleAttribute();
     }

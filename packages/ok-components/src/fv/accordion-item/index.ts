@@ -24,6 +24,7 @@ export class FvAccordionItem extends FoundationElement {
     @attr()
     public appearance: FvAccordionItemAppearance = FvAccordionItemAppearance.ghost;
 
+    /** @internal */
     public handleToggle(event: Event): boolean {
         this.expanded = (event.target as HTMLDetailsElement).open;
         return true;

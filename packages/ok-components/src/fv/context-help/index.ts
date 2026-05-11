@@ -31,6 +31,7 @@ export class FvContextHelp extends FoundationElement {
     @attr({ attribute: 'icon-visible', mode: 'boolean' })
     public iconVisible = false;
 
+    /** @internal */
     public readonly tooltipAnchorId = uniqueId('ok-fv-context-help');
 }
 

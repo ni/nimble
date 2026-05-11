@@ -47,30 +47,36 @@ export class FvSplitButtonAnchor extends FoundationElement {
     @attr({ attribute: 'appearance-variant' })
     public appearanceVariant: FvSplitButtonAnchorAppearanceVariantType = FvSplitButtonAnchorAppearanceVariant.default;
 
+    /** @internal */
     @observable
     public splitButtonContainer?: HTMLDivElement;
 
+    /** @internal */
     @observable
     public region?: AnchoredRegion;
 
+    /** @internal */
     public disabledChanged(): void {
         if (this.disabled) {
             this.setOpen(false);
         }
     }
 
+    /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
         document.addEventListener('click', this.documentClickHandler);
         document.addEventListener('keydown', this.keydownHandler);
     }
 
+    /** @internal */
     public override disconnectedCallback(): void {
         document.removeEventListener('click', this.documentClickHandler);
         document.removeEventListener('keydown', this.keydownHandler);
         super.disconnectedCallback();
     }
 
+    /** @internal */
     public handlePrimaryClick(): void {
         if (this.disabled) {
             return;
@@ -82,6 +88,7 @@ export class FvSplitButtonAnchor extends FoundationElement {
         }));
     }
 
+    /** @internal */
     public handleToggleClick(): void {
         if (this.disabled) {
             return;
@@ -90,10 +97,12 @@ export class FvSplitButtonAnchor extends FoundationElement {
         this.setOpen(!this.open);
     }
 
+    /** @internal */
     public handleMenuChange(): void {
         this.setOpen(false);
     }
 
+    /** @internal */
     public regionChanged(prev: AnchoredRegion | undefined, _next: AnchoredRegion | undefined): void {
         if (prev) {
             prev.removeEventListener('change', this.menuChangeHandler);
@@ -104,6 +113,7 @@ export class FvSplitButtonAnchor extends FoundationElement {
         }
     }
 
+    /** @internal */
     public splitButtonContainerChanged(): void {
         if (this.region) {
             this.region.anchorElement = this.splitButtonContainer ?? this;

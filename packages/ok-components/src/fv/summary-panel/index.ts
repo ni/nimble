@@ -24,17 +24,20 @@ export class FvSummaryPanel extends FoundationElement {
     @attr({ attribute: 'edit-items-button-label' })
     public editItemsButtonLabel = 'Configure';
 
+    /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
         this.syncTileLegacyStyle();
     }
 
+    /** @internal */
     public legacyStyleChanged(): void {
         if (this.$fastController.isConnected) {
             this.syncTileLegacyStyle();
         }
     }
 
+    /** @internal */
     public handleEditItemsClick(): void {
         this.dispatchEvent(new CustomEvent('edit-items', {
             bubbles: true,
@@ -42,6 +45,7 @@ export class FvSummaryPanel extends FoundationElement {
         }));
     }
 
+    /** @internal */
     public handleItemsSlotChange(): void {
         this.syncTileLegacyStyle();
     }

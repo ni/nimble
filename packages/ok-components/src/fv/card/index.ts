@@ -45,77 +45,96 @@ export class FvCard extends FoundationElement {
     @attr
     public initials = '';
 
+    /** @internal */
     @observable
     public hasIconContent = false;
 
+    /** @internal */
     @observable
     public hasBadgesContent = false;
 
+    /** @internal */
     @observable
     public hasDefaultContent = false;
 
+    /** @internal */
     @observable
     public hasActionsContent = false;
 
+    /** @internal */
     @observable
     public hasFooterStartContent = false;
 
+    /** @internal */
     @observable
     public hasFooterEndContent = false;
 
+    /** @internal */
     public get showInitials(): boolean {
         return !this.hasIconContent && this.initialsText.length > 0;
     }
 
+    /** @internal */
     public get hasMedia(): boolean {
         return this.hasIconContent || this.showInitials;
     }
 
+    /** @internal */
     public get initialsText(): string {
         return this.initials.trim().slice(0, 2).toUpperCase();
     }
 
+    /** @internal */
     public get showBody(): boolean {
         return this.description.length > 0 || this.hasDefaultContent;
     }
 
+    /** @internal */
     public get showFooter(): boolean {
         return this.hasFooterStartContent || this.hasFooterEndContent;
     }
 
+    /** @internal */
     public get showActions(): boolean {
         return this.interactionMode === FvCardInteractionMode.static && this.hasActionsContent;
     }
 
+    /** @internal */
     public get isCardInteractive(): boolean {
         return this.interactionMode === FvCardInteractionMode.card;
     }
 
+    /** @internal */
     public handleIconSlotChange(event: Event): boolean {
         this.hasIconContent = slotHasAssignedElements(event.target as HTMLSlotElement);
         return true;
     }
 
+    /** @internal */
     public handleBadgesSlotChange(event: Event): boolean {
         this.hasBadgesContent = slotHasAssignedElements(event.target as HTMLSlotElement);
         return true;
     }
 
+    /** @internal */
     public handleDefaultSlotChange(event: Event): boolean {
         this.hasDefaultContent = slotHasAssignedElements(event.target as HTMLSlotElement);
         return true;
     }
 
+    /** @internal */
     public handleActionsSlotChange(event: Event): boolean {
         this.hasActionsContent = slotHasAssignedElements(event.target as HTMLSlotElement);
         return true;
     }
 
+    /** @internal */
     public handleFooterStartSlotChange(event: Event): boolean {
         this.hasFooterStartContent = slotHasAssignedElements(event.target as HTMLSlotElement);
         return true;
     }
 
+    /** @internal */
     public handleFooterEndSlotChange(event: Event): boolean {
         this.hasFooterEndContent = slotHasAssignedElements(event.target as HTMLSlotElement);
         return true;

@@ -1,7 +1,7 @@
 ---
 name: component-review
 description: This skill should be used when the user asks to "review this component PR", "review this Nimble component", "review this OK component change", "check component best practices", "review Storybook and wrapper changes", or "propose review feedback responses" for component work in this repository. Also use it when updating older OK components to match newer sibling implementations and current repo review standards.
-version: 0.3.3
+version: 0.3.4
 ---
 
 # Component Review
@@ -154,6 +154,8 @@ Review TypeScript choices for maintainability and correctness:
 
 - Treat lint-rule disables as unusual and expect strong justification
 - Treat broad or convenience-driven non-null assertions as review feedback; they should only appear where TypeScript cannot express a proven invariant cleanly
+- When FAST template wiring or lifecycle requirements force implementation-only members to stay non-private, require `/** @internal */` on those members. This commonly includes template-only observables, generated IDs, slot handlers, lifecycle and change callbacks, anchored-region wiring, and other members that are not part of the documented public API.
+- Treat missing `/** @internal */` on non-attribute component class members as review feedback unless the member is an intentional public imperative API that is clearly documented in Storybook, docs, or another client-facing contract.
 
 ### 12. Validate the Change
 
@@ -192,6 +194,7 @@ Favor high-signal feedback:
 - Missing page objects or testing entrypoints for new Nimble components
 - Missing automated coverage or wrong test level for supported behavior
 - Missing CSS layer organization in new Nimble control styles
+- Missing `/** @internal */` annotations on implementation-only component class members that remain public for FAST/template wiring
 - Template binding patterns that violate repo guidance, including nullish coalescing misuse
 - Cross-component consistency gaps where a change should be evaluated against sibling implementations
 - Missing test or story coverage for supported behaviors
