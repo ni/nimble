@@ -83,7 +83,7 @@ describe('Ok fv card', () => {
         @Component({
             template: `
                 <ok-fv-card #card
-                    title="Device health"
+                    card-title="Device health"
                     subtitle="Cell A"
                     description="Track operator-facing status and alerts."
                     appearance="block"
