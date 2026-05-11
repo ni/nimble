@@ -92,7 +92,7 @@ export class OkFvSplitButtonAnchorDirective {
         return this.elementRef.nativeElement.appearanceVariant;
     }
 
-    @Input()
+    @Input('appearance-variant')
     public set appearanceVariant(value: FvSplitButtonAnchorAppearanceVariant) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceVariant', value);
     }

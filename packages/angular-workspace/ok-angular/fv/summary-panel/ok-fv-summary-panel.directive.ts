@@ -18,7 +18,7 @@ export class OkFvSummaryPanelDirective {
         return this.elementRef.nativeElement.showEditItemsButton;
     }
 
-    @Input()
+    @Input('show-edit-items-button')
     public set showEditItemsButton(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'showEditItemsButton', toBooleanProperty(value));
     }
@@ -27,7 +27,7 @@ export class OkFvSummaryPanelDirective {
         return this.elementRef.nativeElement.legacyStyle;
     }
 
-    @Input()
+    @Input('legacy-style')
     public set legacyStyle(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'legacyStyle', toBooleanProperty(value));
     }
@@ -36,7 +36,7 @@ export class OkFvSummaryPanelDirective {
         return this.elementRef.nativeElement.editItemsButtonLabel;
     }
 
-    @Input()
+    @Input('edit-items-button-label')
     public set editItemsButtonLabel(value: string) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'editItemsButtonLabel', value);
     }

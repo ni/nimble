@@ -29,7 +29,7 @@ export class OkFvContextHelpDirective {
         return this.elementRef.nativeElement.triggerLabel;
     }
 
-    @Input()
+    @Input('trigger-label')
     public set triggerLabel(value: string) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'triggerLabel', value);
     }
@@ -47,7 +47,7 @@ export class OkFvContextHelpDirective {
         return this.elementRef.nativeElement.iconVisible;
     }
 
-    @Input()
+    @Input('icon-visible')
     public set iconVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'iconVisible', toBooleanProperty(value));
     }

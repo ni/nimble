@@ -122,9 +122,9 @@ describe('Ok fv context help', () => {
             template: `
                 <ok-fv-context-help #contextHelp
                     [text]="text"
-                    [triggerLabel]="triggerLabel"
+                    [trigger-label]="triggerLabel"
                     [severity]="severity"
-                    [iconVisible]="iconVisible">
+                    [icon-visible]="iconVisible">
                 </ok-fv-context-help>
             `,
             standalone: false

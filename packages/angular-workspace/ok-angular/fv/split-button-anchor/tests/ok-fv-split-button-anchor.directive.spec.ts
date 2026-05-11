@@ -178,7 +178,7 @@ describe('Ok fv split button anchor', () => {
                     [disabled]="disabled"
                     [open]="open"
                     [appearance]="appearance"
-                    [appearanceVariant]="appearanceVariant">
+                    [appearance-variant]="appearanceVariant">
                 </ok-fv-split-button-anchor>
             `,
             standalone: false

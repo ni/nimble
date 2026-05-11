@@ -131,7 +131,7 @@ describe('Ok fv split button', () => {
                     [disabled]="disabled"
                     [open]="open"
                     [appearance]="appearance"
-                    [appearanceVariant]="appearanceVariant">
+                    [appearance-variant]="appearanceVariant">
                 </ok-fv-split-button>
             `,
             standalone: false

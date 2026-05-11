@@ -4,4 +4,16 @@
 // Fv angular attributes that SHOULD be localized in production, but we don't want to localize
 // in example apps should be added to the following list:
 export const fvIgnoreAttributes = [
+    'appearance-variant',
+    'card-title',
+    'count',
+    'description',
+    'edit-items-button-label',
+    'header',
+    'initials',
+    'interaction-mode',
+    'options',
+    'selected-values',
+    'subtitle',
+    'trigger-label',
 ];

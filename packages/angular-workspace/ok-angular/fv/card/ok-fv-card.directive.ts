@@ -20,7 +20,7 @@ export class OkFvCardDirective {
         return this.elementRef.nativeElement.title;
     }
 
-    @Input()
+    @Input('card-title')
     public set title(value: string) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'title', value);
     }
@@ -56,7 +56,7 @@ export class OkFvCardDirective {
         return this.elementRef.nativeElement.interactionMode;
     }
 
-    @Input()
+    @Input('interaction-mode')
     public set interactionMode(value: FvCardInteractionMode) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'interactionMode', value);
     }

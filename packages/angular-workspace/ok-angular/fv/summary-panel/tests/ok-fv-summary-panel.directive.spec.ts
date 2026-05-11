@@ -110,9 +110,9 @@ describe('Ok fv summary panel', () => {
         @Component({
             template: `
                 <ok-fv-summary-panel #summaryPanel
-                    [showEditItemsButton]="showEditItemsButton"
-                    [legacyStyle]="legacyStyle"
-                    [editItemsButtonLabel]="editItemsButtonLabel">
+                    [show-edit-items-button]="showEditItemsButton"
+                    [legacy-style]="legacyStyle"
+                    [edit-items-button-label]="editItemsButtonLabel">
                 </ok-fv-summary-panel>
             `,
             standalone: false

@@ -151,10 +151,10 @@ describe('Ok fv chip selector', () => {
                     [disabled]="disabled"
                     [open]="open"
                     [label]="label"
-                    [selectedValues]="selectedValues"
+                    [selected-values]="selectedValues"
                     [options]="options"
                     [placeholder]="placeholder"
-                    [allowCustomValues]="allowCustomValues">
+                    [allow-custom-values]="allowCustomValues">
                 </ok-fv-chip-selector>
             `,
             standalone: false

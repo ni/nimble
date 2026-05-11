@@ -49,8 +49,8 @@ describe('Ok Fv Search Input', () => {
         });
 
         it('has expected defaults for placeholder', () => {
-            expect(directive.placeholder).toBe('');
-            expect(nativeElement.placeholder).toBe('');
+            expect(directive.placeholder).toBeUndefined();
+            expect(nativeElement.placeholder).toBeUndefined();
         });
 
         it('has expected defaults for value', () => {

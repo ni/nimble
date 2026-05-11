@@ -38,7 +38,7 @@ export class OkFvSummaryPanelTileDirective {
         return this.elementRef.nativeElement.legacyStyle;
     }
 
-    @Input()
+    @Input('legacy-style')
     public set legacyStyle(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'legacyStyle', toBooleanProperty(value));
     }
@@ -56,7 +56,7 @@ export class OkFvSummaryPanelTileDirective {
         return this.elementRef.nativeElement.textPosition;
     }
 
-    @Input()
+    @Input('text-position')
     public set textPosition(value: FvSummaryPanelTileTextPosition) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'textPosition', value);
     }

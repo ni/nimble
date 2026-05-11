@@ -134,9 +134,9 @@ describe('Ok fv summary panel tile', () => {
                 <ok-fv-summary-panel-tile #summaryPanelTile
                     [count]="count"
                     [label]="label"
-                    [legacyStyle]="legacyStyle"
+                    [legacy-style]="legacyStyle"
                     [selected]="selected"
-                    [textPosition]="textPosition">
+                    [text-position]="textPosition">
                 </ok-fv-summary-panel-tile>
             `,
             standalone: false

@@ -154,11 +154,11 @@ describe('Ok fv card', () => {
         @Component({
             template: `
                 <ok-fv-card #card
-                    [title]="title"
+                    [card-title]="title"
                     [subtitle]="subtitle"
                     [description]="description"
                     [appearance]="appearance"
-                    [interactionMode]="interactionMode"
+                    [interaction-mode]="interactionMode"
                     [disabled]="disabled"
                     [initials]="initials">
                 </ok-fv-card>

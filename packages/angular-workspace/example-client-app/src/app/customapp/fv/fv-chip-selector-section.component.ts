@@ -7,9 +7,7 @@ import { Component } from '@angular/core';
             <ok-fv-chip-selector
                 label="Selected assets"
                 options="PXI-1, PXI-2, DAQ-1, DMM-1"
-                i18n-options
-                selectedValues="PXI-1, DMM-1"
-                i18n-selectedValues
+                selected-values="PXI-1, DMM-1"
                 placeholder="Select assets"
             ></ok-fv-chip-selector>
         </example-sub-container>

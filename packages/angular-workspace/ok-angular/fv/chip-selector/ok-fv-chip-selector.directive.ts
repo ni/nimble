@@ -45,7 +45,7 @@ export class OkFvChipSelectorDirective {
         return this.elementRef.nativeElement.selectedValues;
     }
 
-    @Input()
+    @Input('selected-values')
     public set selectedValues(value: string) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'selectedValues', value);
     }
@@ -72,7 +72,7 @@ export class OkFvChipSelectorDirective {
         return this.elementRef.nativeElement.allowCustomValues;
     }
 
-    @Input()
+    @Input('allow-custom-values')
     public set allowCustomValues(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'allowCustomValues', toBooleanProperty(value));
     }
