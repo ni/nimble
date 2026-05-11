@@ -28,54 +28,54 @@ export const styles = css`
         ${display('inline-block')}
 
         :host {
-            --ni-private-fv-split-button-anchor-background-image: none;
-            --ni-private-fv-split-button-anchor-background-size: 100% 100%;
-            --ni-private-fv-split-button-anchor-background-size-emphasis: 100% 100%;
-            --ni-private-fv-split-button-anchor-border: rgba(${actionRgbPartialColor}, 0.3);
-            --ni-private-fv-split-button-anchor-color: ${buttonLabelFontColor};
+            --ni-private-ok-fv-split-button-anchor-background-image: none;
+            --ni-private-ok-fv-split-button-anchor-background-size: 100% 100%;
+            --ni-private-ok-fv-split-button-anchor-background-size-emphasis: 100% 100%;
+            --ni-private-ok-fv-split-button-anchor-border: rgba(${actionRgbPartialColor}, 0.3);
+            --ni-private-ok-fv-split-button-anchor-color: ${buttonLabelFontColor};
             position: relative;
             height: ${controlHeight};
             vertical-align: middle;
         }
 
         :host([appearance='ghost']) {
-            --ni-private-fv-split-button-anchor-border: transparent;
+            --ni-private-ok-fv-split-button-anchor-border: transparent;
         }
 
         :host([appearance='block']) {
-            --ni-private-fv-split-button-anchor-background-image: linear-gradient(
+            --ni-private-ok-fv-split-button-anchor-background-image: linear-gradient(
                 rgba(${borderRgbPartialColor}, 0.1),
                 rgba(${borderRgbPartialColor}, 0.1)
             );
-            --ni-private-fv-split-button-anchor-border: rgba(${borderRgbPartialColor}, 0.1);
-            --ni-private-fv-split-button-anchor-background-size-emphasis: calc(100% - 4px) calc(100% - 4px);
+            --ni-private-ok-fv-split-button-anchor-border: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-ok-fv-split-button-anchor-background-size-emphasis: calc(100% - 4px) calc(100% - 4px);
         }
 
         :host([appearance='outline'][appearance-variant='primary']) {
-            --ni-private-fv-split-button-anchor-border: rgb(${actionRgbPartialColor});
+            --ni-private-ok-fv-split-button-anchor-border: rgb(${actionRgbPartialColor});
         }
 
         :host([appearance='outline'][appearance-variant='accent']) {
-            --ni-private-fv-split-button-anchor-border: ${buttonBorderAccentOutlineColor};
-            --ni-private-fv-split-button-anchor-color: ${buttonAccentOutlineFontColor};
+            --ni-private-ok-fv-split-button-anchor-border: ${buttonBorderAccentOutlineColor};
+            --ni-private-ok-fv-split-button-anchor-color: ${buttonAccentOutlineFontColor};
         }
 
         :host([appearance='block'][appearance-variant='primary']) {
-            --ni-private-fv-split-button-anchor-background-image: linear-gradient(
+            --ni-private-ok-fv-split-button-anchor-background-image: linear-gradient(
                 ${buttonFillPrimaryColor},
                 ${buttonFillPrimaryColor}
             );
-            --ni-private-fv-split-button-anchor-border: ${buttonFillPrimaryColor};
-            --ni-private-fv-split-button-anchor-color: ${buttonPrimaryFontColor};
+            --ni-private-ok-fv-split-button-anchor-border: ${buttonFillPrimaryColor};
+            --ni-private-ok-fv-split-button-anchor-color: ${buttonPrimaryFontColor};
         }
 
         :host([appearance='block'][appearance-variant='accent']) {
-            --ni-private-fv-split-button-anchor-background-image: linear-gradient(
+            --ni-private-ok-fv-split-button-anchor-background-image: linear-gradient(
                 ${buttonFillAccentColor},
                 ${buttonFillAccentColor}
             );
-            --ni-private-fv-split-button-anchor-border: ${buttonFillAccentColor};
-            --ni-private-fv-split-button-anchor-color: ${buttonAccentBlockFontColor};
+            --ni-private-ok-fv-split-button-anchor-border: ${buttonFillAccentColor};
+            --ni-private-ok-fv-split-button-anchor-color: ${buttonAccentBlockFontColor};
         }
 
         .split-button-container {
@@ -93,13 +93,13 @@ export const styles = css`
             height: 100%;
             box-sizing: border-box;
             margin: 0;
-            border: ${borderWidth} solid var(--ni-private-fv-split-button-anchor-border);
+            border: ${borderWidth} solid var(--ni-private-ok-fv-split-button-anchor-border);
             background-color: transparent;
-            background-image: var(--ni-private-fv-split-button-anchor-background-image);
+            background-image: var(--ni-private-ok-fv-split-button-anchor-background-image);
             background-position: center;
             background-repeat: no-repeat;
-            background-size: var(--ni-private-fv-split-button-anchor-background-size);
-            color: var(--ni-private-fv-split-button-anchor-color);
+            background-size: var(--ni-private-ok-fv-split-button-anchor-background-size);
+            color: var(--ni-private-ok-fv-split-button-anchor-color);
             fill: currentcolor;
             font: ${buttonLabelFont};
             cursor: pointer;
@@ -137,7 +137,7 @@ export const styles = css`
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-inline-start-color: var(--ni-private-fv-split-button-anchor-border);
+            border-inline-start-color: var(--ni-private-ok-fv-split-button-anchor-border);
             margin-inline-start: calc(-1 * ${borderWidth});
         }
 
@@ -167,7 +167,7 @@ export const styles = css`
         .split-button-toggle:hover {
             border-color: ${borderHoverColor};
             box-shadow: 0 0 0 ${borderWidth} ${borderHoverColor} inset;
-            background-size: var(--ni-private-fv-split-button-anchor-background-size-emphasis);
+            background-size: var(--ni-private-ok-fv-split-button-anchor-background-size-emphasis);
             z-index: 1;
         }
 
@@ -183,7 +183,7 @@ export const styles = css`
         .split-button-toggle:focus-visible {
             border-color: ${borderHoverColor};
             box-shadow: 0 0 0 ${borderWidth} ${borderHoverColor} inset;
-            background-size: var(--ni-private-fv-split-button-anchor-background-size-emphasis);
+            background-size: var(--ni-private-ok-fv-split-button-anchor-background-size-emphasis);
             z-index: 1;
         }
 
@@ -224,11 +224,11 @@ export const styles = css`
 
     @layer disabled {
         :host([disabled]) {
-            --ni-private-fv-split-button-anchor-color: ${buttonLabelDisabledFontColor};
+            --ni-private-ok-fv-split-button-anchor-color: ${buttonLabelDisabledFontColor};
         }
 
         :host([disabled][appearance='outline']) {
-            --ni-private-fv-split-button-anchor-border: rgba(${borderRgbPartialColor}, 0.3);
+            --ni-private-ok-fv-split-button-anchor-border: rgba(${borderRgbPartialColor}, 0.3);
         }
 
         :host([disabled]) .split-button-primary,

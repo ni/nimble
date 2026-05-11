@@ -1,7 +1,7 @@
 ---
 name: component-review
 description: This skill should be used when the user asks to "review this component PR", "review this Nimble component", "review this OK component change", "check component best practices", "review Storybook and wrapper changes", or "propose review feedback responses" for component work in this repository. Also use it when updating older OK components to match newer sibling implementations and current repo review standards.
-version: 0.3.4
+version: 0.3.5
 ---
 
 # Component Review
@@ -110,6 +110,7 @@ Review styling for consistency and maintainability:
 - Check hover, focus, and transition rules together to avoid flicker or mismatched state changes
 - Check whether motion needs a `prefers-reduced-motion` fallback
 - For new Nimble control styles, check that states are organized with the CSS cascade-layer stack described in the Nimble CSS guidelines
+- For FV-specific internal CSS custom properties or similar page-scoped names, include `ok-fv` in the prefix to reduce collision risk; treat generic `fv`-only prefixes as review feedback
 - Treat missing or ad hoc layer organization in new Nimble controls as review feedback, especially when hover, focus-visible, active, disabled, and top-level overrides are being introduced
 
 ### 8. Check Stories and Docs
@@ -121,6 +122,7 @@ Treat Storybook as part of the public contract:
 - Ensure important public events and methods are documented when clients are expected to use them
 - Use Nimble body font and color tokens for raw text in story examples
 - When a newer OK component story uses `okWarning` or design-token text wrappers, check older sibling OK stories for the same drift
+- Reuse the repo's existing MDX component-doc structure for slots, attribute values, and similar API guidance instead of introducing ad hoc section layouts when sibling docs already establish the pattern
 - Treat newly introduced accessibility violations in Storybook as review findings, not polish
 - Confirm nested accordion guidance, incubating warnings, and component-status updates when relevant
 - For any component that renders a dropdown, menu, popup, or anchored region: verify `disableStorybookZoomTransform` is imported from `'../../../utilities/storybook'` and injected in the story template. Storybook docs pages apply a `scale(1)` transform that traps absolutely positioned content; the helper removes it. Treat missing `disableStorybookZoomTransform` as a review finding.
@@ -194,6 +196,7 @@ Favor high-signal feedback:
 - Missing page objects or testing entrypoints for new Nimble components
 - Missing automated coverage or wrong test level for supported behavior
 - Missing CSS layer organization in new Nimble control styles
+- FV internal CSS custom properties or other global names that omit the `ok-fv` prefix and risk collisions
 - Missing `/** @internal */` annotations on implementation-only component class members that remain public for FAST/template wiring
 - Template binding patterns that violate repo guidance, including nullish coalescing misuse
 - Cross-component consistency gaps where a change should be evaluated against sibling implementations
@@ -201,6 +204,7 @@ Favor high-signal feedback:
 - Dropdown/popup components using absolute positioning instead of `nimble-anchored-region` with `fixed-placement`
 - Anchored-region anchor wired via callback methods instead of `@observable` property + lifecycle pattern
 - Missing `disableStorybookZoomTransform` in stories for components with dropdowns or popups
+- Storybook MDX docs that replace established sibling component structure with new ad hoc sections for slots, appearance values, or similar API guidance
 - Story boilerplate elements missing `class="code-hide"` causing them to appear in Storybook code snippets
 
 Do not spend review attention on low-value formatting churn when deeper behavioral issues exist.

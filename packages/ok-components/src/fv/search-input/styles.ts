@@ -24,12 +24,12 @@ export const styles = css`
         ${display('inline-block')}
 
         :host {
-            --ni-private-fv-search-input-inline-padding: ${standardPadding};
-            --ni-private-fv-search-input-leading-inset: ${mediumPadding};
-            --ni-private-fv-search-input-leading-space: calc(var(--ni-private-fv-search-input-leading-inset) + ${iconSize} + ${smallPadding});
-            --ni-private-fv-search-input-trailing-space: calc(var(--ni-private-fv-search-input-inline-padding) + ${iconSize});
-            --ni-private-fv-search-input-border-color: rgba(${borderRgbPartialColor}, 0.3);
-            --ni-private-fv-search-input-border-radius: 0px;
+            --ni-private-ok-fv-search-input-inline-padding: ${standardPadding};
+            --ni-private-ok-fv-search-input-leading-inset: ${mediumPadding};
+            --ni-private-ok-fv-search-input-leading-space: calc(var(--ni-private-ok-fv-search-input-leading-inset) + ${iconSize} + ${smallPadding});
+            --ni-private-ok-fv-search-input-trailing-space: calc(var(--ni-private-ok-fv-search-input-inline-padding) + ${iconSize});
+            --ni-private-ok-fv-search-input-border-color: rgba(${borderRgbPartialColor}, 0.3);
+            --ni-private-ok-fv-search-input-border-radius: 0px;
             min-width: 120px;
             height: ${controlHeight};
             font: ${bodyFont};
@@ -43,7 +43,7 @@ export const styles = css`
             width: 100%;
             height: 100%;
             border: ${borderWidth} solid transparent;
-            border-radius: var(--ni-private-fv-search-input-border-radius);
+            border-radius: var(--ni-private-ok-fv-search-input-border-radius);
             color: inherit;
             background-color: transparent;
             transition:
@@ -72,7 +72,7 @@ export const styles = css`
             align-items: center;
             justify-content: center;
             top: 50%;
-            inset-inline-start: var(--ni-private-fv-search-input-leading-inset);
+            inset-inline-start: var(--ni-private-ok-fv-search-input-leading-inset);
             transform: translateY(-50%);
             color: ${placeholderFontColor};
             pointer-events: none;
@@ -87,7 +87,7 @@ export const styles = css`
             min-width: 0;
             width: 100%;
             height: 100%;
-            padding: 0 var(--ni-private-fv-search-input-trailing-space) 0 var(--ni-private-fv-search-input-leading-space);
+            padding: 0 var(--ni-private-ok-fv-search-input-trailing-space) 0 var(--ni-private-ok-fv-search-input-leading-space);
             font: inherit;
             line-height: normal;
             color: inherit;
@@ -123,7 +123,7 @@ export const styles = css`
         }
 
         :host([appearance='outline']) .search-input-container {
-            border-color: var(--ni-private-fv-search-input-border-color);
+            border-color: var(--ni-private-ok-fv-search-input-border-color);
         }
 
         :host([appearance='block']) .search-input-container {
@@ -132,7 +132,7 @@ export const styles = css`
 
         :host([appearance='underline']) .search-input-container::after {
             transform: scaleX(1);
-            border-bottom-color: var(--ni-private-fv-search-input-border-color);
+            border-bottom-color: var(--ni-private-ok-fv-search-input-border-color);
         }
     }
 
