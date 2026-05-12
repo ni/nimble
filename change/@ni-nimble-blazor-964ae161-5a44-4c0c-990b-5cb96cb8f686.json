@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Deps update (Apache.Arrow NuGet to latest/23.0.0)",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
