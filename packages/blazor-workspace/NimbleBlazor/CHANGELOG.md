@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 12 May 2026 00:42:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.17.1
+
+Tue, 12 May 2026 00:42:16 GMT
+
+### Patches
+
+- Deps update (Apache.Arrow NuGet to latest/23.0.0) ([ni/nimble@e2547b5](https://github.com/ni/nimble/commit/e2547b5331f24aed6226a70851820402d552e4e6))
 
 ## 20.17.0
 

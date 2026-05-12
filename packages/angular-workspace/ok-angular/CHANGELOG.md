@@ -1,8 +1,24 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 11 May 2026 21:35:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.4.0
+
+Mon, 11 May 2026 21:35:06 GMT
+
+### Minor changes
+
+- Add FV Angular wrappers for ok components ([ni/nimble@85a74e2](https://github.com/ni/nimble/commit/85a74e2e759b52a0099424a189473e3db1a54189))
+
+## 2.3.2
+
+Mon, 11 May 2026 17:03:55 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.0
 
 ## 2.3.1
 

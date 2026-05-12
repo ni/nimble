@@ -24,12 +24,14 @@ export class FvSearchInput extends FoundationTextField {
     @attr
     public appearance: FvSearchInputAppearanceType = FvSearchInputAppearance.outline;
 
+    /** @internal */
     public override handleChange(): void {
         this.value = this.control.value;
         super.handleChange();
     }
 
     /**
+     * @internal
      * Clears the current value, restores focus to the text input, and
      * dispatches a synthetic `input` event on the host so consumers
      * observe the same immediate value-update contract as typing.
