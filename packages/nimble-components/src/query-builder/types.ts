@@ -27,10 +27,6 @@ export interface Option {
     value: string;
 }
 
-export interface FieldMap {
-    [key: string]: Field;
-}
-
 export interface Field {
     displayName: string;
     propertyKey: string;
@@ -43,7 +39,7 @@ export interface Field {
 }
 
 export interface QueryBuilderConfig {
-    fields: FieldMap;
+    fields: Field[];
     allowEmptyRulesets?: boolean;
     getOperators?: (fieldName: string, field: Field) => string[];
     getInputType?: (field: string, operator: string) => string;

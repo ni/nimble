@@ -35,7 +35,7 @@ export class QueryBuilder extends FoundationElement {
 
     public allowRuleset = true;
     public operatorMap: { [key: string]: string[] } = {};
-    public config: QueryBuilderConfig = { fields: {} };
+    public config: QueryBuilderConfig = { fields: [] };
 
     private operatorsCache: { [key: string]: string[] } = {};
 
@@ -43,15 +43,15 @@ export class QueryBuilder extends FoundationElement {
         super();
         // temp init //
         this.setConfig({
-            fields: {
-                myFirstBool: {
+            fields: [
+                {
                     displayName: 'First field displayName',
                     type: FieldType.boolean,
                     propertyKey: 'myFirstBool',
                     defaultValue: false,
                     operators: ['==', '!=']
                 },
-                mySecondBool: {
+                {
                     displayName: 'Second field displayName',
                     type: FieldType.boolean,
                     propertyKey: 'mySecondBool',
@@ -59,21 +59,21 @@ export class QueryBuilder extends FoundationElement {
                     operators: ['==', '!='],
                     defaultOperator: '!='
                 },
-                stringValue: {
+                {
                     displayName: 'String property',
                     type: FieldType.string,
                     propertyKey: 'stringValue',
                     defaultValue: '',
                     operators: ['==', '!=', 'contains', 'does not contain', 'is null', 'is not null'],
                 },
-                numericValue: {
+                {
                     displayName: 'Number property',
                     type: FieldType.number,
                     propertyKey: 'numericValue',
                     defaultValue: 0,
                     operators: ['==', '!=', '>', '<']
                 },
-                categoryValue: {
+                {
                     displayName: 'Enum property',
                     type: FieldType.category,
                     propertyKey: 'categoryValue',
@@ -90,7 +90,7 @@ export class QueryBuilder extends FoundationElement {
                         value: 'option3'
                     }]
                 }
-            }
+            ]
         });
         //
     }
@@ -99,11 +99,7 @@ export class QueryBuilder extends FoundationElement {
         // TODO: deep copy?
         this.config = config;
 
-        this.fields = Object.keys(config.fields).map(value => {
-            const field = config.fields[value]!;
-            field.propertyKey = field.propertyKey || value;
-            return field;
-        });
+        this.fields = config.fields;
     }
 
     public changeCondition(isOrCondition: boolean, ruleSet: RuleSet): void {
@@ -147,7 +143,7 @@ export class QueryBuilder extends FoundationElement {
     }
 
     private getLinqStringForRule(rule: Rule): string {
-        const fieldObject = this.config.fields[rule.field]!;
+        const fieldObject = this.config.fields.find(f => f.propertyKey === rule.field)!;
 
         switch (fieldObject.type) {
             case FieldType.string:
@@ -211,7 +207,7 @@ export class QueryBuilder extends FoundationElement {
     }
 
     public getOptions(field: string): Option[] {
-        const fieldObject = this.config.fields[field];
+        const fieldObject = this.config.fields.find(f => f.propertyKey === field);
         if (fieldObject) {
             return fieldObject.options!;
         }
@@ -224,7 +220,7 @@ export class QueryBuilder extends FoundationElement {
             return this.operatorsCache[field];
         }
         let operators: string[] = [];
-        const fieldObject = this.config.fields[field];
+        const fieldObject = this.config.fields.find(f => f.propertyKey === field);
 
         if (this.config.getOperators && fieldObject) {
             return this.config.getOperators(field, fieldObject);
@@ -258,11 +254,12 @@ export class QueryBuilder extends FoundationElement {
             return this.config.getInputType(field, operator);
         }
 
-        if (!this.config.fields[field]) {
+        const fieldObject = this.config.fields.find(f => f.propertyKey === field);
+        if (!fieldObject) {
             throw new Error(`No configuration for field '${field}' could be found! Please add it to config.fields.`);
         }
 
-        const type = this.config.fields[field]?.type;
+        const type = fieldObject?.type;
         if (!type) {
             return '';
         }
@@ -350,7 +347,7 @@ export class QueryBuilder extends FoundationElement {
 
     public changeField(fieldValue: string, rule: Rule): void {
         rule.field = fieldValue;
-        const field = this.config.fields[fieldValue]!;
+        const field = this.config.fields.find(f => f.propertyKey === fieldValue)!;
         rule.operator = this.getDefaultOperator(field);
         this.forceRefresh();
     }
@@ -377,7 +374,7 @@ export class QueryBuilder extends FoundationElement {
                 }
             } else {
                 const childRule = item as Rule;
-                const field = this.config.fields[childRule.field];
+                const field = this.config.fields.find(f => f.propertyKey === childRule.field);
                 if (field?.validator?.apply) {
                     if (field.validator(childRule, ruleset) != null) {
                         return false;
