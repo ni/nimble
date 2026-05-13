@@ -33,17 +33,10 @@ export class QueryBuilder extends FoundationElement {
     @observable
     public data: RuleSet = { condition: 'and', rules: [] };
 
-    // For ControlValueAccessor interface
-    // public onChangeCallback: () => void;
-    // public onTouchedCallback: () => any;
-
     public allowRuleset = true;
-    // public allowCollapse = false;
     public emptyMessage = 'A ruleset cannot be empty. Please add a rule or remove it all together.';
     public operatorMap: { [key: string]: string[] } = {};
     public config: QueryBuilderConfig = { fields: {} };
-    // public parentChangeCallback: () => void;
-    // public parentTouchedCallback: () => void;
     public persistValueOnFieldChange = false;
 
     private operatorsCache: { [key: string]: string[] } = {};
@@ -105,7 +98,6 @@ export class QueryBuilder extends FoundationElement {
         //
     }
 
-    /// //////////////////////////////////////////////////
     private setConfig(config: QueryBuilderConfig): void {
         // TODO: deep copy?
         this.config = config;
@@ -117,8 +109,6 @@ export class QueryBuilder extends FoundationElement {
         });
     }
 
-    /// /////////////////////////////////////////////////
-
     public changeCondition(isOrCondition: boolean, ruleSet: RuleSet): void {
         ruleSet.condition = isOrCondition ? 'or' : 'and';
     }
@@ -128,60 +118,19 @@ export class QueryBuilder extends FoundationElement {
         return ruleOrRuleSet.hasOwnProperty('rules');
     }
 
-    // ----------OnChanges Implementation----------
-
-    // ngOnChanges(changes: SimpleChanges) {
-    //     const config = this.config;
-    //     const type = typeof config;
-    //     if (type === 'object') {
-    //         this.fields = Object.keys(config.fields).map(value => {
-    //             const field = config.fields[value];
-    //             field.value = field.value || value;
-    //             return field;
-    //         });
-    //         if (config.entities) {
-    //             this.entities = Object.keys(config.entities).map(value => {
-    //                 const entity = config.entities[value];
-    //                 entity.value = entity.value || value;
-    //                 return entity;
-    //             });
-    //         } else {
-    //             this.entities = null;
-    //         }
-    //         this.operatorsCache = {};
-    //     } else {
-    //         throw new Error(`Expected 'config' must be a valid object, got ${type} instead.`);
-    //     }
-    // }
-
-    // ----------Validator Implementation----------
-
-    // validate(control: AbstractControl): ValidationErrors | null {
-    //     const errors: { [key: string]: any } = {};
-    //     const ruleErrorStore = [];
-    //     let hasErrors = false;
-
-    //     if (!this.config.allowEmptyRulesets && this.checkEmptyRuleInRuleset(this.data)) {
-    //         errors.empty = 'Empty rulesets are not allowed.';
-    //         hasErrors = true;
-    //     }
-
-    //     this.validateRulesInRuleset(this.data, ruleErrorStore);
-
-    //     if (ruleErrorStore.length) {
-    //         errors.rules = ruleErrorStore;
-    //         hasErrors = true;
-    //     }
-    //     return hasErrors ? errors : null;
-    // }
-
-    // ----------ControlValueAccessor Implementation----------
+    public validate(): boolean {
+        return this.isRuleSetValid(this.data);
+    }
 
     public get value(): RuleSet {
         return this.data;
     }
 
     public get linqString(): string {
+        const isValid = this.validate();
+        if (!isValid) {
+            return 'Invalid value -- cannot generate LINQ string';
+        }
         return this.getLinqStringForRuleSet(this.data);
     }
 
@@ -263,54 +212,6 @@ export class QueryBuilder extends FoundationElement {
                 return 'true';
         }
     }
-
-    // set value(value: RuleSet) {
-    // // When component is initialized without a formControl, null is passed to value
-    //     this.data = value || { condition: 'and', rules: [] };
-    //     this.handleDataChange();
-    // }
-
-    // writeValue(obj: any): void {
-    //     this.value = obj;
-    // }
-
-    // registerOnChange(fn: any): void {
-    //     this.onChangeCallback = () => fn(this.data);
-    // }
-
-    // registerOnTouched(fn: any): void {
-    //     this.onTouchedCallback = () => fn(this.data);
-    // }
-
-    // setDisabledState(isDisabled: boolean): void {
-    //     this.disabled = isDisabled;
-    //     this.changeDetectorRef.detectChanges();
-    // }
-
-    // // ----------END----------
-
-    // getDisabledState = (): boolean => {
-    //     return this.disabled;
-    // };
-
-    // findTemplateForRule(rule: Rule): TemplateRef<any> {
-    //     const type = this.getInputType(rule.field, rule.operator);
-    //     if (type) {
-    //         const queryInput = this.findQueryInput(type);
-    //         if (queryInput) {
-    //             return queryInput.template;
-    //         }
-    //         if (!this.defaultTemplateTypes.includes(type)) {
-    //             console.warn(`Could not find template for field with type: ${type}`);
-    //         }
-    //         return null;
-    //     }
-    // }
-
-    // findQueryInput(type: string): QueryInputDirective {
-    //     const templates = this.parentInputTemplates || this.inputTemplates;
-    //     return templates.find(item => item.queryInputType === type);
-    // }
 
     public getOptions(field: string): Option[] {
         const fieldObject = this.config.fields[field];
@@ -408,9 +309,6 @@ export class QueryBuilder extends FoundationElement {
             entity: field.entity
         }]);
         this.forceRefresh();
-
-        // this.handleTouched();
-        // this.handleDataChange();
     }
 
     private forceRefresh(): void {
@@ -422,71 +320,30 @@ export class QueryBuilder extends FoundationElement {
     public removeRule(rule: Rule, parent: RuleSet): void {
         parent.rules = parent.rules.filter(r => r !== rule);
         this.forceRefresh();
-
-        // this.handleTouched();
-        // this.handleDataChange();
     }
 
     public addRuleSet(passedParent?: RuleSet): void {
         const parent = passedParent || this.data;
         parent.rules = parent.rules.concat([{ condition: 'and', rules: [] }]);
         this.forceRefresh();
-
-        // this.handleTouched();
-        // this.handleDataChange();
     }
 
     public removeRuleSet(ruleset: RuleSet, parent: RuleSet): void {
         parent.rules = parent.rules.filter(r => r !== ruleset);
         this.forceRefresh();
-
-        // this.handleTouched();
-        // this.handleDataChange();
     }
-
-    // transitionEnd(e: Event): void {
-    //     this.treeContainer.nativeElement.style.maxHeight = null;
-    // }
-
-    // toggleCollapse(): void {
-    //     this.computedTreeContainerHeight();
-    //     setTimeout(() => {
-    //         this.data.collapsed = !this.data.collapsed;
-    //     }, 100);
-    // }
-
-    // computedTreeContainerHeight(): void {
-    //     const nativeElement: HTMLElement = this.treeContainer.nativeElement;
-    //     if (nativeElement && nativeElement.firstElementChild) {
-    //         nativeElement.style.maxHeight = `${nativeElement.firstElementChild.clientHeight + 8}px`;
-    //     }
-    // }
-
-    // changeCondition(value: string): void {
-    //     if (this.disabled) {
-    //         return;
-    //     }
-
-    //     this.data.condition = value;
-    //     this.handleTouched();
-    //     this.handleDataChange();
-    // }
 
     public changeOperator(operator: string, rule: Rule): void {
         rule.operator = operator;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         rule.value = this.coerceValueForOperator(operator, rule.value, rule);
         this.forceRefresh();
-
-        // this.handleTouched();
-        // this.handleDataChange();
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private coerceValueForOperator(operator: string, value: any, rule: Rule): any | any[] {
         const inputType: string = this.getInputType(rule.field, operator);
         if (inputType === 'multiselect' && !Array.isArray(value)) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return [value];
         }
         return value;
@@ -496,9 +353,6 @@ export class QueryBuilder extends FoundationElement {
     public changeInput(value: any, rule: Rule): void {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         rule.value = value;
-
-        // this.handleTouched();
-        // this.handleDataChange();
     }
 
     public changeField(fieldValue: string, rule: Rule): void {
@@ -506,9 +360,6 @@ export class QueryBuilder extends FoundationElement {
         const field = this.config.fields[fieldValue]!;
         rule.operator = this.getDefaultOperator(field);
         this.forceRefresh();
-
-        // this.handleTouched();
-        // this.handleDataChange();
     }
 
     private getDefaultValue(defaultValue: (() => string) | string): string {
@@ -520,42 +371,29 @@ export class QueryBuilder extends FoundationElement {
         }
     }
 
-    // private validateRulesInRuleset(ruleset: RuleSet, errorStore: any[]) {
-    //     if (ruleset && ruleset.rules && ruleset.rules.length > 0) {
-    //         ruleset.rules.forEach(item => {
-    //             if ((item as RuleSet).rules) {
-    //                 this.validateRulesInRuleset(item as RuleSet, errorStore);
-    //             } else if ((item as Rule).field) {
-    //                 const field = this.config.fields[(item as Rule).field];
-    //                 if (field && field.validator && field.validator.apply) {
-    //                     const error = field.validator(item as Rule, ruleset);
-    //                     if (error != null) {
-    //                         errorStore.push(error);
-    //                     }
-    //                 }
-    //             }
-    //         });
-    //     }
-    // }
+    private isRuleSetValid(ruleset: RuleSet): boolean {
+        if (ruleset.rules.length === 0) {
+            return this.config.allowEmptyRulesets === true;
+        }
 
-    // private handleDataChange(): void {
-    //     this.changeDetectorRef.markForCheck();
-    //     if (this.onChangeCallback) {
-    //         this.onChangeCallback();
-    //     }
-    //     if (this.parentChangeCallback) {
-    //         this.parentChangeCallback();
-    //     }
-    // }
-
-    // private handleTouched(): void {
-    //     if (this.onTouchedCallback) {
-    //         this.onTouchedCallback();
-    //     }
-    //     if (this.parentTouchedCallback) {
-    //         this.parentTouchedCallback();
-    //     }
-    // }
+        return ruleset.rules.every(item => {
+            if (this.isRuleSet(item)) {
+                const childRuleset = item as RuleSet;
+                if (!this.isRuleSetValid(childRuleset)) {
+                    return false;
+                }
+            } else {
+                const childRule = item as Rule;
+                const field = this.config.fields[childRule.field];
+                if (field?.validator?.apply) {
+                    if (field.validator(childRule, ruleset) != null) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        });
+    }
 }
 
 const nimbleQueryBuilder = QueryBuilder.compose({
