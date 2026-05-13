@@ -35,6 +35,7 @@ import './menu';
 import './menu-button';
 import './menu-item';
 import './number-field';
+import './query-builder';
 import './radio';
 import './radio-group';
 import './rich-text/editor';
