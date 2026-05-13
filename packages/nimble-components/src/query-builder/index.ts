@@ -34,10 +34,8 @@ export class QueryBuilder extends FoundationElement {
     public data: RuleSet = { condition: 'and', rules: [] };
 
     public allowRuleset = true;
-    public emptyMessage = 'A ruleset cannot be empty. Please add a rule or remove it all together.';
     public operatorMap: { [key: string]: string[] } = {};
     public config: QueryBuilderConfig = { fields: {} };
-    public persistValueOnFieldChange = false;
 
     private operatorsCache: { [key: string]: string[] } = {};
 
