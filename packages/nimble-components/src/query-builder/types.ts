@@ -23,7 +23,7 @@ export interface Rule {
 }
 
 export interface Option {
-    name: string;
+    displayName: string;
     value: string;
 }
 
@@ -32,10 +32,9 @@ export interface FieldMap {
 }
 
 export interface Field {
-    name: string;
-    value: string;
+    displayName: string;
+    propertyKey: string;
     type: FieldType;
-    nullable?: boolean;
     options?: Option[];
     operators?: string[];
     defaultValue?: any;

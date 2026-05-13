@@ -1,7 +1,7 @@
 import { css } from '@ni/fast-element';
 import {
     standardPadding,
-    smallPadding
+    mediumPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -16,10 +16,11 @@ export const styles = css`
     }
 
     .rule-row {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) auto;
         padding: ${standardPadding};
         padding-right: 0px;
-        gap: ${smallPadding};
+        gap: ${mediumPadding};
     }
 
     .button-container {

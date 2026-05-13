@@ -45,49 +45,48 @@ export class QueryBuilder extends FoundationElement {
         this.setConfig({
             fields: {
                 myFirstBool: {
-                    name: 'First field name',
+                    displayName: 'First field displayName',
                     type: FieldType.boolean,
-                    value: 'myFirstBool',
+                    propertyKey: 'myFirstBool',
                     defaultValue: false,
                     operators: ['==', '!=']
                 },
                 mySecondBool: {
-                    name: 'Second field name',
+                    displayName: 'Second field displayName',
                     type: FieldType.boolean,
-                    value: 'mySecondBool',
+                    propertyKey: 'mySecondBool',
                     defaultValue: false,
                     operators: ['==', '!='],
                     defaultOperator: '!='
                 },
                 stringValue: {
-                    name: 'String property',
+                    displayName: 'String property',
                     type: FieldType.string,
-                    value: 'stringValue',
+                    propertyKey: 'stringValue',
                     defaultValue: '',
                     operators: ['==', '!=', 'contains', 'does not contain', 'is null', 'is not null'],
-                    nullable: true
                 },
                 numericValue: {
-                    name: 'Number property',
+                    displayName: 'Number property',
                     type: FieldType.number,
-                    value: 'numericValue',
+                    propertyKey: 'numericValue',
                     defaultValue: 0,
                     operators: ['==', '!=', '>', '<']
                 },
                 categoryValue: {
-                    name: 'Enum property',
+                    displayName: 'Enum property',
                     type: FieldType.category,
-                    value: 'categoryValue',
+                    propertyKey: 'categoryValue',
                     defaultValue: '',
                     operators: ['==', '!='],
                     options: [{
-                        name: 'First option',
+                        displayName: 'First option',
                         value: 'option1'
                     }, {
-                        name: 'Second option',
+                        displayName: 'Second option',
                         value: 'option2'
                     }, {
-                        name: 'Third option',
+                        displayName: 'Third option',
                         value: 'option3'
                     }]
                 }
@@ -102,7 +101,7 @@ export class QueryBuilder extends FoundationElement {
 
         this.fields = Object.keys(config.fields).map(value => {
             const field = config.fields[value]!;
-            field.value = field.value || value;
+            field.propertyKey = field.propertyKey || value;
             return field;
         });
     }
@@ -244,9 +243,6 @@ export class QueryBuilder extends FoundationElement {
           + 'Please define an \'operators\' property on the field or use the \'operatorMap\' binding to fix this.'
                 );
             }
-            if (fieldObject.nullable) {
-                operators = operators.concat(['is null', 'is not null']);
-            }
         } else {
             // eslint-disable-next-line no-console
             console.warn(`No 'type' property found on field: '${field}'`);
@@ -287,12 +283,12 @@ export class QueryBuilder extends FoundationElement {
         if (field?.defaultOperator !== undefined) {
             return this.getDefaultValue(field.defaultOperator);
         }
-        const operators = this.getOperators(field.value);
+        const operators = this.getOperators(field.propertyKey);
         if ((operators?.length) !== 0) {
             return operators[0]!;
         }
         // eslint-disable-next-line no-console
-        console.warn(`No operators found for field '${field.value}'. `
+        console.warn(`No operators found for field '${field.propertyKey}'. `
           + 'A \'defaultOperator\' is also not specified on the field config. Operator value will default to null.');
         return '';
     }
@@ -300,11 +296,10 @@ export class QueryBuilder extends FoundationElement {
     public addRule(parent: RuleSet): void {
         const field = this.fields[0]!;
         parent.rules = parent.rules.concat([{
-            field: field.value,
+            field: field.propertyKey,
             operator: this.getDefaultOperator(field),
             // TODO hacky 'as'
-            value: this.getDefaultValue(field.defaultValue as string),
-            entity: field.entity
+            value: this.getDefaultValue(field.defaultValue as string)
         }]);
         this.forceRefresh();
     }

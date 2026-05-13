@@ -48,14 +48,14 @@ const categoryRuleTemplate: (queryBuilder: QueryBuilder) => ViewTemplate<Rule> =
         :value="${rule => (typeof (rule.value) === 'string' ? rule.value : undefined)}"
     >
         ${repeat(rule => queryBuilder.getOptions(rule.field), html<Option>`
-            <${listOptionTag} value="${o => o.value}">${o => o.name}</${listOptionTag}>`)}
+            <${listOptionTag} value="${o => o.value}">${o => o.displayName}</${listOptionTag}>`)}
     </${selectTag}>
 `;
 
 const ruleTemplate: (queryBuilder: QueryBuilder, parentRuleSet: RuleSet) => ViewTemplate<Rule> = (queryBuilder: QueryBuilder, parentRuleSet: RuleSet) => html<Rule>`
     <div class="rule-row">
         <${selectTag} ?disabled="${() => queryBuilder.disabled}" class="field-select" current-value="${x => x.field}" @change="${(rule, c) => queryBuilder.changeField((c.event.target as Select).value, rule)}">
-            ${repeat(() => queryBuilder.fields, html`<${listOptionTag} value="${(f: Field) => f.value}">${(f: Field) => f.name}</${listOptionTag}>`)}
+            ${repeat(() => queryBuilder.fields, html`<${listOptionTag} value="${(f: Field) => f.propertyKey}">${(f: Field) => f.displayName}</${listOptionTag}>`)}
         </${selectTag}>
         <${selectTag} ?disabled="${() => queryBuilder.disabled}" class="field-operator" current-value="${x => x.operator}" @change="${(rule, c) => queryBuilder.changeOperator((c.event.target as Select).value, rule)}">
             ${repeat(rule => queryBuilder.getOperators(rule.field), html`<${listOptionTag} value="${o => o}">${o => o}</${listOptionTag}>`)}
@@ -97,10 +97,6 @@ const ruleSetTemplate: (queryBuilder: QueryBuilder, parentRuleSet: RuleSet | und
         ${when(ruleSet => ruleSet.rules.length === 0, html`Error: You must specify at least one condition.`)}
     </div>
 `;
-
-// export const template = html<QueryBuilder>`
-//     ${qb => ruleSetTemplate(qb, undefined)}
-// `;
 
 export const template = html<QueryBuilder>`
     <template>
