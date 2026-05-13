@@ -1,14 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const FieldType = {
+export const EditorType = {
     string: 'string',
     number: 'number',
-    time: 'time',
-    date: 'date',
-    category: 'category',
+    // dropdown: 'dropdown',
     boolean: 'boolean',
-    multiselect: 'multiselect'
+    none: 'none'
 } as const;
-export type FieldType = typeof FieldType[keyof typeof FieldType];
+export type EditorType = typeof EditorType[keyof typeof EditorType];
 
 export interface RuleSet {
     condition: string;
@@ -18,8 +15,8 @@ export interface RuleSet {
 
 export interface Rule {
     field: string;
-    value?: any;
-    operator?: string;
+    value: unknown;
+    operator: Operator;
 }
 
 export interface Option {
@@ -29,20 +26,112 @@ export interface Option {
 
 export interface Field {
     displayName: string;
-    propertyKey: string;
-    type: FieldType;
+    fieldName: string;
     options?: Option[];
-    operators?: string[];
-    defaultValue?: any;
-    defaultOperator?: (() => string) | string;
-    validator?: (rule: Rule, parent: RuleSet) => any | null;
+    operators: Operator[];
 }
 
 export interface QueryBuilderConfig {
     fields: Field[];
-    allowEmptyRulesets?: boolean;
-    getOperators?: (fieldName: string, field: Field) => string[];
-    getInputType?: (field: string, operator: string) => string;
-    getOptions?: (field: string) => Option[];
-    coerceValueForOperator?: (operator: string, value: any, rule: Rule) => any;
 }
+
+export interface Operator {
+    displayName: string;
+    value: string;
+    linqString: string;
+    editorType: EditorType;
+}
+
+export const linqFieldNamePlaceholder = '{field}' as const;
+export const linqValuePlaceholder = '{value}' as const;
+
+export const stringEqualsOperator: Operator = {
+    displayName: 'Equals',
+    value: '===',
+    linqString: `${linqFieldNamePlaceholder} == "${linqValuePlaceholder}"`,
+    editorType: EditorType.string
+};
+
+export const stringNotEqualsOperator: Operator = {
+    displayName: 'Not equals',
+    value: '!==',
+    linqString: `${linqFieldNamePlaceholder} != "${linqValuePlaceholder}"`,
+    editorType: EditorType.string
+};
+
+export const stringContainsOperator: Operator = {
+    displayName: 'Contains',
+    value: 'strincludes',
+    linqString: `${linqFieldNamePlaceholder}.Contains("${linqValuePlaceholder}")`,
+    editorType: EditorType.string
+};
+
+export const stringDoesNotContainOperator: Operator = {
+    displayName: 'Does not contain',
+    value: 'strnotincludes',
+    linqString: `!${linqFieldNamePlaceholder}.Contains("${linqValuePlaceholder}")`,
+    editorType: EditorType.string
+};
+
+export const stringStartsWithOperator: Operator = {
+    displayName: 'Starts with',
+    value: 'startswith',
+    linqString: `${linqFieldNamePlaceholder}.StartsWith("${linqValuePlaceholder}")`,
+    editorType: EditorType.string
+};
+
+export const stringIsBlankOperator: Operator = {
+    displayName: 'Is empty',
+    value: 'isblank',
+    linqString: `string.IsNullOrEmpty(${linqFieldNamePlaceholder})`,
+    editorType: EditorType.none
+};
+
+export const stringIsNotBlankOperator: Operator = {
+    displayName: 'Is not empty',
+    value: 'isnotblank',
+    linqString: `!string.IsNullOrEmpty(${linqFieldNamePlaceholder})`,
+    editorType: EditorType.none
+};
+
+export const numberEqualsOperator: Operator = {
+    displayName: 'Equals',
+    value: '===',
+    linqString: `${linqFieldNamePlaceholder} == ${linqValuePlaceholder}`,
+    editorType: EditorType.number
+};
+
+export const numberNotEqualsOperator: Operator = {
+    displayName: 'Not equals',
+    value: '!==',
+    linqString: `${linqFieldNamePlaceholder} != ${linqValuePlaceholder}`,
+    editorType: EditorType.number
+};
+
+export const numberGreaterThanOperator: Operator = {
+    displayName: 'Greater than',
+    value: '>',
+    linqString: `${linqFieldNamePlaceholder} > ${linqValuePlaceholder}`,
+    editorType: EditorType.number
+};
+
+export const numberLessThanOperator: Operator = {
+    displayName: 'Less than',
+    value: '<',
+    linqString: `${linqFieldNamePlaceholder} < ${linqValuePlaceholder}`,
+    editorType: EditorType.number
+};
+
+export const booleanEqualsOperator: Operator = {
+    displayName: 'Equals',
+    value: '===',
+    linqString: `${linqFieldNamePlaceholder} == ${linqValuePlaceholder}`,
+    editorType: EditorType.boolean
+};
+
+export const booleanNotEqualsOperator: Operator = {
+    displayName: 'Not equals',
+    value: '!==',
+    linqString: `${linqFieldNamePlaceholder} != ${linqValuePlaceholder}`,
+    editorType: EditorType.boolean
+};

@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import type { QueryBuilder } from '.';
-import { type Field, FieldType, type Rule, type RuleSet, type Option } from './types';
+import { type Field, type Rule, type RuleSet, type Option, EditorType, type Operator } from './types';
 import { Checkbox, checkboxTag } from '../checkbox';
 import { Select, selectTag } from '../select';
 import { TextField, textFieldTag } from '../text-field';
@@ -55,17 +55,16 @@ const categoryRuleTemplate: (queryBuilder: QueryBuilder) => ViewTemplate<Rule> =
 const ruleTemplate: (queryBuilder: QueryBuilder, parentRuleSet: RuleSet) => ViewTemplate<Rule> = (queryBuilder: QueryBuilder, parentRuleSet: RuleSet) => html<Rule>`
     <div class="rule-row">
         <${selectTag} ?disabled="${() => queryBuilder.disabled}" class="field-select" current-value="${x => x.field}" @change="${(rule, c) => queryBuilder.changeField((c.event.target as Select).value, rule)}">
-            ${repeat(() => queryBuilder.fields, html`<${listOptionTag} value="${(f: Field) => f.propertyKey}">${(f: Field) => f.displayName}</${listOptionTag}>`)}
+            ${repeat(() => queryBuilder.fields, html<Field>`<${listOptionTag} value="${(f: Field) => f.fieldName}">${(f: Field) => f.displayName}</${listOptionTag}>`)}
         </${selectTag}>
-        <${selectTag} ?disabled="${() => queryBuilder.disabled}" class="field-operator" current-value="${x => x.operator}" @change="${(rule, c) => queryBuilder.changeOperator((c.event.target as Select).value, rule)}">
-            ${repeat(rule => queryBuilder.getOperators(rule.field), html`<${listOptionTag} value="${o => o}">${o => o}</${listOptionTag}>`)}
+        <${selectTag} ?disabled="${() => queryBuilder.disabled}" class="field-operator" current-value="${x => x.operator.value}" @change="${(rule, c) => queryBuilder.changeOperator((c.event.target as Select).value, rule)}">
+            ${repeat(rule => queryBuilder.getOperators(rule.field), html<Operator>`<${listOptionTag} value="${o => o.value}">${o => o.displayName}</${listOptionTag}>`)}
         </${selectTag}>
 
-        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator!) === FieldType.boolean), booleanRuleTemplate(queryBuilder))}
-        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator!) === FieldType.string), stringRuleTemplate(queryBuilder))}
-        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator!) === FieldType.number), numberRuleTemplate(queryBuilder))}
-        ${when(rule => (queryBuilder.getInputType(rule.field, rule.operator!) === FieldType.category), categoryRuleTemplate(queryBuilder))}
-
+        ${when(rule => rule.operator.editorType === EditorType.boolean, booleanRuleTemplate(queryBuilder))}
+        ${when(rule => rule.operator.editorType === EditorType.string, stringRuleTemplate(queryBuilder))}
+        ${when(rule => rule.operator.editorType === EditorType.number, numberRuleTemplate(queryBuilder))}
+        <!-- ${when(rule => rule.operator.editorType === EditorType.category, categoryRuleTemplate(queryBuilder))} -->
         <div class="button-container">
             <${buttonTag} ?disabled="${() => queryBuilder.disabled}" @click="${rule => (queryBuilder.removeRule(rule, parentRuleSet))}" content-hidden>
                 <${iconXmarkTag} slot="start"></${iconXmarkTag}>

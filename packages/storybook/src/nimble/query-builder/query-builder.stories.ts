@@ -2,7 +2,7 @@ import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { queryBuilderTag } from '@ni/nimble-components/dist/esm/query-builder';
-import { type RuleSet } from '@ni/nimble-components/dist/esm/query-builder/types';
+import { booleanEqualsOperator, stringContainsOperator, type RuleSet } from '@ni/nimble-components/dist/esm/query-builder/types';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 interface QueryBuilderArgs {
@@ -66,11 +66,11 @@ queryBuilder.play = async ({ args, canvasElement }) => {
             condition: 'or',
             rules: [{
                 field: 'mySecondBool',
-                operator: '==',
+                operator: booleanEqualsOperator,
                 value: true
             }, {
                 field: 'stringValue',
-                operator: 'contains',
+                operator: stringContainsOperator,
                 value: 'foobar'
             }]
         };
