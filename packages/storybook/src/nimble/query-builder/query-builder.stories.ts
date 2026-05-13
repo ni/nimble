@@ -24,27 +24,8 @@ const metadata: Meta<QueryBuilderArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<QueryBuilderArgs>`
         <script>
-            var loadButton = document.querySelector('#loadDataButton');
-            loadButton.addEventListener('click', event => {
-                document.querySelector('${queryBuilderTag}').data = {
-                    condition: 'or',
-                    rules: [{
-                        field: 'mySecondBool',
-                        operator: '==',
-                        value: true
-                    }, {
-                        field: 'stringValue',
-                        operator: 'contains',
-                        value: 'foobar'
-                    }]
-                };
-            });
-
-            var printLinqButton = document.querySelector('#printLinqButton');
-            printLinqButton.addEventListener('click', event => {
-                var linqString = document.querySelector('${queryBuilderTag}').linqString;
-                document.querySelector('#linqOutput').innerText = linqString;
-            });
+            debugger;
+            
         </script>
         <${queryBuilderTag} ?disabled="${x => x.disabled}">
         </${queryBuilderTag}>
@@ -55,7 +36,7 @@ const metadata: Meta<QueryBuilderArgs> = {
 
         <${buttonTag} id="loadDataButton">
             Load data
-            </${buttonTag}>
+        </${buttonTag}>
         <${buttonTag} id="printLinqButton">
             Print linq
         </${buttonTag}>
@@ -75,4 +56,29 @@ export const queryBuilder: StoryObj<QueryBuilderArgs> = {
     args: {
         disabled: false
     }
+};
+
+queryBuilder.play = async ({ args, canvasElement }) => {
+    const queryBuilderElement = canvasElement.querySelector(queryBuilderTag)!;
+    const loadButton = document.querySelector('#loadDataButton')!;
+    loadButton.addEventListener('click', () => {
+        queryBuilderElement.data = {
+            condition: 'or',
+            rules: [{
+                field: 'mySecondBool',
+                operator: '==',
+                value: true
+            }, {
+                field: 'stringValue',
+                operator: 'contains',
+                value: 'foobar'
+            }]
+        };
+    });
+
+    const printLinqButton = document.querySelector('#printLinqButton')!;
+    printLinqButton.addEventListener('click', () => {
+        const linqString = queryBuilderElement.linqString;
+        (document.querySelector<HTMLSpanElement>('#linqOutput')!).innerText = linqString;
+    });
 };
