@@ -41,6 +41,7 @@ import './radio-group';
 import './rich-text/editor';
 import './rich-text/viewer';
 import './select';
+import './select-virtualized';
 import './spinner';
 import './step';
 import './stepper';

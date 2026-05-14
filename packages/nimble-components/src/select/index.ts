@@ -1284,10 +1284,6 @@ export class Select
         }
     }
 
-    private filterChanged(): void {
-        this.filterOptions();
-    }
-
     private emitFilterInputEvent(): void {
         const eventDetail: SelectFilterInputEventDetail = {
             filterText: this.filter
