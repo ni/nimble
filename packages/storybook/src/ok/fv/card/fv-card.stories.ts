@@ -43,6 +43,7 @@ const storyStyles = `
 
     ${fvCardTag} {
         width: 360px;
+        height: 280px;
         font: var(${bodyFont.cssCustomProperty});
         color: var(${bodyFontColor.cssCustomProperty});
     }
