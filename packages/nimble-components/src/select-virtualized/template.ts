@@ -40,6 +40,8 @@ SelectOptions
                 x.disabled && 'disabled',
                 x.position,
             ].filter(Boolean).join(' ')}"
+        aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
+        aria-controls="${x => (x.filterMode === FilterMode.none ? x.ariaControls : null)}"
         aria-disabled="${x => x.ariaDisabled}"
         aria-expanded="${x => x.ariaExpanded}"
         aria-haspopup="listbox"
@@ -52,6 +54,7 @@ SelectOptions
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         @contentchange="${x => x.updateDisplayValue()}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
+        @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @mousedown="${(x, c) => x.mousedownHandler(c.event as MouseEvent)}"
     >
         <style>:host{ --ni-private-select-virtualized-scroll-height: ${x => x.virtualizer.scrollHeight}px; }</style>
@@ -118,6 +121,8 @@ SelectOptions
                             <input
                                 ${ref('filterInput')}
                                 class="filter-input"
+                                aria-controls="${x => x.ariaControls}"
+                                aria-activedescendant="${x => x.ariaActiveDescendant}"
                                 @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
                                 @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}"
                                 placeholder="${x => filterSearchLabel.getValueFor(x)}"
@@ -130,7 +135,12 @@ SelectOptions
                         <div class="scrollable-region-scroll"></div>
                         <div class="listbox-option-container" style="--ni-private-select-virtualized-option-container-top: ${x => x.virtualizer.rowContainerYOffset}px;">
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, SelectVirtualized>`
-                                <${listOptionTag} value="${(x, c) => c.parent.filteredOptions[x.index]?.value}" ?disabled="${(x, c) => !!c.parent.filteredOptions[x.index]?.disabled}" ?selected="${(x, c) => c.parent.selectedIndex === x.index}">
+                                <${listOptionTag}
+                                    id="${(x, c) => c.parent.optionIdByFilteredIndex(x.index)}"
+                                    value="${(x, c) => c.parent.filteredOptions[x.index]?.value}"
+                                    ?disabled="${(x, c) => !!c.parent.filteredOptions[x.index]?.disabled}"
+                                    ?selected="${(x, c) => c.parent.optionSelectedByFilteredIndex(x.index)}"
+                                    ?active-option="${(x, c) => c.parent.optionActiveByFilteredIndex(x.index)}">
                                     <span>${(x, c) => c.parent.filteredOptions[x.index]?.displayText}</span>
                                 </${listOptionTag}>
                             `, { recycle: false, positioning: true })}

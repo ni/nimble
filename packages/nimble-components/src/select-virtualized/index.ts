@@ -12,6 +12,13 @@ import {
     DelegatesARIASelect
 } from '@ni/fast-foundation';
 import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEnd,
+    keyEnter,
+    keyEscape,
+    keyHome,
+    keySpace,
     uniqueId
 } from '@ni/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
@@ -40,6 +47,8 @@ declare global {
 // Used in overrides of base class methods
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
+
+const typeAheadExpirationTimeout = 1000;
 
 /**
  * A nimble-styled HTML select that virtualizes its options for improved performance with large numbers of options.
@@ -160,6 +169,12 @@ export class SelectVirtualized
     public availableViewportHeight = 0;
 
     /** @internal */
+    declare public ariaControls: string;
+
+    /** @internal */
+    declare public ariaActiveDescendant: string;
+
+    /** @internal */
     public labelSlot!: HTMLSlotElement;
 
     /** @internal */
@@ -183,6 +198,9 @@ export class SelectVirtualized
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;
+    private typeAheadBuffer = '';
+    private typeAheadTimeoutId?: number;
+    private typeAheadExpired = true;
     private readonly selectedOptionObserver? = new MutationObserver(() => {
         this.updateDisplayValue();
     });
@@ -223,6 +241,10 @@ export class SelectVirtualized
         super.disconnectedCallback();
         this.virtualizer.disconnect();
         this.selectedOptionObserver?.disconnect();
+        if (this.typeAheadTimeoutId !== undefined) {
+            clearTimeout(this.typeAheadTimeoutId);
+            this.typeAheadTimeoutId = undefined;
+        }
     }
 
     public setOptions(newData: readonly SelectVirtualizedOption[]): void {
@@ -362,6 +384,138 @@ export class SelectVirtualized
     /**
      * @internal
      */
+    public keydownHandler(e: KeyboardEvent): BooleanOrVoid {
+        const initialSelectedIndex = this.selectedIndex;
+        const key = e.key;
+        if (e.ctrlKey || e.shiftKey) {
+            return true;
+        }
+
+        let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+        let commitValueThenClose = false;
+        switch (key) {
+            case keyArrowDown: {
+                e.preventDefault();
+                if (this.open) {
+                    if (this.openActiveIndex === this.selectedIndex && !this.isAllOptionVisible(this.selectedIndex)) {
+                        this.selectFirstOption();
+                    } else {
+                        this.selectNextOption();
+                    }
+                } else {
+                    this.selectNextOption();
+                }
+
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
+            case keyArrowUp: {
+                e.preventDefault();
+                if (this.open) {
+                    if (this.openActiveIndex === this.selectedIndex && !this.isAllOptionVisible(this.selectedIndex)) {
+                        this.selectLastOption();
+                    } else {
+                        this.selectPreviousOption();
+                    }
+                } else {
+                    this.selectPreviousOption();
+                }
+
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
+            case keySpace: {
+                // When dropdown is open allow user to enter a space for filter text.
+                if (this.open && this.filterMode !== FilterMode.none) {
+                    break;
+                }
+
+                e.preventDefault();
+                this.open = !this.open;
+                if (!this.open) {
+                    this.focus();
+                }
+                break;
+            }
+            case keyHome: {
+                e.preventDefault();
+                this.selectFirstOption();
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
+            case keyEnd: {
+                e.preventDefault();
+                this.selectLastOption();
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
+            case keyEnter: {
+                e.preventDefault();
+                if (this.filteredOptions.length === 0 || this.filteredOptions.every(o => o.disabled)) {
+                    return false;
+                }
+                if (this.open) {
+                    commitValueThenClose = true;
+                } else {
+                    this.open = true;
+                }
+
+                if (commitValueThenClose) {
+                    this.focus();
+                }
+                break;
+            }
+            case keyEscape: {
+                if (!this.open) {
+                    if (this.clearable) {
+                        this.clearSelect();
+                        this.updateValue(true);
+                        return true;
+                    }
+
+                    break;
+                }
+
+                e.preventDefault();
+                this.open = false;
+                currentActiveIndex = this.selectedIndex;
+                this.focus();
+                break;
+            }
+            default: {
+                if (
+                    key.length === 1
+                    && !e.altKey
+                    && !e.metaKey
+                    && !e.ctrlKey
+                ) {
+                    this.handleTypeAheadKey(key);
+                    currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                }
+                break;
+            }
+        }
+
+        if (!this.open || commitValueThenClose) {
+            if (this.selectedIndex !== currentActiveIndex) {
+                this.selectedIndex = currentActiveIndex;
+            }
+
+            if (initialSelectedIndex !== this.selectedIndex) {
+                this.updateValue(true);
+            }
+        }
+
+        if (commitValueThenClose) {
+            this.open = false;
+        }
+
+        return !(key === keyArrowDown || key === keyArrowUp);
+    }
+
+    /**
+     * @internal
+     */
     public mousedownHandler(_e: MouseEvent): BooleanOrVoid {
         return true;
     }
@@ -436,7 +590,7 @@ export class SelectVirtualized
             } else if (enabledOptions.length === 0) {
                 activeOptionIndex = -1;
             }
-            // this.setActiveOption(activeOptionIndex);
+            this.setActiveOption(activeOptionIndex);
         }
 
         if (this.filterMode !== FilterMode.none) {
@@ -467,6 +621,94 @@ export class SelectVirtualized
         }
 
         return true;
+    }
+
+    /**
+     * @internal
+     */
+    public selectNextOption(): void {
+        const enabledFilteredIndices = this.getEnabledFilteredIndices();
+        if (enabledFilteredIndices.length === 0) {
+            return;
+        }
+
+        const currentAllIndex = this.open ? (this.openActiveIndex ?? this.selectedIndex) : this.selectedIndex;
+        const currentFilteredIndex = this.getFilteredIndexFromAllIndex(currentAllIndex);
+        if (currentFilteredIndex === -1) {
+            this.setActiveOption(this.getAllIndexFromFilteredIndex(enabledFilteredIndices[0]!));
+            return;
+        }
+
+        for (const filteredIndex of enabledFilteredIndices) {
+            if (filteredIndex > currentFilteredIndex) {
+                this.setActiveOption(this.getAllIndexFromFilteredIndex(filteredIndex));
+                return;
+            }
+        }
+    }
+
+    /**
+     * @internal
+     */
+    public selectPreviousOption(): void {
+        const enabledFilteredIndices = this.getEnabledFilteredIndices();
+        if (enabledFilteredIndices.length === 0) {
+            return;
+        }
+
+        const currentAllIndex = this.open ? (this.openActiveIndex ?? this.selectedIndex) : this.selectedIndex;
+        const currentFilteredIndex = this.getFilteredIndexFromAllIndex(currentAllIndex);
+        if (currentFilteredIndex === -1) {
+            this.setActiveOption(this.getAllIndexFromFilteredIndex(enabledFilteredIndices[enabledFilteredIndices.length - 1]!));
+            return;
+        }
+
+        for (let i = enabledFilteredIndices.length - 1; i >= 0; i--) {
+            const filteredIndex = enabledFilteredIndices[i]!;
+            if (filteredIndex < currentFilteredIndex) {
+                this.setActiveOption(this.getAllIndexFromFilteredIndex(filteredIndex));
+                return;
+            }
+        }
+    }
+
+    /**
+     * @internal
+     */
+    public selectFirstOption(): void {
+        const firstIndex = this.getEnabledFilteredIndices()[0];
+        if (typeof firstIndex === 'number') {
+            this.setActiveOption(this.getAllIndexFromFilteredIndex(firstIndex));
+        }
+    }
+
+    /**
+     * @internal
+     */
+    public selectLastOption(): void {
+        const enabledFilteredIndices = this.getEnabledFilteredIndices();
+        const lastIndex = enabledFilteredIndices[enabledFilteredIndices.length - 1];
+        if (typeof lastIndex === 'number') {
+            this.setActiveOption(this.getAllIndexFromFilteredIndex(lastIndex));
+        }
+    }
+
+    /** @internal */
+    public optionSelectedByFilteredIndex(filteredIndex: number): boolean {
+        const allIndex = this.getAllIndexFromFilteredIndex(filteredIndex);
+        return this.selectedIndex === allIndex;
+    }
+
+    /** @internal */
+    public optionActiveByFilteredIndex(filteredIndex: number): boolean {
+        const allIndex = this.getAllIndexFromFilteredIndex(filteredIndex);
+        return this.open && (this.openActiveIndex ?? this.selectedIndex) === allIndex;
+    }
+
+    /** @internal */
+    public optionIdByFilteredIndex(filteredIndex: number): string {
+        const allIndex = this.getAllIndexFromFilteredIndex(filteredIndex);
+        return this.getOptionId(allIndex);
     }
 
     /**
@@ -530,6 +772,8 @@ export class SelectVirtualized
             return;
         }
 
+        this.ariaActiveDescendant = '';
+        this.ariaControls = '';
         this.openActiveIndex = undefined;
         this.filter = '';
         if (this.filterInput) {
@@ -669,11 +913,129 @@ export class SelectVirtualized
     }
 
     private initializeOpenState(): void {
-        // this.setActiveOption(this.selectedIndex);
+        this.setActiveOption(this.selectedIndex);
+        this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
 
         this.setPositioning();
-        // this.focusAndScrollOptionIntoView();
+        this.focusAndScrollActiveOptionIntoView();
+    }
+
+    private isAllOptionVisible(allIndex: number): boolean {
+        return this.getFilteredIndexFromAllIndex(allIndex) !== -1;
+    }
+
+    private getEnabledFilteredIndices(): number[] {
+        const indices: number[] = [];
+        for (let i = 0; i < this.filteredOptions.length; i++) {
+            const option = this.filteredOptions[i]!;
+            if (!option.disabled) {
+                indices.push(i);
+            }
+        }
+
+        return indices;
+    }
+
+    private getAllIndexFromFilteredIndex(filteredIndex: number): number {
+        const option = this.filteredOptions[filteredIndex];
+        if (!option) {
+            return -1;
+        }
+
+        return this.allUnfilteredOptions.indexOf(option);
+    }
+
+    private getFilteredIndexFromAllIndex(allIndex: number): number {
+        const option = this.allUnfilteredOptions[allIndex];
+        if (!option) {
+            return -1;
+        }
+
+        return this.filteredOptions.indexOf(option);
+    }
+
+    private getOptionId(allIndex: number): string {
+        return `${this.listboxId}-option-${allIndex}`;
+    }
+
+    private setActiveOption(newActiveIndex: number): void {
+        if (newActiveIndex < 0 || newActiveIndex >= this.allUnfilteredOptions.length) {
+            this.openActiveIndex = newActiveIndex;
+            this.ariaActiveDescendant = '';
+            Observable.notify(this, 'filteredOptions');
+            return;
+        }
+
+        if (this.open) {
+            this.openActiveIndex = newActiveIndex;
+            this.focusAndScrollActiveOptionIntoView();
+        } else {
+            this.selectedIndex = newActiveIndex;
+        }
+
+        this.ariaActiveDescendant = this.getOptionId(newActiveIndex);
+        Observable.notify(this, 'filteredOptions');
+    }
+
+    private focusAndScrollActiveOptionIntoView(): void {
+        const activeAllIndex = this.openActiveIndex ?? this.selectedIndex;
+        const filteredIndex = this.getFilteredIndexFromAllIndex(activeAllIndex);
+        if (filteredIndex === -1) {
+            return;
+        }
+
+        this.virtualizer.scrollToIndex(filteredIndex);
+
+        requestAnimationFrame(() => {
+            if (this.filterMode !== FilterMode.none) {
+                this.filterInput?.focus();
+                return;
+            }
+
+            const optionToFocus = this.shadowRoot?.querySelector<HTMLElement>(
+                `#${this.getOptionId(activeAllIndex)}`
+            );
+            optionToFocus?.focus();
+        });
+    }
+
+    private handleTypeAheadKey(key: string): void {
+        this.typeAheadBuffer += key.toLowerCase();
+        this.typeAheadExpired = false;
+
+        if (this.typeAheadTimeoutId !== undefined) {
+            clearTimeout(this.typeAheadTimeoutId);
+        }
+
+        this.typeAheadTimeoutId = window.setTimeout(() => {
+            this.typeAheadBuffer = '';
+            this.typeAheadExpired = true;
+            this.typeAheadTimeoutId = undefined;
+        }, typeAheadExpirationTimeout);
+
+        const matchingFilteredIndex = this.filteredOptions.findIndex(option => {
+            if (option.disabled) {
+                return false;
+            }
+
+            const normalizedOptionText = diacriticInsensitiveStringNormalizer(option.displayText.toLowerCase());
+            const normalizedTypeAhead = diacriticInsensitiveStringNormalizer(this.typeAheadBuffer);
+            return normalizedOptionText.startsWith(normalizedTypeAhead);
+        });
+
+        if (matchingFilteredIndex === -1) {
+            return;
+        }
+
+        const matchingAllIndex = this.getAllIndexFromFilteredIndex(matchingFilteredIndex);
+        if (matchingAllIndex === -1) {
+            return;
+        }
+
+        if (!(this.open && this.filterMode !== FilterMode.none)) {
+            this.setActiveOption(matchingAllIndex);
+        }
     }
 }
 

@@ -150,19 +150,19 @@ export const styles = css`
         outline: 0px;
     }
 
-    ::slotted([role='option']) {
+    .listbox-option-container > nimble-list-option {
         background-color: transparent;
     }
 
-    ::slotted([role='option']:hover) {
+    .listbox-option-container > nimble-list-option:hover {
         background-color: ${fillHoverColor};
     }
 
-    ::slotted([role='option'][active-option]) {
+    .listbox-option-container > nimble-list-option[active-option] {
         background-color: ${fillSelectedColor};
     }
 
-    ::slotted([role='option'][active-option]:hover) {
+    .listbox-option-container > nimble-list-option[active-option]:hover {
         background-color: ${fillHoverSelectedColor};
     }
 
