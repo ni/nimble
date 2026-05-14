@@ -95,7 +95,7 @@ const wideOptions: readonly OptionArgs[] = [
 ] as const;
 
 const manyOptions: OptionArgs[] = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
     manyOptions.push({
         label: `Option ${i}`,
         value: `${i}`,
@@ -140,6 +140,416 @@ const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+        >
+            ${x => x.label}
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+            `)}
+        </${selectTag}>
         <${selectTag}
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"

@@ -21,6 +21,7 @@ import { iconTimesTag } from '../icons/times';
 import { listOptionTag } from '../list-option';
 import { spinnerTag } from '../spinner';
 import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
+import type { VirtualItem } from '@tanstack/virtual-core';
 
 const labelTemplate = createRequiredVisibleLabelTemplate(html<SelectVirtualized>`
     <label part="label" class="label" aria-hidden="true">
@@ -125,9 +126,9 @@ SelectOptions
                     `)}
                     <div ${ref('scrollableRegion')}
                         class="scrollable-region">
-                        ${repeat(x => x.filteredOptions, html<SelectVirtualizedOption, SelectVirtualized>`
-                            <${listOptionTag} value="${o => o.value}" disabled="${o => o.disabled}" selected="${(_, c) => c.parent.selectedIndex === c.index}">
-                                <span>${x => x.displayText}</span>
+                        ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, SelectVirtualized>`
+                            <${listOptionTag} value="${(x, c) => c.parent.filteredOptions[x.index]?.value}" disabled="${(x, c) => c.parent.filteredOptions[x.index]?.disabled}" selected="${(_, c) => c.parent.selectedIndex === c.index}">
+                                <span>${(x, c) => c.parent.filteredOptions[x.index]?.displayText}</span>
                             </${listOptionTag}>
                         `)}
                         ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0 && !x.loadingVisible), html<SelectVirtualized>`

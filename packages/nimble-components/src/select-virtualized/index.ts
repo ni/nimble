@@ -29,6 +29,7 @@ import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string
 import { FormAssociatedSelectVirtualized } from './models/select-form-associated';
 import { slotTextContent } from '../utilities/models/slot-text-content';
 import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
+import { Virtualizer } from './models/virtualizer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -171,6 +172,14 @@ export class SelectVirtualized
         return slotTextContent(this.labelSlot);
     }
 
+    /** @internal */
+    public itemHeight = 32; // mkreis TODO: dynamically calculate this based on styles & listen to style changes
+
+    /** 
+     * @internal
+     */
+    public readonly virtualizer: Virtualizer;
+
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;
@@ -191,11 +200,18 @@ export class SelectVirtualized
     @observable
     public filteredOptions: SelectVirtualizedOption[] = [];
 
+    public constructor() {
+        super();
+
+        this.virtualizer = new Virtualizer(this);
+    }
+
     /**
      * @internal
      */
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.virtualizer.connect();
         this.proxy.multiple = false;
         this.forcedPosition = !!this.positionAttribute;
         if (this.open) {
@@ -205,6 +221,7 @@ export class SelectVirtualized
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
+        this.virtualizer.disconnect();
         this.selectedOptionObserver?.disconnect();
     }
 
@@ -578,6 +595,7 @@ export class SelectVirtualized
         }
 
         this.filteredOptions = filteredOptions;
+        this.virtualizer.dataChanged();
     }
 
     /**

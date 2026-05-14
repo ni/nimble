@@ -41,7 +41,7 @@ interface SelectVirtualizedArgs {
 }
 
 const options: SelectVirtualizedOption[] = [];
-for (let i = 1; i <= 1000; i++) {
+for (let i = 1; i <= 100; i++) {
     options.push({
         displayText: `Option ${i}`,
         value: `option-${i}`
