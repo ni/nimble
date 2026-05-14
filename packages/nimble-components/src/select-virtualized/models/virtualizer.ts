@@ -46,7 +46,7 @@ export class Virtualizer {
     ) {
     }
 
-    public connect(): void {;
+    public connect(): void {
         this.updateVirtualizer();
         const scrollOffset = this.virtualizer!.scrollOffset;
         if (scrollOffset !== null) {

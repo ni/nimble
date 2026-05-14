@@ -41,7 +41,7 @@ interface SelectVirtualizedArgs {
 }
 
 const options: SelectVirtualizedOption[] = [];
-for (let i = 1; i <= 100; i++) {
+for (let i = 1; i <= 100_000; i++) {
     options.push({
         displayText: `Option ${i}`,
         value: `option-${i}`
@@ -83,6 +83,165 @@ const metadata: Meta<SelectVirtualizedArgs> = {
         >
             ${x => x.label}
         </${selectVirtualizedTag}>
+        
+        <!-- <${selectVirtualizedTag}
+            ${ref('selectRef')}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+            options-unused="${x => x.updateOptions(x)}"
+        >
+            ${x => x.label}
+        </${selectVirtualizedTag}>
+
+        
+        <${selectVirtualizedTag}
+            ${ref('selectRef')}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+            options-unused="${x => x.updateOptions(x)}"
+        >
+            ${x => x.label}
+        </${selectVirtualizedTag}>
+
+        
+        <${selectVirtualizedTag}
+            ${ref('selectRef')}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+            options-unused="${x => x.updateOptions(x)}"
+        >
+            ${x => x.label}
+        </${selectVirtualizedTag}>
+
+        
+        <${selectVirtualizedTag}
+            ${ref('selectRef')}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+            options-unused="${x => x.updateOptions(x)}"
+        >
+            ${x => x.label}
+        </${selectVirtualizedTag}>
+
+        
+        <${selectVirtualizedTag}
+            ${ref('selectRef')}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+            options-unused="${x => x.updateOptions(x)}"
+        >
+            ${x => x.label}
+        </${selectVirtualizedTag}>
+
+        
+        <${selectVirtualizedTag}
+            ${ref('selectRef')}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+            options-unused="${x => x.updateOptions(x)}"
+        >
+            ${x => x.label}
+        </${selectVirtualizedTag}>
+
+        
+        <${selectVirtualizedTag}
+            ${ref('selectRef')}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+            options-unused="${x => x.updateOptions(x)}"
+        >
+            ${x => x.label}
+        </${selectVirtualizedTag}>
+
+        
+        <${selectVirtualizedTag}
+            ${ref('selectRef')}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
+            style="width:250px;"
+            options-unused="${x => x.updateOptions(x)}"
+        >
+            ${x => x.label}
+        </${selectVirtualizedTag}>-->
     `),
     argTypes: {
         selectRef: {
@@ -199,12 +358,12 @@ const metadata: Meta<SelectVirtualizedArgs> = {
         fullBleed: false,
         selectRef: undefined,
         updateOptions: x => {
-            void (async () => {
-                // Safari workaround: the table element instance is made at this point
-                // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined(selectVirtualizedTag);
-                x.selectRef.setOptions(options);
-            })();
+            // void (async () => {
+            //     // Safari workaround: the table element instance is made at this point
+            //     // but doesn't seem to be upgraded to a custom element yet
+            //     await customElements.whenDefined(selectVirtualizedTag);
+            //     x.selectRef.setOptions(options);
+            // })();
         }
     }
 };
@@ -222,3 +381,14 @@ export const select: StoryObj<SelectVirtualizedArgs> = {
         }
     }
 };
+
+select.play = () => {
+    void (async () => {
+        // Safari workaround: the table element instance is made at this point
+        // but doesn't seem to be upgraded to a custom element yet
+        await customElements.whenDefined(selectVirtualizedTag);
+        document.querySelectorAll(selectVirtualizedTag).forEach(select => {
+            select.setOptions(options);
+        });
+    })();
+}

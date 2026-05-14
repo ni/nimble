@@ -54,6 +54,7 @@ SelectOptions
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
         @mousedown="${(x, c) => x.mousedownHandler(c.event as MouseEvent)}"
     >
+        <style>:host{ --ni-private-select-virtualized-scroll-height: ${x => x.virtualizer.scrollHeight}px; }</style>
         ${labelTemplate}
         <div
             class="control"
@@ -126,11 +127,14 @@ SelectOptions
                     `)}
                     <div ${ref('scrollableRegion')}
                         class="scrollable-region">
-                        ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, SelectVirtualized>`
-                            <${listOptionTag} value="${(x, c) => c.parent.filteredOptions[x.index]?.value}" disabled="${(x, c) => c.parent.filteredOptions[x.index]?.disabled}" selected="${(_, c) => c.parent.selectedIndex === c.index}">
-                                <span>${(x, c) => c.parent.filteredOptions[x.index]?.displayText}</span>
-                            </${listOptionTag}>
-                        `)}
+                        <div class="scrollable-region-scroll"></div>
+                        <div class="listbox-option-container" style="--ni-private-select-virtualized-option-container-top: ${x => x.virtualizer.rowContainerYOffset}px;">
+                            ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, SelectVirtualized>`
+                                <${listOptionTag} value="${(x, c) => c.parent.filteredOptions[x.index]?.value}" ?disabled="${(x, c) => !!c.parent.filteredOptions[x.index]?.disabled}" ?selected="${(x, c) => c.parent.selectedIndex === x.index}">
+                                    <span>${(x, c) => c.parent.filteredOptions[x.index]?.displayText}</span>
+                                </${listOptionTag}>
+                            `, { recycle: false, positioning: true })}
+                        </div>
                         ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0 && !x.loadingVisible), html<SelectVirtualized>`
                             <span class="no-results-label">
                                 ${x => filterNoResultsLabel.getValueFor(x)}

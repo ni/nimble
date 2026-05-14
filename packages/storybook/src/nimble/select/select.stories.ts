@@ -95,7 +95,7 @@ const wideOptions: readonly OptionArgs[] = [
 ] as const;
 
 const manyOptions: OptionArgs[] = [];
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 100; i++) {
     manyOptions.push({
         label: `Option ${i}`,
         value: `${i}`,

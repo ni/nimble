@@ -72,6 +72,24 @@ export const styles = css`
         overflow-x: clip;
     }
 
+    .scrollable-region {
+        position: relative;
+        min-height: ${controlHeight};
+    }
+
+    .scrollable-region-scroll {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: var(--ni-private-select-virtualized-scroll-height, 0px);
+    }
+
+    .listbox-option-container {
+        position: relative;
+        top: var(--ni-private-select-virtualized-option-container-top, 0px);
+    }
+
     .listbox.above {
         flex-flow: column-reverse;
     }

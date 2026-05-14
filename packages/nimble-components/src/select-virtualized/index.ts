@@ -362,6 +362,7 @@ export class SelectVirtualized
      * @internal
      */
     public regionLoadedHandler(): void {
+        this.virtualizer.updateRowHeight();
         // this.focusAndScrollOptionIntoView();
     }
 
