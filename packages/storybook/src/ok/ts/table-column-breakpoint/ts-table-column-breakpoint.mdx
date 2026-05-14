@@ -1,0 +1,54 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as breakpointColumnStories from './ts-table-column-breakpoint.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import { tsTableColumnBreakpointTag } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint';
+import { Tag } from '../../../utilities/story-layout';
+
+<Meta of={breakpointColumnStories} />
+<Title of={breakpointColumnStories} />
+
+The <Tag name={tsTableColumnBreakpointTag}/> renders a breakpoint indicator in each row that
+can be toggled between different states (Off, Enabled, Disabled, Hit) via click or context menu.
+
+The column is intended for code-centric table displays where debugging breakpoints need to be
+visually indicated and interactively managed.
+
+The column is neither sortable nor groupable. It has a fixed width of 32 pixels and is not resizable.
+
+<Canvas of={breakpointColumnStories.breakpointColumn} />
+
+## API
+
+<Controls of={breakpointColumnStories.breakpointColumn} />
+<ComponentApisLink />
+
+## Usage
+
+### State Transitions
+
+- **Off → Enabled:** Click on the breakpoint indicator
+- **Enabled → Off:** Click on the active breakpoint indicator
+- **Enabled → Disabled:** Right-click and select "Disable breakpoint"
+- **Disabled → Enabled:** Right-click and select "Enable breakpoint"
+- **Disabled → Off:** Right-click and select "Remove breakpoint"
+- **Hit → Off:** Click on the hit breakpoint indicator
+
+### Breakpoint States
+
+| State | Description |
+|-------|-------------|
+| `off` | No breakpoint set (empty outline shown on hover) |
+| `enabled` | Active breakpoint (filled red circle) |
+| `disabled` | Inactive breakpoint (outlined red circle with slash) |
+| `hit` | Breakpoint currently being hit during debugging (red circle with gold border) |
+
+### Event Handling
+
+Listen to the `breakpoint-column-toggle` event on the column to handle state changes:
+
+```ts
+column.addEventListener('breakpoint-column-toggle', (event) => {
+    const { recordId, oldState, newState } = event.detail;
+    // Update your data source with the new breakpoint state
+});
+```
