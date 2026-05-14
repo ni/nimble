@@ -36,6 +36,7 @@ interface SelectVirtualizedArgs {
     filterInput: undefined;
     appearanceReadOnly: boolean;
     fullBleed: boolean;
+    placeholder: string;
     selectRef: SelectVirtualized;
     updateOptions: (x: SelectVirtualizedArgs) => void;
 }
@@ -79,6 +80,7 @@ const metadata: Meta<SelectVirtualizedArgs> = {
             ?appearance-readonly="${x => x.appearanceReadOnly}"
             ?full-bleed="${x => x.fullBleed}"
             style="width:250px;"
+            placeholder="${x => x.placeholder}"
             options-unused="${x => x.updateOptions(x)}"
         >
             ${x => x.label}
@@ -252,6 +254,10 @@ const metadata: Meta<SelectVirtualizedArgs> = {
             }),
             table: { category: apiCategory.attributes }
         },
+        placeholder: {
+            table: { category: apiCategory.attributes },
+            description: 'The placeholder text to display when no value is selected.'
+        },
         appearance: {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' },
@@ -341,6 +347,7 @@ const metadata: Meta<SelectVirtualizedArgs> = {
         appearanceReadOnly: false,
         fullBleed: false,
         selectRef: undefined,
+        placeholder: 'Select an option',
         updateOptions: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point

@@ -79,7 +79,7 @@ export class SelectVirtualized
      * @internal
      */
     @observable
-    public displayPlaceholder = false;
+    public displayPlaceholder = true;
 
     /**
      * @internal
@@ -272,7 +272,15 @@ export class SelectVirtualized
     @volatile
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
-        return this.allUnfilteredOptions[this.selectedIndex]?.displayText ?? '';
+
+        const selectedOption = this.allUnfilteredOptions[this.selectedIndex];
+        if (selectedOption) {
+            this.displayPlaceholder = false;
+            return selectedOption.displayText;
+        }
+
+        this.displayPlaceholder = true;
+        return this.placeholder;
     }
 
     /**
@@ -397,7 +405,7 @@ export class SelectVirtualized
         //     this.displayPlaceholder = false;
         // }
 
-        // Observable.notify(this, 'displayValue');
+        Observable.notify(this, 'displayValue');
     }
 
     /**
