@@ -918,6 +918,11 @@ export class SelectVirtualized
         this.ariaExpanded = 'true';
 
         this.setPositioning();
+        if (this.filterMode !== FilterMode.none) {
+            requestAnimationFrame(() => {
+                this.filterInput?.focus();
+            });
+        }
         this.focusAndScrollActiveOptionIntoView();
     }
 

@@ -86,6 +86,7 @@ export const styles = css`
     }
 
     .listbox-option-container {
+        padding: ${smallPadding};
         position: relative;
         top: var(--ni-private-select-virtualized-option-container-top, 0px);
     }
