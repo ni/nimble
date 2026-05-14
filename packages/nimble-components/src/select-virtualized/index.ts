@@ -648,6 +648,10 @@ export class SelectVirtualized
         }
     }
 
+    private filterChanged(): void {
+        this.filterOptions();
+    }
+
     private emitFilterInputEvent(): void {
         const eventDetail: SelectFilterInputEventDetail = {
             filterText: this.filter

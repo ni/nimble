@@ -181,7 +181,7 @@ const metadata: Meta<SelectArgs> = {
                 `)}
             `)}
         </${selectTag}>
-        <${selectTag}
+        <!--<${selectTag}
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?disabled="${x => x.disabled}"
@@ -590,7 +590,7 @@ const metadata: Meta<SelectArgs> = {
                     </${listOptionTag}>
                 `)}
             `)}
-        </${selectTag}>
+        </${selectTag}>-->
     `),
     argTypes: {
         label: {
