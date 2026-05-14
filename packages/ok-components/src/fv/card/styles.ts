@@ -38,8 +38,10 @@ export const styles = css`
         }
 
         .card-shell {
-            display: block;
+            display: grid;
             width: 100%;
+            height: 100%;
+            min-height: inherit;
             box-sizing: border-box;
             padding: ${standardPadding};
             border-radius: 8px;
@@ -57,10 +59,27 @@ export const styles = css`
             --ni-private-card-button-border-selected-color: transparent;
         }
 
+        .card-button-shell::part(control) {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .card-shell > .card-layout,
+        .card-shell > .card-button-content,
+        .card-button-content > .card-layout {
+            height: 100%;
+        }
+
+        .card-button-content {
+            flex: 1 1 auto;
+        }
+
         .card-layout {
             display: grid;
             grid-template-columns: minmax(0, 1fr);
             align-items: start;
+            min-height: 100%;
         }
 
         .card-layout.has-media {
@@ -95,10 +114,11 @@ export const styles = css`
 
         .main-region {
             min-width: 0;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: ${mediumPadding};
             text-align: left;
+            align-self: stretch;
         }
 
         .header-row {
@@ -159,6 +179,7 @@ export const styles = css`
             align-items: center;
             justify-content: space-between;
             gap: ${mediumPadding};
+            margin-top: auto;
             font: ${tooltipCaptionFont};
             color: ${tooltipCaptionFontColor};
             text-transform: uppercase;
@@ -185,7 +206,10 @@ export const styles = css`
             display: block;
         }
 
-        ::slotted([slot='badges']),
+        ::slotted([slot='badges']) {
+            max-width: 100%;
+        }
+
         ::slotted([slot='footer-start']),
         ::slotted([slot='footer-end']) {
             display: block;
