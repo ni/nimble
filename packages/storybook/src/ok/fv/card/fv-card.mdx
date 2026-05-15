@@ -1,0 +1,22 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as fvCardStories from './fv-card.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+
+<Meta of={fvCardStories} />
+<Title of={fvCardStories} />
+
+The Fv card is an opinionated card layout for concise title, subtitle, description,
+metadata, badge, icon, and action combinations.
+
+Use the optional `icon`, `badges`, `footer-start`, `footer-end`, and `actions`
+slots to add the supported layout regions.
+
+`outline` is the default appearance. `block` uses a filled surface. `interaction-mode`
+switches between the static card shell and the interactive card-button shell.
+
+<Canvas of={fvCardStories.fvCard} />
+
+## API
+
+<Controls of={fvCardStories.fvCard} />
+<ComponentApisLink />

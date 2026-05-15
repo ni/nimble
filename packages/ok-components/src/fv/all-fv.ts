@@ -1,2 +1,9 @@
 import './accordion-item';
+import './card';
+import './chip-selector';
+import './context-help';
+import './split-button';
+import './split-button-anchor';
+import './summary-panel';
+import './summary-panel-tile';
 import './search-input';

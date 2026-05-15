@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 12 May 2026 00:42:16 GMT",
+      "version": "20.17.1",
+      "tag": "@ni/nimble-blazor_v20.17.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e2547b5331f24aed6226a70851820402d552e4e6",
+            "comment": "Deps update (Apache.Arrow NuGet to latest/23.0.0)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 May 2026 17:04:06 GMT",
       "version": "20.17.0",
       "tag": "@ni/nimble-blazor_v20.17.0",

@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 11 May 2026 17:03:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.3.0
+
+Mon, 11 May 2026 17:03:55 GMT
+
+### Minor changes
+
+- Add Fv card, chip selector, context help, split button, and summary panel web components ([ni/nimble@821470c](https://github.com/ni/nimble/commit/821470c1077015d00efabd17194a908055f9c5dc))
 
 ## 1.2.1
 
