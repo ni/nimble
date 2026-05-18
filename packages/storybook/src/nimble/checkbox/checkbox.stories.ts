@@ -23,6 +23,16 @@ interface CheckboxArgs {
     errorText: string;
 }
 
+const indeterminateDescription = `Whether the checkbox is in the indeterminate (i.e. partially checked) state. Configured programmatically, not by attribute.
+
+<details>
+    <summary>Usage details</summary>
+
+    The \`indeterminate\` state is not automatically changed when the user interactively changes the checked state. Client applications that use \`indeterminate\` state are responsible for subscribing to the \`change\` event to respond to this situation.<br><br>
+    Blazor clients should use the \`appearance-indeterminate\` attribute to set the indeterminate visual state instead of the \`indeterminate\` property.
+</details>
+`;
+
 const metadata: Meta<CheckboxArgs> = {
     title: 'Components/Checkbox',
     decorators: [withActions<HtmlRenderer>],
@@ -61,13 +71,7 @@ const metadata: Meta<CheckboxArgs> = {
             table: { category: apiCategory.nonAttributeProperties }
         },
         indeterminate: {
-            description: `Whether the checkbox is in the indeterminate (i.e. partially checked) state. Configured programmatically, not by attribute.
-
-<details>
-<summary>Usage details</summary>
-The `indeterminate` state is not automatically changed when the user interactively changes the checked state. Client applications that use `indeterminate` state are responsible for subscribing to the \`change\` event to respond to this situation.
-Blazor clients should use the `appearance-indeterminate` attribute to set the indeterminate visual state instead of the `indeterminate` property.
-</details>`,
+            description: indeterminateDescription,
             table: { category: apiCategory.nonAttributeProperties }
         },
         appearanceIndeterminate: {
