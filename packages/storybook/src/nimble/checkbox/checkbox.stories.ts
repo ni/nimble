@@ -16,11 +16,22 @@ interface CheckboxArgs {
     checked: boolean;
     checkedProperty: undefined;
     indeterminate: boolean;
+    appearanceIndeterminate: boolean;
     disabled: boolean;
     change: undefined;
     errorVisible: boolean;
     errorText: string;
 }
+
+const indeterminateDescription = `Whether the checkbox is in the indeterminate (i.e. partially checked) state. Configured programmatically, not by attribute.
+
+<details>
+    <summary>Usage details</summary>
+
+    The \`indeterminate\` state is not automatically changed when the user interactively changes the checked state. Client applications that use \`indeterminate\` state are responsible for subscribing to the \`change\` event to respond to this situation.<br><br>
+    Blazor clients should use the \`appearance-indeterminate\` attribute to set the indeterminate visual state instead of the \`indeterminate\` property.
+</details>
+`;
 
 const metadata: Meta<CheckboxArgs> = {
     title: 'Components/Checkbox',
@@ -35,6 +46,7 @@ const metadata: Meta<CheckboxArgs> = {
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
             :indeterminate="${x => x.indeterminate}"
+            ?appearance-indeterminate="${x => x.appearanceIndeterminate}"
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
         >
@@ -59,13 +71,14 @@ const metadata: Meta<CheckboxArgs> = {
             table: { category: apiCategory.nonAttributeProperties }
         },
         indeterminate: {
-            description: `Whether the checkbox is in the indeterminate (i.e. partially checked) state. Configured programmatically, not by attribute.
-
-<details>
-<summary>Usage details</summary>
-The \`indeterminate\` state is not automatically changed when the user interactively changes the checked state. Client applications that use \`indeterminate\` state are responsible for subscribing to the \`change\` event to respond to this situation.
-</details>`,
+            description: indeterminateDescription,
             table: { category: apiCategory.nonAttributeProperties }
+        },
+        appearanceIndeterminate: {
+            name: 'appearance-indeterminate',
+            description:
+                'Whether the checkbox should display the indeterminate (partially checked) visual appearance. Unlike the `indeterminate` property, this attribute is not cleared on user interaction, giving the application full control over the visual state.',
+            table: { category: apiCategory.attributes }
         },
         disabled: {
             description: disabledDescription({ componentName: 'checkbox' }),
@@ -92,6 +105,7 @@ The \`indeterminate\` state is not automatically changed when the user interacti
         label: 'Checkbox label',
         checked: false,
         indeterminate: false,
+        appearanceIndeterminate: false,
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid'

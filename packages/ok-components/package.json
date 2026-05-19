@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-components",
-  "version": "1.3.0",
+  "version": "1.3.2",
   "description": "NI Ok Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",
@@ -42,8 +42,8 @@
     "@ni/fast-element": "^10.1.1",
     "@ni/fast-foundation": "^10.2.3",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.8.0",
-    "@ni/spright-components": "^6.18.1",
+    "@ni/nimble-components": "^35.9.1",
+    "@ni/spright-components": "^6.18.3",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
