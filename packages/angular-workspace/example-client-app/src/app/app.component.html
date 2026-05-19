@@ -5,7 +5,9 @@
     <div class="example-root">
         <div class="header">
             <nimble-select class="theme-select" appearance="frameless" [(ngModel)]="theme">
-                <nimble-list-option *ngFor="let item of themes" [ngValue]="item">{{ item | titlecase}} Theme</nimble-list-option>
+                @for (item of themes; track item) {
+                    <nimble-list-option [ngValue]="item">{{ item | titlecase}} Theme</nimble-list-option>
+                }
             </nimble-select>
         </div>
         <div class="content-container-wrapper">

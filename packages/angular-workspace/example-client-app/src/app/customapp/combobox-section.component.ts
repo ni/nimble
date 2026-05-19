@@ -12,7 +12,9 @@ interface ComboboxItem {
         <example-sub-container label="Combobox">
             <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both" placeholder="Select value...">
                 Underline Combobox
-                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                @for (item of comboboxItems; track item) {
+                    <nimble-list-option [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                }
             </nimble-combobox>
             <div>
                 <span>
@@ -21,11 +23,15 @@ interface ComboboxItem {
             </div>
             <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="outline" autocomplete="both" placeholder="Select value...">
                 Outline Combobox
-                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                @for (item of comboboxItems; track item) {
+                    <nimble-list-option [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                }
             </nimble-combobox>
             <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="block" autocomplete="both" placeholder="Select value...">
                 Block Combobox
-                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                @for (item of comboboxItems; track item) {
+                    <nimble-list-option [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                }
             </nimble-combobox>
         </example-sub-container>
     `,
