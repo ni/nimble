@@ -97,6 +97,8 @@ export const angularTypescriptNimbleConfig = defineConfig([
 export const angularTemplateNimbleConfigOverrides = defineConfig([
     {
         rules: {
+            '@angular-eslint/template/prefer-control-flow': 'error',
+
             // Enable i18n template checking for the purpose of making sure to capture updates for the lint rules
             '@angular-eslint/template/i18n': [
                 'error',
