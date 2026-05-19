@@ -118,7 +118,7 @@ export const styles = css`
         fill: ${borderColor};
     }
 
-    :host(.checked:not(.indeterminate)) slot[name='checked-indicator'] {
+    :host(.checked:not(.indeterminate):not([appearance-indeterminate])) slot[name='checked-indicator'] {
         display: contents;
     }
 
@@ -132,7 +132,8 @@ export const styles = css`
         overflow: visible;
     }
 
-    :host(.indeterminate) slot[name='indeterminate-indicator'] {
+    :host(.indeterminate) slot[name='indeterminate-indicator'],
+    :host([appearance-indeterminate]) slot[name='indeterminate-indicator'] {
         display: contents;
     }
 

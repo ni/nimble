@@ -36,4 +36,31 @@ describe('Checkbox', () => {
 
         await disconnect();
     });
+
+    it('should show indeterminate indicator when appearance-indeterminate is set', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        element.appearanceIndeterminate = true;
+        await waitForUpdatesAsync();
+
+        expect(element.hasAttribute('appearance-indeterminate')).toBeTrue();
+
+        await disconnect();
+    });
+
+    it('should not clear appearance-indeterminate on user click', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        element.appearanceIndeterminate = true;
+        await waitForUpdatesAsync();
+
+        element.click();
+        await waitForUpdatesAsync();
+
+        expect(element.appearanceIndeterminate).toBeTrue();
+
+        await disconnect();
+    });
 });

@@ -68,6 +68,11 @@ describe('Nimble checkbox', () => {
             expect(directive.errorText).toBeUndefined();
             expect(nativeElement.errorText).toBeUndefined();
         });
+
+        it('has expected defaults for appearanceIndeterminate', () => {
+            expect(directive.appearanceIndeterminate).toBeFalse();
+            expect(nativeElement.appearanceIndeterminate).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
@@ -77,6 +82,7 @@ describe('Nimble checkbox', () => {
                     disabled
                     checked
                     indeterminate
+                    appearance-indeterminate
                     error-visible
                     error-text="Error message">
                 </nimble-checkbox>`,
@@ -126,6 +132,11 @@ describe('Nimble checkbox', () => {
             expect(directive.errorText).toBe('Error message');
             expect(nativeElement.errorText).toBe('Error message');
         });
+
+        it('will use template string values for appearanceIndeterminate', () => {
+            expect(directive.appearanceIndeterminate).toBeTrue();
+            expect(nativeElement.appearanceIndeterminate).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -135,6 +146,7 @@ describe('Nimble checkbox', () => {
                     [disabled]="disabled"
                     [checked]="checked"
                     [indeterminate]="indeterminate"
+                    [appearance-indeterminate]="appearanceIndeterminate"
                     [error-text]="errorText"
                     [error-visible]="errorVisible">
                 </nimble-checkbox>
@@ -147,6 +159,7 @@ describe('Nimble checkbox', () => {
             public disabled = false;
             public checked = false;
             public indeterminate = false;
+            public appearanceIndeterminate = false;
             public errorText = 'initial value';
             public errorVisible = false;
         }
@@ -220,6 +233,17 @@ describe('Nimble checkbox', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for appearanceIndeterminate', () => {
+            expect(directive.appearanceIndeterminate).toBeFalse();
+            expect(nativeElement.appearanceIndeterminate).toBeFalse();
+
+            fixture.componentInstance.appearanceIndeterminate = true;
+            fixture.detectChanges();
+
+            expect(directive.appearanceIndeterminate).toBeTrue();
+            expect(nativeElement.appearanceIndeterminate).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -228,6 +252,7 @@ describe('Nimble checkbox', () => {
                 <nimble-checkbox #checkbox
                     [attr.disabled]="disabled"
                     [attr.checked]="checked"
+                    [attr.appearance-indeterminate]="appearanceIndeterminate"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible">
                 </nimble-checkbox>
@@ -239,6 +264,7 @@ describe('Nimble checkbox', () => {
             @ViewChild('checkbox', { read: ElementRef }) public elementRef: ElementRef<Checkbox>;
             public disabled: BooleanValueOrAttribute = null;
             public checked: BooleanValueOrAttribute = null;
+            public appearanceIndeterminate: BooleanValueOrAttribute = null;
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
         }
@@ -300,6 +326,17 @@ describe('Nimble checkbox', () => {
 
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for appearanceIndeterminate', () => {
+            expect(directive.appearanceIndeterminate).toBeFalse();
+            expect(nativeElement.appearanceIndeterminate).toBeFalse();
+
+            fixture.componentInstance.appearanceIndeterminate = '';
+            fixture.detectChanges();
+
+            expect(directive.appearanceIndeterminate).toBeTrue();
+            expect(nativeElement.appearanceIndeterminate).toBeTrue();
         });
 
         // indeterminate property does not have a matching attribute

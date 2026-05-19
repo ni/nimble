@@ -47,6 +47,14 @@ public class NimbleCheckboxTests
         Assert.Contains("error-visible", checkbox.Markup);
     }
 
+    [Fact]
+    public void NimbleCheckboxAppearanceIndeterminate_AttributeIsSet()
+    {
+        var checkbox = RenderNimbleCheckboxWithPropertySet(x => x.AppearanceIndeterminate, true);
+
+        Assert.Contains("appearance-indeterminate", checkbox.Markup);
+    }
+
     private IRenderedComponent<NimbleCheckbox> RenderNimbleCheckboxWithPropertySet<TProperty>(Expression<Func<NimbleCheckbox, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
