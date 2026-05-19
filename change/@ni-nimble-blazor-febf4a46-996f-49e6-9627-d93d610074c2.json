@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Add AppearanceIndeterminate property for checkbox",
-  "packageName": "@ni/nimble-blazor",
-  "email": "5265744+hellovolcano@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

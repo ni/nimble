@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add appearance-indeterminate property for checkbox",
-  "packageName": "@ni/nimble-components",
-  "email": "5265744+hellovolcano@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

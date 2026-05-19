@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 19 May 2026 16:29:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.9.0
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Minor changes
+
+- Add appearance-indeterminate property for checkbox ([ni/nimble@38b5b13](https://github.com/ni/nimble/commit/38b5b13eceb1f7c1da8342dc583d79769e69ca7a))
 
 ## 35.8.0
 

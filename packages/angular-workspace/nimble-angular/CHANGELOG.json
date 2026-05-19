@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 19 May 2026 16:29:54 GMT",
+      "version": "33.3.0",
+      "tag": "@ni/nimble-angular_v33.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "38b5b13eceb1f7c1da8342dc583d79769e69ca7a",
+            "comment": "add appearance-indeterminate property to nimble checkbox"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 May 2026 17:04:06 GMT",
       "version": "33.2.0",
       "tag": "@ni/nimble-angular_v33.2.0",
