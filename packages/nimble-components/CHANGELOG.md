@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 19 May 2026 16:29:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 19 May 2026 17:01:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.9.1
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Add color-scheme to theme provider for dark scrollbars ([ni/nimble@3561c88](https://github.com/ni/nimble/commit/3561c88b0bb55fcbaf9345d2915f0e8ac310b5fc))
 
 ## 35.9.0
 

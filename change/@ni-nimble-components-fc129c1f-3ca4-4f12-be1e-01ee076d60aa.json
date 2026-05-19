@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add color-scheme to theme provider for dark scrollbars",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
