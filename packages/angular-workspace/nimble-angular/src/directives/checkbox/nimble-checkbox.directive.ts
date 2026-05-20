@@ -53,5 +53,13 @@ export class NimbleCheckboxDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
     }
 
+    public get appearanceIndeterminate(): boolean {
+        return this.elementRef.nativeElement.appearanceIndeterminate;
+    }
+
+    @Input('appearance-indeterminate') public set appearanceIndeterminate(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceIndeterminate', toBooleanProperty(value));
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Checkbox>) {}
 }

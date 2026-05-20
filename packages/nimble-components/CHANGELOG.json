@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 19 May 2026 17:01:52 GMT",
+      "version": "35.9.1",
+      "tag": "@ni/nimble-components_v35.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3561c88b0bb55fcbaf9345d2915f0e8ac310b5fc",
+            "comment": "Add color-scheme to theme provider for dark scrollbars"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 May 2026 16:29:54 GMT",
+      "version": "35.9.0",
+      "tag": "@ni/nimble-components_v35.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "38b5b13eceb1f7c1da8342dc583d79769e69ca7a",
+            "comment": "Add appearance-indeterminate property for checkbox"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 May 2026 17:04:06 GMT",
       "version": "35.8.0",
       "tag": "@ni/nimble-components_v35.8.0",

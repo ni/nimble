@@ -4,7 +4,9 @@ import { Component, Input } from '@angular/core';
     selector: 'example-sub-container',
     template: `
         <div class="sub-container">
-            <div class="container-label" *ngIf="label">{{ label }}</div>
+            @if (label) {
+                <div class="container-label">{{ label }}</div>
+            }
             <ng-content></ng-content>
         </div>
     `,

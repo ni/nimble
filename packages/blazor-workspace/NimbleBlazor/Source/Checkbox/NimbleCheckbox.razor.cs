@@ -12,7 +12,7 @@ public partial class NimbleCheckbox : NimbleInputBase<bool>
     public bool? Required { get; set; }
 
     [Parameter]
-    public bool? Indeterminate { get; set; }
+    public bool? AppearanceIndeterminate { get; set; }
 
     [Parameter]
     public bool? ReadOnly { get; set; }
