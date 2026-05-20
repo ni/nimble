@@ -5,6 +5,7 @@ import {
     bodyFontColor,
     borderWidth,
     controlLabelFontColor,
+    controlSlimHeight,
     elevation2BoxShadow,
     mediumPadding,
     popupBorderColor,
@@ -116,5 +117,46 @@ export const styles = css`
         align-self: flex-end;
         width: 80px;
         margin: ${mediumPadding};
+    }
+
+    .attachments {
+        display: none;
+    }
+
+    .attachments.has-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: ${mediumPadding};
+        padding: ${mediumPadding};
+        max-height: calc(${controlSlimHeight} * 3 + ${mediumPadding} * 4 );
+        overflow-y: auto;
+    }
+
+    .attachments ::slotted(*) {
+        height: ${controlSlimHeight};
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .footer-actions {
+        display: none;
+        flex: 1;
+    }
+
+    .footer-actions.has-content {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        column-gap: ${mediumPadding};
+        margin: ${mediumPadding};
+    }
+
+    .footer-actions ::slotted(*) {
+        height: ${controlSlimHeight};
     }
 `;

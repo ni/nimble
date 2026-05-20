@@ -1,3 +1,5 @@
+'use client';
+
 import { MappingText, mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
 import { wrap } from '../../utilities/react-wrapper';
 

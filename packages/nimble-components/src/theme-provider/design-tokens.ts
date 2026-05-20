@@ -7,10 +7,12 @@ import { tokenValues, type ThemeColor } from './design-token-values';
 // #region color tokens
 export const actionRgbPartialColor = createThemeColorToken(tokenNames.actionRgbPartialColor, tokenValues.actionRgbPartialColor);
 export const applicationBackgroundColor = createThemeColorToken(tokenNames.applicationBackgroundColor, tokenValues.applicationBackgroundColor);
+export const containerBackgroundColor = createThemeColorToken(tokenNames.containerBackgroundColor, tokenValues.containerBackgroundColor);
 export const headerBackgroundColor = createThemeColorToken(tokenNames.headerBackgroundColor, tokenValues.headerBackgroundColor);
 export const sectionBackgroundColor = createThemeColorToken(tokenNames.sectionBackgroundColor, tokenValues.sectionBackgroundColor);
 export const sectionBackgroundImage = createThemeColorToken(tokenNames.sectionBackgroundImage, tokenValues.sectionBackgroundImage);
 export const dividerBackgroundColor = createThemeColorToken(tokenNames.dividerBackgroundColor, tokenValues.dividerBackgroundColor);
+export const dividerBackgroundDynamicColor = createThemeColorToken(tokenNames.dividerBackgroundDynamicColor, tokenValues.dividerBackgroundDynamicColor);
 export const fillSelectedColor = createThemeColorToken(tokenNames.fillSelectedColor, tokenValues.fillSelectedColor);
 export const fillSelectedRgbPartialColor = createThemeColorToken(tokenNames.fillSelectedRgbPartialColor, tokenValues.fillSelectedRgbPartialColor);
 export const fillHoverSelectedColor = createThemeColorToken(tokenNames.fillHoverSelectedColor, tokenValues.fillHoverSelectedColor);
@@ -21,6 +23,7 @@ export const borderColor = createThemeColorToken(tokenNames.borderColor, tokenVa
 export const borderRgbPartialColor = createThemeColorToken(tokenNames.borderRgbPartialColor, tokenValues.borderRgbPartialColor);
 export const failColor = createThemeColorToken(tokenNames.failColor, tokenValues.failColor);
 export const warningColor = createThemeColorToken(tokenNames.warningColor, tokenValues.warningColor);
+export const warningFontColor = createThemeColorToken(tokenNames.warningFontColor, tokenValues.warningFontColor);
 export const passColor = createThemeColorToken(tokenNames.passColor, tokenValues.passColor);
 export const informationColor = createThemeColorToken(tokenNames.informationColor, tokenValues.informationColor);
 export const borderHoverColor = createThemeColorToken(tokenNames.borderHoverColor, tokenValues.borderHoverColor);

@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/19.2.15/packages/forms/src/directives/default_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/default_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Update implementation of `_isAndroid()` to not use private APIs
@@ -29,6 +29,7 @@ import {
 
 import {
   BaseControlValueAccessor,
+  // ControlValueAccessor,
   // NG_VALUE_ACCESSOR,
 } from './control_value_accessor';
 import {type ControlValueAccessor, COMPOSITION_BUFFER_MODE} from '@angular/forms';
@@ -106,10 +107,10 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>(
   // https://github.com/angular/angular/issues/3011 is implemented
   // selector: '[ngModel],[formControl],[formControlName]',
   host: {
-    '(input)': '$any(this)._handleInput($event.target.value)',
+    '(input)': '_handleInput($any($event.target).value)',
     '(blur)': 'onTouched()',
-    '(compositionstart)': '$any(this)._compositionStart()',
-    '(compositionend)': '$any(this)._compositionEnd($event.target.value)',
+    '(compositionstart)': '_compositionStart()',
+    '(compositionend)': '_compositionEnd($any($event.target).value)',
   },
   providers: [DEFAULT_VALUE_ACCESSOR],
   standalone: false,

@@ -1,0 +1,22 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Rich Text Viewer">
+        <div class="rich-text-viewer-container">
+            <NimbleRichTextViewer Markdown="@MarkdownString"></NimbleRichTextViewer>
+        </div>
+    </SubContainer>
+</div>
+
+@code {
+    public const string MarkdownString = "Supported rich text formatting options:\n" +
+                                         "1. **Bold**\n" +
+                                         "2. *Italics*\n" +
+                                         "3. Numbered lists\n" +
+                                         "   1. Option 1\n" +
+                                         "   2. Option 2\n" +
+                                         "4. Bulleted lists\n" +
+                                         "   * Option 1\n" +
+                                         "   * Option 2\n" +
+                                         "5. Absolute link: <https://nimble.ni.dev/>\n";
+}

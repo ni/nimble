@@ -35,6 +35,8 @@ public class NimbleLabelProviderCoreTests
     [InlineData(nameof(NimbleLabelProviderCore.NumericIncrement))]
     [InlineData(nameof(NimbleLabelProviderCore.PopupIconError))]
     [InlineData(nameof(NimbleLabelProviderCore.PopupIconWarning))]
+    [InlineData(nameof(NimbleLabelProviderCore.PopupIconCompleted))]
+    [InlineData(nameof(NimbleLabelProviderCore.PopupIconCurrent))]
     [InlineData(nameof(NimbleLabelProviderCore.PopupIconInformation))]
     [InlineData(nameof(NimbleLabelProviderCore.FilterSearch))]
     [InlineData(nameof(NimbleLabelProviderCore.FilterNoResults))]

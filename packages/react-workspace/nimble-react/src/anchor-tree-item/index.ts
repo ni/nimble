@@ -1,3 +1,5 @@
+'use client';
+
 import { AnchorTreeItem, anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
 import { wrap } from '../utilities/react-wrapper';
 

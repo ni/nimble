@@ -14,8 +14,6 @@
 
 *State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.* 
 
----
-
 ## Design
 
 *Include code snippets showing basic component use and any interesting configurations.*
@@ -42,7 +40,6 @@
 
 *Summarize the component's form integration. Is it built in to FAST, requiring custom development, or not necessary?*
 
-
 ### Angular integration
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
@@ -66,8 +63,6 @@
 - *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*
 - *Performance: does the FAST component meet Nimble's performance requirements?*
 - *Security: Any requirements for security?*
-
----
 
 ## Open Issues
 

@@ -1,8 +1,293 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Mon, 16 Feb 2026 22:59:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 19 May 2026 17:01:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.14.3
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.3
+
+## 4.14.2
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.2
+
+## 4.14.1
+
+Tue, 05 May 2026 14:11:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.1
+
+## 4.14.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.18.0
+
+## 4.13.2
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Dependency update May 2026 ([ni/nimble@ec45dce](https://github.com/ni/nimble/commit/ec45dce8237675f6f19e17e142532070b6551ab2))
+- Bump @ni/spright-components to v6.17.2
+
+## 4.13.1
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.1
+
+## 4.13.0
+
+Thu, 23 Apr 2026 15:58:53 GMT
+
+### Minor changes
+
+- Add wrapper for nigel chat icon. ([ni/nimble@9f6c8ee](https://github.com/ni/nimble/commit/9f6c8ee156880eb2cf988e34195d8c3073c1748a))
+
+## 4.12.2
+
+Wed, 22 Apr 2026 19:38:49 GMT
+
+### Patches
+
+- Blazor chat message welcome project organization ([ni/nimble@cfd38c0](https://github.com/ni/nimble/commit/cfd38c0ce1480a52731bfec197eb15b37114cbc3))
+
+## 4.12.1
+
+Tue, 21 Apr 2026 19:47:00 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.0
+
+## 4.12.0
+
+Mon, 20 Apr 2026 22:42:19 GMT
+
+### Minor changes
+
+- Add welcome message for spright chat conversation ([ni/nimble@f7e4581](https://github.com/ni/nimble/commit/f7e4581eb131183f6ebccd9f6337b1f54eb9be8f))
+- Bump @ni/spright-components to v6.16.0
+
+## 4.11.18
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.9
+
+## 4.11.17
+
+Sat, 18 Apr 2026 15:44:00 GMT
+
+### Patches
+
+- Re-organize blazor file layout ([ni/nimble@08d3240](https://github.com/ni/nimble/commit/08d3240d1aac8ad1c0d9f2172ee21e8553bf9be7))
+
+## 4.11.16
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.8
+
+## 4.11.15
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.7
+
+## 4.11.14
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.6
+
+## 4.11.13
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.5
+
+## 4.11.12
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.4
+
+## 4.11.11
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+- Bump @ni/spright-components to v6.15.3
+
+## 4.11.10
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.2
+
+## 4.11.9
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.1
+
+## 4.11.8
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.0
+
+## 4.11.7
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.4
+
+## 4.11.6
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.3
+
+## 4.11.5
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.2
+
+## 4.11.4
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.1
+
+## 4.11.3
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.0
+
+## 4.11.2
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.13.0
+
+## 4.11.1
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.12.0
+
+## 4.11.0
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Minor changes
+
+- Add send-disabled attribute to chat input. ([ni/nimble@ed3b6d0](https://github.com/ni/nimble/commit/ed3b6d00b8804a0cee3f076643f61ddd5208f630))
+- Bump @ni/spright-components to v6.11.0
+
+## 4.10.5
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.5
+
+## 4.10.4
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.4
+
+## 4.10.3
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Update dependencies ([ni/nimble@e14152d](https://github.com/ni/nimble/commit/e14152d77e2bd52a55e701147ab67b4474975476))
+- Bump @ni/spright-components to v6.10.3
+
+## 4.10.2
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.1
+
+## 4.10.1
+
+Fri, 27 Feb 2026 17:30:58 GMT
+
+### Patches
+
+- Payload is in detail.text ([ni/nimble@fe90c20](https://github.com/ni/nimble/commit/fe90c208be53b91a8a027cc1d1f99f31b2deed11))
+
+## 4.10.0
+
+Wed, 25 Feb 2026 20:09:12 GMT
+
+### Minor changes
+
+- add blazor wrapper for chat input changes ([ni/nimble@fbe2cde](https://github.com/ni/nimble/commit/fbe2cde8721c22155287580128bb58710b336861))
 
 ## 4.9.11
 

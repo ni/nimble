@@ -1,3 +1,5 @@
+'use client';
+
 import { Banner, bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import type { BannerToggleEventDetail } from '@ni/nimble-components/dist/esm/banner/types';
 import { wrap, type EventName } from '../utilities/react-wrapper';

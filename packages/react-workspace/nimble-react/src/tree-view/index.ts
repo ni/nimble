@@ -1,3 +1,5 @@
+'use client';
+
 import { TreeView, treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 import type { TreeItemExpandedChangeEvent, TreeItemSelectedChangeEvent } from '../tree-item';

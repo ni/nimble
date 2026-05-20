@@ -1,8 +1,269 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 16 Feb 2026 22:59:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 19 May 2026 17:01:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.18.3
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.1
+
+## 6.18.2
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.0
+
+## 6.18.1
+
+Tue, 05 May 2026 14:11:16 GMT
+
+### Patches
+
+- Update chat welcome icon with designer feedback ([ni/nimble@f3fa5ec](https://github.com/ni/nimble/commit/f3fa5ec7a1d998ce2a569d9b7543d2f81d78bdbd))
+
+## 6.18.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.8.0
+- Bump @ni/nimble-tokens to v8.18.0
+
+### Patches
+
+- Update welcome message icons ([ni/nimble@e6817bd](https://github.com/ni/nimble/commit/e6817bdbabe2ac49bf7364105de4576f213841c4))
+
+## 6.17.2
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Dependency update May 2026 ([ni/nimble@ec45dce](https://github.com/ni/nimble/commit/ec45dce8237675f6f19e17e142532070b6551ab2))
+- Bump @ni/nimble-components to v35.7.1
+- Bump @ni/jasmine-parameterized to v1.0.10
+
+## 6.17.1
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.7.0
+
+## 6.17.0
+
+Tue, 21 Apr 2026 19:47:00 GMT
+
+### Minor changes
+
+- add footer-actions and attachments slots ([ni/nimble@ead5be1](https://github.com/ni/nimble/commit/ead5be103d14e946bff31bfa222c168e966fca88))
+
+## 6.16.0
+
+Mon, 20 Apr 2026 22:42:19 GMT
+
+### Minor changes
+
+- Add welcome message for spright chat conversation ([ni/nimble@f7e4581](https://github.com/ni/nimble/commit/f7e4581eb131183f6ebccd9f6337b1f54eb9be8f))
+
+## 6.15.9
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.6.1
+
+## 6.15.8
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.6.0
+
+## 6.15.7
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.8
+
+## 6.15.6
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Update fast dependency to fix view bug in Firefox ([ni/nimble@c2354bd](https://github.com/ni/nimble/commit/c2354bd5a997f90670c66a7c97d7e858607d2000))
+- Bump @ni/nimble-components to v35.5.7
+
+## 6.15.5
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.6
+
+## 6.15.4
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.5
+
+## 6.15.3
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+- Bump @ni/nimble-components to v35.5.4
+
+## 6.15.2
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.3
+
+## 6.15.1
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Use lighter weight font for chat conversation end slot ([ni/nimble@739ef4a](https://github.com/ni/nimble/commit/739ef4a9edee8177bcaf631c6a915b952fdfe57f))
+
+## 6.15.0
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Minor changes
+
+- Add end slot for spright chat component ([ni/nimble@c10c7be](https://github.com/ni/nimble/commit/c10c7be74dbbac326972d1cf87ba9c8829e99e55))
+
+## 6.14.4
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- replace field-sizing with js approach ([ni/nimble@2309573](https://github.com/ni/nimble/commit/230957398badde38a5f2fc5116cd7eef9a9cfdfa))
+
+## 6.14.3
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump fast-foundation version to 10.2.2 ([ni/nimble@452fa5a](https://github.com/ni/nimble/commit/452fa5a0cd2dfd16749eeeeecf4b3eea771719ae))
+- Bump @ni/nimble-components to v35.5.2
+
+## 6.14.2
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
+
+## 6.14.1
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Remove border from chat conversation ([ni/nimble@dd37c89](https://github.com/ni/nimble/commit/dd37c89516d889c67d35e93a9751bd4706036f0c))
+
+## 6.14.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Add work item job icon ([ni/nimble@df7e198](https://github.com/ni/nimble/commit/df7e198f0d86f240b6baf32bcb6cc05aeea35b08))
+- Bump @ni/nimble-components to v35.5.0
+- Bump @ni/nimble-tokens to v8.17.0
+
+## 6.13.0
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Minor changes
+
+- Add custom colored spright icons for the different variance of calendar events ([ni/nimble@3b0199c](https://github.com/ni/nimble/commit/3b0199c151e906efe28421d1c48f023986ba5f85))
+
+## 6.12.0
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Minor changes
+
+- Add start slot in conversation component ([ni/nimble@4ba0c27](https://github.com/ni/nimble/commit/4ba0c276c01b35e3de215e2fba40984c58ebed24))
+
+## 6.11.0
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Minor changes
+
+- Expose sendDisabled attribute. ([ni/nimble@ed3b6d0](https://github.com/ni/nimble/commit/ed3b6d00b8804a0cee3f076643f61ddd5208f630))
+
+## 6.10.5
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.4.0
+
+## 6.10.4
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.4
+
+## 6.10.3
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.3
+
+## 6.10.2
+
+Sun, 01 Mar 2026 01:21:41 GMT
+
+### Patches
+
+- Add custom elements manifest generation ([ni/nimble@668e03a](https://github.com/ni/nimble/commit/668e03a753512409940384aa4a327a487d0b31cb))
+- Bump @ni/nimble-components to v35.3.2
+
+## 6.10.1
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.1
 
 ## 6.10.0
 

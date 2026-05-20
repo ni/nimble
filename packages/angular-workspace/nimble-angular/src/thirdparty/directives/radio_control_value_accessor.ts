@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/19.2.15/packages/forms/src/directives/radio_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/radio_control_value_accessor.ts
  * with the following modifications:
  * - Changed throwNameError() to throw Error instead of RuntimeError. This makes the file compile with Angular version 12.
  * - Removed now-unused import for RuntimeErrorCode and RuntimeError

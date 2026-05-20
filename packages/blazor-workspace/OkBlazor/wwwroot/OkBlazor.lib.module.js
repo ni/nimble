@@ -68,9 +68,9 @@ if (window.OkBlazor) {
 
 window.OkBlazor = window.OkBlazor ?? {
     isReady: () => isReady,
-    IconDynamic: {
+    TsIconDynamic: {
         registerIconDynamic: function (tagName, url) {
-            const registerIconDynamic = window.customElements.get('ok-icon-dynamic').registerIconDynamic;
+            const registerIconDynamic = window.customElements.get('ok-ts-icon-dynamic').registerIconDynamic;
             registerIconDynamic(tagName, url);
         }
     }

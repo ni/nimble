@@ -16,6 +16,11 @@ declare global {
  * A Spright component for composing and sending a chat message
  */
 export class ChatInput extends mixinErrorPattern(FoundationElement) {
+    private static readonly fieldSizingSupported = CSS.supports(
+        'field-sizing',
+        'content'
+    );
+
     @attr
     public placeholder?: string;
 
@@ -37,6 +42,9 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @attr({ attribute: 'processing', mode: 'boolean' })
     public processing = false;
 
+    @attr({ attribute: 'send-disabled', mode: 'boolean' })
+    public sendDisabled = false;
+
     /**
      * @internal
      */
@@ -44,10 +52,11 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public textArea?: HTMLTextAreaElement;
 
     /**
+     * Tracks whether the send button should be disabled based on input value
      * @internal
      */
     @observable
-    public disableSendButton = true;
+    public isInputEmpty = true;
 
     /**
      * The width of the vertical scrollbar, if displayed.
@@ -56,8 +65,38 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @observable
     public scrollbarWidth = -1;
 
+    /** @internal */
+    @observable
+    public footerActionsIsEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedFooterActionsElements?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public attachmentsIsEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedAttachmentsElements?: HTMLElement[];
+
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
+
+    public slottedFooterActionsElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.footerActionsIsEmpty = next === undefined || next.length === 0;
+    }
+
+    public slottedAttachmentsElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.attachmentsIsEmpty = next === undefined || next.length === 0;
+    }
 
     /**
      * @internal
@@ -78,7 +117,8 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
      */
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
-        this.disableSendButton = this.shouldDisableSendButton();
+        this.isInputEmpty = this.shouldDisableSendButton();
+        this.adjustTextAreaHeight();
         this.queueUpdateScrollbarWidth();
     }
 
@@ -102,7 +142,8 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public valueChanged(): void {
         if (this.textArea) {
             this.textArea.value = this.value;
-            this.disableSendButton = this.shouldDisableSendButton();
+            this.isInputEmpty = this.shouldDisableSendButton();
+            this.adjustTextAreaHeight();
             this.queueUpdateScrollbarWidth();
         }
     }
@@ -113,7 +154,8 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.textArea!.value = this.value;
-        this.disableSendButton = this.shouldDisableSendButton();
+        this.isInputEmpty = this.shouldDisableSendButton();
+        this.adjustTextAreaHeight();
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
     }
@@ -157,14 +199,16 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
 
     private resetInput(): void {
         this.value = '';
-        this.disableSendButton = true;
+        this.isInputEmpty = true;
         if (this.textArea) {
             this.textArea.value = '';
+            this.adjustTextAreaHeight();
             this.textArea.focus();
         }
     }
 
     private onResize(): void {
+        this.adjustTextAreaHeight();
         this.scrollbarWidth = this.textArea!.offsetWidth - this.textArea!.clientWidth;
     }
 
@@ -176,6 +220,17 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
             this.updateScrollbarWidthQueued = true;
             DOM.queueUpdate(() => this.updateScrollbarWidth());
         }
+    }
+
+    // Workaround for browsers that do not support the CSS property `field-sizing: content`
+    // See https://github.com/ni/nimble/issues/2902
+    private adjustTextAreaHeight(): void {
+        if (ChatInput.fieldSizingSupported || !this.textArea) {
+            return;
+        }
+        const textArea = this.textArea;
+        textArea.style.height = 'auto';
+        textArea.style.height = `${textArea.scrollHeight}px`;
     }
 
     private updateScrollbarWidth(): void {

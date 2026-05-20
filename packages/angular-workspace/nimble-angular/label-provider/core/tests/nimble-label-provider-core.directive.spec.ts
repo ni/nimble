@@ -16,6 +16,8 @@ describe('Nimble Label Provider Core', () => {
     const label10 = 'String 10';
     const label11 = 'String 11';
     const label12 = 'String 12';
+    const label13 = 'String 13';
+    const label14 = 'String 14';
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -79,6 +81,16 @@ describe('Nimble Label Provider Core', () => {
             expect(nativeElement.popupIconWarning).toBeUndefined();
         });
 
+        it('has expected defaults for popupIconCompleted', () => {
+            expect(directive.popupIconCompleted).toBeUndefined();
+            expect(nativeElement.popupIconCompleted).toBeUndefined();
+        });
+
+        it('has expected defaults for popupIconCurrent', () => {
+            expect(directive.popupIconCurrent).toBeUndefined();
+            expect(nativeElement.popupIconCurrent).toBeUndefined();
+        });
+
         it('has expected defaults for popupIconInformation', () => {
             expect(directive.popupIconInformation).toBeUndefined();
             expect(nativeElement.popupIconInformation).toBeUndefined();
@@ -124,6 +136,8 @@ describe('Nimble Label Provider Core', () => {
                     numeric-increment="${label3}"
                     popup-icon-error="${label4}"
                     popup-icon-warning="${label5}"
+                    popup-icon-completed="${label13}"
+                    popup-icon-current="${label14}"
                     popup-icon-information="${label6}"
                     filter-search="${label7}"
                     filter-no-results="${label8}"
@@ -181,6 +195,16 @@ describe('Nimble Label Provider Core', () => {
             expect(nativeElement.popupIconWarning).toBe(label5);
         });
 
+        it('will use template string values for popupIconCompleted', () => {
+            expect(directive.popupIconCompleted).toBe(label13);
+            expect(nativeElement.popupIconCompleted).toBe(label13);
+        });
+
+        it('will use template string values for popupIconCurrent', () => {
+            expect(directive.popupIconCurrent).toBe(label14);
+            expect(nativeElement.popupIconCurrent).toBe(label14);
+        });
+
         it('will use template string values for popupIconInformation', () => {
             expect(directive.popupIconInformation).toBe(label6);
             expect(nativeElement.popupIconInformation).toBe(label6);
@@ -226,6 +250,8 @@ describe('Nimble Label Provider Core', () => {
                     [numeric-increment]="numericIncrement"
                     [popup-icon-error]="popupIconError"
                     [popup-icon-warning]="popupIconWarning"
+                    [popup-icon-completed]="popupIconCompleted"
+                    [popup-icon-current]="popupIconCurrent"
                     [popup-icon-information]="popupIconInformation"
                     [filter-search]="filterSearch"
                     [filter-no-results]="filterNoResults"
@@ -246,6 +272,8 @@ describe('Nimble Label Provider Core', () => {
             public numericIncrement = label1;
             public popupIconError = label1;
             public popupIconWarning = label1;
+            public popupIconCompleted = label1;
+            public popupIconCurrent = label1;
             public popupIconInformation = label1;
             public filterSearch = label1;
             public filterNoResults = label1;
@@ -323,6 +351,28 @@ describe('Nimble Label Provider Core', () => {
 
             expect(directive.popupIconWarning).toBe(label2);
             expect(nativeElement.popupIconWarning).toBe(label2);
+        });
+
+        it('can be configured with property binding for popupIconCompleted', () => {
+            expect(directive.popupIconCompleted).toBe(label1);
+            expect(nativeElement.popupIconCompleted).toBe(label1);
+
+            fixture.componentInstance.popupIconCompleted = label2;
+            fixture.detectChanges();
+
+            expect(directive.popupIconCompleted).toBe(label2);
+            expect(nativeElement.popupIconCompleted).toBe(label2);
+        });
+
+        it('can be configured with property binding for popupIconCurrent', () => {
+            expect(directive.popupIconCurrent).toBe(label1);
+            expect(nativeElement.popupIconCurrent).toBe(label1);
+
+            fixture.componentInstance.popupIconCurrent = label2;
+            fixture.detectChanges();
+
+            expect(directive.popupIconCurrent).toBe(label2);
+            expect(nativeElement.popupIconCurrent).toBe(label2);
         });
 
         it('can be configured with property binding for popupIconInformation', () => {
@@ -412,6 +462,8 @@ describe('Nimble Label Provider Core', () => {
                     [attr.numeric-increment]="numericIncrement"
                     [attr.popup-icon-error]="popupIconError"
                     [attr.popup-icon-warning]="popupIconWarning"
+                    [attr.popup-icon-completed]="popupIconCompleted"
+                    [attr.popup-icon-current]="popupIconCurrent"
                     [attr.popup-icon-information]="popupIconInformation"
                     [attr.filter-search]="filterSearch"
                     [attr.filter-no-results]="filterNoResults"
@@ -432,6 +484,8 @@ describe('Nimble Label Provider Core', () => {
             public numericIncrement = label1;
             public popupIconError = label1;
             public popupIconWarning = label1;
+            public popupIconCompleted = label1;
+            public popupIconCurrent = label1;
             public popupIconInformation = label1;
             public filterSearch = label1;
             public filterNoResults = label1;
@@ -509,6 +563,28 @@ describe('Nimble Label Provider Core', () => {
 
             expect(directive.popupIconWarning).toBe(label2);
             expect(nativeElement.popupIconWarning).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for popupIconCompleted', () => {
+            expect(directive.popupIconCompleted).toBe(label1);
+            expect(nativeElement.popupIconCompleted).toBe(label1);
+
+            fixture.componentInstance.popupIconCompleted = label2;
+            fixture.detectChanges();
+
+            expect(directive.popupIconCompleted).toBe(label2);
+            expect(nativeElement.popupIconCompleted).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for popupIconCurrent', () => {
+            expect(directive.popupIconCurrent).toBe(label1);
+            expect(nativeElement.popupIconCurrent).toBe(label1);
+
+            fixture.componentInstance.popupIconCurrent = label2;
+            fixture.detectChanges();
+
+            expect(directive.popupIconCurrent).toBe(label2);
+            expect(nativeElement.popupIconCurrent).toBe(label2);
         });
 
         it('can be configured with attribute binding for popupIconInformation', () => {

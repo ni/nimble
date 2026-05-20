@@ -1,0 +1,9 @@
+@namespace NimbleBlazor
+<nimble-chip
+    removable="@Removable"
+    disabled="@Disabled"
+    @onnimblechipremove="HandleRemove"
+    appearance="@Appearance.ToAttributeValue()"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-chip>

@@ -184,7 +184,7 @@ describe('Combobox', () => {
 
         const event = new KeyboardEvent('keydown', {
             key: keyEnter
-        } as KeyboardEventInit);
+        });
 
         const wasChanged = await Promise.race([
             new Promise(resolve => {
@@ -215,7 +215,7 @@ describe('Combobox', () => {
 
             const enterEvent = new KeyboardEvent('keydown', {
                 key: keyEnter
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -251,7 +251,7 @@ describe('Combobox', () => {
 
         const keyDownEvent = new KeyboardEvent('keydown', {
             key: keyArrowDown
-        } as KeyboardEventInit);
+        });
         element.dispatchEvent(keyDownEvent);
         await waitForUpdatesAsync();
 
@@ -284,7 +284,7 @@ describe('Combobox', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -314,7 +314,7 @@ describe('Combobox', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
-            } as KeyboardEventInit);
+            });
 
             const wasChanged = await Promise.race([
                 new Promise(resolve => {
@@ -615,7 +615,7 @@ describe('Combobox', () => {
 
         const keyDownEvent = new KeyboardEvent('keydown', {
             key: keyArrowDown
-        } as KeyboardEventInit);
+        });
         element.dispatchEvent(keyDownEvent); // open dropdown
 
         await waitForUpdatesAsync();
@@ -626,7 +626,7 @@ describe('Combobox', () => {
 
         const enterEvent = new KeyboardEvent('keydown', {
             key: keyEnter
-        } as KeyboardEventInit);
+        });
         element.dispatchEvent(enterEvent); // commit value
 
         expect(element.control.value).toEqual('three');

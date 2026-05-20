@@ -55,6 +55,22 @@ export class NimbleLabelProviderCoreDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconWarning', value);
     }
 
+    public get popupIconCompleted(): string | undefined {
+        return this.elementRef.nativeElement.popupIconCompleted;
+    }
+
+    @Input('popup-icon-completed') public set popupIconCompleted(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconCompleted', value);
+    }
+
+    public get popupIconCurrent(): string | undefined {
+        return this.elementRef.nativeElement.popupIconCurrent;
+    }
+
+    @Input('popup-icon-current') public set popupIconCurrent(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconCurrent', value);
+    }
+
     public get popupIconInformation(): string | undefined {
         return this.elementRef.nativeElement.popupIconInformation;
     }

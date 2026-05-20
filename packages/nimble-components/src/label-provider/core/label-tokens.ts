@@ -26,6 +26,16 @@ export const popupIconWarningLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.popupIconWarningLabel);
 
+export const popupIconCompletedLabel = DesignToken.create<string>({
+    name: 'popup-icon-completed-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.popupIconCompletedLabel);
+
+export const popupIconCurrentLabel = DesignToken.create<string>({
+    name: 'popup-icon-current-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.popupIconCurrentLabel);
+
 export const popupIconInformationLabel = DesignToken.create<string>({
     name: 'popup-icon-information-label',
     cssCustomPropertyName: null

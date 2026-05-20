@@ -336,7 +336,7 @@ describe('Checkbox', () => {
 
             const event = new KeyboardEvent('keydown', {
                 key: keySpace
-            } as KeyboardEventInit);
+            });
 
             await connect();
 

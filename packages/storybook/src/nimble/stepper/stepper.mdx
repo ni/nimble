@@ -3,11 +3,13 @@ import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { stepperTag } from '@ni/nimble-components/dist/esm/stepper';
 import * as stepperStories from './stepper.stories';
 import { Tag } from '../../utilities/story-layout';
+import { stepTag } from '@ni/nimble-components/dist/esm/step';
+import { anchorStepTag } from '@ni/nimble-components/dist/esm/anchor-step';
 
 <Meta of={stepperStories} />
 <Title of={stepperStories} />
 
-The <Tag name={stepperTag} /> is a form of progress indicator through a multiple step task indicating completed, current, and future steps.
+The <Tag name={stepperTag} /> is a form of progress indicator through a multiple step task indicating completed, current, and future steps. The element supports <Tag name={stepTag} /> and <Tag name={anchorStepTag} /> items as children.
 
 <Canvas of={stepperStories.stepper} />
 
@@ -15,6 +17,20 @@ The <Tag name={stepperTag} /> is a form of progress indicator through a multiple
 
 <Controls of={stepperStories.stepper} />
 <ComponentApisLink />
+
+### Step
+
+Use a <Tag name={stepTag} /> child element if you want a step that behaves like a button.
+
+<Canvas of={stepperStories.step} />
+<Controls of={stepperStories.step} />
+
+### Anchor Step
+
+Use an <Tag name={anchorStepTag} /> child element if you want a step that behaves like an anchor link.
+
+<Canvas of={stepperStories.anchorStep} />
+<Controls of={stepperStories.anchorStep} />
 
 {/* ## Styling */}
 

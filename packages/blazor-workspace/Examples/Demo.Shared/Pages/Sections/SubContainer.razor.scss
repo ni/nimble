@@ -1,0 +1,11 @@
+@import '../../NimbleDesignTokens/tokens';
+
+.sub-container {
+    margin: $ni-nimble-standard-padding;
+}
+
+.container-label {
+    font: $ni-nimble-group-header-font;
+    color: $ni-nimble-group-header-font-color;
+    padding-bottom: $ni-nimble-standard-padding;
+}

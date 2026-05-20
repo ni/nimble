@@ -1,6 +1,8 @@
 import { html } from '@ni/fast-element';
 import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatInputPageObject } from '../testing/chat-input.pageobject';
@@ -121,6 +123,40 @@ describe('ChatInput', () => {
         });
     });
 
+    describe('sendDisabled', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        it('disables send button when true even with non-empty value', () => {
+            element.value = 'new value';
+            element.sendDisabled = true;
+            processUpdates();
+
+            expect(page.isButtonEnabled()).toBeFalse();
+        });
+
+        it('enables send button when false and value is non-empty', () => {
+            element.value = 'new value';
+            element.sendDisabled = true;
+            processUpdates();
+
+            element.sendDisabled = false;
+            processUpdates();
+
+            expect(page.isButtonEnabled()).toBeTrue();
+        });
+
+        it('enables stop button while processing even when sendDisabled is true', () => {
+            element.value = 'new value';
+            element.sendDisabled = true;
+            element.processing = true;
+            processUpdates();
+
+            expect(page.isButtonEnabled()).toBeTrue();
+        });
+    });
+
     describe('user input', () => {
         beforeEach(async () => {
             await connect();
@@ -176,6 +212,15 @@ describe('ChatInput', () => {
             await page.pressEnterKey();
 
             expect(stopSpy).not.toHaveBeenCalled();
+        });
+
+        it('emits input event when setting text', () => {
+            const inputSpy = jasmine.createSpy();
+            element.addEventListener('input', inputSpy);
+
+            page.setText('new value');
+
+            expect(inputSpy).toHaveBeenCalled();
         });
 
         describe('maxlength', () => {
@@ -413,6 +458,57 @@ describe('ChatInput', () => {
             expect(element.tabIndex).toBeNull();
             expect(page.getButtonTabIndex()).toBeNull();
             expect(page.getTextAreaTabIndex()).toBeNull();
+        });
+    });
+
+    describe('footer-actions slot', () => {
+        it('should have a footer-actions slot element in the shadow DOM', async () => {
+            await connect();
+            expect(page.hasFooterActionsSlot()).toBeTrue();
+        });
+
+        it('should support content in the footer-actions slot', async () => {
+            await disconnect();
+            ({ element, connect, disconnect } = await fixture<ChatInput>(
+                html`<${chatInputTag}>
+                    <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>Attach</${buttonTag}>
+                </${chatInputTag}>`
+            ));
+            page = new ChatInputPageObject(element);
+            await connect();
+            expect(page.getFooterActionsSlotElementCount()).toBe(1);
+        });
+    });
+
+    describe('attachments slot', () => {
+        it('should have an attachments slot element in the shadow DOM', async () => {
+            await connect();
+            expect(page.hasAttachmentSlot()).toBeTrue();
+        });
+
+        it('should support content in the attachments slot', async () => {
+            await disconnect();
+            ({ element, connect, disconnect } = await fixture<ChatInput>(
+                html`<${chatInputTag}>
+                    <${chipTag} slot="attachments">Placeholder.txt</${chipTag}>
+                </${chatInputTag}>`
+            ));
+            page = new ChatInputPageObject(element);
+            await connect();
+            expect(page.getAttachmentsSlotElementCount()).toBe(1);
+        });
+
+        it('does not enable send button when attachments are present and text is empty', async () => {
+            await disconnect();
+            ({ element, connect, disconnect } = await fixture<ChatInput>(
+                html`<${chatInputTag}>
+                    <${chipTag} slot="attachments">Placeholder.txt</${chipTag}>
+                </${chatInputTag}>`
+            ));
+            page = new ChatInputPageObject(element);
+            await connect();
+            processUpdates();
+            expect(page.isButtonEnabled()).toBeFalse();
         });
     });
 });

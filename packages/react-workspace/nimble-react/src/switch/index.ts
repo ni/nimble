@@ -1,3 +1,5 @@
+'use client';
+
 import { Switch, switchTag } from '@ni/nimble-components/dist/esm/switch';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 

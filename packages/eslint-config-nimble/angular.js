@@ -2,6 +2,7 @@ import { defineConfig } from 'eslint/config';
 import { angularTypescriptConfig, angularTemplateConfig, ignoreAttributes } from '@ni/eslint-config-angular';
 import { typescriptNimbleConfigOverrides } from './typescript.js';
 import { javascriptNimbleConfigOverrides } from './javascript.js';
+import { fvIgnoreAttributes } from './ok/fv/ignore-attributes.js';
 
 export const angularTypescriptNimbleConfigOverrides = defineConfig([
     {
@@ -96,6 +97,8 @@ export const angularTypescriptNimbleConfig = defineConfig([
 export const angularTemplateNimbleConfigOverrides = defineConfig([
     {
         rules: {
+            '@angular-eslint/template/prefer-control-flow': 'error',
+
             // Enable i18n template checking for the purpose of making sure to capture updates for the lint rules
             '@angular-eslint/template/i18n': [
                 'error',
@@ -104,7 +107,7 @@ export const angularTemplateNimbleConfigOverrides = defineConfig([
                     checkId: false,
                     ignoreAttributes: [
                         // Attributes that SHOULD NOT ever be localized need to be added to ignoreAttributeSets
-                        // See: https://github.com/ni/javascript-styleguide/blob/main/packages/eslint-config-angular/template/options.js
+                        // See: https://github.com/ni/javascript-styleguide/blob/main/packages/eslint-config-angular/lib/template-options.js
                         ...ignoreAttributes.all,
 
                         // Attributes that SHOULD be localized in production, but we don't want to
@@ -116,6 +119,9 @@ export const angularTemplateNimbleConfigOverrides = defineConfig([
                         'placeholder',
                         'text',
                         'title',
+
+                        // Component library specific lists
+                        ...fvIgnoreAttributes
                     ],
                 },
             ],

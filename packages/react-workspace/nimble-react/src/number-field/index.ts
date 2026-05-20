@@ -1,3 +1,5 @@
+'use client';
+
 import { NumberField, numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 

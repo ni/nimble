@@ -1,0 +1,6 @@
+@import '../../NimbleDesignTokens/tokens';
+
+::deep .card-button-content {
+    display: flex;
+    margin: $ni-nimble-standard-padding
+}

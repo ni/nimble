@@ -26,44 +26,47 @@ export const addons = [
 export async function viteFinal(config) {
     const { mergeConfig } = await import('vite');
 
-    config.build.minify = false;
-
     // Support Chromatic Turbosnap in a monorepo
     // See: https://github.com/chromaui/chromatic-cli/issues/1149#issuecomment-2936493954
     // Keep in sync with tsconfig.json
     // To test changes check the built preview-stats.json file for .ts vs .js references of mapped paths
-    config.resolve.alias = [
-        {
-            find: '@ni/nimble-components/dist/esm',
-            replacement: '@ni/nimble-components/src'
+    return mergeConfig(config, {
+        build: {
+            minify: false
         },
-        {
-            find: '@ni/spright-components/dist/esm',
-            replacement: '@ni/spright-components/src'
-        },
-        {
-            find: '@ni/ok-components/dist/esm',
-            replacement: '@ni/ok-components/src'
-        },
-        {
-            find: /^@ni\/nimble-react\/styles\/(.*)/,
-            replacement: `${getAbsolutePath('@ni/nimble-react')}/styles/$1.scss`
-        },
-        {
-            find: /^@ni\/nimble-react\/(.*)/,
-            replacement: `${getAbsolutePath('@ni/nimble-react')}/src/$1/index.ts`
-        },
-        {
-            find: /^@ni\/spright-react\/(.*)/,
-            replacement: `${getAbsolutePath('@ni/spright-react')}/src/$1/index.ts`
-        },
-        {
-            find: /^@ni\/ok-react\/(.*)/,
-            replacement: `${getAbsolutePath('@ni/ok-react')}/src/$1/index.ts`
-        },
-    ];
-
-    return mergeConfig(config);
+        resolve: {
+            alias: [
+                {
+                    find: '@ni/nimble-components/dist/esm',
+                    replacement: '@ni/nimble-components/src'
+                },
+                {
+                    find: '@ni/spright-components/dist/esm',
+                    replacement: '@ni/spright-components/src'
+                },
+                {
+                    find: '@ni/ok-components/dist/esm',
+                    replacement: '@ni/ok-components/src'
+                },
+                {
+                    find: /^@ni\/nimble-react\/styles\/(.*)/,
+                    replacement: `${getAbsolutePath('@ni/nimble-react')}/styles/$1.scss`
+                },
+                {
+                    find: /^@ni\/nimble-react\/(.*)/,
+                    replacement: `${getAbsolutePath('@ni/nimble-react')}/src/$1/index.ts`
+                },
+                {
+                    find: /^@ni\/spright-react\/(.*)/,
+                    replacement: `${getAbsolutePath('@ni/spright-react')}/src/$1/index.ts`
+                },
+                {
+                    find: /^@ni\/ok-react\/(.*)/,
+                    replacement: `${getAbsolutePath('@ni/ok-react')}/src/$1/index.ts`
+                },
+            ]
+        }
+    });
 }
 
 export const staticDirs = ['public'];

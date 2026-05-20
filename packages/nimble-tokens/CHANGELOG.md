@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Wed, 11 Feb 2026 03:47:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.18.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Add sparkles-nested icon ([ni/nimble@e6817bd](https://github.com/ni/nimble/commit/e6817bdbabe2ac49bf7364105de4576f213841c4))
+
+## 8.17.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Add user helmet safety icon ([ni/nimble@df7e198](https://github.com/ni/nimble/commit/df7e198f0d86f240b6baf32bcb6cc05aeea35b08))
+
+## 8.16.0
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Minor changes
+
+- Add token for Black77 ([ni/nimble@8c04925](https://github.com/ni/nimble/commit/8c04925fec84772102d7fbd07482e67081b029b5))
 
 ## 8.15.0
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { Tabs, tabsTag } from '@ni/nimble-components/dist/esm/tabs';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 

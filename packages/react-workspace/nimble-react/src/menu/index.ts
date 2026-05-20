@@ -1,3 +1,5 @@
+'use client';
+
 import { Menu, menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 import type { MenuItemChangeEvent } from '../menu-item';

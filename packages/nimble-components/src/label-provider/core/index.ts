@@ -7,6 +7,8 @@ import {
     numericIncrementLabel,
     popupIconErrorLabel,
     popupIconWarningLabel,
+    popupIconCompletedLabel,
+    popupIconCurrentLabel,
     popupIconInformationLabel,
     filterSearchLabel,
     filterNoResultsLabel,
@@ -29,6 +31,8 @@ const supportedLabels = {
     numericIncrement: numericIncrementLabel,
     popupIconError: popupIconErrorLabel,
     popupIconWarning: popupIconWarningLabel,
+    popupIconCompleted: popupIconCompletedLabel,
+    popupIconCurrent: popupIconCurrentLabel,
     popupIconInformation: popupIconInformationLabel,
     filterSearch: filterSearchLabel,
     filterNoResults: filterNoResultsLabel,
@@ -58,6 +62,12 @@ export class LabelProviderCore
 
     @attr({ attribute: 'popup-icon-warning' })
     public popupIconWarning: string | undefined;
+
+    @attr({ attribute: 'popup-icon-completed' })
+    public popupIconCompleted: string | undefined;
+
+    @attr({ attribute: 'popup-icon-current' })
+    public popupIconCurrent: string | undefined;
 
     @attr({ attribute: 'popup-icon-information' })
     public popupIconInformation: string | undefined;

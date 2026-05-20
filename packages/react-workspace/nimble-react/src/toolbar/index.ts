@@ -1,3 +1,5 @@
+'use client';
+
 import { Toolbar, toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
 import { wrap } from '../utilities/react-wrapper';
 

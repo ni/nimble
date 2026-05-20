@@ -64,6 +64,11 @@ describe('Spright chat input', () => {
             expect(nativeElement.processing).toBeFalse();
         });
 
+        it('has expected defaults for sendDisabled', () => {
+            expect(directive.sendDisabled).toBeFalse();
+            expect(nativeElement.sendDisabled).toBeFalse();
+        });
+
         it('has expected defaults for value', () => {
             expect(directive.value).toEqual('');
             expect(nativeElement.value).toEqual('');
@@ -93,6 +98,7 @@ describe('Spright chat input', () => {
                     send-button-label="Send button label value"
                     stop-button-label="Stop button label value"
                     processing="true"
+                    send-disabled="true"
                     value="Value value"
                     maxlength="10"
                     error-text="Error text value"
@@ -141,6 +147,11 @@ describe('Spright chat input', () => {
             expect(nativeElement.processing).toBeTrue();
         });
 
+        it('will use template string values for sendDisabled', () => {
+            expect(directive.sendDisabled).toBeTrue();
+            expect(nativeElement.sendDisabled).toBeTrue();
+        });
+
         it('will use template string values for value', () => {
             expect(directive.value).toBe('Value value');
             expect(nativeElement.value).toBe('Value value');
@@ -170,6 +181,7 @@ describe('Spright chat input', () => {
                     [sendButtonLabel]="sendButtonLabel"
                     [stopButtonLabel]="stopButtonLabel"
                     [processing]="processing"
+                    [sendDisabled]="sendDisabled"
                     [value]="value"
                     [maxlength]="maxLength"
                     [errorText]="errorText"
@@ -186,6 +198,7 @@ describe('Spright chat input', () => {
             public stopButtonLabel = 'initial';
             public value = 'initial';
             public processing = false;
+            public sendDisabled = true;
             public maxLength = 20;
             public errorText = 'initial';
             public errorVisible: BooleanValueOrAttribute = null;
@@ -251,6 +264,17 @@ describe('Spright chat input', () => {
             expect(nativeElement.processing).toBeTrue();
         });
 
+        it('can be configured with property binding for sendDisabled', () => {
+            expect(directive.sendDisabled).toBeTrue();
+            expect(nativeElement.sendDisabled).toBeTrue();
+
+            fixture.componentInstance.sendDisabled = false;
+            fixture.detectChanges();
+
+            expect(directive.sendDisabled).toBeFalse();
+            expect(nativeElement.sendDisabled).toBeFalse();
+        });
+
         it('can be configured with property binding for value', () => {
             expect(directive.value).toBe('initial');
             expect(nativeElement.value).toBe('initial');
@@ -304,6 +328,7 @@ describe('Spright chat input', () => {
                     [attr.send-button-label]="sendButtonLabel"
                     [attr.stop-button-label]="stopButtonLabel"
                     [attr.processing]="processing"
+                    [attr.send-disabled]="sendDisabled"
                     [attr.value]="value"
                     [attr.maxlength]="maxLength"
                     [attr.error-text]="errorText"
@@ -319,6 +344,7 @@ describe('Spright chat input', () => {
             public sendButtonLabel = 'initial';
             public stopButtonLabel = 'initial';
             public processing = false;
+            public sendDisabled = true;
             public value = 'initial';
             public maxLength = 20;
             public errorText = 'initial';
@@ -382,6 +408,17 @@ describe('Spright chat input', () => {
 
             expect(directive.processing).toBe(true);
             expect(nativeElement.processing).toBe(true);
+        });
+
+        it('can be configured with attribute binding for sendDisabled', () => {
+            expect(directive.sendDisabled).toBe(true);
+            expect(nativeElement.sendDisabled).toBe(true);
+
+            fixture.componentInstance.sendDisabled = false;
+            fixture.detectChanges();
+
+            expect(directive.sendDisabled).toBe(false);
+            expect(nativeElement.sendDisabled).toBe(false);
         });
 
         it('can be configured with attribute binding for value', () => {

@@ -1,0 +1,17 @@
+@namespace NimbleBlazor
+@inherits NimbleAnchorBase
+<nimble-anchor-step
+    href="@Href"
+    hreflang="@HrefLang"
+    ping="@Ping"
+    referrerpolicy="@ReferrerPolicy"
+    rel="@Rel"
+    target="@Target"
+    type="@Type"
+    severity="@Severity.ToAttributeValue()"
+    disabled="@Disabled"
+    readonly="@ReadOnly"
+    selected="@Selected"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-anchor-step>

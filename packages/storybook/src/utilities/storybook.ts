@@ -1,6 +1,10 @@
 import { html, ViewTemplate } from '@ni/fast-element';
+import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import {
+    bodyFont,
+    warningFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
@@ -143,17 +147,35 @@ export interface IncubatingWarningConfig {
     statusLink: string;
 }
 
+export interface OkWarningConfig {
+    componentName: string;
+    statusLink: string;
+}
+
 export const incubatingWarning = (config: IncubatingWarningConfig): string => `
 <style class="code-hide">
 #incubating-warning {
-    color: red;
+    color: var(${warningFontColor.cssCustomProperty});
     font: var(${bodyFont.cssCustomProperty});
     padding-bottom: 16px;
 }
 </style>
 <div id="incubating-warning" class="code-hide">
 WARNING - The ${config.componentName} is still incubating. It is not recommended for application use. 
-See the <a href="${config.statusLink}">incubating component status</a>.
+See the <${anchorTag} href="${config.statusLink}">incubating component status</${anchorTag}>.
+</div>`;
+
+export const okWarning = (config: OkWarningConfig): string => `
+<style class="code-hide">
+#ok-warning {
+    color: var(${warningFontColor.cssCustomProperty});
+    font: var(${bodyFont.cssCustomProperty});
+    padding-bottom: 16px;
+}
+</style>
+<div id="ok-warning" class="code-hide">
+WARNING - The ${config.componentName} is an ok component. These components have varying levels of quality and stability. Clients should consult with component-specific owners before leveraging in new applications.
+See the <${anchorTag} href="${config.statusLink}">ok component status</${anchorTag}>.
 </div>`;
 
 // On the Docs page, there is a div with a scale(1) transform that causes the dropdown to be
@@ -191,10 +213,10 @@ export const fullBleedDescription = (options: {
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
 export const disabledDescription = (options: {
     componentName: string
-}): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
+}): string => `Styles the ${options.componentName} as disabled and prevents focus and user interactions.`;
 export const readonlyDescription = (options: {
     componentName: string
-}): string => `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
+}): string => `Styles the ${options.componentName} as readonly and allows focus but prevents other interactions.`;
 export const appearanceReadOnlyDescription = (options: {
     componentName: string
 }): string => `Styles the ${options.componentName} as readonly when the component is disabled. This is useful for applications that use a forms library that sets \`disabled\` on components but don't want those components to have a disabled appearance. This property has no impact on the control when it is not disabled.`;

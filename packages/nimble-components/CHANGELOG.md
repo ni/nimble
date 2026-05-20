@@ -1,8 +1,179 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 16 Feb 2026 18:09:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 19 May 2026 17:01:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.9.1
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Add color-scheme to theme provider for dark scrollbars ([ni/nimble@3561c88](https://github.com/ni/nimble/commit/3561c88b0bb55fcbaf9345d2915f0e8ac310b5fc))
+
+## 35.9.0
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Minor changes
+
+- Add appearance-indeterminate property for checkbox ([ni/nimble@38b5b13](https://github.com/ni/nimble/commit/38b5b13eceb1f7c1da8342dc583d79769e69ca7a))
+
+## 35.8.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.18.0
+
+## 35.7.1
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Dependency update May 2026 ([ni/nimble@ec45dce](https://github.com/ni/nimble/commit/ec45dce8237675f6f19e17e142532070b6551ab2))
+- Bump @ni/unit-format to v1.0.4
+- Bump @ni/jasmine-parameterized to v1.0.10
+
+## 35.7.0
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Minor changes
+
+- adding the containerBackgroundColor token ([ni/nimble@c44ed3b](https://github.com/ni/nimble/commit/c44ed3bfa143f7ade46e45ef0497fd03247d750e))
+
+## 35.6.1
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Avoid prevent default on step click ([ni/nimble@e8e9d5f](https://github.com/ni/nimble/commit/e8e9d5f01c00596d618e681e54967a0bfd0c6fa0))
+
+## 35.6.0
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Minor changes
+
+- add blazor and react wrapper for nimble chip ([ni/nimble@33a1e34](https://github.com/ni/nimble/commit/33a1e3439a9e6d9cab07704921bfc2a4c5658a9e))
+
+## 35.5.8
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Update label provider core for stepper labels ([ni/nimble@8d8d724](https://github.com/ni/nimble/commit/8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4))
+
+## 35.5.7
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Update fast dependency to fix view bug in Firefox ([ni/nimble@c2354bd](https://github.com/ni/nimble/commit/c2354bd5a997f90670c66a7c97d7e858607d2000))
+
+## 35.5.6
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Implement scrollable stepper ([ni/nimble@6648f6e](https://github.com/ni/nimble/commit/6648f6e70ee2479e8decb1b2a0e6e85c2b45e074))
+
+## 35.5.5
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Add readonly behavior to step and anchor step ([ni/nimble@cf19bdf](https://github.com/ni/nimble/commit/cf19bdf837d815be34f2297ae42ff6ebfa81e598))
+
+## 35.5.4
+
+Wed, 01 Apr 2026 21:32:03 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@810c60a](https://github.com/ni/nimble/commit/810c60a6bd0e111013e4d9681079b67d3360183f))
+
+## 35.5.3
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Fix background sizing Add a dedicated element for icon background that can scale its whole size and switch to box-shadow for smooth border size animations ([ni/nimble@2e21c7f](https://github.com/ni/nimble/commit/2e21c7f5547d6b96c4dd7fb9ee88b5f62501485c))
+
+## 35.5.2
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump fast-foundation version to 10.2.2 ([ni/nimble@452fa5a](https://github.com/ni/nimble/commit/452fa5a0cd2dfd16749eeeeecf4b3eea771719ae))
+
+## 35.5.1
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Stepper orientation and position ([ni/nimble@d0d8415](https://github.com/ni/nimble/commit/d0d8415fb709e2518877fdcacd981e69b262c58f))
+
+## 35.5.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.17.0
+
+## 35.4.0
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Minor changes
+
+- Add theme aware token for splitter background ([ni/nimble@8c04925](https://github.com/ni/nimble/commit/8c04925fec84772102d7fbd07482e67081b029b5))
+- Bump @ni/nimble-tokens to v8.16.0
+
+## 35.3.4
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- step and anchor-step ([ni/nimble@7b528b9](https://github.com/ni/nimble/commit/7b528b96c6462eb69faf6c9ae10986782ca353f7))
+
+## 35.3.3
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/unit-format to v1.0.3
+
+## 35.3.2
+
+Sun, 01 Mar 2026 01:21:41 GMT
+
+### Patches
+
+- Add custom elements manifest generation ([ni/nimble@668e03a](https://github.com/ni/nimble/commit/668e03a753512409940384aa4a327a487d0b31cb))
+
+## 35.3.1
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Don't scroll table element into view if focused by mouse click ([ni/nimble@978850f](https://github.com/ni/nimble/commit/978850fd81b876b6d3a619f57f190082b5a7279c))
 
 ## 35.3.0
 
