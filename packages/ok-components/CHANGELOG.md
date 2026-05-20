@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 19 May 2026 17:01:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 20 May 2026 19:07:48 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.3.3
+
+Wed, 20 May 2026 19:07:48 GMT
+
+### Patches
+
+- chip text alignment and support card height ([ni/nimble@ab18bcd](https://github.com/ni/nimble/commit/ab18bcd2656584d3f264588b1cd59acec298fe72))
 
 ## 1.3.2
 
