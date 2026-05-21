@@ -1,4 +1,7 @@
 import { css } from '@ni/fast-element';
+import {
+    iconSize,
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
 export const styles = css`
     :host {
@@ -14,8 +17,8 @@ export const styles = css`
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 24px;
-        height: 24px;
+        width: 100%;
+        height: 100%;
         padding: 0;
         margin: 0;
         border: none;
@@ -29,8 +32,8 @@ export const styles = css`
     }
 
     .breakpoint-button svg {
-        width: 12px;
-        height: 12px;
+        width: ${iconSize};
+        height: ${iconSize};
     }
 
     .breakpoint-button.state-off svg {

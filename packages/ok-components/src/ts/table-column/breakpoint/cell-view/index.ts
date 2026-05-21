@@ -208,7 +208,14 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
             slots: [{ name: 'menu', slot: 'menu' }]
         };
         this.$emit('cell-view-slots-request', slotRequestDetail);
+
+        const detail: BreakpointContextMenuEventDetail = {
+            recordId: this.recordId ?? '',
+            currentState: this.currentState
+        };
+
         this.setContextMenuOpen(true);
+        this.$emit('breakpoint-column-context-menu', detail);
     }
 
     private setContextMenuOpen(newValue: boolean): void {
@@ -227,11 +234,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         }
 
         this.open = newValue;
-
-        if (newValue) {
-            // Emit context-menu event only when opening.
-            this.$emit('breakpoint-column-context-menu', detail);
-        }
     }
 
     private getMenu(): HTMLElement | undefined {

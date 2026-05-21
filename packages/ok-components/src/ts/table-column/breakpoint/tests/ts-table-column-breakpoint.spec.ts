@@ -432,6 +432,37 @@ describe('TsTableColumnBreakpoint', () => {
             expect(eventDetail.recordId).toBe('1');
             expect(eventDetail.currentState).toBe(BreakpointState.enabled);
         });
+
+        it('emits breakpoint-column-context-menu when right-clicking while menu is already open', async () => {
+            await table.setData([
+                { id: '1', breakpointState: BreakpointState.enabled }
+            ]);
+            await waitForUpdatesAsync();
+
+            const contextMenuSpy = jasmine.createSpy('contextmenu');
+            elementReferences.column.addEventListener(
+                'breakpoint-column-context-menu',
+                contextMenuSpy
+            );
+
+            const cellView = tablePageObject.getRenderedCellView(
+                0,
+                0
+            ) as TsTableColumnBreakpointCellView;
+            const button = getBreakpointButton(cellView);
+
+            button.dispatchEvent(
+                new MouseEvent('contextmenu', { bubbles: true })
+            );
+            await waitForUpdatesAsync();
+
+            button.dispatchEvent(
+                new MouseEvent('contextmenu', { bubbles: true })
+            );
+            await waitForUpdatesAsync();
+
+            expect(contextMenuSpy).toHaveBeenCalledTimes(2);
+        });
     });
 
     describe('keyboard shortcuts', () => {
