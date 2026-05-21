@@ -162,9 +162,6 @@ export class TableUpdateTracker<
         } else if (isColumnProperty(changedColumnProperty, 'columnHidden')) {
             this.track('columnWidths');
             this.track('columnHidden');
-        }else if (isColumnProperty(changedColumnProperty, 'columnHidden')) {
-            this.track('columnWidths');
-            this.track('columnHidden');
         } else if (isColumnProperty(changedColumnProperty, 'pinned')) {
             this.track('columnWidths');
             this.track('columnPinned');

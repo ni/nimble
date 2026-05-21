@@ -97,10 +97,6 @@ export const styles = css`
     .row-operations-container {
         flex: 0 0 auto;
         display: flex;
-        position: sticky;
-        z-index: ${ZIndexLevels.zIndex1000};
-        background: ${applicationBackgroundColor};
-        left: var(--ni-private-table-pinned-column-offset);
     }
 
     .selection-checkbox {
@@ -114,24 +110,15 @@ export const styles = css`
     .row-front-spacer {
         width: ${controlHeight};
         flex: 0 0 auto;
-        background: ${applicationBackgroundColor};
-        position: sticky;
-        left: var(--ni-private-table-pinned-column-offset);
-        z-index: ${ZIndexLevels.zIndex1000};
     }
 
     .row-front-spacer.reduced-size-spacer {
         width: ${mediumPadding};
     }
 
-    .row-front-spacer.selectable {
-        left: calc(var(--ni-private-table-pinned-column-offset) + 32px);
-    }
-
     .pinned-cell-container {
         display: grid;
         grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
-        
         position: sticky;
         left: 0;
         background: ${applicationBackgroundColor};

@@ -90,10 +90,6 @@ export const styles = css`
     .header-row-action-container {
         display: flex;
         align-items: center;
-        position: sticky;
-        background: ${applicationBackgroundColor};
-        left: var(--ni-private-table-pinned-column-offset);
-        z-index: ${ZIndexLevels.zIndex1000};
     }
 
     .checkbox-container {

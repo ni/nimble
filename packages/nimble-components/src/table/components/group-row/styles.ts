@@ -74,14 +74,10 @@ export const styles = css`
     }
 
     .expand-collapse-button-container {
-        position: sticky;
         background: ${tableRowBorderColor};
-        left: var(--ni-private-table-pinned-column-offset);
-        z-index: ${ZIndexLevels.zIndex1000};
     }
 
     .expand-collapse-button-container.selectable {
-        left: calc(var(--ni-private-table-pinned-column-offset) + 32px);
     }
 
     .expand-collapse-button {
@@ -111,10 +107,6 @@ export const styles = css`
 
     .checkbox-container {
         display: flex;
-        position: sticky;
-        left: var(--ni-private-table-pinned-column-offset);
-        z-index: ${ZIndexLevels.zIndex1000};
-        background: ${tableRowBorderColor};
     }
 
     .selection-checkbox {

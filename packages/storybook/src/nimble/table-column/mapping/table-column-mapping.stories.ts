@@ -1,6 +1,7 @@
 import { html, ref } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
 import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
@@ -95,6 +96,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             data-unused="${x => x.updateData(x)}"
             style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
             id-field-name="id"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag} field-name="firstName" >
                 Name
@@ -106,14 +108,8 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
-            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" pinned>
+            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" ?pinned="${x => x.widthMode === 'iconSize'}">
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
-            
-                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
-            </${tableColumnMappingTag}>
-            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" pinned>
-                <${iconXmarkTag} title="Is child"></${iconXmarkTag}> 
             
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
                 <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
@@ -127,11 +123,6 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
     `),
     argTypes: {
         ...sharedTableArgTypes,
-        selectionMode: {
-            table: {
-                disable: true
-            }
-        },
         fieldName: {
             name: 'field-name',
             description:

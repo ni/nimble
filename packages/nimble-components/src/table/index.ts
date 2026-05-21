@@ -214,10 +214,13 @@ export class Table<
     public get pinnedColumnOffset(): number {
         let offset = 0;
         for (const column of this.pinnedColumns) {
-            if (column.columnInternals.currentPixelWidth) {
+            const resolvedPixelWidth = this.getPinnedColumnResolvedPixelWidth(
+                column
+            );
+            if (resolvedPixelWidth !== undefined) {
                 const coercedPixelWidth = Math.max(
                     column.columnInternals.minPixelWidth,
-                    column.columnInternals.currentPixelWidth
+                    resolvedPixelWidth
                 );
                 offset += coercedPixelWidth;
             }
@@ -232,13 +235,15 @@ export class Table<
     public get pinnedColumnsGridTemplateColumns(): string {
         return this.pinnedColumns.map(column => {
                 const {
-                    minPixelWidth,
-                    currentPixelWidth
+                    minPixelWidth
                 } = column.columnInternals;
-                if (currentPixelWidth !== undefined) {
+                const resolvedPixelWidth = this.getPinnedColumnResolvedPixelWidth(
+                    column
+                );
+                if (resolvedPixelWidth !== undefined) {
                     const coercedPixelWidth = Math.max(
                         minPixelWidth,
-                        currentPixelWidth
+                        resolvedPixelWidth
                     );
                     return `${coercedPixelWidth}px`;
                 }
@@ -276,6 +281,16 @@ export class Table<
      * @internal
      */
     public readonly keyboardNavigationManager: KeyboardNavigationManager<TData>;
+
+    private getPinnedColumnResolvedPixelWidth(
+        column: TableColumn
+    ): number | undefined {
+        const {
+            currentPixelWidth,
+            pixelWidth
+        } = column.columnInternals;
+        return currentPixelWidth ?? pixelWidth;
+    }
 
     /**
      * @internal
@@ -747,7 +762,9 @@ export class Table<
             this.visibleColumns = this.columns.filter(
                 column => !column.columnHidden && !column.pinned
             );
-            this.pinnedColumns = this.columns.filter(column => column.pinned && !column.columnHidden);
+            this.pinnedColumns = this.columns.filter(
+                column => column.pinned && !column.columnHidden
+            );
         }
 
         if (this.tableUpdateTracker.requiresKeyboardFocusReset) {
