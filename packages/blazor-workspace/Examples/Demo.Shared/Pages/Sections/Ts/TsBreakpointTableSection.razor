@@ -1,0 +1,38 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Breakpoint Table Column (Ok)">
+        <NimbleTable TData="BreakpointTableRecord" @ref="_table" IdFieldName="Id" class="breakpoint-table">
+            <OkTsTableColumnBreakpoint
+                FieldName="BreakpointState"
+                BreakpointToggle="OnBreakpointToggle"
+                BreakpointContextMenu="OnBreakpointContextMenu">
+            </OkTsTableColumnBreakpoint>
+            <NimbleMenu slot="menu" class="breakpoint-menu">
+                @if (_contextMenuRecordState == OkBlazor.BreakpointState.Off)
+                {
+                    <NimbleMenuItem @onchange="@(_ => OnAddBreakpoint())">Add breakpoint</NimbleMenuItem>
+                    <NimbleMenuItem @onchange="@(_ => OnAddConditionalBreakpoint())">Add conditional breakpoint</NimbleMenuItem>
+                }
+                else
+                {
+                    <NimbleMenuItem @onchange="@(_ => OnRemoveBreakpoint())">Remove breakpoint</NimbleMenuItem>
+                    @if (_contextMenuRecordState == OkBlazor.BreakpointState.Enabled
+                        || _contextMenuRecordState == OkBlazor.BreakpointState.Conditional
+                        || _contextMenuRecordState == OkBlazor.BreakpointState.Hit)
+                    {
+                        <NimbleMenuItem @onchange="@(_ => OnDisableBreakpoint())">Disable breakpoint</NimbleMenuItem>
+                    }
+                    @if (_contextMenuRecordState == OkBlazor.BreakpointState.Disabled
+                        || _contextMenuRecordState == OkBlazor.BreakpointState.HitDisabled)
+                    {
+                        <NimbleMenuItem @onchange="@(_ => OnEnableBreakpoint())">Enable breakpoint</NimbleMenuItem>
+                    }
+                }
+            </NimbleMenu>
+            <NimbleTableColumnText FieldName="Name" FractionalWidth="2">Name</NimbleTableColumnText>
+            <NimbleTableColumnNumberText FieldName="LineNumber">Line</NimbleTableColumnNumberText>
+        </NimbleTable>
+        <p><strong>Last event:</strong> @_lastEvent</p>
+    </SubContainer>
+</div>

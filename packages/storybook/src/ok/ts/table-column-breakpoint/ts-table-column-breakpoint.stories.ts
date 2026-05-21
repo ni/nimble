@@ -63,7 +63,11 @@ const metadata: Meta<SharedTableArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: [...sharedTableActions, 'breakpoint-column-toggle']
+            handles: [
+                ...sharedTableActions,
+                'breakpoint-column-toggle',
+                'breakpoint-column-context-menu'
+            ]
         }
     },
     argTypes: {
@@ -84,6 +88,7 @@ export default metadata;
 interface BreakpointColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     toggleEvent: never;
+    contextMenuEvent: never;
     currentData: CodeRecord[];
 }
 
@@ -125,7 +130,14 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
         toggleEvent: {
             name: 'breakpoint-column-toggle',
             description:
-                'Emitted when a breakpoint is toggled via click, keyboard, or context menu. The event detail includes `recordId`, `oldState`, and `newState`.',
+                'Emitted when a breakpoint is toggled via click or keyboard. The event detail includes `recordId`, `oldState`, and `newState`.',
+            control: false,
+            table: { category: apiCategory.events }
+        },
+        contextMenuEvent: {
+            name: 'breakpoint-column-context-menu',
+            description:
+                'Emitted when the breakpoint context menu is requested. The event detail includes `recordId` and `currentState`.',
             control: false,
             table: { category: apiCategory.events }
         },
