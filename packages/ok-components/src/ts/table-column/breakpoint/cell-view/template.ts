@@ -1,7 +1,7 @@
 import { html, ref, slotted, when } from '@ni/fast-element';
-import type { TsTableColumnBreakpointCellView } from './index';
-import { BreakpointState } from '../types';
 import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
+import type { TsTableColumnBreakpointCellView } from '.';
+import { BreakpointState } from '../types';
 
 // Placeholder SVGs for breakpoint states - to be replaced with proper icons later
 const offSvg = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#888" stroke-width="1.5"/></svg>`;

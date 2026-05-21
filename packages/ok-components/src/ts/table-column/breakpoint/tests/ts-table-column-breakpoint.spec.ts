@@ -3,11 +3,15 @@ import { tableTag, type Table } from '@ni/nimble-components/dist/esm/table';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
+import { singleIconColumnWidth } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { TsTableColumnBreakpoint, tsTableColumnBreakpointTag } from '..';
 import { TsTableColumnBreakpointCellView } from '../cell-view';
-import { BreakpointState, type BreakpointToggleEventDetail } from '../types';
-import { singleIconColumnWidth } from '@ni/nimble-components/dist/esm/table-column/base/types';
+import {
+    BreakpointState,
+    type BreakpointToggleEventDetail,
+    type BreakpointContextMenuEventDetail
+} from '../types';
 
 interface SimpleTableRecord extends TableRecord {
     id?: string;
@@ -36,6 +40,26 @@ describe('TsTableColumnBreakpoint', () => {
                 </${tableTag}>`,
             { source }
         );
+    }
+
+    function getBreakpointButton(
+        cellView: TsTableColumnBreakpointCellView
+    ): HTMLButtonElement {
+        const button = cellView.shadowRoot!.querySelector<HTMLButtonElement>(
+            '.breakpoint-button'
+        );
+        if (!button) {
+            throw new Error('Expected breakpoint button');
+        }
+        return button;
+    }
+
+    function getContextMenuEventDetail(
+        contextMenuSpy: jasmine.Spy
+    ): BreakpointContextMenuEventDetail {
+        return (
+            contextMenuSpy.calls.first().args[0] as CustomEvent<BreakpointContextMenuEventDetail>
+        ).detail;
     }
 
     beforeEach(async () => {
@@ -173,9 +197,7 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
             button.click();
             await waitForUpdatesAsync();
 
@@ -204,9 +226,7 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
             button.click();
             await waitForUpdatesAsync();
 
@@ -235,9 +255,7 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
             button.click();
             await waitForUpdatesAsync();
 
@@ -310,16 +328,14 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
             button.dispatchEvent(
                 new MouseEvent('contextmenu', { bubbles: true })
             );
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = contextMenuSpy.calls.first().args[0].detail;
+            const eventDetail = getContextMenuEventDetail(contextMenuSpy);
             expect(eventDetail.recordId).toBe('1');
             expect(eventDetail.currentState).toBe(BreakpointState.off);
         });
@@ -340,16 +356,14 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
             button.dispatchEvent(
                 new MouseEvent('contextmenu', { bubbles: true })
             );
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = contextMenuSpy.calls.first().args[0].detail;
+            const eventDetail = getContextMenuEventDetail(contextMenuSpy);
             expect(eventDetail.recordId).toBe('1');
             expect(eventDetail.currentState).toBe(BreakpointState.enabled);
         });
@@ -370,9 +384,7 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
 
             button.dispatchEvent(
                 new KeyboardEvent('keydown', {
@@ -384,7 +396,7 @@ describe('TsTableColumnBreakpoint', () => {
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = contextMenuSpy.calls.first().args[0].detail;
+            const eventDetail = getContextMenuEventDetail(contextMenuSpy);
             expect(eventDetail.recordId).toBe('1');
             expect(eventDetail.currentState).toBe(BreakpointState.enabled);
         });
@@ -405,9 +417,7 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
 
             button.dispatchEvent(
                 new KeyboardEvent('keydown', {
@@ -418,7 +428,7 @@ describe('TsTableColumnBreakpoint', () => {
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = contextMenuSpy.calls.first().args[0].detail;
+            const eventDetail = getContextMenuEventDetail(contextMenuSpy);
             expect(eventDetail.recordId).toBe('1');
             expect(eventDetail.currentState).toBe(BreakpointState.enabled);
         });
@@ -441,9 +451,7 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
 
             button.dispatchEvent(
                 new KeyboardEvent('keydown', {
@@ -477,9 +485,7 @@ describe('TsTableColumnBreakpoint', () => {
                 0,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const button = getBreakpointButton(cellView);
 
             button.dispatchEvent(
                 new KeyboardEvent('keydown', {
@@ -513,12 +519,8 @@ describe('TsTableColumnBreakpoint', () => {
                 1,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const firstButton = firstCellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
-            const secondButton = secondCellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const firstButton = getBreakpointButton(firstCellView);
+            const secondButton = getBreakpointButton(secondCellView);
 
             firstButton.focus();
             firstButton.dispatchEvent(
@@ -547,12 +549,8 @@ describe('TsTableColumnBreakpoint', () => {
                 1,
                 0
             ) as TsTableColumnBreakpointCellView;
-            const firstButton = firstCellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
-            const secondButton = secondCellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
+            const firstButton = getBreakpointButton(firstCellView);
+            const secondButton = getBreakpointButton(secondCellView);
 
             secondButton.focus();
             secondButton.dispatchEvent(
@@ -565,7 +563,6 @@ describe('TsTableColumnBreakpoint', () => {
 
             expect(firstButton.matches(':focus')).toBeTrue();
         });
-
     });
 
     describe('field-name attribute', () => {

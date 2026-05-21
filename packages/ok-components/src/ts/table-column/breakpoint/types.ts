@@ -9,8 +9,7 @@ export const BreakpointState = {
     conditional: 'conditional',
     hitDisabled: 'hit-disabled'
 } as const;
-export type BreakpointState =
-    (typeof BreakpointState)[keyof typeof BreakpointState];
+export type BreakpointState = (typeof BreakpointState)[keyof typeof BreakpointState];
 
 /**
  * The event detail for the `breakpoint-column-toggle` event.

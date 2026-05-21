@@ -1,15 +1,15 @@
 import { DesignSystem } from '@ni/fast-foundation';
 import { attr } from '@ni/fast-element';
-import { template } from './template';
-import { styles } from './styles';
 import type { TableStringField } from '@ni/nimble-components/dist/esm/table/types';
-import { tsTableColumnBreakpointCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '@ni/nimble-components/dist/esm/table-column/base/models/column-internals';
 import { singleIconColumnWidth } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { ColumnValidator } from '@ni/nimble-components/dist/esm/table-column/base/models/column-validator';
 import { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
-import { type BreakpointToggleEventDetail, type BreakpointContextMenuEventDetail } from './types';
 import type { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
+import type { BreakpointToggleEventDetail, BreakpointContextMenuEventDetail } from './types';
+import { tsTableColumnBreakpointCellViewTag } from './cell-view';
+import { styles } from './styles';
+import { template } from './template';
 
 export type TsTableColumnBreakpointCellRecord = TableStringField<'value'>;
 

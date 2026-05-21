@@ -8,7 +8,7 @@ import type { CellViewSlotRequestEventDetail } from '@ni/nimble-components/dist/
 import { template } from './template';
 import { styles } from './styles';
 import { BreakpointState, type BreakpointToggleEventDetail, type BreakpointContextMenuEventDetail } from '../types';
-import type { TsTableColumnBreakpointCellRecord, TsTableColumnBreakpointColumnConfig } from '../index';
+import type { TsTableColumnBreakpointCellRecord, TsTableColumnBreakpointColumnConfig } from '..';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -23,6 +23,12 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     TsTableColumnBreakpointCellRecord,
     TsTableColumnBreakpointColumnConfig
 > {
+    private static readonly contextMenuKey = 'ContextMenu';
+
+    private static readonly legacyContextMenuKey = 'Apps';
+
+    private static readonly menuKeyAlias = 'Menu';
+
     /** @internal */
     @observable
     public open = false;
@@ -37,12 +43,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     /** @internal */
     @observable
     public slottedMenus?: HTMLElement[];
-
-    private static readonly contextMenuKey = 'ContextMenu';
-
-    private static readonly legacyContextMenuKey = 'Apps';
-
-    private static readonly menuKeyAlias = 'Menu';
 
     /** @internal */
     public get currentState(): BreakpointState {
@@ -276,15 +276,15 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
 
     private tryFocusSiblingBreakpoint(backward: boolean): boolean {
         const currentCell = this.getContainingHost(this) as {
-            getRootNode: () => Node;
+            getRootNode: () => Node
         } | undefined;
         if (!currentCell) {
             return false;
         }
 
         const currentRow = this.getContainingHost(currentCell) as {
-            getFocusableElements: () => { cells: Array<{ cell: { cellView: TableCellView } }> };
-            getRootNode: () => Node;
+            getFocusableElements: () => { cells: { cell: { cellView: TableCellView } }[] },
+            getRootNode: () => Node
         } | undefined;
         if (!currentRow) {
             return false;
@@ -310,7 +310,7 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         const delta = backward ? -1 : 1;
         for (let i = rowIndex + delta; i >= 0 && i < rowElements.length; i += delta) {
             const row = rowElements[i] as {
-                getFocusableElements?: () => { cells: Array<{ cell: { cellView: TableCellView } }> };
+                getFocusableElements?: () => { cells: { cell: { cellView: TableCellView } }[] }
             };
             if (!row.getFocusableElements) {
                 continue;

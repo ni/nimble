@@ -1,7 +1,7 @@
 import { html, ref } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
-import { tableTag, type Table } from '@ni/nimble-components/dist/esm/table';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { tsTableColumnBreakpointTag } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint';
@@ -100,13 +100,13 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
             <${tsTableColumnBreakpointTag}
                 field-name="${x => x.fieldName}"
                 @breakpoint-column-toggle="${(x, c) => {
-        const event = c.event as CustomEvent<BreakpointToggleEventDetail>;
-        const detail = event.detail;
-        x.currentData = x.currentData.map(record => (record.id === detail.recordId
-            ? { ...record, breakpointState: detail.newState }
-            : record));
-        void x.tableRef.setData(x.currentData);
-    }}"
+                    const event = c.event as CustomEvent<BreakpointToggleEventDetail>;
+                    const detail = event.detail;
+                    x.currentData = x.currentData.map(record => (record.id === detail.recordId
+                        ? { ...record, breakpointState: detail.newState }
+                        : record));
+                    void x.tableRef.setData(x.currentData);
+                }}"
             >
             </${tsTableColumnBreakpointTag}>
             <${tableColumnTextTag} field-name="code">
