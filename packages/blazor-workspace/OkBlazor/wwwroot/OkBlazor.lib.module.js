@@ -23,17 +23,26 @@ function registerEvents(Blazor) {
 
     hasRegisteredEvents = true;
 
-    /* Register any custom events here
-    Blazor.registerCustomEventType('okeventname', {
-        browserEventName: 'foo',
+    Blazor.registerCustomEventType('okbreakpointcolumntoggle', {
+        browserEventName: 'breakpoint-column-toggle',
         createEventArgs: event => {
             return {
+                recordId: event.detail.recordId,
                 newState: event.detail.newState,
                 oldState: event.detail.oldState
             };
         }
     });
-    */
+
+    Blazor.registerCustomEventType('okbreakpointcolumncontextmenu', {
+        browserEventName: 'breakpoint-column-context-menu',
+        createEventArgs: event => {
+            return {
+                recordId: event.detail.recordId,
+                currentState: event.detail.currentState
+            };
+        }
+    });
 }
 
 function handleRuntimeStarted() {

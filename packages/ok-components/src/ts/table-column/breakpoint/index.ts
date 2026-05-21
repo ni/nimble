@@ -8,7 +8,7 @@ import type { ColumnInternalsOptions } from '@ni/nimble-components/dist/esm/tabl
 import { singleIconColumnWidth } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { ColumnValidator } from '@ni/nimble-components/dist/esm/table-column/base/models/column-validator';
 import { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
-import { type BreakpointToggleEventDetail } from './types';
+import { type BreakpointToggleEventDetail, type BreakpointContextMenuEventDetail } from './types';
 import type { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
 
 export type TsTableColumnBreakpointCellRecord = TableStringField<'value'>;
@@ -42,14 +42,21 @@ export class TsTableColumnBreakpoint extends TableColumn<TsTableColumnBreakpoint
         e.stopImmediatePropagation();
 
         const event = e as CustomEvent<DelegatedEventEventDetails>;
-        const originalEvent = event.detail.originalEvent as CustomEvent<BreakpointToggleEventDetail>;
 
-        if (originalEvent.type === 'breakpoint-column-toggle') {
+        if (event.detail.originalEvent.type === 'breakpoint-column-toggle') {
+            const originalEvent = event.detail.originalEvent as CustomEvent<BreakpointToggleEventDetail>;
             const detail: BreakpointToggleEventDetail = {
                 ...originalEvent.detail,
                 recordId: event.detail.recordId
             };
             this.$emit('breakpoint-column-toggle', detail);
+        } else if (event.detail.originalEvent.type === 'breakpoint-column-context-menu') {
+            const originalEvent = event.detail.originalEvent as CustomEvent<BreakpointContextMenuEventDetail>;
+            const detail: BreakpointContextMenuEventDetail = {
+                ...originalEvent.detail,
+                recordId: event.detail.recordId
+            };
+            this.$emit('breakpoint-column-context-menu', detail);
         }
     }
 
@@ -57,7 +64,8 @@ export class TsTableColumnBreakpoint extends TableColumn<TsTableColumnBreakpoint
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tsTableColumnBreakpointCellViewTag,
-            delegatedEvents: ['breakpoint-column-toggle'],
+            delegatedEvents: ['breakpoint-column-toggle', 'breakpoint-column-beforetoggle', 'breakpoint-column-context-menu'],
+            slotNames: ['menu'],
             validator: new ColumnValidator<[]>([])
         };
     }

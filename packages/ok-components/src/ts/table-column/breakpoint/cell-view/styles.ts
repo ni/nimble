@@ -21,8 +21,7 @@ export const styles = css`
         border: none;
         background: transparent;
         cursor: pointer;
-        border-radius: 50%;
-        outline-offset: -2px;
+        outline-offset: -1px;
     }
 
     .breakpoint-button:focus-visible {
@@ -41,25 +40,5 @@ export const styles = css`
     .breakpoint-button.state-off:hover svg,
     .breakpoint-button.state-off:focus-visible svg {
         opacity: 1;
-    }
-
-    .context-menu-button {
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        pointer-events: none;
-    }
-
-    .context-menu-button::part(button) {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    .context-menu-button[open] {
-        pointer-events: auto;
-    }
-
-    .context-menu-button::part(menu) {
-        z-index: 1;
     }
 `;

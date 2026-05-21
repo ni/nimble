@@ -294,32 +294,17 @@ describe('TsTableColumnBreakpoint', () => {
     });
 
     describe('context menu', () => {
-        it('opens internal nimble context menu when state is off', async () => {
+        it('emits breakpoint-column-context-menu on right-click when state is off', async () => {
             await table.setData([
                 { id: '1', breakpointState: BreakpointState.off }
             ]);
             await waitForUpdatesAsync();
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = cellView.shadowRoot!.querySelector(
-                '.breakpoint-button'
-            ) as HTMLButtonElement;
-            button.dispatchEvent(
-                new MouseEvent('contextmenu', { bubbles: true })
+            const contextMenuSpy = jasmine.createSpy('contextmenu');
+            elementReferences.column.addEventListener(
+                'breakpoint-column-context-menu',
+                contextMenuSpy
             );
-            await waitForUpdatesAsync();
-
-            expect(cellView.contextMenuButton?.open).toBeTrue();
-        });
-
-        it('opens internal nimble context menu when state is enabled', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.enabled }
-            ]);
-            await waitForUpdatesAsync();
 
             const cellView = tablePageObject.getRenderedCellView(
                 0,
@@ -333,14 +318,53 @@ describe('TsTableColumnBreakpoint', () => {
             );
             await waitForUpdatesAsync();
 
-            expect(cellView.contextMenuButton?.open).toBeTrue();
+            expect(contextMenuSpy).toHaveBeenCalledTimes(1);
+            const eventDetail = contextMenuSpy.calls.first().args[0].detail;
+            expect(eventDetail.recordId).toBe('1');
+            expect(eventDetail.currentState).toBe(BreakpointState.off);
         });
 
-        it('opens internal nimble context menu on Shift+F10', async () => {
+        it('emits breakpoint-column-context-menu on right-click when state is enabled', async () => {
             await table.setData([
                 { id: '1', breakpointState: BreakpointState.enabled }
             ]);
             await waitForUpdatesAsync();
+
+            const contextMenuSpy = jasmine.createSpy('contextmenu');
+            elementReferences.column.addEventListener(
+                'breakpoint-column-context-menu',
+                contextMenuSpy
+            );
+
+            const cellView = tablePageObject.getRenderedCellView(
+                0,
+                0
+            ) as TsTableColumnBreakpointCellView;
+            const button = cellView.shadowRoot!.querySelector(
+                '.breakpoint-button'
+            ) as HTMLButtonElement;
+            button.dispatchEvent(
+                new MouseEvent('contextmenu', { bubbles: true })
+            );
+            await waitForUpdatesAsync();
+
+            expect(contextMenuSpy).toHaveBeenCalledTimes(1);
+            const eventDetail = contextMenuSpy.calls.first().args[0].detail;
+            expect(eventDetail.recordId).toBe('1');
+            expect(eventDetail.currentState).toBe(BreakpointState.enabled);
+        });
+
+        it('emits breakpoint-column-context-menu on Shift+F10', async () => {
+            await table.setData([
+                { id: '1', breakpointState: BreakpointState.enabled }
+            ]);
+            await waitForUpdatesAsync();
+
+            const contextMenuSpy = jasmine.createSpy('contextmenu');
+            elementReferences.column.addEventListener(
+                'breakpoint-column-context-menu',
+                contextMenuSpy
+            );
 
             const cellView = tablePageObject.getRenderedCellView(
                 0,
@@ -359,14 +383,23 @@ describe('TsTableColumnBreakpoint', () => {
             );
             await waitForUpdatesAsync();
 
-            expect(cellView.contextMenuButton?.open).toBeTrue();
+            expect(contextMenuSpy).toHaveBeenCalledTimes(1);
+            const eventDetail = contextMenuSpy.calls.first().args[0].detail;
+            expect(eventDetail.recordId).toBe('1');
+            expect(eventDetail.currentState).toBe(BreakpointState.enabled);
         });
 
-        it('opens internal nimble context menu on Menu key', async () => {
+        it('emits breakpoint-column-context-menu on ContextMenu key', async () => {
             await table.setData([
                 { id: '1', breakpointState: BreakpointState.enabled }
             ]);
             await waitForUpdatesAsync();
+
+            const contextMenuSpy = jasmine.createSpy('contextmenu');
+            elementReferences.column.addEventListener(
+                'breakpoint-column-context-menu',
+                contextMenuSpy
+            );
 
             const cellView = tablePageObject.getRenderedCellView(
                 0,
@@ -384,7 +417,10 @@ describe('TsTableColumnBreakpoint', () => {
             );
             await waitForUpdatesAsync();
 
-            expect(cellView.contextMenuButton?.open).toBeTrue();
+            expect(contextMenuSpy).toHaveBeenCalledTimes(1);
+            const eventDetail = contextMenuSpy.calls.first().args[0].detail;
+            expect(eventDetail.recordId).toBe('1');
+            expect(eventDetail.currentState).toBe(BreakpointState.enabled);
         });
     });
 

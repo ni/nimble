@@ -5,7 +5,9 @@ export const BreakpointState = {
     off: 'off',
     enabled: 'enabled',
     disabled: 'disabled',
-    hit: 'hit'
+    hit: 'hit',
+    conditional: 'conditional',
+    hitDisabled: 'hit-disabled'
 } as const;
 export type BreakpointState =
     (typeof BreakpointState)[keyof typeof BreakpointState];
@@ -17,4 +19,12 @@ export interface BreakpointToggleEventDetail {
     recordId: string;
     newState: BreakpointState;
     oldState: BreakpointState;
+}
+
+/**
+ * The event detail for the `breakpoint-column-context-menu` event.
+ */
+export interface BreakpointContextMenuEventDetail {
+    recordId: string;
+    currentState: BreakpointState;
 }

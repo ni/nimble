@@ -1,10 +1,13 @@
 import { DesignSystem } from '@ni/fast-foundation';
+import { observable } from '@ni/fast-element';
+import { eventChange, keyEscape } from '@ni/fast-web-utilities';
 import { TableCellView } from '@ni/nimble-components/dist/esm/table-column/base/cell-view';
-import type { MenuButton } from '@ni/nimble-components/dist/esm/menu-button';
 import type { Table } from '@ni/nimble-components/dist/esm/table';
+import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
+import type { CellViewSlotRequestEventDetail } from '@ni/nimble-components/dist/esm/table/types';
 import { template } from './template';
 import { styles } from './styles';
-import { BreakpointState, type BreakpointToggleEventDetail } from '../types';
+import { BreakpointState, type BreakpointToggleEventDetail, type BreakpointContextMenuEventDetail } from '../types';
 import type { TsTableColumnBreakpointCellRecord, TsTableColumnBreakpointColumnConfig } from '../index';
 
 declare global {
@@ -20,14 +23,26 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     TsTableColumnBreakpointCellRecord,
     TsTableColumnBreakpointColumnConfig
 > {
+    /** @internal */
+    @observable
+    public open = false;
+
+    /** @internal */
+    public button?: HTMLButtonElement;
+
+    /** @internal */
+    @observable
+    public region?: AnchoredRegion;
+
+    /** @internal */
+    @observable
+    public slottedMenus?: HTMLElement[];
+
     private static readonly contextMenuKey = 'ContextMenu';
 
     private static readonly legacyContextMenuKey = 'Apps';
 
     private static readonly menuKeyAlias = 'Menu';
-
-    /** @internal */
-    public contextMenuButton?: MenuButton;
 
     /** @internal */
     public get currentState(): BreakpointState {
@@ -55,17 +70,75 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
                 return 'Breakpoint disabled';
             case BreakpointState.hit:
                 return 'Breakpoint hit';
+            case BreakpointState.conditional:
+                return 'Conditional breakpoint';
+            case BreakpointState.hitDisabled:
+                return 'Breakpoint hit (disabled)';
             default:
                 return 'Add breakpoint';
         }
     }
 
     public override get tabbableChildren(): HTMLElement[] {
-        const button = this.shadowRoot?.querySelector('.breakpoint-button') as HTMLElement | null;
-        if (button) {
-            return [button];
+        if (this.button) {
+            return [this.button];
         }
         return [];
+    }
+
+    public regionChanged(
+        prev: AnchoredRegion | undefined,
+        _next: AnchoredRegion | undefined
+    ): void {
+        if (prev) {
+            prev.removeEventListener(eventChange, this.menuChangeHandler);
+        }
+
+        if (this.region && this.button) {
+            this.region.anchorElement = this.button;
+            this.region.addEventListener(eventChange, this.menuChangeHandler, {
+                capture: true
+            });
+        }
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        if (this.region) {
+            this.region.removeEventListener(eventChange, this.menuChangeHandler);
+        }
+    }
+
+    /** @internal */
+    public onContextMenuKeyDown(e: KeyboardEvent): boolean {
+        switch (e.key) {
+            case keyEscape:
+                this.setContextMenuOpen(false);
+                this.button?.focus();
+                return false;
+            default:
+                return true;
+        }
+    }
+
+    /** @internal */
+    public regionLoadedHandler(): void {
+        this.focusMenu();
+    }
+
+    /** @internal */
+    public onContextMenuFocusOut(e: FocusEvent): boolean {
+        if (!this.open) {
+            return true;
+        }
+
+        const focusTarget = e.relatedTarget as HTMLElement;
+        if (!this.contains(focusTarget) && !this.getMenu()?.contains(focusTarget)) {
+            this.setContextMenuOpen(false);
+            return false;
+        }
+
+        return true;
     }
 
     /** @internal */
@@ -82,7 +155,7 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     public onContextMenu(event: Event): void {
         event.preventDefault();
         event.stopPropagation();
-        this.openContextMenu();
+        this.emitContextMenu();
     }
 
     /** @internal */
@@ -107,7 +180,7 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
             || event.key === TsTableColumnBreakpointCellView.menuKeyAlias) {
             event.preventDefault();
             event.stopPropagation();
-            this.openContextMenu();
+            this.emitContextMenu();
             return;
         }
 
@@ -116,26 +189,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
             event.stopPropagation();
             this.onButtonClick(event);
         }
-    }
-
-    /** @internal */
-    public onDisableMenuItemSelected(): void {
-        this.emitToggle(this.currentState, BreakpointState.disabled);
-    }
-
-    /** @internal */
-    public onAddMenuItemSelected(): void {
-        this.emitToggle(this.currentState, BreakpointState.enabled);
-    }
-
-    /** @internal */
-    public onEnableMenuItemSelected(): void {
-        this.emitToggle(this.currentState, BreakpointState.enabled);
-    }
-
-    /** @internal */
-    public onRemoveMenuItemSelected(): void {
-        this.emitToggle(this.currentState, BreakpointState.off);
     }
 
     private emitToggle(
@@ -150,10 +203,75 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         this.$emit('breakpoint-column-toggle', detail);
     }
 
-    private openContextMenu(): void {
-        if (this.contextMenuButton && !this.contextMenuButton.open) {
-            this.contextMenuButton.open = true;
+    private emitContextMenu(): void {
+        const slotRequestDetail: CellViewSlotRequestEventDetail = {
+            slots: [{ name: 'menu', slot: 'menu' }]
+        };
+        this.$emit('cell-view-slots-request', slotRequestDetail);
+        this.setContextMenuOpen(true);
+    }
+
+    private setContextMenuOpen(newValue: boolean): void {
+        if (this.open === newValue) {
+            return;
         }
+
+        const detail: BreakpointContextMenuEventDetail = {
+            recordId: this.recordId ?? '',
+            currentState: this.currentState
+        };
+
+        if (newValue) {
+            // Emit beforetoggle when opening
+            this.$emit('breakpoint-column-beforetoggle', detail);
+        }
+
+        this.open = newValue;
+
+        if (newValue) {
+            // Emit context-menu event only when opening.
+            this.$emit('breakpoint-column-context-menu', detail);
+        }
+    }
+
+    private getMenu(): HTMLElement | undefined {
+        // Resolve nested slot forwarding (table -> row -> cell-view) to find the actual menu.
+        if (!this.slottedMenus || this.slottedMenus.length === 0) {
+            return undefined;
+        }
+
+        let currentItem: HTMLElement | undefined = this.slottedMenus[0];
+        while (currentItem) {
+            if (currentItem.getAttribute('role') === 'menu') {
+                return currentItem;
+            }
+
+            if (this.isSlotElement(currentItem)) {
+                const firstNode = currentItem.assignedNodes()[0];
+                if (firstNode instanceof HTMLElement) {
+                    currentItem = firstNode;
+                } else {
+                    currentItem = undefined;
+                }
+            } else {
+                return undefined;
+            }
+        }
+
+        return undefined;
+    }
+
+    private isSlotElement(element: HTMLElement | undefined): element is HTMLSlotElement {
+        return element?.nodeName === 'SLOT';
+    }
+
+    private readonly menuChangeHandler = (): void => {
+        this.setContextMenuOpen(false);
+        this.button?.focus();
+    };
+
+    private focusMenu(): void {
+        this.getMenu()?.focus();
     }
 
     private tryFocusSiblingBreakpoint(backward: boolean): boolean {

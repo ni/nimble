@@ -1,18 +1,20 @@
-import { html, ref, when } from '@ni/fast-element';
+import { html, ref, slotted, when } from '@ni/fast-element';
 import type { TsTableColumnBreakpointCellView } from './index';
 import { BreakpointState } from '../types';
-import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
-import { menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 
 // Placeholder SVGs for breakpoint states - to be replaced with proper icons later
 const offSvg = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#888" stroke-width="1.5"/></svg>`;
 const enabledSvg = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="#E51400"/></svg>`;
 const disabledSvg = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#E51400" stroke-width="1.5"/><line x1="2" y1="10" x2="10" y2="2" stroke="#E51400" stroke-width="1.5"/></svg>`;
 const hitSvg = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="#E51400"/><circle cx="6" cy="6" r="5" fill="none" stroke="#FFD700" stroke-width="1.5"/></svg>`;
+const conditionalSvg = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><polygon points="6,1 11,6 6,11 1,6" fill="#FFD700"/></svg>`;
+const hitDisabledSvg = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="#E51400"/><circle cx="6" cy="6" r="5" fill="none" stroke="#FFD700" stroke-width="1.5"/><line x1="2" y1="10" x2="10" y2="2" stroke="#888" stroke-width="1.5"/></svg>`;
 
 export const template = html<TsTableColumnBreakpointCellView>`
     <button
+        ${ref('button')}
+        part="button"
         class="breakpoint-button state-${x => x.currentState}"
         @click="${(x, c) => x.onButtonClick(c.event)}"
         @contextmenu="${(x, c) => x.onContextMenu(c.event)}"
@@ -25,37 +27,22 @@ export const template = html<TsTableColumnBreakpointCellView>`
         ${when(x => x.currentState === BreakpointState.enabled, enabledSvg)}
         ${when(x => x.currentState === BreakpointState.disabled, disabledSvg)}
         ${when(x => x.currentState === BreakpointState.hit, hitSvg)}
+        ${when(x => x.currentState === BreakpointState.conditional, conditionalSvg)}
+        ${when(x => x.currentState === BreakpointState.hitDisabled, hitDisabledSvg)}
     </button>
-    <${menuButtonTag}
-        ${ref('contextMenuButton')}
-        class="context-menu-button"
-        content-hidden
-        position="above"
-        tabindex="-1"
-        @click="${(_, c) => c.event.stopPropagation()}"
-    >
-        <${menuTag} slot="menu">
-            ${when(x => x.currentState === BreakpointState.off, html<TsTableColumnBreakpointCellView>`
-                <${menuItemTag} @change="${x => x.onAddMenuItemSelected()}">
-                    Add breakpoint
-                </${menuItemTag}>
-            `)}
-            ${when(x => x.currentState === BreakpointState.enabled || x.currentState === BreakpointState.hit, html<TsTableColumnBreakpointCellView>`
-                <${menuItemTag} @change="${x => x.onDisableMenuItemSelected()}">
-                    Disable breakpoint
-                </${menuItemTag}>
-                <${menuItemTag} @change="${x => x.onRemoveMenuItemSelected()}">
-                    Remove breakpoint
-                </${menuItemTag}>
-            `)}
-            ${when(x => x.currentState === BreakpointState.disabled, html<TsTableColumnBreakpointCellView>`
-                <${menuItemTag} @change="${x => x.onEnableMenuItemSelected()}">
-                    Enable breakpoint
-                </${menuItemTag}>
-                <${menuItemTag} @change="${x => x.onRemoveMenuItemSelected()}">
-                    Remove breakpoint
-                </${menuItemTag}>
-            `)}
-        </${menuTag}>
-    </${menuButtonTag}>
-`;
+    ${when(x => x.open, html<TsTableColumnBreakpointCellView>`
+        <${anchoredRegionTag}
+            ${ref('region')}
+            part="menu"
+            fixed-placement="true"
+            auto-update-mode="auto"
+            horizontal-inset="true"
+            horizontal-positioning-mode="dynamic"
+            vertical-positioning-mode="dynamic"
+            @loaded="${x => x.regionLoadedHandler()}"
+            @focusout="${(x, c) => x.onContextMenuFocusOut(c.event as FocusEvent)}"
+            @keydown="${(x, c) => x.onContextMenuKeyDown(c.event as KeyboardEvent)}"
+        >
+            <slot name="menu" ${slotted({ property: 'slottedMenus' })}></slot>
+        </${anchoredRegionTag}>
+    `)}`;
