@@ -574,7 +574,6 @@ describe('TsTableColumnBreakpoint', () => {
             expect(eventDetail.oldState).toBe(BreakpointState.enabled);
             expect(eventDetail.newState).toBe(BreakpointState.off);
         });
-
     });
 
     describe('field-name attribute', () => {
