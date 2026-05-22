@@ -4,6 +4,7 @@
         <Recognized>
             <Word>args</Word>
             <Word>blazor</Word>
+            <Word>breakpoint</Word>
             <Word>bool</Word>
             <Word>clearable</Word>
             <Word>combobox</Word>
