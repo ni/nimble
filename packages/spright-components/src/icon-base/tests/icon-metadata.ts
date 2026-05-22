@@ -22,10 +22,10 @@ export const iconMetadata: {
     IconBreakpointExecutionPointer: {
         tags: ['debug']
     },
-    IconBreakpointHitDisabled: {
+    IconBreakpointHit: {
         tags: ['debug']
     },
-    IconBreakpointHit: {
+    IconBreakpointHitDisabled: {
         tags: ['debug']
     },
     IconBreakpointHover: {
@@ -37,11 +37,11 @@ export const iconMetadata: {
     IconWorkItemCalendarWeek: {
         tags: ['reservation', 'booking', 'schedule', 'time slot']
     },
-    IconWorkItemForklift: {
-        tags: ['logistics', 'delivery', 'transport', 'shipping']
-    },
     IconWorkItemCalipers: {
         tags: ['calibration', 'quality', 'measurement', 'standards']
+    },
+    IconWorkItemForklift: {
+        tags: ['logistics', 'delivery', 'transport', 'shipping']
     },
     IconWorkItemRectangleCheckLines: {
         tags: ['testing', 'verification', 'quality assurance', 'checklist']
