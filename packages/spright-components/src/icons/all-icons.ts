@@ -1,4 +1,10 @@
 export { IconBreakpointConditional } from './breakpoint-conditional';
+export { IconBreakpointDisabled } from './breakpoint-disabled';
+export { IconBreakpointEnabled } from './breakpoint-enabled';
+export { IconBreakpointExecutionPointer } from './breakpoint-execution-pointer';
+export { IconBreakpointHitDisabled } from './breakpoint-hit-disabled';
+export { IconBreakpointHit } from './breakpoint-hit';
+export { IconBreakpointHover } from './breakpoint-hover';
 export { IconNigelChat } from './nigel-chat';
 export { IconWorkItemCalendarWeek } from './work-item-calendar-week';
 export { IconWorkItemCalipers } from './work-item-calipers';

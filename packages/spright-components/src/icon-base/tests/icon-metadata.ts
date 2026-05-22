@@ -13,6 +13,24 @@ export const iconMetadata: {
     IconBreakpointConditional: {
         tags: ['debug']
     },
+    IconBreakpointDisabled: {
+        tags: ['debug']
+    },
+    IconBreakpointEnabled: {
+        tags: ['debug']
+    },
+    IconBreakpointExecutionPointer: {
+        tags: ['debug']
+    },
+    IconBreakpointHitDisabled: {
+        tags: ['debug']
+    },
+    IconBreakpointHit: {
+        tags: ['debug']
+    },
+    IconBreakpointHover: {
+        tags: ['debug']
+    },
     IconNigelChat: {
         tags: ['nigel', 'chat', 'ai']
     },
