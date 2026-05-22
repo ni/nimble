@@ -1,3 +1,4 @@
+export { IconBreakpointConditional } from './breakpoint-conditional';
 export { IconNigelChat } from './nigel-chat';
 export { IconWorkItemCalendarWeek } from './work-item-calendar-week';
 export { IconWorkItemCalipers } from './work-item-calipers';

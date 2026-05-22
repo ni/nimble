@@ -10,6 +10,9 @@ export const iconMetadata: {
     readonly [key in IconName]: IconMetadata;
 } = {
     /* eslint-disable @typescript-eslint/naming-convention */
+    IconBreakpointConditional: {
+        tags: ['debug']
+    },
     IconNigelChat: {
         tags: ['nigel', 'chat', 'ai']
     },
