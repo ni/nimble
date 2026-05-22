@@ -64,7 +64,7 @@ export class TsTableColumnBreakpoint extends TableColumn<TsTableColumnBreakpoint
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tsTableColumnBreakpointCellViewTag,
-            delegatedEvents: ['breakpoint-column-toggle', 'breakpoint-column-beforetoggle', 'breakpoint-column-context-menu'],
+            delegatedEvents: ['breakpoint-column-toggle', 'breakpoint-column-context-menu'],
             slotNames: ['menu'],
             validator: new ColumnValidator<[]>([])
         };

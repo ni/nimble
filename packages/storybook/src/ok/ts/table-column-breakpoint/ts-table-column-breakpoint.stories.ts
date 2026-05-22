@@ -53,6 +53,24 @@ const simpleData: CodeRecord[] = [
     {
         id: '5',
         lineNumber: 5,
+        code: '  if (x > 0) {',
+        breakpointState: BreakpointState.conditional
+    },
+    {
+        id: '6',
+        lineNumber: 6,
+        code: '    throw new Error("hit-disabled");',
+        breakpointState: BreakpointState.hitDisabled
+    },
+    {
+        id: '7',
+        lineNumber: 7,
+        code: '  }',
+        breakpointState: BreakpointState.off
+    },
+    {
+        id: '8',
+        lineNumber: 8,
         code: '}',
         breakpointState: BreakpointState.off
     }

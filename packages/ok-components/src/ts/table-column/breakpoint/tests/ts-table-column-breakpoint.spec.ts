@@ -268,6 +268,46 @@ describe('TsTableColumnBreakpoint', () => {
         });
     });
 
+    describe('table selection does not change', () => {
+        let button: HTMLButtonElement;
+
+        beforeEach(async () => {
+            table.selectionMode = 'multiple';
+            await waitForUpdatesAsync();
+
+            await table.setData([{ id: '1', breakpointState: BreakpointState.off }]);
+            await waitForUpdatesAsync();
+
+            const cellView = tablePageObject.getRenderedCellView(
+                0,
+                0
+            ) as TsTableColumnBreakpointCellView;
+            button = getBreakpointButton(cellView);
+            button.focus();
+        });
+
+        it('when clicking a breakpoint button', async () => {
+            button.click();
+            await waitForUpdatesAsync();
+
+            const selection = await table.getSelectedRecordIds();
+            expect(selection.length).toBe(0);
+        });
+
+        it('when toggling a breakpoint button by pressing Enter', async () => {
+            button.dispatchEvent(
+                new KeyboardEvent('keydown', {
+                    key: 'Enter',
+                    bubbles: true
+                })
+            );
+            await waitForUpdatesAsync();
+
+            const selection = await table.getSelectedRecordIds();
+            expect(selection.length).toBe(0);
+        });
+    });
+
     describe('tooltip text', () => {
         it('shows "Add breakpoint" when state is off', async () => {
             await table.setData([
@@ -535,65 +575,6 @@ describe('TsTableColumnBreakpoint', () => {
             expect(eventDetail.newState).toBe(BreakpointState.off);
         });
 
-        it('moves focus to next row breakpoint on ArrowDown', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.enabled },
-                { id: '2', breakpointState: BreakpointState.off }
-            ]);
-            await waitForUpdatesAsync();
-
-            const firstCellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const secondCellView = tablePageObject.getRenderedCellView(
-                1,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const firstButton = getBreakpointButton(firstCellView);
-            const secondButton = getBreakpointButton(secondCellView);
-
-            firstButton.focus();
-            firstButton.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: 'ArrowDown',
-                    bubbles: true
-                })
-            );
-            await waitForUpdatesAsync();
-
-            expect(secondButton.matches(':focus')).toBeTrue();
-        });
-
-        it('moves focus to previous row breakpoint on ArrowUp', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.off },
-                { id: '2', breakpointState: BreakpointState.enabled }
-            ]);
-            await waitForUpdatesAsync();
-
-            const firstCellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const secondCellView = tablePageObject.getRenderedCellView(
-                1,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const firstButton = getBreakpointButton(firstCellView);
-            const secondButton = getBreakpointButton(secondCellView);
-
-            secondButton.focus();
-            secondButton.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: 'ArrowUp',
-                    bubbles: true
-                })
-            );
-            await waitForUpdatesAsync();
-
-            expect(firstButton.matches(':focus')).toBeTrue();
-        });
     });
 
     describe('field-name attribute', () => {

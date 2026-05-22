@@ -2,7 +2,6 @@ import { DesignSystem } from '@ni/fast-foundation';
 import { observable } from '@ni/fast-element';
 import { eventChange, keyEscape } from '@ni/fast-web-utilities';
 import { TableCellView } from '@ni/nimble-components/dist/esm/table-column/base/cell-view';
-import type { Table } from '@ni/nimble-components/dist/esm/table';
 import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
 import type { CellViewSlotRequestEventDetail } from '@ni/nimble-components/dist/esm/table/types';
 import { template } from './template';
@@ -160,13 +159,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
 
     /** @internal */
     public onKeyDown(event: KeyboardEvent): void {
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-            event.preventDefault();
-            event.stopPropagation();
-            this.tryFocusSiblingBreakpoint(event.key === 'ArrowUp');
-            return;
-        }
-
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             event.stopPropagation();
@@ -223,16 +215,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
             return;
         }
 
-        const detail: BreakpointContextMenuEventDetail = {
-            recordId: this.recordId ?? '',
-            currentState: this.currentState
-        };
-
-        if (newValue) {
-            // Emit beforetoggle when opening
-            this.$emit('breakpoint-column-beforetoggle', detail);
-        }
-
         this.open = newValue;
     }
 
@@ -274,67 +256,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
 
     private focusMenu(): void {
         this.getMenu()?.focus();
-    }
-
-    private tryFocusSiblingBreakpoint(backward: boolean): boolean {
-        const currentCell = this.getContainingHost(this) as {
-            getRootNode: () => Node
-        } | undefined;
-        if (!currentCell) {
-            return false;
-        }
-
-        const currentRow = this.getContainingHost(currentCell) as {
-            getFocusableElements: () => { cells: { cell: { cellView: TableCellView } }[] },
-            getRootNode: () => Node
-        } | undefined;
-        if (!currentRow) {
-            return false;
-        }
-
-        const table = this.getContainingHost(currentRow) as Table | undefined;
-        if (!table) {
-            return false;
-        }
-
-        const rowElements = table.rowElements;
-        const rowIndex = rowElements.findIndex(row => row === currentRow);
-        if (rowIndex < 0) {
-            return false;
-        }
-
-        const currentRowCells = currentRow.getFocusableElements().cells;
-        const columnIndex = currentRowCells.findIndex(cellInfo => cellInfo.cell === currentCell as unknown as typeof cellInfo.cell);
-        if (columnIndex < 0) {
-            return false;
-        }
-
-        const delta = backward ? -1 : 1;
-        for (let i = rowIndex + delta; i >= 0 && i < rowElements.length; i += delta) {
-            const row = rowElements[i] as {
-                getFocusableElements?: () => { cells: { cell: { cellView: TableCellView } }[] }
-            };
-            if (!row.getFocusableElements) {
-                continue;
-            }
-
-            const cellInfo = row.getFocusableElements().cells[columnIndex];
-            const target = cellInfo?.cell.cellView.tabbableChildren[0];
-            if (target) {
-                target.focus();
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private getContainingHost(element: { getRootNode: () => Node }): HTMLElement | undefined {
-        const root = element.getRootNode();
-        if (root instanceof ShadowRoot && root.host instanceof HTMLElement) {
-            return root.host;
-        }
-        return undefined;
     }
 }
 

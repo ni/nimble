@@ -8,7 +8,7 @@ import { Tag } from '../../../utilities/story-layout';
 <Title of={breakpointColumnStories} />
 
 The <Tag name={tsTableColumnBreakpointTag}/> renders a breakpoint indicator in each row that
-can be toggled between different states (Off, Enabled, Disabled, Hit) via click or context menu.
+can be toggled between breakpoint states by click or keyboard interaction.
 
 The column is intended for code-centric table displays where debugging breakpoints need to be
 visually indicated and interactively managed.
@@ -24,15 +24,6 @@ The column is neither sortable nor groupable. It has a fixed width of 32 pixels 
 
 ## Usage
 
-### State Transitions
-
-- **Off → Enabled:** Click on the breakpoint indicator
-- **Enabled → Off:** Click on the active breakpoint indicator
-- **Enabled → Disabled:** Right-click and select "Disable breakpoint"
-- **Disabled → Enabled:** Right-click and select "Enable breakpoint"
-- **Disabled → Off:** Right-click and select "Remove breakpoint"
-- **Hit → Off:** Click on the hit breakpoint indicator
-
 ### Breakpoint States
 
 | State | Description |
@@ -41,14 +32,5 @@ The column is neither sortable nor groupable. It has a fixed width of 32 pixels 
 | `enabled` | Active breakpoint (filled red circle) |
 | `disabled` | Inactive breakpoint (outlined red circle with slash) |
 | `hit` | Breakpoint currently being hit during debugging (red circle with gold border) |
-
-### Event Handling
-
-Listen to the `breakpoint-column-toggle` event on the column to handle state changes:
-
-```ts
-column.addEventListener('breakpoint-column-toggle', (event) => {
-    const { recordId, oldState, newState } = event.detail;
-    // Update your data source with the new breakpoint state
-});
-```
+| `conditional` | Conditional breakpoint (diamond indicator) |
+| `hit-disabled` | Hit breakpoint that is disabled |

@@ -28,10 +28,18 @@ const data = [
     },
     {
         id: '4',
-        breakpointState: null
+        breakpointState: BreakpointState.conditional
     },
     {
         id: '5',
+        breakpointState: BreakpointState.hitDisabled
+    },
+    {
+        id: '6',
+        breakpointState: null
+    },
+    {
+        id: '7',
         breakpointState: undefined
     }
 ] as const;
