@@ -1,8 +1,18 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 19 May 2026 17:01:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 26 May 2026 18:42:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.19.0
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Minor changes
+
+- Add new breakpoint icons ([ni/nimble@92b4050](https://github.com/ni/nimble/commit/92b405008ad93d76a4b80d8c3ce971f4f2cf6bc6))
+- Bump @ni/nimble-components to v35.9.2
+- Bump @ni/nimble-tokens to v8.18.1
 
 ## 6.18.3
 
