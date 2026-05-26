@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update `nimble-icon-arrow-right-thin`",
+  "packageName": "@ni/nimble-tokens",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

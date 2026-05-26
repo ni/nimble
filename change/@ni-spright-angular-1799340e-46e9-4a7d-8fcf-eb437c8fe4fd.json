@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add new breakpoint icons",
+  "packageName": "@ni/spright-angular",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
