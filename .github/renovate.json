@@ -36,6 +36,7 @@
       "matchPackageNames": [
         "!/^@angular/",
         "!/apache-arrow/",
+        "!/beachball/",
         "!/comlink/",
         "!/eslint/",
         "!/ng-packagr/",
