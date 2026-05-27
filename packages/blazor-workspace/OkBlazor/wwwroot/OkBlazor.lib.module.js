@@ -39,7 +39,9 @@ function registerEvents(Blazor) {
         createEventArgs: event => {
             return {
                 recordId: event.detail.recordId,
-                currentState: event.detail.currentState
+                currentState: event.detail.currentState,
+                anchorX: event.detail.anchorX,
+                anchorY: event.detail.anchorY
             };
         }
     });

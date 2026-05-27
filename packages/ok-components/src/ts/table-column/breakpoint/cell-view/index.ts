@@ -1,9 +1,5 @@
 import { DesignSystem } from '@ni/fast-foundation';
-import { observable } from '@ni/fast-element';
-import { eventChange, keyEscape } from '@ni/fast-web-utilities';
 import { TableCellView } from '@ni/nimble-components/dist/esm/table-column/base/cell-view';
-import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
-import type { CellViewSlotRequestEventDetail } from '@ni/nimble-components/dist/esm/table/types';
 import { template } from './template';
 import { styles } from './styles';
 import { BreakpointState, type BreakpointToggleEventDetail, type BreakpointContextMenuEventDetail } from '../types';
@@ -29,19 +25,7 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     private static readonly menuKeyAlias = 'Menu';
 
     /** @internal */
-    @observable
-    public open = false;
-
-    /** @internal */
     public button?: HTMLButtonElement;
-
-    /** @internal */
-    @observable
-    public region?: AnchoredRegion;
-
-    /** @internal */
-    @observable
-    public slottedMenus?: HTMLElement[];
 
     /** @internal */
     public get currentState(): BreakpointState {
@@ -85,61 +69,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         return [];
     }
 
-    public regionChanged(
-        prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
-    ): void {
-        if (prev) {
-            prev.removeEventListener(eventChange, this.menuChangeHandler);
-        }
-
-        if (this.region && this.button) {
-            this.region.anchorElement = this.button;
-            this.region.addEventListener(eventChange, this.menuChangeHandler, {
-                capture: true
-            });
-        }
-    }
-
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-        if (this.region) {
-            this.region.removeEventListener(eventChange, this.menuChangeHandler);
-        }
-    }
-
-    /** @internal */
-    public onContextMenuKeyDown(e: KeyboardEvent): boolean {
-        switch (e.key) {
-            case keyEscape:
-                this.setContextMenuOpen(false);
-                this.button?.focus();
-                return false;
-            default:
-                return true;
-        }
-    }
-
-    /** @internal */
-    public regionLoadedHandler(): void {
-        this.focusMenu();
-    }
-
-    /** @internal */
-    public onContextMenuFocusOut(e: FocusEvent): boolean {
-        if (!this.open) {
-            return true;
-        }
-
-        const focusTarget = e.relatedTarget as HTMLElement;
-        if (!this.contains(focusTarget) && !this.getMenu()?.contains(focusTarget)) {
-            this.setContextMenuOpen(false);
-            return false;
-        }
-
-        return true;
-    }
-
     /** @internal */
     public onButtonClick(event: Event): void {
         event.stopPropagation();
@@ -154,7 +83,8 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     public onContextMenu(event: Event): void {
         event.preventDefault();
         event.stopPropagation();
-        this.emitContextMenu();
+        const mouseEvent = event as MouseEvent;
+        this.emitContextMenu(mouseEvent.clientX, mouseEvent.clientY);
     }
 
     /** @internal */
@@ -172,7 +102,7 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
             || event.key === TsTableColumnBreakpointCellView.menuKeyAlias) {
             event.preventDefault();
             event.stopPropagation();
-            this.emitContextMenu();
+            this.emitContextMenuFromButton();
             return;
         }
 
@@ -195,67 +125,23 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         this.$emit('breakpoint-column-toggle', detail);
     }
 
-    private emitContextMenu(): void {
-        const slotRequestDetail: CellViewSlotRequestEventDetail = {
-            slots: [{ name: 'menu', slot: 'menu' }]
-        };
-        this.$emit('cell-view-slots-request', slotRequestDetail);
-
+    private emitContextMenu(anchorX: number, anchorY: number): void {
         const detail: BreakpointContextMenuEventDetail = {
             recordId: this.recordId ?? '',
-            currentState: this.currentState
+            currentState: this.currentState,
+            anchorX,
+            anchorY
         };
-
-        this.setContextMenuOpen(true);
         this.$emit('breakpoint-column-context-menu', detail);
     }
 
-    private setContextMenuOpen(newValue: boolean): void {
-        if (this.open === newValue) {
-            return;
+    private emitContextMenuFromButton(): void {
+        const rect = this.button?.getBoundingClientRect();
+        if (rect) {
+            this.emitContextMenu(rect.left, rect.bottom);
+        } else {
+            this.emitContextMenu(0, 0);
         }
-
-        this.open = newValue;
-    }
-
-    private getMenu(): HTMLElement | undefined {
-        // Resolve nested slot forwarding (table -> row -> cell-view) to find the actual menu.
-        if (!this.slottedMenus || this.slottedMenus.length === 0) {
-            return undefined;
-        }
-
-        let currentItem: HTMLElement | undefined = this.slottedMenus[0];
-        while (currentItem) {
-            if (currentItem.getAttribute('role') === 'menu') {
-                return currentItem;
-            }
-
-            if (this.isSlotElement(currentItem)) {
-                const firstNode = currentItem.assignedNodes()[0];
-                if (firstNode instanceof HTMLElement) {
-                    currentItem = firstNode;
-                } else {
-                    currentItem = undefined;
-                }
-            } else {
-                return undefined;
-            }
-        }
-
-        return undefined;
-    }
-
-    private isSlotElement(element: HTMLElement | undefined): element is HTMLSlotElement {
-        return element?.nodeName === 'SLOT';
-    }
-
-    private readonly menuChangeHandler = (): void => {
-        this.setContextMenuOpen(false);
-        this.button?.focus();
-    };
-
-    private focusMenu(): void {
-        this.getMenu()?.focus();
     }
 }
 

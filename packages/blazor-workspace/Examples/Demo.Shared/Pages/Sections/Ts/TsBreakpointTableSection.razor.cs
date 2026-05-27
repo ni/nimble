@@ -6,19 +6,24 @@ namespace Demo.Shared.Pages.Sections;
 public partial class TsBreakpointTableSection
 {
     private NimbleTable<BreakpointTableRecord>? _table;
+    private bool _contextMenuOpen;
+    private double _menuX;
+    private double _menuY;
     private string? _contextMenuRecordId;
     private string _contextMenuRecordState = BreakpointState.Off;
     private string _lastEvent = "(none)";
 
+    private string ContextMenuStyle => $"position: fixed; left: {_menuX}px; top: {_menuY}px; z-index: 2147483647;";
+
     private List<BreakpointTableRecord> _tableData = new()
     {
-        new("1", "Main.cs", 12, BreakpointState.Enabled),
-        new("2", "Helper.cs", 45, BreakpointState.Off),
-        new("3", "Service.cs", 78, BreakpointState.Disabled),
-        new("4", "Controller.cs", 23, BreakpointState.Hit),
-        new("5", "Model.cs", 91, BreakpointState.Conditional),
-        new("6", "Startup.cs", 5, BreakpointState.HitDisabled),
-        new("7", "Program.cs", 1, BreakpointState.Off),
+        new("1", null, "Main.cs", 12, BreakpointState.Enabled),
+        new("2", "1", "Helper.cs", 45, BreakpointState.Off),
+        new("3", "1", "Service.cs", 78, BreakpointState.Disabled),
+        new("4", null, "Controller.cs", 23, BreakpointState.Hit),
+        new("5", "4", "Model.cs", 91, BreakpointState.Conditional),
+        new("6", null, "Startup.cs", 5, BreakpointState.HitDisabled),
+        new("7", "6", "Program.cs", 1, BreakpointState.Off),
     };
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -42,7 +47,10 @@ public partial class TsBreakpointTableSection
     {
         _contextMenuRecordId = e.RecordId;
         _contextMenuRecordState = e.CurrentState;
-        _lastEvent = $"ContextMenu: record={e.RecordId}, state={e.CurrentState}";
+        _menuX = e.AnchorX;
+        _menuY = e.AnchorY;
+        _contextMenuOpen = true;
+        _lastEvent = $"ContextMenu: record={e.RecordId}, state={e.CurrentState}, x={e.AnchorX}, y={e.AnchorY}";
         StateHasChanged();
     }
 
@@ -71,10 +79,15 @@ public partial class TsBreakpointTableSection
         CloseContextMenuAndSetState(BreakpointState.Enabled);
     }
 
+    private void CloseContextMenu()
+    {
+        _contextMenuOpen = false;
+        StateHasChanged();
+    }
+
     private void CloseContextMenuAndSetState(string newState)
     {
-        // Close the context menu by triggering Escape key on the element
-        // This will be handled by the cell-view's anchored-region
+        _contextMenuOpen = false;
         SetRecordState(newState);
     }
 
@@ -91,15 +104,17 @@ public partial class TsBreakpointTableSection
 
 public class BreakpointTableRecord
 {
-    public BreakpointTableRecord(string id, string name, int lineNumber, string breakpointState)
+    public BreakpointTableRecord(string id, string? parentId, string name, int lineNumber, string breakpointState)
     {
         Id = id;
+        ParentId = parentId;
         Name = name;
         LineNumber = lineNumber;
         BreakpointState = breakpointState;
     }
 
     public string Id { get; set; }
+    public string? ParentId { get; set; }
     public string Name { get; set; }
     public int LineNumber { get; set; }
     public string BreakpointState { get; set; }

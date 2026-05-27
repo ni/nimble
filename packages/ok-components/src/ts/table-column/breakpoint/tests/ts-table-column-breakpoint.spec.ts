@@ -15,6 +15,7 @@ import {
 
 interface SimpleTableRecord extends TableRecord {
     id?: string;
+    parentId?: string;
     breakpointState?: string | null;
 }
 
@@ -265,6 +266,37 @@ describe('TsTableColumnBreakpoint', () => {
             ).detail;
             expect(eventDetail.oldState).toBe(BreakpointState.hit);
             expect(eventDetail.newState).toBe(BreakpointState.off);
+        });
+
+        it('emits toggle event for child rows in hierarchical data', async () => {
+            table.parentIdFieldName = 'parentId';
+            await table.setData([
+                { id: 'parent', breakpointState: BreakpointState.off },
+                { id: 'child', parentId: 'parent', breakpointState: BreakpointState.off }
+            ]);
+            await waitForUpdatesAsync();
+
+            const toggleSpy = jasmine.createSpy('toggle');
+            elementReferences.column.addEventListener(
+                'breakpoint-column-toggle',
+                toggleSpy
+            );
+
+            const cellView = tablePageObject.getRenderedCellView(
+                1,
+                0
+            ) as TsTableColumnBreakpointCellView;
+            const button = getBreakpointButton(cellView);
+            button.click();
+            await waitForUpdatesAsync();
+
+            expect(toggleSpy).toHaveBeenCalledTimes(1);
+            const eventDetail = (
+                toggleSpy.calls.first().args[0] as CustomEvent<BreakpointToggleEventDetail>
+            ).detail;
+            expect(eventDetail.recordId).toBe('child');
+            expect(eventDetail.oldState).toBe(BreakpointState.off);
+            expect(eventDetail.newState).toBe(BreakpointState.enabled);
         });
     });
 

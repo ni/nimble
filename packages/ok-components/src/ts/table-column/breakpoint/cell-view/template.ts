@@ -1,5 +1,4 @@
-import { html, ref, slotted, when } from '@ni/fast-element';
-import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
+import { html, ref, when } from '@ni/fast-element';
 import type { TsTableColumnBreakpointCellView } from '.';
 import { BreakpointState } from '../types';
 
@@ -30,19 +29,4 @@ export const template = html<TsTableColumnBreakpointCellView>`
         ${when(x => x.currentState === BreakpointState.conditional, conditionalSvg)}
         ${when(x => x.currentState === BreakpointState.hitDisabled, hitDisabledSvg)}
     </button>
-    ${when(x => x.open, html<TsTableColumnBreakpointCellView>`
-        <${anchoredRegionTag}
-            ${ref('region')}
-            part="menu"
-            fixed-placement="true"
-            auto-update-mode="auto"
-            horizontal-inset="true"
-            horizontal-positioning-mode="dynamic"
-            vertical-positioning-mode="dynamic"
-            @loaded="${x => x.regionLoadedHandler()}"
-            @focusout="${(x, c) => x.onContextMenuFocusOut(c.event as FocusEvent)}"
-            @keydown="${(x, c) => x.onContextMenuKeyDown(c.event as KeyboardEvent)}"
-        >
-            <slot name="menu" ${slotted({ property: 'slottedMenus' })}></slot>
-        </${anchoredRegionTag}>
-    `)}`;
+`;

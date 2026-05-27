@@ -10,7 +10,6 @@ export const styles = css`
         justify-content: center;
         width: 100%;
         height: 100%;
-        position: relative;
     }
 
     .breakpoint-button {
@@ -44,4 +43,5 @@ export const styles = css`
     .breakpoint-button.state-off:focus-visible svg {
         opacity: 1;
     }
+
 `;

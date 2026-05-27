@@ -2,13 +2,20 @@
 
 <div>
     <SubContainer Label="Breakpoint Table Column (Ok)">
-        <NimbleTable TData="BreakpointTableRecord" @ref="_table" IdFieldName="Id" class="breakpoint-table">
+        <NimbleTable TData="BreakpointTableRecord" @ref="_table" IdFieldName="Id" ParentIdFieldName="ParentId" class="breakpoint-table">
+            <NimbleTableColumnText FieldName="Name" FractionalWidth="2">Name</NimbleTableColumnText>
             <OkTsTableColumnBreakpoint
                 FieldName="BreakpointState"
                 BreakpointToggle="OnBreakpointToggle"
                 BreakpointContextMenu="OnBreakpointContextMenu">
             </OkTsTableColumnBreakpoint>
-            <NimbleMenu slot="menu" class="breakpoint-menu">
+            <NimbleTableColumnNumberText FieldName="LineNumber">Line</NimbleTableColumnNumberText>
+        </NimbleTable>
+
+        @if (_contextMenuOpen)
+        {
+            <div style="position: fixed; inset: 0; z-index: 2147483646;" @onclick="CloseContextMenu"></div>
+            <NimbleMenu style="@ContextMenuStyle">
                 @if (_contextMenuRecordState == OkBlazor.BreakpointState.Off)
                 {
                     <NimbleMenuItem @onchange="@(_ => OnAddBreakpoint())">Add breakpoint</NimbleMenuItem>
@@ -30,9 +37,7 @@
                     }
                 }
             </NimbleMenu>
-            <NimbleTableColumnText FieldName="Name" FractionalWidth="2">Name</NimbleTableColumnText>
-            <NimbleTableColumnNumberText FieldName="LineNumber">Line</NimbleTableColumnNumberText>
-        </NimbleTable>
+        }
         <p><strong>Last event:</strong> @_lastEvent</p>
     </SubContainer>
 </div>
