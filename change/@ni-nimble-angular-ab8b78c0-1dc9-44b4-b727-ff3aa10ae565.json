@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix typo in combobox directive template",
-  "packageName": "@ni/nimble-angular",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -2,6 +2,29 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 27 May 2026 16:39:52 GMT",
+      "version": "6.19.1",
+      "tag": "@ni/spright-components_v6.19.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "35e108abbe23815a0c67cf87518acdeccb58cdcc",
+            "comment": "Update npm dev deps"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.9.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 May 2026 18:42:52 GMT",
       "version": "6.19.0",
       "tag": "@ni/spright-components_v6.19.0",

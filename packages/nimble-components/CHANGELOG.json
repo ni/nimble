@@ -2,6 +2,29 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 27 May 2026 16:39:52 GMT",
+      "version": "35.9.3",
+      "tag": "@ni/nimble-components_v35.9.3",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "35e108abbe23815a0c67cf87518acdeccb58cdcc",
+            "comment": "Update npm dev deps"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 May 2026 18:42:52 GMT",
       "version": "35.9.2",
       "tag": "@ni/nimble-components_v35.9.2",

@@ -1,6 +1,6 @@
 {
   "name": "@ni/unit-format",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "NumberFormat aligned library to format numbers with scaled units.",
   "keywords": [
     "units",

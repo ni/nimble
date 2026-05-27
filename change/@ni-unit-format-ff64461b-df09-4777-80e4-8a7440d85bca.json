@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update npm dev deps",
-  "packageName": "@ni/unit-format",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
