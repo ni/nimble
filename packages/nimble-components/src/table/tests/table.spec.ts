@@ -859,6 +859,88 @@ describe('Table', () => {
             });
         });
 
+        describe('pinned columns', () => {
+            it('renders pinned columns separately from visible columns', async () => {
+                column1.columnInternals.currentPixelWidth = 120;
+                column1.pinned = true;
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(element.pinnedColumns).toEqual([column1]);
+                expect(element.visibleColumns).toEqual([column2]);
+                expect(element.pinnedColumnOffset).toBe(120);
+                expect(element.pinnedColumnsGridTemplateColumns).toBe('120px');
+                expect(
+                    element.shadowRoot!.querySelector(
+                        '.pinned-columns-header-container'
+                    )!.children.length
+                ).toBe(1);
+                expect(
+                    element.shadowRoot!.querySelectorAll(
+                        '.column-headers-container .header-container'
+                    ).length
+                ).toBe(1);
+            });
+
+            it('excludes hidden pinned columns from pinned layout state', async () => {
+                column1.columnInternals.currentPixelWidth = 120;
+                column1.pinned = true;
+                column1.columnHidden = true;
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(element.pinnedColumns).toEqual([]);
+                expect(element.visibleColumns).toEqual([column2]);
+                expect(element.pinnedColumnOffset).toBe(0);
+                expect(element.pinnedColumnsGridTemplateColumns).toBe('');
+            });
+
+            it('updates pinned column collections when a pinned column becomes unpinned', async () => {
+                column1.columnInternals.currentPixelWidth = 120;
+                column1.pinned = true;
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(element.pinnedColumns).toEqual([column1]);
+
+                column1.pinned = false;
+                await waitForUpdatesAsync();
+
+                expect(element.pinnedColumns).toEqual([]);
+                expect(element.visibleColumns).toEqual([column1, column2]);
+                expect(element.pinnedColumnOffset).toBe(0);
+                expect(element.pinnedColumnsGridTemplateColumns).toBe('');
+            });
+
+            it('reports invalidPinnedColumnConfiguration when a pinned column has no pixel width', async () => {
+                await connect();
+
+                expect(element.checkValidity()).toBeTrue();
+                expect(element.validity.invalidPinnedColumnConfiguration).toBeFalse();
+
+                column1.pinned = true;
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidPinnedColumnConfiguration).toBeTrue();
+            });
+
+            it('clears invalidPinnedColumnConfiguration when a pinned column gets a pixel width', async () => {
+                await connect();
+
+                column1.pinned = true;
+                await waitForUpdatesAsync();
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidPinnedColumnConfiguration).toBeTrue();
+
+                column1.columnInternals.currentPixelWidth = 120;
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeTrue();
+                expect(element.validity.invalidPinnedColumnConfiguration).toBeFalse();
+            });
+        });
+
         describe('multiple updates', () => {
             it('can update action menu slots and column sort', async () => {
                 await element.setData(simpleTableData);
