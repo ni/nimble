@@ -2,6 +2,57 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Wed, 27 May 2026 16:39:52 GMT",
+      "version": "1.2.7",
+      "tag": "@ni/ok-blazor_v1.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "35e108abbe23815a0c67cf87518acdeccb58cdcc",
+            "comment": "Update nuget dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.3.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 May 2026 18:42:52 GMT",
+      "version": "1.2.6",
+      "tag": "@ni/ok-blazor_v1.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.3.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 May 2026 19:07:48 GMT",
+      "version": "1.2.5",
+      "tag": "@ni/ok-blazor_v1.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.3.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 19 May 2026 17:01:52 GMT",
       "version": "1.2.4",
       "tag": "@ni/ok-blazor_v1.2.4",

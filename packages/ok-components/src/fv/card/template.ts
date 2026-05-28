@@ -1,5 +1,4 @@
 import { html, when } from '@ni/fast-element';
-import { cardTag } from '@ni/nimble-components/dist/esm/card';
 import { cardButtonTag } from '@ni/nimble-components/dist/esm/card-button';
 import { FvCardInteractionMode } from './types';
 import type { FvCard } from '.';
@@ -157,12 +156,9 @@ export const template = html<FvCard>`
             </${cardButtonTag}>
         `,
         html<FvCard>`
-            <${cardTag}
-                class="card-shell card-static-shell"
-                part="card-shell"
-            >
+            <div class="card-shell card-static-shell" part="card-shell">
                 ${cardContentTemplate}
-            </${cardTag}>
+            </div>
         `
     )}
 `;
