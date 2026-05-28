@@ -234,22 +234,22 @@ export class Table<
     @volatile
     public get pinnedColumnsGridTemplateColumns(): string {
         return this.pinnedColumns.map(column => {
-                const {
-                    minPixelWidth
-                } = column.columnInternals;
-                const resolvedPixelWidth = this.getPinnedColumnResolvedPixelWidth(
-                    column
+            const {
+                minPixelWidth
+            } = column.columnInternals;
+            const resolvedPixelWidth = this.getPinnedColumnResolvedPixelWidth(
+                column
+            );
+            if (resolvedPixelWidth !== undefined) {
+                const coercedPixelWidth = Math.max(
+                    minPixelWidth,
+                    resolvedPixelWidth
                 );
-                if (resolvedPixelWidth !== undefined) {
-                    const coercedPixelWidth = Math.max(
-                        minPixelWidth,
-                        resolvedPixelWidth
-                    );
-                    return `${coercedPixelWidth}px`;
-                }
-            })
+                return `${coercedPixelWidth}px`;
+            }
+            return '';
+        })
             .join(' ');
-
     }
 
     /**
@@ -281,16 +281,6 @@ export class Table<
      * @internal
      */
     public readonly keyboardNavigationManager: KeyboardNavigationManager<TData>;
-
-    private getPinnedColumnResolvedPixelWidth(
-        column: TableColumn
-    ): number | undefined {
-        const {
-            currentPixelWidth,
-            pixelWidth
-        } = column.columnInternals;
-        return currentPixelWidth ?? pixelWidth;
-    }
 
     /**
      * @internal
@@ -883,6 +873,16 @@ export class Table<
 
         this.observeColumns();
         this.tableUpdateTracker.trackColumnInstancesChanged();
+    }
+
+    private getPinnedColumnResolvedPixelWidth(
+        column: TableColumn
+    ): number | undefined {
+        const {
+            currentPixelWidth,
+            pixelWidth
+        } = column.columnInternals;
+        return currentPixelWidth ?? pixelWidth;
     }
 
     private updateRequestedSlotsForOpeningActionMenu(

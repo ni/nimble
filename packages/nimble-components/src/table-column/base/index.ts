@@ -36,7 +36,7 @@ export abstract class TableColumn<
 
     @attr({ attribute: 'column-hidden', mode: 'boolean' })
     public columnHidden = false;
-    
+
     @attr({ attribute: 'pinned', mode: 'boolean' })
     public pinned = false;
 
