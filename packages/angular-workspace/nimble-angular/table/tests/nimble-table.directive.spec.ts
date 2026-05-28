@@ -302,6 +302,7 @@ describe('Nimble table', () => {
             fixture.detectChanges();
 
             expect(directive.parentIdFieldName).toEqual('parentField2');
+            expect(nativeElement.parentIdFieldName).toEqual('parentField2');
         });
 
         it('can be configured with property binding for selectionMode', () => {
