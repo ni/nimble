@@ -303,7 +303,6 @@ describe('Nimble table', () => {
 
             expect(directive.parentIdFieldName).toEqual('parentField2');
         });
-                    invalidPinnedColumnConfiguration: false
 
         it('can be configured with property binding for selectionMode', () => {
             expect(directive.selectionMode).toEqual(fixture.componentInstance.selectionMode);

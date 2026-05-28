@@ -19,7 +19,6 @@ import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 import { focusVisible } from '../../../utilities/style/focus';
-import { ZIndexLevels } from '../../../utilities/style/types';
 
 export const styles = css`
     ${display('flex')}
