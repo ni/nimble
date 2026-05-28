@@ -1,23 +1,24 @@
 import { css } from '@ni/fast-element';
+import { display } from '@ni/nimble-components/dist/esm/utilities/style/display';
 import {
     iconSize,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
 export const styles = css`
+    ${display('inline-flex')}
+
     :host {
-        display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        height: 100%;
     }
 
     .breakpoint-button {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        height: 100%;
+        width: ${iconSize};
+        height: ${iconSize};
+        flex-shrink: 0;
         padding: 0;
         margin: 0;
         border: none;
@@ -35,12 +36,12 @@ export const styles = css`
         height: ${iconSize};
     }
 
-    .breakpoint-button.state-off svg {
+    .breakpoint-button.state-off > * {
         opacity: 0;
     }
 
-    .breakpoint-button.state-off:hover svg,
-    .breakpoint-button.state-off:focus-visible svg {
+    .breakpoint-button.state-off:hover > *,
+    .breakpoint-button.state-off:focus-visible > * {
         opacity: 1;
     }
 
