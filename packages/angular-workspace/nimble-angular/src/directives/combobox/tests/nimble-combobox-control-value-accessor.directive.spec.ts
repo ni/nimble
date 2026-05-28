@@ -31,9 +31,13 @@ describe('Nimble combobox control value accessor', () => {
         @Component({
             template: `
                 <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="none">
-                    <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
+                    @for (option of selectOptions; track option) {
+                        <nimble-list-option [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
+                    }
                     <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
-                    <nimble-list-option *ngIf="showFirstSharedOption" [ngValue]="sharedOption">{{ sharedOption?.name }}</nimble-list-option>
+                    @if (showFirstSharedOption) {
+                        <nimble-list-option [ngValue]="sharedOption">{{ sharedOption?.name }}</nimble-list-option>
+                    }
                     <nimble-list-option #lastOption [ngValue]="sharedOption">{{ sharedOption?.otherName }}</nimble-list-option>
                 </nimble-combobox>
              `,
@@ -328,9 +332,13 @@ describe('Nimble combobox control value accessor', () => {
             template: `
                 <form [formGroup]="form">
                     <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" autocomplete="none">
-                        <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
+                        @for (option of selectOptions; track option) {
+                            <nimble-list-option [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
+                        }
                         <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
-                        <nimble-list-option *ngIf="showFirstSharedOption" [ngValue]="sharedOption">{{ sharedOption?.name }}</nimble-list-option>
+                        @if (showFirstSharedOption) {
+                            <nimble-list-option [ngValue]="sharedOption">{{ sharedOption?.name }}</nimble-list-option>
+                        }
                         <nimble-list-option #lastOption [ngValue]="sharedOption">{{ sharedOption?.otherName }}</nimble-list-option>
                     </nimble-combobox>
                 </form>

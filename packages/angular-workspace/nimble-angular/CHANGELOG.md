@@ -1,8 +1,43 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 27 May 2026 16:39:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.3.3
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Fix typo in combobox directive template ([ni/nimble@35e108a](https://github.com/ni/nimble/commit/35e108abbe23815a0c67cf87518acdeccb58cdcc))
+- Bump @ni/nimble-components to v35.9.3
+- Bump @ni/unit-format to v1.0.5
+
+## 33.3.2
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.2
+
+## 33.3.1
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.1
+
+## 33.3.0
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Minor changes
+
+- add appearance-indeterminate property to nimble checkbox ([ni/nimble@38b5b13](https://github.com/ni/nimble/commit/38b5b13eceb1f7c1da8342dc583d79769e69ca7a))
+- Bump @ni/nimble-components to v35.9.0
 
 ## 33.2.0
 

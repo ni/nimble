@@ -1,8 +1,52 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Mon, 11 May 2026 17:03:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 27 May 2026 16:39:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.3.5
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.3
+- Bump @ni/spright-components to v6.19.1
+
+## 1.3.4
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.2
+- Bump @ni/spright-components to v6.19.0
+
+## 1.3.3
+
+Wed, 20 May 2026 19:07:48 GMT
+
+### Patches
+
+- chip text alignment and support card height ([ni/nimble@ab18bcd](https://github.com/ni/nimble/commit/ab18bcd2656584d3f264588b1cd59acec298fe72))
+
+## 1.3.2
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.1
+- Bump @ni/spright-components to v6.18.3
+
+## 1.3.1
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.0
+- Bump @ni/spright-components to v6.18.2
 
 ## 1.3.0
 

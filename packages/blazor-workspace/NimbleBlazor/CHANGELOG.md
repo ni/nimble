@@ -1,8 +1,43 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 12 May 2026 00:42:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 27 May 2026 16:39:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 21.0.3
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@35e108a](https://github.com/ni/nimble/commit/35e108abbe23815a0c67cf87518acdeccb58cdcc))
+- Bump @ni/nimble-components to v35.9.3
+
+## 21.0.2
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.2
+- Bump @ni/nimble-tokens to v8.18.1
+
+## 21.0.1
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.1
+
+## 21.0.0
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Major changes
+
+- Add AppearanceIndeterminate property for checkbox ([ni/nimble@38b5b13](https://github.com/ni/nimble/commit/38b5b13eceb1f7c1da8342dc583d79769e69ca7a))
+- Bump @ni/nimble-components to v35.9.0
 
 ## 20.17.1
 

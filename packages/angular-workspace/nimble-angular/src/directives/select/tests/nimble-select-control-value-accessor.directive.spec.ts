@@ -13,10 +13,11 @@ describe('Nimble select control value accessor', () => {
         @Component({
             template: `
                 <nimble-select #select [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled">
-                    <nimble-list-option *ngFor="let option of selectOptions"
-                        [ngValue]="option">
-                        {{ option.name }}
-                    </nimble-list-option>
+                    @for (option of selectOptions; track option) {
+                        <nimble-list-option [ngValue]="option">
+                            {{ option.name }}
+                        </nimble-list-option>
+                    }
                 </nimble-select>
              `,
             standalone: false
@@ -122,10 +123,11 @@ describe('Nimble select control value accessor', () => {
         @Component({
             template: `
                 <nimble-select #select [(ngModel)]="selectedOption">
-                    <nimble-list-option *ngFor="let option of selectOptions"
-                        [value]="option.value">
-                        {{ option.name }}
-                    </nimble-list-option>
+                    @for (option of selectOptions; track option) {
+                        <nimble-list-option [value]="option.value">
+                            {{ option.name }}
+                        </nimble-list-option>
+                    }
                 </nimble-select>
              `,
             standalone: false
@@ -195,10 +197,11 @@ describe('Nimble select control value accessor', () => {
             template: `
                 <form [formGroup]='form'>
                     <nimble-select #select formControlName="selectValue">
-                        <nimble-list-option *ngFor="let option of selectOptions"
-                            [ngValue]="option">
-                            {{ option.name }}
-                        </nimble-list-option>
+                        @for (option of selectOptions; track option) {
+                            <nimble-list-option [ngValue]="option">
+                                {{ option.name }}
+                            </nimble-list-option>
+                        }
                     </nimble-select>
                 </form>
              `,
@@ -265,10 +268,11 @@ describe('Nimble select control value accessor', () => {
             template: `
                 <form [formGroup]='form'>
                     <nimble-select #select formControlName="selectValue">
-                        <nimble-list-option *ngFor="let option of selectOptions"
-                            [ngValue]="option">
-                            {{ option.name }}
-                        </nimble-list-option>
+                        @for (option of selectOptions; track option) {
+                            <nimble-list-option [ngValue]="option">
+                                {{ option.name }}
+                            </nimble-list-option>
+                        }
                     </nimble-select>
                 </form>
              `,
@@ -348,10 +352,11 @@ describe('Nimble select control value accessor', () => {
                 <form [formGroup]='form'>
                     <nimble-select #select formControlName="selectValue">
                         <nimble-list-option-group label="Group 1">
-                            <nimble-list-option *ngFor="let option of selectOptions"
-                                [ngValue]="option">
-                                {{ option.name }}
-                            </nimble-list-option>
+                            @for (option of selectOptions; track option) {
+                                <nimble-list-option [ngValue]="option">
+                                    {{ option.name }}
+                                </nimble-list-option>
+                            }
                         </nimble-list-option-group>
                     </nimble-select>
                 </form>
@@ -420,10 +425,11 @@ describe('Nimble select control value accessor', () => {
                 <form [formGroup]='form'>
                     <nimble-select #select formControlName="selectValue">
                         <nimble-list-option-group label="Group 1">
-                            <nimble-list-option *ngFor="let option of selectOptions"
-                                [ngValue]="option">
-                                {{ option.name }}
-                            </nimble-list-option>
+                            @for (option of selectOptions; track option) {
+                                <nimble-list-option [ngValue]="option">
+                                    {{ option.name }}
+                                </nimble-list-option>
+                            }
                         </nimble-list-option-group>
                     </nimble-select>
                 </form>

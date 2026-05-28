@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.18.1",
+  "version": "6.19.1",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",
@@ -42,8 +42,8 @@
     "@ni/fast-element": "^10.1.1",
     "@ni/fast-foundation": "^10.2.3",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.8.0",
-    "@ni/nimble-tokens": "^8.18.0",
+    "@ni/nimble-components": "^35.9.3",
+    "@ni/nimble-tokens": "^8.18.1",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
@@ -68,7 +68,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
     "karma-webkit-launcher": "^2.6.0",
-    "playwright": "1.59.1",
+    "playwright": "1.60.0",
     "rollup": "^4.60.2",
     "rollup-plugin-sourcemaps2": "^0.5.0",
     "typescript": "~5.8.3"

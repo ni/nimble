@@ -103,10 +103,14 @@ interface SimpleTableRecord extends TableRecord {
                 </nimble-menu>
 
                 <nimble-menu slot="color-menu">
-                    <nimble-menu-item *ngFor="let color of possibleColors" (change)="onColorSelected(color)">
-                        <nimble-icon-check *ngIf="color === currentColor" slot="start"></nimble-icon-check>
-                        {{ color }}
-                    </nimble-menu-item>
+                    @for (color of possibleColors; track color) {
+                        <nimble-menu-item (change)="onColorSelected(color)">
+                            @if (color === currentColor) {
+                                <nimble-icon-check slot="start"></nimble-icon-check>
+                            }
+                            {{ color }}
+                        </nimble-menu-item>
+                    }
                 </nimble-menu>
             </nimble-table>
             <nimble-button class="add-table-row-button" (click)="addTableRows(10)">Add rows</nimble-button>

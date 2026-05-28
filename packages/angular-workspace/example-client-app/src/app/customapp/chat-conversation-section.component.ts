@@ -34,7 +34,9 @@ import type { ChatInputSendEventDetail } from '@ni/spright-angular/chat/input';
                     <nimble-button slot="end" appearance="block">Order a tab</nimble-button>
                     <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
                 </spright-chat-message-inbound>
-                <spright-chat-message-outbound *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message-outbound>
+                @for (message of chatUserMessages; track message) {
+                    <spright-chat-message-outbound><span>{{message}}</span></spright-chat-message-outbound>
+                }
                 <spright-chat-input slot="input" placeholder="Type here" (send)="onChatInputSend($event)"></spright-chat-input>
                 <span slot="end">
                     AI-generated content may be incorrect.

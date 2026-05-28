@@ -1,6 +1,5 @@
 import { html, type ViewTemplate } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { cardTag } from '@ni/nimble-components/dist/esm/card';
 import { cardButtonTag } from '@ni/nimble-components/dist/esm/card-button';
 import { FvCard, fvCardTag } from '..';
 import { FvCardAppearance, FvCardInteractionMode } from '../types';
@@ -34,7 +33,9 @@ describe('FvCard', () => {
 
         expect(element.interactionMode).toBe(FvCardInteractionMode.static);
         expect(element.appearance).toBe(FvCardAppearance.outline);
-        expect(element.shadowRoot?.querySelector(cardTag)).not.toBeNull();
+        const staticShell = element.shadowRoot?.querySelector<HTMLElement>('.card-static-shell');
+        expect(staticShell).not.toBeNull();
+        expect(staticShell?.tagName).toBe('DIV');
         expect(element.shadowRoot?.querySelector(cardButtonTag)).toBeNull();
     });
 
@@ -73,7 +74,26 @@ describe('FvCard', () => {
         await connect();
 
         expect(element.shadowRoot?.querySelector(cardButtonTag)).not.toBeNull();
-        expect(element.shadowRoot?.querySelector(cardTag)).toBeNull();
+        expect(element.shadowRoot?.querySelector('.card-static-shell')).toBeNull();
+    });
+
+    it('renders the static shell without a nimble-card title row offset', async () => {
+        ({ element, connect, disconnect } = await setup(
+            html`<${fvCardTag}
+                card-title="Plugin Manager"
+                subtitle="NI Plugin Manager"
+                description="Install curated plugins."
+                style="height: 180px;"
+            >
+                <span slot="footer-start">Administration</span>
+                <span slot="footer-end">v1.1.1</span>
+            </${fvCardTag}>`
+        ));
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelector('.card-static-shell')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('nimble-card')).toBeNull();
     });
 
     it('renders title, subtitle, and description content', async () => {
