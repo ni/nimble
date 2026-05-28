@@ -1,7 +1,6 @@
 import { html, ref } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
-import { TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
 import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
@@ -27,7 +26,6 @@ import {
 
 const simpleData = [
     {
-        id: '1',
         firstName: 'Ralph',
         lastName: 'Wiggum',
         status: 'fail',
@@ -35,7 +33,6 @@ const simpleData = [
         gender: 'male'
     },
     {
-        id: '2',
         firstName: 'Marge',
         lastName: 'Simpson',
         status: 'success',
@@ -43,7 +40,6 @@ const simpleData = [
         gender: 'female'
     },
     {
-        id: '3',
         firstName: 'Homer',
         lastName: 'Simpson',
         status: 'calculating',
@@ -51,7 +47,6 @@ const simpleData = [
         gender: 'male'
     },
     {
-        id: '4',
         firstName: 'Bart',
         lastName: 'Simpson',
         status: 'success',
@@ -59,7 +54,6 @@ const simpleData = [
         gender: 'male'
     },
     {
-        id: '5',
         firstName: 'Abbey',
         lastName: '?',
         status: 'unknown',
@@ -79,6 +73,7 @@ interface MappingColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
     widthMode: keyof typeof TableColumnMappingWidthMode;
+    pinned: boolean;
     checkValidity: () => void;
     validity: () => void;
     content: undefined;
@@ -95,8 +90,6 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
-            id-field-name="id"
-            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag} field-name="firstName" >
                 Name
@@ -108,7 +101,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
-            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" ?pinned="${x => x.widthMode === 'iconSize'}">
+            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" pinned="${x => x.pinned}">
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
             
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
@@ -123,6 +116,11 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
     `),
     argTypes: {
         ...sharedTableArgTypes,
+        selectionMode: {
+            table: {
+                disable: true
+            }
+        },
         fieldName: {
             name: 'field-name',
             description:
@@ -143,6 +141,11 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             options: Object.keys(TableColumnMappingWidthMode),
             control: { type: 'radio' },
             description: widthModeDescription,
+            table: { category: apiCategory.attributes }
+        },
+        pinned: {
+            description: 'When `true`, pin a fixed width column to the left side of the table.',
+            control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
         checkValidity: {
@@ -204,6 +207,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
         fieldName: 'firstName',
         keyType: 'string',
         widthMode: 'iconSize',
+        pinned: false,
         checkValidity: () => {},
         validity: () => {}
     }

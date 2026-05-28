@@ -122,7 +122,6 @@ export const styles = css`
         position: sticky;
         left: 0;
         background: ${applicationBackgroundColor};
-        z-index: ${ZIndexLevels.zIndex1000};
     }
 
     .cell-container {

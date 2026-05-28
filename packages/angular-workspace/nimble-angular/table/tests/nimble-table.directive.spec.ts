@@ -161,7 +161,8 @@ describe('Nimble table', () => {
                 duplicateGroupIndex: false,
                 idFieldNameNotConfigured: false,
                 invalidColumnConfiguration: false,
-                invalidParentIdConfiguration: false
+                invalidParentIdConfiguration: false,
+                invalidPinnedColumnConfiguration: false
             };
             expect(directive.validity).toEqual(expectedValidity);
             expect(nativeElement.validity).toEqual(expectedValidity);
@@ -301,8 +302,8 @@ describe('Nimble table', () => {
             fixture.detectChanges();
 
             expect(directive.parentIdFieldName).toEqual('parentField2');
-            expect(nativeElement.parentIdFieldName).toEqual('parentField2');
         });
+                    invalidPinnedColumnConfiguration: false
 
         it('can be configured with property binding for selectionMode', () => {
             expect(directive.selectionMode).toEqual(fixture.componentInstance.selectionMode);

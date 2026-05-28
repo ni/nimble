@@ -126,7 +126,6 @@ export const styles = css`
         grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
         position: sticky;
         left: 0;
-        z-index: ${ZIndexLevels.zIndex1000};
         background: ${applicationBackgroundColor};
     }
 
