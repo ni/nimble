@@ -18,10 +18,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     TsTableColumnBreakpointCellRecord,
     TsTableColumnBreakpointColumnConfig
 > {
-    private static readonly contextMenuKey = 'ContextMenu';
-
-    private static readonly legacyContextMenuKey = 'Apps';
-
     private static readonly menuKeyAlias = 'Menu';
 
     /** @internal */
@@ -97,8 +93,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         }
 
         if ((event.key === 'F10' && event.shiftKey)
-            || event.key === TsTableColumnBreakpointCellView.contextMenuKey
-            || event.key === TsTableColumnBreakpointCellView.legacyContextMenuKey
             || event.key === TsTableColumnBreakpointCellView.menuKeyAlias) {
             event.preventDefault();
             event.stopPropagation();
