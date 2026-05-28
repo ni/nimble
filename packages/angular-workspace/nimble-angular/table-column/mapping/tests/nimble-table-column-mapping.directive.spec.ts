@@ -30,6 +30,7 @@ describe('NimbleTableColumnMapping', () => {
                         action-menu-slot="my-slot"
                         action-menu-label="my menu"
                         column-hidden="true"
+                        pinned
                         fractional-width="2"
                         min-pixel-width="40"
                         sort-direction="${TableColumnSortDirection.ascending}"
@@ -93,6 +94,11 @@ describe('NimbleTableColumnMapping', () => {
             expect(nativeElement.columnHidden).toBe(true);
         });
 
+        it('will use template string value for pinned', () => {
+            expect(directive.pinned).toBeTrue();
+            expect(nativeElement.pinned).toBeTrue();
+        });
+
         it('will use template string values for sortDirection', () => {
             expect(directive.sortDirection).toBe(TableColumnSortDirection.ascending);
             expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.ascending);
@@ -146,6 +152,7 @@ describe('NimbleTableColumnMapping', () => {
                         [actionMenuSlot]="actionMenuSlot"
                         [actionMenuLabel]="actionMenuLabel"
                         [column-hidden]="columnHidden"
+                        [pinned]="pinned"
                         [fractional-width]="fractionalWidth"
                         [min-pixel-width]="minPixelWidth"
                         [sort-direction]="sortDirection"
@@ -170,6 +177,7 @@ describe('NimbleTableColumnMapping', () => {
             public minPixelWidth: number | null = 40;
             public columnId = 'my-column';
             public columnHidden = true;
+            public pinned = false;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
             public sortingDisabled = false;
@@ -257,6 +265,17 @@ describe('NimbleTableColumnMapping', () => {
 
             expect(directive.columnHidden).toBe(false);
             expect(nativeElement.columnHidden).toBe(false);
+        });
+
+        it('can be configured with property binding for pinned', () => {
+            expect(directive.pinned).toBeFalse();
+            expect(nativeElement.pinned).toBeFalse();
+
+            fixture.componentInstance.pinned = true;
+            fixture.detectChanges();
+
+            expect(directive.pinned).toBeTrue();
+            expect(nativeElement.pinned).toBeTrue();
         });
 
         it('can be configured with property binding for sortDirection', () => {
@@ -404,6 +423,7 @@ describe('NimbleTableColumnMapping', () => {
                         [attr.action-menu-slot]="actionMenuSlot"
                         [attr.action-menu-label]="actionMenuLabel"
                         [attr.column-hidden]="columnHidden"
+                        [attr.pinned]="pinned"
                         [attr.fractional-width]="fractionalWidth"
                         [attr.min-pixel-width]="minPixelWidth"
                         [attr.sort-direction]="sortDirection"
@@ -428,6 +448,7 @@ describe('NimbleTableColumnMapping', () => {
             public minPixelWidth: number | null = 40;
             public columnId = 'my-column';
             public columnHidden = true;
+            public pinned = false;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
             public sortingDisabled = false;
@@ -515,6 +536,17 @@ describe('NimbleTableColumnMapping', () => {
 
             expect(directive.columnHidden).toBe(false);
             expect(nativeElement.columnHidden).toBe(false);
+        });
+
+        it('can be configured with attribute binding for pinned', () => {
+            expect(directive.pinned).toBeFalse();
+            expect(nativeElement.pinned).toBeFalse();
+
+            fixture.componentInstance.pinned = true;
+            fixture.detectChanges();
+
+            expect(directive.pinned).toBeTrue();
+            expect(nativeElement.pinned).toBeTrue();
         });
 
         it('can be configured with attribute binding for sortDirection', () => {

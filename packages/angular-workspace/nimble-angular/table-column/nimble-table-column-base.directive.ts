@@ -43,6 +43,14 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
         this.renderer.setProperty(this.elementRef.nativeElement, 'columnHidden', toBooleanProperty(value));
     }
 
+    public get pinned(): boolean {
+        return this.elementRef.nativeElement.pinned;
+    }
+
+    @Input('pinned') public set pinned(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'pinned', toBooleanProperty(value));
+    }
+
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<T>) {}
 
     public checkValidity(): boolean {
