@@ -1,12 +1,12 @@
 import { html, ref, when } from '@ni/fast-element';
-import type { TsTableColumnBreakpointCellView } from '.';
+import { iconBreakpointConditionalTag } from '@ni/spright-components/dist/esm/icons/breakpoint-conditional';
+import { iconBreakpointDisabledTag } from '@ni/spright-components/dist/esm/icons/breakpoint-disabled';
+import { iconBreakpointHitTag } from '@ni/spright-components/dist/esm/icons/breakpoint-hit';
+import { iconBreakpointHitDisabledTag } from '@ni/spright-components/dist/esm/icons/breakpoint-hit-disabled';
+import { iconBreakpointEnabledTag } from '@ni/spright-components/dist/esm/icons/breakpoint-enabled';
+import { iconBreakpointHoverTag } from '@ni/spright-components/dist/esm/icons/breakpoint-hover';
 import { BreakpointState } from '../types';
-import { iconBreakpointConditionalTag } from "@ni/spright-components/dist/esm/icons/breakpoint-conditional";
-import { iconBreakpointDisabledTag } from "@ni/spright-components/dist/esm/icons/breakpoint-disabled";
-import { iconBreakpointHitTag } from "@ni/spright-components/dist/esm/icons/breakpoint-hit";
-import { iconBreakpointHitDisabledTag } from "@ni/spright-components/dist/esm/icons/breakpoint-hit-disabled";
-import { iconBreakpointEnabledTag } from "@ni/spright-components/dist/esm/icons/breakpoint-enabled";
-import { iconBreakpointHoverTag } from "@ni/spright-components/dist/esm/icons/breakpoint-hover";
+import type { TsTableColumnBreakpointCellView } from '.';
 
 export const template = html<TsTableColumnBreakpointCellView>`
     <button
