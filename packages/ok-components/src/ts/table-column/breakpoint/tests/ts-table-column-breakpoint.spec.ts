@@ -473,7 +473,7 @@ describe('TsTableColumnBreakpoint', () => {
             expect(eventDetail.currentState).toBe(BreakpointState.enabled);
         });
 
-        it('emits breakpoint-column-context-menu on ContextMenu key', async () => {
+        it('emits breakpoint-column-context-menu on Menu key', async () => {
             await table.setData([
                 { id: '1', breakpointState: BreakpointState.enabled }
             ]);
@@ -493,7 +493,7 @@ describe('TsTableColumnBreakpoint', () => {
 
             button.dispatchEvent(
                 new KeyboardEvent('keydown', {
-                    key: 'ContextMenu',
+                    key: 'Menu',
                     bubbles: true
                 })
             );
