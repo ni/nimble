@@ -19,6 +19,7 @@ import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 import { focusVisible } from '../../../utilities/style/focus';
+import { ZIndexLevels } from '../../../utilities/style/types';
 
 export const styles = css`
     ${display('flex')}
@@ -121,6 +122,7 @@ export const styles = css`
         position: sticky;
         left: 0;
         background: ${applicationBackgroundColor};
+        z-index: ${ZIndexLevels.zIndex1000};
     }
 
     .cell-container {
