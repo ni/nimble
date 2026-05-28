@@ -330,8 +330,9 @@ export class TableRow<
     }
 
     private updateCellIndentLevels(): void {
+        const firstNonPinnedIndex = this.columns.findIndex(col => !col.pinned);
         this.cellIndentLevels = this.columns.map((_, i) => {
-            return i === 0 ? this.nestingLevel : 0;
+            return i === firstNonPinnedIndex ? this.nestingLevel : 0;
         });
     }
 
