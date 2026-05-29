@@ -101,7 +101,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
-            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" pinned="${x => x.pinned}">
+            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" ?pinned="${x => x.pinned}">
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
             
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>

@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnMappingModule } from '../nimble-table-column-mapping.module';
 import { NimbleTableColumnMappingDirective, type TableColumnMapping, TableColumnMappingWidthMode } from '../nimble-table-column-mapping.directive';
@@ -177,7 +178,7 @@ describe('NimbleTableColumnMapping', () => {
             public minPixelWidth: number | null = 40;
             public columnId = 'my-column';
             public columnHidden = true;
-            public pinned = false;
+            public pinned: BooleanValueOrAttribute = null;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
             public sortingDisabled = false;
@@ -448,7 +449,7 @@ describe('NimbleTableColumnMapping', () => {
             public minPixelWidth: number | null = 40;
             public columnId = 'my-column';
             public columnHidden = true;
-            public pinned = false;
+            public pinned: BooleanValueOrAttribute = null;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
             public sortingDisabled = false;
@@ -542,7 +543,7 @@ describe('NimbleTableColumnMapping', () => {
             expect(directive.pinned).toBeFalse();
             expect(nativeElement.pinned).toBeFalse();
 
-            fixture.componentInstance.pinned = true;
+            fixture.componentInstance.pinned = '';
             fixture.detectChanges();
 
             expect(directive.pinned).toBeTrue();

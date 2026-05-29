@@ -43,7 +43,7 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
         this.renderer.setProperty(this.elementRef.nativeElement, 'columnHidden', toBooleanProperty(value));
     }
 
-    public get pinned(): boolean {
+    public get pinned(): BooleanValueOrAttribute {
         return this.elementRef.nativeElement.pinned;
     }
 
