@@ -10,12 +10,14 @@ This document defines the scrolling behavior for the chat component specifically
 
 **User-initiated scrolling:**
 User initiated scrolling is done by the user to view previous chats in the message area. User scrolling can be initiated with the mouse, keyboard, or clicking on the scrollbar.
--**Manual interruption:** A specific type of user scrolling that takes place when the user scrolls while AI is generating response to stop auto-scroll.
+**User-initiated scrolling:**
+
+User initiated scrolling is done by the user to view previous chats in the message area. User scrolling can be initiated with the mouse, keyboard, or clicking on the scrollbar.
+- **Manual interruption:** A specific type of user scrolling that takes place when the user scrolls while AI is generating response to stop auto-scroll.
 
 **System-initiated scrolling:**
-- **Post send auto-scroll:** After hitting send, automatic positioning of the user's sent message to the top of the chat. Add white space below as necessary. If the user's message is taller than the height of the visible conversation, show the last 3 lines.
 
-
+- **Post send auto-scroll:** Automatic scrolling to the user's next message when the user sends a message
 - **AI response auto-scroll:** Scrolling as AI generates and streams response content
 
 ## Auto-scrolling behavior
