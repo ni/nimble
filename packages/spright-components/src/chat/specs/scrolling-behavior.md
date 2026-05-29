@@ -13,13 +13,17 @@ User initiated scrolling is done by the user to view previous chats in the messa
 -**Manual interruption:** A specific type of user scrolling that takes place when the user scrolls while AI is generating response to stop auto-scroll.
 
 **System-initiated scrolling:**
-- **Post send auto-scroll:** Automatic scrolling to the user's next message when the user sends a message
+- **Post send auto-scroll:** After hitting send, automatic positioning of the user's sent message to the top of the chat. Add white space below as necessary. If the user's message is taller than the height of the visible conversation, show the last 3 lines.
+
+
 - **AI response auto-scroll:** Scrolling as AI generates and streams response content
 
 ## Auto-scrolling behavior
 
+Scrolling should animate when possible to be smooth rather than instant.
+
 **Post send auto-scroll**
-Post send auto-scrolling should appear any time the user sends a new message (regardless of where they are in the chat history at the time)
+Post send auto-scrolling should occur any time the user sends a new message (regardless of where they are in the chat history at the time)
 
 **AI response auto-scroll**
 AI response auto-scroll should occur only if the AI streams responses. Long responses should auto scroll because streaming should be happening at a human readable pace and therefore start removing the old (assumed read) content off screen. If we are not streaming the response and instead returning a block of text, we should not autoscroll because this would take unread content off the screen.
@@ -46,7 +50,7 @@ Auto scroll is re-rengaged when a user does any action to return to the bottom o
 
 ### Accessibility Considerations
 - **Screen readers:** Announce new messages without forcing scroll position changes
-- **Focus management:** Maintain logical tab order regardless of scroll position
+- **Focus management:** Do not lose track of the user's current focus state because of a scrolling event. Tabbing should resume at the state the user left off at, not jump to the bottom of the scrolled text.
 
 ## Open Issues
 None
