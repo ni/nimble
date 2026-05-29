@@ -1,6 +1,6 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
-import StylingDocs from '../patterns/button/styling-docs.mdx';
+import StylingDocs from '../patterns/button/button-styling-docs.mdx';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 import * as toggleButtonStories from './toggle-button.stories';
 
@@ -12,11 +12,11 @@ a two-state button that can be either off (not pressed) or on (pressed). For
 example, a button labeled mute in an audio player could indicate that sound is
 muted by setting the pressed state true.
 
-<Canvas of={toggleButtonStories.outlineButton} />
+<Canvas of={toggleButtonStories.toggleButton} />
 
 ## API
 
-<Controls of={toggleButtonStories.outlineButton} />
+<Controls of={toggleButtonStories.toggleButton} />
 
 ## Styling
 

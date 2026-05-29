@@ -69,11 +69,13 @@ Tools and utilities hosted in the repository.
 
 [![Nimble Tokens NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-tokens.svg?label=@ni/nimble-tokens)](https://www.npmjs.com/package/@ni/nimble-tokens)
 [![Jasmine parameterized NPM version and repo link](https://img.shields.io/npm/v/@ni/jasmine-parameterized.svg?label=@ni/jasmine-parameterized)](https://www.npmjs.com/package/@ni/jasmine-parameterized)
+[![Unit Format NPM version and repo link](https://img.shields.io/npm/v/@ni/unit-format.svg?label=@ni/unit-format)](https://www.npmjs.com/package/@ni/unit-format)
 [![XLIFF to JSON Converter for Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/xliff-to-json-converter.svg?label=@ni/xliff-to-json-converter)](https://www.npmjs.com/package/@ni/xliff-to-json-converter)
 
 - [`@ni/nimble-tokens`](/packages/nimble-tokens/) - Base design tokens used by the Nimble and Spright component packages.
-- [`@ni/jasmine-parameterized`](/packages/jasmine-parameterized/) - a utility for writing [Jasmine](https://jasmine.github.io/) parameterized tests.
-- [`@ni/xliff-to-json-converter`](/packages/xliff-to-json-converter/) - a utility to convert translation files from XLIFF to JSON for Angular localization.
+- [`@ni/jasmine-parameterized`](/packages/jasmine-parameterized/) - A utility for writing [Jasmine](https://jasmine.github.io/) parameterized tests.
+- [`@ni/unit-format`](/packages/unit-format/) - NumberFormat aligned library to format numbers with scaled units.
+- [`@ni/xliff-to-json-converter`](/packages/xliff-to-json-converter/) - A utility to convert translation files from XLIFF to JSON for Angular localization.
 
 The above packages follow [Semantic Versioning](https://semver.org). Consult the `CHANGELOG.md` for each package to see the changes in each version, including instructions for adapting your application in response to breaking changes.
 

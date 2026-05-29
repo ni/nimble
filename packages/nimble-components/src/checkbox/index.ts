@@ -28,6 +28,14 @@ export class Checkbox extends mixinErrorPattern(FoundationCheckbox) {
     public override tabIndex!: number;
 
     /**
+     * @public
+     * @remarks
+     * HTML Attribute: appearance-indeterminate
+     */
+    @attr({ attribute: 'appearance-indeterminate', mode: 'boolean' })
+    public appearanceIndeterminate = false;
+
+    /**
      * @internal
      */
     public get resolvedTabindex(): string | undefined {

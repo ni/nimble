@@ -32,7 +32,7 @@ describe('ChatMessage', () => {
         await connect();
         expect(element.shadowRoot?.querySelector('SLOT')).not.toBeNull();
         expect(
-            element?.innerText?.includes('Some message', undefined)
+            element.innerText.includes('Some message', undefined)
         ).toBeTrue();
     });
 

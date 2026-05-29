@@ -4,6 +4,7 @@
         "useDefineForClassFields": true,
         "module": "ES2020",
         "lib": ["ES2020", "DOM"],
+        "types": [],
         "moduleResolution": "Node",
         "strict": true,
         "resolveJsonModule": true,
@@ -12,8 +13,7 @@
         "noEmit": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "skipLibCheck": true
+        "noImplicitReturns": true
     },
     "include": ["src"]
 }

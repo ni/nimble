@@ -1,6 +1,6 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import * as chipStories from './chip.stories';
-import StylingDocs from '../patterns/button/styling-docs.mdx';
+import StylingDocs from '../patterns/button/button-styling-docs.mdx';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 
@@ -19,7 +19,12 @@ remove button to allow users to delete the chip.
 
 ## Styling
 
-By default the chip will grow to fit its text content, up to its `max-width`.
+### Sizing
+
+The default chip height is 32px. For compact layouts, a 24px variant can be
+achieved by setting the CSS `height` to the `control-slim-height` design token.
+
+By default the chip will grow its width to fit its text content, up to its `max-width`.
 Applications may override the default `max-width` if needed. If your application
 needs a different width behavior, please file an issue to discuss.
 

@@ -546,7 +546,9 @@ describe('Nimble combobox', () => {
         @Component({
             template: `
                 <nimble-combobox #combobox>
-                    <nimble-list-option *ngFor="let option of autoCompleteOptions" [ngValue]="option">{{ option.name }}</nimble-list-option>
+                    @for (option of autoCompleteOptions; track option) {
+                        <nimble-list-option [ngValue]="option">{{ option.name }}</nimble-list-option>
+                    }
                 </nimble-combobox>
             `,
             standalone: false

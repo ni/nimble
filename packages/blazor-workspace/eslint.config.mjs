@@ -1,6 +1,5 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import { lintNimbleConfig, javascriptNimbleConfig } from '@ni-private/eslint-config-nimble';
-import globals from 'globals';
 
 export default defineConfig([
     globalIgnores([
@@ -12,11 +11,14 @@ export default defineConfig([
     ]),
     lintNimbleConfig,
     {
-        files: ['**/*.js'],
+        files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
         extends: javascriptNimbleConfig,
+        rules: {
+            'import/extensions': 'off'
+        }
     },
     {
-        files: ['**/build/**/*.js'],
+        files: ['**/build/**/*.js', '**/build/**/*.cjs', '**/build/**/*.mjs'],
         rules: {
             // Build scripts will not be in published package and are allowed to use devDependencies
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
@@ -30,13 +32,5 @@ export default defineConfig([
             // Allow build to reference files in NimbleBlazor and SprightBlazor
             'import/no-relative-packages': 'off',
         },
-    },
-    {
-        files: ['**/build/generate-hybrid/source/*.js'],
-        languageOptions: {
-            globals: {
-                ...globals.browser,
-            },
-        },
-    },
+    }
 ]);

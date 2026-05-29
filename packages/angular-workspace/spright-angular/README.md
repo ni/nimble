@@ -6,7 +6,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/spright-angular.svg)](https://www.npmjs.com/package/@ni/spright-angular)
 
-Spright components for [Angular](https://angular.io) applications
+Spright components for [Angular](https://angular.dev) applications
 
 ## Getting started
 

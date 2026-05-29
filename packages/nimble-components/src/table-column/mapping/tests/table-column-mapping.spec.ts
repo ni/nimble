@@ -52,7 +52,7 @@ interface ModelFixture<T> extends Fixture<T> {
 
 describe('TableColumnMapping', () => {
     let connect: () => Promise<void>;
-    let disconnect: () => Promise<void>;
+    let disconnect: (() => Promise<void>) | undefined;
     let pageObject: TablePageObject<SimpleTableRecord>;
     let columnPageObject: TableColumnMappingPageObject<SimpleTableRecord>;
     let model: Model;

@@ -1,0 +1,20 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Stepper - Anchor">
+        <NimbleStepper>
+            <NimbleAnchorStep Severity="AnchorStepSeverity.Success" Href="https://nimble.ni.dev">
+                <span slot="title">First step</span>
+                <span slot="subtitle">Something we did</span>
+            </NimbleAnchorStep>
+            <NimbleAnchorStep Selected="true" Href="https://ni.com">
+                <span slot="title">Second step</span>
+                <span slot="subtitle">Something we are doing</span>
+            </NimbleAnchorStep>
+            <NimbleAnchorStep Href="https://google.com">
+                <span slot="title">Third step</span>
+                <span slot="subtitle">Something to do</span>
+            </NimbleAnchorStep>
+        </NimbleStepper>
+    </SubContainer>
+</div>

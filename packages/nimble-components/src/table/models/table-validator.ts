@@ -40,7 +40,7 @@ export class TableValidator<TData extends TableRecord> {
     }
 
     public isValid(): boolean {
-        return Object.values(this.getValidity()).every(x => x === false);
+        return Object.values(this.getValidity()).every(x => !x);
     }
 
     public areRecordIdsValid(): boolean {

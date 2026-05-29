@@ -4,6 +4,7 @@ using Bunit;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
+
 public class NimbleListOptionGroupTests
 {
     [Fact]

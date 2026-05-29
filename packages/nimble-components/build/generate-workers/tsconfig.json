@@ -1,6 +1,6 @@
 {
     "extends": "../../tsconfig.json",
-    "include": ["source"],
+    "include": ["src"],
     "compilerOptions": {
         "outDir": "./dist/esm"
     }

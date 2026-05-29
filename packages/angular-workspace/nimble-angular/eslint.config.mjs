@@ -9,10 +9,11 @@ export default defineConfig([
     ]),
     lintNimbleConfig,
     {
-        files: ['**/*.js'],
+        files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
         extends: javascriptNimbleConfig,
         rules: {
             'import/no-extraneous-dependencies': ['error', { packageDir: resolve(import.meta.dirname, '../') }],
+            'import/extensions': 'off'
         }
     },
     {
@@ -29,13 +30,13 @@ export default defineConfig([
         }
     },
     {
-        files: ['**/build/**/*.js'],
+        files: ['**/build/**/*.js', '**/build/**/*.cjs', '**/build/**/*.mjs'],
         rules: {
-            // Logging in build scripts is useful
+            // Build scripts should give verbose logging
             'no-console': 'off',
             // Rollup config files use default exports
-            'import/no-default-export': 'off',
-        },
+            'import/no-default-export': 'off'
+        }
     },
     {
         files: ['**/*.html'],

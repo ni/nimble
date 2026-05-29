@@ -10,6 +10,7 @@ export const typescriptNimbleConfigOverrides = defineConfig([
             jsdoc,
         },
         rules: {
+            '@typescript-eslint/no-import-type-side-effects': 'error',
             // Require non-empty JSDoc comment on class declarations
             'jsdoc/require-jsdoc': [
                 'error',

@@ -1,0 +1,3 @@
+{
+  "Arguments": "--style=expanded --silence-deprecation=import --error-css --no-source-map"
+}

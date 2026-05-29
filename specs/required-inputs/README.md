@@ -26,7 +26,7 @@ Any other controls that could possibly be considered inputs are out of scope.
 
 ### API
 
-There are behavioral and presentational aspects of making an input participate in validation. In an ideal world, native, validation-related attributes like `required`, `min`, `max`, etc. would control both behavior and presentation, and frameworks like Angular and Blazor would utilize native form association APIs rather than implementing their own systems. However, given that frameworks like Angular automatically opt out of native form validation ([by setting `novalidate` on the `form` element](https://v17.angular.io/api/forms/NgForm#native-dom-validation-ui)), we don't want our validation presentations (e.g. "required" asterisk, error text/icon, and associated accessibility) coupled to the native validation system. Instead, we introduce a new attribute that controls just the presentation:
+There are behavioral and presentational aspects of making an input participate in validation. In an ideal world, native, validation-related attributes like `required`, `min`, `max`, etc. would control both behavior and presentation, and frameworks like Angular and Blazor would utilize native form association APIs rather than implementing their own systems. However, given that frameworks like Angular automatically opt out of native form validation ([by setting `novalidate` on the `form` element](https://angular.dev/api/forms/NgForm#native-dom-validation-ui)), we don't want our validation presentations (e.g. "required" asterisk, error text/icon, and associated accessibility) coupled to the native validation system. Instead, we introduce a new attribute that controls just the presentation:
 
 - `required-visible`: boolean attribute whose presence turns on a visual affordance (red asterisk) and accessible indication (`aria-required="true"`) that an input is required
 
@@ -105,7 +105,7 @@ Forms support is complete and functional for `nimble-number-field` and `nimble-t
 
 The `required` attribute only plays a role in validation for template-driven forms (with reactive forms, it is only used for accessibility purposes).
 
-Note also that Angular's form validation support [automatically disables the native HTML form validation](https://v17.angular.io/api/forms/NgForm#native-dom-validation-ui) that would otherwise be triggered by setting the `required` attribute. This means that our Angular clients are not exposed to any of the native HTML validation bugs listed earlier in this document.
+Note also that Angular's form validation support [automatically disables the native HTML form validation](https://angular.dev/api/forms/NgForm#native-dom-validation-ui) that would otherwise be triggered by setting the `required` attribute. This means that our Angular clients are not exposed to any of the native HTML validation bugs listed earlier in this document.
 
 #### Blazor
 

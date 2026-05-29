@@ -1,7 +1,7 @@
 import { DesignSystem } from '@ni/fast-foundation';
+import { unitScaleCelsius } from '@ni/unit-format/unit-scale/celsius';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
-import { celsiusUnitScale } from '../../utilities/unit-format/unit-scale/celsius-unit-scale';
 import { styles } from '../base/styles';
 
 declare global {
@@ -16,7 +16,7 @@ declare global {
 export class UnitCelsius extends Unit {
     public constructor() {
         super();
-        this.resolvedUnitScale = celsiusUnitScale;
+        this.resolvedUnitScale = unitScaleCelsius;
     }
 }
 

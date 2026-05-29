@@ -1,0 +1,36 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Tabs">
+        <NimbleTabs @bind-ActiveId="@ActiveTabId">
+            <NimbleTab id="tab-1">Tab 1</NimbleTab>
+            <NimbleTab id="tab-2">Tab 2</NimbleTab>
+            <NimbleTab id="tab-3" Disabled="true">Tab 3 (Disabled)</NimbleTab>
+            <NimbleTabsToolbar>
+                <NimbleButton>Toolbar Button</NimbleButton>
+            </NimbleTabsToolbar>
+            <NimbleTabPanel>
+                <div class="container-label">Tab 1 content</div>
+            </NimbleTabPanel>
+            <NimbleTabPanel>
+                <div class="container-label">Tab 2 content</div>
+                <NimbleTextField Placeholder="Enter text into Tab here" />
+            </NimbleTabPanel>
+            <NimbleTabPanel>
+                <div class="container-label">Tab 3 content</div>
+            </NimbleTabPanel>
+        </NimbleTabs>
+        <label id="activeTab">
+            Active tab:
+        </label>
+        <NimbleSelect @bind-Value="@ActiveTabId" aria-labelledby="activeTab">
+            <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
+            <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
+            <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
+        </NimbleSelect>
+    </SubContainer>
+</div>
+
+@code {
+    private string? ActiveTabId { get; set; }
+}

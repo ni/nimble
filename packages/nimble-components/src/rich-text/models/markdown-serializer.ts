@@ -41,7 +41,7 @@ export class RichTextMarkdownSerializer {
             state: MarkdownSerializerState,
             node: Node
         ): void {
-            const start = (node.attrs.start as number) || 1;
+            const start = (node.attrs.start as number) ?? 1;
             const maxW = String(start + node.childCount - 1).length;
             const space = state.repeat(' ', maxW + 2);
             state.renderList(node, space, i => {

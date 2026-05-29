@@ -13,7 +13,7 @@ const labelTemplate = createRequiredVisibleLabelTemplate(
     html<NumberField>`<label
         part="label"
         for="control"
-        class="${x => (x.defaultSlottedNodes?.length ? 'label' : 'label label__hidden')}"
+        class="${x => (x.defaultSlottedNodes?.length > 0 ? 'label' : 'label label__hidden')}"
     >
         <slot ${slotted('defaultSlottedNodes')}></slot>
     </label>`
@@ -85,7 +85,7 @@ NumberFieldOptions
                             @click="${x => x.stepUp()}"
                         >
                             <slot name="step-up-glyph">
-                                ${definition.stepUpGlyph || ''}
+                                ${definition.stepUpGlyph ?? ''}
                             </slot>
                         </div>
                         <div
@@ -94,7 +94,7 @@ NumberFieldOptions
                             @click="${x => x.stepDown()}"
                         >
                             <slot name="step-down-glyph">
-                                ${definition.stepDownGlyph || ''}
+                                ${definition.stepDownGlyph ?? ''}
                             </slot>
                         </div>
                     </div>

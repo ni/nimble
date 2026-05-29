@@ -208,7 +208,8 @@ describe('RichTextEditor', () => {
         });
     });
 
-    describe('keyboard shortcuts should update the checked state of the buttons', () => {
+    // #SkipWebkit: Fails on Mac (both Playwright-Webkit + Safari) - https://github.com/ni/nimble/issues/2957
+    describe('keyboard shortcuts should update the checked state of the buttons #SkipWebkit', () => {
         parameterizeSpec(formattingButtons, (spec, name, value) => {
             spec(`"${name}" button keyboard shortcut check`, async () => {
                 expect(

@@ -25,11 +25,56 @@ export class ChatConversation extends FoundationElement {
     @observable
     public readonly slottedInputElements?: HTMLElement[];
 
+    /** @internal */
+    @observable
+    public toolbarEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedToolbarElements?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public startEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedStartElements?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public endEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedEndElements?: HTMLElement[];
+
     public slottedInputElementsChanged(
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        this.inputEmpty = !next?.length;
+        this.inputEmpty = next === undefined || next.length === 0;
+    }
+
+    public slottedToolbarElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.toolbarEmpty = next === undefined || next.length === 0;
+    }
+
+    public slottedStartElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.startEmpty = next === undefined || next.length === 0;
+    }
+
+    public slottedEndElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.endEmpty = next === undefined || next.length === 0;
     }
 }
 

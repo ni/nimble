@@ -110,7 +110,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
                 if (node.type.name.startsWith(mentionPluginPrefix)) {
                     hasMention = true;
                 }
-                const continueDescent = hasMention === false;
+                const continueDescent = !hasMention;
                 return continueDescent;
             });
             return !hasMention;

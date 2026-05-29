@@ -3,7 +3,7 @@ import { TableHeader, tableHeaderTag } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { TableColumnAlignment, TableColumnSortDirection } from '../../../types';
-import { TableHeaderPageObject } from './table-header-pageobject';
+import { TableHeaderPageObject } from './table-header.pageobject';
 
 async function setup(): Promise<Fixture<TableHeader>> {
     return await fixture<TableHeader>(

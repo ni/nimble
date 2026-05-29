@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace NimbleBlazor.Tests.Acceptance.Client;
+
 internal static class Program
 {
     public static async Task Main(string[] args)

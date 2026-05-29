@@ -42,7 +42,7 @@ export class TableLayoutManager<TData extends TableRecord> {
                     currentPixelWidth,
                     currentFractionalWidth
                 } = column.columnInternals;
-                if (currentPixelWidth) {
+                if (currentPixelWidth !== undefined) {
                     const coercedPixelWidth = Math.max(
                         minPixelWidth,
                         currentPixelWidth

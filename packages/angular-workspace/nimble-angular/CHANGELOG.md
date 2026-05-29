@@ -1,8 +1,366 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 27 May 2026 16:39:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.3.3
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Fix typo in combobox directive template ([ni/nimble@35e108a](https://github.com/ni/nimble/commit/35e108abbe23815a0c67cf87518acdeccb58cdcc))
+- Bump @ni/nimble-components to v35.9.3
+- Bump @ni/unit-format to v1.0.5
+
+## 33.3.2
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.2
+
+## 33.3.1
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.1
+
+## 33.3.0
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Minor changes
+
+- add appearance-indeterminate property to nimble checkbox ([ni/nimble@38b5b13](https://github.com/ni/nimble/commit/38b5b13eceb1f7c1da8342dc583d79769e69ca7a))
+- Bump @ni/nimble-components to v35.9.0
+
+## 33.2.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.8.0
+
+## 33.1.7
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Dependency update May 2026 ([ni/nimble@ec45dce](https://github.com/ni/nimble/commit/ec45dce8237675f6f19e17e142532070b6551ab2))
+- Bump @ni/nimble-components to v35.7.1
+- Bump @ni/unit-format to v1.0.4
+
+## 33.1.6
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.7.0
+
+## 33.1.5
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.6.1
+
+## 33.1.4
+
+Wed, 15 Apr 2026 21:42:32 GMT
+
+### Patches
+
+- Angular step routerLink support ([ni/nimble@c51a849](https://github.com/ni/nimble/commit/c51a849354bd6ffbe213086adde877642a76901f))
+
+## 33.1.3
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.6.0
+
+## 33.1.2
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Update label provider core for stepper labels ([ni/nimble@8d8d724](https://github.com/ni/nimble/commit/8d8d7249f0d2fbbbc686f34a67062a1f0c6680b4))
+- Bump @ni/nimble-components to v35.5.8
+
+## 33.1.1
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.7
+
+## 33.1.0
+
+Tue, 14 Apr 2026 15:51:17 GMT
+
+### Minor changes
+
+- Stepper, step, and anchor step component wrappers ([ni/nimble@87f02f1](https://github.com/ni/nimble/commit/87f02f195685b4cba69bccc334ce694f857a989e))
+
+## 33.0.4
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.6
+
+## 33.0.3
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.5
+
+## 33.0.2
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.4
+
+## 33.0.1
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.3
+
+## 33.0.0
+
+Thu, 19 Mar 2026 20:13:51 GMT
+
+### Major changes
+
+- Angular 20 update ([ni/nimble@7b9569e](https://github.com/ni/nimble/commit/7b9569e12f7a218f64addcafd03d0cdeed1c9e09))
+
+## 32.4.2
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.2
+
+## 32.4.1
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.5.1
+
+## 32.4.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.5.0
+
+## 32.3.12
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.4.0
+
+## 32.3.11
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.4
+
+## 32.3.10
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.3
+- Bump @ni/unit-format to v1.0.3
+
+## 32.3.9
+
+Sat, 28 Feb 2026 00:50:55 GMT
+
+### Patches
+
+- Update to @angular/build ([ni/nimble@dc702d8](https://github.com/ni/nimble/commit/dc702d8999d88b69c70206ad85bda58667c4a4bc))
+
+## 32.3.8
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.1
+
+## 32.3.7
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.3.0
+
+## 32.3.6
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.3
+
+## 32.3.5
+
+Sat, 07 Feb 2026 03:16:38 GMT
+
+### Patches
+
+- Update links to angular.io in documentation ([ni/nimble@152ebf2](https://github.com/ni/nimble/commit/152ebf2574a4f54cf8bbec4de1cc490d0e1be166))
+
+## 32.3.4
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.2
+
+## 32.3.3
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.1
+
+## 32.3.2
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.2.0
+
+## 32.3.1
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.2
+
+## 32.3.0
+
+Wed, 04 Feb 2026 00:56:35 GMT
+
+### Minor changes
+
+- NimbleLabelProviderCoreDirective: Add itemRemove label, update scrollForward/scrollBackward to allow scroll-forward/scroll-backward binding. ([ni/nimble@babcd06](https://github.com/ni/nimble/commit/babcd0690855a7003ecd7c56c64a98d7b96d9d43))
+
+## 32.2.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.1.1
+
+## 32.2.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.1.0
+
+## 32.1.1
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Internal change to icon pattern ([ni/nimble@ea48f0f](https://github.com/ni/nimble/commit/ea48f0fb1ca901fa9bf2bfe4a82ae04a44b2ab63))
+- Bump @ni/nimble-components to v35.0.3
+
+## 32.1.0
+
+Fri, 23 Jan 2026 16:37:46 GMT
+
+### Minor changes
+
+- Angular integration for nimble-chip component ([ni/nimble@fed6c36](https://github.com/ni/nimble/commit/fed6c36b6fe971d4699a6b8c1b55084f7fe8a651))
+
+## 32.0.2
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/nimble-components to v35.0.2
+- Bump @ni/unit-format to v1.0.2
+
+## 32.0.1
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.0.1
+- Bump @ni/unit-format to v1.0.1
+
+## 32.0.0
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Major changes
+
+- Breaking: `@ni/nimble-angular/pipes` unit scales renamed, i.e. `byteUnitScale` to `unitScaleByte` ([ni/nimble@e26c67a](https://github.com/ni/nimble/commit/e26c67af559e81c7a7869429869483dc17ec2fb1))
+- Bump @ni/nimble-components to v35.0.0
+- Bump @ni/unit-format to v1.0.0
+
+## 31.0.1
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.10.3
+
+## 31.0.0
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Major changes
+
+- Update Angular dependencies and forked files to v19.2 ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/nimble-components to v34.10.2
 
 ## 30.12.1
 

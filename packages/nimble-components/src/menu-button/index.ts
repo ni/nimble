@@ -209,7 +209,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         // Get the menu that is slotted within the menu-button, taking into account
         // that it may be nested within multiple 'slot' elements, such as when used
         // within a table.
-        if (!this.slottedMenus?.length) {
+        if (!this.slottedMenus || this.slottedMenus.length === 0) {
             return undefined;
         }
 
@@ -246,7 +246,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
 
     private focusLastMenuItem(): void {
         const menuItems = this.getMenu()?.querySelectorAll('[role=menuitem]');
-        if (menuItems?.length) {
+        if (menuItems && menuItems.length > 0) {
             const lastMenuItem = menuItems[menuItems.length - 1] as HTMLElement;
             lastMenuItem.focus();
         }

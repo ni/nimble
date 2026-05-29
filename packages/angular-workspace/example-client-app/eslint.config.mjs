@@ -6,10 +6,11 @@ export default defineConfig([
     globalIgnores(['**/src/environments']),
     lintNimbleConfig,
     {
-        files: ['**/*.js'],
+        files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
         extends: javascriptNimbleConfig,
         rules: {
             'import/no-extraneous-dependencies': ['error', { packageDir: resolve(import.meta.dirname, '../') }],
+            'import/extensions': 'off'
         }
     },
     {
@@ -45,6 +46,7 @@ export default defineConfig([
             ],
             'jsdoc/require-jsdoc': 'off',
             'jsdoc/require-description': 'off',
+            '@angular-eslint/component-max-inline-declarations': 'off',
         },
     },
     {

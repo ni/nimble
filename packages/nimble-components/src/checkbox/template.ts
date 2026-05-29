@@ -26,15 +26,15 @@ CheckboxOptions
             <div part="container" class="container">
                 <div part="control" class="control">
                     <slot name="checked-indicator">
-                        ${definition.checkedIndicator || ''}
+                        ${definition.checkedIndicator ?? ''}
                     </slot>
                     <slot name="indeterminate-indicator">
-                        ${definition.indeterminateIndicator || ''}
+                        ${definition.indeterminateIndicator ?? ''}
                     </slot>
                 </div>
                 <label
                     part="label"
-                    class="${x => (x.defaultSlottedNodes?.length
+                    class="${x => (x.defaultSlottedNodes?.length > 0
         ? 'label'
         : 'label label__hidden')}"
                 >

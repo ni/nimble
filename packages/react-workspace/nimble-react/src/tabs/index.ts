@@ -1,6 +1,9 @@
-import { Tabs } from '@ni/nimble-components/dist/esm/tabs';
+'use client';
+
+import { Tabs, tabsTag } from '@ni/nimble-components/dist/esm/tabs';
 import { wrap, type EventName } from '../utilities/react-wrapper';
 
+export { tabsTag };
 export { type Tabs };
 export const NimbleTabs = wrap(Tabs, {
     events: {

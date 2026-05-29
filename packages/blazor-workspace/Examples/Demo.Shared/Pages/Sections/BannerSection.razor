@@ -1,0 +1,15 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Banner">
+        <NimbleBanner @bind-Open="@BannerOpen" Severity="BannerSeverity.Information">
+            <span slot="title">Title of the banner</span>
+            This is the message text of this banner. It tells you something interesting.
+        </NimbleBanner>
+        <NimbleCheckbox @bind-Value="@BannerOpen">Show banner</NimbleCheckbox>
+    </SubContainer>
+</div>
+
+@code {
+    private bool BannerOpen { get; set; } = true;
+}

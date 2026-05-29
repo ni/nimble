@@ -1,0 +1,9 @@
+@import '../../NimbleDesignTokens/tokens';
+
+::deep .drawer-location-select {
+    width: 200px;
+}
+
+::deep .drawer-footer {
+    gap: $ni-nimble-standard-padding;
+}

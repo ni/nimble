@@ -1,0 +1,31 @@
+import type { SeverityPattern } from '../severity/types';
+import type { StepInternals } from './models/step-internals';
+
+export interface StepPattern extends SeverityPattern, HTMLElement {
+    /**
+     * Whether or not the step is disabled.
+     */
+    disabled: boolean;
+
+    /**
+     * Whether or not the step is readOnly.
+     */
+    readOnly: boolean;
+
+    /**
+     * Whether or not the step is selected.
+     */
+    selected: boolean;
+
+    /**
+     * Internal step state set by the stepper
+     * @internal
+     */
+    stepInternals: StepInternals;
+
+    /**
+     * Primary control for interactions
+     * @internal
+     */
+    control?: HTMLElement;
+}

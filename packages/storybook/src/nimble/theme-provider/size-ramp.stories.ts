@@ -15,7 +15,7 @@ import {
     groupHeaderFontColor,
     groupHeaderTextTransform
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { createUserSelectedThemeStory, fastParameters } from '../../utilities/storybook';
 
 const sizeRampTokenNames = (({
     smallPadding,
@@ -36,11 +36,7 @@ interface TokenArgs {
 const metadata: Meta = {
     title: 'Tokens/Size Ramp',
     parameters: {
-        docs: {
-            source: {
-                code: null
-            }
-        }
+        ...fastParameters(),
     }
 };
 

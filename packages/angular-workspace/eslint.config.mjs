@@ -6,7 +6,10 @@ export default defineConfig([
     globalIgnores(['*/']),
     lintNimbleConfig,
     {
-        files: ['**/*.js'],
-        extends: javascriptNimbleConfig,
+        files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
+        extends: [javascriptNimbleConfig],
+        rules: {
+            'import/extensions': 'off'
+        }
     },
 ]);

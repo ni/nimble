@@ -3,7 +3,7 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { NumberTextPipe } from '../number-text.pipe';
 import { NumberTextFormat } from '../../table-column/number-text/nimble-table-column-number-text.directive';
-import { byteUnitScale } from '../public-api';
+import { unitScaleByte } from '../public-api';
 
 describe('NumberTextPipe', () => {
     const testCases = [
@@ -20,7 +20,7 @@ describe('NumberTextPipe', () => {
             value: 3000,
             expected: '3 kB',
             options: {
-                unitScale: byteUnitScale,
+                unitScale: unitScaleByte,
             }
         },
         {
@@ -90,7 +90,7 @@ describe('NumberTextPipe', () => {
     it('honors change to unitScale argument in subsequent call to transform()', () => {
         const pipe = new NumberTextPipe('en');
         expect(pipe.transform(100)).toEqual('100');
-        expect(pipe.transform(100, { unitScale: byteUnitScale })).toEqual('100 bytes');
+        expect(pipe.transform(100, { unitScale: unitScaleByte })).toEqual('100 bytes');
     });
 
     it('honors changes to multiple arguments in subsequent call to transform()', () => {
@@ -99,7 +99,7 @@ describe('NumberTextPipe', () => {
         expect(pipe.transform(100.12345, {
             numberTextFormat: NumberTextFormat.decimal,
             decimalMaximumDigits: 1,
-            unitScale: byteUnitScale
+            unitScale: unitScaleByte
         })).toEqual('100.1 bytes');
     });
 
@@ -108,12 +108,12 @@ describe('NumberTextPipe', () => {
         const args = {
             numberTextFormat: NumberTextFormat.decimal,
             maximumDecimalDigits: 3,
-            unitScale: byteUnitScale
+            unitScale: unitScaleByte
         };
         pipe.transform(1, args);
-        const initialFormatter = pipe.numberTextUnitFormat;
+        const initialFormatter = pipe.unitFormatNumberText;
         pipe.transform(1, args);
-        expect(pipe.numberTextUnitFormat).toBe(initialFormatter);
+        expect(pipe.unitFormatNumberText).toBe(initialFormatter);
     });
 
     describe('in component template', () => {

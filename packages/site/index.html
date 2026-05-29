@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Nimble Design System - NI</title> 
+    <meta name="description" content="The Nimble design system starting page. The Nimble Design System is an easy to use collection of well-designed, styled components
+    that can be used in any NI web application.">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <script type="module" src="./src/index.ts"></script>
+    <link rel="stylesheet" type="text/css" href="./src/styles.scss" />
+</head>
+
+<body>
+    <nimble-theme-provider id="theme-provider" theme="light">
+        <div class="container">
+            <div class="backdrop"></div>
+            <div class="main-content">
+                <div class="banner">
+                    <div class="banner-main">
+                        <div class="icon icon-nimble"></div>
+                        <p>The Nimble Design System is an easy to use collection of well-designed, styled components
+                            that can be used in any NI web application.</p>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="card-wrapper">
+                        <a class="card" href="storybook/index.html">
+                            <div class="icon icon-storybook"></div>
+                            <div class="name">Storybook</div>
+                            <div class="description">Browse documentation</div>
+                        </a>
+                    </div>
+                    <div class="card-wrapper">
+                        <a class="card" href="https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components">
+                            <div class="icon icon-figma"></div>
+                            <div class="name">Figma</div>
+                            <div class="description">Explore the design library</div>
+                        </a>
+                    </div>
+                    <div class="card-wrapper">
+                        <a class="card" href="https://github.com/ni/nimble">
+                            <div class="icon icon-github"></div>
+                            <div class="name">GitHub</div>
+                            <div class="description">Submit requests and contribute code</div>
+                        </a>
+                    </div>
+                    <div class="card-wrapper">
+                        <a class="card" href="storybook/example-client-app/index.html">
+                            <div class="icon icon-angular"></div>
+                            <div class="name">Angular Demo</div>
+                            <div class="description">View the Angular demo application</div>
+                        </a>
+                    </div>
+                    <div class="card-wrapper">
+                        <a class="card" href="storybook/blazor-client-app/wwwroot/index.html">
+                            <div class="icon icon-blazor"></div>
+                            <div class="name">Blazor Demo</div>
+                            <div class="description">View the Blazor demo application</div>
+                        </a>
+                    </div>
+                    <div class="card-wrapper">
+                        <a class="card" href="storybook/react-client-app/index.html">
+                            <div class="icon icon-react"></div>
+                            <div class="name">React Demo</div>
+                            <div class="description">View the React demo application</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <svg class="circle-wrapper" id="circles" viewBox="0 0 1550 1550" width="1300" height="1300" stroke-width="50"
+                fill="transparent" stroke-linecap="round">
+                <circle cx="775" cy="775" r="750" />
+                <circle cx="775" cy="775" r="700" />
+                <circle cx="775" cy="775" r="650" />
+                <circle cx="775" cy="775" r="600" />
+                <circle cx="775" cy="775" r="550" />
+                <circle cx="775" cy="775" r="500" />
+                <circle cx="775" cy="775" r="450" />
+            </svg>
+        </div>
+    </nimble-theme-provider>
+</body>
+
+</html>

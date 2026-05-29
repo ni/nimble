@@ -1561,7 +1561,7 @@ describe('Table row selection', () => {
                             key: keyTab, // could be any key
                             shiftKey: true,
                             bubbles: true
-                        } as KeyboardEventInit);
+                        });
                         window.dispatchEvent(shiftKeyDownEvent);
                         window.dispatchEvent(new FocusEvent('blur'));
                         // No SHIFT keyup event. This simulates the user letting go of the SHIFT key outside the window.
@@ -1714,7 +1714,7 @@ describe('Table row selection', () => {
             table = Object.assign(document.createElement(tableTag), {
                 selectionMode: TableRowSelectionMode.single,
                 idFieldName: 'stringData'
-            }) as Table;
+            });
             await table.setData(simpleTableData);
         });
 

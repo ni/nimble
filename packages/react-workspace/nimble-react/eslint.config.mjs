@@ -1,20 +1,16 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
-import { lintNimbleConfig, javascriptNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
+import { javascriptConfig, importNodeEsmConfig } from '@ni/eslint-config-javascript';
+import { lintNimbleConfig, typescriptNimbleConfig } from '@ni-private/eslint-config-nimble';
 
 export default defineConfig([
     globalIgnores(['**/dist/']),
     lintNimbleConfig,
     {
-        files: ['**/*.js', '**/*.cjs'],
-        extends: javascriptNimbleConfig,
+        files: ['build/**/*.mjs'],
+        extends: [javascriptConfig, importNodeEsmConfig],
         rules: {
             // Configuration scripts will not be in published package and are allowed to use devDependencies
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-        },
-    },
-    {
-        files: ['**/build/**/*.js'],
-        rules: {
             // Build scripts should give verbose logging
             'no-console': 'off',
             // Rollup config files use default exports

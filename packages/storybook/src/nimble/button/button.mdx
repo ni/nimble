@@ -1,10 +1,11 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
-import StylingDocs from '../patterns/button/styling-docs.mdx';
+import ButtonStylingDocs from '../patterns/button/button-styling-docs.mdx';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import * as buttonStories from './button.stories';
+import { Tag } from '../../utilities/story-layout';
 
 <Meta of={buttonStories} />
 <Title of={buttonStories} />
@@ -16,17 +17,17 @@ form, opening a dialog, canceling an action, or performing a delete operation.
 Consider <Tag name={anchorButtonTag} /> if you want a button that triggers
 navigation to a URL.
 
-<Canvas of={buttonStories.outlineButton} />
+<Canvas of={buttonStories.button} />
 
 ## API
 
-<Controls of={buttonStories.outlineButton} />
+<Controls of={buttonStories.button} />
 
 <ComponentApisLink />
 
 ## Styling
 
-<StylingDocs components={{ Button: buttonTag }} />
+<ButtonStylingDocs components={{ Button: buttonTag }} />
 
 ### Sizing
 

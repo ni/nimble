@@ -398,7 +398,6 @@ describe('Nimble anchor button', () => {
                     [attr.type]="type"
                     [attr.appearance]="appearance"
                     [attr.underline-visible]="underlineVisible"
-                    [attr.appearance]="appearance"
                     [attr.appearance-variant]="appearanceVariant"
                     [attr.content-hidden]="contentHidden"
                     [attr.disabled]="disabled"

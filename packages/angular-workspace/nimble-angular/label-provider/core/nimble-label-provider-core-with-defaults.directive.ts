@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 import type { LabelProviderCore } from '@ni/nimble-components/dist/esm/label-provider/core';
 
-import '@angular/localize/init';
-
 /**
  * Directive for nimble-label-provider-core which will initialize all of the labels with $localize-tagged strings, for apps
  * using @angular/localize.
@@ -18,11 +16,14 @@ export class NimbleLabelProviderCoreWithDefaultsDirective {
         this.elementRef.nativeElement.numericIncrement = $localize`:Nimble numeric - increment|:Increment`;
         this.elementRef.nativeElement.popupIconError = $localize`:Nimble popup icon - error|:Error`;
         this.elementRef.nativeElement.popupIconWarning = $localize`:Nimble popup icon - warning|:Warning`;
+        this.elementRef.nativeElement.popupIconCompleted = $localize`:Nimble popup icon - completed|:Completed`;
+        this.elementRef.nativeElement.popupIconCurrent = $localize`:Nimble popup icon - current|:Current`;
         this.elementRef.nativeElement.popupIconInformation = $localize`:Nimble popup icon - information|:Information`;
         this.elementRef.nativeElement.filterSearch = $localize`:Nimble select - search items|:Search`;
         this.elementRef.nativeElement.filterNoResults = $localize`:Nimble select - no items|:No items found`;
         this.elementRef.nativeElement.loading = $localize`:Nimble loading - loading|:Loading…`;
         this.elementRef.nativeElement.scrollBackward = $localize`:Nimble scroll backward|:Scroll backward`;
         this.elementRef.nativeElement.scrollForward = $localize`:Nimble scroll forward|:Scroll forward`;
+        this.elementRef.nativeElement.itemRemove = $localize`:Nimble item - remove|:Remove`;
     }
 }

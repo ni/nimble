@@ -7,10 +7,12 @@ import { tokenValues, type ThemeColor } from './design-token-values';
 // #region color tokens
 export const actionRgbPartialColor = createThemeColorToken(tokenNames.actionRgbPartialColor, tokenValues.actionRgbPartialColor);
 export const applicationBackgroundColor = createThemeColorToken(tokenNames.applicationBackgroundColor, tokenValues.applicationBackgroundColor);
+export const containerBackgroundColor = createThemeColorToken(tokenNames.containerBackgroundColor, tokenValues.containerBackgroundColor);
 export const headerBackgroundColor = createThemeColorToken(tokenNames.headerBackgroundColor, tokenValues.headerBackgroundColor);
 export const sectionBackgroundColor = createThemeColorToken(tokenNames.sectionBackgroundColor, tokenValues.sectionBackgroundColor);
 export const sectionBackgroundImage = createThemeColorToken(tokenNames.sectionBackgroundImage, tokenValues.sectionBackgroundImage);
 export const dividerBackgroundColor = createThemeColorToken(tokenNames.dividerBackgroundColor, tokenValues.dividerBackgroundColor);
+export const dividerBackgroundDynamicColor = createThemeColorToken(tokenNames.dividerBackgroundDynamicColor, tokenValues.dividerBackgroundDynamicColor);
 export const fillSelectedColor = createThemeColorToken(tokenNames.fillSelectedColor, tokenValues.fillSelectedColor);
 export const fillSelectedRgbPartialColor = createThemeColorToken(tokenNames.fillSelectedRgbPartialColor, tokenValues.fillSelectedRgbPartialColor);
 export const fillHoverSelectedColor = createThemeColorToken(tokenNames.fillHoverSelectedColor, tokenValues.fillHoverSelectedColor);
@@ -21,6 +23,7 @@ export const borderColor = createThemeColorToken(tokenNames.borderColor, tokenVa
 export const borderRgbPartialColor = createThemeColorToken(tokenNames.borderRgbPartialColor, tokenValues.borderRgbPartialColor);
 export const failColor = createThemeColorToken(tokenNames.failColor, tokenValues.failColor);
 export const warningColor = createThemeColorToken(tokenNames.warningColor, tokenValues.warningColor);
+export const warningFontColor = createThemeColorToken(tokenNames.warningFontColor, tokenValues.warningFontColor);
 export const passColor = createThemeColorToken(tokenNames.passColor, tokenValues.passColor);
 export const informationColor = createThemeColorToken(tokenNames.informationColor, tokenValues.informationColor);
 export const borderHoverColor = createThemeColorToken(tokenNames.borderHoverColor, tokenValues.borderHoverColor);
@@ -67,6 +70,24 @@ export const calendarEventFillBlockedColor = createThemeColorToken(tokenNames.ca
 export const calendarGrabHandleBackgroundColor = createThemeColorToken(tokenNames.calendarGrabHandleBackgroundColor, tokenValues.calendarGrabHandleBackgroundColor);
 export const calendarGridBorderColor = createThemeColorToken(tokenNames.calendarGridBorderColor, tokenValues.calendarGridBorderColor);
 export const calendarGroupHeaderBackgroundColor = createThemeColorToken(tokenNames.calendarGroupHeaderBackgroundColor, tokenValues.calendarGroupHeaderBackgroundColor);
+export const calendarEventBackgroundJobColor = createThemeColorToken(tokenNames.calendarEventBackgroundJobColor, tokenValues.calendarEventBackgroundJobColor);
+export const calendarEventBackgroundHoverJobColor = createThemeColorToken(tokenNames.calendarEventBackgroundHoverJobColor, tokenValues.calendarEventBackgroundHoverJobColor);
+export const calendarEventBorderJobColor = createThemeColorToken(tokenNames.calendarEventBorderJobColor, tokenValues.calendarEventBorderJobColor);
+export const calendarEventJobFontColor = createThemeColorToken(tokenNames.calendarEventJobFontColor, tokenValues.calendarEventJobFontColor);
+export const calendarEventBackgroundMaintenanceColor = createThemeColorToken(tokenNames.calendarEventBackgroundMaintenanceColor, tokenValues.calendarEventBackgroundMaintenanceColor);
+export const calendarEventBackgroundHoverMaintenanceColor = createThemeColorToken(tokenNames.calendarEventBackgroundHoverMaintenanceColor, tokenValues.calendarEventBackgroundHoverMaintenanceColor);
+export const calendarEventBorderMaintenanceColor = createThemeColorToken(tokenNames.calendarEventBorderMaintenanceColor, tokenValues.calendarEventBorderMaintenanceColor);
+export const calendarEventBackgroundCalibrationColor = createThemeColorToken(tokenNames.calendarEventBackgroundCalibrationColor, tokenValues.calendarEventBackgroundCalibrationColor);
+export const calendarEventBackgroundHoverCalibrationColor = createThemeColorToken(tokenNames.calendarEventBackgroundHoverCalibrationColor, tokenValues.calendarEventBackgroundHoverCalibrationColor);
+export const calendarEventBorderCalibrationColor = createThemeColorToken(tokenNames.calendarEventBorderCalibrationColor, tokenValues.calendarEventBorderCalibrationColor);
+export const calendarEventBackgroundReservationColor = createThemeColorToken(tokenNames.calendarEventBackgroundReservationColor, tokenValues.calendarEventBackgroundReservationColor);
+export const calendarEventBackgroundHoverReservationColor = createThemeColorToken(tokenNames.calendarEventBackgroundHoverReservationColor, tokenValues.calendarEventBackgroundHoverReservationColor);
+export const calendarEventBorderReservationColor = createThemeColorToken(tokenNames.calendarEventBorderReservationColor, tokenValues.calendarEventBorderReservationColor);
+export const calendarEventBackgroundTransportOrderColor = createThemeColorToken(tokenNames.calendarEventBackgroundTransportOrderColor, tokenValues.calendarEventBackgroundTransportOrderColor);
+export const calendarEventBackgroundHoverTransportOrderColor = createThemeColorToken(tokenNames.calendarEventBackgroundHoverTransportOrderColor, tokenValues.calendarEventBackgroundHoverTransportOrderColor);
+export const calendarEventBorderTransportOrderColor = createThemeColorToken(tokenNames.calendarEventBorderTransportOrderColor, tokenValues.calendarEventBorderTransportOrderColor);
+export const calendarEventBackgroundAggregateAvailabilityColor = createThemeColorToken(tokenNames.calendarEventBackgroundAggregateAvailabilityColor, tokenValues.calendarEventBackgroundAggregateAvailabilityColor);
+export const calendarEventBorderAggregateAvailabilityColor = createThemeColorToken(tokenNames.calendarEventBorderAggregateAvailabilityColor, tokenValues.calendarEventBorderAggregateAvailabilityColor);
 // #endregion
 
 // #region size tokens

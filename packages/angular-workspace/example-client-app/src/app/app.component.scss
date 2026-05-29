@@ -1,11 +1,25 @@
+@use '@ni/nimble-angular/styles/tokens' as *;
+
 :host {
+    display: contents;
+}
+
+.example-root {
+    background-color: $ni-nimble-application-background-color;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     height: 100%;
+    width: 100%;
 }
 
-.router-outlet-wrapper {
-    overflow-y: auto;
+.header {
+    background-color: $ni-nimble-header-background-color;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content-container-wrapper {
+    overflow: auto;
     height: 100%;
 }

@@ -1,5 +1,5 @@
 import { Inject, LOCALE_ID, Pipe, type PipeTransform } from '@angular/core';
-import { NumberTextUnitFormat, type NumberTextUnitFormatOptions } from '@ni/nimble-components/dist/esm/table-column/number-text/models/number-text-unit-format';
+import { UnitFormatNumberText, type UnitFormatNumberTextOptions } from '@ni/nimble-components/dist/esm/table-column/number-text/models/unit-format-number-text';
 
 /**
  * A pipe that transforms a number into a string with optional unit
@@ -12,14 +12,14 @@ export class NumberTextPipe implements PipeTransform {
     /**
      * @internal
      */
-    public numberTextUnitFormat?: NumberTextUnitFormat;
+    public unitFormatNumberText?: UnitFormatNumberText;
 
     public constructor(@Inject(LOCALE_ID) private readonly locale: string) {}
 
-    public transform(value: number, options?: NumberTextUnitFormatOptions): string {
-        if (!this.numberTextUnitFormat?.optionsMatch(options)) {
-            this.numberTextUnitFormat = new NumberTextUnitFormat(this.locale, options);
+    public transform(value: number, options?: UnitFormatNumberTextOptions): string {
+        if (!this.unitFormatNumberText?.optionsMatch(options)) {
+            this.unitFormatNumberText = new UnitFormatNumberText(this.locale, options);
         }
-        return this.numberTextUnitFormat.format(value);
+        return this.unitFormatNumberText.format(value);
     }
 }

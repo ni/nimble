@@ -54,6 +54,7 @@ const component = (
     ?error-visible="${() => errorVisible}"
     error-text="${() => errorText}"
     :indeterminate="${() => indeterminate}"
+    ?appearance-indeterminate="${() => indeterminate}"
     style="width: 350px; margin: var(${standardPadding.cssCustomProperty});"
 >
     ${checkedName} ${indeterminateName} ${disabledName} ${errorName} ${extraText}

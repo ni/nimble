@@ -67,5 +67,11 @@ if (window.OkBlazor) {
 }
 
 window.OkBlazor = window.OkBlazor ?? {
-    isReady: () => isReady
+    isReady: () => isReady,
+    TsIconDynamic: {
+        registerIconDynamic: function (tagName, url) {
+            const registerIconDynamic = window.customElements.get('ok-ts-icon-dynamic').registerIconDynamic;
+            registerIconDynamic(tagName, url);
+        }
+    }
 };

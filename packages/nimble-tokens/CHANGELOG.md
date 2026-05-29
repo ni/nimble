@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Thu, 04 Dec 2025 21:45:22 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 26 May 2026 18:42:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.18.1
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Update `nimble-icon-arrow-right-thin` ([ni/nimble@92b4050](https://github.com/ni/nimble/commit/92b405008ad93d76a4b80d8c3ce971f4f2cf6bc6))
+
+## 8.18.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Add sparkles-nested icon ([ni/nimble@e6817bd](https://github.com/ni/nimble/commit/e6817bdbabe2ac49bf7364105de4576f213841c4))
+
+## 8.17.0
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Minor changes
+
+- Add user helmet safety icon ([ni/nimble@df7e198](https://github.com/ni/nimble/commit/df7e198f0d86f240b6baf32bcb6cc05aeea35b08))
+
+## 8.16.0
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Minor changes
+
+- Add token for Black77 ([ni/nimble@8c04925](https://github.com/ni/nimble/commit/8c04925fec84772102d7fbd07482e67081b029b5))
+
+## 8.15.0
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Minor changes
+
+- Add base colors for the new variants of calendar events ([ni/nimble@727c71e](https://github.com/ni/nimble/commit/727c71e6a2d40b70d5ab2c18bbf14a51f35ab3f7))
+
+## 8.14.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Add forklift icon ([ni/nimble@98fb615](https://github.com/ni/nimble/commit/98fb6159317ad0e8e7cdbbff1cbb18972749c2cb))
+
+## 8.13.7
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+
+## 8.13.6
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
 
 ## 8.13.5
 

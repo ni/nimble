@@ -1,8 +1,454 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Wed, 10 Dec 2025 22:42:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 27 May 2026 16:39:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.14.1
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.19.1
+
+## 0.14.0
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Minor changes
+
+- Add new breakpoint icons ([ni/nimble@92b4050](https://github.com/ni/nimble/commit/92b405008ad93d76a4b80d8c3ce971f4f2cf6bc6))
+- Bump @ni/spright-components to v6.19.0
+
+## 0.13.3
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.3
+
+## 0.13.2
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.2
+
+## 0.13.1
+
+Tue, 05 May 2026 14:11:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.1
+
+## 0.13.0
+
+Mon, 04 May 2026 17:04:06 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.18.0
+
+## 0.12.3
+
+Sat, 02 May 2026 02:01:43 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.2
+
+## 0.12.2
+
+Thu, 30 Apr 2026 22:40:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.1
+
+## 0.12.1
+
+Mon, 27 Apr 2026 17:29:26 GMT
+
+### Patches
+
+- Mark all react components as 'use client' ([ni/nimble@724e1ba](https://github.com/ni/nimble/commit/724e1ba5dc42b516a2075a3468c4dd66170303dc))
+
+## 0.12.0
+
+Thu, 23 Apr 2026 15:58:53 GMT
+
+### Minor changes
+
+- Add wrapper for nigel chat icon. ([ni/nimble@9f6c8ee](https://github.com/ni/nimble/commit/9f6c8ee156880eb2cf988e34195d8c3073c1748a))
+
+## 0.11.1
+
+Tue, 21 Apr 2026 19:47:00 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.17.0
+
+## 0.11.0
+
+Mon, 20 Apr 2026 22:42:19 GMT
+
+### Minor changes
+
+- Add welcome message for spright chat conversation ([ni/nimble@f7e4581](https://github.com/ni/nimble/commit/f7e4581eb131183f6ebccd9f6337b1f54eb9be8f))
+- Bump @ni/spright-components to v6.16.0
+
+## 0.10.33
+
+Mon, 20 Apr 2026 16:30:31 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.9
+
+## 0.10.32
+
+Wed, 15 Apr 2026 19:52:21 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.8
+
+## 0.10.31
+
+Wed, 15 Apr 2026 19:06:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.7
+
+## 0.10.30
+
+Tue, 14 Apr 2026 20:31:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.6
+
+## 0.10.29
+
+Thu, 09 Apr 2026 19:17:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.5
+
+## 0.10.28
+
+Thu, 02 Apr 2026 21:37:25 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.4
+
+## 0.10.27
+
+Wed, 01 Apr 2026 21:32:04 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.3
+
+## 0.10.26
+
+Mon, 30 Mar 2026 15:49:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.2
+
+## 0.10.25
+
+Wed, 25 Mar 2026 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.1
+
+## 0.10.24
+
+Wed, 25 Mar 2026 16:53:38 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.15.0
+
+## 0.10.23
+
+Mon, 23 Mar 2026 22:18:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.4
+
+## 0.10.22
+
+Thu, 19 Mar 2026 14:12:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.3
+
+## 0.10.21
+
+Wed, 18 Mar 2026 21:46:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.2
+
+## 0.10.20
+
+Mon, 16 Mar 2026 19:23:09 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.1
+
+## 0.10.19
+
+Thu, 12 Mar 2026 16:41:20 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.14.0
+
+## 0.10.18
+
+Fri, 06 Mar 2026 15:56:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.13.0
+
+## 0.10.17
+
+Fri, 06 Mar 2026 13:42:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.12.0
+
+## 0.10.16
+
+Thu, 05 Mar 2026 15:59:37 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.11.0
+
+## 0.10.15
+
+Mon, 02 Mar 2026 18:11:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.5
+
+## 0.10.14
+
+Mon, 02 Mar 2026 17:43:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.4
+
+## 0.10.13
+
+Mon, 02 Mar 2026 00:16:21 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.3
+
+## 0.10.12
+
+Fri, 27 Feb 2026 23:55:43 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.1
+
+## 0.10.11
+
+Mon, 16 Feb 2026 22:59:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.10.0
+
+## 0.10.10
+
+Mon, 16 Feb 2026 18:09:13 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.9.1
+
+## 0.10.9
+
+Thu, 12 Feb 2026 22:17:28 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.9.0
+
+## 0.10.8
+
+Thu, 12 Feb 2026 08:33:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.8.0
+
+## 0.10.7
+
+Wed, 11 Feb 2026 03:47:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.7.1
+
+## 0.10.6
+
+Fri, 06 Feb 2026 12:05:46 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.7.0
+
+## 0.10.5
+
+Thu, 05 Feb 2026 07:19:38 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.5
+
+## 0.10.4
+
+Wed, 04 Feb 2026 23:25:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.4
+
+## 0.10.3
+
+Wed, 04 Feb 2026 08:13:24 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.3
+
+## 0.10.2
+
+Wed, 04 Feb 2026 01:29:10 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.2
+
+## 0.10.1
+
+Tue, 03 Feb 2026 14:40:29 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.6.1
+
+## 0.10.0
+
+Mon, 02 Feb 2026 13:53:04 GMT
+
+### Minor changes
+
+- Add dedicated chat message components for inbound, outbound, and system messages. The original chat message component is deprecated and will be removed in a future release. ([ni/nimble@cb39491](https://github.com/ni/nimble/commit/cb3949121e6d8c2f26e0607e193a2e6e9a415e08))
+- Bump @ni/spright-components to v6.6.0
+
+## 0.9.0
+
+Tue, 27 Jan 2026 23:05:34 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.5.0
+
+## 0.8.4
+
+Fri, 23 Jan 2026 21:08:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.27
+
+## 0.8.3
+
+Tue, 20 Jan 2026 03:36:17 GMT
+
+### Patches
+
+- consistent module package format ([ni/nimble@8dad67e](https://github.com/ni/nimble/commit/8dad67eea4b456fee7f4f5e1071e1924753092d0))
+- Bump @ni/spright-components to v6.4.26
+
+## 0.8.2
+
+Sun, 18 Jan 2026 00:56:49 GMT
+
+### Patches
+
+- Consistent package exports ([ni/nimble@bf50557](https://github.com/ni/nimble/commit/bf50557680684a905423b3e1c541101f4225e564))
+- Bump @ni/spright-components to v6.4.25
+
+## 0.8.1
+
+Thu, 15 Jan 2026 18:15:56 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.24
+
+## 0.8.0
+
+Fri, 02 Jan 2026 06:16:54 GMT
+
+### Minor changes
+
+- Switch to package exports ([ni/nimble@66f9a70](https://github.com/ni/nimble/commit/66f9a70c13c5a2f8605b86036f1faded63e2bf93))
+
+## 0.7.1
+
+Fri, 26 Dec 2025 05:48:06 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.4.23
+
+## 0.7.0
+
+Wed, 24 Dec 2025 01:13:38 GMT
+
+### Minor changes
+
+- React 19 support ([ni/nimble@f02af57](https://github.com/ni/nimble/commit/f02af57ebb0bd171e3778b06bb05ad1d140317bf))
+
+## 0.6.22
+
+Wed, 17 Dec 2025 23:15:32 GMT
+
+### Patches
+
+- Bump typescript version in all packages (to 5.8.3) ([ni/nimble@5796d17](https://github.com/ni/nimble/commit/5796d17bb92450e5027c46f52aa9ea86d64dca92))
+- Bump @ni/spright-components to v6.4.22
 
 ## 0.6.21
 

@@ -108,9 +108,11 @@ Some takeaways from the example:
 
 ## Prefer cascade for state changes
 
-If you find yourself in complex logic with lots of `:not()` selectors it's possible the code should be reorganized to leverage the CSS cascade for overriding states.
+Avoid using [`:not()` selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:not) or [selector lists](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors/Selector_structure#selector_list) (`#main, .content {}`) and instead rely on CSS cascade for overriding states. This will likely result in groups of properties being duplicated across multiple selectors and that is desired and expected.
+  
+Each selector should represent a single, clear state of the control and define a minimal set of properties that override the base configuration of the control. Duplicated property values are avoided by using well-named design tokens or private css custom properties.
 
-States should flow from plain control -> hover -> focus -> active -> error -> disabled (which overrides all the others).
+States should flow from plain control -> hover -> focus -> active -> disabled (which overrides all the others).
 
 For example:
 
@@ -119,8 +121,6 @@ For example:
 :host(:hover) {}
 :host(${focusVisible}) {} /* focusVisible is specific to FAST */
 :host(:active) {}
-:host(:invalid) {}
-:host(.custom-state) {}
 :host([disabled]) {} /* disabled styles override all others in the cascade*/
 ```
 
@@ -131,19 +131,25 @@ Useful reference: [When do the :hover, :focus, and :active pseudo-classes apply?
 New controls and existing controls undergoing major refactoring should migrate to [CSS Cascade Layers with `@layer`](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for organizing styles that override states. Cascade Layers with `@layer` define the order of precedence when multiple cascade layers are present. This helps enforce that property overrides have higher specificity over base styles without needing to modify selectors to increase specificity.
 
 For consistency, control styles using CSS Cascade Layers should follow these practices:
--   Define the cascade layers: `@layer base, hover, focusVisible, active, disabled, top`
-    -   Avoid changing the order of layers, changing layer names, or creating additional layers.
--   Layers in the stylesheet should follow the order by which they are defined above.
--   Ensure that all styles are in a layer; no styles for the control should be outside of a layer.
--   Styles in layers should continue to follow existing best organization practices, including grouping using document order.
+- Define the following cascade layers list exactly: `@layer base, hover, focusVisible, active, disabled, top;`
+  - The cascade layers list should be the first style defined in a control's top-level `css`.
+  - Avoid changing the order of layers, changing layer names, or creating additional layers.
+- Layers in the stylesheet should follow the order by which they are defined above.
+- Ensure that all styles are in a layer; no styles for the control should be outside of a layer.
+  - This includes leveraging shared styles that are imported. Note: imported styles must be shared as `cssPartial` instead of as a top-level `css` to be used in a layer.
+  - Custom states, like `appearance`, `checked`, etc. should be configured within one of the existing layers (likely in `base` with interaction overrides in different layers).
+- Styles in layers should continue to follow existing best organization practices, including grouping using document order.
 
 For example:
 ```css
-@layer base, hover, focusVisible, active, disabled, top
+@layer base, hover, focusVisible, active, disabled, top;
 
 @layer base {
     :host {
         border: green;
+    }
+    :host([custom-state]) {
+        border: violet;
     }
 }
 @layer hover {}
@@ -152,6 +158,9 @@ For example:
 @layer disabled {
     :host([disabled]) {
         border: gray;
+    }
+    :host([disabled][custom-state]) {
+        border: darkviolet;
     }
 }
 @layer top {}

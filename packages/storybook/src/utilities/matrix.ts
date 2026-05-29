@@ -100,11 +100,23 @@ export const createMatrixThemeStory = <TSource>(
         const wrappedMatrixTemplate = html<TSource>`
             <div class="code-hide-top-container">${matrixTemplate}</div>
         `;
-        const fragment = renderViewTemplate(wrappedMatrixTemplate, source);
-        const content = fragment.firstElementChild!;
+        const content = renderViewTemplate(wrappedMatrixTemplate, source);
         return content;
     };
 };
+
+export function createMatrixInteractions<T extends readonly unknown[]>(
+    component: (...states: T) => ViewTemplate,
+    dimensions?: MakeTupleEntriesArrays<T>
+): ViewTemplate {
+    const states = cartesianProduct(dimensions);
+    return createMatrixInteractionsFromStates(component, {
+        hover: states,
+        hoverActive: states,
+        active: states,
+        focus: states
+    });
+}
 
 export function createMatrixInteractionsFromStates<
     THover extends readonly unknown[],

@@ -14,7 +14,7 @@ export const template = html<Switch>`
     >
         <label
             part="label"
-            class="${x => (x.defaultSlottedNodes?.length ? 'label' : 'label label__hidden')}"
+            class="${x => (x.defaultSlottedNodes?.length > 0 ? 'label' : 'label label__hidden')}"
         >
             <slot ${slotted('defaultSlottedNodes')}></slot>
         </label>

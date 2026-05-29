@@ -1,3 +1,5 @@
+'use client';
+
 import { ChatInput } from '@ni/spright-components/dist/esm/chat/input';
 import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 import { wrap, type EventName } from '../../utilities/react-wrapper';

@@ -5,16 +5,20 @@ import {
     bodyFontColor,
     borderWidth,
     controlLabelFontColor,
+    controlSlimHeight,
     elevation2BoxShadow,
     mediumPadding,
     popupBorderColor,
     borderHoverColor,
-    smallDelay
+    smallDelay,
+    failColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
 import { display } from '../../utilities/style/display';
 
 export const styles = css`
     ${display('flex')}
+    ${errorStyles}
 
     :host {
         width: 100%;
@@ -56,6 +60,22 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
+    }
+        
+    :host([error-visible]) .container {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]:hover) .container::after {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]:focus-within) .container {
+        border-bottom-color: ${failColor};
+    }
+
     @media (prefers-reduced-motion) {
         .container::after {
             transition-duration: 0s;
@@ -82,9 +102,61 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .send-button {
+    :host([error-visible]) .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+        display: inline-flex;
+        position: absolute;
+        top: ${mediumPadding};
+        right: var(--ni-private-scrollbar-width);
+    }
+
+    .action-button {
         align-self: flex-end;
         width: 80px;
         margin: ${mediumPadding};
+    }
+
+    .attachments {
+        display: none;
+    }
+
+    .attachments.has-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: ${mediumPadding};
+        padding: ${mediumPadding};
+        max-height: calc(${controlSlimHeight} * 3 + ${mediumPadding} * 4 );
+        overflow-y: auto;
+    }
+
+    .attachments ::slotted(*) {
+        height: ${controlSlimHeight};
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .footer-actions {
+        display: none;
+        flex: 1;
+    }
+
+    .footer-actions.has-content {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        column-gap: ${mediumPadding};
+        margin: ${mediumPadding};
+    }
+
+    .footer-actions ::slotted(*) {
+        height: ${controlSlimHeight};
     }
 `;

@@ -10,7 +10,6 @@ import { DefaultValueAccessor } from '../../thirdparty/directives/default_value_
 @Directive({
     selector: 'nimble-text-field[formControlName],nimble-text-field[formControl],nimble-text-field[ngModel]',
     // The following host metadata is duplicated from DefaultValueAccessor
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host: {
         /* eslint-disable @typescript-eslint/naming-convention */
         '(input)': '$any(this)._handleInput($event.target.value)',

@@ -1,6 +1,10 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
+import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
+import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
+import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
+import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import {
     sharedMatrixParameters,
     createMatrixThemeStory
@@ -18,14 +22,62 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const hidden: StoryFn = createStory(
+export const messageHidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${chatMessageTag} hidden>Hidden Chat Message</${chatMessageTag}>`
     )
 );
 
-export const textCustomized: StoryFn = createMatrixThemeStory(
+export const messageTextCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<${chatMessageTag}>Message</${chatMessageTag}>`
+    )
+);
+
+export const messageInboundHidden: StoryFn = createStory(
+    hiddenWrapper(
+        html`<${chatMessageInboundTag} hidden>Hidden Chat Inbound Message</${chatMessageInboundTag}>`
+    )
+);
+
+export const messageInboundTextCustomized: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<${chatMessageInboundTag}>Inbound Message</${chatMessageInboundTag}>`
+    )
+);
+
+export const messageOutboundHidden: StoryFn = createStory(
+    hiddenWrapper(
+        html`<${chatMessageOutboundTag} hidden>Hidden Chat Outbound Message</${chatMessageOutboundTag}>`
+    )
+);
+
+export const messageOutboundTextCustomized: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<${chatMessageOutboundTag}>Outbound Message</${chatMessageOutboundTag}>`
+    )
+);
+
+export const messageSystemHidden: StoryFn = createStory(
+    hiddenWrapper(
+        html`<${chatMessageSystemTag} hidden>Hidden Chat System Message</${chatMessageSystemTag}>`
+    )
+);
+
+export const messageSystemTextCustomized: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<${chatMessageSystemTag}>System Message</${chatMessageSystemTag}>`
+    )
+);
+
+export const messageWelcomeHidden: StoryFn = createStory(
+    hiddenWrapper(
+        html`<${chatMessageWelcomeTag} hidden welcome-title="Welcome" subtitle="Get started">Hidden Chat Welcome Message</${chatMessageWelcomeTag}>`
+    )
+);
+
+export const messageWelcomeTextCustomized: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<${chatMessageWelcomeTag} welcome-title="Welcome" subtitle="Get started">Welcome Message</${chatMessageWelcomeTag}>`
     )
 );

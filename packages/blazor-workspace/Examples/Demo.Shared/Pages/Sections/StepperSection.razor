@@ -1,0 +1,20 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Stepper">
+        <NimbleStepper>
+            <NimbleStep Severity="StepSeverity.Success">
+                <span slot="title">First step</span>
+                <span slot="subtitle">Something we did</span>
+            </NimbleStep>
+            <NimbleStep Selected="true">
+                <span slot="title">Second step</span>
+                <span slot="subtitle">Something we are doing</span>
+            </NimbleStep>
+            <NimbleStep>
+                <span slot="title">Third step</span>
+                <span slot="subtitle">Something to do</span>
+            </NimbleStep>
+        </NimbleStepper>
+    </SubContainer>
+</div>

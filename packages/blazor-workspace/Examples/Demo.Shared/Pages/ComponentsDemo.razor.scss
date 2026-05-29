@@ -1,0 +1,15 @@
+﻿@import '../NimbleDesignTokens/tokens';
+
+.content-container {
+    width: 100%;
+    box-sizing: border-box;
+    font: $ni-nimble-body-font;
+    color: $ni-nimble-body-font-color;
+    padding: 0px 2px 0px 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+}

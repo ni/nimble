@@ -24,6 +24,7 @@
     "performance": "npm run performance --workspaces --if-present",
     "storybook": "npm run start -w @ni-private/storybook"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -45,6 +46,7 @@
     "packages/jasmine-extensions",
     "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
+    "packages/unit-format",
     "packages/nimble-tokens",
     "packages/nimble-components",
     "packages/spright-components",
@@ -71,9 +73,9 @@
     }
   },
   "devDependencies": {
-    "beachball": "^2.45.0",
+    "beachball": "2.64.0",
     "patch-package": "^8.0.0",
-    "playwright": "1.54.1",
-    "turbo": "^2.6.3"
+    "playwright": "1.60.0",
+    "turbo": "^2.9.7"
   }
 }

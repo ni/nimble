@@ -31,8 +31,6 @@ export const componentsNimbleConfig = defineConfig([
             // Strict rules components have not adopted yet
             // See: https://github.com/ni/nimble/issues/2777
             '@typescript-eslint/no-unnecessary-condition': 'off',
-            '@typescript-eslint/strict-boolean-expressions': 'off',
-            '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'off'
         },
     },
     {
@@ -80,12 +78,6 @@ export const componentsNimbleConfig = defineConfig([
     {
         files: ['**/template.ts'],
         rules: {
-            // Using '??' in templates does not get flagged correctly by FAST as being a volatile binding.
-            // See https://github.com/ni/nimble/issues/1843 for more information.
-            'no-restricted-syntax': [
-                'error',
-                { selector: "LogicalExpression[operator='??']" },
-            ],
             // eslint handle does not handle indent well in template files
             '@stylistic/indent': 'off',
         },

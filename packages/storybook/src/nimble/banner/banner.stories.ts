@@ -14,8 +14,8 @@ import { popupDismissLabel } from '@ni/nimble-components/dist/esm/label-provider
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
 import {
-    type LabelUserArgs,
-    addLabelUseMetadata
+    type LocalizableLabelArgs,
+    createLocalizableLabelArgTypes
 } from '../label-provider/base/label-user-stories-utils';
 import {
     apiCategory,
@@ -33,7 +33,7 @@ const ActionType = {
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 type ActionType = (typeof ActionType)[keyof typeof ActionType];
 
-interface BannerArgs extends LabelUserArgs {
+interface BannerArgs extends LocalizableLabelArgs {
     open: boolean;
     title: string;
     text: string;
@@ -51,13 +51,7 @@ const metadata: Meta<BannerArgs> = {
         actions: {
             handles: ['toggle']
         }
-    }
-};
-addLabelUseMetadata(metadata, labelProviderCoreTag, popupDismissLabel);
-
-export default metadata;
-
-export const _banner: StoryObj<BannerArgs> = {
+    },
     render: createUserSelectedThemeStory(html`
         <${bannerTag}
             ?open="${x => x.open}"
@@ -68,20 +62,24 @@ export const _banner: StoryObj<BannerArgs> = {
             <span slot="title">${x => x.title}</span>
             ${x => x.text}
             ${when(x => x.action === 'button (ghost)', html`
-                <${buttonTag} slot="action" appearance="${ButtonAppearance.ghost}" appearance-variant="${ButtonAppearanceVariant.primary}">Do action</${buttonTag}>`)}
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.ghost}" appearance-variant="${ButtonAppearanceVariant.primary}">
+                    Do action
+                </${buttonTag}>`)}
             ${when(x => x.action === 'button (outline)', html`
-                <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}">Do action</${buttonTag}>`)}
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}">
+                    Do action
+                </${buttonTag}>`)}
             ${when(x => x.action === 'icon button (outline)', html`
                 <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}" content-hidden>
                     <${iconKeyTag} slot="start"></${iconKeyTag}>
                     Do action
                 </${buttonTag}>`)}
             ${when(x => x.action === 'anchor', html`
-                <${anchorTag} slot="action" href="#">Go to site</${anchorTag}>`)}
+                <${anchorTag} slot="action" href="#">
+                    Go to site
+                </${anchorTag}>`)}
         </${bannerTag}>
-`),
-    // eslint-disable-next-line storybook/no-redundant-story-name
-    name: 'Banner',
+    `),
     argTypes: {
         open: {
             description: 'Controls whether the banner is visible.',
@@ -127,7 +125,8 @@ export const _banner: StoryObj<BannerArgs> = {
                 'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.',
             table: { category: apiCategory.events },
             control: false
-        }
+        },
+        ...createLocalizableLabelArgTypes(labelProviderCoreTag, popupDismissLabel)
     },
     args: {
         open: true,
@@ -140,3 +139,7 @@ export const _banner: StoryObj<BannerArgs> = {
         toggle: undefined
     }
 };
+
+export default metadata;
+
+export const banner: StoryObj<BannerArgs> = {};

@@ -2,8 +2,9 @@ import { html, when } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
-import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
+import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
+import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
+import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
@@ -26,22 +27,14 @@ Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 
 const endButtonDescription = 'Place 0 or more buttons with text. They appear below any action buttons. End buttons should only be added to inbound messages.';
 
-interface ChatMessageArgs {
-    messageType: keyof typeof ChatMessageType;
+interface ChatMessageInboundArgs {
     footerActions: boolean;
     endButtons: boolean;
 }
 
-const metadata: Meta<ChatMessageArgs> = {
+const metadata: Meta<ChatMessageInboundArgs> = {
     title: 'Internal/Chat Message',
     argTypes: {
-        messageType: {
-            name: 'message-type',
-            options: Object.keys(ChatMessageType),
-            control: { type: 'radio' },
-            description: 'The type of the chat message.',
-            table: { category: apiCategory.attributes }
-        },
         footerActions: {
             name: 'footer-actions',
             description: footerActionsDescription,
@@ -60,33 +53,15 @@ const metadata: Meta<ChatMessageArgs> = {
 
 export default metadata;
 
-interface ChatMessageTextArgs extends ChatMessageArgs {
+interface ChatMessageTextArgs {
     text: string;
 }
 
 export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
+        <${chatMessageOutboundTag}>
             ${x => x.text}
-            ${when(x => x.footerActions, html`
-                <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
-                    <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
-                    Like
-                </${buttonTag}>
-                <${buttonTag} slot="footer-actions" appearance="ghost" title="Dislike" content-hidden>
-                    <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
-                    Dislike
-                </${buttonTag}>
-            `)}
-            ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end" appearance="block">
-                    Order a tab
-                </${buttonTag}>
-                <${buttonTag} slot="end" appearance="block">
-                    Check core temperature
-                </${buttonTag}>
-            `)}
-        </${chatMessageTag}>
+        </${chatMessageInboundTag}>
     `),
     argTypes: {
         text: {
@@ -97,19 +72,16 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
     },
     args: {
         text: 'Aurora Borealis? At this time of year? At this time of day? In this part of the country? Localized entirely within your kitchen?',
-        messageType: 'outbound',
-        footerActions: false,
-        endButtons: false
     }
 };
 
-interface ChatMessageRichTextArgs extends ChatMessageArgs {
+interface ChatMessageRichTextArgs extends ChatMessageInboundArgs {
     markdown: string;
 }
 
 export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
+        <${chatMessageInboundTag}>
             <${richTextViewerTag} markdown="${x => x.markdown}"></${richTextViewerTag}>
             ${when(x => x.footerActions, html`
                 <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
@@ -129,7 +101,7 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
                     Check core temperature
                 </${buttonTag}>
             `)}
-        </${chatMessageTag}>
+        </${chatMessageInboundTag}>
     `),
     argTypes: {
         markdown: {
@@ -139,49 +111,25 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     },
     args: {
         markdown: markdownExample,
-        messageType: 'outbound',
         footerActions: false,
         endButtons: false
     }
 };
 
-export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
+export const chatMessageSpinner: StoryObj = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
+        <${chatMessageSystemTag}>
             <${spinnerTag}
                 style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
                 appearance="${() => SpinnerAppearance.accent}"
             ></${spinnerTag}>
-            ${when(x => x.footerActions, html`
-                <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
-                    <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
-                    Like
-                </${buttonTag}>
-                <${buttonTag} slot="footer-actions" appearance="ghost" title="Dislike" content-hidden>
-                    <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
-                    Dislike
-                </${buttonTag}>
-            `)}
-            ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end" appearance="block">
-                    Order a tab
-                </${buttonTag}>
-                <${buttonTag} slot="end" appearance="block">
-                    Check core temperature
-                </${buttonTag}>
-            `)}
-        </${chatMessageTag}>
-    `),
-    args: {
-        messageType: 'system',
-        footerActions: false,
-        endButtons: false
-    }
+        </${chatMessageSystemTag}>
+    `)
 };
 
-export const chatMessageImage: StoryObj<ChatMessageArgs> = {
+export const chatMessageImage: StoryObj<ChatMessageInboundArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
+        <${chatMessageInboundTag}>
             <img width="100" height="100" :src="${() => imgBlobUrl}">
             ${when(x => x.footerActions, html`
                 <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
@@ -201,10 +149,9 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
                     Check core temperature
                 </${buttonTag}>
             `)}
-        </${chatMessageTag}>
+        </${chatMessageInboundTag}>
     `),
     args: {
-        messageType: 'inbound',
         footerActions: false,
         endButtons: false
     }

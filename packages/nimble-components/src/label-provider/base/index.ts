@@ -41,7 +41,7 @@ export abstract class LabelProviderBase<
         property: keyof LabelProviderBase<SupportedLabels>
     ): void {
         if (this.supportedLabels[property]) {
-            const token = this.supportedLabels[property]!;
+            const token = this.supportedLabels[property];
             const value = this[property];
             if (this.themeProvider) {
                 if (value === null || value === undefined) {

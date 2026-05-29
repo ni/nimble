@@ -2,12 +2,16 @@ import { Component } from '@angular/core';
 import { Theme } from '@ni/nimble-angular';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'app-root',
+    selector: 'example-app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     standalone: false
 })
 export class AppComponent {
-    public theme: Theme = Theme.light;
+    public readonly prefersColorSchemeDarkMediaQuery: MediaQueryList = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+    );
+
+    public readonly themes = Object.values(Theme);
+    public theme: Theme = this.prefersColorSchemeDarkMediaQuery.matches ? 'dark' : 'light';
 }

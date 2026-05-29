@@ -50,30 +50,30 @@ const metadata: Meta<TabsArgs> = {
 };
 
 const simpleTabs = [
-    { title: 'Tab 1', id: '1', disabled: false },
-    { title: 'Tab 2', id: '2', disabled: true },
-    { title: 'Tab 3', id: '3', disabled: false }
+    { title: 'Tab 1', id: 'my-tab-1', disabled: false },
+    { title: 'Tab 2', id: 'my-tab-2', disabled: true },
+    { title: 'Tab 3', id: 'my-tab-3', disabled: false }
 ] as const;
 
 const wideTabs = [
     {
         title: 'Tab 1 that is too long and should probably be shorter but is not',
-        id: '1',
+        id: 'my-tab-1',
         disabled: false
     },
     {
         title: 'Tab 2 that is also too long but disabled',
-        id: '2',
+        id: 'my-tab-2',
         disabled: true
     },
-    { title: 'Short', id: '3', disabled: false }
+    { title: 'Short', id: 'my-tab-3', disabled: false }
 ] as const;
 
 const manyTabs: TabArgs[] = [];
 for (let i = 1; i <= 100; i++) {
     manyTabs.push({
         title: `Tab ${i}`,
-        id: `${i}`,
+        id: `my-tab-${i}`,
         disabled: false
     });
 }
@@ -99,20 +99,28 @@ export const tabs: StoryObj<TabsArgs> = {
             </${tabTag}>
         `)}
         ${repeat(x => (tabSets[x.tabsType] as TabArgs[]), html<TabArgs>`
-            <${tabPanelTag}>Content of tab ${x => x.id}</${tabPanelTag}>
+            <${tabPanelTag}>
+                Content of tab ${x => x.id}
+            </${tabPanelTag}>
         `, { positioning: true })}
         ${when(x => x.tabsType === ExampleTabsType.simpleTabsWithToolbar, html<TabsArgs>`
             <${tabsToolbarTag}>
-                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
-                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
-                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
+                <${buttonTag} appearance="ghost">
+                    Toolbar Button
+                </${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">
+                    Toolbar Button 2
+                </${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">
+                    Toolbar Button 3
+                </${buttonTag}>
             </${tabsToolbarTag}>
         `)}
         </${tabsTag}>
     `),
     argTypes: {
         activeid: {
-            options: ['1', '2', '3'],
+            options: ['my-tab-1', 'my-tab-2', 'my-tab-3'],
             control: { type: 'radio' },
             description: `The \`id\` of the \`${tabTag}\` that should be indicated as currently active/selected.`,
             table: { category: apiCategory.attributes }
@@ -141,7 +149,7 @@ export const tabs: StoryObj<TabsArgs> = {
         }
     },
     args: {
-        activeid: '1',
+        activeid: 'my-tab-1',
         tabsType: ExampleTabsType.simpleTabs
     }
 };
@@ -149,10 +157,18 @@ export const tabs: StoryObj<TabsArgs> = {
 export const tab: StoryObj<TabArgs> = {
     render: createUserSelectedThemeStory(html`
         <${tabsTag}>
-            <${tabTag} id="1" ?disabled="${x => x.disabled}">Tab One</${tabTag}>
-            <${tabTag} id="2">${x => x.title}</${tabTag}>
-            <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
-            <${tabPanelTag}>Content of the second tab</${tabPanelTag}>
+            <${tabTag} id="1" ?disabled="${x => x.disabled}">
+                Tab One
+            </${tabTag}>
+            <${tabTag} id="2">
+                ${x => x.title}
+            </${tabTag}>
+            <${tabPanelTag}>
+                Content of the first tab
+            </${tabPanelTag}>
+            <${tabPanelTag}>
+                Content of the second tab
+            </${tabPanelTag}>
         </${tabsTag}>
     `),
     argTypes: {

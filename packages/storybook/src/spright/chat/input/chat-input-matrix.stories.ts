@@ -5,6 +5,11 @@ import {
     bodyFontColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { iconAddTag } from '@ni/nimble-components/dist/esm/icons/add';
+import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import {
     sharedMatrixParameters,
     createMatrixThemeStory,
@@ -30,6 +35,19 @@ const placeholderStates = [
 ] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
+const processingStates = [
+    ['', false],
+    ['processing', true]
+] as const;
+type ProcessingState = (typeof processingStates)[number];
+
+const errorStates = [
+    ['empty', ''],
+    ['one line', 'Error description'],
+    ['multi line', `${loremIpsum} ${loremIpsum} ${loremIpsum}`]
+] as const;
+type ErrorState = (typeof errorStates)[number];
+
 const metadata: Meta = {
     title: 'Tests Spright/Chat Input',
     parameters: {
@@ -41,7 +59,9 @@ export default metadata;
 
 const component = (
     [valueLabel, value]: ValueState,
-    [placeholderLabel, placeholder]: PlaceholderState
+    [placeholderLabel, placeholder]: PlaceholderState,
+    [processingLabel, processing]: ProcessingState,
+    [errorLabel, error]: ErrorState
 ): ViewTemplate => html`
     <p 
         style="
@@ -50,17 +70,20 @@ const component = (
         margin-bottom: 0px;
         "
     >    
-        ${valueLabel} value, ${placeholderLabel} placeholder
+        ${valueLabel} value, ${placeholderLabel} placeholder, ${processingLabel}, ${errorLabel} error
     </p>
     <${chatInputTag}
         placeholder="${placeholder}"
         value="${value}"
+        processing="${processing}"
+        error-visible="${error !== ''}"
+        error-text="${error}"
     >
     </${chatInputTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [valueStates, placeholderStates])
+    createMatrix(component, [valueStates, placeholderStates, processingStates, errorStates])
 );
 
 export const hidden: StoryFn = createStory(
@@ -99,4 +122,29 @@ export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
         active: [],
         focus: interactionStates
     })
+);
+
+export const slottedContent: StoryFn = createMatrixThemeStory(
+    html`
+        <p
+            style="
+            font: var(${bodyFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+            margin-bottom: 0px;
+            "
+        >
+            With attachments and footer-actions
+        </p>
+        <${chatInputTag} placeholder="Type a message">
+            <${chipTag} slot="attachments" removable>Placeholder.txt</${chipTag}>
+            <${buttonTag} slot="footer-actions" appearance="ghost" title="Attach" content-hidden>
+                <${iconAddTag} slot="start"></${iconAddTag}>
+                Attach
+            </${buttonTag}>
+            <${selectTag} appearance="underline" slot="footer-actions" title="Worker of the Week">
+                <${listOptionTag} value="option1">Inanimate Carbon Rod</${listOptionTag}>
+                <${listOptionTag} value="option2">Homer Simpson</${listOptionTag}>
+            </${selectTag}>
+        </${chatInputTag}>
+    `
 );

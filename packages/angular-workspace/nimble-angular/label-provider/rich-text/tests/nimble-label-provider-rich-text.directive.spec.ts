@@ -125,10 +125,10 @@ describe('Nimble Label Provider Rich text', () => {
         @Component({
             template: `
                 <nimble-label-provider-rich-text #labelProvider
-                    [toggleBold]="toggleBold"
-                    [toggleItalics]="toggleItalics"
-                    [toggleBulletedList]="toggleBulletedList"
-                    [toggleNumberedList]="toggleNumberedList"
+                    [toggle-bold]="toggleBold"
+                    [toggle-italics]="toggleItalics"
+                    [toggle-bulleted-list]="toggleBulletedList"
+                    [toggle-numbered-list]="toggleNumberedList"
                     >
                 </nimble-label-provider-rich-text>
             `,

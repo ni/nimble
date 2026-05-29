@@ -25,6 +25,7 @@ export type ChatMessageOptions = FoundationElementDefinition & StartEndOptions;
 
 /**
  * A Spright component for displaying a chat message
+ * @deprecated Use specific message component types instead
  */
 export class ChatMessage extends FoundationElement {
     /**
@@ -48,7 +49,7 @@ export class ChatMessage extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        this.footerActionsIsEmpty = !next?.length;
+        this.footerActionsIsEmpty = next === undefined || next.length === 0;
     }
 }
 applyMixins(ChatMessage, StartEnd);

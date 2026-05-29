@@ -13,7 +13,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "project": "nimble-angular/ng-package.json"
           },
@@ -28,24 +28,29 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "nimble-angular/test.ts",
             "tsConfig": "nimble-angular/tsconfig.spec.json",
-            "karmaConfig": "nimble-angular/karma.conf.js"
+            "karmaConfig": "nimble-angular/karma.conf.cjs",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing",
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-						"eslintConfig": "nimble-angular/eslint.config.mjs",
-						"lintFilePatterns": [
-							"nimble-angular/**/*.ts",
-							"nimble-angular/**/*.js",
-							"nimble-angular/**/*.mjs",
-							"nimble-angular/**/*.html"
-						]
-					}
+            "eslintConfig": "nimble-angular/eslint.config.mjs",
+            "lintFilePatterns": [
+              "nimble-angular/**/*.ts",
+              "nimble-angular/**/*.js",
+              "nimble-angular/**/*.mjs",
+              "nimble-angular/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -56,7 +61,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "project": "ok-angular/ng-package.json"
           },
@@ -71,24 +76,29 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "ok-angular/test.ts",
             "tsConfig": "ok-angular/tsconfig.spec.json",
-            "karmaConfig": "ok-angular/karma.conf.js"
+            "karmaConfig": "ok-angular/karma.conf.cjs",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing",
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-						"eslintConfig": "ok-angular/eslint.config.mjs",
-						"lintFilePatterns": [
-							"ok-angular/**/*.ts",
-							"ok-angular/**/*.js",
-							"ok-angular/**/*.mjs",
-							"ok-angular/**/*.html"
-						]
-					}
+            "eslintConfig": "ok-angular/eslint.config.mjs",
+            "lintFilePatterns": [
+              "ok-angular/**/*.ts",
+              "ok-angular/**/*.js",
+              "ok-angular/**/*.mjs",
+              "ok-angular/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -99,7 +109,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "project": "spright-angular/ng-package.json"
           },
@@ -114,24 +124,29 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "spright-angular/test.ts",
             "tsConfig": "spright-angular/tsconfig.spec.json",
-            "karmaConfig": "spright-angular/karma.conf.js"
+            "karmaConfig": "spright-angular/karma.conf.cjs",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing",
+              "@angular/localize/init"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-						"eslintConfig": "spright-angular/eslint.config.mjs",
-						"lintFilePatterns": [
-							"spright-angular/**/*.ts",
-							"spright-angular/**/*.js",
-							"spright-angular/**/*.mjs",
-							"spright-angular/**/*.html"
-						]
-					}
+            "eslintConfig": "spright-angular/eslint.config.mjs",
+            "lintFilePatterns": [
+              "spright-angular/**/*.ts",
+              "spright-angular/**/*.js",
+              "spright-angular/**/*.mjs",
+              "spright-angular/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -150,12 +165,17 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/example-client-app",
+            "outputPath": {
+              "base": "dist/example-client-app",
+              "browser": ""
+            },
             "index": "example-client-app/src/index.html",
-            "main": "example-client-app/src/main.ts",
-            "polyfills": "example-client-app/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "example-client-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -165,10 +185,15 @@
             "styles": [
               "example-client-app/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "example-client-app/src/main.ts"
           },
           "configurations": {
             "production": {
+              "outputPath": {
+                "base": "dist/example-client-app",
+                "browser": ""
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -196,7 +221,6 @@
                   "output": "/"
                 }
               ],
-              "buildOptimizer": true,
               "optimization": {
                 "styles": {
                   "inlineCritical": false
@@ -205,9 +229,7 @@
               "sourceMap": true
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -216,7 +238,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "example-client-app:build:production"
@@ -228,18 +250,21 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "example-client-app:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "example-client-app/src/test.ts",
-            "polyfills": "example-client-app/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "example-client-app/tsconfig.spec.json",
-            "karmaConfig": "example-client-app/karma.conf.js",
+            "karmaConfig": "example-client-app/karma.conf.cjs",
             "inlineStyleLanguage": "scss",
             "assets": [
               "example-client-app/src/favicon.ico",
@@ -252,14 +277,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-						"eslintConfig": "example-client-app/eslint.config.mjs",
-						"lintFilePatterns": [
-							"example-client-app/**/*.ts",
-							"example-client-app/**/*.js",
+            "eslintConfig": "example-client-app/eslint.config.mjs",
+            "lintFilePatterns": [
+              "example-client-app/**/*.ts",
+              "example-client-app/**/*.js",
               "example-client-app/**/*.mjs",
-							"example-client-app/**/*.html"
-						]
-					}
+              "example-client-app/**/*.html"
+            ]
+          }
         }
       }
     }

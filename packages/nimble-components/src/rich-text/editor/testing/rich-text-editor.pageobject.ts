@@ -199,7 +199,7 @@ export class RichTextEditorPageObject {
         const toggleButton = this.getFormattingButton(button)!;
         const event = new KeyboardEvent('keypress', {
             key: keySpace
-        } as KeyboardEventInit);
+        });
         toggleButton.control.dispatchEvent(event);
     }
 
@@ -207,7 +207,7 @@ export class RichTextEditorPageObject {
         const toggleButton = this.getFormattingButton(button)!;
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
-        } as KeyboardEventInit);
+        });
         toggleButton.control.dispatchEvent(event);
     }
 
@@ -339,9 +339,7 @@ export class RichTextEditorPageObject {
             }
         };
 
-        if (tiptapEditor) {
-            processNode(tiptapEditor);
-        }
+        processNode(tiptapEditor);
 
         return tagNames.slice(1, -1);
     }

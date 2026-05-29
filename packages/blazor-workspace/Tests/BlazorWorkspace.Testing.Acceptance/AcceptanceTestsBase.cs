@@ -31,7 +31,7 @@ public abstract class AcceptanceTestsBase
 
     private async Task NavigateToPageAsync(IPage page, string route)
     {
-        var address = new Uri(ServerAddress!, route).AbsoluteUri;
+        var address = new Uri(ServerAddress, route).AbsoluteUri;
         await page.GotoAsync(address);
     }
 

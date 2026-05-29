@@ -9,8 +9,8 @@ import {
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';
 import {
-    addLabelUseMetadata,
-    type LabelUserArgs
+    createLocalizableLabelArgTypes,
+    type LocalizableLabelArgs
 } from '../label-provider/base/label-user-stories-utils';
 import {
     apiCategory,
@@ -27,7 +27,7 @@ import {
     fullBleedDescription
 } from '../../utilities/storybook';
 
-interface NumberFieldArgs extends LabelUserArgs {
+interface NumberFieldArgs extends LocalizableLabelArgs {
     label: string;
     value: string;
     valueAsNumber: number;
@@ -175,7 +175,12 @@ const metadata: Meta<NumberFieldArgs> = {
                 'Event emitted on each user keystroke within the number field.',
             table: { category: apiCategory.events },
             control: false
-        }
+        },
+        ...createLocalizableLabelArgTypes(
+            labelProviderCoreTag,
+            numericDecrementLabel,
+            numericIncrementLabel
+        )
     },
     args: {
         label: 'default label',
@@ -195,39 +200,7 @@ const metadata: Meta<NumberFieldArgs> = {
         requiredVisible: false
     }
 };
-addLabelUseMetadata(
-    metadata,
-    labelProviderCoreTag,
-    numericDecrementLabel,
-    numericIncrementLabel
-);
 
 export default metadata;
 
-export const underlineNumberField: StoryObj<NumberFieldArgs> = {
-    args: {
-        label: 'Underline Number Field',
-        appearance: NumberFieldAppearance.underline
-    }
-};
-
-export const outlineNumberField: StoryObj<NumberFieldArgs> = {
-    args: {
-        label: 'Outline Number Field',
-        appearance: NumberFieldAppearance.outline
-    }
-};
-
-export const blockNumberField: StoryObj<NumberFieldArgs> = {
-    args: {
-        label: 'Block Number Field',
-        appearance: NumberFieldAppearance.block
-    }
-};
-
-export const framelessNumberField: StoryObj<NumberFieldArgs> = {
-    args: {
-        label: 'Frameless Number Field',
-        appearance: NumberFieldAppearance.frameless
-    }
-};
+export const numberField: StoryObj<NumberFieldArgs> = {};

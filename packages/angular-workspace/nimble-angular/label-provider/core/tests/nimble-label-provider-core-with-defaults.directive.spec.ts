@@ -34,6 +34,8 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
             [computeMsgId('Increment', 'Nimble numeric - increment')]: 'Translated increment',
             [computeMsgId('Error', 'Nimble popup icon - error')]: 'Translated error',
             [computeMsgId('Warning', 'Nimble popup icon - warning')]: 'Translated warning',
+            [computeMsgId('Completed', 'Nimble popup icon - completed')]: 'Translated completed',
+            [computeMsgId('Current', 'Nimble popup icon - current')]: 'Translated current',
             [computeMsgId('Information', 'Nimble popup icon - information')]: 'Translated information',
             [computeMsgId('Search', 'Nimble select - search items')]: 'Translated search',
             [computeMsgId('No items found', 'Nimble select - no items')]: 'Translated no items found',
@@ -53,6 +55,8 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
         expect(labelProvider.numericIncrement).toBe('Translated increment');
         expect(labelProvider.popupIconError).toBe('Translated error');
         expect(labelProvider.popupIconWarning).toBe('Translated warning');
+        expect(labelProvider.popupIconCompleted).toBe('Translated completed');
+        expect(labelProvider.popupIconCurrent).toBe('Translated current');
         expect(labelProvider.popupIconInformation).toBe('Translated information');
         expect(labelProvider.filterSearch).toBe('Translated search');
         expect(labelProvider.filterNoResults).toBe('Translated no items found');
