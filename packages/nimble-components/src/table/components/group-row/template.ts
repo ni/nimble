@@ -20,10 +20,10 @@ export const template = html<TableGroupRow>`
             --ni-private-table-group-row-pinned-column-offset: ${x => x.pinnedColumnOffset}px;
         "
     >
-        <span class="pinned-column-spacer"></span>
+        <span class="pinned-column-spacer ${x => (x.pinnedColumnOffset > 0 ? 'has-pinned-columns' : '')}"></span>
 
         ${when(x => x.selectable, html<TableGroupRow>`
-            <span role="gridcell" class="checkbox-container">
+            <span role="gridcell" class="checkbox-container ${x => (x.pinnedColumnOffset > 0 ? 'has-pinned-columns' : '')}">
                 <${checkboxTag}
                     ${ref('selectionCheckbox')}
                     class="selection-checkbox"
@@ -36,7 +36,7 @@ export const template = html<TableGroupRow>`
             </span>
         `)}
 
-        <span role="gridcell" class="expand-collapse-button-container ${x => (x.selectable ? 'selectable' : '')}">
+        <span role="gridcell" class="expand-collapse-button-container ${x => (x.selectable ? 'selectable' : '')} ${x => (x.pinnedColumnOffset > 0 ? 'has-pinned-columns' : '')}">
             <${buttonTag}
                 appearance="${ButtonAppearance.ghost}"
                 content-hidden

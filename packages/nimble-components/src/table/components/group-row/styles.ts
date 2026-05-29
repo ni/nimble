@@ -17,6 +17,7 @@ import { themeBehavior } from '../../../utilities/style/theme';
 import { userSelectNone } from '../../../utilities/style/user-select';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 import { focusVisible } from '../../../utilities/style/focus';
+import { ZIndexLevels } from '../../../utilities/style/types';
 
 export const styles = css`
     ${display('grid')}
@@ -65,14 +66,28 @@ export const styles = css`
     }
 
     .pinned-column-spacer {
-        position: sticky;
-        left: 0;
-        background: ${tableRowBorderColor};
         height: 100%;
     }
 
-    .expand-collapse-button-container {
+    .pinned-column-spacer.has-pinned-columns {
+        position: sticky;
+        left: 0;
         background: ${tableRowBorderColor};
+        z-index: ${ZIndexLevels.zIndex1000};
+    }
+
+    .expand-collapse-button-container.has-pinned-columns {
+        position: sticky;
+        left: var(--ni-private-table-group-row-pinned-column-offset);
+        z-index: ${ZIndexLevels.zIndex1000};
+        background: ${tableRowBorderColor};
+    }
+
+    .expand-collapse-button-container.selectable.has-pinned-columns {
+        left: calc(
+            var(--ni-private-table-group-row-pinned-column-offset) +
+                ${controlHeight}
+        );
     }
 
     .expand-collapse-button-container.selectable {
@@ -107,6 +122,13 @@ export const styles = css`
         display: flex;
     }
 
+    .checkbox-container.has-pinned-columns {
+        position: sticky;
+        left: var(--ni-private-table-group-row-pinned-column-offset);
+        z-index: ${ZIndexLevels.zIndex1000};
+        background: ${tableRowBorderColor};
+    }
+
     .selection-checkbox {
         margin-left: ${standardPadding};
     }
@@ -120,6 +142,16 @@ export const styles = css`
         css`
             :host([allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.05)};
+            }
+
+            .pinned-column-spacer.has-pinned-columns,
+            .expand-collapse-button-container.has-pinned-columns,
+            .checkbox-container.has-pinned-columns {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
             }
         `
     ),
