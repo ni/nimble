@@ -137,7 +137,10 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
                 }}"
             >
             </${tsTableColumnBreakpointTag}>
-            <${tableColumnTextTag} field-name="code">
+            <${tableColumnTextTag} 
+                field-name="code"
+                sorting-disabled="true"
+            >
                 Code
             </${tableColumnTextTag}>
         </${tableTag}>
