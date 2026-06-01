@@ -8,10 +8,21 @@ import { promisify } from 'node:util';
 const execFile = promisify(execFileCallback);
 
 describe('xliff-to-json-converter cli', () => {
+    let tempDir: string;
+    let sourceFile: string;
+    let destinationFile: string;
+
+    beforeEach(async () => {
+        tempDir = await mkdtemp(join(tmpdir(), 'xliff-to-json-converter-'));
+        sourceFile = join(tempDir, 'messages.de.xlf');
+        destinationFile = join(tempDir, 'messages.de.json');
+    });
+
+    afterEach(async () => {
+        await rm(tempDir, { recursive: true, force: true });
+    });
+
     it('converts an xliff file passed on the command line', async () => {
-        const tempDir = await mkdtemp(join(tmpdir(), 'xliff-to-json-converter-'));
-        const sourceFile = join(tempDir, 'messages.de.xlf');
-        const destinationFile = join(tempDir, 'messages.de.json');
         const cliPath = fileURLToPath(new URL('../index.js', import.meta.url));
         const xliffContents = `
           <?xml version="1.0" encoding="UTF-8"?>
@@ -26,29 +37,25 @@ describe('xliff-to-json-converter cli', () => {
           </xliff>
         `;
 
-        try {
-            await writeFile(sourceFile, xliffContents);
+        await writeFile(sourceFile, xliffContents);
 
-            const { stdout } = await execFile(process.execPath, [
-                cliPath,
-                '--source',
-                sourceFile,
-                '--destination',
-                destinationFile
-            ]);
+        const { stdout } = await execFile(process.execPath, [
+            cliPath,
+            '--source',
+            sourceFile,
+            '--destination',
+            destinationFile
+        ]);
 
-            const jsonContents = await readFile(destinationFile, 'utf-8');
+        const jsonContents = await readFile(destinationFile, 'utf-8');
 
-            expect(stdout).toContain(`Converting ${sourceFile} -> ${destinationFile}`);
-            expect(JSON.parse(jsonContents)).toEqual({
-                locale: 'de-DE',
-                translations: {
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    '2821179408673282599': 'Startseite'
-                }
-            });
-        } finally {
-            await rm(tempDir, { recursive: true, force: true });
-        }
+        expect(stdout).toContain(`Converting ${sourceFile} -> ${destinationFile}`);
+        expect(JSON.parse(jsonContents)).toEqual({
+            locale: 'de-DE',
+            translations: {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
+                '2821179408673282599': 'Startseite'
+            }
+        });
     });
 });
