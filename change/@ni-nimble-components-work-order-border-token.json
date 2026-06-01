@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add a theme-aware calendar event border token for work order events",
-  "packageName": "@ni/nimble-components",
-  "email": "github-copilot@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
