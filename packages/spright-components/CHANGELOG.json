@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 01 Jun 2026 22:02:26 GMT",
+      "version": "6.19.2",
+      "tag": "@ni/spright-components_v6.19.2",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "960f59dc173f2f3f9c45bf9ec129760c212b23c6",
+            "comment": "update dev deps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Jun 2026 17:09:52 GMT",
       "version": "6.19.2",
       "tag": "@ni/spright-components_v6.19.2",
