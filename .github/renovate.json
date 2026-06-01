@@ -46,7 +46,6 @@
         "!/playwright/",
         "!/typescript/",
         "!/vite/",
-        "!/yargs/",
         "!/zone.js/"
       ]
     },
