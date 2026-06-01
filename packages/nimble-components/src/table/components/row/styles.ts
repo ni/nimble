@@ -55,6 +55,24 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
+    :host([selectable]:not([selected])[allow-hover]:hover) .pinned-cell-container {
+        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
+            ${applicationBackgroundColor};
+    }
+
+    :host([selected]) .pinned-cell-container {
+        background: linear-gradient(${fillSelectedColor}, ${fillSelectedColor}),
+            ${applicationBackgroundColor};
+    }
+
+    :host([selected][allow-hover]:hover) .pinned-cell-container {
+        background: linear-gradient(
+                ${fillHoverSelectedColor},
+                ${fillHoverSelectedColor}
+            ),
+            ${applicationBackgroundColor};
+    }
+
     :host(${focusVisible}) {
         outline: none;
         box-shadow:
@@ -202,6 +220,30 @@ export const styles = css`
 
             :host([selected][allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.2)};
+            }
+
+            :host([selectable]:not([selected])[allow-hover]:hover) .pinned-cell-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.05)},
+                        ${hexToRgbaCssColor(White, 0.05)}
+                    ),
+                    ${applicationBackgroundColor};
+            }
+
+            :host([selected]) .pinned-cell-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.25)},
+                        ${hexToRgbaCssColor(White, 0.25)}
+                    ),
+                    ${applicationBackgroundColor};
+            }
+
+            :host([selected][allow-hover]:hover) .pinned-cell-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.2)},
+                        ${hexToRgbaCssColor(White, 0.2)}
+                    ),
+                    ${applicationBackgroundColor};
             }
         `
     )
