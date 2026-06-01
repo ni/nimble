@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update yargs dependency version",
-  "packageName": "@ni/xliff-to-json-converter",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

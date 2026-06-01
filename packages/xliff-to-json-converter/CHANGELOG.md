@@ -1,8 +1,16 @@
 # Change Log - @ni/xliff-to-json-converter
 
-<!-- This log was last generated on Tue, 20 Jan 2026 03:36:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 01 Jun 2026 23:00:44 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.1.16
+
+Mon, 01 Jun 2026 23:00:44 GMT
+
+### Patches
+
+- Update yargs dependency version ([ni/nimble@3a83936](https://github.com/ni/nimble/commit/3a83936a094746330da1bcea7340b5dee28872ed))
 
 ## 1.1.15
 
