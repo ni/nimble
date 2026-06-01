@@ -45,14 +45,14 @@
   "license": "MIT",
   "dependencies": {
     "xliff": "^6.1.0",
-    "yargs": "^17.5.1"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
-    "@types/jasmine": "^5.1.4",
+    "@types/jasmine": "^6.0.0",
     "@types/yargs": "^17.0.10",
-    "jasmine": "^5.1.0",
-    "jasmine-core": "^5.1.2",
+    "jasmine": "^6.0.0",
+    "jasmine-core": "^6.0.0",
     "typescript": "~5.8.3"
   }
 }

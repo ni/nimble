@@ -52,9 +52,9 @@
   "license": "MIT",
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
-    "@types/jasmine": "^5.1.4",
-    "jasmine": "^5.1.0",
-    "jasmine-core": "^5.1.2",
+    "@types/jasmine": "^6.0.0",
+    "jasmine": "^6.0.0",
+    "jasmine-core": "^6.0.0",
     "karma": "^6.3.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-jasmine": "^5.1.0",
