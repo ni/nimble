@@ -141,7 +141,7 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
         fieldName: {
             name: 'field-name',
             description:
-                'Set this attribute to identify which field in the data record contains the breakpoint state value for each row.',
+                'Set this attribute to identify which field in the data record contains the breakpoint state value for each row. See the **Usage** section below for valid breakpoint states.',
             control: false,
             table: { category: apiCategory.attributes }
         },
