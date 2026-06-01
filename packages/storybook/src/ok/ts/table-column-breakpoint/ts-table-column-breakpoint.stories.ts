@@ -15,7 +15,8 @@ import {
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    disableStorybookZoomTransform
+    disableStorybookZoomTransform,
+    okWarning
 } from '../../../utilities/storybook';
 
 interface CodeRecord extends TableRecord {
@@ -113,6 +114,10 @@ interface BreakpointColumnTableArgs extends SharedTableArgs {
 export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
     parameters: {},
     render: createUserSelectedThemeStory(html<BreakpointColumnTableArgs>`
+        ${okWarning({
+            componentName: 'ts table column breakpoint',
+            statusLink: './?path=/docs/component-status--docs#ok-components'
+        })}
         ${disableStorybookZoomTransform}
         <${tableTag}
             ${ref('tableRef')}

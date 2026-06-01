@@ -5,10 +5,10 @@ import type { ColumnInternalsOptions } from '@ni/nimble-components/dist/esm/tabl
 import { singleIconColumnWidth } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { ColumnValidator } from '@ni/nimble-components/dist/esm/table-column/base/models/column-validator';
 import { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
+import { styles } from '@ni/nimble-components/dist/esm/table-column/base/styles';
 import type { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import type { BreakpointToggleEventDetail, BreakpointContextMenuEventDetail } from './types';
 import { tsTableColumnBreakpointCellViewTag } from './cell-view';
-import { styles } from './styles';
 import { template } from './template';
 
 export type TsTableColumnBreakpointCellRecord = TableStringField<'value'>;
