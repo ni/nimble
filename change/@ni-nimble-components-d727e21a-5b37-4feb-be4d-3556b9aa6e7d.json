@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add a theme-aware border color token for work order",
+  "packageName": "@ni/nimble-components",
+  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
