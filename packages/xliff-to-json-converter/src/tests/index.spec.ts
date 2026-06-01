@@ -43,7 +43,8 @@ describe('xliff-to-json-converter cli', () => {
             expect(JSON.parse(jsonContents)).toEqual({
                 locale: 'de-DE',
                 translations: {
-                '2821179408673282599': 'Startseite'
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    '2821179408673282599': 'Startseite'
                 }
             });
         } finally {
