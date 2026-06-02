@@ -7,14 +7,18 @@ import { ColumnValidator } from '@ni/nimble-components/dist/esm/table-column/bas
 import { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
 import { styles } from '@ni/nimble-components/dist/esm/table-column/base/styles';
 import type { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
+import { MenuButtonPosition, type MenuButtonPosition as BreakpointMenuPosition } from '@ni/nimble-components/dist/esm/menu-button/types';
 import type { BreakpointToggleEventDetail, BreakpointContextMenuEventDetail } from './types';
+import { breakpointCellViewMenuSlotName } from './types';
 import { tsTableColumnBreakpointCellViewTag } from './cell-view';
 import { template } from './template';
 
 export type TsTableColumnBreakpointCellRecord = TableStringField<'value'>;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface TsTableColumnBreakpointColumnConfig {}
+export interface TsTableColumnBreakpointColumnConfig {
+    menuSlot?: string;
+    position?: BreakpointMenuPosition;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,6 +32,12 @@ declare global {
 export class TsTableColumnBreakpoint extends TableColumn<TsTableColumnBreakpointColumnConfig> {
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
+
+    @attr({ attribute: 'menu-slot' })
+    public menuSlot?: string;
+
+    @attr
+    public position: BreakpointMenuPosition = MenuButtonPosition.auto;
 
     public constructor() {
         super();
@@ -65,6 +75,7 @@ export class TsTableColumnBreakpoint extends TableColumn<TsTableColumnBreakpoint
             cellRecordFieldNames: ['value'],
             cellViewTag: tsTableColumnBreakpointCellViewTag,
             delegatedEvents: ['breakpoint-column-toggle', 'breakpoint-column-context-menu'],
+            slotNames: [breakpointCellViewMenuSlotName],
             validator: new ColumnValidator<[]>([])
         };
     }
@@ -72,6 +83,21 @@ export class TsTableColumnBreakpoint extends TableColumn<TsTableColumnBreakpoint
     protected fieldNameChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.fieldName];
         this.columnInternals.operandDataRecordFieldName = this.fieldName;
+    }
+
+    protected menuSlotChanged(): void {
+        this.updateColumnConfig();
+    }
+
+    protected positionChanged(): void {
+        this.updateColumnConfig();
+    }
+
+    private updateColumnConfig(): void {
+        this.columnInternals.columnConfig = {
+            menuSlot: this.menuSlot,
+            position: this.position
+        };
     }
 }
 

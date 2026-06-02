@@ -6,14 +6,8 @@ namespace Demo.Shared.Pages.Sections;
 public partial class TsBreakpointTableSection
 {
     private NimbleTable<BreakpointTableRecord>? _table;
-    private bool _contextMenuOpen;
-    private double _menuX;
-    private double _menuY;
     private string? _contextMenuRecordId;
     private string _contextMenuRecordState = BreakpointState.Off;
-    private string _lastEvent = "(none)";
-
-    private string ContextMenuStyle => $"position: fixed; left: {_menuX}px; top: {_menuY}px; z-index: 2147483647;";
 
     private List<BreakpointTableRecord> _tableData = new()
     {
@@ -28,7 +22,11 @@ public partial class TsBreakpointTableSection
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await _table!.SetDataAsync(_tableData);
+        if (firstRender)
+        {
+            await _table!.SetDataAsync(_tableData);
+        }
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -39,7 +37,6 @@ public partial class TsBreakpointTableSection
         {
             record.BreakpointState = e.NewState;
         }
-        _lastEvent = $"Toggle: record={e.RecordId}, {e.OldState} -> {e.NewState}";
         StateHasChanged();
     }
 
@@ -47,48 +44,33 @@ public partial class TsBreakpointTableSection
     {
         _contextMenuRecordId = e.RecordId;
         _contextMenuRecordState = e.CurrentState;
-        _menuX = e.AnchorX;
-        _menuY = e.AnchorY;
-        _contextMenuOpen = true;
-        _lastEvent = $"ContextMenu: record={e.RecordId}, state={e.CurrentState}, x={e.AnchorX}, y={e.AnchorY}";
+
         StateHasChanged();
     }
 
     private void OnAddBreakpoint()
     {
-        CloseContextMenuAndSetState(BreakpointState.Enabled);
+        SetRecordState(BreakpointState.Enabled);
     }
 
     private void OnAddConditionalBreakpoint()
     {
-        CloseContextMenuAndSetState(BreakpointState.Conditional);
+        SetRecordState(BreakpointState.Conditional);
     }
 
     private void OnRemoveBreakpoint()
     {
-        CloseContextMenuAndSetState(BreakpointState.Off);
+        SetRecordState(BreakpointState.Off);
     }
 
     private void OnDisableBreakpoint()
     {
-        CloseContextMenuAndSetState(BreakpointState.Disabled);
+        SetRecordState(BreakpointState.Disabled);
     }
 
     private void OnEnableBreakpoint()
     {
-        CloseContextMenuAndSetState(BreakpointState.Enabled);
-    }
-
-    private void CloseContextMenu()
-    {
-        _contextMenuOpen = false;
-        StateHasChanged();
-    }
-
-    private void CloseContextMenuAndSetState(string newState)
-    {
-        _contextMenuOpen = false;
-        SetRecordState(newState);
+        SetRecordState(BreakpointState.Enabled);
     }
 
     private void SetRecordState(string newState)

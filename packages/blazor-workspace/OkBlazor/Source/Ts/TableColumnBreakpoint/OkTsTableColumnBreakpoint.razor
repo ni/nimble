@@ -4,7 +4,8 @@
     column-id="@ColumnId"
     field-name="@FieldName"
     column-hidden="@ColumnHidden"
-    @onokbreakpointcolumntoggle="HandleBreakpointToggle"
-    @onokbreakpointcolumncontextmenu="HandleBreakpointContextMenu"
+    menu-slot="@MenuSlot"
+    @onokbreakpointcolumntoggle="BreakpointToggle"
+    @onokbreakpointcolumncontextmenu="BreakpointContextMenu"
     @attributes="AdditionalAttributes">
 </ok-ts-table-column-breakpoint>

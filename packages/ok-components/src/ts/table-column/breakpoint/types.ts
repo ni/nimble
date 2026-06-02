@@ -26,6 +26,7 @@ export interface BreakpointToggleEventDetail {
 export interface BreakpointContextMenuEventDetail {
     recordId: string;
     currentState: BreakpointState;
-    anchorX: number;
-    anchorY: number;
 }
+
+/** @internal */
+export const breakpointCellViewMenuSlotName = 'menu';

@@ -4,6 +4,8 @@ import { withActions } from 'storybook/actions/decorator';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { tsTableColumnBreakpointTag } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint';
 import { BreakpointState, type BreakpointToggleEventDetail } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint/types';
 import {
@@ -106,6 +108,7 @@ export default metadata;
 
 interface BreakpointColumnTableArgs extends SharedTableArgs {
     fieldName: string;
+    menuSlot: string;
     toggleEvent: never;
     contextMenuEvent: never;
     currentData: CodeRecord[];
@@ -127,6 +130,7 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
         >
             <${tsTableColumnBreakpointTag}
                 field-name="${x => x.fieldName}"
+                menu-slot="${x => x.menuSlot}"
                 @breakpoint-column-toggle="${(x, c) => {
                     const event = c.event as CustomEvent<BreakpointToggleEventDetail>;
                     const detail = event.detail;
@@ -143,6 +147,11 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
             >
                 Code
             </${tableColumnTextTag}>
+            <${menuTag} slot="${x => x.menuSlot}">
+                <${menuItemTag}>Enable breakpoint</${menuItemTag}>
+                <${menuItemTag}>Disable breakpoint</${menuItemTag}>
+                <${menuItemTag}>Remove breakpoint</${menuItemTag}>
+            </${menuTag}>
         </${tableTag}>
     `),
     argTypes: {
@@ -150,6 +159,13 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
             name: 'field-name',
             description:
                 'Set this attribute to identify which field in the data record contains the breakpoint state value for each row. See the **Usage** section below for valid breakpoint states.',
+            control: false,
+            table: { category: apiCategory.attributes }
+        },
+        menuSlot: {
+            name: 'menu-slot',
+            description:
+                'The name of the slot within the table where context menu content is provided. When configured, context menu requests render this slotted content inside an anchored region in the active breakpoint cell.',
             control: false,
             table: { category: apiCategory.attributes }
         },
@@ -175,6 +191,7 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
     },
     args: {
         fieldName: 'breakpointState',
+        menuSlot: 'breakpoint-menu',
         currentData: [...simpleData]
     }
 };

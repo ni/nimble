@@ -1,6 +1,8 @@
 import { html, ref } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '@ni/nimble-components/dist/esm/table';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { menuItemTag, type MenuItem } from '@ni/nimble-components/dist/esm/menu-item';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
@@ -23,6 +25,9 @@ interface SimpleTableRecord extends TableRecord {
 class ElementReferences {
     public table!: Table;
     public column!: TsTableColumnBreakpoint;
+    public firstMenuItem!: MenuItem;
+    public secondMenuItem!: MenuItem;
+    public lastMenuItem!: MenuItem;
 }
 
 describe('TsTableColumnBreakpoint', () => {
@@ -38,8 +43,18 @@ describe('TsTableColumnBreakpoint', () => {
     ): Promise<Fixture<Table<SimpleTableRecord>>> {
         return await fixture<Table<SimpleTableRecord>>(
             html`<${tableTag} ${ref('table')} id-field-name="id" style="width: 700px">
-                    <${tsTableColumnBreakpointTag} ${ref('column')} field-name="breakpointState">
+                    <${tsTableColumnBreakpointTag}
+                        ${ref('column')}
+                        field-name="breakpointState"
+                        menu-slot="breakpoint-menu"
+                    >
                     </${tsTableColumnBreakpointTag}>
+
+                    <${menuTag} slot="breakpoint-menu">
+                        <${menuItemTag} ${ref('firstMenuItem')}>Toggle</${menuItemTag}>
+                        <${menuItemTag} ${ref('secondMenuItem')}>Disable</${menuItemTag}>
+                        <${menuItemTag} ${ref('lastMenuItem')}>Edit</${menuItemTag}>
+                    </${menuTag}>
                 </${tableTag}>`,
             { source }
         );

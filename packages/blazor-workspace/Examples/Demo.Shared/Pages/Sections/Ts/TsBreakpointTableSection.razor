@@ -6,16 +6,13 @@
             <NimbleTableColumnText FieldName="Name" FractionalWidth="2">Name</NimbleTableColumnText>
             <OkTsTableColumnBreakpoint
                 FieldName="BreakpointState"
-                BreakpointToggle="OnBreakpointToggle"
-                BreakpointContextMenu="OnBreakpointContextMenu">
+                MenuSlot="breakpoint-menu"
+                BreakpointContextMenu="OnBreakpointContextMenu"
+                BreakpointToggle="OnBreakpointToggle">
             </OkTsTableColumnBreakpoint>
             <NimbleTableColumnNumberText FieldName="LineNumber">Line</NimbleTableColumnNumberText>
-        </NimbleTable>
-
-        @if (_contextMenuOpen)
-        {
-            <div style="position: fixed; inset: 0; z-index: 2147483646;" @onclick="CloseContextMenu"></div>
-            <NimbleMenu style="@ContextMenuStyle">
+        
+            <NimbleMenu slot="breakpoint-menu">
                 @if (_contextMenuRecordState == OkBlazor.BreakpointState.Off)
                 {
                     <NimbleMenuItem @onchange="@(_ => OnAddBreakpoint())">Add breakpoint</NimbleMenuItem>
@@ -37,7 +34,7 @@
                     }
                 }
             </NimbleMenu>
-        }
-        <p><strong>Last event:</strong> @_lastEvent</p>
+        
+        </NimbleTable>
     </SubContainer>
 </div>

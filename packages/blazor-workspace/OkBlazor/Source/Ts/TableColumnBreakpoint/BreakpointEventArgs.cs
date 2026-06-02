@@ -30,6 +30,4 @@ public class BreakpointColumnContextMenuEventArgs : EventArgs
 {
     public string RecordId { get; set; } = string.Empty;
     public string CurrentState { get; set; } = string.Empty;
-    public double AnchorX { get; set; }
-    public double AnchorY { get; set; }
 }
