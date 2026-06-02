@@ -1,5 +1,6 @@
 import { DesignSystem } from '@ni/fast-foundation';
 import { TableCellView } from '@ni/nimble-components/dist/esm/table-column/base/cell-view';
+import { observable } from '@ni/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { BreakpointState, type BreakpointToggleEventDetail, type BreakpointContextMenuEventDetail } from '../types';
@@ -24,6 +25,34 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     public button?: HTMLButtonElement;
 
     /** @internal */
+    @observable
+    private readonly breakpointEnabledString = 'Breakpoint enabled';
+
+    /** @internal */
+    @observable
+    private readonly breakpointDisabledString = 'Breakpoint disabled';
+
+    /** @internal */
+    @observable
+    private readonly breakpointHitString = 'Breakpoint hit';
+
+    /** @internal */
+    @observable
+    private readonly breakpointConditionalString = 'Conditional breakpoint';
+
+    /** @internal */
+    @observable
+    private readonly breakpointHitDisabledString = 'Breakpoint hit (disabled)';
+
+    /** @internal */
+    @observable
+    private readonly breakpointAddString = 'Add breakpoint';
+
+    /** @internal */
+    @observable
+    private readonly breakpointRemoveString = 'Remove breakpoint';
+
+    /** @internal */
     public get currentState(): BreakpointState {
         const value = this.cellRecord?.value;
         if (value && Object.values(BreakpointState).includes(value as BreakpointState)) {
@@ -35,26 +64,26 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     /** @internal */
     public get tooltipText(): string {
         if (this.currentState === BreakpointState.off) {
-            return 'Add breakpoint';
+            return this.breakpointAddString;
         }
-        return 'Remove breakpoint';
+        return this.breakpointRemoveString;
     }
 
     /** @internal */
     public get ariaLabelText(): string {
         switch (this.currentState) {
             case BreakpointState.enabled:
-                return 'Breakpoint enabled';
+                return this.breakpointEnabledString;
             case BreakpointState.disabled:
-                return 'Breakpoint disabled';
+                return this.breakpointDisabledString;
             case BreakpointState.hit:
-                return 'Breakpoint hit';
+                return this.breakpointHitString;
             case BreakpointState.conditional:
-                return 'Conditional breakpoint';
+                return this.breakpointConditionalString;
             case BreakpointState.hitDisabled:
-                return 'Breakpoint hit (disabled)';
+                return this.breakpointHitDisabledString;
             default:
-                return 'Add breakpoint';
+                return this.breakpointAddString;
         }
     }
 
