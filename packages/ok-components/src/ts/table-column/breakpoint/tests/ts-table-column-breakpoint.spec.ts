@@ -1,4 +1,5 @@
 import { html, ref } from '@ni/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '@ni/nimble-components/dist/esm/table';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
@@ -6,7 +7,7 @@ import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
 import { singleIconColumnWidth } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { TsTableColumnBreakpoint, tsTableColumnBreakpointTag } from '..';
-import { TsTableColumnBreakpointCellView } from '../cell-view';
+import { TsTableColumnBreakpointPageObject } from './ts-table-column-breakpoint.pageobject';
 import {
     BreakpointState,
     type BreakpointToggleEventDetail,
@@ -30,6 +31,7 @@ describe('TsTableColumnBreakpoint', () => {
     let disconnect: () => Promise<void>;
     let elementReferences: ElementReferences;
     let tablePageObject: TablePageObject<SimpleTableRecord>;
+    let breakpointPageObject: TsTableColumnBreakpointPageObject<SimpleTableRecord>;
 
     async function setup(
         source: ElementReferences
@@ -41,18 +43,6 @@ describe('TsTableColumnBreakpoint', () => {
                 </${tableTag}>`,
             { source }
         );
-    }
-
-    function getBreakpointButton(
-        cellView: TsTableColumnBreakpointCellView
-    ): HTMLButtonElement {
-        const button = cellView.shadowRoot!.querySelector<HTMLButtonElement>(
-            '.breakpoint-button'
-        );
-        if (!button) {
-            throw new Error('Expected breakpoint button');
-        }
-        return button;
     }
 
     function getContextMenuEventDetail(
@@ -68,6 +58,7 @@ describe('TsTableColumnBreakpoint', () => {
         ({ connect, disconnect } = await setup(elementReferences));
         table = elementReferences.table;
         tablePageObject = new TablePageObject<SimpleTableRecord>(table);
+        breakpointPageObject = new TsTableColumnBreakpointPageObject(tablePageObject);
         await connect();
         await waitForUpdatesAsync();
     });
@@ -93,179 +84,101 @@ describe('TsTableColumnBreakpoint', () => {
     });
 
     describe('rendering breakpoint states', () => {
-        it('renders off state when field value is "off"', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.off }
-            ]);
-            await waitForUpdatesAsync();
+        const stateRenderTests = [
+            {
+                name: 'renders off state when field value is "off"',
+                fieldValue: BreakpointState.off,
+                expectedState: BreakpointState.off
+            },
+            {
+                name: 'renders enabled state when field value is "enabled"',
+                fieldValue: BreakpointState.enabled,
+                expectedState: BreakpointState.enabled
+            },
+            {
+                name: 'renders disabled state when field value is "disabled"',
+                fieldValue: BreakpointState.disabled,
+                expectedState: BreakpointState.disabled
+            },
+            {
+                name: 'renders hit state when field value is "hit"',
+                fieldValue: BreakpointState.hit,
+                expectedState: BreakpointState.hit
+            },
+            {
+                name: 'renders off state when field value is null',
+                fieldValue: null,
+                expectedState: BreakpointState.off
+            },
+            {
+                name: 'renders off state when field value is undefined',
+                fieldValue: undefined,
+                expectedState: BreakpointState.off
+            },
+            {
+                name: 'renders off state when field value is invalid',
+                fieldValue: 'invalid-state',
+                expectedState: BreakpointState.off
+            }
+        ] as const;
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.off);
-        });
+        parameterizeSpec(stateRenderTests, (spec, name, value) => {
+            spec(name, async () => {
+                await table.setData([
+                    { id: '1', breakpointState: value.fieldValue }
+                ]);
+                await waitForUpdatesAsync();
 
-        it('renders enabled state when field value is "enabled"', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.enabled }
-            ]);
-            await waitForUpdatesAsync();
-
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.enabled);
-        });
-
-        it('renders disabled state when field value is "disabled"', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.disabled }
-            ]);
-            await waitForUpdatesAsync();
-
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.disabled);
-        });
-
-        it('renders hit state when field value is "hit"', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.hit }
-            ]);
-            await waitForUpdatesAsync();
-
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.hit);
-        });
-
-        it('renders off state when field value is null', async () => {
-            await table.setData([{ id: '1', breakpointState: null }]);
-            await waitForUpdatesAsync();
-
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.off);
-        });
-
-        it('renders off state when field value is undefined', async () => {
-            await table.setData([{ id: '1', breakpointState: undefined }]);
-            await waitForUpdatesAsync();
-
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.off);
-        });
-
-        it('renders off state when field value is invalid', async () => {
-            await table.setData([
-                { id: '1', breakpointState: 'invalid-state' }
-            ]);
-            await waitForUpdatesAsync();
-
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.off);
+                expect(breakpointPageObject.getCurrentState(0, 0)).toBe(
+                    value.expectedState
+                );
+            });
         });
     });
 
     describe('click-to-toggle', () => {
-        it('emits toggle event from off to enabled on click', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.off }
-            ]);
-            await waitForUpdatesAsync();
+        const clickToggleTests = [
+            {
+                name: 'emits toggle event from off to enabled on click',
+                initialState: BreakpointState.off,
+                expectedNewState: BreakpointState.enabled
+            },
+            {
+                name: 'emits toggle event from enabled to off on click',
+                initialState: BreakpointState.enabled,
+                expectedNewState: BreakpointState.off
+            },
+            {
+                name: 'emits toggle event from hit to off on click',
+                initialState: BreakpointState.hit,
+                expectedNewState: BreakpointState.off
+            }
+        ] as const;
 
-            const toggleSpy = jasmine.createSpy('toggle');
-            elementReferences.column.addEventListener(
-                'breakpoint-column-toggle',
-                toggleSpy
-            );
+        parameterizeSpec(clickToggleTests, (spec, name, value) => {
+            spec(name, async () => {
+                await table.setData([
+                    { id: '1', breakpointState: value.initialState }
+                ]);
+                await waitForUpdatesAsync();
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-            button.click();
-            await waitForUpdatesAsync();
+                const toggleSpy = jasmine.createSpy('toggle');
+                elementReferences.column.addEventListener(
+                    'breakpoint-column-toggle',
+                    toggleSpy
+                );
 
-            expect(toggleSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = (
-                toggleSpy.calls.first().args[0] as CustomEvent<BreakpointToggleEventDetail>
-            ).detail;
-            expect(eventDetail.oldState).toBe(BreakpointState.off);
-            expect(eventDetail.newState).toBe(BreakpointState.enabled);
-            expect(eventDetail.recordId).toBe('1');
-        });
+                breakpointPageObject.clickBreakpointButton(0, 0);
+                await waitForUpdatesAsync();
 
-        it('emits toggle event from enabled to off on click', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.enabled }
-            ]);
-            await waitForUpdatesAsync();
-
-            const toggleSpy = jasmine.createSpy('toggle');
-            elementReferences.column.addEventListener(
-                'breakpoint-column-toggle',
-                toggleSpy
-            );
-
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-            button.click();
-            await waitForUpdatesAsync();
-
-            expect(toggleSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = (
-                toggleSpy.calls.first().args[0] as CustomEvent<BreakpointToggleEventDetail>
-            ).detail;
-            expect(eventDetail.oldState).toBe(BreakpointState.enabled);
-            expect(eventDetail.newState).toBe(BreakpointState.off);
-            expect(eventDetail.recordId).toBe('1');
-        });
-
-        it('emits toggle event from hit to off on click', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.hit }
-            ]);
-            await waitForUpdatesAsync();
-
-            const toggleSpy = jasmine.createSpy('toggle');
-            elementReferences.column.addEventListener(
-                'breakpoint-column-toggle',
-                toggleSpy
-            );
-
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-            button.click();
-            await waitForUpdatesAsync();
-
-            expect(toggleSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = (
-                toggleSpy.calls.first().args[0] as CustomEvent<BreakpointToggleEventDetail>
-            ).detail;
-            expect(eventDetail.oldState).toBe(BreakpointState.hit);
-            expect(eventDetail.newState).toBe(BreakpointState.off);
+                expect(toggleSpy).toHaveBeenCalledTimes(1);
+                const eventDetail = (
+                    toggleSpy.calls.first().args[0] as CustomEvent<BreakpointToggleEventDetail>
+                ).detail;
+                expect(eventDetail.oldState).toBe(value.initialState);
+                expect(eventDetail.newState).toBe(value.expectedNewState);
+                expect(eventDetail.recordId).toBe('1');
+            });
         });
 
         it('emits toggle event for child rows in hierarchical data', async () => {
@@ -282,12 +195,7 @@ describe('TsTableColumnBreakpoint', () => {
                 toggleSpy
             );
 
-            const cellView = tablePageObject.getRenderedCellView(
-                1,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-            button.click();
+            breakpointPageObject.clickBreakpointButton(1, 0);
             await waitForUpdatesAsync();
 
             expect(toggleSpy).toHaveBeenCalledTimes(1);
@@ -301,8 +209,6 @@ describe('TsTableColumnBreakpoint', () => {
     });
 
     describe('table selection does not change', () => {
-        let button: HTMLButtonElement;
-
         beforeEach(async () => {
             table.selectionMode = 'multiple';
             await waitForUpdatesAsync();
@@ -310,16 +216,11 @@ describe('TsTableColumnBreakpoint', () => {
             await table.setData([{ id: '1', breakpointState: BreakpointState.off }]);
             await waitForUpdatesAsync();
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            button = getBreakpointButton(cellView);
-            button.focus();
+            breakpointPageObject.focusBreakpointButton(0, 0);
         });
 
         it('when clicking a breakpoint button', async () => {
-            button.click();
+            breakpointPageObject.clickBreakpointButton(0, 0);
             await waitForUpdatesAsync();
 
             const selection = await table.getSelectedRecordIds();
@@ -327,12 +228,7 @@ describe('TsTableColumnBreakpoint', () => {
         });
 
         it('when toggling a breakpoint button by pressing Enter', async () => {
-            button.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: 'Enter',
-                    bubbles: true
-                })
-            );
+            breakpointPageObject.pressBreakpointButtonKey(0, 0, { key: 'Enter' });
             await waitForUpdatesAsync();
 
             const selection = await table.getSelectedRecordIds();
@@ -347,11 +243,7 @@ describe('TsTableColumnBreakpoint', () => {
             ]);
             await waitForUpdatesAsync();
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.tooltipText).toBe('Add breakpoint');
+            expect(breakpointPageObject.getTooltipText(0, 0)).toBe('Add breakpoint');
         });
 
         it('shows "Remove breakpoint" when state is enabled', async () => {
@@ -360,11 +252,7 @@ describe('TsTableColumnBreakpoint', () => {
             ]);
             await waitForUpdatesAsync();
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.tooltipText).toBe('Remove breakpoint');
+            expect(breakpointPageObject.getTooltipText(0, 0)).toBe('Remove breakpoint');
         });
     });
 
@@ -375,11 +263,7 @@ describe('TsTableColumnBreakpoint', () => {
             ]);
             await waitForUpdatesAsync();
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.tabbableChildren.length).toBe(1);
+            expect(breakpointPageObject.getTabbableChildrenCount(0, 0)).toBe(1);
         });
     });
 
@@ -396,14 +280,7 @@ describe('TsTableColumnBreakpoint', () => {
                 contextMenuSpy
             );
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-            button.dispatchEvent(
-                new MouseEvent('contextmenu', { bubbles: true })
-            );
+            breakpointPageObject.rightClickBreakpointButton(0, 0);
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(1);
@@ -424,14 +301,7 @@ describe('TsTableColumnBreakpoint', () => {
                 contextMenuSpy
             );
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-            button.dispatchEvent(
-                new MouseEvent('contextmenu', { bubbles: true })
-            );
+            breakpointPageObject.rightClickBreakpointButton(0, 0);
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(1);
@@ -452,19 +322,10 @@ describe('TsTableColumnBreakpoint', () => {
                 contextMenuSpy
             );
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-
-            button.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: 'F10',
-                    shiftKey: true,
-                    bubbles: true
-                })
-            );
+            breakpointPageObject.pressBreakpointButtonKey(0, 0, {
+                key: 'F10',
+                shiftKey: true
+            });
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(1);
@@ -485,18 +346,9 @@ describe('TsTableColumnBreakpoint', () => {
                 contextMenuSpy
             );
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-
-            button.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: 'Menu',
-                    bubbles: true
-                })
-            );
+            breakpointPageObject.pressBreakpointButtonKey(0, 0, {
+                key: 'Menu'
+            });
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(1);
@@ -517,20 +369,10 @@ describe('TsTableColumnBreakpoint', () => {
                 contextMenuSpy
             );
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-
-            button.dispatchEvent(
-                new MouseEvent('contextmenu', { bubbles: true })
-            );
+            breakpointPageObject.rightClickBreakpointButton(0, 0);
             await waitForUpdatesAsync();
 
-            button.dispatchEvent(
-                new MouseEvent('contextmenu', { bubbles: true })
-            );
+            breakpointPageObject.rightClickBreakpointButton(0, 0);
             await waitForUpdatesAsync();
 
             expect(contextMenuSpy).toHaveBeenCalledTimes(2);
@@ -550,18 +392,9 @@ describe('TsTableColumnBreakpoint', () => {
                 toggleSpy
             );
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-
-            button.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: 'F9',
-                    bubbles: true
-                })
-            );
+            breakpointPageObject.pressBreakpointButtonKey(0, 0, {
+                key: 'F9'
+            });
             await waitForUpdatesAsync();
 
             expect(toggleSpy).toHaveBeenCalledTimes(1);
@@ -584,19 +417,10 @@ describe('TsTableColumnBreakpoint', () => {
                 toggleSpy
             );
 
-            const cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            const button = getBreakpointButton(cellView);
-
-            button.dispatchEvent(
-                new KeyboardEvent('keydown', {
-                    key: 'b',
-                    ctrlKey: true,
-                    bubbles: true
-                })
-            );
+            breakpointPageObject.pressBreakpointButtonKey(0, 0, {
+                key: 'b',
+                ctrlKey: true
+            });
             await waitForUpdatesAsync();
 
             expect(toggleSpy).toHaveBeenCalledTimes(1);
@@ -618,20 +442,14 @@ describe('TsTableColumnBreakpoint', () => {
             ]);
             await waitForUpdatesAsync();
 
-            let cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.enabled);
+            expect(breakpointPageObject.getCurrentState(0, 0)).toBe(
+                BreakpointState.enabled
+            );
 
             elementReferences.column.fieldName = undefined;
             await waitForUpdatesAsync();
 
-            cellView = tablePageObject.getRenderedCellView(
-                0,
-                0
-            ) as TsTableColumnBreakpointCellView;
-            expect(cellView.currentState).toBe(BreakpointState.off);
+            expect(breakpointPageObject.getCurrentState(0, 0)).toBe(BreakpointState.off);
         });
     });
 });
