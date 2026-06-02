@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add Angular standalone wrapper for spright work item square list cog icon",
+  "packageName": "@ni/spright-angular",
+  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
