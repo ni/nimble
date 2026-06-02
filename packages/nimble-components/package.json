@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "35.9.3",
+  "version": "35.10.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:icons && npm run build:workers && npm run build:components && npm run build:scss && npm run build:cem",
@@ -97,7 +97,7 @@
     "@rollup/plugin-terser": "^1.0.0",
     "@types/jasmine": "^5.1.4",
     "@types/offscreencanvas": "^2019.7.3",
-    "concurrently": "^9.0.0",
+    "concurrently": "^10.0.0",
     "jasmine-core": "^5.1.2",
     "karma": "^6.3.0",
     "karma-chrome-launcher": "^3.1.0",
