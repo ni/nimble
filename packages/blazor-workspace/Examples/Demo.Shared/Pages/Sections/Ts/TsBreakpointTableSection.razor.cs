@@ -22,11 +22,7 @@ public partial class TsBreakpointTableSection
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            await _table!.SetDataAsync(_tableData);
-        }
-
+        await _table!.SetDataAsync(_tableData);
         await base.OnAfterRenderAsync(firstRender);
     }
 
