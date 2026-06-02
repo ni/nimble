@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add spright work item square list cog icon using work-order border theme token",
-  "packageName": "@ni/spright-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

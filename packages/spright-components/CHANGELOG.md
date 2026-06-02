@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 01 Jun 2026 17:09:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 02 Jun 2026 16:41:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.20.0
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Minor changes
+
+- Add spright work item square list cog icon using work-order border theme token ([ni/nimble@819c652](https://github.com/ni/nimble/commit/819c6523058c74dad7b1bc7d30289e8c90659dbc))
 
 ## 6.19.2
 
