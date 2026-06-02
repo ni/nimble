@@ -84,27 +84,23 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
     }
 
     /** @internal */
-    public onKeyDown(event: KeyboardEvent): void {
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            event.stopPropagation();
-            this.onButtonClick(event);
-            return;
-        }
-
+    public onKeyDown(event: KeyboardEvent): boolean {
         if ((event.key === 'F10' && event.shiftKey)
             || event.key === TsTableColumnBreakpointCellView.menuKeyAlias) {
             event.preventDefault();
             event.stopPropagation();
             this.emitContextMenuFromButton();
-            return;
+            return false;
         }
 
         if (event.key === 'F9' || ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'b')) {
             event.preventDefault();
             event.stopPropagation();
             this.onButtonClick(event);
+            return false;
         }
+
+        return true;
     }
 
     private emitToggle(

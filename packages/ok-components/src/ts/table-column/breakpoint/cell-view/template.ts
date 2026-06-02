@@ -18,6 +18,7 @@ export const template = html<TsTableColumnBreakpointCellView>`
         @keydown="${(x, c) => x.onKeyDown(c.event as KeyboardEvent)}"
         aria-label="${x => x.ariaLabelText}"
         title="${x => x.tooltipText}"
+        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
         tabindex="-1"
     >
         ${when(x => x.currentState === BreakpointState.off, html`<${iconBreakpointHoverTag} />`)}
