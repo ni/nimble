@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 02 Jun 2026 16:41:17 GMT",
+      "version": "6.20.0",
+      "tag": "@ni/spright-components_v6.20.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "819c6523058c74dad7b1bc7d30289e8c90659dbc",
+            "comment": "Add spright work item square list cog icon using work-order border theme token"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Jun 2026 22:02:26 GMT",
       "version": "6.19.2",
       "tag": "@ni/spright-components_v6.19.2",

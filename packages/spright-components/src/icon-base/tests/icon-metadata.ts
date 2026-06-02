@@ -46,6 +46,9 @@ export const iconMetadata: {
     IconWorkItemRectangleCheckLines: {
         tags: ['testing', 'verification', 'quality assurance', 'checklist']
     },
+    IconWorkItemSquareListCog: {
+        tags: ['work order', 'tasks', 'list', 'planning', 'operations']
+    },
     IconWorkItemUserHelmetSafety: {
         tags: ['job', 'work', 'worker', 'operator', 'technician', 'safety']
     },
