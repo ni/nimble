@@ -35,13 +35,17 @@
       "enabled": true,
       "matchPackageNames": [
         "!/^@angular/",
+        "!/@types/jasmine",
         "!/apache-arrow/",
         "!/beachball/",
         "!/comlink/",
         "!/eslint/",
+        "!/jasmine/",
+        "!/jasmine-core/",
         "!/ng-packagr/",
         "!/playwright/",
         "!/typescript/",
+        "!/vite/",
         "!/zone.js/"
       ]
     },
