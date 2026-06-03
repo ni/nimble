@@ -359,6 +359,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     calendarEventBackgroundHoverTransportOrderColor:
         'Color while hovering transport order calendar events',
     calendarEventBorderTransportOrderColor: 'Border color for transport order calendar events',
+    calendarEventBorderWorkOrderColor: 'Border color for work order calendar events',
     calendarEventBackgroundAggregateAvailabilityColor:
         'Background color for aggregate availability calendar events',
     calendarEventBorderAggregateAvailabilityColor: 'Border color for aggregate availability calendar events'

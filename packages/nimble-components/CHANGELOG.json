@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 01 Jun 2026 22:02:26 GMT",
+      "version": "35.10.0",
+      "tag": "@ni/nimble-components_v35.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "960f59dc173f2f3f9c45bf9ec129760c212b23c6",
+            "comment": "update dev deps"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Jun 2026 17:09:52 GMT",
+      "version": "35.10.0",
+      "tag": "@ni/nimble-components_v35.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "43bd3721f1577a88f91d993b9958f6117e1a3fc4",
+            "comment": "Add a theme-aware border color token for work order"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 May 2026 16:39:52 GMT",
       "version": "35.9.3",
       "tag": "@ni/nimble-components_v35.9.3",

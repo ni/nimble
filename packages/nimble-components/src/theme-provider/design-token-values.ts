@@ -250,6 +250,7 @@ export const tokenValues = {
     calendarEventBackgroundTransportOrderColor: createThemeColor(BrownLight10, BrownDark10, BrownDark10),
     calendarEventBackgroundHoverTransportOrderColor: createThemeColor(BrownLight20, BrownDark20, BrownDark20),
     calendarEventBorderTransportOrderColor: createThemeColor(BrownLight, BrownDark, BrownDark),
+    calendarEventBorderWorkOrderColor: createThemeColor(NiIndigo, NiIndigo, NiIndigo),
     calendarEventBackgroundAggregateAvailabilityColor: createThemeColor(Black91V10, Black82, Black82),
     calendarEventBorderAggregateAvailabilityColor: hexToRgbaCssThemeColor(createThemeColor(Black91, Black82V100, Black82V100), 0.5, 1, 1),
     controlHeight: '32px',

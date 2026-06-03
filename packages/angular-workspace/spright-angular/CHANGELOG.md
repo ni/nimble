@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Wed, 27 May 2026 16:39:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 02 Jun 2026 16:41:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 9.4.0
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Minor changes
+
+- Add Angular standalone wrapper for spright work item square list cog icon ([ni/nimble@819c652](https://github.com/ni/nimble/commit/819c6523058c74dad7b1bc7d30289e8c90659dbc))
+- Bump @ni/spright-components to v6.20.0
+
+## 9.3.2
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.19.2
 
 ## 9.3.1
 
