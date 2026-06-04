@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "dotnet 10 upgrade",
+  "packageName": "@ni/nimble-blazor",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
