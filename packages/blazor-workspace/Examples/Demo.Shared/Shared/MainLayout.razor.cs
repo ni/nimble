@@ -22,7 +22,7 @@ public partial class MainLayout
         set => Theme = Enum.Parse<Theme>(value);
     }
 
-    private async void OnThemeChange(string value)
+    private void OnThemeChange(string value)
     {
         Theme = Enum.Parse<Theme>(value);
     }
