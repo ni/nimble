@@ -38,6 +38,7 @@ import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
+    TableColumnPinLocation,
     TableColumnSortDirection,
     TableRowSelectionMode,
     TableRowSelectionState
@@ -750,10 +751,10 @@ export class Table<
         if (this.tableUpdateTracker.updateColumnWidths) {
             this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
             this.visibleColumns = this.columns.filter(
-                column => !column.columnHidden && !column.pinned
+                column => !column.columnHidden && column.pinLocation !== TableColumnPinLocation.left
             );
             this.pinnedColumns = this.columns.filter(
-                column => column.pinned && !column.columnHidden
+                column => column.pinLocation === TableColumnPinLocation.left && !column.columnHidden
             );
         }
 

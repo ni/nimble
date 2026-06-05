@@ -10,6 +10,7 @@ import { mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinne
 import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
 import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
+import { TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table-column/base';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import {
     type SharedTableArgs,
@@ -73,7 +74,7 @@ interface MappingColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
     widthMode: keyof typeof TableColumnMappingWidthMode;
-    pinned: boolean;
+    pinLocation: keyof typeof TableColumnPinLocation;
     checkValidity: () => void;
     validity: () => void;
     content: undefined;
@@ -101,7 +102,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
-            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" ?pinned="${x => x.pinned}">
+            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}" pin-location="${x => TableColumnPinLocation[x.pinLocation]}">
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
             
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
@@ -143,9 +144,12 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             description: widthModeDescription,
             table: { category: apiCategory.attributes }
         },
-        pinned: {
-            description: 'When `true`, pin a fixed width column to the left side of the table.',
-            control: { type: 'boolean' },
+        pinLocation: {
+            name: 'pin-location',
+            options: Object.keys(TableColumnPinLocation),
+            control: { type: 'radio' },
+            description:
+                'Configures where the column is pinned. Set to `left` to pin this fixed-width column to the left side of the table.',
             table: { category: apiCategory.attributes }
         },
         checkValidity: {
@@ -207,7 +211,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
         fieldName: 'firstName',
         keyType: 'string',
         widthMode: 'iconSize',
-        pinned: false,
+        pinLocation: 'none',
         checkValidity: () => {},
         validity: () => {}
     }

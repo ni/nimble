@@ -18,6 +18,7 @@ import {
 } from '../../utilities/tests/fixture';
 import {
     TableColumnAlignment,
+    TableColumnPinLocation,
     TableColumnSortDirection,
     type TableRecord,
     TableRecordDelayedHierarchyState,
@@ -862,7 +863,7 @@ describe('Table', () => {
         describe('pinned columns', () => {
             it('renders pinned columns separately from visible columns', async () => {
                 column1.columnInternals.currentPixelWidth = 120;
-                column1.pinned = true;
+                column1.pinLocation = TableColumnPinLocation.left;
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -884,7 +885,7 @@ describe('Table', () => {
 
             it('excludes hidden pinned columns from pinned layout state', async () => {
                 column1.columnInternals.currentPixelWidth = 120;
-                column1.pinned = true;
+                column1.pinLocation = TableColumnPinLocation.left;
                 column1.columnHidden = true;
                 await connect();
                 await waitForUpdatesAsync();
@@ -897,13 +898,13 @@ describe('Table', () => {
 
             it('updates pinned column collections when a pinned column becomes unpinned', async () => {
                 column1.columnInternals.currentPixelWidth = 120;
-                column1.pinned = true;
+                column1.pinLocation = TableColumnPinLocation.left;
                 await connect();
                 await waitForUpdatesAsync();
 
                 expect(element.pinnedColumns).toEqual([column1]);
 
-                column1.pinned = false;
+                column1.pinLocation = TableColumnPinLocation.none;
                 await waitForUpdatesAsync();
 
                 expect(element.pinnedColumns).toEqual([]);
@@ -918,7 +919,7 @@ describe('Table', () => {
                 expect(element.checkValidity()).toBeTrue();
                 expect(element.validity.invalidPinnedColumnConfiguration).toBeFalse();
 
-                column1.pinned = true;
+                column1.pinLocation = TableColumnPinLocation.left;
                 await waitForUpdatesAsync();
 
                 expect(element.checkValidity()).toBeFalse();
@@ -928,7 +929,7 @@ describe('Table', () => {
             it('clears invalidPinnedColumnConfiguration when a pinned column gets a pixel width', async () => {
                 await connect();
 
-                column1.pinned = true;
+                column1.pinLocation = TableColumnPinLocation.left;
                 await waitForUpdatesAsync();
                 expect(element.checkValidity()).toBeFalse();
                 expect(element.validity.invalidPinnedColumnConfiguration).toBeTrue();

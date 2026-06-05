@@ -10,7 +10,7 @@ import {
     tableColumnEmptyGroupHeaderViewTag,
     tableColumnEmptyTag
 } from './table-column.fixtures';
-import { TableColumn } from '..';
+import { TableColumn, TableColumnPinLocation } from '..';
 import type { ColumnInternalsOptions } from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 
@@ -55,11 +55,11 @@ describe('TableColumn', () => {
         expect(element.columnInternals.currentPixelWidth).toBe(200);
     });
 
-    it('has expected defaults for pinned', async () => {
+    it('has expected defaults for pin-location', async () => {
         await connect();
 
-        expect(element.pinned).toBeFalse();
-        expect(element.hasAttribute('pinned')).toBeFalse();
+        expect(element.pinLocation).toBeUndefined();
+        expect(element.hasAttribute('pin-location')).toBeFalse();
     });
 
     describe('with a custom constructor', () => {

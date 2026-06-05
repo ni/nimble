@@ -1,5 +1,6 @@
 import type { TableColumn } from '../../table-column/base';
 import {
+    TableColumnPinLocation,
     type TableRecord,
     TableRowSelectionMode,
     type TableSetRecordHierarchyOptions,
@@ -162,7 +163,7 @@ export class TableValidator<TData extends TableRecord> {
         columns: readonly TableColumn[]
     ): boolean {
         this.invalidPinnedColumnConfiguration = columns.some(
-            x => x.pinned && x.columnInternals.currentPixelWidth === undefined
+            x => x.pinLocation === TableColumnPinLocation.left && x.columnInternals.currentPixelWidth === undefined
         );
         return !this.invalidPinnedColumnConfiguration;
     }

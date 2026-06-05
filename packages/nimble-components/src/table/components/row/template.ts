@@ -13,6 +13,7 @@ import {
     tableRowSelectLabel
 } from '../../../label-provider/table/label-tokens';
 import type { TableColumn } from '../../../table-column/base';
+import { TableColumnPinLocation } from '../../../table-column/base';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { spinnerTag } from '../../../spinner';
@@ -29,7 +30,7 @@ export const template = html<TableRow>`
     >
         <span class="pinned-cell-container">
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
-                ${when(x => !x.columnHidden && x.pinned, html<TableColumn, TableRow>`
+                ${when(x => !x.columnHidden && x.pinLocation === TableColumnPinLocation.left, html<TableColumn, TableRow>`
                     <${tableCellTag}
                         class="cell"
                         :cellState="${(_, c) => c.parent.cellStates[c.index]}"
@@ -111,7 +112,7 @@ export const template = html<TableRow>`
             class="cell-container ${x => (x.isNestedParent ? 'nested-parent' : '')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
-                ${when(x => !x.columnHidden && !x.pinned, html<TableColumn, TableRow>`
+                ${when(x => !x.columnHidden && x.pinLocation !== TableColumnPinLocation.left, html<TableColumn, TableRow>`
                     <${tableCellTag}
                         class="cell"
                         :cellState="${(_, c) => c.parent.cellStates[c.index]}"

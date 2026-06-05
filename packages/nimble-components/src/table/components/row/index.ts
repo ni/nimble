@@ -20,6 +20,7 @@ import type {
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
+import { TableColumnPinLocation } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { tableCellTag } from '../cell';
 import {
@@ -330,7 +331,7 @@ export class TableRow<
     }
 
     private updateCellIndentLevels(): void {
-        const firstNonPinnedIndex = this.columns.findIndex(col => !col.pinned);
+        const firstNonPinnedIndex = this.columns.findIndex(col => col.pinLocation !== TableColumnPinLocation.left);
         this.cellIndentLevels = this.columns.map((_, i) => {
             return i === firstNonPinnedIndex ? this.nestingLevel : 0;
         });

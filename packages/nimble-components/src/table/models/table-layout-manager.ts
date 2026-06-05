@@ -1,6 +1,7 @@
 import { observable } from '@ni/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
+import { TableColumnPinLocation } from '../../table-column/base';
 import type { TableRecord } from '../types';
 
 /**
@@ -362,7 +363,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private getVisibleColumns(): TableColumn[] {
-        return this.table.columns.filter(column => !column.columnHidden && !column.pinned);
+        return this.table.columns.filter(column => !column.columnHidden && column.pinLocation !== TableColumnPinLocation.left);
     }
 
     private getLeftColumnIndexFromDivider(dividerIndex: number): number {

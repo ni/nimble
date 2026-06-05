@@ -1,10 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnMappingModule } from '../nimble-table-column-mapping.module';
 import { NimbleTableColumnMappingDirective, type TableColumnMapping, TableColumnMappingWidthMode } from '../nimble-table-column-mapping.directive';
-import { TableColumnSortDirection } from '../../nimble-table-column-base.directive';
+import { TableColumnPinLocation, TableColumnSortDirection } from '../../nimble-table-column-base.directive';
 
 describe('NimbleTableColumnMapping', () => {
     describe('module', () => {
@@ -31,7 +30,7 @@ describe('NimbleTableColumnMapping', () => {
                         action-menu-slot="my-slot"
                         action-menu-label="my menu"
                         column-hidden="true"
-                        pinned
+                        pin-location="left"
                         fractional-width="2"
                         min-pixel-width="40"
                         sort-direction="${TableColumnSortDirection.ascending}"
@@ -96,8 +95,9 @@ describe('NimbleTableColumnMapping', () => {
         });
 
         it('will use template string value for pinned', () => {
-            expect(directive.pinned).toBeTrue();
-            expect(nativeElement.pinned).toBeTrue();
+        it('will use template string value for pin-location', () => {
+            expect(directive.pinLocation).toBe(TableColumnPinLocation.left);
+            expect(nativeElement.pinLocation).toBe(TableColumnPinLocation.left);
         });
 
         it('will use template string values for sortDirection', () => {
@@ -153,7 +153,7 @@ describe('NimbleTableColumnMapping', () => {
                         [actionMenuSlot]="actionMenuSlot"
                         [actionMenuLabel]="actionMenuLabel"
                         [column-hidden]="columnHidden"
-                        [pinned]="pinned"
+                        [pin-location]="pinLocation"
                         [fractional-width]="fractionalWidth"
                         [min-pixel-width]="minPixelWidth"
                         [sort-direction]="sortDirection"
@@ -178,7 +178,7 @@ describe('NimbleTableColumnMapping', () => {
             public minPixelWidth: number | null = 40;
             public columnId = 'my-column';
             public columnHidden = true;
-            public pinned: BooleanValueOrAttribute = null;
+            public pinLocation: TableColumnPinLocation = TableColumnPinLocation.none;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
             public sortingDisabled = false;
@@ -269,14 +269,15 @@ describe('NimbleTableColumnMapping', () => {
         });
 
         it('can be configured with property binding for pinned', () => {
-            expect(directive.pinned).toBeFalse();
-            expect(nativeElement.pinned).toBeFalse();
+        it('can be configured with property binding for pin-location', () => {
+            expect(directive.pinLocation).toBeUndefined();
+            expect(nativeElement.pinLocation).toBeUndefined();
 
-            fixture.componentInstance.pinned = true;
+            fixture.componentInstance.pinLocation = TableColumnPinLocation.left;
             fixture.detectChanges();
 
-            expect(directive.pinned).toBeTrue();
-            expect(nativeElement.pinned).toBeTrue();
+            expect(directive.pinLocation).toBe(TableColumnPinLocation.left);
+            expect(nativeElement.pinLocation).toBe(TableColumnPinLocation.left);
         });
 
         it('can be configured with property binding for sortDirection', () => {
@@ -424,7 +425,7 @@ describe('NimbleTableColumnMapping', () => {
                         [attr.action-menu-slot]="actionMenuSlot"
                         [attr.action-menu-label]="actionMenuLabel"
                         [attr.column-hidden]="columnHidden"
-                        [attr.pinned]="pinned"
+                        [attr.pin-location]="pinLocation"
                         [attr.fractional-width]="fractionalWidth"
                         [attr.min-pixel-width]="minPixelWidth"
                         [attr.sort-direction]="sortDirection"
@@ -449,7 +450,7 @@ describe('NimbleTableColumnMapping', () => {
             public minPixelWidth: number | null = 40;
             public columnId = 'my-column';
             public columnHidden = true;
-            public pinned: BooleanValueOrAttribute = null;
+            public pinLocation: TableColumnPinLocation = TableColumnPinLocation.none;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
             public sortingDisabled = false;
@@ -540,14 +541,15 @@ describe('NimbleTableColumnMapping', () => {
         });
 
         it('can be configured with attribute binding for pinned', () => {
-            expect(directive.pinned).toBeFalse();
-            expect(nativeElement.pinned).toBeFalse();
+        it('can be configured with attribute binding for pin-location', () => {
+            expect(directive.pinLocation).toBeUndefined();
+            expect(nativeElement.pinLocation).toBeUndefined();
 
-            fixture.componentInstance.pinned = '';
+            fixture.componentInstance.pinLocation = TableColumnPinLocation.left;
             fixture.detectChanges();
 
-            expect(directive.pinned).toBeTrue();
-            expect(nativeElement.pinned).toBeTrue();
+            expect(directive.pinLocation).toBe(TableColumnPinLocation.left);
+            expect(nativeElement.pinLocation).toBe(TableColumnPinLocation.left);
         });
 
         it('can be configured with attribute binding for sortDirection', () => {

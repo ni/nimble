@@ -113,6 +113,15 @@ export interface TableActionMenuToggleEventDetail {
 }
 
 /**
+ * The possible pin locations for a table column.
+ */
+export const TableColumnPinLocation = {
+    none: undefined,
+    left: 'left'
+} as const;
+export type TableColumnPinLocation = (typeof TableColumnPinLocation)[keyof typeof TableColumnPinLocation];
+
+/**
  * The possible directions a table column can be sorted in.
  */
 export const TableColumnSortDirection = {

@@ -162,7 +162,7 @@ export class TableUpdateTracker<
         } else if (isColumnProperty(changedColumnProperty, 'columnHidden')) {
             this.track('columnWidths');
             this.track('columnHidden');
-        } else if (isColumnProperty(changedColumnProperty, 'pinned')) {
+        } else if (isColumnProperty(changedColumnProperty, 'pinLocation')) {
             this.track('columnWidths');
             this.track('columnPinned');
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
