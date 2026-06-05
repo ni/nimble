@@ -3,6 +3,7 @@ import { attr, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import { ChatConversationAppearance } from './types';
+import { ChatConversationScrollManager } from './scroll-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -48,6 +49,29 @@ export class ChatConversation extends FoundationElement {
     /** @internal */
     @observable
     public readonly slottedEndElements?: HTMLElement[];
+
+    /** @internal */
+    public messagesContainer: HTMLElement | null = null;
+    private scrollManager: ChatConversationScrollManager | null = null;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        const defaultSlot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement | null;
+        if (this.messagesContainer && defaultSlot) {
+            this.scrollManager = new ChatConversationScrollManager(
+                this.messagesContainer,
+                this,
+                defaultSlot
+            );
+            this.scrollManager.connect();
+        }
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.scrollManager?.disconnect();
+        this.scrollManager = null;
+    }
 
     public slottedInputElementsChanged(
         _prev: HTMLElement[] | undefined,

@@ -1,4 +1,4 @@
-import { html, slotted } from '@ni/fast-element';
+import { html, ref, slotted } from '@ni/fast-element';
 import type { ChatConversation } from '.';
 
 export const template = html<ChatConversation>`
@@ -8,7 +8,7 @@ export const template = html<ChatConversation>`
 <div class="start ${x => (x.startEmpty ? 'start-empty' : '')}">
     <slot name="start" ${slotted({ property: 'slottedStartElements' })}></slot>
 </div>
-<div class="messages"><slot></slot></div>
+<div class="messages" ${ref('messagesContainer')}><slot></slot></div>
 <div class="input ${x => (x.inputEmpty ? 'input-empty' : '')}">
     <slot name="input" ${slotted({ property: 'slottedInputElements' })}>
     </slot>
