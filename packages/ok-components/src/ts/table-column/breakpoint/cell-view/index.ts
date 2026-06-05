@@ -235,6 +235,20 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         }
     }
 
+    public onContextMenuChange(event: Event): void {
+        const requestedState = this.getRequestedStateFromEvent(event);
+        if (!requestedState) {
+            return;
+        }
+
+        const detail: BreakpointStateChangeRequestedEventDetail = {
+            recordId: this.recordId!,
+            requestedState,
+            currentState: this.currentState
+        };
+        this.$emit('breakpoint-column-state-change-requested', detail);
+    }
+
     private getMenu(): HTMLElement | undefined {
         if (!this.slottedMenus || this.slottedMenus.length === 0) {
             return undefined;
@@ -293,20 +307,6 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
 
     private requestContextMenu(): void {
         this.openMenuFromColumnSlot();
-    }
-
-    public onContextMenuChange(event: Event): void {
-        const requestedState = this.getRequestedStateFromEvent(event);
-        if (!requestedState) {
-            return;
-        }
-
-        const detail: BreakpointStateChangeRequestedEventDetail = {
-            recordId: this.recordId!,
-            requestedState,
-            currentState: this.currentState
-        };
-        this.$emit('breakpoint-column-state-change-requested', detail);
     }
 
     private openMenuFromColumnSlot(): void {
