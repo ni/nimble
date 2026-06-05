@@ -67,21 +67,29 @@ const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/
                         <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
                         <span class="toolbar-title">AI Assistant (Streaming)</span>
                     </nimble-toolbar>
-                    <ng-container *ngFor="let entry of messages">
-                        <spright-chat-message-outbound *ngIf="entry.type === 'user'">
-                            <span>{{entry.text}}</span>
-                        </spright-chat-message-outbound>
-                        <spright-chat-message-system *ngIf="entry.type === 'system'">
-                            <nimble-spinner appearance="accent"></nimble-spinner>
-                        </spright-chat-message-system>
-                        <spright-chat-message-inbound *ngIf="entry.type === 'advisor'">
-                            <span>{{entry.text}}</span>
-                            <nimble-button *ngIf="!entry.streaming" slot="footer-actions" appearance="ghost" content-hidden title="Copy">
-                                <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
-                                Copy
-                            </nimble-button>
-                        </spright-chat-message-inbound>
-                    </ng-container>
+                    @for (entry of messages; track entry) {
+                        @if (entry.type === 'user') {
+                            <spright-chat-message-outbound>
+                                <span>{{entry.text}}</span>
+                            </spright-chat-message-outbound>
+                        }
+                        @if (entry.type === 'system') {
+                            <spright-chat-message-system>
+                                <nimble-spinner appearance="accent"></nimble-spinner>
+                            </spright-chat-message-system>
+                        }
+                        @if (entry.type === 'advisor') {
+                            <spright-chat-message-inbound>
+                                <span>{{entry.text}}</span>
+                                @if (!entry.streaming) {
+                                    <nimble-button slot="footer-actions" appearance="ghost" content-hidden title="Copy">
+                                        <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
+                                        Copy
+                                    </nimble-button>
+                                }
+                            </spright-chat-message-inbound>
+                        }
+                    }
                     <spright-chat-input slot="input" placeholder="Send a message…" (send)="onChatInputSend($event)" [send-disabled]="isStreaming"></spright-chat-input>
                     <span slot="end">AI-generated content may be incorrect.</span>
                 </spright-chat-conversation>
