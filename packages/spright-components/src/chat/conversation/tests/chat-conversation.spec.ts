@@ -106,9 +106,7 @@ describe('ChatConversation', () => {
                 scrollHeight: 600,
                 clientHeight: 300,
                 style: { paddingBottom: '' },
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 addEventListener: () => {},
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 removeEventListener: () => {},
                 ...overrides
             };

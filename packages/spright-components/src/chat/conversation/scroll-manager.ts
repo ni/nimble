@@ -92,7 +92,7 @@ export class ChatConversationScrollManager {
                 this.resizeObserver?.observe(this.container);
             }
             const assigned = this.defaultSlot.assignedElements({ flatten: true });
-            const lastEl = assigned[assigned.length - 1] as Element | undefined;
+            const lastEl = assigned[assigned.length - 1];
             if (lastEl) {
                 this.resizeObserver?.observe(lastEl);
             }
