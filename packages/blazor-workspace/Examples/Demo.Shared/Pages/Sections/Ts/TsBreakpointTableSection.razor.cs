@@ -6,8 +6,6 @@ namespace Demo.Shared.Pages.Sections;
 public partial class TsBreakpointTableSection
 {
     private NimbleTable<BreakpointTableRecord>? _table;
-    private string? _contextMenuRecordId;
-    private string _contextMenuRecordState = BreakpointState.Off;
 
     private List<BreakpointTableRecord> _tableData = new()
     {
@@ -36,46 +34,14 @@ public partial class TsBreakpointTableSection
         StateHasChanged();
     }
 
-    private void OnBreakpointContextMenu(BreakpointColumnContextMenuEventArgs e)
+    private void OnBreakpointStateChangeRequested(BreakpointColumnStateChangeRequestedEventArgs e)
     {
-        _contextMenuRecordId = e.RecordId;
-        _contextMenuRecordState = e.CurrentState;
-
-        StateHasChanged();
-    }
-
-    private void OnAddBreakpoint()
-    {
-        SetRecordState(BreakpointState.Enabled);
-    }
-
-    private void OnAddConditionalBreakpoint()
-    {
-        SetRecordState(BreakpointState.Conditional);
-    }
-
-    private void OnRemoveBreakpoint()
-    {
-        SetRecordState(BreakpointState.Off);
-    }
-
-    private void OnDisableBreakpoint()
-    {
-        SetRecordState(BreakpointState.Disabled);
-    }
-
-    private void OnEnableBreakpoint()
-    {
-        SetRecordState(BreakpointState.Enabled);
-    }
-
-    private void SetRecordState(string newState)
-    {
-        var record = _tableData.FirstOrDefault(r => r.Id == _contextMenuRecordId);
+        var record = _tableData.FirstOrDefault(r => r.Id == e.RecordId);
         if (record != null)
         {
-            record.BreakpointState = newState;
+            record.BreakpointState = e.RequestedState;
         }
+
         StateHasChanged();
     }
 }

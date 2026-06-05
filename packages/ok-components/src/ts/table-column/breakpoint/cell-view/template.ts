@@ -45,6 +45,7 @@ export const template = html<TsTableColumnBreakpointCellView>`
                         vertical-positioning-mode="${x => (x.menuPosition === MenuButtonPosition.auto ? 'dynamic' : 'locktodefault')}"
                         vertical-default-position="${x => (x.menuPosition === MenuButtonPosition.above ? 'top' : 'bottom')}"
                         @loaded="${x => x.regionLoadedHandler()}"
+                        @change="${(x, c) => x.onContextMenuChange(c.event)}"
                         @keydown="${(x, c) => x.contextMenuKeyDownHandler(c.event as KeyboardEvent)}"
                         ${ref('region')}
                     >

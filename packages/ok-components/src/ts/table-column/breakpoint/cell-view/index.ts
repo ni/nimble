@@ -9,8 +9,9 @@ import { styles } from './styles';
 import {
     BreakpointState,
     breakpointCellViewMenuSlotName,
+    breakpointMenuItemStateAttributeName,
     type BreakpointToggleEventDetail,
-    type BreakpointContextMenuEventDetail
+    type BreakpointStateChangeRequestedEventDetail
 } from '../types';
 import type { TsTableColumnBreakpointCellRecord, TsTableColumnBreakpointColumnConfig } from '..';
 
@@ -292,12 +293,20 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
 
     private requestContextMenu(): void {
         this.openMenuFromColumnSlot();
+    }
 
-        const detail: BreakpointContextMenuEventDetail = {
+    public onContextMenuChange(event: Event): void {
+        const requestedState = this.getRequestedStateFromEvent(event);
+        if (!requestedState) {
+            return;
+        }
+
+        const detail: BreakpointStateChangeRequestedEventDetail = {
             recordId: this.recordId!,
+            requestedState,
             currentState: this.currentState
         };
-        this.$emit('breakpoint-column-context-menu', detail);
+        this.$emit('breakpoint-column-state-change-requested', detail);
     }
 
     private openMenuFromColumnSlot(): void {
@@ -322,6 +331,25 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         this.open = false;
         this.button?.focus();
     };
+
+    private getRequestedStateFromEvent(event: Event): BreakpointState | undefined {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return undefined;
+        }
+
+        const stateElement = target.closest(`[${breakpointMenuItemStateAttributeName}]`);
+        if (!stateElement) {
+            return undefined;
+        }
+
+        const requestedState = stateElement.getAttribute(breakpointMenuItemStateAttributeName);
+        if (requestedState && Object.values(BreakpointState).includes(requestedState as BreakpointState)) {
+            return requestedState as BreakpointState;
+        }
+
+        return undefined;
+    }
 }
 
 const tsTableColumnBreakpointCellView = TsTableColumnBreakpointCellView.compose({

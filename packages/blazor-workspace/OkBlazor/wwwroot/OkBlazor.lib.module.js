@@ -34,12 +34,13 @@ function registerEvents(Blazor) {
         }
     });
 
-    Blazor.registerCustomEventType('okbreakpointcolumncontextmenu', {
-        browserEventName: 'breakpoint-column-context-menu',
+    Blazor.registerCustomEventType('okbreakpointcolumnstatechangerequested', {
+        browserEventName: 'breakpoint-column-state-change-requested',
         createEventArgs: event => {
             return {
                 recordId: event.detail.recordId,
-                currentState: event.detail.currentState
+                currentState: event.detail.currentState,
+                requestedState: event.detail.requestedState
             };
         }
     });

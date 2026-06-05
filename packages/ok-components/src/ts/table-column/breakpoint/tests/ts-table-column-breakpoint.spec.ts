@@ -13,7 +13,7 @@ import { TsTableColumnBreakpointPageObject } from './ts-table-column-breakpoint.
 import {
     BreakpointState,
     type BreakpointToggleEventDetail,
-    type BreakpointContextMenuEventDetail
+    type BreakpointStateChangeRequestedEventDetail
 } from '../types';
 
 interface SimpleTableRecord extends TableRecord {
@@ -51,20 +51,20 @@ describe('TsTableColumnBreakpoint', () => {
                     </${tsTableColumnBreakpointTag}>
 
                     <${menuTag} slot="breakpoint-menu">
-                        <${menuItemTag} ${ref('firstMenuItem')}>Toggle</${menuItemTag}>
-                        <${menuItemTag} ${ref('secondMenuItem')}>Disable</${menuItemTag}>
-                        <${menuItemTag} ${ref('lastMenuItem')}>Edit</${menuItemTag}>
+                        <${menuItemTag} ${ref('firstMenuItem')} data-breakpoint-state="${BreakpointState.enabled}">Enable</${menuItemTag}>
+                        <${menuItemTag} ${ref('secondMenuItem')} data-breakpoint-state="${BreakpointState.disabled}">Disable</${menuItemTag}>
+                        <${menuItemTag} ${ref('lastMenuItem')} data-breakpoint-state="${BreakpointState.off}">Remove</${menuItemTag}>
                     </${menuTag}>
                 </${tableTag}>`,
             { source }
         );
     }
 
-    function getContextMenuEventDetail(
-        contextMenuSpy: jasmine.Spy
-    ): BreakpointContextMenuEventDetail {
+    function getStateChangeRequestedEventDetail(
+        stateChangeRequestedSpy: jasmine.Spy
+    ): BreakpointStateChangeRequestedEventDetail {
         return (
-            contextMenuSpy.calls.first().args[0] as CustomEvent<BreakpointContextMenuEventDetail>
+            stateChangeRequestedSpy.calls.first().args[0] as CustomEvent<BreakpointStateChangeRequestedEventDetail>
         ).detail;
     }
 
@@ -283,58 +283,41 @@ describe('TsTableColumnBreakpoint', () => {
     });
 
     describe('context menu', () => {
-        it('emits breakpoint-column-context-menu on right-click when state is off', async () => {
+        it('emits breakpoint-column-state-change-requested when selecting a menu item after right-click', async () => {
             await table.setData([
                 { id: '1', breakpointState: BreakpointState.off }
             ]);
             await waitForUpdatesAsync();
 
-            const contextMenuSpy = jasmine.createSpy('contextmenu');
+            const stateChangeRequestedSpy = jasmine.createSpy('state-change-requested');
             elementReferences.column.addEventListener(
-                'breakpoint-column-context-menu',
-                contextMenuSpy
+                'breakpoint-column-state-change-requested',
+                stateChangeRequestedSpy
             );
 
             breakpointPageObject.rightClickBreakpointButton(0, 0);
             await waitForUpdatesAsync();
 
-            expect(contextMenuSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = getContextMenuEventDetail(contextMenuSpy);
+            elementReferences.firstMenuItem.click();
+            await waitForUpdatesAsync();
+
+            expect(stateChangeRequestedSpy).toHaveBeenCalledTimes(1);
+            const eventDetail = getStateChangeRequestedEventDetail(stateChangeRequestedSpy);
             expect(eventDetail.recordId).toBe('1');
             expect(eventDetail.currentState).toBe(BreakpointState.off);
+            expect(eventDetail.requestedState).toBe(BreakpointState.enabled);
         });
 
-        it('emits breakpoint-column-context-menu on right-click when state is enabled', async () => {
+        it('emits breakpoint-column-state-change-requested when selecting a menu item after Shift+F10', async () => {
             await table.setData([
                 { id: '1', breakpointState: BreakpointState.enabled }
             ]);
             await waitForUpdatesAsync();
 
-            const contextMenuSpy = jasmine.createSpy('contextmenu');
+            const stateChangeRequestedSpy = jasmine.createSpy('state-change-requested');
             elementReferences.column.addEventListener(
-                'breakpoint-column-context-menu',
-                contextMenuSpy
-            );
-
-            breakpointPageObject.rightClickBreakpointButton(0, 0);
-            await waitForUpdatesAsync();
-
-            expect(contextMenuSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = getContextMenuEventDetail(contextMenuSpy);
-            expect(eventDetail.recordId).toBe('1');
-            expect(eventDetail.currentState).toBe(BreakpointState.enabled);
-        });
-
-        it('emits breakpoint-column-context-menu on Shift+F10', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.enabled }
-            ]);
-            await waitForUpdatesAsync();
-
-            const contextMenuSpy = jasmine.createSpy('contextmenu');
-            elementReferences.column.addEventListener(
-                'breakpoint-column-context-menu',
-                contextMenuSpy
+                'breakpoint-column-state-change-requested',
+                stateChangeRequestedSpy
             );
 
             breakpointPageObject.pressBreakpointButtonKey(0, 0, {
@@ -343,54 +326,14 @@ describe('TsTableColumnBreakpoint', () => {
             });
             await waitForUpdatesAsync();
 
-            expect(contextMenuSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = getContextMenuEventDetail(contextMenuSpy);
+            elementReferences.secondMenuItem.click();
+            await waitForUpdatesAsync();
+
+            expect(stateChangeRequestedSpy).toHaveBeenCalledTimes(1);
+            const eventDetail = getStateChangeRequestedEventDetail(stateChangeRequestedSpy);
             expect(eventDetail.recordId).toBe('1');
             expect(eventDetail.currentState).toBe(BreakpointState.enabled);
-        });
-
-        it('emits breakpoint-column-context-menu on Menu key', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.enabled }
-            ]);
-            await waitForUpdatesAsync();
-
-            const contextMenuSpy = jasmine.createSpy('contextmenu');
-            elementReferences.column.addEventListener(
-                'breakpoint-column-context-menu',
-                contextMenuSpy
-            );
-
-            breakpointPageObject.pressBreakpointButtonKey(0, 0, {
-                key: 'Menu'
-            });
-            await waitForUpdatesAsync();
-
-            expect(contextMenuSpy).toHaveBeenCalledTimes(1);
-            const eventDetail = getContextMenuEventDetail(contextMenuSpy);
-            expect(eventDetail.recordId).toBe('1');
-            expect(eventDetail.currentState).toBe(BreakpointState.enabled);
-        });
-
-        it('emits breakpoint-column-context-menu when right-clicking while menu is already open', async () => {
-            await table.setData([
-                { id: '1', breakpointState: BreakpointState.enabled }
-            ]);
-            await waitForUpdatesAsync();
-
-            const contextMenuSpy = jasmine.createSpy('contextmenu');
-            elementReferences.column.addEventListener(
-                'breakpoint-column-context-menu',
-                contextMenuSpy
-            );
-
-            breakpointPageObject.rightClickBreakpointButton(0, 0);
-            await waitForUpdatesAsync();
-
-            breakpointPageObject.rightClickBreakpointButton(0, 0);
-            await waitForUpdatesAsync();
-
-            expect(contextMenuSpy).toHaveBeenCalledTimes(2);
+            expect(eventDetail.requestedState).toBe(BreakpointState.disabled);
         });
     });
 

@@ -8,7 +8,11 @@ import { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
 import { styles } from '@ni/nimble-components/dist/esm/table-column/base/styles';
 import type { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { MenuButtonPosition, type MenuButtonPosition as BreakpointMenuPosition } from '@ni/nimble-components/dist/esm/menu-button/types';
-import type { BreakpointToggleEventDetail, BreakpointContextMenuEventDetail } from './types';
+import {
+    BreakpointState,
+    type BreakpointToggleEventDetail,
+    type BreakpointStateChangeRequestedEventDetail
+} from './types';
 import { breakpointCellViewMenuSlotName } from './types';
 import { tsTableColumnBreakpointCellViewTag } from './cell-view';
 import { template } from './template';
@@ -60,21 +64,37 @@ export class TsTableColumnBreakpoint extends TableColumn<TsTableColumnBreakpoint
                 recordId: event.detail.recordId
             };
             this.$emit('breakpoint-column-toggle', detail);
-        } else if (event.detail.originalEvent.type === 'breakpoint-column-context-menu') {
-            const originalEvent = event.detail.originalEvent as CustomEvent<BreakpointContextMenuEventDetail>;
-            const detail: BreakpointContextMenuEventDetail = {
+        } else if (event.detail.originalEvent.type === 'breakpoint-column-state-change-requested') {
+            const originalEvent = event.detail.originalEvent as CustomEvent<BreakpointStateChangeRequestedEventDetail>;
+            const detail: BreakpointStateChangeRequestedEventDetail = {
                 ...originalEvent.detail,
                 recordId: event.detail.recordId
             };
-            this.$emit('breakpoint-column-context-menu', detail);
+            this.$emit('breakpoint-column-state-change-requested', detail);
         }
+    }
+
+    /**
+     * Programmatically requests a breakpoint state change for a record.
+     */
+    public requestBreakpointStateChange(
+        recordId: string,
+        currentState: BreakpointState,
+        requestedState: BreakpointState
+    ): void {
+        const detail: BreakpointStateChangeRequestedEventDetail = {
+            recordId,
+            currentState,
+            requestedState
+        };
+        this.$emit('breakpoint-column-state-change-requested', detail);
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tsTableColumnBreakpointCellViewTag,
-            delegatedEvents: ['breakpoint-column-toggle', 'breakpoint-column-context-menu'],
+            delegatedEvents: ['breakpoint-column-toggle', 'breakpoint-column-state-change-requested'],
             slotNames: [breakpointCellViewMenuSlotName],
             validator: new ColumnValidator<[]>([])
         };

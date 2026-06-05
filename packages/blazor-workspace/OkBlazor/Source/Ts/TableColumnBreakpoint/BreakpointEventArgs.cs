@@ -24,10 +24,11 @@ public class BreakpointColumnToggleEventArgs : EventArgs
 }
 
 /// <summary>
-/// Event args for the breakpoint-column-context-menu event.
+/// Event args for the breakpoint-column-state-change-requested event.
 /// </summary>
-public class BreakpointColumnContextMenuEventArgs : EventArgs
+public class BreakpointColumnStateChangeRequestedEventArgs : EventArgs
 {
     public string RecordId { get; set; } = string.Empty;
     public string CurrentState { get; set; } = string.Empty;
+    public string RequestedState { get; set; } = string.Empty;
 }

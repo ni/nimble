@@ -37,10 +37,10 @@ public partial class OkTsTableColumnBreakpoint : ComponentBase
     public EventCallback<BreakpointColumnToggleEventArgs> BreakpointToggle { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback invoked when a context menu is requested on a breakpoint.
+    /// Gets or sets a callback invoked when a breakpoint state change is requested.
     /// </summary>
     [Parameter]
-    public EventCallback<BreakpointColumnContextMenuEventArgs> BreakpointContextMenu { get; set; }
+    public EventCallback<BreakpointColumnStateChangeRequestedEventArgs> BreakpointStateChangeRequested { get; set; }
 
     /// <summary>
     /// Any additional attributes that did not match known properties.

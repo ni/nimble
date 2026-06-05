@@ -7,7 +7,11 @@ import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { tsTableColumnBreakpointTag } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint';
-import { BreakpointState, type BreakpointToggleEventDetail } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint/types';
+import {
+    BreakpointState,
+    type BreakpointToggleEventDetail,
+    type BreakpointStateChangeRequestedEventDetail
+} from '@ni/ok-components/dist/esm/ts/table-column/breakpoint/types';
 import {
     type SharedTableArgs,
     sharedTableActions,
@@ -87,7 +91,7 @@ const metadata: Meta<SharedTableArgs> = {
             handles: [
                 ...sharedTableActions,
                 'breakpoint-column-toggle',
-                'breakpoint-column-context-menu'
+                'breakpoint-column-state-change-requested'
             ]
         }
     },
@@ -110,7 +114,7 @@ interface BreakpointColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     menuSlot: string;
     toggleEvent: never;
-    contextMenuEvent: never;
+    stateChangeRequestedEvent: never;
     currentData: CodeRecord[];
 }
 
@@ -139,6 +143,14 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
                         : record));
                     void x.tableRef.setData(x.currentData);
                 }}"
+                @breakpoint-column-state-change-requested="${(x, c) => {
+                    const event = c.event as CustomEvent<BreakpointStateChangeRequestedEventDetail>;
+                    const detail = event.detail;
+                    x.currentData = x.currentData.map(record => (record.id === detail.recordId
+                        ? { ...record, breakpointState: detail.requestedState }
+                        : record));
+                    void x.tableRef.setData(x.currentData);
+                }}"
             >
             </${tsTableColumnBreakpointTag}>
             <${tableColumnTextTag} 
@@ -148,9 +160,10 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
                 Code
             </${tableColumnTextTag}>
             <${menuTag} slot="${x => x.menuSlot}">
-                <${menuItemTag}>Enable breakpoint</${menuItemTag}>
-                <${menuItemTag}>Disable breakpoint</${menuItemTag}>
-                <${menuItemTag}>Remove breakpoint</${menuItemTag}>
+                <${menuItemTag} data-breakpoint-state="${BreakpointState.enabled}">Enable breakpoint</${menuItemTag}>
+                <${menuItemTag} data-breakpoint-state="${BreakpointState.disabled}">Disable breakpoint</${menuItemTag}>
+                <${menuItemTag} data-breakpoint-state="${BreakpointState.conditional}">Conditional breakpoint</${menuItemTag}>
+                <${menuItemTag} data-breakpoint-state="${BreakpointState.off}">Remove breakpoint</${menuItemTag}>
             </${menuTag}>
         </${tableTag}>
     `),
@@ -176,10 +189,10 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
             control: false,
             table: { category: apiCategory.events }
         },
-        contextMenuEvent: {
-            name: 'breakpoint-column-context-menu',
+        stateChangeRequestedEvent: {
+            name: 'breakpoint-column-state-change-requested',
             description:
-                'Emitted when the breakpoint context menu is requested. The event detail includes `recordId` and `currentState`.',
+                'Emitted when a context menu item requests a breakpoint state change. The event detail includes `recordId`, `currentState`, and `requestedState`.',
             control: false,
             table: { category: apiCategory.events }
         },

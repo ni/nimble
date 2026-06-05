@@ -21,12 +21,16 @@ export interface BreakpointToggleEventDetail {
 }
 
 /**
- * The event detail for the `breakpoint-column-context-menu` event.
+ * The event detail for the `breakpoint-column-state-change-requested` event.
  */
-export interface BreakpointContextMenuEventDetail {
+export interface BreakpointStateChangeRequestedEventDetail {
     recordId: string;
+    requestedState: BreakpointState;
     currentState: BreakpointState;
 }
+
+/** @internal */
+export const breakpointMenuItemStateAttributeName = 'data-breakpoint-state';
 
 /** @internal */
 export const breakpointCellViewMenuSlotName = 'menu';

@@ -7,32 +7,16 @@
             <OkTsTableColumnBreakpoint
                 FieldName="BreakpointState"
                 MenuSlot="breakpoint-menu"
-                BreakpointContextMenu="OnBreakpointContextMenu"
+                BreakpointStateChangeRequested="OnBreakpointStateChangeRequested"
                 BreakpointToggle="OnBreakpointToggle">
             </OkTsTableColumnBreakpoint>
             <NimbleTableColumnNumberText FieldName="LineNumber">Line</NimbleTableColumnNumberText>
         
             <NimbleMenu slot="breakpoint-menu">
-                @if (_contextMenuRecordState == OkBlazor.BreakpointState.Off)
-                {
-                    <NimbleMenuItem @onchange="@(_ => OnAddBreakpoint())">Add breakpoint</NimbleMenuItem>
-                    <NimbleMenuItem @onchange="@(_ => OnAddConditionalBreakpoint())">Add conditional breakpoint</NimbleMenuItem>
-                }
-                else
-                {
-                    <NimbleMenuItem @onchange="@(_ => OnRemoveBreakpoint())">Remove breakpoint</NimbleMenuItem>
-                    @if (_contextMenuRecordState == OkBlazor.BreakpointState.Enabled
-                        || _contextMenuRecordState == OkBlazor.BreakpointState.Conditional
-                        || _contextMenuRecordState == OkBlazor.BreakpointState.Hit)
-                    {
-                        <NimbleMenuItem @onchange="@(_ => OnDisableBreakpoint())">Disable breakpoint</NimbleMenuItem>
-                    }
-                    @if (_contextMenuRecordState == OkBlazor.BreakpointState.Disabled
-                        || _contextMenuRecordState == OkBlazor.BreakpointState.HitDisabled)
-                    {
-                        <NimbleMenuItem @onchange="@(_ => OnEnableBreakpoint())">Enable breakpoint</NimbleMenuItem>
-                    }
-                }
+                <NimbleMenuItem data-breakpoint-state="@OkBlazor.BreakpointState.Enabled">Enable breakpoint</NimbleMenuItem>
+                <NimbleMenuItem data-breakpoint-state="@OkBlazor.BreakpointState.Disabled">Disable breakpoint</NimbleMenuItem>
+                <NimbleMenuItem data-breakpoint-state="@OkBlazor.BreakpointState.Conditional">Conditional breakpoint</NimbleMenuItem>
+                <NimbleMenuItem data-breakpoint-state="@OkBlazor.BreakpointState.Off">Remove breakpoint</NimbleMenuItem>
             </NimbleMenu>
         
         </NimbleTable>
