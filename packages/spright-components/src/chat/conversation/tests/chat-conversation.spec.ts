@@ -240,5 +240,46 @@ describe('ChatConversation', () => {
 
             expect(container.scrollTop).toBe(container.scrollHeight);
         });
+
+        it('scrolls so that the last few lines of a tall outbound message appear at top of viewport', async () => {
+            await connect();
+            const scrollManager = getScrollManager(element);
+            const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
+                ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
+                getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
+                scrollTo(options: ScrollToOptions): void {
+                    this.scrollTop = options.top ?? 0;
+                }
+            };
+            scrollManager.container = container;
+            const outboundMsg = document.createElement('div');
+            spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 160 } as DOMRect);
+            spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
+
+            scrollManager.scrollToLastMessageTop();
+
+            expect(container.scrollTop).toBe(250);
+        });
+
+        it('sets bottom padding to clientHeight minus line gap for a tall outbound message', async () => {
+            await connect();
+            const scrollManager = getScrollManager(element);
+            const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
+                ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
+                getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
+                scrollTo(options: ScrollToOptions): void {
+                    this.scrollTop = options.top ?? 0;
+                }
+            };
+            scrollManager.container = container;
+            const outboundMsg = document.createElement('div');
+            spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 160 } as DOMRect);
+            spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
+
+            scrollManager.scrollToLastMessageTop();
+
+            expect(scrollManager.bottomPaddingPx).toBe(240);
+            expect(container.style.paddingBottom).toBe('240px');
+        });
     });
 });

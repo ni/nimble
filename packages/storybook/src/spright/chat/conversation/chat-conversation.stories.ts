@@ -45,6 +45,7 @@ import { ExampleWelcomeSlotContent } from '../message/types';
 
 interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
+    autoScroll: boolean;
     content: string;
     toolbar: boolean;
     start: boolean;
@@ -71,7 +72,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 max-height: 750px;
             }
         </style>
-        <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
+        <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}" ?auto-scroll="${x => x.autoScroll}">
             ${when(x => x.toolbar, html<ChatConversationArgs>`
                 <${toolbarTag} slot='toolbar'>
                     <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
@@ -155,6 +156,12 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             description: 'The appearance of the chat conversation.',
             table: { category: apiCategory.attributes }
         },
+        autoScroll: {
+            name: 'auto-scroll',
+            description: 'Enables/Disables all system-initiated scrolling. User-initiated scrolling is unaffected.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
         content: {
             name: 'default',
             description:
@@ -186,6 +193,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     },
     args: {
         appearance: 'default',
+        autoScroll: true,
         input: true,
         toolbar: true,
         start: true,

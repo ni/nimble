@@ -27,7 +27,8 @@ export class ChatConversationScrollManager {
     public constructor(
         private readonly container: HTMLElement,
         private readonly hostElement: HTMLElement,
-        private readonly defaultSlot: HTMLSlotElement
+        private readonly defaultSlot: HTMLSlotElement,
+        private readonly getAutoScroll: () => boolean
     ) {}
 
     public connect(): void {
@@ -62,6 +63,9 @@ export class ChatConversationScrollManager {
                 this.scrollPending = true;
                 requestAnimationFrame(() => {
                     this.scrollPending = false;
+                    if (!this.getAutoScroll()) {
+                        return;
+                    }
                     if (this.scrollToUserMessagePending) {
                         this.scrollToUserMessagePending = false;
                         this.scrollToLastMessageTop();
@@ -71,7 +75,6 @@ export class ChatConversationScrollManager {
                 });
             }
         });
-        // childList catches new messages; subtree + characterData catches streaming text updates
         this.mutationObserver.observe(this.hostElement, { childList: true, subtree: true, characterData: true });
     }
 
@@ -81,7 +84,7 @@ export class ChatConversationScrollManager {
      */
     private setupResizeObserver(): void {
         this.resizeObserver = new ResizeObserver(() => {
-            if (!this.isUserScrolledUp) {
+            if (!this.isUserScrolledUp && this.getAutoScroll()) {
                 this.updatePaddingAndScroll();
             }
         });
@@ -149,7 +152,7 @@ export class ChatConversationScrollManager {
 
         this.isUserScrolledUp = false;
 
-        if (messageRect.height >= this.container.clientHeight) {
+        if (messageRect.height >= this.container.clientHeight / 2) {
             this.scrollToBottomOfTallMessage(messageTopInContent, messageRect.height);
         } else if (messageTopInContent <= 0) {
             this.resetPaddingForTopAlignedMessage();
@@ -159,10 +162,18 @@ export class ChatConversationScrollManager {
     }
 
     private scrollToBottomOfTallMessage(messageTopInContent: number, messageHeight: number): void {
-        const targetScrollTop = messageTopInContent + messageHeight - this.container.clientHeight;
-        this.previousScrollTop = targetScrollTop;
+        const lineGap = Math.round(this.container.clientHeight * 0.2);
+        const scrollTarget = Math.max(0, messageTopInContent + messageHeight - lineGap);
+        const padding = this.container.clientHeight - lineGap;
+
+        this.bottomPaddingPx = padding;
+        this.userMessageScrollTop = scrollTarget;
+        this.container.style.paddingBottom = padding > 0 ? `${padding}px` : '';
+        void this.container.scrollHeight;
+
+        this.previousScrollTop = scrollTarget;
         this.programmaticScrolling = true;
-        this.container.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
+        this.container.scrollTo({ top: scrollTarget, behavior: 'smooth' });
     }
 
     private resetPaddingForTopAlignedMessage(): void {

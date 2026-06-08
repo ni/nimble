@@ -18,6 +18,9 @@ export class ChatConversation extends FoundationElement {
     @attr
     public appearance = ChatConversationAppearance.default;
 
+    @attr({ attribute: 'auto-scroll', mode: 'boolean' })
+    public autoScroll = true;
+
     /** @internal */
     @observable
     public inputEmpty = true;
@@ -61,7 +64,8 @@ export class ChatConversation extends FoundationElement {
             this.scrollManager = new ChatConversationScrollManager(
                 this.messagesContainer,
                 this,
-                defaultSlot
+                defaultSlot,
+                () => this.autoScroll
             );
             this.scrollManager.connect();
         }
