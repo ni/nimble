@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 02 Jun 2026 16:41:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 08 Jun 2026 21:55:01 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.20.1
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Update chat input Send button style to match design specs ([ni/nimble@00daff5](https://github.com/ni/nimble/commit/00daff5c57e33efc87ead5957094fba4d8cb17ec))
 
 ## 6.20.0
 
