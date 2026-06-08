@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 08 Jun 2026 21:55:01 GMT",
+      "version": "6.20.1",
+      "tag": "@ni/spright-components_v6.20.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "00daff5c57e33efc87ead5957094fba4d8cb17ec",
+            "comment": "Update chat input Send button style to match design specs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Jun 2026 16:41:17 GMT",
       "version": "6.20.0",
       "tag": "@ni/spright-components_v6.20.0",
