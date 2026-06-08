@@ -115,8 +115,9 @@ export const styles = css`
 
     .action-button {
         align-self: flex-end;
-        width: 80px;
+        width: 48px;
         margin: ${mediumPadding};
+        height: ${controlSlimHeight};
     }
 
     .attachments {
