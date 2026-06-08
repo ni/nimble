@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Update Send button style to match design specs",
+  "comment": "Update chat input Send button style to match design specs",
   "packageName": "@ni/spright-components",
   "email": "5265744+hellovolcano@users.noreply.github.com",
   "dependentChangeType": "patch"
