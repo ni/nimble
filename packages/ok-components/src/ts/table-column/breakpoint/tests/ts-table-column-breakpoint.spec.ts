@@ -9,7 +9,7 @@ import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
 import { singleIconColumnWidth } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { TsTableColumnBreakpoint, tsTableColumnBreakpointTag } from '..';
-import { TsTableColumnBreakpointPageObject } from '../../testing/ts-table-column-breakpoint.pageobject';
+import { TsTableColumnBreakpointPageObject } from '../testing/ts-table-column-breakpoint.pageobject';
 import {
     BreakpointState,
     type BreakpointToggleEventDetail,

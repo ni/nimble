@@ -1,8 +1,8 @@
 import type { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
 import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
-import { BreakpointState } from '../breakpoint/types';
-import { TsTableColumnBreakpointCellView } from '../breakpoint/cell-view';
+import { BreakpointState } from '../types';
+import { TsTableColumnBreakpointCellView } from '../cell-view';
 
 /**
  * Page object for ts-table-column-breakpoint tests.
