@@ -1,5 +1,6 @@
 import type { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
+import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import { BreakpointState } from '../breakpoint/types';
 import { TsTableColumnBreakpointCellView } from '../breakpoint/cell-view';
 
@@ -59,6 +60,30 @@ export class TsTableColumnBreakpointPageObject<T extends TableRecord> {
         return this.getRenderedCellView(rowIndex, columnIndex).tabbableChildren.length;
     }
 
+    public isContextMenuOpen(rowIndex: number, columnIndex: number): boolean {
+        return this.getContextMenuRegion(rowIndex, columnIndex) !== null;
+    }
+
+    public pressContextMenuKey(
+        rowIndex: number,
+        columnIndex: number,
+        eventInit: KeyboardEventInit
+    ): boolean {
+        const region = this.getContextMenuRegion(rowIndex, columnIndex);
+        if (!region) {
+            throw new Error(
+                `Expected context menu at cell ${rowIndex},${columnIndex}`
+            );
+        }
+
+        return region.dispatchEvent(
+            new KeyboardEvent('keydown', {
+                bubbles: true,
+                ...eventInit
+            })
+        );
+    }
+
     private getRenderedCellView(
         rowIndex: number,
         columnIndex: number
@@ -83,5 +108,15 @@ export class TsTableColumnBreakpointPageObject<T extends TableRecord> {
             );
         }
         return button;
+    }
+
+    private getContextMenuRegion(
+        rowIndex: number,
+        columnIndex: number
+    ): HTMLElement | null {
+        return this.getRenderedCellView(
+            rowIndex,
+            columnIndex
+        ).shadowRoot!.querySelector(anchoredRegionTag);
     }
 }

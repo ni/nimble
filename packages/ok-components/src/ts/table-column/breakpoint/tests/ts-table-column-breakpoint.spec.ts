@@ -283,6 +283,25 @@ describe('TsTableColumnBreakpoint', () => {
     });
 
     describe('context menu', () => {
+        it('opens the context menu on right-click and closes it on Escape', async () => {
+            await table.setData([
+                { id: '1', breakpointState: BreakpointState.off }
+            ]);
+            await waitForUpdatesAsync();
+
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeFalse();
+
+            breakpointPageObject.rightClickBreakpointButton(0, 0);
+            await waitForUpdatesAsync();
+
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeTrue();
+
+            breakpointPageObject.pressContextMenuKey(0, 0, { key: 'Escape' });
+            await waitForUpdatesAsync();
+
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeFalse();
+        });
+
         it('emits breakpoint-column-state-change-requested when selecting a menu item after right-click', async () => {
             await table.setData([
                 { id: '1', breakpointState: BreakpointState.off }
@@ -297,9 +316,11 @@ describe('TsTableColumnBreakpoint', () => {
 
             breakpointPageObject.rightClickBreakpointButton(0, 0);
             await waitForUpdatesAsync();
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeTrue();
 
             elementReferences.firstMenuItem.click();
             await waitForUpdatesAsync();
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeFalse();
 
             expect(stateChangeRequestedSpy).toHaveBeenCalledTimes(1);
             const eventDetail = getStateChangeRequestedEventDetail(stateChangeRequestedSpy);
@@ -325,9 +346,11 @@ describe('TsTableColumnBreakpoint', () => {
                 shiftKey: true
             });
             await waitForUpdatesAsync();
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeTrue();
 
             elementReferences.secondMenuItem.click();
             await waitForUpdatesAsync();
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeFalse();
 
             expect(stateChangeRequestedSpy).toHaveBeenCalledTimes(1);
             const eventDetail = getStateChangeRequestedEventDetail(stateChangeRequestedSpy);
