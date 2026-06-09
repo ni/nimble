@@ -1,0 +1,24 @@
+@namespace Demo.Shared.Pages.Sections
+
+<div>
+    <SubContainer Label="Breakpoint Table Column (Ok)">
+        <NimbleTable TData="BreakpointTableRecord" @ref="_table" IdFieldName="Id" ParentIdFieldName="ParentId" class="breakpoint-table">
+            <NimbleTableColumnText FieldName="Name" FractionalWidth="2">Name</NimbleTableColumnText>
+            <OkTsTableColumnBreakpoint
+                FieldName="BreakpointState"
+                MenuSlot="breakpoint-menu"
+                BreakpointStateChangeRequested="OnBreakpointStateChangeRequested"
+                BreakpointToggle="OnBreakpointToggle">
+            </OkTsTableColumnBreakpoint>
+            <NimbleTableColumnNumberText FieldName="LineNumber">Line</NimbleTableColumnNumberText>
+        
+            <NimbleMenu slot="breakpoint-menu">
+                <NimbleMenuItem data-breakpoint-state="@OkBlazor.BreakpointState.Enabled">Enable breakpoint</NimbleMenuItem>
+                <NimbleMenuItem data-breakpoint-state="@OkBlazor.BreakpointState.Disabled">Disable breakpoint</NimbleMenuItem>
+                <NimbleMenuItem data-breakpoint-state="@OkBlazor.BreakpointState.Conditional">Conditional breakpoint</NimbleMenuItem>
+                <NimbleMenuItem data-breakpoint-state="@OkBlazor.BreakpointState.Off">Remove breakpoint</NimbleMenuItem>
+            </NimbleMenu>
+        
+        </NimbleTable>
+    </SubContainer>
+</div>

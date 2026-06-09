@@ -1,0 +1,41 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as breakpointColumnStories from './ts-table-column-breakpoint.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import { tsTableColumnBreakpointTag } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint';
+import { Tag } from '../../../utilities/story-layout';
+
+<Meta of={breakpointColumnStories} />
+<Title of={breakpointColumnStories} />
+
+The <Tag name={tsTableColumnBreakpointTag}/> renders a breakpoint indicator in each row that
+can be toggled between breakpoint states by click or keyboard interaction.
+
+The column is intended for code-centric table displays where debugging breakpoints need to be
+visually indicated and interactively managed.
+
+The column is neither sortable nor groupable. It has a fixed width of 32 pixels and is not resizable.
+
+<Canvas of={breakpointColumnStories.breakpointColumn} />
+
+## API
+
+<Controls of={breakpointColumnStories.breakpointColumn} />
+<ComponentApisLink />
+
+## Usage
+
+### Breakpoint States
+
+| State | Description |
+|-------|-------------|
+| `off` | No breakpoint set |
+| `enabled` | Active breakpoint |
+| `disabled` | Inactive breakpoint |
+| `hit` | Breakpoint currently being hit during debugging |
+| `conditional` | Conditional breakpoint |
+| `hit-disabled` | Hit breakpoint that is disabled |
+
+### Keyboard Interactions
+
+- Press `Ctrl/Cmd + B` or `F9` to add a breakpoint.
+- Press `Shift + F10` or the `Menu` key to emit the `oncontextmenu` event.
