@@ -23,7 +23,7 @@ const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/
     template: `
         <example-sub-container label="Chat Conversation and Messages (Spright)">
             <div class="conversations">
-                <spright-chat-conversation>
+                <spright-chat-conversation [auto-scroll]="false">
                     <nimble-toolbar slot="toolbar">
                         <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
                         <span class="toolbar-title">AI Assistant</span>
@@ -62,6 +62,9 @@ const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/
                     </span>
                 </spright-chat-conversation>
 
+                <div class="streaming-section">
+                <label class="response-label">Custom advisor response (leave empty for canned):</label>
+                <textarea class="response-input" rows="3" (input)="onCustomAdvisorTextInput($event)"></textarea>
                 <spright-chat-conversation>
                     <nimble-toolbar slot="toolbar">
                         <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
@@ -93,6 +96,7 @@ const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/
                     <spright-chat-input slot="input" placeholder="Send a message…" (send)="onChatInputSend($event)" [send-disabled]="isStreaming"></spright-chat-input>
                     <span slot="end">AI-generated content may be incorrect.</span>
                 </spright-chat-conversation>
+                </div>
             </div>
         </example-sub-container>
     `,
@@ -105,6 +109,24 @@ const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/
             width: 700px;
             height: 650px;
         }
+        .streaming-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .response-label {
+            font: var(--ni-nimble-body-font);
+            color: var(--ni-nimble-body-font-color);
+        }
+        .response-input {
+            font: var(--ni-nimble-body-font);
+            color: var(--ni-nimble-body-font-color);
+            background: var(--ni-nimble-fill-secondary-color);
+            border: 1px solid var(--ni-nimble-border-color);
+            padding: 4px;
+            width: 700px;
+            resize: vertical;
+        }
         spright-chat-message-outbound span,
         spright-chat-message-inbound span { white-space: pre-wrap; }
     `],
@@ -115,7 +137,12 @@ export class ChatConversationSectionComponent implements OnDestroy {
     public messages: ChatEntry[] = [];
     public isStreaming = false;
 
+    private customAdvisorText = '';
     private streamInterval: ReturnType<typeof setInterval> | null = null;
+
+    public onCustomAdvisorTextInput(e: Event): void {
+        this.customAdvisorText = (e.target as HTMLTextAreaElement).value;
+    }
 
     public onStaticChatInputSend(e: Event): void {
         this.staticUserMessages.push((e as CustomEvent<ChatInputSendEventDetail>).detail.text);
@@ -138,6 +165,9 @@ export class ChatConversationSectionComponent implements OnDestroy {
         const spinnerEntry: ChatEntry = { type: 'system', text: '', streaming: true };
         this.messages.push(spinnerEntry);
 
+        const responseWords = this.customAdvisorText.trim().length > 0
+            ? this.customAdvisorText.trim().split(/\s+/)
+            : cannedResponseWords;
         let wordIndex = 0;
         setTimeout(() => {
             const idx = this.messages.indexOf(spinnerEntry);
@@ -148,8 +178,8 @@ export class ChatConversationSectionComponent implements OnDestroy {
             this.messages.push(advisorEntry);
 
             this.streamInterval = setInterval(() => {
-                if (wordIndex < cannedResponseWords.length) {
-                    advisorEntry.text += (wordIndex === 0 ? '' : ' ') + cannedResponseWords[wordIndex];
+                if (wordIndex < responseWords.length) {
+                    advisorEntry.text += (wordIndex === 0 ? '' : ' ') + responseWords[wordIndex];
                     wordIndex += 1;
                 } else {
                     clearInterval(this.streamInterval!);
