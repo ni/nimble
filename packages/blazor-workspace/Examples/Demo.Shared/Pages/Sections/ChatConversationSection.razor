@@ -1,56 +1,241 @@
 @namespace Demo.Shared.Pages.Sections
+@implements IAsyncDisposable
 
 <div>
     <SubContainer Label="Chat Conversation and Messages (Spright)">
-        <SprightChatConversation class="conversation">
-            <NimbleBanner slot="start" Open="true" Severity="BannerSeverity.Information">
-                <span slot="title">Title of the banner</span>
-                This is the message text of this banner. It tells you something interesting.
-            </NimbleBanner>
-            <SprightChatMessageSystem>
-                To start, press any key.
-            </SprightChatMessageSystem>
-            <SprightChatMessageOutbound>
-                Where is the Any key?
-            </SprightChatMessageOutbound>
-            <SprightChatMessageSystem>
-                <NimbleSpinner Appearance="SpinnerAppearance.Accent"></NimbleSpinner>
-            </SprightChatMessageSystem>
-            <SprightChatMessageInbound>
-                <NimbleButton slot="footer-actions" Appearance=ButtonAppearance.Ghost ContentHidden="true">
-                    <NimbleIconCopyText slot="start"></NimbleIconCopyText>
-                    Copy
-                </NimbleButton>
-                <NimbleIconWebviCustom style="height: 100px; width: 100px;"></NimbleIconWebviCustom>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                <NimbleButton slot="end" Appearance=ButtonAppearance.Block>
-                    Order a tab
-                </NimbleButton>
-                <NimbleButton slot="end" Appearance=ButtonAppearance.Block>
-                    Check core temperature
-                </NimbleButton>
-            </SprightChatMessageInbound>
-            @foreach(var message in _userMessages)
-            {
+        <div class="conversations">
+            <SprightChatConversation>
+                <NimbleToolbar slot="toolbar">
+                    <NimbleIconMessagesSparkle slot="start"></NimbleIconMessagesSparkle>
+                    <span class="toolbar-title">AI Assistant</span>
+                    <NimbleButton Appearance="ButtonAppearance.Ghost" ContentHidden="true" Title="Create new chat" slot="end">
+                        Create new chat
+                        <NimbleIconPencilToRectangle slot="start"></NimbleIconPencilToRectangle>
+                    </NimbleButton>
+                </NimbleToolbar>
+                <NimbleBanner slot="start" Open="true" Severity="BannerSeverity.Information">
+                    <span slot="title">Title of the banner</span>
+                    This is the message text of this banner. It tells you something interesting.
+                </NimbleBanner>
+                <SprightChatMessageSystem>
+                    To start, press any key.
+                </SprightChatMessageSystem>
                 <SprightChatMessageOutbound>
-                    @message
+                    Where is the Any key?
                 </SprightChatMessageOutbound>
-            }
-            <SprightChatInput slot="input" Placeholder="Type here" Send="UpdateUserMessages"></SprightChatInput>
-            <span slot="end">
-                AI-generated content may be incorrect.
-                <NimbleAnchor Href="https://www.ni.com" Target="_blank">View Terms and Conditions</NimbleAnchor>
-            </span>
-        </SprightChatConversation>
+                <SprightChatMessageSystem>
+                    <NimbleSpinner Appearance="SpinnerAppearance.Accent"></NimbleSpinner>
+                </SprightChatMessageSystem>
+                <SprightChatMessageInbound>
+                    <NimbleButton slot="footer-actions" Appearance="ButtonAppearance.Ghost" ContentHidden="true">
+                        <NimbleIconCopyText slot="start"></NimbleIconCopyText>
+                        Copy
+                    </NimbleButton>
+                    <NimbleIconWebviCustom style="height: 100px; width: 100px;"></NimbleIconWebviCustom>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <NimbleButton slot="end" Appearance="ButtonAppearance.Block">
+                        Order a tab
+                    </NimbleButton>
+                    <NimbleButton slot="end" Appearance="ButtonAppearance.Block">
+                        Check core temperature
+                    </NimbleButton>
+                </SprightChatMessageInbound>
+                @foreach(var message in _staticUserMessages)
+                {
+                    <SprightChatMessageOutbound>
+                        <span>@message</span>
+                    </SprightChatMessageOutbound>
+                }
+                <SprightChatInput slot="input" Placeholder="Type here" Send="OnStaticChatInputSend"></SprightChatInput>
+                <span slot="end">
+                    AI-generated content may be incorrect.
+                    <NimbleAnchor Href="https://www.ni.com" Target="_blank">View Terms and Conditions</NimbleAnchor>
+                </span>
+            </SprightChatConversation>
+
+            <div class="streaming-section">
+                <label class="response-label">Custom advisor response (leave empty for canned):</label>
+                <textarea class="response-input" rows="3" @onchange="OnCustomAdvisorTextInput"></textarea>
+                <SprightChatConversation>
+                    <NimbleToolbar slot="toolbar">
+                        <NimbleIconMessagesSparkle slot="start"></NimbleIconMessagesSparkle>
+                        <span class="toolbar-title">AI Assistant (Streaming)</span>
+                    </NimbleToolbar>
+                    @foreach (var entry in _messages)
+                    {
+                        @if (entry.Type == "user")
+                        {
+                            <SprightChatMessageOutbound>
+                                <span style="white-space: pre-wrap;">@entry.Text</span>
+                            </SprightChatMessageOutbound>
+                        }
+                        @if (entry.Type == "system")
+                        {
+                            <SprightChatMessageSystem>
+                                <NimbleSpinner Appearance="SpinnerAppearance.Accent"></NimbleSpinner>
+                            </SprightChatMessageSystem>
+                        }
+                        @if (entry.Type == "advisor")
+                        {
+                            <SprightChatMessageInbound>
+                                <span style="white-space: pre-wrap;">@entry.Text</span>
+                                @if (!entry.Streaming)
+                                {
+                                    <NimbleButton slot="footer-actions" Appearance="ButtonAppearance.Ghost" ContentHidden="true" Title="Copy">
+                                        <NimbleIconCopyText slot="start"></NimbleIconCopyText>
+                                        Copy
+                                    </NimbleButton>
+                                }
+                            </SprightChatMessageInbound>
+                        }
+                    }
+                    <SprightChatInput slot="input" Placeholder="Send a message…" Send="OnChatInputSend" SendDisabled="@_isStreaming"></SprightChatInput>
+                    <span slot="end">AI-generated content may be incorrect.</span>
+                </SprightChatConversation>
+            </div>
+        </div>
     </SubContainer>
 </div>
 
-@code {
-    private List<string> _userMessages = new List<string>();
+<style>
+    .conversations {
+        display: flex;
+        gap: 16px;
+    }
+    :deep(spright-chat-conversation) {
+        width: 700px;
+        height: 650px;
+    }
+    .streaming-section {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .response-label {
+        font: var(--ni-nimble-body-font);
+        color: var(--ni-nimble-body-font-color);
+    }
+    .response-input {
+        font: var(--ni-nimble-body-font);
+        color: var(--ni-nimble-body-font-color);
+        background: var(--ni-nimble-fill-secondary-color);
+        border: 1px solid var(--ni-nimble-border-color);
+        padding: 4px;
+        width: 700px;
+        resize: vertical;
+    }
+</style>
 
-    public void UpdateUserMessages(ChatInputSendEventArgs e)
+@code {
+    private record ChatEntry(string Type, string Text, bool Streaming);
+
+    private const string SingleResponse = @"To configure your Python version, select Adapters from the Configure menu.
+Configure the Python adapter. Choose the desired version from the Version dropdown.
+You can also specify a Python version for a specific module call in the Advanced Settings of the Python adapter.
+Additionally, you can set environment variables in the adapter configuration to control runtime behavior.
+This gives you fine-grained control over which interpreter is used per step in your test sequence.
+If you have multiple virtual environments, make sure to point the adapter to the correct executable path.
+The path must be absolute and should not contain spaces unless properly quoted.
+For further reference, consult the NI TestStand help documentation under the Python Adapter section.";
+
+    private static readonly string[] CannedResponseWords = 
+        Enumerable.Repeat(SingleResponse, 5)
+            .Aggregate((a, b) => a + "\n" + b)
+            .Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+    private List<string> _staticUserMessages = new();
+    private List<ChatEntry> _messages = new();
+    private bool _isStreaming = false;
+    private string? _customAdvisorText;
+    private PeriodicTimer? _streamTimer;
+
+    public void OnCustomAdvisorTextInput(ChangeEventArgs e)
     {
-        _userMessages.Add(e.Text);
+        _customAdvisorText = e.Value?.ToString() ?? string.Empty;
+    }
+
+    public void OnStaticChatInputSend(ChatInputSendEventArgs e)
+    {
+        _staticUserMessages.Add(e.Text);
+    }
+
+    public void OnChatInputSend(ChatInputSendEventArgs e)
+    {
+        var text = e.Text;
+        _messages.Add(new ChatEntry("user", text, false));
+        _ = StartStreamingAsync();
+    }
+
+    private async Task StartStreamingAsync()
+    {
+        _isStreaming = true;
+        var spinnerEntry = new ChatEntry("system", "", true);
+        _messages.Add(spinnerEntry);
+        StateHasChanged();
+
+        var responseWords = (string.IsNullOrWhiteSpace(_customAdvisorText)
+            ? CannedResponseWords
+            : _customAdvisorText.Trim().Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries))
+            .ToArray();
+
+        await Task.Delay(300);
+
+        _messages.Remove(spinnerEntry);
+        var advisorEntry = new ChatEntry("advisor", "", true);
+        _messages.Add(advisorEntry);
+        StateHasChanged();
+
+        var wordIndex = 0;
+        _streamTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(30));
+
+        try
+        {
+            while (await _streamTimer.WaitForNextTickAsync())
+            {
+                if (wordIndex < responseWords.Length)
+                {
+                    advisorEntry = new ChatEntry(
+                        "advisor",
+                        advisorEntry.Text + (wordIndex == 0 ? "" : " ") + responseWords[wordIndex],
+                        true
+                    );
+                    var idx = _messages.FindIndex(m => m.Type == "advisor" && m.Streaming);
+                    if (idx != -1)
+                    {
+                        _messages[idx] = advisorEntry;
+                    }
+                    wordIndex++;
+                    StateHasChanged();
+                }
+                else
+                {
+                    advisorEntry = new ChatEntry("advisor", advisorEntry.Text, false);
+                    var idx = _messages.FindIndex(m => m.Type == "advisor" && m.Streaming);
+                    if (idx != -1)
+                    {
+                        _messages[idx] = advisorEntry;
+                    }
+                    _isStreaming = false;
+                    await _streamTimer.StopAsync();
+                    StateHasChanged();
+                    break;
+                }
+            }
+        }
+        finally
+        {
+            _streamTimer?.Dispose();
+            _streamTimer = null;
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (_streamTimer != null)
+        {
+            await _streamTimer.StopAsync();
+            _streamTimer.Dispose();
+        }
     }
 }
