@@ -1,4 +1,6 @@
-﻿using Bunit;
+﻿using System;
+using System.Linq.Expressions;
+using Bunit;
 using Xunit;
 
 namespace SprightBlazor.Tests.Unit.Components;
@@ -40,5 +42,20 @@ public class SprightChatConversationTests
 
         Assert.Contains("slot=\"toolbar\"", component.Markup);
         Assert.Contains("Toolbar Button", component.Markup);
+    }
+
+    [Fact]
+    public void SprightChatConversation_AutoScroll_AttributeIsSet()
+    {
+        var component = RenderWithPropertySet(x => x.AutoScroll, true);
+
+        Assert.Contains("auto-scroll", component.Markup);
+    }
+
+    private static IRenderedComponent<SprightChatConversation> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatConversation, TProperty>> propertyGetter, TProperty propertyValue)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<SprightChatConversation>(p => p.Add(propertyGetter, propertyValue));
     }
 }
