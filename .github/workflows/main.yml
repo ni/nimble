@@ -60,7 +60,7 @@ jobs:
           global-json-file: packages/blazor-workspace/global.json
       - uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '8.0.422'
       - run: dotnet restore --locked-mode
         working-directory: packages/blazor-workspace/
       - uses: actions/setup-node@v6
