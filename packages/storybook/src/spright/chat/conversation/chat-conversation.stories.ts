@@ -158,7 +158,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         },
         autoScroll: {
             name: 'auto-scroll',
-            description: 'Enables/Disables all system-initiated scrolling. User-initiated scrolling is unaffected.',
+            description: 'Enables or disables all system-initiated scrolling. User-initiated scrolling is unaffected.',
             control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
