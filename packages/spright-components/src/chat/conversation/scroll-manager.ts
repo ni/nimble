@@ -1,4 +1,5 @@
 import { mediumPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { chatMessageOutboundTag } from '../message/outbound';
 
 /**
  * Encapsulates all scroll management logic for the ChatConversation component.
@@ -53,7 +54,7 @@ export class ChatConversationScrollManager {
         this.mutationObserver = new MutationObserver(mutations => {
             for (const mutation of mutations) {
                 for (const node of mutation.addedNodes) {
-                    if ((node as Element).tagName?.toLowerCase() === 'spright-chat-message-outbound') {
+                    if (this.isUserMessage(node as Element)) {
                         this.scrollToUserMessagePending = true;
                     }
                 }
@@ -121,14 +122,13 @@ export class ChatConversationScrollManager {
         this.container.scrollTop = this.container.scrollHeight;
     }
 
+    private isUserMessage(element: Element): boolean {
+        return element.tagName?.toLowerCase() === chatMessageOutboundTag;
+    }
+
     private getLastOutboundMessage(): HTMLElement | null {
         const assigned = this.defaultSlot.assignedElements({ flatten: true });
-        for (let i = assigned.length - 1; i >= 0; i--) {
-            if (assigned[i]?.tagName.toLowerCase() === 'spright-chat-message-outbound') {
-                return assigned[i] as HTMLElement;
-            }
-        }
-        return null;
+        return Array.from(assigned).reverse().find(el => this.isUserMessage(el)) as HTMLElement | null;
     }
 
     /**
