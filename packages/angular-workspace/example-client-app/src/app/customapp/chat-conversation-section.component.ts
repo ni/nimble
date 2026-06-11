@@ -23,7 +23,7 @@ const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/
     template: `
         <example-sub-container label="Chat Conversation and Messages (Spright)">
             <div class="conversations">
-                <spright-chat-conversation [auto-scroll]="false">
+                <spright-chat-conversation>
                     <nimble-toolbar slot="toolbar">
                         <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
                         <span class="toolbar-title">AI Assistant</span>
@@ -65,7 +65,7 @@ const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/
                 <div class="streaming-section">
                 <label class="response-label">Custom advisor response (leave empty for canned):</label>
                 <textarea class="response-input" rows="3" (input)="onCustomAdvisorTextInput($event)"></textarea>
-                <spright-chat-conversation>
+                <spright-chat-conversation auto-scroll>
                     <nimble-toolbar slot="toolbar">
                         <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
                         <span class="toolbar-title">AI Assistant (Streaming)</span>

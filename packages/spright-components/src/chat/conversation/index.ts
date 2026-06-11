@@ -19,7 +19,7 @@ export class ChatConversation extends FoundationElement {
     public appearance = ChatConversationAppearance.default;
 
     @attr({ attribute: 'auto-scroll', mode: 'boolean' })
-    public autoScroll = true;
+    public autoScroll = false;
 
     /** @internal */
     @observable

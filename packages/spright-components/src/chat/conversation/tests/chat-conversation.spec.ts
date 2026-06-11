@@ -135,151 +135,156 @@ describe('ChatConversation', () => {
             expect(scrollManager.isUserScrolledUp).toBeFalse();
         });
 
-        it('auto-scrolls to bottom when content updates and user has not scrolled up', async () => {
+        it('auto-scroll should default to false', async () => {
             await connect();
-            const scrollManager = getScrollManager(element);
-            const container = createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 });
-            scrollManager.container = container;
-            scrollManager.updatePaddingAndScroll();
-
-            expect(container.scrollTop).toBe(600);
+            expect(element.autoScroll).toBeFalse();
         });
 
-        it('does not auto-scroll when user has scrolled up and content updates', async () => {
-            spyOn(window, 'requestAnimationFrame').and.callFake((cb: FrameRequestCallback) => {
-                cb(0);
-                return 0;
+        describe('with auto-scroll enabled', () => {
+            beforeEach(async () => {
+                await connect();
+                element.autoScroll = true;
             });
-            await connect();
-            const scrollManager = getScrollManager(element);
-            const container = createMockContainer({ scrollTop: 100 });
-            scrollManager.container = container;
-            scrollManager.isUserScrolledUp = true;
 
-            element.appendChild(document.createTextNode('streaming text'));
-            await Promise.resolve();
-            await Promise.resolve();
+            it('auto-scrolls to bottom when content updates and user has not scrolled up', () => {
+                const scrollManager = getScrollManager(element);
+                const container = createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 });
+                scrollManager.container = container;
+                scrollManager.updatePaddingAndScroll();
 
-            expect(container.scrollTop).toBe(100);
-        });
+                expect(container.scrollTop).toBe(600);
+            });
 
-        it('scrolls so that the outbound message appears at top of viewport when user sends a message', async () => {
-            await connect();
-            const scrollManager = getScrollManager(element);
-            const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
-                ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
-                getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
-                scrollTo(options: ScrollToOptions): void {
-                    this.scrollTop = options.top ?? 0;
-                }
-            };
-            scrollManager.container = container;
-            const outboundMsg = document.createElement('div');
-            spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 50 } as DOMRect);
-            spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
+            it('does not auto-scroll when user has scrolled up and content updates', async () => {
+                spyOn(window, 'requestAnimationFrame').and.callFake((cb: FrameRequestCallback) => {
+                    cb(0);
+                    return 0;
+                });
 
-            scrollManager.scrollToLastMessageTop();
+                const scrollManager = getScrollManager(element);
+                const container = createMockContainer({ scrollTop: 100 });
+                scrollManager.container = container;
+                scrollManager.isUserScrolledUp = true;
 
-            expect(container.scrollTop).toBe(142);
-        });
+                element.appendChild(document.createTextNode('streaming text'));
+                await Promise.resolve();
+                await Promise.resolve();
 
-        it('sets bottom padding to keep outbound message scrollable when content is shorter than viewport', async () => {
-            await connect();
-            const scrollManager = getScrollManager(element);
-            const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
-                ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
-                getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
-                scrollTo(options: ScrollToOptions): void {
-                    this.scrollTop = options.top ?? 0;
-                }
-            };
-            scrollManager.container = container;
-            const outboundMsg = document.createElement('div');
-            spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 50 } as DOMRect);
-            spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
+                expect(container.scrollTop).toBe(100);
+            });
 
-            scrollManager.scrollToLastMessageTop();
+            it('scrolls so that the outbound message appears at top of viewport when user sends a message', () => {
+                const scrollManager = getScrollManager(element);
+                const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
+                    ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
+                    getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
+                    scrollTo(options: ScrollToOptions): void {
+                        this.scrollTop = options.top ?? 0;
+                    }
+                };
+                scrollManager.container = container;
+                const outboundMsg = document.createElement('div');
+                spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 50 } as DOMRect);
+                spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
 
-            expect(scrollManager.bottomPaddingPx).toBe(242);
-            expect(container.style.paddingBottom).toBe('242px');
-        });
+                scrollManager.scrollToLastMessageTop();
 
-        it('reduces bottom padding as AI response content grows', async () => {
-            await connect();
-            const scrollManager = getScrollManager(element);
-            const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void } = {
-                ...createMockContainer({ scrollTop: 142, scrollHeight: 842, clientHeight: 300, style: { paddingBottom: '242px' } }),
-                scrollTo(options: ScrollToOptions): void {
-                    this.scrollTop = options.top ?? 0;
-                }
-            };
-            scrollManager.container = container;
-            scrollManager.bottomPaddingPx = 242;
-            scrollManager.userMessageScrollTop = 142;
+                expect(container.scrollTop).toBe(142);
+            });
 
-            scrollManager.updatePaddingAndScroll();
+            it('sets bottom padding to keep outbound message scrollable when content is shorter than viewport', () => {
+                const scrollManager = getScrollManager(element);
+                const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
+                    ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
+                    getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
+                    scrollTo(options: ScrollToOptions): void {
+                        this.scrollTop = options.top ?? 0;
+                    }
+                };
+                scrollManager.container = container;
+                const outboundMsg = document.createElement('div');
+                spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 50 } as DOMRect);
+                spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
 
-            expect(scrollManager.bottomPaddingPx).toBe(0);
-            expect(container.style.paddingBottom).toBe('');
-        });
+                scrollManager.scrollToLastMessageTop();
 
-        it('auto-scrolls to bottom once all padding is removed as AI content fills the viewport', async () => {
-            await connect();
-            const scrollManager = getScrollManager(element);
-            const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void } = {
-                ...createMockContainer({ scrollTop: 142, scrollHeight: 842, clientHeight: 300, style: { paddingBottom: '242px' } }),
-                scrollTo(options: ScrollToOptions): void {
-                    this.scrollTop = options.top ?? 0;
-                }
-            };
-            scrollManager.container = container;
-            scrollManager.bottomPaddingPx = 242;
-            scrollManager.userMessageScrollTop = 142;
+                expect(scrollManager.bottomPaddingPx).toBe(242);
+                expect(container.style.paddingBottom).toBe('242px');
+            });
 
-            scrollManager.updatePaddingAndScroll();
+            it('reduces bottom padding as AI response content grows', () => {
+                const scrollManager = getScrollManager(element);
+                const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void } = {
+                    ...createMockContainer({ scrollTop: 142, scrollHeight: 842, clientHeight: 300, style: { paddingBottom: '242px' } }),
+                    scrollTo(options: ScrollToOptions): void {
+                        this.scrollTop = options.top ?? 0;
+                    }
+                };
+                scrollManager.container = container;
+                scrollManager.bottomPaddingPx = 242;
+                scrollManager.userMessageScrollTop = 142;
 
-            expect(container.scrollTop).toBe(container.scrollHeight);
-        });
+                scrollManager.updatePaddingAndScroll();
 
-        it('scrolls so that the last few lines of a tall outbound message appear at top of viewport', async () => {
-            await connect();
-            const scrollManager = getScrollManager(element);
-            const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
-                ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
-                getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
-                scrollTo(options: ScrollToOptions): void {
-                    this.scrollTop = options.top ?? 0;
-                }
-            };
-            scrollManager.container = container;
-            const outboundMsg = document.createElement('div');
-            spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 160 } as DOMRect);
-            spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
+                expect(scrollManager.bottomPaddingPx).toBe(0);
+                expect(container.style.paddingBottom).toBe('');
+            });
 
-            scrollManager.scrollToLastMessageTop();
+            it('auto-scrolls to bottom once all padding is removed as AI content fills the viewport', () => {
+                const scrollManager = getScrollManager(element);
+                const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void } = {
+                    ...createMockContainer({ scrollTop: 142, scrollHeight: 842, clientHeight: 300, style: { paddingBottom: '242px' } }),
+                    scrollTo(options: ScrollToOptions): void {
+                        this.scrollTop = options.top ?? 0;
+                    }
+                };
+                scrollManager.container = container;
+                scrollManager.bottomPaddingPx = 242;
+                scrollManager.userMessageScrollTop = 142;
 
-            expect(container.scrollTop).toBe(250);
-        });
+                scrollManager.updatePaddingAndScroll();
 
-        it('sets bottom padding to clientHeight minus line gap for a tall outbound message', async () => {
-            await connect();
-            const scrollManager = getScrollManager(element);
-            const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
-                ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
-                getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
-                scrollTo(options: ScrollToOptions): void {
-                    this.scrollTop = options.top ?? 0;
-                }
-            };
-            scrollManager.container = container;
-            const outboundMsg = document.createElement('div');
-            spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 160 } as DOMRect);
-            spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
+                expect(container.scrollTop).toBe(container.scrollHeight);
+            });
 
-            scrollManager.scrollToLastMessageTop();
+            it('scrolls so that the last few lines of a tall outbound message appear at top of viewport', () => {
+                const scrollManager = getScrollManager(element);
+                const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
+                    ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
+                    getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
+                    scrollTo(options: ScrollToOptions): void {
+                        this.scrollTop = options.top ?? 0;
+                    }
+                };
+                scrollManager.container = container;
+                const outboundMsg = document.createElement('div');
+                spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 160 } as DOMRect);
+                spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
 
-            expect(scrollManager.bottomPaddingPx).toBe(240);
-            expect(container.style.paddingBottom).toBe('240px');
+                scrollManager.scrollToLastMessageTop();
+
+                expect(container.scrollTop).toBe(250);
+            });
+
+            it('sets bottom padding to clientHeight minus line gap for a tall outbound message', () => {
+                const scrollManager = getScrollManager(element);
+                const container: MockScrollContainer & { scrollTo: (options: ScrollToOptions) => void, getBoundingClientRect: () => DOMRect } = {
+                    ...createMockContainer({ scrollTop: 0, scrollHeight: 600, clientHeight: 300 }),
+                    getBoundingClientRect: (): DOMRect => ({ top: 50 } as DOMRect),
+                    scrollTo(options: ScrollToOptions): void {
+                        this.scrollTop = options.top ?? 0;
+                    }
+                };
+                scrollManager.container = container;
+                const outboundMsg = document.createElement('div');
+                spyOn(outboundMsg, 'getBoundingClientRect').and.returnValue({ top: 200, height: 160 } as DOMRect);
+                spyOn(scrollManager, 'getLastOutboundMessage').and.returnValue(outboundMsg);
+
+                scrollManager.scrollToLastMessageTop();
+
+                expect(scrollManager.bottomPaddingPx).toBe(240);
+                expect(container.style.paddingBottom).toBe('240px');
+            });
         });
     });
 });
