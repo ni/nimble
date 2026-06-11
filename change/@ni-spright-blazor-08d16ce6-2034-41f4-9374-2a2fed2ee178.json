@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add autoscroll to chat conversation",
+  "packageName": "@ni/spright-blazor",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
