@@ -17,13 +17,6 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
-    <AspNetCoreVersion>8.0.27</AspNetCoreVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
-    <AspNetCoreVersion>10.0.8</AspNetCoreVersion>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
@@ -62,7 +55,8 @@
 
   <ItemGroup>
     <PackageReference Include="Apache.Arrow" Version="[23.0.0]" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.27" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.8" Condition="'$(TargetFramework)' == 'net10.0'" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" PrivateAssets="all" />
   </ItemGroup>
 

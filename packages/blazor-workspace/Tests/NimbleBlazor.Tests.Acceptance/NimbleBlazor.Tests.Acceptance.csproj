@@ -9,13 +9,6 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
-    <AspNetCoreVersion>8.0.27</AspNetCoreVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
-    <AspNetCoreVersion>10.0.8</AspNetCoreVersion>
-  </PropertyGroup>
-
   <ItemGroup>
     <Content Remove="packages.lock.json" />
   </ItemGroup>
@@ -31,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.27" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.8" Condition="'$(TargetFramework)' == 'net10.0'" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.6.0" />
     <PackageReference Include="Microsoft.Playwright" Version="[1.60.0]" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
