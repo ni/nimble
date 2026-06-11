@@ -217,7 +217,7 @@ For further reference, consult the NI TestStand help documentation under the Pyt
                         _messages[idx] = advisorEntry;
                     }
                     _isStreaming = false;
-                    await _streamTimer.StopAsync();
+                    _streamTimer?.Dispose();
                     StateHasChanged();
                     break;
                 }
@@ -234,8 +234,9 @@ For further reference, consult the NI TestStand help documentation under the Pyt
     {
         if (_streamTimer != null)
         {
-            await _streamTimer.StopAsync();
             _streamTimer.Dispose();
         }
+
+        await ValueTask.CompletedTask;
     }
 }
