@@ -63,21 +63,22 @@ export class ChatConversation extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        if (this.messagesContainer) {
-            this.scrollManager = new ChatConversationScrollManager(
-                this.messagesContainer,
-                this,
-                this.defaultSlot,
-                () => this.autoScroll
-            );
-            this.scrollManager.connect();
+        if (this.autoScroll) {
+            this.connectScrollManager();
         }
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.scrollManager?.disconnect();
-        this.scrollManager = null;
+        this.disconnectScrollManager();
+    }
+
+    public autoScrollChanged(_prev: boolean, next: boolean): void {
+        if (next && this.isConnected) {
+            this.connectScrollManager();
+        } else {
+            this.disconnectScrollManager();
+        }
     }
 
     public slottedInputElementsChanged(
@@ -106,6 +107,20 @@ export class ChatConversation extends FoundationElement {
         next: HTMLElement[] | undefined
     ): void {
         this.endEmpty = next === undefined || next.length === 0;
+    }
+
+    private connectScrollManager(): void {
+        this.scrollManager = new ChatConversationScrollManager(
+            this.messagesContainer!,
+            this,
+            this.defaultSlot
+        );
+        this.scrollManager.connect();
+    }
+
+    private disconnectScrollManager(): void {
+        this.scrollManager?.disconnect();
+        this.scrollManager = null;
     }
 }
 

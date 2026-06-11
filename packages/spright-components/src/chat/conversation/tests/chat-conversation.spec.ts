@@ -112,38 +112,45 @@ describe('ChatConversation', () => {
             };
         }
 
-        it('marks user as scrolled up when scrolling up away from bottom', async () => {
-            await connect();
-            const scrollManager = getScrollManager(element);
-            scrollManager.container = createMockContainer({ scrollTop: 100, scrollHeight: 500, clientHeight: 200 });
-            scrollManager.previousScrollTop = 200;
-
-            scrollManager.onScroll();
-
-            expect(scrollManager.isUserScrolledUp).toBeTrue();
-        });
-
-        it('clears isUserScrolledUp when user scrolls to within 10px of bottom', async () => {
-            await connect();
-            const scrollManager = getScrollManager(element);
-            scrollManager.container = createMockContainer({ scrollTop: 290, scrollHeight: 500, clientHeight: 200 });
-            scrollManager.isUserScrolledUp = true;
-            scrollManager.previousScrollTop = 100;
-
-            scrollManager.onScroll();
-
-            expect(scrollManager.isUserScrolledUp).toBeFalse();
-        });
-
         it('auto-scroll should default to false', async () => {
             await connect();
             expect(element.autoScroll).toBeFalse();
+        });
+
+        it('can enable auto-scroll before connect', async () => {
+            element.autoScroll = true;
+
+            await connect();
+
+            const scrollManager = getScrollManager(element);
+            expect(scrollManager).not.toBeNull();
         });
 
         describe('with auto-scroll enabled', () => {
             beforeEach(async () => {
                 await connect();
                 element.autoScroll = true;
+            });
+
+            it('marks user as scrolled up when scrolling up away from bottom', () => {
+                const scrollManager = getScrollManager(element);
+                scrollManager.container = createMockContainer({ scrollTop: 100, scrollHeight: 500, clientHeight: 200 });
+                scrollManager.previousScrollTop = 200;
+
+                scrollManager.onScroll();
+
+                expect(scrollManager.isUserScrolledUp).toBeTrue();
+            });
+
+            it('clears isUserScrolledUp when user scrolls to within 10px of bottom', () => {
+                const scrollManager = getScrollManager(element);
+                scrollManager.container = createMockContainer({ scrollTop: 290, scrollHeight: 500, clientHeight: 200 });
+                scrollManager.isUserScrolledUp = true;
+                scrollManager.previousScrollTop = 100;
+
+                scrollManager.onScroll();
+
+                expect(scrollManager.isUserScrolledUp).toBeFalse();
             });
 
             it('auto-scrolls to bottom when content updates and user has not scrolled up', () => {

@@ -27,8 +27,7 @@ export class ChatConversationScrollManager {
     public constructor(
         private readonly container: HTMLElement,
         private readonly hostElement: HTMLElement,
-        private readonly defaultSlot: HTMLSlotElement,
-        private readonly getAutoScroll: () => boolean
+        private readonly defaultSlot: HTMLSlotElement
     ) {}
 
     public connect(): void {
@@ -63,9 +62,6 @@ export class ChatConversationScrollManager {
                 this.scrollPending = true;
                 requestAnimationFrame(() => {
                     this.scrollPending = false;
-                    if (!this.getAutoScroll()) {
-                        return;
-                    }
                     if (this.scrollToUserMessagePending) {
                         this.scrollToUserMessagePending = false;
                         this.scrollToLastMessageTop();
@@ -84,7 +80,7 @@ export class ChatConversationScrollManager {
      */
     private setupResizeObserver(): void {
         this.resizeObserver = new ResizeObserver(() => {
-            if (!this.isUserScrolledUp && this.getAutoScroll()) {
+            if (!this.isUserScrolledUp) {
                 this.updatePaddingAndScroll();
             }
         });
