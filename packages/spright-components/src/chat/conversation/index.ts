@@ -55,16 +55,19 @@ export class ChatConversation extends FoundationElement {
 
     /** @internal */
     public messagesContainer: HTMLElement | null = null;
+
+    /** @internal */
+    public defaultSlot!: HTMLSlotElement;
+
     private scrollManager: ChatConversationScrollManager | null = null;
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        const defaultSlot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement | null;
-        if (this.messagesContainer && defaultSlot) {
+        if (this.messagesContainer) {
             this.scrollManager = new ChatConversationScrollManager(
                 this.messagesContainer,
                 this,
-                defaultSlot,
+                this.defaultSlot,
                 () => this.autoScroll
             );
             this.scrollManager.connect();
