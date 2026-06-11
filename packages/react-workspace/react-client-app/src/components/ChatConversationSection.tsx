@@ -172,7 +172,7 @@ export function ChatConversationSection(): React.JSX.Element {
                             resize: 'vertical'
                         }}
                     ></textarea>
-                    <SprightChatConversation style={{ width: '700px', height: '650px' }}>
+                    <SprightChatConversation style={{ width: '700px', height: '650px' }} autoScroll>
                         <NimbleToolbar slot="toolbar">
                             <NimbleIconMessagesSparkle slot="start"></NimbleIconMessagesSparkle>
                             <span style={{ marginLeft: '8px' }}>AI Assistant (Streaming)</span>
