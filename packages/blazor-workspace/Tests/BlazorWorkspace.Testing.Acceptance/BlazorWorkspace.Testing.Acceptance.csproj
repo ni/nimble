@@ -6,6 +6,7 @@
     <StaticWebAssetProjectMode>Reference</StaticWebAssetProjectMode>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <IsTestProject>false</IsTestProject>
   </PropertyGroup>
 
   <PropertyGroup>
