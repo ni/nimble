@@ -58,6 +58,7 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           global-json-file: packages/blazor-workspace/global.json
+      # Install dotnet 8 sdk for asp.net assemblies
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '8.0.422'

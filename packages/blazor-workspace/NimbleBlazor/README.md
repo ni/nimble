@@ -8,14 +8,13 @@
 
 1. IDE:
     - **Windows with Visual Studio**: For Blazor development on Windows, the suggested IDE is:
-        - Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
-        - Ensure Visual Studio is completely up to date (v17.11.2+): In Visual Studio click "Help" then "Check for Updates"
+        - Visual Studio 2026 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
     - **Mac with Visual Studio Code**: Install [Visual Studio Code](https://code.visualstudio.com/) and open it. Open the Extensions pane ("Preferences" >> "Extensions"), and search for / install the `ms-dotnettools.csharp` extension.
 2. .NET SDK: See [the main contributing doc](/CONTRIBUTING.md) for the required version.
 
 ### Creating a new Blazor project
 
-The built-in Blazor template projects are good starting points. Starting with .NET 8, there's a unified Blazor Web App project type, which supports multiple render modes (see the [Blazor render modes documentation](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0) for more information). Also see the "Supported Render Modes" section below.
+The built-in Blazor template projects are good starting points. Consider the Blazor Web App project type, which supports multiple render modes (see the [Blazor render modes documentation](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0) for more information). Also see the "Supported Render Modes" section below.
 
 **Visual Studio**: Choose "New" >> "Project", and pick "Blazor Web App". Choose the appropriate settings for Interactive Render Mode and Interactivity Location, based on your project's needs.
 **VS Code**: Create a new folder, then open it in VS Code. Choose "View" >> "Terminal", and type `dotnet new blazor` and press Enter, to create a new Blazor Web App. Open the Command Palette ("View" >> "Command Palette" or Ctrl-Shift-P), enter ".NET Generate Assets for Build and Debug" and press Enter.
@@ -80,7 +79,7 @@ Nimble supports all of the [Blazor render modes](https://learn.microsoft.com/en-
 
 #### Prerendering
 
-Blazor with .NET 8 uses prerendering by default for interactive render modes. With it enabled, components are initially rendered server-side without event handlers connected, which could cause unexpected behavior (no effect when users interact with controls immediately after page load). 
+Blazor with uses prerendering by default for interactive render modes. With it enabled, components are initially rendered server-side without event handlers connected, which could cause unexpected behavior (no effect when users interact with controls immediately after page load). 
 
 See the [Blazor prerendering docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0#prerendering) for information on how to opt out of prerendering.
 
