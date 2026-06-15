@@ -962,7 +962,7 @@ export const width: StoryObj<ColumnWidthTableArgs> = {
     }
 };
 
-const pinnedColumnsDescription = `Set \`pin-location\` to \`left\` on a fixed-width column to pin it to the left side of the table. Pinned columns remain visible as the user scrolls the table horizontally. Only columns with a fixed pixel width (i.e. those that do not use \`fractional-width\`) support pinning.`;
+const pinnedColumnsDescription = 'Set `pin-location` to `left` on one or more fixed-width columns to pin them to the left side of the table. Pinned columns remain visible as the user scrolls the table horizontally. Only columns with a fixed pixel width (i.e. those that do not use `fractional-width`) support pinning.';
 
 interface PinnedColumnsTableArgs extends SharedTableArgs {
     pinFirstColumn: boolean;
