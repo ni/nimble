@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976",
+  "comment": "Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor WebAssembly apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976",
   "packageName": "@ni/ok-blazor",
   "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
