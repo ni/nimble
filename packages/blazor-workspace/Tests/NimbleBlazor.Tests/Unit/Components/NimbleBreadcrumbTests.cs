@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,55 +9,43 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleBreadcrumb"/>
 /// </summary>
-public class NimbleBreadcrumbTests
+public class NimbleBreadcrumbTests : BunitTestBase
 {
     [Fact]
     public void NimbleBreadcrumb_Rendered_HasBreadcrumbMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-breadcrumb";
+        var breadcrumb = Render<NimbleBreadcrumb>();
 
-        var breadcrumb = context.Render<NimbleBreadcrumb>();
-
-        Assert.Contains(expectedMarkup, breadcrumb.Markup);
+        Assert.NotNull(breadcrumb.Find("nimble-breadcrumb"));
     }
 
     [Fact]
     public void NimbleBreadcrumb_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleBreadcrumb>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleBreadcrumb>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Fact]
     public void NimbleBreadcrumbItem_Rendered_HasBreadcrumbItemMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-breadcrumb-item";
+        var breadcrumbItem = Render<NimbleBreadcrumbItem>();
 
-        var breadcrumbItem = context.Render<NimbleBreadcrumbItem>();
-
-        Assert.Contains(expectedMarkup, breadcrumbItem.Markup);
+        Assert.NotNull(breadcrumbItem.Find("nimble-breadcrumb-item"));
     }
 
     [Theory]
-    [InlineData(BreadcrumbAppearance.Default, "<nimble-breadcrumb>")]
-    [InlineData(BreadcrumbAppearance.Prominent, "appearance=\"prominent\"")]
-    public void BreadcrumbAppearance_AttributeIsSet(BreadcrumbAppearance value, string expectedAttribute)
+    [InlineData(BreadcrumbAppearance.Default, null)]
+    [InlineData(BreadcrumbAppearance.Prominent, "prominent")]
+    public void BreadcrumbAppearance_AttributeIsSet(BreadcrumbAppearance value, string? expectedAttribute)
     {
         var breadcrumb = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, breadcrumb.Markup);
+        breadcrumb.AssertAttribute("appearance", expectedAttribute);
     }
 
     private IRenderedComponent<NimbleBreadcrumb> RenderWithPropertySet<TProperty>(Expression<Func<NimbleBreadcrumb, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleBreadcrumb>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleBreadcrumb>(p => p.Add(propertyGetter, propertyValue));
     }
 }

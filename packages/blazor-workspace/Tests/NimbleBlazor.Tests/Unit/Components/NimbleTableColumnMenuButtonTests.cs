@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,14 +9,12 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleTableColumnMenuButton"/>
 /// </summary>
-public class NimbleTableColumnMenuButtonTests
+public class NimbleTableColumnMenuButtonTests : BunitTestBase
 {
     [Fact]
     public void NimbleTableColumnMenuButton_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleTableColumnMenuButton>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTableColumnMenuButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -24,8 +23,7 @@ public class NimbleTableColumnMenuButtonTests
     {
         var table = RenderWithPropertySet(x => x.FieldName!, "MyField");
 
-        var expectedMarkup = @"field-name=""MyField""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("field-name", "MyField");
     }
 
     [Fact]
@@ -33,15 +31,12 @@ public class NimbleTableColumnMenuButtonTests
     {
         var table = RenderWithPropertySet(x => x.MenuSlot!, "MyMenuSlot");
 
-        var expectedMarkup = @"menu-slot=""MyMenuSlot""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("menu-slot", "MyMenuSlot");
     }
 
     private IRenderedComponent<NimbleTableColumnMenuButton> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnMenuButton, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleTableColumnMenuButton>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTableColumnMenuButton>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

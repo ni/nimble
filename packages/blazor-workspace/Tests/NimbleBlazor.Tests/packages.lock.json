@@ -494,6 +494,14 @@
           "xunit.abstractions": "2.0.3"
         }
       },
+      "blazorworkspace.testing.unit": {
+        "type": "Project",
+        "dependencies": {
+          "NI.CSharp.Analyzers": "[2.0.35, )",
+          "bunit": "[2.7.2, )",
+          "xunit": "[2.9.3, )"
+        }
+      },
       "nimbleblazor": {
         "type": "Project",
         "dependencies": {
@@ -956,6 +964,14 @@
         "contentHash": "kf3si0YTn2a8J8eZNb+zFpwfoyvIrQ7ivNk5ZYA5yuYk1bEtMe4DxJ2CF/qsRgmEnDr7MnW1mxylBaHTZ4qErA==",
         "dependencies": {
           "xunit.abstractions": "2.0.3"
+        }
+      },
+      "blazorworkspace.testing.unit": {
+        "type": "Project",
+        "dependencies": {
+          "NI.CSharp.Analyzers": "[2.0.35, )",
+          "bunit": "[2.7.2, )",
+          "xunit": "[2.9.3, )"
         }
       },
       "nimbleblazor": {

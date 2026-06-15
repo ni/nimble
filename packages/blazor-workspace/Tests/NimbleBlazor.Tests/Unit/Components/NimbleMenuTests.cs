@@ -1,3 +1,4 @@
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -6,26 +7,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleMenu"/>
 /// </summary>
-public class NimbleMenuTests
+public class NimbleMenuTests : BunitTestBase
 {
     [Fact]
     public void NimbleMenu_Rendered_HasMenuMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-menu";
+        var menu = Render<NimbleMenu>();
 
-        var menu = context.Render<NimbleMenu>();
-
-        Assert.Contains(expectedMarkup, menu.Markup);
+        Assert.NotNull(menu.Find("nimble-menu"));
     }
 
     [Fact]
     public void NimbleMenu_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleMenu>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleMenu>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

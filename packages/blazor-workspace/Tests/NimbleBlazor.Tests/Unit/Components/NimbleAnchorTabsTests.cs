@@ -1,5 +1,6 @@
 using System.Linq;
 using AngleSharp.Dom;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,25 +9,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleAnchorTabs"/>
 /// </summary>
-public class NimbleAnchorTabsTests
+public class NimbleAnchorTabsTests : BunitTestBase
 {
     [Fact]
     public void NimbleAnchorTabsRendered_HasTabsMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-anchor-tabs";
-        var tabs = context.Render<NimbleAnchorTabs>();
+        var tabs = Render<NimbleAnchorTabs>();
 
-        Assert.Contains(expectedMarkup, tabs.Markup);
+        Assert.NotNull(tabs.Find("nimble-anchor-tabs"));
     }
 
     [Fact]
     public void NimbleAnchorTabs_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleAnchorTabs>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleAnchorTabs>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -45,22 +41,19 @@ public class NimbleAnchorTabsTests
     {
         var tabs = RenderTabsWithContent();
 
-        Assert.Contains("activeid", tabs.Markup);
+        tabs.AssertAttribute("activeid", "tab1");
     }
 
     [Fact]
     public void NimbleAnchorTabsWithChildContent_HasDisabledMarkup()
     {
         var tabs = RenderTabsWithContent();
-
         Assert.Contains("disabled", tabs.Markup);
     }
 
     private IRenderedComponent<NimbleAnchorTabs> RenderTabsWithContent()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleAnchorTabs>(AddChildContentToTabs);
+        return Render<NimbleAnchorTabs>(AddChildContentToTabs);
     }
 
     private void AddChildContentToTabs(ComponentParameterCollectionBuilder<NimbleAnchorTabs> parameters)

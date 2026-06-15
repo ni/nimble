@@ -7,6 +7,7 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="Tests/BlazorWorkspace.Testing.Acceptance/BlazorWorkspace.Testing.Acceptance.csproj" />
+    <Project Path="Tests/BlazorWorkspace.Testing.Unit/BlazorWorkspace.Testing.Unit.csproj" />
     <Project Path="Tests/NimbleBlazor.Tests.Acceptance.Client/NimbleBlazor.Tests.Acceptance.Client.csproj" />
     <Project Path="Tests/NimbleBlazor.Tests.Acceptance/NimbleBlazor.Tests.Acceptance.csproj" />
     <Project Path="Tests/NimbleBlazor.Tests/NimbleBlazor.Tests.csproj" />

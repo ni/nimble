@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,15 +9,14 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleWaferMap"/>.
 /// </summary>
-public class NimbleWaferMapTests
+public class NimbleWaferMapTests : BunitTestBase
 {
     [Fact]
     public void NimbleWaferMap_WithGridMinXAttribute_HasMarkup()
     {
         var waferMap = RenderWithPropertySet(x => x.GridMinX!, 3);
 
-        var expectedMarkup = "grid-min-x=\"3\"";
-        Assert.Contains(expectedMarkup, waferMap.Markup);
+        waferMap.AssertAttribute("grid-min-x", "3");
     }
 
     [Fact]
@@ -24,8 +24,7 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.GridMaxX!, 3);
 
-        var expectedMarkup = "grid-max-x=\"3\"";
-        Assert.Contains(expectedMarkup, waferMap.Markup);
+        waferMap.AssertAttribute("grid-max-x", "3");
     }
 
     [Fact]
@@ -33,8 +32,7 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.GridMinY!, 3);
 
-        var expectedMarkup = "grid-min-y=\"3\"";
-        Assert.Contains(expectedMarkup, waferMap.Markup);
+        waferMap.AssertAttribute("grid-min-y", "3");
     }
 
     [Fact]
@@ -42,8 +40,7 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.GridMaxY!, 3);
 
-        var expectedMarkup = "grid-max-y=\"3\"";
-        Assert.Contains(expectedMarkup, waferMap.Markup);
+        waferMap.AssertAttribute("grid-max-y", "3");
     }
 
     [Fact]
@@ -51,8 +48,7 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.DieLabelsHidden!, true);
 
-        var expectedMarkup = "die-labels-hidden";
-        Assert.Contains(expectedMarkup, waferMap.Markup);
+        waferMap.AssertHasAttribute("die-labels-hidden");
     }
 
     [Fact]
@@ -60,8 +56,7 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.DieLabelsSuffix!, "a");
 
-        var expectedMarkup = "die-labels-suffix=\"a\"";
-        Assert.Contains(expectedMarkup, waferMap.Markup);
+        waferMap.AssertAttribute("die-labels-suffix", "a");
     }
 
     [Fact]
@@ -69,8 +64,7 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.MaxCharacters!, 3);
 
-        var expectedMarkup = "max-characters=\"3\"";
-        Assert.Contains(expectedMarkup, waferMap.Markup);
+        waferMap.AssertAttribute("max-characters", "3");
     }
 
     [Fact]
@@ -78,8 +72,7 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.ColorScaleMode!, WaferMapColorScaleMode.Ordinal);
 
-        var expectedMarkup = "ordinal";
-        Assert.Contains(expectedMarkup, waferMap.Markup);
+        waferMap.AssertAttribute("color-scale-mode", "ordinal");
     }
 
     [Fact]
@@ -89,7 +82,7 @@ public class NimbleWaferMapTests
         {
             var numberField = RenderWithPropertySet(x => x.GridMinX, 1.5);
 
-            Assert.Contains("grid-min-x=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("grid-min-x", "1.5");
         }
     }
 
@@ -100,7 +93,7 @@ public class NimbleWaferMapTests
         {
             var numberField = RenderWithPropertySet(x => x.GridMaxX, 1.5);
 
-            Assert.Contains("grid-max-x=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("grid-max-x", "1.5");
         }
     }
 
@@ -111,7 +104,7 @@ public class NimbleWaferMapTests
         {
             var numberField = RenderWithPropertySet(x => x.GridMinY, 1.5);
 
-            Assert.Contains("grid-min-y=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("grid-min-y", "1.5");
         }
     }
 
@@ -122,7 +115,7 @@ public class NimbleWaferMapTests
         {
             var numberField = RenderWithPropertySet(x => x.GridMaxY, 1.5);
 
-            Assert.Contains("grid-max-y=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("grid-max-y", "1.5");
         }
     }
 
@@ -133,7 +126,7 @@ public class NimbleWaferMapTests
         {
             var numberField = RenderWithPropertySet(x => x.MaxCharacters, 1.5);
 
-            Assert.Contains("max-characters=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("max-characters", "1.5");
         }
     }
 
@@ -145,7 +138,7 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.OriginLocation!, value);
 
-        Assert.Contains(expectedAttribute, waferMap.Markup);
+        waferMap.AssertAttribute("origin-location", expectedAttribute);
     }
 
     [Theory]
@@ -156,13 +149,11 @@ public class NimbleWaferMapTests
     {
         var waferMap = RenderWithPropertySet(x => x.Orientation!, value);
 
-        Assert.Contains(expectedAttribute, waferMap.Markup);
+        waferMap.AssertAttribute("orientation", expectedAttribute);
     }
 
     private IRenderedComponent<NimbleWaferMap> RenderWithPropertySet<TProperty>(Expression<Func<NimbleWaferMap, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleWaferMap>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleWaferMap>(p => p.Add(propertyGetter, propertyValue));
     }
 }

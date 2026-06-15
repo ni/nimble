@@ -1,3 +1,4 @@
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -6,26 +7,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleUnitFahrenheit"/>
 /// </summary>
-public class NimbleUnitFahrenheitTests
+public class NimbleUnitFahrenheitTests : BunitTestBase
 {
     [Fact]
     public void NimbleUnitFahrenheit_Rendered_HasUnitFahrenheitMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-unit-fahrenheit";
+        var element = Render<NimbleUnitFahrenheit>();
 
-        var element = context.Render<NimbleUnitFahrenheit>();
-
-        Assert.Contains(expectedMarkup, element.Markup);
+        Assert.NotNull(element.Find("nimble-unit-fahrenheit"));
     }
 
     [Fact]
     public void NimbleUnitFahrenheit_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleUnitFahrenheit>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleUnitFahrenheit>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

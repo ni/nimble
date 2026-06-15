@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -13,21 +14,15 @@ public class NimbleAnchorTabTests : NimbleAnchorBaseTests<NimbleAnchorTab>
     [Fact]
     public void NimbleAnchorTab_Render_HasAnchorTabMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-anchor-tab";
+        var menuItem = Render<NimbleAnchorTab>();
 
-        var menuItem = context.Render<NimbleAnchorTab>();
-
-        Assert.Contains(expectedMarkup, menuItem.Markup);
+        Assert.NotNull(menuItem.Find("nimble-anchor-tab"));
     }
 
     [Fact]
     public void NimbleAnchorTab_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleAnchorTab>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleAnchorTab>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -36,13 +31,11 @@ public class NimbleAnchorTabTests : NimbleAnchorBaseTests<NimbleAnchorTab>
     {
         var anchorTab = RenderWithPropertySet(x => x.Disabled, true);
 
-        Assert.Contains("disabled", anchorTab.Markup);
+        anchorTab.AssertHasAttribute("disabled");
     }
 
     private IRenderedComponent<NimbleAnchorTab> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchorTab, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleAnchorTab>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleAnchorTab>(p => p.Add(propertyGetter, propertyValue));
     }
 }

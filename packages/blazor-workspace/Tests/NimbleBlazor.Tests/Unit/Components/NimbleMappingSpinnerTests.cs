@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,18 +9,14 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleMappingSpinner"/>
 /// </summary>
-public class NimbleMappingSpinnerTests
+public class NimbleMappingSpinnerTests : BunitTestBase
 {
     [Fact]
     public void NimbleMappingSpinner_Rendered_HasMappingSpinnerMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-mapping-spinner";
+        var element = Render<NimbleMappingSpinner<int>>();
 
-        var element = context.Render<NimbleMappingSpinner<int>>();
-
-        Assert.Contains(expectedMarkup, element.Markup);
+        Assert.NotNull(element.Find("nimble-mapping-spinner"));
     }
 
     [Fact]
@@ -27,15 +24,15 @@ public class NimbleMappingSpinnerTests
     {
         var element = RenderWithPropertySet<int, int>(x => x.Key, 1001);
 
-        Assert.Contains($"key=\"1001\"", element.Markup);
+        element.AssertAttribute("key", "1001");
     }
 
     [Fact]
     public void NimbleMappingSpinnerTextAttribute_HasCorrectMarkup()
     {
-        var element = RenderWithPropertySet<int, string>(x => x.Text, "foo");
+        var element = RenderWithPropertySet<int, string?>(x => x.Text, "foo");
 
-        Assert.Contains($"text=\"foo\"", element.Markup);
+        element.AssertAttribute("text", "foo");
     }
 
     [Fact]
@@ -43,13 +40,11 @@ public class NimbleMappingSpinnerTests
     {
         var element = RenderWithPropertySet<int, bool?>(x => x.TextHidden, true);
 
-        Assert.Contains($"text-hidden", element.Markup);
+        element.AssertHasAttribute("text-hidden");
     }
 
     private IRenderedComponent<NimbleMappingSpinner<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleMappingSpinner<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleMappingSpinner<TKey>>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleMappingSpinner<TKey>>(p => p.Add(propertyGetter, propertyValue));
     }
 }

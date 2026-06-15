@@ -1,21 +1,19 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
-#nullable enable
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleTableColumnAnchor"/>
 /// </summary>
-public class NimbleTableColumnAnchorTests
+public class NimbleTableColumnAnchorTests : BunitTestBase
 {
     [Fact]
     public void NimbleTableColumnAnchor_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleTableColumnAnchor>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTableColumnAnchor>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -24,8 +22,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.LabelFieldName!, "FirstName");
 
-        var expectedMarkup = @"label-field-name=""FirstName""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("label-field-name", "FirstName");
     }
 
     [Fact]
@@ -33,8 +30,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.HrefFieldName!, "Link");
 
-        var expectedMarkup = @"href-field-name=""Link""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("href-field-name", "Link");
     }
 
     [Fact]
@@ -42,8 +38,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.Appearance!, AnchorAppearance.Prominent);
 
-        var expectedMarkup = @"appearance=""prominent""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("appearance", "prominent");
     }
 
     [Fact]
@@ -51,8 +46,7 @@ public class NimbleTableColumnAnchorTests
     {
         var table = RenderWithPropertySet(x => x.Placeholder, "Custom placeholder");
 
-        var expectedMarkup = @"placeholder=""Custom placeholder""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("placeholder", "Custom placeholder");
     }
 
     [Fact]
@@ -60,8 +54,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.UnderlineHidden, true);
 
-        var expectedMarkup = @"underline-hidden";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertHasAttribute("underline-hidden");
     }
 
     [Fact]
@@ -69,8 +62,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.HrefLang!, "en");
 
-        var expectedMarkup = @"hreflang=""en""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("hreflang", "en");
     }
 
     [Fact]
@@ -78,8 +70,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.Ping!, "foo");
 
-        var expectedMarkup = @"ping=""foo""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("ping", "foo");
     }
 
     [Fact]
@@ -87,8 +78,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.ReferrerPolicy!, "foo");
 
-        var expectedMarkup = @"referrerpolicy=""foo""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("referrerpolicy", "foo");
     }
 
     [Fact]
@@ -96,8 +86,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.Rel!, "foo");
 
-        var expectedMarkup = @"rel=""foo""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("rel", "foo");
     }
 
     [Fact]
@@ -105,8 +94,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.Target!, "foo");
 
-        var expectedMarkup = @"target=""foo""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("target", "foo");
     }
 
     [Fact]
@@ -114,8 +102,7 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.Type!, "foo");
 
-        var expectedMarkup = @"type=""foo""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("type", "foo");
     }
 
     [Fact]
@@ -123,15 +110,12 @@ public class NimbleTableColumnAnchorTests
     {
         var tableColumn = RenderWithPropertySet(x => x.Download!, "foo");
 
-        var expectedMarkup = @"download=""foo""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
+        tableColumn.AssertAttribute("download", "foo");
     }
 
     private IRenderedComponent<NimbleTableColumnAnchor> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnAnchor, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleTableColumnAnchor>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTableColumnAnchor>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

@@ -1,3 +1,4 @@
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -6,26 +7,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleUnitVolt"/>
 /// </summary>
-public class NimbleUnitVoltTests
+public class NimbleUnitVoltTests : BunitTestBase
 {
     [Fact]
     public void NimbleUnitVolt_Rendered_HasUnitVoltMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-unit-volt";
+        var element = Render<NimbleUnitVolt>();
 
-        var element = context.Render<NimbleUnitVolt>();
-
-        Assert.Contains(expectedMarkup, element.Markup);
+        Assert.NotNull(element.Find("nimble-unit-volt"));
     }
 
     [Fact]
     public void NimbleUnitVolt_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleUnitVolt>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleUnitVolt>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }
