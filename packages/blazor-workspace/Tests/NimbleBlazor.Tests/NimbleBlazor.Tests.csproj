@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\NimbleBlazor\NimbleBlazor.csproj" />
+    <ProjectReference Include="..\BlazorWorkspace.Testing.Unit\BlazorWorkspace.Testing.Unit.csproj" />
   </ItemGroup>
 
 </Project>

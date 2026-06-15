@@ -1,45 +1,42 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
+
+#nullable enable
 
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleTooltip"/>.
 /// </summary>
-public class NimbleTooltipTests
+public class NimbleTooltipTests : BunitTestBase
 {
     [Fact]
     public void NimbleTooltip_Render_HasTooltipMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-tooltip";
+        var tooltip = Render<NimbleTooltip>();
 
-        var tooltip = context.Render<NimbleTooltip>();
-
-        Assert.Contains(expectedMarkup, tooltip.Markup);
+        Assert.NotNull(tooltip.Find("nimble-tooltip"));
     }
 
     [Fact]
     public void NimbleTooltip_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleTooltip>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTooltip>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Theory]
-    [InlineData(TooltipSeverity.Default, "<nimble-tooltip>")]
-    [InlineData(TooltipSeverity.Error, "severity=\"error\"")]
-    [InlineData(TooltipSeverity.Information, "severity=\"information\"")]
-    public void TooltipSeverity_AttributeIsSet(TooltipSeverity value, string expectedAttribute)
+    [InlineData(TooltipSeverity.Default, null)]
+    [InlineData(TooltipSeverity.Error, "error")]
+    [InlineData(TooltipSeverity.Information, "information")]
+    public void TooltipSeverity_AttributeIsSet(TooltipSeverity value, string? expectedValue)
     {
         var tooltip = RenderWithPropertySet(x => x.Severity, value);
 
-        Assert.Contains(expectedAttribute, tooltip.Markup);
+        tooltip.AssertAttribute("severity", expectedValue);
     }
 
     [Fact]
@@ -47,13 +44,11 @@ public class NimbleTooltipTests
     {
         var tooltip = RenderWithPropertySet(x => x.IconVisible, true);
 
-        Assert.Contains("icon-visible", tooltip.Markup);
+        tooltip.AssertHasAttribute("icon-visible");
     }
 
     private IRenderedComponent<NimbleTooltip> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTooltip, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleTooltip>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTooltip>(p => p.Add(propertyGetter, propertyValue));
     }
 }

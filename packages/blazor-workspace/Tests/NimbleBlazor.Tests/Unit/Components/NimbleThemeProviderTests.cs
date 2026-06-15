@@ -1,31 +1,28 @@
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
+
+#nullable enable
 
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleThemeProvider"/>.
 /// </summary>
-public class NimbleThemeProviderTests
+public class NimbleThemeProviderTests : BunitTestBase
 {
     [Fact]
     public void NimbleThemeProvider_Render_HasThemeProviderMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-theme-provider";
+        var themeProvider = Render<NimbleThemeProvider>();
 
-        var themeProvider = context.Render<NimbleThemeProvider>();
-
-        Assert.Contains(expectedMarkup, themeProvider.Markup);
+        Assert.NotNull(themeProvider.Find("nimble-theme-provider"));
     }
 
     [Fact]
     public void NimbleThemeProvider_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleThemeProvider>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleThemeProvider>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -37,8 +34,7 @@ public class NimbleThemeProviderTests
     {
         var themeProvider = RenderNimbleThemeProvider(value);
 
-        var expectedMarkup = $"theme=\"{expectedAttribute}\"";
-        Assert.Contains(expectedMarkup, themeProvider.Markup);
+        themeProvider.AssertAttribute("theme", expectedAttribute);
     }
 
     [Theory]
@@ -48,8 +44,7 @@ public class NimbleThemeProviderTests
     {
         var themeProvider = RenderNimbleThemeProvider(value);
 
-        var expectedMarkup = $"direction=\"{expectedAttribute}\"";
-        Assert.Contains(expectedMarkup, themeProvider.Markup);
+        themeProvider.AssertAttribute("direction", expectedAttribute);
     }
 
     [Fact]
@@ -57,8 +52,7 @@ public class NimbleThemeProviderTests
     {
         var themeProvider = RenderNimbleThemeProvider("de-DE");
 
-        var expectedMarkup = $"lang=\"de-DE\"";
-        Assert.Contains(expectedMarkup, themeProvider.Markup);
+        themeProvider.AssertAttribute("lang", "de-DE");
     }
 
     [Fact]
@@ -66,27 +60,21 @@ public class NimbleThemeProviderTests
     {
         var themeProvider = RenderNimbleThemeProvider(null);
 
-        Assert.DoesNotContain("lang", themeProvider.Markup);
+        themeProvider.AssertAttribute("lang", null);
     }
 
     private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(Theme theme)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleThemeProvider>(p => p.Add(x => x.Theme, theme));
+        return Render<NimbleThemeProvider>(p => p.Add(x => x.Theme, theme));
     }
 
     private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(Direction direction)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleThemeProvider>(p => p.Add(x => x.Direction, direction));
+        return Render<NimbleThemeProvider>(p => p.Add(x => x.Direction, direction));
     }
 
-    private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(string lang)
+    private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(string? lang)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleThemeProvider>(p => p.Add(x => x.Lang, lang));
+        return Render<NimbleThemeProvider>(p => p.Add(x => x.Lang, lang));
     }
 }

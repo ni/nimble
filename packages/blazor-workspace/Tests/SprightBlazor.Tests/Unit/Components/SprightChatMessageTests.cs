@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,44 +9,36 @@ namespace SprightBlazor.Tests.Unit.Components;
 /// <summary>
 /// Test for <see cref="SprightChatMessage"/>.
 /// </summary>
-public class SprightChatMessageTests
+public class SprightChatMessageTests : BunitTestBase
 {
     [Fact]
     public void SprightChatMessage_Render_HasChatMessageMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "spright-chat-message";
+        var component = Render<SprightChatMessage>();
 
-        var component = context.Render<SprightChatMessage>();
-
-        Assert.Contains(expectedMarkup, component.Markup);
+        Assert.NotNull(component.Find("spright-chat-message"));
     }
 
     [Fact]
     public void SprightChatMessage_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<SprightChatMessage>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<SprightChatMessage>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Theory]
-    [InlineData(ChatMessageType.Outbound, "message-type=\"outbound\"")]
-    [InlineData(ChatMessageType.Inbound, "message-type=\"inbound\"")]
-    [InlineData(ChatMessageType.System, "message-type=\"system\"")]
+    [InlineData(ChatMessageType.Outbound, "outbound")]
+    [InlineData(ChatMessageType.Inbound, "inbound")]
+    [InlineData(ChatMessageType.System, "system")]
     public void SprightChatMessageTypeVariant_AttributeIsSet(ChatMessageType value, string expectedAttribute)
     {
         var message = RenderWithPropertySet(x => x.MessageType, value);
 
-        Assert.Contains(expectedAttribute, message.Markup);
+        message.AssertAttribute("message-type", expectedAttribute);
     }
 
     private IRenderedComponent<SprightChatMessage> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatMessage, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<SprightChatMessage>(p => p.Add(propertyGetter, propertyValue));
+        return Render<SprightChatMessage>(p => p.Add(propertyGetter, propertyValue));
     }
 }

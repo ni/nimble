@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 #nullable enable
@@ -8,14 +9,12 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleTableColumnMapping"/>
 /// </summary>
-public class NimbleTableColumnMappingTests
+public class NimbleTableColumnMappingTests : BunitTestBase
 {
     [Fact]
     public void NimbleTableColumnMapping_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleTableColumnMapping<int>>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTableColumnMapping<int>>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -24,8 +23,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<int>();
 
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "number");
     }
 
     [Fact]
@@ -33,8 +31,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<uint>();
 
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "number");
     }
 
     [Fact]
@@ -42,8 +39,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<short>();
 
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "number");
     }
 
     [Fact]
@@ -51,8 +47,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<ushort>();
 
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "number");
     }
 
     [Fact]
@@ -72,8 +67,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<byte>();
 
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "number");
     }
 
     [Fact]
@@ -81,8 +75,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<sbyte>();
 
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "number");
     }
 
     [Fact]
@@ -90,8 +83,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<float>();
 
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "number");
     }
 
     [Fact]
@@ -99,8 +91,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<double>();
 
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "number");
     }
 
     [Fact]
@@ -114,8 +105,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<bool>();
 
-        var expectedMarkup = @"key-type=""boolean""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "boolean");
     }
 
     [Fact]
@@ -123,8 +113,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderTableEnumColumn<string>();
 
-        var expectedMarkup = @"key-type=""string""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("key-type", "string");
     }
 
     [Fact]
@@ -138,8 +127,7 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderWithPropertySet<int, string>(x => x.FieldName!, "Status");
 
-        var expectedMarkup = @"field-name=""Status""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("field-name", "Status");
     }
 
     [Fact]
@@ -147,22 +135,17 @@ public class NimbleTableColumnMappingTests
     {
         var column = RenderWithPropertySet<int, MappingColumnWidthMode?>(x => x.WidthMode, MappingColumnWidthMode.IconSize);
 
-        var expectedMarkup = @"width-mode=""icon-size""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        column.AssertAttribute("width-mode", "icon-size");
     }
 
     private IRenderedComponent<NimbleTableColumnMapping<TKey>> RenderTableEnumColumn<TKey>()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleTableColumnMapping<TKey>>();
+        return Render<NimbleTableColumnMapping<TKey>>();
     }
 
     private IRenderedComponent<NimbleTableColumnMapping<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleTableColumnMapping<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleTableColumnMapping<TKey>>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTableColumnMapping<TKey>>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

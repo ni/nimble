@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
+﻿using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +7,20 @@ namespace SprightBlazor.Tests.Unit.Components;
 /// <summary>
 /// Test for <see cref="SprightChatMessageInbound"/>.
 /// </summary>
-public class SprightChatMessageInboundTests
+public class SprightChatMessageInboundTests : BunitTestBase
 {
     [Fact]
     public void SprightChatMessageInbound_Render_HasChatMessageMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "spright-chat-message-inbound";
+        var component = Render<SprightChatMessageInbound>();
 
-        var component = context.Render<SprightChatMessageInbound>();
-
-        Assert.Contains(expectedMarkup, component.Markup);
+        Assert.NotNull(component.Find("spright-chat-message-inbound"));
     }
 
     [Fact]
     public void SprightChatMessageInbound_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<SprightChatMessageInbound>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<SprightChatMessageInbound>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

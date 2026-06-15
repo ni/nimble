@@ -1,3 +1,4 @@
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -6,26 +7,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleLabelProviderCore"/>.
 /// </summary>
-public class NimbleLabelProviderCoreTests
+public class NimbleLabelProviderCoreTests : BunitTestBase
 {
     [Fact]
     public void NimbleLabelProviderCore_Render_HasLabelProviderMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-label-provider-core";
+        var themeProvider = Render<NimbleLabelProviderCore>();
 
-        var themeProvider = context.Render<NimbleLabelProviderCore>();
-
-        Assert.Contains(expectedMarkup, themeProvider.Markup);
+        Assert.NotNull(themeProvider.Find("nimble-label-provider-core"));
     }
 
     [Fact]
     public void NimbleLabelProviderCore_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleThemeProvider>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleThemeProvider>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -49,13 +44,11 @@ public class NimbleLabelProviderCoreTests
         var labelValue = propertyName + "UpdatedValue";
         var labelProvider = RenderNimbleLabelProvider(propertyName, labelValue);
 
-        Assert.Contains(labelValue, labelProvider.Markup);
+        labelProvider.AssertAttribute(AttributeHelpers.ConvertToAttributeString(propertyName), labelValue);
     }
 
     private IRenderedComponent<NimbleLabelProviderCore> RenderNimbleLabelProvider(string propertyName, string labelValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleLabelProviderCore>(parameters => parameters.AddUnmatched(propertyName, labelValue));
+        return Render<NimbleLabelProviderCore>(parameters => parameters.AddUnmatched(AttributeHelpers.ConvertToAttributeString(propertyName), labelValue));
     }
 }

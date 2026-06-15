@@ -1,3 +1,4 @@
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -6,26 +7,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleCardButton"/>.
 /// </summary>
-public class NimbleCardButtonTests
+public class NimbleCardButtonTests : BunitTestBase
 {
     [Fact]
     public void NimbleCardButton_Render_HasButtonMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-card-button";
+        var cardButton = Render<NimbleCardButton>();
 
-        var cardButton = context.Render<NimbleCardButton>();
-
-        Assert.Contains(expectedMarkup, cardButton.Markup);
+        Assert.NotNull(cardButton.Find("nimble-card-button"));
     }
 
     [Fact]
     public void NimbleCardButton_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleCardButton>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleCardButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +9,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleCombobox"/>
 /// </summary>
-public class NimbleComboboxTests
+public class NimbleComboboxTests : BunitTestBase
 {
     [Fact]
     public void NimbleCombobox_Rendered_HasComboboxMarkup()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-combobox";
+        var combobox = Render<NimbleCombobox>();
 
-        var combobox = context.Render<NimbleCombobox>();
-
-        Assert.Contains(expectedMarkup, combobox.Markup);
+        Assert.NotNull(combobox.Find("nimble-combobox"));
     }
 
     [Fact]
     public void NimbleCombobox_SupportsAdditionalAttributes()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.Render<NimbleCombobox>(parameters => parameters.AddUnmatched("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleCombobox>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -38,7 +33,7 @@ public class NimbleComboboxTests
     {
         var combobox = RenderWithPropertySet(x => x.Position, value);
 
-        Assert.Contains(expectedAttribute, combobox.Markup);
+        combobox.AssertAttribute("position", expectedAttribute);
     }
 
     [Theory]
@@ -50,7 +45,7 @@ public class NimbleComboboxTests
     {
         var combobox = RenderWithPropertySet(x => x.AutoComplete, value);
 
-        Assert.Contains(expectedAttribute, combobox.Markup);
+        combobox.AssertAttribute("autocomplete", expectedAttribute);
     }
 
     [Theory]
@@ -62,7 +57,7 @@ public class NimbleComboboxTests
     {
         var combobox = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, combobox.Markup);
+        combobox.AssertAttribute("appearance", expectedAttribute);
     }
 
     [Fact]
@@ -71,7 +66,7 @@ public class NimbleComboboxTests
         var placeholder = "Combobox value...";
         var combobox = RenderWithPropertySet(x => x.Placeholder, placeholder);
 
-        Assert.Contains("placeholder", combobox.Markup);
+        combobox.AssertAttribute("placeholder", placeholder);
     }
 
     [Fact]
@@ -79,7 +74,7 @@ public class NimbleComboboxTests
     {
         var combobox = RenderWithPropertySet(x => x.ErrorText, "bad number");
 
-        Assert.Contains("error-text=\"bad number\"", combobox.Markup);
+        combobox.AssertAttribute("error-text", "bad number");
     }
 
     [Fact]
@@ -87,7 +82,7 @@ public class NimbleComboboxTests
     {
         var combobox = RenderWithPropertySet(x => x.ErrorVisible, true);
 
-        Assert.Contains("error-visible", combobox.Markup);
+        combobox.AssertHasAttribute("error-visible");
     }
 
     [Fact]
@@ -95,7 +90,7 @@ public class NimbleComboboxTests
     {
         var combobox = RenderWithPropertySet(x => x.RequiredVisible, true);
 
-        Assert.Contains("required-visible", combobox.Markup);
+        combobox.AssertHasAttribute("required-visible");
     }
 
     [Fact]
@@ -103,7 +98,7 @@ public class NimbleComboboxTests
     {
         var combobox = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
 
-        Assert.Contains("appearance-readonly", combobox.Markup);
+        combobox.AssertHasAttribute("appearance-readonly");
     }
 
     [Fact]
@@ -111,29 +106,24 @@ public class NimbleComboboxTests
     {
         var combobox = RenderWithPropertySet(x => x.FullBleed, true);
 
-        Assert.Contains("full-bleed", combobox.Markup);
+        combobox.AssertHasAttribute("full-bleed");
     }
 
     [Fact]
     public void ComboboxWithOption_HasListOptionMarkup()
     {
-        var expectedMarkup = "nimble-list-option";
         var combobox = RenderNimbleComboboxWithOption();
 
-        Assert.Contains(expectedMarkup, combobox.Markup);
+        Assert.NotNull(combobox.Find("nimble-list-option"));
     }
 
     private IRenderedComponent<NimbleCombobox> RenderWithPropertySet<TProperty>(Expression<Func<NimbleCombobox, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleCombobox>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleCombobox>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleCombobox> RenderNimbleComboboxWithOption()
     {
-        var context = new BunitContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.Render<NimbleCombobox>(p => p.AddChildContent<NimbleListOption>());
+        return Render<NimbleCombobox>(p => p.AddChildContent<NimbleListOption>());
     }
 }
