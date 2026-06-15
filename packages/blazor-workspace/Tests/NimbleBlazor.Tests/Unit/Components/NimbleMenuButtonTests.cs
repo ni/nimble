@@ -1,4 +1,5 @@
-﻿using Bunit;
+using BlazorWorkspace.Testing.Unit;
+using Bunit;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -6,26 +7,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleMenuButton"/>
 /// </summary>
-public class NimbleMenuButtonTests
+public class NimbleMenuButtonTests : BunitTestBase
 {
     [Fact]
     public void NimbleMenuButton_Rendered_HasButtonMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-menu-button";
+        var button = Render<NimbleMenuButton>();
 
-        var button = context.RenderComponent<NimbleMenuButton>();
-
-        Assert.Contains(expectedMarkup, button.Markup);
+        Assert.NotNull(button.Find("nimble-menu-button"));
     }
 
     [Fact]
     public void NimbleMenuButton_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleMenuButton>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleMenuButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -37,18 +32,18 @@ public class NimbleMenuButtonTests
     {
         var button = RenderNimbleMenuButton(value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        button.AssertAttribute("appearance", expectedAttribute);
     }
 
     [Theory]
-    [InlineData(ButtonAppearanceVariant.Default, "<nimble-menu-button((?!appearance-variant).)*>")]
-    [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
-    [InlineData(ButtonAppearanceVariant.Accent, "appearance-variant=\"accent\"")]
-    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
+    [InlineData(ButtonAppearanceVariant.Default, null)]
+    [InlineData(ButtonAppearanceVariant.Primary, "primary")]
+    [InlineData(ButtonAppearanceVariant.Accent, "accent")]
+    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string? expectedAttribute)
     {
         var button = RenderNimbleMenuButton(value);
 
-        Assert.Matches(expectedAttribute, button.Markup);
+        button.AssertAttribute("appearance-variant", expectedAttribute);
     }
 
     [Theory]
@@ -59,27 +54,21 @@ public class NimbleMenuButtonTests
     {
         var button = RenderNimbleMenuButton(value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        button.AssertAttribute("position", expectedAttribute);
     }
 
     private IRenderedComponent<NimbleMenuButton> RenderNimbleMenuButton(ButtonAppearance appearance)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMenuButton>(p => p.Add(x => x.Appearance, appearance));
+        return Render<NimbleMenuButton>(p => p.Add(x => x.Appearance, appearance));
     }
 
     private IRenderedComponent<NimbleMenuButton> RenderNimbleMenuButton(ButtonAppearanceVariant appearanceVariant)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMenuButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
+        return Render<NimbleMenuButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
     }
 
     private IRenderedComponent<NimbleMenuButton> RenderNimbleMenuButton(MenuButtonPosition position)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMenuButton>(p => p.Add(x => x.Position, position));
+        return Render<NimbleMenuButton>(p => p.Add(x => x.Position, position));
     }
 }

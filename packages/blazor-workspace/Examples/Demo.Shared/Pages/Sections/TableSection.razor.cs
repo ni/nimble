@@ -27,7 +27,7 @@ public partial class TableSection
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    private async void OnMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs e)
+    private void OnMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs e)
     {
         if (e.NewState == false)
         {

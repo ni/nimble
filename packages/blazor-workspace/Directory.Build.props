@@ -1,5 +1,7 @@
 <Project>
   <PropertyGroup>
+    <!-- The codebase uses C# 14 language features, pin for consistency across framework versions. -->
+    <LangVersion>14.0</LangVersion>
     <WarningsNotAsErrors>;NU1900;CS0122</WarningsNotAsErrors>
     <NoWarn>;NU1701;CA1515;CA1716;CA1707;NU1900;CS0122;CS1573;CS1591,@(RoslynTransition_DisabledRule)</NoWarn>
   </PropertyGroup>

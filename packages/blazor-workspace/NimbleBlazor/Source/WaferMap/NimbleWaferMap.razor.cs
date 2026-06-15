@@ -13,9 +13,7 @@ public partial class NimbleWaferMap : ComponentBase
 {
     private ElementReference _waferMap;
     private bool _colorScaleUpdated;
-    private WaferMapColorScale? _colorScale;
     private bool _highlightedTagsUpdated;
-    private IEnumerable<string>? _highlightedTags;
     private readonly JsonSerializerOptions _options = new() { MaxDepth = 3 };
     internal static string GetWaferMapValidityMethodName = "NimbleBlazor.WaferMap.getValidity";
     internal static string SetWaferMapDiesMethodName = "NimbleBlazor.WaferMap.setDies";
@@ -92,13 +90,10 @@ public partial class NimbleWaferMap : ComponentBase
     [Parameter]
     public IEnumerable<string>? HighlightedTags
     {
-        get
-        {
-            return _highlightedTags;
-        }
+        get;
         set
         {
-            _highlightedTags = value;
+            field = value;
             _highlightedTagsUpdated = true;
         }
     }
@@ -109,13 +104,10 @@ public partial class NimbleWaferMap : ComponentBase
     [Parameter]
     public WaferMapColorScale? ColorScale
     {
-        get
-        {
-            return _colorScale;
-        }
+        get;
         set
         {
-            _colorScale = value;
+            field = value;
             _colorScaleUpdated = true;
         }
     }
@@ -177,12 +169,12 @@ public partial class NimbleWaferMap : ComponentBase
     {
         if (_colorScaleUpdated)
         {
-            await JSRuntime!.InvokeVoidAsync(SetWaferMapColorScaleMethodName, _waferMap, JsonSerializer.Serialize(_colorScale, _options));
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapColorScaleMethodName, _waferMap, JsonSerializer.Serialize(ColorScale, _options));
         }
         _colorScaleUpdated = false;
         if (_highlightedTagsUpdated)
         {
-            await JSRuntime!.InvokeVoidAsync(SetWaferMapHighlightedTagsMethodName, _waferMap, JsonSerializer.Serialize(_highlightedTags, _options));
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapHighlightedTagsMethodName, _waferMap, JsonSerializer.Serialize(HighlightedTags, _options));
         }
         _highlightedTagsUpdated = false;
     }

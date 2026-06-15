@@ -1,8 +1,24 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 02 Jun 2026 16:41:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 08 Jun 2026 21:55:01 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.4.1
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.1
+
+## 1.4.0
+
+Mon, 08 Jun 2026 16:24:07 GMT
+
+### Minor changes
+
+- add breakpoint column ([ni/nimble@4ad4f52](https://github.com/ni/nimble/commit/4ad4f52d453183df5584dd1e1a8db81fe56d193a))
 
 ## 1.3.7
 

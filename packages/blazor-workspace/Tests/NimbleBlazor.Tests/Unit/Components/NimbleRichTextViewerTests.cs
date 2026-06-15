@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +9,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Test for <see cref="NimbleRichTextViewer"/>
 /// </summary>
-public class NimbleRichTextViewerTests
+public class NimbleRichTextViewerTests : BunitTestBase
 {
     [Fact]
     public void NimbleRichTextViewer_Rendered_HasRichTextViewerMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-rich-text-viewer";
+        var textField = Render<NimbleRichTextViewer>();
 
-        var textField = context.RenderComponent<NimbleRichTextViewer>();
-
-        Assert.Contains(expectedMarkup, textField.Markup);
+        Assert.NotNull(textField.Find("nimble-rich-text-viewer"));
     }
 
     [Fact]
     public void NimbleRichTextViewer_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleRichTextViewer>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleRichTextViewer>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -36,13 +31,11 @@ public class NimbleRichTextViewerTests
     {
         var richTextViewer = RenderWithPropertySet(x => x.Markdown, "**markdown string**");
 
-        Assert.Contains("markdown=\"**markdown string**\"", richTextViewer.Markup);
+        richTextViewer.AssertAttribute("markdown", "**markdown string**");
     }
 
     private IRenderedComponent<NimbleRichTextViewer> RenderWithPropertySet<TProperty>(Expression<Func<NimbleRichTextViewer, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleRichTextViewer>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleRichTextViewer>(p => p.Add(propertyGetter, propertyValue));
     }
 }

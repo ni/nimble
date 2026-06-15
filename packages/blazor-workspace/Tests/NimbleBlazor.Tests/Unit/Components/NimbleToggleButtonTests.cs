@@ -1,3 +1,4 @@
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -6,26 +7,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleToggleButton"/>
 /// </summary>
-public class NimbleToggleButtonTests
+public class NimbleToggleButtonTests : BunitTestBase
 {
     [Fact]
     public void NimbleToggleButton_Rendered_HasButtonMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-toggle-button";
+        var button = Render<NimbleToggleButton>();
 
-        var button = context.RenderComponent<NimbleToggleButton>();
-
-        Assert.Contains(expectedMarkup, button.Markup);
+        Assert.NotNull(button.Find("nimble-toggle-button"));
     }
 
     [Fact]
     public void NimbleToggleButton_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleToggleButton>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleToggleButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -37,31 +32,27 @@ public class NimbleToggleButtonTests
     {
         var button = RenderNimbleToggleButton(value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        button.AssertAttribute("appearance", expectedAttribute);
     }
 
     [Theory]
-    [InlineData(ButtonAppearanceVariant.Default, "<nimble-toggle-button((?!appearance-variant).)*>")]
-    [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
-    [InlineData(ButtonAppearanceVariant.Accent, "appearance-variant=\"accent\"")]
-    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
+    [InlineData(ButtonAppearanceVariant.Default, null)]
+    [InlineData(ButtonAppearanceVariant.Primary, "primary")]
+    [InlineData(ButtonAppearanceVariant.Accent, "accent")]
+    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string? expectedValue)
     {
         var button = RenderNimbleToggleButton(value);
 
-        Assert.Matches(expectedAttribute, button.Markup);
+        button.AssertAttribute("appearance-variant", expectedValue);
     }
 
     private IRenderedComponent<NimbleToggleButton> RenderNimbleToggleButton(ButtonAppearance appearance)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleToggleButton>(p => p.Add(x => x.Appearance, appearance));
+        return Render<NimbleToggleButton>(p => p.Add(x => x.Appearance, appearance));
     }
 
     private IRenderedComponent<NimbleToggleButton> RenderNimbleToggleButton(ButtonAppearanceVariant appearanceVariant)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleToggleButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
+        return Render<NimbleToggleButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
     }
 }

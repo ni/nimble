@@ -1,30 +1,25 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
 
-public class NimbleListOptionGroupTests
+public class NimbleListOptionGroupTests : BunitTestBase
 {
     [Fact]
     public void NimbleListOptionGroup_Rendered_HasListOptionGroupMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-list-option-group";
+        var group = Render<NimbleListOptionGroup>();
 
-        var group = context.RenderComponent<NimbleListOptionGroup>();
-
-        Assert.Contains(expectedMarkup, group.Markup);
+        Assert.NotNull(group.Find("nimble-list-option-group"));
     }
 
     [Fact]
     public void NimbleListOptionGroup_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleListOptionGroup>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleListOptionGroup>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -33,7 +28,7 @@ public class NimbleListOptionGroupTests
     {
         var dialog = RenderWithPropertySet(x => x.Hidden, true);
 
-        Assert.Contains("hidden", dialog.Markup);
+        dialog.AssertHasAttribute("hidden");
     }
 
     [Fact]
@@ -41,7 +36,7 @@ public class NimbleListOptionGroupTests
     {
         var dialog = RenderWithPropertySet(x => x.Hidden, false);
 
-        Assert.DoesNotContain("hidden", dialog.Markup);
+        dialog.AssertAttribute("hidden", null);
     }
 
     [Fact]
@@ -49,13 +44,11 @@ public class NimbleListOptionGroupTests
     {
         var dialog = RenderWithPropertySet(x => x.Label, "foo");
 
-        Assert.Contains("label=\"foo\"", dialog.Markup);
+        dialog.AssertAttribute("label", "foo");
     }
 
     private IRenderedComponent<NimbleListOptionGroup> RenderWithPropertySet<TProperty>(Expression<Func<NimbleListOptionGroup, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleListOptionGroup>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleListOptionGroup>(p => p.Add(propertyGetter, propertyValue));
     }
 }

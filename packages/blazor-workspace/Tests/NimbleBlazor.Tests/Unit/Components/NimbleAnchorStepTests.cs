@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -13,33 +14,27 @@ public class NimbleAnchorStepTests : NimbleAnchorBaseTests<NimbleAnchorStep>
     [Fact]
     public void NimbleAnchorStep_Render_HasAnchorStepMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-anchor-step";
+        var anchorStep = Render<NimbleAnchorStep>();
 
-        var anchorStep = context.RenderComponent<NimbleAnchorStep>();
-
-        Assert.Contains(expectedMarkup, anchorStep.Markup);
+        Assert.NotNull(anchorStep.Find("nimble-anchor-step"));
     }
 
     [Fact]
     public void NimbleAnchorStep_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorStep>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleAnchorStep>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Theory]
-    [InlineData(AnchorStepSeverity.Error, "severity=\"error\"")]
-    [InlineData(AnchorStepSeverity.Warning, "severity=\"warning\"")]
-    [InlineData(AnchorStepSeverity.Success, "severity=\"success\"")]
+    [InlineData(AnchorStepSeverity.Error, "error")]
+    [InlineData(AnchorStepSeverity.Warning, "warning")]
+    [InlineData(AnchorStepSeverity.Success, "success")]
     public void AnchorAnchorStepSeverity_AttributeIsSet(AnchorStepSeverity value, string expectedAttribute)
     {
         var anchorStep = RenderWithPropertySet(x => x.Severity, value);
 
-        Assert.Contains(expectedAttribute, anchorStep.Markup);
+        anchorStep.AssertAttribute("severity", expectedAttribute);
     }
 
     [Fact]
@@ -47,7 +42,7 @@ public class NimbleAnchorStepTests : NimbleAnchorBaseTests<NimbleAnchorStep>
     {
         var anchorStep = RenderWithPropertySet(x => x.Severity, AnchorStepSeverity.Default);
 
-        Assert.DoesNotContain("severity", anchorStep.Markup);
+        anchorStep.AssertAttribute("severity", null);
     }
 
     [Fact]
@@ -55,7 +50,7 @@ public class NimbleAnchorStepTests : NimbleAnchorBaseTests<NimbleAnchorStep>
     {
         var anchorStep = RenderWithPropertySet(x => x.Disabled, true);
 
-        Assert.Contains("disabled", anchorStep.Markup);
+        anchorStep.AssertHasAttribute("disabled");
     }
 
     [Fact]
@@ -63,7 +58,7 @@ public class NimbleAnchorStepTests : NimbleAnchorBaseTests<NimbleAnchorStep>
     {
         var anchorStep = RenderWithPropertySet(x => x.ReadOnly, true);
 
-        Assert.Contains("readonly", anchorStep.Markup);
+        anchorStep.AssertHasAttribute("readonly");
     }
 
     [Fact]
@@ -71,13 +66,11 @@ public class NimbleAnchorStepTests : NimbleAnchorBaseTests<NimbleAnchorStep>
     {
         var anchorStep = RenderWithPropertySet(x => x.Selected, true);
 
-        Assert.Contains("selected", anchorStep.Markup);
+        anchorStep.AssertHasAttribute("selected");
     }
 
     private IRenderedComponent<NimbleAnchorStep> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchorStep, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleAnchorStep>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleAnchorStep>(p => p.Add(propertyGetter, propertyValue));
     }
 }

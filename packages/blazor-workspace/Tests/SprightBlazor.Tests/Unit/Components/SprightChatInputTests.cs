@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +9,20 @@ namespace SprightBlazor.Tests.Unit.Components;
 /// <summary>
 /// Test for <see cref="SprightChaInputTests"/>.
 /// </summary>
-public class SprightChatInputTests
+public class SprightChatInputTests : BunitTestBase
 {
     [Fact]
     public void SprightChatInput_Render_HasChatInputMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "spright-chat-input";
+        var component = Render<SprightChatInput>();
 
-        var component = context.RenderComponent<SprightChatInput>();
-
-        Assert.Contains(expectedMarkup, component.Markup);
+        Assert.NotNull(component.Find("spright-chat-input"));
     }
 
     [Fact]
     public void SprightChatInput_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<SprightChatInput>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<SprightChatInput>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -37,7 +32,7 @@ public class SprightChatInputTests
         var value = "Tell me something.";
         var chatInput = RenderWithPropertySet(x => x.Value, value);
 
-        Assert.Contains("value", chatInput.Markup);
+        chatInput.AssertHasAttribute("value");
     }
 
     [Fact]
@@ -46,7 +41,7 @@ public class SprightChatInputTests
         var placeholder = "Type here...";
         var chatInput = RenderWithPropertySet(x => x.Placeholder, placeholder);
 
-        Assert.Contains("placeholder", chatInput.Markup);
+        chatInput.AssertHasAttribute("placeholder");
     }
 
     [Fact]
@@ -54,7 +49,7 @@ public class SprightChatInputTests
     {
         var chatInput = RenderWithPropertySet(x => x.SendButtonLabel, "Send now");
 
-        Assert.Contains("send-button-label", chatInput.Markup);
+        chatInput.AssertHasAttribute("send-button-label");
     }
 
     [Fact]
@@ -62,7 +57,7 @@ public class SprightChatInputTests
     {
         var chatInput = RenderWithPropertySet(x => x.StopButtonLabel, "Cancel");
 
-        Assert.Contains("stop-button-label", chatInput.Markup);
+        chatInput.AssertHasAttribute("stop-button-label");
     }
 
     [Fact]
@@ -70,7 +65,7 @@ public class SprightChatInputTests
     {
         var chatInput = RenderWithPropertySet(x => x.SendDisabled, true);
 
-        Assert.Contains("send-disabled", chatInput.Markup);
+        chatInput.AssertHasAttribute("send-disabled");
     }
 
     [Fact]
@@ -78,7 +73,7 @@ public class SprightChatInputTests
     {
         var chatInput = RenderWithPropertySet(x => x.Processing, true);
 
-        Assert.Contains("processing", chatInput.Markup);
+        chatInput.AssertHasAttribute("processing");
     }
 
     [Fact]
@@ -86,7 +81,7 @@ public class SprightChatInputTests
     {
         var chatInput = RenderWithPropertySet(x => x.MaxLength, 100);
 
-        Assert.Contains("maxlength", chatInput.Markup);
+        chatInput.AssertHasAttribute("maxlength");
     }
 
     [Fact]
@@ -94,7 +89,7 @@ public class SprightChatInputTests
     {
         var chatInput = RenderWithPropertySet(x => x.ErrorText, "Invalid input");
 
-        Assert.Contains("error-text=\"Invalid input\"", chatInput.Markup);
+        chatInput.AssertAttribute("error-text", "Invalid input");
     }
 
     [Fact]
@@ -102,13 +97,11 @@ public class SprightChatInputTests
     {
         var chatInput = RenderWithPropertySet(x => x.ErrorVisible, true);
 
-        Assert.Contains("error-visible", chatInput.Markup);
+        chatInput.AssertHasAttribute("error-visible");
     }
 
     private IRenderedComponent<SprightChatInput> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatInput, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<SprightChatInput>(p => p.Add(propertyGetter, propertyValue));
+        return Render<SprightChatInput>(p => p.Add(propertyGetter, propertyValue));
     }
 }

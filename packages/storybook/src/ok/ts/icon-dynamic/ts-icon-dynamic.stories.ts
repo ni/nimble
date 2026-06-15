@@ -3,7 +3,8 @@ import { html } from '@ni/fast-element';
 import { TsIconDynamic } from '@ni/ok-components/dist/esm/ts/icon-dynamic';
 import {
     apiCategory,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    okWarning
 } from '../../../utilities/storybook';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -21,6 +22,10 @@ const metadata: Meta<OkTsIconDynamicArgs> = {
         chromatic: { disableSnapshot: true },
     },
     render: createUserSelectedThemeStory(html`
+        ${okWarning({
+            componentName: 'ts icon dynamic',
+            statusLink: './?path=/docs/component-status--docs#ok-components'
+        })}
         <${tagName}></${tagName}>
     `),
     args: {

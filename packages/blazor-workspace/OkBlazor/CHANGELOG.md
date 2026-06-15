@@ -1,8 +1,33 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Tue, 02 Jun 2026 16:41:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 15 Jun 2026 17:15:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.4.0
+
+Mon, 15 Jun 2026 17:15:51 GMT
+
+### Minor changes
+
+- Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor WebAssembly apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976 ([ni/nimble@fe9b63e](https://github.com/ni/nimble/commit/fe9b63eed620452d81f1dd9bd5ed3b7e16ded148))
+
+## 1.3.1
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.1
+
+## 1.3.0
+
+Mon, 08 Jun 2026 16:24:07 GMT
+
+### Minor changes
+
+- add breakpoint column ([ni/nimble@4ad4f52](https://github.com/ni/nimble/commit/4ad4f52d453183df5584dd1e1a8db81fe56d193a))
+- Bump @ni/ok-components to v1.4.0
 
 ## 1.2.9
 

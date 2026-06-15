@@ -2,6 +2,36 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Mon, 15 Jun 2026 17:15:51 GMT",
+      "version": "4.16.0",
+      "tag": "@ni/spright-blazor_v4.16.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "fe9b63eed620452d81f1dd9bd5ed3b7e16ded148",
+            "comment": "Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor WebAssembly apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Jun 2026 21:55:01 GMT",
+      "version": "4.15.4",
+      "tag": "@ni/spright-blazor_v4.15.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.20.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Jun 2026 16:41:17 GMT",
       "version": "4.15.3",
       "tag": "@ni/spright-blazor_v4.15.3",
