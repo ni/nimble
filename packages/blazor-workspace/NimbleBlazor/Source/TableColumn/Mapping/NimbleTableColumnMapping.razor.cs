@@ -18,10 +18,10 @@ public partial class NimbleTableColumnMapping<TKey> : NimbleTableColumnEnumBase<
     public double? MinPixelWidth { get; set; }
 
     /// <summary>
-    /// Indicates whether the column is pinned.
+    /// The pin location for the column.
     /// </summary>
     [Parameter]
-    public bool Pinned { get; set; }
+    public TableColumnPinLocation? PinLocation { get; set; }
 
     /// <summary>
     /// Sets the width mode on the column.
