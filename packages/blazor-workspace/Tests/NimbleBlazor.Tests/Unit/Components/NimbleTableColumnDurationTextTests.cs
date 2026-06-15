@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -13,9 +13,9 @@ public class NimbleTableColumnDurationTextTests
     [Fact]
     public void NimbleTableColumnDurationText_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnDurationText>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleTableColumnDurationText>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -39,9 +39,9 @@ public class NimbleTableColumnDurationTextTests
 
     private IRenderedComponent<NimbleTableColumnDurationText> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnDurationText, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTableColumnDurationText>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleTableColumnDurationText>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

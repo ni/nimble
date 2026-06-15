@@ -11,11 +11,11 @@ public class NimbleUnitVoltTests
     [Fact]
     public void NimbleUnitVolt_Rendered_HasUnitVoltMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-unit-volt";
 
-        var element = context.RenderComponent<NimbleUnitVolt>();
+        var element = context.Render<NimbleUnitVolt>();
 
         Assert.Contains(expectedMarkup, element.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleUnitVoltTests
     [Fact]
     public void NimbleUnitVolt_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleUnitVolt>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleUnitVolt>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

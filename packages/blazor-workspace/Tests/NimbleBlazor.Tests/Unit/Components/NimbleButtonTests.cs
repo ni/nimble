@@ -13,11 +13,11 @@ public class NimbleButtonTests
     [Fact]
     public void NimbleButton_Render_HasButtonMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-button";
 
-        var button = context.RenderComponent<NimbleButton>();
+        var button = context.Render<NimbleButton>();
 
         Assert.Contains(expectedMarkup, button.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleButtonTests
     [Fact]
     public void NimbleButton_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleButton>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -55,8 +55,8 @@ public class NimbleButtonTests
 
     private IRenderedComponent<NimbleButton> RenderWithPropertySet<TProperty>(Expression<Func<NimbleButton, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleButton>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleButton>(p => p.Add(propertyGetter, propertyValue));
     }
 }

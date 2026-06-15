@@ -11,11 +11,11 @@ public class NimbleCardTests
     [Fact]
     public void NimbleCard_Rendered_HasCardMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-card";
 
-        var card = context.RenderComponent<NimbleCard>();
+        var card = context.Render<NimbleCard>();
 
         Assert.Contains(expectedMarkup, card.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleCardTests
     [Fact]
     public void NimbleCard_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleCard>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleCard>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

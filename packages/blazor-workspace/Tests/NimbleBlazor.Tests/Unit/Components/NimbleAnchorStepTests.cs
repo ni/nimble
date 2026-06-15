@@ -13,11 +13,11 @@ public class NimbleAnchorStepTests : NimbleAnchorBaseTests<NimbleAnchorStep>
     [Fact]
     public void NimbleAnchorStep_Render_HasAnchorStepMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-anchor-step";
 
-        var anchorStep = context.RenderComponent<NimbleAnchorStep>();
+        var anchorStep = context.Render<NimbleAnchorStep>();
 
         Assert.Contains(expectedMarkup, anchorStep.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleAnchorStepTests : NimbleAnchorBaseTests<NimbleAnchorStep>
     [Fact]
     public void NimbleAnchorStep_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorStep>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleAnchorStep>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -76,8 +76,8 @@ public class NimbleAnchorStepTests : NimbleAnchorBaseTests<NimbleAnchorStep>
 
     private IRenderedComponent<NimbleAnchorStep> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchorStep, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleAnchorStep>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleAnchorStep>(p => p.Add(propertyGetter, propertyValue));
     }
 }

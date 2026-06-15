@@ -13,11 +13,11 @@ public class NimbleBannerTests
     [Fact]
     public void NimbleBanner_Render_HasBannerMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-banner";
 
-        var banner = context.RenderComponent<NimbleBanner>();
+        var banner = context.Render<NimbleBanner>();
 
         Assert.Contains(expectedMarkup, banner.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleBannerTests
     [Fact]
     public void NimbleBanner_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleBanner>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleBanner>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -45,8 +45,8 @@ public class NimbleBannerTests
 
     private IRenderedComponent<NimbleBanner> RenderWithPropertySet<TProperty>(Expression<Func<NimbleBanner, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleBanner>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleBanner>(p => p.Add(propertyGetter, propertyValue));
     }
 }

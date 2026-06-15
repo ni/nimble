@@ -13,11 +13,11 @@ public class NimbleSelectTests
     [Fact]
     public void NimbleSelect_Rendered_HasSelectMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-select";
 
-        var select = context.RenderComponent<NimbleSelect>();
+        var select = context.Render<NimbleSelect>();
 
         Assert.Contains(expectedMarkup, select.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleSelectTests
     [Fact]
     public void NimbleSelect_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleSelect>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleSelect>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -129,15 +129,15 @@ public class NimbleSelectTests
 
     private IRenderedComponent<NimbleSelect> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSelect, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleSelect>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleSelect>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleSelect> RenderNimbleSelectWithOption()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleSelect>(p => p.AddChildContent<NimbleListOption>());
+        return context.Render<NimbleSelect>(p => p.AddChildContent<NimbleListOption>());
     }
 }

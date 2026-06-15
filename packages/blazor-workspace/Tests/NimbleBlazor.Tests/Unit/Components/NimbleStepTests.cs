@@ -13,11 +13,11 @@ public class NimbleStepTests
     [Fact]
     public void NimbleStep_Rendered_HasStepMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-step";
 
-        var step = context.RenderComponent<NimbleStep>();
+        var step = context.Render<NimbleStep>();
 
         Assert.Contains(expectedMarkup, step.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleStepTests
     [Fact]
     public void NimbleStep_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleStep>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleStep>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -76,8 +76,8 @@ public class NimbleStepTests
 
     private IRenderedComponent<NimbleStep> RenderWithPropertySet<TProperty>(Expression<Func<NimbleStep, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleStep>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleStep>(p => p.Add(propertyGetter, propertyValue));
     }
 }

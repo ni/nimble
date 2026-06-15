@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -13,11 +13,11 @@ public class NimbleComboboxTests
     [Fact]
     public void NimbleCombobox_Rendered_HasComboboxMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-combobox";
 
-        var combobox = context.RenderComponent<NimbleCombobox>();
+        var combobox = context.Render<NimbleCombobox>();
 
         Assert.Contains(expectedMarkup, combobox.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleComboboxTests
     [Fact]
     public void NimbleCombobox_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleCombobox>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleCombobox>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -125,15 +125,15 @@ public class NimbleComboboxTests
 
     private IRenderedComponent<NimbleCombobox> RenderWithPropertySet<TProperty>(Expression<Func<NimbleCombobox, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleCombobox>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleCombobox>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleCombobox> RenderNimbleComboboxWithOption()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleCombobox>(p => p.AddChildContent<NimbleListOption>());
+        return context.Render<NimbleCombobox>(p => p.AddChildContent<NimbleListOption>());
     }
 }

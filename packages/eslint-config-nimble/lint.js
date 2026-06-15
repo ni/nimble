@@ -22,7 +22,7 @@ export const lintNimbleConfig = defineConfig([
             'import/no-extraneous-dependencies': 'off'
         }
     },
-    globalIgnores(['CHANGELOG.md']),
+    globalIgnores(['**/CHANGELOG.md']),
     markdownPreferences.configs.recommended,
     markdownLinks.configs.recommended,
     {

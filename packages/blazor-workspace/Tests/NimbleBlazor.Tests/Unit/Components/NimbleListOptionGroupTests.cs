@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -10,11 +10,11 @@ public class NimbleListOptionGroupTests
     [Fact]
     public void NimbleListOptionGroup_Rendered_HasListOptionGroupMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-list-option-group";
 
-        var group = context.RenderComponent<NimbleListOptionGroup>();
+        var group = context.Render<NimbleListOptionGroup>();
 
         Assert.Contains(expectedMarkup, group.Markup);
     }
@@ -22,9 +22,9 @@ public class NimbleListOptionGroupTests
     [Fact]
     public void NimbleListOptionGroup_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleListOptionGroup>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleListOptionGroup>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -54,8 +54,8 @@ public class NimbleListOptionGroupTests
 
     private IRenderedComponent<NimbleListOptionGroup> RenderWithPropertySet<TProperty>(Expression<Func<NimbleListOptionGroup, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleListOptionGroup>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleListOptionGroup>(p => p.Add(propertyGetter, propertyValue));
     }
 }

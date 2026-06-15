@@ -13,11 +13,11 @@ public class NimbleUnitByteTests
     [Fact]
     public void NimbleUnitByte_Rendered_HasUnitByteMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-unit-byte";
 
-        var element = context.RenderComponent<NimbleUnitByte>();
+        var element = context.Render<NimbleUnitByte>();
 
         Assert.Contains(expectedMarkup, element.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleUnitByteTests
     [Fact]
     public void NimbleUnitByte_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleUnitByte>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleUnitByte>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -41,8 +41,8 @@ public class NimbleUnitByteTests
 
     private IRenderedComponent<NimbleUnitByte> RenderWithPropertySet<TProperty>(Expression<Func<NimbleUnitByte, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleUnitByte>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleUnitByte>(p => p.Add(propertyGetter, propertyValue));
     }
 }

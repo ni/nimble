@@ -13,11 +13,11 @@ public class NimbleAnchorMenuItemTests : NimbleAnchorBaseTests<NimbleAnchorMenuI
     [Fact]
     public void NimbleAnchorMenuItem_Render_HasAnchorMenuItemMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-anchor-menu-item";
 
-        var menuItem = context.RenderComponent<NimbleAnchorMenuItem>();
+        var menuItem = context.Render<NimbleAnchorMenuItem>();
 
         Assert.Contains(expectedMarkup, menuItem.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleAnchorMenuItemTests : NimbleAnchorBaseTests<NimbleAnchorMenuI
     [Fact]
     public void NimbleAnchorMenuItem_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorMenuItem>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleAnchorMenuItem>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -41,8 +41,8 @@ public class NimbleAnchorMenuItemTests : NimbleAnchorBaseTests<NimbleAnchorMenuI
 
     private IRenderedComponent<NimbleAnchorMenuItem> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchorMenuItem, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleAnchorMenuItem>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleAnchorMenuItem>(p => p.Add(propertyGetter, propertyValue));
     }
 }

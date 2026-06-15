@@ -13,11 +13,11 @@ public class NimbleCheckboxTests
     [Fact]
     public void NimbleCheckbox_Rendered_HasCheckboxMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-checkbox";
 
-        var checkbox = context.RenderComponent<NimbleCheckbox>();
+        var checkbox = context.Render<NimbleCheckbox>();
 
         Assert.Contains(expectedMarkup, checkbox.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleCheckboxTests
     [Fact]
     public void NimbleCheckbox_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleCheckbox>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleCheckbox>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -57,8 +57,8 @@ public class NimbleCheckboxTests
 
     private IRenderedComponent<NimbleCheckbox> RenderNimbleCheckboxWithPropertySet<TProperty>(Expression<Func<NimbleCheckbox, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleCheckbox>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleCheckbox>(p => p.Add(propertyGetter, propertyValue));
     }
 }

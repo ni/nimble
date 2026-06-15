@@ -11,10 +11,10 @@ public class OkFvAccordionItemTests
     [Fact]
     public void OkFvAccordionItem_Render_HasAccordionMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
 
-        var component = context.RenderComponent<OkFvAccordionItem>();
+        var component = context.Render<OkFvAccordionItem>();
 
         Assert.Contains("ok-fv-accordion-item", component.Markup);
     }
@@ -22,10 +22,10 @@ public class OkFvAccordionItemTests
     [Fact]
     public void OkFvAccordionItem_Render_MapsParametersToAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
 
-        var component = context.RenderComponent<OkFvAccordionItem>(parameters => parameters
+        var component = context.Render<OkFvAccordionItem>(parameters => parameters
             .Add(parameter => parameter.Header, "Accordion heading")
             .Add(parameter => parameter.Appearance, FvAccordionItemAppearance.Block)
             .Add(parameter => parameter.Expanded, true)
@@ -41,10 +41,10 @@ public class OkFvAccordionItemTests
     [Fact]
     public void OkFvAccordionItem_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
 
-        var exception = Record.Exception(() => context.RenderComponent<OkFvAccordionItem>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<OkFvAccordionItem>(parameters => parameters.AddUnmatched("class", "foo")));
 
         Assert.Null(exception);
     }

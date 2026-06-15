@@ -11,11 +11,11 @@ public class SprightChatConversationTests
     [Fact]
     public void SprightChatConversation_Render_HasChatConversationMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "spright-chat-conversation";
 
-        var component = context.RenderComponent<SprightChatConversation>();
+        var component = context.Render<SprightChatConversation>();
 
         Assert.Contains(expectedMarkup, component.Markup);
     }
@@ -23,19 +23,19 @@ public class SprightChatConversationTests
     [Fact]
     public void SprightChatConversation_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<SprightChatConversation>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<SprightChatConversation>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Fact]
     public void SprightChatConversation_WithToolbar_RendersContent()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
 
-        var component = context.RenderComponent<SprightChatConversation>(parameters => parameters
+        var component = context.Render<SprightChatConversation>(parameters => parameters
             .AddChildContent("<button slot=\"toolbar\">Toolbar Button</button>"));
 
         Assert.Contains("slot=\"toolbar\"", component.Markup);

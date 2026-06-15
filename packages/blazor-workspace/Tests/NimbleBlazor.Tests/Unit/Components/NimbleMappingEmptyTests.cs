@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -13,11 +13,11 @@ public class NimbleMappingEmptyTests
     [Fact]
     public void NimbleMappingEmpty_Rendered_HasMappingTextMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-mapping-empty";
 
-        var element = context.RenderComponent<NimbleMappingEmpty<int>>();
+        var element = context.Render<NimbleMappingEmpty<int>>();
 
         Assert.Contains(expectedMarkup, element.Markup);
     }
@@ -40,8 +40,8 @@ public class NimbleMappingEmptyTests
 
     private IRenderedComponent<NimbleMappingEmpty<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleMappingEmpty<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMappingEmpty<TKey>>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleMappingEmpty<TKey>>(p => p.Add(propertyGetter, propertyValue));
     }
 }

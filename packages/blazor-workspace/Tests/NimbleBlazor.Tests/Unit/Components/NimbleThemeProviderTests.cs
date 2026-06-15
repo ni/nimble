@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -11,11 +11,11 @@ public class NimbleThemeProviderTests
     [Fact]
     public void NimbleThemeProvider_Render_HasThemeProviderMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-theme-provider";
 
-        var themeProvider = context.RenderComponent<NimbleThemeProvider>();
+        var themeProvider = context.Render<NimbleThemeProvider>();
 
         Assert.Contains(expectedMarkup, themeProvider.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleThemeProviderTests
     [Fact]
     public void NimbleThemeProvider_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleThemeProvider>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleThemeProvider>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -71,22 +71,22 @@ public class NimbleThemeProviderTests
 
     private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(Theme theme)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleThemeProvider>(p => p.Add(x => x.Theme, theme));
+        return context.Render<NimbleThemeProvider>(p => p.Add(x => x.Theme, theme));
     }
 
     private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(Direction direction)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleThemeProvider>(p => p.Add(x => x.Direction, direction));
+        return context.Render<NimbleThemeProvider>(p => p.Add(x => x.Direction, direction));
     }
 
     private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(string lang)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleThemeProvider>(p => p.Add(x => x.Lang, lang));
+        return context.Render<NimbleThemeProvider>(p => p.Add(x => x.Lang, lang));
     }
 }

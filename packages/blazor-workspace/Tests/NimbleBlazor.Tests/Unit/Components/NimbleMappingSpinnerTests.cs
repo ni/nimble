@@ -13,11 +13,11 @@ public class NimbleMappingSpinnerTests
     [Fact]
     public void NimbleMappingSpinner_Rendered_HasMappingSpinnerMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-mapping-spinner";
 
-        var element = context.RenderComponent<NimbleMappingSpinner<int>>();
+        var element = context.Render<NimbleMappingSpinner<int>>();
 
         Assert.Contains(expectedMarkup, element.Markup);
     }
@@ -48,8 +48,8 @@ public class NimbleMappingSpinnerTests
 
     private IRenderedComponent<NimbleMappingSpinner<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleMappingSpinner<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMappingSpinner<TKey>>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleMappingSpinner<TKey>>(p => p.Add(propertyGetter, propertyValue));
     }
 }

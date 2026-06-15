@@ -11,11 +11,11 @@ public class NimbleTreeViewTests
     [Fact]
     public void NimbleTreeView_Rendered_HasNimbleTreeViewMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-tree-view";
 
-        var treeView = context.RenderComponent<NimbleTreeView>();
+        var treeView = context.Render<NimbleTreeView>();
 
         Assert.Contains(expectedMarkup, treeView.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleTreeViewTests
     [Fact]
     public void NimbleTreeView_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTreeView>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleTreeView>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -42,8 +42,8 @@ public class NimbleTreeViewTests
 
     private IRenderedComponent<NimbleTreeView> RenderNimbleTreeView(SelectionMode selectionMode)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTreeView>(p => p.Add(x => x.SelectionMode, selectionMode));
+        return context.Render<NimbleTreeView>(p => p.Add(x => x.SelectionMode, selectionMode));
     }
 }

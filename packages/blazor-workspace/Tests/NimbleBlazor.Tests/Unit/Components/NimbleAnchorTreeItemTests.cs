@@ -13,11 +13,11 @@ public class NimbleAnchorTreeItemTests : NimbleAnchorBaseTests<NimbleAnchorTreeI
     [Fact]
     public void NimbleAnchorTreeItem_Render_HasAnchorTreeItemMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-anchor-tree-item";
 
-        var menuItem = context.RenderComponent<NimbleAnchorTreeItem>();
+        var menuItem = context.Render<NimbleAnchorTreeItem>();
 
         Assert.Contains(expectedMarkup, menuItem.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleAnchorTreeItemTests : NimbleAnchorBaseTests<NimbleAnchorTreeI
     [Fact]
     public void NimbleAnchorTreeItem_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorTreeItem>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleAnchorTreeItem>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -49,8 +49,8 @@ public class NimbleAnchorTreeItemTests : NimbleAnchorBaseTests<NimbleAnchorTreeI
 
     private IRenderedComponent<NimbleAnchorTreeItem> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchorTreeItem, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleAnchorTreeItem>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleAnchorTreeItem>(p => p.Add(propertyGetter, propertyValue));
     }
 }

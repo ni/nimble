@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -161,8 +161,8 @@ public class NimbleWaferMapTests
 
     private IRenderedComponent<NimbleWaferMap> RenderWithPropertySet<TProperty>(Expression<Func<NimbleWaferMap, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleWaferMap>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleWaferMap>(p => p.Add(propertyGetter, propertyValue));
     }
 }

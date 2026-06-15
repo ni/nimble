@@ -14,7 +14,7 @@ public class OkTsIconDynamicTests
     [Fact]
     public async Task OkTsIconDynamic_RegisterIconDynamicAsync_InvokesRegisterIconDynamicAsync()
     {
-        using var context = new TestContext();
+        using var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var javascriptRuntime = context.Services.GetRequiredService<IJSRuntime>();
         const string tagName = "ok-ts-icon-dynamic-awesome";

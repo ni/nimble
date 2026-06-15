@@ -11,11 +11,11 @@ public class NimbleMenuTests
     [Fact]
     public void NimbleMenu_Rendered_HasMenuMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-menu";
 
-        var menu = context.RenderComponent<NimbleMenu>();
+        var menu = context.Render<NimbleMenu>();
 
         Assert.Contains(expectedMarkup, menu.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleMenuTests
     [Fact]
     public void NimbleMenu_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleMenu>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleMenu>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

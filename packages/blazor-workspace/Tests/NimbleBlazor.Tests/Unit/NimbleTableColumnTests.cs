@@ -45,8 +45,8 @@ public abstract class NimbleTableColumnTests<T> where T : NimbleTableColumn
 
     private IRenderedComponent<T> RenderWithPropertySet<TProperty>(Expression<Func<T, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<T>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<T>(p => p.Add(propertyGetter, propertyValue));
     }
 }

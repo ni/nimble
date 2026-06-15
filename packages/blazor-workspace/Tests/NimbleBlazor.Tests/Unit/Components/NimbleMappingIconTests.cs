@@ -13,11 +13,11 @@ public class NimbleMappingIconTests
     [Fact]
     public void NimbleMappingIcon_Rendered_HasMappingIconMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-mapping-icon";
 
-        var element = context.RenderComponent<NimbleMappingIcon<int>>();
+        var element = context.Render<NimbleMappingIcon<int>>();
 
         Assert.Contains(expectedMarkup, element.Markup);
     }
@@ -64,8 +64,8 @@ public class NimbleMappingIconTests
 
     private IRenderedComponent<NimbleMappingIcon<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleMappingIcon<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMappingIcon<TKey>>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleMappingIcon<TKey>>(p => p.Add(propertyGetter, propertyValue));
     }
 }
