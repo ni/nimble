@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/Examples/">
+    <Project Path="Examples/Demo.Client/Demo.Client.csproj" />
+    <Project Path="Examples/Demo.Hybrid/Demo.Hybrid.csproj" />
+    <Project Path="Examples/Demo.Server/Demo.Server.csproj" />
+    <Project Path="Examples/Demo.Shared/Demo.Shared.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/BlazorWorkspace.Testing.Acceptance/BlazorWorkspace.Testing.Acceptance.csproj" />
+    <Project Path="Tests/NimbleBlazor.Tests.Acceptance.Client/NimbleBlazor.Tests.Acceptance.Client.csproj" />
+    <Project Path="Tests/NimbleBlazor.Tests.Acceptance/NimbleBlazor.Tests.Acceptance.csproj" />
+    <Project Path="Tests/NimbleBlazor.Tests/NimbleBlazor.Tests.csproj" />
+    <Project Path="Tests/OkBlazor.Tests.Acceptance/OkBlazor.Tests.Acceptance.csproj" />
+    <Project Path="Tests/OkBlazor.Tests/OkBlazor.Tests.csproj" />
+    <Project Path="Tests/SprightBlazor.Tests.Acceptance/SprightBlazor.Tests.Acceptance.csproj" />
+    <Project Path="Tests/SprightBlazor.Tests/SprightBlazor.Tests.csproj" />
+  </Folder>
+  <Project Path="NimbleBlazor/NimbleBlazor.csproj" />
+  <Project Path="OkBlazor/OkBlazor.csproj" />
+  <Project Path="SprightBlazor/SprightBlazor.csproj" />
+</Solution>

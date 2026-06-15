@@ -27,20 +27,14 @@ public partial class TsBreakpointTableSection
     private void OnBreakpointToggle(BreakpointColumnToggleEventArgs e)
     {
         var record = _tableData.FirstOrDefault(r => r.Id == e.RecordId);
-        if (record != null)
-        {
-            record.BreakpointState = e.NewState;
-        }
+        record?.BreakpointState = e.NewState;
         StateHasChanged();
     }
 
     private void OnBreakpointStateChangeRequested(BreakpointColumnStateChangeRequestedEventArgs e)
     {
         var record = _tableData.FirstOrDefault(r => r.Id == e.RecordId);
-        if (record != null)
-        {
-            record.BreakpointState = e.RequestedState;
-        }
+        record?.BreakpointState = e.RequestedState;
 
         StateHasChanged();
     }
