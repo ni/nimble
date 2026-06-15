@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
 
@@ -12,10 +12,10 @@ public class NimbleDrawerTests
     [Fact]
     public void NimbleDrawer_Rendered_HasDrawerMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-drawer";
-        var drawer = context.RenderComponent<NimbleDrawer<string>>();
+        var drawer = context.Render<NimbleDrawer<string>>();
 
         Assert.Contains(expectedMarkup, drawer.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleDrawerTests
     [Fact]
     public void NimbleDrawer_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleDrawer<string>>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleDrawer<string>>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -41,8 +41,8 @@ public class NimbleDrawerTests
     private IRenderedComponent<NimbleDrawer<string>> RenderDrawerWithContent<TContent>()
         where TContent : IComponent
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleDrawer<string>>(parameters => parameters.AddChildContent<TContent>());
+        return context.Render<NimbleDrawer<string>>(parameters => parameters.AddChildContent<TContent>());
     }
 }

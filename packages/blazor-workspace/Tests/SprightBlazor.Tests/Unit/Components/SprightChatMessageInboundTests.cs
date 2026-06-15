@@ -13,11 +13,11 @@ public class SprightChatMessageInboundTests
     [Fact]
     public void SprightChatMessageInbound_Render_HasChatMessageMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "spright-chat-message-inbound";
 
-        var component = context.RenderComponent<SprightChatMessageInbound>();
+        var component = context.Render<SprightChatMessageInbound>();
 
         Assert.Contains(expectedMarkup, component.Markup);
     }
@@ -25,9 +25,9 @@ public class SprightChatMessageInboundTests
     [Fact]
     public void SprightChatMessageInbound_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<SprightChatMessageInbound>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<SprightChatMessageInbound>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

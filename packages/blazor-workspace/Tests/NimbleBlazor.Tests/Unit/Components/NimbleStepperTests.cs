@@ -15,11 +15,11 @@ public class NimbleStepperTests
     [Fact]
     public void NimbleStepper_Rendered_HasStepperMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-stepper";
 
-        var stepper = context.RenderComponent<NimbleStepper>();
+        var stepper = context.Render<NimbleStepper>();
 
         Assert.Contains(expectedMarkup, stepper.Markup);
     }
@@ -27,9 +27,9 @@ public class NimbleStepperTests
     [Fact]
     public void NimbleStepper_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleStepper>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleStepper>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -46,9 +46,9 @@ public class NimbleStepperTests
     [Fact]
     public void NimbleStepperWithChildContent_HasChildMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var stepper = context.RenderComponent<NimbleStepper>(p => p.AddChildContent<NimbleStep>());
+        var stepper = context.Render<NimbleStepper>(p => p.AddChildContent<NimbleStep>());
 
         var expectedMarkup = "nimble-step";
         Assert.Contains(expectedMarkup, stepper.Markup);
@@ -56,8 +56,8 @@ public class NimbleStepperTests
 
     private IRenderedComponent<NimbleStepper> RenderWithPropertySet<TProperty>(Expression<Func<NimbleStepper, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleStepper>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleStepper>(p => p.Add(propertyGetter, propertyValue));
     }
 }

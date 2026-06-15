@@ -13,11 +13,11 @@ public class NimbleSpinnerTests
     [Fact]
     public void NimbleSpinner_Render_HasSpinnerMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-spinner";
 
-        var spinner = context.RenderComponent<NimbleSpinner>();
+        var spinner = context.Render<NimbleSpinner>();
 
         Assert.Contains(expectedMarkup, spinner.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleSpinnerTests
     [Fact]
     public void NimbleSpinner_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleSpinner>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleSpinner>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -43,8 +43,8 @@ public class NimbleSpinnerTests
 
     private IRenderedComponent<NimbleSpinner> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSpinner, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleSpinner>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleSpinner>(p => p.Add(propertyGetter, propertyValue));
     }
 }

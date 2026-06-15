@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using AngleSharp.Dom;
 using Bunit;
 using Xunit;
@@ -13,10 +13,10 @@ public class NimbleAnchorTabsTests
     [Fact]
     public void NimbleAnchorTabsRendered_HasTabsMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-anchor-tabs";
-        var tabs = context.RenderComponent<NimbleAnchorTabs>();
+        var tabs = context.Render<NimbleAnchorTabs>();
 
         Assert.Contains(expectedMarkup, tabs.Markup);
     }
@@ -24,9 +24,9 @@ public class NimbleAnchorTabsTests
     [Fact]
     public void NimbleAnchorTabs_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorTabs>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleAnchorTabs>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -58,9 +58,9 @@ public class NimbleAnchorTabsTests
 
     private IRenderedComponent<NimbleAnchorTabs> RenderTabsWithContent()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleAnchorTabs>(AddChildContentToTabs);
+        return context.Render<NimbleAnchorTabs>(AddChildContentToTabs);
     }
 
     private void AddChildContentToTabs(ComponentParameterCollectionBuilder<NimbleAnchorTabs> parameters)

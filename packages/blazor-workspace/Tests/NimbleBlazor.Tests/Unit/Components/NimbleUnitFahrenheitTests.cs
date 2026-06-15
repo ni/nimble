@@ -11,11 +11,11 @@ public class NimbleUnitFahrenheitTests
     [Fact]
     public void NimbleUnitFahrenheit_Rendered_HasUnitFahrenheitMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-unit-fahrenheit";
 
-        var element = context.RenderComponent<NimbleUnitFahrenheit>();
+        var element = context.Render<NimbleUnitFahrenheit>();
 
         Assert.Contains(expectedMarkup, element.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleUnitFahrenheitTests
     [Fact]
     public void NimbleUnitFahrenheit_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleUnitFahrenheit>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleUnitFahrenheit>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

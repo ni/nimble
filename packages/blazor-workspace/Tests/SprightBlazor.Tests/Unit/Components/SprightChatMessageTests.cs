@@ -13,11 +13,11 @@ public class SprightChatMessageTests
     [Fact]
     public void SprightChatMessage_Render_HasChatMessageMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "spright-chat-message";
 
-        var component = context.RenderComponent<SprightChatMessage>();
+        var component = context.Render<SprightChatMessage>();
 
         Assert.Contains(expectedMarkup, component.Markup);
     }
@@ -25,9 +25,9 @@ public class SprightChatMessageTests
     [Fact]
     public void SprightChatMessage_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<SprightChatMessage>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<SprightChatMessage>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -44,8 +44,8 @@ public class SprightChatMessageTests
 
     private IRenderedComponent<SprightChatMessage> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatMessage, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<SprightChatMessage>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<SprightChatMessage>(p => p.Add(propertyGetter, propertyValue));
     }
 }

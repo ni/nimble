@@ -13,11 +13,11 @@ public class NimbleChipTests
     [Fact]
     public void NimbleChip_Render_HasChipMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-chip";
 
-        var chip = context.RenderComponent<NimbleChip>();
+        var chip = context.Render<NimbleChip>();
 
         Assert.Contains(expectedMarkup, chip.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleChipTests
     [Fact]
     public void NimbleChip_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleChip>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleChip>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -43,8 +43,8 @@ public class NimbleChipTests
 
     private IRenderedComponent<NimbleChip> RenderWithPropertySet<TProperty>(Expression<Func<NimbleChip, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleChip>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleChip>(p => p.Add(propertyGetter, propertyValue));
     }
 }

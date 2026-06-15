@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -11,11 +11,11 @@ public class NimbleMenuButtonTests
     [Fact]
     public void NimbleMenuButton_Rendered_HasButtonMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-menu-button";
 
-        var button = context.RenderComponent<NimbleMenuButton>();
+        var button = context.Render<NimbleMenuButton>();
 
         Assert.Contains(expectedMarkup, button.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleMenuButtonTests
     [Fact]
     public void NimbleMenuButton_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleMenuButton>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleMenuButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -64,22 +64,22 @@ public class NimbleMenuButtonTests
 
     private IRenderedComponent<NimbleMenuButton> RenderNimbleMenuButton(ButtonAppearance appearance)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMenuButton>(p => p.Add(x => x.Appearance, appearance));
+        return context.Render<NimbleMenuButton>(p => p.Add(x => x.Appearance, appearance));
     }
 
     private IRenderedComponent<NimbleMenuButton> RenderNimbleMenuButton(ButtonAppearanceVariant appearanceVariant)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMenuButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
+        return context.Render<NimbleMenuButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
     }
 
     private IRenderedComponent<NimbleMenuButton> RenderNimbleMenuButton(MenuButtonPosition position)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMenuButton>(p => p.Add(x => x.Position, position));
+        return context.Render<NimbleMenuButton>(p => p.Add(x => x.Position, position));
     }
 }

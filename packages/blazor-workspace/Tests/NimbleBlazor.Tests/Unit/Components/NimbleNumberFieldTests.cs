@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -15,9 +15,9 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NimbleNumberField_Rendered_HasNumberFieldMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
 
-        var textField = context.RenderComponent<NimbleNumberField>();
+        var textField = context.Render<NimbleNumberField>();
 
         Assert.Contains(NumberFieldMarkup, textField.Markup);
     }
@@ -29,8 +29,8 @@ public class NimbleNumberFieldTests
     [InlineData("1E+100")]
     public void Render_ChangeValue_HasMatchingValue(string value)
     {
-        var context = new TestContext();
-        var field = context.RenderComponent<NimbleNumberField>();
+        var context = new BunitContext();
+        var field = context.Render<NimbleNumberField>();
 
         field.Find(NumberFieldMarkup).Change(value);
 
@@ -41,8 +41,8 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NimbleNumberField_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        var exception = Record.Exception(() => context.RenderComponent<NimbleNumberField>(ComponentParameter.CreateParameter("class", "foo")));
+        var context = new BunitContext();
+        var exception = Record.Exception(() => context.Render<NimbleNumberField>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -200,8 +200,8 @@ public class NimbleNumberFieldTests
 
     private IRenderedComponent<NimbleNumberField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleNumberField>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleNumberField>(p => p.Add(propertyGetter, propertyValue));
     }
 }

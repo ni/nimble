@@ -13,11 +13,11 @@ public class NimbleMappingTextTests
     [Fact]
     public void NimbleMappingText_Rendered_HasMappingTextMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-mapping-text";
 
-        var element = context.RenderComponent<NimbleMappingText<int>>();
+        var element = context.Render<NimbleMappingText<int>>();
 
         Assert.Contains(expectedMarkup, element.Markup);
     }
@@ -40,8 +40,8 @@ public class NimbleMappingTextTests
 
     private IRenderedComponent<NimbleMappingText<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleMappingText<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMappingText<TKey>>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleMappingText<TKey>>(p => p.Add(propertyGetter, propertyValue));
     }
 }

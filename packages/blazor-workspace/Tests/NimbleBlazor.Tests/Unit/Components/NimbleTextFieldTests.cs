@@ -13,11 +13,11 @@ public class NimbleTextFieldTests
     [Fact]
     public void NimbleTextField_Rendered_HasTextFieldMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-text-field";
 
-        var textField = context.RenderComponent<NimbleTextField>();
+        var textField = context.Render<NimbleTextField>();
 
         Assert.Contains(expectedMarkup, textField.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleTextFieldTests
     [Fact]
     public void NimbleTextField_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTextField>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleTextField>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -98,8 +98,8 @@ public class NimbleTextFieldTests
 
     private IRenderedComponent<NimbleTextField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTextField, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTextField>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleTextField>(p => p.Add(propertyGetter, propertyValue));
     }
 }

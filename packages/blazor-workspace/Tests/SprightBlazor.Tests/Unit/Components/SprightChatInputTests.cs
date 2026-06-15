@@ -13,11 +13,11 @@ public class SprightChatInputTests
     [Fact]
     public void SprightChatInput_Render_HasChatInputMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "spright-chat-input";
 
-        var component = context.RenderComponent<SprightChatInput>();
+        var component = context.Render<SprightChatInput>();
 
         Assert.Contains(expectedMarkup, component.Markup);
     }
@@ -25,9 +25,9 @@ public class SprightChatInputTests
     [Fact]
     public void SprightChatInput_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<SprightChatInput>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<SprightChatInput>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -107,8 +107,8 @@ public class SprightChatInputTests
 
     private IRenderedComponent<SprightChatInput> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatInput, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<SprightChatInput>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<SprightChatInput>(p => p.Add(propertyGetter, propertyValue));
     }
 }

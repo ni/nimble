@@ -11,11 +11,11 @@ public class NimbleCardButtonTests
     [Fact]
     public void NimbleCardButton_Render_HasButtonMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-card-button";
 
-        var cardButton = context.RenderComponent<NimbleCardButton>();
+        var cardButton = context.Render<NimbleCardButton>();
 
         Assert.Contains(expectedMarkup, cardButton.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleCardButtonTests
     [Fact]
     public void NimbleCardButton_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleCardButton>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleCardButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

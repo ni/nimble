@@ -13,11 +13,11 @@ public class NimbleBreadcrumbTests
     [Fact]
     public void NimbleBreadcrumb_Rendered_HasBreadcrumbMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-breadcrumb";
 
-        var breadcrumb = context.RenderComponent<NimbleBreadcrumb>();
+        var breadcrumb = context.Render<NimbleBreadcrumb>();
 
         Assert.Contains(expectedMarkup, breadcrumb.Markup);
     }
@@ -25,20 +25,20 @@ public class NimbleBreadcrumbTests
     [Fact]
     public void NimbleBreadcrumb_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleBreadcrumb>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleBreadcrumb>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Fact]
     public void NimbleBreadcrumbItem_Rendered_HasBreadcrumbItemMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-breadcrumb-item";
 
-        var breadcrumbItem = context.RenderComponent<NimbleBreadcrumbItem>();
+        var breadcrumbItem = context.Render<NimbleBreadcrumbItem>();
 
         Assert.Contains(expectedMarkup, breadcrumbItem.Markup);
     }
@@ -55,8 +55,8 @@ public class NimbleBreadcrumbTests
 
     private IRenderedComponent<NimbleBreadcrumb> RenderWithPropertySet<TProperty>(Expression<Func<NimbleBreadcrumb, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleBreadcrumb>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleBreadcrumb>(p => p.Add(propertyGetter, propertyValue));
     }
 }

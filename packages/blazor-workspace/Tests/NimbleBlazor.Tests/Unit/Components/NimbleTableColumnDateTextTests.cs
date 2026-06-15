@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -13,9 +13,9 @@ public class NimbleTableColumnDateTextTests
     [Fact]
     public void NimbleTableColumnDateText_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnDateText>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleTableColumnDateText>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -236,9 +236,9 @@ public class NimbleTableColumnDateTextTests
 
     private IRenderedComponent<NimbleTableColumnDateText> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnDateText, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTableColumnDateText>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleTableColumnDateText>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

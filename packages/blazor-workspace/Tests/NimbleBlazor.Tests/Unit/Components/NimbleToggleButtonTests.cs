@@ -11,11 +11,11 @@ public class NimbleToggleButtonTests
     [Fact]
     public void NimbleToggleButton_Rendered_HasButtonMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-toggle-button";
 
-        var button = context.RenderComponent<NimbleToggleButton>();
+        var button = context.Render<NimbleToggleButton>();
 
         Assert.Contains(expectedMarkup, button.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleToggleButtonTests
     [Fact]
     public void NimbleToggleButton_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleToggleButton>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleToggleButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -53,15 +53,15 @@ public class NimbleToggleButtonTests
 
     private IRenderedComponent<NimbleToggleButton> RenderNimbleToggleButton(ButtonAppearance appearance)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleToggleButton>(p => p.Add(x => x.Appearance, appearance));
+        return context.Render<NimbleToggleButton>(p => p.Add(x => x.Appearance, appearance));
     }
 
     private IRenderedComponent<NimbleToggleButton> RenderNimbleToggleButton(ButtonAppearanceVariant appearanceVariant)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleToggleButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
+        return context.Render<NimbleToggleButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
     }
 }

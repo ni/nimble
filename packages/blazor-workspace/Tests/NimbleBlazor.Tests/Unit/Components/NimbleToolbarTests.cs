@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
 
@@ -12,10 +12,10 @@ public class NimbleToolbarTests
     [Fact]
     public void NimbleToolbarRendered_HasToolbarMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-toolbar";
-        var toolbar = context.RenderComponent<NimbleToolbar>();
+        var toolbar = context.Render<NimbleToolbar>();
 
         Assert.Contains(expectedMarkup, toolbar.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleToolbarTests
     [Fact]
     public void NimbleToolbar_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleToolbar>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleToolbar>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -41,8 +41,8 @@ public class NimbleToolbarTests
     private IRenderedComponent<NimbleToolbar> RenderToolbarWithContent<TContent>()
         where TContent : IComponent
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleToolbar>(parameters => parameters.AddChildContent<TContent>());
+        return context.Render<NimbleToolbar>(parameters => parameters.AddChildContent<TContent>());
     }
 }

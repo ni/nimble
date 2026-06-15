@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
@@ -37,8 +37,8 @@ public abstract class SortableBaseTests<T> where T : ComponentBase, ISortableCol
 
     private IRenderedComponent<T> RenderWithPropertySet<TProperty>(Expression<Func<T, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<T>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<T>(p => p.Add(propertyGetter, propertyValue));
     }
 }

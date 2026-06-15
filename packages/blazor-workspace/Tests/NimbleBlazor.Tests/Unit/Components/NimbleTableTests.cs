@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.Json;
@@ -40,10 +40,10 @@ public class NimbleTableTests
     [Fact]
     public void NimbleTable_Rendered_HasTableMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-table";
-        var table = context.RenderComponent<NimbleTable<TableRowData>>();
+        var table = context.Render<NimbleTable<TableRowData>>();
 
         Assert.Contains(expectedMarkup, table.Markup);
     }
@@ -51,9 +51,9 @@ public class NimbleTableTests
     [Fact]
     public void NimbleTable_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTable<TableRowData>>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleTable<TableRowData>>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -134,15 +134,15 @@ public class NimbleTableTests
 
     private IRenderedComponent<NimbleTable<TTable>> RenderWithPropertySet<TProperty, TTable>(Expression<Func<NimbleTable<TTable>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTable<TTable>>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleTable<TTable>>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleTable<TTable>> Render<TTable>()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTable<TTable>>();
+        return context.Render<NimbleTable<TTable>>();
     }
 }

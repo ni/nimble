@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -13,9 +13,9 @@ public class NimbleTableColumnNumberTextTests
     [Fact]
     public void NimbleTableColumnNumberText_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnNumberText>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleTableColumnNumberText>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -76,9 +76,9 @@ public class NimbleTableColumnNumberTextTests
 
     private IRenderedComponent<NimbleTableColumnNumberText> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnNumberText, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTableColumnNumberText>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleTableColumnNumberText>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

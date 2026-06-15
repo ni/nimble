@@ -14,10 +14,10 @@ public class NimbleDialogTests
     [Fact]
     public void NimbleDialog_Rendered_HasDialogMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-dialog";
-        var dialog = context.RenderComponent<NimbleDialog<string>>();
+        var dialog = context.Render<NimbleDialog<string>>();
 
         Assert.Contains(expectedMarkup, dialog.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleDialogTests
     [Fact]
     public void NimbleDialog_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleDialog<string>>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleDialog<string>>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -91,15 +91,15 @@ public class NimbleDialogTests
     private IRenderedComponent<NimbleDialog<string>> RenderDialogWithContent<TContent>()
         where TContent : IComponent
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleDialog<string>>(parameters => parameters.AddChildContent<TContent>());
+        return context.Render<NimbleDialog<string>>(parameters => parameters.AddChildContent<TContent>());
     }
 
     private IRenderedComponent<NimbleDialog<string>> RenderDialogWithPropertySet<TProperty>(Expression<Func<NimbleDialog<string>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleDialog<string>>(parameters => parameters.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleDialog<string>>(parameters => parameters.Add(propertyGetter, propertyValue));
     }
 }

@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -11,11 +11,11 @@ public class NimbleLabelProviderTableTests
     [Fact]
     public void NimbleLabelProviderTable_Render_HasLabelProviderMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-label-provider-table";
 
-        var themeProvider = context.RenderComponent<NimbleLabelProviderTable>();
+        var themeProvider = context.Render<NimbleLabelProviderTable>();
 
         Assert.Contains(expectedMarkup, themeProvider.Markup);
     }
@@ -23,9 +23,9 @@ public class NimbleLabelProviderTableTests
     [Fact]
     public void NimbleLabelProviderTable_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleThemeProvider>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleThemeProvider>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -56,8 +56,8 @@ public class NimbleLabelProviderTableTests
 
     private IRenderedComponent<NimbleLabelProviderTable> RenderNimbleLabelProvider(string propertyName, string labelValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleLabelProviderTable>(ComponentParameter.CreateParameter(propertyName, labelValue));
+        return context.Render<NimbleLabelProviderTable>(parameters => parameters.AddUnmatched(propertyName, labelValue));
     }
 }

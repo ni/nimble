@@ -13,11 +13,11 @@ public class NimbleRadioTests
     [Fact]
     public void NimbleRadio_Rendered_HasRadioMarkup()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-radio";
 
-        var radio = context.RenderComponent<NimbleRadio>();
+        var radio = context.Render<NimbleRadio>();
 
         Assert.Contains(expectedMarkup, radio.Markup);
     }
@@ -25,9 +25,9 @@ public class NimbleRadioTests
     [Fact]
     public void NimbleRadio_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleRadio>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.Render<NimbleRadio>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -57,8 +57,8 @@ public class NimbleRadioTests
 
     private IRenderedComponent<NimbleRadio> RenderNimbleRadioWithPropertySet<TProperty>(Expression<Func<NimbleRadio, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleRadio>(p => p.Add(propertyGetter, propertyValue));
+        return context.Render<NimbleRadio>(p => p.Add(propertyGetter, propertyValue));
     }
 }
