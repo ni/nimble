@@ -30,7 +30,7 @@ public class NimbleMappingIconTests : BunitTestBase
     [Fact]
     public void NimbleMappingIconTextAttribute_HasCorrectMarkup()
     {
-        var element = RenderWithPropertySet<int, string>(x => x.Text, "foo");
+        var element = RenderWithPropertySet<int, string?>(x => x.Text, "foo");
 
         element.AssertAttribute("text", "foo");
     }
@@ -38,7 +38,7 @@ public class NimbleMappingIconTests : BunitTestBase
     [Fact]
     public void NimbleMappingIconIconAttribute_HasCorrectMarkup()
     {
-        var element = RenderWithPropertySet<int, string>(x => x.Icon, "foo");
+        var element = RenderWithPropertySet<int, string?>(x => x.Icon, "foo");
 
         element.AssertAttribute("icon", "foo");
     }

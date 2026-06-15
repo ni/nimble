@@ -30,7 +30,7 @@ public class NimbleMappingTextTests : BunitTestBase
     [Fact]
     public void NimbleMappingTextTextAttribute_HasCorrectMarkup()
     {
-        var element = RenderWithPropertySet<int, string>(x => x.Text, "foo");
+        var element = RenderWithPropertySet<int, string?>(x => x.Text, "foo");
 
         element.AssertAttribute("text", "foo");
     }

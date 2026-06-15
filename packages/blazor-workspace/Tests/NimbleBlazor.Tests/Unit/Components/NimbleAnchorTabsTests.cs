@@ -48,9 +48,6 @@ public class NimbleAnchorTabsTests : BunitTestBase
     public void NimbleAnchorTabsWithChildContent_HasDisabledMarkup()
     {
         var tabs = RenderTabsWithContent();
-
-        // The disabled attribute is rendered on a child nimble-anchor-tab, not the root
-        // nimble-anchor-tabs element, so the root-scoped assertion helpers cannot be used here.
         Assert.Contains("disabled", tabs.Markup);
     }
 

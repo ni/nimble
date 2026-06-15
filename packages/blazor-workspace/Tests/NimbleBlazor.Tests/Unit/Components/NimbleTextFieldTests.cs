@@ -15,8 +15,6 @@ public class NimbleTextFieldTests : BunitTestBase
     public void NimbleTextField_Rendered_HasTextFieldMarkup()
     {
         var textField = Render<NimbleTextField>();
-
-        // Find() throws if the element is missing, so it doubles as a presence assertion.
         Assert.NotNull(textField.Find("nimble-text-field"));
     }
 

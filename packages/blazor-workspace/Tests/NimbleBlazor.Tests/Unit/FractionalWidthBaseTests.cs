@@ -4,7 +4,6 @@ using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
-#nullable enable
 namespace NimbleBlazor.Tests.Unit;
 
 public abstract class FractionalWidthBaseTests<T> : BunitTestBase where T : ComponentBase, IFractionalWidthColumn

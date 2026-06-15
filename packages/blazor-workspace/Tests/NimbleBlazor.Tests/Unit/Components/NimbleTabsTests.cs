@@ -90,10 +90,10 @@ public class NimbleTabsTests : BunitTestBase
 
     private async Task TriggerNimbleTabsActiveIdChangeEventAsync(
         IRenderedComponent<NimbleTabs> tabs,
-        TabsChangeEventArgs eventArgs)
+        TabsChangeEventArgs? eventArgs)
     {
         var tabsElement = tabs.Find("nimble-tabs");
 
-        await tabsElement.TriggerEventAsync("onnimbletabsactiveidchange", eventArgs);
+        await tabsElement.TriggerEventAsync("onnimbletabsactiveidchange", eventArgs!);
     }
 }

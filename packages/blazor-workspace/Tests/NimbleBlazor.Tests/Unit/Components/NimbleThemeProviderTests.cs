@@ -2,8 +2,6 @@ using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
-#nullable enable
-
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>

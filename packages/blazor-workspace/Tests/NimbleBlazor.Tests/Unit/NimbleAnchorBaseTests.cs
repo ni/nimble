@@ -12,7 +12,7 @@ namespace NimbleBlazor.Tests.Unit;
 public abstract class NimbleAnchorBaseTests<T> : BunitTestBase where T : NimbleAnchorBase
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Static needed for MemberData of Theory")]
-    public static TheoryData<Expression<Func<T, string>>, string> Data => new()
+    public static TheoryData<Expression<Func<T, string?>>, string> Data => new()
         {
             { x => x.Href, "href" },
             { x => x.HrefLang, "hreflang" },
@@ -27,7 +27,7 @@ public abstract class NimbleAnchorBaseTests<T> : BunitTestBase where T : NimbleA
 #pragma warning disable xUnit1042 // The member referenced by the MemberData attribute returns untyped data rows
     [MemberData(nameof(Data))]
 #pragma warning restore xUnit1042 // The member referenced by the MemberData attribute returns untyped data rows
-    public void NimbleAnchorBase_AttributeIsSet(Expression<Func<T, string>> propertyGetter, string markupName)
+    public void NimbleAnchorBase_AttributeIsSet(Expression<Func<T, string?>> propertyGetter, string markupName)
     {
         var anchorMenuItem = RenderWithPropertySet(propertyGetter, "foo");
 
