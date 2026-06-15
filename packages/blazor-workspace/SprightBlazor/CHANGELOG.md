@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Mon, 08 Jun 2026 21:55:01 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 15 Jun 2026 17:15:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.16.0
+
+Mon, 15 Jun 2026 17:15:51 GMT
+
+### Minor changes
+
+- Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor WebAssembly apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976 ([ni/nimble@fe9b63e](https://github.com/ni/nimble/commit/fe9b63eed620452d81f1dd9bd5ed3b7e16ded148))
 
 ## 4.15.4
 
