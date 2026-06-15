@@ -11,6 +11,7 @@ import {
     fillHoverSelectedColor,
     fillSelectedColor,
     mediumPadding,
+    popupBorderColor,
     smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
@@ -141,6 +142,7 @@ export const styles = css`
         left: 0;
         background: ${applicationBackgroundColor};
         z-index: ${ZIndexLevels.zIndex1000};
+        box-shadow: inset -8px 0 6px -8px ${hexToRgbaCssColor('#000000', 0.12)};
     }
 
     .cell-container {

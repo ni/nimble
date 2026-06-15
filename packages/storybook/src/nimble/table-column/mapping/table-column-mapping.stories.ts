@@ -106,18 +106,6 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
                 <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
             </${tableColumnMappingTag}>
-                        <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}">
-                <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
-            
-                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
-            </${tableColumnMappingTag}>
-                        <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}">
-                <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
-            
-                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
-            </${tableColumnMappingTag}>
             <${tableColumnMappingTag} field-name="gender" key-type="string">
                 Gender
                 <${mappingTextTag} key="male" text="Male"></${mappingTextTag}>

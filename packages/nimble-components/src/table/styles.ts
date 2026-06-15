@@ -132,6 +132,7 @@ export const styles = css`
         align-self: stretch;
         background: ${applicationBackgroundColor};
         z-index: ${ZIndexLevels.zIndex1000};
+        box-shadow: inset -8px 0 6px -8px ${hexToRgbaCssColor('#000000', 0.12)};
     }
 
     .header-container {

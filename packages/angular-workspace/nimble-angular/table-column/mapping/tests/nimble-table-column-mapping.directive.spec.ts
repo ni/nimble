@@ -94,7 +94,6 @@ describe('NimbleTableColumnMapping', () => {
             expect(nativeElement.columnHidden).toBe(true);
         });
 
-        it('will use template string value for pinned', () => {
         it('will use template string value for pin-location', () => {
             expect(directive.pinLocation).toBe(TableColumnPinLocation.left);
             expect(nativeElement.pinLocation).toBe(TableColumnPinLocation.left);
@@ -268,7 +267,6 @@ describe('NimbleTableColumnMapping', () => {
             expect(nativeElement.columnHidden).toBe(false);
         });
 
-        it('can be configured with property binding for pinned', () => {
         it('can be configured with property binding for pin-location', () => {
             expect(directive.pinLocation).toBeUndefined();
             expect(nativeElement.pinLocation).toBeUndefined();
@@ -540,7 +538,6 @@ describe('NimbleTableColumnMapping', () => {
             expect(nativeElement.columnHidden).toBe(false);
         });
 
-        it('can be configured with attribute binding for pinned', () => {
         it('can be configured with attribute binding for pin-location', () => {
             expect(directive.pinLocation).toBeUndefined();
             expect(nativeElement.pinLocation).toBeUndefined();
