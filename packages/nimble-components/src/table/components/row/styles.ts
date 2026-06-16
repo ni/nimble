@@ -44,7 +44,7 @@ export const styles = css`
         position: absolute;
     }
 
-    :host([selectable]:not([selected])[allow-hover]:hover)::before {
+    :host([selectable][allow-hover]:hover)::before {
         background-color: ${fillHoverColor};
     }
 
@@ -56,7 +56,7 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
-    :host([selectable]:not([selected])[allow-hover]:hover) .pinned-cell-container {
+    :host([selectable][allow-hover]:hover) .pinned-cell-container {
         background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
             ${applicationBackgroundColor};
     }
@@ -224,7 +224,7 @@ export const styles = css`
                 background-color: ${hexToRgbaCssColor(White, 0.2)};
             }
 
-            :host([selectable]:not([selected])[allow-hover]:hover) .pinned-cell-container {
+            :host([selectable][allow-hover]:hover) .pinned-cell-container {
                 background: linear-gradient(
                         ${hexToRgbaCssColor(White, 0.05)},
                         ${hexToRgbaCssColor(White, 0.05)}
