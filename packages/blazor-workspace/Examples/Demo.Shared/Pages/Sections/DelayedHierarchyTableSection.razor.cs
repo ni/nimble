@@ -50,26 +50,26 @@ public partial class DelayedHierarchyTableSection
             case "jacqueline-bouvier":
                 return new List<PersonTableRecord>()
                 {
-                    new PersonTableRecord("marge-simpson", recordId, "Marge", "Simpson", 35, true),
-                    new PersonTableRecord("selma-bouvier", recordId, "Selma", "Bouvier", 45, false),
-                    new PersonTableRecord("patty-bouvier", recordId, "Patty", "Bouvier", 45, false)
+                    new("marge-simpson", recordId, "Marge", "Simpson", 35, true),
+                    new("selma-bouvier", recordId, "Selma", "Bouvier", 45, false),
+                    new("patty-bouvier", recordId, "Patty", "Bouvier", 45, false)
                 };
             case "marge-simpson":
                 return new List<PersonTableRecord>()
                 {
-                    new PersonTableRecord("bart-simpson", recordId, "Bart", "Simpson", 12, false),
-                    new PersonTableRecord("lisa-bouvier", recordId, "Lisa", "Simpson", 10, false),
-                    new PersonTableRecord("maggie-bouvier", recordId, "Maggie", "Simpson", 1, false)
+                    new("bart-simpson", recordId, "Bart", "Simpson", 12, false),
+                    new("lisa-bouvier", recordId, "Lisa", "Simpson", 10, false),
+                    new("maggie-bouvier", recordId, "Maggie", "Simpson", 1, false)
                 };
             case "mona-simpson":
                 return new List<PersonTableRecord>()
                 {
-                    new PersonTableRecord("homer-simpson", recordId, "Homer", "Simpson", 35, false)
+                    new("homer-simpson", recordId, "Homer", "Simpson", 35, false)
                 };
             case "agnes-skinner":
                 return new List<PersonTableRecord>()
                 {
-                    new PersonTableRecord("seymour-skinner", recordId, "Seymour", "Skinner", 42, false)
+                    new("seymour-skinner", recordId, "Seymour", "Skinner", 42, false)
                 };
             default:
                 return new List<PersonTableRecord>();
