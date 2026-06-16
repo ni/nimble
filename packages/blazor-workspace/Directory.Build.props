@@ -3,7 +3,7 @@
     <!-- The codebase uses C# 14 language features, pin for consistency across framework versions. -->
     <LangVersion>14.0</LangVersion>
     <WarningsNotAsErrors>;NU1900;CS0122</WarningsNotAsErrors>
-    <NoWarn>;NU1701;NU1900;CS0122;CS1573</NoWarn>
+    <NoWarn>;NU1701;NU1900;CS0122</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
