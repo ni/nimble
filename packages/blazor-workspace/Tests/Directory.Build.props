@@ -1,0 +1,13 @@
+<Project>
+  <!-- Inherit the workspace-wide build settings from the parent Directory.Build.props. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!--
+      Test assemblies are not part of any public API and follow test-specific conventions,
+      so some analyzer/compiler rules that are enforced for product code are disabled here:
+        CS1591 - Missing XML comment for publicly visible type or member
+    -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+</Project>
