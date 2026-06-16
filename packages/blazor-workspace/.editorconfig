@@ -45,7 +45,7 @@ dotnet_diagnostic.IDE0301.severity = none
 dotnet_diagnostic.IDE0090.severity = none
 dotnet_diagnostic.IDE0028.severity = none
 dotnet_diagnostic.BL0007.severity = none
-dotnet_diagnostic.SYSLIB1045.severity = none
+dotnet_diagnostic.SYSLIB1045.severity = warning
 # dotnet format command throws an exception when IDE0130 (dotnet_style_namespace_match_folder)
 #   triggers - see https://github.com/dotnet/format/issues/1623
 dotnet_diagnostic.IDE0130.severity = suggestion
