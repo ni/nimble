@@ -38,7 +38,7 @@ public partial class DelayedHierarchyTableSection
             _recordsLoadingChildren.Remove(recordId);
             _recordsWithLoadedChildren.Add(recordId);
             var childrenToAdd = GetChildren(recordId);
-            childrenToAdd.ForEach(child => _delayedHierarchyTableData.Add(child));
+            childrenToAdd.ForEach(_delayedHierarchyTableData.Add);
             await UpdateDelayedHierarchyTableAsync();
         }
     }
