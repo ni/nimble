@@ -115,9 +115,7 @@ export const styles = css`
     }
 
     .checkbox-container.has-pinned-columns {
-        position: sticky;
-        left: var(--ni-private-table-group-row-pinned-column-offset);
-        z-index: ${ZIndexLevels.zIndex1000};
+        position: relative;
         background: ${tableRowBorderColor};
     }
 

@@ -142,7 +142,7 @@ export const styles = css`
         left: 0;
         background: ${applicationBackgroundColor};
         z-index: ${ZIndexLevels.zIndex1000};
-        box-shadow: inset -1px 0 0 0 ${tableRowBorderColor};
+        box-shadow: inset -2px 0 0 0 ${tableRowBorderColor};
     }
 
     .cell-container {
@@ -249,7 +249,7 @@ export const styles = css`
             }
 
             .pinned-cell-container {
-                box-shadow: inset -1px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
+                box-shadow: inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
             }
         `
     )
