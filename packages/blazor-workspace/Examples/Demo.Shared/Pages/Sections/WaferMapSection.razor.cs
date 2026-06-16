@@ -14,7 +14,7 @@ public partial class WaferMapSection
     [NotNull]
     public IEnumerable<string> HighlightedTags { get; set; } = [];
     [NotNull]
-    public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "100" });
+    public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(["red", "green"], ["0", "100"]);
 
     public WaferMapSection()
     {
@@ -77,12 +77,11 @@ public partial class WaferMapSection
 
         DiesTable = new RecordBatch(
             schema,
-            new List<IArrowArray>
-            {
+            [
                 colIndexes.Build(),
                 rowIndexes.Build(),
                 values.Build()
-            },
+            ],
             colIndexes.Length);
     }
 

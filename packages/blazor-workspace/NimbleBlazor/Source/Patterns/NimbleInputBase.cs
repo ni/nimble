@@ -282,7 +282,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
         var newDictionaryCreated = true;
         if (source == null)
         {
-            result = new Dictionary<string, object>();
+            result = [];
         }
         else if (source is Dictionary<string, object> currentDictionary)
         {
@@ -291,7 +291,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
         }
         else
         {
-            result = new Dictionary<string, object>();
+            result = [];
             foreach (var item in source)
             {
                 result.Add(item.Key, item.Value);

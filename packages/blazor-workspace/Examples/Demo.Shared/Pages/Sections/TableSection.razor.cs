@@ -56,7 +56,7 @@ public partial class TableSection
     public void AddTableRows(int numberOfRowsToAdd)
     {
         var tableData = new List<SimpleTableRecord>(TableData);
-        List<string> possibleStatuses = new() { "success", "calculating", "unknown" };
+        List<string> possibleStatuses = ["success", "calculating", "unknown"];
         int numberOfDemoColors = PossibleColors.Count();
 
         for (int i = 0; i < numberOfRowsToAdd; i++)

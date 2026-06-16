@@ -7,7 +7,7 @@ namespace BlazorWorkspace.Testing.Acceptance;
 /// </summary>
 public sealed class Startup<TApp> : IStartup
 {
-    private readonly List<Assembly> _additionalAssemblies = new();
+    private readonly List<Assembly> _additionalAssemblies = [];
 
     public void AddAdditionalAssemblies(params Assembly[] assemblies)
     {
