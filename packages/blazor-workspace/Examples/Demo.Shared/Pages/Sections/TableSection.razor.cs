@@ -29,7 +29,7 @@ public partial class TableSection
 
     private void OnMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs e)
     {
-        if (e.NewState == false)
+        if (!e.NewState)
         {
             return;
         }
