@@ -12,7 +12,7 @@ public partial class WaferMapSection
     [NotNull]
     public RecordBatch? DiesTable { get; set; }
     [NotNull]
-    public IEnumerable<string> HighlightedTags { get; set; } = Enumerable.Empty<string>();
+    public IEnumerable<string> HighlightedTags { get; set; } = [];
     [NotNull]
     public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "100" });
 

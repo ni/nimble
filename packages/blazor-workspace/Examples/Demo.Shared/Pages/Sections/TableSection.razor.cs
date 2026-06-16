@@ -14,7 +14,7 @@ public partial class TableSection
     public string? OpenMenuButtonColumnRecordId { get; private set; }
 
     [NotNull]
-    public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
+    public IEnumerable<SimpleTableRecord> TableData { get; set; } = [];
 
     public TableSection()
     {
