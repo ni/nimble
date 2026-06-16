@@ -49,8 +49,8 @@ public class NimbleTableColumnEnumBase<TKey> : NimbleTableColumn, IGroupableColu
     [Parameter]
     public bool? SortingDisabled { get; set; }
 
-    private readonly Type[] supportedCSharpNumberTypes = new[]
-    {
+    private readonly Type[] supportedCSharpNumberTypes =
+    [
         typeof(int),
         typeof(uint),
         typeof(short),
@@ -59,14 +59,14 @@ public class NimbleTableColumnEnumBase<TKey> : NimbleTableColumn, IGroupableColu
         typeof(sbyte),
         typeof(float),
         typeof(double)
-    };
+    ];
 
-    private readonly Type[] unsupportedCSharpNumberTypes = new[]
-    {
+    private readonly Type[] unsupportedCSharpNumberTypes =
+    [
         typeof(long),
         typeof(ulong),
         typeof(decimal)
-    };
+    ];
 
     protected string GetTKeyAsJSType()
     {
