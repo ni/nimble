@@ -173,32 +173,33 @@ const component = (
 
 // Play function to set data on all tables in the matrix
 const playFunction = async (): Promise<void> => {
-    for (const table of Array.from(document.querySelectorAll<Table>(tableTag))) {
-        await table.setData(data);
+    const tables = Array.from(document.querySelectorAll<Table>(tableTag));
 
-        // Only hierarchy-enabled tables need hierarchy option setup.
-        if (table.getAttribute('parent-id-field-name')) {
-            await table.setRecordHierarchyOptions([
-                {
-                    recordId: '2',
-                    options: {
-                        delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren
+    await Promise.all(
+        tables.map(async table => {
+            await table.setData(data);
+
+            if (table.getAttribute('parent-id-field-name')) {
+                await table.setRecordHierarchyOptions([
+                    {
+                        recordId: '2',
+                        options: {
+                            delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren
+                        }
                     }
-                }
-            ]);
-        }
-
-        const supportsSelection =
-            table.selectionMode === TableRowSelectionMode.single
-            || table.selectionMode === TableRowSelectionMode.multiple;
-        if (supportsSelection) {
-            const tablePageObject = new TablePageObject(table);
-            if (tablePageObject.getRenderedRowCount() > 0) {
-                await tablePageObject.clickRow(0);
-                await waitForUpdatesAsync();
+                ]);
             }
-        }
-    }
+
+            const supportsSelection = table.selectionMode === TableRowSelectionMode.single || table.selectionMode === TableRowSelectionMode.multiple;
+            if (supportsSelection) {
+                const tablePageObject = new TablePageObject(table);
+                if (tablePageObject.getRenderedRowCount() > 0) {
+                    await tablePageObject.clickRow(0);
+                    await waitForUpdatesAsync();
+                }
+            }
+        })
+    );
 };
 
 export const pinnedColumnsNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
