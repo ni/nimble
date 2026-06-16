@@ -7,12 +7,14 @@ import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
-import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import {
     TableRecordDelayedHierarchyState,
     TableRowSelectionMode,
     TableColumnPinLocation
 } from '@ni/nimble-components/dist/esm/table/types';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 import {
     createMatrixThemeStory,
@@ -171,23 +173,32 @@ const component = (
 
 // Play function to set data on all tables in the matrix
 const playFunction = async (): Promise<void> => {
-    await Promise.all(
-        Array.from(document.querySelectorAll(tableTag)).map(async table => {
-            await table.setData(data);
+    for (const table of Array.from(document.querySelectorAll<Table>(tableTag))) {
+        await table.setData(data);
 
-            // Only hierarchy-enabled tables need hierarchy option setup.
-            if (table.getAttribute('parent-id-field-name')) {
-                await table.setRecordHierarchyOptions([
-                    {
-                        recordId: '2',
-                        options: {
-                            delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren
-                        }
+        // Only hierarchy-enabled tables need hierarchy option setup.
+        if (table.getAttribute('parent-id-field-name')) {
+            await table.setRecordHierarchyOptions([
+                {
+                    recordId: '2',
+                    options: {
+                        delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren
                     }
-                ]);
+                }
+            ]);
+        }
+
+        const supportsSelection =
+            table.selectionMode === TableRowSelectionMode.single
+            || table.selectionMode === TableRowSelectionMode.multiple;
+        if (supportsSelection) {
+            const tablePageObject = new TablePageObject(table);
+            if (tablePageObject.getRenderedRowCount() > 0) {
+                await tablePageObject.clickRow(0);
+                await waitForUpdatesAsync();
             }
-        })
-    );
+        }
+    }
 };
 
 export const pinnedColumnsNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(

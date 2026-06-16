@@ -36,7 +36,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     public constructor(private readonly table: Table<TData>) {}
 
     public getGridTemplateColumns(): string {
-        return this.getVisibleColumns()
+        return this.getUnpinnedVisibleColumns()
             .map(column => {
                 const {
                     minPixelWidth,
@@ -78,7 +78,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.activeColumnIndex = this.leftColumnIndex + (this.activeColumnDivider % 2);
         this.dragStart = dragStart;
         this.currentTotalDelta = 0;
-        this.visibleColumns = this.getVisibleColumns();
+        this.visibleColumns = this.getUnpinnedVisibleColumns();
         this.setColumnsToFixedSize();
         this.initialTableScrollableWidth = this.table.viewport.scrollWidth;
         this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
@@ -204,7 +204,7 @@ export class TableLayoutManager<TData extends TableRecord> {
      */
     private getFirstLeftResizableColumnIndex(columnIndex: number): number {
         const visibleColumns = this.visibleColumns.length === 0
-            ? this.getVisibleColumns()
+            ? this.getUnpinnedVisibleColumns()
             : this.visibleColumns;
         for (let i = columnIndex; i >= 0; i--) {
             const column = visibleColumns[i];
@@ -225,7 +225,7 @@ export class TableLayoutManager<TData extends TableRecord> {
      */
     private getFirstRightResizableColumnIndex(columnIndex: number): number {
         const visibleColumns = this.visibleColumns.length === 0
-            ? this.getVisibleColumns()
+            ? this.getUnpinnedVisibleColumns()
             : this.visibleColumns;
         for (let i = columnIndex; i < visibleColumns.length; i++) {
             const column = visibleColumns[i];
@@ -362,7 +362,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         }
     }
 
-    private getVisibleColumns(): TableColumn[] {
+    private getUnpinnedVisibleColumns(): TableColumn[] {
         return this.table.columns.filter(column => !column.columnHidden && column.pinLocation !== TableColumnPinLocation.left);
     }
 
