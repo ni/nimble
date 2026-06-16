@@ -10,7 +10,7 @@ import {
     tableColumnEmptyGroupHeaderViewTag,
     tableColumnEmptyTag
 } from './table-column.fixtures';
-import { TableColumn, TableColumnPinLocation } from '..';
+import { TableColumn } from '..';
 import type { ColumnInternalsOptions } from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 

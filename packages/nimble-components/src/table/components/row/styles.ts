@@ -11,9 +11,9 @@ import {
     fillHoverSelectedColor,
     fillSelectedColor,
     mediumPadding,
-    popupBorderColor,
     smallPadding,
-    standardPadding
+    standardPadding,
+    tableRowBorderColor
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
@@ -142,7 +142,7 @@ export const styles = css`
         left: 0;
         background: ${applicationBackgroundColor};
         z-index: ${ZIndexLevels.zIndex1000};
-        box-shadow: inset -8px 0 6px -8px ${hexToRgbaCssColor('#000000', 0.12)};
+        box-shadow: inset -1px 0 0 0 ${tableRowBorderColor};
     }
 
     .cell-container {
@@ -246,6 +246,10 @@ export const styles = css`
                         ${hexToRgbaCssColor(White, 0.2)}
                     ),
                     ${applicationBackgroundColor};
+            }
+
+            .pinned-cell-container {
+                box-shadow: inset -1px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
             }
         `
     )

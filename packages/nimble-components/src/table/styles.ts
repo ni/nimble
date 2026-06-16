@@ -132,7 +132,7 @@ export const styles = css`
         align-self: stretch;
         background: ${applicationBackgroundColor};
         z-index: ${ZIndexLevels.zIndex1000};
-        box-shadow: inset -8px 0 6px -8px ${hexToRgbaCssColor('#000000', 0.12)};
+        box-shadow: inset -1px 0 0 0 ${tableRowBorderColor};
     }
 
     .header-container {
@@ -253,6 +253,10 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
+            .pinned-columns-header-container {
+                box-shadow: inset -1px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
+            }
+
             .table-row-container::before {
                 content: '';
                 width: 100%;
