@@ -30,7 +30,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-// Extended data with long text to enable horizontal scrolling and demonstrate clipping
 const data = [
     {
         id: '0',
@@ -84,24 +83,6 @@ const data = [
         isChild: true,
         quote: 'Cowabunga! Eat my shorts!',
         parentId: '4'
-    },
-    {
-        id: '6',
-        firstName: 'Lisa',
-        lastName: 'Simpson',
-        age: 10,
-        isChild: true,
-        quote: 'I am the Lizard Queen! Nothing can stop me now!',
-        parentId: '4'
-    },
-    {
-        id: '7',
-        firstName: 'Maggie',
-        lastName: 'Simpson',
-        age: 1,
-        isChild: true,
-        quote: '<pacifier noise>',
-        parentId: '4'
     }
 ] as const;
 
@@ -126,80 +107,65 @@ const hierarchyStates = [
 ] as const;
 type HierarchyState = (typeof hierarchyStates)[number];
 
-// Row selection states
-const selectionStates = [
-    ['No selection', { mode: undefined, selectedIds: [] }],
-    ['Single row selected', { mode: TableRowSelectionMode.single, selectedIds: ['5'] }],
-    ['Multiple rows selected', { mode: TableRowSelectionMode.multiple, selectedIds: ['0', '1', '3'] }]
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const selectionModeStates = [
+    undefined,
+    TableRowSelectionMode.single,
+    TableRowSelectionMode.multiple
 ] as const;
-type SelectionState = (typeof selectionStates)[number];
+type SelectionModeState = (typeof selectionModeStates)[number];
+
+const pinnedOnlyStates = [pinLocationStates[1]] as const;
 
 // Component that renders a table with the specified configurations
 const component = (
     [pinLocationName, pinLocation]: PinLocationState,
     [groupedStateName, groupedState]: GroupedState,
     [hierarchyStateName, hierarchyState]: HierarchyState,
-    [selectionName, selectionState]: SelectionState
+    selectionMode: SelectionModeState,
 ): ViewTemplate => {
     return html`
-        <div style="
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 8px;
-        ">
-            <div style="font-size: 12px; color: inherit; min-height: 16px;">
-                Pinned: ${pinLocationName} | ${groupedStateName} | ${hierarchyStateName} | ${selectionName}
-            </div>
-            <!-- Wrapper with overflow-hidden to demonstrate clipping of content behind pinned column -->
-            <div style="
-                width: 400px;
-                height: 300px;
-                overflow: hidden;
-                border: 1px solid #ccc;
-            ">
-                <${tableTag}
-                    selection-mode="${() => selectionState.mode}"
-                    id-field-name="id"
-                    parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
-                    style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
-                >
-                    <${tableColumnTextTag}
-                        field-name="firstName"
-                    >
-                        First Name
-                    </${tableColumnTextTag}>
-                    <${tableColumnTextTag}
-                        field-name="lastName"
-                    >
-                        Last Name
-                    </${tableColumnTextTag}>
-                    <${tableColumnNumberTextTag}
-                        field-name="age"
-                        sort-direction="descending"
-                        sort-index="1"
-                    >
-                        Age
-                    </${tableColumnNumberTextTag}>
-                    <${tableColumnMappingTag}
-                        field-name="isChild"
-                        key-type="boolean"
-                        pin-location="${() => pinLocation}"
-                        group-index="${() => (groupedState.grouped ? '0' : undefined)}"
-                        width-mode="${TableColumnMappingWidthMode.iconSize}"
-                    >
-                        <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}>
-                        <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
-                        <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
-                    </${tableColumnMappingTag}>
-                    <${tableColumnTextTag}
-                        field-name="quote"
-                    >
-                        Quote
-                    </${tableColumnTextTag}>
-                </${tableTag}>
-            </div>
-        </div>
+        <span>${() => `Pinned: ${pinLocationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`} </span>
+        <${tableTag}
+            selection-mode="${() => selectionMode}"
+            id-field-name="id"
+            parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
+            style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+        >
+            <${tableColumnTextTag}
+                field-name="firstName"
+            >
+                First Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="lastName"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnNumberTextTag}
+                field-name="age"
+                sort-direction="descending"
+                sort-index="1"
+            >
+                Age
+            </${tableColumnNumberTextTag}>
+            <${tableColumnMappingTag}
+                field-name="isChild"
+                key-type="boolean"
+                pin-location="${() => pinLocation}"
+                group-index="${() => (groupedState.grouped ? '0' : undefined)}"
+                width-mode="${TableColumnMappingWidthMode.iconSize}"
+            >
+                <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}>
+                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
+            </${tableColumnMappingTag}>
+            <${tableColumnTextTag}
+                field-name="quote"
+            >
+                Quote
+            </${tableColumnTextTag}>
+        </${tableTag}>
     `;
 };
 
@@ -224,15 +190,35 @@ const playFunction = async (): Promise<void> => {
     );
 };
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+export const pinnedColumnsNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         pinLocationStates,
         groupedStates,
         hierarchyStates,
-        selectionStates
+        [undefined]
     ])
 );
+pinnedColumnsNoSelectionThemeMatrix.storyName = 'Pinned Columns - No Selection Theme Matrix';
+pinnedColumnsNoSelectionThemeMatrix.play = playFunction;
 
-themeMatrix.storyName = 'Pinned Column Theme Matrix';
+export const pinnedColumnsSingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        pinnedOnlyStates,
+        groupedStates,
+        hierarchyStates,
+        [TableRowSelectionMode.single]
+    ])
+);
+pinnedColumnsSingleSelectionThemeMatrix.storyName = 'Pinned Columns - Single Selection Theme Matrix';
+pinnedColumnsSingleSelectionThemeMatrix.play = playFunction;
 
-themeMatrix.play = playFunction;
+export const pinnedColumnsMultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        pinnedOnlyStates,
+        groupedStates,
+        hierarchyStates,
+        [TableRowSelectionMode.multiple]
+    ])
+);
+pinnedColumnsMultipleSelectionThemeMatrix.storyName = 'Pinned Columns - Multiple Selection Theme Matrix';
+pinnedColumnsMultipleSelectionThemeMatrix.play = playFunction;
