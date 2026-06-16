@@ -25,6 +25,12 @@ public partial class OkTsTableColumnBreakpoint : ComponentBase
     public string? MenuSlot { get; set; }
 
     /// <summary>
+    /// Gets or sets the pin location for the column.
+    /// </summary>
+    [Parameter]
+    public TableColumnPinLocation? PinLocation { get; set; }
+
+    /// <summary>
     /// Whether or not the column should be hidden.
     /// </summary>
     [Parameter]

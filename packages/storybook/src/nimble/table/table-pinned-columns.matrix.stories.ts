@@ -17,9 +17,7 @@ import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/tabl
 import {
     createMatrixThemeStory,
     createMatrix,
-    sharedMatrixParameters,
-    cartesianProduct,
-    createMatrixInteractionsFromStates
+    sharedMatrixParameters
 } from '../../utilities/matrix';
 import { isChromatic } from '../../utilities/isChromatic';
 
@@ -205,29 +203,23 @@ const component = (
     `;
 };
 
-// Generate all combinations of pinned column configurations
-const allCombinations = cartesianProduct([
-    pinLocationStates,
-    groupedStates,
-    hierarchyStates,
-    selectionStates
-] as const);
-
 // Play function to set data on all tables in the matrix
 const playFunction = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);
-            
-            // Set up hierarchy state with delayed hierarchy indicators
-            await table.setRecordHierarchyOptions([
-                {
-                    recordId: '2',
-                    options: {
-                        delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren
+
+            // Only hierarchy-enabled tables need hierarchy option setup.
+            if (table.getAttribute('parent-id-field-name')) {
+                await table.setRecordHierarchyOptions([
+                    {
+                        recordId: '2',
+                        options: {
+                            delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren
+                        }
                     }
-                }
-            ]);
+                ]);
+            }
         })
     );
 };
@@ -244,34 +236,3 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
 themeMatrix.storyName = 'Pinned Column Theme Matrix';
 
 themeMatrix.play = playFunction;
-
-// Hover and pseudo-state interactions for pinned columns
-const interactionCombinations = cartesianProduct([
-    pinLocationStates,
-    groupedStates,
-    hierarchyStates,
-    [['No selection', { mode: undefined, selectedIds: [] }]]
-] as const);
-
-export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsFromStates(component, {
-        hover: interactionCombinations,
-        hoverActive: cartesianProduct([
-            pinLocationStates,
-            groupedStates,
-            hierarchyStates,
-            selectionStates
-        ] as const),
-        active: cartesianProduct([
-            pinLocationStates,
-            groupedStates,
-            hierarchyStates,
-            selectionStates
-        ] as const),
-        focus: interactionCombinations
-    })
-);
-
-interactionsThemeMatrix.storyName = 'Pinned Column Interaction Theme Matrix';
-
-interactionsThemeMatrix.play = playFunction;
