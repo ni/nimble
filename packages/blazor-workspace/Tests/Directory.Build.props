@@ -7,7 +7,8 @@
       Test assemblies are not part of any public API and follow test-specific conventions,
       so some analyzer/compiler rules that are enforced for product code are disabled here:
         CS1591 - Missing XML comment for publicly visible type or member
+        CA1707 - Identifiers should not contain underscores (test method naming convention)
     -->
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;CA1707</NoWarn>
   </PropertyGroup>
 </Project>
