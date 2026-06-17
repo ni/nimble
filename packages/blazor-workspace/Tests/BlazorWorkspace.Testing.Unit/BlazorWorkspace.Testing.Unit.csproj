@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="bunit" Version="2.7.2" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
     <PackageReference Include="xunit" Version="2.9.3" />
