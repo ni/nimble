@@ -82,9 +82,6 @@ export const styles = css`
         z-index: ${ZIndexLevels.zIndex1000};
     }
 
-    .expand-collapse-button-container.selectable {
-    }
-
     .expand-collapse-button {
         margin-left: calc(
             ${mediumPadding} + ${standardPadding} * 2 *

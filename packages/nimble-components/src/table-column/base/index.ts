@@ -9,8 +9,6 @@ import type { ColumnValidator } from './models/column-validator';
 import { slotTextContent } from '../../utilities/models/slot-text-content';
 import { TableColumnPinLocation } from '../../table/types';
 
-export { TableColumnPinLocation };
-
 /**
  * The base class for table columns
  */

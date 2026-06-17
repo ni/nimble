@@ -32,6 +32,24 @@ import {
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
 
+const tableHeaderTemplate = (includeGrouping: boolean) => html<TableColumn, Table>`
+    <${tableHeaderTag}
+        class="header"
+        ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}
+        sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
+        ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+        ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
+        @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
+        @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
+        :alignment="${x => x.columnInternals.headerAlignment}"
+        :isGrouped="${x => (includeGrouping
+            ? (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)
+            : undefined)}"
+    >
+        <slot name="${x => x.slot}"></slot>
+    </${tableHeaderTag}>
+`;
+
 export const template = html<Table>`
     <template
         role="treegrid"
@@ -54,18 +72,7 @@ export const template = html<Table>`
             <div role="rowgroup" class="header-row-container">
                 <div class="pinned-columns-header-container">
                     ${repeat(x => x.pinnedColumns, html<TableColumn, Table>`
-                                <${tableHeaderTag}
-                                    class="header"
-                                    ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}
-                                    sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
-                                    ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                                    ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
-                                    @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
-                                    @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
-                                    :alignment="${x => x.columnInternals.headerAlignment}"
-                                >
-                                    <slot name="${x => x.slot}"></slot>
-                                </${tableHeaderTag}>
+                        ${tableHeaderTemplate(false)}
                         `, { positioning: true })}
                 </div>
                 <div class="header-row" role="row">
@@ -120,19 +127,7 @@ export const template = html<Table>`
                                         @pointerdown="${(_, c) => c.parent.onLeftDividerPointerDown(c.event as PointerEvent, c.index)}">
                                     </div>
                                 `)}
-                                    <${tableHeaderTag}
-                                        class="header"
-                                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}
-                                        sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
-                                        ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                                        ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
-                                        @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
-                                        @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
-                                        :alignment="${x => x.columnInternals.headerAlignment}"
-                                        :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
-                                    >
-                                        <slot name="${x => x.slot}"></slot>
-                                    </${tableHeaderTag}>
+                                ${tableHeaderTemplate(true)}
                                 ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
                                     <div
                                         class="

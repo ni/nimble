@@ -1,7 +1,7 @@
 import { observable } from '@ni/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
-import { TableColumnPinLocation } from '../../table-column/base';
+import { TableColumnPinLocation } from '../../table/types';
 import type { TableRecord } from '../types';
 
 /**

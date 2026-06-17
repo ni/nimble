@@ -14,7 +14,7 @@ import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
-import { TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table-column/base';
+import { TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table/types';
 import {
     ExampleColumnFractionalWidthType,
     ExampleGroupingDisabledType,

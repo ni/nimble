@@ -20,7 +20,7 @@ import type {
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
-import { TableColumnPinLocation } from '../../../table-column/base';
+import { TableColumnPinLocation } from '../../../table/types';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { tableCellTag } from '../cell';
 import {

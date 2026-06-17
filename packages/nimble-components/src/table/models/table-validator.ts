@@ -155,7 +155,6 @@ export class TableValidator<TData extends TableRecord> {
         this.invalidColumnConfiguration = columns.some(
             x => !x.columnInternals.validator.isColumnValid
         );
-
         return !this.invalidColumnConfiguration;
     }
 

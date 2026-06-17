@@ -235,15 +235,12 @@ export class Table<
     @volatile
     public get pinnedColumnsGridTemplateColumns(): string {
         return this.pinnedColumns.map(column => {
-            const {
-                minPixelWidth
-            } = column.columnInternals;
             const resolvedPixelWidth = this.getPinnedColumnResolvedPixelWidth(
                 column
             );
             if (resolvedPixelWidth !== undefined) {
                 const coercedPixelWidth = Math.max(
-                    minPixelWidth,
+                    column.columnInternals.minPixelWidth,
                     resolvedPixelWidth
                 );
                 return `${coercedPixelWidth}px`;
@@ -754,7 +751,7 @@ export class Table<
                 column => !column.columnHidden && column.pinLocation !== TableColumnPinLocation.left
             );
             this.pinnedColumns = this.columns.filter(
-                column => column.pinLocation === TableColumnPinLocation.left && !column.columnHidden
+                column => !column.columnHidden && column.pinLocation === TableColumnPinLocation.left 
             );
         }
 

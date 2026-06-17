@@ -13,13 +13,45 @@ import {
     tableRowSelectLabel
 } from '../../../label-provider/table/label-tokens';
 import type { TableColumn } from '../../../table-column/base';
-import { TableColumnPinLocation } from '../../../table-column/base';
+import { TableColumnPinLocation } from '../../../table/types';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { spinnerTag } from '../../../spinner';
 import { SpinnerAppearance } from '../../../spinner/types';
 import type { CellViewSlotRequestEventDetail } from '../../types';
 import { uniquifySlotNameForColumn } from '../../models/utilities';
+
+const rowCellTemplate = html<TableColumn, TableRow>`
+    <${tableCellTag}
+        class="cell"
+        :cellState="${(_, c) => c.parent.cellStates[c.index]}"
+        :cellViewTemplate="${x => x.columnInternals.cellViewTemplate}"
+        :column="${x => x}"
+        column-id="${x => x.columnId}"
+        :recordId="${(_, c) => c.parent.recordId}"
+        ?has-action-menu="${x => !!x.actionMenuSlot}"
+        action-menu-label="${x => x.actionMenuLabel}"
+        @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
+        @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
+        @cell-view-slots-request="${(x, c) => c.parent.onCellViewSlotsRequest(x, c.event as CustomEvent<CellViewSlotRequestEventDetail>)}"
+        :nestingLevel="${(_, c) => c.parent.cellIndentLevels[c.index]}"
+    >
+
+        ${when((x, c) => ((c.parent as TableRow).currentActionMenuColumn === x) && x.actionMenuSlot, html<TableColumn, TableRow>`
+            <slot
+                name="${x => `row-action-menu-${x.actionMenuSlot!}`}"
+                slot="cellActionMenu"
+            ></slot>
+        `)}
+
+        ${repeat(x => x.columnInternals.slotNames, html<string, TableColumn>`
+            <slot
+                name="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
+                slot="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
+            ></slot>
+        `)}
+    </${tableCellTag}>
+`;
 
 export const template = html<TableRow>`
     <template 
@@ -31,35 +63,7 @@ export const template = html<TableRow>`
         <span class="pinned-cell-container">
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden && x.pinLocation === TableColumnPinLocation.left, html<TableColumn, TableRow>`
-                    <${tableCellTag}
-                        class="cell"
-                        :cellState="${(_, c) => c.parent.cellStates[c.index]}"
-                        :cellViewTemplate="${x => x.columnInternals.cellViewTemplate}"
-                        :column="${x => x}"
-                        column-id="${x => x.columnId}"
-                        :recordId="${(_, c) => c.parent.recordId}"
-                        ?has-action-menu="${x => !!x.actionMenuSlot}"
-                        action-menu-label="${x => x.actionMenuLabel}"
-                        @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
-                        @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
-                        @cell-view-slots-request="${(x, c) => c.parent.onCellViewSlotsRequest(x, c.event as CustomEvent<CellViewSlotRequestEventDetail>)}"
-                        :nestingLevel="${(_, c) => c.parent.cellIndentLevels[c.index]}"
-                    >
-
-                        ${when((x, c) => ((c.parent as TableRow).currentActionMenuColumn === x) && x.actionMenuSlot, html<TableColumn, TableRow>`
-                            <slot
-                                name="${x => `row-action-menu-${x.actionMenuSlot!}`}"
-                                slot="cellActionMenu"
-                            ></slot>
-                        `)}
-
-                        ${repeat(x => x.columnInternals.slotNames, html<string, TableColumn>`
-                            <slot
-                                name="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
-                                slot="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
-                            ></slot>
-                        `)}
-                    </${tableCellTag}>
+                    ${rowCellTemplate}
                 `)}
             `, { recycle: false, positioning: true })}
         </span>
@@ -113,35 +117,7 @@ export const template = html<TableRow>`
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden && x.pinLocation !== TableColumnPinLocation.left, html<TableColumn, TableRow>`
-                    <${tableCellTag}
-                        class="cell"
-                        :cellState="${(_, c) => c.parent.cellStates[c.index]}"
-                        :cellViewTemplate="${x => x.columnInternals.cellViewTemplate}"
-                        :column="${x => x}"
-                        column-id="${x => x.columnId}"
-                        :recordId="${(_, c) => c.parent.recordId}"
-                        ?has-action-menu="${x => !!x.actionMenuSlot}"
-                        action-menu-label="${x => x.actionMenuLabel}"
-                        @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
-                        @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
-                        @cell-view-slots-request="${(x, c) => c.parent.onCellViewSlotsRequest(x, c.event as CustomEvent<CellViewSlotRequestEventDetail>)}"
-                        :nestingLevel="${(_, c) => c.parent.cellIndentLevels[c.index]}"
-                    >
-
-                        ${when((x, c) => ((c.parent as TableRow).currentActionMenuColumn === x) && x.actionMenuSlot, html<TableColumn, TableRow>`
-                            <slot
-                                name="${x => `row-action-menu-${x.actionMenuSlot!}`}"
-                                slot="cellActionMenu"
-                            ></slot>
-                        `)}
-
-                        ${repeat(x => x.columnInternals.slotNames, html<string, TableColumn>`
-                            <slot
-                                name="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
-                                slot="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
-                            ></slot>
-                        `)}
-                    </${tableCellTag}>
+                    ${rowCellTemplate}
                 `)}
             `, { recycle: false, positioning: true })}
         </span>
