@@ -1,3 +1,6 @@
+# For diagnostics we want to enforce set to severity warning so caught on CI
+# but does not block iterative local development (appears as warning without failing build)
+
 [*.cs]
 
 csharp_style_namespace_declarations = file_scoped:warning
@@ -34,7 +37,7 @@ dotnet_diagnostic.IDE0066.severity = none
 # Disable general pattern matching rule for now, may opt in in the future
 dotnet_diagnostic.IDE0078.severity = none
 
-dotnet_diagnostic.IDE0005.severity = suggestion
+dotnet_diagnostic.IDE0005.severity = warning
 dotnet_diagnostic.IDE0100.severity = warning
 dotnet_diagnostic.IDE0200.severity = warning
 dotnet_diagnostic.IDE0300.severity = warning
