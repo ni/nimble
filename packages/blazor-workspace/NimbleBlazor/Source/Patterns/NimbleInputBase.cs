@@ -304,10 +304,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
     protected virtual void Dispose(bool disposing)
     {
         // When initialization in the SetParametersAsync method fails, the EditContext property can remain equal to null
-        if (EditContext is not null)
-        {
-            EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
-        }
+        EditContext?.OnValidationStateChanged -= _validationStateChangedHandler;
     }
 
     public void Dispose()

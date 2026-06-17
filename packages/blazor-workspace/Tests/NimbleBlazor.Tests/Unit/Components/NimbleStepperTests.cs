@@ -1,7 +1,6 @@
 using System;
-using System.Linq;
 using System.Linq.Expressions;
-using AngleSharp.Dom;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -10,54 +9,43 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleStepper"/>
 /// </summary>
-public class NimbleStepperTests
+public class NimbleStepperTests : BunitTestBase
 {
     [Fact]
     public void NimbleStepper_Rendered_HasStepperMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-stepper";
+        var stepper = Render<NimbleStepper>();
 
-        var stepper = context.RenderComponent<NimbleStepper>();
-
-        Assert.Contains(expectedMarkup, stepper.Markup);
+        Assert.NotNull(stepper.Find("nimble-stepper"));
     }
 
     [Fact]
     public void NimbleStepper_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleStepper>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleStepper>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Theory]
-    [InlineData(Orientation.Horizontal, "orientation=\"horizontal\"")]
-    [InlineData(Orientation.Vertical, "orientation=\"vertical\"")]
+    [InlineData(Orientation.Horizontal, "horizontal")]
+    [InlineData(Orientation.Vertical, "vertical")]
     public void StepperOrientation_AttributeIsSet(Orientation value, string expectedAttribute)
     {
         var stepper = RenderWithPropertySet(x => x.Orientation, value);
 
-        Assert.Contains(expectedAttribute, stepper.Markup);
+        stepper.AssertAttribute("orientation", expectedAttribute);
     }
 
     [Fact]
     public void NimbleStepperWithChildContent_HasChildMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var stepper = context.RenderComponent<NimbleStepper>(p => p.AddChildContent<NimbleStep>());
+        var stepper = Render<NimbleStepper>(p => p.AddChildContent<NimbleStep>());
 
-        var expectedMarkup = "nimble-step";
-        Assert.Contains(expectedMarkup, stepper.Markup);
+        Assert.NotNull(stepper.Find("nimble-step"));
     }
 
     private IRenderedComponent<NimbleStepper> RenderWithPropertySet<TProperty>(Expression<Func<NimbleStepper, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleStepper>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleStepper>(p => p.Add(propertyGetter, propertyValue));
     }
 }

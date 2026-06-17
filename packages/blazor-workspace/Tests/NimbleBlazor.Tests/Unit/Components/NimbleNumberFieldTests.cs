@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,18 +9,16 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleNumberField"/>
 /// </summary>
-public class NimbleNumberFieldTests
+public class NimbleNumberFieldTests : BunitTestBase
 {
     private const string NumberFieldMarkup = "nimble-number-field";
 
     [Fact]
     public void NimbleNumberField_Rendered_HasNumberFieldMarkup()
     {
-        var context = new TestContext();
+        var textField = Render<NimbleNumberField>();
 
-        var textField = context.RenderComponent<NimbleNumberField>();
-
-        Assert.Contains(NumberFieldMarkup, textField.Markup);
+        Assert.NotNull(textField.Find(NumberFieldMarkup));
     }
 
     [Theory]
@@ -29,8 +28,7 @@ public class NimbleNumberFieldTests
     [InlineData("1E+100")]
     public void Render_ChangeValue_HasMatchingValue(string value)
     {
-        var context = new TestContext();
-        var field = context.RenderComponent<NimbleNumberField>();
+        var field = Render<NimbleNumberField>();
 
         field.Find(NumberFieldMarkup).Change(value);
 
@@ -41,8 +39,7 @@ public class NimbleNumberFieldTests
     [Fact]
     public void NimbleNumberField_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        var exception = Record.Exception(() => context.RenderComponent<NimbleNumberField>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleNumberField>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -55,7 +52,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, numberField.Markup);
+        numberField.AssertAttribute("appearance", expectedAttribute);
     }
 
     [Fact]
@@ -63,7 +60,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.Step, 2.3);
 
-        Assert.Contains("step=\"2.3\"", numberField.Markup);
+        numberField.AssertAttribute("step", "2.3");
     }
 
     [Fact]
@@ -71,7 +68,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.HideStep, true);
 
-        Assert.Contains("hide-step", numberField.Markup);
+        numberField.AssertHasAttribute("hide-step");
     }
 
     [Fact]
@@ -79,7 +76,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.Min, 2.3);
 
-        Assert.Contains("min=\"2.3\"", numberField.Markup);
+        numberField.AssertAttribute("min", "2.3");
     }
 
     [Fact]
@@ -87,7 +84,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.Max, 2.3);
 
-        Assert.Contains("max=\"2.3\"", numberField.Markup);
+        numberField.AssertAttribute("max", "2.3");
     }
 
     [Fact]
@@ -95,7 +92,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.Placeholder, "enter a value");
 
-        Assert.Contains("placeholder=\"enter a value\"", numberField.Markup);
+        numberField.AssertAttribute("placeholder", "enter a value");
     }
 
     [Fact]
@@ -103,7 +100,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.ErrorText, "bad number");
 
-        Assert.Contains("error-text=\"bad number\"", numberField.Markup);
+        numberField.AssertAttribute("error-text", "bad number");
     }
 
     [Fact]
@@ -111,7 +108,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.ErrorVisible, true);
 
-        Assert.Contains("error-visible", numberField.Markup);
+        numberField.AssertHasAttribute("error-visible");
     }
 
     [Fact]
@@ -119,7 +116,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.Disabled, true);
 
-        Assert.Contains("disabled", numberField.Markup);
+        numberField.AssertHasAttribute("disabled");
     }
 
     [Fact]
@@ -127,7 +124,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.ReadOnly, true);
 
-        Assert.Contains("readonly", numberField.Markup);
+        numberField.AssertHasAttribute("readonly");
     }
 
     [Fact]
@@ -135,7 +132,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.RequiredVisible, true);
 
-        Assert.Contains("required-visible", numberField.Markup);
+        numberField.AssertHasAttribute("required-visible");
     }
 
     [Fact]
@@ -143,7 +140,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
 
-        Assert.Contains("appearance-readonly", numberField.Markup);
+        numberField.AssertHasAttribute("appearance-readonly");
     }
 
     [Fact]
@@ -151,7 +148,7 @@ public class NimbleNumberFieldTests
     {
         var numberField = RenderWithPropertySet(x => x.FullBleed, true);
 
-        Assert.Contains("full-bleed", numberField.Markup);
+        numberField.AssertHasAttribute("full-bleed");
     }
 
     [Fact]
@@ -161,7 +158,7 @@ public class NimbleNumberFieldTests
         {
             var numberField = RenderWithPropertySet(x => x.Value, 1.5);
 
-            Assert.Contains("current-value=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("current-value", "1.5");
         }
     }
 
@@ -172,7 +169,7 @@ public class NimbleNumberFieldTests
         {
             var numberField = RenderWithPropertySet(x => x.Step, 1.5);
 
-            Assert.Contains("step=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("step", "1.5");
         }
     }
 
@@ -183,7 +180,7 @@ public class NimbleNumberFieldTests
         {
             var numberField = RenderWithPropertySet(x => x.Min, 1.5);
 
-            Assert.Contains("min=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("min", "1.5");
         }
     }
 
@@ -194,14 +191,12 @@ public class NimbleNumberFieldTests
         {
             var numberField = RenderWithPropertySet(x => x.Max, 1.5);
 
-            Assert.Contains("max=\"1.5\"", numberField.Markup);
+            numberField.AssertAttribute("max", "1.5");
         }
     }
 
     private IRenderedComponent<NimbleNumberField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleNumberField>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleNumberField>(p => p.Add(propertyGetter, propertyValue));
     }
 }

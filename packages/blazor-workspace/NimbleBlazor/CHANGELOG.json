@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 15 Jun 2026 17:15:51 GMT",
+      "version": "21.1.0",
+      "tag": "@ni/nimble-blazor_v21.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "fe9b63eed620452d81f1dd9bd5ed3b7e16ded148",
+            "comment": "Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor WebAssembly apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Jun 2026 17:09:52 GMT",
       "version": "21.0.4",
       "tag": "@ni/nimble-blazor_v21.0.4",

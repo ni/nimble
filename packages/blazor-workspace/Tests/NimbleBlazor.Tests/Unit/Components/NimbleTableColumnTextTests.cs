@@ -1,21 +1,19 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
-#nullable enable
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleTableColumnText"/>
 /// </summary>
-public class NimbleTableColumnTextTests
+public class NimbleTableColumnTextTests : BunitTestBase
 {
     [Fact]
     public void NimbleTableColumnText_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnText>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTableColumnText>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -24,8 +22,7 @@ public class NimbleTableColumnTextTests
     {
         var table = RenderWithPropertySet(x => x.FieldName!, "FirstName");
 
-        var expectedMarkup = @"field-name=""FirstName""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("field-name", "FirstName");
     }
 
     [Fact]
@@ -33,15 +30,12 @@ public class NimbleTableColumnTextTests
     {
         var table = RenderWithPropertySet(x => x.Placeholder, "Custom placeholder");
 
-        var expectedMarkup = @"placeholder=""Custom placeholder""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("placeholder", "Custom placeholder");
     }
 
     private IRenderedComponent<NimbleTableColumnText> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnText, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTableColumnText>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTableColumnText>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

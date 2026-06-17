@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -13,21 +14,15 @@ public class NimbleAnchorButtonTests : NimbleAnchorBaseTests<NimbleAnchorButton>
     [Fact]
     public void NimbleAnchorButton_Render_HasAnchorButtonMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-anchor-button";
+        var button = Render<NimbleAnchorButton>();
 
-        var button = context.RenderComponent<NimbleAnchorButton>();
-
-        Assert.Contains(expectedMarkup, button.Markup);
+        Assert.NotNull(button.Find("nimble-anchor-button"));
     }
 
     [Fact]
     public void NimbleAnchorButton_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorButton>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleAnchorButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -39,23 +34,21 @@ public class NimbleAnchorButtonTests : NimbleAnchorBaseTests<NimbleAnchorButton>
     {
         var button = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        button.AssertAttribute("appearance", expectedAttribute);
     }
 
     [Theory]
-    [InlineData(ButtonAppearanceVariant.Default, "<nimble-anchor-button>")]
-    [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
-    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedMarkup)
+    [InlineData(ButtonAppearanceVariant.Default, null)]
+    [InlineData(ButtonAppearanceVariant.Primary, "primary")]
+    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string? expectedValue)
     {
         var button = RenderWithPropertySet(x => x.AppearanceVariant, value);
 
-        Assert.Contains(expectedMarkup, button.Markup);
+        button.AssertAttribute("appearance-variant", expectedValue);
     }
 
     private IRenderedComponent<NimbleAnchorButton> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchorButton, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleAnchorButton>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleAnchorButton>(p => p.Add(propertyGetter, propertyValue));
     }
 }

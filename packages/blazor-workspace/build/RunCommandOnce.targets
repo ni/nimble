@@ -1,0 +1,32 @@
+<Project>
+  <!--
+    Runs one or more shell commands exactly once per build, even when a project multi-targets.
+
+    Usage - add one item per command in the importing project, then import this file:
+      <ItemGroup>
+        <RunCommandOnce Include="npm run copy-resources-nimble" />
+        <RunCommandOnce Include="another command to also run once" />
+      </ItemGroup>
+      <Import Project="..\build\RunCommandOnce.targets" />
+
+    Run-once behavior:
+    When a project multi-targets (e.g. net8.0;net10.0), MSBuild splits the build into an outer build
+    plus one parallel inner build per framework. Running a command in the inner builds would run it
+    once per framework (and can race on shared outputs such as wwwroot). This target runs exactly once:
+      - Multi-target build: in the outer build only ('$(TargetFramework)' is empty there), hooked
+        before DispatchToInnerBuilds so it completes before the per-framework builds start.
+      - Single-target build: in the normal build ('$(TargetFrameworks)' is empty), hooked before
+        BeforeBuild.
+    Keeping this in MSBuild (rather than an npm pre-step) ensures Visual Studio Build/Rebuild/Clean
+    flows trigger it correctly.
+
+    Multiple commands:
+    The @(RunCommandOnce) items are batched, so the Exec below runs once per item. Commands run from
+    the blazor-workspace directory (this file's parent's parent).
+  -->
+  <Target Name="RunCommandOnce"
+          BeforeTargets="BeforeBuild;DispatchToInnerBuilds"
+          Condition="('$(TargetFramework)' == '' or '$(TargetFrameworks)' == '') and '@(RunCommandOnce)' != ''">
+    <Exec Command="%(RunCommandOnce.Identity)" WorkingDirectory="$(MSBuildThisFileDirectory).." />
+  </Target>
+</Project>

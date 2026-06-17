@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +9,19 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleTextField"/>
 /// </summary>
-public class NimbleTextFieldTests
+public class NimbleTextFieldTests : BunitTestBase
 {
     [Fact]
     public void NimbleTextField_Rendered_HasTextFieldMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-text-field";
-
-        var textField = context.RenderComponent<NimbleTextField>();
-
-        Assert.Contains(expectedMarkup, textField.Markup);
+        var textField = Render<NimbleTextField>();
+        Assert.NotNull(textField.Find("nimble-text-field"));
     }
 
     [Fact]
     public void NimbleTextField_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTextField>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTextField>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -41,7 +35,7 @@ public class NimbleTextFieldTests
     {
         var textField = RenderWithPropertySet(x => x.TextFieldType, value);
 
-        Assert.Contains(expectedAttribute, textField.Markup);
+        textField.AssertAttribute("type", expectedAttribute);
     }
 
     [Theory]
@@ -53,7 +47,7 @@ public class NimbleTextFieldTests
     {
         var textField = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, textField.Markup);
+        textField.AssertAttribute("appearance", expectedAttribute);
     }
 
     [Fact]
@@ -61,7 +55,7 @@ public class NimbleTextFieldTests
     {
         var textField = RenderWithPropertySet(x => x.ErrorText, "bad number");
 
-        Assert.Contains("error-text=\"bad number\"", textField.Markup);
+        textField.AssertAttribute("error-text", "bad number");
     }
 
     [Fact]
@@ -69,7 +63,7 @@ public class NimbleTextFieldTests
     {
         var textField = RenderWithPropertySet(x => x.ErrorVisible, true);
 
-        Assert.Contains("error-visible", textField.Markup);
+        textField.AssertHasAttribute("error-visible");
     }
 
     [Fact]
@@ -77,7 +71,7 @@ public class NimbleTextFieldTests
     {
         var textField = RenderWithPropertySet(x => x.FullBleed, true);
 
-        Assert.Contains("full-bleed", textField.Markup);
+        textField.AssertHasAttribute("full-bleed");
     }
 
     [Fact]
@@ -85,7 +79,7 @@ public class NimbleTextFieldTests
     {
         var textField = RenderWithPropertySet(x => x.RequiredVisible, true);
 
-        Assert.Contains("required-visible", textField.Markup);
+        textField.AssertHasAttribute("required-visible");
     }
 
     [Fact]
@@ -93,13 +87,11 @@ public class NimbleTextFieldTests
     {
         var textField = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
 
-        Assert.Contains("appearance-readonly", textField.Markup);
+        textField.AssertHasAttribute("appearance-readonly");
     }
 
     private IRenderedComponent<NimbleTextField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTextField, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTextField>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTextField>(p => p.Add(propertyGetter, propertyValue));
     }
 }

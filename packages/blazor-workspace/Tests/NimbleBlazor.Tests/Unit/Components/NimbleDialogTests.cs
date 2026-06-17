@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
@@ -9,25 +10,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleDialog"/>
 /// </summary>
-public class NimbleDialogTests
+public class NimbleDialogTests : BunitTestBase
 {
     [Fact]
     public void NimbleDialog_Rendered_HasDialogMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-dialog";
-        var dialog = context.RenderComponent<NimbleDialog<string>>();
+        var dialog = Render<NimbleDialog<string>>();
 
-        Assert.Contains(expectedMarkup, dialog.Markup);
+        Assert.NotNull(dialog.Find("nimble-dialog"));
     }
 
     [Fact]
     public void NimbleDialog_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleDialog<string>>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleDialog<string>>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -35,9 +31,8 @@ public class NimbleDialogTests
     public void NimbleDialog_WithChildContent_HasChildMarkup()
     {
         var dialog = RenderDialogWithContent<NimbleButton>();
-        var expectedMarkup = "nimble-button";
 
-        Assert.Contains(expectedMarkup, dialog.Markup);
+        Assert.NotNull(dialog.Find("nimble-button"));
     }
 
     [Fact]
@@ -45,7 +40,7 @@ public class NimbleDialogTests
     {
         var dialog = RenderDialogWithPropertySet(x => x.PreventDismiss, true);
 
-        Assert.Contains("prevent-dismiss", dialog.Markup);
+        dialog.AssertHasAttribute("prevent-dismiss");
     }
 
     [Fact]
@@ -53,7 +48,7 @@ public class NimbleDialogTests
     {
         var dialog = RenderDialogWithPropertySet(x => x.PreventDismiss, false);
 
-        Assert.DoesNotContain("prevent-dismiss", dialog.Markup);
+        dialog.AssertAttribute("prevent-dismiss", null);
     }
 
     [Fact]
@@ -61,7 +56,7 @@ public class NimbleDialogTests
     {
         var dialog = RenderDialogWithPropertySet(x => x.HeaderHidden, true);
 
-        Assert.Contains("header-hidden", dialog.Markup);
+        dialog.AssertHasAttribute("header-hidden");
     }
 
     [Fact]
@@ -69,7 +64,7 @@ public class NimbleDialogTests
     {
         var dialog = RenderDialogWithPropertySet(x => x.HeaderHidden, false);
 
-        Assert.DoesNotContain("header-hidden", dialog.Markup);
+        dialog.AssertAttribute("header-hidden", null);
     }
 
     [Fact]
@@ -77,7 +72,7 @@ public class NimbleDialogTests
     {
         var dialog = RenderDialogWithPropertySet(x => x.FooterHidden, true);
 
-        Assert.Contains("footer-hidden", dialog.Markup);
+        dialog.AssertHasAttribute("footer-hidden");
     }
 
     [Fact]
@@ -85,21 +80,17 @@ public class NimbleDialogTests
     {
         var dialog = RenderDialogWithPropertySet(x => x.FooterHidden, false);
 
-        Assert.DoesNotContain("footer-hidden", dialog.Markup);
+        dialog.AssertAttribute("footer-hidden", null);
     }
 
     private IRenderedComponent<NimbleDialog<string>> RenderDialogWithContent<TContent>()
         where TContent : IComponent
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleDialog<string>>(parameters => parameters.AddChildContent<TContent>());
+        return Render<NimbleDialog<string>>(parameters => parameters.AddChildContent<TContent>());
     }
 
     private IRenderedComponent<NimbleDialog<string>> RenderDialogWithPropertySet<TProperty>(Expression<Func<NimbleDialog<string>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleDialog<string>>(parameters => parameters.Add(propertyGetter, propertyValue));
+        return Render<NimbleDialog<string>>(parameters => parameters.Add(propertyGetter, propertyValue));
     }
 }
