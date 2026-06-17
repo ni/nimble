@@ -34,7 +34,6 @@ dotnet_diagnostic.IDE0066.severity = none
 # Disable general pattern matching rule for now, may opt in in the future
 dotnet_diagnostic.IDE0078.severity = none
 
-# Disabled during .NET 8 updates
 dotnet_diagnostic.IDE0005.severity = suggestion
 dotnet_diagnostic.IDE0100.severity = warning
 dotnet_diagnostic.IDE0200.severity = warning
@@ -46,9 +45,8 @@ dotnet_diagnostic.IDE0090.severity = warning
 dotnet_diagnostic.IDE0028.severity = warning
 dotnet_diagnostic.BL0007.severity = warning
 dotnet_diagnostic.SYSLIB1045.severity = warning
-# dotnet format command throws an exception when IDE0130 (dotnet_style_namespace_match_folder)
-#   triggers - see https://github.com/dotnet/format/issues/1623
-dotnet_diagnostic.IDE0130.severity = suggestion
+# Disable 'Namespace does not match folder structure'
+dotnet_diagnostic.IDE0130.severity = none
 
 [*.razor.cs]
 # Spurious 'unused' warnings when properties/methods are only used from Razor files
@@ -63,5 +61,3 @@ dotnet_diagnostic.IDE0005.severity = none
 
 [{Tests,Examples}/**/*.cs]
 dotnet_style_namespace_match_folder = false
-# Disable 'Namespace does not match folder structure'
-dotnet_diagnostic.IDE0130.severity = none
