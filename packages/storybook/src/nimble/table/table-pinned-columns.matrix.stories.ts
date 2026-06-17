@@ -127,6 +127,13 @@ const component = (
     selectionMode: SelectionModeState,
 ): ViewTemplate => {
     return html`
+        <style>
+            ${tableTag} {
+                /** Fixed width keeps horizontal overflow deterministic for matrix snapshots. */
+                width: 600px;
+                margin-bottom: 20px;
+            }
+        </style>
         <span>${() => `Pinned: ${pinLocationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`} </span>
         <${tableTag}
             selection-mode="${() => selectionMode}"
@@ -136,11 +143,13 @@ const component = (
         >
             <${tableColumnTextTag}
                 field-name="firstName"
+                min-pixel-width="160"
             >
                 First Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="lastName"
+                min-pixel-width="160"
             >
                 Last Name
             </${tableColumnTextTag}>
@@ -164,6 +173,7 @@ const component = (
             </${tableColumnMappingTag}>
             <${tableColumnTextTag}
                 field-name="quote"
+                min-pixel-width="520"
             >
                 Quote
             </${tableColumnTextTag}>
@@ -195,6 +205,16 @@ const playFunction = async (): Promise<void> => {
                 const tablePageObject = new TablePageObject(table);
                 if (tablePageObject.getRenderedRowCount() > 0) {
                     await tablePageObject.clickRow(0);
+                    await waitForUpdatesAsync();
+                }
+            }
+
+            const isPinnedLeftVariant = table.pinnedColumns.length > 0;
+            if (isPinnedLeftVariant) {
+                const tablePageObject = new TablePageObject(table);
+                if (tablePageObject.isHorizontalScrollbarVisible()) {
+                    table.viewport.scrollLeft = table.viewport.scrollWidth;
+                    // Wait after scroll to avoid capturing intermediate layout states.
                     await waitForUpdatesAsync();
                 }
             }
