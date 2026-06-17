@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 08 Jun 2026 21:55:01 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 17 Jun 2026 21:07:03 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.20.2
+
+Wed, 17 Jun 2026 21:07:03 GMT
+
+### Patches
+
+- Enter doesn't send chat message when send is disabled. ([ni/nimble@5de3661](https://github.com/ni/nimble/commit/5de3661a7c7050510cf661a7ee00c2eba0cf9f92))
 
 ## 6.20.1
 
