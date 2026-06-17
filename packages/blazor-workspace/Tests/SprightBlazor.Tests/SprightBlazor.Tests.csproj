@@ -3,16 +3,9 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <Nullable>enable</Nullable>
     <RootNamespace>SprightBlazor.Tests</RootNamespace>
     <AssemblyName>SprightBlazor.Tests</AssemblyName>
   </PropertyGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="bunit" Version="2.7.2" />

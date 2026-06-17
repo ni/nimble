@@ -1,0 +1,15 @@
+<Project>
+  <!-- Inherit the workspace-wide build settings from the parent Directory.Build.props. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!--
+      The example apps are internal demos and are not a public or cross-language API,
+      so some analyzer rules that are enforced for product code are disabled here:
+        CA1716 - Identifiers should not match keywords. The 'Demo.Shared' namespace
+                 segment 'Shared' is a reserved keyword in Visual Basic, but these
+                 example projects are never consumed from VB.
+    -->
+    <NoWarn>$(NoWarn);CA1716</NoWarn>
+  </PropertyGroup>
+</Project>
