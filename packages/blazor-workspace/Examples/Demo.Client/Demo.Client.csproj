@@ -6,18 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="packages.lock.json" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.8" PrivateAssets="all" />
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.100.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="packages.lock.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
   </ItemGroup>
 

@@ -17,6 +17,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DefaultItemExcludes>$(DefaultItemExcludes);packages.lock.json</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>

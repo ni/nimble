@@ -46,7 +46,6 @@
 
   <ItemGroup>
     <None Include="package.json" />
-    <None Include="packages.lock.json" />
     <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
