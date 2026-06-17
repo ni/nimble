@@ -83,6 +83,14 @@ export const styles = css`
                 ${borderHoverColor};
     }
 
+    :host(${focusVisible}) .pinned-cell-container {
+        box-shadow:
+            inset calc(2 * ${borderWidth}) 0 0 ${borderHoverColor},
+            inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
+            inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
+            inset -2px 0 0 0 ${tableRowBorderColor};
+        }
+
     .expand-collapse-button {
         flex: 0 0 auto;
         margin-left: max(
@@ -222,6 +230,13 @@ export const styles = css`
 
             :host([selected][allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.2)};
+            }
+            :host(${focusVisible}) .pinned-cell-container {
+                box-shadow:
+                    inset calc(2 * ${borderWidth}) 0 0 ${borderHoverColor},
+                    inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
+                    inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
+                    inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
             }
 
             :host([selectable][allow-hover]:hover) .pinned-cell-container {
