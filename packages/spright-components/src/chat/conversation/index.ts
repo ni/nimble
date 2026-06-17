@@ -3,7 +3,8 @@ import { attr, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import { ChatConversationAppearance } from './types';
-import { ChatConversationScrollManager } from './scroll-manager';
+import { ChatConversationScrollManager } from './utils/scroll-manager';
+import { ChatConversationScrollApi } from './utils/scroll-api';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -60,6 +61,7 @@ export class ChatConversation extends FoundationElement {
     public defaultSlot!: HTMLSlotElement;
 
     private scrollManager: ChatConversationScrollManager | null = null;
+    private scrollApi: ChatConversationScrollApi | null = null;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -110,17 +112,24 @@ export class ChatConversation extends FoundationElement {
     }
 
     private connectScrollManager(): void {
-        this.scrollManager = new ChatConversationScrollManager(
-            this.messagesContainer!,
-            this,
-            this.defaultSlot
-        );
-        this.scrollManager.connect();
+        if (this.messagesContainer !== null) {
+            this.scrollApi = new ChatConversationScrollApi(
+                this.messagesContainer,
+                this,
+                this.defaultSlot
+            );
+            this.scrollManager = new ChatConversationScrollManager(
+                this.scrollApi,
+                this
+            );
+            this.scrollManager.connect();
+        }
     }
 
     private disconnectScrollManager(): void {
         this.scrollManager?.disconnect();
         this.scrollManager = null;
+        this.scrollApi = null;
     }
 }
 
