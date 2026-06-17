@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Enter doesn't send chat message when send is disabled.",
+  "packageName": "@ni/spright-components",
+  "email": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
