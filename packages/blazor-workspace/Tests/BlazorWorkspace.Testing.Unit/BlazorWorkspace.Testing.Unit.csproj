@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <Nullable>enable</Nullable>
     <RootNamespace>BlazorWorkspace.Testing.Unit</RootNamespace>
     <AssemblyName>BlazorWorkspace.Testing.Unit</AssemblyName>
     <IsTestProject>false</IsTestProject>

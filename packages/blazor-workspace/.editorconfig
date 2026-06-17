@@ -1,8 +1,7 @@
-# For diagnostics we want to enforce set to severity warning so caught on CI
+# For diagnostics we want to enforce, set to severity `warning` so they are caught on CI
 # but does not block iterative local development (appears as warning without failing build)
 
 [*.cs]
-
 # Use file-scoped namespace declarations
 csharp_style_namespace_declarations = file_scoped
 dotnet_diagnostic.IDE0161.severity = warning

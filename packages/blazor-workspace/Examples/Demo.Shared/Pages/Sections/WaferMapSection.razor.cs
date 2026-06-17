@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Apache.Arrow;
 using Apache.Arrow.Types;
 using NimbleBlazor;

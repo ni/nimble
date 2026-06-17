@@ -8,10 +8,20 @@
         NU1701 - Package was restored using a different target framework (compatibility fallback).
         NU1900 - Unable to contact the package source during restore (transient/offline).
         CS0122 - Member is inaccessible due to its protection level (generated code that targets inaccessible members in comments).
+        IDE0005 (unnecessary usings) is enforced via 'dotnet format' lint instead of on build.
+        EnableGenerateDocumentationFile - Advisory ignored for now. Public API in published libraries not
+          covered yet so cannot yet enable GenerateDocumentationFile.
     -->
     <WarningsNotAsErrors>;NU1701;NU1900;CS0122</WarningsNotAsErrors>
-    <NoWarn>;NU1701;NU1900;CS0122</NoWarn>
+    <NoWarn>;NU1701;NU1900;CS0122;EnableGenerateDocumentationFile</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
