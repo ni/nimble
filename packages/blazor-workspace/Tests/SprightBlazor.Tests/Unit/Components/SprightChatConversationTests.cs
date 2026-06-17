@@ -44,7 +44,7 @@ public class SprightChatConversationTests : BunitTestBase
         Assert.Contains("auto-scroll", component.Markup);
     }
 
-    private static IRenderedComponent<SprightChatConversation> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatConversation, TProperty>> propertyGetter, TProperty propertyValue)
+    private IRenderedComponent<SprightChatConversation> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatConversation, TProperty>> propertyGetter, TProperty propertyValue)
     {
         return Render<SprightChatConversation>(p => p.Add(propertyGetter, propertyValue));
     }
