@@ -202,6 +202,7 @@ describe('FvMasterDetailList', () => {
     it('filters items in place using title and subtitle text', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
+        await waitForUpdatesAsync();
 
         const input = getRequiredElement<HTMLInputElement>('.filter-input');
         input.value = 'lab c';
@@ -216,6 +217,7 @@ describe('FvMasterDetailList', () => {
     it('moves selection up and down with arrow keys across visible items', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
+        await waitForUpdatesAsync();
 
         const input = getRequiredElement<HTMLInputElement>('.filter-input');
         input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));

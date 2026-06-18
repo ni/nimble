@@ -14,6 +14,7 @@ export const template = html<FvMasterDetailList>`
                 aria-activedescendant="${x => x.activeItemId}"
                 aria-label="Filter list items"
                 role="combobox"
+                aria-haspopup="listbox"
                 aria-autocomplete="list"
                 aria-expanded="true"
                 ${ref('captureFilterInput')}
