@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type TableColumnMapping, tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { type BooleanValueOrAttribute, type NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
-import { NimbleTableColumnBaseDirective, TableColumnSortDirection } from '@ni/nimble-angular/table-column';
+import { NimbleTableColumnBaseDirective, TableColumnPinLocation, TableColumnSortDirection } from '@ni/nimble-angular/table-column';
 import { MappingKeyType } from '@ni/nimble-components/dist/esm/table-column/enum-base/types';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 
@@ -47,6 +47,14 @@ export class NimbleTableColumnMappingDirective extends NimbleTableColumnBaseDire
 
     @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', toNullableNumberProperty(value));
+    }
+
+    public get pinLocation(): TableColumnPinLocation {
+        return this.elementRef.nativeElement.pinLocation;
+    }
+
+    @Input('pin-location') public set pinLocation(value: TableColumnPinLocation) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'pinLocation', value);
     }
 
     public get groupIndex(): number | null | undefined {

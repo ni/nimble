@@ -55,13 +55,6 @@ describe('TableColumn', () => {
         expect(element.columnInternals.currentPixelWidth).toBe(200);
     });
 
-    it('has expected defaults for pin-location', async () => {
-        await connect();
-
-        expect(element.pinLocation).toBeUndefined();
-        expect(element.hasAttribute('pin-location')).toBeFalse();
-    });
-
     describe('with a custom constructor', () => {
         // Seems subject to change how errors are handled during custom
         // element construction: https://github.com/WICG/webcomponents/issues/635

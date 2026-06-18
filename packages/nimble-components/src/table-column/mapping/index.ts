@@ -14,6 +14,7 @@ import {
 } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
+import { mixinPinnableColumnAPI } from '../mixins/pinnable-column';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
 import { TableColumnMappingValidator } from './models/table-column-mapping-validator';
@@ -43,11 +44,13 @@ declare global {
  */
 export class TableColumnMapping extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
-        mixinSortableColumnAPI(
-            TableColumnEnumBase<
-                TableColumnEnumColumnConfig,
-                TableColumnMappingValidator
-            >
+        mixinPinnableColumnAPI(
+            mixinSortableColumnAPI(
+                TableColumnEnumBase<
+                    TableColumnEnumColumnConfig,
+                    TableColumnMappingValidator
+                >
+            )
         )
     )
 ) {

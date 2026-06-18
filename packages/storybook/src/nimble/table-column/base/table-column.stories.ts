@@ -2,10 +2,9 @@ import { html, ref, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
-import {
-    TableColumnSortDirection,
-    TableRowSelectionMode
-} from '@ni/nimble-components/dist/esm/table/types';
+import { TableColumnSortDirection,
+    TableRowSelectionMode,
+    TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table/types';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { iconCommentTag } from '@ni/nimble-components/dist/esm/icons/comment';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
@@ -14,7 +13,7 @@ import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
-import { TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table/types';
+
 import {
     ExampleColumnFractionalWidthType,
     ExampleGroupingDisabledType,
@@ -202,7 +201,6 @@ interface ApiTableArgs extends SharedTableArgs {
     groupingDisabled: undefined;
     fractionalWidth: undefined;
     minPixelWidth: undefined;
-    pinLocation: undefined;
 }
 
 export const api: StoryObj<ApiTableArgs> = {
@@ -292,13 +290,6 @@ export const api: StoryObj<ApiTableArgs> = {
             name: 'min-pixel-width',
             description:
                 'Configures the minimum width that the column can be interactively resized to. See **Column width** for more information.',
-            table: { category: apiCategory.attributes },
-            control: false
-        },
-        pinLocation: {
-            name: 'pin-location',
-            description:
-                'Configures where the column is pinned. Set to `left` to pin a fixed-width column to the left side of the table. See **Pinned columns** for more information.',
             table: { category: apiCategory.attributes },
             control: false
         }

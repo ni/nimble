@@ -1,8 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
 import type { DelegatedEventEventDetails, TableColumnValidity } from '@ni/nimble-components/dist/esm/table-column/base/types';
-import { TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table-column/base';
-import { TableColumnSortDirection } from '@ni/nimble-components/dist/esm/table/types';
+import { TableColumnPinLocation, TableColumnSortDirection } from '@ni/nimble-components/dist/esm/table/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export { TableColumnPinLocation, TableColumnSortDirection, type DelegatedEventEventDetails, type TableColumnValidity };
@@ -42,14 +41,6 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
 
     @Input('column-hidden') public set columnHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'columnHidden', toBooleanProperty(value));
-    }
-
-    public get pinLocation(): TableColumnPinLocation {
-        return this.elementRef.nativeElement.pinLocation;
-    }
-
-    @Input('pin-location') public set pinLocation(value: TableColumnPinLocation) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'pinLocation', value);
     }
 
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<T>) {}

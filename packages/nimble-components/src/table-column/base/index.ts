@@ -7,7 +7,6 @@ import {
 import type { TableColumnValidity } from './types';
 import type { ColumnValidator } from './models/column-validator';
 import { slotTextContent } from '../../utilities/models/slot-text-content';
-import { TableColumnPinLocation } from '../../table/types';
 
 /**
  * The base class for table columns
@@ -37,9 +36,6 @@ export abstract class TableColumn<
 
     @attr({ attribute: 'column-hidden', mode: 'boolean' })
     public columnHidden = false;
-
-    @attr({ attribute: 'pin-location' })
-    public pinLocation: TableColumnPinLocation;
 
     /** @internal */
     @observable

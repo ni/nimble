@@ -7,6 +7,7 @@ import {
     repeat,
     when
 } from '@ni/fast-element';
+import type { ViewTemplate } from '@ni/fast-element';
 import type { VirtualItem } from '@tanstack/virtual-core';
 import type { Table } from '.';
 import { tableHeaderTag } from './components/header';
@@ -32,7 +33,7 @@ import {
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
 
-const tableHeaderTemplate = (includeGrouping: boolean) => html<TableColumn, Table>`
+const tableHeaderTemplate = (includeGrouping: boolean): ViewTemplate<TableColumn, Table> => html<TableColumn, Table>`
     <${tableHeaderTag}
         class="header"
         ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}

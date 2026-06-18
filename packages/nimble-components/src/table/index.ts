@@ -34,6 +34,7 @@ import type {
 } from '@tanstack/table-core';
 import { keyEnter } from '@ni/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
+import { getColumnPinLocation } from '../table-column/mixins/pinnable-column';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
@@ -748,10 +749,12 @@ export class Table<
         if (this.tableUpdateTracker.updateColumnWidths) {
             this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
             this.visibleColumns = this.columns.filter(
-                column => !column.columnHidden && column.pinLocation !== TableColumnPinLocation.left
+                column => !column.columnHidden
+                    && getColumnPinLocation(column) !== TableColumnPinLocation.left
             );
             this.pinnedColumns = this.columns.filter(
-                column => !column.columnHidden && column.pinLocation === TableColumnPinLocation.left 
+                column => !column.columnHidden
+                    && getColumnPinLocation(column) === TableColumnPinLocation.left
             );
         }
 
