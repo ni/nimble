@@ -71,6 +71,10 @@ export const styles = css`
         outline-offset: calc(-2 * ${borderWidth});
     }
 
+    :host(${focusVisible}) .pinned-column-spacer.has-pinned-columns {
+        box-shadow: inset 2px -2px 0 ${borderHoverColor};
+    }
+
     .pinned-column-spacer {
         height: 100%;
     }
@@ -113,7 +117,6 @@ export const styles = css`
 
     .checkbox-container.has-pinned-columns {
         position: relative;
-        background: ${tableRowBorderColor};
     }
 
     .selection-checkbox {
