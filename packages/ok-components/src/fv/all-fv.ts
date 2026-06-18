@@ -2,6 +2,8 @@ import './accordion-item';
 import './card';
 import './chip-selector';
 import './context-help';
+import './master-detail-list-item';
+import './master-detail-list';
 import './split-button';
 import './split-button-anchor';
 import './summary-panel';
