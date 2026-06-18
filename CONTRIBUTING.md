@@ -238,7 +238,7 @@ npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 
 ### Security scanning
 
-See the [security scanning reference](https://dev.azure.com/ni/DevCentral/_wiki/wikis/Stratus/160265/Security-scanning-reference) for information on security scanning tools, workflows, and best practices.
+**Contributors within NI/Emerson**: See the [security scanning reference](https://dev.azure.com/ni/DevCentral/_wiki/wikis/Stratus/160265/Security-scanning-reference) for information on security scanning tools, workflows, and best practices.
 
 **Contributors outside of NI/Emerson**: If you are having issues resolving a vulnerability identified on your PR, consult with a code owner to understand your options for resolution.
 
