@@ -2,7 +2,6 @@ import { attr, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { uniqueId } from '@ni/fast-web-utilities';
 import { diacriticInsensitiveStringNormalizer } from '@ni/nimble-components/dist/esm/utilities/models/string-normalizers';
-import '../master-detail-list-item';
 import { FvMasterDetailListItem, fvMasterDetailListItemTag } from '../master-detail-list-item';
 import { styles } from './styles';
 import { template } from './template';
@@ -91,11 +90,12 @@ export class FvMasterDetailList extends FoundationElement {
         }
 
         const currentIndex = visibleItems.findIndex(item => item.selected);
-        const startingIndex = currentIndex >= 0
-            ? currentIndex
-            : event.key === 'ArrowDown'
-                ? -1
-                : visibleItems.length;
+        let startingIndex = currentIndex;
+
+        if (startingIndex < 0) {
+            startingIndex = event.key === 'ArrowDown' ? -1 : visibleItems.length;
+        }
+
         const nextIndex = event.key === 'ArrowDown'
             ? Math.min(startingIndex + 1, visibleItems.length - 1)
             : Math.max(startingIndex - 1, 0);
