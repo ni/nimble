@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Updates from CA rule changes",
-  "packageName": "@ni/ok-blazor",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
