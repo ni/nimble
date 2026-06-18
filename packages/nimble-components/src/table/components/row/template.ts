@@ -13,7 +13,6 @@ import {
     tableRowSelectLabel
 } from '../../../label-provider/table/label-tokens';
 import type { TableColumn } from '../../../table-column/base';
-import { getColumnPinLocation } from '../../../table-column/mixins/pinnable-column';
 import { TableColumnPinLocation } from '../../types';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
@@ -63,7 +62,7 @@ export const template = html<TableRow>`
     >
         <span class="pinned-cell-container">
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
-                ${when(x => !x.columnHidden && getColumnPinLocation(x) === TableColumnPinLocation.left, html<TableColumn, TableRow>`
+                ${when(x => !x.columnHidden && x.columnInternals.pinLocation === TableColumnPinLocation.left, html<TableColumn, TableRow>`
                     ${rowCellTemplate}
                 `)}
             `, { recycle: false, positioning: true })}
@@ -117,7 +116,7 @@ export const template = html<TableRow>`
             class="cell-container ${x => (x.isNestedParent ? 'nested-parent' : '')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
-                ${when(x => !x.columnHidden && getColumnPinLocation(x) !== TableColumnPinLocation.left, html<TableColumn, TableRow>`
+                ${when(x => !x.columnHidden && x.columnInternals.pinLocation !== TableColumnPinLocation.left, html<TableColumn, TableRow>`
                     ${rowCellTemplate}
                 `)}
             `, { recycle: false, positioning: true })}

@@ -1,7 +1,6 @@
 import { observable } from '@ni/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
-import { getColumnPinLocation } from '../../table-column/mixins/pinnable-column';
 import { TableColumnPinLocation } from '../types';
 import type { TableRecord } from '../types';
 
@@ -366,7 +365,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     private getUnpinnedVisibleColumns(): TableColumn[] {
         return this.table.columns.filter(
             column => !column.columnHidden
-                && getColumnPinLocation(column) !== TableColumnPinLocation.left
+                && column.columnInternals.pinLocation !== TableColumnPinLocation.left
         );
     }
 

@@ -20,7 +20,6 @@ import type {
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
-import { getColumnPinLocation } from '../../../table-column/mixins/pinnable-column';
 import { TableColumnPinLocation } from '../../types';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { tableCellTag } from '../cell';
@@ -333,7 +332,7 @@ export class TableRow<
 
     private updateCellIndentLevels(): void {
         const firstNonPinnedIndex = this.columns.findIndex(
-            col => getColumnPinLocation(col) !== TableColumnPinLocation.left
+            col => col.columnInternals.pinLocation !== TableColumnPinLocation.left
         );
         this.cellIndentLevels = this.columns.map((_, i) => {
             return i === firstNonPinnedIndex ? this.nestingLevel : 0;

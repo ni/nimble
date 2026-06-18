@@ -1,5 +1,4 @@
 import type { TableColumn } from '../../table-column/base';
-import { getColumnPinLocation } from '../../table-column/mixins/pinnable-column';
 import {
     TableColumnPinLocation,
     type TableRecord,
@@ -163,7 +162,7 @@ export class TableValidator<TData extends TableRecord> {
         columns: readonly TableColumn[]
     ): boolean {
         this.invalidPinnedColumnConfiguration = columns.some(
-            x => getColumnPinLocation(x) === TableColumnPinLocation.left
+            x => x.columnInternals.pinLocation === TableColumnPinLocation.left
                 && x.columnInternals.currentPixelWidth === undefined
         );
         return !this.invalidPinnedColumnConfiguration;
