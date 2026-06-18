@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace NimbleBlazor;
 
-internal static class AttributeHelpers
+internal static partial class AttributeHelpers
 {
     public static Dictionary<TEnum, string> GetEnumNamesAsKebabCaseValues<TEnum>()
         where TEnum : struct, Enum
@@ -18,7 +18,7 @@ internal static class AttributeHelpers
     /// <returns>The attribute string form of the property name</returns>
     internal static string ConvertToAttributeString(string name)
     {
-        var expression = new Regex(@"[A-Z]{1}[a-z]*|[0-9]*");
+        var expression = AttributeStringRegex();
         MatchCollection matches = expression.Matches(name);
         var attributeValue = new StringBuilder();
         for (int i = 0; i < matches.Count && matches[i].Value.Length > 0; i++)
@@ -35,4 +35,7 @@ internal static class AttributeHelpers
 
         return attributeValue.ToString();
     }
+
+    [GeneratedRegex(@"[A-Z]{1}[a-z]*|[0-9]*")]
+    private static partial Regex AttributeStringRegex();
 }

@@ -7,8 +7,8 @@ public partial class TsBreakpointTableSection
 {
     private NimbleTable<BreakpointTableRecord>? _table;
 
-    private List<BreakpointTableRecord> _tableData = new()
-    {
+    private List<BreakpointTableRecord> _tableData =
+    [
         new("1", null, "Main.cs", 12, BreakpointState.Enabled),
         new("2", "1", "Helper.cs", 45, BreakpointState.Off),
         new("3", "1", "Service.cs", 78, BreakpointState.Disabled),
@@ -16,7 +16,7 @@ public partial class TsBreakpointTableSection
         new("5", "4", "Model.cs", 91, BreakpointState.Conditional),
         new("6", null, "Startup.cs", 5, BreakpointState.HitDisabled),
         new("7", "6", "Program.cs", 1, BreakpointState.Off),
-    };
+    ];
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

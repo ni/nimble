@@ -1,4 +1,3 @@
-using System;
 using System.Linq.Expressions;
 using BlazorWorkspace.Testing.Unit;
 using Bunit;
@@ -52,13 +51,13 @@ public class NimbleTableColumnMappingTests : BunitTestBase
     [Fact]
     public void NimbleTableColumnMapping_WithLongTypeParameter_ThrowsException()
     {
-        Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<long>());
+        Assert.Throws<ArgumentException>(RenderTableEnumColumn<long>);
     }
 
     [Fact]
     public void NimbleTableColumnMapping_WithULongTypeParameter_ThrowsException()
     {
-        Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<ulong>());
+        Assert.Throws<ArgumentException>(RenderTableEnumColumn<ulong>);
     }
 
     [Fact]
@@ -96,7 +95,7 @@ public class NimbleTableColumnMappingTests : BunitTestBase
     [Fact]
     public void NimbleTableColumnMapping_WithDecimalTypeParameter_ThrowsException()
     {
-        Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<decimal>());
+        Assert.Throws<ArgumentException>(RenderTableEnumColumn<decimal>);
     }
 
     [Fact]
@@ -118,7 +117,7 @@ public class NimbleTableColumnMappingTests : BunitTestBase
     [Fact]
     public void NimbleTableColumnMapping_WithObjectTypeParameter_ThrowsException()
     {
-        Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<object>());
+        Assert.Throws<ArgumentException>(RenderTableEnumColumn<object>);
     }
 
     [Fact]

@@ -2,21 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="packages.lock.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
-    <None Include="packages.lock.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.100.0" />
   </ItemGroup>
