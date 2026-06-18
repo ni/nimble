@@ -224,7 +224,7 @@ const playFunction = async (): Promise<void> => {
 
 export const pinnedColumnsNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        pinLocationStates,
+        pinnedOnlyStates,
         groupedStates,
         hierarchyStates,
         [undefined]
