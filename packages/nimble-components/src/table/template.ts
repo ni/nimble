@@ -33,7 +33,7 @@ import {
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
 
-const tableHeaderTemplate = (includeGrouping: boolean): ViewTemplate<TableColumn, Table> => html<TableColumn, Table>`
+const tableHeaderTemplate = (): ViewTemplate<TableColumn, Table> => html<TableColumn, Table>`
     <${tableHeaderTag}
         class="header"
         ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}
@@ -43,9 +43,7 @@ const tableHeaderTemplate = (includeGrouping: boolean): ViewTemplate<TableColumn
         @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
         @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
         :alignment="${x => x.columnInternals.headerAlignment}"
-        :isGrouped="${x => (includeGrouping
-            ? (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)
-            : undefined)}"
+        :isGrouped="${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled) || undefined}"
     >
         <slot name="${x => x.slot}"></slot>
     </${tableHeaderTag}>
@@ -73,7 +71,7 @@ export const template = html<Table>`
             <div role="rowgroup" class="header-row-container">
                 <div class="pinned-columns-header-container">
                     ${repeat(x => x.pinnedColumns, html<TableColumn, Table>`
-                        ${tableHeaderTemplate(true)}
+                        ${tableHeaderTemplate()}
                         `, { positioning: true })}
                 </div>
                 <div class="header-row" role="row">
@@ -128,7 +126,7 @@ export const template = html<Table>`
                                         @pointerdown="${(_, c) => c.parent.onLeftDividerPointerDown(c.event as PointerEvent, c.index)}">
                                     </div>
                                 `)}
-                                ${tableHeaderTemplate(true)}
+                                ${tableHeaderTemplate()}
                                 ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
                                     <div
                                         class="

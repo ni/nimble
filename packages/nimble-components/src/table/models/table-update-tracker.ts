@@ -7,7 +7,7 @@ import { isColumnInternalsProperty } from '../../table-column/base/models/column
 
 const isColumnProperty = (
     changedProperty: string,
-    ...args: (keyof TableColumn | 'pinLocation')[]
+    ...args: (keyof TableColumn)[]
 ): boolean => {
     for (const arg of args) {
         if (changedProperty === arg) {
@@ -162,7 +162,9 @@ export class TableUpdateTracker<
         } else if (isColumnProperty(changedColumnProperty, 'columnHidden')) {
             this.track('columnWidths');
             this.track('columnHidden');
-        } else if (changedColumnProperty === 'pinLocation') {
+        } else if (
+            isColumnInternalsProperty(changedColumnProperty, 'pinLocation')
+        ) {
             this.track('columnWidths');
             this.track('columnPinned');
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
