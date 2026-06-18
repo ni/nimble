@@ -2,6 +2,36 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Thu, 18 Jun 2026 00:03:55 GMT",
+      "version": "1.4.2",
+      "tag": "@ni/ok-blazor_v1.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "894b5acee617ec104097c19bdc2f27daba66cdd4",
+            "comment": "Updates from CA rule changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Jun 2026 21:07:03 GMT",
+      "version": "1.4.1",
+      "tag": "@ni/ok-blazor_v1.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.4.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 Jun 2026 17:15:51 GMT",
       "version": "1.4.0",
       "tag": "@ni/ok-blazor_v1.4.0",

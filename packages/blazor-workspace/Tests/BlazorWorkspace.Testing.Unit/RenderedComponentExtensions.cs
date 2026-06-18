@@ -1,4 +1,3 @@
-using System.Linq;
 using AngleSharp.Dom;
 using Bunit;
 using Microsoft.AspNetCore.Components;

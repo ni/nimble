@@ -5,14 +5,14 @@ namespace Demo.Shared.Pages.Sections;
 public partial class DelayedHierarchyTableSection
 {
     private NimbleTable<PersonTableRecord>? _delayedHierarchyTable;
-    private readonly List<PersonTableRecord> _delayedHierarchyTableData = new()
-    {
+    private readonly List<PersonTableRecord> _delayedHierarchyTableData =
+    [
         new PersonTableRecord("jacqueline-bouvier", null, "Jacqueline", "Bouvier", 80, true),
         new PersonTableRecord("mona-simpson", null, "Mona", "Simpson", 77, true),
         new PersonTableRecord("agnes-skinner", null, "Agnes", "Skinner", 88, true)
-    };
-    private readonly HashSet<string> _recordsLoadingChildren = new();
-    private readonly HashSet<string> _recordsWithLoadedChildren = new();
+    ];
+    private readonly HashSet<string> _recordsLoadingChildren = [];
+    private readonly HashSet<string> _recordsWithLoadedChildren = [];
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -38,7 +38,7 @@ public partial class DelayedHierarchyTableSection
             _recordsLoadingChildren.Remove(recordId);
             _recordsWithLoadedChildren.Add(recordId);
             var childrenToAdd = GetChildren(recordId);
-            childrenToAdd.ForEach(child => _delayedHierarchyTableData.Add(child));
+            childrenToAdd.ForEach(_delayedHierarchyTableData.Add);
             await UpdateDelayedHierarchyTableAsync();
         }
     }
@@ -48,31 +48,31 @@ public partial class DelayedHierarchyTableSection
         switch (recordId)
         {
             case "jacqueline-bouvier":
-                return new List<PersonTableRecord>()
-                {
-                    new PersonTableRecord("marge-simpson", recordId, "Marge", "Simpson", 35, true),
-                    new PersonTableRecord("selma-bouvier", recordId, "Selma", "Bouvier", 45, false),
-                    new PersonTableRecord("patty-bouvier", recordId, "Patty", "Bouvier", 45, false)
-                };
+                return
+                [
+                    new("marge-simpson", recordId, "Marge", "Simpson", 35, true),
+                    new("selma-bouvier", recordId, "Selma", "Bouvier", 45, false),
+                    new("patty-bouvier", recordId, "Patty", "Bouvier", 45, false)
+                ];
             case "marge-simpson":
-                return new List<PersonTableRecord>()
-                {
-                    new PersonTableRecord("bart-simpson", recordId, "Bart", "Simpson", 12, false),
-                    new PersonTableRecord("lisa-bouvier", recordId, "Lisa", "Simpson", 10, false),
-                    new PersonTableRecord("maggie-bouvier", recordId, "Maggie", "Simpson", 1, false)
-                };
+                return
+                [
+                    new("bart-simpson", recordId, "Bart", "Simpson", 12, false),
+                    new("lisa-bouvier", recordId, "Lisa", "Simpson", 10, false),
+                    new("maggie-bouvier", recordId, "Maggie", "Simpson", 1, false)
+                ];
             case "mona-simpson":
-                return new List<PersonTableRecord>()
-                {
-                    new PersonTableRecord("homer-simpson", recordId, "Homer", "Simpson", 35, false)
-                };
+                return
+                [
+                    new("homer-simpson", recordId, "Homer", "Simpson", 35, false)
+                ];
             case "agnes-skinner":
-                return new List<PersonTableRecord>()
-                {
-                    new PersonTableRecord("seymour-skinner", recordId, "Seymour", "Skinner", 42, false)
-                };
+                return
+                [
+                    new("seymour-skinner", recordId, "Seymour", "Skinner", 42, false)
+                ];
             default:
-                return new List<PersonTableRecord>();
+                return [];
         }
     }
 
@@ -83,7 +83,7 @@ public partial class DelayedHierarchyTableSection
             await _delayedHierarchyTable!.SetDataAsync(_delayedHierarchyTableData);
         }
 
-        List<TableSetRecordHierarchyOptions> options = new();
+        List<TableSetRecordHierarchyOptions> options = [];
         _delayedHierarchyTableData.ForEach(person =>
         {
             if (_recordsLoadingChildren.Contains(person.Id))

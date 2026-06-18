@@ -1,5 +1,4 @@
 ﻿using BlazorWorkspace.Testing.Acceptance;
-using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 

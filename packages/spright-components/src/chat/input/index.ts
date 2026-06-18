@@ -194,7 +194,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     }
 
     private shouldDisableSendButton(): boolean {
-        return this.textArea!.value.length === 0;
+        return this.sendDisabled || this.textArea!.value.length === 0;
     }
 
     private resetInput(): void {

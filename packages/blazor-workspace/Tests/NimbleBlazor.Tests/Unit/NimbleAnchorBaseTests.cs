@@ -1,4 +1,3 @@
-using System;
 using System.Linq.Expressions;
 using BlazorWorkspace.Testing.Unit;
 using Bunit;
@@ -11,7 +10,7 @@ namespace NimbleBlazor.Tests.Unit;
 /// </summary>
 public abstract class NimbleAnchorBaseTests<T> : BunitTestBase where T : NimbleAnchorBase
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Static needed for MemberData of Theory")]
+    [SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Static needed for MemberData of Theory")]
     public static TheoryData<Expression<Func<T, string?>>, string> Data => new()
         {
             { x => x.Href, "href" },
