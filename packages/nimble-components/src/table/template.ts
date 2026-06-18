@@ -73,7 +73,7 @@ export const template = html<Table>`
             <div role="rowgroup" class="header-row-container">
                 <div class="pinned-columns-header-container">
                     ${repeat(x => x.pinnedColumns, html<TableColumn, Table>`
-                        ${tableHeaderTemplate(false)}
+                        ${tableHeaderTemplate(true)}
                         `, { positioning: true })}
                 </div>
                 <div class="header-row" role="row">
