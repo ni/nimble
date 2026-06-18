@@ -24,7 +24,7 @@ export const template = html<FvMasterDetailListItem>`
                             part="status-icon"
                             role="${x => (x.fallbackStatusLabel ? 'img' : null)}"
                             aria-label="${x => x.fallbackStatusLabel}"
-                            ?aria-hidden="${x => x.fallbackStatusLabel === null}"
+                            aria-hidden="${x => (x.fallbackStatusLabel === null ? 'true' : null)}"
                             style="${x => `color: ${x.statusColor};`}"
                         ></${iconCircleFilledTag}>
                     `

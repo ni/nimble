@@ -199,7 +199,7 @@ describe('FvMasterDetailList', () => {
         }
     });
 
-    it('filters items in place using title and subtitle text', async () => {
+    it('filters items in place using title, subtitle, and value text', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
         await waitForUpdatesAsync();

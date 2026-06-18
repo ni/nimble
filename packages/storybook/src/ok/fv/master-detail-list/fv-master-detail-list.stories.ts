@@ -20,7 +20,7 @@ import {
 
 interface FvMasterDetailListArgs {
     placeholder: string;
-    compact: boolean;
+    compact?: boolean;
     items?: string;
     change?: (e: Event) => void;
 }
