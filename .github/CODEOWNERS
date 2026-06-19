@@ -29,8 +29,8 @@
 specs @rajsite @jattasNI @mollykreis
 
 # .snyk security scanning configuration file
-/.snyk @chris468 @cameronwaterman @BKnight760 @rbell517 @jattasNI @prestwick
-/.wiz @chris468 @cameronwaterman @BKnight760 @rbell517 @jattasNI @prestwick
+/.snyk @ni/security-scanning-owners
+/.wiz @ni/security-scanning-owners
 
 # Change files don't need explicit reviewers
 /change
