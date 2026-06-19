@@ -33,7 +33,7 @@ import {
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
 
-const tableHeaderTemplate = (): ViewTemplate<TableColumn, Table> => html<TableColumn, Table>`
+const tableHeaderTemplate: ViewTemplate<TableColumn, Table> = html<TableColumn, Table>`
     <${tableHeaderTag}
         class="header"
         ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}
@@ -71,7 +71,7 @@ export const template = html<Table>`
             <div role="rowgroup" class="header-row-container">
                 <div class="pinned-columns-header-container">
                     ${repeat(x => x.pinnedColumns, html<TableColumn, Table>`
-                        ${tableHeaderTemplate()}
+                        ${tableHeaderTemplate}
                         `, { positioning: true })}
                 </div>
                 <div class="header-row" role="row">
@@ -126,7 +126,7 @@ export const template = html<Table>`
                                         @pointerdown="${(_, c) => c.parent.onLeftDividerPointerDown(c.event as PointerEvent, c.index)}">
                                     </div>
                                 `)}
-                                ${tableHeaderTemplate()}
+                                ${tableHeaderTemplate}
                                 ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
                                     <div
                                         class="
