@@ -28,8 +28,9 @@
 # Specs (placed after packages to have higher precedence for spec files contained in packages)
 specs @rajsite @jattasNI @mollykreis
 
-# .snyk security scanning configuration file
-/.snyk @chris468 @cameronwaterman @BKnight760 @rbell517 @jattasNI @prestwick
+# Security scanning configuration files
+/.snyk @ni/security-scanning-owners
+/.wiz @ni/security-scanning-owners
 
 # Change files don't need explicit reviewers
 /change
