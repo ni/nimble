@@ -208,6 +208,9 @@ export class ColumnInternals<
     @observable
     public currentSortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
+    /**
+     * Location to pin column (default undefined / unpinned)
+     */
     @observable
     public pinLocation?: TableColumnPinLocation;
 
