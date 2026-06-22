@@ -136,14 +136,6 @@ const component = (
     [scrollPositionName, scrollPosition]: ScrollPositionState,
 ): ViewTemplate => {
     return html`
-        <style>
-            ${tableTag} {
-                /** Fixed width keeps horizontal overflow deterministic for matrix snapshots. */
-                width: 300px;
-                height: 300px;
-                margin-bottom: 20px;
-            }
-        </style>
         <span style="color: var(${() => bodyFontColor.cssCustomProperty});"
         >${() => `Pinned: ${pinLocationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}, ${scrollPositionName}`} </span>
         <${tableTag}
@@ -151,7 +143,13 @@ const component = (
             id-field-name="id"
             parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
             data-scrollposition="${() => scrollPosition}"
-            style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+            style="
+                ${'' /* Fixed width keeps horizontal overflow deterministic for matrix snapshots. */}
+                width: 300px;
+                height: 300px;
+                margin-bottom: 20px;
+                ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused;' : ''}
+            "
         >
             <${tableColumnTextTag}
                 field-name="firstName"
