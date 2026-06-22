@@ -16,6 +16,7 @@ import {
 } from '@ni/nimble-components/dist/esm/table/types';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
+import { bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     createMatrixThemeStory,
     createMatrix,
@@ -134,7 +135,8 @@ const component = (
                 margin-bottom: 20px;
             }
         </style>
-        <span>${() => `Pinned: ${pinLocationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`} </span>
+        <span style="color: var(${() => bodyFontColor.cssCustomProperty});"
+        >${() => `Pinned: ${pinLocationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`} </span>
         <${tableTag}
             selection-mode="${() => selectionMode}"
             id-field-name="id"
@@ -187,9 +189,11 @@ const playFunction = async (): Promise<void> => {
 
     await Promise.all(
         tables.map(async table => {
+            const tablePageObject = new TablePageObject(table);
             await table.setData(data);
+            await waitForUpdatesAsync();
 
-            if (table.getAttribute('parent-id-field-name')) {
+            if (table.parentIdFieldName) {
                 await table.setRecordHierarchyOptions([
                     {
                         recordId: '2',
@@ -200,29 +204,25 @@ const playFunction = async (): Promise<void> => {
                 ]);
             }
 
-            const supportsSelection = table.selectionMode === TableRowSelectionMode.single || table.selectionMode === TableRowSelectionMode.multiple;
-            if (supportsSelection) {
-                const tablePageObject = new TablePageObject(table);
-                if (tablePageObject.getRenderedRowCount() > 0) {
-                    await tablePageObject.clickRow(0);
-                    await waitForUpdatesAsync();
-                }
+            if (table.selectionMode === TableRowSelectionMode.single) {
+                await tablePageObject.clickRow(0);
+            } else if (table.selectionMode === TableRowSelectionMode.multiple) {
+                tablePageObject.clickRowSelectionCheckbox(0);
+                tablePageObject.clickRowSelectionCheckbox(3);
             }
 
             const isPinnedLeftVariant = table.pinnedColumns.length > 0;
             if (isPinnedLeftVariant) {
-                const tablePageObject = new TablePageObject(table);
-                if (tablePageObject.isHorizontalScrollbarVisible()) {
-                    table.viewport.scrollLeft = table.viewport.scrollWidth;
-                    // Wait after scroll to avoid capturing intermediate layout states.
-                    await waitForUpdatesAsync();
-                }
+                table.viewport.scrollLeft = table.viewport.scrollWidth;
             }
+
+            // Wait for updated scroll / render state before capturing.
+            await waitForUpdatesAsync();
         })
     );
 };
 
-export const pinnedColumnsNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const pinnedColumns$NoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         pinnedOnlyStates,
         groupedStates,
@@ -230,10 +230,9 @@ export const pinnedColumnsNoSelectionThemeMatrix: StoryFn = createMatrixThemeSto
         [undefined]
     ])
 );
-pinnedColumnsNoSelectionThemeMatrix.storyName = 'Pinned Columns - No Selection Theme Matrix';
-pinnedColumnsNoSelectionThemeMatrix.play = playFunction;
+pinnedColumns$NoSelectionThemeMatrix.play = playFunction;
 
-export const pinnedColumnsSingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const pinnedColumns$SingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         pinnedOnlyStates,
         groupedStates,
@@ -241,10 +240,9 @@ export const pinnedColumnsSingleSelectionThemeMatrix: StoryFn = createMatrixThem
         [TableRowSelectionMode.single]
     ])
 );
-pinnedColumnsSingleSelectionThemeMatrix.storyName = 'Pinned Columns - Single Selection Theme Matrix';
-pinnedColumnsSingleSelectionThemeMatrix.play = playFunction;
+pinnedColumns$SingleSelectionThemeMatrix.play = playFunction;
 
-export const pinnedColumnsMultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const pinnedColumns$MultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         pinnedOnlyStates,
         groupedStates,
@@ -252,5 +250,4 @@ export const pinnedColumnsMultipleSelectionThemeMatrix: StoryFn = createMatrixTh
         [TableRowSelectionMode.multiple]
     ])
 );
-pinnedColumnsMultipleSelectionThemeMatrix.storyName = 'Pinned Columns - Multiple Selection Theme Matrix';
-pinnedColumnsMultipleSelectionThemeMatrix.play = playFunction;
+pinnedColumns$MultipleSelectionThemeMatrix.play = playFunction;
