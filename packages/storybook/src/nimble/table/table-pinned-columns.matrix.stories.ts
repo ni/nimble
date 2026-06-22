@@ -118,6 +118,13 @@ const selectionModeStates = [
 ] as const;
 type SelectionModeState = (typeof selectionModeStates)[number];
 
+// Horizontal scroll position states
+const scrollPositionStates = [
+    ['Scroll start', 'start'],
+    ['Scroll end', 'end']
+] as const;
+type ScrollPositionState = (typeof scrollPositionStates)[number];
+
 const pinnedOnlyStates = [pinLocationStates[1]] as const;
 
 // Component that renders a table with the specified configurations
@@ -126,21 +133,24 @@ const component = (
     [groupedStateName, groupedState]: GroupedState,
     [hierarchyStateName, hierarchyState]: HierarchyState,
     selectionMode: SelectionModeState,
+    [scrollPositionName, scrollPosition]: ScrollPositionState,
 ): ViewTemplate => {
     return html`
         <style>
             ${tableTag} {
                 /** Fixed width keeps horizontal overflow deterministic for matrix snapshots. */
-                width: 600px;
+                width: 300px;
+                height: 300px;
                 margin-bottom: 20px;
             }
         </style>
         <span style="color: var(${() => bodyFontColor.cssCustomProperty});"
-        >${() => `Pinned: ${pinLocationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`} </span>
+        >${() => `Pinned: ${pinLocationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}, ${scrollPositionName}`} </span>
         <${tableTag}
             selection-mode="${() => selectionMode}"
             id-field-name="id"
             parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
+            data-scrollposition="${() => scrollPosition}"
             style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         >
             <${tableColumnTextTag}
@@ -211,9 +221,11 @@ const playFunction = async (): Promise<void> => {
                 tablePageObject.clickRowSelectionCheckbox(3);
             }
 
-            const isPinnedLeftVariant = table.pinnedColumns.length > 0;
-            if (isPinnedLeftVariant) {
+            const scrollPosition = table.dataset.scrollposition;
+            if (scrollPosition === 'end') {
                 table.viewport.scrollLeft = table.viewport.scrollWidth;
+            } else {
+                table.viewport.scrollLeft = 0;
             }
 
             // Wait for updated scroll / render state before capturing.
@@ -227,7 +239,8 @@ export const pinnedColumns$NoSelectionThemeMatrix: StoryFn = createMatrixThemeSt
         pinnedOnlyStates,
         groupedStates,
         hierarchyStates,
-        [undefined]
+        [undefined],
+        scrollPositionStates
     ])
 );
 pinnedColumns$NoSelectionThemeMatrix.play = playFunction;
@@ -237,7 +250,8 @@ export const pinnedColumns$SingleSelectionThemeMatrix: StoryFn = createMatrixThe
         pinnedOnlyStates,
         groupedStates,
         hierarchyStates,
-        [TableRowSelectionMode.single]
+        [TableRowSelectionMode.single],
+        scrollPositionStates
     ])
 );
 pinnedColumns$SingleSelectionThemeMatrix.play = playFunction;
@@ -247,7 +261,8 @@ export const pinnedColumns$MultipleSelectionThemeMatrix: StoryFn = createMatrixT
         pinnedOnlyStates,
         groupedStates,
         hierarchyStates,
-        [TableRowSelectionMode.multiple]
+        [TableRowSelectionMode.multiple],
+        scrollPositionStates
     ])
 );
 pinnedColumns$MultipleSelectionThemeMatrix.play = playFunction;
