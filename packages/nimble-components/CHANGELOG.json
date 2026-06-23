@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 23 Jun 2026 13:11:56 GMT",
+      "version": "35.10.0",
+      "tag": "@ni/nimble-components_v35.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "05c7658939e1c8b6e627a3fa7bb1e7d18ba91fae",
+            "comment": "Update code comment for the workaround applied to fix the issue in #1707"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Jun 2026 22:02:26 GMT",
       "version": "35.10.0",
       "tag": "@ni/nimble-components_v35.10.0",
