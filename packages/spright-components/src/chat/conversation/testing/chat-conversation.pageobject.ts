@@ -133,17 +133,26 @@ export class ChatConversationPageObject {
         await this.waitForScrollUpdateAsync();
     }
 
+    public async scrollToBottom(): Promise<void> {
+        await this.scrollToOffset(this.getScrollHeight());
+    }
+
     /**
-     * Waits for FAST updates plus an animation frame so reactions driven by
+     * Waits for FAST updates plus two animation frames so reactions driven by
      * `requestAnimationFrame` and `ResizeObserver` (used by scroll management)
      * have settled.
      */
     public async waitForScrollUpdateAsync(): Promise<void> {
         await waitForUpdatesAsync();
+        await this.nextAnimationFrameAsync();
+        await this.nextAnimationFrameAsync();
+        await waitForUpdatesAsync();
+    }
+
+    private async nextAnimationFrameAsync(): Promise<void> {
         await new Promise<void>(resolve => {
             requestAnimationFrame(() => resolve());
         });
-        await waitForUpdatesAsync();
     }
 
     private async appendMessage(tag: string, text: string): Promise<void> {
