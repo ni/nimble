@@ -24,6 +24,10 @@ export class ChatMessagePageObject {
         return this.getRenderedText().length > 0;
     }
 
+    public isScrollAnchor(): boolean {
+        return this.element.messageInternals.isScrollAnchor;
+    }
+
     private getContentSlot(): HTMLSlotElement | null {
         return (
             this.element.shadowRoot?.querySelector<HTMLSlotElement>(

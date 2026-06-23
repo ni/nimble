@@ -9,6 +9,7 @@ import {
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
+import { ChatMessageInternals } from '../models/chat-message-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,6 +27,9 @@ export type ChatMessageInboundOptions = FoundationElementDefinition & StartEndOp
  * A Spright component for displaying a chat message
  */
 export class ChatMessageInbound extends FoundationElement {
+    /** @internal */
+    public readonly messageInternals = new ChatMessageInternals();
+
     /** @internal */
     @observable
     public footerActionsIsEmpty = true;
