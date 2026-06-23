@@ -95,6 +95,17 @@ export class ChatConversationPageObject {
         return internal.scrollWiringActive;
     }
 
+    public isAutoScrollEngaged(): boolean {
+        return this.element.autoScrollEngaged;
+    }
+
+    public isMessageScrollAnchorByIndex(index: number): boolean {
+        const message = this.getMessages()[index] as unknown as
+            | { messageInternals?: { isScrollAnchor: boolean } }
+            | undefined;
+        return message?.messageInternals?.isScrollAnchor ?? false;
+    }
+
     // --- actions ---
 
     public async appendOutboundMessage(text: string): Promise<void> {
@@ -121,6 +132,11 @@ export class ChatConversationPageObject {
 
     public async setViewportHeight(height: number): Promise<void> {
         this.element.style.height = `${height}px`;
+        await this.waitForScrollUpdateAsync();
+    }
+
+    public async setAutoScrollEnabled(enabled: boolean): Promise<void> {
+        this.element.autoScroll = enabled;
         await this.waitForScrollUpdateAsync();
     }
 
