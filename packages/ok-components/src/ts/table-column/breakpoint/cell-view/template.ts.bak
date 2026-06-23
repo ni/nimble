@@ -1,0 +1,60 @@
+import { html, ref, when, slotted } from '@ni/fast-element';
+import { iconBreakpointConditionalTag } from '@ni/spright-components/dist/esm/icons/breakpoint-conditional';
+import { iconBreakpointDisabledTag } from '@ni/spright-components/dist/esm/icons/breakpoint-disabled';
+import { iconBreakpointHitTag } from '@ni/spright-components/dist/esm/icons/breakpoint-hit';
+import { iconBreakpointHitDisabledTag } from '@ni/spright-components/dist/esm/icons/breakpoint-hit-disabled';
+import { iconBreakpointEnabledTag } from '@ni/spright-components/dist/esm/icons/breakpoint-enabled';
+import { iconBreakpointHoverTag } from '@ni/spright-components/dist/esm/icons/breakpoint-hover';
+import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
+import { MenuButtonPosition } from '@ni/nimble-components/dist/esm/menu-button/types';
+import { BreakpointState, breakpointCellViewMenuSlotName } from '../types';
+import type { TsTableColumnBreakpointCellView } from '.';
+
+export const template = html<TsTableColumnBreakpointCellView>`
+    <template
+        ?open="${x => x.open}"
+        @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
+    >
+        <button
+            ${ref('button')}
+            part="button"
+            class="breakpoint-button state-${x => x.currentState}"
+            @click="${(x, c) => x.onButtonClick(c.event)}"
+            @contextmenu="${(x, c) => x.onContextMenu(c.event)}"
+            @keydown="${(x, c) => x.onKeyDown(c.event as KeyboardEvent)}"
+            aria-label="${x => x.ariaLabelText}"
+            title="${x => x.tooltipText}"
+            ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+            tabindex="-1"
+        >
+            ${when(x => x.currentState === BreakpointState.off, html`<${iconBreakpointHoverTag} />`)}
+            ${when(x => x.currentState === BreakpointState.enabled, html`<${iconBreakpointEnabledTag} />`)}
+            ${when(x => x.currentState === BreakpointState.disabled, html`<${iconBreakpointDisabledTag} />`)}
+            ${when(x => x.currentState === BreakpointState.hit, html`<${iconBreakpointHitTag} />`)}
+            ${when(x => x.currentState === BreakpointState.conditional, html`<${iconBreakpointConditionalTag} />`)}
+            ${when(x => x.currentState === BreakpointState.hitDisabled, html`<${iconBreakpointHitDisabledTag} />`)}
+        </button>
+                ${when(
+                x => x.open,
+                html<TsTableColumnBreakpointCellView>`
+                    <${anchoredRegionTag}
+                        fixed-placement="true"
+                        style="contain: layout"
+                        auto-update-mode="auto"
+                        horizontal-inset="true"
+                        horizontal-positioning-mode="dynamic"
+                        vertical-positioning-mode="${x => (x.menuPosition === MenuButtonPosition.auto ? 'dynamic' : 'locktodefault')}"
+                        vertical-default-position="${x => (x.menuPosition === MenuButtonPosition.above ? 'top' : 'bottom')}"
+                        @loaded="${x => x.regionLoadedHandler()}"
+                        @change="${(x, c) => x.onContextMenuChange(c.event)}"
+                        @keydown="${(x, c) => x.contextMenuKeyDownHandler(c.event as KeyboardEvent)}"
+                        ${ref('region')}
+                    >
+                        <span part="menu">
+                            <slot name="${breakpointCellViewMenuSlotName}" ${slotted({ property: 'slottedMenus' })}></slot>
+                        </span>
+                    </${anchoredRegionTag}>
+                `
+            )}
+    </template>
+`;

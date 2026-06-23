@@ -3,6 +3,7 @@ import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
+import { TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table/types';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
@@ -43,42 +44,49 @@ const simpleData: CodeRecord[] = [
         id: '2',
         lineNumber: 2,
         code: '  console.log("Hello");',
+        parentId: '1',
         breakpointState: BreakpointState.enabled
     },
     {
         id: '3',
         lineNumber: 3,
         code: '  const x = 42;',
+        parentId: '1',
         breakpointState: BreakpointState.disabled
     },
     {
         id: '4',
         lineNumber: 4,
         code: '  return x;',
+        parentId: '1',
         breakpointState: BreakpointState.hit
     },
     {
         id: '5',
         lineNumber: 5,
         code: '  if (x > 0) {',
+        parentId: '1',
         breakpointState: BreakpointState.conditional
     },
     {
         id: '6',
         lineNumber: 6,
         code: '    throw new Error("hit-disabled");',
+        parentId: '5',
         breakpointState: BreakpointState.hitDisabled
     },
     {
         id: '7',
         lineNumber: 7,
         code: '  }',
+        parentId: '5',
         breakpointState: BreakpointState.off
     },
     {
         id: '8',
         lineNumber: 8,
         code: '}',
+        parentId: '1',
         breakpointState: BreakpointState.off
     }
 ];
@@ -113,6 +121,7 @@ export default metadata;
 interface BreakpointColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     menuSlot: string;
+    pinLocationEnabled: boolean;
     toggleEvent: never;
     stateChangeRequestedEvent: never;
     currentData: CodeRecord[];
@@ -130,11 +139,20 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="id"
+            parent-id-field-name="parentId"
             style="height: 320px"
         >
+            <${tableColumnTextTag} 
+                field-name="code"
+                sorting-disabled="true"
+                grouping-disabled="true"
+            >
+                Code
+            </${tableColumnTextTag}>
             <${tsTableColumnBreakpointTag}
                 field-name="${x => x.fieldName}"
                 menu-slot="${x => x.menuSlot}"
+                pin-location="${x => (x.pinLocationEnabled ? TableColumnPinLocation.left : undefined)}"
                 @breakpoint-column-toggle="${(x, c) => {
                     const event = c.event as CustomEvent<BreakpointToggleEventDetail>;
                     const detail = event.detail;
@@ -153,12 +171,6 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
                 }}"
             >
             </${tsTableColumnBreakpointTag}>
-            <${tableColumnTextTag} 
-                field-name="code"
-                sorting-disabled="true"
-            >
-                Code
-            </${tableColumnTextTag}>
             <${menuTag} slot="${x => x.menuSlot}">
                 <${menuItemTag} data-breakpoint-state="${BreakpointState.enabled}">Enable breakpoint</${menuItemTag}>
                 <${menuItemTag} data-breakpoint-state="${BreakpointState.disabled}">Disable breakpoint</${menuItemTag}>
@@ -180,6 +192,12 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
             description:
                 'The name of the slot within the table where context menu content is provided. When configured, context menu requests render this slotted content inside an anchored region in the active breakpoint cell.',
             control: false,
+            table: { category: apiCategory.attributes }
+        },
+        pinLocationEnabled: {
+            name: 'pin-location',
+            description:
+                'Set `pin-location` to `left` to pin this column to the left side of the table. Pinned columns remain visible as the user scrolls the table horizontally.',
             table: { category: apiCategory.attributes }
         },
         toggleEvent: {
@@ -205,6 +223,7 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
     args: {
         fieldName: 'breakpointState',
         menuSlot: 'breakpoint-menu',
+        pinLocationEnabled: false,
         currentData: [...simpleData]
     }
 };

@@ -879,10 +879,9 @@ export class Table<
         column: TableColumn
     ): number | undefined {
         const {
-            currentPixelWidth,
-            pixelWidth
+            currentPixelWidth
         } = column.columnInternals;
-        return currentPixelWidth ?? pixelWidth;
+        return currentPixelWidth;
     }
 
     private updateRequestedSlotsForOpeningActionMenu(

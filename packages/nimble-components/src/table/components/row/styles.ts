@@ -56,24 +56,6 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
-    :host([selectable][allow-hover]:hover) .pinned-cell-container {
-        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
-            ${applicationBackgroundColor};
-    }
-
-    :host([selected]) .pinned-cell-container {
-        background: linear-gradient(${fillSelectedColor}, ${fillSelectedColor}),
-            ${applicationBackgroundColor};
-    }
-
-    :host([selected][allow-hover]:hover) .pinned-cell-container {
-        background: linear-gradient(
-                ${fillHoverSelectedColor},
-                ${fillHoverSelectedColor}
-            ),
-            ${applicationBackgroundColor};
-    }
-
     :host(${focusVisible}) {
         outline: none;
         box-shadow:
@@ -82,14 +64,6 @@ export const styles = css`
             inset calc(-2 * ${borderWidth}) calc(-2 * ${borderWidth})
                 ${borderHoverColor};
     }
-
-    :host(${focusVisible}) .pinned-cell-container {
-        box-shadow:
-            inset calc(2 * ${borderWidth}) 0 0 ${borderHoverColor},
-            inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
-            inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
-            inset -2px 0 0 0 ${tableRowBorderColor};
-        }
 
     .expand-collapse-button {
         flex: 0 0 auto;
@@ -151,6 +125,32 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         z-index: ${ZIndexLevels.zIndex1000};
         box-shadow: inset -2px 0 0 0 ${tableRowBorderColor};
+    }
+
+    :host([selectable][allow-hover]:hover) .pinned-cell-container {
+        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
+            ${applicationBackgroundColor};
+    }
+
+    :host([selected]) .pinned-cell-container {
+        background: linear-gradient(${fillSelectedColor}, ${fillSelectedColor}),
+            ${applicationBackgroundColor};
+    }
+
+    :host([selected][allow-hover]:hover) .pinned-cell-container {
+        background: linear-gradient(
+                ${fillHoverSelectedColor},
+                ${fillHoverSelectedColor}
+            ),
+            ${applicationBackgroundColor};
+    }
+
+    :host(${focusVisible}) .pinned-cell-container {
+        box-shadow:
+            inset calc(2 * ${borderWidth}) 0 0 ${borderHoverColor},
+            inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
+            inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
+            inset -2px 0 0 0 ${tableRowBorderColor};
     }
 
     .cell-container {
@@ -231,12 +231,9 @@ export const styles = css`
             :host([selected][allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.2)};
             }
-            :host(${focusVisible}) .pinned-cell-container {
-                box-shadow:
-                    inset calc(2 * ${borderWidth}) 0 0 ${borderHoverColor},
-                    inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
-                    inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
-                    inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
+
+            .pinned-cell-container {
+                box-shadow: inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
             }
 
             :host([selectable][allow-hover]:hover) .pinned-cell-container {
@@ -263,8 +260,12 @@ export const styles = css`
                     ${applicationBackgroundColor};
             }
 
-            .pinned-cell-container {
-                box-shadow: inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
+            :host(${focusVisible}) .pinned-cell-container {
+                box-shadow:
+                    inset calc(2 * ${borderWidth}) 0 0 ${borderHoverColor},
+                    inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
+                    inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
+                    inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
             }
         `
     )

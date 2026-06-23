@@ -2,7 +2,6 @@ import { attr } from '@ni/fast-element';
 import { TableColumn } from '../base';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { mixinPinnableColumnAPI } from '../mixins/pinnable-column';
 import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 import type { ColumnValidator } from '../base/models/column-validator';
 import { mixinSortableColumnAPI } from '../mixins/sortable-column';
@@ -39,9 +38,7 @@ export function mixinTextBase<
 >(base: TBase) {
     return mixinGroupableColumnAPI(
         mixinFractionalWidthColumnAPI(
-            mixinPinnableColumnAPI(
-                mixinColumnWithPlaceholderAPI(mixinSortableColumnAPI(base))
-            )
+            mixinColumnWithPlaceholderAPI(mixinSortableColumnAPI(base))
         )
     );
 }

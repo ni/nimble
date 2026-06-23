@@ -2,18 +2,13 @@ import { html, ref, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
-import { TableColumnSortDirection,
-    TableRowSelectionMode,
-    TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table/types';
+import {
+    TableColumnSortDirection,
+    TableRowSelectionMode
+} from '@ni/nimble-components/dist/esm/table/types';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { iconCommentTag } from '@ni/nimble-components/dist/esm/icons/comment';
-import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
-import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
-import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
-import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
-import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
-
 import {
     ExampleColumnFractionalWidthType,
     ExampleGroupingDisabledType,
@@ -30,51 +25,6 @@ import {
     apiCategory,
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
-
-const pinnedColumnsData = [
-    {
-        firstName: 'Ralph',
-        lastName: 'Wiggum',
-        favoriteColor: 'Rainbow',
-        quote: "I'm in danger!",
-        isActive: false
-    },
-    {
-        firstName: 'Milhouse',
-        lastName: 'Van Houten',
-        favoriteColor: 'Crimson',
-        quote: "Not only am I not learning, I'm forgetting stuff I used to know!",
-        isActive: true
-    },
-    {
-        firstName: 'Ned',
-        lastName: 'Flanders',
-        favoriteColor: 'Taupe',
-        quote: 'Hi diddly-ho neighbor!',
-        isActive: true
-    },
-    {
-        firstName: 'Maude',
-        lastName: 'Flanders',
-        favoriteColor: 'Taupe',
-        quote: "Neddy doesn't believe in insurance. He considers it a form of gambling.",
-        isActive: false
-    },
-    {
-        firstName: 'Rod',
-        lastName: 'Flanders',
-        favoriteColor: 'Taupe',
-        quote: 'Lies make baby Jesus cry.',
-        isActive: true
-    },
-    {
-        firstName: 'Maggie',
-        lastName: 'Simpson',
-        favoriteColor: 'Red',
-        quote: '...',
-        isActive: true
-    }
-] as const;
 
 const simpleData = [
     {
@@ -950,63 +900,5 @@ export const width: StoryObj<ColumnWidthTableArgs> = {
 
             return widthData[matchingIndex]?.width;
         }
-    }
-};
-
-const pinnedColumnsDescription = 'Set `pin-location` to `left` on one or more fixed-width columns to pin them to the left side of the table. Pinned columns remain visible as the user scrolls the table horizontally. Only columns with a fixed pixel width support pinning.';
-
-interface PinnedColumnsTableArgs extends SharedTableArgs {
-    pinFirstColumn: boolean;
-}
-
-export const pinnedColumns: StoryObj<PinnedColumnsTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: pinnedColumnsDescription
-            }
-        }
-    },
-    render: createUserSelectedThemeStory(html<PinnedColumnsTableArgs>`
-        <${tableTag}
-            ${ref('tableRef')}
-            data-unused="${x => x.updateData(x)}"
-            id-field-name="firstName"
-            style="height: 320px"
-            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
-        >
-            <${tableColumnMappingTag}
-                field-name="isActive"
-                key-type="boolean"
-                width-mode="${TableColumnMappingWidthMode.iconSize}"
-                pin-location="${x => (x.pinFirstColumn ? TableColumnPinLocation.left : TableColumnPinLocation.none)}"
-            >
-                <${iconUserTag} title="Active"></${iconUserTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Active" text-hidden></${mappingIconTag}>
-                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Inactive" text-hidden></${mappingIconTag}>
-            </${tableColumnMappingTag}>
-            <${tableColumnTextTag} field-name="firstName">
-                First Name
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag} field-name="lastName">
-                Last Name
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag} field-name="favoriteColor">
-                Favorite Color
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag} field-name="quote">
-                Quote
-            </${tableColumnTextTag}>
-        </${tableTag}>
-    `),
-    argTypes: {
-        pinFirstColumn: {
-            name: 'pin-location',
-            description: pinnedColumnsDescription
-        }
-    },
-    args: {
-        ...sharedTableArgs(pinnedColumnsData),
-        pinFirstColumn: true
     }
 };

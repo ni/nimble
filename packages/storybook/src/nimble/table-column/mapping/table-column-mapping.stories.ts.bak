@@ -110,7 +110,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 key-type="boolean" 
                 width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}"
                 pin-location="${x => (x.pinLocationEnabled ? TableColumnPinLocation.left : undefined)}"
-            >
+                >
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
             
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
