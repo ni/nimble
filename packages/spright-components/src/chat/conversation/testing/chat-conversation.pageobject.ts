@@ -65,8 +65,7 @@ export class ChatConversationPageObject {
     }
 
     public getBottomSpacerHeight(): number {
-        const padding = this.getScrollContainer().style.paddingBottom;
-        return padding === '' ? 0 : parseFloat(padding);
+        return this.element.bottomSpacerHeight;
     }
 
     public getDistanceFromBottom(): number {
@@ -90,8 +89,10 @@ export class ChatConversationPageObject {
     }
 
     public isAutoScrollConnected(): boolean {
-        const internal = this.element as unknown as { scrollManager: unknown };
-        return internal.scrollManager !== null && internal.scrollManager !== undefined;
+        const internal = this.element as unknown as {
+            scrollWiringActive: boolean
+        };
+        return internal.scrollWiringActive;
     }
 
     // --- actions ---

@@ -8,7 +8,12 @@ export const template = html<ChatConversation>`
 <div class="start ${x => (x.startEmpty ? 'start-empty' : '')}">
     <slot name="start" ${slotted({ property: 'slottedStartElements' })}></slot>
 </div>
-<div class="messages" ${ref('messagesContainer')}><slot ${ref('defaultSlot')}></slot></div>
+<div class="messages" ${ref('messagesContainer')}>
+    <div class="messages-content" ${ref('messagesContent')}>
+        <slot ${slotted({ property: 'slottedMessages' })}></slot>
+    </div>
+    <div class="scroll-spacer" style="height: ${x => x.bottomSpacerHeight}px"></div>
+</div>
 <div class="input ${x => (x.inputEmpty ? 'input-empty' : '')}">
     <slot name="input" ${slotted({ property: 'slottedInputElements' })}>
     </slot>

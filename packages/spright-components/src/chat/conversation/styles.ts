@@ -64,12 +64,21 @@ export const styles = css`
         flex: 1;
         display: flex;
         flex-direction: column;
+        background: ${sectionBackgroundImage};
+        overflow-y: auto;
+    }
+
+    .messages-content {
+        display: flex;
+        flex-direction: column;
         justify-content: flex-start;
         row-gap: 32px;
         padding: ${mediumPadding} ${standardPadding} ${mediumPadding}
             ${standardPadding};
-        background: ${sectionBackgroundImage};
-        overflow-y: auto;
+    }
+
+    .scroll-spacer {
+        flex: none;
     }
 
     :host([appearance='overlay']) .messages {
