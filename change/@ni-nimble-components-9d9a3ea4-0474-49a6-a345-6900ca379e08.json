@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Fix webkit test failure that occurred due to the underlying prosemirror issue is now resolved",
+  "comment": "Fix the WebKit test failure caused by an underlying ProseMirror issue that has now been resolved",
   "packageName": "@ni/nimble-components",
   "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
   "dependentChangeType": "none"
