@@ -90,12 +90,12 @@ export class ChatConversation extends FoundationElement {
     // True while auto-scroll wiring (listeners/observer) is attached.
     private scrollWiringActive = false;
     // The most recently sent outbound message that the conversation anchors to.
-    private scrollAnchorMessage: ChatMessageOutbound | null = null;
+    private scrollAnchorMessage?: ChatMessageOutbound;
     // The scrollTop at which the anchored message sits at the top of the viewport.
     private anchorScrollTop = 0;
     // Target of an in-progress smooth programmatic scroll; suppresses scroll-intent handling until reached.
-    private programmaticScrollTarget: number | null = null;
-    private resizeObserver: ResizeObserver | null = null;
+    private programmaticScrollTarget?: number;
+    private resizeObserver?: ResizeObserver;
     private scrollUpdatePending = false;
     private pendingAnchorOutbound = false;
 
@@ -187,8 +187,8 @@ export class ChatConversation extends FoundationElement {
         this.scrollWiringActive = false;
         this.messagesContainer.removeEventListener('scroll', this.onScroll);
         this.resizeObserver?.disconnect();
-        this.resizeObserver = null;
-        this.setScrollAnchorMessage(null);
+        this.resizeObserver = undefined;
+        this.setScrollAnchorMessage(undefined);
         this.anchorScrollTop = 0;
         this.setBottomSpacerHeight(0);
     }
@@ -218,7 +218,7 @@ export class ChatConversation extends FoundationElement {
      */
     private anchorToLastOutboundMessage(): void {
         const message = this.getLastOutboundMessage();
-        if (message === null) {
+        if (message === undefined) {
             return;
         }
         this.setScrollAnchorMessage(message);
@@ -306,9 +306,9 @@ export class ChatConversation extends FoundationElement {
     }
 
     private readonly onScroll = (): void => {
-        if (this.programmaticScrollTarget !== null) {
+        if (this.programmaticScrollTarget !== undefined) {
             if (Math.abs(this.messagesContainer.scrollTop - this.programmaticScrollTarget) <= 1) {
-                this.programmaticScrollTarget = null;
+                this.programmaticScrollTarget = undefined;
             }
             return;
         }
@@ -337,20 +337,20 @@ export class ChatConversation extends FoundationElement {
         this.messagesContainer.scrollTop = scrollTop;
     }
 
-    private setScrollAnchorMessage(message: ChatMessageOutbound | null): void {
+    private setScrollAnchorMessage(message?: ChatMessageOutbound): void {
         if (this.scrollAnchorMessage === message) {
             return;
         }
-        if (this.scrollAnchorMessage !== null) {
+        if (this.scrollAnchorMessage !== undefined) {
             this.scrollAnchorMessage.messageInternals.isScrollAnchor = false;
         }
         this.scrollAnchorMessage = message;
-        if (message !== null) {
+        if (message !== undefined) {
             message.messageInternals.isScrollAnchor = true;
         }
     }
 
-    private getLastOutboundMessage(): ChatMessageOutbound | null {
+    private getLastOutboundMessage(): ChatMessageOutbound | undefined {
         const messages = this.slottedMessages ?? [];
         for (let i = messages.length - 1; i >= 0; i--) {
             const message = messages[i];
@@ -358,7 +358,7 @@ export class ChatConversation extends FoundationElement {
                 return message as ChatMessageOutbound;
             }
         }
-        return null;
+        return undefined;
     }
 
     private getMessageGeometry(message: HTMLElement): {

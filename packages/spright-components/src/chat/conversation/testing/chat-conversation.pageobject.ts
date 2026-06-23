@@ -15,15 +15,17 @@ export class ChatConversationPageObject {
     // --- slots ---
 
     public hasDefaultSlot(): boolean {
-        return this.queryShadow('.messages slot') !== null;
+        return this.queryShadow('.messages slot') !== undefined;
     }
 
     public hasNamedSlot(name: string): boolean {
-        return this.queryShadow(`slot[name="${name}"]`) !== null;
+        return this.queryShadow(`slot[name="${name}"]`) !== undefined;
     }
 
     public getNamedSlotAssignedElementCount(name: string): number {
-        const slot = this.queryShadow(`slot[name="${name}"]`) as HTMLSlotElement | null;
+        const slot = this.queryShadow(`slot[name="${name}"]`) as
+            | HTMLSlotElement
+            | undefined;
         return slot?.assignedElements().length ?? 0;
     }
 
@@ -180,19 +182,23 @@ export class ChatConversationPageObject {
     }
 
     private getMessages(): Element[] {
-        const slot = this.queryShadow('.messages slot') as HTMLSlotElement | null;
+        const slot = this.queryShadow('.messages slot') as
+            | HTMLSlotElement
+            | undefined;
         return slot?.assignedElements({ flatten: true }) ?? [];
     }
 
     private getScrollContainer(): HTMLElement {
-        const container = this.queryShadow('.messages') as HTMLElement | null;
-        if (container === null) {
+        const container = this.queryShadow('.messages') as
+            | HTMLElement
+            | undefined;
+        if (container === undefined) {
             throw new Error('Scroll container not found');
         }
         return container;
     }
 
-    private queryShadow(selector: string): Element | null {
-        return this.element.shadowRoot?.querySelector(selector) ?? null;
+    private queryShadow(selector: string): Element | undefined {
+        return this.element.shadowRoot?.querySelector(selector) ?? undefined;
     }
 }
