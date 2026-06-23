@@ -148,7 +148,7 @@ function createCustomLinkExtension(): Mark {
             rel: 'noopener noreferrer',
             target: null,
             // Adding `class` here is a workaround to render two mentions without a whitespace as display names
-            // This attribute can be removed when the below issue is resolved
+            // For more details on this behavior, refer to the issue below:
             // https://github.com/ni/nimble/issues/1707
             class: ''
         },
