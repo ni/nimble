@@ -12,7 +12,7 @@ export const template = html<ChatConversation>`
     <div class="messages-content" ${ref('messagesContent')}>
         <slot ${slotted({ property: 'slottedMessages' })}></slot>
     </div>
-    <div class="scroll-spacer" style="height: ${x => x.bottomSpacerHeight}px"></div>
+        <div class="scroll-spacer" style="height: ${x => x.autoScrollManager.bottomSpacerHeight}px"></div>
 </div>
 <div class="input ${x => (x.inputEmpty ? 'input-empty' : '')}">
     <slot name="input" ${slotted({ property: 'slottedInputElements' })}>

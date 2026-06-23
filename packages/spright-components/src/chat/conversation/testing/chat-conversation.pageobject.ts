@@ -67,7 +67,7 @@ export class ChatConversationPageObject {
     }
 
     public getBottomSpacerHeight(): number {
-        return this.element.bottomSpacerHeight;
+        return this.element.autoScrollManager.bottomSpacerHeight;
     }
 
     public getDistanceFromBottom(): number {
@@ -91,14 +91,11 @@ export class ChatConversationPageObject {
     }
 
     public isAutoScrollConnected(): boolean {
-        const internal = this.element as unknown as {
-            scrollWiringActive: boolean
-        };
-        return internal.scrollWiringActive;
+        return this.element.autoScrollManager.isActive;
     }
 
     public isAutoScrollEngaged(): boolean {
-        return this.element.autoScrollEngaged;
+        return this.element.autoScrollManager.autoScrollEngaged;
     }
 
     public isMessageScrollAnchorByIndex(index: number): boolean {
