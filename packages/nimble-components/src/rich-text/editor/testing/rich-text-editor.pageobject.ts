@@ -182,7 +182,7 @@ export class RichTextEditorPageObject {
 
     public getMentionButtonLabel(buttonIndex: number): string {
         const buttons: Button[] = this.getMentionButtons()!;
-        return buttons[buttonIndex]?.innerText ?? '';
+        return (buttons[buttonIndex]?.innerText ?? '').trim();
     }
 
     public getButtonCheckedState(button: ToolbarButton): boolean {
