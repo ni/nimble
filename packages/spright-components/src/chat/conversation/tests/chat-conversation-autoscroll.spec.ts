@@ -93,6 +93,22 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
             expect(pageObject.isAnchorRegionReserved()).toBeTrue();
         });
 
+        it('grows the anchored region and follows the bottom once the response exceeds the viewport', async () => {
+            await fillWithInboundMessages(4);
+            await pageObject.appendOutboundMessage('A user question');
+
+            // A response taller than the reserved viewport must grow the anchored
+            // region's box (not overflow a shrink-clamped region) so streamed
+            // content keeps following the bottom.
+            const longResponse = 'Streamed response content that keeps growing. '.repeat(60);
+            await pageObject.appendInboundMessage(longResponse);
+
+            expect(pageObject.getAnchoredRegionHeight()).toBeGreaterThan(
+                pageObject.getClientHeight()
+            );
+            expect(pageObject.isScrolledToBottom()).toBeTrue();
+        });
+
         it('stops auto-scrolling after the user scrolls up', async () => {
             await fillWithInboundMessages(8);
             expect(pageObject.isScrolledToBottom()).toBeTrue();

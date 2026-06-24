@@ -74,6 +74,7 @@ export const styles = css`
 
     .messages-history,
     .messages-anchored {
+        flex: none;
         display: flex;
         flex-direction: column;
         row-gap: 32px;
@@ -81,10 +82,6 @@ export const styles = css`
 
     .messages-history.region-empty {
         display: none;
-    }
-
-    .messages-anchored.anchor-active {
-        min-height: 100%;
     }
 
     :host([appearance='overlay']) .messages {
