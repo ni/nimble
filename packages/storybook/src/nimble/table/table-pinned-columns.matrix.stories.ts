@@ -250,7 +250,7 @@ export const pinnedColumns$NoSelectionThemeMatrix: StoryFn = createMatrixThemeSt
     createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
-        hierarchyStates,
+        [hierarchyStates[0]],
         [undefined],
         scrollPositionStates
     ])
@@ -261,7 +261,7 @@ export const pinnedColumns$SingleSelectionThemeMatrix: StoryFn = createMatrixThe
     createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
-        hierarchyStates,
+        [hierarchyStates[0]],
         [TableRowSelectionMode.single],
         scrollPositionStates
     ])
@@ -272,7 +272,7 @@ export const pinnedColumns$MultipleSelectionThemeMatrix: StoryFn = createMatrixT
     createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
-        hierarchyStates,
+        [hierarchyStates[1]],
         [TableRowSelectionMode.multiple],
         scrollPositionStates
     ])
