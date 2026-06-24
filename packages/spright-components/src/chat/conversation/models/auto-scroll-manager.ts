@@ -8,19 +8,20 @@ import {
 import { mediumPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import type { ChatConversation } from '..';
 import {
-    type ChatMessageOutbound,
-    chatMessageOutboundTag
-} from '../../message/outbound';
+    ChatMessageInternals,
+    type ChatMessage
+} from '../../message/models/chat-message-internals';
 
 // Distance from the bottom (px) within which the conversation is considered "at the bottom".
 const scrollingPixelThreshold = 10;
 
 /**
- * Manages auto-scroll behavior for the chat conversation: pinning a newly sent
- * outbound message near the top of the viewport, following streamed content, and
- * disengaging when the user scrolls away. The conversation owns a single instance
- * for its lifetime and calls `connect()`/`disconnect()` to register and tear down
- * the observers whenever the element is connected and `autoScroll` is enabled.
+ * Manages auto-scroll behavior for the chat conversation: pinning a newly
+ * inserted anchor message near the top of the viewport, following streamed
+ * content, and disengaging when the user scrolls away. The conversation owns a
+ * single instance for its lifetime and calls `connect()`/`disconnect()` to
+ * register and tear down the observers whenever the element is connected and
+ * `autoScroll` is enabled.
  * @internal
  */
 export class AutoScrollManager implements Subscriber {
@@ -33,8 +34,8 @@ export class AutoScrollManager implements Subscriber {
 
     /**
      * Height (px) of the spacer rendered below the messages. Used to hold a newly
-     * sent outbound message near the top of the viewport while the response grows
-     * below it. Bound to the spacer element in the template.
+     * inserted anchor message near the top of the viewport while the response
+     * grows below it. Bound to the spacer element in the template.
      */
     @observable
     public bottomSpacerHeight = 0;
@@ -43,15 +44,15 @@ export class AutoScrollManager implements Subscriber {
         return this.resizeObserver !== undefined;
     }
 
-    // The most recently sent outbound message that the conversation anchors to.
-    private scrollAnchorMessage?: ChatMessageOutbound;
+    // The message the conversation currently anchors to.
+    private scrollAnchorMessage?: ChatMessage;
     // The scrollTop at which the anchored message sits at the top of the viewport.
     private anchorScrollTop = 0;
     // Target of an in-progress smooth programmatic scroll; suppresses scroll-intent handling until reached.
     private programmaticScrollTarget?: number;
     private resizeObserver?: ResizeObserver;
     private scrollUpdatePending = false;
-    private pendingAnchorOutbound = false;
+    private pendingAnchorInsert = false;
     // Snapshot of slotted messages used to detect additions across change notifications.
     private previousMessages: HTMLElement[] = [];
     private readonly conversationNotifier: Notifier;
@@ -105,26 +106,28 @@ export class AutoScrollManager implements Subscriber {
         if (addedMessages.length === 0) {
             return;
         }
-        const hasOutbound = addedMessages.some(message => this.isOutboundMessage(message));
-        this.scheduleScrollUpdate(hasOutbound);
+        const hasAnchorMessage = addedMessages.some(
+            message => this.shouldAnchorOnInsert(message)
+        );
+        this.scheduleScrollUpdate(hasAnchorMessage);
     }
 
     private snapshotMessages(): void {
         this.previousMessages = [...(this.conversation.slottedMessages ?? [])];
     }
 
-    private scheduleScrollUpdate(hasOutbound: boolean): void {
-        this.pendingAnchorOutbound = this.pendingAnchorOutbound || hasOutbound;
+    private scheduleScrollUpdate(hasAnchorMessage: boolean): void {
+        this.pendingAnchorInsert = this.pendingAnchorInsert || hasAnchorMessage;
         if (this.scrollUpdatePending) {
             return;
         }
         this.scrollUpdatePending = true;
         requestAnimationFrame(() => {
             this.scrollUpdatePending = false;
-            const anchorOutbound = this.pendingAnchorOutbound;
-            this.pendingAnchorOutbound = false;
-            if (anchorOutbound) {
-                this.anchorToLastOutboundMessage();
+            const anchorInsert = this.pendingAnchorInsert;
+            this.pendingAnchorInsert = false;
+            if (anchorInsert) {
+                this.anchorToLastInsertedMessage();
             } else if (this.autoScrollEngaged) {
                 this.followContent();
             }
@@ -132,12 +135,12 @@ export class AutoScrollManager implements Subscriber {
     }
 
     /**
-     * Positions the last outbound message at the top of the visible viewport,
-     * using the bottom spacer to prevent the content from being pushed up as the
-     * response grows below.
+     * Positions the last inserted anchor message at the top of the visible
+     * viewport, using the bottom spacer to prevent the content from being pushed
+     * up as the response grows below.
      */
-    private anchorToLastOutboundMessage(): void {
-        const message = this.getLastOutboundMessage();
+    private anchorToLastInsertedMessage(): void {
+        const message = this.getLastAnchorMessage();
         if (message === undefined) {
             return;
         }
@@ -266,7 +269,7 @@ export class AutoScrollManager implements Subscriber {
         this.conversation.messagesContainer.scrollTop = scrollTop;
     }
 
-    private setScrollAnchorMessage(message?: ChatMessageOutbound): void {
+    private setScrollAnchorMessage(message?: ChatMessage): void {
         if (this.scrollAnchorMessage === message) {
             return;
         }
@@ -279,15 +282,26 @@ export class AutoScrollManager implements Subscriber {
         }
     }
 
-    private getLastOutboundMessage(): ChatMessageOutbound | undefined {
+    private getLastAnchorMessage(): ChatMessage | undefined {
         const messages = this.conversation.slottedMessages ?? [];
         for (let i = messages.length - 1; i >= 0; i--) {
             const message = messages[i];
-            if (message !== undefined && this.isOutboundMessage(message)) {
-                return message as ChatMessageOutbound;
+            if (
+                message !== undefined
+                && ChatMessageInternals.elementHasMessageInternals(message)
+                && message.messageInternals.anchorOnInsert
+            ) {
+                return message;
             }
         }
         return undefined;
+    }
+
+    private shouldAnchorOnInsert(element: Element): boolean {
+        return (
+            ChatMessageInternals.elementHasMessageInternals(element)
+            && element.messageInternals.anchorOnInsert
+        );
     }
 
     private getMessageGeometry(message: HTMLElement): {
@@ -299,9 +313,5 @@ export class AutoScrollManager implements Subscriber {
         const messageRect = message.getBoundingClientRect();
         const top = container.scrollTop + (messageRect.top - containerRect.top);
         return { top, height: messageRect.height };
-    }
-
-    private isOutboundMessage(element: Element): boolean {
-        return element.tagName.toLowerCase() === chatMessageOutboundTag;
     }
 }

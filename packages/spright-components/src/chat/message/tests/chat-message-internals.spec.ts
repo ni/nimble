@@ -1,4 +1,5 @@
 import { html } from '@ni/fast-element';
+import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { ChatMessageInbound, chatMessageInboundTag } from '../inbound';
 import { ChatMessageOutbound, chatMessageOutboundTag } from '../outbound';
 import { ChatMessageSystem, chatMessageSystemTag } from '../system';
@@ -11,23 +12,26 @@ const messageVariants = [
     {
         name: 'inbound',
         tag: chatMessageInboundTag,
+        anchorOnInsert: false,
         construct: () => html<unknown>`<${chatMessageInboundTag}>Message content</${chatMessageInboundTag}>`
     },
     {
         name: 'outbound',
         tag: chatMessageOutboundTag,
+        anchorOnInsert: true,
         construct: () => html<unknown>`<${chatMessageOutboundTag}>Message content</${chatMessageOutboundTag}>`
     },
     {
         name: 'system',
         tag: chatMessageSystemTag,
+        anchorOnInsert: false,
         construct: () => html<unknown>`<${chatMessageSystemTag}>Message content</${chatMessageSystemTag}>`
     }
 ] as const;
 
 describe('ChatMessage internals', () => {
-    for (const variant of messageVariants) {
-        describe(variant.name, () => {
+    parameterizeSuite(messageVariants, (suite, name, value) => {
+        suite(name, () => {
             let element: MessageElement;
             let connect: () => Promise<void>;
             let disconnect: () => Promise<void>;
@@ -35,7 +39,7 @@ describe('ChatMessage internals', () => {
 
             beforeEach(async () => {
                 ({ element, connect, disconnect } = await fixture<MessageElement>(
-                    variant.construct()
+                    value.construct()
                 ));
                 pageObject = new ChatMessagePageObject(element);
                 await connect();
@@ -47,6 +51,12 @@ describe('ChatMessage internals', () => {
 
             it('exposes messageInternals', () => {
                 expect(element.messageInternals).toBeDefined();
+            });
+
+            it('declares anchorOnInsert for its message type', () => {
+                expect(element.messageInternals.anchorOnInsert).toBe(
+                    value.anchorOnInsert
+                );
             });
 
             it('defaults isScrollAnchor to false', () => {
@@ -62,5 +72,5 @@ describe('ChatMessage internals', () => {
                 expect(pageObject.getRenderedText()).toBe('Message content');
             });
         });
-    }
+    });
 });
