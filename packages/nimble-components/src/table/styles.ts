@@ -131,7 +131,7 @@ export const styles = css`
         left: 0;
         align-self: stretch;
         background: ${applicationBackgroundColor};
-        z-index: ${ZIndexLevels.zIndex1000};
+        z-index: ${ZIndexLevels.zIndex1};
         box-shadow: inset -2px 0 0 0 ${tableRowBorderColor};
     }
 

@@ -87,7 +87,7 @@ export const styles = css`
         position: sticky;
         left: 0;
         background: ${tableRowBorderColor};
-        z-index: ${ZIndexLevels.zIndex1000};
+        z-index: ${ZIndexLevels.zIndex1};
     }
 
     .checkbox-container {

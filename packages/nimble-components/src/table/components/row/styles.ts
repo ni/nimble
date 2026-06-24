@@ -123,7 +123,7 @@ export const styles = css`
         position: sticky;
         left: 0;
         background: ${applicationBackgroundColor};
-        z-index: ${ZIndexLevels.zIndex1000};
+        z-index: ${ZIndexLevels.zIndex1};
         box-shadow: inset -2px 0 0 0 ${tableRowBorderColor};
     }
 
@@ -151,6 +151,10 @@ export const styles = css`
             inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
             inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
             inset -2px 0 0 0 ${tableRowBorderColor};
+    }
+
+    :host([menu-open]) .pinned-cell-container {
+        z-index: ${ZIndexLevels.zIndex1000};
     }
 
     .cell-container {
