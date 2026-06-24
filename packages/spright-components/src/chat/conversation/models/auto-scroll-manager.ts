@@ -19,11 +19,12 @@ const historySlotName = 'history';
 /**
  * Manages auto-scroll behavior for the chat conversation: partitioning messages
  * into a history region and an anchored region, pinning a newly inserted anchor
- * message near the top of the viewport (by reserving a viewport of space on the
- * anchored region via an inline `min-height`), following streamed content, and
- * disengaging when the user scrolls away. The conversation owns a single instance
- * for its lifetime and calls `connect()`/`disconnect()` to register and tear down
- * observers whenever the element is connected and `autoScroll` is enabled.
+ * message near the top of the viewport (via a `min-height: 100%` reservation on
+ * the anchored region, which requires the conversation to have a definite
+ * height), following streamed content, and disengaging when the user scrolls
+ * away. The conversation owns a single instance for its lifetime and calls
+ * `connect()`/`disconnect()` to register and tear down observers whenever the
+ * element is connected and `autoScroll` is enabled.
  * @internal
  */
 export class AutoScrollManager implements Subscriber {
@@ -35,10 +36,9 @@ export class AutoScrollManager implements Subscriber {
     public autoScrollEngaged = true;
 
     /**
-     * Whether the anchored region is reserving a viewport of space (via an inline
-     * `min-height`) to hold the current turn's anchor message near the top. Bound
-     * to a class on the anchored region in the template and drives the
-     * reservation applied in `updateReservedHeight()`.
+     * Whether the anchored region is reserving a viewport of space (via its
+     * `min-height: 100%`) to hold the current turn's anchor message near the top.
+     * Bound to the `anchor-active` class on the anchored region in the template.
      */
     @observable
     public anchorActive = false;
@@ -75,8 +75,8 @@ export class AutoScrollManager implements Subscriber {
         this.resizeObserver = new ResizeObserver(() => {
             this.onContentSizeChanged();
         });
-        // Observe the anchored region for streamed content growth and the
-        // scroll viewport for size changes that affect the reservation.
+        // Observe the anchored region for streamed content growth and the scroll
+        // viewport so the conversation stays pinned when its height changes.
         this.resizeObserver.observe(this.conversation.anchoredContainer);
         this.resizeObserver.observe(this.conversation.messagesContainer);
         this.repartition(this.previousMessages);
@@ -94,7 +94,6 @@ export class AutoScrollManager implements Subscriber {
         this.setScrollAnchorMessage(undefined);
         this.clearSlotAssignments();
         this.anchorActive = false;
-        this.updateReservedHeight();
         this.previousMessages = [];
     }
 
@@ -132,32 +131,6 @@ export class AutoScrollManager implements Subscriber {
                 : undefined;
         });
         this.anchorActive = anchorIndex >= 0;
-        this.updateReservedHeight();
-    }
-
-    /**
-     * Reserves space on the anchored region so that scrolling to the bottom pins
-     * the anchor message near the top with room below for the response to fill.
-     * The reservation is the scroll viewport's content-box height (client height
-     * minus vertical padding), set as an inline pixel `min-height`. Measuring in
-     * pixels is robust whether or not the host has a definite height (a CSS
-     * percentage reservation collapses when the host height is driven by
-     * `max-height` or content), and subtracting the padding makes the bottom of
-     * the scroll range coincide with the anchor pinned just below the top
-     * padding, so following content does not nudge the anchor off the top.
-     */
-    private updateReservedHeight(): void {
-        const { style } = this.conversation.anchoredContainer;
-        if (this.anchorActive) {
-            const container = this.conversation.messagesContainer;
-            const containerStyle = getComputedStyle(container);
-            const verticalPadding = parseFloat(containerStyle.paddingTop)
-                + parseFloat(containerStyle.paddingBottom);
-            const reserved = Math.max(0, container.clientHeight - verticalPadding);
-            style.minHeight = `${reserved}px`;
-        } else {
-            style.minHeight = '';
-        }
     }
 
     private clearSlotAssignments(): void {
@@ -185,10 +158,10 @@ export class AutoScrollManager implements Subscriber {
     }
 
     /**
-     * Pins the most recently inserted anchor message at the top of the viewport.
-     * The anchored region reserves a viewport via `min-height`, so scrolling to
-     * the anchor's offset leaves a full viewport of reserved space below it for
-     * the response to fill while keeping the anchor pinned at the top.
+     * Pins the most recently inserted anchor message near the top of the
+     * viewport. The anchored region reserves a viewport via `min-height: 100%`,
+     * so scrolling to the bottom places the anchor at the top with reserved
+     * space below it for the response to fill.
      */
     private anchorToLastInsertedMessage(): void {
         const message = this.getLastAnchorMessage();
@@ -197,17 +170,7 @@ export class AutoScrollManager implements Subscriber {
         }
         this.setScrollAnchorMessage(message);
         this.autoScrollEngaged = true;
-        this.smoothScrollTo(this.getMessageOffsetTop(message));
-    }
-
-    // Offset of the message from the top of the scrollable content, clamped to
-    // the scrollable range.
-    private getMessageOffsetTop(message: ChatMessage): number {
-        const container = this.conversation.messagesContainer;
-        const offsetTop = container.scrollTop
-            + (message.getBoundingClientRect().top
-                - container.getBoundingClientRect().top);
-        return Math.max(0, Math.min(offsetTop, this.getMaxScrollTop()));
+        this.smoothScrollTo(this.getMaxScrollTop());
     }
 
     private followContent(): void {
@@ -215,8 +178,7 @@ export class AutoScrollManager implements Subscriber {
     }
 
     private onContentSizeChanged(): void {
-        // Keep the reservation in sync with viewport size changes.
-        this.updateReservedHeight();
+        // Reacts to streamed content growth and viewport height changes.
         // While a pending or in-progress anchor insert owns positioning, let its
         // smooth scroll settle instead of competing with an instant follow.
         if (

@@ -68,12 +68,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <style class='code-hide'>
-            ${chatConversationTag} {
-                max-height: 750px;
-            }
-        </style>
-        <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}" ?auto-scroll="${x => x.autoScroll}">
+         <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}" ?auto-scroll="${x => x.autoScroll}">
             ${when(x => x.toolbar, html<ChatConversationArgs>`
                 <${toolbarTag} slot='toolbar'>
                     <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
@@ -317,7 +312,7 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
         welcomeTitle: 'Welcome to Nigel™ AI',
         subtitle: 'Chat below to get started',
         brandIcon: false,
-        defaultSlot: ExampleWelcomeSlotContent.loginButton
+        defaultSlot: ExampleWelcomeSlotContent.loginButton,
     }
 };
 

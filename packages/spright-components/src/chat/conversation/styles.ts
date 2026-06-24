@@ -17,6 +17,7 @@ export const styles = css`
     ${display('flex')}
 
     :host {
+        height: 480px;
         flex-direction: column;
         background: ${applicationBackgroundColor};
     }
@@ -82,6 +83,10 @@ export const styles = css`
 
     .messages-history.region-empty {
         display: none;
+    }
+
+    .messages-anchored.anchor-active {
+        min-height: 100%;
     }
 
     :host([appearance='overlay']) .messages {
