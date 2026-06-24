@@ -163,7 +163,8 @@ export class TableValidator<TData extends TableRecord> {
     ): boolean {
         this.invalidPinnedColumnConfiguration = columns.some(
             x => x.columnInternals.pinLocation === TableColumnPinLocation.left
-                && x.columnInternals.currentPixelWidth === undefined
+                && (x.columnInternals.pixelWidth === undefined
+                    || !x.columnInternals.resizingDisabled)
         );
         return !this.invalidPinnedColumnConfiguration;
     }

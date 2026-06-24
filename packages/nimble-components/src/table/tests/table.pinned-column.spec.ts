@@ -201,7 +201,29 @@ describe('Table pinned columns', () => {
         expect(element.validity.invalidPinnedColumnConfiguration).toBeTrue();
     });
 
-    it('clears invalidPinnedColumnConfiguration when a pinned column gets a pixel width', async () => {
+    it('reports invalidPinnedColumnConfiguration when a pinned column has a pixel width but resizing is not disabled', async () => {
+        await connect();
+
+        column1.columnInternals.pixelWidth = 120;
+        column1.pinLocation = TableColumnPinLocation.left;
+        await waitForUpdatesAsync();
+
+        expect(element.checkValidity()).toBeFalse();
+        expect(element.validity.invalidPinnedColumnConfiguration).toBeTrue();
+    });
+
+    it('reports invalidPinnedColumnConfiguration when a pinned column has resizing disabled but no pixel width', async () => {
+        await connect();
+
+        column1.columnInternals.resizingDisabled = true;
+        column1.pinLocation = TableColumnPinLocation.left;
+        await waitForUpdatesAsync();
+
+        expect(element.checkValidity()).toBeFalse();
+        expect(element.validity.invalidPinnedColumnConfiguration).toBeTrue();
+    });
+
+    it('clears invalidPinnedColumnConfiguration when a pinned column has both a pixel width and resizing disabled', async () => {
         await connect();
 
         column1.pinLocation = TableColumnPinLocation.left;
@@ -209,7 +231,8 @@ describe('Table pinned columns', () => {
         expect(element.checkValidity()).toBeFalse();
         expect(element.validity.invalidPinnedColumnConfiguration).toBeTrue();
 
-        column1.columnInternals.currentPixelWidth = 120;
+        column1.columnInternals.pixelWidth = 120;
+        column1.columnInternals.resizingDisabled = true;
         await waitForUpdatesAsync();
 
         expect(element.checkValidity()).toBeTrue();
