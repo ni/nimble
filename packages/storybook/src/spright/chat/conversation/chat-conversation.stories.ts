@@ -53,9 +53,10 @@ interface ChatConversationArgs {
     end: boolean;
     conversationRef: ChatConversation;
     sendMessage: (
-        event: CustomEvent<ChatInputSendEventDetail>,
-        conversationRef: ChatConversation
+        args: ChatConversationArgs,
+        event: CustomEvent<ChatInputSendEventDetail>
     ) => void;
+    streamingIntervalId?: number;
 }
 
 const metadata: Meta<ChatConversationArgs> = {
@@ -138,8 +139,8 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${buttonTag}>
             </${chatMessageInboundTag}>
             ${when(x => x.input, html<ChatConversationArgs, ChatInput>`
-                <${chatInputTag} slot='input' placeholder='Type a message' send-button-label='Send'
-                    @send="${(x2, c2) => x2.sendMessage(c2.event as CustomEvent<ChatInputSendEventDetail>, x2.conversationRef)}"
+                <${chatInputTag} slot='input' placeholder='Type a message (try "start" or "stop")' send-button-label='Send'
+                    @send="${(x2, c2) => x2.sendMessage(x2, c2.event as CustomEvent<ChatInputSendEventDetail>)}"
                 ></${chatInputTag}>
             `)}
             ${when(x => x.end, html<ChatConversationArgs>`
@@ -198,19 +199,55 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         toolbar: true,
         start: true,
         end: true,
-        sendMessage: (event, conversationRef) => {
-            const message = document.createElement(chatMessageOutboundTag);
-            const span = document.createElement('span');
-            span.textContent = event.detail.text;
+        sendMessage: (args, event) => {
+            const text = event.detail.text;
+            const command = text.trim().toLowerCase();
+            if (command === 'stop') {
+                if (args.streamingIntervalId !== undefined) {
+                    window.clearInterval(args.streamingIntervalId);
+                    args.streamingIntervalId = undefined;
+                }
+                return;
+            }
+            // Post the user's message as a new outgoing message.
+            const outbound = document.createElement(chatMessageOutboundTag);
+            const outboundSpan = document.createElement('span');
+            outboundSpan.textContent = text;
             // Preserves new lines and trailing spaces that the user entered
-            span.style.whiteSpace = 'pre-wrap';
-            message.appendChild(span);
-            conversationRef.appendChild(message);
-            message.scrollIntoView({
+            outboundSpan.style.whiteSpace = 'pre-wrap';
+            outbound.appendChild(outboundSpan);
+            args.conversationRef.appendChild(outbound);
+            outbound.scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
                 inline: 'start'
             });
+            if (command === 'start') {
+                if (args.streamingIntervalId !== undefined) {
+                    return;
+                }
+                // Add the incoming response that streams lorem ipsum text.
+                const inbound = document.createElement(chatMessageInboundTag);
+                const inboundSpan = document.createElement('span');
+                // Preserves new lines and trailing spaces as the text streams in
+                inboundSpan.style.whiteSpace = 'pre-wrap';
+                inbound.appendChild(inboundSpan);
+                args.conversationRef.appendChild(inbound);
+                const words = loremIpsum.split(' ');
+                const wordsPerChunk = 5;
+                let wordIndex = 0;
+                args.streamingIntervalId = window.setInterval(() => {
+                    const chunk: string[] = [];
+                    for (let i = 0; i < wordsPerChunk; i += 1) {
+                        chunk.push(words[wordIndex % words.length] ?? '');
+                        wordIndex += 1;
+                    }
+                    const chunkText = chunk.join(' ');
+                    inboundSpan.textContent = inboundSpan.textContent
+                        ? `${inboundSpan.textContent} ${chunkText}`
+                        : chunkText;
+                }, 150);
+            }
         }
     }
 };
