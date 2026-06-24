@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 01 Jun 2026 17:09:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 23 Jun 2026 16:40:18 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.10.1
+
+Tue, 23 Jun 2026 16:40:18 GMT
+
+### Patches
+
+- Fix the WebKit test failure caused by an underlying ProseMirror issue that has now been resolved ([ni/nimble@c29e122](https://github.com/ni/nimble/commit/c29e122e1ed5ae468dacb8c57ad1c1aa9e0a6e7c))
 
 ## 35.10.0
 

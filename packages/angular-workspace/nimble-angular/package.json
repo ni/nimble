@@ -36,7 +36,7 @@
     "@angular/forms": "^20.3.19",
     "@angular/localize": "^20.3.19",
     "@angular/router": "^20.3.19",
-    "@ni/nimble-components": "^35.10.0",
+    "@ni/nimble-components": "^35.10.1",
     "@ni/unit-format": "^1.0.5"
   }
 }
