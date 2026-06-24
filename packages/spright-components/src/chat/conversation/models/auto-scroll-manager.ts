@@ -19,8 +19,8 @@ const scrollingPixelThreshold = 10;
  * Manages auto-scroll behavior for the chat conversation: pinning a newly sent
  * outbound message near the top of the viewport, following streamed content, and
  * disengaging when the user scrolls away. The conversation owns a single instance
- * for its lifetime; `connect()`/`disconnect()` track DOM presence and the
- * `autoScroll` state controls whether the underlying observers are registered.
+ * for its lifetime and calls `connect()`/`disconnect()` to register and tear down
+ * the observers whenever the element is connected and `autoScroll` is enabled.
  * @internal
  */
 export class AutoScrollManager implements Subscriber {
@@ -40,13 +40,9 @@ export class AutoScrollManager implements Subscriber {
     public bottomSpacerHeight = 0;
 
     public get isActive(): boolean {
-        return this.active;
+        return this.resizeObserver !== undefined;
     }
 
-    // True while the conversation is connected to the DOM.
-    private connected = false;
-    // True while the scroll observers are registered (connected && autoScroll).
-    private active = false;
     // The most recently sent outbound message that the conversation anchors to.
     private scrollAnchorMessage?: ChatMessageOutbound;
     // The scrollTop at which the anchored message sits at the top of the viewport.
@@ -65,41 +61,6 @@ export class AutoScrollManager implements Subscriber {
     }
 
     public connect(): void {
-        this.connected = true;
-        this.updateObservers();
-    }
-
-    public disconnect(): void {
-        this.connected = false;
-        this.updateObservers();
-    }
-
-    public onAutoScrollChanged(): void {
-        this.updateObservers();
-    }
-
-    public handleChange(source: unknown, args: unknown): void {
-        if (source === this.conversation && args === 'slottedMessages') {
-            this.onMessagesChanged();
-        }
-    }
-
-    private updateObservers(): void {
-        const shouldBeActive = this.connected
-            && this.conversation.autoScroll
-            && this.conversation.messagesContainer !== undefined;
-        if (shouldBeActive) {
-            this.registerObservers();
-        } else {
-            this.unregisterObservers();
-        }
-    }
-
-    private registerObservers(): void {
-        if (this.active) {
-            return;
-        }
-        this.active = true;
         this.autoScrollEngaged = true;
         this.snapshotMessages();
         this.conversationNotifier.subscribe(this, 'slottedMessages');
@@ -114,11 +75,7 @@ export class AutoScrollManager implements Subscriber {
         this.resizeObserver.observe(this.conversation.messagesContent);
     }
 
-    private unregisterObservers(): void {
-        if (!this.active) {
-            return;
-        }
-        this.active = false;
+    public disconnect(): void {
         this.conversationNotifier.unsubscribe(this, 'slottedMessages');
         this.conversation.messagesContainer.removeEventListener(
             'scroll',
@@ -130,6 +87,12 @@ export class AutoScrollManager implements Subscriber {
         this.anchorScrollTop = 0;
         this.setBottomSpacerHeight(0);
         this.previousMessages = [];
+    }
+
+    public handleChange(source: unknown, args: unknown): void {
+        if (source === this.conversation && args === 'slottedMessages') {
+            this.onMessagesChanged();
+        }
     }
 
     private onMessagesChanged(): void {

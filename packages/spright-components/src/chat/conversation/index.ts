@@ -72,17 +72,25 @@ export class ChatConversation extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.autoScrollManager.connect();
+        if (this.autoScroll) {
+            this.autoScrollManager.connect();
+        }
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.autoScrollManager.disconnect();
+        if (this.autoScroll) {
+            this.autoScrollManager.disconnect();
+        }
     }
 
     public autoScrollChanged(): void {
         if (this.$fastController.isConnected) {
-            this.autoScrollManager.onAutoScrollChanged();
+            if (this.autoScroll) {
+                this.autoScrollManager.connect();
+            } else {
+                this.autoScrollManager.disconnect();
+            }
         }
     }
 
