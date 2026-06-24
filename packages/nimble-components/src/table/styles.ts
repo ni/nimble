@@ -124,17 +124,6 @@ export const styles = css`
         visibility: visible;
     }
 
-    .pinned-columns-header-container {
-        display: grid;
-        grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
-        position: sticky;
-        left: 0;
-        align-self: stretch;
-        background: ${applicationBackgroundColor};
-        z-index: ${ZIndexLevels.zIndex1};
-        box-shadow: inset -2px 0 0 0 ${tableRowBorderColor};
-    }
-
     .header-container {
         display: flex;
         align-items: center;
@@ -148,6 +137,17 @@ export const styles = css`
     .header {
         flex: 1;
         overflow: hidden;
+    }
+
+    .pinned-columns-header-container {
+        display: grid;
+        grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
+        position: sticky;
+        left: 0;
+        align-self: stretch;
+        background: ${applicationBackgroundColor};
+        z-index: ${ZIndexLevels.zIndex1};
+        box-shadow: inset -2px 0 0 0 ${tableRowBorderColor};
     }
 
     .column-divider {

@@ -60,23 +60,9 @@ export const styles = css`
         background-color: ${fillHoverColor};
     }
 
-    :host([allow-hover][has-pinned-columns]:hover) .pinned-column-spacer {
-        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
-            ${tableRowBorderColor};
-    }
-
-    :host([allow-hover][has-pinned-columns]:hover) .checkbox-container {
-        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
-            ${tableRowBorderColor};
-    }
-
     :host(${focusVisible}) {
         outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
         outline-offset: calc(-2 * ${borderWidth});
-    }
-
-    :host([has-pinned-columns]${focusVisible}) .pinned-column-spacer {
-        box-shadow: inset 2px -2px 0 ${borderHoverColor};
     }
 
     .pinned-column-spacer {
@@ -90,12 +76,26 @@ export const styles = css`
         z-index: ${ZIndexLevels.zIndex1};
     }
 
+    :host([allow-hover][has-pinned-columns]:hover) .pinned-column-spacer {
+        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
+            ${tableRowBorderColor};
+    }
+
+    :host([has-pinned-columns]${focusVisible}) .pinned-column-spacer {
+        box-shadow: inset 2px -2px 0 ${borderHoverColor};
+    }
+
     .checkbox-container {
         display: flex;
     }
 
     :host([has-pinned-columns]) .checkbox-container {
         position: relative;
+    }
+
+    :host([allow-hover][has-pinned-columns]:hover) .checkbox-container {
+        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
+            ${tableRowBorderColor};
     }
 
     .expand-collapse-button {
@@ -138,6 +138,14 @@ export const styles = css`
                 background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
 
+            :host([has-pinned-columns]) .pinned-column-spacer {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
+            }
+
             :host([allow-hover][has-pinned-columns]:hover) .pinned-column-spacer {
                 background: linear-gradient(
                         ${hexToRgbaCssColor(White, 0.05)},
@@ -150,28 +158,20 @@ export const styles = css`
                     ${tableRowBorderColor};
             }
 
+            :host([has-pinned-columns]) .checkbox-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
+            }
+
             :host([allow-hover][has-pinned-columns]:hover) .checkbox-container {
                 background: linear-gradient(
                         ${hexToRgbaCssColor(White, 0.05)},
                         ${hexToRgbaCssColor(White, 0.05)}
                     ),
                     linear-gradient(
-                        ${hexToRgbaCssColor(White, 0.1)},
-                        ${hexToRgbaCssColor(White, 0.1)}
-                    ),
-                    ${tableRowBorderColor};
-            }
-
-            :host([has-pinned-columns]) .pinned-column-spacer {
-                background: linear-gradient(
-                        ${hexToRgbaCssColor(White, 0.1)},
-                        ${hexToRgbaCssColor(White, 0.1)}
-                    ),
-                    ${tableRowBorderColor};
-            }
-
-            :host([has-pinned-columns]) .checkbox-container {
-                background: linear-gradient(
                         ${hexToRgbaCssColor(White, 0.1)},
                         ${hexToRgbaCssColor(White, 0.1)}
                     ),
