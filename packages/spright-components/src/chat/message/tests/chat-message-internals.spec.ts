@@ -68,6 +68,22 @@ describe('ChatMessage internals', () => {
                 expect(pageObject.isScrollAnchor()).toBeTrue();
             });
 
+            it('defaults to no host slot attribute', () => {
+                expect(element.hasAttribute('slot')).toBeFalse();
+                expect(element.messageInternals.slot).toBeUndefined();
+            });
+
+            it('reflects messageInternals.slot to the host slot attribute', () => {
+                element.messageInternals.slot = 'history';
+                expect(element.getAttribute('slot')).toBe('history');
+            });
+
+            it('clears the host slot attribute when slot is reset', () => {
+                element.messageInternals.slot = 'history';
+                element.messageInternals.slot = undefined;
+                expect(element.hasAttribute('slot')).toBeFalse();
+            });
+
             it('renders slotted text content', () => {
                 expect(pageObject.getRenderedText()).toBe('Message content');
             });

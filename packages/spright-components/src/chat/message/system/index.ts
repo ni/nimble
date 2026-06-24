@@ -17,7 +17,7 @@ declare global {
  */
 export class ChatMessageSystem extends FoundationElement {
     /** @internal */
-    public readonly messageInternals = new ChatMessageInternals();
+    public readonly messageInternals = new ChatMessageInternals(this);
 }
 
 const sprightChatMessageSystem = ChatMessageSystem.compose({

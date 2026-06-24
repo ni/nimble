@@ -30,8 +30,34 @@ export class ChatMessageInternals {
     @observable
     public isScrollAnchor = false;
 
-    public constructor(options?: ChatMessageInternalsOptions) {
+    private readonly host: HTMLElement;
+    private slotName?: string;
+
+    public constructor(host: HTMLElement, options?: ChatMessageInternalsOptions) {
+        this.host = host;
         this.anchorOnInsert = options?.anchorOnInsert ?? false;
+    }
+
+    /**
+     * The conversation slot this message is assigned to. Owned by the
+     * conversation, which partitions messages between its regions. Reflected to
+     * the host `slot` attribute by the message itself so framework wrappers never
+     * manage slotting. `undefined` places the message in the default slot.
+     */
+    public get slot(): string | undefined {
+        return this.slotName;
+    }
+
+    public set slot(value: string | undefined) {
+        if (value === this.slotName) {
+            return;
+        }
+        this.slotName = value;
+        if (value === undefined) {
+            this.host.removeAttribute('slot');
+        } else {
+            this.host.setAttribute('slot', value);
+        }
     }
 
     public static elementHasMessageInternals(

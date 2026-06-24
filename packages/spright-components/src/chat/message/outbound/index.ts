@@ -17,7 +17,7 @@ declare global {
  */
 export class ChatMessageOutbound extends FoundationElement {
     /** @internal */
-    public readonly messageInternals = new ChatMessageInternals({
+    public readonly messageInternals = new ChatMessageInternals(this, {
         anchorOnInsert: true
     });
 }
