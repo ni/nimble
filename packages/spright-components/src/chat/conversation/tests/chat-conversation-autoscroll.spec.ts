@@ -50,11 +50,11 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
             await initialize(false);
         });
 
-        it('does not scroll or pad when messages are added', async () => {
+        it('does not scroll or reserve space when messages are added', async () => {
             await fillWithInboundMessages(8);
 
             expect(pageObject.getScrollTop()).toBe(0);
-            expect(pageObject.getBottomSpacerHeight()).toBe(0);
+            expect(pageObject.isAnchorRegionReserved()).toBeFalse();
         });
     });
 
@@ -85,12 +85,12 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
             expect(pageObject.isScrolledToBottom()).toBeTrue();
         });
 
-        it('applies bottom padding to pin a newly sent outbound message', async () => {
+        it('reserves space to pin a newly sent outbound message', async () => {
             await fillWithInboundMessages(8);
 
             await pageObject.appendOutboundMessage('A user question');
 
-            expect(pageObject.getBottomSpacerHeight()).toBeGreaterThan(0);
+            expect(pageObject.isAnchorRegionReserved()).toBeTrue();
         });
 
         it('stops auto-scrolling after the user scrolls up', async () => {

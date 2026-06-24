@@ -64,21 +64,27 @@ export const styles = css`
         flex: 1;
         display: flex;
         flex-direction: column;
-        background: ${sectionBackgroundImage};
-        overflow-y: auto;
-    }
-
-    .messages-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         row-gap: 32px;
         padding: ${mediumPadding} ${standardPadding} ${mediumPadding}
             ${standardPadding};
+        background: ${sectionBackgroundImage};
+        overflow-y: auto;
+        overflow-anchor: none;
     }
 
-    .scroll-spacer {
-        flex: none;
+    .messages-history,
+    .messages-anchored {
+        display: flex;
+        flex-direction: column;
+        row-gap: 32px;
+    }
+
+    .messages-history.region-empty {
+        display: none;
+    }
+
+    .messages-anchored.anchor-active {
+        min-height: 100%;
     }
 
     :host([appearance='overlay']) .messages {

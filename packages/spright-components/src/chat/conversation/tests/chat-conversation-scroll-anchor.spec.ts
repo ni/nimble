@@ -81,7 +81,7 @@ describe('ChatConversation scroll anchor state', () => {
             expect(pageObject.isMessageScrollAnchorByIndex(lastIndex)).toBeFalse();
         });
 
-        it('anchors a tall outbound message and applies a bottom spacer', async () => {
+        it('anchors a tall outbound message and reserves space', async () => {
             await fillWithInboundMessages(4);
 
             const longText = 'Question with a great deal of content. '.repeat(20);
@@ -89,7 +89,7 @@ describe('ChatConversation scroll anchor state', () => {
 
             const lastIndex = pageObject.getMessageCount() - 1;
             expect(pageObject.isMessageScrollAnchorByIndex(lastIndex)).toBeTrue();
-            expect(pageObject.getBottomSpacerHeight()).toBeGreaterThan(0);
+            expect(pageObject.isAnchorRegionReserved()).toBeTrue();
             expect(pageObject.isAutoScrollEngaged()).toBeTrue();
         });
 
@@ -135,16 +135,17 @@ describe('ChatConversation scroll anchor state', () => {
             expect(pageObject.isAutoScrollConnected()).toBeTrue();
         });
 
-        it('disconnects wiring and clears the spacer when auto-scroll is disabled', async () => {
+        it('disconnects wiring and clears reservation when auto-scroll is disabled', async () => {
             await initialize(true);
             await fillWithInboundMessages(4);
             await pageObject.appendOutboundMessage('A user question');
-            expect(pageObject.getBottomSpacerHeight()).toBeGreaterThan(0);
+            expect(pageObject.isAnchorRegionReserved()).toBeTrue();
 
             await pageObject.setAutoScrollEnabled(false);
 
             expect(pageObject.isAutoScrollConnected()).toBeFalse();
-            expect(pageObject.getBottomSpacerHeight()).toBe(0);
+            expect(pageObject.isAnchorRegionReserved()).toBeFalse();
+            expect(pageObject.getHistoryRegionMessageCount()).toBe(0);
         });
     });
 });

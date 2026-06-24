@@ -15,7 +15,7 @@ export class ChatConversationPageObject {
     // --- slots ---
 
     public hasDefaultSlot(): boolean {
-        return this.queryShadow('.messages slot') !== undefined;
+        return this.queryShadow('.messages slot:not([name])') !== undefined;
     }
 
     public hasNamedSlot(name: string): boolean {
@@ -66,17 +66,53 @@ export class ChatConversationPageObject {
         return this.getScrollContainer().clientHeight;
     }
 
-    public getBottomSpacerHeight(): number {
-        return this.element.autoScrollManager.bottomSpacerHeight;
+    public isAnchorRegionReserved(): boolean {
+        return this.element.autoScrollManager.anchorActive;
+    }
+
+    public getHistoryRegionMessageCount(): number {
+        return this.getNamedSlotAssignedElementCount('history');
+    }
+
+    public getAnchoredRegionMessageCount(): number {
+        const slot = this.queryShadow('.messages-anchored slot') as
+            | HTMLSlotElement
+            | undefined;
+        return slot?.assignedElements().length ?? 0;
+    }
+
+    public getMessageSlotByIndex(index: number): string {
+        const message = this.getMessages()[index];
+        return message?.getAttribute('slot') ?? '';
+    }
+
+    public getAnchoredRegionHeight(): number {
+        const region = this.queryShadow('.messages-anchored') as
+            | HTMLElement
+            | undefined;
+        return region?.clientHeight ?? 0;
+    }
+
+    public getMessageViewportTop(index: number): number {
+        const message = this.getMessages()[index];
+        if (message === undefined) {
+            throw new Error(`No message at index ${index}`);
+        }
+        const container = this.getScrollContainer();
+        return (
+            message.getBoundingClientRect().top
+            - container.getBoundingClientRect().top
+        );
+    }
+
+    public isMessagePinnedNearTop(index: number, tolerance = 48): boolean {
+        return Math.abs(this.getMessageViewportTop(index)) <= tolerance;
     }
 
     public getDistanceFromBottom(): number {
         const container = this.getScrollContainer();
         return (
-            container.scrollHeight
-            - this.getBottomSpacerHeight()
-            - container.scrollTop
-            - container.clientHeight
+            container.scrollHeight - container.scrollTop - container.clientHeight
         );
     }
 
@@ -179,10 +215,16 @@ export class ChatConversationPageObject {
     }
 
     private getMessages(): Element[] {
-        const slot = this.queryShadow('.messages slot') as
+        const history = this.queryShadow('slot[name="history"]') as
             | HTMLSlotElement
             | undefined;
-        return slot?.assignedElements({ flatten: true }) ?? [];
+        const anchored = this.queryShadow('.messages-anchored slot') as
+            | HTMLSlotElement
+            | undefined;
+        return [
+            ...(history?.assignedElements({ flatten: true }) ?? []),
+            ...(anchored?.assignedElements({ flatten: true }) ?? [])
+        ];
     }
 
     private getScrollContainer(): HTMLElement {

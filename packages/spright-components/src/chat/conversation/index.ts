@@ -34,6 +34,14 @@ export class ChatConversation extends FoundationElement {
 
     /** @internal */
     @observable
+    public readonly slottedHistoryMessages?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public historyEmpty = true;
+
+    /** @internal */
+    @observable
     public inputEmpty = true;
 
     /** @internal */
@@ -68,7 +76,7 @@ export class ChatConversation extends FoundationElement {
     public messagesContainer!: HTMLElement;
 
     /** @internal */
-    public messagesContent!: HTMLElement;
+    public anchoredContainer!: HTMLElement;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -92,6 +100,13 @@ export class ChatConversation extends FoundationElement {
                 this.autoScrollManager.disconnect();
             }
         }
+    }
+
+    public slottedHistoryMessagesChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.historyEmpty = next === undefined || next.length === 0;
     }
 
     public slottedInputElementsChanged(

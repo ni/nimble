@@ -9,10 +9,12 @@ export const template = html<ChatConversation>`
     <slot name="start" ${slotted({ property: 'slottedStartElements' })}></slot>
 </div>
 <div class="messages" ${ref('messagesContainer')}>
-    <div class="messages-content" ${ref('messagesContent')}>
+    <div class="messages-history ${x => (x.historyEmpty ? 'region-empty' : '')}">
+        <slot name="history" ${slotted({ property: 'slottedHistoryMessages' })}></slot>
+    </div>
+    <div class="messages-anchored ${x => (x.autoScrollManager.anchorActive ? 'anchor-active' : '')}" ${ref('anchoredContainer')}>
         <slot ${slotted({ property: 'slottedMessages' })}></slot>
     </div>
-        <div class="scroll-spacer" style="height: ${x => x.autoScrollManager.bottomSpacerHeight}px"></div>
 </div>
 <div class="input ${x => (x.inputEmpty ? 'input-empty' : '')}">
     <slot name="input" ${slotted({ property: 'slottedInputElements' })}>

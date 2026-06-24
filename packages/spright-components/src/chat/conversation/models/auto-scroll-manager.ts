@@ -1,11 +1,9 @@
 import {
-    DOM,
     type Notifier,
     Observable,
     observable,
     type Subscriber
 } from '@ni/fast-element';
-import { mediumPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import type { ChatConversation } from '..';
 import {
     ChatMessageInternals,
@@ -15,13 +13,17 @@ import {
 // Distance from the bottom (px) within which the conversation is considered "at the bottom".
 const scrollingPixelThreshold = 10;
 
+// Slot name for messages that precede the current turn's anchor message.
+const historySlotName = 'history';
+
 /**
- * Manages auto-scroll behavior for the chat conversation: pinning a newly
- * inserted anchor message near the top of the viewport, following streamed
- * content, and disengaging when the user scrolls away. The conversation owns a
- * single instance for its lifetime and calls `connect()`/`disconnect()` to
- * register and tear down the observers whenever the element is connected and
- * `autoScroll` is enabled.
+ * Manages auto-scroll behavior for the chat conversation: partitioning messages
+ * into a history region and an anchored region, pinning a newly inserted anchor
+ * message near the top of the viewport (via a CSS `min-height` reservation on the
+ * anchored region), following streamed content, and disengaging when the user
+ * scrolls away. The conversation owns a single instance for its lifetime and
+ * calls `connect()`/`disconnect()` to register and tear down observers whenever
+ * the element is connected and `autoScroll` is enabled.
  * @internal
  */
 export class AutoScrollManager implements Subscriber {
@@ -33,12 +35,12 @@ export class AutoScrollManager implements Subscriber {
     public autoScrollEngaged = true;
 
     /**
-     * Height (px) of the spacer rendered below the messages. Used to hold a newly
-     * inserted anchor message near the top of the viewport while the response
-     * grows below it. Bound to the spacer element in the template.
+     * Whether the anchored region is reserving a viewport of space (via
+     * `min-height`) to hold the current turn's anchor message near the top. Bound
+     * to a class on the anchored region in the template.
      */
     @observable
-    public bottomSpacerHeight = 0;
+    public anchorActive = false;
 
     public get isActive(): boolean {
         return this.resizeObserver !== undefined;
@@ -46,15 +48,13 @@ export class AutoScrollManager implements Subscriber {
 
     // The message the conversation currently anchors to.
     private scrollAnchorMessage?: ChatMessage;
-    // The scrollTop at which the anchored message sits at the top of the viewport.
-    private anchorScrollTop = 0;
     // Target of an in-progress smooth programmatic scroll; suppresses scroll-intent handling until reached.
     private programmaticScrollTarget?: number;
     private resizeObserver?: ResizeObserver;
     private scrollUpdatePending = false;
     private pendingAnchorInsert = false;
-    // Snapshot of slotted messages used to detect additions across change notifications.
-    private previousMessages: HTMLElement[] = [];
+    // Snapshot of messages used to detect additions across change notifications.
+    private previousMessages: ChatMessage[] = [];
     private readonly conversationNotifier: Notifier;
 
     public constructor(private readonly conversation: ChatConversation) {
@@ -63,8 +63,9 @@ export class AutoScrollManager implements Subscriber {
 
     public connect(): void {
         this.autoScrollEngaged = true;
-        this.snapshotMessages();
+        this.previousMessages = this.getOrderedMessages();
         this.conversationNotifier.subscribe(this, 'slottedMessages');
+        this.conversationNotifier.subscribe(this, 'slottedHistoryMessages');
         this.conversation.messagesContainer.addEventListener(
             'scroll',
             this.onScroll,
@@ -73,11 +74,13 @@ export class AutoScrollManager implements Subscriber {
         this.resizeObserver = new ResizeObserver(() => {
             this.onContentSizeChanged();
         });
-        this.resizeObserver.observe(this.conversation.messagesContent);
+        this.resizeObserver.observe(this.conversation.anchoredContainer);
+        this.repartition(this.previousMessages);
     }
 
     public disconnect(): void {
         this.conversationNotifier.unsubscribe(this, 'slottedMessages');
+        this.conversationNotifier.unsubscribe(this, 'slottedHistoryMessages');
         this.conversation.messagesContainer.removeEventListener(
             'scroll',
             this.onScroll
@@ -85,35 +88,51 @@ export class AutoScrollManager implements Subscriber {
         this.resizeObserver?.disconnect();
         this.resizeObserver = undefined;
         this.setScrollAnchorMessage(undefined);
-        this.anchorScrollTop = 0;
-        this.setBottomSpacerHeight(0);
+        this.clearSlotAssignments();
+        this.anchorActive = false;
         this.previousMessages = [];
     }
 
     public handleChange(source: unknown, args: unknown): void {
-        if (source === this.conversation && args === 'slottedMessages') {
+        if (
+            source === this.conversation
+            && (args === 'slottedMessages' || args === 'slottedHistoryMessages')
+        ) {
             this.onMessagesChanged();
         }
     }
 
     private onMessagesChanged(): void {
-        const current = this.conversation.slottedMessages ?? [];
+        const current = this.getOrderedMessages();
         const previousSet = new Set(this.previousMessages);
         const addedMessages = current.filter(
             message => !previousSet.has(message)
         );
-        this.previousMessages = [...current];
+        this.previousMessages = current;
+        this.repartition(current);
         if (addedMessages.length === 0) {
             return;
         }
         const hasAnchorMessage = addedMessages.some(
-            message => this.shouldAnchorOnInsert(message)
+            message => message.messageInternals.anchorOnInsert
         );
         this.scheduleScrollUpdate(hasAnchorMessage);
     }
 
-    private snapshotMessages(): void {
-        this.previousMessages = [...(this.conversation.slottedMessages ?? [])];
+    private repartition(messages: ChatMessage[]): void {
+        const anchorIndex = this.findLatestAnchorIndex(messages);
+        messages.forEach((message, index) => {
+            message.messageInternals.slot = anchorIndex >= 0 && index < anchorIndex
+                ? historySlotName
+                : undefined;
+        });
+        this.anchorActive = anchorIndex >= 0;
+    }
+
+    private clearSlotAssignments(): void {
+        for (const message of this.getOrderedMessages()) {
+            message.messageInternals.slot = undefined;
+        }
     }
 
     private scheduleScrollUpdate(hasAnchorMessage: boolean): void {
@@ -135,9 +154,10 @@ export class AutoScrollManager implements Subscriber {
     }
 
     /**
-     * Positions the last inserted anchor message at the top of the visible
-     * viewport, using the bottom spacer to prevent the content from being pushed
-     * up as the response grows below.
+     * Pins the most recently inserted anchor message near the top of the
+     * viewport. The anchored region reserves a viewport via `min-height`, so
+     * scrolling to the bottom places the anchor at the top with reserved space
+     * below it for the response to fill.
      */
     private anchorToLastInsertedMessage(): void {
         const message = this.getLastAnchorMessage();
@@ -146,83 +166,11 @@ export class AutoScrollManager implements Subscriber {
         }
         this.setScrollAnchorMessage(message);
         this.autoScrollEngaged = true;
-
-        const geometry = this.getMessageGeometry(message);
-        const { clientHeight } = this.conversation.messagesContainer;
-        if (geometry.height >= clientHeight / 2) {
-            this.anchorTallMessage(geometry.top, geometry.height);
-        } else if (geometry.top <= 0) {
-            this.resetSpacerForTopAlignedMessage();
-        } else {
-            this.anchorMessageWithSpacer(geometry.top, geometry.height);
-        }
+        this.smoothScrollTo(this.getMaxScrollTop());
     }
 
-    private anchorTallMessage(messageTop: number, messageHeight: number): void {
-        const { clientHeight } = this.conversation.messagesContainer;
-        const lineGap = Math.round(clientHeight * 0.2);
-        const scrollTarget = Math.max(0, messageTop + messageHeight - lineGap);
-        const spacer = clientHeight - lineGap;
-
-        this.anchorScrollTop = scrollTarget;
-        this.setBottomSpacerHeight(spacer);
-        this.smoothScrollTo(scrollTarget);
-    }
-
-    private resetSpacerForTopAlignedMessage(): void {
-        if (this.bottomSpacerHeight > 0) {
-            this.setBottomSpacerHeight(0);
-            this.anchorScrollTop = 0;
-        }
-    }
-
-    private anchorMessageWithSpacer(
-        messageTop: number,
-        messageHeight: number
-    ): void {
-        const topMargin = parseFloat(
-            mediumPadding.getValueFor(this.conversation)
-        );
-        const scrollTarget = Math.max(0, messageTop - topMargin);
-        if (scrollTarget === 0) {
-            this.resetSpacerForTopAlignedMessage();
-            return;
-        }
-
-        const { clientHeight, scrollTop } = this.conversation.messagesContainer;
-        const contentWithoutSpacer = messageTop + messageHeight;
-        const neededSpacer = Math.max(
-            0,
-            scrollTarget + clientHeight - contentWithoutSpacer
-        );
-        const preventClampSpacer = Math.max(
-            0,
-            scrollTop + clientHeight - contentWithoutSpacer
-        );
-        const spacer = Math.max(neededSpacer, preventClampSpacer);
-
-        this.anchorScrollTop = scrollTarget;
-        this.setBottomSpacerHeight(spacer);
-        this.smoothScrollTo(scrollTarget);
-    }
-
-    /**
-     * Shrinks the bottom spacer as content grows to fill the space below the
-     * anchored message. Once the spacer reaches zero, follows the bottom normally.
-     */
     private followContent(): void {
-        const container = this.conversation.messagesContainer;
-        if (this.anchorScrollTop > 0 && this.bottomSpacerHeight > 0) {
-            const contentHeight = container.scrollHeight - this.bottomSpacerHeight;
-            const neededSpacer = Math.max(
-                0,
-                this.anchorScrollTop + container.clientHeight - contentHeight
-            );
-            this.setBottomSpacerHeight(neededSpacer);
-        }
-        if (this.bottomSpacerHeight === 0) {
-            this.instantScrollTo(container.scrollHeight);
-        }
+        this.instantScrollTo(this.getMaxScrollTop());
     }
 
     private onContentSizeChanged(): void {
@@ -246,15 +194,12 @@ export class AutoScrollManager implements Subscriber {
 
     private getDistanceFromBottom(): number {
         const { scrollTop, scrollHeight, clientHeight } = this.conversation.messagesContainer;
-        return scrollHeight - this.bottomSpacerHeight - scrollTop - clientHeight;
+        return scrollHeight - scrollTop - clientHeight;
     }
 
-    private setBottomSpacerHeight(height: number): void {
-        if (this.bottomSpacerHeight !== height) {
-            this.bottomSpacerHeight = height;
-            // Flush so the spacer's layout is applied before measuring or scrolling.
-            DOM.processUpdates();
-        }
+    private getMaxScrollTop(): number {
+        const { scrollHeight, clientHeight } = this.conversation.messagesContainer;
+        return Math.max(0, scrollHeight - clientHeight);
     }
 
     private smoothScrollTo(scrollTop: number): void {
@@ -283,35 +228,28 @@ export class AutoScrollManager implements Subscriber {
     }
 
     private getLastAnchorMessage(): ChatMessage | undefined {
-        const messages = this.conversation.slottedMessages ?? [];
+        const messages = this.getOrderedMessages();
+        const index = this.findLatestAnchorIndex(messages);
+        return index >= 0 ? messages[index] : undefined;
+    }
+
+    private findLatestAnchorIndex(messages: ChatMessage[]): number {
         for (let i = messages.length - 1; i >= 0; i--) {
             const message = messages[i];
-            if (
-                message !== undefined
-                && ChatMessageInternals.elementHasMessageInternals(message)
-                && message.messageInternals.anchorOnInsert
-            ) {
-                return message;
+            if (message?.messageInternals.anchorOnInsert) {
+                return i;
             }
         }
-        return undefined;
+        return -1;
     }
 
-    private shouldAnchorOnInsert(element: Element): boolean {
-        return (
-            ChatMessageInternals.elementHasMessageInternals(element)
-            && element.messageInternals.anchorOnInsert
-        );
-    }
-
-    private getMessageGeometry(message: HTMLElement): {
-        top: number,
-        height: number
-    } {
-        const container = this.conversation.messagesContainer;
-        const containerRect = container.getBoundingClientRect();
-        const messageRect = message.getBoundingClientRect();
-        const top = container.scrollTop + (messageRect.top - containerRect.top);
-        return { top, height: messageRect.height };
+    private getOrderedMessages(): ChatMessage[] {
+        const messages: ChatMessage[] = [];
+        for (const child of Array.from(this.conversation.children)) {
+            if (ChatMessageInternals.elementHasMessageInternals(child)) {
+                messages.push(child);
+            }
+        }
+        return messages;
     }
 }
