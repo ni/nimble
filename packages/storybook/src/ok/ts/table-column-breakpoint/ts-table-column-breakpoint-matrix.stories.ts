@@ -3,6 +3,7 @@ import { html, ViewTemplate } from '@ni/fast-element';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tsTableColumnBreakpointTag } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint';
 import { BreakpointState } from '@ni/ok-components/dist/esm/ts/table-column/breakpoint/types';
+import { TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table/types';
 import {
     createMatrixThemeStory,
     createMatrix,
@@ -44,6 +45,12 @@ const data = [
     }
 ] as const;
 
+const pinnedStates = [
+    ['not pinned', undefined],
+    ['pinned', TableColumnPinLocation.left]
+] as const;
+type PinnedState = (typeof pinnedStates)[number];
+
 const metadata: Meta = {
     title: 'Tests Ok/Ts Table Column: Breakpoint',
     parameters: {
@@ -53,18 +60,19 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = (): ViewTemplate => html`
+const component = ([pinnedLabel, pinnedValue]: PinnedState): ViewTemplate => html`
     <${tableTag} id-field-name="id" style="height: 320px">
         <${tsTableColumnBreakpointTag}
             field-name="breakpointState"
+            pin-location="${() => pinnedValue}"
         >
-            BP
+            BP ${() => `(${pinnedLabel})`}
         </${tsTableColumnBreakpointTag}>
     </${tableTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component)
+    createMatrix(component, [pinnedStates])
 );
 
 themeMatrix.play = async (): Promise<void> => {
