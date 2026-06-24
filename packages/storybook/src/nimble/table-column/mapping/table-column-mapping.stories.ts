@@ -98,7 +98,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             <${tableColumnMappingTag}
                 field-name="status"
                 group-index="0"
-			>
+            >
                 Status
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>

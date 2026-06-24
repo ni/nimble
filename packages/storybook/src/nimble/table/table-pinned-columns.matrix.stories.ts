@@ -40,6 +40,7 @@ const data = [
         lastName: 'Wiggum',
         age: 11,
         isChild: false,
+        isSimpson: false,
         quote: 'I\'m in danger! This is a very long quote to demonstrate text clipping behind pinned columns.',
         description: 'A character known for saying things that don\'t make sense'
     },
@@ -49,6 +50,7 @@ const data = [
         lastName: 'Van Houten',
         age: 10,
         isChild: false,
+        isSimpson: false,
         quote: 'Not only am I not learning, I\'m forgetting stuff I used to know!',
         description: 'Ralph\'s best friend and comic foil'
     },
@@ -58,6 +60,7 @@ const data = [
         lastName: 'Bouvier',
         age: 80,
         isChild: false,
+        isSimpson: false,
         quote: 'I have laryngitis. It hurts to talk, so I\'ll just say one thing. You never do anything right.',
     },
     {
@@ -66,6 +69,7 @@ const data = [
         lastName: 'Bouvier',
         age: 45,
         isChild: false,
+        isSimpson: false,
         quote: 'Hey relax. I\'ve told ya\' I\'ve got money. I bought stock in a mace company just before society crumbled.',
         parentId: '2'
     },
@@ -75,6 +79,7 @@ const data = [
         lastName: 'Simpson',
         age: 35,
         isChild: true,
+        isSimpson: true,
         quote: 'Oh, I\'ve Always Wanted To Use Rosemary In Something!',
         parentId: '2'
     },
@@ -84,17 +89,18 @@ const data = [
         lastName: 'Simpson',
         age: 12,
         isChild: true,
+        isSimpson: true,
         quote: 'Cowabunga! Eat my shorts!',
         parentId: '4'
     }
 ] as const;
 
-// Pin location states for testing pinned columns at different positions
-const pinLocationStates = [
-    ['No pinned column', undefined],
-    ['Left pinned', TableColumnPinLocation.left]
+// Pin configuration states for testing none, single, and multiple pinned columns.
+const pinConfigurationStates = [
+    ['Single left pinned', { isChildPinLocation: TableColumnPinLocation.left, isSimpsonPinLocation: undefined }],
+    ['Multi left pinned', { isChildPinLocation: TableColumnPinLocation.left, isSimpsonPinLocation: TableColumnPinLocation.left }]
 ] as const;
-type PinLocationState = (typeof pinLocationStates)[number];
+type PinConfigurationState = (typeof pinConfigurationStates)[number];
 
 // Grouping states
 const groupedStates = [
@@ -125,11 +131,9 @@ const scrollPositionStates = [
 ] as const;
 type ScrollPositionState = (typeof scrollPositionStates)[number];
 
-const pinnedOnlyStates = [pinLocationStates[1]] as const;
-
 // Component that renders a table with the specified configurations
 const component = (
-    [pinLocationName, pinLocation]: PinLocationState,
+    [pinConfigurationName, pinConfiguration]: PinConfigurationState,
     [groupedStateName, groupedState]: GroupedState,
     [hierarchyStateName, hierarchyState]: HierarchyState,
     selectionMode: SelectionModeState,
@@ -137,7 +141,7 @@ const component = (
 ): ViewTemplate => {
     return html`
         <span style="color: var(${() => bodyFontColor.cssCustomProperty});"
-        >${() => `Pinned: ${pinLocationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}, ${scrollPositionName}`} </span>
+        >${() => `${pinConfigurationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}, ${scrollPositionName}`} </span>
         <${tableTag}
             selection-mode="${() => selectionMode}"
             id-field-name="id"
@@ -173,11 +177,21 @@ const component = (
             <${tableColumnMappingTag}
                 field-name="isChild"
                 key-type="boolean"
-                pin-location="${() => pinLocation}"
+                pin-location="${() => pinConfiguration.isChildPinLocation}"
                 group-index="${() => (groupedState.grouped ? '0' : undefined)}"
                 width-mode="${TableColumnMappingWidthMode.iconSize}"
             >
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}>
+                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
+            </${tableColumnMappingTag}>
+            <${tableColumnMappingTag}
+                field-name="isSimpson"
+                key-type="boolean"
+                pin-location="${() => pinConfiguration.isSimpsonPinLocation}"
+                width-mode="${TableColumnMappingWidthMode.iconSize}"
+            >
+                <${iconChartDiagramChildFocusTag} title="Is Simpson"></${iconChartDiagramChildFocusTag}>
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
             </${tableColumnMappingTag}>
@@ -234,7 +248,7 @@ const playFunction = async (): Promise<void> => {
 
 export const pinnedColumns$NoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        pinnedOnlyStates,
+        pinConfigurationStates,
         groupedStates,
         hierarchyStates,
         [undefined],
@@ -245,7 +259,7 @@ pinnedColumns$NoSelectionThemeMatrix.play = playFunction;
 
 export const pinnedColumns$SingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        pinnedOnlyStates,
+        pinConfigurationStates,
         groupedStates,
         hierarchyStates,
         [TableRowSelectionMode.single],
@@ -256,7 +270,7 @@ pinnedColumns$SingleSelectionThemeMatrix.play = playFunction;
 
 export const pinnedColumns$MultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        pinnedOnlyStates,
+        pinConfigurationStates,
         groupedStates,
         hierarchyStates,
         [TableRowSelectionMode.multiple],
