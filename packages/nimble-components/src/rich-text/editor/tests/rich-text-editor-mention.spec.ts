@@ -352,8 +352,7 @@ describe('RichTextEditorMention', () => {
                 expect(pageObject.getMentionButtonLabel(0)).toBe('');
             });
 
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it('should have button title and text when `button-label` updated #SkipWebkit', async () => {
+            it('should have button title and text when `button-label` updated', async () => {
                 const { userMentionElement } = await appendUserMentionConfiguration(element);
                 userMentionElement.buttonLabel = 'at mention';
                 await waitForUpdatesAsync();
