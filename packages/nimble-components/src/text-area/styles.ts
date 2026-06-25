@@ -63,6 +63,7 @@ export const styles = css`
         display: flex;
         justify-content: center;
         position: relative;
+        field-sizing: inherit;
         height: 100%;
         width: 100%;
     }
@@ -107,6 +108,7 @@ export const styles = css`
         border-radius: 0px;
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
+        field-sizing: inherit;
         min-width: 100px;
         min-height: calc(${iconSize} + ${standardPadding});
         padding: 8px;

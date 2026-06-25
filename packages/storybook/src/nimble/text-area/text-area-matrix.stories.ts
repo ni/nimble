@@ -190,6 +190,27 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
+export const fieldSizing: StoryFn = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <div>
+                <${textAreaTag} style="border: 1px dashed; field-sizing: content;" value="short\n  and\n    sweet">
+                    field-sizing:content
+                </${textAreaTag}>
+                <${textAreaTag} style="border: 1px dashed; field-sizing: content;" value="¯\\_(ツ)_/¯">
+                </${textAreaTag}>
+            </div>
+            <div>
+                <${textAreaTag} style="border: 1px dashed;" value="short\n  and\n    sweet">
+                    Default field-sizing
+                </${textAreaTag}>
+                <${textAreaTag} style="border: 1px dashed;" value="¯\\_(ツ)_/¯">
+                </${textAreaTag}>
+            </div>
+        </div>
+    `
+);
+
 export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">

@@ -68,6 +68,7 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         border-radius: 0px;
+        field-sizing: inherit;
         font: inherit;
         align-items: center;
         justify-content: center;
@@ -146,6 +147,7 @@ export const styles = css`
         background: transparent;
         color: inherit;
         padding: 0px;
+        field-sizing: inherit;
         height: var(--ni-private-height-within-border);
         width: 100%;
         margin-top: auto;

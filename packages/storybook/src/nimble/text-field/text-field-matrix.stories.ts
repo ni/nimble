@@ -853,6 +853,27 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
+export const fieldSizing: StoryFn = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <div>
+                <${textFieldTag} style="border: 1px dashed; field-sizing: content;" value="short and sweet">
+                    field-sizing:content
+                </${textFieldTag}>
+                <${textFieldTag} style="border: 1px dashed; field-sizing: content;" value="¯\\_(ツ)_/¯">
+                </${textFieldTag}>
+            </div>
+            <div>
+                <${textFieldTag} style="border: 1px dashed;" value="short and sweet">
+                    Default field-sizing
+                </${textFieldTag}>
+                <${textFieldTag} style="border: 1px dashed;" value="¯\\_(ツ)_/¯">
+                </${textFieldTag}>
+            </div>
+        </div>
+    `
+);
+
 export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
