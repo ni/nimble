@@ -64,6 +64,10 @@ export class TsTableColumnBreakpointPageObject<T extends TableRecord> {
         return this.getContextMenuRegion(rowIndex, columnIndex) !== null;
     }
 
+    public isRowMenuOpen(rowIndex: number): boolean {
+        return this.tablePageObject.getRow(rowIndex).hasAttribute('menu-open');
+    }
+
     public pressContextMenuKey(
         rowIndex: number,
         columnIndex: number,

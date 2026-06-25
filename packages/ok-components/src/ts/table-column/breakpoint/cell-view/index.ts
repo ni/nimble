@@ -51,6 +51,8 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
 
     private focusLastItemWhenOpened = false;
 
+    private restoreRowMenuOpenOnClose = false;
+
     /** @internal */
     @observable
     private readonly breakpointEnabledString = 'Breakpoint enabled';
@@ -206,6 +208,24 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         }
     }
 
+    public openChanged(_prev: boolean, next: boolean): void {
+        const row = this.getOwningRow();
+        if (!row) {
+            return;
+        }
+
+        if (next) {
+            this.restoreRowMenuOpenOnClose = !row.hasAttribute('menu-open');
+            row.menuOpen = true;
+            return;
+        }
+
+        if (this.restoreRowMenuOpenOnClose) {
+            row.menuOpen = false;
+            this.restoreRowMenuOpenOnClose = false;
+        }
+    }
+
     public focusoutHandler(e: FocusEvent): boolean {
         if (!this.open) {
             return true;
@@ -331,6 +351,30 @@ export class TsTableColumnBreakpointCellView extends TableCellView<
         this.open = false;
         this.button?.focus();
     };
+
+    private getOwningRow(): (HTMLElement & { menuOpen: boolean }) | undefined {
+        const rootNode = this.getRootNode();
+        if (!(rootNode instanceof ShadowRoot)) {
+            return undefined;
+        }
+
+        const tableCell = rootNode.host;
+        if (!(tableCell instanceof HTMLElement)) {
+            return undefined;
+        }
+
+        const rowRootNode = tableCell.getRootNode();
+        if (!(rowRootNode instanceof ShadowRoot)) {
+            return undefined;
+        }
+
+        const tableRow = rowRootNode.host;
+        if (!(tableRow instanceof HTMLElement) || tableRow.localName !== 'nimble-table-row') {
+            return undefined;
+        }
+
+        return tableRow as HTMLElement & { menuOpen: boolean };
+    }
 
     private getRequestedStateFromEvent(event: Event): BreakpointState | undefined {
         const target = event.target;
