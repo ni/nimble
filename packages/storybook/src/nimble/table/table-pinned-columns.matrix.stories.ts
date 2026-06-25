@@ -140,70 +140,85 @@ const component = (
     [scrollPositionName, scrollPosition]: ScrollPositionState,
 ): ViewTemplate => {
     return html`
-        <span style="color: var(${() => bodyFontColor.cssCustomProperty});"
-        >${() => `${pinConfigurationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}, ${scrollPositionName}`} </span>
-        <${tableTag}
-            selection-mode="${() => selectionMode}"
-            id-field-name="id"
-            parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
-            data-scrollposition="${() => scrollPosition}"
-            style="
-                ${'' /* Fixed width keeps horizontal overflow deterministic for matrix snapshots. */}
-                width: 300px;
-                height: 300px;
-                margin-bottom: 20px;
-                ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused;' : ''}
-            "
-        >
-            <${tableColumnTextTag}
-                field-name="firstName"
-                min-pixel-width="160"
+        <div style="display: inline-flex; flex-direction: column; width: min-content;">
+            <span style="
+                color: var(${() => bodyFontColor.cssCustomProperty});
+                padding-bottom: 8px;
+            ">${() => `${pinConfigurationName}, Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}, ${scrollPositionName}`}</span>
+            <${tableTag}
+                selection-mode="${() => selectionMode}"
+                id-field-name="id"
+                parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
+                data-scrollposition="${() => scrollPosition}"
+                style="
+                    ${'' /* Fixed width keeps horizontal overflow deterministic for matrix snapshots. */}
+                    width: 300px;
+                    height: 300px;
+                    ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused;' : ''}
+                "
             >
-                First Name
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                field-name="lastName"
-                min-pixel-width="160"
-            >
-                Last Name
-            </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag}
-                field-name="age"
-                sort-direction="descending"
-                sort-index="1"
-            >
-                Age
-            </${tableColumnNumberTextTag}>
-            <${tableColumnMappingTag}
-                field-name="isChild"
-                key-type="boolean"
-                pin-location="${() => pinConfiguration.isChildPinLocation}"
-                group-index="${() => (groupedState.grouped ? '0' : undefined)}"
-                width-mode="${TableColumnMappingWidthMode.iconSize}"
-            >
-                <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}>
-                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
-            </${tableColumnMappingTag}>
-            <${tableColumnMappingTag}
-                field-name="isSimpson"
-                key-type="boolean"
-                pin-location="${() => pinConfiguration.isSimpsonPinLocation}"
-                width-mode="${TableColumnMappingWidthMode.iconSize}"
-            >
-                <${iconChartDiagramChildFocusTag} title="Is Simpson"></${iconChartDiagramChildFocusTag}>
-                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
-            </${tableColumnMappingTag}>
-            <${tableColumnTextTag}
-                field-name="quote"
-                min-pixel-width="520"
-            >
-                Quote
-            </${tableColumnTextTag}>
-        </${tableTag}>
+                <${tableColumnTextTag}
+                    field-name="firstName"
+                    min-pixel-width="160"
+                >
+                    First Name
+                </${tableColumnTextTag}>
+                <${tableColumnTextTag}
+                    field-name="lastName"
+                    min-pixel-width="160"
+                >
+                    Last Name
+                </${tableColumnTextTag}>
+                <${tableColumnNumberTextTag}
+                    field-name="age"
+                    sort-direction="descending"
+                    sort-index="1"
+                >
+                    Age
+                </${tableColumnNumberTextTag}>
+                <${tableColumnMappingTag}
+                    field-name="isChild"
+                    key-type="boolean"
+                    pin-location="${() => pinConfiguration.isChildPinLocation}"
+                    group-index="${() => (groupedState.grouped ? '0' : undefined)}"
+                    width-mode="${TableColumnMappingWidthMode.iconSize}"
+                >
+                    <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}>
+                    <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
+                    <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
+                </${tableColumnMappingTag}>
+                <${tableColumnMappingTag}
+                    field-name="isSimpson"
+                    key-type="boolean"
+                    pin-location="${() => pinConfiguration.isSimpsonPinLocation}"
+                    width-mode="${TableColumnMappingWidthMode.iconSize}"
+                >
+                    <${iconChartDiagramChildFocusTag} title="Is Simpson"></${iconChartDiagramChildFocusTag}>
+                    <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
+                    <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
+                </${tableColumnMappingTag}>
+                <${tableColumnTextTag}
+                    field-name="quote"
+                    min-pixel-width="520"
+                >
+                    Quote
+                </${tableColumnTextTag}>
+            </${tableTag}>
+        </div>
     `;
 };
+
+const columnsPerRow = groupedStates.length * scrollPositionStates.length;
+
+const matrixTemplate = (template: ViewTemplate): ViewTemplate => html`
+    <div style="
+        display: grid;
+        grid-template-columns: repeat(${columnsPerRow}, max-content);
+        gap: 24px;
+    ">
+    ${template}
+    </div>
+`;
 
 // Play function to set data on all tables in the matrix
 const playFunction = async (): Promise<void> => {
@@ -247,34 +262,34 @@ const playFunction = async (): Promise<void> => {
 };
 
 export const pinnedColumns$NoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
+    matrixTemplate(createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
-        [hierarchyStates[0]],
-        [undefined],
+        hierarchyStates,
+        [TableRowSelectionMode.none],
         scrollPositionStates
-    ])
+    ]))
 );
 pinnedColumns$NoSelectionThemeMatrix.play = playFunction;
 
 export const pinnedColumns$SingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
+    matrixTemplate(createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
-        [hierarchyStates[0]],
+        hierarchyStates,
         [TableRowSelectionMode.single],
         scrollPositionStates
-    ])
+    ]))
 );
 pinnedColumns$SingleSelectionThemeMatrix.play = playFunction;
 
 export const pinnedColumns$MultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
+    matrixTemplate(createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
-        [hierarchyStates[1]],
+        hierarchyStates,
         [TableRowSelectionMode.multiple],
         scrollPositionStates
-    ])
+    ]))
 );
 pinnedColumns$MultipleSelectionThemeMatrix.play = playFunction;
