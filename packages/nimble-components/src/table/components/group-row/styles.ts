@@ -66,10 +66,12 @@ export const styles = css`
     }
 
     .pinned-column-spacer {
+        display: none;
         height: 100%;
     }
 
     :host([has-pinned-columns]) .pinned-column-spacer {
+        display: block;
         position: sticky;
         left: 0;
         background: ${tableRowBorderColor};

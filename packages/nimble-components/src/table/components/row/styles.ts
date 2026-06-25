@@ -152,7 +152,7 @@ export const styles = css`
             inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
             inset -2px 0 0 0 ${tableRowBorderColor};
     }
-
+    ${'' /* Pushing the pinned-cell-container to a higher z-index for breakpoint menu behavior (not required by table directly) */}
     :host([menu-open]) .pinned-cell-container {
         z-index: ${ZIndexLevels.zIndex1000};
     }
