@@ -141,6 +141,28 @@ export class ChatConversationPageObject {
         return message?.messageInternals?.isScrollAnchor ?? false;
     }
 
+    // --- programmatic scroll handling (test seams) ---
+
+    public getProgrammaticScrollTarget(): number | undefined {
+        return this.autoScrollManagerInternals.programmaticScrollTarget;
+    }
+
+    public setProgrammaticScrollTarget(target: number): void {
+        this.autoScrollManagerInternals.programmaticScrollTarget = target;
+    }
+
+    public dispatchScroll(): void {
+        this.getScrollContainer().dispatchEvent(new Event('scroll'));
+    }
+
+    private get autoScrollManagerInternals(): {
+        programmaticScrollTarget?: number
+    } {
+        return this.element.autoScrollManager as unknown as {
+            programmaticScrollTarget?: number
+        };
+    }
+
     // --- actions ---
 
     public async appendOutboundMessage(text: string): Promise<void> {

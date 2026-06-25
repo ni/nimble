@@ -93,6 +93,28 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
             expect(pageObject.isAnchorRegionReserved()).toBeTrue();
         });
 
+        it('keeps following after a programmatic scroll settles short of its target', async () => {
+            // Reproduces the first-message regression: a programmatic scroll to
+            // the bottom can settle a few pixels short of its requested target
+            // (e.g. the achievable max ends up below the target due to layout
+            // rounding). The stale target must still be cleared on reaching the
+            // bottom, otherwise content-following stays suppressed forever.
+            await fillWithInboundMessages(8);
+            await pageObject.scrollToBottom();
+            pageObject.setProgrammaticScrollTarget(
+                pageObject.getScrollTop() + 5
+            );
+
+            pageObject.dispatchScroll();
+
+            expect(pageObject.getProgrammaticScrollTarget()).toBeUndefined();
+
+            await pageObject.appendInboundMessage(
+                'Streamed response content. '.repeat(10)
+            );
+            expect(pageObject.isScrolledToBottom()).toBeTrue();
+        });
+
         it('grows the anchored region and follows the bottom once the response exceeds the viewport', async () => {
             await fillWithInboundMessages(4);
             await pageObject.appendOutboundMessage('A user question');

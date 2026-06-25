@@ -195,9 +195,15 @@ export class AutoScrollManager implements Subscriber {
     private readonly onScroll = (): void => {
         const container = this.conversation.messagesContainer;
         if (this.programmaticScrollTarget !== undefined) {
-            if (
-                Math.abs(container.scrollTop - this.programmaticScrollTarget) <= 1
-            ) {
+            // The programmatic scroll always targets the bottom, so treat it as
+            // settled once we reach that target or the bottom itself. Reaching
+            // the bottom is also checked because the achievable max scroll can
+            // end up a sub-pixel short of the requested target (e.g. layout
+            // rounding), which would otherwise leave the target stuck and
+            // suppress all future content-following.
+            const reachedTarget = Math.abs(container.scrollTop - this.programmaticScrollTarget) <= 1;
+            const reachedBottom = this.getDistanceFromBottom() <= scrollingPixelThreshold;
+            if (reachedTarget || reachedBottom) {
                 this.programmaticScrollTarget = undefined;
             }
             return;
