@@ -18,10 +18,11 @@ import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/asyn
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 import { bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
-    createMatrixThemeStory,
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/matrix';
+import { createFixedThemeStory } from '../../utilities/storybook';
+import { backgroundStates } from '../../utilities/states';
 import { isChromatic } from '../../utilities/isChromatic';
 
 const metadata: Meta = {
@@ -30,6 +31,17 @@ const metadata: Meta = {
         ...sharedMatrixParameters()
     }
 };
+
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
 
 export default metadata;
 
@@ -261,35 +273,110 @@ const playFunction = async (): Promise<void> => {
     );
 };
 
-export const pinnedColumns$NoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const pinnedColumns$LightTheme$NoSelection: StoryFn = createFixedThemeStory(
     matrixTemplate(createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
         hierarchyStates,
         [TableRowSelectionMode.none],
         scrollPositionStates
-    ]))
+    ])),
+    lightThemeWhiteBackground
 );
-pinnedColumns$NoSelectionThemeMatrix.play = playFunction;
+pinnedColumns$LightTheme$NoSelection.play = playFunction;
 
-export const pinnedColumns$SingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const pinnedColumns$LightTheme$SingleSelection: StoryFn = createFixedThemeStory(
     matrixTemplate(createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
         hierarchyStates,
         [TableRowSelectionMode.single],
         scrollPositionStates
-    ]))
+    ])),
+    lightThemeWhiteBackground
 );
-pinnedColumns$SingleSelectionThemeMatrix.play = playFunction;
+pinnedColumns$LightTheme$SingleSelection.play = playFunction;
 
-export const pinnedColumns$MultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const pinnedColumns$LightTheme$MultipleSelection: StoryFn = createFixedThemeStory(
     matrixTemplate(createMatrix(component, [
         pinConfigurationStates,
         groupedStates,
         hierarchyStates,
         [TableRowSelectionMode.multiple],
         scrollPositionStates
-    ]))
+    ])),
+    lightThemeWhiteBackground
 );
-pinnedColumns$MultipleSelectionThemeMatrix.play = playFunction;
+pinnedColumns$LightTheme$MultipleSelection.play = playFunction;
+
+export const pinnedColumns$DarkTheme$NoSelection: StoryFn = createFixedThemeStory(
+    matrixTemplate(createMatrix(component, [
+        pinConfigurationStates,
+        groupedStates,
+        hierarchyStates,
+        [TableRowSelectionMode.none],
+        scrollPositionStates
+    ])),
+    darkThemeBlackBackground
+);
+pinnedColumns$DarkTheme$NoSelection.play = playFunction;
+
+export const pinnedColumns$DarkTheme$SingleSelection: StoryFn = createFixedThemeStory(
+    matrixTemplate(createMatrix(component, [
+        pinConfigurationStates,
+        groupedStates,
+        hierarchyStates,
+        [TableRowSelectionMode.single],
+        scrollPositionStates
+    ])),
+    darkThemeBlackBackground
+);
+pinnedColumns$DarkTheme$SingleSelection.play = playFunction;
+
+export const pinnedColumns$DarkTheme$MultipleSelection: StoryFn = createFixedThemeStory(
+    matrixTemplate(createMatrix(component, [
+        pinConfigurationStates,
+        groupedStates,
+        hierarchyStates,
+        [TableRowSelectionMode.multiple],
+        scrollPositionStates
+    ])),
+    darkThemeBlackBackground
+);
+pinnedColumns$DarkTheme$MultipleSelection.play = playFunction;
+
+export const pinnedColumns$ColorTheme$NoSelection: StoryFn = createFixedThemeStory(
+    matrixTemplate(createMatrix(component, [
+        pinConfigurationStates,
+        groupedStates,
+        hierarchyStates,
+        [TableRowSelectionMode.none],
+        scrollPositionStates
+    ])),
+    colorThemeDarkGreenBackground
+);
+pinnedColumns$ColorTheme$NoSelection.play = playFunction;
+
+export const pinnedColumns$ColorTheme$SingleSelection: StoryFn = createFixedThemeStory(
+    matrixTemplate(createMatrix(component, [
+        pinConfigurationStates,
+        groupedStates,
+        hierarchyStates,
+        [TableRowSelectionMode.single],
+        scrollPositionStates
+    ])),
+    colorThemeDarkGreenBackground
+);
+pinnedColumns$ColorTheme$SingleSelection.play = playFunction;
+
+export const pinnedColumns$ColorTheme$MultipleSelection: StoryFn = createFixedThemeStory(
+    matrixTemplate(createMatrix(component, [
+        pinConfigurationStates,
+        groupedStates,
+        hierarchyStates,
+        [TableRowSelectionMode.multiple],
+        scrollPositionStates
+    ])),
+    colorThemeDarkGreenBackground
+);
+pinnedColumns$ColorTheme$MultipleSelection.play = playFunction;
