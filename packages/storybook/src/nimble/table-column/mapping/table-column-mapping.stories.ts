@@ -74,7 +74,7 @@ interface MappingColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
     widthMode: keyof typeof TableColumnMappingWidthMode;
-    pinLocationEnabled: boolean;
+    pinLocation: TableColumnPinLocation | undefined;
     checkValidity: () => void;
     validity: () => void;
     content: undefined;
@@ -109,7 +109,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 field-name="isChild" 
                 key-type="boolean" 
                 width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}"
-                pin-location="${x => (x.pinLocationEnabled ? TableColumnPinLocation.left : undefined)}"
+                pin-location="${x => x.pinLocation}"
             >
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
             
@@ -152,10 +152,12 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             description: widthModeDescription,
             table: { category: apiCategory.attributes }
         },
-        pinLocationEnabled: {
+        pinLocation: {
             name: 'pin-location',
             description:
                 'Set `pin-location` to `left` to pin this column to the left side of the table. Pinned columns remain visible as the user scrolls the table horizontally.',
+            options: [undefined, TableColumnPinLocation.left],
+            control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
         checkValidity: {
@@ -217,7 +219,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
         fieldName: 'firstName',
         keyType: 'string',
         widthMode: 'iconSize',
-        pinLocationEnabled: false,
+        pinLocation: undefined,
         checkValidity: () => {},
         validity: () => {}
     }

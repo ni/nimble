@@ -121,7 +121,7 @@ export default metadata;
 interface BreakpointColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     menuSlot: string;
-    pinLocationEnabled: boolean;
+    pinLocation: TableColumnPinLocation | undefined;
     toggleEvent: never;
     stateChangeRequestedEvent: never;
     currentData: CodeRecord[];
@@ -152,7 +152,7 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
             <${tsTableColumnBreakpointTag}
                 field-name="${x => x.fieldName}"
                 menu-slot="${x => x.menuSlot}"
-                pin-location="${x => (x.pinLocationEnabled ? TableColumnPinLocation.left : undefined)}"
+                pin-location="${x => x.pinLocation}"
                 @breakpoint-column-toggle="${(x, c) => {
                     const event = c.event as CustomEvent<BreakpointToggleEventDetail>;
                     const detail = event.detail;
@@ -194,10 +194,12 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
             control: false,
             table: { category: apiCategory.attributes }
         },
-        pinLocationEnabled: {
+        pinLocation: {
             name: 'pin-location',
             description:
                 'Set `pin-location` to `left` to pin this column to the left side of the table. Pinned columns remain visible as the user scrolls the table horizontally.',
+            options: [undefined, TableColumnPinLocation.left],
+            control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
         toggleEvent: {
@@ -223,7 +225,7 @@ export const breakpointColumn: StoryObj<BreakpointColumnTableArgs> = {
     args: {
         fieldName: 'breakpointState',
         menuSlot: 'breakpoint-menu',
-        pinLocationEnabled: false,
+        pinLocation: undefined,
         currentData: [...simpleData]
     }
 };

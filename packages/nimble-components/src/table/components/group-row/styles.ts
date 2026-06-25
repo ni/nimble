@@ -65,13 +65,9 @@ export const styles = css`
         outline-offset: calc(-2 * ${borderWidth});
     }
 
-    .pinned-column-spacer {
-        display: none;
-        height: 100%;
-    }
-
     :host([has-pinned-columns]) .pinned-column-spacer {
         display: block;
+        height: 100%;
         position: sticky;
         left: 0;
         background: ${tableRowBorderColor};
