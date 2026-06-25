@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Thu, 25 Jun 2026 20:51:07 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 25 Jun 2026 22:26:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.5.1
+
+Thu, 25 Jun 2026 22:26:57 GMT
+
+### Patches
+
+- Fix for clipped Ok Breakpoint Column menu in Pinned column ([ni/nimble@8e8a429](https://github.com/ni/nimble/commit/8e8a4298b034b65a87a5c63bd6c47aa6a7ce766f))
 
 ## 1.5.0
 

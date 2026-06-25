@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix for clipped Ok Breakpoint Column menu in Pinned column",
-  "packageName": "@ni/ok-components",
-  "email": "5265744+hellovolcano@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
