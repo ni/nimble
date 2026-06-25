@@ -11,6 +11,7 @@ import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
 import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
+import { TableColumnPinLocation } from '@ni/nimble-components/dist/esm/table/types';
 import {
     type SharedTableArgs,
     sharedTableArgTypes,
@@ -73,6 +74,7 @@ interface MappingColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
     widthMode: keyof typeof TableColumnMappingWidthMode;
+    pinLocation: TableColumnPinLocation | undefined;
     checkValidity: () => void;
     validity: () => void;
     content: undefined;
@@ -93,14 +95,22 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             <${tableColumnTextTag} field-name="firstName" >
                 Name
             </${tableColumnTextTag}>
-            <${tableColumnMappingTag} field-name="status" group-index="0">
+            <${tableColumnMappingTag}
+                field-name="status"
+                group-index="0"
+            >
                 Status
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
-            <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}">
+            <${tableColumnMappingTag} 
+                field-name="isChild" 
+                key-type="boolean" 
+                width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}"
+                pin-location="${x => x.pinLocation}"
+            >
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
             
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
@@ -140,6 +150,14 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             options: Object.keys(TableColumnMappingWidthMode),
             control: { type: 'radio' },
             description: widthModeDescription,
+            table: { category: apiCategory.attributes }
+        },
+        pinLocation: {
+            name: 'pin-location',
+            description:
+                'Set `pin-location` to `left` to pin this column to the left side of the table. Pinned columns remain visible as the user scrolls the table horizontally.',
+            options: [undefined, TableColumnPinLocation.left],
+            control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
         checkValidity: {
@@ -201,6 +219,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
         fieldName: 'firstName',
         keyType: 'string',
         widthMode: 'iconSize',
+        pinLocation: undefined,
         checkValidity: () => {},
         validity: () => {}
     }
