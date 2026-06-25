@@ -2,6 +2,27 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Thu, 25 Jun 2026 20:51:07 GMT",
+      "version": "1.5.0",
+      "tag": "@ni/ok-blazor_v1.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "2bc131b2443301cfb4f80c8319b4155fce1ac6d1",
+            "comment": "Add support for pinning the breakpoint column"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.5.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Jun 2026 17:31:59 GMT",
       "version": "1.4.3",
       "tag": "@ni/ok-blazor_v1.4.3",

@@ -1,8 +1,18 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 19 Jun 2026 17:31:59 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 25 Jun 2026 20:51:07 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.5.0
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Minor changes
+
+- Add support for pinning the breakpoint column ([ni/nimble@2bc131b](https://github.com/ni/nimble/commit/2bc131b2443301cfb4f80c8319b4155fce1ac6d1))
+- Bump @ni/nimble-components to v35.11.0
+- Bump @ni/spright-components to v6.20.4
 
 ## 1.4.3
 

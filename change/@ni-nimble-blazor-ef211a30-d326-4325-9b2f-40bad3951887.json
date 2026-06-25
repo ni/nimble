@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add support for pinning table columns",
-  "packageName": "@ni/nimble-blazor",
-  "email": "5265744+hellovolcano@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
