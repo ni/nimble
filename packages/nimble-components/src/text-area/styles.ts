@@ -32,6 +32,7 @@ export const styles = css`
         outline: none;
         ${userSelectNone}
         color: ${bodyFontColor};
+        field-sizing: fixed;
         flex-direction: column;
         vertical-align: top;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);

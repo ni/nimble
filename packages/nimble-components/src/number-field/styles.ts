@@ -32,6 +32,7 @@ export const styles = css`
         outline: none;
         ${userSelectNone}
         color: ${bodyFontColor};
+        field-sizing: fixed;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
