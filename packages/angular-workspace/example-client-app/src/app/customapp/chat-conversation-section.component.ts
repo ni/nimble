@@ -2,130 +2,71 @@ import { Component, type OnDestroy } from '@angular/core';
 import type { ChatInputSendEventDetail } from '@ni/spright-angular/chat/input';
 
 interface ChatEntry {
-    type: 'user' | 'advisor' | 'system';
+    type: 'user' | 'advisor';
     text: string;
-    streaming: boolean;
 }
 
-const singleResponse = `To configure your Python version, select Adapters from the Configure menu.
-Configure the Python adapter. Choose the desired version from the Version dropdown.
-You can also specify a Python version for a specific module call in the Advanced Settings of the Python adapter.
-Additionally, you can set environment variables in the adapter configuration to control runtime behavior.
-This gives you fine-grained control over which interpreter is used per step in your test sequence.
-If you have multiple virtual environments, make sure to point the adapter to the correct executable path.
-The path must be absolute and should not contain spaces unless properly quoted.
-For further reference, consult the NI TestStand help documentation under the Python Adapter section.`;
+const songThatDoesNotEnd = `
+This is the song that doesn't end
+Yes, it goes on and on, my friend
+Some people started singing it not knowing what it was,
+And they’ll continue singing it forever just because`;
 
-const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/);
+const streamingWords = songThatDoesNotEnd.split(' ');
 
 @Component({
     selector: 'example-chat-conversation-section',
     template: `
         <example-sub-container label="Chat Conversation and Messages (Spright)">
-            <div class="conversations">
-                <spright-chat-conversation>
-                    <nimble-toolbar slot="toolbar">
-                        <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
-                        <span class="toolbar-title">AI Assistant</span>
-                        <nimble-button appearance="ghost" content-hidden title="Create new chat" slot="end">
-                            Create new chat
-                            <nimble-icon-pencil-to-rectangle slot="start"></nimble-icon-pencil-to-rectangle>
-                        </nimble-button>
-                    </nimble-toolbar>
-                    <nimble-banner slot="start" open severity="information">
-                        <span slot="title">Title of the banner</span>
-                        This is the message text of this banner. It tells you something interesting.
-                    </nimble-banner>
-                    <spright-chat-message-system>To start, press any key.</spright-chat-message-system>
-                    <spright-chat-message-outbound>Where is the Any key?</spright-chat-message-outbound>
-                    <spright-chat-message-system>
-                        <nimble-spinner appearance="accent"></nimble-spinner>
-                    </spright-chat-message-system>
-                    <spright-chat-message-inbound>
-                        <nimble-button slot="footer-actions" appearance='ghost' content-hidden>
-                            <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
-                            Copy
-                        </nimble-button>
-                        <nimble-icon-webvi-custom style="height: 100px; width: 100px;"></nimble-icon-webvi-custom>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                        <nimble-button slot="end" appearance="block">Order a tab</nimble-button>
-                        <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
-                    </spright-chat-message-inbound>
-                     @for (message of staticUserMessages; track message) {
-                        <spright-chat-message-outbound><span>{{message}}</span></spright-chat-message-outbound>
+            <spright-chat-conversation auto-scroll>
+                <nimble-toolbar slot="toolbar">
+                    <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
+                    <span class="toolbar-title">AI Assistant</span>
+                    <nimble-button appearance="ghost" content-hidden title="Create new chat" slot="end">
+                        Create new chat
+                        <nimble-icon-pencil-to-rectangle slot="start"></nimble-icon-pencil-to-rectangle>
+                    </nimble-button>
+                </nimble-toolbar>
+                <nimble-banner slot="start" open severity="information">
+                    <span slot="title">Title of the banner</span>
+                    This is the message text of this banner. It tells you something interesting.
+                </nimble-banner>
+                <spright-chat-message-system>To start, press any key.</spright-chat-message-system>
+                <spright-chat-message-outbound>Where is the Any key?</spright-chat-message-outbound>
+                <spright-chat-message-system>
+                    <nimble-spinner appearance="accent"></nimble-spinner>
+                </spright-chat-message-system>
+                <spright-chat-message-inbound>
+                    <nimble-button slot="footer-actions" appearance='ghost' content-hidden>
+                        <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
+                        Copy
+                    </nimble-button>
+                    <nimble-icon-webvi-custom style="height: 100px; width: 100px;"></nimble-icon-webvi-custom>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <nimble-button slot="end" appearance="block">Order a tab</nimble-button>
+                    <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
+                </spright-chat-message-inbound>
+                @for (entry of messages; track entry) {
+                    @if (entry.type === 'user') {
+                        <spright-chat-message-outbound><span>{{entry.text}}</span></spright-chat-message-outbound>
                     }
-                    <spright-chat-input slot="input" placeholder="Type here" (send)="onStaticChatInputSend($event)"></spright-chat-input>
-                    <span slot="end">
-                        AI-generated content may be incorrect.
-                        <nimble-anchor href="https://www.ni.com" target="_blank">View Terms and Conditions</nimble-anchor>
-                    </span>
-                </spright-chat-conversation>
-
-                <div class="streaming-section">
-                <label class="response-label">Custom advisor response (leave empty for canned):</label>
-                <textarea class="response-input" rows="3" (input)="onCustomAdvisorTextInput($event)"></textarea>
-                <spright-chat-conversation auto-scroll>
-                    <nimble-toolbar slot="toolbar">
-                        <nimble-icon-messages-sparkle slot="start"></nimble-icon-messages-sparkle>
-                        <span class="toolbar-title">AI Assistant (Streaming)</span>
-                    </nimble-toolbar>
-                    @for (entry of messages; track entry) {
-                        @if (entry.type === 'user') {
-                            <spright-chat-message-outbound>
-                                <span>{{entry.text}}</span>
-                            </spright-chat-message-outbound>
-                        }
-                        @if (entry.type === 'system') {
-                            <spright-chat-message-system>
-                                <nimble-spinner appearance="accent"></nimble-spinner>
-                            </spright-chat-message-system>
-                        }
-                        @if (entry.type === 'advisor') {
-                            <spright-chat-message-inbound>
-                                <span>{{entry.text}}</span>
-                                @if (!entry.streaming) {
-                                    <nimble-button slot="footer-actions" appearance="ghost" content-hidden title="Copy">
-                                        <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
-                                        Copy
-                                    </nimble-button>
-                                }
-                            </spright-chat-message-inbound>
-                        }
+                    @if (entry.type === 'advisor') {
+                        <spright-chat-message-inbound><span>{{entry.text}}</span></spright-chat-message-inbound>
                     }
-                    <spright-chat-input slot="input" placeholder="Send a message…" (send)="onChatInputSend($event)" [send-disabled]="isStreaming"></spright-chat-input>
-                    <span slot="end">AI-generated content may be incorrect.</span>
-                </spright-chat-conversation>
-                </div>
-            </div>
+                }
+                <spright-chat-input slot="input" placeholder='Type a message (try "start" or "stop")' send-button-label="Send" (send)="onChatInputSend($event)"></spright-chat-input>
+                <span slot="end">
+                    AI-generated content may be incorrect.
+                    <nimble-anchor href="https://www.ni.com" target="_blank">View Terms and Conditions</nimble-anchor>
+                </span>
+            </spright-chat-conversation>
         </example-sub-container>
     `,
     styles: [`
-        .conversations {
-            display: flex;
-            gap: 16px;
-        }
         spright-chat-conversation {
             width: 700px;
             height: 650px;
-        }
-        .streaming-section {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .response-label {
-            font: var(--ni-nimble-body-font);
-            color: var(--ni-nimble-body-font-color);
-        }
-        .response-input {
-            font: var(--ni-nimble-body-font);
-            color: var(--ni-nimble-body-font-color);
-            background: var(--ni-nimble-fill-secondary-color);
-            border: 1px solid var(--ni-nimble-border-color);
-            padding: 4px;
-            width: 700px;
-            resize: vertical;
         }
         spright-chat-message-outbound span,
         spright-chat-message-inbound span { white-space: pre-wrap; }
@@ -133,61 +74,45 @@ const cannedResponseWords = Array(5).fill(singleResponse).join('\n').split(/\s+/
     standalone: false
 })
 export class ChatConversationSectionComponent implements OnDestroy {
-    public staticUserMessages: string[] = [];
     public messages: ChatEntry[] = [];
-    public isStreaming = false;
 
-    private customAdvisorText = '';
-    private streamInterval: ReturnType<typeof setInterval> | null = null;
-
-    public onCustomAdvisorTextInput(e: Event): void {
-        this.customAdvisorText = (e.target as HTMLTextAreaElement).value;
-    }
-
-    public onStaticChatInputSend(e: Event): void {
-        this.staticUserMessages.push((e as CustomEvent<ChatInputSendEventDetail>).detail.text);
-    }
+    private streamingIntervalId: ReturnType<typeof setInterval> | undefined = undefined;
 
     public onChatInputSend(e: Event): void {
         const text = (e as CustomEvent<ChatInputSendEventDetail>).detail.text;
-        this.messages.push({ type: 'user', text, streaming: false });
-        this.startStreaming();
-    }
-
-    public ngOnDestroy(): void {
-        if (this.streamInterval !== null) {
-            clearInterval(this.streamInterval);
+        const command = text.trim().toLowerCase();
+        if (command === 'stop') {
+            if (this.streamingIntervalId !== undefined) {
+                clearInterval(this.streamingIntervalId);
+                this.streamingIntervalId = undefined;
+            }
+            return;
+        }
+        if (command !== 'start') {
+            // Post the user's message as a new outbound message.
+            this.messages.push({ type: 'user', text });
+        }
+        if (command === 'start') {
+            if (this.streamingIntervalId !== undefined) {
+                return;
+            }
+            // Add the incoming response that streams text.
+            const advisorEntry: ChatEntry = { type: 'advisor', text: '' };
+            this.messages.push(advisorEntry);
+            let wordIndex = 0;
+            this.streamingIntervalId = setInterval(() => {
+                const chunkText = streamingWords[wordIndex % streamingWords.length] ?? '';
+                advisorEntry.text = advisorEntry.text
+                    ? `${advisorEntry.text} ${chunkText}`
+                    : chunkText;
+                wordIndex += 1;
+            }, 150);
         }
     }
 
-    private startStreaming(): void {
-        this.isStreaming = true;
-        const spinnerEntry: ChatEntry = { type: 'system', text: '', streaming: true };
-        this.messages.push(spinnerEntry);
-
-        const responseWords = this.customAdvisorText.trim().length > 0
-            ? this.customAdvisorText.trim().split(/\s+/)
-            : cannedResponseWords;
-        let wordIndex = 0;
-        setTimeout(() => {
-            const idx = this.messages.indexOf(spinnerEntry);
-            if (idx !== -1) {
-                this.messages.splice(idx, 1);
-            }
-            const advisorEntry: ChatEntry = { type: 'advisor', text: '', streaming: true };
-            this.messages.push(advisorEntry);
-
-            this.streamInterval = setInterval(() => {
-                if (wordIndex < responseWords.length) {
-                    advisorEntry.text += (wordIndex === 0 ? '' : ' ') + responseWords[wordIndex];
-                    wordIndex += 1;
-                } else {
-                    clearInterval(this.streamInterval!);
-                    this.streamInterval = null;
-                    advisorEntry.streaming = false;
-                    this.isStreaming = false;
-                }
-            }, 30);
-        }, 300);
+    public ngOnDestroy(): void {
+        if (this.streamingIntervalId !== undefined) {
+            clearInterval(this.streamingIntervalId);
+        }
     }
 }

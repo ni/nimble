@@ -39,7 +39,7 @@ import {
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
 import { imgBlobUrl, markdownExample } from './story-helpers';
-import { loremIpsum } from '../../../utilities/lorem-ipsum';
+import { loremIpsum, songThatDoesNotEnd } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 import { ExampleWelcomeSlotContent } from '../message/types';
 
@@ -204,19 +204,16 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 }
                 return;
             }
-            // Post the user's message as a new outgoing message.
-            const outbound = document.createElement(chatMessageOutboundTag);
-            const outboundSpan = document.createElement('span');
-            outboundSpan.textContent = text;
-            // Preserves new lines and trailing spaces that the user entered
-            outboundSpan.style.whiteSpace = 'pre-wrap';
-            outbound.appendChild(outboundSpan);
-            args.conversationRef.appendChild(outbound);
-            outbound.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'start'
-            });
+            if (command !== 'start') {
+                // Post the user's message as a new outgoing message.
+                const outbound = document.createElement(chatMessageOutboundTag);
+                const outboundSpan = document.createElement('span');
+                outboundSpan.textContent = text;
+                // Preserves new lines and trailing spaces that the user entered
+                outboundSpan.style.whiteSpace = 'pre-wrap';
+                outbound.appendChild(outboundSpan);
+                args.conversationRef.appendChild(outbound);
+            }
             if (command === 'start') {
                 if (args.streamingIntervalId !== undefined) {
                     return;
@@ -228,8 +225,8 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 inboundSpan.style.whiteSpace = 'pre-wrap';
                 inbound.appendChild(inboundSpan);
                 args.conversationRef.appendChild(inbound);
-                const words = loremIpsum.split(' ');
-                const wordsPerChunk = 5;
+                const words = songThatDoesNotEnd.split(' ');
+                const wordsPerChunk = 1;
                 let wordIndex = 0;
                 args.streamingIntervalId = window.setInterval(() => {
                     const chunk: string[] = [];
