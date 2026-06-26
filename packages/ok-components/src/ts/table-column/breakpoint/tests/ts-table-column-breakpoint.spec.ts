@@ -302,6 +302,27 @@ describe('TsTableColumnBreakpoint', () => {
             expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeFalse();
         });
 
+        it('sets row menu-open while the context menu is open', async () => {
+            await table.setData([
+                { id: '1', breakpointState: BreakpointState.off }
+            ]);
+            await waitForUpdatesAsync();
+
+            expect(breakpointPageObject.isRowMenuOpen(0)).toBeFalse();
+
+            breakpointPageObject.rightClickBreakpointButton(0, 0);
+            await waitForUpdatesAsync();
+
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeTrue();
+            expect(breakpointPageObject.isRowMenuOpen(0)).toBeTrue();
+
+            breakpointPageObject.pressContextMenuKey(0, 0, { key: 'Escape' });
+            await waitForUpdatesAsync();
+
+            expect(breakpointPageObject.isContextMenuOpen(0, 0)).toBeFalse();
+            expect(breakpointPageObject.isRowMenuOpen(0)).toBeFalse();
+        });
+
         it('emits breakpoint-column-state-change-requested when selecting a menu item after right-click', async () => {
             await table.setData([
                 { id: '1', breakpointState: BreakpointState.off }

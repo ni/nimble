@@ -27,6 +27,15 @@ export class TableGroupRow extends FoundationElement {
     @observable
     public nestingLevel = 0;
 
+    @observable
+    public pinnedColumnOffset = 0;
+
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'has-pinned-columns', mode: 'boolean' })
+    public hasPinnedColumns = false;
+
     /**
      * Row index in the flattened set of all regular and group header rows.
      * Represents the index in table.tableData (TableRowState[]).
@@ -119,6 +128,10 @@ export class TableGroupRow extends FoundationElement {
                 : undefined,
             cells: []
         };
+    }
+
+    private pinnedColumnOffsetChanged(): void {
+        this.hasPinnedColumns = this.pinnedColumnOffset > 0;
     }
 
     private selectionStateChanged(): void {

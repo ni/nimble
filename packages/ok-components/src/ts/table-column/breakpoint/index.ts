@@ -8,6 +8,7 @@ import { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
 import { styles } from '@ni/nimble-components/dist/esm/table-column/base/styles';
 import type { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { MenuButtonPosition, type MenuButtonPosition as BreakpointMenuPosition } from '@ni/nimble-components/dist/esm/menu-button/types';
+import { mixinPinnableColumnAPI } from '@ni/nimble-components/dist/esm/table-column/mixins/pinnable-column';
 import {
     BreakpointState,
     type BreakpointToggleEventDetail,
@@ -33,7 +34,9 @@ declare global {
 /**
  * A table column that displays a breakpoint indicator with toggle functionality.
  */
-export class TsTableColumnBreakpoint extends TableColumn<TsTableColumnBreakpointColumnConfig> {
+export class TsTableColumnBreakpoint extends mixinPinnableColumnAPI(
+    TableColumn<TsTableColumnBreakpointColumnConfig>
+) {
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
 

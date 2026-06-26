@@ -1,8 +1,33 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Thu, 18 Jun 2026 00:03:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 25 Jun 2026 22:26:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.5.1
+
+Thu, 25 Jun 2026 22:26:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.5.1
+
+## 1.5.0
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Minor changes
+
+- Add support for pinning the breakpoint column ([ni/nimble@2bc131b](https://github.com/ni/nimble/commit/2bc131b2443301cfb4f80c8319b4155fce1ac6d1))
+- Bump @ni/ok-components to v1.5.0
+
+## 1.4.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.3
 
 ## 1.4.2
 

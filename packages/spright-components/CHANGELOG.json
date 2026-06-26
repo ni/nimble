@@ -2,6 +2,36 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 25 Jun 2026 20:51:07 GMT",
+      "version": "6.20.4",
+      "tag": "@ni/spright-components_v6.20.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Jun 2026 17:31:59 GMT",
+      "version": "6.20.3",
+      "tag": "@ni/spright-components_v6.20.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "2e05c1e8606452bb54181622b24536c639a63627",
+            "comment": "Fix send button not being re-enabled"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jun 2026 21:07:03 GMT",
       "version": "6.20.2",
       "tag": "@ni/spright-components_v6.20.2",

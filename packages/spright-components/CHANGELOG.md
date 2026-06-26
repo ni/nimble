@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 17 Jun 2026 21:07:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 25 Jun 2026 20:51:07 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.20.4
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.11.0
+
+## 6.20.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Fix send button not being re-enabled ([ni/nimble@2e05c1e](https://github.com/ni/nimble/commit/2e05c1e8606452bb54181622b24536c639a63627))
 
 ## 6.20.2
 

@@ -155,6 +155,18 @@ describe('ChatInput', () => {
 
             expect(page.isButtonEnabled()).toBeTrue();
         });
+
+        it('enables send button when changed to false after user types while true', () => {
+            element.sendDisabled = true;
+            processUpdates();
+
+            page.setText('new value');
+
+            element.sendDisabled = false;
+            processUpdates();
+
+            expect(page.isButtonEnabled()).toBeTrue();
+        });
     });
 
     describe('user input', () => {

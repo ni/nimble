@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "33.3.4",
+  "version": "33.4.0",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/nimble-angular && npm publish",
@@ -36,7 +36,7 @@
     "@angular/forms": "^20.3.19",
     "@angular/localize": "^20.3.19",
     "@angular/router": "^20.3.19",
-    "@ni/nimble-components": "^35.10.0",
+    "@ni/nimble-components": "^35.11.0",
     "@ni/unit-format": "^1.0.5"
   }
 }
