@@ -117,6 +117,7 @@ export const angularTemplateNimbleConfigOverrides = defineConfig([
                         'button-label',
                         'label',
                         'placeholder',
+                        'send-button-label',
                         'text',
                         'title',
 
