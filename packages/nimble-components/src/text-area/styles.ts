@@ -33,6 +33,7 @@ export const styles = css`
         ${userSelectNone}
         color: ${bodyFontColor};
         field-sizing: fixed;
+        min-width: 100px;
         flex-direction: column;
         vertical-align: top;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
@@ -110,7 +111,6 @@ export const styles = css`
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
         field-sizing: inherit;
-        min-width: 100px;
         min-height: calc(${iconSize} + ${standardPadding});
         padding: 8px;
         ${

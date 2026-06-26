@@ -49,7 +49,6 @@ ComboboxOptions
                     part="selected-value"
                     placeholder="${x => x.placeholder}"
                     role="combobox"
-                    size="1"
                     type="text"
                     ?disabled="${x => x.disabled}"
                     :value="${x => x.value}"

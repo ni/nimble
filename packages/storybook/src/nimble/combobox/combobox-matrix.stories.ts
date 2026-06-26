@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { controlLabelFont, controlLabelFontColor, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bodyFont, bodyFontColor, mediumPadding, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
@@ -250,48 +250,85 @@ export const blankListOption: StoryFn = createStory(
 export const fieldSizing: StoryFn = createStory(
     html`
         <style>
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: var(${mediumPadding.cssCustomProperty});
+            }
             label {
-                font: var(${controlLabelFont.cssCustomProperty});
-                color: var(${controlLabelFontColor.cssCustomProperty})
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
+            ${comboboxTag} {
+                border: 1px dashed;
+            }
+            .field-sizing-content ${comboboxTag} {
+                field-sizing: content;
+            }
+            .no-min-width ${comboboxTag} {
+                min-width: 0;
+            }
+            .fixed-width ${comboboxTag} {
+                width: 200px;
+            }
+            ${comboboxTag}[error-text] {
+                margin-bottom: var(${standardPadding.cssCustomProperty});
             }
         </style>
-        <div style="display: flex; flex-direction: column">
-            <label>Setting field-sizing=content & min-width=0</label>
-            <div>
-                <${comboboxTag} style="border: 1px dashed; field-sizing: content; min-width: 0;" value="tiny">
-                    field-sizing:content
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                </${comboboxTag}>
-                <${comboboxTag} style="border: 1px dashed; field-sizing: content; min-width: 0;" value="tiny">
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                </${comboboxTag}>
-            </div>
-            <label>Setting field-sizing=content with default min-width (menu-min-width)</label>
-            <div>
-                <${comboboxTag} style="border: 1px dashed; field-sizing: content;" value="tiny">
-                    field-sizing:content
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                </${comboboxTag}>
-                <${comboboxTag} style="border: 1px dashed; field-sizing: content;" value="tiny">
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                </${comboboxTag}>
-                <${comboboxTag} style="border: 1px dashed; field-sizing: content;" value="value longer than the standard min-width">
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                </${comboboxTag}>
-            </div>
-            <label>Default field-sizing (fixed)</label>
-            <div>
-                <${comboboxTag} style="border: 1px dashed;" value="tiny">
-                    Default field-sizing
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                </${comboboxTag}>
-                <${comboboxTag} style="border: 1px dashed;" value="tiny">
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                </${comboboxTag}>
-                <${comboboxTag} style="border: 1px dashed;" value="value longer than the standard min-width">
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                </${comboboxTag}>
-            </div>
+        <div class="field-sizing-content no-min-width">
+            <label>field-sizing: content; min-width: 0;</label>
+            <${comboboxTag} value="tiny">
+                This is a Combobox
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} error-text="Error text" error-visible value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} error-text="Error text, but this time longer" error-visible value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+        </div>
+        <div class="field-sizing-content">
+            <label>field-sizing: content;</label>
+            <${comboboxTag} value="tiny">
+                This is a Combobox
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} value="value longer than the standard min-width">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} error-text="Error text" error-visible value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} error-text="Error text, but this time longer" error-visible value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+        </div>
+        <div class="fixed-width">
+            <label>width: 200px;</label>
+            <${comboboxTag} value="tiny">
+                This is a Combobox
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} value="value longer than the standard min-width">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} error-text="Error text" error-visible value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} error-text="Error text, but this time longer" error-visible value="tiny">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
         </div>
     `
 );

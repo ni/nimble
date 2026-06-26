@@ -140,6 +140,10 @@ export const styles = css`
         padding: 0px;
         padding-left: ${mediumPadding};
     }
+    
+    :host([hide-step]) .control {
+        padding-right: ${mediumPadding};
+    }
 
     .control:hover,
     .control:focus,
@@ -253,6 +257,7 @@ export const styles = css`
 
             :host([full-bleed]) .control {
                 padding-left: 0px;
+                padding-right: 0px;
             }
         `
     )
