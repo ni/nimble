@@ -257,6 +257,27 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
+export const fieldSizing: StoryFn = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <div>
+                <${numberFieldTag} style="border: 1px dashed; field-sizing: content;" value="1.234">
+                    field-sizing:content
+                </${numberFieldTag}>
+                <${numberFieldTag} style="border: 1px dashed; field-sizing: content;" value="1.234">
+                </${numberFieldTag}>
+            </div>
+            <div>
+                <${numberFieldTag} style="border: 1px dashed;" value="1.234">
+                    Default field-sizing
+                </${numberFieldTag}>
+                <${numberFieldTag} style="border: 1px dashed;" value="1.234">
+                </${numberFieldTag}>
+            </div>
+        </div>
+    `
+);
+
 export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
