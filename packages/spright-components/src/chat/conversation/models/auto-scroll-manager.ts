@@ -222,8 +222,20 @@ export class AutoScrollManager implements Subscriber {
     }
 
     private smoothScrollTo(scrollTop: number): void {
+        const container = this.conversation.messagesContainer;
+        if (Math.abs(container.scrollTop - scrollTop) <= 1) {
+            // No movement is needed, so `scrollTo` would not emit a scroll event
+            // to clear the programmatic guard. Leaving the guard set would
+            // suppress all future content-following (e.g. on the first message,
+            // where the anchored region's reserved viewport makes the max scroll
+            // 0 and the smooth scroll is a no-op). Snap to the exact target and
+            // leave the guard clear so streamed content keeps being followed.
+            this.programmaticScrollTarget = undefined;
+            container.scrollTop = scrollTop;
+            return;
+        }
         this.programmaticScrollTarget = scrollTop;
-        this.conversation.messagesContainer.scrollTo({
+        container.scrollTo({
             top: scrollTop,
             behavior: 'smooth'
         });

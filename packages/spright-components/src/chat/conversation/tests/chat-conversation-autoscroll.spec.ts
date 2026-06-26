@@ -115,6 +115,22 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
             expect(pageObject.isScrolledToBottom()).toBeTrue();
         });
 
+        it('follows streamed content for the first message when the anchor scroll is a no-op', async () => {
+            // On the first message the anchored region reserves a full viewport,
+            // so the anchor's programmatic scroll targets the current position
+            // (max scroll is 0) and emits no scroll event. The programmatic guard
+            // must not be left set, or streamed content growth past the viewport
+            // would never be followed.
+            await pageObject.appendOutboundMessage('A user question');
+
+            expect(pageObject.getProgrammaticScrollTarget()).toBeUndefined();
+
+            await pageObject.appendInboundMessage(
+                'Streamed response content that exceeds the viewport. '.repeat(20)
+            );
+            expect(pageObject.isScrolledToBottom()).toBeTrue();
+        });
+
         it('grows the anchored region and follows the bottom once the response exceeds the viewport', async () => {
             await fillWithInboundMessages(4);
             await pageObject.appendOutboundMessage('A user question');
