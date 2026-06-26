@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { controlLabelFont, controlLabelFontColor, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
@@ -245,6 +245,55 @@ export const blankListOption: StoryFn = createStory(
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
     </${comboboxTag}>`
+);
+
+export const fieldSizing: StoryFn = createStory(
+    html`
+        <style>
+            label {
+                font: var(${controlLabelFont.cssCustomProperty});
+                color: var(${controlLabelFontColor.cssCustomProperty})
+            }
+        </style>
+        <div style="display: flex; flex-direction: column">
+            <label>Setting field-sizing=content & min-width=0</label>
+            <div>
+                <${comboboxTag} style="border: 1px dashed; field-sizing: content; min-width: 0;" value="tiny">
+                    field-sizing:content
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                </${comboboxTag}>
+                <${comboboxTag} style="border: 1px dashed; field-sizing: content; min-width: 0;" value="tiny">
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                </${comboboxTag}>
+            </div>
+            <label>Setting field-sizing=content with default min-width (menu-min-width)</label>
+            <div>
+                <${comboboxTag} style="border: 1px dashed; field-sizing: content;" value="tiny">
+                    field-sizing:content
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                </${comboboxTag}>
+                <${comboboxTag} style="border: 1px dashed; field-sizing: content;" value="tiny">
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                </${comboboxTag}>
+                <${comboboxTag} style="border: 1px dashed; field-sizing: content;" value="value longer than the standard min-width">
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                </${comboboxTag}>
+            </div>
+            <label>Default field-sizing (fixed)</label>
+            <div>
+                <${comboboxTag} style="border: 1px dashed;" value="tiny">
+                    Default field-sizing
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                </${comboboxTag}>
+                <${comboboxTag} style="border: 1px dashed;" value="tiny">
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                </${comboboxTag}>
+                <${comboboxTag} style="border: 1px dashed;" value="value longer than the standard min-width">
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                </${comboboxTag}>
+            </div>
+        </div>
+    `
 );
 
 export const heightTest: StoryFn = createStory(
