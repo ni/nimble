@@ -17,14 +17,10 @@ const scrollingPixelThreshold = 10;
 const historySlotName = 'history';
 
 /**
- * Manages auto-scroll behavior for the chat conversation: partitioning messages
- * into a history region and an anchored region, pinning a newly inserted anchor
- * message near the top of the viewport (via a `min-height: 100%` reservation on
- * the anchored region, which requires the conversation to have a definite
- * height), following streamed content, and disengaging when the user scrolls
- * away. The conversation owns a single instance for its lifetime and calls
- * `connect()`/`disconnect()` to register and tear down observers whenever the
- * element is connected and `autoScroll` is enabled.
+ * Manages auto-scroll behavior for the chat conversation:
+ * - Splits messages into `default` and `history` slots so the top message of the
+ *   `default` slot becomes the anchor: it is moved to the top of the viewport and scrolled to on insert
+ * - Implements auto scroll when at the bottom of the window as content is added until the user scrolls away
  * @internal
  */
 export class AutoScrollManager implements Subscriber {
@@ -36,9 +32,7 @@ export class AutoScrollManager implements Subscriber {
     public autoScrollEngaged = true;
 
     /**
-     * Whether the anchored region is reserving a viewport of space (via its
-     * `min-height: 100%`) to hold the current turn's anchor message near the top.
-     * Bound to the `anchor-active` class on the anchored region in the template.
+     * Whether the anchored region is reserving a viewport of space
      */
     @observable
     public anchorActive = false;
@@ -47,14 +41,11 @@ export class AutoScrollManager implements Subscriber {
         return this.resizeObserver !== undefined;
     }
 
-    // The message the conversation currently anchors to.
     private scrollAnchorMessage?: ChatMessage;
-    // Target of an in-progress smooth programmatic scroll; suppresses scroll-intent handling until reached.
     private programmaticScrollTarget?: number;
     private resizeObserver?: ResizeObserver;
     private scrollUpdatePending = false;
     private pendingAnchorInsert = false;
-    // Snapshot of messages used to detect additions across change notifications.
     private previousMessages: ChatMessage[] = [];
     private readonly conversationNotifier: Notifier;
 
@@ -159,9 +150,7 @@ export class AutoScrollManager implements Subscriber {
 
     /**
      * Pins the most recently inserted anchor message near the top of the
-     * viewport. The anchored region reserves a viewport via `min-height: 100%`,
-     * so scrolling to the bottom places the anchor at the top with reserved
-     * space below it for the response to fill.
+     * viewport.
      */
     private anchorToLastInsertedMessage(): void {
         const message = this.getLastAnchorMessage();
@@ -196,11 +185,7 @@ export class AutoScrollManager implements Subscriber {
         const container = this.conversation.messagesContainer;
         if (this.programmaticScrollTarget !== undefined) {
             // The programmatic scroll always targets the bottom, so treat it as
-            // settled once we reach that target or the bottom itself. Reaching
-            // the bottom is also checked because the achievable max scroll can
-            // end up a sub-pixel short of the requested target (e.g. layout
-            // rounding), which would otherwise leave the target stuck and
-            // suppress all future content-following.
+            // settled once we reach that target or the bottom itself.
             const reachedTarget = Math.abs(container.scrollTop - this.programmaticScrollTarget) <= 1;
             const reachedBottom = this.getDistanceFromBottom() <= scrollingPixelThreshold;
             if (reachedTarget || reachedBottom) {
@@ -225,10 +210,7 @@ export class AutoScrollManager implements Subscriber {
         const container = this.conversation.messagesContainer;
         if (Math.abs(container.scrollTop - scrollTop) <= 1) {
             // No movement is needed, so `scrollTo` would not emit a scroll event
-            // to clear the programmatic guard. Leaving the guard set would
-            // suppress all future content-following (e.g. on the first message,
-            // where the anchored region's reserved viewport makes the max scroll
-            // 0 and the smooth scroll is a no-op). Snap to the exact target and
+            // to clear the programmatic guard. Snap to the exact target and
             // leave the guard clear so streamed content keeps being followed.
             this.programmaticScrollTarget = undefined;
             container.scrollTop = scrollTop;

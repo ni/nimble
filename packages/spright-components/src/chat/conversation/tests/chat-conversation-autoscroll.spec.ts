@@ -13,10 +13,6 @@ async function setup(autoScroll: boolean): Promise<Fixture<ChatConversation>> {
         );
 }
 
-// Characterization tests that pin the current auto-scroll behavior so it can be
-// reproduced after the implementation is refactored. Assertions are intentionally
-// qualitative (padding applied, pinned to bottom, intent disengages auto-scroll)
-// rather than asserting exact pixel offsets, which depend on layout details.
 describe('ChatConversation auto-scroll behavior (characterization)', () => {
     const viewportHeight = 150;
 
@@ -94,11 +90,6 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
         });
 
         it('keeps following after a programmatic scroll settles short of its target', async () => {
-            // Reproduces the first-message regression: a programmatic scroll to
-            // the bottom can settle a few pixels short of its requested target
-            // (e.g. the achievable max ends up below the target due to layout
-            // rounding). The stale target must still be cleared on reaching the
-            // bottom, otherwise content-following stays suppressed forever.
             await fillWithInboundMessages(8);
             await pageObject.scrollToBottom();
             pageObject.setProgrammaticScrollTarget(
@@ -116,11 +107,6 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
         });
 
         it('follows streamed content for the first message when the anchor scroll is a no-op', async () => {
-            // On the first message the anchored region reserves a full viewport,
-            // so the anchor's programmatic scroll targets the current position
-            // (max scroll is 0) and emits no scroll event. The programmatic guard
-            // must not be left set, or streamed content growth past the viewport
-            // would never be followed.
             await pageObject.appendOutboundMessage('A user question');
 
             expect(pageObject.getProgrammaticScrollTarget()).toBeUndefined();
@@ -135,9 +121,6 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
             await fillWithInboundMessages(4);
             await pageObject.appendOutboundMessage('A user question');
 
-            // A response taller than the reserved viewport must grow the anchored
-            // region's box (not overflow a shrink-clamped region) so streamed
-            // content keeps following the bottom.
             const longResponse = 'Streamed response content that keeps growing. '.repeat(60);
             await pageObject.appendInboundMessage(longResponse);
 

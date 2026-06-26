@@ -13,9 +13,6 @@ async function setup(autoScroll: boolean): Promise<Fixture<ChatConversation>> {
         );
 }
 
-// Verifies how the conversation partitions messages into the history region
-// (everything before the latest anchor) and the anchored region (the latest
-// anchor and everything after it), and how the anchored region reserves space.
 describe('ChatConversation message regions', () => {
     const viewportHeight = 150;
 

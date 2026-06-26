@@ -5,9 +5,7 @@ import { chatMessageOutboundTag } from '../../message/outbound';
 import { chatMessageSystemTag } from '../../message/system';
 
 /**
- * Page object for the `spright-chat-conversation` component to provide consistent
- * ways of querying and interacting with the component during tests. Methods expose
- * primitive values rather than elements so tests do not depend on internal structure.
+ * Page object for the `spright-chat-conversation`
  */
 export class ChatConversationPageObject {
     public constructor(protected readonly element: ChatConversation) {}

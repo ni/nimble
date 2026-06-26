@@ -10,10 +10,7 @@ export interface ChatMessageInternalsOptions {
 }
 
 /**
- * Internal state for a chat message that is configured by the containing
- * `spright-chat-conversation`. Following the `step-internals` pattern, the
- * conversation reads declarative behavior (such as `anchorOnInsert`) and writes
- * observable state (such as `isScrollAnchor`) across the element boundary.
+ * Internal state for a chat message
  * @internal
  */
 export class ChatMessageInternals {
@@ -38,12 +35,6 @@ export class ChatMessageInternals {
         this.anchorOnInsert = options?.anchorOnInsert ?? false;
     }
 
-    /**
-     * The conversation slot this message is assigned to. Owned by the
-     * conversation, which partitions messages between its regions. Reflected to
-     * the host `slot` attribute by the message itself so framework wrappers never
-     * manage slotting. `undefined` places the message in the default slot.
-     */
     public get slot(): string | undefined {
         return this.slotName;
     }
