@@ -113,7 +113,7 @@ And they’ll continue singing it forever just because";
 
     private async Task StreamResponseAsync()
     {
-        var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(150));
+        var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(25));
         _streamTimer = timer;
         var wordIndex = 0;
         try

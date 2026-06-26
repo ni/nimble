@@ -77,7 +77,7 @@ export function ChatConversationSection(): React.JSX.Element {
                     };
                     return newMessages;
                 });
-            }, 150);
+            }, 25);
         }
     }
 

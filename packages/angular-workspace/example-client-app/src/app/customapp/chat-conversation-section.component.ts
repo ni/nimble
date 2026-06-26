@@ -106,7 +106,7 @@ export class ChatConversationSectionComponent implements OnDestroy {
                     ? `${advisorEntry.text} ${chunkText}`
                     : chunkText;
                 wordIndex += 1;
-            }, 150);
+            }, 25);
         }
     }
 

@@ -238,7 +238,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     inboundSpan.textContent = inboundSpan.textContent
                         ? `${inboundSpan.textContent} ${chunkText}`
                         : chunkText;
-                }, 150);
+                }, 25);
             }
         }
     }
