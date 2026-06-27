@@ -2,6 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance } from '@ni/nimble-components/dist/esm/text-area/types';
+import { mediumPadding, bodyFont, bodyFontColor, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -20,7 +21,6 @@ import {
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
-import { mediumPadding, bodyFont, bodyFontColor, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
 const appearanceStates = [
     ['Outline', TextAreaAppearance.outline],
@@ -245,6 +245,29 @@ export const fieldSizing: StoryFn = createStory(
         </div>
         <div class="field-sizing-content">
             <label>field-sizing: content;</label>
+            <${textAreaTag} value="tiny">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text.">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text." error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3">
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny">
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+        </div>
+        <div class="field-sizing-content fixed-width">
+            <label>field-sizing: content; width: 200px;</label>
             <${textAreaTag} value="tiny">
                 This is a Text Area
             </${textAreaTag}>
