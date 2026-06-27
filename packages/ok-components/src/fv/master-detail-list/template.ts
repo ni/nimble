@@ -18,10 +18,7 @@ export const template = html<FvMasterDetailList>`
                 aria-autocomplete="list"
                 aria-expanded="true"
                 ${ref('captureFilterInput')}
-                @input="${(x, c) => {
-                    x.handleFilterInput(c.event);
-                    return true;
-                }}"
+                @input="${(x, c) => x.handleFilterInput(c.event)}"
                 @keydown="${(x, c) => x.handleFilterKeydown(c.event as KeyboardEvent)}"
             />
         </div>
@@ -30,10 +27,7 @@ export const template = html<FvMasterDetailList>`
             class="items"
             role="listbox"
             aria-labelledby="${x => x.inputId}"
-            @click="${(x, c) => {
-                x.handleItemsClick(c.event);
-                return true;
-            }}"
+            @click="${(x, c) => x.handleItemsClick(c.event)}"
         >
             <slot @slotchange="${x => x.handleItemsSlotChange()}"></slot>
             ${when(

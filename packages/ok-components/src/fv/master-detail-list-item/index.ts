@@ -1,6 +1,5 @@
 import { attr, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import { uniqueId } from '@ni/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -42,10 +41,6 @@ export class FvMasterDetailListItem extends FoundationElement {
     /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
-
-        if (this.id.length === 0) {
-            this.id = uniqueId('ok-fv-master-detail-list-item');
-        }
 
         this.setAttribute('role', 'option');
         this.syncSelectionAria();

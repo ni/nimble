@@ -11,10 +11,7 @@ export const template = html<FvMasterDetailListItem>`
         <div class="status" part="status" ?hidden="${x => !x.hasStatus}">
             <slot
                 name="status"
-                @slotchange="${(x, c) => {
-                    x.handleStatusSlotChange(c.event);
-                    return true;
-                }}"
+                @slotchange="${(x, c) => x.handleStatusSlotChange(c.event)}"
             >
                 ${when(
                     x => x.statusColor.trim().length > 0,
