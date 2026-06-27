@@ -9,6 +9,7 @@ import {
     TextFieldAppearance,
     TextFieldType
 } from '@ni/nimble-components/dist/esm/text-field/types';
+import { bodyFont, bodyFontColor, mediumPadding, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createStory, createFixedThemeStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -851,6 +852,107 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
             </${textFieldTag}>
         `
     )
+);
+
+export const fieldSizing: StoryFn = createStory(
+    html`
+        <style>
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: var(${mediumPadding.cssCustomProperty});
+            }
+            label {
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
+            ${textFieldTag} {
+                border: 1px dashed;
+            }
+            .field-sizing-content ${textFieldTag} {
+                field-sizing: content;
+            }
+            .fixed-width ${textFieldTag} {
+                width: 200px;
+            }
+            ${textFieldTag}[error-text] {
+                margin-bottom: var(${standardPadding.cssCustomProperty});
+            }
+        </style>
+        <div class="field-sizing-content">
+            <label>field-sizing: content;</label>
+            <${textFieldTag} value="tiny">
+                This is a Text Field
+            </${textFieldTag}>
+            <${textFieldTag} value="tiny">
+            </${textFieldTag}>
+            <${textFieldTag} placeholder="Enter a value">
+            </${textFieldTag}>
+            <${textFieldTag} error-text="Error text" error-visible value="tiny">
+            </${textFieldTag}>
+            <${textFieldTag} error-text="Error text, but this time longer" error-visible value="tiny">
+            </${textFieldTag}>
+            <${textFieldTag} value="tiny">
+                <${iconTagTag} slot="start"></${iconTagTag}>
+                <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                    <${iconPencilTag} slot="start"></${iconPencilTag}>
+                    Edit
+                </${buttonTag}>
+                <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                    <${iconXmarkTag} slot="start"></${iconXmarkTag}>
+                    Clear
+                </${buttonTag}>
+            </${textFieldTag}>
+            <${textFieldTag} error-text="Error text" error-visible value="tiny">
+                <${iconTagTag} slot="start"></${iconTagTag}>
+                <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                    <${iconPencilTag} slot="start"></${iconPencilTag}>
+                    Edit
+                </${buttonTag}>
+                <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                    <${iconXmarkTag} slot="start"></${iconXmarkTag}>
+                    Clear
+                </${buttonTag}>
+            </${textFieldTag}>
+        </div>
+        <div>
+            <label>(Default)</label>
+            <${textFieldTag} value="tiny">
+                This is a Text Field
+            </${textFieldTag}>
+            <${textFieldTag} value="tiny">
+            </${textFieldTag}>
+            <${textFieldTag} placeholder="Enter a value">
+            </${textFieldTag}>
+            <${textFieldTag} error-text="Error text" error-visible value="tiny">
+            </${textFieldTag}>
+            <${textFieldTag} error-text="Error text, but this time longer" error-visible value="tiny">
+            </${textFieldTag}>
+            <${textFieldTag} value="tiny">
+                <${iconTagTag} slot="start"></${iconTagTag}>
+                <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                    <${iconPencilTag} slot="start"></${iconPencilTag}>
+                    Edit
+                </${buttonTag}>
+                <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                    <${iconXmarkTag} slot="start"></${iconXmarkTag}>
+                    Clear
+                </${buttonTag}>
+            </${textFieldTag}>
+            <${textFieldTag} error-text="Error text" error-visible value="tiny">
+                <${iconTagTag} slot="start"></${iconTagTag}>
+                <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                    <${iconPencilTag} slot="start"></${iconPencilTag}>
+                    Edit
+                </${buttonTag}>
+                <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                    <${iconXmarkTag} slot="start"></${iconXmarkTag}>
+                    Clear
+                </${buttonTag}>
+            </${textFieldTag}>
+        </div>
+    `
 );
 
 export const heightTest: StoryFn = createStory(

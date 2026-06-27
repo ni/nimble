@@ -8,11 +8,15 @@ import ComponentApisLink from '../../docs/component-apis-link.mdx';
 A multi-line text input control. The text area is often used in a form to
 collect user inputs like comments or reviews.
 
-If you configure your text area to be resizable (with the `resize` attribute) in
-a certain dimension, do not set an explicit size for that dimension (via
-`height` and/or `width` `style` properties), or you may experience unexpected
+If you configure your text area to be user-resizable (with the `resize`
+attribute) in a certain dimension, do not set an explicit size for that dimension
+(via `height` and/or `width` `style` properties), or you may experience unexpected
 resize behavior. If you want to set the initial size of a resizable text area,
 use the `rows` and/or `cols` attribute(s).
+
+To make the text area grow automatically to fit its content, style the element
+with `field-sizing: content`. This will allow it to grow both horizontally and
+vertically. Set a fixed `width` if you only want it to grow vertically.
 
 <Canvas of={textAreaStories.textArea} />
 

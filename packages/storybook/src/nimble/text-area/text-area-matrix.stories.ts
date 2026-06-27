@@ -2,6 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance } from '@ni/nimble-components/dist/esm/text-area/types';
+import { mediumPadding, bodyFont, bodyFontColor, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -188,6 +189,130 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
             Text area
         </${textAreaTag}>`
     )
+);
+
+export const fieldSizing: StoryFn = createStory(
+    html`
+        <style>
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: var(${mediumPadding.cssCustomProperty});
+            }
+            label {
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
+            ${textAreaTag} {
+                border: 1px dashed;
+            }
+            .field-sizing-content ${textAreaTag} {
+                field-sizing: content;
+            }
+            .no-min-width ${textAreaTag} {
+                min-width: 0;
+            }
+            .fixed-width ${textAreaTag} {
+                width: 200px;
+            }
+            ${textAreaTag}[error-text] {
+                margin-bottom: var(${standardPadding.cssCustomProperty});
+            }
+        </style>
+        <div class="field-sizing-content no-min-width">
+            <label>field-sizing: content; min-width: 0;</label>
+            <${textAreaTag} value="tiny">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text.">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text." error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3">
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny">
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+        </div>
+        <div class="field-sizing-content">
+            <label>field-sizing: content;</label>
+            <${textAreaTag} value="tiny">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text.">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text." error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3">
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny">
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+        </div>
+        <div class="field-sizing-content fixed-width">
+            <label>field-sizing: content; width: 200px;</label>
+            <${textAreaTag} value="tiny">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text.">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text." error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3">
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny">
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+        </div>
+        <div>
+            <label>(Default)</label>
+            <${textAreaTag} value="tiny">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text.">
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="This is longer than the label text." error-text="Error text is helpful" error-visible>
+                This is a Text Area
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3">
+            </${textAreaTag}>
+            <${textAreaTag} value="line 1\nline 2\nline 3" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny">
+            </${textAreaTag}>
+            <${textAreaTag} value="tiny" error-text="Error text is helpful" error-visible>
+            </${textAreaTag}>
+        </div>
+    `
 );
 
 export const heightTest: StoryFn = createStory(

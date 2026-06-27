@@ -32,6 +32,7 @@ export const styles = css`
         outline: none;
         ${userSelectNone}
         color: ${bodyFontColor};
+        field-sizing: fixed;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
@@ -64,6 +65,7 @@ export const styles = css`
         position: relative;
         display: flex;
         flex-direction: row;
+        field-sizing: inherit;
         justify-content: center;
         align-items: center;
         border-radius: 0px;
@@ -131,11 +133,16 @@ export const styles = css`
         font: inherit;
         background: transparent;
         color: inherit;
+        field-sizing: inherit;
         height: var(--ni-private-height-within-border);
         width: 100%;
         border: none;
         padding: 0px;
         padding-left: ${mediumPadding};
+    }
+    
+    :host([hide-step]) .control {
+        padding-right: ${mediumPadding};
     }
 
     .control:hover,
@@ -250,6 +257,7 @@ export const styles = css`
 
             :host([full-bleed]) .control {
                 padding-left: 0px;
+                padding-right: 0px;
             }
         `
     )

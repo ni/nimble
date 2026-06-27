@@ -2,6 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';
+import { bodyFont, bodyFontColor, mediumPadding, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -255,6 +256,71 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<${numberFieldTag} value="42">Number field</${numberFieldTag}>`
     )
+);
+
+export const fieldSizing: StoryFn = createStory(
+    html`
+        <style>
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: var(${mediumPadding.cssCustomProperty});
+            }
+            label {
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
+            ${numberFieldTag} {
+                border: 1px dashed;
+            }
+            .field-sizing-content ${numberFieldTag} {
+                field-sizing: content;
+            }
+            .fixed-width ${numberFieldTag} {
+                width: 200px;
+            }
+            ${numberFieldTag}[error-text] {
+                margin-bottom: var(${standardPadding.cssCustomProperty});
+            }
+        </style>
+        <div class="field-sizing-content">
+            <label>field-sizing: content;</label>
+            <${numberFieldTag} value="1.234">
+                This is a Number Field
+            </${numberFieldTag}>
+            <${numberFieldTag} value="1.234">
+            </${numberFieldTag}>
+            <${numberFieldTag} value="1.234" hide-step>
+            </${numberFieldTag}>
+            <${numberFieldTag} value="12345678901234">
+            </${numberFieldTag}>
+            <${numberFieldTag} placeholder="Enter a number">
+            </${numberFieldTag}>
+            <${numberFieldTag} error-text="Error text" error-visible value="1.234">
+            </${numberFieldTag}>
+            <${numberFieldTag} error-text="Error text, but this time longer" error-visible value="1.234">
+            </${numberFieldTag}>
+        </div>
+        <div class="fixed-width">
+            <label>width: 200px;</label>
+            <${numberFieldTag} value="1.234">
+                This is a Number Field
+            </${numberFieldTag}>
+            <${numberFieldTag} value="1.234">
+            </${numberFieldTag}>
+            <${numberFieldTag} value="1.234" hide-step>
+            </${numberFieldTag}>
+            <${numberFieldTag} value="12345678901234">
+            </${numberFieldTag}>
+            <${numberFieldTag} placeholder="Enter a number">
+            </${numberFieldTag}>
+            <${numberFieldTag} error-text="Error text" error-visible value="1.234">
+            </${numberFieldTag}>
+            <${numberFieldTag} error-text="Error text, but this time longer" error-visible value="1.234">
+            </${numberFieldTag}>
+        </div>
+    `
 );
 
 export const heightTest: StoryFn = createStory(

@@ -34,6 +34,7 @@ export const styles = css`
         outline: none;
         ${userSelectNone}
         color: ${bodyFontColor};
+        field-sizing: fixed;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
@@ -68,6 +69,7 @@ export const styles = css`
         display: flex;
         flex-direction: row;
         border-radius: 0px;
+        field-sizing: inherit;
         font: inherit;
         align-items: center;
         justify-content: center;
@@ -146,12 +148,16 @@ export const styles = css`
         background: transparent;
         color: inherit;
         padding: 0px;
+        field-sizing: inherit;
         height: var(--ni-private-height-within-border);
         width: 100%;
-        margin-top: auto;
-        margin-bottom: auto;
+        margin: auto ${smallPadding} auto 0px;
         border: none;
         text-overflow: ellipsis;
+    }
+
+    :host([error-visible]) .control {
+        margin-right: 0px;
     }
 
     .control:hover,
