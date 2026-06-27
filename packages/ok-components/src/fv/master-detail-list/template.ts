@@ -12,7 +12,7 @@ export const template = html<FvMasterDetailList>`
                 :value="${x => x.filterText}"
                 aria-controls="${x => x.listboxId}"
                 aria-activedescendant="${x => x.activeItemId}"
-                aria-label="Filter list items"
+                aria-label="${x => x.placeholder}"
                 role="combobox"
                 aria-haspopup="listbox"
                 aria-autocomplete="list"
@@ -26,7 +26,6 @@ export const template = html<FvMasterDetailList>`
             id="${x => x.listboxId}"
             class="items"
             role="listbox"
-            aria-labelledby="${x => x.inputId}"
             @click="${(x, c) => x.handleItemsClick(c.event)}"
         >
             <slot @slotchange="${x => x.handleItemsSlotChange()}"></slot>

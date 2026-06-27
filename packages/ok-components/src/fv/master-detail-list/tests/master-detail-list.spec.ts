@@ -111,6 +111,18 @@ describe('FvMasterDetailList', () => {
         );
     });
 
+    it('uses the placeholder as the input accessible name and leaves the listbox unlabeled by the input id', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        await waitForUpdatesAsync();
+
+        const input = getRequiredElement<HTMLInputElement>('.filter-input');
+        const listbox = getRequiredElement<HTMLElement>('.items');
+
+        expect(input.getAttribute('aria-label')).toBe('Filter devices...');
+        expect(listbox.getAttribute('aria-labelledby')).toBeNull();
+    });
+
     it('renders item title, subtitle, and a fallback status icon', async () => {
         const itemFixture = await fixture<FvMasterDetailListItem>(html`
             <${fvMasterDetailListItemTag}
