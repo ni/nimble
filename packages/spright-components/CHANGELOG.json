@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Sat, 27 Jun 2026 00:25:17 GMT",
+      "version": "6.21.0",
+      "tag": "@ni/spright-components_v6.21.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "fc9dd14cc8ab4d541f7a368154003dea5b576105",
+            "comment": "Add scrolling behavior to chat."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 25 Jun 2026 20:51:07 GMT",
       "version": "6.20.4",
       "tag": "@ni/spright-components_v6.20.4",
