@@ -1,8 +1,42 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Wed, 17 Jun 2026 21:07:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 27 Jun 2026 00:25:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.5.2
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.0
+
+## 1.5.1
+
+Thu, 25 Jun 2026 22:26:57 GMT
+
+### Patches
+
+- Fix for clipped Ok Breakpoint Column menu in Pinned column ([ni/nimble@8e8a429](https://github.com/ni/nimble/commit/8e8a4298b034b65a87a5c63bd6c47aa6a7ce766f))
+
+## 1.5.0
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Minor changes
+
+- Add support for pinning the breakpoint column ([ni/nimble@2bc131b](https://github.com/ni/nimble/commit/2bc131b2443301cfb4f80c8319b4155fce1ac6d1))
+- Bump @ni/nimble-components to v35.11.0
+- Bump @ni/spright-components to v6.20.4
+
+## 1.4.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.3
 
 ## 1.4.2
 

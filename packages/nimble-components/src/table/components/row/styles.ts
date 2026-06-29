@@ -12,13 +12,15 @@ import {
     fillSelectedColor,
     mediumPadding,
     smallPadding,
-    standardPadding
+    standardPadding,
+    tableRowBorderColor
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 import { focusVisible } from '../../../utilities/style/focus';
+import { ZIndexLevels } from '../../../utilities/style/types';
 
 export const styles = css`
     ${display('flex')}
@@ -42,7 +44,7 @@ export const styles = css`
         position: absolute;
     }
 
-    :host([selectable]:not([selected])[allow-hover]:hover)::before {
+    :host([selectable][allow-hover]:hover)::before {
         background-color: ${fillHoverColor};
     }
 
@@ -113,6 +115,46 @@ export const styles = css`
 
     .row-front-spacer.reduced-size-spacer {
         width: ${mediumPadding};
+    }
+
+    .pinned-cell-container {
+        display: grid;
+        grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
+        position: sticky;
+        left: 0;
+        background: ${applicationBackgroundColor};
+        z-index: ${ZIndexLevels.zIndex1};
+        box-shadow: inset -2px 0 0 0 ${tableRowBorderColor};
+    }
+
+    :host([selectable][allow-hover]:hover) .pinned-cell-container {
+        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
+            ${applicationBackgroundColor};
+    }
+
+    :host([selected]) .pinned-cell-container {
+        background: linear-gradient(${fillSelectedColor}, ${fillSelectedColor}),
+            ${applicationBackgroundColor};
+    }
+
+    :host([selected][allow-hover]:hover) .pinned-cell-container {
+        background: linear-gradient(
+                ${fillHoverSelectedColor},
+                ${fillHoverSelectedColor}
+            ),
+            ${applicationBackgroundColor};
+    }
+
+    :host(${focusVisible}) .pinned-cell-container {
+        box-shadow:
+            inset calc(2 * ${borderWidth}) 0 0 ${borderHoverColor},
+            inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
+            inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
+            inset -2px 0 0 0 ${tableRowBorderColor};
+    }
+    ${'' /* Pushing the pinned-cell-container to a higher z-index for breakpoint menu behavior (not required by table directly) */}
+    :host([menu-open]) .pinned-cell-container {
+        z-index: ${ZIndexLevels.zIndex1000};
     }
 
     .cell-container {
@@ -192,6 +234,42 @@ export const styles = css`
 
             :host([selected][allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.2)};
+            }
+
+            .pinned-cell-container {
+                box-shadow: inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
+            }
+
+            :host([selectable][allow-hover]:hover) .pinned-cell-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.05)},
+                        ${hexToRgbaCssColor(White, 0.05)}
+                    ),
+                    ${applicationBackgroundColor};
+            }
+
+            :host([selected]) .pinned-cell-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.25)},
+                        ${hexToRgbaCssColor(White, 0.25)}
+                    ),
+                    ${applicationBackgroundColor};
+            }
+
+            :host([selected][allow-hover]:hover) .pinned-cell-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.2)},
+                        ${hexToRgbaCssColor(White, 0.2)}
+                    ),
+                    ${applicationBackgroundColor};
+            }
+
+            :host(${focusVisible}) .pinned-cell-container {
+                box-shadow:
+                    inset calc(2 * ${borderWidth}) 0 0 ${borderHoverColor},
+                    inset 0 calc(2 * ${borderWidth}) 0 ${borderHoverColor},
+                    inset 0 calc(-2 * ${borderWidth}) 0 ${borderHoverColor},
+                    inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
             }
         `
     )

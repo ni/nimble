@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 25 Jun 2026 20:51:07 GMT",
+      "version": "33.4.0",
+      "tag": "@ni/nimble-angular_v33.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2bc131b2443301cfb4f80c8319b4155fce1ac6d1",
+            "comment": "add support for pinning table columns"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Jun 2026 17:09:52 GMT",
       "version": "33.3.4",
       "tag": "@ni/nimble-angular_v33.3.4",

@@ -79,6 +79,7 @@ export interface TableValidity extends ValidityObject {
     readonly idFieldNameNotConfigured: boolean;
     readonly invalidColumnConfiguration: boolean;
     readonly invalidParentIdConfiguration: boolean;
+    readonly invalidPinnedColumnConfiguration: boolean;
 }
 
 /**
@@ -110,6 +111,15 @@ export interface TableActionMenuToggleEventDetail {
     operatingRecordId: string;
     columnId?: string;
 }
+
+/**
+ * The possible pin locations for a table column.
+ */
+export const TableColumnPinLocation = {
+    none: undefined,
+    left: 'left'
+} as const;
+export type TableColumnPinLocation = (typeof TableColumnPinLocation)[keyof typeof TableColumnPinLocation];
 
 /**
  * The possible directions a table column can be sorted in.

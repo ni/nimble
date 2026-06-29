@@ -8,7 +8,8 @@ import {
     controlHeight,
     fillHoverColor,
     mediumPadding,
-    standardPadding
+    standardPadding,
+    tableRowBorderColor
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
@@ -16,6 +17,7 @@ import { themeBehavior } from '../../../utilities/style/theme';
 import { userSelectNone } from '../../../utilities/style/user-select';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 import { focusVisible } from '../../../utilities/style/focus';
+import { ZIndexLevels } from '../../../utilities/style/types';
 
 export const styles = css`
     ${display('grid')}
@@ -26,6 +28,7 @@ export const styles = css`
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
         grid-template-columns:
+            calc(var(--ni-private-table-group-row-pinned-column-offset))
             calc(
                 ${controlHeight} *
                     (var(--ni-private-table-group-row-indent-level) + 1)
@@ -35,6 +38,7 @@ export const styles = css`
 
     :host([selectable]) {
         grid-template-columns:
+            calc(var(--ni-private-table-group-row-pinned-column-offset))
             ${controlHeight}
             calc(
                 ${controlHeight} *
@@ -59,6 +63,37 @@ export const styles = css`
     :host(${focusVisible}) {
         outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
         outline-offset: calc(-2 * ${borderWidth});
+    }
+
+    :host([has-pinned-columns]) .pinned-column-spacer {
+        display: block;
+        height: 100%;
+        position: sticky;
+        left: 0;
+        background: ${tableRowBorderColor};
+        z-index: ${ZIndexLevels.zIndex1};
+    }
+
+    :host([allow-hover][has-pinned-columns]:hover) .pinned-column-spacer {
+        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
+            ${tableRowBorderColor};
+    }
+
+    :host([has-pinned-columns]${focusVisible}) .pinned-column-spacer {
+        box-shadow: inset 2px -2px 0 ${borderHoverColor};
+    }
+
+    .checkbox-container {
+        display: flex;
+    }
+
+    :host([has-pinned-columns]) .checkbox-container {
+        position: relative;
+    }
+
+    :host([allow-hover][has-pinned-columns]:hover) .checkbox-container {
+        background: linear-gradient(${fillHoverColor}, ${fillHoverColor}),
+            ${tableRowBorderColor};
     }
 
     .expand-collapse-button {
@@ -86,10 +121,6 @@ export const styles = css`
         ${userSelectNone}
     }
 
-    .checkbox-container {
-        display: flex;
-    }
-
     .selection-checkbox {
         margin-left: ${standardPadding};
     }
@@ -104,6 +135,46 @@ export const styles = css`
             :host([allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
+
+            :host([has-pinned-columns]) .pinned-column-spacer {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
+            }
+
+            :host([allow-hover][has-pinned-columns]:hover) .pinned-column-spacer {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.05)},
+                        ${hexToRgbaCssColor(White, 0.05)}
+                    ),
+                    linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
+            }
+
+            :host([has-pinned-columns]) .checkbox-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
+            }
+
+            :host([allow-hover][has-pinned-columns]:hover) .checkbox-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.05)},
+                        ${hexToRgbaCssColor(White, 0.05)}
+                    ),
+                    linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
+            }
         `
     ),
     themeBehavior(
@@ -111,6 +182,22 @@ export const styles = css`
         css`
             :host([allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.1)};
+            }
+
+            :host([allow-hover][has-pinned-columns]:hover) .pinned-column-spacer {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
+            }
+
+            :host([allow-hover][has-pinned-columns]:hover) .checkbox-container {
+                background: linear-gradient(
+                        ${hexToRgbaCssColor(White, 0.1)},
+                        ${hexToRgbaCssColor(White, 0.1)}
+                    ),
+                    ${tableRowBorderColor};
             }
         `
     )

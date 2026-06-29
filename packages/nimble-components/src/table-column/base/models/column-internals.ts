@@ -2,6 +2,7 @@ import { uniqueId } from '@ni/fast-web-utilities';
 import { ViewTemplate, observable } from '@ni/fast-element';
 import {
     TableColumnAlignment,
+    TableColumnPinLocation,
     TableColumnSortDirection,
     type TableFieldName
 } from '../../../table/types';
@@ -206,6 +207,12 @@ export class ColumnInternals<
      */
     @observable
     public currentSortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
+
+    /**
+     * Location to pin column (default undefined / unpinned)
+     */
+    @observable
+    public pinLocation?: TableColumnPinLocation;
 
     public readonly validator: TColumnValidator;
 

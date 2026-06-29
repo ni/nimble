@@ -109,7 +109,7 @@ export class RichTextMarkdownParser {
                         href: {},
                         rel: { default: 'noopener noreferrer' },
                         // Adding `class` here is a workaround to render two mentions without a whitespace as display names
-                        // This attribute can be removed when the below issue is resolved
+                        // For more details on this behavior, refer to the issue below:
                         // https://github.com/ni/nimble/issues/1707
                         class: { default: '' }
                     },
@@ -155,7 +155,7 @@ export class RichTextMarkdownParser {
                                     : null,
                                 rel: node.attrs.rel as Attr,
                                 // Adding `class` here is a workaround to render two mentions without a whitespace as display names
-                                // This attribute can be removed when the below issue is resolved
+                                // For more details on this behavior, refer to the issue below:
                                 // https://github.com/ni/nimble/issues/1707
                                 class: href,
                                 'underline-hidden':

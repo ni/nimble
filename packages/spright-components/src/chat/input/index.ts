@@ -117,7 +117,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
      */
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
-        this.isInputEmpty = this.shouldDisableSendButton();
+        this.isInputEmpty = this.textArea!.value.length === 0;
         this.adjustTextAreaHeight();
         this.queueUpdateScrollbarWidth();
     }
@@ -142,7 +142,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public valueChanged(): void {
         if (this.textArea) {
             this.textArea.value = this.value;
-            this.isInputEmpty = this.shouldDisableSendButton();
+            this.isInputEmpty = this.textArea.value.length === 0;
             this.adjustTextAreaHeight();
             this.queueUpdateScrollbarWidth();
         }
@@ -154,7 +154,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.textArea!.value = this.value;
-        this.isInputEmpty = this.shouldDisableSendButton();
+        this.isInputEmpty = this.textArea!.value.length === 0;
         this.adjustTextAreaHeight();
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);

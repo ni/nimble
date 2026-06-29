@@ -1,8 +1,33 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 18 Jun 2026 00:03:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 27 Jun 2026 00:25:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.17.0
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Minor changes
+
+- Add autoscroll to chat conversation ([ni/nimble@fc9dd14](https://github.com/ni/nimble/commit/fc9dd14cc8ab4d541f7a368154003dea5b576105))
+- Bump @ni/spright-components to v6.21.0
+
+## 4.16.4
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.4
+
+## 4.16.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.3
 
 ## 4.16.2
 

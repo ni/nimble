@@ -2,6 +2,66 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Sat, 27 Jun 2026 00:25:17 GMT",
+      "version": "0.9.16",
+      "tag": "@ni/ok-react_v0.9.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.5.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 25 Jun 2026 22:26:57 GMT",
+      "version": "0.9.15",
+      "tag": "@ni/ok-react_v0.9.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.5.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 25 Jun 2026 20:51:07 GMT",
+      "version": "0.9.14",
+      "tag": "@ni/ok-react_v0.9.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.5.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Jun 2026 17:31:59 GMT",
+      "version": "0.9.13",
+      "tag": "@ni/ok-react_v0.9.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.4.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jun 2026 21:07:03 GMT",
       "version": "0.9.12",
       "tag": "@ni/ok-react_v0.9.12",

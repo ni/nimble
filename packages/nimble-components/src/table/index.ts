@@ -38,6 +38,7 @@ import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
+    TableColumnPinLocation,
     TableColumnSortDirection,
     TableRowSelectionMode,
     TableRowSelectionState
@@ -210,6 +211,48 @@ export class Table<
     /**
      * @internal
      */
+    @volatile
+    public get pinnedColumnOffset(): number {
+        let offset = 0;
+        for (const column of this.pinnedColumns) {
+            const resolvedPixelWidth = this.getPinnedColumnResolvedPixelWidth(
+                column
+            );
+            if (resolvedPixelWidth !== undefined) {
+                const coercedPixelWidth = Math.max(
+                    column.columnInternals.minPixelWidth,
+                    resolvedPixelWidth
+                );
+                offset += coercedPixelWidth;
+            }
+        }
+        return offset;
+    }
+
+    /**
+     * @internal
+     */
+    @volatile
+    public get pinnedColumnsGridTemplateColumns(): string {
+        return this.pinnedColumns.map(column => {
+            const resolvedPixelWidth = this.getPinnedColumnResolvedPixelWidth(
+                column
+            );
+            if (resolvedPixelWidth !== undefined) {
+                const coercedPixelWidth = Math.max(
+                    column.columnInternals.minPixelWidth,
+                    resolvedPixelWidth
+                );
+                return `${coercedPixelWidth}px`;
+            }
+            return '';
+        })
+            .join(' ');
+    }
+
+    /**
+     * @internal
+     */
     public readonly headerRowActionContainer!: HTMLElement;
 
     /**
@@ -248,6 +291,12 @@ export class Table<
      */
     @observable
     public visibleColumns: TableColumn[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public pinnedColumns: TableColumn[] = [];
 
     /**
      * @internal
@@ -700,6 +749,11 @@ export class Table<
             this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
             this.visibleColumns = this.columns.filter(
                 column => !column.columnHidden
+                    && column.columnInternals.pinLocation !== TableColumnPinLocation.left
+            );
+            this.pinnedColumns = this.columns.filter(
+                column => !column.columnHidden
+                    && column.columnInternals.pinLocation === TableColumnPinLocation.left
             );
         }
 
@@ -819,6 +873,15 @@ export class Table<
 
         this.observeColumns();
         this.tableUpdateTracker.trackColumnInstancesChanged();
+    }
+
+    private getPinnedColumnResolvedPixelWidth(
+        column: TableColumn
+    ): number | undefined {
+        const {
+            currentPixelWidth
+        } = column.columnInternals;
+        return currentPixelWidth;
     }
 
     private updateRequestedSlotsForOpeningActionMenu(
@@ -1088,6 +1151,7 @@ export class Table<
             )
         );
         this.tableValidator.validateColumnConfigurations(this.columns);
+        this.tableValidator.validatePinnedColumnConfigurations(this.columns);
         if (this.dataHierarchyManager) {
             this.validateWithData(this.dataHierarchyManager.getAllRecords());
         }

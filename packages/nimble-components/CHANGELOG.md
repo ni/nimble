@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 01 Jun 2026 17:09:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 25 Jun 2026 20:51:07 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.11.0
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Minor changes
+
+- add support for pinning table columns ([ni/nimble@2bc131b](https://github.com/ni/nimble/commit/2bc131b2443301cfb4f80c8319b4155fce1ac6d1))
+
+## 35.10.1
+
+Tue, 23 Jun 2026 16:40:18 GMT
+
+### Patches
+
+- Fix the WebKit test failure caused by an underlying ProseMirror issue that has now been resolved ([ni/nimble@c29e122](https://github.com/ni/nimble/commit/c29e122e1ed5ae468dacb8c57ad1c1aa9e0a6e7c))
 
 ## 35.10.0
 
