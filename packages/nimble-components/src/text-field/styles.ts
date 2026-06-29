@@ -151,13 +151,10 @@ export const styles = css`
         field-sizing: inherit;
         height: var(--ni-private-height-within-border);
         width: 100%;
-        margin: auto ${smallPadding} auto 0px;
+        margin-top: auto;
+        margin-bottom: auto;
         border: none;
         text-overflow: ellipsis;
-    }
-
-    :host([error-visible]) .control {
-        margin-right: 0px;
     }
 
     .control:hover,
