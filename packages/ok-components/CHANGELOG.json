@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 30 Jun 2026 02:23:30 GMT",
+      "version": "1.6.0",
+      "tag": "@ni/ok-components_v1.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "33f3d13dbaa19f789225d26336e51736006f95f3",
+            "comment": "master-detail list component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 27 Jun 2026 00:25:17 GMT",
       "version": "1.5.2",
       "tag": "@ni/ok-components_v1.5.2",
