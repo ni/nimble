@@ -23,7 +23,7 @@ A specific type of user scrolling that takes place when the user scrolls while A
 Scrolling should animate when possible to be smooth rather than instant.
 
 **Post send auto-scroll**  
-Post send auto-scrolling should occur any time the user sends a new message (regardless of where they are in the chat history at the time)
+Post send auto-scrolling should occur any time the user sends a new message (regardless of where they are in the chat history at the time). The user message should be scrolled such that it occupies at most 20% of the viewport.
 
 **AI response auto-scroll**  
 AI response auto-scroll should occur only if the AI streams responses. Long responses should auto scroll because streaming should be happening at a human readable pace and therefore start removing the old (assumed read) content off screen. If we are not streaming the response and instead returning a block of text, we should not autoscroll because this would take unread content off the screen.
