@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Support CSS field-sizing on text-area and text-field",
+  "comment": "Support CSS field-sizing on text-area, text-field, number-field, and combobox. Also minor padding adjustment for number-field",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
