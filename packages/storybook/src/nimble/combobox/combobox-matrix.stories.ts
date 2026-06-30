@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { bodyFont, bodyFontColor, mediumPadding, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bodyFontColor, bodyPlus1EmphasizedFont, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
@@ -247,91 +247,55 @@ export const blankListOption: StoryFn = createStory(
     </${comboboxTag}>`
 );
 
-export const fieldSizing: StoryFn = createStory(
-    html`
-        <style>
-            div {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: var(${mediumPadding.cssCustomProperty});
-            }
-            label {
-                font: var(${bodyFont.cssCustomProperty});
-                color: var(${bodyFontColor.cssCustomProperty});
-            }
-            ${comboboxTag} {
-                border: 1px dashed;
-            }
-            .field-sizing-content ${comboboxTag} {
-                field-sizing: content;
-            }
-            .no-min-width ${comboboxTag} {
-                min-width: 0;
-            }
-            .fixed-width ${comboboxTag} {
-                width: 200px;
-            }
-            ${comboboxTag}[error-text] {
-                margin-bottom: var(${standardPadding.cssCustomProperty});
-            }
-        </style>
-        <div class="field-sizing-content no-min-width">
-            <label>field-sizing: content; min-width: 0;</label>
-            <${comboboxTag} value="tiny">
-                This is a Combobox
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} error-text="Error text" error-visible value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} error-text="Error text, but this time longer" error-visible value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-        </div>
-        <div class="field-sizing-content">
-            <label>field-sizing: content;</label>
-            <${comboboxTag} value="tiny">
-                This is a Combobox
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} value="value longer than the standard min-width">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} error-text="Error text" error-visible value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} error-text="Error text, but this time longer" error-visible value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-        </div>
-        <div class="fixed-width">
-            <label>width: 200px;</label>
-            <${comboboxTag} value="tiny">
-                This is a Combobox
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} value="value longer than the standard min-width">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} error-text="Error text" error-visible value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-            <${comboboxTag} error-text="Error text, but this time longer" error-visible value="tiny">
-                <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            </${comboboxTag}>
-        </div>
-    `
-);
+const fieldSizingTestCase = (
+    fieldSizingStyle: string,
+    [widthStyleLabel, widthStyles]: [string, string],
+    value: string,
+    errorString: string | undefined
+): ViewTemplate => html`
+    <${comboboxTag}
+        style="${fieldSizingStyle} ${widthStyles} ${errorString ? 'margin-bottom: 24px' : 'margin-bottom: 4px'}"
+        value="${value}"
+        ?error-visible="${() => errorString !== undefined}"
+        error-text="${() => errorString}"
+    >
+        ${widthStyleLabel}
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+    </${comboboxTag}>
+`;
+
+export const fieldSizing: StoryFn = createStory(html`
+    <style>
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        label {
+            font: var(${bodyPlus1EmphasizedFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+            margin-bottom: 6px;
+        }
+    </style>
+    <label>field-sizing=content (no min-width unless specified)</label>
+    ${createMatrix(fieldSizingTestCase, [
+        ['field-sizing: content;'],
+        [
+            ['', 'min-width: 0;'],
+            ['min-width=176px', ''],
+            ['width=300px', 'width: 300px;'],
+        ],
+        ['tiny', 'Text longer than the default width.'],
+        [undefined, 'Error text is helpful']
+    ])}
+    <label>Default styling (min-width=176px)</label>
+    ${createMatrix(fieldSizingTestCase, [
+        [''],
+        [['', '']],
+        ['tiny', 'Text longer than the default width.'],
+        [undefined, 'Error text is helpful']
+    ])}
+`);
 
 export const heightTest: StoryFn = createStory(
     html`

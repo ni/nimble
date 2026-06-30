@@ -142,7 +142,7 @@ export const styles = css`
     }
     
     :host([hide-step]) .control {
-        padding-right: ${mediumPadding};
+        padding-right: ${smallPadding};
     }
 
     .control:hover,

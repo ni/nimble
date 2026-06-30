@@ -2,7 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';
-import { bodyFont, bodyFontColor, mediumPadding, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bodyFontColor, bodyPlus1EmphasizedFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -258,70 +258,63 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
-export const fieldSizing: StoryFn = createStory(
-    html`
-        <style>
-            div {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: var(${mediumPadding.cssCustomProperty});
-            }
-            label {
-                font: var(${bodyFont.cssCustomProperty});
-                color: var(${bodyFontColor.cssCustomProperty});
-            }
-            ${numberFieldTag} {
-                border: 1px dashed;
-            }
-            .field-sizing-content ${numberFieldTag} {
-                field-sizing: content;
-            }
-            .fixed-width ${numberFieldTag} {
-                width: 200px;
-            }
-            ${numberFieldTag}[error-text] {
-                margin-bottom: var(${standardPadding.cssCustomProperty});
-            }
-        </style>
-        <div class="field-sizing-content">
-            <label>field-sizing: content;</label>
-            <${numberFieldTag} value="1.234">
-                This is a Number Field
-            </${numberFieldTag}>
-            <${numberFieldTag} value="1.234">
-            </${numberFieldTag}>
-            <${numberFieldTag} value="1.234" hide-step>
-            </${numberFieldTag}>
-            <${numberFieldTag} value="12345678901234">
-            </${numberFieldTag}>
-            <${numberFieldTag} placeholder="Enter a number">
-            </${numberFieldTag}>
-            <${numberFieldTag} error-text="Error text" error-visible value="1.234">
-            </${numberFieldTag}>
-            <${numberFieldTag} error-text="Error text, but this time longer" error-visible value="1.234">
-            </${numberFieldTag}>
-        </div>
-        <div class="fixed-width">
-            <label>width: 200px;</label>
-            <${numberFieldTag} value="1.234">
-                This is a Number Field
-            </${numberFieldTag}>
-            <${numberFieldTag} value="1.234">
-            </${numberFieldTag}>
-            <${numberFieldTag} value="1.234" hide-step>
-            </${numberFieldTag}>
-            <${numberFieldTag} value="12345678901234">
-            </${numberFieldTag}>
-            <${numberFieldTag} placeholder="Enter a number">
-            </${numberFieldTag}>
-            <${numberFieldTag} error-text="Error text" error-visible value="1.234">
-            </${numberFieldTag}>
-            <${numberFieldTag} error-text="Error text, but this time longer" error-visible value="1.234">
-            </${numberFieldTag}>
-        </div>
-    `
-);
+const fieldSizingTestCase = (
+    fieldSizingStyle: string,
+    [widthLabel, widthStyles]: [string, string],
+    value: string,
+    hideStep: boolean,
+    errorString: string | undefined,
+): ViewTemplate => html`
+    <${numberFieldTag}
+        appearance="${() => NumberFieldAppearance.outline}"
+        style="${fieldSizingStyle} ${widthStyles} ${errorString ? 'margin-bottom: 24px' : 'margin-bottom: 4px'}"
+        value="${value}"
+        ?error-visible="${() => errorString !== undefined}"
+        error-text="${() => errorString}"
+        ?hide-step="${() => hideStep}"
+    >
+        ${widthLabel}
+    </${numberFieldTag}>
+`;
+
+export const fieldSizing: StoryFn = createStory(html`
+    <style>
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        label {
+            font: var(${bodyPlus1EmphasizedFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+            margin-bottom: 6px;
+        }
+    </style>
+    <label>field-sizing=content</label>
+    ${createMatrix(fieldSizingTestCase, [
+        ['field-sizing: content;'],
+        [['', ''], ['width=120px', 'width: 120px;']],
+        ['1.234', '12345678901234'],
+        [false, true],
+        [undefined, 'Error text is helpful'],
+    ])}
+    <label>fixed width</label>
+    ${createMatrix(fieldSizingTestCase, [
+        [''],
+        [['width=120px', 'width: 120px;']],
+        ['1.234', '12345678901234'],
+        [false, true],
+        [undefined, 'Error text is helpful'],
+    ])}
+    <label>Default styling</label>
+    ${createMatrix(fieldSizingTestCase, [
+        [''],
+        [['', '']],
+        ['1.234', '12345678901234'],
+        [false, true],
+        [undefined, 'Error text is helpful'],
+    ])}
+`);
 
 export const heightTest: StoryFn = createStory(
     html`
