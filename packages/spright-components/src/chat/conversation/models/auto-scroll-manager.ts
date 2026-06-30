@@ -202,6 +202,8 @@ export class AutoScrollManager implements Subscriber {
     private readonly onScroll = (): void => {
         const container = this.conversation.messagesContainer;
         if (this.programmaticScrollTarget !== undefined) {
+            // The programmatic scroll always targets the bottom, so treat it as
+            // settled once we reach that target or the bottom itself.
             const reachedTarget = Math.abs(container.scrollTop - this.programmaticScrollTarget) <= 1;
             const reachedBottom = this.getDistanceFromBottom() <= scrollingPixelThreshold;
             if (reachedTarget || reachedBottom) {
@@ -228,7 +230,7 @@ export class AutoScrollManager implements Subscriber {
         const messageRect = message.getBoundingClientRect();
         const messageTopInContainer = messageRect.top - containerRect.top + container.scrollTop;
         const { clientHeight } = container;
-        const maxMessageCoverage = clientHeight * userMessageMaxViewportFraction;
+        const maxMessageCoverage = clientHeight * anchoredMessageMaxViewportFraction;
         if (messageRect.height > maxMessageCoverage) {
             return messageTopInContainer + messageRect.height - maxMessageCoverage;
         }
