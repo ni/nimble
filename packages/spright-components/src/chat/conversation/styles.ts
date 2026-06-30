@@ -75,18 +75,21 @@ export const styles = css`
 
     .messages-history,
     .messages-anchored {
-        flex: none;
         display: flex;
         flex-direction: column;
         row-gap: 32px;
+    }
+
+    .messages-history {
+        flex: none;
     }
 
     .messages-history.region-empty {
         display: none;
     }
 
-    .messages-anchored.anchor-active {
-        min-height: 100%;
+    .messages-anchored {
+        flex: 1;
     }
 
     :host([appearance='overlay']) .messages {

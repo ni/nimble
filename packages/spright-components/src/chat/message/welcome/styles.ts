@@ -22,6 +22,7 @@ export const styles = css`
         flex-direction: row;
         justify-content: center;
         flex-shrink: 0;
+        margin: auto 0;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
