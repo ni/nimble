@@ -4,6 +4,9 @@ namespace SprightBlazor;
 
 public partial class SprightChatConversation : ComponentBase
 {
+    [Parameter]
+    public bool? AutoScroll { get; set; }
+
     /// <summary>
     /// The child content of the element.
     /// </summary>

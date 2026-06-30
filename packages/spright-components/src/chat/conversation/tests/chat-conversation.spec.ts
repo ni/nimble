@@ -1,7 +1,9 @@
 import { html } from '@ni/fast-element';
+import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { ChatConversation, chatConversationTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
+import { ChatConversationPageObject } from '../testing/chat-conversation.pageobject';
 
 async function setup(): Promise<Fixture<ChatConversation>> {
     return await fixture<ChatConversation>(
@@ -13,9 +15,11 @@ describe('ChatConversation', () => {
     let element: ChatConversation;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
+    let pageObject: ChatConversationPageObject;
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
+        pageObject = new ChatConversationPageObject(element);
     });
 
     afterEach(async () => {
@@ -30,32 +34,27 @@ describe('ChatConversation', () => {
 
     it('should have a default unnamed slot element in the shadow DOM', async () => {
         await connect();
-        const unnamedSlot = element.shadowRoot?.querySelector('slot:not([name])');
-        expect(unnamedSlot).not.toBeNull();
+        expect(pageObject.hasDefaultSlot()).toBeTrue();
     });
 
     it('should have an input slot element in the shadow DOM', async () => {
         await connect();
-        const inputSlot = element.shadowRoot?.querySelector('slot[name="input"]');
-        expect(inputSlot).not.toBeNull();
+        expect(pageObject.hasNamedSlot('input')).toBeTrue();
     });
 
     it('should have a toolbar slot element in the shadow DOM', async () => {
         await connect();
-        const toolbarSlot = element.shadowRoot?.querySelector('slot[name="toolbar"]');
-        expect(toolbarSlot).not.toBeNull();
+        expect(pageObject.hasNamedSlot('toolbar')).toBeTrue();
     });
 
     it('should have a start slot element in the shadow DOM', async () => {
         await connect();
-        const startSlot = element.shadowRoot?.querySelector('slot[name="start"]');
-        expect(startSlot).not.toBeNull();
+        expect(pageObject.hasNamedSlot('start')).toBeTrue();
     });
 
     it('should have an end slot element in the shadow DOM', async () => {
         await connect();
-        const endSlot = element.shadowRoot?.querySelector('slot[name="end"]');
-        expect(endSlot).not.toBeNull();
+        expect(pageObject.hasNamedSlot('end')).toBeTrue();
     });
 
     it('should support content in the end slot', async () => {
@@ -68,8 +67,35 @@ describe('ChatConversation', () => {
                 </span>
             </${chatConversationTag}>`
         ));
+        pageObject = new ChatConversationPageObject(element);
         await connect();
-        const endSlot: HTMLSlotElement = element.shadowRoot!.querySelector('slot[name="end"]')!;
-        expect(endSlot.assignedElements().length).toBe(1);
+        expect(pageObject.getNamedSlotAssignedElementCount('end')).toBe(1);
+    });
+
+    describe('scrolling behavior', () => {
+        it('auto-scroll should default to false', async () => {
+            await connect();
+            expect(pageObject.isAutoScrollEnabled()).toBeFalse();
+        });
+
+        it('can enable auto-scroll before connect', async () => {
+            element.autoScroll = true;
+
+            await connect();
+
+            expect(pageObject.isAutoScrollConnected()).toBeTrue();
+        });
+
+        it('can toggle auto-scroll on and off while connected', async () => {
+            await connect();
+
+            element.autoScroll = true;
+            processUpdates();
+            expect(pageObject.isAutoScrollConnected()).toBeTrue();
+
+            element.autoScroll = false;
+            processUpdates();
+            expect(pageObject.isAutoScrollConnected()).toBeFalse();
+        });
     });
 });

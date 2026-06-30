@@ -1,4 +1,5 @@
-﻿using BlazorWorkspace.Testing.Unit;
+﻿using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -32,5 +33,18 @@ public class SprightChatConversationTests : BunitTestBase
 
         var toolbarButton = component.Find("button[slot=\"toolbar\"]");
         Assert.Equal("Toolbar Button", toolbarButton.TextContent);
+    }
+
+    [Fact]
+    public void SprightChatConversation_AutoScroll_AttributeIsSet()
+    {
+        var component = RenderWithPropertySet(x => x.AutoScroll, true);
+
+        Assert.Contains("auto-scroll", component.Markup);
+    }
+
+    private IRenderedComponent<SprightChatConversation> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatConversation, TProperty>> propertyGetter, TProperty propertyValue)
+    {
+        return Render<SprightChatConversation>(p => p.Add(propertyGetter, propertyValue));
     }
 }

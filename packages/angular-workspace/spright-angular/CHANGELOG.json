@@ -2,6 +2,27 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Sat, 27 Jun 2026 00:25:17 GMT",
+      "version": "9.5.0",
+      "tag": "@ni/spright-angular_v9.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "fc9dd14cc8ab4d541f7a368154003dea5b576105",
+            "comment": "Add auto-scroll attribute to conversation."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.21.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 25 Jun 2026 20:51:07 GMT",
       "version": "9.4.4",
       "tag": "@ni/spright-angular_v9.4.4",

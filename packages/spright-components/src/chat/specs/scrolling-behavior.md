@@ -34,7 +34,8 @@ System-initiated auto-scrolling should stop when a manual interruption occurs.
 Auto scroll is re-rengaged when a user does any action to return to the bottom of the chat
 
 **Scroll position memory**  
-Scroll position should only be preserved for the open chat, we do not need to remember scroll position history when navigating the chat history
+Scroll position should only be preserved for the open chat, we do not need to remember scroll position history when navigating the chat history. Opening an existing chat should scroll to the
+end of the conversation.
 
 ## Mouse Interactions
 
