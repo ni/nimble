@@ -89,7 +89,8 @@ export const styles = css`
     }
 
     .messages-anchored {
-        flex: 1;
+        flex: none;
+        min-height: 100%;
     }
 
     :host([appearance='overlay']) .messages {
