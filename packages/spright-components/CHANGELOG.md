@@ -1,8 +1,32 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Sat, 27 Jun 2026 00:25:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Jul 2026 22:37:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.21.3
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.1
+
+## 6.21.2
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Fix components not centering ([ni/nimble@af9be9b](https://github.com/ni/nimble/commit/af9be9bbbcee5fa9227f85a0221f5fec6f64a67e))
+
+## 6.21.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.0
 
 ## 6.21.0
 

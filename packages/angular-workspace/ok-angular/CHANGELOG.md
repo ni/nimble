@@ -1,8 +1,40 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Sat, 27 Jun 2026 00:25:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Jul 2026 22:37:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.4.18
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.3
+
+## 2.4.17
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.2
+
+## 2.4.16
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.1
+
+## 2.4.15
+
+Tue, 30 Jun 2026 02:23:30 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.0
 
 ## 2.4.14
 

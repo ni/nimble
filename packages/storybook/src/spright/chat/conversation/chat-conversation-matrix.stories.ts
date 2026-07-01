@@ -5,6 +5,7 @@ import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
 import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
+import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
 import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
 import {
@@ -40,12 +41,14 @@ const systemTypeState = messageTypeStates[2];
 const messageComponentStates = [
     ['outbound', chatMessageOutboundTag],
     ['inbound', chatMessageInboundTag],
-    ['system', chatMessageSystemTag]
+    ['system', chatMessageSystemTag],
+    ['welcome', chatMessageWelcomeTag]
 ] as const;
 type MessageComponentStates = (typeof messageComponentStates)[number];
 const outboundComponentState = messageComponentStates[0];
 const inboundComponentState = messageComponentStates[1];
 const systemComponentState = messageComponentStates[2];
+const welcomeComponentState = messageComponentStates[3];
 
 const metadata: Meta = {
     title: 'Tests Spright/Chat Conversation',
@@ -170,7 +173,9 @@ const messageComponentSizing = (
             width: 100%;
             height: 100%;
         ">
-            <${messageComponentType}>
+            <${messageComponentType} style="
+                outline: 1px solid green;
+            ">
                 <div style="
                     width: ${contentWidth};
                     height: ${contentHeight};
@@ -204,6 +209,15 @@ export const inboundMessageSizing: StoryFn = createStory(html`
 export const systemMessageSizing: StoryFn = createStory(html`
     ${createMatrix(messageComponentSizing, [
         [systemComponentState],
+        viewportStates,
+        contentWidthStates,
+        contentHeightStates
+    ])}
+`);
+
+export const welcomeMessageSizing: StoryFn = createStory(html`
+    ${createMatrix(messageComponentSizing, [
+        [welcomeComponentState],
         viewportStates,
         contentWidthStates,
         contentHeightStates

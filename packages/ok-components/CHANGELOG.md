@@ -1,8 +1,42 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Sat, 27 Jun 2026 00:25:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Jul 2026 22:37:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.6.3
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.1
+- Bump @ni/spright-components to v6.21.3
+
+## 1.6.2
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.2
+
+## 1.6.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.0
+- Bump @ni/spright-components to v6.21.1
+
+## 1.6.0
+
+Tue, 30 Jun 2026 02:23:30 GMT
+
+### Minor changes
+
+- master-detail list component ([ni/nimble@33f3d13](https://github.com/ni/nimble/commit/33f3d13dbaa19f789225d26336e51736006f95f3))
 
 ## 1.5.2
 
