@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add scrolling case for longer user message",
+  "packageName": "@ni/spright-components",
+  "email": "163188334+Alexia-Claudia-Micu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

@@ -13,6 +13,11 @@ import {
 // Distance from the bottom (px) within which the conversation is considered "at the bottom".
 const scrollingPixelThreshold = 10;
 
+// Maximum fraction of the viewport height that an anchored message may occupy after the
+// post-send scroll. Messages taller than this are scrolled past so only this fraction
+// remains visible at the top, leaving room for the AI response.
+const anchoredMessageMaxViewportFraction = 0.2;
+
 // Slot name for messages that precede the current turn's anchor message.
 const historySlotName = 'history';
 
@@ -84,6 +89,7 @@ export class AutoScrollManager implements Subscriber {
         this.resizeObserver = undefined;
         this.setScrollAnchorMessage(undefined);
         this.clearSlotAssignments();
+        this.conversation.anchoredContainer.style.minHeight = '';
         this.anchorActive = false;
         this.previousMessages = [];
     }
@@ -142,7 +148,7 @@ export class AutoScrollManager implements Subscriber {
             this.pendingAnchorInsert = false;
             if (anchorInsert) {
                 this.anchorToLastInsertedMessage();
-            } else if (this.autoScrollEngaged) {
+            } else if (this.autoScrollEngaged && this.programmaticScrollTarget === undefined) {
                 this.followContent();
             }
         });
@@ -150,16 +156,28 @@ export class AutoScrollManager implements Subscriber {
 
     /**
      * Pins the most recently inserted anchor message near the top of the
-     * viewport.
+     * viewport. Outbound messages taller than anchoredMessageMaxViewportFraction of
+     * the viewport are scrolled past so only that fraction remains visible
      */
     private anchorToLastInsertedMessage(): void {
         const message = this.getLastAnchorMessage();
         if (message === undefined) {
             return;
         }
+
+        const anchored = this.conversation.anchoredContainer;
+        anchored.style.minHeight = '';
+
         this.setScrollAnchorMessage(message);
         this.autoScrollEngaged = true;
-        this.smoothScrollTo(this.getMaxScrollTop());
+
+        const target = this.getAnchorScrollTarget(message);
+        const shortfall = target - this.getMaxScrollTop();
+        if (shortfall > 0) {
+            anchored.style.minHeight = `${anchored.offsetHeight + shortfall}px`;
+            void this.conversation.messagesContainer.scrollHeight;
+        }
+        this.smoothScrollTo(Math.min(target, this.getMaxScrollTop()));
     }
 
     private followContent(): void {
@@ -204,6 +222,19 @@ export class AutoScrollManager implements Subscriber {
     private getMaxScrollTop(): number {
         const { scrollHeight, clientHeight } = this.conversation.messagesContainer;
         return Math.max(0, scrollHeight - clientHeight);
+    }
+
+    private getAnchorScrollTarget(message: ChatMessage): number {
+        const container = this.conversation.messagesContainer;
+        const containerRect = container.getBoundingClientRect();
+        const messageRect = message.getBoundingClientRect();
+        const messageTopInContainer = messageRect.top - containerRect.top + container.scrollTop;
+        const { clientHeight } = container;
+        const maxMessageCoverage = clientHeight * anchoredMessageMaxViewportFraction;
+        if (messageRect.height > maxMessageCoverage) {
+            return messageTopInContainer + messageRect.height - maxMessageCoverage;
+        }
+        return messageTopInContainer;
     }
 
     private smoothScrollTo(scrollTop: number): void {
