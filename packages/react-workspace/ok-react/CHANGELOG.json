@@ -2,6 +2,21 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Wed, 01 Jul 2026 20:16:45 GMT",
+      "version": "0.9.19",
+      "tag": "@ni/ok-react_v0.9.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.6.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Jul 2026 17:58:30 GMT",
       "version": "0.9.18",
       "tag": "@ni/ok-react_v0.9.18",

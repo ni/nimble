@@ -19,9 +19,10 @@ export const styles = css`
         min-width: ${standardPadding};
         min-height: ${standardPadding};
 
+        flex: 1;
         flex-direction: row;
         justify-content: center;
-        flex-shrink: 0;
+        align-items: center;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
