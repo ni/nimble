@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 Jul 2026 22:37:46 GMT",
+      "version": "35.12.1",
+      "tag": "@ni/nimble-components_v35.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b9ec0a79e40cea3eff8ef5352f7adc7093b287a6",
+            "comment": "Fix duplicate `mention-update` events fired by the rich text editor after the tiptap suggestion plugin update"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Jul 2026 17:58:30 GMT",
       "version": "35.12.0",
       "tag": "@ni/nimble-components_v35.12.0",

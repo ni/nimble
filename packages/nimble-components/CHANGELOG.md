@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 01 Jul 2026 17:58:30 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Jul 2026 22:37:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.12.1
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Fix duplicate `mention-update` events fired by the rich text editor after the tiptap suggestion plugin update ([ni/nimble@b9ec0a7](https://github.com/ni/nimble/commit/b9ec0a79e40cea3eff8ef5352f7adc7093b287a6))
 
 ## 35.12.0
 
