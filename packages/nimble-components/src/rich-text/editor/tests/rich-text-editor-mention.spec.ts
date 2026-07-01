@@ -786,6 +786,16 @@ describe('RichTextEditorMention', () => {
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(0);
     });
 
+    it('should fire "mention-update" event again for the same filter when re-entering a mention after leaving it', async () => {
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        await pageObject.setEditorTextContent('@test');
+        await pageObject.setCursorPosition(1);
+        const mentionUpdateSpy = jasmine.createSpy('mention-update');
+        userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
+        await pageObject.setCursorPosition(6);
+        expect(mentionUpdateSpy).toHaveBeenCalledTimes(1);
+    });
+
     it('should not fire "mention-update" event when adding text near an existing @ mention', async () => {
         const { userMentionElement } = await appendUserMentionConfiguration(element);
         element.setMarkdown('<user:1>');
