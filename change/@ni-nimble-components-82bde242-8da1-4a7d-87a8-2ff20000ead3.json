@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix duplicate `mention-update` events fired by the rich text editor after the tiptap suggestion plugin update",
+  "packageName": "@ni/nimble-components",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
