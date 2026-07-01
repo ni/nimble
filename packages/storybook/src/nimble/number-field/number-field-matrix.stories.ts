@@ -2,7 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';
-import { bodyFontColor, bodyPlus1EmphasizedFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -27,6 +27,14 @@ import {
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
+import {
+    fieldSizingStates,
+    type FieldSizingState,
+    fieldSizingErrorStates,
+    type FieldSizingErrorState,
+    fieldSizingLabelStates,
+    type FieldSizingLabelState
+} from '../patterns/field-sizing/states';
 
 const appearanceStates = [
     ['Underline', NumberFieldAppearance.underline],
@@ -258,63 +266,70 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
-const fieldSizingTestCase = (
-    fieldSizingStyle: string,
-    [widthLabel, widthStyles]: [string, string],
-    value: string,
-    hideStep: boolean,
-    errorString: string | undefined,
+const fieldSizingWidthStates = [
+    ['Default', ''],
+    ['120px', 'width: 120px;']
+] as const;
+type FieldSizingWidthState = (typeof fieldSizingWidthStates)[number];
+
+const fieldSizingValueStates = [
+    ['Short', '1.234'],
+    ['Long', '12345678901234']
+] as const;
+type FieldSizingValueState = (typeof fieldSizingValueStates)[number];
+
+const fieldSizingHideStepStates = [
+    ['Shown', false],
+    ['Hidden', true]
+] as const;
+type FieldSizingHideStepState = (typeof fieldSizingHideStepStates)[number];
+
+const fieldSizingComponent = (
+    [widthName, widthStyles]: FieldSizingWidthState,
+    [hideStepName, hideStep]: FieldSizingHideStepState,
+    [errorName, errorString]: FieldSizingErrorState,
+    [labelName, label]: FieldSizingLabelState,
+    [fieldSizingName, fieldSizingStyle]: FieldSizingState,
+    [valueName, value]: FieldSizingValueState
 ): ViewTemplate => html`
-    <${numberFieldTag}
-        appearance="${() => NumberFieldAppearance.outline}"
-        style="${fieldSizingStyle} ${widthStyles} ${errorString ? 'margin-bottom: 24px' : 'margin-bottom: 4px'}"
-        value="${value}"
-        ?error-visible="${() => errorString !== undefined}"
-        error-text="${() => errorString}"
-        ?hide-step="${() => hideStep}"
-    >
-        ${widthLabel}
-    </${numberFieldTag}>
+    <div style="display: inline-flex; flex-direction: column; align-items: flex-start; width: min-content;">
+        <div style="width: 480px; box-sizing: border-box;">Width(${widthName}) HideStep(${hideStepName}) Error(${errorName}) Label(${labelName}) FieldSizing(${fieldSizingName}) Value(${valueName})</div>
+        <${numberFieldTag}
+            appearance="${() => NumberFieldAppearance.outline}"
+            style="${fieldSizingStyle} ${widthStyles} ${errorString ? 'margin-bottom: 24px' : 'margin-bottom: 4px'}"
+            value="${() => value}"
+            ?error-visible="${() => errorString !== undefined}"
+            error-text="${() => errorString}"
+            ?hide-step="${() => hideStep}"
+        >
+            ${() => label}
+        </${numberFieldTag}>
+    </div>
 `;
 
-export const fieldSizing: StoryFn = createStory(html`
-    <style>
-        div {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        label {
-            font: var(${bodyPlus1EmphasizedFont.cssCustomProperty});
-            color: var(${bodyFontColor.cssCustomProperty});
-            margin-bottom: 6px;
-        }
-    </style>
-    <label>field-sizing=content</label>
-    ${createMatrix(fieldSizingTestCase, [
-        ['field-sizing: content;'],
-        [['', ''], ['width=120px', 'width: 120px;']],
-        ['1.234', '12345678901234'],
-        [false, true],
-        [undefined, 'Error text is helpful'],
-    ])}
-    <label>fixed width</label>
-    ${createMatrix(fieldSizingTestCase, [
-        [''],
-        [['width=120px', 'width: 120px;']],
-        ['1.234', '12345678901234'],
-        [false, true],
-        [undefined, 'Error text is helpful'],
-    ])}
-    <label>Default styling</label>
-    ${createMatrix(fieldSizingTestCase, [
-        [''],
-        [['', '']],
-        ['1.234', '12345678901234'],
-        [false, true],
-        [undefined, 'Error text is helpful'],
-    ])}
-`);
+const fieldSizingMatrixTemplate = (template: ViewTemplate): ViewTemplate => html`
+    <div style="
+        display: grid;
+        grid-template-columns: ${'1fr '.repeat(fieldSizingValueStates.length)};
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        width: 1100px;
+    ">
+    ${template}
+    </div>
+`;
+
+export const fieldSizing: StoryFn = createFixedThemeStory(
+    fieldSizingMatrixTemplate(createMatrix(fieldSizingComponent, [
+        fieldSizingWidthStates,
+        fieldSizingHideStepStates,
+        fieldSizingErrorStates,
+        fieldSizingLabelStates,
+        fieldSizingStates,
+        fieldSizingValueStates
+    ])),
+    lightThemeWhiteBackground
+);
 
 export const heightTest: StoryFn = createStory(
     html`

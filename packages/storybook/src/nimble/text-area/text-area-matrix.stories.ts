@@ -2,7 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance } from '@ni/nimble-components/dist/esm/text-area/types';
-import { bodyFontColor, bodyPlus1EmphasizedFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -21,6 +21,14 @@ import {
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
+import {
+    fieldSizingStates,
+    type FieldSizingState,
+    fieldSizingErrorStates,
+    type FieldSizingErrorState,
+    fieldSizingLabelStates,
+    type FieldSizingLabelState
+} from '../patterns/field-sizing/states';
 
 const appearanceStates = [
     ['Outline', TextAreaAppearance.outline],
@@ -191,54 +199,62 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
-const fieldSizingTestCase = (
-    fieldSizingStyle: string,
-    [widthStyleLabel, widthStyles]: [string, string],
-    value: string,
-    errorString: string | undefined
+const fieldSizingWidthStates = [
+    ['Default', ''],
+    ['min-width=0', 'min-width: 0;'],
+    ['width=200px', 'width: 200px;']
+] as const;
+type FieldSizingWidthState = (typeof fieldSizingWidthStates)[number];
+
+const fieldSizingValueStates = [
+    ['Short', 'tiny'],
+    ['Long', 'Text longer than the default width'],
+    ['Multiline', 'line 1\nline 2\nline 3']
+] as const;
+type FieldSizingValueState = (typeof fieldSizingValueStates)[number];
+
+const fieldSizingComponent = (
+    [widthName, widthStyles]: FieldSizingWidthState,
+    [errorName, errorString]: FieldSizingErrorState,
+    [labelName, label]: FieldSizingLabelState,
+    [fieldSizingName, fieldSizingStyle]: FieldSizingState,
+    [valueName, value]: FieldSizingValueState
 ): ViewTemplate => html`
-    <${textAreaTag}
-        style="${fieldSizingStyle} ${widthStyles} ${errorString ? 'margin-bottom: 24px' : 'margin-bottom: 4px'}"
-        value="${value}"
-        ?error-visible="${() => errorString !== undefined}"
-        error-text="${() => errorString}"
-    >
-        ${widthStyleLabel}
-    </${textAreaTag}>
+    <div style="display: inline-flex; flex-direction: column; align-items: flex-start; width: min-content;">
+        <div style="width: 480px; box-sizing: border-box;">Width(${widthName}) Error(${errorName}) Label(${labelName}) FieldSizing(${fieldSizingName}) Value(${valueName})</div>
+        <${textAreaTag}
+            style="${fieldSizingStyle} ${widthStyles} ${errorString ? 'margin-bottom: 24px' : 'margin-bottom: 4px'}"
+            value="${() => value}"
+            ?error-visible="${() => errorString !== undefined}"
+            error-text="${() => errorString}"
+        >
+            ${() => label}
+        </${textAreaTag}>
+    </div>
 `;
 
-export const fieldSizing: StoryFn = createStory(html`
-    <style>
-        div {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        label {
-            font: var(${bodyPlus1EmphasizedFont.cssCustomProperty});
-            color: var(${bodyFontColor.cssCustomProperty});
-            margin-bottom: 6px;
-        }
-    </style>
-    <label>field-sizing=content (no min-width unless specified)</label>
-    ${createMatrix(fieldSizingTestCase, [
-        ['field-sizing: content;'],
-        [
-            ['', 'min-width: 0;'],
-            ['min-width=100px', ''],
-            ['width=200px', 'width: 200px;'],
-        ],
-        ['tiny', 'Text longer than the default width.', 'line 1\nline 2\nline 3'],
-        [undefined, 'Error text is helpful']
-    ])}
-    <label>Default styling (size=20, and rows=2)</label>
-    ${createMatrix(fieldSizingTestCase, [
-        [''],
-        [['', '']],
-        ['tiny', 'Text longer than the default width.', 'line 1\nline 2\nline 3'],
-        [undefined, 'Error text is helpful']
-    ])}
-`);
+const fieldSizingMatrixTemplate = (template: ViewTemplate): ViewTemplate => html`
+    <div style="
+        display: grid;
+        grid-template-columns: ${'1fr '.repeat(fieldSizingValueStates.length)};
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        width: 1500px;
+    ">
+    ${template}
+    </div>
+`;
+
+export const fieldSizing: StoryFn = createFixedThemeStory(
+    fieldSizingMatrixTemplate(createMatrix(fieldSizingComponent, [
+        fieldSizingWidthStates,
+        fieldSizingErrorStates,
+        fieldSizingLabelStates,
+        fieldSizingStates,
+        fieldSizingValueStates
+    ])),
+    lightThemeWhiteBackground
+);
 
 export const heightTest: StoryFn = createStory(
     html`
