@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
         <example-sub-container label="Chip">
             <nimble-chip>Outline Chip</nimble-chip>
             <nimble-chip appearance="block">Block Chip</nimble-chip>
+            <nimble-chip selectable [selected]="chipSelected" (selected-change)="onChipSelectedChange()">
+                Selectable Chip
+            </nimble-chip>
             <nimble-chip removable (remove)="onChipRemove()">Removable Chip</nimble-chip>
             <nimble-chip disabled>Disabled Chip</nimble-chip>
         </example-sub-container>
@@ -14,6 +17,12 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class ChipSectionComponent {
+    public chipSelected = false;
+
+    public onChipSelectedChange(): void {
+        this.chipSelected = !this.chipSelected;
+    }
+
     public onChipRemove(): void {
         alert('Chip removed');
     }
