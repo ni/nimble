@@ -1,18 +1,13 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import * as textAreaStories from './text-area.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import FieldSizingDocs from '../patterns/field-sizing.mdx';
 
 <Meta of={textAreaStories} />
 <Title of={textAreaStories} />
 
 A multi-line text input control. The text area is often used in a form to
 collect user inputs like comments or reviews.
-
-If you configure your text area to be resizable (with the `resize` attribute) in
-a certain dimension, do not set an explicit size for that dimension (via
-`height` and/or `width` `style` properties), or you may experience unexpected
-resize behavior. If you want to set the initial size of a resizable text area,
-use the `rows` and/or `cols` attribute(s).
 
 <Canvas of={textAreaStories.textArea} />
 
@@ -21,7 +16,15 @@ use the `rows` and/or `cols` attribute(s).
 <Controls of={textAreaStories.textArea} />
 <ComponentApisLink />
 
-{/* ## Styling */}
+## Styling
+
+If you configure your text area to be user-resizable (with the `resize`
+attribute) in a certain dimension, do not set an explicit size for that dimension
+(via `height` and/or `width` `style` properties), or you may experience unexpected
+resize behavior. If you want to set the initial size of a resizable text area,
+use the `rows` and/or `cols` attribute(s).
+
+<FieldSizingDocs multiLine={true} hasMinWidth={true} />
 
 {/* ## Usage */}
 

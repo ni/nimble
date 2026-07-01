@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 25 Jun 2026 20:51:07 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Jul 2026 17:58:30 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.12.0
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Minor changes
+
+- Support CSS field-sizing on text-area, text-field, number-field, and combobox. Also minor padding adjustment for number-field ([ni/nimble@c682c5c](https://github.com/ni/nimble/commit/c682c5c23ebb629a1d4e2f53002e4e6b618bd9b4))
 
 ## 35.11.0
 
