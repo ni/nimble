@@ -85,7 +85,7 @@ export const styles = css`
         display: none;
     }
 
-    .messages-anchored.anchor-active {
+    .messages-anchored {
         min-height: 100%;
     }
 
