@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 Jul 2026 17:58:30 GMT",
+      "version": "35.12.0",
+      "tag": "@ni/nimble-components_v35.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c682c5c23ebb629a1d4e2f53002e4e6b618bd9b4",
+            "comment": "Support CSS field-sizing on text-area, text-field, number-field, and combobox. Also minor padding adjustment for number-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 25 Jun 2026 20:51:07 GMT",
       "version": "35.11.0",
       "tag": "@ni/nimble-components_v35.11.0",

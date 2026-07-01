@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 30 Jun 2026 02:23:30 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Jul 2026 17:58:30 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.6.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.0
+- Bump @ni/spright-components to v6.21.1
 
 ## 1.6.0
 

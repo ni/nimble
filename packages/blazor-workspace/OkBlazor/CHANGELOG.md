@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Tue, 30 Jun 2026 02:23:30 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Jul 2026 17:58:30 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.5.4
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.1
 
 ## 1.5.3
 
