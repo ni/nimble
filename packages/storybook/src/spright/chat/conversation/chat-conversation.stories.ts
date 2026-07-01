@@ -253,27 +253,29 @@ interface ChatMessageWelcomeArgs {
 
 export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageWelcomeTag}
-            welcome-title="${x => x.welcomeTitle}"
-            subtitle="${x => x.subtitle}"
-        >
-            ${when(x => x.brandIcon, html`
-                <${iconMessageBotTag} slot="brand-icon"></${iconMessageBotTag}>
-            `)}
-            ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.loginButton, html`
-                <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
-                    Login
-                </${anchorButtonTag}>
-            `)}
-            ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.suggestions, html`
-                <${buttonTag} appearance="block">
-                    Help me get started
-                </${buttonTag}>
-                <${buttonTag} appearance="block">
-                    What can you do?
-                </${buttonTag}>
-            `)}
-        </${chatMessageWelcomeTag}>
+        <${chatConversationTag}>
+            <${chatMessageWelcomeTag}
+                welcome-title="${x => x.welcomeTitle}"
+                subtitle="${x => x.subtitle}"
+            >
+                ${when(x => x.brandIcon, html`
+                    <${iconMessageBotTag} slot="brand-icon"></${iconMessageBotTag}>
+                `)}
+                ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.loginButton, html`
+                    <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
+                        Login
+                    </${anchorButtonTag}>
+                `)}
+                ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.suggestions, html`
+                    <${buttonTag} appearance="block">
+                        Help me get started
+                    </${buttonTag}>
+                    <${buttonTag} appearance="block">
+                        What can you do?
+                    </${buttonTag}>
+                `)}
+            </${chatMessageWelcomeTag}>
+        </${chatConversationTag}>
     `),
     argTypes: {
         welcomeTitle: {
