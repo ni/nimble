@@ -49,6 +49,18 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
                 ${when(x => x.title, html<AnchorStepArgs>`<span slot="title">${x => x.title}</span>`)}
                 ${when(x => x.subtitle, html<AnchorStepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
             </${anchorStepTag}>
+            <${anchorStepTag}
+                ?disabled="${x => x.disabled}"
+                ?readonly="${x => x.readonly}"
+                severity="${x => AnchorStepSeverity[x.severity]}"
+                severity-text="${x => x.severityText}"
+                ?selected="${x => x.selected}"
+                href="${x => (x.href === '' ? undefined : x.href)}"
+                target="${x => (x.href === '#' ? '_self' : undefined)}"
+            >
+                ${when(x => x.title, html<AnchorStepArgs>`<span slot="title">${x => x.title}</span>`)}
+                ${when(x => x.subtitle, html<AnchorStepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
+            </${anchorStepTag}>
         </${stepperTag}>
     `),
     argTypes: {
@@ -125,6 +137,19 @@ interface StepArgs {
 export const step: StoryObj<StepArgs> = {
     render: createUserSelectedThemeStory(html`
         <${stepperTag} class="code-hide-top-container">
+            <${stepTag}
+                ?disabled="${x => x.disabled}"
+                ?readonly="${x => x.readonly}"
+                severity="${x => StepSeverity[x.severity]}"
+                severity-text="${x => x.severityText}"
+                ?selected="${x => x.selected}"
+                @click="${(_x, c) => {
+                    action(c.event.type)({});
+                }}"
+            >
+                ${when(x => x.title, html<StepArgs>`<span slot="title">${x => x.title}</span>`)}
+                ${when(x => x.subtitle, html<StepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
+            </${stepTag}>
             <${stepTag}
                 ?disabled="${x => x.disabled}"
                 ?readonly="${x => x.readonly}"
