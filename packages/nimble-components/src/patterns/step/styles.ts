@@ -677,8 +677,33 @@ export const styles = css`
                     --ni-private-step-icon-inverse-color: ${Black15};
                 }
 
+                :host([severity="error"]) .control {
+                    --ni-private-step-icon-border-color:: rgb(from ${failColor} r g b / 30%);
+                    --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
+                }
+
+                :host([severity="warning"]) .control {
+                    --ni-private-step-icon-border-color:: rgb(from ${warningColor} r g b / 30%);
+                    --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
+                }
+
                 :host([severity="success"]) .control {
+                    --ni-private-step-icon-border-color:: rgb(from ${passColor} r g b / 30%);
                     --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
+                }
+            }
+
+            @layer focusVisible {
+                :host([severity="error"]) .control${focusVisible} {
+                    --ni-private-step-icon-outline-inset-color: ${failColor};
+                }
+
+                :host([severity="warning"]) .control${focusVisible} {
+                    --ni-private-step-icon-outline-inset-color: ${warningColor};
+                }
+
+                :host([severity="success"]) .control${focusVisible} {
+                    --ni-private-step-icon-outline-inset-color: ${passColor};
                 }
             }
         `

@@ -57,6 +57,7 @@ export const anchorStep: StoryObj<AnchorStepArgs> = {
                 ?selected="${x => x.selected}"
                 href="${x => (x.href === '' ? undefined : x.href)}"
                 target="${x => (x.href === '#' ? '_self' : undefined)}"
+                class="code-hide"
             >
                 ${when(x => x.title, html<AnchorStepArgs>`<span slot="title">${x => x.title}</span>`)}
                 ${when(x => x.subtitle, html<AnchorStepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
@@ -159,6 +160,7 @@ export const step: StoryObj<StepArgs> = {
                 @click="${(_x, c) => {
                     action(c.event.type)({});
                 }}"
+                class="code-hide"
             >
                 ${when(x => x.title, html<StepArgs>`<span slot="title">${x => x.title}</span>`)}
                 ${when(x => x.subtitle, html<StepArgs>`<span slot="subtitle">${x => x.subtitle}</span>`)}
@@ -295,6 +297,7 @@ export const stepper: StoryObj<StepperArgs> = {
     <style class="code-hide">
         ${stepperTag} {
             max-width: 100%;
+            min-height: 60px;
             max-height: 500px;
         }
     </style>
