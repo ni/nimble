@@ -432,10 +432,18 @@ export const styles = css`
             --ni-private-step-icon-border-color: ${passColor};
             --ni-private-step-icon-border-width: 3px;
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
-            --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-step-line-color: ${passColor};
         }
 
         :host([readonly]) .control:hover {
+            --ni-private-step-icon-color: revert-layer;
+            --ni-private-step-icon-border-color: revert-layer;
+            --ni-private-step-icon-border-width: revert-layer;
+            --ni-private-step-icon-background-size: revert-layer;
+            --ni-private-step-line-color: revert-layer;
+        }
+
+        :host([selected][readonly]) .control:hover {
             --ni-private-step-icon-color: revert-layer;
             --ni-private-step-icon-border-color: revert-layer;
             --ni-private-step-icon-border-width: revert-layer;
@@ -592,6 +600,15 @@ export const styles = css`
         }
 
         :host([readonly]) .control:active {
+            --ni-private-step-icon-color: revert-layer;
+            --ni-private-step-icon-border-color: revert-layer;
+            --ni-private-step-icon-border-width: revert-layer;
+            --ni-private-step-icon-background-color: revert-layer;
+            --ni-private-step-icon-background-size: revert-layer;
+            --ni-private-step-line-color: revert-layer;
+        }
+
+        :host([selected][readonly]) .control:active {
             --ni-private-step-icon-color: revert-layer;
             --ni-private-step-icon-border-color: revert-layer;
             --ni-private-step-icon-border-width: revert-layer;
