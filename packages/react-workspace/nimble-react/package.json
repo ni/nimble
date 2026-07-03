@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-react",
-  "version": "0.15.8",
+  "version": "0.15.9",
   "description": "React components for the NI Nimble Design System",
   "keywords": [
     "ni",
@@ -48,13 +48,13 @@
   "license": "MIT",
   "peerDependencies": {
     "@lit/react": "^1.0.8",
-    "@ni/nimble-components": "^35.12.1",
+    "@ni/nimble-components": "^35.12.2",
     "react": "^17 || ^18 || ^19"
   },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.12.1",
+    "@ni/nimble-components": "^35.12.2",
     "@ni/nimble-tokens": "^8.18.1",
     "typescript": "~5.8.3"
   }
