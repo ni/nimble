@@ -208,7 +208,7 @@ export const styles = css`
             --ni-private-step-icon-color: ${passColor};
             --ni-private-step-icon-border-color: ${passColor};
             --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
-            --ni-private-step-line-color: rgba(${borderRgbPartialColor}, 0.1);
+            --ni-private-step-line-color: ${passColor};
         }
 
         .icon-background {
