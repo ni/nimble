@@ -5,9 +5,12 @@ import { observable } from '@ni/fast-element';
  */
 class DocumentElementLang {
     @observable
-    public lang: string = document.documentElement.lang;
+    public lang: string = typeof document !== 'undefined' ? document.documentElement.lang : '';
 
     public constructor() {
+        if (typeof document === 'undefined') {
+            return;
+        }
         const observer = new MutationObserver(mutations => {
             for (const mutation of mutations) {
                 if (
