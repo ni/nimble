@@ -78,6 +78,10 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
+    private readonly fieldSizingSupported = CSS.supports(
+        'field-sizing',
+        'content'
+    );
 
     public slottedFooterActionsElementsChanged(
         _prev: HTMLElement[] | undefined,
@@ -187,11 +191,6 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
         this.$emit('stop');
         this.textArea?.blur();
     }
-
-    private readonly fieldSizingSupported = CSS.supports(
-        'field-sizing',
-        'content'
-    );
 
     private shouldDisableSendButton(): boolean {
         return this.sendDisabled || this.textArea!.value.length === 0;
