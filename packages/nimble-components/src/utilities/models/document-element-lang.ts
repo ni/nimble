@@ -5,7 +5,7 @@ import { observable } from '@ni/fast-element';
  */
 class DocumentElementLang {
     @observable
-    public lang: string = typeof document !== 'undefined' ? document.documentElement.lang : '';
+    public lang: string = typeof document === 'undefined' ? '' : document.documentElement.lang;
 
     public constructor() {
         if (typeof document === 'undefined') {

@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Remove module level static access to CSS.supports",
+  "comment": "Enable browser global shims for SSR module loading",
   "packageName": "@ni/spright-components",
   "email": "1588923+rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
