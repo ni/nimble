@@ -77,9 +77,5 @@
     "patch-package": "^8.0.0",
     "playwright": "1.60.0",
     "turbo": "^2.9.7"
-  },
-  "dependencies": {
-    "@ni/fast-element": "file:ni-fast-element-10.1.1.tgz",
-    "@ni/fast-foundation": "file:ni-fast-foundation-10.2.3.tgz"
   }
 }
