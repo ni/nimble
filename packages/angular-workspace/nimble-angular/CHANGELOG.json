@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "33.4.4",
+      "tag": "@ni/nimble-angular_v33.4.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.12.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Jul 2026 00:57:45 GMT",
       "version": "33.4.3",
       "tag": "@ni/nimble-angular_v33.4.3",

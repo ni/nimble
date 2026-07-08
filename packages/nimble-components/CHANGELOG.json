@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "35.12.3",
+      "tag": "@ni/nimble-components_v35.12.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "784cbe5c58cccae73553e03de0cc7efc149d368e",
+            "comment": "Enable browser global shims for SSR module loading"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Jul 2026 00:57:45 GMT",
       "version": "35.12.2",
       "tag": "@ni/nimble-components_v35.12.2",

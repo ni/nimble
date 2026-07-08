@@ -2,6 +2,27 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "6.21.5",
+      "tag": "@ni/spright-components_v6.21.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "784cbe5c58cccae73553e03de0cc7efc149d368e",
+            "comment": "Enable browser global shims for SSR module loading"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.12.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Jul 2026 00:57:45 GMT",
       "version": "6.21.4",
       "tag": "@ni/spright-components_v6.21.4",

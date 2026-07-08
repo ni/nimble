@@ -2,6 +2,33 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "1.6.5",
+      "tag": "@ni/ok-components_v1.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "784cbe5c58cccae73553e03de0cc7efc149d368e",
+            "comment": "Enable browser global shims for SSR module loading"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.12.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.21.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Jul 2026 00:57:45 GMT",
       "version": "1.6.4",
       "tag": "@ni/ok-components_v1.6.4",
