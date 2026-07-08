@@ -16,11 +16,6 @@ declare global {
  * A Spright component for composing and sending a chat message
  */
 export class ChatInput extends mixinErrorPattern(FoundationElement) {
-    private static readonly fieldSizingSupported = CSS.supports(
-        'field-sizing',
-        'content'
-    );
-
     @attr
     public placeholder?: string;
 
@@ -83,6 +78,10 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
+    private readonly fieldSizingSupported = CSS.supports(
+        'field-sizing',
+        'content'
+    );
 
     public slottedFooterActionsElementsChanged(
         _prev: HTMLElement[] | undefined,
@@ -225,7 +224,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     // Workaround for browsers that do not support the CSS property `field-sizing: content`
     // See https://github.com/ni/nimble/issues/2902
     private adjustTextAreaHeight(): void {
-        if (ChatInput.fieldSizingSupported || !this.textArea) {
+        if (this.fieldSizingSupported || !this.textArea) {
             return;
         }
         const textArea = this.textArea;
