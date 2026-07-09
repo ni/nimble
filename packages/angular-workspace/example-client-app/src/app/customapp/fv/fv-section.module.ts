@@ -4,6 +4,8 @@ import { OkFvAccordionItemModule } from '@ni/ok-angular/fv/accordion-item';
 import { OkFvCardModule } from '@ni/ok-angular/fv/card';
 import { OkFvChipSelectorModule } from '@ni/ok-angular/fv/chip-selector';
 import { OkFvContextHelpModule } from '@ni/ok-angular/fv/context-help';
+import { OkFvMasterDetailListItemModule } from '@ni/ok-angular/fv/master-detail-list-item';
+import { OkFvMasterDetailListModule } from '@ni/ok-angular/fv/master-detail-list';
 import { OkFvSearchInputModule } from '@ni/ok-angular/fv/search-input';
 import { OkFvSplitButtonAnchorModule } from '@ni/ok-angular/fv/split-button-anchor';
 import { OkFvSplitButtonModule } from '@ni/ok-angular/fv/split-button';
@@ -13,6 +15,7 @@ import { FvAccordionItemSectionComponent } from './fv-accordion-item-section.com
 import { FvCardSectionComponent } from './fv-card-section.component';
 import { FvChipSelectorSectionComponent } from './fv-chip-selector-section.component';
 import { FvContextHelpSectionComponent } from './fv-context-help-section.component';
+import { FvMasterDetailListSectionComponent } from './fv-master-detail-list-section.component';
 import { FvSearchInputSectionComponent } from './fv-search-input-section.component';
 import { FvSectionComponent } from './fv-section.component';
 import { FvSplitButtonAnchorSectionComponent } from './fv-split-button-anchor-section.component';
@@ -27,6 +30,7 @@ import { SubContainerModule } from '../sub-container/sub-container.module';
         FvCardSectionComponent,
         FvChipSelectorSectionComponent,
         FvContextHelpSectionComponent,
+        FvMasterDetailListSectionComponent,
         FvSearchInputSectionComponent,
         FvSplitButtonSectionComponent,
         FvSplitButtonAnchorSectionComponent,
@@ -39,6 +43,8 @@ import { SubContainerModule } from '../sub-container/sub-container.module';
         OkFvCardModule,
         OkFvChipSelectorModule,
         OkFvContextHelpModule,
+        OkFvMasterDetailListModule,
+        OkFvMasterDetailListItemModule,
         OkFvSearchInputModule,
         OkFvSplitButtonModule,
         OkFvSplitButtonAnchorModule,
