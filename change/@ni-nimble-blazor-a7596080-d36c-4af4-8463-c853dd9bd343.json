@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Implement select loading-visible",
+  "packageName": "@ni/nimble-blazor",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
