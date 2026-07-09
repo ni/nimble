@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 09 Jul 2026 19:42:47 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 21.3.0
+
+Thu, 09 Jul 2026 19:42:47 GMT
+
+### Minor changes
+
+- Implement select loading-visible ([ni/nimble@a3eb7ae](https://github.com/ni/nimble/commit/a3eb7ae57fa1d2d616af75d89a1f09be5da744f7))
 
 ## 21.2.4
 
