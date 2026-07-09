@@ -51,6 +51,7 @@ export const styles = css`
     .label {
         color: ${controlLabelFontColor};
         font: ${controlLabelFont};
+        padding-bottom: 2px;
     }
 
     :host([disabled]) .label {
