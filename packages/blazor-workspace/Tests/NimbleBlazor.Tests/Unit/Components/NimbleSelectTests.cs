@@ -104,6 +104,14 @@ public class NimbleSelectTests : BunitTestBase
     }
 
     [Fact]
+    public void SelectLoadingVisible_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.LoadingVisible, true);
+
+        select.AssertHasAttribute("loading-visible");
+    }
+
+    [Fact]
     public void SelectAppearanceReadOnly_AttributeIsSet()
     {
         var select = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
