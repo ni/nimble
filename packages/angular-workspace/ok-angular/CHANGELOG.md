@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 09 Jul 2026 21:23:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.5.0
+
+Thu, 09 Jul 2026 21:23:34 GMT
+
+### Minor changes
+
+- Add OK Angular master-detail wrappers ([ni/nimble@0b51eed](https://github.com/ni/nimble/commit/0b51eedc5299c2d48110fb2f23550e2277078364))
 
 ## 2.4.20
 

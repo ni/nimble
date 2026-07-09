@@ -2,6 +2,21 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Thu, 09 Jul 2026 21:23:34 GMT",
+      "version": "2.5.0",
+      "tag": "@ni/ok-angular_v2.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "0b51eedc5299c2d48110fb2f23550e2277078364",
+            "comment": "Add OK Angular master-detail wrappers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Jul 2026 19:32:33 GMT",
       "version": "2.4.20",
       "tag": "@ni/ok-angular_v2.4.20",
