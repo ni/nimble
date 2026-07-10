@@ -62,7 +62,7 @@ export const styles = css`
         display: flex;
         align-items: center;
         ${'' /*
-            Reserve space around the control to fill a 32px height until we have a switch 32 design.
+            Reserve space around the 24px control to fill a 32px height until we have a switch 32 design.
             See: https://github.com/ni/nimble/issues/3013
         */}
         padding-top: 2px;
