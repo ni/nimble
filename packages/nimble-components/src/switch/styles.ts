@@ -66,7 +66,47 @@ export const styles = css`
     .switch-container {
         display: flex;
         align-items: center;
-    }
+   :host {
+       outline: none;
+       font: ${bodyFont};
+       color: ${buttonLabelFontColor};
+       flex-direction: column;
+       cursor: pointer;
+       --ni-private-switch-height: 24px;
+       --ni-private-switch-indicator-size: 24px;
+       --ni-private-switch-indicator-inner-size: 18px;
+       --ni-private-switch-indicator-margin: -2px;
+   }
+
+   :host([disabled]) {
+       cursor: default;
+       color: ${buttonLabelDisabledFontColor};
+   }
+
+   .label {
+       color: ${controlLabelFontColor};
+       font: ${controlLabelFont};
+   }
+
+   :host([disabled]) .label {
+       color: ${controlLabelDisabledFontColor};
+   }
+
+   .label__hidden {
+       display: none;
+       visibility: hidden;
+   }
+
+   .switch-container {
+       display: flex;
+       align-items: center;
+       ${'' /*
+           Reserve space around the control to fill a 32px height until we have a switch 32 design.
+           See: https://github.com/ni/nimble/issues/3013
+       */}
+       padding-top: 2px;
+       padding-bottom: 6px;
+   }
 
     slot[name='unchecked-message']::slotted(*) {
         margin-inline-end: 8px;
