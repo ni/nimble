@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 10 Jul 2026 18:20:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.12.4
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Add padding between switch and its label ([ni/nimble@4817316](https://github.com/ni/nimble/commit/4817316b71d434a689a16d0c44a9e2b01a0517b1))
 
 ## 35.12.3
 
