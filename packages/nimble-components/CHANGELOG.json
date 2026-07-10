@@ -2,6 +2,209 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "35.12.3",
+      "tag": "@ni/nimble-components_v35.12.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "784cbe5c58cccae73553e03de0cc7efc149d368e",
+            "comment": "Enable browser global shims for SSR module loading"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Jul 2026 00:57:45 GMT",
+      "version": "35.12.2",
+      "tag": "@ni/nimble-components_v35.12.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a50dcc500383afd573f7688be5397e3519703d7e",
+            "comment": "Updated selected state styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 22:37:46 GMT",
+      "version": "35.12.1",
+      "tag": "@ni/nimble-components_v35.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b9ec0a79e40cea3eff8ef5352f7adc7093b287a6",
+            "comment": "Fix duplicate `mention-update` events fired by the rich text editor after the tiptap suggestion plugin update"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 17:58:30 GMT",
+      "version": "35.12.0",
+      "tag": "@ni/nimble-components_v35.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c682c5c23ebb629a1d4e2f53002e4e6b618bd9b4",
+            "comment": "Support CSS field-sizing on text-area, text-field, number-field, and combobox. Also minor padding adjustment for number-field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 25 Jun 2026 20:51:07 GMT",
+      "version": "35.11.0",
+      "tag": "@ni/nimble-components_v35.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2bc131b2443301cfb4f80c8319b4155fce1ac6d1",
+            "comment": "add support for pinning table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Jun 2026 16:40:18 GMT",
+      "version": "35.10.1",
+      "tag": "@ni/nimble-components_v35.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c29e122e1ed5ae468dacb8c57ad1c1aa9e0a6e7c",
+            "comment": "Fix the WebKit test failure caused by an underlying ProseMirror issue that has now been resolved"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Jun 2026 13:11:56 GMT",
+      "version": "35.10.0",
+      "tag": "@ni/nimble-components_v35.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "05c7658939e1c8b6e627a3fa7bb1e7d18ba91fae",
+            "comment": "Update code comment for the workaround applied to fix the issue in #1707"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Jun 2026 22:02:26 GMT",
+      "version": "35.10.0",
+      "tag": "@ni/nimble-components_v35.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "960f59dc173f2f3f9c45bf9ec129760c212b23c6",
+            "comment": "update dev deps"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Jun 2026 17:09:52 GMT",
+      "version": "35.10.0",
+      "tag": "@ni/nimble-components_v35.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "43bd3721f1577a88f91d993b9958f6117e1a3fc4",
+            "comment": "Add a theme-aware border color token for work order"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 May 2026 16:39:52 GMT",
+      "version": "35.9.3",
+      "tag": "@ni/nimble-components_v35.9.3",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "35e108abbe23815a0c67cf87518acdeccb58cdcc",
+            "comment": "Update npm dev deps"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 May 2026 18:42:52 GMT",
+      "version": "35.9.2",
+      "tag": "@ni/nimble-components_v35.9.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.18.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 May 2026 17:01:52 GMT",
+      "version": "35.9.1",
+      "tag": "@ni/nimble-components_v35.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3561c88b0bb55fcbaf9345d2915f0e8ac310b5fc",
+            "comment": "Add color-scheme to theme provider for dark scrollbars"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 May 2026 16:29:54 GMT",
+      "version": "35.9.0",
+      "tag": "@ni/nimble-components_v35.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "38b5b13eceb1f7c1da8342dc583d79769e69ca7a",
+            "comment": "Add appearance-indeterminate property for checkbox"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 May 2026 17:04:06 GMT",
       "version": "35.8.0",
       "tag": "@ni/nimble-components_v35.8.0",

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.Json;
-using System.Threading.Tasks;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
-#nullable enable
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleTable"/>
 /// </summary>
-public class NimbleTableTests
+public class NimbleTableTests : BunitTestBase
 {
     internal sealed class TableRowData
     {
@@ -40,20 +37,15 @@ public class NimbleTableTests
     [Fact]
     public void NimbleTable_Rendered_HasTableMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-table";
-        var table = context.RenderComponent<NimbleTable<TableRowData>>();
+        var table = Render<NimbleTable<TableRowData>>();
 
-        Assert.Contains(expectedMarkup, table.Markup);
+        Assert.NotNull(table.Find("nimble-table"));
     }
 
     [Fact]
     public void NimbleTable_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTable<TableRowData>>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTable<TableRowData>>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -62,8 +54,7 @@ public class NimbleTableTests
     {
         var table = RenderWithPropertySet<string, TableRowData>(x => x.IdFieldName!, "FirstName");
 
-        var expectedMarkup = @"id-field-name=""FirstName""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("id-field-name", "FirstName");
     }
 
     [Fact]
@@ -71,8 +62,7 @@ public class NimbleTableTests
     {
         var table = RenderWithPropertySet<string, TableRowData>(x => x.ParentIdFieldName!, "FirstName");
 
-        var expectedMarkup = @"parent-id-field-name=""FirstName""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("parent-id-field-name", "FirstName");
     }
 
     [Theory]
@@ -83,15 +73,7 @@ public class NimbleTableTests
     {
         var table = RenderWithPropertySet<TableRowSelectionMode?, TableRowData>(x => x.SelectionMode, value);
 
-        if (expectedAttribute == null)
-        {
-            Assert.DoesNotContain("selection-mode", table.Markup);
-        }
-        else
-        {
-            var expectedMarkup = $"selection-mode=\"{expectedAttribute}\"";
-            Assert.Contains(expectedMarkup, table.Markup);
-        }
+        table.AssertAttribute("selection-mode", expectedAttribute);
     }
 
     [Fact]
@@ -103,8 +85,7 @@ public class NimbleTableTests
         };
         var table = RenderWithPropertySet<IDictionary<string, object>, TableRowData>(x => x.AdditionalAttributes!, classAttribute);
 
-        var expectedMarkup = @"class=""table""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("class", "table");
     }
 
     [Fact]
@@ -113,7 +94,7 @@ public class NimbleTableTests
         var parentRowData = new TableRowData("Bob", "Smith");
         var childRowData = new TableRowData("Sally", "Smith");
         var tableData = new TableRowData[] { parentRowData, childRowData };
-        var table = Render<TableRowData>();
+        var table = RenderTable<TableRowData>();
 
         var exception = await Record.ExceptionAsync(async () => { await table.Instance.SetDataAsync(tableData); });
         Assert.Null(exception);
@@ -125,7 +106,7 @@ public class NimbleTableTests
         var parentRowData = new BadTableRowData("Bob", "Smith");
         var childRowData = new BadTableRowData("Sally", "Smith", parentRowData);
         var tableData = new BadTableRowData[] { parentRowData, childRowData };
-        var table = Render<BadTableRowData>();
+        var table = RenderTable<BadTableRowData>();
 
         var exception = await Record.ExceptionAsync(async () => { await table.Instance.SetDataAsync(tableData); });
 
@@ -134,15 +115,11 @@ public class NimbleTableTests
 
     private IRenderedComponent<NimbleTable<TTable>> RenderWithPropertySet<TProperty, TTable>(Expression<Func<NimbleTable<TTable>, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTable<TTable>>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTable<TTable>>(p => p.Add(propertyGetter, propertyValue));
     }
 
-    private IRenderedComponent<NimbleTable<TTable>> Render<TTable>()
+    private IRenderedComponent<NimbleTable<TTable>> RenderTable<TTable>()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTable<TTable>>();
+        return Render<NimbleTable<TTable>>();
     }
 }

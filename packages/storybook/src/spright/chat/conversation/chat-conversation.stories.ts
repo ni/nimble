@@ -39,12 +39,13 @@ import {
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
 import { imgBlobUrl, markdownExample } from './story-helpers';
-import { loremIpsum } from '../../../utilities/lorem-ipsum';
+import { loremIpsum, songThatDoesNotEnd } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 import { ExampleWelcomeSlotContent } from '../message/types';
 
 interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
+    autoScroll: boolean;
     content: string;
     toolbar: boolean;
     start: boolean;
@@ -52,9 +53,10 @@ interface ChatConversationArgs {
     end: boolean;
     conversationRef: ChatConversation;
     sendMessage: (
-        event: CustomEvent<ChatInputSendEventDetail>,
-        conversationRef: ChatConversation
+        args: ChatConversationArgs,
+        event: CustomEvent<ChatInputSendEventDetail>
     ) => void;
+    streamingIntervalId?: number;
 }
 
 const metadata: Meta<ChatConversationArgs> = {
@@ -66,12 +68,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <style class='code-hide'>
-            ${chatConversationTag} {
-                max-height: 750px;
-            }
-        </style>
-        <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
+         <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}" ?auto-scroll="${x => x.autoScroll}">
             ${when(x => x.toolbar, html<ChatConversationArgs>`
                 <${toolbarTag} slot='toolbar'>
                     <${iconMessagesSparkleTag} slot="start"></${iconMessagesSparkleTag}>
@@ -137,8 +134,8 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${buttonTag}>
             </${chatMessageInboundTag}>
             ${when(x => x.input, html<ChatConversationArgs, ChatInput>`
-                <${chatInputTag} slot='input' placeholder='Type a message' send-button-label='Send'
-                    @send="${(x2, c2) => x2.sendMessage(c2.event as CustomEvent<ChatInputSendEventDetail>, x2.conversationRef)}"
+                <${chatInputTag} slot='input' placeholder='Type a message (try "start" or "stop")' send-button-label='Send'
+                    @send="${(x2, c2) => x2.sendMessage(x2, c2.event as CustomEvent<ChatInputSendEventDetail>)}"
                 ></${chatInputTag}>
             `)}
             ${when(x => x.end, html<ChatConversationArgs>`
@@ -153,6 +150,12 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             options: Object.keys(ChatConversationAppearance),
             control: { type: 'radio' },
             description: 'The appearance of the chat conversation.',
+            table: { category: apiCategory.attributes }
+        },
+        autoScroll: {
+            name: 'auto-scroll',
+            description: 'Enables or disables all system-initiated scrolling. User-initiated scrolling is unaffected.',
+            control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
         content: {
@@ -186,23 +189,57 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     },
     args: {
         appearance: 'default',
+        autoScroll: true,
         input: true,
         toolbar: true,
         start: true,
         end: true,
-        sendMessage: (event, conversationRef) => {
-            const message = document.createElement(chatMessageOutboundTag);
-            const span = document.createElement('span');
-            span.textContent = event.detail.text;
-            // Preserves new lines and trailing spaces that the user entered
-            span.style.whiteSpace = 'pre-wrap';
-            message.appendChild(span);
-            conversationRef.appendChild(message);
-            message.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'start'
-            });
+        sendMessage: (args, event) => {
+            const text = event.detail.text;
+            const command = text.trim().toLowerCase();
+            if (command === 'stop') {
+                if (args.streamingIntervalId !== undefined) {
+                    window.clearInterval(args.streamingIntervalId);
+                    args.streamingIntervalId = undefined;
+                }
+                return;
+            }
+            if (command !== 'start') {
+                // Post the user's message as a new outgoing message.
+                const outbound = document.createElement(chatMessageOutboundTag);
+                const outboundSpan = document.createElement('span');
+                outboundSpan.textContent = text;
+                // Preserves new lines and trailing spaces that the user entered
+                outboundSpan.style.whiteSpace = 'pre-wrap';
+                outbound.appendChild(outboundSpan);
+                args.conversationRef.appendChild(outbound);
+            }
+            if (command === 'start') {
+                if (args.streamingIntervalId !== undefined) {
+                    return;
+                }
+                // Add the incoming response that streams lorem ipsum text.
+                const inbound = document.createElement(chatMessageInboundTag);
+                const inboundSpan = document.createElement('span');
+                // Preserves new lines and trailing spaces as the text streams in
+                inboundSpan.style.whiteSpace = 'pre-wrap';
+                inbound.appendChild(inboundSpan);
+                args.conversationRef.appendChild(inbound);
+                const words = songThatDoesNotEnd.split(' ');
+                const wordsPerChunk = 1;
+                let wordIndex = 0;
+                args.streamingIntervalId = window.setInterval(() => {
+                    const chunk: string[] = [];
+                    for (let i = 0; i < wordsPerChunk; i += 1) {
+                        chunk.push(words[wordIndex % words.length] ?? '');
+                        wordIndex += 1;
+                    }
+                    const chunkText = chunk.join(' ');
+                    inboundSpan.textContent = inboundSpan.textContent
+                        ? `${inboundSpan.textContent} ${chunkText}`
+                        : chunkText;
+                }, 25);
+            }
         }
     }
 };
@@ -216,27 +253,29 @@ interface ChatMessageWelcomeArgs {
 
 export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageWelcomeTag}
-            welcome-title="${x => x.welcomeTitle}"
-            subtitle="${x => x.subtitle}"
-        >
-            ${when(x => x.brandIcon, html`
-                <${iconMessageBotTag} slot="brand-icon"></${iconMessageBotTag}>
-            `)}
-            ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.loginButton, html`
-                <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
-                    Login
-                </${anchorButtonTag}>
-            `)}
-            ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.suggestions, html`
-                <${buttonTag} appearance="block">
-                    Help me get started
-                </${buttonTag}>
-                <${buttonTag} appearance="block">
-                    What can you do?
-                </${buttonTag}>
-            `)}
-        </${chatMessageWelcomeTag}>
+        <${chatConversationTag}>
+            <${chatMessageWelcomeTag}
+                welcome-title="${x => x.welcomeTitle}"
+                subtitle="${x => x.subtitle}"
+            >
+                ${when(x => x.brandIcon, html`
+                    <${iconMessageBotTag} slot="brand-icon"></${iconMessageBotTag}>
+                `)}
+                ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.loginButton, html`
+                    <${anchorButtonTag} appearance="block" appearance-variant="primary" href="javascript:void(0)">
+                        Login
+                    </${anchorButtonTag}>
+                `)}
+                ${when(x => x.defaultSlot === ExampleWelcomeSlotContent.suggestions, html`
+                    <${buttonTag} appearance="block">
+                        Help me get started
+                    </${buttonTag}>
+                    <${buttonTag} appearance="block">
+                        What can you do?
+                    </${buttonTag}>
+                `)}
+            </${chatMessageWelcomeTag}>
+        </${chatConversationTag}>
     `),
     argTypes: {
         welcomeTitle: {
@@ -272,7 +311,7 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
         welcomeTitle: 'Welcome to Nigel™ AI',
         subtitle: 'Chat below to get started',
         brandIcon: false,
-        defaultSlot: ExampleWelcomeSlotContent.loginButton
+        defaultSlot: ExampleWelcomeSlotContent.loginButton,
     }
 };
 

@@ -1,28 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <TargetFramework>net10.0</TargetFramework>
     <NimbleBlazor_CopyNimbleDesignTokens>true</NimbleBlazor_CopyNimbleDesignTokens>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="packages.lock.json" />
     <Content Remove="sasscompiler.json" />
     <None Include="sasscompiler.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
-    <None Include="packages.lock.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.99.0" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.101.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.26" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.9" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
@@ -43,6 +42,12 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     /// </summary>
     [Parameter]
     public bool? Clearable { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the loading indicator is visible.
+    /// </summary>
+    [Parameter]
+    public bool? LoadingVisible { get; set; }
 
     /// <summary>
     /// Gets or sets the select error text

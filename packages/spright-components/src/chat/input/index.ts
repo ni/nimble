@@ -16,11 +16,6 @@ declare global {
  * A Spright component for composing and sending a chat message
  */
 export class ChatInput extends mixinErrorPattern(FoundationElement) {
-    private static readonly fieldSizingSupported = CSS.supports(
-        'field-sizing',
-        'content'
-    );
-
     @attr
     public placeholder?: string;
 
@@ -83,6 +78,10 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
+    private readonly fieldSizingSupported = CSS.supports(
+        'field-sizing',
+        'content'
+    );
 
     public slottedFooterActionsElementsChanged(
         _prev: HTMLElement[] | undefined,
@@ -117,7 +116,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
      */
     public textAreaInputHandler(): void {
         this.value = this.textArea!.value;
-        this.isInputEmpty = this.shouldDisableSendButton();
+        this.isInputEmpty = this.textArea!.value.length === 0;
         this.adjustTextAreaHeight();
         this.queueUpdateScrollbarWidth();
     }
@@ -142,7 +141,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public valueChanged(): void {
         if (this.textArea) {
             this.textArea.value = this.value;
-            this.isInputEmpty = this.shouldDisableSendButton();
+            this.isInputEmpty = this.textArea.value.length === 0;
             this.adjustTextAreaHeight();
             this.queueUpdateScrollbarWidth();
         }
@@ -154,7 +153,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.textArea!.value = this.value;
-        this.isInputEmpty = this.shouldDisableSendButton();
+        this.isInputEmpty = this.textArea!.value.length === 0;
         this.adjustTextAreaHeight();
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
@@ -194,7 +193,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     }
 
     private shouldDisableSendButton(): boolean {
-        return this.textArea!.value.length === 0;
+        return this.sendDisabled || this.textArea!.value.length === 0;
     }
 
     private resetInput(): void {
@@ -225,7 +224,7 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     // Workaround for browsers that do not support the CSS property `field-sizing: content`
     // See https://github.com/ni/nimble/issues/2902
     private adjustTextAreaHeight(): void {
-        if (ChatInput.fieldSizingSupported || !this.textArea) {
+        if (this.fieldSizingSupported || !this.textArea) {
             return;
         }
         const textArea = this.textArea;

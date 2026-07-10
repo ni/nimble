@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +8,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleRadioGroup"/>
 /// </summary>
-public class NimbleRadioGroupTests
+public class NimbleRadioGroupTests : BunitTestBase
 {
     [Fact]
     public void NimbleRadioGroup_Rendered_HasRadioGroupMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-radio-group";
+        var radioGroup = Render<NimbleRadioGroup>();
 
-        var radioGroup = context.RenderComponent<NimbleRadioGroup>();
-
-        Assert.Contains(expectedMarkup, radioGroup.Markup);
+        Assert.NotNull(radioGroup.Find("nimble-radio-group"));
     }
 
     [Fact]
     public void NimbleRadioGroup_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleRadioGroup>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleRadioGroup>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -38,16 +32,15 @@ public class NimbleRadioGroupTests
     {
         var radioGroup = RenderNimbleRadioGroup(value);
 
-        Assert.Contains(expectedAttribute, radioGroup.Markup);
+        radioGroup.AssertAttribute("orientation", expectedAttribute);
     }
 
     [Fact]
     public void RadioGroupWithButton_HasRadioMarkup()
     {
-        var expectedMarkup = "nimble-radio";
         var select = RenderNimbleRadioGroupWithButton();
 
-        Assert.Contains(expectedMarkup, select.Markup);
+        Assert.NotNull(select.Find("nimble-radio"));
     }
 
     [Fact]
@@ -55,7 +48,7 @@ public class NimbleRadioGroupTests
     {
         var radioGroup = RenderNimbleRadioGroupWithPropertySet(x => x.Disabled, true);
 
-        Assert.Contains("disabled", radioGroup.Markup);
+        radioGroup.AssertHasAttribute("disabled");
     }
 
     [Fact]
@@ -63,7 +56,7 @@ public class NimbleRadioGroupTests
     {
         var radioGroup = RenderNimbleRadioGroupWithPropertySet(x => x.Name, "foo");
 
-        Assert.Contains("name", radioGroup.Markup);
+        radioGroup.AssertAttribute("name", "foo");
     }
 
     [Fact]
@@ -71,7 +64,7 @@ public class NimbleRadioGroupTests
     {
         var radioGroup = RenderNimbleRadioGroupWithPropertySet(x => x.ErrorText, "bad value");
 
-        Assert.Contains("error-text=\"bad value\"", radioGroup.Markup);
+        radioGroup.AssertAttribute("error-text", "bad value");
     }
 
     [Fact]
@@ -79,7 +72,7 @@ public class NimbleRadioGroupTests
     {
         var radioGroup = RenderNimbleRadioGroupWithPropertySet(x => x.ErrorVisible, true);
 
-        Assert.Contains("error-visible", radioGroup.Markup);
+        radioGroup.AssertHasAttribute("error-visible");
     }
 
     [Fact]
@@ -87,27 +80,21 @@ public class NimbleRadioGroupTests
     {
         var radioGroup = RenderNimbleRadioGroupWithPropertySet(x => x.RequiredVisible, true);
 
-        Assert.Contains("required-visible", radioGroup.Markup);
+        radioGroup.AssertHasAttribute("required-visible");
     }
 
     private IRenderedComponent<NimbleRadioGroup> RenderNimbleRadioGroupWithPropertySet<TProperty>(Expression<Func<NimbleRadioGroup, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleRadioGroup>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleRadioGroup>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleRadioGroup> RenderNimbleRadioGroupWithButton()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleRadioGroup>(p => p.AddChildContent<NimbleRadio>());
+        return Render<NimbleRadioGroup>(p => p.AddChildContent<NimbleRadio>());
     }
 
     private IRenderedComponent<NimbleRadioGroup> RenderNimbleRadioGroup(Orientation orientation)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleRadioGroup>(p => p.Add(x => x.Orientation, orientation));
+        return Render<NimbleRadioGroup>(p => p.Add(x => x.Orientation, orientation));
     }
 }

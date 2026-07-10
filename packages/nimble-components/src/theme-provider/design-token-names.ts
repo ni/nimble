@@ -299,6 +299,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     calendarEventBackgroundHoverTransportOrderColor:
         'calendar-event-background-hover-transport-order-color',
     calendarEventBorderTransportOrderColor: 'calendar-event-border-transport-order-color',
+    calendarEventBorderWorkOrderColor: 'calendar-event-border-work-order-color',
     calendarEventBackgroundAggregateAvailabilityColor:
         'calendar-event-background-aggregate-availability-color',
     calendarEventBorderAggregateAvailabilityColor: 'calendar-event-border-aggregate-availability-color'

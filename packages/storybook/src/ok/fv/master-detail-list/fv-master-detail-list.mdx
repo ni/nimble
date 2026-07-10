@@ -1,0 +1,31 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as masterDetailListStories from './fv-master-detail-list.stories';
+
+<Meta of={masterDetailListStories} />
+<Title of={masterDetailListStories} />
+
+A filterable master-detail navigation list that keeps items in place while filtering and supports pointer and arrow-key selection.
+
+Use `ok-fv-master-detail-list` as the container and supply one or more `ok-fv-master-detail-list-item` children.
+
+Each item supports:
+
+- `title-text` for the primary line
+- `subtitle` for the secondary line
+- `value` for emitted selection details
+- `selected` for an initial selected item
+- `status-color` for a simple status dot
+- `slot="status"` for custom status content
+
+<Canvas of={masterDetailListStories.deviceList} />
+
+## API
+
+<Controls of={masterDetailListStories.deviceList} />
+
+## Custom Status Content
+
+<Canvas of={masterDetailListStories.customStatusSlot} />
+
+<ComponentApisLink />

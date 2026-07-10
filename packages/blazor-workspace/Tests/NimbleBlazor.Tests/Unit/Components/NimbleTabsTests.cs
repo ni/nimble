@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
 using AngleSharp.Dom;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -9,25 +8,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleTabs"/>
 /// </summary>
-public class NimbleTabsTests
+public class NimbleTabsTests : BunitTestBase
 {
     [Fact]
     public void NimbleTabsRendered_HasTabsMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-tabs";
-        var tabs = context.RenderComponent<NimbleTabs>();
+        var tabs = Render<NimbleTabs>();
 
-        Assert.Contains(expectedMarkup, tabs.Markup);
+        Assert.NotNull(tabs.Find("nimble-tabs"));
     }
 
     [Fact]
     public void NimbleTabs_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTabs>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTabs>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -66,9 +60,7 @@ public class NimbleTabsTests
 
     private IRenderedComponent<NimbleTabs> RenderTabsWithContent()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTabs>(AddChildContentToTabs);
+        return Render<NimbleTabs>(AddChildContentToTabs);
     }
 
     private void AddChildContentToTabs(ComponentParameterCollectionBuilder<NimbleTabs> parameters)
@@ -80,9 +72,7 @@ public class NimbleTabsTests
 
     private IRenderedComponent<NimbleTabs> CreateTwoTabsWithActiveTabIdSet(string activeTabId)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var tabComponent = context.RenderComponent<NimbleTabs>(parameters =>
+        var tabComponent = Render<NimbleTabs>(parameters =>
         {
             parameters.Add(x => x.ActiveId, activeTabId);
             parameters.AddChildContent<NimbleTab>();
@@ -98,10 +88,10 @@ public class NimbleTabsTests
 
     private async Task TriggerNimbleTabsActiveIdChangeEventAsync(
         IRenderedComponent<NimbleTabs> tabs,
-        TabsChangeEventArgs eventArgs)
+        TabsChangeEventArgs? eventArgs)
     {
         var tabsElement = tabs.Find("nimble-tabs");
 
-        await tabsElement.TriggerEventAsync("onnimbletabsactiveidchange", eventArgs);
+        await tabsElement.TriggerEventAsync("onnimbletabsactiveidchange", eventArgs!);
     }
 }

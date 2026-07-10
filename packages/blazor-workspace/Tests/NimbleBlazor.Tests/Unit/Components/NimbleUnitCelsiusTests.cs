@@ -1,3 +1,4 @@
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -6,26 +7,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleUnitCelsius"/>
 /// </summary>
-public class NimbleUnitCelsiusTests
+public class NimbleUnitCelsiusTests : BunitTestBase
 {
     [Fact]
     public void NimbleUnitCelsius_Rendered_HasUnitCelsiusMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-unit-celsius";
+        var element = Render<NimbleUnitCelsius>();
 
-        var element = context.RenderComponent<NimbleUnitCelsius>();
-
-        Assert.Contains(expectedMarkup, element.Markup);
+        Assert.NotNull(element.Find("nimble-unit-celsius"));
     }
 
     [Fact]
     public void NimbleUnitCelsius_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleUnitCelsius>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleUnitCelsius>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 }

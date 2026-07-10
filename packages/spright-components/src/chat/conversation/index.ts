@@ -3,6 +3,7 @@ import { attr, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import { ChatConversationAppearance } from './types';
+import { AutoScrollManager } from './models/auto-scroll-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,6 +17,28 @@ declare global {
 export class ChatConversation extends FoundationElement {
     @attr
     public appearance = ChatConversationAppearance.default;
+
+    @attr({ attribute: 'auto-scroll', mode: 'boolean' })
+    public autoScroll = false;
+
+    /**
+     * Manages auto-scroll behavior. Always present; its observers are registered
+     * while the conversation is connected and `autoScroll` is enabled.
+     * @internal
+     */
+    public readonly autoScrollManager = new AutoScrollManager(this);
+
+    /** @internal */
+    @observable
+    public readonly slottedMessages?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public readonly slottedHistoryMessages?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public historyEmpty = true;
 
     /** @internal */
     @observable
@@ -48,6 +71,43 @@ export class ChatConversation extends FoundationElement {
     /** @internal */
     @observable
     public readonly slottedEndElements?: HTMLElement[];
+
+    /** @internal */
+    public messagesContainer!: HTMLElement;
+
+    /** @internal */
+    public anchoredContainer!: HTMLElement;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        if (this.autoScroll) {
+            this.autoScrollManager.connect();
+        }
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        if (this.autoScroll) {
+            this.autoScrollManager.disconnect();
+        }
+    }
+
+    public autoScrollChanged(): void {
+        if (this.$fastController.isConnected) {
+            if (this.autoScroll) {
+                this.autoScrollManager.connect();
+            } else {
+                this.autoScrollManager.disconnect();
+            }
+        }
+    }
+
+    public slottedHistoryMessagesChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.historyEmpty = next === undefined || next.length === 0;
+    }
 
     public slottedInputElementsChanged(
         _prev: HTMLElement[] | undefined,

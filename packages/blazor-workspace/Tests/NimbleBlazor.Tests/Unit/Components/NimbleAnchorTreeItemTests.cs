@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -13,21 +13,15 @@ public class NimbleAnchorTreeItemTests : NimbleAnchorBaseTests<NimbleAnchorTreeI
     [Fact]
     public void NimbleAnchorTreeItem_Render_HasAnchorTreeItemMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-anchor-tree-item";
+        var menuItem = Render<NimbleAnchorTreeItem>();
 
-        var menuItem = context.RenderComponent<NimbleAnchorTreeItem>();
-
-        Assert.Contains(expectedMarkup, menuItem.Markup);
+        Assert.NotNull(menuItem.Find("nimble-anchor-tree-item"));
     }
 
     [Fact]
     public void NimbleAnchorTreeItem_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorTreeItem>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleAnchorTreeItem>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -36,7 +30,7 @@ public class NimbleAnchorTreeItemTests : NimbleAnchorBaseTests<NimbleAnchorTreeI
     {
         var anchorTreeItem = RenderWithPropertySet(x => x.Selected, true);
 
-        Assert.Contains("selected", anchorTreeItem.Markup);
+        anchorTreeItem.AssertHasAttribute("selected");
     }
 
     [Fact]
@@ -44,13 +38,11 @@ public class NimbleAnchorTreeItemTests : NimbleAnchorBaseTests<NimbleAnchorTreeI
     {
         var anchorTreeItem = RenderWithPropertySet(x => x.Disabled, true);
 
-        Assert.Contains("disabled", anchorTreeItem.Markup);
+        anchorTreeItem.AssertHasAttribute("disabled");
     }
 
     private IRenderedComponent<NimbleAnchorTreeItem> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchorTreeItem, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleAnchorTreeItem>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleAnchorTreeItem>(p => p.Add(propertyGetter, propertyValue));
     }
 }

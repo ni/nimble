@@ -1,8 +1,139 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.21.5
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Enable browser global shims for SSR module loading ([ni/nimble@784cbe5](https://github.com/ni/nimble/commit/784cbe5c58cccae73553e03de0cc7efc149d368e))
+- Bump @ni/nimble-components to v35.12.3
+
+## 6.21.4
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.2
+
+## 6.21.3
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.1
+
+## 6.21.2
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Fix components not centering ([ni/nimble@af9be9b](https://github.com/ni/nimble/commit/af9be9bbbcee5fa9227f85a0221f5fec6f64a67e))
+
+## 6.21.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.0
+
+## 6.21.0
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Minor changes
+
+- Add scrolling behavior to chat. ([ni/nimble@fc9dd14](https://github.com/ni/nimble/commit/fc9dd14cc8ab4d541f7a368154003dea5b576105))
+
+## 6.20.4
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.11.0
+
+## 6.20.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Fix send button not being re-enabled ([ni/nimble@2e05c1e](https://github.com/ni/nimble/commit/2e05c1e8606452bb54181622b24536c639a63627))
+
+## 6.20.2
+
+Wed, 17 Jun 2026 21:07:03 GMT
+
+### Patches
+
+- Enter doesn't send chat message when send is disabled. ([ni/nimble@5de3661](https://github.com/ni/nimble/commit/5de3661a7c7050510cf661a7ee00c2eba0cf9f92))
+
+## 6.20.1
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Update chat input Send button style to match design specs ([ni/nimble@00daff5](https://github.com/ni/nimble/commit/00daff5c57e33efc87ead5957094fba4d8cb17ec))
+
+## 6.20.0
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Minor changes
+
+- Add spright work item square list cog icon using work-order border theme token ([ni/nimble@819c652](https://github.com/ni/nimble/commit/819c6523058c74dad7b1bc7d30289e8c90659dbc))
+
+## 6.19.2
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.10.0
+
+## 6.19.1
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.3
+
+## 6.19.0
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Minor changes
+
+- Add new breakpoint icons ([ni/nimble@92b4050](https://github.com/ni/nimble/commit/92b405008ad93d76a4b80d8c3ce971f4f2cf6bc6))
+- Bump @ni/nimble-components to v35.9.2
+- Bump @ni/nimble-tokens to v8.18.1
+
+## 6.18.3
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.1
+
+## 6.18.2
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.0
 
 ## 6.18.1
 

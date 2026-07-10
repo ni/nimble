@@ -122,7 +122,6 @@ When creating a new project in the Blazor workspace, ensure it includes the foll
 
 - .NET version matches other projects in the workspace
 - `<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>`
-- `<DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>`
 - Package reference to `NI.CSharp.Analyzers` with same version spec as other projects
 
 ## Additional Tips

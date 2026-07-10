@@ -1,8 +1,156 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.17.5
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.5
+
+## 4.17.4
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.4
+
+## 4.17.3
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@b9ec0a7](https://github.com/ni/nimble/commit/b9ec0a79e40cea3eff8ef5352f7adc7093b287a6))
+- Bump @ni/spright-components to v6.21.3
+
+## 4.17.2
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.2
+
+## 4.17.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.1
+
+## 4.17.0
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Minor changes
+
+- Add autoscroll to chat conversation ([ni/nimble@fc9dd14](https://github.com/ni/nimble/commit/fc9dd14cc8ab4d541f7a368154003dea5b576105))
+- Bump @ni/spright-components to v6.21.0
+
+## 4.16.4
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.4
+
+## 4.16.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.3
+
+## 4.16.2
+
+Thu, 18 Jun 2026 00:03:55 GMT
+
+### Patches
+
+- Updates from CA rule changes ([ni/nimble@894b5ac](https://github.com/ni/nimble/commit/894b5acee617ec104097c19bdc2f27daba66cdd4))
+
+## 4.16.1
+
+Wed, 17 Jun 2026 21:07:03 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.2
+
+## 4.16.0
+
+Mon, 15 Jun 2026 17:15:51 GMT
+
+### Minor changes
+
+- Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor WebAssembly apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976 ([ni/nimble@fe9b63e](https://github.com/ni/nimble/commit/fe9b63eed620452d81f1dd9bd5ed3b7e16ded148))
+
+## 4.15.4
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.1
+
+## 4.15.3
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.0
+
+## 4.15.2
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.19.2
+
+## 4.15.1
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@35e108a](https://github.com/ni/nimble/commit/35e108abbe23815a0c67cf87518acdeccb58cdcc))
+- Bump @ni/spright-components to v6.19.1
+
+## 4.15.0
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Minor changes
+
+- Add new breakpoint icons ([ni/nimble@92b4050](https://github.com/ni/nimble/commit/92b405008ad93d76a4b80d8c3ce971f4f2cf6bc6))
+- Bump @ni/spright-components to v6.19.0
+
+## 4.14.3
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.3
+
+## 4.14.2
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.2
 
 ## 4.14.1
 

@@ -1,5 +1,5 @@
-﻿using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,14 +8,12 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleTableColumnDurationText"/>
 /// </summary>
-public class NimbleTableColumnDurationTextTests
+public class NimbleTableColumnDurationTextTests : BunitTestBase
 {
     [Fact]
     public void NimbleTableColumnDurationText_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnDurationText>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTableColumnDurationText>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -24,8 +22,7 @@ public class NimbleTableColumnDurationTextTests
     {
         var table = RenderWithPropertySet(x => x.FieldName!, "MyDuration");
 
-        var expectedMarkup = @"field-name=""MyDuration""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("field-name", "MyDuration");
     }
 
     [Fact]
@@ -33,15 +30,12 @@ public class NimbleTableColumnDurationTextTests
     {
         var table = RenderWithPropertySet(x => x.Placeholder, "Custom placeholder");
 
-        var expectedMarkup = @"placeholder=""Custom placeholder""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("placeholder", "Custom placeholder");
     }
 
     private IRenderedComponent<NimbleTableColumnDurationText> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnDurationText, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTableColumnDurationText>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTableColumnDurationText>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

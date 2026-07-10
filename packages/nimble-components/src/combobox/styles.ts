@@ -22,6 +22,7 @@ export const styles = css`
     ${requiredVisibleStyles}
 
     :host {
+        field-sizing: fixed;
         --ni-private-hover-bottom-border-width: 2px;
         --ni-private-bottom-border-width: 1px;
         --ni-private-height-within-border: calc(
@@ -30,6 +31,7 @@ export const styles = css`
     }
 
     .control {
+        field-sizing: inherit;
         bottom-border-width: var(--ni-private-bottom-border-width);
     }
 
@@ -37,7 +39,12 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
+    slot[name='control'] {
+        field-sizing: inherit;
+    }
+
     .selected-value {
+        field-sizing: inherit;
         -webkit-appearance: none;
         background: transparent;
         border: none;

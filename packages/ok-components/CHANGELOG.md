@@ -1,8 +1,188 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.6.5
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Enable browser global shims for SSR module loading ([ni/nimble@784cbe5](https://github.com/ni/nimble/commit/784cbe5c58cccae73553e03de0cc7efc149d368e))
+- Bump @ni/nimble-components to v35.12.3
+- Bump @ni/spright-components to v6.21.5
+
+## 1.6.4
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.2
+- Bump @ni/spright-components to v6.21.4
+
+## 1.6.3
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.1
+- Bump @ni/spright-components to v6.21.3
+
+## 1.6.2
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.2
+
+## 1.6.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.0
+- Bump @ni/spright-components to v6.21.1
+
+## 1.6.0
+
+Tue, 30 Jun 2026 02:23:30 GMT
+
+### Minor changes
+
+- master-detail list component ([ni/nimble@33f3d13](https://github.com/ni/nimble/commit/33f3d13dbaa19f789225d26336e51736006f95f3))
+
+## 1.5.2
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.0
+
+## 1.5.1
+
+Thu, 25 Jun 2026 22:26:57 GMT
+
+### Patches
+
+- Fix for clipped Ok Breakpoint Column menu in Pinned column ([ni/nimble@8e8a429](https://github.com/ni/nimble/commit/8e8a4298b034b65a87a5c63bd6c47aa6a7ce766f))
+
+## 1.5.0
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Minor changes
+
+- Add support for pinning the breakpoint column ([ni/nimble@2bc131b](https://github.com/ni/nimble/commit/2bc131b2443301cfb4f80c8319b4155fce1ac6d1))
+- Bump @ni/nimble-components to v35.11.0
+- Bump @ni/spright-components to v6.20.4
+
+## 1.4.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.3
+
+## 1.4.2
+
+Wed, 17 Jun 2026 21:07:03 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.2
+
+## 1.4.1
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.1
+
+## 1.4.0
+
+Mon, 08 Jun 2026 16:24:07 GMT
+
+### Minor changes
+
+- add breakpoint column ([ni/nimble@4ad4f52](https://github.com/ni/nimble/commit/4ad4f52d453183df5584dd1e1a8db81fe56d193a))
+
+## 1.3.7
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.0
+
+## 1.3.6
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.10.0
+- Bump @ni/spright-components to v6.19.2
+
+## 1.3.5
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.3
+- Bump @ni/spright-components to v6.19.1
+
+## 1.3.4
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.2
+- Bump @ni/spright-components to v6.19.0
+
+## 1.3.3
+
+Wed, 20 May 2026 19:07:48 GMT
+
+### Patches
+
+- chip text alignment and support card height ([ni/nimble@ab18bcd](https://github.com/ni/nimble/commit/ab18bcd2656584d3f264588b1cd59acec298fe72))
+
+## 1.3.2
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.1
+- Bump @ni/spright-components to v6.18.3
+
+## 1.3.1
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.0
+- Bump @ni/spright-components to v6.18.2
+
+## 1.3.0
+
+Mon, 11 May 2026 17:03:55 GMT
+
+### Minor changes
+
+- Add Fv card, chip selector, context help, split button, and summary panel web components ([ni/nimble@821470c](https://github.com/ni/nimble/commit/821470c1077015d00efabd17194a908055f9c5dc))
 
 ## 1.2.1
 

@@ -352,8 +352,7 @@ describe('RichTextEditorMention', () => {
                 expect(pageObject.getMentionButtonLabel(0)).toBe('');
             });
 
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it('should have button title and text when `button-label` updated #SkipWebkit', async () => {
+            it('should have button title and text when `button-label` updated', async () => {
                 const { userMentionElement } = await appendUserMentionConfiguration(element);
                 userMentionElement.buttonLabel = 'at mention';
                 await waitForUpdatesAsync();
@@ -785,6 +784,16 @@ describe('RichTextEditorMention', () => {
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.sliceEditorContent(0, 5);
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('should fire "mention-update" event again for the same filter when re-entering a mention after leaving it', async () => {
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
+        await pageObject.setEditorTextContent('@test');
+        await pageObject.setCursorPosition(1);
+        const mentionUpdateSpy = jasmine.createSpy('mention-update');
+        userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
+        await pageObject.setCursorPosition(6);
+        expect(mentionUpdateSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should not fire "mention-update" event when adding text near an existing @ mention', async () => {

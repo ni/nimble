@@ -15,8 +15,13 @@ export const template = html<TableGroupRow>`
         role="row"
         @click=${x => x.onGroupExpandToggle()}
         aria-expanded=${x => x.expanded}
-        style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};"
+        style="
+            --ni-private-table-group-row-indent-level: ${x => x.nestingLevel};
+            --ni-private-table-group-row-pinned-column-offset: ${x => x.pinnedColumnOffset}px;
+        "
     >
+        <span class="pinned-column-spacer"></span>
+
         ${when(x => x.selectable, html<TableGroupRow>`
             <span role="gridcell" class="checkbox-container">
                 <${checkboxTag}

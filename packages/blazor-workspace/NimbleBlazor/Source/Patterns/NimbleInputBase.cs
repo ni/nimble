@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -282,7 +281,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
         var newDictionaryCreated = true;
         if (source == null)
         {
-            result = new Dictionary<string, object>();
+            result = [];
         }
         else if (source is Dictionary<string, object> currentDictionary)
         {
@@ -291,7 +290,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
         }
         else
         {
-            result = new Dictionary<string, object>();
+            result = [];
             foreach (var item in source)
             {
                 result.Add(item.Key, item.Value);
@@ -304,10 +303,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
     protected virtual void Dispose(bool disposing)
     {
         // When initialization in the SetParametersAsync method fails, the EditContext property can remain equal to null
-        if (EditContext is not null)
-        {
-            EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
-        }
+        EditContext?.OnValidationStateChanged -= _validationStateChangedHandler;
     }
 
     public void Dispose()

@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +8,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleSelect"/>
 /// </summary>
-public class NimbleSelectTests
+public class NimbleSelectTests : BunitTestBase
 {
     [Fact]
     public void NimbleSelect_Rendered_HasSelectMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-select";
+        var select = Render<NimbleSelect>();
 
-        var select = context.RenderComponent<NimbleSelect>();
-
-        Assert.Contains(expectedMarkup, select.Markup);
+        Assert.NotNull(select.Find("nimble-select"));
     }
 
     [Fact]
     public void NimbleSelect_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleSelect>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleSelect>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -38,7 +32,7 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.Position, value);
 
-        Assert.Contains(expectedAttribute, select.Markup);
+        select.AssertAttribute("position", expectedAttribute);
     }
 
     [Fact]
@@ -46,7 +40,7 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.ErrorText, "bad number");
 
-        Assert.Contains("error-text=\"bad number\"", select.Markup);
+        select.AssertAttribute("error-text", "bad number");
     }
 
     [Fact]
@@ -54,7 +48,7 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.ErrorVisible, true);
 
-        Assert.Contains("error-visible", select.Markup);
+        select.AssertHasAttribute("error-visible");
     }
 
     [Fact]
@@ -62,16 +56,15 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.RequiredVisible, true);
 
-        Assert.Contains("required-visible", select.Markup);
+        select.AssertHasAttribute("required-visible");
     }
 
     [Fact]
     public void SelectWithOption_HasListOptionMarkup()
     {
-        var expectedMarkup = "nimble-list-option";
         var select = RenderNimbleSelectWithOption();
 
-        Assert.Contains(expectedMarkup, select.Markup);
+        Assert.NotNull(select.Find("nimble-list-option"));
     }
 
     [Theory]
@@ -83,16 +76,15 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, select.Markup);
+        select.AssertAttribute("appearance", expectedAttribute);
     }
 
     [Fact]
     public void Select_FilterModeStandardIsSet()
     {
-        var expectedContents = "filter-mode=\"standard\"";
         var select = RenderWithPropertySet(x => x.FilterMode, FilterMode.Standard);
 
-        Assert.Contains(expectedContents, select.Markup);
+        select.AssertAttribute("filter-mode", "standard");
     }
 
     [Fact]
@@ -100,7 +92,7 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.FilterMode, FilterMode.None);
 
-        Assert.DoesNotContain("filter-mode", select.Markup);
+        select.AssertAttribute("filter-mode", null);
     }
 
     [Fact]
@@ -108,7 +100,15 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.Clearable, true);
 
-        Assert.Contains("clearable", select.Markup);
+        select.AssertHasAttribute("clearable");
+    }
+
+    [Fact]
+    public void SelectLoadingVisible_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.LoadingVisible, true);
+
+        select.AssertHasAttribute("loading-visible");
     }
 
     [Fact]
@@ -116,7 +116,7 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
 
-        Assert.Contains("appearance-readonly", select.Markup);
+        select.AssertHasAttribute("appearance-readonly");
     }
 
     [Fact]
@@ -124,20 +124,16 @@ public class NimbleSelectTests
     {
         var select = RenderWithPropertySet(x => x.FullBleed, true);
 
-        Assert.Contains("full-bleed", select.Markup);
+        select.AssertHasAttribute("full-bleed");
     }
 
     private IRenderedComponent<NimbleSelect> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSelect, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleSelect>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleSelect>(p => p.Add(propertyGetter, propertyValue));
     }
 
     private IRenderedComponent<NimbleSelect> RenderNimbleSelectWithOption()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleSelect>(p => p.AddChildContent<NimbleListOption>());
+        return Render<NimbleSelect>(p => p.AddChildContent<NimbleListOption>());
     }
 }

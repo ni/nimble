@@ -593,7 +593,7 @@ describe('Markdown parser', () => {
             });
 
             // Adding `class` tests is test the current behavior of links
-            // This tests can be removed when the below issue is resolved
+            // For more details on this behavior, refer to the issue below:
             // https://github.com/ni/nimble/issues/1707
             describe('various absolute links should render the anchor element with href value as its class name', () => {
                 const differentProtocolLinks = [

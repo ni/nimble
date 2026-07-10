@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using NimbleBlazor;
 
@@ -14,7 +13,7 @@ public partial class TableSection
     public string? OpenMenuButtonColumnRecordId { get; private set; }
 
     [NotNull]
-    public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
+    public IEnumerable<SimpleTableRecord> TableData { get; set; } = [];
 
     public TableSection()
     {
@@ -27,9 +26,9 @@ public partial class TableSection
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    private async void OnMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs e)
+    private void OnMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs e)
     {
-        if (e.NewState == false)
+        if (!e.NewState)
         {
             return;
         }
@@ -56,7 +55,7 @@ public partial class TableSection
     public void AddTableRows(int numberOfRowsToAdd)
     {
         var tableData = new List<SimpleTableRecord>(TableData);
-        List<string> possibleStatuses = new() { "success", "calculating", "unknown" };
+        List<string> possibleStatuses = ["success", "calculating", "unknown"];
         int numberOfDemoColors = PossibleColors.Count();
 
         for (int i = 0; i < numberOfRowsToAdd; i++)

@@ -1,0 +1,16 @@
+<Project>
+  <!-- Inherit the workspace-wide build settings from the parent Directory.Build.props. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!--
+      Test assemblies are not part of any public API and follow test-specific conventions,
+      so some analyzer/compiler rules that are enforced for product code are disabled here:
+        CS1591 - Missing XML comment for publicly visible type or member
+        CS1573 - Parameter has no matching param tag in the XML comment
+        CA1707 - Identifiers should not contain underscores (test method naming convention)
+        CA1515 - Consider making public types internal (test types are not a public API)
+    -->
+    <NoWarn>$(NoWarn);CS1591;CS1573;CA1707;CA1515</NoWarn>
+  </PropertyGroup>
+</Project>

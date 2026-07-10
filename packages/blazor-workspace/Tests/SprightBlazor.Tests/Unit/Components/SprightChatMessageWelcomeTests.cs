@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,45 +8,37 @@ namespace SprightBlazor.Tests.Unit.Components;
 /// <summary>
 /// Test for <see cref="SprightChatMessageWelcome"/>.
 /// </summary>
-public class SprightChatMessageWelcomeTests
+public class SprightChatMessageWelcomeTests : BunitTestBase
 {
     [Fact]
     public void SprightChatMessageWelcome_Render_HasChatMessageMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "spright-chat-message-welcome";
+        var component = Render<SprightChatMessageWelcome>();
 
-        var component = context.RenderComponent<SprightChatMessageWelcome>();
-
-        Assert.Contains(expectedMarkup, component.Markup);
+        Assert.NotNull(component.Find("spright-chat-message-welcome"));
     }
 
     [Fact]
     public void SprightChatMessageWelcome_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<SprightChatMessageWelcome>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<SprightChatMessageWelcome>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Theory]
-    [InlineData("Welcome to Nigel", "welcome-title=\"Welcome to Nigel\"")]
-    [InlineData("Log in to continue", "subtitle=\"Log in to continue\"")]
-    public void SprightChatMessageWelcome_AttributeIsSet(string value, string expectedAttribute)
+    [InlineData("Welcome to Nigel", "welcome-title")]
+    [InlineData("Log in to continue", "subtitle")]
+    public void SprightChatMessageWelcome_AttributeIsSet(string value, string attributeName)
     {
-        var message = expectedAttribute.StartsWith("welcome-title", StringComparison.Ordinal)
+        var message = attributeName == "welcome-title"
             ? RenderWithPropertySet(x => x.WelcomeTitle, value)
             : RenderWithPropertySet(x => x.Subtitle, value);
 
-        Assert.Contains(expectedAttribute, message.Markup);
+        message.AssertAttribute(attributeName, value);
     }
 
     private IRenderedComponent<SprightChatMessageWelcome> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatMessageWelcome, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<SprightChatMessageWelcome>(p => p.Add(propertyGetter, propertyValue));
+        return Render<SprightChatMessageWelcome>(p => p.Add(propertyGetter, propertyValue));
     }
 }

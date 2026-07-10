@@ -148,7 +148,7 @@ function createCustomLinkExtension(): Mark {
             rel: 'noopener noreferrer',
             target: null,
             // Adding `class` here is a workaround to render two mentions without a whitespace as display names
-            // This attribute can be removed when the below issue is resolved
+            // For more details on this behavior, refer to the issue below:
             // https://github.com/ni/nimble/issues/1707
             class: ''
         },
@@ -234,6 +234,18 @@ function createCustomMentionExtension(
             allowSpaces: true,
             render: () => {
                 let inSuggestionMode = false;
+                // Tracks the query for which a `mention-update` event was last emitted.
+                // The tiptap suggestion plugin invokes `onStart`/`onUpdate` multiple times
+                // for a single query change (e.g. an initial render plus loading and resolved
+                // states of its async item fetch). We only want to emit `mention-update` once
+                // per distinct query, so we deduplicate against the last emitted query.
+                let lastEmittedQuery: string | undefined;
+                const emitMentionUpdateIfQueryChanged = (query: string): void => {
+                    if (query !== lastEmittedQuery) {
+                        lastEmittedQuery = query;
+                        config.mentionUpdateEmitter(query);
+                    }
+                };
                 return {
                     onStart: (props): void => {
                         /**
@@ -246,7 +258,7 @@ function createCustomMentionExtension(
                             return;
                         }
                         inSuggestionMode = true;
-                        config.mentionUpdateEmitter(props.query);
+                        emitMentionUpdateIfQueryChanged(props.query);
                         activeMentionCharacterEmitter(props.text.slice(0, 1));
                         activeMentionCommandEmitter(props.command);
                         mentionListbox?.show({
@@ -258,7 +270,7 @@ function createCustomMentionExtension(
                         if (!inSuggestionMode) {
                             return;
                         }
-                        config.mentionUpdateEmitter(props.query);
+                        emitMentionUpdateIfQueryChanged(props.query);
                         activeMentionCommandEmitter(props.command);
                         mentionListbox?.show({
                             filter: props.query,
@@ -277,6 +289,8 @@ function createCustomMentionExtension(
                         );
                     },
                     onExit: (): void => {
+                        inSuggestionMode = false;
+                        lastEmittedQuery = undefined;
                         activeMentionCharacterEmitter('');
                         activeMentionCommandEmitter(undefined);
                         mentionListbox?.close();

@@ -209,6 +209,24 @@ describe('TableGroupRow', () => {
         expect(element.getAttribute('aria-expanded')).toBe('false');
     });
 
+    it('sets has-pinned-columns attribute when pinnedColumnOffset is greater than zero', async () => {
+        await connect();
+        element.pinnedColumnOffset = 12;
+        await waitForUpdatesAsync();
+
+        expect(element.hasAttribute('has-pinned-columns')).toBeTrue();
+    });
+
+    it('removes has-pinned-columns attribute when pinnedColumnOffset is zero', async () => {
+        await connect();
+        element.pinnedColumnOffset = 12;
+        await waitForUpdatesAsync();
+        element.pinnedColumnOffset = 0;
+        await waitForUpdatesAsync();
+
+        expect(element.hasAttribute('has-pinned-columns')).toBeFalse();
+    });
+
     it('getFocusableElements() includes an empty array for cells', async () => {
         await connect();
 

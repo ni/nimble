@@ -1,8 +1,196 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.5.8
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.5
+
+## 1.5.7
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.4
+
+## 1.5.6
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@b9ec0a7](https://github.com/ni/nimble/commit/b9ec0a79e40cea3eff8ef5352f7adc7093b287a6))
+- Bump @ni/ok-components to v1.6.3
+
+## 1.5.5
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.2
+
+## 1.5.4
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.1
+
+## 1.5.3
+
+Tue, 30 Jun 2026 02:23:30 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.0
+
+## 1.5.2
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.5.2
+
+## 1.5.1
+
+Thu, 25 Jun 2026 22:26:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.5.1
+
+## 1.5.0
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Minor changes
+
+- Add support for pinning the breakpoint column ([ni/nimble@2bc131b](https://github.com/ni/nimble/commit/2bc131b2443301cfb4f80c8319b4155fce1ac6d1))
+- Bump @ni/ok-components to v1.5.0
+
+## 1.4.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.3
+
+## 1.4.2
+
+Thu, 18 Jun 2026 00:03:55 GMT
+
+### Patches
+
+- Updates from CA rule changes ([ni/nimble@894b5ac](https://github.com/ni/nimble/commit/894b5acee617ec104097c19bdc2f27daba66cdd4))
+
+## 1.4.1
+
+Wed, 17 Jun 2026 21:07:03 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.2
+
+## 1.4.0
+
+Mon, 15 Jun 2026 17:15:51 GMT
+
+### Minor changes
+
+- Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor WebAssembly apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976 ([ni/nimble@fe9b63e](https://github.com/ni/nimble/commit/fe9b63eed620452d81f1dd9bd5ed3b7e16ded148))
+
+## 1.3.1
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.1
+
+## 1.3.0
+
+Mon, 08 Jun 2026 16:24:07 GMT
+
+### Minor changes
+
+- add breakpoint column ([ni/nimble@4ad4f52](https://github.com/ni/nimble/commit/4ad4f52d453183df5584dd1e1a8db81fe56d193a))
+- Bump @ni/ok-components to v1.4.0
+
+## 1.2.9
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.7
+
+## 1.2.8
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.6
+
+## 1.2.7
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@35e108a](https://github.com/ni/nimble/commit/35e108abbe23815a0c67cf87518acdeccb58cdcc))
+- Bump @ni/ok-components to v1.3.5
+
+## 1.2.6
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.4
+
+## 1.2.5
+
+Wed, 20 May 2026 19:07:48 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.3
+
+## 1.2.4
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.2
+
+## 1.2.3
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.1
+
+## 1.2.2
+
+Mon, 11 May 2026 17:03:55 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.0
 
 ## 1.2.1
 

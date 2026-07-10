@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,38 +8,32 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleStep"/>
 /// </summary>
-public class NimbleStepTests
+public class NimbleStepTests : BunitTestBase
 {
     [Fact]
     public void NimbleStep_Rendered_HasStepMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-step";
+        var step = Render<NimbleStep>();
 
-        var step = context.RenderComponent<NimbleStep>();
-
-        Assert.Contains(expectedMarkup, step.Markup);
+        Assert.NotNull(step.Find("nimble-step"));
     }
 
     [Fact]
     public void NimbleStep_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleStep>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleStep>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Theory]
-    [InlineData(StepSeverity.Error, "severity=\"error\"")]
-    [InlineData(StepSeverity.Warning, "severity=\"warning\"")]
-    [InlineData(StepSeverity.Success, "severity=\"success\"")]
+    [InlineData(StepSeverity.Error, "error")]
+    [InlineData(StepSeverity.Warning, "warning")]
+    [InlineData(StepSeverity.Success, "success")]
     public void StepSeverity_AttributeIsSet(StepSeverity value, string expectedAttribute)
     {
         var step = RenderWithPropertySet(x => x.Severity, value);
 
-        Assert.Contains(expectedAttribute, step.Markup);
+        step.AssertAttribute("severity", expectedAttribute);
     }
 
     [Fact]
@@ -47,7 +41,7 @@ public class NimbleStepTests
     {
         var step = RenderWithPropertySet(x => x.Severity, StepSeverity.Default);
 
-        Assert.DoesNotContain("severity", step.Markup);
+        step.AssertAttribute("severity", null);
     }
 
     [Fact]
@@ -55,7 +49,7 @@ public class NimbleStepTests
     {
         var step = RenderWithPropertySet(x => x.Disabled, true);
 
-        Assert.Contains("disabled", step.Markup);
+        step.AssertHasAttribute("disabled");
     }
 
     [Fact]
@@ -63,7 +57,7 @@ public class NimbleStepTests
     {
         var step = RenderWithPropertySet(x => x.ReadOnly, true);
 
-        Assert.Contains("readonly", step.Markup);
+        step.AssertHasAttribute("readonly");
     }
 
     [Fact]
@@ -71,13 +65,11 @@ public class NimbleStepTests
     {
         var step = RenderWithPropertySet(x => x.Selected, true);
 
-        Assert.Contains("selected", step.Markup);
+        step.AssertHasAttribute("selected");
     }
 
     private IRenderedComponent<NimbleStep> RenderWithPropertySet<TProperty>(Expression<Func<NimbleStep, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleStep>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleStep>(p => p.Add(propertyGetter, propertyValue));
     }
 }

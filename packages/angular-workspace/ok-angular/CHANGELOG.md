@@ -1,8 +1,192 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 09 Jul 2026 21:23:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.5.0
+
+Thu, 09 Jul 2026 21:23:34 GMT
+
+### Minor changes
+
+- Add OK Angular master-detail wrappers ([ni/nimble@0b51eed](https://github.com/ni/nimble/commit/0b51eedc5299c2d48110fb2f23550e2277078364))
+
+## 2.4.20
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.5
+
+## 2.4.19
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.4
+
+## 2.4.18
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.3
+
+## 2.4.17
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.2
+
+## 2.4.16
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.1
+
+## 2.4.15
+
+Tue, 30 Jun 2026 02:23:30 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.0
+
+## 2.4.14
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.5.2
+
+## 2.4.13
+
+Thu, 25 Jun 2026 22:26:57 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.5.1
+
+## 2.4.12
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.5.0
+
+## 2.4.11
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.3
+
+## 2.4.10
+
+Wed, 17 Jun 2026 21:07:03 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.2
+
+## 2.4.9
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.1
+
+## 2.4.8
+
+Mon, 08 Jun 2026 16:24:07 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.4.0
+
+## 2.4.7
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.7
+
+## 2.4.6
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.6
+
+## 2.4.5
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.5
+
+## 2.4.4
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.4
+
+## 2.4.3
+
+Wed, 20 May 2026 19:07:48 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.3
+
+## 2.4.2
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.2
+
+## 2.4.1
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.1
+
+## 2.4.0
+
+Mon, 11 May 2026 21:35:06 GMT
+
+### Minor changes
+
+- Add FV Angular wrappers for ok components ([ni/nimble@85a74e2](https://github.com/ni/nimble/commit/85a74e2e759b52a0099424a189473e3db1a54189))
+
+## 2.3.2
+
+Mon, 11 May 2026 17:03:55 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.3.0
 
 ## 2.3.1
 

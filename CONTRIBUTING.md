@@ -7,8 +7,8 @@ To submit changes to Nimble, the first step is to build the monorepo which requi
 - Sync down a copy of the nimble repository
     - Note: For one-off small contributions you can consider using a fork-pull workflow. However [fork-pull workflows are not yet supported](https://github.com/ni/nimble/issues/634) for substantial development. For substantial development you should be added as a Contributor to the repository. See the [`README.md` Community section](/README.md#community) to get in touch if you need Contributor permissions. 
 - Install Node.js version 24+ (run `node --version`) which can be downloaded from <https://nodejs.org/en/download/>
-- Install .NET 8 SDK (see required version in [`globals.json`](/packages/blazor-workspace/global.json)) which can be downloaded from <https://dotnet.microsoft.com/en-us/download>
-   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v8` install is required, but it's fine if later versions are installed too.
+- Install .NET SDK (see required version in [`globals.json`](/packages/blazor-workspace/global.json)) which can be downloaded from <https://dotnet.microsoft.com/en-us/download>
+   - Run `dotnet --info` to verify the required version of the SDK is installed. An sdk that matches the major version is required, but can have a greater minor / patch version.
 - If running on an IT-managed system, set env var `NODE_USE_SYSTEM_CA=1`
    - This avoids errors during `npm install` like `playwright Error: unable to get local issuer certificate`. See Node docs: [Adding CA Certificates from the System Store](https://nodejs.org/en/learn/http/enterprise-network-configuration#adding-ca-certificates-from-the-system-store).
 
@@ -236,17 +236,11 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
 
-### Security scanning with Snyk
+### Security scanning
 
-This repository uses [Snyk](https://snyk.io/) for security scanning to identify and fix vulnerabilities in code before they reach production. Snyk provides Static Application Security Testing (SAST) that scans your code for security issues as you develop.
+**Contributors within NI/Emerson**: See the [security scanning reference](https://dev.azure.com/ni/DevCentral/_wiki/wikis/Stratus/160265/Security-scanning-reference) for information on security scanning tools, workflows, and best practices.
 
-- **IDE integration**: Install the Snyk extension for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=snyk-security.snyk-vulnerability-scanner) or [Visual Studio](https://marketplace.visualstudio.com/items?itemName=snyk-security.snyk-vulnerability-scanner-vs-2022) to get real-time security feedback while writing code. To suggest the Snyk extension to contributors, add `.vscode/extensions.json` or `.vsconfig` files to your project root. The VSCode Snyk extension has a richer feature set and is the preferred IDE for working with Snyk.
-- **Pull request scanning**: Snyk automatically scans PRs and posts comments for high/critical vulnerabilities.
-- **Post-merge monitoring**: Automated bugs are created for unresolved issues after code is merged.
-
-**Contributors within NI/Emerson**: For detailed guidance on working with Snyk, including how to address security issues and create ignore records, see the [Snyk reference](https://dev.azure.com/ni/DevCentral/_wiki/wikis/Stratus/146862/Snyk-reference).
-
-**Contributors outside of NI/Emerson**: If you are having issues resolving a vulnerability Snyk identifies on your PR, consult with a code owner to understand your options for resolution.
+**Contributors outside of NI/Emerson**: If you are having issues resolving a vulnerability identified on your PR, consult with a code owner to understand your options for resolution.
 
 ## Updating dependencies
 

@@ -1,0 +1,12 @@
+@namespace OkBlazor
+
+<ok-ts-table-column-breakpoint
+    column-id="@ColumnId"
+    field-name="@FieldName"
+    column-hidden="@ColumnHidden"
+    menu-slot="@MenuSlot"
+    pin-location="@PinLocation.ToAttributeValue()"
+    @onokbreakpointcolumntoggle="BreakpointToggle"
+    @onokbreakpointcolumnstatechangerequested="BreakpointStateChangeRequested"
+    @attributes="AdditionalAttributes">
+</ok-ts-table-column-breakpoint>

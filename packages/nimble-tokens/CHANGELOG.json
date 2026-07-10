@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 26 May 2026 18:42:52 GMT",
+      "version": "8.18.1",
+      "tag": "@ni/nimble-tokens_v8.18.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "92b405008ad93d76a4b80d8c3ce971f4f2cf6bc6",
+            "comment": "Update `nimble-icon-arrow-right-thin`"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 May 2026 17:04:06 GMT",
       "version": "8.18.0",
       "tag": "@ni/nimble-tokens_v8.18.0",

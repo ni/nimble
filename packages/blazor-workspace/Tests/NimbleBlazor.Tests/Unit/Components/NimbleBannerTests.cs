@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,45 +8,37 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleBanner"/>.
 /// </summary>
-public class NimbleBannerTests
+public class NimbleBannerTests : BunitTestBase
 {
     [Fact]
     public void NimbleBanner_Render_HasBannerMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-banner";
+        var banner = Render<NimbleBanner>();
 
-        var banner = context.RenderComponent<NimbleBanner>();
-
-        Assert.Contains(expectedMarkup, banner.Markup);
+        Assert.NotNull(banner.Find("nimble-banner"));
     }
 
     [Fact]
     public void NimbleBanner_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleBanner>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleBanner>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Theory]
-    [InlineData(BannerSeverity.Default, "<nimble-banner((?!severity).)*>")]
-    [InlineData(BannerSeverity.Error, "severity=\"error\"")]
-    [InlineData(BannerSeverity.Warning, "severity=\"warning\"")]
-    [InlineData(BannerSeverity.Information, "severity=\"information\"")]
-    public void BannerSeverity_AttributeIsSet(BannerSeverity value, string expectedMarkupRegEx)
+    [InlineData(BannerSeverity.Default, null)]
+    [InlineData(BannerSeverity.Error, "error")]
+    [InlineData(BannerSeverity.Warning, "warning")]
+    [InlineData(BannerSeverity.Information, "information")]
+    public void BannerSeverity_AttributeIsSet(BannerSeverity value, string? expectedAttribute)
     {
         var banner = RenderWithPropertySet(x => x.Severity, value);
 
-        Assert.Matches(expectedMarkupRegEx, banner.Markup);
+        banner.AssertAttribute("severity", expectedAttribute);
     }
 
     private IRenderedComponent<NimbleBanner> RenderWithPropertySet<TProperty>(Expression<Func<NimbleBanner, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleBanner>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleBanner>(p => p.Add(propertyGetter, propertyValue));
     }
 }

@@ -49,7 +49,9 @@ interface ComboboxItem {
             <example-sub-container label="Select with dynamic options">
                 <nimble-select #dynamicSelect appearance="underline" filter-mode="manual" [(ngModel)]="dynamicSelectValue" (filter-input)="onDynamicSelectFilterInput($event)" [compareWith]="dynamicSelectCompareWith">
                     <nimble-list-option hidden selected disabled [ngValue]="dynamicSelectPlaceholderValue">Select an option</nimble-list-option>
-                    <nimble-list-option *ngFor="let item of dynamicSelectItems" [ngValue]="item" [hidden]="shouldHideItem(item)">{{ item.first }} {{ item.last }}</nimble-list-option>
+                    @for (item of dynamicSelectItems; track item) {
+                        <nimble-list-option [ngValue]="item" [hidden]="shouldHideItem(item)">{{ item.first }} {{ item.last }}</nimble-list-option>
+                    }
                 </nimble-select>
             </example-sub-container>
         </example-sub-container>

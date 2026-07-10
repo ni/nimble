@@ -1,8 +1,96 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.12.3
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Enable browser global shims for SSR module loading ([ni/nimble@784cbe5](https://github.com/ni/nimble/commit/784cbe5c58cccae73553e03de0cc7efc149d368e))
+
+## 35.12.2
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Updated selected state styling ([ni/nimble@a50dcc5](https://github.com/ni/nimble/commit/a50dcc500383afd573f7688be5397e3519703d7e))
+
+## 35.12.1
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Fix duplicate `mention-update` events fired by the rich text editor after the tiptap suggestion plugin update ([ni/nimble@b9ec0a7](https://github.com/ni/nimble/commit/b9ec0a79e40cea3eff8ef5352f7adc7093b287a6))
+
+## 35.12.0
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Minor changes
+
+- Support CSS field-sizing on text-area, text-field, number-field, and combobox. Also minor padding adjustment for number-field ([ni/nimble@c682c5c](https://github.com/ni/nimble/commit/c682c5c23ebb629a1d4e2f53002e4e6b618bd9b4))
+
+## 35.11.0
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Minor changes
+
+- add support for pinning table columns ([ni/nimble@2bc131b](https://github.com/ni/nimble/commit/2bc131b2443301cfb4f80c8319b4155fce1ac6d1))
+
+## 35.10.1
+
+Tue, 23 Jun 2026 16:40:18 GMT
+
+### Patches
+
+- Fix the WebKit test failure caused by an underlying ProseMirror issue that has now been resolved ([ni/nimble@c29e122](https://github.com/ni/nimble/commit/c29e122e1ed5ae468dacb8c57ad1c1aa9e0a6e7c))
+
+## 35.10.0
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Minor changes
+
+- Add a theme-aware border color token for work order ([ni/nimble@43bd372](https://github.com/ni/nimble/commit/43bd3721f1577a88f91d993b9958f6117e1a3fc4))
+
+## 35.9.3
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Bump @ni/unit-format to v1.0.5
+
+## 35.9.2
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.18.1
+
+## 35.9.1
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Add color-scheme to theme provider for dark scrollbars ([ni/nimble@3561c88](https://github.com/ni/nimble/commit/3561c88b0bb55fcbaf9345d2915f0e8ac310b5fc))
+
+## 35.9.0
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Minor changes
+
+- Add appearance-indeterminate property for checkbox ([ni/nimble@38b5b13](https://github.com/ni/nimble/commit/38b5b13eceb1f7c1da8342dc583d79769e69ca7a))
 
 ## 35.8.0
 

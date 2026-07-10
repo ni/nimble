@@ -75,7 +75,7 @@
   "devDependencies": {
     "beachball": "2.64.0",
     "patch-package": "^8.0.0",
-    "playwright": "1.59.1",
+    "playwright": "1.60.0",
     "turbo": "^2.9.7"
   }
 }

@@ -69,12 +69,7 @@ export const styles = css`
     .header-row-container {
         position: sticky;
         top: 0;
-    }
-
-    .header-row {
         display: flex;
-        background: ${applicationBackgroundColor};
-        position: relative;
         width: fit-content;
         min-width: max(
             100%,
@@ -83,8 +78,16 @@ export const styles = css`
                     var(--ni-private-table-header-container-margin-right)
             )
         );
+    }
+
+    .header-row {
+        display: flex;
+        background: ${applicationBackgroundColor};
+        position: relative;
+        width: fit-content;
         left: var(--ni-private-table-scroll-x);
         align-items: center;
+        flex: 1;
     }
 
     .header-row-action-container {
@@ -134,6 +137,17 @@ export const styles = css`
     .header {
         flex: 1;
         overflow: hidden;
+    }
+
+    .pinned-columns-header-container {
+        display: grid;
+        grid-template-columns: var(--ni-private-table-pinned-columns-row-grid-columns);
+        position: sticky;
+        left: 0;
+        align-self: stretch;
+        background: ${applicationBackgroundColor};
+        z-index: ${ZIndexLevels.zIndex1};
+        box-shadow: inset -2px 0 0 0 ${tableRowBorderColor};
     }
 
     .column-divider {
@@ -239,6 +253,10 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
+            .pinned-columns-header-container {
+                box-shadow: inset -2px 0 0 0 ${hexToRgbaCssColor(White, 0.1)};
+            }
+
             .table-row-container::before {
                 content: '';
                 width: 100%;

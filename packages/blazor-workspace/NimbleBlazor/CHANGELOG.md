@@ -1,8 +1,125 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 04 May 2026 17:04:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 09 Jul 2026 19:42:47 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 21.3.0
+
+Thu, 09 Jul 2026 19:42:47 GMT
+
+### Minor changes
+
+- Implement select loading-visible ([ni/nimble@a3eb7ae](https://github.com/ni/nimble/commit/a3eb7ae57fa1d2d616af75d89a1f09be5da744f7))
+
+## 21.2.4
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.3
+
+## 21.2.3
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.2
+
+## 21.2.2
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@b9ec0a7](https://github.com/ni/nimble/commit/b9ec0a79e40cea3eff8ef5352f7adc7093b287a6))
+- Bump @ni/nimble-components to v35.12.1
+
+## 21.2.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.0
+
+## 21.2.0
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Minor changes
+
+- add support for pinning table columns ([ni/nimble@2bc131b](https://github.com/ni/nimble/commit/2bc131b2443301cfb4f80c8319b4155fce1ac6d1))
+- Bump @ni/nimble-components to v35.11.0
+
+## 21.1.1
+
+Thu, 18 Jun 2026 00:03:55 GMT
+
+### Patches
+
+- Updates from CA rule changes ([ni/nimble@894b5ac](https://github.com/ni/nimble/commit/894b5acee617ec104097c19bdc2f27daba66cdd4))
+
+## 21.1.0
+
+Mon, 15 Jun 2026 17:15:51 GMT
+
+### Minor changes
+
+- Add .NET 10 support while retaining .NET 8. Note: Standalone Blazor WebAssembly apps may need to enable static asset fingerprinting. See PR for details: https://github.com/ni/nimble/pull/2976 ([ni/nimble@fe9b63e](https://github.com/ni/nimble/commit/fe9b63eed620452d81f1dd9bd5ed3b7e16ded148))
+
+## 21.0.4
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.10.0
+
+## 21.0.3
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@35e108a](https://github.com/ni/nimble/commit/35e108abbe23815a0c67cf87518acdeccb58cdcc))
+- Bump @ni/nimble-components to v35.9.3
+
+## 21.0.2
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.2
+- Bump @ni/nimble-tokens to v8.18.1
+
+## 21.0.1
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.9.1
+
+## 21.0.0
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Major changes
+
+- Add AppearanceIndeterminate property for checkbox ([ni/nimble@38b5b13](https://github.com/ni/nimble/commit/38b5b13eceb1f7c1da8342dc583d79769e69ca7a))
+- Bump @ni/nimble-components to v35.9.0
+
+## 20.17.1
+
+Tue, 12 May 2026 00:42:16 GMT
+
+### Patches
+
+- Deps update (Apache.Arrow NuGet to latest/23.0.0) ([ni/nimble@e2547b5](https://github.com/ni/nimble/commit/e2547b5331f24aed6226a70851820402d552e4e6))
 
 ## 20.17.0
 

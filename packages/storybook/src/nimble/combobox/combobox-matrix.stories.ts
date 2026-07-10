@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bodyFont, bodyFontColor, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
@@ -19,6 +19,14 @@ import {
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
+import {
+    fieldSizingStates,
+    type FieldSizingState,
+    fieldSizingErrorStates,
+    type FieldSizingErrorState,
+    fieldSizingLabelStates,
+    type FieldSizingLabelState
+} from '../patterns/field-sizing/states';
 
 const appearanceStates = [
     ['Underline', DropdownAppearance.underline],
@@ -245,6 +253,67 @@ export const blankListOption: StoryFn = createStory(
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
     </${comboboxTag}>`
+);
+
+const fieldSizingWidthStates = [
+    ['Default', ''],
+    ['min-width=0', 'min-width: 0;'],
+    ['width=300px', 'width: 300px;']
+] as const;
+type FieldSizingWidthState = (typeof fieldSizingWidthStates)[number];
+
+const fieldSizingValueStates = [
+    ['Blank', '', ''],
+    ['Placeholder Short', '', 'tiny'],
+    ['Placeholder Long', '', 'Placeholder longer than the default width'],
+    ['Short', 'tiny', ''],
+    ['Long', 'Text longer than the default width', '']
+] as const;
+type FieldSizingValueState = (typeof fieldSizingValueStates)[number];
+
+const fieldSizingComponent = (
+    [widthName, widthStyles]: FieldSizingWidthState,
+    [errorName, errorString]: FieldSizingErrorState,
+    [labelName, label]: FieldSizingLabelState,
+    [fieldSizingName, fieldSizingStyle]: FieldSizingState,
+    [valueName, value, placeholder]: FieldSizingValueState
+): ViewTemplate => html`
+    <div style="display: inline-flex; flex-direction: column; align-items: flex-start; width: min-content;">
+        <div style="width: 400px; box-sizing: border-box;">Width(${widthName}) Error(${errorName}) Label(${labelName}) FieldSizing(${fieldSizingName}) Value(${valueName})</div>
+        <${comboboxTag}
+            style="${fieldSizingStyle} ${widthStyles} ${errorString ? 'margin-bottom: 24px' : 'margin-bottom: 4px'}"
+            value="${() => value}"
+            placeholder="${() => placeholder}"
+            ?error-visible="${() => errorString !== undefined}"
+            error-text="${() => errorString}"
+        >
+            ${() => label}
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        </${comboboxTag}>
+    </div>
+`;
+
+const fieldSizingMatrixTemplate = (template: ViewTemplate): ViewTemplate => html`
+    <div style="
+        display: grid;
+        grid-template-columns: ${'1fr '.repeat(fieldSizingValueStates.length)};
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        width: 1800px;
+    ">
+    ${template}
+    </div>
+`;
+
+export const fieldSizing: StoryFn = createFixedThemeStory(
+    fieldSizingMatrixTemplate(createMatrix(fieldSizingComponent, [
+        fieldSizingWidthStates,
+        fieldSizingErrorStates,
+        fieldSizingLabelStates,
+        fieldSizingStates,
+        fieldSizingValueStates
+    ])),
+    lightThemeWhiteBackground
 );
 
 export const heightTest: StoryFn = createStory(

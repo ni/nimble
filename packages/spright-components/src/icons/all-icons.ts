@@ -1,7 +1,15 @@
+export { IconBreakpointConditional } from './breakpoint-conditional';
+export { IconBreakpointDisabled } from './breakpoint-disabled';
+export { IconBreakpointEnabled } from './breakpoint-enabled';
+export { IconBreakpointExecutionPointer } from './breakpoint-execution-pointer';
+export { IconBreakpointHitDisabled } from './breakpoint-hit-disabled';
+export { IconBreakpointHit } from './breakpoint-hit';
+export { IconBreakpointHover } from './breakpoint-hover';
 export { IconNigelChat } from './nigel-chat';
 export { IconWorkItemCalendarWeek } from './work-item-calendar-week';
 export { IconWorkItemCalipers } from './work-item-calipers';
 export { IconWorkItemForklift } from './work-item-forklift';
 export { IconWorkItemRectangleCheckLines } from './work-item-rectangle-check-lines';
+export { IconWorkItemSquareListCog } from './work-item-square-list-cog';
 export { IconWorkItemUserHelmetSafety } from './work-item-user-helmet-safety';
 export { IconWorkItemWrenchHammer } from './work-item-wrench-hammer';

@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -13,32 +13,26 @@ public class NimbleAnchorTests : NimbleAnchorBaseTests<NimbleAnchor>
     [Fact]
     public void NimbleAnchor_Rendered_HasAnchorMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-anchor";
+        var anchor = Render<NimbleAnchor>();
 
-        var anchor = context.RenderComponent<NimbleAnchor>();
-
-        Assert.Contains(expectedMarkup, anchor.Markup);
+        Assert.NotNull(anchor.Find("nimble-anchor"));
     }
 
     [Fact]
     public void NimbleAnchor_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchor>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleAnchor>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
     [Theory]
-    [InlineData(AnchorAppearance.Default, "<nimble-anchor>")]
-    [InlineData(AnchorAppearance.Prominent, "appearance=\"prominent\"")]
-    public void AnchorAppearance_AttributeIsSet(AnchorAppearance value, string expectedMarkup)
+    [InlineData(AnchorAppearance.Default, null)]
+    [InlineData(AnchorAppearance.Prominent, "prominent")]
+    public void AnchorAppearance_AttributeIsSet(AnchorAppearance value, string? expectedValue)
     {
         var anchor = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedMarkup, anchor.Markup);
+        anchor.AssertAttribute("appearance", expectedValue);
     }
 
     [Fact]
@@ -46,7 +40,7 @@ public class NimbleAnchorTests : NimbleAnchorBaseTests<NimbleAnchor>
     {
         var anchor = RenderWithPropertySet(x => x.ContentEditable, "true");
 
-        Assert.Contains("contenteditable=\"true\"", anchor.Markup);
+        anchor.AssertAttribute("contenteditable", "true");
     }
 
     [Fact]
@@ -54,13 +48,11 @@ public class NimbleAnchorTests : NimbleAnchorBaseTests<NimbleAnchor>
     {
         var anchor = RenderWithPropertySet(x => x.UnderlineHidden, true);
 
-        Assert.Contains("underline-hidden", anchor.Markup);
+        anchor.AssertHasAttribute("underline-hidden");
     }
 
     private IRenderedComponent<NimbleAnchor> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchor, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleAnchor>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleAnchor>(p => p.Add(propertyGetter, propertyValue));
     }
 }

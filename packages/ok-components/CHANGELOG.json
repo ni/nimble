@@ -2,6 +2,416 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "1.6.5",
+      "tag": "@ni/ok-components_v1.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "784cbe5c58cccae73553e03de0cc7efc149d368e",
+            "comment": "Enable browser global shims for SSR module loading"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.12.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.21.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Jul 2026 00:57:45 GMT",
+      "version": "1.6.4",
+      "tag": "@ni/ok-components_v1.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.12.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.21.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 22:37:46 GMT",
+      "version": "1.6.3",
+      "tag": "@ni/ok-components_v1.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.12.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.21.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 20:16:45 GMT",
+      "version": "1.6.2",
+      "tag": "@ni/ok-components_v1.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.21.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 17:58:30 GMT",
+      "version": "1.6.1",
+      "tag": "@ni/ok-components_v1.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.12.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.21.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Jun 2026 02:23:30 GMT",
+      "version": "1.6.0",
+      "tag": "@ni/ok-components_v1.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "33f3d13dbaa19f789225d26336e51736006f95f3",
+            "comment": "master-detail list component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 27 Jun 2026 00:25:17 GMT",
+      "version": "1.5.2",
+      "tag": "@ni/ok-components_v1.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.21.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 25 Jun 2026 22:26:57 GMT",
+      "version": "1.5.1",
+      "tag": "@ni/ok-components_v1.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "8e8a4298b034b65a87a5c63bd6c47aa6a7ce766f",
+            "comment": "Fix for clipped Ok Breakpoint Column menu in Pinned column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 25 Jun 2026 20:51:07 GMT",
+      "version": "1.5.0",
+      "tag": "@ni/ok-components_v1.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "2bc131b2443301cfb4f80c8319b4155fce1ac6d1",
+            "comment": "Add support for pinning the breakpoint column"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.11.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.20.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Jun 2026 17:31:59 GMT",
+      "version": "1.4.3",
+      "tag": "@ni/ok-components_v1.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.20.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Jun 2026 21:07:03 GMT",
+      "version": "1.4.2",
+      "tag": "@ni/ok-components_v1.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.20.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Jun 2026 21:55:01 GMT",
+      "version": "1.4.1",
+      "tag": "@ni/ok-components_v1.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.20.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Jun 2026 16:24:07 GMT",
+      "version": "1.4.0",
+      "tag": "@ni/ok-components_v1.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "4ad4f52d453183df5584dd1e1a8db81fe56d193a",
+            "comment": "add breakpoint column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Jun 2026 16:41:17 GMT",
+      "version": "1.3.7",
+      "tag": "@ni/ok-components_v1.3.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.20.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Jun 2026 17:09:52 GMT",
+      "version": "1.3.6",
+      "tag": "@ni/ok-components_v1.3.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.10.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.19.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 May 2026 16:39:52 GMT",
+      "version": "1.3.5",
+      "tag": "@ni/ok-components_v1.3.5",
+      "comments": {
+        "none": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "35e108abbe23815a0c67cf87518acdeccb58cdcc",
+            "comment": "Update npm dev deps"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.9.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.19.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 May 2026 18:42:52 GMT",
+      "version": "1.3.4",
+      "tag": "@ni/ok-components_v1.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.9.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.19.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 May 2026 19:07:48 GMT",
+      "version": "1.3.3",
+      "tag": "@ni/ok-components_v1.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "ab18bcd2656584d3f264588b1cd59acec298fe72",
+            "comment": "chip text alignment and support card height"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 May 2026 17:01:52 GMT",
+      "version": "1.3.2",
+      "tag": "@ni/ok-components_v1.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.9.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.18.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 May 2026 16:29:54 GMT",
+      "version": "1.3.1",
+      "tag": "@ni/ok-components_v1.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.9.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.18.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 May 2026 21:35:06 GMT",
+      "version": "1.3.0",
+      "tag": "@ni/ok-components_v1.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "85a74e2e759b52a0099424a189473e3db1a54189",
+            "comment": "component-review skill updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 May 2026 17:03:55 GMT",
+      "version": "1.3.0",
+      "tag": "@ni/ok-components_v1.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "821470c1077015d00efabd17194a908055f9c5dc",
+            "comment": "Add Fv card, chip selector, context help, split button, and summary panel web components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 05 May 2026 14:11:16 GMT",
       "version": "1.2.1",
       "tag": "@ni/ok-components_v1.2.1",

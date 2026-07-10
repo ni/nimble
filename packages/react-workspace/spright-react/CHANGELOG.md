@@ -1,8 +1,137 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.14.13
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.5
+
+## 0.14.12
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.4
+
+## 0.14.11
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.3
+
+## 0.14.10
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.2
+
+## 0.14.9
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.1
+
+## 0.14.8
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.0
+
+## 0.14.7
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.4
+
+## 0.14.6
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.3
+
+## 0.14.5
+
+Wed, 17 Jun 2026 21:07:03 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.2
+
+## 0.14.4
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.1
+
+## 0.14.3
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.0
+
+## 0.14.2
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.19.2
+
+## 0.14.1
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.19.1
+
+## 0.14.0
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Minor changes
+
+- Add new breakpoint icons ([ni/nimble@92b4050](https://github.com/ni/nimble/commit/92b405008ad93d76a4b80d8c3ce971f4f2cf6bc6))
+- Bump @ni/spright-components to v6.19.0
+
+## 0.13.3
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.3
+
+## 0.13.2
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.2
 
 ## 0.13.1
 

@@ -1,8 +1,17 @@
 @namespace Demo.Shared.Pages.Sections
+@implements IAsyncDisposable
 
 <div>
     <SubContainer Label="Chat Conversation and Messages (Spright)">
-        <SprightChatConversation class="conversation">
+        <SprightChatConversation AutoScroll="true">
+            <NimbleToolbar slot="toolbar">
+                <NimbleIconMessagesSparkle slot="start"></NimbleIconMessagesSparkle>
+                <span class="toolbar-title">AI Assistant</span>
+                <NimbleButton Appearance="ButtonAppearance.Ghost" ContentHidden="true" Title="Create new chat" slot="end">
+                    Create new chat
+                    <NimbleIconPencilToRectangle slot="start"></NimbleIconPencilToRectangle>
+                </NimbleButton>
+            </NimbleToolbar>
             <NimbleBanner slot="start" Open="true" Severity="BannerSeverity.Information">
                 <span slot="title">Title of the banner</span>
                 This is the message text of this banner. It tells you something interesting.
@@ -17,27 +26,36 @@
                 <NimbleSpinner Appearance="SpinnerAppearance.Accent"></NimbleSpinner>
             </SprightChatMessageSystem>
             <SprightChatMessageInbound>
-                <NimbleButton slot="footer-actions" Appearance=ButtonAppearance.Ghost ContentHidden="true">
+                <NimbleButton slot="footer-actions" Appearance="ButtonAppearance.Ghost" ContentHidden="true">
                     <NimbleIconCopyText slot="start"></NimbleIconCopyText>
                     Copy
                 </NimbleButton>
                 <NimbleIconWebviCustom style="height: 100px; width: 100px;"></NimbleIconWebviCustom>
                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                <NimbleButton slot="end" Appearance=ButtonAppearance.Block>
+                <NimbleButton slot="end" Appearance="ButtonAppearance.Block">
                     Order a tab
                 </NimbleButton>
-                <NimbleButton slot="end" Appearance=ButtonAppearance.Block>
+                <NimbleButton slot="end" Appearance="ButtonAppearance.Block">
                     Check core temperature
                 </NimbleButton>
             </SprightChatMessageInbound>
-            @foreach(var message in _userMessages)
+            @foreach (var entry in _messages)
             {
-                <SprightChatMessageOutbound>
-                    @message
-                </SprightChatMessageOutbound>
+                @if (entry.Type == "user")
+                {
+                    <SprightChatMessageOutbound>
+                        <span style="white-space: pre-wrap;">@entry.Text</span>
+                    </SprightChatMessageOutbound>
+                }
+                @if (entry.Type == "advisor")
+                {
+                    <SprightChatMessageInbound>
+                        <span style="white-space: pre-wrap;">@entry.Text</span>
+                    </SprightChatMessageInbound>
+                }
             }
-            <SprightChatInput slot="input" Placeholder="Type here" Send="UpdateUserMessages"></SprightChatInput>
+            <SprightChatInput slot="input" Placeholder='Type a message (try "start" or "stop")' SendButtonLabel="Send" Send="OnChatInputSend"></SprightChatInput>
             <span slot="end">
                 AI-generated content may be incorrect.
                 <NimbleAnchor Href="https://www.ni.com" Target="_blank">View Terms and Conditions</NimbleAnchor>
@@ -46,11 +64,93 @@
     </SubContainer>
 </div>
 
-@code {
-    private List<string> _userMessages = new List<string>();
+<style>
+    spright-chat-conversation {
+        width: 700px;
+        height: 650px;
+    }
+</style>
 
-    public void UpdateUserMessages(ChatInputSendEventArgs e)
+@code {
+    private record ChatEntry(string Type, string Text);
+
+    private const string SongThatDoesNotEnd = @"
+This is the song that doesn't end
+Yes, it goes on and on, my friend
+Some people started singing it not knowing what it was,
+And they’ll continue singing it forever just because";
+
+    private static readonly string[] StreamingWords = SongThatDoesNotEnd.Split(' ');
+
+    private List<ChatEntry> _messages = new();
+    private PeriodicTimer? _streamTimer;
+
+    public void OnChatInputSend(ChatInputSendEventArgs e)
     {
-        _userMessages.Add(e.Text);
+        var command = e.Text.Trim().ToLowerInvariant();
+        if (command == "stop")
+        {
+            _streamTimer?.Dispose();
+            _streamTimer = null;
+            return;
+        }
+        if (command != "start")
+        {
+            // Post the user's message as a new outbound message.
+            _messages.Add(new ChatEntry("user", e.Text));
+        }
+        if (command == "start")
+        {
+            if (_streamTimer != null)
+            {
+                return;
+            }
+            // Add the incoming response that streams text.
+            _messages.Add(new ChatEntry("advisor", string.Empty));
+            _ = StreamResponseAsync();
+        }
+    }
+
+    private async Task StreamResponseAsync()
+    {
+        var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(25));
+        _streamTimer = timer;
+        var wordIndex = 0;
+        try
+        {
+            while (await timer.WaitForNextTickAsync())
+            {
+                var chunkText = StreamingWords[wordIndex % StreamingWords.Length];
+                wordIndex++;
+                var idx = _messages.FindLastIndex(m => m.Type == "advisor");
+                if (idx != -1)
+                {
+                    var current = _messages[idx];
+                    var newText = string.IsNullOrEmpty(current.Text)
+                        ? chunkText
+                        : current.Text + " " + chunkText;
+                    _messages[idx] = current with { Text = newText };
+                    StateHasChanged();
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Timer disposed while streaming; stop gracefully.
+        }
+        finally
+        {
+            timer.Dispose();
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (_streamTimer != null)
+        {
+            _streamTimer.Dispose();
+        }
+
+        await ValueTask.CompletedTask;
     }
 }

@@ -58,6 +58,10 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           global-json-file: packages/blazor-workspace/global.json
+      # Install dotnet 8 sdk for asp.net assemblies
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '8.0.422'
       - run: dotnet restore --locked-mode
         working-directory: packages/blazor-workspace/
       - uses: actions/setup-node@v6
@@ -92,7 +96,7 @@ jobs:
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
         if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
-        uses: chromaui/action@v16
+        uses: chromaui/action@v17
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds

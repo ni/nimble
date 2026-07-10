@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,10 +8,10 @@ namespace NimbleBlazor.Tests.Unit;
 /// <summary>
 /// Tests for <see cref="NimbleAnchorBase"/>.
 /// </summary>
-public abstract class NimbleAnchorBaseTests<T> where T : NimbleAnchorBase
+public abstract class NimbleAnchorBaseTests<T> : BunitTestBase where T : NimbleAnchorBase
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Static needed for MemberData of Theory")]
-    public static TheoryData<Expression<Func<T, string>>, string> Data => new()
+    [SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Static needed for MemberData of Theory")]
+    public static TheoryData<Expression<Func<T, string?>>, string> Data => new()
         {
             { x => x.Href, "href" },
             { x => x.HrefLang, "hreflang" },
@@ -26,17 +26,15 @@ public abstract class NimbleAnchorBaseTests<T> where T : NimbleAnchorBase
 #pragma warning disable xUnit1042 // The member referenced by the MemberData attribute returns untyped data rows
     [MemberData(nameof(Data))]
 #pragma warning restore xUnit1042 // The member referenced by the MemberData attribute returns untyped data rows
-    public void NimbleAnchorBase_AttributeIsSet(Expression<Func<T, string>> propertyGetter, string markupName)
+    public void NimbleAnchorBase_AttributeIsSet(Expression<Func<T, string?>> propertyGetter, string markupName)
     {
         var anchorMenuItem = RenderWithPropertySet(propertyGetter, "foo");
 
-        Assert.Contains($"{markupName}=\"foo\"", anchorMenuItem.Markup);
+        anchorMenuItem.AssertAttribute(markupName, "foo");
     }
 
     private IRenderedComponent<T> RenderWithPropertySet<TProperty>(Expression<Func<T, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<T>(p => p.Add(propertyGetter, propertyValue));
+        return Render<T>(p => p.Add(propertyGetter, propertyValue));
     }
 }

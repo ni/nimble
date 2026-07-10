@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +8,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleButton"/>.
 /// </summary>
-public class NimbleButtonTests
+public class NimbleButtonTests : BunitTestBase
 {
     [Fact]
     public void NimbleButton_Render_HasButtonMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-button";
+        var button = Render<NimbleButton>();
 
-        var button = context.RenderComponent<NimbleButton>();
-
-        Assert.Contains(expectedMarkup, button.Markup);
+        Assert.NotNull(button.Find("nimble-button"));
     }
 
     [Fact]
     public void NimbleButton_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleButton>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleButton>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -39,24 +33,22 @@ public class NimbleButtonTests
     {
         var button = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        button.AssertAttribute("appearance", expectedAttribute);
     }
 
     [Theory]
-    [InlineData(ButtonAppearanceVariant.Default, "<nimble-button>")]
-    [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
-    [InlineData(ButtonAppearanceVariant.Accent, "appearance-variant=\"accent\"")]
-    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
+    [InlineData(ButtonAppearanceVariant.Default, null)]
+    [InlineData(ButtonAppearanceVariant.Primary, "primary")]
+    [InlineData(ButtonAppearanceVariant.Accent, "accent")]
+    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string? expectedAttribute)
     {
         var button = RenderWithPropertySet(x => x.AppearanceVariant, value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        button.AssertAttribute("appearance-variant", expectedAttribute);
     }
 
     private IRenderedComponent<NimbleButton> RenderWithPropertySet<TProperty>(Expression<Func<NimbleButton, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleButton>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleButton>(p => p.Add(propertyGetter, propertyValue));
     }
 }

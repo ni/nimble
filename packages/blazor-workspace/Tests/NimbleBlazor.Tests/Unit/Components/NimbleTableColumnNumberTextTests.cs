@@ -1,21 +1,18 @@
-﻿using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
-
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
 /// Tests for <see cref="NimbleTableColumnNumberText"/>
 /// </summary>
-public class NimbleTableColumnNumberTextTests
+public class NimbleTableColumnNumberTextTests : BunitTestBase
 {
     [Fact]
     public void NimbleTableColumnNumberText_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnNumberText>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleTableColumnNumberText>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -24,8 +21,7 @@ public class NimbleTableColumnNumberTextTests
     {
         var table = RenderWithPropertySet(x => x.FieldName!, "FirstName");
 
-        var expectedMarkup = @"field-name=""FirstName""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("field-name", "FirstName");
     }
 
     [Fact]
@@ -33,8 +29,7 @@ public class NimbleTableColumnNumberTextTests
     {
         var table = RenderWithPropertySet(x => x.Placeholder, "Custom placeholder");
 
-        var expectedMarkup = @"placeholder=""Custom placeholder""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("placeholder", "Custom placeholder");
     }
 
     [Fact]
@@ -42,8 +37,7 @@ public class NimbleTableColumnNumberTextTests
     {
         var table = RenderWithPropertySet(x => x.DecimalDigits!, 5);
 
-        var expectedMarkup = @"decimal-digits=""5""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("decimal-digits", "5");
     }
 
     [Fact]
@@ -51,34 +45,31 @@ public class NimbleTableColumnNumberTextTests
     {
         var table = RenderWithPropertySet(x => x.DecimalMaximumDigits!, 5);
 
-        var expectedMarkup = @"decimal-maximum-digits=""5""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        table.AssertAttribute("decimal-maximum-digits", "5");
     }
 
     [Theory]
-    [InlineData(NumberTextFormat.Default, "<nimble-table-column-number-text((?!format).)*>")]
-    [InlineData(NumberTextFormat.Decimal, @"format=""decimal""")]
-    public void NimbleTableColumnNumberText_WithFormatAttribute_HasTableMarkup(NumberTextFormat value, string expectedMarkupRegEx)
+    [InlineData(NumberTextFormat.Default, null)]
+    [InlineData(NumberTextFormat.Decimal, "decimal")]
+    public void NimbleTableColumnNumberText_WithFormatAttribute_HasTableMarkup(NumberTextFormat value, string? expectedAttributeValue)
     {
         var table = RenderWithPropertySet(x => x.Format, value);
-        Assert.Matches(expectedMarkupRegEx, table.Markup);
+        table.AssertAttribute("format", expectedAttributeValue);
     }
 
     [Theory]
-    [InlineData(NumberTextAlignment.Default, @"<nimble-table-column-number-text((?!alignment).)*>")]
-    [InlineData(NumberTextAlignment.Left, @"alignment=""left""")]
-    [InlineData(NumberTextAlignment.Right, @"alignment=""right""")]
-    public void NimbleTableColumnNumberText_WithCustomLocaleMatcherAttribute_HasTableMarkup(NumberTextAlignment value, string expectedMarkupRegEx)
+    [InlineData(NumberTextAlignment.Default, null)]
+    [InlineData(NumberTextAlignment.Left, "left")]
+    [InlineData(NumberTextAlignment.Right, "right")]
+    public void NimbleTableColumnNumberText_WithCustomLocaleMatcherAttribute_HasTableMarkup(NumberTextAlignment value, string? expectedAttributeValue)
     {
         var table = RenderWithPropertySet(x => x.Alignment, value);
-        Assert.Matches(expectedMarkupRegEx, table.Markup);
+        table.AssertAttribute("alignment", expectedAttributeValue);
     }
 
     private IRenderedComponent<NimbleTableColumnNumberText> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnNumberText, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTableColumnNumberText>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleTableColumnNumberText>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 

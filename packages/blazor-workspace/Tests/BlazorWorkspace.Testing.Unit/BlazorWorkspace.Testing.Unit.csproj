@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>BlazorWorkspace.Testing.Unit</RootNamespace>
+    <AssemblyName>BlazorWorkspace.Testing.Unit</AssemblyName>
+    <IsTestProject>false</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bunit" Version="2.7.2" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+  </ItemGroup>
+
+</Project>

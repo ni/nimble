@@ -17,6 +17,7 @@ export const styles = css`
     ${display('flex')}
 
     :host {
+        height: 480px;
         flex-direction: column;
         background: ${applicationBackgroundColor};
     }
@@ -64,12 +65,28 @@ export const styles = css`
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
         row-gap: 32px;
         padding: ${mediumPadding} ${standardPadding} ${mediumPadding}
             ${standardPadding};
         background: ${sectionBackgroundImage};
         overflow-y: auto;
+        overflow-anchor: none;
+    }
+
+    .messages-history,
+    .messages-anchored {
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        row-gap: 32px;
+    }
+
+    .messages-history.region-empty {
+        display: none;
+    }
+
+    .messages-anchored {
+        min-height: 100%;
     }
 
     :host([appearance='overlay']) .messages {

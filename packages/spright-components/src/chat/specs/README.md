@@ -87,7 +87,7 @@ All end text buttons must meet the following criteria
 #### Chat conversation
 
 1. Lays out messages vertically based on their order.
-1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
+1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation. Optionally auto-scrolls when more content is added.
 1. Includes a slot to place a toolbar (and its content such as buttons or menu buttons) on top of the conversation.
 1. Includes a slot to place content (such as banners) below the toolbar and above the messages.
 1. Includes a slot to place an input component below the messages.
@@ -282,6 +282,7 @@ All message types will share the following API:
     - `appearance`
         - `undefined` (default): provides a vertical gradient background and a 1-pixel border
         - `overlay`: hides the background and border of the spright-chat-conversation
+    - `auto-scroll`: Whether to enable [automatic scrolling behaviors](./scrolling-behavior.md)
 - _Methods_
 - _Events_
 - _CSS Classes and CSS Custom Properties that affect the component_

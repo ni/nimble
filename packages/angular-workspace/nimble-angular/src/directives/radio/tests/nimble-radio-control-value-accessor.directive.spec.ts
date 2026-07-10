@@ -16,9 +16,11 @@ describe('Nimble radio control value accessor', () => {
         @Component({
             template: `
                 <nimble-radio-group #radioGroup name="options">
-                    <nimble-radio *ngFor="let button of radios" [value]="button.value" [(ngModel)]="selectedRadio" (ngModelChange)="onModelValueChange($event)">
-                        {{ button.name }}
-                    </nimble-radio>
+                    @for (button of radios; track button) {
+                        <nimble-radio [value]="button.value" [(ngModel)]="selectedRadio" (ngModelChange)="onModelValueChange($event)">
+                            {{ button.name }}
+                        </nimble-radio>
+                    }
                 </nimble-radio-group>
              `,
             standalone: false
@@ -113,9 +115,11 @@ describe('Nimble radio control value accessor', () => {
             template: `
                 <form [formGroup]="form">
                     <nimble-radio-group #radioGroup>
-                        <nimble-radio *ngFor="let option of radios" [value]="option.value" [formControl]="selectedRadio">
-                            {{ option.name }}
-                        </nimble-radio>
+                        @for (option of radios; track option) {
+                            <nimble-radio [value]="option.value" [formControl]="selectedRadio">
+                                {{ option.name }}
+                            </nimble-radio>
+                        }
                     </nimble-radio-group>
                 </form>
                 `,

@@ -1,5 +1,5 @@
-using System;
 using System.Linq.Expressions;
+using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Xunit;
 
@@ -8,26 +8,20 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleCheckbox"/>
 /// </summary>
-public class NimbleCheckboxTests
+public class NimbleCheckboxTests : BunitTestBase
 {
     [Fact]
     public void NimbleCheckbox_Rendered_HasCheckboxMarkup()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-checkbox";
+        var checkbox = Render<NimbleCheckbox>();
 
-        var checkbox = context.RenderComponent<NimbleCheckbox>();
-
-        Assert.Contains(expectedMarkup, checkbox.Markup);
+        Assert.NotNull(checkbox.Find("nimble-checkbox"));
     }
 
     [Fact]
     public void NimbleCheckbox_SupportsAdditionalAttributes()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleCheckbox>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => Render<NimbleCheckbox>(parameters => parameters.AddUnmatched("class", "foo")));
         Assert.Null(exception);
     }
 
@@ -36,7 +30,7 @@ public class NimbleCheckboxTests
     {
         var checkbox = RenderNimbleCheckboxWithPropertySet(x => x.ErrorText, "bad value");
 
-        Assert.Contains("error-text=\"bad value\"", checkbox.Markup);
+        checkbox.AssertAttribute("error-text", "bad value");
     }
 
     [Fact]
@@ -44,13 +38,19 @@ public class NimbleCheckboxTests
     {
         var checkbox = RenderNimbleCheckboxWithPropertySet(x => x.ErrorVisible, true);
 
-        Assert.Contains("error-visible", checkbox.Markup);
+        checkbox.AssertHasAttribute("error-visible");
+    }
+
+    [Fact]
+    public void NimbleCheckboxAppearanceIndeterminate_AttributeIsSet()
+    {
+        var checkbox = RenderNimbleCheckboxWithPropertySet(x => x.AppearanceIndeterminate, true);
+
+        checkbox.AssertHasAttribute("appearance-indeterminate");
     }
 
     private IRenderedComponent<NimbleCheckbox> RenderNimbleCheckboxWithPropertySet<TProperty>(Expression<Func<NimbleCheckbox, TProperty>> propertyGetter, TProperty propertyValue)
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleCheckbox>(p => p.Add(propertyGetter, propertyValue));
+        return Render<NimbleCheckbox>(p => p.Add(propertyGetter, propertyValue));
     }
 }

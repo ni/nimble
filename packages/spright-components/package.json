@@ -1,10 +1,10 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.18.1",
+  "version": "6.21.5",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",
-    "build-bundle": "rollup --config",
+    "build-bundle": "rollup --config && npm run test-node-smoke-test",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
@@ -13,6 +13,7 @@
     "build:cem": "npm run build:cem:config && npm run build:cem:markdown",
     "build:cem:config": "cem analyze --config ./custom-elements-manifest.config.mjs",
     "build:cem:markdown": "node build/generate-markdown.mjs",
+    "test-node-smoke-test": "node build/node-smoke-test.mjs",
     "test-chrome-debugger": "karma start karma.conf.cjs --browsers=ChromeDebugging --skip-tags SkipChrome",
     "test-chrome": "karma start karma.conf.headless.cjs --browsers=ChromeHeadlessOpt --single-run --skip-tags SkipChrome",
     "test-firefox-debugger": "karma start karma.conf.cjs --browsers=FirefoxDebugging --skip-tags SkipFirefox",
@@ -39,11 +40,11 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "customElements": "dist/custom-elements.json",
   "dependencies": {
-    "@ni/fast-element": "^10.1.1",
-    "@ni/fast-foundation": "^10.2.3",
+    "@ni/fast-element": "^10.1.2",
+    "@ni/fast-foundation": "^10.2.4",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.8.0",
-    "@ni/nimble-tokens": "^8.18.0",
+    "@ni/nimble-components": "^35.12.3",
+    "@ni/nimble-tokens": "^8.18.1",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
@@ -57,7 +58,7 @@
     "@rollup/plugin-replace": "^6.0.0",
     "@rollup/plugin-terser": "^1.0.0",
     "@types/jasmine": "^5.1.4",
-    "concurrently": "^9.0.0",
+    "concurrently": "^10.0.0",
     "jasmine-core": "^5.1.2",
     "karma": "^6.3.0",
     "karma-chrome-launcher": "^3.1.0",
@@ -68,7 +69,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
     "karma-webkit-launcher": "^2.6.0",
-    "playwright": "1.59.1",
+    "playwright": "1.60.0",
     "rollup": "^4.60.2",
     "rollup-plugin-sourcemaps2": "^0.5.0",
     "typescript": "~5.8.3"

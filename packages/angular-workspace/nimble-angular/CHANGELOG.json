@@ -2,6 +2,180 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "33.4.4",
+      "tag": "@ni/nimble-angular_v33.4.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.12.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Jul 2026 00:57:45 GMT",
+      "version": "33.4.3",
+      "tag": "@ni/nimble-angular_v33.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.12.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 22:37:46 GMT",
+      "version": "33.4.2",
+      "tag": "@ni/nimble-angular_v33.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.12.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 17:58:30 GMT",
+      "version": "33.4.1",
+      "tag": "@ni/nimble-angular_v33.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.12.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 25 Jun 2026 20:51:07 GMT",
+      "version": "33.4.0",
+      "tag": "@ni/nimble-angular_v33.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2bc131b2443301cfb4f80c8319b4155fce1ac6d1",
+            "comment": "add support for pinning table columns"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Jun 2026 17:09:52 GMT",
+      "version": "33.3.4",
+      "tag": "@ni/nimble-angular_v33.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.10.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 May 2026 16:39:52 GMT",
+      "version": "33.3.3",
+      "tag": "@ni/nimble-angular_v33.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "35e108abbe23815a0c67cf87518acdeccb58cdcc",
+            "comment": "Fix typo in combobox directive template"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.9.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/unit-format to v1.0.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 May 2026 18:42:52 GMT",
+      "version": "33.3.2",
+      "tag": "@ni/nimble-angular_v33.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.9.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 May 2026 17:01:52 GMT",
+      "version": "33.3.1",
+      "tag": "@ni/nimble-angular_v33.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.9.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 May 2026 16:29:54 GMT",
+      "version": "33.3.0",
+      "tag": "@ni/nimble-angular_v33.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "5265744+hellovolcano@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "38b5b13eceb1f7c1da8342dc583d79769e69ca7a",
+            "comment": "add appearance-indeterminate property to nimble checkbox"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 May 2026 17:04:06 GMT",
       "version": "33.2.0",
       "tag": "@ni/nimble-angular_v33.2.0",

@@ -1,8 +1,139 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Tue, 05 May 2026 14:11:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 9.5.5
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.5
+
+## 9.5.4
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.4
+
+## 9.5.3
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.3
+
+## 9.5.2
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.2
+
+## 9.5.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.1
+
+## 9.5.0
+
+Sat, 27 Jun 2026 00:25:17 GMT
+
+### Minor changes
+
+- Add auto-scroll attribute to conversation. ([ni/nimble@fc9dd14](https://github.com/ni/nimble/commit/fc9dd14cc8ab4d541f7a368154003dea5b576105))
+- Bump @ni/spright-components to v6.21.0
+
+## 9.4.4
+
+Thu, 25 Jun 2026 20:51:07 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.4
+
+## 9.4.3
+
+Fri, 19 Jun 2026 17:31:59 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.3
+
+## 9.4.2
+
+Wed, 17 Jun 2026 21:07:03 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.2
+
+## 9.4.1
+
+Mon, 08 Jun 2026 21:55:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.20.1
+
+## 9.4.0
+
+Tue, 02 Jun 2026 16:41:17 GMT
+
+### Minor changes
+
+- Add Angular standalone wrapper for spright work item square list cog icon ([ni/nimble@819c652](https://github.com/ni/nimble/commit/819c6523058c74dad7b1bc7d30289e8c90659dbc))
+- Bump @ni/spright-components to v6.20.0
+
+## 9.3.2
+
+Mon, 01 Jun 2026 17:09:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.19.2
+
+## 9.3.1
+
+Wed, 27 May 2026 16:39:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.19.1
+
+## 9.3.0
+
+Tue, 26 May 2026 18:42:52 GMT
+
+### Minor changes
+
+- Add new breakpoint icons ([ni/nimble@92b4050](https://github.com/ni/nimble/commit/92b405008ad93d76a4b80d8c3ce971f4f2cf6bc6))
+- Bump @ni/spright-components to v6.19.0
+
+## 9.2.3
+
+Tue, 19 May 2026 17:01:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.3
+
+## 9.2.2
+
+Tue, 19 May 2026 16:29:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.18.2
 
 ## 9.2.1
 

@@ -155,6 +155,18 @@ describe('ChatInput', () => {
 
             expect(page.isButtonEnabled()).toBeTrue();
         });
+
+        it('enables send button when changed to false after user types while true', () => {
+            element.sendDisabled = true;
+            processUpdates();
+
+            page.setText('new value');
+
+            element.sendDisabled = false;
+            processUpdates();
+
+            expect(page.isButtonEnabled()).toBeTrue();
+        });
     });
 
     describe('user input', () => {
@@ -328,6 +340,18 @@ describe('ChatInput', () => {
             await page.pressEnterKey();
 
             expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('via Enter with sendDisabled set triggers no send event', async () => {
+            const spy = jasmine.createSpy();
+            element.addEventListener('send', spy);
+            element.value = 'new value';
+            element.sendDisabled = true;
+            processUpdates();
+            await page.pressEnterKey();
+
+            expect(spy).not.toHaveBeenCalled();
+            expect(element.value).toBe('new value');
         });
 
         it('Shift-Enter triggers no send event', async () => {
