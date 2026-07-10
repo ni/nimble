@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
+    "test": "karma start karma.conf.cjs --single-run",
     "invoke-publish": "npm publish"
   },
   "type": "module",
@@ -51,6 +52,17 @@
   "devDependencies": {
     "@ni/ok-components": "^1.6.5",
     "@ni-private/eslint-config-nimble": "*",
+    "@types/jasmine": "^5.1.4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "jasmine-core": "^5.1.2",
+    "karma": "^6.3.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^5.1.0",
+    "karma-vite": "^1.0.5",
+    "playwright": "1.60.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "typescript": "~5.8.3"
   }
 }
