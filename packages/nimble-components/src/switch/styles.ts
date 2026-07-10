@@ -14,7 +14,6 @@ import {
     borderWidth,
     buttonLabelDisabledFontColor,
     buttonLabelFontColor,
-    controlHeight,
     controlLabelDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
@@ -28,44 +27,6 @@ import { themeBehavior } from '../utilities/style/theme';
 export const styles = css`
     ${display('inline-flex')}
 
-    :host {
-        outline: none;
-        font: ${bodyFont};
-        color: ${buttonLabelFontColor};
-        flex-direction: column;
-        cursor: pointer;
-        --ni-private-switch-height: 24px;
-        --ni-private-switch-indicator-size: 24px;
-        --ni-private-switch-indicator-inner-size: 18px;
-        --ni-private-switch-indicator-margin: -2px;
-        padding-bottom: calc(
-            ${controlHeight} - var(--ni-private-switch-height)
-        );
-    }
-
-    :host([disabled]) {
-        cursor: default;
-        color: ${buttonLabelDisabledFontColor};
-    }
-
-    .label {
-        color: ${controlLabelFontColor};
-        font: ${controlLabelFont};
-        padding-bottom: 2px;
-    }
-
-    :host([disabled]) .label {
-        color: ${controlLabelDisabledFontColor};
-    }
-
-    .label__hidden {
-        display: none;
-        visibility: hidden;
-    }
-
-    .switch-container {
-        display: flex;
-        align-items: center;
    :host {
        outline: none;
        font: ${bodyFont};
