@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 10 Jul 2026 18:20:51 GMT",
+      "version": "35.12.4",
+      "tag": "@ni/nimble-components_v35.12.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4817316b71d434a689a16d0c44a9e2b01a0517b1",
+            "comment": "Add padding between switch and its label"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Jul 2026 19:32:33 GMT",
       "version": "35.12.3",
       "tag": "@ni/nimble-components_v35.12.3",
