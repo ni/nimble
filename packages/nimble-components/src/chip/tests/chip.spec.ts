@@ -146,6 +146,14 @@ describe('Chip', () => {
         expect(changeEvent).not.toHaveBeenCalled();
     });
 
+    it('applies disabled semantics when selectable and disabled', async () => {
+        element.selectable = true;
+        element.disabled = true;
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('aria-disabled')).toBe('true');
+    });
+
     it('applies tabindex of 0 when selectable', async () => {
         element.selectable = true;
         await waitForUpdatesAsync();
@@ -161,6 +169,16 @@ describe('Chip', () => {
         await waitForUpdatesAsync();
 
         expect(element.hasAttribute('tabindex')).toBeFalse();
+    });
+
+    it('restores the managed tabindex when it is removed', async () => {
+        element.selectable = true;
+        await waitForUpdatesAsync();
+
+        element.removeAttribute('tabindex');
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('tabindex')).toBe('0');
     });
 
     it('preserves user supplied tabindex value', async () => {

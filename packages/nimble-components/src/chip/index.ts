@@ -205,14 +205,6 @@ export class Chip extends FoundationElement {
         event.stopPropagation();
     }
 
-    protected selectableChanged(_oldValue: boolean, _newValue: boolean): void {
-        this.updateManagedTabIndex();
-    }
-
-    protected disabledChanged(_oldValue: boolean, _newValue: boolean): void {
-        this.updateManagedTabIndex();
-    }
-
     protected tabIndexChanged(): void {
         if (this.suppressTabIndexChanged) {
             this.suppressTabIndexChanged = false;
@@ -220,7 +212,15 @@ export class Chip extends FoundationElement {
         }
 
         this.managingTabIndex = false;
-        this.updateRemoveButtonTabIndex();
+        this.updateManagedTabIndex();
+    }
+
+    protected selectableChanged(_oldValue: boolean, _newValue: boolean): void {
+        this.updateManagedTabIndex();
+    }
+
+    protected disabledChanged(_oldValue: boolean, _newValue: boolean): void {
+        this.updateManagedTabIndex();
     }
 
     private updateManagedTabIndex(): void {
@@ -244,7 +244,7 @@ export class Chip extends FoundationElement {
     private setManagedTabIndex(value: number): void {
         this.managingTabIndex = true;
         this.suppressTabIndexChanged = true;
-        this.tabIndex = value;
+        this.setAttribute('tabindex', `${value}`);
     }
 
     private removeManagedTabIndex(): void {
@@ -258,9 +258,14 @@ export class Chip extends FoundationElement {
     }
 
     private updateRemoveButtonTabIndex(): void {
-        this.removeButtonTabIndex = this.selectable
-            ? '-1'
-            : (this.hasAttribute('tabindex') ? `${this.tabIndex}` : null);
+        if (this.selectable) {
+            this.removeButtonTabIndex = '-1';
+            return;
+        }
+
+        this.removeButtonTabIndex = this.hasAttribute('tabindex')
+            ? `${this.tabIndex}`
+            : null;
     }
 }
 applyMixins(Chip, StartEnd);

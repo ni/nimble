@@ -16,6 +16,7 @@ ChipOptions
 > = (context, definition) => html<Chip>`
     <template
         role="${x => (x.selectable ? 'button' : undefined)}"
+        aria-disabled="${x => (x.selectable ? x.disabled : undefined)}"
         aria-pressed="${x => (x.selectable ? x.selected : undefined)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         @keyup="${(x, c) => x.keyupHandler(c.event as KeyboardEvent)}"
