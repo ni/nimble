@@ -10,6 +10,6 @@ export const OkFvSummaryPanel = wrap(FvSummaryPanel, {
         onEditItems: 'edit-items' as EventName<FvSummaryPanelEditItemsEvent>,
     }
 });
-export interface FvSummaryPanelEditItemsEvent extends CustomEvent {
+export interface FvSummaryPanelEditItemsEvent extends CustomEvent<void> {
     target: FvSummaryPanel;
 }

@@ -19,7 +19,7 @@ export const OkFvSplitButton = wrap(FvSplitButton, {
         onToggle: 'toggle' as EventName<FvSplitButtonToggleEvent>,
     }
 });
-export interface FvSplitButtonTriggerEvent extends CustomEvent {
+export interface FvSplitButtonTriggerEvent extends CustomEvent<void> {
     target: FvSplitButton;
 }
 export interface FvSplitButtonToggleEvent extends CustomEvent<{ open: boolean }> {
