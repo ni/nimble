@@ -27,7 +27,7 @@ import { themeBehavior } from '../utilities/style/theme';
 export const styles = css`
     ${display('inline-flex')}
 
-   :host {
+    :host {
         outline: none;
         font: ${bodyFont};
         color: ${buttonLabelFontColor};
@@ -37,28 +37,28 @@ export const styles = css`
         --ni-private-switch-indicator-size: 24px;
         --ni-private-switch-indicator-inner-size: 18px;
         --ni-private-switch-indicator-margin: -2px;
-   }
+    }
 
-   :host([disabled]) {
+    :host([disabled]) {
         cursor: default;
         color: ${buttonLabelDisabledFontColor};
-   }
+    }
 
-   .label {
+    .label {
         color: ${controlLabelFontColor};
         font: ${controlLabelFont};
-   }
+    }
 
-   :host([disabled]) .label {
+    :host([disabled]) .label {
         color: ${controlLabelDisabledFontColor};
-   }
+    }
 
-   .label__hidden {
+    .label__hidden {
         display: none;
         visibility: hidden;
-   }
+    }
 
-   .switch-container {
+    .switch-container {
         display: flex;
         align-items: center;
         ${'' /*
@@ -67,7 +67,7 @@ export const styles = css`
         */}
         padding-top: 2px;
         padding-bottom: 6px;
-   }
+    }
 
     slot[name='unchecked-message']::slotted(*) {
         margin-inline-end: 8px;
