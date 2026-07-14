@@ -1,8 +1,64 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Tue, 30 Jun 2026 02:23:30 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 10 Jul 2026 18:20:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.5.1
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.6
+
+## 2.5.0
+
+Thu, 09 Jul 2026 21:23:34 GMT
+
+### Minor changes
+
+- Add OK Angular master-detail wrappers ([ni/nimble@0b51eed](https://github.com/ni/nimble/commit/0b51eedc5299c2d48110fb2f23550e2277078364))
+
+## 2.4.20
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.5
+
+## 2.4.19
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.4
+
+## 2.4.18
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.3
+
+## 2.4.17
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.2
+
+## 2.4.16
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.1
 
 ## 2.4.15
 

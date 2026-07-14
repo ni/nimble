@@ -9,7 +9,10 @@ const exampleAppOnlyIgnoreAttributes = [
     'header',
     'options',
     'selected-values',
+    'status-label',
+    'status-color',
     'subtitle',
+    'title-text',
     'trigger-label',
 ];
 

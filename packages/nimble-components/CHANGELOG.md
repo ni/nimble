@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 25 Jun 2026 20:51:07 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 10 Jul 2026 18:20:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.12.4
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Add padding between switch and its label ([ni/nimble@4817316](https://github.com/ni/nimble/commit/4817316b71d434a689a16d0c44a9e2b01a0517b1))
+
+## 35.12.3
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Enable browser global shims for SSR module loading ([ni/nimble@784cbe5](https://github.com/ni/nimble/commit/784cbe5c58cccae73553e03de0cc7efc149d368e))
+
+## 35.12.2
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Updated selected state styling ([ni/nimble@a50dcc5](https://github.com/ni/nimble/commit/a50dcc500383afd573f7688be5397e3519703d7e))
+
+## 35.12.1
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Fix duplicate `mention-update` events fired by the rich text editor after the tiptap suggestion plugin update ([ni/nimble@b9ec0a7](https://github.com/ni/nimble/commit/b9ec0a79e40cea3eff8ef5352f7adc7093b287a6))
+
+## 35.12.0
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Minor changes
+
+- Support CSS field-sizing on text-area, text-field, number-field, and combobox. Also minor padding adjustment for number-field ([ni/nimble@c682c5c](https://github.com/ni/nimble/commit/c682c5c23ebb629a1d4e2f53002e4e6b618bd9b4))
 
 ## 35.11.0
 

@@ -2,6 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance } from '@ni/nimble-components/dist/esm/text-area/types';
+import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -20,6 +21,14 @@ import {
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
+import {
+    fieldSizingStates,
+    type FieldSizingState,
+    fieldSizingErrorStates,
+    type FieldSizingErrorState,
+    fieldSizingLabelStates,
+    type FieldSizingLabelState
+} from '../patterns/field-sizing/states';
 
 const appearanceStates = [
     ['Outline', TextAreaAppearance.outline],
@@ -188,6 +197,63 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
             Text area
         </${textAreaTag}>`
     )
+);
+
+const fieldSizingWidthStates = [
+    ['Default', ''],
+    ['min-width=0', 'min-width: 0;'],
+    ['width=200px', 'width: 200px;']
+] as const;
+type FieldSizingWidthState = (typeof fieldSizingWidthStates)[number];
+
+const fieldSizingValueStates = [
+    ['Short', 'tiny'],
+    ['Long', 'Text longer than the default width'],
+    ['Multiline', 'line 1\nline 2\nline 3']
+] as const;
+type FieldSizingValueState = (typeof fieldSizingValueStates)[number];
+
+const fieldSizingComponent = (
+    [widthName, widthStyles]: FieldSizingWidthState,
+    [errorName, errorString]: FieldSizingErrorState,
+    [labelName, label]: FieldSizingLabelState,
+    [fieldSizingName, fieldSizingStyle]: FieldSizingState,
+    [valueName, value]: FieldSizingValueState
+): ViewTemplate => html`
+    <div style="display: inline-flex; flex-direction: column; align-items: flex-start; width: min-content;">
+        <div style="width: 480px; box-sizing: border-box;">Width(${widthName}) Error(${errorName}) Label(${labelName}) FieldSizing(${fieldSizingName}) Value(${valueName})</div>
+        <${textAreaTag}
+            style="${fieldSizingStyle} ${widthStyles} ${errorString ? 'margin-bottom: 24px' : 'margin-bottom: 4px'}"
+            value="${() => value}"
+            ?error-visible="${() => errorString !== undefined}"
+            error-text="${() => errorString}"
+        >
+            ${() => label}
+        </${textAreaTag}>
+    </div>
+`;
+
+const fieldSizingMatrixTemplate = (template: ViewTemplate): ViewTemplate => html`
+    <div style="
+        display: grid;
+        grid-template-columns: ${'1fr '.repeat(fieldSizingValueStates.length)};
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        width: 1500px;
+    ">
+    ${template}
+    </div>
+`;
+
+export const fieldSizing: StoryFn = createFixedThemeStory(
+    fieldSizingMatrixTemplate(createMatrix(fieldSizingComponent, [
+        fieldSizingWidthStates,
+        fieldSizingErrorStates,
+        fieldSizingLabelStates,
+        fieldSizingStates,
+        fieldSizingValueStates
+    ])),
+    lightThemeWhiteBackground
 );
 
 export const heightTest: StoryFn = createStory(

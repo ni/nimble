@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
         <example-fv-card-section></example-fv-card-section>
         <example-fv-chip-selector-section></example-fv-chip-selector-section>
         <example-fv-context-help-section></example-fv-context-help-section>
+        <example-fv-master-detail-list-section></example-fv-master-detail-list-section>
         <example-fv-search-input-section></example-fv-search-input-section>
         <example-fv-split-button-section></example-fv-split-button-section>
         <example-fv-split-button-anchor-section></example-fv-split-button-anchor-section>

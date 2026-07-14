@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 10 Jul 2026 18:20:51 GMT",
+      "version": "35.12.4",
+      "tag": "@ni/nimble-components_v35.12.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4817316b71d434a689a16d0c44a9e2b01a0517b1",
+            "comment": "Add padding between switch and its label"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "35.12.3",
+      "tag": "@ni/nimble-components_v35.12.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "784cbe5c58cccae73553e03de0cc7efc149d368e",
+            "comment": "Enable browser global shims for SSR module loading"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Jul 2026 00:57:45 GMT",
+      "version": "35.12.2",
+      "tag": "@ni/nimble-components_v35.12.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a50dcc500383afd573f7688be5397e3519703d7e",
+            "comment": "Updated selected state styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 22:37:46 GMT",
+      "version": "35.12.1",
+      "tag": "@ni/nimble-components_v35.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b9ec0a79e40cea3eff8ef5352f7adc7093b287a6",
+            "comment": "Fix duplicate `mention-update` events fired by the rich text editor after the tiptap suggestion plugin update"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 17:58:30 GMT",
+      "version": "35.12.0",
+      "tag": "@ni/nimble-components_v35.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c682c5c23ebb629a1d4e2f53002e4e6b618bd9b4",
+            "comment": "Support CSS field-sizing on text-area, text-field, number-field, and combobox. Also minor padding adjustment for number-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 25 Jun 2026 20:51:07 GMT",
       "version": "35.11.0",
       "tag": "@ni/nimble-components_v35.11.0",

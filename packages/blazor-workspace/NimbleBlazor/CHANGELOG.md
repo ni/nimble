@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 25 Jun 2026 20:51:07 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 10 Jul 2026 18:20:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 21.3.1
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.4
+
+## 21.3.0
+
+Thu, 09 Jul 2026 19:42:47 GMT
+
+### Minor changes
+
+- Implement select loading-visible ([ni/nimble@a3eb7ae](https://github.com/ni/nimble/commit/a3eb7ae57fa1d2d616af75d89a1f09be5da744f7))
+
+## 21.2.4
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.3
+
+## 21.2.3
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.2
+
+## 21.2.2
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@b9ec0a7](https://github.com/ni/nimble/commit/b9ec0a79e40cea3eff8ef5352f7adc7093b287a6))
+- Bump @ni/nimble-components to v35.12.1
+
+## 21.2.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.0
 
 ## 21.2.0
 

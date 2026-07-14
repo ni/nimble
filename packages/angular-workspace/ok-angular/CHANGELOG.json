@@ -2,6 +2,111 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Fri, 10 Jul 2026 18:20:51 GMT",
+      "version": "2.5.1",
+      "tag": "@ni/ok-angular_v2.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.6.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Jul 2026 21:23:34 GMT",
+      "version": "2.5.0",
+      "tag": "@ni/ok-angular_v2.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "0b51eedc5299c2d48110fb2f23550e2277078364",
+            "comment": "Add OK Angular master-detail wrappers"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 Jul 2026 19:32:33 GMT",
+      "version": "2.4.20",
+      "tag": "@ni/ok-angular_v2.4.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.6.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Jul 2026 00:57:45 GMT",
+      "version": "2.4.19",
+      "tag": "@ni/ok-angular_v2.4.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.6.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 22:37:46 GMT",
+      "version": "2.4.18",
+      "tag": "@ni/ok-angular_v2.4.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.6.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 20:16:45 GMT",
+      "version": "2.4.17",
+      "tag": "@ni/ok-angular_v2.4.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.6.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Jul 2026 17:58:30 GMT",
+      "version": "2.4.16",
+      "tag": "@ni/ok-angular_v2.4.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.6.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Jun 2026 02:23:30 GMT",
       "version": "2.4.15",
       "tag": "@ni/ok-angular_v2.4.15",

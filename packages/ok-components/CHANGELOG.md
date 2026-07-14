@@ -1,8 +1,62 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 30 Jun 2026 02:23:30 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 10 Jul 2026 18:20:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.6.6
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.4
+- Bump @ni/spright-components to v6.21.6
+
+## 1.6.5
+
+Wed, 08 Jul 2026 19:32:33 GMT
+
+### Patches
+
+- Enable browser global shims for SSR module loading ([ni/nimble@784cbe5](https://github.com/ni/nimble/commit/784cbe5c58cccae73553e03de0cc7efc149d368e))
+- Bump @ni/nimble-components to v35.12.3
+- Bump @ni/spright-components to v6.21.5
+
+## 1.6.4
+
+Fri, 03 Jul 2026 00:57:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.2
+- Bump @ni/spright-components to v6.21.4
+
+## 1.6.3
+
+Wed, 01 Jul 2026 22:37:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.1
+- Bump @ni/spright-components to v6.21.3
+
+## 1.6.2
+
+Wed, 01 Jul 2026 20:16:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.2
+
+## 1.6.1
+
+Wed, 01 Jul 2026 17:58:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.0
+- Bump @ni/spright-components to v6.21.1
 
 ## 1.6.0
 

@@ -158,18 +158,18 @@ export const styles = css`
         }
 
         :host([severity="error"]) .control {
-            --ni-private-step-icon-color: ${failColor};
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${failColor};
-            --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
-            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-background-color: ${failColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-line-color: ${failColor};
         }
 
         :host([severity="warning"]) .control {
-            --ni-private-step-icon-color: ${warningColor};
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${warningColor};
-            --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
-            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-background-color: ${warningColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-full-size);
             --ni-private-step-line-color: ${warningColor};
         }
 
@@ -188,6 +188,27 @@ export const styles = css`
             --ni-private-step-icon-background-color: rgb(from ${borderHoverColor} r g b / 30%);
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
             --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([selected][severity="error"]) .control {
+            --ni-private-step-icon-color: ${failColor};
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
+            --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([selected][severity="warning"]) .control {
+            --ni-private-step-icon-color: ${warningColor};
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
+            --ni-private-step-line-color: ${warningColor};
+        }
+
+        :host([selected][severity="success"]) .control {
+            --ni-private-step-icon-color: ${passColor};
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
+            --ni-private-step-line-color: ${passColor};
         }
 
         .icon-background {
@@ -258,7 +279,6 @@ export const styles = css`
             display: none;
         }
 
-        :host([selected]) .step-indicator,
         :host([disabled]) .step-indicator {
             display: contents;
         }
@@ -273,7 +293,6 @@ export const styles = css`
             display: contents;
         }
 
-        :host([selected]) .icon-severity,
         :host([disabled]) .icon-severity {
             display: none;
         }
@@ -364,14 +383,16 @@ export const styles = css`
         }
 
         :host([severity="error"]) .control:hover {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${failColor};
-            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-line-color: ${failColor};
         }
 
         :host([severity="warning"]) .control:hover {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${warningColor};
-            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
             --ni-private-step-line-color: ${warningColor};
         }
 
@@ -383,13 +404,46 @@ export const styles = css`
         }
 
         :host([selected]) .control:hover {
-            --ni-private-step-icon-color: ${buttonLabelFontColor};
+            --ni-private-step-icon-color: ${borderHoverColor};
             --ni-private-step-icon-border-color: ${borderHoverColor};
-            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
+            --ni-private-step-icon-border-width: 3px;
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
             --ni-private-step-line-color: ${borderHoverColor};
         }
 
+        :host([selected][severity="error"]) .control:hover {
+            --ni-private-step-icon-color: ${failColor};
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-border-width: 3px;
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([selected][severity="warning"]) .control:hover {
+            --ni-private-step-icon-color: ${warningColor};
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-border-width: 3px;
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${warningColor};
+        }
+
+        :host([selected][severity="success"]) .control:hover {
+            --ni-private-step-icon-color: ${passColor};
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-border-width: 3px;
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
+            --ni-private-step-line-color: ${passColor};
+        }
+
         :host([readonly]) .control:hover {
+            --ni-private-step-icon-color: revert-layer;
+            --ni-private-step-icon-border-color: revert-layer;
+            --ni-private-step-icon-border-width: revert-layer;
+            --ni-private-step-icon-background-size: revert-layer;
+            --ni-private-step-line-color: revert-layer;
+        }
+
+        :host([selected][readonly]) .control:hover {
             --ni-private-step-icon-color: revert-layer;
             --ni-private-step-icon-border-color: revert-layer;
             --ni-private-step-icon-border-width: revert-layer;
@@ -420,16 +474,18 @@ export const styles = css`
         }
 
         :host([severity="error"]) .control${focusVisible} {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${failColor};
-            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
-            --ni-private-step-icon-outline-inset-color: ${failColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
             --ni-private-step-line-color: ${failColor};
         }
 
         :host([severity="warning"]) .control${focusVisible} {
+            --ni-private-step-icon-color: var(--ni-private-step-icon-inverse-color);
             --ni-private-step-icon-border-color: ${warningColor};
-            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
-            --ni-private-step-icon-outline-inset-color: ${warningColor};
+            --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-inset-size);
+            --ni-private-step-icon-outline-inset-color: transparent;
             --ni-private-step-line-color: ${warningColor};
         }
 
@@ -447,6 +503,27 @@ export const styles = css`
             --ni-private-step-icon-background-size: var(--ni-private-step-icon-background-none-size);
             --ni-private-step-icon-outline-inset-color: ${borderHoverColor};
             --ni-private-step-line-color: ${borderHoverColor};
+        }
+
+        :host([selected][severity="error"]) .control${focusVisible} {
+            --ni-private-step-icon-color: ${failColor};
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-outline-inset-color: ${failColor};
+            --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([selected][severity="warning"]) .control${focusVisible} {
+            --ni-private-step-icon-color: ${warningColor};
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-outline-inset-color: ${warningColor};
+            --ni-private-step-line-color: ${warningColor};
+        }
+
+        :host([selected][severity="success"]) .control${focusVisible} {
+            --ni-private-step-icon-color: ${passColor};
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-outline-inset-color: ${passColor};
+            --ni-private-step-line-color: ${passColor};
         }
 
         .control${focusVisible} .icon::before {
@@ -474,12 +551,14 @@ export const styles = css`
         }
 
         :host([severity="error"]) .control:active {
+            --ni-private-step-icon-color: ${failColor};
             --ni-private-step-icon-border-color: ${failColor};
             --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
             --ni-private-step-line-color: ${failColor};
         }
 
         :host([severity="warning"]) .control:active {
+            --ni-private-step-icon-color: ${warningColor};
             --ni-private-step-icon-border-color: ${warningColor};
             --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
             --ni-private-step-line-color: ${warningColor};
@@ -499,7 +578,37 @@ export const styles = css`
             --ni-private-step-line-color: ${borderHoverColor};
         }
 
+        :host([selected][severity="error"]) .control:active {
+            --ni-private-step-icon-color: ${failColor};
+            --ni-private-step-icon-border-color: ${failColor};
+            --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
+            --ni-private-step-line-color: ${failColor};
+        }
+
+        :host([selected][severity="warning"]) .control:active {
+            --ni-private-step-icon-color: ${warningColor};
+            --ni-private-step-icon-border-color: ${warningColor};
+            --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
+            --ni-private-step-line-color: ${warningColor};
+        }
+
+        :host([selected][severity="success"]) .control:active {
+            --ni-private-step-icon-color: ${buttonLabelFontColor};
+            --ni-private-step-icon-border-color: ${passColor};
+            --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
+            --ni-private-step-line-color: ${passColor};
+        }
+
         :host([readonly]) .control:active {
+            --ni-private-step-icon-color: revert-layer;
+            --ni-private-step-icon-border-color: revert-layer;
+            --ni-private-step-icon-border-width: revert-layer;
+            --ni-private-step-icon-background-color: revert-layer;
+            --ni-private-step-icon-background-size: revert-layer;
+            --ni-private-step-line-color: revert-layer;
+        }
+
+        :host([selected][readonly]) .control:active {
             --ni-private-step-icon-color: revert-layer;
             --ni-private-step-icon-border-color: revert-layer;
             --ni-private-step-icon-border-width: revert-layer;
@@ -585,8 +694,33 @@ export const styles = css`
                     --ni-private-step-icon-inverse-color: ${Black15};
                 }
 
+                :host([severity="error"]) .control {
+                    --ni-private-step-icon-border-color:: rgb(from ${failColor} r g b / 30%);
+                    --ni-private-step-icon-background-color: rgb(from ${failColor} r g b / 30%);
+                }
+
+                :host([severity="warning"]) .control {
+                    --ni-private-step-icon-border-color:: rgb(from ${warningColor} r g b / 30%);
+                    --ni-private-step-icon-background-color: rgb(from ${warningColor} r g b / 30%);
+                }
+
                 :host([severity="success"]) .control {
+                    --ni-private-step-icon-border-color:: rgb(from ${passColor} r g b / 30%);
                     --ni-private-step-icon-background-color: rgb(from ${passColor} r g b / 30%);
+                }
+            }
+
+            @layer focusVisible {
+                :host([severity="error"]) .control${focusVisible} {
+                    --ni-private-step-icon-outline-inset-color: ${failColor};
+                }
+
+                :host([severity="warning"]) .control${focusVisible} {
+                    --ni-private-step-icon-outline-inset-color: ${warningColor};
+                }
+
+                :host([severity="success"]) .control${focusVisible} {
+                    --ni-private-step-icon-outline-inset-color: ${passColor};
                 }
             }
         `

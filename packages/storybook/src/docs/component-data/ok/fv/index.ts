@@ -17,7 +17,7 @@ export const componentDataOkFv = [
         componentHref: './?path=/docs/ok-fv-card--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
@@ -26,7 +26,7 @@ export const componentDataOkFv = [
         componentHref: './?path=/docs/ok-fv-chip-selector--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
@@ -35,7 +35,24 @@ export const componentDataOkFv = [
         componentHref: './?path=/docs/ok-fv-context-help--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
+        componentName: 'Fv Master Detail List',
+        componentHref: './?path=/docs/ok-fv-master-detail-list--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
+        componentName: 'Fv Master Detail List Item',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
@@ -55,7 +72,7 @@ export const componentDataOkFv = [
         componentHref: './?path=/docs/ok-fv-split-button--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
@@ -64,7 +81,7 @@ export const componentDataOkFv = [
         componentHref: './?path=/docs/ok-fv-split-button-anchor--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
@@ -73,7 +90,7 @@ export const componentDataOkFv = [
         componentHref: './?path=/docs/ok-fv-summary-panel--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
@@ -81,7 +98,7 @@ export const componentDataOkFv = [
         componentName: 'Fv Summary Panel Tile',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.doesNotExist
     }
