@@ -148,7 +148,7 @@ export class AutoScrollManager implements Subscriber {
             this.pendingAnchorInsert = false;
             if (anchorInsert) {
                 this.anchorToLastInsertedMessage();
-            } else if (this.autoScrollEngaged && this.programmaticScrollTarget === undefined) {
+            } else if (this.autoScrollEngaged) {
                 this.followContent();
             }
         });
@@ -157,7 +157,26 @@ export class AutoScrollManager implements Subscriber {
     /**
      * Pins the most recently inserted anchor message near the top of the
      * viewport. Outbound messages taller than anchoredMessageMaxViewportFraction of
-     * the viewport are scrolled past so only that fraction remains visible
+     * the viewport are scrolled past so only that fraction remains visible.
+     *
+     * The scroll target is calculated in JS (see getAnchorScrollTarget) because
+     * no CSS-only alternative can handle both the short- and tall-message cases:
+     *
+     * - scrollIntoView({ block: 'start' }): positions the message top at the
+     *   viewport top, which is correct for short messages but shows too much
+     *   history for tall messages.
+     * - Sentinel element at message bottom + scroll-margin-top: 20cqh: places
+     *   the message bottom 20 % from the viewport top, which is correct for tall
+     *   messages but mis-positions short ones (the message would start below the
+     *   viewport top rather than at it).
+     * - scroll-snap: would interfere with the smooth follow-scroll during
+     *   streaming.
+     * - CSS clamp / min on scroll-margin cannot reference the element's own
+     *   height, so there is no way to express "max(message_top, message_bottom -
+     *   20cqh)" purely in CSS.
+     *
+     * A JS calculation that reads offsetHeight once per user send (not during
+     * streaming) is therefore the least-bad option here.
      */
     private anchorToLastInsertedMessage(): void {
         const message = this.getLastAnchorMessage();

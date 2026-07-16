@@ -103,6 +103,14 @@ export class ChatConversationPageObject {
         );
     }
 
+    public getMessageHeightByIndex(index: number): number {
+        const message = this.getMessages()[index];
+        if (message === undefined) {
+            throw new Error(`No message at index ${index}`);
+        }
+        return (message as HTMLElement).offsetHeight;
+    }
+
     public isMessagePinnedNearTop(index: number, tolerance = 48): boolean {
         return Math.abs(this.getMessageViewportTop(index)) <= tolerance;
     }
