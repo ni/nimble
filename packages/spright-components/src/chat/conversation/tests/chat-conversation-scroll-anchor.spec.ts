@@ -99,7 +99,7 @@ describe('ChatConversation scroll anchor state', () => {
             await pageObject.appendOutboundMessage('A short user question');
 
             const lastIndex = pageObject.getMessageCount() - 1;
-            const scrollTarget = pageObject.getProgrammaticScrollTarget();
+            const scrollTarget = pageObject.getLastProgrammaticScrollTarget();
             const messageTopInContainer = pageObject.getMessageViewportTop(lastIndex) + pageObject.getScrollTop();
 
             expect(scrollTarget).toBeDefined();

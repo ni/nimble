@@ -46,6 +46,8 @@ export class AutoScrollManager implements Subscriber {
         return this.resizeObserver !== undefined;
     }
 
+    public lastProgrammaticScrollTarget?: number;
+
     private scrollAnchorMessage?: ChatMessage;
     private programmaticScrollTarget?: number;
     private resizeObserver?: ResizeObserver;
@@ -263,10 +265,12 @@ export class AutoScrollManager implements Subscriber {
             // to clear the programmatic guard. Snap to the exact target and
             // leave the guard clear so streamed content keeps being followed.
             this.programmaticScrollTarget = undefined;
+            this.lastProgrammaticScrollTarget = scrollTop;
             container.scrollTop = scrollTop;
             return;
         }
         this.programmaticScrollTarget = scrollTop;
+        this.lastProgrammaticScrollTarget = scrollTop;
         container.scrollTo({
             top: scrollTop,
             behavior: 'smooth'
