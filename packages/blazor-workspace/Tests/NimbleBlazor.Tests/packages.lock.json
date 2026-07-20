@@ -8,25 +8,6 @@
         "resolved": "1.5.2",
         "contentHash": "LVZ7rrr6GHbhERhTgVDarVygl1e6KwE96pronA90LBOMacDhxR4lB+xYLjn/vlnUu+xbOB2RM9fuCPEx5bdyWA=="
       },
-      "AngleSharp.Css": {
-        "type": "Direct",
-        "requested": "[1.0.0-beta.224, )",
-        "resolved": "1.0.0-beta.224",
-        "contentHash": "BF/hPs8sRjhR+rYkBom7WaMLN0w36Qvnu+WvoHK/gL67MrQOONkkivBTGilvta4sNix5Y8T9XVlZsRI8IU2/vA==",
-        "dependencies": {
-          "AngleSharp": "[1.5.0, 2.0.0)"
-        }
-      },
-      "AngleSharp.Diffing": {
-        "type": "Direct",
-        "requested": "[1.1.1, )",
-        "resolved": "1.1.1",
-        "contentHash": "Uzz5895TpRyMA4t8GExmq4TxXqi3+bZTgb3kJgH+tdwrSuo9CO6Dlmv+Oqyhb2pNRfbnReLUzhlHAuT7c+3jSg==",
-        "dependencies": {
-          "AngleSharp": "1.1.2",
-          "AngleSharp.Css": "1.0.0-beta.144"
-        }
-      },
       "bunit": {
         "type": "Direct",
         "requested": "[2.7.2, )",
@@ -102,6 +83,23 @@
         "requested": "[3.1.5, )",
         "resolved": "3.1.5",
         "contentHash": "tKi7dSTwP4m5m9eXPM2Ime4Kn7xNf4x4zT9sdLO/G4hZVnQCRiMTWoSZqI/pYTVeI27oPPqHBKYI/DjJ9GsYgA=="
+      },
+      "AngleSharp.Css": {
+        "type": "Transitive",
+        "resolved": "1.0.0-beta.224",
+        "contentHash": "BF/hPs8sRjhR+rYkBom7WaMLN0w36Qvnu+WvoHK/gL67MrQOONkkivBTGilvta4sNix5Y8T9XVlZsRI8IU2/vA==",
+        "dependencies": {
+          "AngleSharp": "[1.5.0, 2.0.0)"
+        }
+      },
+      "AngleSharp.Diffing": {
+        "type": "Transitive",
+        "resolved": "1.1.1",
+        "contentHash": "Uzz5895TpRyMA4t8GExmq4TxXqi3+bZTgb3kJgH+tdwrSuo9CO6Dlmv+Oqyhb2pNRfbnReLUzhlHAuT7c+3jSg==",
+        "dependencies": {
+          "AngleSharp": "1.1.2",
+          "AngleSharp.Css": "1.0.0-beta.144"
+        }
       },
       "Apache.Arrow": {
         "type": "Transitive",
@@ -523,25 +521,6 @@
         "resolved": "1.5.2",
         "contentHash": "LVZ7rrr6GHbhERhTgVDarVygl1e6KwE96pronA90LBOMacDhxR4lB+xYLjn/vlnUu+xbOB2RM9fuCPEx5bdyWA=="
       },
-      "AngleSharp.Css": {
-        "type": "Direct",
-        "requested": "[1.0.0-beta.224, )",
-        "resolved": "1.0.0-beta.224",
-        "contentHash": "BF/hPs8sRjhR+rYkBom7WaMLN0w36Qvnu+WvoHK/gL67MrQOONkkivBTGilvta4sNix5Y8T9XVlZsRI8IU2/vA==",
-        "dependencies": {
-          "AngleSharp": "[1.5.0, 2.0.0)"
-        }
-      },
-      "AngleSharp.Diffing": {
-        "type": "Direct",
-        "requested": "[1.1.1, )",
-        "resolved": "1.1.1",
-        "contentHash": "Uzz5895TpRyMA4t8GExmq4TxXqi3+bZTgb3kJgH+tdwrSuo9CO6Dlmv+Oqyhb2pNRfbnReLUzhlHAuT7c+3jSg==",
-        "dependencies": {
-          "AngleSharp": "1.1.2",
-          "AngleSharp.Css": "1.0.0-beta.144"
-        }
-      },
       "bunit": {
         "type": "Direct",
         "requested": "[2.7.2, )",
@@ -617,6 +596,23 @@
         "requested": "[3.1.5, )",
         "resolved": "3.1.5",
         "contentHash": "tKi7dSTwP4m5m9eXPM2Ime4Kn7xNf4x4zT9sdLO/G4hZVnQCRiMTWoSZqI/pYTVeI27oPPqHBKYI/DjJ9GsYgA=="
+      },
+      "AngleSharp.Css": {
+        "type": "Transitive",
+        "resolved": "1.0.0-beta.224",
+        "contentHash": "BF/hPs8sRjhR+rYkBom7WaMLN0w36Qvnu+WvoHK/gL67MrQOONkkivBTGilvta4sNix5Y8T9XVlZsRI8IU2/vA==",
+        "dependencies": {
+          "AngleSharp": "[1.5.0, 2.0.0)"
+        }
+      },
+      "AngleSharp.Diffing": {
+        "type": "Transitive",
+        "resolved": "1.1.1",
+        "contentHash": "Uzz5895TpRyMA4t8GExmq4TxXqi3+bZTgb3kJgH+tdwrSuo9CO6Dlmv+Oqyhb2pNRfbnReLUzhlHAuT7c+3jSg==",
+        "dependencies": {
+          "AngleSharp": "1.1.2",
+          "AngleSharp.Css": "1.0.0-beta.144"
+        }
       },
       "Apache.Arrow": {
         "type": "Transitive",
