@@ -10,11 +10,11 @@
       },
       "AngleSharp.Css": {
         "type": "Direct",
-        "requested": "[1.0.0-beta.157, )",
-        "resolved": "1.0.0-beta.157",
-        "contentHash": "yptHmuGt2tzNGCeD7Orh6HRs4j7MH3IUhI+FM640OlmSwWRMd1yjKnicVcNG147IdF/tjOvgqtvpTU0pH6wVpA==",
+        "requested": "[1.0.0-beta.224, )",
+        "resolved": "1.0.0-beta.224",
+        "contentHash": "BF/hPs8sRjhR+rYkBom7WaMLN0w36Qvnu+WvoHK/gL67MrQOONkkivBTGilvta4sNix5Y8T9XVlZsRI8IU2/vA==",
         "dependencies": {
-          "AngleSharp": "[1.0.0, 2.0.0)"
+          "AngleSharp": "[1.5.0, 2.0.0)"
         }
       },
       "AngleSharp.Diffing": {
@@ -488,7 +488,7 @@
         "type": "Project",
         "dependencies": {
           "AngleSharp": "[1.5.2, )",
-          "AngleSharp.Css": "[1.0.0-beta.157, )",
+          "AngleSharp.Css": "[1.0.0-beta.224, )",
           "AngleSharp.Diffing": "[1.1.1, )",
           "NI.CSharp.Analyzers": "[2.0.35, )",
           "bunit": "[2.7.2, )",
@@ -511,11 +511,11 @@
       },
       "AngleSharp.Css": {
         "type": "Direct",
-        "requested": "[1.0.0-beta.157, )",
-        "resolved": "1.0.0-beta.157",
-        "contentHash": "yptHmuGt2tzNGCeD7Orh6HRs4j7MH3IUhI+FM640OlmSwWRMd1yjKnicVcNG147IdF/tjOvgqtvpTU0pH6wVpA==",
+        "requested": "[1.0.0-beta.224, )",
+        "resolved": "1.0.0-beta.224",
+        "contentHash": "BF/hPs8sRjhR+rYkBom7WaMLN0w36Qvnu+WvoHK/gL67MrQOONkkivBTGilvta4sNix5Y8T9XVlZsRI8IU2/vA==",
         "dependencies": {
-          "AngleSharp": "[1.0.0, 2.0.0)"
+          "AngleSharp": "[1.5.0, 2.0.0)"
         }
       },
       "AngleSharp.Diffing": {
@@ -952,7 +952,7 @@
         "type": "Project",
         "dependencies": {
           "AngleSharp": "[1.5.2, )",
-          "AngleSharp.Css": "[1.0.0-beta.157, )",
+          "AngleSharp.Css": "[1.0.0-beta.224, )",
           "AngleSharp.Diffing": "[1.1.1, )",
           "NI.CSharp.Analyzers": "[2.0.35, )",
           "bunit": "[2.7.2, )",
