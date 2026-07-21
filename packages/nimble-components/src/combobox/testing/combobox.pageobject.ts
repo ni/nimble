@@ -3,8 +3,8 @@ import type { Combobox } from '..';
 import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
-    waitForEvent,
-    waitAnimationFrame
+    waitAnimationFrame,
+    waitPredicate
 } from '../../utilities/testing/component';
 import { slotTextContent } from '../../utilities/models/slot-text-content';
 
@@ -13,11 +13,6 @@ import { slotTextContent } from '../../utilities/models/slot-text-content';
  * of querying and interacting with the component during tests.
  */
 export class ComboboxPageObject {
-    private readonly regionLoadedListener = waitForEvent(
-        this.comboboxElement,
-        'loaded'
-    );
-
     public constructor(protected readonly comboboxElement: Combobox) {}
 
     /**
@@ -31,7 +26,7 @@ export class ComboboxPageObject {
      * Sets the input text and commits the value by pressing Enter. Will emit a 'change' event.
      */
     public async commitValue(text: string): Promise<void> {
-        await this.waitForAnchoredRegionLoaded();
+        await this.waitForListboxPositioned();
         this.setInputText(text);
         this.pressEnterKey();
     }
@@ -76,7 +71,7 @@ export class ComboboxPageObject {
      */
     public async clickAndWaitForOpen(): Promise<void> {
         this.clickCombobox();
-        await this.waitForAnchoredRegionLoaded();
+        await this.waitForListboxPositioned();
         await waitForUpdatesAsync();
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
@@ -95,7 +90,7 @@ export class ComboboxPageObject {
      */
     public async clickDropdownButtonAndWaitForOpen(): Promise<void> {
         this.clickDropdownButton();
-        await this.waitForAnchoredRegionLoaded();
+        await this.waitForListboxPositioned();
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
@@ -219,7 +214,14 @@ export class ComboboxPageObject {
         );
     }
 
-    private async waitForAnchoredRegionLoaded(): Promise<void> {
-        await this.regionLoadedListener;
+    /**
+     * @internal
+     */
+    public async waitForListboxPositioned(): Promise<void> {
+        await waitPredicate(
+            () => this.comboboxElement.region?.classList.contains(
+                'horizontal-center'
+            ) === true
+        );
     }
 }

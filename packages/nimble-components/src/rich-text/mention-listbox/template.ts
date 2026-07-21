@@ -8,11 +8,11 @@ export const template = html<RichTextMentionListbox>`
     <template>
         <${anchoredRegionTag}
             ${ref('region')}
-            class="anchored-region"
+            class="anchored-region confined-to-view"
             fixed-placement
             auto-update-mode="auto"
             vertical-default-position="bottom"
-            vertical-positioning-mode="locktodefault"
+            vertical-positioning-mode="dynamic"
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
