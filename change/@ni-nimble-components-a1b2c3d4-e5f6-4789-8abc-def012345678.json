@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Forward autocomplete attribute to nimble-text-field internal input for password manager / autofill support",
+  "packageName": "@ni/nimble-components",
+  "email": "kevin.tan@emerson.com",
+  "dependentChangeType": "patch"
+}
