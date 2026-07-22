@@ -37,7 +37,7 @@ export class TextField extends mixinErrorPattern(
     /**
      * The autofill hint forwarded to the internal input (e.g. "username",
      * "current-password", "off") for browser password managers and autofill.
-     * 
+     *
      * @public
      * @remarks
      * HTML Attribute: autocomplete
