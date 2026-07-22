@@ -93,6 +93,34 @@ describe('ChatConversation scroll anchor state', () => {
             expect(pageObject.isAutoScrollEngaged()).toBeTrue();
         });
 
+        it('positions a short outbound message at the top of the viewport', async () => {
+            await pageObject.setViewportHeight(300);
+            await fillWithInboundMessages(4);
+            await pageObject.appendOutboundMessage('A short user question');
+
+            const lastIndex = pageObject.getMessageCount() - 1;
+            const scrollTarget = pageObject.getLastProgrammaticScrollTarget();
+            const messageTopInContainer = pageObject.getMessageViewportTop(lastIndex) + pageObject.getScrollTop();
+
+            expect(scrollTarget).toBeDefined();
+            expect(scrollTarget!).toBeCloseTo(messageTopInContainer, 0);
+        });
+
+        it('limits a tall outbound message to at most 20% of the viewport height', async () => {
+            await fillWithInboundMessages(4);
+            const longText = 'Question with a great deal of content. '.repeat(20);
+            await pageObject.appendOutboundMessage(longText);
+
+            const lastIndex = pageObject.getMessageCount() - 1;
+            const scrollTarget = pageObject.getProgrammaticScrollTarget();
+            expect(scrollTarget).toBeDefined();
+
+            const messageTopInContainer = pageObject.getMessageViewportTop(lastIndex) + pageObject.getScrollTop();
+            const messageBottom = messageTopInContainer + pageObject.getMessageHeightByIndex(lastIndex);
+            const maxCoverage = pageObject.getClientHeight() * 0.2;
+            expect(messageBottom - scrollTarget!).toBeCloseTo(maxCoverage, 0);
+        });
+
         it('disengages auto-scroll when the user scrolls up', async () => {
             await fillWithInboundMessages(8);
             expect(pageObject.isAutoScrollEngaged()).toBeTrue();

@@ -13,6 +13,11 @@ import {
 // Distance from the bottom (px) within which the conversation is considered "at the bottom".
 const scrollingPixelThreshold = 10;
 
+// Maximum fraction of the viewport height that an anchored message may occupy after the
+// post-send scroll. Messages taller than this are scrolled past so only this fraction
+// remains visible at the top, leaving room for the AI response.
+const anchoredMessageMaxViewportFraction = 0.2;
+
 // Slot name for messages that precede the current turn's anchor message.
 const historySlotName = 'history';
 
@@ -40,6 +45,8 @@ export class AutoScrollManager implements Subscriber {
     public get isActive(): boolean {
         return this.resizeObserver !== undefined;
     }
+
+    public lastProgrammaticScrollTarget?: number;
 
     private scrollAnchorMessage?: ChatMessage;
     private programmaticScrollTarget?: number;
@@ -84,6 +91,7 @@ export class AutoScrollManager implements Subscriber {
         this.resizeObserver = undefined;
         this.setScrollAnchorMessage(undefined);
         this.clearSlotAssignments();
+        this.conversation.anchoredContainer.style.minHeight = '';
         this.anchorActive = false;
         this.previousMessages = [];
     }
@@ -150,16 +158,47 @@ export class AutoScrollManager implements Subscriber {
 
     /**
      * Pins the most recently inserted anchor message near the top of the
-     * viewport.
+     * viewport. Outbound messages taller than anchoredMessageMaxViewportFraction of
+     * the viewport are scrolled past so only that fraction remains visible.
+     *
+     * The scroll target is calculated in JS (see getAnchorScrollTarget) because
+     * no CSS-only alternative can handle both the short- and tall-message cases:
+     *
+     * - scrollIntoView({ block: 'start' }): positions the message top at the
+     *   viewport top, which is correct for short messages but shows too much
+     *   history for tall messages.
+     * - Sentinel element at message bottom + scroll-margin-top: 20cqh: places
+     *   the message bottom 20 % from the viewport top, which is correct for tall
+     *   messages but mis-positions short ones (the message would start below the
+     *   viewport top rather than at it).
+     * - scroll-snap: would interfere with the smooth follow-scroll during
+     *   streaming.
+     * - CSS clamp / min on scroll-margin cannot reference the element's own
+     *   height, so there is no way to express "max(message_top, message_bottom -
+     *   20cqh)" purely in CSS.
+     *
+     * A JS calculation that reads offsetHeight once per user send (not during
+     * streaming) is therefore the least-bad option here.
      */
     private anchorToLastInsertedMessage(): void {
         const message = this.getLastAnchorMessage();
         if (message === undefined) {
             return;
         }
+
+        const anchored = this.conversation.anchoredContainer;
+        anchored.style.minHeight = '';
+
         this.setScrollAnchorMessage(message);
         this.autoScrollEngaged = true;
-        this.smoothScrollTo(this.getMaxScrollTop());
+
+        const target = this.getAnchorScrollTarget(message);
+        const shortfall = target - this.getMaxScrollTop();
+        if (shortfall > 0) {
+            anchored.style.minHeight = `${anchored.offsetHeight + shortfall}px`;
+            void this.conversation.messagesContainer.scrollHeight;
+        }
+        this.smoothScrollTo(Math.min(target, this.getMaxScrollTop()));
     }
 
     private followContent(): void {
@@ -206,6 +245,19 @@ export class AutoScrollManager implements Subscriber {
         return Math.max(0, scrollHeight - clientHeight);
     }
 
+    private getAnchorScrollTarget(message: ChatMessage): number {
+        const container = this.conversation.messagesContainer;
+        const containerRect = container.getBoundingClientRect();
+        const messageRect = message.getBoundingClientRect();
+        const messageTopInContainer = messageRect.top - containerRect.top + container.scrollTop;
+        const { clientHeight } = container;
+        const maxMessageCoverage = clientHeight * anchoredMessageMaxViewportFraction;
+        if (messageRect.height > maxMessageCoverage) {
+            return messageTopInContainer + messageRect.height - maxMessageCoverage;
+        }
+        return messageTopInContainer;
+    }
+
     private smoothScrollTo(scrollTop: number): void {
         const container = this.conversation.messagesContainer;
         if (Math.abs(container.scrollTop - scrollTop) <= 1) {
@@ -213,10 +265,12 @@ export class AutoScrollManager implements Subscriber {
             // to clear the programmatic guard. Snap to the exact target and
             // leave the guard clear so streamed content keeps being followed.
             this.programmaticScrollTarget = undefined;
+            this.lastProgrammaticScrollTarget = scrollTop;
             container.scrollTop = scrollTop;
             return;
         }
         this.programmaticScrollTarget = scrollTop;
+        this.lastProgrammaticScrollTarget = scrollTop;
         container.scrollTo({
             top: scrollTop,
             behavior: 'smooth'

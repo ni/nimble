@@ -103,6 +103,14 @@ export class ChatConversationPageObject {
         );
     }
 
+    public getMessageHeightByIndex(index: number): number {
+        const message = this.getMessages()[index];
+        if (message === undefined) {
+            throw new Error(`No message at index ${index}`);
+        }
+        return (message as HTMLElement).offsetHeight;
+    }
+
     public isMessagePinnedNearTop(index: number, tolerance = 48): boolean {
         return Math.abs(this.getMessageViewportTop(index)) <= tolerance;
     }
@@ -145,6 +153,10 @@ export class ChatConversationPageObject {
         return this.autoScrollManagerInternals.programmaticScrollTarget;
     }
 
+    public getLastProgrammaticScrollTarget(): number | undefined {
+        return this.autoScrollManagerInternals.lastProgrammaticScrollTarget;
+    }
+
     public setProgrammaticScrollTarget(target: number): void {
         this.autoScrollManagerInternals.programmaticScrollTarget = target;
     }
@@ -154,10 +166,12 @@ export class ChatConversationPageObject {
     }
 
     private get autoScrollManagerInternals(): {
-        programmaticScrollTarget?: number
+        programmaticScrollTarget?: number,
+        lastProgrammaticScrollTarget?: number
     } {
         return this.element.autoScrollManager as unknown as {
-            programmaticScrollTarget?: number
+            programmaticScrollTarget?: number,
+            lastProgrammaticScrollTarget?: number
         };
     }
 
