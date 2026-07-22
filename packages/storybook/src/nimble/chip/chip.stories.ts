@@ -26,19 +26,29 @@ const chipSize = {
 
 interface ChipArgs {
     appearance: keyof typeof ChipAppearance;
+    selectable: boolean;
+    selected: boolean;
     size: keyof typeof chipSize;
     removable: boolean;
     content: string;
     icon: boolean;
     disabled?: boolean;
     remove: undefined;
+    selectedChange: undefined;
 }
 
 const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
-        <${chipTag} appearance="${x => x.appearance}" style="${x => chipSize[x.size]}" ?removable="${x => x.removable}" ?disabled="${x => x.disabled}">
+        <${chipTag}
+            appearance="${x => x.appearance}"
+            style="${x => chipSize[x.size]}"
+            ?selectable="${x => x.selectable}"
+            ?selected="${x => x.selected}"
+            ?removable="${x => x.removable}"
+            ?disabled="${x => x.disabled}"
+        >
             ${x => x.content}
             ${when(x => x.icon, html`
                 <nimble-icon-check slot="start"></nimble-icon-check>
@@ -50,6 +60,18 @@ const metadata: Meta<ChipArgs> = {
             description: appearanceDescription({ componentName: 'chip' }),
             options: Object.keys(ChipAppearance),
             control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
+        },
+        selectable: {
+            name: 'selectable',
+            description: 'Whether the chip behaves like a toggle button for local selection state.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
+        selected: {
+            name: 'selected',
+            description: 'Whether the chip is selected. Only affects selectable chips.',
+            control: { type: 'boolean' },
             table: { category: apiCategory.attributes }
         },
         size: {
@@ -103,13 +125,21 @@ const metadata: Meta<ChipArgs> = {
             table: { category: apiCategory.slots }
         },
         remove: {
-            description: 'Emitted when the user presses the remove button.',
+            description: 'Emitted when the user presses the remove button or presses Escape on a removable chip.',
             table: { category: apiCategory.events },
             control: false
         },
+        selectedChange: {
+            name: 'selected-change',
+            description: 'Emitted when the user toggles a selectable chip.',
+            table: { category: apiCategory.events },
+            control: false
+        }
     },
     args: {
         appearance: 'outline',
+        selectable: false,
+        selected: false,
         size: 'default',
         removable: false,
         content: 'Homer Simpson',
@@ -124,7 +154,7 @@ export const chip: StoryObj<ChipArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['remove']
+            handles: ['remove', 'selected-change']
         }
     }
 };
