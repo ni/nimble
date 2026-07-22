@@ -60,6 +60,7 @@ TextFieldOptions
                 ?spellcheck="${x => x.spellcheck}"
                 :value="${x => x.value}"
                 type="${x => x.type}"
+                autocomplete="${x => x.autocomplete}"
                 aria-atomic="${x => x.ariaAtomic}"
                 aria-busy="${x => x.ariaBusy}"
                 aria-controls="${x => x.ariaControls}"
