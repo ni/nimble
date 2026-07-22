@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 10 Jul 2026 18:20:51 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 22 Jul 2026 17:36:56 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.12.5
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Forward autocomplete attribute to nimble-text-field internal input for password manager / autofill support ([ni/nimble@793419c](https://github.com/ni/nimble/commit/793419cf85a74d38242eb23bab23478c9004db0e))
 
 ## 35.12.4
 

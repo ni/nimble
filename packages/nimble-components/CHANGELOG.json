@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 22 Jul 2026 17:36:56 GMT",
+      "version": "35.12.5",
+      "tag": "@ni/nimble-components_v35.12.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "kevin.tan@emerson.com",
+            "package": "@ni/nimble-components",
+            "commit": "793419cf85a74d38242eb23bab23478c9004db0e",
+            "comment": "Forward autocomplete attribute to nimble-text-field internal input for password manager / autofill support"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Jul 2026 18:20:51 GMT",
       "version": "35.12.4",
       "tag": "@ni/nimble-components_v35.12.4",
