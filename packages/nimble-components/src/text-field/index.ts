@@ -34,6 +34,17 @@ export class TextField extends mixinErrorPattern(
     @attr
     public appearance: TextFieldAppearance = TextFieldAppearance.underline;
 
+    /**
+     * The autofill hint forwarded to the internal input (e.g. "username",
+     * "current-password", "off") for browser password managers and autofill.
+     * 
+     * @public
+     * @remarks
+     * HTML Attribute: autocomplete
+     */
+    @attr
+    public autocomplete?: string;
+
     @attr({ attribute: 'full-bleed', mode: 'boolean' })
     public fullBleed = false;
 
