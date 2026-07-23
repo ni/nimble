@@ -79,7 +79,9 @@ export class Tabs extends FoundationTabs implements TabsOwner {
      */
     public override activeidChanged(oldValue: string, newValue: string): void {
         super.activeidChanged(oldValue, newValue);
-        this.activetab?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        if (this.contains(document.activeElement)) {
+            this.activetab?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        }
     }
 
     /**

@@ -111,10 +111,12 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
     public activeidChanged(_oldValue: string, _newValue: string): void {
         if (this.$fastController.isConnected) {
             this.setTabs();
-            this.activetab?.scrollIntoView({
-                block: 'nearest',
-                inline: 'start'
-            });
+            if (this.contains(document.activeElement)) {
+                this.activetab?.scrollIntoView({
+                    block: 'nearest',
+                    inline: 'start'
+                });
+            }
         }
     }
 
