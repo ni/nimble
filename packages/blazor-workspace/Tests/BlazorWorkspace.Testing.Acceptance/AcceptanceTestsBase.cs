@@ -1,6 +1,5 @@
 ﻿using Microsoft.Playwright;
 using Microsoft.Playwright.Xunit.v3;
-using Xunit;
 
 namespace BlazorWorkspace.Testing.Acceptance;
 
