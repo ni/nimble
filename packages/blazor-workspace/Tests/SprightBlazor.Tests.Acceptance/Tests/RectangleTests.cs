@@ -6,8 +6,8 @@ namespace SprightBlazor.Tests.Acceptance;
 
 public class RectangleTests : SprightInteractiveAcceptanceTestsBase
 {
-    public RectangleTests(PlaywrightFixture playwrightFixture, SprightBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public RectangleTests(SprightBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     {
     }
 
