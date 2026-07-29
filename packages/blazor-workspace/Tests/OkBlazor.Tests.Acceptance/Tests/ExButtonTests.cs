@@ -1,13 +1,12 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 using Xunit;
 
 namespace OkBlazor.Tests.Acceptance;
 
 public class ButtonTests : OkInteractiveAcceptanceTestsBase
 {
-    public ButtonTests(PlaywrightFixture playwrightFixture, OkBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public ButtonTests(OkBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     {
     }
 

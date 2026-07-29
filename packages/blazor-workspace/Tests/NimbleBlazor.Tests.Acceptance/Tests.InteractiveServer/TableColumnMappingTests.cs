@@ -1,13 +1,11 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
-using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
 public class TableColumnMappingTests : NimbleInteractiveAcceptanceTestsBase
 {
-    public TableColumnMappingTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public TableColumnMappingTests(NimbleBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     {
     }
 
@@ -18,13 +16,13 @@ public class TableColumnMappingTests : NimbleInteractiveAcceptanceTestsBase
         {
             var page = pageWrapper.Page;
             var table = page.Locator("nimble-table");
-            await Assertions.Expect(table).ToBeVisibleAsync();
+            await Expect(table).ToBeVisibleAsync();
 
             var icon = table.Locator("nimble-icon-check");
-            await Assertions.Expect(icon).ToHaveCountAsync(1);
-            await Assertions.Expect(icon).ToHaveAttributeAsync("severity", "success");
+            await Expect(icon).ToHaveCountAsync(1);
+            await Expect(icon).ToHaveAttributeAsync("severity", "success");
             var spinner = table.Locator("nimble-spinner");
-            await Assertions.Expect(spinner).ToHaveCountAsync(1);
+            await Expect(spinner).ToHaveCountAsync(1);
         }
     }
 }

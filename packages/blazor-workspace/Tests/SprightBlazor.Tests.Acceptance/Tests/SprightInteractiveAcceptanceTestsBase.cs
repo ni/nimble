@@ -5,14 +5,14 @@ namespace SprightBlazor.Tests.Acceptance;
 
 public abstract class SprightInteractiveAcceptanceTestsBase : AcceptanceTestsBase, IClassFixture<SprightBlazorWebHostServerFixture>
 {
-    protected SprightInteractiveAcceptanceTestsBase(
-        PlaywrightFixture playwrightFixture,
-        SprightBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture)
+    private readonly SprightBlazorWebHostServerFixture _blazorServerClassFixture;
+
+    protected SprightInteractiveAcceptanceTestsBase(SprightBlazorWebHostServerFixture blazorServerClassFixture)
     {
-        ServerAddress = blazorServerClassFixture.ServerAddress!;
+        _blazorServerClassFixture = blazorServerClassFixture;
     }
 
-    protected override Uri ServerAddress { get; }
+    protected override Uri ServerAddress => _blazorServerClassFixture.ServerAddress!;
+
     protected override string ComponentLibraryInitializationTestJavaScript => "window.SprightBlazor && window.SprightBlazor.isReady()";
 }
