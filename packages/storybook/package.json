@@ -15,7 +15,7 @@
   "type": "module",
   "peerDependencies": {
     "@types/react": "^19",
-    "apache-arrow": "21.1.0",
+    "apache-arrow": "21.2.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-storybook": "^10.3.6",
     "globals": "^17.6.0",
