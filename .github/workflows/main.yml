@@ -61,7 +61,7 @@ jobs:
       # Install dotnet 8 sdk for asp.net assemblies
       - uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: '8.0.422'
+          dotnet-version: '8.0.423'
       - run: dotnet restore --locked-mode
         working-directory: packages/blazor-workspace/
       - uses: actions/setup-node@v7

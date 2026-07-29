@@ -96,7 +96,7 @@ public class NimbleTableTests : BunitTestBase
         var tableData = new TableRowData[] { parentRowData, childRowData };
         var table = RenderTable<TableRowData>();
 
-        var exception = await Record.ExceptionAsync((Func<Task>)(async () => { await table.Instance.SetDataAsync(tableData); }));
+        var exception = await Record.ExceptionAsync(async () => { await table.Instance.SetDataAsync(tableData); });
         Assert.Null(exception);
     }
 
@@ -108,7 +108,7 @@ public class NimbleTableTests : BunitTestBase
         var tableData = new BadTableRowData[] { parentRowData, childRowData };
         var table = RenderTable<BadTableRowData>();
 
-        var exception = await Record.ExceptionAsync((Func<Task>)(async () => { await table.Instance.SetDataAsync(tableData); }));
+        var exception = await Record.ExceptionAsync(async () => { await table.Instance.SetDataAsync(tableData); });
 
         Assert.IsType<JsonException>(exception);
     }
