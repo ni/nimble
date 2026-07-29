@@ -2,6 +2,10 @@ import { DesignToken, FoundationElement } from '@ni/fast-foundation';
 import { type Notifier, Observable, type Subscriber } from '@ni/fast-element';
 import { themeProviderTag } from '../../theme-provider';
 
+export interface SupportedLabelTokens {
+    [key: string]: DesignToken<string>;
+}
+
 export type DesignTokensFor<ObjectT> = {
     [key in keyof ObjectT]: string | undefined;
 };
@@ -10,7 +14,7 @@ export type DesignTokensFor<ObjectT> = {
  * Base class for label providers
  */
 export abstract class LabelProviderBase<
-    SupportedLabels extends { [key: string]: DesignToken<string> }
+    SupportedLabels extends SupportedLabelTokens
 >
     extends FoundationElement
     implements Subscriber {
@@ -38,19 +42,27 @@ export abstract class LabelProviderBase<
 
     public handleChange(
         _element: LabelProviderBase<SupportedLabels>,
-        property: keyof LabelProviderBase<SupportedLabels> & string
+        property: keyof SupportedLabels & string
     ): void {
-        if (this.supportedLabels[property]) {
+        if (this.isSupportedLabel(property)) {
             const token = this.supportedLabels[property];
             const value = this[property];
             if (this.themeProvider) {
                 if (value === null || value === undefined) {
                     token.deleteValueFor(this.themeProvider);
                 } else {
-                    token.setValueFor(this.themeProvider, value as string);
+                    token.setValueFor(this.themeProvider, value);
                 }
             }
         }
+    }
+
+    private isSupportedLabel<Property extends keyof SupportedLabels & string>(
+        property: Property
+    ): this is this
+    & DesignTokensFor<SupportedLabels>
+    & { supportedLabels: Pick<SupportedLabelTokens, Property> } {
+        return this.supportedLabels[property] !== undefined;
     }
 
     private initializeThemeProvider(): void {
@@ -59,11 +71,13 @@ export abstract class LabelProviderBase<
             for (const [property, token] of Object.entries(
                 this.supportedLabels
             )) {
-                const value = this[property as keyof LabelProviderBase<SupportedLabels>];
-                if (value === null || value === undefined) {
-                    token.deleteValueFor(this.themeProvider);
-                } else {
-                    token.setValueFor(this.themeProvider, value as string);
+                if (this.isSupportedLabel(property)) {
+                    const value = this[property];
+                    if (value === null || value === undefined) {
+                        token.deleteValueFor(this.themeProvider);
+                    } else {
+                        token.setValueFor(this.themeProvider, value);
+                    }
                 }
             }
         }
