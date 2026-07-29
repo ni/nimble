@@ -2,6 +2,27 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 29 Jul 2026 20:58:18 GMT",
+      "version": "21.3.3",
+      "tag": "@ni/nimble-blazor_v21.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "6c8854c79818d5d4b47d43ea5327661cb2a37f3c",
+            "comment": "Update nuget dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v35.12.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Jul 2026 17:36:56 GMT",
       "version": "21.3.2",
       "tag": "@ni/nimble-blazor_v21.3.2",
