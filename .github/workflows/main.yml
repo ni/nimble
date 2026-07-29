@@ -31,7 +31,7 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
         with:
           # Required for chromatic change detection
@@ -40,7 +40,7 @@ jobs:
           # Cannot rely on GITHUB_TOKEN with workflow contents permission
           # See: https://github.com/orgs/community/discussions/40971
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'false'
         with:
           # Required for chromatic change detection
@@ -55,16 +55,16 @@ jobs:
           sudo rm -rf /usr/share/dotnet/
 
       # Install dependencies
-      - uses: actions/setup-dotnet@v5
+      - uses: actions/setup-dotnet@v6
         with:
           global-json-file: packages/blazor-workspace/global.json
       # Install dotnet 8 sdk for asp.net assemblies
-      - uses: actions/setup-dotnet@v5
+      - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '8.0.422'
       - run: dotnet restore --locked-mode
         working-directory: packages/blazor-workspace/
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
@@ -96,7 +96,7 @@ jobs:
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
         if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
-        uses: chromaui/action@v17
+        uses: chromaui/action@v18
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
