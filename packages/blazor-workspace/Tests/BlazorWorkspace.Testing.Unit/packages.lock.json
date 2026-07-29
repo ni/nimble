@@ -44,9 +44,9 @@
       },
       "xunit.v3.assert": {
         "type": "Direct",
-        "requested": "[1.1.0, )",
-        "resolved": "1.1.0",
-        "contentHash": "4D+eM08ImfhA+zLbRzi8HA4qsT98zDxgaCD7vCg8yFesokKsgSsqWsAmImHFjVymGVhVS7WFGb19d6v1k9i0xQ=="
+        "requested": "[3.2.2, )",
+        "resolved": "3.2.2",
+        "contentHash": "BPciBghgEEaJN/JG00QfCYDfEfnLgQhfnYEy+j1izoeHVNYd5+3Wm8GJ6JgYysOhpBPYGE+sbf75JtrRc7jrdA=="
       },
       "AngleSharp.Css": {
         "type": "Transitive",
@@ -434,9 +434,9 @@
       },
       "xunit.v3.assert": {
         "type": "Direct",
-        "requested": "[1.1.0, )",
-        "resolved": "1.1.0",
-        "contentHash": "4D+eM08ImfhA+zLbRzi8HA4qsT98zDxgaCD7vCg8yFesokKsgSsqWsAmImHFjVymGVhVS7WFGb19d6v1k9i0xQ=="
+        "requested": "[3.2.2, )",
+        "resolved": "3.2.2",
+        "contentHash": "BPciBghgEEaJN/JG00QfCYDfEfnLgQhfnYEy+j1izoeHVNYd5+3Wm8GJ6JgYysOhpBPYGE+sbf75JtrRc7jrdA=="
       },
       "AngleSharp.Css": {
         "type": "Transitive",
