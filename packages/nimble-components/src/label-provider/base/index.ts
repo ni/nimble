@@ -38,7 +38,7 @@ export abstract class LabelProviderBase<
 
     public handleChange(
         _element: LabelProviderBase<SupportedLabels>,
-        property: keyof LabelProviderBase<SupportedLabels>
+        property: keyof LabelProviderBase<SupportedLabels> & string
     ): void {
         if (this.supportedLabels[property]) {
             const token = this.supportedLabels[property];
