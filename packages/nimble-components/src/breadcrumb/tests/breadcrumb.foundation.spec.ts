@@ -1,9 +1,9 @@
 import { breadcrumbItemTemplate } from '@ni/fast-foundation';
 import { DOM } from '@ni/fast-element';
-import { Breadcrumb } from '.';
-import { breadcrumbTemplate as template } from './template';
-import { fixture } from '../utilities/tests/fixture';
-import { BreadcrumbItem } from '../breadcrumb-item';
+import { Breadcrumb } from '..';
+import { breadcrumbTemplate as template } from '../template';
+import { fixture } from '../../utilities/tests/fixture';
+import { BreadcrumbItem } from '../../breadcrumb-item';
 
 const fastBreadcrumb = Breadcrumb.compose({
     baseName: 'breadcrumb',
