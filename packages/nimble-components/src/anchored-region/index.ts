@@ -2,7 +2,6 @@ import { attr, DOM, observable } from '@ni/fast-element';
 import { Direction, eventResize, eventScroll } from '@ni/fast-web-utilities';
 import {
     DesignSystem,
-    AnchoredRegion as FoundationAnchoredRegion,
     FoundationElement,
     getDirection,
     anchoredRegionTemplate as template
@@ -1148,7 +1147,6 @@ export class AnchoredRegion extends FoundationElement {
 
 const nimbleAnchoredRegion = AnchoredRegion.compose({
     baseName: 'anchored-region',
-    baseClass: FoundationAnchoredRegion,
     template,
     styles
 });
