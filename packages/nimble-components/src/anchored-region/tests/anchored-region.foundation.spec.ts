@@ -1,11 +1,6 @@
 import { DOM } from '@ni/fast-element';
-import { AnchoredRegion, anchoredRegionTemplate as template } from '@ni/fast-foundation';
 import { fixture } from '../../utilities/tests/fixture';
-
-const fastAnchoredRegion = AnchoredRegion.compose({
-    baseName: 'anchored-region',
-    template
-});
+import { anchoredRegionTag, AnchoredRegion } from '..';
 
 interface AnchoredRegionTestSetup {
     element: AnchoredRegion;
@@ -15,7 +10,7 @@ interface AnchoredRegionTestSetup {
 }
 
 async function setup(): Promise<AnchoredRegionTestSetup> {
-    const { element, connect, disconnect, parent } = await fixture(fastAnchoredRegion());
+    const { element, connect, disconnect, parent } = await fixture<AnchoredRegion>(`<${anchoredRegionTag}></${anchoredRegionTag}>`);
 
     const button = document.createElement('button');
     const content = document.createElement('div');
