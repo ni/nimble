@@ -1,8 +1,8 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { type AnchorButton, anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import type { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/anchor-button/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
-import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
+import { DisableableNimbleAnchorBaseDirective } from '../anchor-base/disableable-nimble-anchor-base.directive';
 
 export type { AnchorButton };
 export { anchorButtonTag };
@@ -14,7 +14,7 @@ export { anchorButtonTag };
     selector: 'nimble-anchor-button',
     standalone: false
 })
-export class NimbleAnchorButtonDirective extends NimbleAnchorBaseDirective<AnchorButton> {
+export class NimbleAnchorButtonDirective extends DisableableNimbleAnchorBaseDirective<AnchorButton> {
     public get appearance(): ButtonAppearance {
         return this.elementRef.nativeElement.appearance;
     }
@@ -37,17 +37,5 @@ export class NimbleAnchorButtonDirective extends NimbleAnchorBaseDirective<Ancho
 
     @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
-    }
-
-    public get disabled(): boolean {
-        return this.elementRef.nativeElement.disabled;
-    }
-
-    @Input() public set disabled(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
-    }
-
-    public constructor(renderer: Renderer2, elementRef: ElementRef<AnchorButton>) {
-        super(renderer, elementRef);
     }
 }

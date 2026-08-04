@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     template: `
         <example-sub-container label="Anchor">
             <div><nimble-anchor href="#" appearance="prominent">Site root</nimble-anchor></div>
-            Let's try it <nimble-anchor nimbleRouterLink="/customapp" underline-visible>using nimbleRouterLink</nimble-anchor>.
+            Let's try it <nimble-anchor routerLink="/customapp" underline-visible>using routerLink</nimble-anchor>.
         </example-sub-container>
     `,
     standalone: false

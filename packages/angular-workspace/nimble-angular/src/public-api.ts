@@ -2,36 +2,24 @@
  * Public API Surface of nimble-angular
  */
 
-export * from './directives/anchor/nimble-anchor-router-link-with-href.directive';
-export * from './directives/anchor/nimble-anchor-router-link.directive';
 export * from './directives/anchor/nimble-anchor.directive';
 export * from './directives/anchor/nimble-anchor.module';
+export * from './directives/anchor-base/disableable-nimble-anchor-base.directive';
 export * from './directives/anchor-base/nimble-anchor-base.directive';
-export * from './directives/anchor-base/disableable-router-link-with-href.directive';
-export * from './directives/anchor-button/nimble-anchor-button-router-link-with-href.directive';
-export * from './directives/anchor-button/nimble-anchor-button-router-link.directive';
 export * from './directives/anchor-button/nimble-anchor-button.directive';
 export * from './directives/anchor-button/nimble-anchor-button.module';
-export * from './directives/anchor-menu-item/nimble-anchor-menu-item-router-link-with-href.directive';
-export * from './directives/anchor-menu-item/nimble-anchor-menu-item-router-link.directive';
 export * from './directives/anchor-menu-item/nimble-anchor-menu-item.directive';
 export * from './directives/anchor-menu-item/nimble-anchor-menu-item.module';
-export * from './directives/anchor-tab/nimble-anchor-tab-router-link-with-href.directive';
-export * from './directives/anchor-tab/nimble-anchor-tab-router-link.directive';
 export * from './directives/anchor-tab/nimble-anchor-tab.directive';
 export * from './directives/anchor-tab/nimble-anchor-tab.module';
 export * from './directives/anchor-tabs/nimble-anchor-tabs.directive';
 export * from './directives/anchor-tabs/nimble-anchor-tabs.module';
-export * from './directives/anchor-tree-item/nimble-anchor-tree-item-router-link-with-href.directive';
-export * from './directives/anchor-tree-item/nimble-anchor-tree-item-router-link.directive';
 export * from './directives/anchor-tree-item/nimble-anchor-tree-item.directive';
 export * from './directives/anchor-tree-item/nimble-anchor-tree-item.module';
 export * from './directives/banner/nimble-banner.directive';
 export * from './directives/banner/nimble-banner.module';
 export * from './directives/breadcrumb/nimble-breadcrumb.directive';
 export * from './directives/breadcrumb/nimble-breadcrumb.module';
-export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link-with-href.directive';
-export * from './directives/breadcrumb-item/nimble-breadcrumb-item-router-link.directive';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item.directive';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item.module';
 export * from './directives/button/nimble-button.directive';
@@ -69,6 +57,7 @@ export * from './directives/radio/nimble-radio.directive';
 export * from './directives/radio/nimble-radio.module';
 export * from './directives/radio-group/nimble-radio-group.directive';
 export * from './directives/radio-group/nimble-radio-group.module';
+export * from './directives/routerLink/nimbleRouterLink.directive';
 export * from './directives/select/nimble-select-control-value-accessor.directive';
 export * from './directives/select/nimble-select.directive';
 export * from './directives/select/nimble-select.module';

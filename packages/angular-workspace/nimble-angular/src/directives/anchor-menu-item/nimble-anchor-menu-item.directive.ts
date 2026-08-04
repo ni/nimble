@@ -1,7 +1,6 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive } from '@angular/core';
 import { type AnchorMenuItem, anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
-import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
-import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
+import { DisableableNimbleAnchorBaseDirective } from '../anchor-base/disableable-nimble-anchor-base.directive';
 
 export type { AnchorMenuItem };
 export { anchorMenuItemTag };
@@ -13,16 +12,5 @@ export { anchorMenuItemTag };
     selector: 'nimble-anchor-menu-item',
     standalone: false
 })
-export class NimbleAnchorMenuItemDirective extends NimbleAnchorBaseDirective<AnchorMenuItem> {
-    public get disabled(): boolean {
-        return this.elementRef.nativeElement.disabled;
-    }
-
-    @Input() public set disabled(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
-    }
-
-    public constructor(renderer: Renderer2, elementRef: ElementRef<AnchorMenuItem>) {
-        super(renderer, elementRef);
-    }
+export class NimbleAnchorMenuItemDirective extends DisableableNimbleAnchorBaseDirective<AnchorMenuItem> {
 }

@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
                 <hr>
                 <header>Header 2</header>
                 <nimble-menu-item>Item 4</nimble-menu-item>
-                <nimble-anchor-menu-item nimbleRouterLink="/customapp">Item 5 (link)</nimble-anchor-menu-item>
+                <nimble-anchor-menu-item routerLink="/customapp">Item 5 (link)</nimble-anchor-menu-item>
             </nimble-menu>
         </example-sub-container>
     `,

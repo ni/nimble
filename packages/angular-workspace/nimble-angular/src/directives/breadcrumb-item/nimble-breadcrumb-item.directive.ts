@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2 } from '@angular/core';
+import { Directive } from '@angular/core';
 import { type BreadcrumbItem, breadcrumbItemTag } from '@ni/nimble-components/dist/esm/breadcrumb-item';
 import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
 
@@ -13,7 +13,4 @@ export { breadcrumbItemTag };
     standalone: false
 })
 export class NimbleBreadcrumbItemDirective extends NimbleAnchorBaseDirective<BreadcrumbItem> {
-    public constructor(renderer: Renderer2, elementRef: ElementRef<BreadcrumbItem>) {
-        super(renderer, elementRef);
-    }
 }
