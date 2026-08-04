@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Aug 2026 22:14:49 GMT",
+      "version": "35.12.7",
+      "tag": "@ni/nimble-components_v35.12.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97dda992014c79150846596631c19bdb00fdd406",
+            "comment": "Update to fast-foundation 10.2.5"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 29 Jul 2026 20:58:18 GMT",
       "version": "35.12.6",
       "tag": "@ni/nimble-components_v35.12.6",
