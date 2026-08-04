@@ -256,8 +256,7 @@ describe('Nimble tooltip', () => {
             expect(nativeElement.anchor).toBe('anchor2');
         });
 
-        // Test is disabled because of [FAST bug](https://github.com/microsoft/fast/issues/6257)
-        xit('can be configured with attribute binding for delay', () => {
+        it('can be configured with attribute binding for delay', () => {
             expect(directive.delay).toBe(300);
             expect(nativeElement.delay).toBe(300);
 
