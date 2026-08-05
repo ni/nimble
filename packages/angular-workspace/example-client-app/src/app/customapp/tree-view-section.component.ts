@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
                 <nimble-tree-item>
                     Parent 1
                     <nimble-tree-item>Child 1</nimble-tree-item>
-                    <nimble-anchor-tree-item nimbleRouterLink="/customapp">Child 2 (link)</nimble-anchor-tree-item>
+                    <nimble-anchor-tree-item routerLink="/customapp">Child 2 (link)</nimble-anchor-tree-item>
                     <nimble-tree-item disabled>Child 3</nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item expanded>

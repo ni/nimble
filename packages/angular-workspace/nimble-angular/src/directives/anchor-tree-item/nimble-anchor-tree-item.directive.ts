@@ -1,7 +1,7 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { type AnchorTreeItem, anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
-import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
+import { DisableableNimbleAnchorBaseDirective } from '../anchor-base/disableable-nimble-anchor-base.directive';
 
 export type { AnchorTreeItem };
 export { anchorTreeItemTag };
@@ -13,24 +13,12 @@ export { anchorTreeItemTag };
     selector: 'nimble-anchor-tree-item',
     standalone: false
 })
-export class NimbleAnchorTreeItemDirective extends NimbleAnchorBaseDirective<AnchorTreeItem> {
-    public get disabled(): boolean {
-        return this.elementRef.nativeElement.disabled;
-    }
-
-    @Input() public set disabled(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
-    }
-
+export class NimbleAnchorTreeItemDirective extends DisableableNimbleAnchorBaseDirective<AnchorTreeItem> {
     public get selected(): boolean {
         return this.elementRef.nativeElement.selected;
     }
 
     @Input() public set selected(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'selected', toBooleanProperty(value));
-    }
-
-    public constructor(renderer: Renderer2, elementRef: ElementRef<AnchorTreeItem>) {
-        super(renderer, elementRef);
     }
 }
