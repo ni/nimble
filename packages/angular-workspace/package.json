@@ -35,15 +35,15 @@
   },
   "type": "module",
   "dependencies": {
-    "@angular/animations": "^20.3.19",
-    "@angular/common": "^20.3.19",
-    "@angular/compiler": "^20.3.19",
-    "@angular/core": "^20.3.19",
-    "@angular/forms": "^20.3.19",
-    "@angular/localize": "^20.3.19",
-    "@angular/platform-browser": "^20.3.19",
-    "@angular/platform-browser-dynamic": "^20.3.19",
-    "@angular/router": "^20.3.19",
+    "@angular/animations": "^21.2.19",
+    "@angular/common": "^21.2.19",
+    "@angular/compiler": "^21.2.19",
+    "@angular/core": "^21.2.19",
+    "@angular/forms": "^21.2.19",
+    "@angular/localize": "^21.2.19",
+    "@angular/platform-browser": "^21.2.19",
+    "@angular/platform-browser-dynamic": "^21.2.19",
+    "@angular/router": "^21.2.19",
     "@ni/nimble-components": "*",
     "@ni/ok-components": "*",
     "@ni/spright-components": "*",
@@ -53,9 +53,9 @@
     "zone.js": "^0.15.1"
   },
   "devDependencies": {
-    "@angular/build": "^20.3.25",
-    "@angular/cli": "^20.3.25",
-    "@angular/compiler-cli": "^20.3.19",
+    "@angular/build": "^21.2.19",
+    "@angular/cli": "^21.2.19",
+    "@angular/compiler-cli": "^21.2.19",
     "@lhci/cli": "^0.15.0",
     "@ni-private/eslint-config-nimble": "*",
     "@ni-private/jasmine-extensions": "*",
@@ -71,9 +71,9 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
     "karma-spec-reporter": "^0.0.36",
-    "ng-packagr": "^20.3.2",
+    "ng-packagr": "^21.2.6",
     "playwright": "1.60.0",
     "rollup": "^4.60.2",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }
