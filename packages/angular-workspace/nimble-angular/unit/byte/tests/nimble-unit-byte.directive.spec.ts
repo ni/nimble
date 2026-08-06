@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleUnitByteModule } from '../nimble-unit-byte.module';
 import { NimbleUnitByteDirective, type UnitByte } from '../nimble-unit-byte.directive';
@@ -34,7 +34,8 @@ describe('Nimble byte unit', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleUnitByteModule]
+                imports: [NimbleUnitByteModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -67,7 +68,8 @@ describe('Nimble byte unit', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleUnitByteModule]
+                imports: [NimbleUnitByteModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -101,7 +103,8 @@ describe('Nimble byte unit', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleUnitByteModule]
+                imports: [NimbleUnitByteModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -141,7 +144,8 @@ describe('Nimble byte unit', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleUnitByteModule]
+                imports: [NimbleUnitByteModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

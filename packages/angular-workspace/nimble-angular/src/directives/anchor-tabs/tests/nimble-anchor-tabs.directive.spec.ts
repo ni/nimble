@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewChildren, QueryList, provideZoneChangeDetection } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NimbleAnchorTabsModule } from '../nimble-anchor-tabs.module';
 import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -31,7 +31,8 @@ describe('Nimble anchor tabs', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [NimbleAnchorTabsModule]
+            imports: [NimbleAnchorTabsModule],
+            providers: [provideZoneChangeDetection()],
         });
     });
 

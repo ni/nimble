@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { SprightChatInputDirective, type ChatInput } from '../spright-chat-input.directive';
 import { SprightChatInputModule } from '../spright-chat-input.module';
@@ -36,7 +36,8 @@ describe('Spright chat input', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatInputModule]
+                imports: [SprightChatInputModule],
+                                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -119,7 +120,8 @@ describe('Spright chat input', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatInputModule]
+                imports: [SprightChatInputModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -211,7 +213,8 @@ describe('Spright chat input', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatInputModule]
+                imports: [SprightChatInputModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -358,7 +361,8 @@ describe('Spright chat input', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatInputModule]
+                imports: [SprightChatInputModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

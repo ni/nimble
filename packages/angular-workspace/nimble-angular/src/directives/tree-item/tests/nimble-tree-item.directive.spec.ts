@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTreeItemModule } from '../nimble-tree-item.module';
 import type { TreeItem } from '../nimble-tree-item.directive';
@@ -44,7 +44,8 @@ describe('Nimble tree item directive (using 2-way binding)', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [NimbleTreeViewModule, NimbleTreeItemModule]
+            imports: [NimbleTreeViewModule, NimbleTreeItemModule],
+            providers: [provideZoneChangeDetection()],
         });
     });
 

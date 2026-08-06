@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, provideZoneChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NimbleNumberFieldModule, NimbleTextFieldModule } from '@ni/nimble-angular';
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ describe('AppComponent', () => {
                 NimbleTextFieldModule,
                 NimbleNumberFieldModule
             ],
+            providers: [provideZoneChangeDetection()],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         });
     });

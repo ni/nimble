@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { parameterizeSuite } from '@ni/jasmine-parameterized';
@@ -34,7 +34,8 @@ describe('Nimble checkbox control value accessor', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [NimbleCheckboxModule, FormsModule]
+            imports: [NimbleCheckboxModule, FormsModule],
+            providers: [provideZoneChangeDetection()],
         });
     });
 
@@ -121,7 +122,8 @@ parameterizeSuite(testCases, (suite, name, value) => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleCheckboxModule, FormsModule, ReactiveFormsModule]
+                imports: [NimbleCheckboxModule, FormsModule, ReactiveFormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 

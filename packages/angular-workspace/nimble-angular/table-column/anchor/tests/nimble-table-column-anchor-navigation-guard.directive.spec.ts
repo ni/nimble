@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { type Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular';
@@ -54,7 +54,8 @@ describe('Nimble anchor table column navigation guard', () => {
             imports: [NimbleTableColumnAnchorModule,
                 NimbleTableModule,
                 CommonModule
-            ]
+            ],
+            providers: [provideZoneChangeDetection()],
         });
     });
 
