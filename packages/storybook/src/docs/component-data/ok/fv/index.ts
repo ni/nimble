@@ -19,7 +19,7 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Fv Chip Selector',
@@ -28,7 +28,7 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Fv Context Help',
@@ -37,7 +37,7 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Fv Master Detail List',
@@ -46,7 +46,7 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Fv Master Detail List Item',
@@ -54,7 +54,7 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Fv Search Input',
@@ -74,7 +74,7 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Fv Split Button Anchor',
@@ -83,7 +83,7 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Fv Summary Panel',
@@ -92,7 +92,7 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Fv Summary Panel Tile',
@@ -100,6 +100,6 @@ export const componentDataOkFv = [
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
+        reactStatus: ComponentFrameworkStatus.ready
     }
 ] as const;
