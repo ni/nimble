@@ -1,8 +1,11 @@
 @namespace NimbleBlazor
 <nimble-chip
+    selectable="@Selectable"
+    selected="@Selected"
     removable="@Removable"
     disabled="@Disabled"
     @onnimblechipremove="HandleRemove"
+    @onnimblechipselectedchange="HandleSelectedChange"
     appearance="@Appearance.ToAttributeValue()"
     @attributes="AdditionalAttributes">
     @ChildContent
