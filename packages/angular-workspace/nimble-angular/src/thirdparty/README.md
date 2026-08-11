@@ -8,4 +8,3 @@ The `directives` folder corresponds to the [`packages/forms/src/directives` fold
 2. Update the file content. In most cases the file may have few, if any, changes, so the easiest thing is to use the GitHub compare feature (e.g. url: `github.com/angular/angular/compare/<from-version>...<to-version>`) to migrate individual changes. If the changes are significant, you can instead copy the new version of the file on top of the existing one and migrate diffs as necessary.
 3. Update the link in the comment at the top of the file.
 4. Update the list of diffs in the comment at the top of the file. (I.e. if you made additional changes.)
-5. Verify that all files that have been previously copied are still required, especially those in the `utils` and `testing` directories.
