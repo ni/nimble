@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 04 Aug 2026 22:14:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 11 Aug 2026 20:29:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.4.9
+
+Tue, 11 Aug 2026 20:29:21 GMT
+
+### Patches
+
+- Remove forked RouterLink implementation ([ni/nimble@e0da38d](https://github.com/ni/nimble/commit/e0da38d81bcd987bb2f4710e10bd34209cd4d3d1))
 
 ## 33.4.8
 
