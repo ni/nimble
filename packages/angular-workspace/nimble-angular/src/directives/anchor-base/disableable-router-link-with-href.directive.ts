@@ -1,7 +1,6 @@
 import { Directive, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterLink } from '../../thirdparty/directives/router_link';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 /**
  * Base class for Nimble router link directives that go on disableable elements

@@ -1,16 +1,7 @@
 import { LocationStrategy } from '@angular/common';
 import { Directive, ElementRef, HostListener, Inject, Input, Renderer2 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import type { BreadcrumbItem } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import { RouterLink } from '../../thirdparty/directives/router_link';
-
-/**
- * Selectors used for built-in Angular RouterLink directives:
- * RouterLink: ':not(a):not(area)[routerLink]'
- * RouterLinkWithHref: 'a[routerLink],area[routerLink]'
- *
- * See https://github.com/angular/angular/blob/5957ff4163f55d814be2cf80b9909244f1ce5262/packages/router/src/directives/router_link.ts
- */
 
 /**
  * Directive to handle nimble-breadcrumb-item RouterLink support.
