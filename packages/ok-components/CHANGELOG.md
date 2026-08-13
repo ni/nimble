@@ -1,8 +1,36 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 10 Jul 2026 18:20:51 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 04 Aug 2026 22:14:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.6.9
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Update to fast-foundation 10.2.5 ([ni/nimble@97dda99](https://github.com/ni/nimble/commit/97dda992014c79150846596631c19bdb00fdd406))
+- Bump @ni/nimble-components to v35.12.7
+- Bump @ni/spright-components to v6.21.9
+
+## 1.6.8
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.6
+- Bump @ni/spright-components to v6.21.8
+
+## 1.6.7
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.5
+- Bump @ni/spright-components to v6.21.7
 
 ## 1.6.6
 

@@ -1,13 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { RouterLink } from '../../thirdparty/directives/router_link';
-
-/**
- * Selectors used for built-in Angular RouterLink directives:
- * RouterLink: ':not(a):not(area)[routerLink]'
- * RouterLinkWithHref: 'a[routerLink],area[routerLink]'
- *
- * See https://github.com/angular/angular/blob/5957ff4163f55d814be2cf80b9909244f1ce5262/packages/router/src/directives/router_link.ts
- */
+import { RouterLink } from '@angular/router';
 
 /**
  * Directive to handle nimble-anchor RouterLink support.

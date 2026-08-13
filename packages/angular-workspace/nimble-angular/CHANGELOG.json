@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 11 Aug 2026 20:29:21 GMT",
+      "version": "33.4.9",
+      "tag": "@ni/nimble-angular_v33.4.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e0da38d81bcd987bb2f4710e10bd34209cd4d3d1",
+            "comment": "Remove forked RouterLink implementation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Aug 2026 22:14:49 GMT",
+      "version": "33.4.8",
+      "tag": "@ni/nimble-angular_v33.4.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.12.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 29 Jul 2026 20:58:18 GMT",
+      "version": "33.4.7",
+      "tag": "@ni/nimble-angular_v33.4.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.12.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Jul 2026 17:36:56 GMT",
+      "version": "33.4.6",
+      "tag": "@ni/nimble-angular_v33.4.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v35.12.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Jul 2026 18:20:51 GMT",
       "version": "33.4.5",
       "tag": "@ni/nimble-angular_v33.4.5",

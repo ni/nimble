@@ -1,13 +1,11 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
-using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
 public class TableTests : NimbleInteractiveAcceptanceTestsBase
 {
-    public TableTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public TableTests(NimbleBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     {
     }
 
@@ -18,12 +16,12 @@ public class TableTests : NimbleInteractiveAcceptanceTestsBase
         {
             var page = pageWrapper.Page;
             var table = page.Locator("nimble-table");
-            await Assertions.Expect(table).ToBeVisibleAsync();
+            await Expect(table).ToBeVisibleAsync();
 
             var rows = table.Locator("nimble-table-row");
-            await Assertions.Expect(rows).ToHaveCountAsync(5);
+            await Expect(rows).ToHaveCountAsync(5);
             var expected = new string[] { "A0", "A1", "A2", "A3", "A4" };
-            await Assertions.Expect(rows).ToContainTextAsync(expected);
+            await Expect(rows).ToContainTextAsync(expected);
         }
     }
 
@@ -38,10 +36,10 @@ public class TableTests : NimbleInteractiveAcceptanceTestsBase
         {
             var page = pageWrapper.Page;
             var table = page.Locator("nimble-table");
-            await Assertions.Expect(table).ToBeVisibleAsync();
+            await Expect(table).ToBeVisibleAsync();
 
             var rows = table.Locator("nimble-table-row");
-            await Assertions.Expect(rows).ToHaveCountAsync(4);
+            await Expect(rows).ToHaveCountAsync(4);
 
             var row = rows.Nth(rowIndex);
             var rowExpandCollapseButton = row.Locator("nimble-button");
@@ -49,20 +47,20 @@ public class TableTests : NimbleInteractiveAcceptanceTestsBase
 
             if (expectedHierarchyState == TableRecordDelayedHierarchyState.CanLoadChildren)
             {
-                await Assertions.Expect(rowExpandCollapseButton).ToBeVisibleAsync();
+                await Expect(rowExpandCollapseButton).ToBeVisibleAsync();
             }
             else
             {
-                await Assertions.Expect(rowExpandCollapseButton).Not.ToBeVisibleAsync();
+                await Expect(rowExpandCollapseButton).Not.ToBeVisibleAsync();
             }
 
             if (expectedHierarchyState == TableRecordDelayedHierarchyState.LoadingChildren)
             {
-                await Assertions.Expect(rowSpinner).ToBeVisibleAsync();
+                await Expect(rowSpinner).ToBeVisibleAsync();
             }
             else
             {
-                await Assertions.Expect(rowSpinner).Not.ToBeVisibleAsync();
+                await Expect(rowSpinner).Not.ToBeVisibleAsync();
             }
         }
     }
@@ -74,7 +72,7 @@ public class TableTests : NimbleInteractiveAcceptanceTestsBase
         {
             var page = pageWrapper.Page;
             var table = page.Locator("nimble-table");
-            await Assertions.Expect(table).ToBeVisibleAsync();
+            await Expect(table).ToBeVisibleAsync();
             var textField = page.Locator("nimble-text-field");
 
             var rows = table.Locator("nimble-table-row");
@@ -82,10 +80,10 @@ public class TableTests : NimbleInteractiveAcceptanceTestsBase
             var rowExpandCollapseButton = expandableRow.Locator("nimble-button");
 
             await rowExpandCollapseButton.ClickAsync();
-            await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "RecordId: 0, OldState: False, NewState: True");
+            await Expect(textField).ToHaveAttributeAsync("current-value", "RecordId: 0, OldState: False, NewState: True");
 
             await rowExpandCollapseButton.ClickAsync();
-            await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "RecordId: 0, OldState: True, NewState: False");
+            await Expect(textField).ToHaveAttributeAsync("current-value", "RecordId: 0, OldState: True, NewState: False");
         }
     }
 }

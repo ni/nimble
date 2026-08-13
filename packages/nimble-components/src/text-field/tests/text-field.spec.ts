@@ -36,4 +36,15 @@ describe('TextField', () => {
         processUpdates();
         expect(element.control.getAttribute('aria-required')).toBe('false');
     });
+
+    it('reflects "autocomplete" to the internal control', () => {
+        element.autocomplete = 'username';
+        processUpdates();
+        expect(element.control.getAttribute('autocomplete')).toBe('username');
+    });
+
+    it('does not set "autocomplete" on the internal control when unset', () => {
+        processUpdates();
+        expect(element.control.hasAttribute('autocomplete')).toBeFalse();
+    });
 });

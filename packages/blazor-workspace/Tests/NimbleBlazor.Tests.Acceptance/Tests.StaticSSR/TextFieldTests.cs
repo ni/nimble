@@ -1,4 +1,3 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
 using Microsoft.Playwright;
 using Xunit;
 
@@ -6,8 +5,8 @@ namespace NimbleBlazor.Tests.Acceptance.StaticSSR;
 
 public class TextFieldTests : NimbleAcceptanceTestsBase
 {
-    public TextFieldTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public TextFieldTests(NimbleBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     {
     }
 
@@ -18,8 +17,8 @@ public class TextFieldTests : NimbleAcceptanceTestsBase
         {
             var page = pageWrapper.Page;
             var textField = page.Locator("nimble-text-field", new PageLocatorOptions() { HasText = "Label Text" });
-            await Assertions.Expect(textField).ToBeVisibleAsync();
-            await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "Value Text");
+            await Expect(textField).ToBeVisibleAsync();
+            await Expect(textField).ToHaveAttributeAsync("current-value", "Value Text");
         }
     }
 }

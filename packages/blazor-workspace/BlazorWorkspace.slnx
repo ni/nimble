@@ -5,6 +5,9 @@
     <Project Path="Examples/Demo.Server/Demo.Server.csproj" />
     <Project Path="Examples/Demo.Shared/Demo.Shared.csproj" />
   </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".runsettings" />
+  </Folder>
   <Folder Name="/Tests/">
     <Project Path="Tests/BlazorWorkspace.Testing.Acceptance/BlazorWorkspace.Testing.Acceptance.csproj" />
     <Project Path="Tests/BlazorWorkspace.Testing.Unit/BlazorWorkspace.Testing.Unit.csproj" />

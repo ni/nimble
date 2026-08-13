@@ -5,14 +5,14 @@ namespace OkBlazor.Tests.Acceptance;
 
 public abstract class OkInteractiveAcceptanceTestsBase : AcceptanceTestsBase, IClassFixture<OkBlazorWebHostServerFixture>
 {
-    protected OkInteractiveAcceptanceTestsBase(
-        PlaywrightFixture playwrightFixture,
-        OkBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture)
+    private readonly OkBlazorWebHostServerFixture _blazorServerClassFixture;
+
+    protected OkInteractiveAcceptanceTestsBase(OkBlazorWebHostServerFixture blazorServerClassFixture)
     {
-        ServerAddress = blazorServerClassFixture.ServerAddress!;
+        _blazorServerClassFixture = blazorServerClassFixture;
     }
 
-    protected override Uri ServerAddress { get; }
+    protected override Uri ServerAddress => _blazorServerClassFixture.ServerAddress!;
+
     protected override string ComponentLibraryInitializationTestJavaScript => "window.OkBlazor && window.OkBlazor.isReady()";
 }
