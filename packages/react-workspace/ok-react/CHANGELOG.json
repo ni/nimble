@@ -2,6 +2,21 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Thu, 13 Aug 2026 18:40:18 GMT",
+      "version": "0.10.0",
+      "tag": "@ni/ok-react_v0.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "8c8d779c7550a126acb914692ebcd5180170594c",
+            "comment": "Add OK React component wrappers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 04 Aug 2026 22:14:49 GMT",
       "version": "0.9.26",
       "tag": "@ni/ok-react_v0.9.26",
