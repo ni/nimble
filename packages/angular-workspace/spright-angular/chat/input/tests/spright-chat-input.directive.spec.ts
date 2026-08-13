@@ -37,7 +37,7 @@ describe('Spright chat input', () => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [SprightChatInputModule],
-                                providers: [provideZoneChangeDetection()],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

@@ -128,7 +128,7 @@ describe('Nimble anchor menu item', () => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleAnchorMenuItemModule],
-                                providers: [provideZoneChangeDetection()],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
