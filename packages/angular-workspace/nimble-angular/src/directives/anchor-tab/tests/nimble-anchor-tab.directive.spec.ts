@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type AnchorTab, NimbleAnchorTabDirective } from '../nimble-anchor-tab.directive';
 import { NimbleAnchorTabModule } from '../nimble-anchor-tab.module';
@@ -48,7 +48,8 @@ describe('Nimble anchor tab', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleAnchorTabModule]
+                imports: [NimbleAnchorTabModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -120,7 +121,8 @@ describe('Nimble anchor tab', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleAnchorTabModule]
+                imports: [NimbleAnchorTabModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -199,7 +201,8 @@ describe('Nimble anchor tab', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleAnchorTabModule]
+                imports: [NimbleAnchorTabModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -320,7 +323,8 @@ describe('Nimble anchor tab', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleAnchorTabModule]
+                imports: [NimbleAnchorTabModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

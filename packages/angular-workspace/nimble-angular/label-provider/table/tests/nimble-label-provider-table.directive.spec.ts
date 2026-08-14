@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type LabelProviderTable, NimbleLabelProviderTableDirective } from '../nimble-label-provider-table.directive';
 import { NimbleLabelProviderTableModule } from '../nimble-label-provider-table.module';
@@ -23,7 +23,8 @@ describe('Nimble Label Provider Table', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NimbleLabelProviderTableModule]
+            imports: [NimbleLabelProviderTableModule],
+            providers: [provideZoneChangeDetection()],
         });
     });
 
@@ -50,7 +51,8 @@ describe('Nimble Label Provider Table', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderTableModule]
+                imports: [NimbleLabelProviderTableModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -176,7 +178,8 @@ describe('Nimble Label Provider Table', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderTableModule]
+                imports: [NimbleLabelProviderTableModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -318,7 +321,8 @@ describe('Nimble Label Provider Table', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderTableModule]
+                imports: [NimbleLabelProviderTableModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -556,7 +560,8 @@ describe('Nimble Label Provider Table', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderTableModule]
+                imports: [NimbleLabelProviderTableModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

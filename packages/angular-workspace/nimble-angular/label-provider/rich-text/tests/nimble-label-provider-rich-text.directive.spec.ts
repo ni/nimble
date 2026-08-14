@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type LabelProviderRichText, NimbleLabelProviderRichTextDirective } from '../nimble-label-provider-rich-text.directive';
 import { NimbleLabelProviderRichTextModule } from '../nimble-label-provider-rich-text.module';
@@ -11,7 +11,8 @@ describe('Nimble Label Provider Rich text', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NimbleLabelProviderRichTextModule]
+            imports: [NimbleLabelProviderRichTextModule],
+            providers: [provideZoneChangeDetection()],
         });
     });
 
@@ -38,7 +39,8 @@ describe('Nimble Label Provider Rich text', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderRichTextModule]
+                imports: [NimbleLabelProviderRichTextModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -92,7 +94,8 @@ describe('Nimble Label Provider Rich text', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderRichTextModule]
+                imports: [NimbleLabelProviderRichTextModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -150,7 +153,8 @@ describe('Nimble Label Provider Rich text', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderRichTextModule]
+                imports: [NimbleLabelProviderRichTextModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -232,7 +236,8 @@ describe('Nimble Label Provider Rich text', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderRichTextModule]
+                imports: [NimbleLabelProviderRichTextModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

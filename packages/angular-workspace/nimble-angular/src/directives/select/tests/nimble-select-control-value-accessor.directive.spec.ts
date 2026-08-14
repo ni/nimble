@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, type OnChanges, type OnInit, SimpleChange, type SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, type OnChanges, type OnInit, provideZoneChangeDetection, SimpleChange, type SimpleChanges, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectPageObject } from '@ni/nimble-angular/select/testing';
@@ -50,7 +50,8 @@ describe('Nimble select control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule]
+                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 
@@ -152,7 +153,8 @@ describe('Nimble select control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule]
+                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 
@@ -241,7 +243,8 @@ describe('Nimble select control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule, ReactiveFormsModule]
+                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule, ReactiveFormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 
@@ -316,7 +319,8 @@ describe('Nimble select control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule, ReactiveFormsModule]
+                imports: [NimbleSelectModule, NimbleListOptionModule, FormsModule, ReactiveFormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 
@@ -397,7 +401,8 @@ describe('Nimble select control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListOptionModule, NimbleListOptionGroupModule, FormsModule, ReactiveFormsModule]
+                imports: [NimbleSelectModule, NimbleListOptionModule, NimbleListOptionGroupModule, FormsModule, ReactiveFormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 
@@ -474,7 +479,8 @@ describe('Nimble select control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleSelectModule, NimbleListOptionModule, NimbleListOptionGroupModule, FormsModule, ReactiveFormsModule]
+                imports: [NimbleSelectModule, NimbleListOptionModule, NimbleListOptionGroupModule, FormsModule, ReactiveFormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 

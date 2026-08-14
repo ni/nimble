@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SprightChatMessageWelcomeDirective, type ChatMessageWelcome } from '../spright-chat-message-welcome.directive';
 import { SprightChatMessageWelcomeModule } from '../spright-chat-message-welcome.module';
@@ -35,7 +35,8 @@ describe('Spright chat message welcome', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatMessageWelcomeModule]
+                imports: [SprightChatMessageWelcomeModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -74,7 +75,8 @@ describe('Spright chat message welcome', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatMessageWelcomeModule]
+                imports: [SprightChatMessageWelcomeModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -115,7 +117,8 @@ describe('Spright chat message welcome', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatMessageWelcomeModule]
+                imports: [SprightChatMessageWelcomeModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

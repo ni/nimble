@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { FormsModule } from '@angular/forms';
@@ -37,7 +37,8 @@ describe('Nimble combobox', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleComboboxModule]
+                imports: [NimbleComboboxModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -156,7 +157,8 @@ describe('Nimble combobox', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleComboboxModule]
+                imports: [NimbleComboboxModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -256,7 +258,8 @@ describe('Nimble combobox', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleComboboxModule]
+                imports: [NimbleComboboxModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -417,7 +420,8 @@ describe('Nimble combobox', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleComboboxModule]
+                imports: [NimbleComboboxModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -582,7 +586,8 @@ describe('Nimble combobox', () => {
         beforeEach(async () => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleComboboxModule, NimbleListOptionModule, FormsModule]
+                imports: [NimbleComboboxModule, NimbleListOptionModule, FormsModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

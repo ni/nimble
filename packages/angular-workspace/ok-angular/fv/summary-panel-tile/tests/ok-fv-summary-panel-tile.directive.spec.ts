@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type FvSummaryPanelTile, FvSummaryPanelTileTextPosition, OkFvSummaryPanelTileDirective } from '../ok-fv-summary-panel-tile.directive';
 import { OkFvSummaryPanelTileModule } from '../ok-fv-summary-panel-tile.module';
@@ -35,7 +35,8 @@ describe('Ok fv summary panel tile', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSummaryPanelTileModule]
+                imports: [OkFvSummaryPanelTileModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -94,7 +95,8 @@ describe('Ok fv summary panel tile', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSummaryPanelTileModule]
+                imports: [OkFvSummaryPanelTileModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -158,7 +160,8 @@ describe('Ok fv summary panel tile', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSummaryPanelTileModule]
+                imports: [OkFvSummaryPanelTileModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

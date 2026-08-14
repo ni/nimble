@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnMappingModule } from '../../../table-column/mapping/nimble-table-column-mapping.module';
@@ -45,7 +45,8 @@ describe('NimbleMappingEmpty', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingEmptyModule, NimbleTableColumnMappingModule, NimbleTableModule]
+                imports: [NimbleMappingEmptyModule, NimbleTableColumnMappingModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -94,7 +95,8 @@ describe('NimbleMappingEmpty', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingEmptyModule, NimbleTableColumnMappingModule, NimbleTableModule]
+                imports: [NimbleMappingEmptyModule, NimbleTableColumnMappingModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -155,7 +157,8 @@ describe('NimbleMappingEmpty', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingEmptyModule, NimbleTableColumnMappingModule, NimbleTableModule]
+                imports: [NimbleMappingEmptyModule, NimbleTableColumnMappingModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
