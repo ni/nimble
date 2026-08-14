@@ -1,17 +1,13 @@
 import { provideZoneChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NimbleNumberFieldModule, NimbleTextFieldModule } from '@ni/nimble-angular';
+import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                AppComponent
-            ],
             imports: [
-                NimbleTextFieldModule,
-                NimbleNumberFieldModule
+                AppModule
             ],
             providers: [provideZoneChangeDetection()]
         });
