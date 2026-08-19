@@ -4,7 +4,7 @@
     <nimble-select
         current-value="@CurrentValueAsString"
         @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-        @onnimbleselectfocusout="HandleFocusOut"
+        @onnimbleselectfocusout="NonRenderingFocusOutHandler"
         disabled="@Disabled"
         name="@Name"
         position="@Position.ToAttributeValue()"

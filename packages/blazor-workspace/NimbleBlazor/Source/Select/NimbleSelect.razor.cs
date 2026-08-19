@@ -94,6 +94,11 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     [Parameter]
     public EventCallback<FocusEventArgs> FocusOut { get; set; }
 
+    private EventCallback<FocusEventArgs> NonRenderingFocusOutHandler =>
+        EventCallback.Factory.Create<FocusEventArgs>(
+            this,
+            new EventCallbackWorkItem(HandleFocusOut));
+
     [CascadingParameter]
     private NimbleOptionContext? CascadedContext { get; set; }
 
@@ -101,9 +106,9 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     /// Called when the focusout event is fired on the web component.
     /// </summary>
     /// <param name="eventArgs">The focus event args.</param>
-    protected async void HandleFocusOut(FocusEventArgs eventArgs)
+    protected void HandleFocusOut(FocusEventArgs eventArgs)
     {
-        await FocusOut.InvokeAsync(eventArgs);
+        _ = FocusOut.InvokeAsync(eventArgs);
     }
 
     /// <inheritdoc/>
