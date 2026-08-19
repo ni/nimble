@@ -14,7 +14,7 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import {Directive, forwardRef, Provider} from '@angular/core';
+import {Directive, forwardRef, type Provider} from '@angular/core';
 
 import {
   BuiltInControlValueAccessor,
