@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 19 Aug 2026 23:19:23 GMT",
+      "version": "33.5.0",
+      "tag": "@ni/nimble-angular_v33.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "3904d1fa4354e05df999ffbad20a7b43be64c35a",
+            "comment": "Export TableColumnDateTextPageObject from nimble-angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Aug 2026 23:24:47 GMT",
       "version": "33.4.10",
       "tag": "@ni/nimble-angular_v33.4.10",
