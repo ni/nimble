@@ -115,7 +115,7 @@ public partial class NimbleSelect : NimbleInputBase<string?>
             shouldRender = true;
             return false;
         }
-        return true;
+        return base.ShouldRender();
     }
 
     /// <inheritdoc/>

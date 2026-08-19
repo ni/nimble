@@ -2,7 +2,7 @@
 
 <div>
     <SubContainer Label="Select">
-        <NimbleSelect Appearance="DropdownAppearance.Underline" FilterMode="FilterMode.Standard" Clearable="true">
+        <NimbleSelect Appearance="DropdownAppearance.Underline" FilterMode="FilterMode.Standard" Clearable="true" FocusOut="FocusOutFunction">
             Underline Select
             <NimbleListOptionGroup Label="Group 1">
                 <NimbleListOption>Option 1</NimbleListOption>
@@ -13,7 +13,7 @@
                 <NimbleListOption>Option 4</NimbleListOption>
             </NimbleListOptionGroup>
         </NimbleSelect>
-        <NimbleSelect Appearance="DropdownAppearance.Outline">
+        <NimbleSelect Appearance="DropdownAppearance.Outline" FocusOut="FocusOutFunction">
             Outline Select
             <NimbleListOptionGroup Label="Group 1">
                 <NimbleListOption>Option 1</NimbleListOption>
@@ -24,7 +24,7 @@
                 <NimbleListOption>Option 4</NimbleListOption>
             </NimbleListOptionGroup>
         </NimbleSelect>
-        <NimbleSelect Appearance="DropdownAppearance.Block">
+        <NimbleSelect Appearance="DropdownAppearance.Block" FocusOut="FocusOutFunction">
             Block Select
             <NimbleListOptionGroup Label="Group 1">
                 <NimbleListOption>Option 1</NimbleListOption>
@@ -37,3 +37,11 @@
         </NimbleSelect>
     </SubContainer>
 </div>
+
+@code
+{
+    private void FocusOutFunction()
+    {
+        Console.WriteLine("Focus out event triggered");
+    }
+}
