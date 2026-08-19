@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -93,6 +94,7 @@ public class WaferMapHoverDieChangedEventArgs : EventArgs
 [EventHandler("onnimbletablecolumnmenubuttonbeforetoggle", typeof(TableColumnMenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablerowexpandtoggle", typeof(TableRowExpandToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblewafermapdiehoverchange", typeof(WaferMapHoverDieChangedEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onnimbleselectfocusout", typeof(FocusEventArgs), enableStopPropagation: false, enablePreventDefault: false)]
 public static class EventHandlers
 {
 }

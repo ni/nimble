@@ -1,6 +1,8 @@
 using System.Linq.Expressions;
 using BlazorWorkspace.Testing.Unit;
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -125,6 +127,27 @@ public class NimbleSelectTests : BunitTestBase
         var select = RenderWithPropertySet(x => x.FullBleed, true);
 
         select.AssertHasAttribute("full-bleed");
+    }
+
+    [Fact]
+    public async Task SelectFocusOut_EventInvokesCallbackAsync()
+    {
+        var focusOutFired = false;
+        string? eventType = null;
+        var select = Render<NimbleSelect>(p => p.Add(
+            x => x.FocusOut,
+            EventCallback.Factory.Create<FocusEventArgs>(this, eventArgs =>
+            {
+                focusOutFired = true;
+                eventType = eventArgs.Type;
+            })));
+
+        var selectElement = select.Find("nimble-select");
+
+        await selectElement.TriggerEventAsync("onnimbleselectfocusout", new FocusEventArgs { Type = "focusout" });
+
+        Assert.True(focusOutFired);
+        Assert.Equal("focusout", eventType);
     }
 
     private IRenderedComponent<NimbleSelect> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSelect, TProperty>> propertyGetter, TProperty propertyValue)

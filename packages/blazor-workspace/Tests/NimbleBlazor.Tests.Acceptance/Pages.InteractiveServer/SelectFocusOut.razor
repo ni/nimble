@@ -1,0 +1,22 @@
+@page "/InteractiveServer/SelectFocusOut"
+@using System.Globalization
+@using Microsoft.AspNetCore.Components.Web
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@inherits LayoutComponentBase
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<NimbleSelect id="select" FocusOut="OnFocusOut">
+    <NimbleListOption Value="alpha">Alpha</NimbleListOption>
+    <NimbleListOption Value="bravo">Bravo</NimbleListOption>
+</NimbleSelect>
+<NimbleTextField id="focusOutCount" Value="@_focusOutCount.ToString(CultureInfo.InvariantCulture)">Focus out count</NimbleTextField>
+<NimbleButton id="focusTarget">Focus target</NimbleButton>
+
+@code {
+    private int _focusOutCount;
+
+    private void OnFocusOut(FocusEventArgs eventArgs)
+    {
+        _focusOutCount++;
+    }
+}

@@ -172,6 +172,18 @@ function registerEvents(Blazor) {
             };
         }
     });
+    // Used by NimbleSelect.razor
+    Blazor.registerCustomEventType('nimbleselectfocusout', {
+        browserEventName: 'focusout',
+        createEventArgs: event => {
+            if (event.target.localName === 'nimble-select') {
+                return {
+                    type: event.type
+                };
+            }
+            return null;
+        }
+    });
 }
 
 function handleRuntimeStarted() {

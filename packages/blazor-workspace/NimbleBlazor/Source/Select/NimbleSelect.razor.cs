@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -87,8 +88,23 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets a callback that's invoked when the select loses focus.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FocusEventArgs> FocusOut { get; set; }
+
     [CascadingParameter]
     private NimbleOptionContext? CascadedContext { get; set; }
+
+    /// <summary>
+    /// Called when the focusout event is fired on the web component.
+    /// </summary>
+    /// <param name="eventArgs">The focus event args.</param>
+    protected async void HandleFocusOut(FocusEventArgs eventArgs)
+    {
+        await FocusOut.InvokeAsync(eventArgs);
+    }
 
     /// <inheritdoc/>
     protected override void OnParametersSet()
