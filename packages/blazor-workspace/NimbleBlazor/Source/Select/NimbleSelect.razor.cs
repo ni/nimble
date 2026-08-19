@@ -7,6 +7,7 @@ public partial class NimbleSelect : NimbleInputBase<string?>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;
+    private bool shouldRender = true;
 
     /// <summary>
     /// Gets or sets the name of the Select.
@@ -94,11 +95,6 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     [Parameter]
     public EventCallback<FocusEventArgs> FocusOut { get; set; }
 
-    private EventCallback<FocusEventArgs> NonRenderingFocusOutHandler =>
-        EventCallback.Factory.Create<FocusEventArgs>(
-            this,
-            new EventCallbackWorkItem(HandleFocusOut));
-
     [CascadingParameter]
     private NimbleOptionContext? CascadedContext { get; set; }
 
@@ -108,7 +104,18 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     /// <param name="eventArgs">The focus event args.</param>
     protected void HandleFocusOut(FocusEventArgs eventArgs)
     {
+        shouldRender = false;
         _ = FocusOut.InvokeAsync(eventArgs);
+    }
+
+    protected override bool ShouldRender()
+    {
+        if (!shouldRender)
+        {
+            shouldRender = true;
+            return false;
+        }
+        return true;
     }
 
     /// <inheritdoc/>
