@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/checkbox_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/v21.2.19/packages/forms/src/directives/checkbox_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from the CheckboxControlValueAccessor's `@Directive` decorator
@@ -14,7 +14,7 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import {Directive, forwardRef, type Provider} from '@angular/core';
+import {Directive, forwardRef, Provider} from '@angular/core';
 
 import {
   BuiltInControlValueAccessor,
