@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -6,6 +7,8 @@ public partial class NimbleSelect : NimbleInputBase<string?>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;
+
+    public event EventHandler<FocusEventArgs>? FocusOut;
 
     /// <summary>
     /// Gets or sets the name of the Select.
@@ -104,5 +107,10 @@ public partial class NimbleSelect : NimbleInputBase<string?>
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    private void OnFocusOut(FocusEventArgs args)
+    {
+        FocusOut?.Invoke(this, args);
     }
 }
