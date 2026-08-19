@@ -113,7 +113,6 @@ export const lightThemeMatrix: StoryFn = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
-
 export const colorThemeMatrix: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         disabledStates,
@@ -126,7 +125,6 @@ export const colorThemeMatrix: StoryFn = createFixedThemeStory(
     ]),
     colorThemeDarkGreenBackground
 );
-
 
 export const darkThemeMatrix: StoryFn = createFixedThemeStory(
     createMatrix(component, [
