@@ -36,7 +36,7 @@
         "!*"
     ],
     "devDependencies": {
-        "@ni/fast-web-utilities": "^10.0.0",
+        "@ni/fast-web-utilities": "../../ni-fast-web-utilities-10.0.4.tgz",
         "@ni-private/eslint-config-nimble": "*",
         "@ni/nimble-components": "*",
         "@ni/nimble-tokens": "*",
