@@ -24,6 +24,7 @@ export const styles = css`
     :host {
         min-width: ${standardPadding};
         min-height: ${standardPadding};
+        max-width: 90%;
 
         flex-direction: row;
         justify-content: center;
@@ -34,16 +35,17 @@ export const styles = css`
 
     :host([message-type='${ChatMessageType.outbound}']) {
         justify-content: flex-end;
+        align-self: flex-end;
     }
 
     :host([message-type='${ChatMessageType.inbound}']) {
         justify-content: flex-start;
+        align-self: flex-start;
     }
 
     .container {
         display: flex;
         flex-direction: column;
-        max-width: calc(90%);
     }
 
     [part='start'] {

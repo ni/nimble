@@ -18,10 +18,12 @@ export const styles = css`
     :host {
         min-width: ${standardPadding};
         min-height: ${standardPadding};
+        max-width: 90%;
 
         flex: 1;
         flex-direction: row;
         justify-content: center;
+        align-self: center;
         align-items: center;
         font: ${bodyFont};
         color: ${bodyFontColor};
@@ -31,7 +33,6 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: calc(90%);
         gap: ${mediumPadding};
     }
 
