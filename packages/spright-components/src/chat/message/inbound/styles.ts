@@ -20,9 +20,11 @@ export const styles = css`
     :host {
         min-width: ${standardPadding};
         min-height: ${standardPadding};
+        max-width: 90%;
 
         flex-direction: row;
         justify-content: flex-start;
+        align-self: flex-start;
         flex-shrink: 0;
         font: ${bodyFont};
         color: ${bodyFontColor};
@@ -31,7 +33,6 @@ export const styles = css`
     .container {
         display: flex;
         flex-direction: column;
-        max-width: calc(90%);
     }
 
     [part='start'] {
@@ -41,6 +42,7 @@ export const styles = css`
     .message-content {
         width: fit-content;
         height: fit-content;
+        max-width: 100%;
         overflow-x: auto;
     }
 
