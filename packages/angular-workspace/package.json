@@ -59,7 +59,7 @@
     "@lhci/cli": "^0.15.0",
     "@ni-private/eslint-config-nimble": "*",
     "@ni-private/jasmine-extensions": "*",
-    "@ni/fast-web-utilities": "^10.0.0",
+    "@ni/fast-web-utilities": "../../ni-fast-web-utilities-10.0.4.tgz",
     "@ni/jasmine-parameterized": "*",
     "@ni/nimble-tokens": "*",
     "@rollup/plugin-node-resolve": "^16.0.0",
