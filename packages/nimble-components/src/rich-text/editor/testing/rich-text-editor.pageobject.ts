@@ -348,7 +348,7 @@ export class RichTextEditorPageObject {
         toolbarButton: ToolbarButton
     ): string {
         const button = this.getFormattingButton(toolbarButton);
-        return button!.textContent!.trim();
+        return button!.textContent.trim();
     }
 
     public getFormattingButtonTitle(toolbarButton: ToolbarButton): string {
@@ -423,7 +423,7 @@ export class RichTextEditorPageObject {
 
     public getMentionListboxItemsName(): string[] {
         const listItemsName: string[] = [];
-        this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent!)));
+        this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent)));
         return listItemsName;
     }
 

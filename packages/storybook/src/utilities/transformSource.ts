@@ -59,7 +59,7 @@ const removeFastCommentNodes = (node: Node): void => {
         nodes.forEach(child => removeFastCommentNodes(child));
     }
     if (node.nodeType === Node.COMMENT_NODE) {
-        const comment = node.textContent!;
+        const comment = node.textContent;
         if (comment.includes('fast-') || comment.trim() === '') {
             node.parentNode?.removeChild(node);
         }
