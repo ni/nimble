@@ -66,6 +66,7 @@ export const styles = css`
         align-items: center;
         width: fit-content;
         height: fit-content;
+        max-width: 100%;
         overflow-x: auto;
         gap: ${mediumPadding};
     }

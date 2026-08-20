@@ -31,6 +31,7 @@ export const styles = css`
     .message-content {
         width: fit-content;
         height: fit-content;
+        max-width: 100%;
         overflow-x: auto;
     }
 `;
