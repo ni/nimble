@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/v21.2.19/packages/forms/src/directives/control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Commented out ControlValueAccessor which is exported from @angular/forms
@@ -224,6 +224,6 @@ export class BuiltInControlValueAccessor extends BaseControlValueAccessor {}
  */
 /* [Nimble] Commenting out public injection token
 export const NG_VALUE_ACCESSOR = new InjectionToken<ReadonlyArray<ControlValueAccessor>>(
-  ngDevMode ? 'NgValueAccessor' : '',
+  typeof ngDevMode !== 'undefined' && ngDevMode ? 'NgValueAccessor' : '',
 );
 */

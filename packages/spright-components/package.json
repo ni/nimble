@@ -40,9 +40,9 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "customElements": "dist/custom-elements.json",
   "dependencies": {
-    "@ni/fast-element": "^10.1.2",
-    "@ni/fast-foundation": "^10.2.5",
-    "@ni/fast-web-utilities": "^10.0.0",
+    "@ni/fast-element": "../../ni-fast-element-10.1.2.tgz",
+    "@ni/fast-foundation": "../../ni-fast-foundation-10.2.5.tgz",
+    "@ni/fast-web-utilities": "../../ni-fast-web-utilities-10.0.4.tgz",
     "@ni/nimble-components": "^35.12.7",
     "@ni/nimble-tokens": "^8.18.1",
     "tslib": "^2.2.0"
@@ -72,6 +72,6 @@
     "playwright": "1.60.0",
     "rollup": "^4.60.2",
     "rollup-plugin-sourcemaps2": "^0.5.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }
