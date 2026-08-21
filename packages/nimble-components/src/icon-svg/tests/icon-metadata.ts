@@ -397,6 +397,9 @@ export const iconMetadata: {
     IconHashtag: {
         tags: ['number']
     },
+    IconHeadset: {
+        tags: ['IT', 'call', 'customer service', 'help', 'support']
+    },
     IconHome: {
         tags: []
     },
@@ -689,6 +692,9 @@ export const iconMetadata: {
     },
     IconUser: {
         tags: ['admin', 'account']
+    },
+    IconUserHeadset: {
+        tags: ['IT', 'call', 'customer service', 'help', 'support']
     },
     IconUserHelmetSafety: {
         tags: ['job', 'work', 'worker', 'operator', 'technician', 'safety']
