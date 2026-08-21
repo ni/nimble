@@ -526,19 +526,24 @@ describe('value accessors', () => {
         const comp = fixture.componentInstance;
         comp.cities = [{'name': 'SF'}, {'name': 'NYC'}];
         comp.selectedCity = null;
-        await fixture.whenStable();
+        // [Nimble] Angular's upstream test relies on `useAutoTick()` (a private testing API not available here) to
+        // pick up this change via zone stability alone, so `detectChanges()` must be called explicitly instead.
+        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
 
         const select = fixture.debugElement.query(By.css('select'));
 
         select.nativeElement.value = '2: Object';
         dispatchEvent(select.nativeElement, 'change');
-        await fixture.whenStable();
+        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await timeout();
         expect(comp.selectedCity!['name']).toEqual('NYC');
 
         select.nativeElement.value = '0: null';
         dispatchEvent(select.nativeElement, 'change');
-        await fixture.whenStable();
+        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await timeout();
         expect(comp.selectedCity).toEqual(null);
       });
