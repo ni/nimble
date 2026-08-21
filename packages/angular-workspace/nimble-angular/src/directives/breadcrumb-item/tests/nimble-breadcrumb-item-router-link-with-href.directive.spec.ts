@@ -1,4 +1,4 @@
-import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
@@ -52,6 +52,7 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
                 CommonModule,
             ],
             providers: [
+                provideZoneChangeDetection(),
                 { provide: Sanitizer, useValue: sanitizer },
                 provideRouter([
                     { path: 'page1', component: BlankComponent },
