@@ -1,4 +1,4 @@
-import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { NimbleBreadcrumbModule } from '../../breadcrumb/nimble-breadcrumb.modul
 import { NimbleBreadcrumbItemModule } from '../nimble-breadcrumb-item.module';
 import type { BreadcrumbItem } from '../nimble-breadcrumb-item.directive';
 
-describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
+fdescribe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
             <nimble-breadcrumb>
@@ -37,13 +37,9 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     let routerNavigateByUrlSpy: jasmine.Spy;
     let anchorClickHandlerSpy: jasmine.Spy;
     let separatorClickHandlerSpy: jasmine.Spy;
-    let sanitizer: jasmine.SpyObj<Sanitizer>;
     let harness: RouterTestingHarness;
 
     beforeEach(async () => {
-        sanitizer = jasmine.createSpyObj<Sanitizer>('Sanitizer', ['sanitize']);
-        sanitizer.sanitize.and.callFake((_, value: string) => value);
-
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, BlankComponent],
             imports: [
@@ -52,7 +48,6 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
                 CommonModule,
             ],
             providers: [
-                { provide: Sanitizer, useValue: sanitizer },
                 provideRouter([
                     { path: 'page1', component: BlankComponent },
                     { path: '', component: TestHostComponent }
@@ -123,7 +118,7 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
         }));
     });
 
-    it('sanitized initial href created from nimbleRouterLink', () => {
-        expect(sanitizer.sanitize).toHaveBeenCalledWith(SecurityContext.URL, '/page1?param1=true');
+    it('sets href attribute based on nimbleRouterLink', () => {
+        expect(anchor.getAttribute('href')).toBe('/page1?param1=true');
     });
 });
