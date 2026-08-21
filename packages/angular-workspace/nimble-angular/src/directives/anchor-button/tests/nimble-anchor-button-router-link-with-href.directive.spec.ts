@@ -1,4 +1,4 @@
-import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
@@ -32,13 +32,9 @@ describe('Nimble anchor button RouterLinkWithHrefDirective', () => {
     let innerAnchor: HTMLAnchorElement;
     let routerNavigateByUrlSpy: jasmine.Spy;
     let anchorClickHandlerSpy: jasmine.Spy;
-    let sanitizer: jasmine.SpyObj<Sanitizer>;
     let harness: RouterTestingHarness;
 
     beforeEach(async () => {
-        sanitizer = jasmine.createSpyObj<Sanitizer>('Sanitizer', ['sanitize']);
-        sanitizer.sanitize.and.callFake((_, value: string) => value);
-
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, BlankComponent],
             imports: [
@@ -46,7 +42,6 @@ describe('Nimble anchor button RouterLinkWithHrefDirective', () => {
                 CommonModule,
             ],
             providers: [
-                { provide: Sanitizer, useValue: sanitizer },
                 provideRouter([
                     { path: 'page1', component: BlankComponent },
                     { path: '', component: TestHostComponent }
@@ -114,7 +109,7 @@ describe('Nimble anchor button RouterLinkWithHrefDirective', () => {
         }));
     });
 
-    it('sanitized initial href created from nimbleRouterLink', () => {
-        expect(sanitizer.sanitize).toHaveBeenCalledWith(SecurityContext.URL, '/page1?param1=true');
+    it('sets href attribute based on nimbleRouterLink', () => {
+        expect(innerAnchor.getAttribute('href')).toBe('/page1?param1=true');
     });
 });
