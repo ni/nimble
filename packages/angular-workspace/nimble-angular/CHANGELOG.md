@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Fri, 14 Aug 2026 23:24:47 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 19 Aug 2026 23:19:23 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.5.0
+
+Wed, 19 Aug 2026 23:19:23 GMT
+
+### Minor changes
+
+- Export TableColumnDateTextPageObject from nimble-angular ([ni/nimble@3904d1f](https://github.com/ni/nimble/commit/3904d1fa4354e05df999ffbad20a7b43be64c35a))
 
 ## 33.4.10
 
