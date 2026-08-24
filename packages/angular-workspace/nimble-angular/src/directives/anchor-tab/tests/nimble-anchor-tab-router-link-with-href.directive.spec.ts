@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
@@ -12,7 +12,7 @@ import type { AnchorTab } from '../nimble-anchor-tab.directive';
 describe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
-            <nimble-anchor-tab #anchorTab nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
+            <nimble-anchor-tab #anchorTab [nimbleRouterLink]="route" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
                 Anchor text
             </nimble-anchor-tab>
          `,
@@ -20,6 +20,7 @@ describe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
     })
     class TestHostComponent {
         @ViewChild('anchorTab', { static: true }) public anchorTab: ElementRef<AnchorTab>;
+        public route = 'page1';
     }
 
     @Component({ template: '', standalone: false })
@@ -46,6 +47,7 @@ describe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
                     { path: 'page1', component: BlankComponent },
                     { path: '', component: TestHostComponent }
                 ]),
+                provideZoneChangeDetection(),
             ]
         });
         harness = await RouterTestingHarness.create('');
@@ -109,7 +111,10 @@ describe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
         }));
     });
 
-    it('sets href attribute based on nimbleRouterLink', () => {
-        expect(innerAnchor.getAttribute('href')).toBe('/page1?param1=true');
+    it('sanitizes href created from nimbleRouterLink', () => {
+        testHostComponent.route = '/page1;javascript:alert(1)';
+        harness.detectChanges();
+        processUpdates();
+        expect(innerAnchor.getAttribute('href')).toBe('/page1%3Bjavascript:alert%281%29?param1=true');
     });
 });

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import type { AnchorButton } from '../nimble-anchor-button.directive';
 describe('Nimble anchor button RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
-            <nimble-anchor-button #anchor nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
+            <nimble-anchor-button #anchor [nimbleRouterLink]="route" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
                 Anchor text
             </nimble-anchor-button>
          `,
@@ -20,6 +20,7 @@ describe('Nimble anchor button RouterLinkWithHrefDirective', () => {
     })
     class TestHostComponent {
         @ViewChild('anchor', { static: true }) public anchor: ElementRef<AnchorButton>;
+        public route = 'page1';
     }
 
     @Component({ template: '', standalone: false })
@@ -46,6 +47,7 @@ describe('Nimble anchor button RouterLinkWithHrefDirective', () => {
                     { path: 'page1', component: BlankComponent },
                     { path: '', component: TestHostComponent }
                 ]),
+                provideZoneChangeDetection(),
             ]
         });
         harness = await RouterTestingHarness.create('');
@@ -109,7 +111,10 @@ describe('Nimble anchor button RouterLinkWithHrefDirective', () => {
         }));
     });
 
-    it('sets href attribute based on nimbleRouterLink', () => {
-        expect(innerAnchor.getAttribute('href')).toBe('/page1?param1=true');
+    it('sanitizes href created from nimbleRouterLink', () => {
+        testHostComponent.route = '/page1;javascript:alert(1)';
+        harness.detectChanges();
+        processUpdates();
+        expect(innerAnchor.getAttribute('href')).toBe('/page1%3Bjavascript:alert%281%29?param1=true');
     });
 });
