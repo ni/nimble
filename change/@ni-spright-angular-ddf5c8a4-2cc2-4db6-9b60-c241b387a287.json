@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Prevent error squiggles in editor for Jasmine types",
-  "packageName": "@ni/spright-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
