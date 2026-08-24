@@ -526,6 +526,9 @@ export const iconMetadata: {
     IconPotWithLid: {
         tags: ['box', 'utilities']
     },
+    IconPowerCog: {
+        tags: ['configuration', 'power', 'settings']
+    },
     IconPrint: {
         tags: ['laser', 'inkjet', 'printer']
     },
