@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add headset, user headset, and power cog icons; update user helmet safety icon",
-  "packageName": "@ni/nimble-tokens",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "minor"
-}
