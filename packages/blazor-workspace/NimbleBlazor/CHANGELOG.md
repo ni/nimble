@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 04 Aug 2026 22:14:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 24 Aug 2026 19:55:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 21.5.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.13.0
+- Bump @ni/nimble-tokens to v8.19.0
+
+## 21.4.0
+
+Sat, 22 Aug 2026 14:27:16 GMT
+
+### Minor changes
+
+- Add Blur event to the NimbleSelect ([ni/nimble@830d696](https://github.com/ni/nimble/commit/830d696df7294b746a80cd11287ee93fdea6eac9))
 
 ## 21.3.4
 
