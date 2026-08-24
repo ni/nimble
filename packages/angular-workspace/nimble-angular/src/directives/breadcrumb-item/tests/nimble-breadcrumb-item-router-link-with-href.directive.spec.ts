@@ -124,6 +124,6 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
         testHostComponent.route = '/page1;javascript:alert(1)';
         harness.detectChanges();
         processUpdates();
-        expect(innerAnchor.getAttribute('href')).toBe('/page1%3Bjavascript:alert%281%29?param1=true');
+        expect(anchor.getAttribute('href')).toBe('/page1%3Bjavascript:alert%281%29?param1=true');
     });
 });
