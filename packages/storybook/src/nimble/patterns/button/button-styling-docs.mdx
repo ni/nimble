@@ -1,8 +1,8 @@
 import { NimbleIconKey } from '@ni/nimble-react/icons/key';
-import { StoryShowcase } from '../../../utilities/story-layout';
+import { StoryShowcase, StorySubsection } from '../../../utilities/story-layout';
 import { buttonSections } from '../../button/button-sections';
 
-<h3 id={buttonSections.appearances.id}>{buttonSections.appearances.title}</h3>
+<StorySubsection {...buttonSections.appearances}>
 
 These are the standard styling options for the button, ordered from least to
 most visually prominent. Consider each option before employing an appearance
@@ -109,7 +109,9 @@ variant.
     </div>
 </StoryShowcase>
 
-<h3 id={buttonSections.appearanceVariants.id}>{buttonSections.appearanceVariants.title}</h3>
+</StorySubsection>
+
+<StorySubsection {...buttonSections.appearanceVariants}>
 
 Button appearance variants are mainly used when a button needs be distinguished
 for one of the following reasons:
@@ -198,3 +200,5 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
 To see more examples of appearance variant button hierarchy, see the Figma docs
 for
 [Primary and Standard Actions](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1604-74603&mode=design&t=SQ3lyK83VHBUaOkg-0).
+
+</StorySubsection>

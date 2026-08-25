@@ -18,6 +18,7 @@ import {
 	StoryPage,
 	StoryPreview,
 	StorySection,
+	StorySubsection,
 	Tag
 } from '../../utilities/story-layout';
 
@@ -73,18 +74,19 @@ import {
 	</StorySection>
 
 	<StorySection {...sections.usage}>
-		<h3 id={sections.whenToUse.id}>{sections.whenToUse.title}</h3>
-		<div>
-			<strong>Primary Actions:</strong> Use buttons for primary actions
-			that users need to take, such as submitting a form, saving changes,
-			or proceeding to the next step.
-		</div>
+		<StorySubsection {...sections.whenToUse}>
+			<div>
+				<strong>Primary Actions:</strong> Use buttons for primary actions
+				that users need to take, such as submitting a form, saving changes,
+				or proceeding to the next step.
+			</div>
 
-		<div>
-			<strong>Call to Action (CTA):</strong> Buttons are ideal for CTAs
-			that encourage users to take a specific action, like "Sign Up,"
-			"Buy Now," or "Learn More."
-		</div>
+			<div>
+				<strong>Call to Action (CTA):</strong> Buttons are ideal for CTAs
+				that encourage users to take a specific action, like "Sign Up,"
+				"Buy Now," or "Learn More."
+			</div>
+		</StorySubsection>
 	</StorySection>
 
 	<StorySection {...sections.appearanceStyling}>
@@ -95,19 +97,21 @@ import {
 		</div>
 		<ButtonStylingDocs components={{ Button: buttonTag }} />
 
-		<h3 id={sections.sizing.id}>{sections.sizing.title}</h3>
-		<div>
-			Nimble Buttons are currently always 32px tall. Designs exist for
-			other sizes; if you need these in an application, please comment on
-			[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
-		</div>
-		<h3 id={sections.spacingWithOtherComponents.id}>{sections.spacingWithOtherComponents.title}</h3>
-		<div>
-			Use consistent spacing between elements to keep layouts clean and
-			organized. Adequate padding around components prevents visual
-			clutter and helps users focus on key information. Use responsive
-			spacing when layouts change across screen sizes.
-		</div>
+		<StorySubsection {...sections.sizing}>
+			<div>
+				Nimble Buttons are currently always 32px tall. Designs exist for
+				other sizes; if you need these in an application, please comment on
+				[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
+			</div>
+		</StorySubsection>
+		<StorySubsection {...sections.spacingWithOtherComponents}>
+			<div>
+				Use consistent spacing between elements to keep layouts clean and
+				organized. Adequate padding around components prevents visual
+				clutter and helps users focus on key information. Use responsive
+				spacing when layouts change across screen sizes.
+			</div>
+		</StorySubsection>
 	</StorySection>
 
 	<StorySection {...sections.buttonGuidelines}>
@@ -162,21 +166,24 @@ import {
 
 	<StorySection {...sections.accessibility}>
 		<StoryGuidance>
-			<h3 id={sections.accessibleIconButtons.id}>{sections.accessibleIconButtons.title}</h3>
-			<ContentHiddenDocs buttonElement="nimble-button" />
-			<h3 id={sections.keyboardUsage.id}>{sections.keyboardUsage.title}</h3>
-			<div>
-				Buttons must remain keyboard accessible so users can move focus
-				to them and activate them with standard keyboard controls.
-			</div>
+			<StorySubsection {...sections.accessibleIconButtons}>
+				<ContentHiddenDocs buttonElement="nimble-button" />
+			</StorySubsection>
+			<StorySubsection {...sections.keyboardUsage}>
+				<div>
+					Buttons must remain keyboard accessible so users can move focus
+					to them and activate them with standard keyboard controls.
+				</div>
+			</StorySubsection>
 		</StoryGuidance>
 	</StorySection>
 
 	<StorySection {...sections.alternativesRelated}>
-		<h3 id={sections.alternativesToConsider.id}>{sections.alternativesToConsider.title}</h3>
-		<div>
-			Consider <Tag name={anchorButtonTag} /> if you need a button that
-			triggers navigation to a URL.
-		</div>
+		<StorySubsection {...sections.alternativesToConsider}>
+			<div>
+				Consider <Tag name={anchorButtonTag} /> if you need a button that
+				triggers navigation to a URL.
+			</div>
+		</StorySubsection>
 	</StorySection>
 </StoryPage>

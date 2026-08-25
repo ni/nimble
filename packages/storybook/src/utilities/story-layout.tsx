@@ -311,6 +311,13 @@ export const StorySection = ({ id, title, children }: StorySectionProps): React.
     </section>;
 };
 
+export const StorySubsection = ({ id, title, children }: StorySectionProps): React.JSX.Element => {
+    return <section>
+        <h3 id={id}>{title}</h3>
+        {children}
+    </section>;
+};
+
 export const StoryPreview = ({ children }: ChildrenProp): React.JSX.Element => {
     return <div>
         {css`

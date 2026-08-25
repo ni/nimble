@@ -18,6 +18,7 @@ import {
   StoryPage,
   StoryPreview,
   StorySection,
+  StorySubsection,
   Tag
 } from '../../utilities/story-layout';
 
@@ -63,12 +64,13 @@ in addition to selecting from the list.
 </StoryPreview>
 
 <StoryApi>
-<h3 id={sections.api.id}>{sections.api.title}</h3>
+<StorySubsection {...sections.api}>
 
 <Controls of={selectStories.select} />
 <ComponentApisLink />
+</StorySubsection>
 
-<h3 id={sections.listOption.id}>{sections.listOption.title}</h3>
+<StorySubsection {...sections.listOption}>
 
 <Description of={listOptionStories} />
 <Controls of={listOptionStories.listOption} />
@@ -83,10 +85,14 @@ on the Select control. Without this, the Select may display unexpected behavior
 (like reverting to the placeholder value when updating the list of filtered
 options).
 
-<h3 id={sections.listOptionGroup.id}>{sections.listOptionGroup.title}</h3>
+</StorySubsection>
+
+<StorySubsection {...sections.listOptionGroup}>
 
 <Description of={listOptionGroupStories} />
 <Controls of={listOptionGroupStories.listOptionGroup} />
+
+</StorySubsection>
 
 </StoryApi>
 </StorySection>
@@ -103,7 +109,7 @@ the control is wide enough so labels do not wrap.
 
 <StorySection {...sections.examples}>
 
-<h3 id={sections.placeholder.id}>{sections.placeholder.title}</h3>
+<StorySubsection {...sections.placeholder}>
 
 To display placeholder text within the select you must provide an option that
 has the `disabled`, `selected` and `hidden` attributes set. This option will not
@@ -124,8 +130,9 @@ in the list. See [#2783](https://github.com/ni/nimble/issues/2783) for more deta
 <StoryPreview>
   <Canvas of={selectStories.placeholder} />
 </StoryPreview>
+</StorySubsection>
 
-<h3 id={sections.dynamicOptions.id}>{sections.dynamicOptions.title}</h3>
+<StorySubsection {...sections.dynamicOptions}>
 
 There are scenarios that require not all possible options to be available
 initially, such as when the set of all options is too large to be loaded at
@@ -166,6 +173,8 @@ text against the group label. If the group label matches the filter text, the
 group should be displayed, and all options within the group should be displayed
 as well. If the group label does not match the filter text, then options within
 the group should only be displayed if they match the filter text.
+
+</StorySubsection>
 
 </StorySection>
 </StoryPage>
