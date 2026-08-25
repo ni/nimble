@@ -1,6 +1,4 @@
 import { configureActions } from 'storybook/actions';
-import { SyntaxHighlighter } from 'storybook/internal/components';
-import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
 import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
 import './preview.css';
 import {
@@ -8,8 +6,6 @@ import {
     defaultBackgroundState
 } from '../src/utilities/states';
 import { theme } from './theme';
-
-SyntaxHighlighter.registerLanguage('cs', csharp);
 
 const parameters = {
     backgrounds: {
@@ -57,7 +53,7 @@ const parameters = {
     },
     docs: {
         controls: { sort: 'alpha' },
-        toc: { headingSelector: 'h1, h2, h3' },
+        toc: { disable: true },
         theme
     }
 };

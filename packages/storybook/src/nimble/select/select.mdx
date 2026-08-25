@@ -13,11 +13,41 @@ import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 import { radioTag } from '@ni/nimble-components/dist/esm/radio';
-import { Tag } from '../../utilities/story-layout';
+import {
+  StoryApi,
+  StoryPage,
+  StoryPreview,
+  StorySection,
+  Tag
+} from '../../utilities/story-layout';
+
+export const sections = {
+  overview: { id: 'overview', title: 'Overview', level: 2 },
+  implementationApi: { id: 'implementation-api', title: 'Implementation & API', level: 2 },
+  api: { id: 'api', title: 'API', level: 3 },
+  listOption: { id: 'list-option', title: 'List Option', level: 3 },
+  listOptionGroup: { id: 'list-option-group', title: 'List Option Group', level: 3 },
+  styling: { id: 'styling', title: 'Styling', level: 2 },
+  examples: { id: 'examples', title: 'Examples', level: 2 },
+  placeholder: { id: 'placeholder', title: 'Placeholder', level: 3 },
+  dynamicOptions: { id: 'dynamic-options', title: 'Dynamic options', level: 3 }
+};
 
 <Meta of={selectStories} />
+<StoryPage toc={[
+  sections.overview,
+  sections.implementationApi,
+  sections.api,
+  sections.listOption,
+  sections.listOptionGroup,
+  sections.styling,
+  sections.examples,
+  sections.placeholder,
+  sections.dynamicOptions
+]}>
 <Title of={selectStories} />
 
+<StorySection {...sections.overview}>
 The Select control allows users to choose from a list of options displayed in a
 dropdown menu.
 
@@ -25,15 +55,20 @@ Use <Tag name={radioTag} /> when you need to present a small set of options.
 
 Use <Tag name={comboboxTag} /> if users should be able to enter a custom value
 in addition to selecting from the list.
+</StorySection>
 
-<Canvas of={selectStories.select} />
+<StorySection {...sections.implementationApi}>
+<StoryPreview>
+  <Canvas of={selectStories.select} />
+</StoryPreview>
 
-## API
+<StoryApi>
+<h3 id={sections.api.id}>{sections.api.title}</h3>
 
 <Controls of={selectStories.select} />
 <ComponentApisLink />
 
-### List Option
+<h3 id={sections.listOption.id}>{sections.listOption.title}</h3>
 
 <Description of={listOptionStories} />
 <Controls of={listOptionStories.listOption} />
@@ -48,22 +83,27 @@ on the Select control. Without this, the Select may display unexpected behavior
 (like reverting to the placeholder value when updating the list of filtered
 options).
 
-### List Option Group
+<h3 id={sections.listOptionGroup.id}>{sections.listOptionGroup.title}</h3>
 
 <Description of={listOptionGroupStories} />
 <Controls of={listOptionGroupStories.listOptionGroup} />
 
-## Styling
+</StoryApi>
+</StorySection>
+
+<StorySection {...sections.styling}>
 
 By default, the select control resizes to the selected option size. In most
 layouts, give the select a specific `width` to align with other items. Ensure
 the control is wide enough so labels do not wrap.
 
+</StorySection>
+
 {/* ## Usage */}
 
-## Examples
+<StorySection {...sections.examples}>
 
-### Placeholder
+<h3 id={sections.placeholder.id}>{sections.placeholder.title}</h3>
 
 To display placeholder text within the select you must provide an option that
 has the `disabled`, `selected` and `hidden` attributes set. This option will not
@@ -81,9 +121,11 @@ the end of the prompt.
 placeholder as `disabled` and `hidden` and ensure that it is the first option
 in the list. See [#2783](https://github.com/ni/nimble/issues/2783) for more detail.*
 
-<Canvas of={selectStories.placeholder} />
+<StoryPreview>
+  <Canvas of={selectStories.placeholder} />
+</StoryPreview>
 
-### Dynamic options
+<h3 id={sections.dynamicOptions.id}>{sections.dynamicOptions.title}</h3>
 
 There are scenarios that require not all possible options to be available
 initially, such as when the set of all options is too large to be loaded at
@@ -124,6 +166,9 @@ text against the group label. If the group label matches the filter text, the
 group should be displayed, and all options within the group should be displayed
 as well. If the group label does not match the filter text, then options within
 the group should only be displayed if they match the filter text.
+
+</StorySection>
+</StoryPage>
 
 {/* ## Accessibility */}
 
