@@ -99,7 +99,7 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public EventCallback<FocusEventArgs> Blur { get; set; }
+    public EventCallback<EventArgs> Blur { get; set; }
 
     /// <inheritdoc />
     protected override string? FormatValueAsString(double? value)
@@ -135,7 +135,7 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
         return true;
     }
 
-    protected async void HandleBlur(FocusEventArgs e)
+    protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
     }
