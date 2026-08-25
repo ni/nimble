@@ -1,5 +1,6 @@
 @namespace NimbleBlazor
 <nimble-banner
+    @onblur="HandleBlur"
     open="@BindConverter.FormatValue(Open)"
     @onnimblebannertoggle="(__value) => UpdateOpen(__value.NewState)"
     severity="@Severity.ToAttributeValue()"

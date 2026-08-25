@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -107,10 +108,18 @@ public partial class NimbleTextArea : NimbleInputBase<string?>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public EventCallback<FocusEventArgs> Blur { get; set; }
+
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    protected async void HandleBlur(FocusEventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }
