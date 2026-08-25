@@ -282,11 +282,6 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
                     font-weight: var(${buttonLabelFontWeight.cssCustomProperty}, 600);
                     line-height: 16px;
                 }
-                :scope p,
-                :scope li {
-                    font: var(${bodyPlus1Font.cssCustomProperty});
-                    line-height: 21px;
-                }
                 :scope a {
                     font: inherit;
                 }
