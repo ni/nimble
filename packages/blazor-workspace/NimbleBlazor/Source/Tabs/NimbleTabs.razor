@@ -1,5 +1,6 @@
 @namespace NimbleBlazor
 <nimble-tabs
+    @onblur="HandleBlur"
     activeid="@BindConverter.FormatValue(ActiveId)"
     @onnimbletabsactiveidchange="(__value) => UpdateActiveId(__value?.ActiveId)"
     @attributes="AdditionalAttributes">

@@ -1,6 +1,7 @@
 @namespace NimbleBlazor
 @inherits NimbleInputBase<bool>
 <nimble-checkbox disabled="@Disabled"
+    @onblur="HandleBlur"
     current-checked="@BindConverter.FormatValue(CurrentValue)"
     @onnimblecheckedchange="(__value) => CurrentValue = __value.Checked"
     appearance-indeterminate="@AppearanceIndeterminate"
