@@ -3,6 +3,8 @@
 {
   "files": [],
   "references": [
+    { "path": "./example-client-app/tsconfig.app.json" },
+    { "path": "./example-client-app/tsconfig.spec.json" },
     { "path": "./nimble-angular/tsconfig.lib.json" },
     { "path": "./nimble-angular/tsconfig.spec.json" },
     { "path": "./ok-angular/tsconfig.lib.json" },
