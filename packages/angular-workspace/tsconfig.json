@@ -1,6 +1,17 @@
 /* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
+  "files": [],
+  "references": [
+    { "path": "./example-client-app/tsconfig.app.json" },
+    { "path": "./example-client-app/tsconfig.spec.json" },
+    { "path": "./nimble-angular/tsconfig.lib.json" },
+    { "path": "./nimble-angular/tsconfig.spec.json" },
+    { "path": "./ok-angular/tsconfig.lib.json" },
+    { "path": "./ok-angular/tsconfig.spec.json" },
+    { "path": "./spright-angular/tsconfig.lib.json" },
+    { "path": "./spright-angular/tsconfig.spec.json" },
+  ],
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
