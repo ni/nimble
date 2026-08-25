@@ -1,6 +1,7 @@
 @namespace NimbleBlazor
 @inherits ComponentBase
 <nimble-radio current-value="@CurrentValue"
+              @onblur="HandleBlur"
               disabled="@Disabled"
               name="@Name"
               @attributes="AdditionalAttributes">

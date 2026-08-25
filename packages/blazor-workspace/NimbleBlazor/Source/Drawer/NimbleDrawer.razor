@@ -1,6 +1,7 @@
 @typeparam TCloseReason
 @namespace NimbleBlazor
 <nimble-drawer
+    @onblur="HandleBlur"
     @ref="_drawerElement"
     location="@Location.ToAttributeValue()"
     prevent-dismiss="@PreventDismiss"

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
@@ -22,6 +23,9 @@ public partial class NimbleDrawer<TCloseReason> : ComponentBase
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    [Parameter]
+    public EventCallback<FocusEventArgs> Blur { get; set; }
 
     [Inject]
     private IJSRuntime? JSRuntime { get; set; }
@@ -48,5 +52,10 @@ public partial class NimbleDrawer<TCloseReason> : ComponentBase
     {
         _closeValue = reason;
         await JSRuntime!.InvokeVoidAsync(CloseDrawerMethodName, _drawerElement);
+    }
+
+    protected async void HandleBlur(FocusEventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }

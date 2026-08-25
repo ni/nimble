@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -97,6 +98,9 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public EventCallback<FocusEventArgs> Blur { get; set; }
+
     /// <inheritdoc />
     protected override string? FormatValueAsString(double? value)
     {
@@ -129,5 +133,10 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
         }
         value = converted;
         return true;
+    }
+
+    protected async void HandleBlur(FocusEventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }
