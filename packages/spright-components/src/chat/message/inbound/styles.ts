@@ -20,7 +20,7 @@ export const styles = css`
     :host {
         min-width: ${standardPadding};
         min-height: ${standardPadding};
-        max-width: 90%;
+        max-width: 100%;
 
         flex-direction: row;
         justify-content: flex-start;
