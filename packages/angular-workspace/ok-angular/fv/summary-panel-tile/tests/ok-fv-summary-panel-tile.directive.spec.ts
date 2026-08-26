@@ -1,12 +1,12 @@
 import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { FvSummaryPanelSize as FvSummaryPanelSizeType } from '@ni/ok-components/dist/esm/fv/summary-panel/types';
 import {
     FvSummaryPanelSize,
     type FvSummaryPanelTile,
     FvSummaryPanelTileTextPosition,
     OkFvSummaryPanelTileDirective
 } from '../ok-fv-summary-panel-tile.directive';
-import type { FvSummaryPanelSize as FvSummaryPanelSizeType } from '@ni/ok-components/dist/esm/fv/summary-panel/types';
 import { OkFvSummaryPanelTileModule } from '../ok-fv-summary-panel-tile.module';
 
 describe('Ok fv summary panel tile', () => {
