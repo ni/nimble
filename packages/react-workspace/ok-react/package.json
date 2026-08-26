@@ -51,6 +51,6 @@
   "devDependencies": {
     "@ni/ok-components": "^1.7.0",
     "@ni-private/eslint-config-nimble": "*",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }

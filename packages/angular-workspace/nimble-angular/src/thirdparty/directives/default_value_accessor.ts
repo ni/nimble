@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/default_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/v21.2.19/packages/forms/src/directives/default_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Update implementation of `_isAndroid()` to not use private APIs
@@ -61,7 +61,7 @@ function _isAndroid(): boolean {
  * @publicApi
  *
 export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>(
-  ngDevMode ? 'CompositionEventMode' : '',
+  typeof ngDevMode !== 'undefined' && ngDevMode ? 'CompositionEventMode' : '',
 );
 */
 

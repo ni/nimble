@@ -24,9 +24,9 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^5.1.2",
     "@ni-private/eslint-config-nimble": "*",
-    "@ni/fast-element": "^10.1.2",
-    "@ni/fast-foundation": "^10.2.5",
-    "@ni/fast-web-utilities": "^10.0.0",
+    "@ni/fast-element": "../../ni-fast-element-10.1.2.tgz",
+    "@ni/fast-foundation": "../../ni-fast-foundation-10.2.5.tgz",
+    "@ni/fast-web-utilities": "../../ni-fast-web-utilities-10.0.4.tgz",
     "@ni/nimble-components": "*",
     "@ni/nimble-react": "*",
     "@ni/nimble-tokens": "*",
@@ -46,7 +46,7 @@
     "remark-gfm": "^4.0.0",
     "storybook": "^10.3.6",
     "storybook-addon-pseudo-states": "^10.3.6",
-    "typescript": "~5.8.3",
+    "typescript": "~5.9.3",
     "vite": "^7.3.2"
   }
 }
