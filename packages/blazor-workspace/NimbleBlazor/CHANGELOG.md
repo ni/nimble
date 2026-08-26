@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 25 Aug 2026 15:55:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 26 Aug 2026 20:16:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 22.0.0
+
+Wed, 26 Aug 2026 20:16:12 GMT
+
+### Major changes
+
+- Update the strategy for listening to blur events on nimble components. Breaking change: `Blur` events are now of type `EventHandler<EventArgs>` rather than `EventHandler<FocusEventArgs>`. ([ni/nimble@f99be71](https://github.com/ni/nimble/commit/f99be7166c07764a83ee5afce720ff13a3c7823f))
 
 ## 21.6.0
 
