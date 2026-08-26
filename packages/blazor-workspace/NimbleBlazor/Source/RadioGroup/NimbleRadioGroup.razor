@@ -1,6 +1,7 @@
 @namespace NimbleBlazor
 @inherits NimbleInputBase<string>
 <nimble-radio-group disabled=@Disabled
+                    @onblur="HandleBlur"
                     name="@Name"
                     orientation="@Orientation.ToAttributeValue()"
                     error-visible="@ErrorVisible"
