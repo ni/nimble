@@ -125,4 +125,23 @@ describe('FvSummaryPanel', () => {
         expect(overflowingContainer?.scrollWidth).toBeGreaterThan(overflowingContainer?.clientWidth ?? 0);
         expect(getComputedStyle(overflowingContainer!).overflowX).toBe('auto');
     });
+
+    it('removes the compact overflow fade after scrolling to the end', async () => {
+        ({ element, connect, disconnect } = await setupWithTiles());
+        element.style.width = '200px';
+        element.size = FvSummaryPanelSize.compact;
+        await connect();
+        await waitForUpdatesAsync();
+        await waitAnimationFrame();
+
+        const container = element.shadowRoot?.querySelector('.summary-item-container');
+        expect(container?.classList.contains('has-overflow')).toBeTrue();
+
+        if (container) {
+            container.scrollLeft = container.scrollWidth;
+            container.dispatchEvent(new Event('scroll'));
+        }
+
+        expect(container?.classList.contains('has-overflow')).toBeFalse();
+    });
 });

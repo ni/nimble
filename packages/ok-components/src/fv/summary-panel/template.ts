@@ -6,7 +6,12 @@ import type { FvSummaryPanel } from '.';
 
 export const template = html<FvSummaryPanel>`
     <section class="summary-panel" part="panel">
-        <div ${ref('summaryItems')} class="summary-item-container" part="items">
+        <div
+            ${ref('summaryItems')}
+            class="summary-item-container"
+            part="items"
+            @scroll="${x => x.handleItemsScroll()}"
+        >
             <slot @slotchange="${x => x.handleItemsSlotChange()}"></slot>
         </div>
         ${when(x => x.showEditItemsButton, html<FvSummaryPanel>`

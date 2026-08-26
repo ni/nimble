@@ -87,6 +87,11 @@ export class FvSummaryPanel extends FoundationElement {
         this.observeSummaryItems();
     }
 
+    /** @internal */
+    public handleItemsScroll(): void {
+        this.updateOverflow();
+    }
+
     private observeSummaryItems(): void {
         this.summaryItemsResizeObserver.disconnect();
         this.summaryItemsResizeObserver.observe(this.summaryItems);
@@ -97,8 +102,12 @@ export class FvSummaryPanel extends FoundationElement {
     }
 
     private updateOverflow(): void {
+        const maxScrollDistance = this.summaryItems.scrollWidth - this.summaryItems.clientWidth;
+        const scrollPosition = getComputedStyle(this.summaryItems).direction === 'rtl'
+            ? Math.abs(this.summaryItems.scrollLeft)
+            : this.summaryItems.scrollLeft;
         this.hasOverflow = this.size === FvSummaryPanelSize.compact
-            && this.summaryItems.scrollWidth > this.summaryItems.clientWidth;
+            && maxScrollDistance - scrollPosition > 0;
         this.summaryItems.classList.toggle('has-overflow', this.hasOverflow);
     }
 
