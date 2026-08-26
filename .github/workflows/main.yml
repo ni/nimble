@@ -104,6 +104,13 @@ jobs:
             - './packages/storybook/.storybook/public/**'
             - './packages/nimble-tokens/dist/icons/svg/**'
             - './packages/nimble-tokens/source/styledictionary/properties/**'
+            - './packages/angular-workspace/example-client-app/src/**'
+            - './packages/angular-workspace/example-client-app/tsconfig.app.json'
+            - './packages/blazor-workspace/Examples/**'
+            - './packages/react-workspace/react-client-app/**'
+            - './packages/site/src/**'
+            - './packages/site/index.html'
+            - './packages/site/tsconfig.json'
           storybookBuildDir: ./packages/site/dist/storybook
           storybookBaseDir: ./packages/storybook
           exitOnceUploaded: true # Do not wait for test results
