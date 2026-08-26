@@ -1,6 +1,7 @@
 import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { type FvSummaryPanel, OkFvSummaryPanelDirective } from '../ok-fv-summary-panel.directive';
+import { FvSummaryPanelSize, type FvSummaryPanel, OkFvSummaryPanelDirective } from '../ok-fv-summary-panel.directive';
+import type { FvSummaryPanelSize as FvSummaryPanelSizeType } from '@ni/ok-components/dist/esm/fv/summary-panel/types';
 import { OkFvSummaryPanelModule } from '../ok-fv-summary-panel.module';
 
 describe('Ok fv summary panel', () => {
@@ -54,6 +55,11 @@ describe('Ok fv summary panel', () => {
             expect(nativeElement.legacyStyle).toBe(false);
         });
 
+        it('has expected defaults for size', () => {
+            expect(directive.size).toBe(FvSummaryPanelSize.default);
+            expect(nativeElement.size).toBe(FvSummaryPanelSize.default);
+        });
+
         it('has expected defaults for editItemsButtonLabel', () => {
             expect(directive.editItemsButtonLabel).toBe('Configure');
             expect(nativeElement.editItemsButtonLabel).toBe('Configure');
@@ -66,6 +72,7 @@ describe('Ok fv summary panel', () => {
                 <ok-fv-summary-panel #summaryPanel
                     show-edit-items-button
                     legacy-style
+                    size="compact"
                     edit-items-button-label="Customize summary">
                 </ok-fv-summary-panel>
             `,
@@ -102,6 +109,11 @@ describe('Ok fv summary panel', () => {
             expect(nativeElement.legacyStyle).toBeTrue();
         });
 
+        it('will use template string values for size', () => {
+            expect(directive.size).toBe(FvSummaryPanelSize.compact);
+            expect(nativeElement.size).toBe(FvSummaryPanelSize.compact);
+        });
+
         it('will use template string values for editItemsButtonLabel', () => {
             expect(directive.editItemsButtonLabel).toBe('Customize summary');
             expect(nativeElement.editItemsButtonLabel).toBe('Customize summary');
@@ -114,6 +126,7 @@ describe('Ok fv summary panel', () => {
                 <ok-fv-summary-panel #summaryPanel
                     [show-edit-items-button]="showEditItemsButton"
                     [legacy-style]="legacyStyle"
+                    [size]="size"
                     [edit-items-button-label]="editItemsButtonLabel">
                 </ok-fv-summary-panel>
             `,
@@ -124,6 +137,7 @@ describe('Ok fv summary panel', () => {
             @ViewChild('summaryPanel', { read: ElementRef }) public elementRef: ElementRef<FvSummaryPanel>;
             public showEditItemsButton = false;
             public legacyStyle = false;
+            public size: FvSummaryPanelSizeType = FvSummaryPanelSize.default;
             public editItemsButtonLabel = 'Configure tiles';
         }
 
@@ -163,6 +177,17 @@ describe('Ok fv summary panel', () => {
 
             expect(directive.legacyStyle).toBeTrue();
             expect(nativeElement.legacyStyle).toBeTrue();
+        });
+
+        it('can be configured with property binding for size', () => {
+            expect(directive.size).toBe(FvSummaryPanelSize.default);
+            expect(nativeElement.size).toBe(FvSummaryPanelSize.default);
+
+            fixture.componentInstance.size = FvSummaryPanelSize.compact;
+            fixture.detectChanges();
+
+            expect(directive.size).toBe(FvSummaryPanelSize.compact);
+            expect(nativeElement.size).toBe(FvSummaryPanelSize.compact);
         });
 
         it('can be configured with property binding for editItemsButtonLabel', () => {

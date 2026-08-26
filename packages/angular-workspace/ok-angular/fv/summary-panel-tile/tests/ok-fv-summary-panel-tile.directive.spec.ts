@@ -1,6 +1,12 @@
 import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { type FvSummaryPanelTile, FvSummaryPanelTileTextPosition, OkFvSummaryPanelTileDirective } from '../ok-fv-summary-panel-tile.directive';
+import {
+    FvSummaryPanelSize,
+    type FvSummaryPanelTile,
+    FvSummaryPanelTileTextPosition,
+    OkFvSummaryPanelTileDirective
+} from '../ok-fv-summary-panel-tile.directive';
+import type { FvSummaryPanelSize as FvSummaryPanelSizeType } from '@ni/ok-components/dist/esm/fv/summary-panel/types';
 import { OkFvSummaryPanelTileModule } from '../ok-fv-summary-panel-tile.module';
 
 describe('Ok fv summary panel tile', () => {
@@ -59,6 +65,11 @@ describe('Ok fv summary panel tile', () => {
             expect(nativeElement.legacyStyle).toBe(false);
         });
 
+        it('has expected defaults for size', () => {
+            expect(directive.size).toBe(FvSummaryPanelSize.default);
+            expect(nativeElement.size).toBe(FvSummaryPanelSize.default);
+        });
+
         it('has expected defaults for selected', () => {
             expect(directive.selected).toBe(false);
             expect(nativeElement.selected).toBe(false);
@@ -77,6 +88,7 @@ describe('Ok fv summary panel tile', () => {
                     count="7"
                     label="open items"
                     legacy-style
+                    size="compact"
                     selected
                     text-position="under">
                 </ok-fv-summary-panel-tile>
@@ -119,6 +131,11 @@ describe('Ok fv summary panel tile', () => {
             expect(nativeElement.legacyStyle).toBeTrue();
         });
 
+        it('will use template string values for size', () => {
+            expect(directive.size).toBe(FvSummaryPanelSize.compact);
+            expect(nativeElement.size).toBe(FvSummaryPanelSize.compact);
+        });
+
         it('will use template string values for selected', () => {
             expect(directive.selected).toBeTrue();
             expect(nativeElement.selected).toBeTrue();
@@ -137,6 +154,7 @@ describe('Ok fv summary panel tile', () => {
                     [count]="count"
                     [label]="label"
                     [legacy-style]="legacyStyle"
+                    [size]="size"
                     [selected]="selected"
                     [text-position]="textPosition">
                 </ok-fv-summary-panel-tile>
@@ -149,6 +167,7 @@ describe('Ok fv summary panel tile', () => {
             public count = '7';
             public label = 'open items';
             public legacyStyle = false;
+            public size: FvSummaryPanelSizeType = FvSummaryPanelSize.default;
             public selected = false;
             public textPosition: FvSummaryPanelTileTextPosition = FvSummaryPanelTileTextPosition.beside;
         }
@@ -200,6 +219,17 @@ describe('Ok fv summary panel tile', () => {
 
             expect(directive.legacyStyle).toBeTrue();
             expect(nativeElement.legacyStyle).toBeTrue();
+        });
+
+        it('can be configured with property binding for size', () => {
+            expect(directive.size).toBe(FvSummaryPanelSize.default);
+            expect(nativeElement.size).toBe(FvSummaryPanelSize.default);
+
+            fixture.componentInstance.size = FvSummaryPanelSize.compact;
+            fixture.detectChanges();
+
+            expect(directive.size).toBe(FvSummaryPanelSize.compact);
+            expect(nativeElement.size).toBe(FvSummaryPanelSize.compact);
         });
 
         it('can be configured with property binding for selected', () => {

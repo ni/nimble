@@ -26,3 +26,16 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(html`
         </${fvSummaryPanelTag}>
     </div>
 `);
+
+export const compact: StoryFn = createMatrixThemeStory(html`
+    <div style="display: inline-flex; width: 390px;">
+        <${fvSummaryPanelTag} size="compact">
+            <${fvSummaryPanelTileTag} count="234" label="systems" selected></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="207" label="connected"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="28" label="disconnected"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="1" label="pending"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="12" label="warnings"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="3" label="critical"></${fvSummaryPanelTileTag}>
+        </${fvSummaryPanelTag}>
+    </div>
+`);
