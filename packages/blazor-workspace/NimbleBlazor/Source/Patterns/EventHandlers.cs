@@ -79,6 +79,7 @@ public class WaferMapHoverDieChangedEventArgs : EventArgs
     public WaferMapDie? CurrentDie { get; set; }
 }
 
+[EventHandler("onnimbleblur", typeof(EventArgs), enableStopPropagation: false, enablePreventDefault: false)]
 [EventHandler("onnimbletabsactiveidchange", typeof(TabsChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblecheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblechipremove", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: false)]
