@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Update the strategy for listening to blur events on nimble components. Breaking change: `Blur` events are now of type `EventHandler<EventArgs>` rather than `EventHandler<FocusEventArgs>`.",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
