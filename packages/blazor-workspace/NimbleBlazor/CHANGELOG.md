@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 24 Aug 2026 19:55:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 25 Aug 2026 15:55:37 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 21.6.0
+
+Tue, 25 Aug 2026 15:55:37 GMT
+
+### Minor changes
+
+- Add Blur event to interactive elements ([ni/nimble@870805d](https://github.com/ni/nimble/commit/870805dbda69a58c47b1197f1a2527baf7e07cde))
 
 ## 21.5.0
 
