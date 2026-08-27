@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -12,7 +11,7 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     /// Gets or sets a callback that's invoked when the select is blurred.
     /// </summary>
     [Parameter]
-    public EventCallback<FocusEventArgs> Blur { get; set; }
+    public EventCallback<EventArgs> Blur { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the Select.
@@ -113,7 +112,7 @@ public partial class NimbleSelect : NimbleInputBase<string?>
         return true;
     }
 
-    protected async void HandleBlur(FocusEventArgs e)
+    protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
     }

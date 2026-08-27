@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
@@ -48,7 +47,7 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
     [Parameter]
-    public EventCallback<FocusEventArgs> Blur { get; set; }
+    public EventCallback<EventArgs> Blur { get; set; }
 
     [Inject]
     private IJSRuntime? JSRuntime { get; set; }
@@ -77,7 +76,7 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
         await JSRuntime!.InvokeVoidAsync(CloseDialogMethodName, _dialogElement);
     }
 
-    protected async void HandleBlur(FocusEventArgs e)
+    protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
     }
