@@ -1,5 +1,9 @@
 import { css } from '@ni/fast-element';
-import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import {
+    mediumPadding,
+    smallPadding,
+    standardPadding
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
 export const styles = css`
@@ -24,6 +28,25 @@ export const styles = css`
         }
 
         .summary-item-container:empty {
+            display: none;
+        }
+
+        :host([size='compact']) .summary-item-container {
+            flex-wrap: nowrap;
+            box-sizing: border-box;
+            overflow-x: auto;
+            overflow-y: hidden;
+            gap: ${mediumPadding};
+            padding: calc(${standardPadding} - ${smallPadding});
+            scrollbar-width: none;
+        }
+
+        :host([size='compact']) .summary-item-container.has-overflow {
+            -webkit-mask-image: linear-gradient(to right, black calc(100% - 48px), transparent);
+            mask-image: linear-gradient(to right, black calc(100% - 48px), transparent);
+        }
+
+        :host([size='compact']) .summary-item-container::-webkit-scrollbar {
             display: none;
         }
 

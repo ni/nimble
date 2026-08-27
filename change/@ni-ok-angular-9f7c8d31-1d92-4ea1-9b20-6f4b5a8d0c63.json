@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Expose compact FV summary panel sizing through the Angular wrappers",
+  "packageName": "@ni/ok-angular",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

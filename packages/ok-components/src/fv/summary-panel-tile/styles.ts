@@ -89,6 +89,24 @@ export const styles = css`
             text-transform: uppercase;
             white-space: nowrap;
         }
+
+        :host([size='compact']) .summary-panel-tile-content {
+            gap: 6px;
+            margin: 10px 14px;
+        }
+
+        :host([size='compact']) .count {
+            font-size: 24px;
+            line-height: normal;
+        }
+
+        :host([size='compact']) .summary-panel-tile-content.beside .count {
+            padding-right: 0;
+        }
+
+        :host([size='compact']) .label {
+            font-size: 11px;
+        }
     }
 
     @layer hover {

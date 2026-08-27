@@ -1,7 +1,9 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { waitAnimationFrame } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { FvSummaryPanel, fvSummaryPanelTag } from '..';
+import { FvSummaryPanelSize } from '../types';
 import { fvSummaryPanelTileTag } from '../../summary-panel-tile';
 
 async function setup(): Promise<Fixture<FvSummaryPanel>> {
@@ -18,6 +20,10 @@ async function setupWithTiles(): Promise<Fixture<FvSummaryPanel>> {
         <${fvSummaryPanelTag}>
             <${fvSummaryPanelTileTag} count="852" label="files"></${fvSummaryPanelTileTag}>
             <${fvSummaryPanelTileTag} count="1234" label="test results"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="42" label="systems"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="17" label="assets"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="8" label="alarms"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="3" label="users"></${fvSummaryPanelTileTag}>
         </${fvSummaryPanelTag}>
     `);
 }
@@ -78,5 +84,64 @@ describe('FvSummaryPanel', () => {
         await waitForUpdatesAsync();
 
         expect(tile?.hasAttribute('legacy-style')).toBeFalse();
+    });
+
+    it('propagates compact sizing to slotted summary panel tiles', async () => {
+        ({ element, connect, disconnect } = await setupWithTiles());
+        element.size = FvSummaryPanelSize.compact;
+        await connect();
+        await waitForUpdatesAsync();
+
+        const tile = element.querySelector(fvSummaryPanelTileTag);
+        expect(tile?.getAttribute('size')).toBe(FvSummaryPanelSize.compact);
+
+        element.size = FvSummaryPanelSize.default;
+        await waitForUpdatesAsync();
+
+        expect(tile?.hasAttribute('size')).toBeFalse();
+    });
+
+    it('only applies the compact overflow fade when items overflow', async () => {
+        ({ element, connect, disconnect } = await setupWithTiles());
+        element.style.width = '1000px';
+        element.size = FvSummaryPanelSize.compact;
+        await connect();
+        await waitForUpdatesAsync();
+        await waitAnimationFrame();
+
+        const container = element.shadowRoot?.querySelector('.summary-item-container');
+        expect(container?.classList.contains('has-overflow')).toBeFalse();
+
+        await disconnect?.();
+        ({ element, connect, disconnect } = await setupWithTiles());
+        element.style.width = '200px';
+        element.size = FvSummaryPanelSize.compact;
+        await connect();
+        await waitForUpdatesAsync();
+        await waitAnimationFrame();
+
+        const overflowingContainer = element.shadowRoot?.querySelector('.summary-item-container');
+        expect(overflowingContainer?.classList.contains('has-overflow')).toBeTrue();
+        expect(overflowingContainer?.scrollWidth).toBeGreaterThan(overflowingContainer?.clientWidth ?? 0);
+        expect(getComputedStyle(overflowingContainer!).overflowX).toBe('auto');
+    });
+
+    it('removes the compact overflow fade after scrolling to the end', async () => {
+        ({ element, connect, disconnect } = await setupWithTiles());
+        element.style.width = '200px';
+        element.size = FvSummaryPanelSize.compact;
+        await connect();
+        await waitForUpdatesAsync();
+        await waitAnimationFrame();
+
+        const container = element.shadowRoot?.querySelector('.summary-item-container');
+        expect(container?.classList.contains('has-overflow')).toBeTrue();
+
+        if (container) {
+            container.scrollLeft = container.scrollWidth;
+            container.dispatchEvent(new Event('scroll'));
+        }
+
+        expect(container?.classList.contains('has-overflow')).toBeFalse();
     });
 });
