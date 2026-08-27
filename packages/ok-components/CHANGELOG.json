@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Thu, 27 Aug 2026 14:33:47 GMT",
+      "version": "1.8.0",
+      "tag": "@ni/ok-components_v1.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "d0c3e302500e7a33a5c957d9ffeb3a48918aa312",
+            "comment": "Add compact sizing and horizontal scrolling to the FV summary panel"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 24 Aug 2026 19:55:50 GMT",
       "version": "1.7.0",
       "tag": "@ni/ok-components_v1.7.0",

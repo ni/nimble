@@ -1,9 +1,12 @@
-import { attr } from '@ni/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import '@ni/nimble-components/dist/esm/button';
 import '@ni/nimble-components/dist/esm/icons/cog';
 import { styles } from './styles';
 import { template } from './template';
+import { FvSummaryPanelSize, type FvSummaryPanelSize as FvSummaryPanelSizeType } from './types';
+
+export { FvSummaryPanelSize } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,19 +24,52 @@ export class FvSummaryPanel extends FoundationElement {
     @attr({ attribute: 'legacy-style', mode: 'boolean' })
     public legacyStyle = false;
 
+    @attr
+    public size: FvSummaryPanelSizeType = FvSummaryPanelSize.default;
+
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
+    /** @internal */
+    public readonly summaryItems!: HTMLElement;
+
     @attr({ attribute: 'edit-items-button-label' })
     public editItemsButtonLabel = 'Configure';
+
+    private readonly summaryItemsResizeObserver: ResizeObserver;
+
+    public constructor() {
+        super();
+        this.summaryItemsResizeObserver = new ResizeObserver(() => this.updateOverflow());
+    }
 
     /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.syncTileLegacyStyle();
+        this.syncTileAttributes();
+        this.observeSummaryItems();
+    }
+
+    /** @internal */
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.summaryItemsResizeObserver.disconnect();
     }
 
     /** @internal */
     public legacyStyleChanged(): void {
         if (this.$fastController.isConnected) {
-            this.syncTileLegacyStyle();
+            this.syncTileAttributes();
+            this.updateOverflow();
+        }
+    }
+
+    /** @internal */
+    public sizeChanged(): void {
+        if (this.$fastController.isConnected) {
+            this.syncTileAttributes();
+            this.updateOverflow();
         }
     }
 
@@ -47,10 +83,35 @@ export class FvSummaryPanel extends FoundationElement {
 
     /** @internal */
     public handleItemsSlotChange(): void {
-        this.syncTileLegacyStyle();
+        this.syncTileAttributes();
+        this.observeSummaryItems();
     }
 
-    private syncTileLegacyStyle(): void {
+    /** @internal */
+    public handleItemsScroll(): void {
+        this.updateOverflow();
+    }
+
+    private observeSummaryItems(): void {
+        this.summaryItemsResizeObserver.disconnect();
+        this.summaryItemsResizeObserver.observe(this.summaryItems);
+        for (const element of this.shadowRoot?.querySelector('slot')?.assignedElements({ flatten: true }) ?? []) {
+            this.summaryItemsResizeObserver.observe(element);
+        }
+        this.updateOverflow();
+    }
+
+    private updateOverflow(): void {
+        const maxScrollDistance = this.summaryItems.scrollWidth - this.summaryItems.clientWidth;
+        const scrollPosition = getComputedStyle(this.summaryItems).direction === 'rtl'
+            ? Math.abs(this.summaryItems.scrollLeft)
+            : this.summaryItems.scrollLeft;
+        this.hasOverflow = this.size === FvSummaryPanelSize.compact
+            && maxScrollDistance - scrollPosition > 0;
+        this.summaryItems.classList.toggle('has-overflow', this.hasOverflow);
+    }
+
+    private syncTileAttributes(): void {
         for (const element of this.shadowRoot?.querySelector('slot')?.assignedElements({ flatten: true }) ?? []) {
             if (element.localName !== 'ok-fv-summary-panel-tile') {
                 continue;
@@ -60,6 +121,12 @@ export class FvSummaryPanel extends FoundationElement {
                 element.setAttribute('legacy-style', '');
             } else {
                 element.removeAttribute('legacy-style');
+            }
+
+            if (this.size === FvSummaryPanelSize.compact) {
+                element.setAttribute('size', FvSummaryPanelSize.compact);
+            } else {
+                element.removeAttribute('size');
             }
         }
     }
