@@ -38,6 +38,8 @@ import {
     headlinePlus1FontColor,
     iconColor,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { tokenNames } from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
+import { tokenValues } from '@ni/nimble-components/dist/esm/theme-provider/design-token-values';
 
 export const css = (strings: TemplateStringsArray, ...values: unknown[]): React.JSX.Element => <style>
     {`@scope {${String.raw({ raw: strings }, ...values)}}`}
@@ -53,9 +55,24 @@ const getPreferredTheme = (): 'dark' | 'light' => (
 
 export const theme = getPreferredTheme();
 
+interface StoryTokenStyles extends React.CSSProperties {
+    [name: `--ni-nimble-${string}`]: string;
+}
+
+const storyTokenStyles = (Object.keys(tokenValues) as (keyof typeof tokenValues)[]).reduce<StoryTokenStyles>(
+    (styles, tokenName) => {
+        const cssTokenName = tokenNames[tokenName];
+        const value = tokenValues[tokenName];
+        styles[`--ni-nimble-${cssTokenName}`] = typeof value === 'string' ? value : value[theme];
+        return styles;
+    },
+    {}
+);
+
 interface StorySectionProps extends ChildrenProp {
     id: string;
     title: string;
+    level?: 2 | 3;
 }
 
 export interface StoryTocItem {
@@ -126,7 +143,8 @@ export const StoryTableOfContents = ({ items }: { items: readonly StoryTocItem[]
             }
             :scope h2 {
                 margin: 0 0 var(${standardPadding.cssCustomProperty});
-                padding-inline-start: var(${mediumPadding.cssCustomProperty});
+                padding: 0;
+                border: 0;
                 color: var(${bodyDisabledFontColor.cssCustomProperty});
                 font: var(${buttonLabelFont.cssCustomProperty});
                 text-transform: uppercase;
@@ -193,7 +211,7 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
     }, []);
 
     return <NimbleThemeProvider ref={themeProviderRef} theme={theme}>
-        <div className='story-page'>
+        <div className='story-page' style={storyTokenStyles}>
             {css`
                 :scope {
                     position: relative;
@@ -205,7 +223,7 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
                 :scope > .story-page-toc {
                     position: absolute;
                     inset-block: 0;
-                    inset-inline-start: calc(100% + var(${standardPadding.cssCustomProperty}));
+                    inset-inline-start: calc(100% + var(${largePadding.cssCustomProperty}) + var(${standardPadding.cssCustomProperty}));
                     width: max-content;
                 }
                 :scope > .story-page-content {
@@ -247,7 +265,7 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
                     letter-spacing: -1px;
                 }
                 :scope h2 {
-                    margin: calc(var(${largePadding.cssCustomProperty}) + var(${standardPadding.cssCustomProperty})) 0 var(${largePadding.cssCustomProperty});
+                    margin: 36px 0 var(${largePadding.cssCustomProperty});
                     scroll-margin-block-start: var(${largePadding.cssCustomProperty});
                     padding-bottom: calc(var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty}));
                     border-bottom: var(${dividerWidth.cssCustomProperty}) solid var(${dividerBackgroundColor.cssCustomProperty});
@@ -256,6 +274,9 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
                     font-size: 30px;
                     font-weight: var(${bodyPlus1FontWeight.cssCustomProperty});
                     line-height: 34px;
+                }
+                :scope h2:first-of-type {
+                    margin-top: 36px;
                 }
                 :scope h3 {
                     margin: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty})) 0 var(${standardPadding.cssCustomProperty});
@@ -266,6 +287,9 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
                     font-weight: var(${buttonLabelFontWeight.cssCustomProperty}, 600);
                     line-height: 26px;
                     letter-spacing: -1px;
+                }
+                :scope h3:first-of-type {
+                    margin-top: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty}));
                 }
                 :scope h4 {
                     margin: var(${largePadding.cssCustomProperty}) 0 calc(var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty}));
@@ -296,6 +320,7 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
                 }
                 :scope code {
                     font: var(${bodyEmphasizedFont.cssCustomProperty});
+                    padding-top: 2px;
                 }
                 `}
                 {children}
@@ -304,9 +329,10 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
     </NimbleThemeProvider>;
 };
 
-export const StorySection = ({ id, title, children }: StorySectionProps): React.JSX.Element => {
+export const StorySection = ({ id, title, level = 2, children }: StorySectionProps): React.JSX.Element => {
+    const Heading = level === 3 ? 'h3' : 'h2';
     return <section>
-        <h2 id={id}>{title}</h2>
+        <Heading id={id}>{title}</Heading>
         {children}
     </section>;
 };
@@ -343,6 +369,9 @@ export const StoryApi = ({ children }: ChildrenProp): React.JSX.Element => {
                 margin: var(${largePadding.cssCustomProperty}) 0 calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}));
                 overflow-x: auto;
             }
+            :scope .docblock-argstable {
+                margin-inline: 0;
+            }
             :scope > * {
                 margin-top: var(${standardPadding.cssCustomProperty});
             }
@@ -357,22 +386,26 @@ export const StoryApi = ({ children }: ChildrenProp): React.JSX.Element => {
 interface StoryAnatomyProps extends ChildrenProp {
     src?: string;
     alt: string;
+    bordered?: boolean;
 }
 
-export const StoryAnatomy = ({ children, src, alt }: StoryAnatomyProps): React.JSX.Element => {
+export const StoryAnatomy = ({ children, src, alt, bordered = true }: StoryAnatomyProps): React.JSX.Element => {
     return <figure>
         {css`
             :scope {
                 margin: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty})) 0 calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}));
-                border: var(${dividerWidth.cssCustomProperty}) solid var(${cardBorderColor.cssCustomProperty});
-                border-radius: 4px;
-                overflow: hidden;
-                background: var(${applicationBackgroundColor.cssCustomProperty});
+                border: ${bordered ? `var(${dividerWidth.cssCustomProperty}) solid var(${cardBorderColor.cssCustomProperty})` : '0'};
+                border-radius: ${bordered ? '4px' : '0'};
+                overflow: ${bordered ? 'hidden' : 'visible'};
+                background: ${bordered ? `var(${applicationBackgroundColor.cssCustomProperty})` : 'transparent'};
             }
             :scope img {
                 display: block;
                 width: 100%;
                 height: auto;
+            }
+            :scope > :not(style) {
+                margin-inline: auto;
             }
         `}
         {children ?? (src ? <img src={src} alt={alt}/> : null)}
@@ -618,6 +651,7 @@ const Guidance = (
                 border-radius: 4px 4px 0 0;
                 color: var(${buttonAccentBlockFontColor.cssCustomProperty});
                 font: var(${bodyEmphasizedFont.cssCustomProperty});
+                font-weight: 700;
                 text-transform: uppercase;
             }
             :scope > header > span {

@@ -1,6 +1,6 @@
 export const buttonSections = {
     overview: { id: 'overview', title: 'Overview', level: 2 },
-    buttonAnatomy: { id: 'button-anatomy', title: 'Button Anatomy', level: 2 },
+    buttonAnatomy: { id: 'button-anatomy', title: 'Button Anatomy', level: 3 },
     implementationApi: { id: 'implementation-api', title: 'Implementation & API', level: 2 },
     usage: { id: 'usage', title: 'Usage', level: 2 },
     whenToUse: { id: 'when-to-use', title: 'When to Use', level: 3 },
