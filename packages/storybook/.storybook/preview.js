@@ -53,7 +53,7 @@ const parameters = {
     },
     docs: {
         controls: { sort: 'alpha' },
-        toc: { disable: true },
+        toc: { headingSelector: 'h1, h2, h3' },
         theme
     }
 };

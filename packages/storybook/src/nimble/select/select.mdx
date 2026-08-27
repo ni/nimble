@@ -34,7 +34,7 @@ export const sections = {
   dynamicOptions: { id: 'dynamic-options', title: 'Dynamic options', level: 3 }
 };
 
-<Meta of={selectStories} />
+<Meta of={selectStories} parameters={{ docs: { toc: { disable: true } } }} />
 <StoryPage toc={[
   sections.overview,
   sections.implementationApi,
