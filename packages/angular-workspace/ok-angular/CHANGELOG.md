@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Tue, 25 Aug 2026 18:10:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 27 Aug 2026 14:33:47 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.7.0
+
+Thu, 27 Aug 2026 14:33:47 GMT
+
+### Minor changes
+
+- Expose compact FV summary panel sizing through the Angular wrappers ([ni/nimble@d0c3e30](https://github.com/ni/nimble/commit/d0c3e302500e7a33a5c957d9ffeb3a48918aa312))
+- Bump @ni/ok-components to v1.8.0
 
 ## 2.6.1
 

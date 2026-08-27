@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add compact sizing and horizontal scrolling to the FV summary panel",
-  "packageName": "@ni/ok-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

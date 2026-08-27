@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Expose compact FV summary panel sizing through the React wrappers",
-  "packageName": "@ni/ok-react",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
