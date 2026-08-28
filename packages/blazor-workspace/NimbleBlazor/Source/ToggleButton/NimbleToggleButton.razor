@@ -1,6 +1,7 @@
 @namespace NimbleBlazor
 @inherits NimbleInputBase<bool>
 <nimble-toggle-button
+    @onnimbleblur="HandleBlur"
     current-checked="@BindConverter.FormatValue(CurrentValue)"
     @onnimblecheckedchange="(__value) => CurrentValue = __value.Checked"
     appearance="@Appearance.ToAttributeValue()"

@@ -1,8 +1,25 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 04 Aug 2026 22:14:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 27 Aug 2026 14:33:47 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.8.0
+
+Thu, 27 Aug 2026 14:33:47 GMT
+
+### Minor changes
+
+- Add compact sizing and horizontal scrolling to the FV summary panel ([ni/nimble@d0c3e30](https://github.com/ni/nimble/commit/d0c3e302500e7a33a5c957d9ffeb3a48918aa312))
+
+## 1.7.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.13.0
+- Bump @ni/spright-components to v6.22.0
 
 ## 1.6.9
 

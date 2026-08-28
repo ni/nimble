@@ -23,6 +23,9 @@ public partial class NimbleDrawer<TCloseReason> : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
     [Inject]
     private IJSRuntime? JSRuntime { get; set; }
 
@@ -48,5 +51,10 @@ public partial class NimbleDrawer<TCloseReason> : ComponentBase
     {
         _closeValue = reason;
         await JSRuntime!.InvokeVoidAsync(CloseDrawerMethodName, _drawerElement);
+    }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }

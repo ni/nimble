@@ -29,6 +29,9 @@ public partial class NimbleListOption : ComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
     [CascadingParameter] private NimbleOptionContext? CascadedContext { get; set; }
 
     /// <inheritdoc />
@@ -37,5 +40,10 @@ public partial class NimbleListOption : ComponentBase
         Context = (string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name))
             ?? throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(NimbleSelect)} " +
                 $"with a matching 'Name' property, if specified.");
+    }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }

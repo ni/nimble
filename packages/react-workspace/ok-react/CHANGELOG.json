@@ -2,6 +2,42 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Thu, 27 Aug 2026 14:33:47 GMT",
+      "version": "0.12.0",
+      "tag": "@ni/ok-react_v0.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "d0c3e302500e7a33a5c957d9ffeb3a48918aa312",
+            "comment": "Expose compact FV summary panel sizing through the React wrappers"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Aug 2026 19:55:50 GMT",
+      "version": "0.11.0",
+      "tag": "@ni/ok-react_v0.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.7.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 13 Aug 2026 18:40:18 GMT",
       "version": "0.10.0",
       "tag": "@ni/ok-react_v0.10.0",

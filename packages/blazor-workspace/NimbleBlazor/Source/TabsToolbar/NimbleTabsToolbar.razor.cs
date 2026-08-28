@@ -9,4 +9,12 @@ public partial class NimbleTabsToolbar : ComponentBase
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
+    }
 }

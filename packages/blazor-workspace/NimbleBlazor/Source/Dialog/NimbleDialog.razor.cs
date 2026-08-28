@@ -46,6 +46,9 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
     [Inject]
     private IJSRuntime? JSRuntime { get; set; }
 
@@ -71,5 +74,10 @@ public partial class NimbleDialog<TCloseReason> : ComponentBase
     {
         _closeValue = reason;
         await JSRuntime!.InvokeVoidAsync(CloseDialogMethodName, _dialogElement);
+    }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }

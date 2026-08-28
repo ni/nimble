@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Wed, 19 Aug 2026 23:19:23 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 25 Aug 2026 18:10:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.6.1
+
+Tue, 25 Aug 2026 18:10:19 GMT
+
+### Patches
+
+- Prevent error squiggles in editor for Jasmine types ([ni/nimble@50f1422](https://github.com/ni/nimble/commit/50f1422c6affede328a34ee4ab399c8a2fd7206c))
+
+## 33.6.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.13.0
 
 ## 33.5.0
 

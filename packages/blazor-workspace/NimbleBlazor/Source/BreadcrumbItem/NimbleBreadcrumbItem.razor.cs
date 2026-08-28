@@ -7,6 +7,9 @@ public partial class NimbleBreadcrumbItem : ComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
@@ -30,4 +33,9 @@ public partial class NimbleBreadcrumbItem : ComponentBase
 
     [Parameter]
     public string? Type { get; set; }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
+    }
 }

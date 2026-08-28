@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Tue, 26 May 2026 18:42:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 24 Aug 2026 19:55:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.19.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Add headset, user headset, and power cog icons; update user helmet safety icon ([ni/nimble@3fb3825](https://github.com/ni/nimble/commit/3fb3825211a44a60510ae283ab4680899ba17df9))
 
 ## 8.18.1
 

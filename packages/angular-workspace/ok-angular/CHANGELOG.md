@@ -1,8 +1,33 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Tue, 04 Aug 2026 22:14:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 27 Aug 2026 14:33:47 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.7.0
+
+Thu, 27 Aug 2026 14:33:47 GMT
+
+### Minor changes
+
+- Expose compact FV summary panel sizing through the Angular wrappers ([ni/nimble@d0c3e30](https://github.com/ni/nimble/commit/d0c3e302500e7a33a5c957d9ffeb3a48918aa312))
+- Bump @ni/ok-components to v1.8.0
+
+## 2.6.1
+
+Tue, 25 Aug 2026 18:10:19 GMT
+
+### Patches
+
+- Prevent error squiggles in editor for Jasmine types ([ni/nimble@50f1422](https://github.com/ni/nimble/commit/50f1422c6affede328a34ee4ab399c8a2fd7206c))
+
+## 2.6.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.7.0
 
 ## 2.5.4
 
