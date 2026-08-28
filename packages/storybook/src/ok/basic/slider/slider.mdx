@@ -1,0 +1,16 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as sliderStories from './slider.stories';
+
+<Meta of={sliderStories} />
+<Title of={sliderStories} />
+
+A Nimble-styled slider based on the FAST Foundation slider.
+
+<Canvas of={sliderStories.slider} />
+
+## API
+
+<Controls of={sliderStories.slider} />
+
+<ComponentApisLink />
