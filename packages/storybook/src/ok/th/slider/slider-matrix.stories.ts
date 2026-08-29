@@ -35,6 +35,7 @@ const component = ([name, disabled, readOnly]: SliderState): ViewTemplate => htm
             value="40"
             ?disabled="${() => disabled}"
             ?readonly="${() => readOnly}"
+            value-visible
         ></${sliderTag}>
     </div>
 `;
@@ -45,8 +46,8 @@ export const statesThemeMatrix: StoryFn = createMatrixThemeStory(
 
 export const orientationsThemeMatrix: StoryFn = createMatrixThemeStory(html`
     <div style="display: flex; gap: 32px; align-items: flex-start; padding: 16px;">
-        <${sliderTag} value="40"></${sliderTag}>
-        <${sliderTag} value="40" orientation="vertical"></${sliderTag}>
+        <${sliderTag} value="40" value-visible></${sliderTag}>
+        <${sliderTag} value="40" orientation="vertical" value-visible></${sliderTag}>
     </div>
 `);
 

@@ -17,6 +17,7 @@ interface SliderArgs {
     orientation: 'horizontal' | 'vertical';
     disabled: boolean;
     readOnly: boolean;
+    valueVisible: boolean;
     change?: (event: Event) => void;
 }
 
@@ -41,6 +42,7 @@ const metadata: Meta<SliderArgs> = {
             orientation="${x => x.orientation}"
             ?disabled="${x => x.disabled}"
             ?readonly="${x => x.readOnly}"
+            ?value-visible="${x => x.valueVisible}"
         ></${sliderTag}>
     `),
     argTypes: {
@@ -73,6 +75,11 @@ const metadata: Meta<SliderArgs> = {
             name: 'readonly',
             table: { category: apiCategory.attributes }
         },
+        valueVisible: {
+            name: 'value-visible',
+            description: 'Displays the current value next to the slider thumb.',
+            table: { category: apiCategory.attributes }
+        },
         change: {
             table: { category: apiCategory.events },
             control: false
@@ -85,7 +92,8 @@ const metadata: Meta<SliderArgs> = {
         step: 1,
         orientation: 'horizontal',
         disabled: false,
-        readOnly: false
+        readOnly: false,
+        valueVisible: true
     }
 };
 

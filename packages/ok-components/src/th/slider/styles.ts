@@ -1,11 +1,18 @@
 import { css } from '@ni/fast-element';
 import {
+    applicationBackgroundColor,
     bodyDisabledFontColor,
     bodyFont,
     bodyFontColor,
     borderHoverColor,
     borderWidth,
-    smallDelay
+    elevation2BoxShadow,
+    fillSelectedColor,
+    popupBorderColor,
+    smallDelay,
+    smallPadding,
+    tooltipCaptionFont,
+    tooltipCaptionFontColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     Black15,
@@ -68,9 +75,7 @@ export const styles = css`
             inset-block: 0;
             left: 0;
             border-radius: inherit;
-            background-color: var(
-                --ni-private-slider-track-background-selected-color
-            );
+            background-color: ${fillSelectedColor};
         }
 
         .thumb-container {
@@ -99,6 +104,25 @@ export const styles = css`
             opacity: 0;
         }
 
+        .value-label {
+            position: absolute;
+            inset-block-end: calc(100% + ${smallPadding});
+            display: none;
+            padding: ${smallPadding};
+            border: ${borderWidth} solid ${popupBorderColor};
+            background-color: ${applicationBackgroundColor};
+            box-shadow: ${elevation2BoxShadow};
+            color: ${tooltipCaptionFontColor};
+            font: ${tooltipCaptionFont};
+            line-height: 1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        :host([value-visible]) .value-label {
+            display: block;
+        }
+
         :host([orientation='vertical']) .positioning-region {
             align-items: initial;
         }
@@ -119,6 +143,11 @@ export const styles = css`
             transform: translate(-50%, 50%);
         }
 
+        :host([orientation='vertical']) .value-label {
+            inset-block-end: auto;
+            inset-inline-start: calc(100% + ${smallPadding});
+        }
+
         ::slotted(*) {
             color: ${bodyFontColor};
             font: ${bodyFont};
@@ -128,12 +157,6 @@ export const styles = css`
     @layer hover {
         :host(:not([disabled]):not([readonly]):hover) .thumb-container {
             border: calc(${borderWidth} * 2) solid ${borderHoverColor};
-        }
-
-        :host(:not([disabled]):not([readonly]):hover) .track-start {
-            background-color: var(
-                --ni-private-slider-track-background-selected-rollover-color
-            );
         }
     }
 
@@ -149,12 +172,6 @@ export const styles = css`
                 --ni-private-slider-thumb-background-color
             );
             opacity: 1;
-        }
-
-        :host(${focusVisible}) .track-start {
-            background-color: var(
-                --ni-private-slider-track-background-selected-rollover-color
-            );
         }
     }
 
@@ -211,14 +228,6 @@ export const styles = css`
                     Black91,
                     0.1
                 )};
-                --ni-private-slider-track-background-selected-color: ${hexToRgbaCssColor(
-                    DigitalGreenLight,
-                    0.6
-                )};
-                --ni-private-slider-track-background-selected-rollover-color: ${hexToRgbaCssColor(
-                    DigitalGreenLight,
-                    0.3
-                )};
                 --ni-private-slider-track-background-disabled-color: ${hexToRgbaCssColor(
                     Black91,
                     0.07
@@ -244,14 +253,6 @@ export const styles = css`
                     Black15,
                     0.1
                 )};
-                --ni-private-slider-track-background-selected-color: ${hexToRgbaCssColor(
-                    PowerGreen,
-                    0.6
-                )};
-                --ni-private-slider-track-background-selected-rollover-color: ${hexToRgbaCssColor(
-                    PowerGreen,
-                    0.3
-                )};
                 --ni-private-slider-track-background-disabled-color: ${hexToRgbaCssColor(
                     Black15,
                     0.07
@@ -276,14 +277,6 @@ export const styles = css`
                 --ni-private-slider-track-background-color: ${hexToRgbaCssColor(
                     White,
                     0.1
-                )};
-                --ni-private-slider-track-background-selected-color: ${hexToRgbaCssColor(
-                    White,
-                    0.6
-                )};
-                --ni-private-slider-track-background-selected-rollover-color: ${hexToRgbaCssColor(
-                    White,
-                    0.3
                 )};
                 --ni-private-slider-track-background-disabled-color: ${hexToRgbaCssColor(
                     White,

@@ -19,4 +19,24 @@ describe('Slider', () => {
 
         await disconnect();
     });
+
+    it('can display the current value next to the thumb', async () => {
+        const { element, connect, disconnect } = await fixture<Slider>(
+            html`<${sliderTag} value="4" value-visible></${sliderTag}>`
+        );
+        await connect();
+
+        expect(element.valueVisible).toBeTrue();
+        expect(
+            element.shadowRoot?.querySelector('.value-label')?.textContent?.trim()
+        ).toBe('4');
+
+        element.value = '7';
+        await Promise.resolve();
+        expect(
+            element.shadowRoot?.querySelector('.value-label')?.textContent?.trim()
+        ).toBe('7');
+
+        await disconnect();
+    });
 });
