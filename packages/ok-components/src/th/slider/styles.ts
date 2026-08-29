@@ -6,7 +6,6 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
-    fillSelectedColor,
     smallDelay,
     smallPadding,
     tooltipCaptionFont
@@ -75,7 +74,9 @@ export const styles = css`
             inset-block: 0;
             left: 0;
             border-radius: inherit;
-            background-color: ${fillSelectedColor};
+            background-color: var(
+                --ni-private-slider-thumb-background-active-color
+            );
         }
 
         .thumb-container {
