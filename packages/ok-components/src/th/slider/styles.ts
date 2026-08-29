@@ -134,7 +134,8 @@ export const styles = css`
             inset-inline-end: 0;
         }
 
-        :host(:hover) .range-label {
+        :host(:hover) .range-label,
+        :host(:active) .range-label {
             display: block;
         }
 
