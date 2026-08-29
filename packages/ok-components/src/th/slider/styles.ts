@@ -32,6 +32,7 @@ export const styles = css`
 
         :host {
             width: 100%;
+            /* Three thumb widths allow three non-overlapping slider positions. */
             min-width: 42px;
             height: 32px;
             outline: none;
