@@ -66,7 +66,10 @@ export class FvStickyHeader extends FoundationElement {
 
     /** @internal */
     public handleHeaderIntersection(entries: IntersectionObserverEntry[]): void {
-        entries.forEach(entry => this.headerVisibility.set(entry.target, entry.isIntersecting));
+        entries.forEach(entry => {
+            const hasLeftViewport = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+            this.headerVisibility.set(entry.target, !hasLeftViewport);
+        });
         this.headerIsVisible = Array.from(this.headerVisibility.values()).some(Boolean);
         this.updateStickyHeaderContent();
     }

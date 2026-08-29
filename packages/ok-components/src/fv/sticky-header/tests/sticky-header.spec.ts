@@ -44,6 +44,22 @@ describe('FvStickyHeader', () => {
         expect(element.shadowRoot?.querySelector('.sticky-header')?.hasAttribute('hidden')).toBeTrue();
     });
 
+    it('keeps the sticky header hidden when the primary header is below the viewport', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        await waitForUpdatesAsync();
+
+        const header = element.querySelector<HTMLElement>('[slot="header"]')!;
+        element.handleHeaderIntersection([{
+            target: header,
+            isIntersecting: false,
+            boundingClientRect: { top: window.innerHeight + 100 }
+        } as unknown as IntersectionObserverEntry]);
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelector('.sticky-header')?.hasAttribute('hidden')).toBeTrue();
+    });
+
     it('shows the sticky header after the primary header leaves the viewport', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
