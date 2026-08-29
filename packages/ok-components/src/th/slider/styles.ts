@@ -88,7 +88,9 @@ export const styles = css`
             border-radius: 50%;
             background-color: ${applicationBackgroundColor};
             transform: translate(50%, -50%);
-            transition: border-color ${smallDelay} ease-in-out;
+            transition:
+                border-color ${smallDelay} ease-in-out,
+                box-shadow ${smallDelay} ease-in-out;
         }
 
         .thumb-container::after {
@@ -180,13 +182,15 @@ export const styles = css`
 
     @layer hover {
         :host(:not([disabled]):not([readonly]):hover) .thumb-container {
-            border: calc(${borderWidth} * 2) solid ${borderHoverColor};
+            border-color: ${borderHoverColor};
+            box-shadow: inset 0 0 0 ${borderWidth} ${borderHoverColor};
         }
     }
 
     @layer focusVisible {
         :host(${focusVisible}) .thumb-container {
-            border: calc(${borderWidth} * 2) solid ${borderHoverColor};
+            border-color: ${borderHoverColor};
+            box-shadow: inset 0 0 0 ${borderWidth} ${borderHoverColor};
         }
 
         :host(${focusVisible}) .thumb-container::after {
