@@ -16,6 +16,8 @@ describe('Slider', () => {
         expect(element.shadowRoot?.querySelector('[part="track-container"]')).not.toBeNull();
         expect(element.shadowRoot?.querySelector('[part="track-start"]')).not.toBeNull();
         expect(element.shadowRoot?.querySelector('[part="thumb-container"]')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('.minimum-label')?.textContent?.trim()).toBe('0');
+        expect(element.shadowRoot?.querySelector('.maximum-label')?.textContent?.trim()).toBe('10');
 
         await disconnect();
     });

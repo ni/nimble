@@ -6,17 +6,13 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
-    elevation2BoxShadow,
     fillSelectedColor,
-    popupBorderColor,
     smallDelay,
     smallPadding,
-    tooltipCaptionFont,
-    tooltipCaptionFontColor
+    tooltipCaptionFont
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     Black15,
-    Black75,
     Black91,
     DigitalGreenLight,
     PowerGreen,
@@ -82,24 +78,23 @@ export const styles = css`
             position: absolute;
             top: 50%;
             display: flex;
-            width: 24px;
-            height: 24px;
+            width: 14px;
+            height: 14px;
+            box-sizing: border-box;
             align-items: center;
             justify-content: center;
             border: ${borderWidth} solid
                 var(--ni-private-slider-thumb-border-selected-color);
             border-radius: 50%;
-            background-color: var(
-                --ni-private-slider-thumb-background-color
-            );
+            background-color: ${applicationBackgroundColor};
             transform: translate(50%, -50%);
             transition: border-color ${smallDelay} ease-in-out;
         }
 
         .thumb-container::after {
             content: '';
-            width: 18px;
-            height: 18px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             opacity: 0;
         }
@@ -108,11 +103,6 @@ export const styles = css`
             position: absolute;
             inset-block-end: calc(100% + ${smallPadding});
             display: none;
-            padding: ${smallPadding};
-            border: ${borderWidth} solid ${popupBorderColor};
-            background-color: ${applicationBackgroundColor};
-            box-shadow: ${elevation2BoxShadow};
-            color: ${tooltipCaptionFontColor};
             font: ${tooltipCaptionFont};
             line-height: 1;
             white-space: nowrap;
@@ -120,6 +110,28 @@ export const styles = css`
         }
 
         :host([value-visible]) .value-label {
+            display: block;
+        }
+
+        .range-label {
+            position: absolute;
+            inset-block-start: calc(50% + 8px);
+            display: none;
+            font: ${tooltipCaptionFont};
+            line-height: 1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .minimum-label {
+            inset-inline-start: 0;
+        }
+
+        .maximum-label {
+            inset-inline-end: 0;
+        }
+
+        :host(:hover) .range-label {
             display: block;
         }
 
@@ -148,6 +160,18 @@ export const styles = css`
             inset-inline-start: calc(100% + ${smallPadding});
         }
 
+        :host([orientation='vertical']) .range-label {
+            inset-inline-start: calc(50% + 8px);
+        }
+
+        :host([orientation='vertical']) .minimum-label {
+            inset-block: auto 0;
+        }
+
+        :host([orientation='vertical']) .maximum-label {
+            inset-block: 0 auto;
+        }
+
         ::slotted(*) {
             color: ${bodyFontColor};
             font: ${bodyFont};
@@ -168,9 +192,7 @@ export const styles = css`
         :host(${focusVisible}) .thumb-container::after {
             border: ${borderWidth} solid
                 var(--ni-private-slider-thumb-border-selected-color);
-            background-color: var(
-                --ni-private-slider-thumb-background-color
-            );
+            background-color: ${applicationBackgroundColor};
             opacity: 1;
         }
     }
@@ -206,7 +228,7 @@ export const styles = css`
         :host([disabled]) .thumb-container {
             border: ${borderWidth} solid
                 var(--ni-private-slider-thumb-border-disabled-color);
-            background-color: transparent;
+            background-color: ${applicationBackgroundColor};
         }
 
         :host([disabled]) .thumb-container::after {
@@ -232,7 +254,6 @@ export const styles = css`
                     Black91,
                     0.07
                 )};
-                --ni-private-slider-thumb-background-color: ${White};
                 --ni-private-slider-thumb-background-active-color: ${hexToRgbaCssColor(
                     DigitalGreenLight,
                     0.3
@@ -257,7 +278,6 @@ export const styles = css`
                     Black15,
                     0.07
                 )};
-                --ni-private-slider-thumb-background-color: ${Black75};
                 --ni-private-slider-thumb-background-active-color: ${hexToRgbaCssColor(
                     PowerGreen,
                     0.3
@@ -281,10 +301,6 @@ export const styles = css`
                 --ni-private-slider-track-background-disabled-color: ${hexToRgbaCssColor(
                     White,
                     0.07
-                )};
-                --ni-private-slider-thumb-background-color: ${hexToRgbaCssColor(
-                    White,
-                    0.3
                 )};
                 --ni-private-slider-thumb-background-active-color: ${hexToRgbaCssColor(
                     White,

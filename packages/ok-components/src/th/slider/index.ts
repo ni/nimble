@@ -1,11 +1,11 @@
-import { attr, html, ref } from '@ni/fast-element';
+import { attr } from '@ni/fast-element';
 import {
     DesignSystem,
     Slider as FoundationSlider,
-    sliderTemplate as template,
     type SliderOptions
 } from '@ni/fast-foundation';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -49,10 +49,7 @@ const okThSlider = Slider.compose<SliderOptions>({
     baseName: 'th-slider',
     baseClass: FoundationSlider,
     template,
-    styles,
-    thumb: html<Slider>`
-        <span ${ref('valueLabel')} class="value-label" aria-hidden="true"></span>
-    `
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('ok').register(okThSlider());
