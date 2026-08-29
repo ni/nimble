@@ -32,6 +32,7 @@ const component = ([name, disabled, readOnly]: SliderState): ViewTemplate => htm
     <div style="display: inline-flex; flex-direction: column; gap: 8px; margin: 8px;">
         <span>${() => name}</span>
         <${sliderTag}
+            style="width: 200px;"
             value="40"
             ?disabled="${() => disabled}"
             ?readonly="${() => readOnly}"

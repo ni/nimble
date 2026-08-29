@@ -75,7 +75,7 @@ export const styles = css`
             left: 0;
             border-radius: inherit;
             background-color: var(
-                --ni-private-slider-thumb-background-active-color
+                --ni-private-slider-thumb-border-selected-color
             );
         }
 
@@ -93,9 +93,6 @@ export const styles = css`
             border-radius: 50%;
             background-color: ${applicationBackgroundColor};
             transform: translate(50%, -50%);
-            transition:
-                border-color ${smallDelay} ease-in-out,
-                box-shadow ${smallDelay} ease-in-out;
         }
 
         .thumb-container::after {
