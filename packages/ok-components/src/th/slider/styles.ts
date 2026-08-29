@@ -31,7 +31,8 @@ export const styles = css`
         ${display('inline-block')}
 
         :host {
-            width: 240px;
+            width: 100%;
+            min-width: 42px;
             height: 32px;
             outline: none;
             color: ${bodyFontColor};
@@ -42,6 +43,7 @@ export const styles = css`
 
         :host([orientation='vertical']) {
             width: 32px;
+            min-width: 32px;
             height: 240px;
         }
 
