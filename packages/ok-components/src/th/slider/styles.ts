@@ -44,7 +44,8 @@ export const styles = css`
         :host([orientation='vertical']) {
             width: 32px;
             min-width: 32px;
-            height: 240px;
+            height: 100%;
+            min-height: 42px;
         }
 
         :host([readonly]) {
