@@ -8,7 +8,7 @@ import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'ok-basic-slider': Slider;
+        'ok-th-slider': Slider;
     }
 }
 
@@ -17,12 +17,12 @@ declare global {
  */
 export class Slider extends FoundationSlider {}
 
-const okBasicSlider = Slider.compose<SliderOptions>({
-    baseName: 'basic-slider',
+const okThSlider = Slider.compose<SliderOptions>({
+    baseName: 'th-slider',
     baseClass: FoundationSlider,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('ok').register(okBasicSlider());
-export const sliderTag = 'ok-basic-slider';
+DesignSystem.getOrCreate().withPrefix('ok').register(okThSlider());
+export const sliderTag = 'ok-th-slider';

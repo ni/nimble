@@ -1,6 +1,6 @@
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
-import { sliderTag } from '@ni/ok-components/dist/esm/basic/slider';
+import { sliderTag } from '@ni/ok-components/dist/esm/th/slider';
 import { withActions } from 'storybook/actions/decorator';
 import {
     apiCategory,
@@ -21,7 +21,7 @@ interface SliderArgs {
 }
 
 const metadata: Meta<SliderArgs> = {
-    title: 'Ok/Basic Slider',
+    title: 'Ok/Th Slider',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
@@ -30,7 +30,7 @@ const metadata: Meta<SliderArgs> = {
     },
     render: createUserSelectedThemeStory(html<SliderArgs>`
         ${okWarning({
-            componentName: 'Basic Slider',
+            componentName: 'Th Slider',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
         <${sliderTag}

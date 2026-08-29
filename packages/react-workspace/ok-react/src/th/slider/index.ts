@@ -3,12 +3,12 @@
 import {
     Slider,
     sliderTag
-} from '@ni/ok-components/dist/esm/basic/slider';
+} from '@ni/ok-components/dist/esm/th/slider';
 import { wrap, type EventName } from '../../utilities/react-wrapper';
 
 export { sliderTag };
 export { type Slider };
-export const OkBasicSlider = wrap(Slider, {
+export const OkThSlider = wrap(Slider, {
     events: {
         onChange: 'change' as EventName<SliderChangeEvent>
     }

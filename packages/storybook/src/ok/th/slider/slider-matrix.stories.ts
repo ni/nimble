@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/html-vite';
 import { html, type ViewTemplate } from '@ni/fast-element';
-import { sliderTag } from '@ni/ok-components/dist/esm/basic/slider';
+import { sliderTag } from '@ni/ok-components/dist/esm/th/slider';
 import {
     cartesianProduct,
     createMatrix,
@@ -10,7 +10,7 @@ import {
 } from '../../../utilities/matrix';
 
 const metadata: Meta = {
-    title: 'Tests Ok/Basic Slider',
+    title: 'Tests Ok/Th Slider',
     parameters: {
         ...sharedMatrixParameters()
     }

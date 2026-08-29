@@ -6,7 +6,7 @@
 
 import '@ni/spright-components/dist/esm/all-components';
 
-import './basic/all-basic';
+import './th/all-th';
 import './fv/all-fv';
 import './ex/all-ex';
 import './ts/all-ts';
