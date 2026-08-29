@@ -6,7 +6,6 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
-    smallDelay,
     smallPadding,
     tooltipCaptionFont
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
