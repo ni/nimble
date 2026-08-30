@@ -32,10 +32,12 @@ const orientationStates: OrientationState[] = [
     ['Vertical', 'vertical']
 ];
 
+const sliderSize = '200px';
+
 const interactionStates = cartesianProduct([orientationStates, states] as const);
 
 const getSliderStyle = (orientation: OrientationState[1]): string => (
-    orientation === 'horizontal' ? 'width: 200px;' : 'height: 200px;'
+    orientation === 'horizontal' ? `width: ${sliderSize};` : `height: ${sliderSize};`
 );
 
 const component = (
