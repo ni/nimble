@@ -1,7 +1,7 @@
-export const SliderShowMinMax = {
+export const ThSliderShowMinMax = {
     always: 'always',
     hover: 'hover',
     never: 'never'
 } as const;
 
-export type SliderShowMinMax = (typeof SliderShowMinMax)[keyof typeof SliderShowMinMax];
+export type ThSliderShowMinMax = (typeof ThSliderShowMinMax)[keyof typeof ThSliderShowMinMax];

@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/html-vite';
 import { html, type ViewTemplate } from '@ni/fast-element';
-import { sliderTag } from '@ni/ok-components/dist/esm/th/slider';
+import { thSliderTag } from '@ni/ok-components/dist/esm/th/slider';
 import {
     cartesianProduct,
     createMatrix,
@@ -46,14 +46,14 @@ const component = (
 ): ViewTemplate => html`
     <div style="display: inline-flex; flex-direction: column; gap: 8px; margin: 8px;">
         <span style="font-size: 12px; color: #0076d6; text-align: center; min-height: 16px;">${() => `${orientationName} ${stateName}`}</span>
-        <${sliderTag}
+        <${thSliderTag}
             style="${() => getSliderStyle(orientation)}"
             value="4"
             orientation="${() => orientation}"
             ?disabled="${() => disabled}"
             ?readonly="${() => readOnly}"
             value-visible
-        ></${sliderTag}>
+        ></${thSliderTag}>
     </div>
 `;
 

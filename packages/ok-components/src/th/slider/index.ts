@@ -7,9 +7,9 @@ import {
 import { Orientation } from '@ni/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';
-import { SliderShowMinMax } from './types';
+import { ThSliderShowMinMax } from './types';
 
-export { SliderShowMinMax };
+export { ThSliderShowMinMax };
 
 interface FoundationSliderInternals {
     calculateNewValue: (rawValue: number) => number;
@@ -18,14 +18,14 @@ interface FoundationSliderInternals {
 
 declare global {
     interface HTMLElementTagNameMap {
-        'ok-th-slider': Slider;
+        'ok-th-slider': ThSlider;
     }
 }
 
 /**
  * A Nimble-styled slider control.
  */
-export class Slider extends FoundationSlider {
+export class ThSlider extends FoundationSlider {
     /**
      * Whether the current value is displayed next to the thumb.
      */
@@ -36,26 +36,28 @@ export class Slider extends FoundationSlider {
      * Controls when the minimum and maximum value labels are displayed.
      */
     @attr({ attribute: 'show-min-max' })
-    public showMinMax: SliderShowMinMax = SliderShowMinMax.hover;
+    public showMinMax: ThSliderShowMinMax = ThSliderShowMinMax.hover;
 
     /** @internal */
     public valueLabel?: HTMLSpanElement;
 
-    public constructor() {
-        super();
-
-        const internals = this as unknown as FoundationSliderInternals;
-        const calculateFoundationValue = internals.calculateNewValue;
-        internals.calculateNewValue = rawValue => calculateFoundationValue(
-            this.orientation === Orientation.vertical
-                ? this.trackMinHeight + this.trackHeight - rawValue
-                : rawValue
-        );
-    }
+    private verticalMappingInitialized = false;
 
     /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
+
+        if (!this.verticalMappingInitialized) {
+            const internals = this as unknown as FoundationSliderInternals;
+            const calculateFoundationValue = internals.calculateNewValue;
+            internals.calculateNewValue = rawValue => calculateFoundationValue(
+                this.orientation === Orientation.vertical
+                    ? this.trackMinHeight + this.trackHeight - rawValue
+                    : rawValue
+            );
+            this.verticalMappingInitialized = true;
+        }
+
         this.updateValueLabel();
     }
 
@@ -86,8 +88,8 @@ export class Slider extends FoundationSlider {
     }
 
     private setVerticalValue(value: number): void {
-        const { convertToConstrainedValue } = this as unknown as FoundationSliderInternals;
-        const constrainedValue = convertToConstrainedValue(value);
+        const internals = this as unknown as FoundationSliderInternals;
+        const constrainedValue = internals.convertToConstrainedValue(value);
         this.value = `${Math.min(this.max, Math.max(this.min, constrainedValue))}`;
     }
 
@@ -98,7 +100,7 @@ export class Slider extends FoundationSlider {
     }
 }
 
-const okThSlider = Slider.compose<SliderOptions>({
+const okThSlider = ThSlider.compose<SliderOptions>({
     baseName: 'th-slider',
     baseClass: FoundationSlider,
     template,
@@ -106,4 +108,4 @@ const okThSlider = Slider.compose<SliderOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('ok').register(okThSlider());
-export const sliderTag = 'ok-th-slider';
+export const thSliderTag = 'ok-th-slider';

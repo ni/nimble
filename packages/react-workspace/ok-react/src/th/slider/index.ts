@@ -1,18 +1,18 @@
 'use client';
 
 import {
-    Slider,
-    sliderTag
+    ThSlider,
+    thSliderTag
 } from '@ni/ok-components/dist/esm/th/slider';
 import { wrap, type EventName } from '../../utilities/react-wrapper';
 
-export { sliderTag };
-export { type Slider };
-export const OkThSlider = wrap(Slider, {
+export { thSliderTag };
+export { type ThSlider };
+export const OkThSlider = wrap(ThSlider, {
     events: {
-        onChange: 'change' as EventName<SliderChangeEvent>
+        onChange: 'change' as EventName<ThSliderChangeEvent>
     }
 });
-export interface SliderChangeEvent extends CustomEvent {
-    target: Slider;
+export interface ThSliderChangeEvent extends CustomEvent {
+    target: ThSlider;
 }

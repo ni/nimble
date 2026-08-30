@@ -1,14 +1,14 @@
 import { html, ref } from '@ni/fast-element';
 import { Orientation } from '@ni/fast-web-utilities';
-import type { Slider } from '.';
+import type { ThSlider } from '.';
 
-const getPosition = (slider: Slider): string => (
+const getPosition = (slider: ThSlider): string => (
     slider.orientation === Orientation.vertical
         ? (slider.position?.replace('bottom:', 'top:') ?? '')
         : slider.position
 );
 
-export const template = html<Slider>`
+export const template = html<ThSlider>`
     <template
         role="slider"
         tabindex="${x => (x.disabled ? null : 0)}"

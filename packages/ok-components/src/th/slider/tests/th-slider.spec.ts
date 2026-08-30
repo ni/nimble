@@ -1,16 +1,18 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { Slider, sliderTag } from '..';
-import { SliderShowMinMax } from '../types';
+import { ThSlider, thSliderTag } from '..';
+import { ThSliderShowMinMax } from '../types';
+import { ThSliderPageObject } from '../testing/th-slider.pageobject';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
 async function setup(
-    markup = html`<${sliderTag}></${sliderTag}>`
-): Promise<Fixture<Slider>> {
-    return await fixture<Slider>(markup);
+    markup = html`<${thSliderTag}></${thSliderTag}>`
+): Promise<Fixture<ThSlider>> {
+    return await fixture<ThSlider>(markup);
 }
 
-describe('Slider', () => {
+describe('ThSlider', () => {
+    let pageObject: ThSliderPageObject;
     let disconnect: (() => Promise<void>) | undefined;
 
     afterEach(async () => {
@@ -19,7 +21,7 @@ describe('Slider', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(sliderTag)).toBeInstanceOf(Slider);
+        expect(document.createElement(thSliderTag)).toBeInstanceOf(ThSlider);
     });
 
     it('provides the FAST Foundation slider template', async () => {
@@ -27,32 +29,23 @@ describe('Slider', () => {
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
+        pageObject = new ThSliderPageObject(element);
 
-        expect(
-            element.shadowRoot?.querySelector('[part="track-container"]')
-        ).not.toBeNull();
-        expect(
-            element.shadowRoot?.querySelector('[part="track-start"]')
-        ).not.toBeNull();
-        expect(
-            element.shadowRoot?.querySelector('[part="thumb-container"]')
-        ).not.toBeNull();
-        expect(
-            element.shadowRoot?.querySelector('.minimum-label')?.textContent?.trim()
-        ).toBe('0');
-        expect(
-            element.shadowRoot?.querySelector('.maximum-label')?.textContent?.trim()
-        ).toBe('10');
+        expect(pageObject.hasPart('track-container')).toBeTrue();
+        expect(pageObject.hasPart('track-start')).toBeTrue();
+        expect(pageObject.hasPart('thumb-container')).toBeTrue();
+        expect(pageObject.getRangeLabelText('minimum-label')).toBe('0');
+        expect(pageObject.getRangeLabelText('maximum-label')).toBe('10');
     });
 
     it('sets slider accessibility attributes', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag}
+            html`<${thSliderTag}
                 min="2"
                 max="12"
                 value="6"
                 orientation="vertical"
-            ></${sliderTag}>`
+            ></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
@@ -70,79 +63,69 @@ describe('Slider', () => {
 
     it('positions a vertical slider from minimum at the bottom to maximum at the top', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag}
+            html`<${thSliderTag}
                 min="2"
                 max="12"
                 value="2"
                 orientation="vertical"
-            ></${sliderTag}>`
+            ></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
         await waitForUpdatesAsync();
 
-        const trackStart = element.shadowRoot?.querySelector<HTMLElement>(
-            '[part="track-start"]'
-        );
-        const thumb = element.shadowRoot?.querySelector<HTMLElement>(
-            '[part="thumb-container"]'
-        );
-        expect(trackStart?.style.top).toBe('100%');
-        expect(thumb?.style.top).toBe('100%');
+        pageObject = new ThSliderPageObject(element);
+        expect(pageObject.getTrackStartPosition()).toContain('top: 100%');
+        expect(pageObject.getThumbPosition()).toContain('top: 100%');
 
         element.value = '12';
         await waitForUpdatesAsync();
 
-        expect(trackStart?.style.top).toBe('0%');
-        expect(thumb?.style.top).toBe('0%');
+        expect(pageObject.getTrackStartPosition()).toContain('top: 0%');
+        expect(pageObject.getThumbPosition()).toContain('top: 0%');
     });
 
     it('increases a vertical slider value when dragged upward', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag} orientation="vertical"></${sliderTag}>`
+            html`<${thSliderTag} orientation="vertical"></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
+        pageObject = new ThSliderPageObject(element);
 
         spyOn(element.track, 'getBoundingClientRect').and.returnValue(
             new DOMRect(0, 100, 4, 200)
         );
-        element.dispatchEvent(
-            new MouseEvent('mousedown', { bubbles: true, clientY: 300 })
-        );
-        window.dispatchEvent(new MouseEvent('mousemove', { clientY: 100 }));
-        await waitForUpdatesAsync();
+        await pageObject.mouseDown(0, 300);
+        await pageObject.mouseMove(0, 100);
 
         expect(element.value).toBe('10');
     });
 
     it('uses up and down arrow keys to increase and decrease a vertical slider', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag}
+            html`<${thSliderTag}
                 value="5"
                 orientation="vertical"
-            ></${sliderTag}>`
+            ></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
+        pageObject = new ThSliderPageObject(element);
 
-        element.dispatchEvent(
-            new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true })
-        );
+        await pageObject.pressKey('ArrowUp');
         expect(element.value).toBe('6');
 
-        element.dispatchEvent(
-            new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true })
-        );
+        await pageObject.pressKey('ArrowDown');
         expect(element.value).toBe('5');
     });
 
     it('sets disabled accessibility attributes and removes tabindex', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag} disabled></${sliderTag}>`
+            html`<${thSliderTag} disabled></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
@@ -154,7 +137,7 @@ describe('Slider', () => {
 
     it('sets readonly accessibility attributes', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag} readonly></${sliderTag}>`
+            html`<${thSliderTag} readonly></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
@@ -166,22 +149,19 @@ describe('Slider', () => {
 
     it('can display the current value next to the thumb', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag} value="4" value-visible></${sliderTag}>`
+            html`<${thSliderTag} value="4" value-visible></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
+        pageObject = new ThSliderPageObject(element);
 
         expect(element.valueVisible).toBeTrue();
-        expect(
-            element.shadowRoot?.querySelector('.value-label')?.textContent?.trim()
-        ).toBe('4');
+        expect(pageObject.getValueLabelText()).toBe('4');
 
         element.value = '7';
         await waitForUpdatesAsync();
-        expect(
-            element.shadowRoot?.querySelector('.value-label')?.textContent?.trim()
-        ).toBe('7');
+        expect(pageObject.getValueLabelText()).toBe('7');
     });
 
     it('updates range labels when min and max change', async () => {
@@ -189,17 +169,14 @@ describe('Slider', () => {
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
+        pageObject = new ThSliderPageObject(element);
 
         element.min = 3;
         element.max = 9;
         await waitForUpdatesAsync();
 
-        expect(
-            element.shadowRoot?.querySelector('.minimum-label')?.textContent?.trim()
-        ).toBe('3');
-        expect(
-            element.shadowRoot?.querySelector('.maximum-label')?.textContent?.trim()
-        ).toBe('9');
+        expect(pageObject.getRangeLabelText('minimum-label')).toBe('3');
+        expect(pageObject.getRangeLabelText('maximum-label')).toBe('9');
     });
 
     it('defaults to showing min and max labels on hover', async () => {
@@ -207,37 +184,36 @@ describe('Slider', () => {
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
+        pageObject = new ThSliderPageObject(element);
 
-        expect(element.showMinMax).toBe(SliderShowMinMax.hover);
+        expect(element.showMinMax).toBe(ThSliderShowMinMax.hover);
     });
 
     it('can always show min and max labels', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag} show-min-max="always"></${sliderTag}>`
+            html`<${thSliderTag} show-min-max="always"></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
+        pageObject = new ThSliderPageObject(element);
 
-        const minimumLabel = element.shadowRoot?.querySelector('.minimum-label');
-        const maximumLabel = element.shadowRoot?.querySelector('.maximum-label');
-        expect(element.showMinMax).toBe(SliderShowMinMax.always);
-        expect(getComputedStyle(minimumLabel!).display).toBe('block');
-        expect(getComputedStyle(maximumLabel!).display).toBe('block');
+        expect(element.showMinMax).toBe(ThSliderShowMinMax.always);
+        expect(pageObject.getRangeLabelDisplay('minimum-label')).toBe('block');
+        expect(pageObject.getRangeLabelDisplay('maximum-label')).toBe('block');
     });
 
     it('can never show min and max labels', async () => {
         const fixtureResult = await setup(
-            html`<${sliderTag} show-min-max="never"></${sliderTag}>`
+            html`<${thSliderTag} show-min-max="never"></${thSliderTag}>`
         );
         const { element, connect } = fixtureResult;
         disconnect = fixtureResult.disconnect;
         await connect();
+        pageObject = new ThSliderPageObject(element);
 
-        const minimumLabel = element.shadowRoot?.querySelector('.minimum-label');
-        const maximumLabel = element.shadowRoot?.querySelector('.maximum-label');
-        expect(element.showMinMax).toBe(SliderShowMinMax.never);
-        expect(getComputedStyle(minimumLabel!).display).toBe('none');
-        expect(getComputedStyle(maximumLabel!).display).toBe('none');
+        expect(element.showMinMax).toBe(ThSliderShowMinMax.never);
+        expect(pageObject.getRangeLabelDisplay('minimum-label')).toBe('none');
+        expect(pageObject.getRangeLabelDisplay('maximum-label')).toBe('none');
     });
 });

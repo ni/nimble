@@ -1,9 +1,9 @@
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
 import {
-    sliderTag,
-    SliderShowMinMax,
-    type SliderShowMinMax as SliderShowMinMaxType
+    thSliderTag,
+    ThSliderShowMinMax,
+    type ThSliderShowMinMax as ThSliderShowMinMaxType
 } from '@ni/ok-components/dist/esm/th/slider';
 import { withActions } from 'storybook/actions/decorator';
 import {
@@ -22,7 +22,7 @@ interface SliderArgs {
     disabled: boolean;
     readOnly: boolean;
     valueVisible: boolean;
-    showMinMax: SliderShowMinMaxType;
+    showMinMax: ThSliderShowMinMaxType;
     change?: (event: Event) => void;
 }
 
@@ -43,7 +43,7 @@ const metadata: Meta<SliderArgs> = {
             componentName: 'Th Slider',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
-        <${sliderTag}
+        <${thSliderTag}
             style="${x => getSliderStyle(x.orientation)}"
             value="${x => x.value}"
             min="${x => x.min}"
@@ -54,7 +54,7 @@ const metadata: Meta<SliderArgs> = {
             ?readonly="${x => x.readOnly}"
             ?value-visible="${x => x.valueVisible}"
             show-min-max="${x => x.showMinMax}"
-        ></${sliderTag}>
+        ></${thSliderTag}>
     `),
     argTypes: {
         value: {
@@ -94,7 +94,7 @@ const metadata: Meta<SliderArgs> = {
         showMinMax: {
             name: 'show-min-max',
             description: 'Controls when the minimum and maximum value labels are displayed.',
-            options: Object.values(SliderShowMinMax),
+            options: Object.values(ThSliderShowMinMax),
             control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
@@ -112,7 +112,7 @@ const metadata: Meta<SliderArgs> = {
         disabled: false,
         readOnly: false,
         valueVisible: true,
-        showMinMax: SliderShowMinMax.hover
+        showMinMax: ThSliderShowMinMax.hover
     }
 };
 
