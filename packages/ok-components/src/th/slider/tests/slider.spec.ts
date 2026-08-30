@@ -11,11 +11,12 @@ async function setup(
 
 describe('Slider', () => {
     let element: Slider;
-    let connect: () => Promise<void>;
+    let connect: () => Promise<void> = async () => {};
     let disconnect: (() => Promise<void>) | undefined;
 
     afterEach(async () => {
         await disconnect?.();
+        connect = async () => {};
         disconnect = undefined;
     });
 

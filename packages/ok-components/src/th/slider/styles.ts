@@ -227,6 +227,10 @@ export const styles = css`
         :host([readonly]:active) .thumb-container::after {
             opacity: 0;
         }
+
+        :host([disabled]:active) .thumb-container::after {
+            opacity: 0;
+        }
     }
 
     @layer disabled {
