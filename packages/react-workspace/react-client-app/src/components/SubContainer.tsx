@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 interface SubContainerProp {
-    label: string;
+    label?: string;
     children?: ReactNode;
 }
 
@@ -9,7 +9,7 @@ export function SubContainer({ label, children }: SubContainerProp): React.JSX.E
     return (
         <>
             <div className="sub-container">
-                <div className="container-label">{label}</div>
+                {label && <div className="container-label">{label}</div>}
                 <div>{children}</div>
             </div>
         </>
