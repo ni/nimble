@@ -126,13 +126,6 @@ module.exports = config => {
                     alias: {
                         '/base': '',
                     }
-                },
-                server: {
-                    // Disable HMR's WebSocket server. It is unused during single-run test
-                    // execution and otherwise defaults to a fixed port (24678) that can
-                    // collide when multiple karma-vite instances run concurrently in CI,
-                    // causing browsers to disconnect.
-                    hmr: false
                 }
             }
         }
