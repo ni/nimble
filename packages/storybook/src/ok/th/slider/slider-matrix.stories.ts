@@ -19,6 +19,7 @@ const metadata: Meta = {
 export default metadata;
 
 type SliderState = readonly [string, boolean, boolean];
+type OrientationState = readonly [string, 'horizontal' | 'vertical'];
 
 const states: SliderState[] = [
     ['Enabled', false, false],
@@ -26,14 +27,27 @@ const states: SliderState[] = [
     ['Disabled', true, false]
 ];
 
-const interactionStates = cartesianProduct([states] as const);
+const orientationStates: OrientationState[] = [
+    ['Horizontal', 'horizontal'],
+    ['Vertical', 'vertical']
+];
 
-const component = ([name, disabled, readOnly]: SliderState): ViewTemplate => html`
+const interactionStates = cartesianProduct([orientationStates, states] as const);
+
+const getSliderStyle = (orientation: OrientationState[1]): string => (
+    orientation === 'horizontal' ? 'width: 200px;' : 'height: 200px;'
+);
+
+const component = (
+    [orientationName, orientation]: OrientationState,
+    [stateName, disabled, readOnly]: SliderState
+): ViewTemplate => html`
     <div style="display: inline-flex; flex-direction: column; gap: 8px; margin: 8px;">
-        <span>${() => name}</span>
+        <span>${() => `${orientationName} ${stateName}`}</span>
         <${sliderTag}
-            style="width: 200px;"
+            style="${() => getSliderStyle(orientation)}"
             value="40"
+            orientation="${() => orientation}"
             ?disabled="${() => disabled}"
             ?readonly="${() => readOnly}"
             value-visible
@@ -41,16 +55,9 @@ const component = ([name, disabled, readOnly]: SliderState): ViewTemplate => htm
     </div>
 `;
 
-export const statesThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [states])
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [orientationStates, states])
 );
-
-export const orientationsThemeMatrix: StoryFn = createMatrixThemeStory(html`
-    <div style="display: flex; gap: 32px; align-items: flex-start; padding: 16px;">
-        <${sliderTag} value="40" value-visible></${sliderTag}>
-        <${sliderTag} value="40" orientation="vertical" value-visible></${sliderTag}>
-    </div>
-`);
 
 export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
