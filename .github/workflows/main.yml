@@ -108,6 +108,7 @@ jobs:
           storybookBaseDir: ./packages/storybook
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
+          forceRebuild: true # Always publish build so example app only changes are pushed
 
       # Validate (Lint and Test)
       - run: npm run validate
