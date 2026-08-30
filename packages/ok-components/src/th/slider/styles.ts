@@ -134,7 +134,10 @@ export const styles = css`
             inset-inline-end: 0;
         }
 
-        :host(:hover) .range-label,
+        :host(:hover) .range-label {
+            display: block;
+        }
+
         :host(:active) .range-label {
             display: block;
         }
@@ -183,9 +186,14 @@ export const styles = css`
     }
 
     @layer hover {
-        :host(:not([disabled]):not([readonly]):hover) .thumb-container {
+        :host(:hover) .thumb-container {
             border-color: ${borderHoverColor};
             box-shadow: inset 0 0 0 ${borderWidth} ${borderHoverColor};
+        }
+
+        :host([readonly]:hover) .thumb-container {
+            border-color: var(--ni-private-slider-thumb-border-selected-color);
+            box-shadow: none;
         }
     }
 
@@ -204,12 +212,15 @@ export const styles = css`
     }
 
     @layer active {
-        :host(:not([disabled]):not([readonly]):active)
-            .thumb-container::after {
+        :host(:active) .thumb-container::after {
             background-color: var(
                 --ni-private-slider-thumb-background-active-color
             );
             opacity: 1;
+        }
+
+        :host([readonly]:active) .thumb-container::after {
+            opacity: 0;
         }
     }
 
@@ -235,6 +246,7 @@ export const styles = css`
             border: ${borderWidth} solid
                 var(--ni-private-slider-thumb-border-disabled-color);
             background-color: ${applicationBackgroundColor};
+            box-shadow: none;
         }
 
         :host([disabled]) .thumb-container::after {
