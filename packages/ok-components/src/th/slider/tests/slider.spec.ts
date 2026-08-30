@@ -10,13 +10,10 @@ async function setup(
 }
 
 describe('Slider', () => {
-    let element: Slider;
-    let connect: () => Promise<void> = async () => {};
     let disconnect: (() => Promise<void>) | undefined;
 
     afterEach(async () => {
         await disconnect?.();
-        connect = async () => {};
         disconnect = undefined;
     });
 
@@ -25,7 +22,9 @@ describe('Slider', () => {
     });
 
     it('provides the FAST Foundation slider template', async () => {
-        ({ element, connect, disconnect } = await setup());
+        const fixtureResult = await setup();
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
         await connect();
 
         expect(
@@ -46,14 +45,16 @@ describe('Slider', () => {
     });
 
     it('sets slider accessibility attributes', async () => {
-        ({ element, connect, disconnect } = await setup(
+        const fixtureResult = await setup(
             html`<${sliderTag}
                 min="2"
                 max="12"
                 value="6"
                 orientation="vertical"
             ></${sliderTag}>`
-        ));
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
         element.valueTextFormatter = value => `${value} units`;
         await connect();
         await waitForUpdatesAsync();
@@ -67,9 +68,11 @@ describe('Slider', () => {
     });
 
     it('sets disabled accessibility attributes and removes tabindex', async () => {
-        ({ element, connect, disconnect } = await setup(
+        const fixtureResult = await setup(
             html`<${sliderTag} disabled></${sliderTag}>`
-        ));
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
         await connect();
 
         expect(element.getAttribute('aria-disabled')).toBe('true');
@@ -77,9 +80,11 @@ describe('Slider', () => {
     });
 
     it('sets readonly accessibility attributes', async () => {
-        ({ element, connect, disconnect } = await setup(
+        const fixtureResult = await setup(
             html`<${sliderTag} readonly></${sliderTag}>`
-        ));
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
         await connect();
 
         expect(element.getAttribute('aria-readonly')).toBe('true');
@@ -87,9 +92,11 @@ describe('Slider', () => {
     });
 
     it('can display the current value next to the thumb', async () => {
-        ({ element, connect, disconnect } = await setup(
+        const fixtureResult = await setup(
             html`<${sliderTag} value="4" value-visible></${sliderTag}>`
-        ));
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
         await connect();
 
         expect(element.valueVisible).toBeTrue();
@@ -105,7 +112,9 @@ describe('Slider', () => {
     });
 
     it('updates range labels when min and max change', async () => {
-        ({ element, connect, disconnect } = await setup());
+        const fixtureResult = await setup();
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
         await connect();
 
         element.min = 3;
