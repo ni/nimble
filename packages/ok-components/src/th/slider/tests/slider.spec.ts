@@ -1,6 +1,7 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { Slider, sliderTag } from '..';
+import { SliderShowMinMax } from '../types';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
 async function setup(
@@ -199,5 +200,44 @@ describe('Slider', () => {
         expect(
             element.shadowRoot?.querySelector('.maximum-label')?.textContent?.trim()
         ).toBe('9');
+    });
+
+    it('defaults to showing min and max labels on hover', async () => {
+        const fixtureResult = await setup();
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
+        await connect();
+
+        expect(element.showMinMax).toBe(SliderShowMinMax.hover);
+    });
+
+    it('can always show min and max labels', async () => {
+        const fixtureResult = await setup(
+            html`<${sliderTag} show-min-max="always"></${sliderTag}>`
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
+        await connect();
+
+        const minimumLabel = element.shadowRoot?.querySelector('.minimum-label');
+        const maximumLabel = element.shadowRoot?.querySelector('.maximum-label');
+        expect(element.showMinMax).toBe(SliderShowMinMax.always);
+        expect(getComputedStyle(minimumLabel!).display).toBe('block');
+        expect(getComputedStyle(maximumLabel!).display).toBe('block');
+    });
+
+    it('can never show min and max labels', async () => {
+        const fixtureResult = await setup(
+            html`<${sliderTag} show-min-max="never"></${sliderTag}>`
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
+        await connect();
+
+        const minimumLabel = element.shadowRoot?.querySelector('.minimum-label');
+        const maximumLabel = element.shadowRoot?.querySelector('.maximum-label');
+        expect(element.showMinMax).toBe(SliderShowMinMax.never);
+        expect(getComputedStyle(minimumLabel!).display).toBe('none');
+        expect(getComputedStyle(maximumLabel!).display).toBe('none');
     });
 });

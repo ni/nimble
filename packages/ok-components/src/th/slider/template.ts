@@ -38,8 +38,13 @@ export const template = html<Slider>`
                 style="${getPosition}"
             >
                 <slot name="thumb"></slot>
-                <span ${ref('valueLabel')} class="value-label" aria-hidden="true"></span>
             </div>
+            <span
+                ${ref('valueLabel')}
+                class="value-label"
+                style="${getPosition}"
+                aria-hidden="true"
+            ></span>
         </div>
     </template>
 `;

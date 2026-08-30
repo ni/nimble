@@ -6,6 +6,7 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
+    fillSelectedColor,
     smallPadding,
     tooltipCaptionFont
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -104,12 +105,13 @@ export const styles = css`
 
         .value-label {
             position: absolute;
-            inset-block-end: calc(100% + ${smallPadding});
+            inset-block-end: calc(50% + 7px + ${smallPadding});
             display: none;
             font: ${tooltipCaptionFont};
             line-height: 1;
             white-space: nowrap;
             pointer-events: none;
+            transform: translateX(50%);
         }
 
         :host([value-visible]) .value-label {
@@ -118,7 +120,7 @@ export const styles = css`
 
         .range-label {
             position: absolute;
-            inset-block-start: calc(50% + 8px);
+            inset-block-start: calc(50% + 7px + ${smallPadding});
             display: none;
             font: ${tooltipCaptionFont};
             line-height: 1;
@@ -128,17 +130,22 @@ export const styles = css`
 
         .minimum-label {
             inset-inline-start: 0;
+            transform: translateX(-50%);
         }
 
         .maximum-label {
             inset-inline-end: 0;
+            transform: translateX(50%);
         }
 
-        :host(:hover) .range-label {
+        :host([show-min-max='always']) .range-label {
             display: block;
         }
 
-        :host(:active) .range-label {
+        :host(:not([show-min-max]):hover) .range-label,
+        :host(:not([show-min-max]):active) .range-label,
+        :host([show-min-max='hover']:hover) .range-label,
+        :host([show-min-max='hover']:active) .range-label {
             display: block;
         }
 
@@ -165,20 +172,23 @@ export const styles = css`
 
         :host([orientation='vertical']) .value-label {
             inset-block-end: auto;
-            inset-inline-start: calc(100% + ${smallPadding});
+            inset-inline-start: calc(50% + 7px + ${smallPadding});
+            transform: translateY(-50%);
         }
 
         :host([orientation='vertical']) .range-label {
             inset-inline-start: auto;
-            inset-inline-end: calc(50% + 8px);
+            inset-inline-end: calc(50% + 7px + ${smallPadding});
         }
 
         :host([orientation='vertical']) .minimum-label {
             inset-block: auto 0;
+            transform: translateY(50%);
         }
 
         :host([orientation='vertical']) .maximum-label {
             inset-block: 0 auto;
+            transform: translateY(-50%);
         }
 
         ::slotted(*) {
@@ -189,36 +199,36 @@ export const styles = css`
 
     @layer hover {
         :host(:hover) .thumb-container {
-            border-color: ${borderHoverColor};
-            box-shadow: inset 0 0 0 ${borderWidth} ${borderHoverColor};
+            border: calc(${borderWidth} * 2) solid ${borderHoverColor};
         }
 
         :host([readonly]:hover) .thumb-container {
-            border-color: var(--ni-private-slider-thumb-border-selected-color);
-            box-shadow: none;
+            border: ${borderWidth} solid
+                var(--ni-private-slider-thumb-border-selected-color);
         }
 
         :host([disabled]:hover) .thumb-container {
-            border-color: var(--ni-private-slider-thumb-border-disabled-color);
-            box-shadow: none;
+            border: ${borderWidth} solid
+                var(--ni-private-slider-thumb-border-disabled-color);
         }
     }
 
     @layer focusVisible {
         :host(${focusVisible}) .thumb-container {
-            border-color: ${borderHoverColor};
-            box-shadow: inset 0 0 0 ${borderWidth} ${borderHoverColor};
+            border: calc(${borderWidth} * 2) solid ${borderHoverColor};
         }
 
         :host(${focusVisible}) .thumb-container::after {
-            border: ${borderWidth} solid
-                var(--ni-private-slider-thumb-border-selected-color);
-            background-color: ${applicationBackgroundColor};
+            background-color: ${fillSelectedColor};
             opacity: 1;
         }
     }
 
     @layer active {
+        :host(:active) .thumb-container {
+            border-width: calc(${borderWidth} * 2);
+        }
+
         :host(:active) .thumb-container::after {
             background-color: var(
                 --ni-private-slider-thumb-background-active-color
@@ -226,10 +236,11 @@ export const styles = css`
             opacity: 1;
         }
 
-        :host([readonly]:active) .thumb-container::after {
-            opacity: 0;
+        :host([readonly]:active) .thumb-container {
+            border-width: ${borderWidth};
         }
 
+        :host([readonly]:active) .thumb-container::after,
         :host([disabled]:active) .thumb-container::after {
             opacity: 0;
         }
@@ -257,7 +268,6 @@ export const styles = css`
             border: ${borderWidth} solid
                 var(--ni-private-slider-thumb-border-disabled-color);
             background-color: ${applicationBackgroundColor};
-            box-shadow: none;
         }
 
         :host([disabled]) .thumb-container::after {

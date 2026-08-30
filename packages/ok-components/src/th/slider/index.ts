@@ -7,6 +7,9 @@ import {
 import { Orientation } from '@ni/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';
+import { SliderShowMinMax } from './types';
+
+export { SliderShowMinMax };
 
 interface FoundationSliderInternals {
     calculateNewValue: (rawValue: number) => number;
@@ -28,6 +31,12 @@ export class Slider extends FoundationSlider {
      */
     @attr({ attribute: 'value-visible', mode: 'boolean' })
     public valueVisible = false;
+
+    /**
+     * Controls when the minimum and maximum value labels are displayed.
+     */
+    @attr({ attribute: 'show-min-max' })
+    public showMinMax: SliderShowMinMax = SliderShowMinMax.hover;
 
     /** @internal */
     public valueLabel?: HTMLSpanElement;

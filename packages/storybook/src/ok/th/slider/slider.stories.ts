@@ -1,6 +1,10 @@
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
-import { sliderTag } from '@ni/ok-components/dist/esm/th/slider';
+import {
+    sliderTag,
+    SliderShowMinMax,
+    type SliderShowMinMax as SliderShowMinMaxType
+} from '@ni/ok-components/dist/esm/th/slider';
 import { withActions } from 'storybook/actions/decorator';
 import {
     apiCategory,
@@ -18,8 +22,13 @@ interface SliderArgs {
     disabled: boolean;
     readOnly: boolean;
     valueVisible: boolean;
+    showMinMax: SliderShowMinMaxType;
     change?: (event: Event) => void;
 }
+
+const getSliderStyle = (orientation: SliderArgs['orientation']): string => (
+    orientation === 'horizontal' ? 'width: 200px;' : 'height: 200px;'
+);
 
 const metadata: Meta<SliderArgs> = {
     title: 'Ok/Th Slider',
@@ -35,7 +44,7 @@ const metadata: Meta<SliderArgs> = {
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
         <${sliderTag}
-            style="${x => x.orientation === 'horizontal' ? `width: 200px;` : `height: 200px;`}"
+            style="${x => getSliderStyle(x.orientation)}"
             value="${x => x.value}"
             min="${x => x.min}"
             max="${x => x.max}"
@@ -44,6 +53,7 @@ const metadata: Meta<SliderArgs> = {
             ?disabled="${x => x.disabled}"
             ?readonly="${x => x.readOnly}"
             ?value-visible="${x => x.valueVisible}"
+            show-min-max="${x => x.showMinMax}"
         ></${sliderTag}>
     `),
     argTypes: {
@@ -81,6 +91,13 @@ const metadata: Meta<SliderArgs> = {
             description: 'Displays the current value next to the slider thumb.',
             table: { category: apiCategory.attributes }
         },
+        showMinMax: {
+            name: 'show-min-max',
+            description: 'Controls when the minimum and maximum value labels are displayed.',
+            options: Object.values(SliderShowMinMax),
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
+        },
         change: {
             table: { category: apiCategory.events },
             control: false
@@ -94,7 +111,8 @@ const metadata: Meta<SliderArgs> = {
         orientation: 'horizontal',
         disabled: false,
         readOnly: false,
-        valueVisible: true
+        valueVisible: true,
+        showMinMax: SliderShowMinMax.hover
     }
 };
 
