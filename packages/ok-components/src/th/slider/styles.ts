@@ -152,14 +152,15 @@ export const styles = css`
         }
 
         :host([orientation='vertical']) .track-start {
-            inset-block-start: 0;
+            inset-block-start: auto;
+            inset-block-end: 0;
             inset-inline: 0;
         }
 
         :host([orientation='vertical']) .thumb-container {
             top: auto;
             left: 50%;
-            transform: translate(-50%, 50%);
+            transform: translate(-50%, -50%);
         }
 
         :host([orientation='vertical']) .value-label {
@@ -168,7 +169,8 @@ export const styles = css`
         }
 
         :host([orientation='vertical']) .range-label {
-            inset-inline-start: calc(50% + 8px);
+            inset-inline-start: auto;
+            inset-inline-end: calc(50% + 8px);
         }
 
         :host([orientation='vertical']) .minimum-label {

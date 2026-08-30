@@ -67,6 +67,78 @@ describe('Slider', () => {
         expect(element.getAttribute('aria-orientation')).toBe('vertical');
     });
 
+    it('positions a vertical slider from minimum at the bottom to maximum at the top', async () => {
+        const fixtureResult = await setup(
+            html`<${sliderTag}
+                min="2"
+                max="12"
+                value="2"
+                orientation="vertical"
+            ></${sliderTag}>`
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
+        await connect();
+        await waitForUpdatesAsync();
+
+        const trackStart = element.shadowRoot?.querySelector<HTMLElement>(
+            '[part="track-start"]'
+        );
+        const thumb = element.shadowRoot?.querySelector<HTMLElement>(
+            '[part="thumb-container"]'
+        );
+        expect(trackStart?.style.top).toBe('100%');
+        expect(thumb?.style.top).toBe('100%');
+
+        element.value = '12';
+        await waitForUpdatesAsync();
+
+        expect(trackStart?.style.top).toBe('0%');
+        expect(thumb?.style.top).toBe('0%');
+    });
+
+    it('increases a vertical slider value when dragged upward', async () => {
+        const fixtureResult = await setup(
+            html`<${sliderTag} orientation="vertical"></${sliderTag}>`
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
+        await connect();
+
+        spyOn(element.track, 'getBoundingClientRect').and.returnValue(
+            new DOMRect(0, 100, 4, 200)
+        );
+        element.dispatchEvent(
+            new MouseEvent('mousedown', { bubbles: true, clientY: 300 })
+        );
+        window.dispatchEvent(new MouseEvent('mousemove', { clientY: 100 }));
+        await waitForUpdatesAsync();
+
+        expect(element.value).toBe('10');
+    });
+
+    it('uses up and down arrow keys to increase and decrease a vertical slider', async () => {
+        const fixtureResult = await setup(
+            html`<${sliderTag}
+                value="5"
+                orientation="vertical"
+            ></${sliderTag}>`
+        );
+        const { element, connect } = fixtureResult;
+        disconnect = fixtureResult.disconnect;
+        await connect();
+
+        element.dispatchEvent(
+            new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true })
+        );
+        expect(element.value).toBe('6');
+
+        element.dispatchEvent(
+            new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true })
+        );
+        expect(element.value).toBe('5');
+    });
+
     it('sets disabled accessibility attributes and removes tabindex', async () => {
         const fixtureResult = await setup(
             html`<${sliderTag} disabled></${sliderTag}>`

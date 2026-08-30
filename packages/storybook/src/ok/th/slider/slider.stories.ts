@@ -35,6 +35,7 @@ const metadata: Meta<SliderArgs> = {
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
         <${sliderTag}
+            style="${x => x.orientation === 'horizontal' ? `width: 200px;` : `height: 200px;`}"
             value="${x => x.value}"
             min="${x => x.min}"
             max="${x => x.max}"
@@ -86,7 +87,7 @@ const metadata: Meta<SliderArgs> = {
         }
     },
     args: {
-        value: 50,
+        value: 40,
         min: 0,
         max: 100,
         step: 1,

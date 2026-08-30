@@ -1,5 +1,12 @@
 import { html, ref } from '@ni/fast-element';
+import { Orientation } from '@ni/fast-web-utilities';
 import type { Slider } from '.';
+
+const getPosition = (slider: Slider): string => (
+    slider.orientation === Orientation.vertical
+        ? (slider.position?.replace('bottom:', 'top:') ?? '')
+        : slider.position
+);
 
 export const template = html<Slider>`
     <template
@@ -17,7 +24,7 @@ export const template = html<Slider>`
         <div part="positioning-region" class="positioning-region">
             <div ${ref('track')} part="track-container" class="track">
                 <slot name="track"></slot>
-                <div part="track-start" class="track-start" style="${x => x.position}">
+                <div part="track-start" class="track-start" style="${getPosition}">
                     <slot name="track-start"></slot>
                 </div>
             </div>
@@ -28,7 +35,7 @@ export const template = html<Slider>`
                 ${ref('thumb')}
                 part="thumb-container"
                 class="thumb-container"
-                style="${x => x.position}"
+                style="${getPosition}"
             >
                 <slot name="thumb"></slot>
                 <span ${ref('valueLabel')} class="value-label" aria-hidden="true"></span>

@@ -48,7 +48,7 @@ const component = (
         <span style="font-size: 12px; color: #0076d6; text-align: center; min-height: 16px;">${() => `${orientationName} ${stateName}`}</span>
         <${sliderTag}
             style="${() => getSliderStyle(orientation)}"
-            value="40"
+            value="4"
             orientation="${() => orientation}"
             ?disabled="${() => disabled}"
             ?readonly="${() => readOnly}"
