@@ -195,6 +195,11 @@ export const styles = css`
             border-color: var(--ni-private-slider-thumb-border-selected-color);
             box-shadow: none;
         }
+
+        :host([disabled]:hover) .thumb-container {
+            border-color: var(--ni-private-slider-thumb-border-disabled-color);
+            box-shadow: none;
+        }
     }
 
     @layer focusVisible {
