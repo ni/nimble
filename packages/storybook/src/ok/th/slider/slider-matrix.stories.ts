@@ -45,7 +45,7 @@ const component = (
     [stateName, disabled, readOnly]: SliderState
 ): ViewTemplate => html`
     <div style="display: inline-flex; flex-direction: column; gap: 8px; margin: 8px;">
-        <span>${() => `${orientationName} ${stateName}`}</span>
+        <span style="font-size: 12px; color: #0076d6; text-align: center; min-height: 16px;">${() => `${orientationName} ${stateName}`}</span>
         <${sliderTag}
             style="${() => getSliderStyle(orientation)}"
             value="40"
