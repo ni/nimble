@@ -196,7 +196,11 @@ export const StoryTableOfContents = ({ items }: { items: readonly StoryTocItem[]
                 <a
                     href={`#${item.id}`}
                     aria-current={item.id === activeId ? 'location' : undefined}
-                    onClick={() => setActiveId(item.id)}
+                    onClick={event => {
+                        event.preventDefault();
+                        document.getElementById(item.id)?.scrollIntoView({ block: 'start' });
+                        setActiveId(item.id);
+                    }}
                 >{item.title}</a>
             </li>)}
         </ol>

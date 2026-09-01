@@ -12,7 +12,7 @@ import anatomySvg from './images/button-anatomy.svg?raw';
 const anatomySvgContent = anatomySvg.slice(
     anatomySvg.indexOf('>') + 1,
     anatomySvg.lastIndexOf('</svg>')
-);
+).replace(/\s+id=(?:"[^"]*"|'[^']*')/g, '');
 
 const anatomyStyle = {
     display: 'flex',
