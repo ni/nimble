@@ -101,6 +101,28 @@ describe('FvSummaryPanel', () => {
         expect(tile?.hasAttribute('size')).toBeFalse();
     });
 
+    it('leaves room for compact tile hover styling without padding the scroll container', async () => {
+        ({ element, connect, disconnect } = await setupWithTiles());
+        element.size = FvSummaryPanelSize.compact;
+        await connect();
+        await waitForUpdatesAsync();
+
+        const container = element.shadowRoot?.querySelector('.summary-item-container');
+        const tile = element.querySelector(fvSummaryPanelTileTag);
+
+        if (!container || !tile) {
+            throw new Error('Expected compact summary panel elements to be rendered');
+        }
+
+        const containerRect = container.getBoundingClientRect();
+        const tileRect = tile.getBoundingClientRect();
+
+        expect(getComputedStyle(container).padding).toBe('0px');
+        expect(getComputedStyle(tile).margin).toBe('2px');
+        expect(tileRect.top).toBe(containerRect.top + 2);
+        expect(tileRect.bottom).toBe(containerRect.bottom - 2);
+    });
+
     it('only applies the compact overflow fade when items overflow', async () => {
         ({ element, connect, disconnect } = await setupWithTiles());
         element.style.width = '1000px';

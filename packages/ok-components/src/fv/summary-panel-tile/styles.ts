@@ -65,6 +65,7 @@ export const styles = css`
             flex-direction: column;
             align-items: center;
             gap: ${smallPadding};
+            margin-top: calc(${largePadding} - ${smallPadding});
             text-align: center;
         }
 
@@ -93,6 +94,10 @@ export const styles = css`
         :host([size='compact']) .summary-panel-tile-content {
             gap: 6px;
             margin: 10px 14px;
+        }
+
+        :host([size='compact']) .summary-panel-tile-content.under {
+            margin-top: ${mediumPadding};
         }
 
         :host([size='compact']) .count {
