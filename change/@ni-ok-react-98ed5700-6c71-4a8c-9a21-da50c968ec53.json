@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add the OK FV sticky-header component and framework wrappers",
-  "packageName": "@ni/ok-react",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
