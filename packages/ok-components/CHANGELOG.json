@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 01 Sep 2026 15:14:14 GMT",
+      "version": "1.8.1",
+      "tag": "@ni/ok-components_v1.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "250b49e90ad9ca2d6949521be428da2128ff54b8",
+            "comment": "Add the OK FV sticky-header component and framework wrappers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 27 Aug 2026 14:33:47 GMT",
       "version": "1.8.0",
       "tag": "@ni/ok-components_v1.8.0",

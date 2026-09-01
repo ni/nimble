@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Thu, 27 Aug 2026 14:33:47 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 01 Sep 2026 15:14:14 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.12.1
+
+Tue, 01 Sep 2026 15:14:14 GMT
+
+### Patches
+
+- Add the OK FV sticky-header component and framework wrappers ([ni/nimble@250b49e](https://github.com/ni/nimble/commit/250b49e90ad9ca2d6949521be428da2128ff54b8))
+- Bump @ni/ok-components to v1.8.1
 
 ## 0.12.0
 
