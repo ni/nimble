@@ -18,24 +18,24 @@ export default metadata;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(html`
     <div style="display: inline-flex; width: 960px; padding: 16px;">
-        <${fvSummaryPanelTag} show-edit-items-button>
-            <${fvSummaryPanelTileTag} count="234" label="systems" selected></${fvSummaryPanelTileTag}>
-            <${fvSummaryPanelTileTag} count="207" label="connected"></${fvSummaryPanelTileTag}>
-            <${fvSummaryPanelTileTag} count="28" label="disconnected"></${fvSummaryPanelTileTag}>
-            <${fvSummaryPanelTileTag} count="1" label="pending"></${fvSummaryPanelTileTag}>
+        <${fvSummaryPanelTag} show-edit-items-button legacy-style>
+            <${fvSummaryPanelTileTag} count="234" label="systems" text-position="under" selected></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="207" label="connected" text-position="under"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="28" label="disconnected" text-position="under"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="1" label="pending" text-position="under"></${fvSummaryPanelTileTag}>
         </${fvSummaryPanelTag}>
     </div>
 `);
 
 export const compact: StoryFn = createMatrixThemeStory(html`
     <div style="display: inline-flex; width: 390px;">
-        <${fvSummaryPanelTag} size="compact">
-            <${fvSummaryPanelTileTag} count="234" label="systems" selected></${fvSummaryPanelTileTag}>
-            <${fvSummaryPanelTileTag} count="207" label="connected"></${fvSummaryPanelTileTag}>
-            <${fvSummaryPanelTileTag} count="28" label="disconnected"></${fvSummaryPanelTileTag}>
-            <${fvSummaryPanelTileTag} count="1" label="pending"></${fvSummaryPanelTileTag}>
-            <${fvSummaryPanelTileTag} count="12" label="warnings"></${fvSummaryPanelTileTag}>
-            <${fvSummaryPanelTileTag} count="3" label="critical"></${fvSummaryPanelTileTag}>
+        <${fvSummaryPanelTag} size="compact" legacy-style>
+            <${fvSummaryPanelTileTag} count="234" label="systems" text-position="under" selected></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="207" label="connected" text-position="under"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="28" label="disconnected" text-position="under"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="1" label="pending" text-position="under"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="12" label="warnings" text-position="under"></${fvSummaryPanelTileTag}>
+            <${fvSummaryPanelTileTag} count="3" label="critical" text-position="under"></${fvSummaryPanelTileTag}>
         </${fvSummaryPanelTag}>
     </div>
 `);
