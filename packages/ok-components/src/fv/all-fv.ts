@@ -6,6 +6,7 @@ import './master-detail-list-item';
 import './master-detail-list';
 import './split-button';
 import './split-button-anchor';
+import './sticky-header';
 import './summary-panel';
 import './summary-panel-tile';
 import './search-input';
