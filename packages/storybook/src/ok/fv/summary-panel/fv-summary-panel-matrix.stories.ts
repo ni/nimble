@@ -36,7 +36,7 @@ const summaryPanel = (
 ): ViewTemplate => {
     const isCompact = size === 'compact';
     return html`
-        <div style="display: ${isCompact ? 'inline-flex' : 'flex'}; flex-direction: column; width: ${isCompact ? '390px' : '460px'}; margin: 0 16px 16px 0;">
+        <div style="display: ${isCompact ? 'inline-flex' : 'flex'}; flex-direction: column; width: ${isCompact ? '390px' : '960px'}; margin: 0 16px 16px 0;">
             <div style="font-size: 12px; color: #0076d6; text-align: center; min-height: 16px;">
                 ${() => `${legacyStyleName} ${textPositionName}`}
             </div>
