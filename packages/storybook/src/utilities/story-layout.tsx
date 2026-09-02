@@ -218,19 +218,21 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
         <div className='story-page' style={storyTokenStyles}>
             {css`
                 :scope {
+                    display: grid;
+                    grid-template-columns: minmax(0, var(${dialogLargeWidth.cssCustomProperty})) max-content;
                     position: relative;
                     gap: var(${standardPadding.cssCustomProperty});
-                    width: 100%;
-                    max-width: var(${dialogLargeWidth.cssCustomProperty});
+                    width: fit-content;
+                    max-width: 100%;
                     margin-inline: auto;
                 }
                 :scope > .story-page-toc {
-                    position: absolute;
-                    inset-block: 0;
-                    inset-inline-start: calc(100% + var(${largePadding.cssCustomProperty}) + var(${standardPadding.cssCustomProperty}));
-                    width: max-content;
+                    grid-column: 2;
+                    grid-row: 1;
                 }
                 :scope > .story-page-content {
+                    grid-column: 1;
+                    grid-row: 1;
                     min-width: 0;
                 }
                 @media (max-width: 640px) {
