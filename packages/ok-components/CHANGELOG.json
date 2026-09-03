@@ -2,6 +2,39 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Thu, 03 Sep 2026 17:39:26 GMT",
+      "version": "1.8.3",
+      "tag": "@ni/ok-components_v1.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "c730a12cacd3647af8265d25a138f172b74c8673",
+            "comment": "Update playwright and lock files"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.13.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.22.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.11",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Sep 2026 16:57:10 GMT",
       "version": "1.8.2",
       "tag": "@ni/ok-components_v1.8.2",

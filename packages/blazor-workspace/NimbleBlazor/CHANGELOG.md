@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 26 Aug 2026 20:16:12 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 22.0.1
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/nimble-components to v35.13.1
 
 ## 22.0.0
 
