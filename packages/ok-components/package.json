@@ -44,6 +44,7 @@
     "@ni/fast-foundation": "^10.2.5",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "^35.13.0",
+    "@ni/nimble-tokens": "^8.19.0",
     "@ni/spright-components": "^6.22.0",
     "tslib": "^2.2.0"
   },

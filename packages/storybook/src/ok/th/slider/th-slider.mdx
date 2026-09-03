@@ -1,0 +1,18 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as sliderStories from './th-slider.stories';
+
+<Meta of={sliderStories} />
+<Title of={sliderStories} />
+
+A Nimble-styled TestHub slider based on the FAST Foundation slider.
+Set `value-visible` to display a live value tooltip beside the thumb as it
+moves.
+
+<Canvas of={sliderStories.slider} />
+
+## API
+
+<Controls of={sliderStories.slider} />
+
+<ComponentApisLink />

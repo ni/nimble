@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add React wrapper for the TestHub slider",
+  "packageName": "@ni/ok-react",
+  "email": "198982749+Copilot@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
