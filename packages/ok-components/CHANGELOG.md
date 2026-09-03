@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 01 Sep 2026 15:14:14 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 03 Sep 2026 16:57:10 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.8.2
+
+Thu, 03 Sep 2026 16:57:10 GMT
+
+### Patches
+
+- Fix FV summary panel spacing and preserve compact tile hover styling ([ni/nimble@38ddfef](https://github.com/ni/nimble/commit/38ddfefe98820bd741b99a89d2b9b925bc0e43e2))
 
 ## 1.8.1
 

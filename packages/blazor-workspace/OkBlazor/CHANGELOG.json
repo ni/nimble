@@ -2,6 +2,21 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Thu, 03 Sep 2026 16:57:10 GMT",
+      "version": "1.6.3",
+      "tag": "@ni/ok-blazor_v1.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.8.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Sep 2026 15:14:14 GMT",
       "version": "1.6.2",
       "tag": "@ni/ok-blazor_v1.6.2",
