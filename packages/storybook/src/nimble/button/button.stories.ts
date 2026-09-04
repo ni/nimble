@@ -39,6 +39,9 @@ const metadata: Meta<ButtonArgs> = {
     parameters: {
         actions: {
             handles: ['click']
+        },
+        docs: {
+            toc: { disable: true }
         }
     },
     argTypes: {
