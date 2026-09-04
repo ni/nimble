@@ -1,6 +1,7 @@
 import { html } from '@ni/fast-element';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { FvSummaryPanelTile, fvSummaryPanelTileTag } from '..';
+import { FvSummaryPanelSize } from '../../summary-panel/types';
 
 async function setup(): Promise<Fixture<FvSummaryPanelTile>> {
     return await fixture<FvSummaryPanelTile>(html`
@@ -52,7 +53,20 @@ describe('FvSummaryPanelTile', () => {
         element.textPosition = 'under';
         await connect();
 
-        expect(element.shadowRoot?.querySelector('.summary-panel-tile-content')?.classList.contains('under')).toBeTrue();
+        const content = element.shadowRoot?.querySelector('.summary-panel-tile-content');
+        expect(content?.classList.contains('under')).toBeTrue();
+        expect(getComputedStyle(content!).marginTop).toBe('20px');
+    });
+
+    it('uses an 8px top margin for compact under text positioning', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.setAttribute('size', FvSummaryPanelSize.compact);
+        element.textPosition = 'under';
+        await connect();
+
+        const content = element.shadowRoot?.querySelector('.summary-panel-tile-content');
+        expect(content?.classList.contains('under')).toBeTrue();
+        expect(getComputedStyle(content!).marginTop).toBe('8px');
     });
 
     it('supports the legacy-style attribute', async () => {

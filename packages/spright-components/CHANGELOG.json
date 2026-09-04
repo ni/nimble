@@ -2,6 +2,33 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 03 Sep 2026 17:39:26 GMT",
+      "version": "6.22.1",
+      "tag": "@ni/spright-components_v6.22.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "c730a12cacd3647af8265d25a138f172b74c8673",
+            "comment": "Update playwright and lock files"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.13.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.11",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 24 Aug 2026 19:55:50 GMT",
       "version": "6.22.0",
       "tag": "@ni/spright-components_v6.22.0",

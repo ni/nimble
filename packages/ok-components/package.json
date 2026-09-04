@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-components",
-  "version": "1.8.1",
+  "version": "1.8.3",
   "description": "NI Ok Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",
@@ -43,8 +43,8 @@
     "@ni/fast-element": "^10.1.2",
     "@ni/fast-foundation": "^10.2.5",
     "@ni/fast-web-utilities": "^10.0.0",
-    "@ni/nimble-components": "^35.13.0",
-    "@ni/spright-components": "^6.22.0",
+    "@ni/nimble-components": "^35.13.1",
+    "@ni/spright-components": "^6.22.1",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
     "@custom-elements-manifest/to-markdown": "^0.1.0",
     "@ni-private/eslint-config-nimble": "*",
     "@ni-private/jasmine-extensions": "^0.0.1",
-    "@ni/jasmine-parameterized": "^1.0.10",
+    "@ni/jasmine-parameterized": "^1.0.11",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.0",
@@ -68,7 +68,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-vite": "^1.0.5",
     "karma-webkit-launcher": "^2.6.0",
-    "playwright": "1.60.0",
+    "playwright": "1.62.0",
     "rollup": "^4.60.2",
     "rollup-plugin-sourcemaps2": "^0.5.0",
     "typescript": "~5.8.3"

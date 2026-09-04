@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Tue, 25 Aug 2026 18:10:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 9.6.2
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.1
 
 ## 9.6.1
 
