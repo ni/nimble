@@ -86,6 +86,15 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Fv Splitter',
+        componentHref: './?path=/docs/ok-fv-splitter--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Summary Panel',
         componentHref: './?path=/docs/ok-fv-summary-panel--docs',
         library: 'ok',
