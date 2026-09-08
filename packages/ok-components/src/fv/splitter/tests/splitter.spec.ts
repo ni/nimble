@@ -69,6 +69,18 @@ describe('FvSplitter', () => {
         expect(element.position).toBe(80);
     });
 
+    it('moves the splitter with the physical arrow direction in RTL', () => {
+        element.parentElement!.style.direction = 'rtl';
+        element.position = 60;
+        element.step = 5;
+
+        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true }));
+        expect(element.position).toBe(65);
+
+        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true }));
+        expect(element.position).toBe(60);
+    });
+
     it('emits input and change events for a keyboard adjustment', () => {
         const inputSpy = jasmine.createSpy();
         const changeSpy = jasmine.createSpy();
@@ -84,6 +96,7 @@ describe('FvSplitter', () => {
     it('tracks a primary pointer within the parent width and commits on release', () => {
         spyOn(element.parentElement!, 'getBoundingClientRect').and.returnValue({
             left: 100,
+            right: 900,
             width: 800
         } as DOMRect);
         const inputSpy = jasmine.createSpy();
@@ -103,6 +116,34 @@ describe('FvSplitter', () => {
         expect(element.resizing).toBeFalse();
         expect(inputSpy).toHaveBeenCalledTimes(1);
         expect(changeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('focuses the pointer target before starting a resize', () => {
+        const focusSpy = spyOn(separator, 'focus');
+
+        separator.dispatchEvent(
+            new PointerEvent('pointerdown', { pointerId: -1, button: 0, isPrimary: true })
+        );
+
+        expect(focusSpy).toHaveBeenCalled();
+    });
+
+    it('measures pointer position from inline-start in RTL', () => {
+        element.parentElement!.style.direction = 'rtl';
+        spyOn(element.parentElement!, 'getBoundingClientRect').and.returnValue({
+            left: 100,
+            right: 900,
+            width: 800
+        } as DOMRect);
+
+        separator.dispatchEvent(
+            new PointerEvent('pointerdown', { pointerId: -1, button: 0, isPrimary: true })
+        );
+        separator.dispatchEvent(
+            new PointerEvent('pointermove', { pointerId: -1, clientX: 700, isPrimary: true })
+        );
+
+        expect(element.position).toBe(25);
     });
 
     it('restores the starting position when pointer resizing is canceled', () => {

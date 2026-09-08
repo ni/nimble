@@ -84,11 +84,13 @@ export class FvSplitter extends FoundationElement {
         }
 
         event.preventDefault();
+        const pointerTarget = event.currentTarget as HTMLElement;
+        pointerTarget.focus();
         this.pointerId = event.pointerId;
         this.pointerStartPosition = this.position;
         this.resizing = true;
         if (event.pointerId !== -1) {
-            (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+            pointerTarget.setPointerCapture(event.pointerId);
         }
         return true;
     }
@@ -106,7 +108,10 @@ export class FvSplitter extends FoundationElement {
 
         const bounds = container.getBoundingClientRect();
         if (bounds.width > 0) {
-            this.updatePosition(((event.clientX - bounds.left) / bounds.width) * 100);
+            const distanceFromInlineStart = this.isRtl
+                ? bounds.right - event.clientX
+                : event.clientX - bounds.left;
+            this.updatePosition((distanceFromInlineStart / bounds.width) * 100);
         }
         return true;
     }
@@ -132,12 +137,13 @@ export class FvSplitter extends FoundationElement {
     /** @internal */
     public handleKeyDown(event: KeyboardEvent): boolean {
         let nextPosition: number | undefined;
+        const direction = this.isRtl ? -1 : 1;
         switch (event.key) {
             case 'ArrowLeft':
-                nextPosition = this.position - this.validStep;
+                nextPosition = this.position - direction * this.validStep;
                 break;
             case 'ArrowRight':
-                nextPosition = this.position + this.validStep;
+                nextPosition = this.position + direction * this.validStep;
                 break;
             case 'Home':
                 nextPosition = this.validMin;
@@ -169,6 +175,10 @@ export class FvSplitter extends FoundationElement {
 
     private get validStep(): number {
         return Number.isFinite(this.step) && this.step > 0 ? this.step : 1;
+    }
+
+    private get isRtl(): boolean {
+        return getComputedStyle(this).direction === 'rtl';
     }
 
     private constrain(position: number): number {
