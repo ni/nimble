@@ -9,6 +9,7 @@ export const template = html<FvSplitter>`
         @pointermove="${(x, c) => x.handlePointerMove(c.event as PointerEvent)}"
         @pointerup="${(x, c) => x.handlePointerUp(c.event as PointerEvent)}"
         @pointercancel="${(x, c) => x.handlePointerCancel(c.event as PointerEvent)}"
+        @lostpointercapture="${(x, c) => x.handlePointerCancel(c.event as PointerEvent)}"
         @keydown="${(x, c) => x.handleKeyDown(c.event as KeyboardEvent)}"
     ></div>
 `;

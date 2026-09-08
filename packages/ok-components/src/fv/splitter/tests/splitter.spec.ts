@@ -125,6 +125,31 @@ describe('FvSplitter', () => {
         expect(element.resizing).toBeFalse();
     });
 
+    it('restores the starting position when pointer capture is lost', () => {
+        spyOn(element.parentElement!, 'getBoundingClientRect').and.returnValue({
+            left: 0,
+            width: 1000
+        } as DOMRect);
+
+        separator.dispatchEvent(
+            new PointerEvent('pointerdown', { pointerId: -1, button: 0, isPrimary: true })
+        );
+        separator.dispatchEvent(
+            new PointerEvent('pointermove', { pointerId: -1, clientX: 750, isPrimary: true })
+        );
+        separator.dispatchEvent(
+            new PointerEvent('lostpointercapture', { pointerId: -1, isPrimary: true })
+        );
+
+        expect(element.position).toBe(60);
+        expect(element.resizing).toBeFalse();
+
+        separator.dispatchEvent(
+            new PointerEvent('pointerdown', { pointerId: -1, button: 0, isPrimary: true })
+        );
+        expect(element.resizing).toBeTrue();
+    });
+
     it('clamps programmatic positions to min and max', async () => {
         element.min = 25;
         element.max = 75;

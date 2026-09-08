@@ -125,6 +125,21 @@ function updateLayout(event: Event): void {
     }
 }
 
+function constrainPosition(position: number, min: number, max: number): number {
+    const validMin = Number.isFinite(min) ? Math.min(100, Math.max(0, min)) : 0;
+    const validMax = Math.max(
+        validMin,
+        Number.isFinite(max) ? Math.min(100, Math.max(0, max)) : 100
+    );
+    const finitePosition = Number.isFinite(position) ? position : 60;
+    return Math.min(validMax, Math.max(validMin, finitePosition));
+}
+
+function getGridTemplateColumns(args: SplitterArgs): string {
+    const position = constrainPosition(args.position, args.min, args.max);
+    return `${position}fr 2px ${100 - position}fr`;
+}
+
 function updateTableData(args: SplitterArgs): void {
     void (async () => {
         await customElements.whenDefined(tableTag);
@@ -148,7 +163,7 @@ const metadata: Meta<SplitterArgs> = {
         <style class="code-hide">${storyStyles}</style>
         <div
             class="splitter-story"
-            style="grid-template-columns: ${x => x.position}fr 2px ${x => 100 - x.position}fr"
+            style="grid-template-columns: ${x => getGridTemplateColumns(x)}"
         >
             <main id="splitter-story-primary-pane" class="splitter-story__primary">
                 <div class="splitter-story__toolbar">
