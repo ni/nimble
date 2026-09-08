@@ -28,6 +28,7 @@ describe('FvSplitter', () => {
 
     it('exposes the vertical separator semantics and default position on the host', () => {
         expect(element.tabIndex).toBe(0);
+        expect(separator.tabIndex).toBe(0);
         expect(element.getAttribute('role')).toBe('separator');
         expect(element.getAttribute('aria-orientation')).toBe('vertical');
         expect(element.getAttribute('aria-label')).toBe('Resize panes');
