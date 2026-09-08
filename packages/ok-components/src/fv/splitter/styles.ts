@@ -1,7 +1,7 @@
 import { css } from '@ni/fast-element';
 import {
     borderHoverColor,
-    borderColor
+    dividerBackgroundDynamicColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -17,7 +17,7 @@ export const styles = css`
             width: 2px;
             height: 100%;
             min-height: 0;
-            background: ${borderColor};
+            background: ${dividerBackgroundDynamicColor};
         }
 
         .splitter {
