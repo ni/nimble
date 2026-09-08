@@ -102,6 +102,7 @@ export const StoryTableOfContents = ({ items }: { items: readonly StoryTocItem[]
             return undefined;
         }
 
+        const lastHeading = headings[headings.length - 1] ?? firstHeading;
         const hashHeading = headings.find(heading => heading.id === window.location.hash.slice(1));
         if (hashHeading) {
             hashHeading.scrollIntoView({ block: 'start' });
@@ -111,6 +112,10 @@ export const StoryTableOfContents = ({ items }: { items: readonly StoryTocItem[]
         const updateActiveHeading = (): void => {
             if (window.scrollY === 0) {
                 setActiveId(firstHeading.id);
+                return;
+            }
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1) {
+                setActiveId(lastHeading.id);
                 return;
             }
             let activeHeading = firstHeading;
@@ -723,7 +728,7 @@ const Guidance = (
             :scope .guidance-copy > *:last-child {
                 margin-bottom: 0;
             }
-            :scope .guidance-copy > h4 {
+            :scope .guidance-copy > h3 {
                 margin: 0 0 var(${mediumPadding.cssCustomProperty});
                 color: var(${titlePlus1FontColor.cssCustomProperty});
                 font: var(${bodyPlus1EmphasizedFont.cssCustomProperty});
@@ -746,7 +751,7 @@ const Guidance = (
         </header>
         {example ? <div className='guidance-example'><div className='guidance-example-content'>{example}</div></div> : null}
         <div className='guidance-copy'>
-            <h4>{title}</h4>
+            <h3>{title}</h3>
             {children}
         </div>
     </article>;
