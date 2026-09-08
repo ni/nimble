@@ -150,7 +150,7 @@ const metadata: Meta<SplitterArgs> = {
             class="splitter-story"
             style="grid-template-columns: ${x => x.position}fr 2px ${x => 100 - x.position}fr"
         >
-            <main class="splitter-story__primary">
+            <main id="splitter-story-primary-pane" class="splitter-story__primary">
                 <div class="splitter-story__toolbar">
                     <h2>Systems</h2>
                     <span>24 connected</span>
@@ -170,6 +170,7 @@ const metadata: Meta<SplitterArgs> = {
                 max="${x => x.max}"
                 step="${x => x.step}"
                 aria-label="Resize system details pane"
+                aria-controls="splitter-story-primary-pane"
                 @input="${(_x, c) => updateLayout(c.event)}"
             ></${fvSplitterTag}>
             <aside class="splitter-story__secondary" aria-label="System details">

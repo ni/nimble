@@ -21,6 +21,10 @@ export class FvSplitter extends FoundationElement {
     @attr({ attribute: 'aria-labelledby' })
     public ariaLabelledby: string | undefined;
 
+    /** Identifies the primary pane controlled by the separator. */
+    @attr({ attribute: 'aria-controls' })
+    public ariaControls: string | undefined;
+
     /** The splitter position as a percentage of the containing layout's width. */
     @attr({ converter: nullableNumberConverter })
     public position = 60;
@@ -45,23 +49,37 @@ export class FvSplitter extends FoundationElement {
     private pointerStartPosition = 0;
 
     /** @internal */
+    public override connectedCallback(): void {
+        super.connectedCallback();
+
+        this.setAttribute('role', 'separator');
+        this.setAttribute('aria-orientation', 'vertical');
+        this.setAttribute('aria-label', this.ariaLabel);
+        this.tabIndex = 0;
+        this.syncAriaValueAttributes();
+    }
+
+    /** @internal */
     public positionChanged(): void {
         this.position = this.constrain(this.position);
+        this.syncAriaValueAttributesIfConnected();
     }
 
     /** @internal */
     public minChanged(): void {
         this.position = this.constrain(this.position);
+        this.syncAriaValueAttributesIfConnected();
     }
 
     /** @internal */
     public maxChanged(): void {
         this.position = this.constrain(this.position);
+        this.syncAriaValueAttributesIfConnected();
     }
 
     /** @internal */
     public handlePointerDown(event: PointerEvent): boolean {
-        if (event.button !== 0) {
+        if (event.button !== 0 || !event.isPrimary || this.pointerId !== undefined) {
             return true;
         }
 
@@ -141,12 +159,12 @@ export class FvSplitter extends FoundationElement {
     }
 
     private get validMin(): number {
-        return Number.isFinite(this.min) ? this.min : 0;
+        return Number.isFinite(this.min) ? Math.min(100, Math.max(0, this.min)) : 0;
     }
 
     private get validMax(): number {
         const max = Number.isFinite(this.max) ? this.max : 100;
-        return Math.max(this.validMin, max);
+        return Math.max(this.validMin, Math.min(100, Math.max(0, max)));
     }
 
     private get validStep(): number {
@@ -167,9 +185,25 @@ export class FvSplitter extends FoundationElement {
     }
 
     private finishResize(): void {
+        const changed = this.position !== this.pointerStartPosition;
         this.resizing = false;
         this.pointerId = undefined;
-        this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        if (changed) {
+            this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        }
+    }
+
+    private syncAriaValueAttributesIfConnected(): void {
+        if (this.$fastController.isConnected) {
+            this.syncAriaValueAttributes();
+        }
+    }
+
+    private syncAriaValueAttributes(): void {
+        this.setAttribute('aria-valuemin', String(this.validMin));
+        this.setAttribute('aria-valuemax', String(this.validMax));
+        this.setAttribute('aria-valuenow', String(this.position));
+        this.setAttribute('aria-valuetext', `${Math.round(this.position)} percent`);
     }
 }
 

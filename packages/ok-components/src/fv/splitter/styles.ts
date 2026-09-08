@@ -43,7 +43,7 @@ export const styles = css`
             position: absolute;
             z-index: 1;
             inset-block: 0;
-            inset-inline-start: 3px;
+            left: 3px;
             width: 3px;
             transform: translateX(-50%);
             background: ${borderHoverColor};
