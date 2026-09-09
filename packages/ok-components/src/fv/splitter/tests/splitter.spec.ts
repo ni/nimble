@@ -54,7 +54,7 @@ describe('FvSplitter', () => {
         expect(element.getAttribute('aria-label')).toBe('Resize details pane');
         expect(element.getAttribute('aria-controls')).toBe('primary-pane');
         expect(element.getAttribute('aria-valuenow')).toBe('59.3');
-        expect(element.getAttribute('aria-valuetext')).toBe('59 percent');
+        expect(element.getAttribute('aria-valuetext')).toBe('59.3 percent');
     });
 
     it('uses arrow, Home, and End keys within the configured constraints', () => {

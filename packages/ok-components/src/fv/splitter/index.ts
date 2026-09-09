@@ -237,7 +237,7 @@ export class FvSplitter extends FoundationElement {
         this.setAttribute('aria-valuemin', String(this.validMin));
         this.setAttribute('aria-valuemax', String(this.validMax));
         this.setAttribute('aria-valuenow', String(this.position));
-        this.setAttribute('aria-valuetext', `${Math.round(this.position)} percent`);
+        this.setAttribute('aria-valuetext', `${this.position} percent`);
     }
 }
 
