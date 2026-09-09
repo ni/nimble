@@ -49,6 +49,35 @@ export class FvSplitter extends FoundationElement {
     private pointerStartPosition = 0;
     private requestedPosition = this.position;
     private applyingConstrainedPosition = false;
+    private requestedPositionResetScheduled = false;
+    private positionChangeCallbackVersion = 0;
+
+    public constructor() {
+        super();
+
+        const positionDescriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), 'position');
+        if (!positionDescriptor?.get || !positionDescriptor.set) {
+            return;
+        }
+
+        const getPosition = positionDescriptor.get.bind(this) as () => number;
+        const setPosition = positionDescriptor.set.bind(this) as (value: number) => void;
+        Object.defineProperty(this, 'position', {
+            configurable: true,
+            enumerable: positionDescriptor.enumerable,
+            get: getPosition,
+            set: (value: number) => {
+                const previousPosition = getPosition();
+                const callbackVersion = this.positionChangeCallbackVersion;
+                setPosition(value);
+                if (!this.applyingConstrainedPosition
+                    && callbackVersion === this.positionChangeCallbackVersion
+                    && previousPosition === getPosition()) {
+                    this.requestedPosition = getPosition();
+                }
+            }
+        });
+    }
 
     /** @internal */
     public override connectedCallback(): void {
@@ -70,8 +99,10 @@ export class FvSplitter extends FoundationElement {
 
     /** @internal */
     public positionChanged(): void {
+        this.positionChangeCallbackVersion += 1;
         if (!this.applyingConstrainedPosition) {
             this.requestedPosition = this.position;
+            this.resetRequestedPositionAfterSynchronousUpdates();
         }
         this.applyConstrainedPosition();
     }
@@ -84,6 +115,11 @@ export class FvSplitter extends FoundationElement {
     /** @internal */
     public maxChanged(): void {
         this.applyConstrainedPosition();
+    }
+
+    /** @internal */
+    public resizingChanged(): void {
+        this.toggleAttribute('resizing', this.resizing);
     }
 
     /** @internal */
@@ -216,6 +252,18 @@ export class FvSplitter extends FoundationElement {
             this.applyingConstrainedPosition = false;
         }
         this.syncAriaValueAttributesIfConnected();
+    }
+
+    private resetRequestedPositionAfterSynchronousUpdates(): void {
+        if (this.requestedPositionResetScheduled) {
+            return;
+        }
+
+        this.requestedPositionResetScheduled = true;
+        queueMicrotask(() => {
+            this.requestedPositionResetScheduled = false;
+            this.requestedPosition = this.position;
+        });
     }
 
     private finishResize(): void {

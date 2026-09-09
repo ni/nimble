@@ -52,7 +52,7 @@ export const styles = css`
     }
 
     @layer active {
-        :host(:has(.resizing)) {
+        :host([resizing]) {
             background: ${borderHoverColor};
         }
     }

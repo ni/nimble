@@ -198,6 +198,18 @@ describe('FvSplitter', () => {
         expect(element.resizing).toBeTrue();
     });
 
+    it('reflects the active resize state onto the host', () => {
+        separator.dispatchEvent(
+            new PointerEvent('pointerdown', { pointerId: -1, button: 0, isPrimary: true })
+        );
+
+        expect(element.hasAttribute('resizing')).toBeTrue();
+
+        separator.dispatchEvent(new PointerEvent('pointercancel', { pointerId: -1, isPrimary: true }));
+
+        expect(element.hasAttribute('resizing')).toBeFalse();
+    });
+
     it('clamps programmatic positions to min and max', async () => {
         element.min = 25;
         element.max = 75;
@@ -220,6 +232,17 @@ describe('FvSplitter', () => {
         await waitForUpdatesAsync();
 
         expect(element.position).toBe(90);
+    });
+
+    it('does not restore an obsolete constrained position after an explicit assignment', async () => {
+        element.min = 25;
+        element.max = 75;
+        element.position = 90;
+        element.position = 75;
+        element.max = 100;
+        await waitForUpdatesAsync();
+
+        expect(element.position).toBe(75);
     });
 
     it('rejects non-primary pointers and concurrent pointer resizing', () => {
