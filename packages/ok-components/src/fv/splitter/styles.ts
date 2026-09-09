@@ -38,12 +38,12 @@ export const styles = css`
     }
 
     @layer focusVisible {
-        .splitter:focus-visible::before {
+        :host(:focus-visible)::before {
             content: '';
             position: absolute;
             z-index: 1;
             inset-block: 0;
-            left: 3px;
+            left: 1px;
             width: 3px;
             transform: translateX(-50%);
             background: ${borderHoverColor};

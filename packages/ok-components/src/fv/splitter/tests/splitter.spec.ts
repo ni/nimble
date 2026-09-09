@@ -28,7 +28,7 @@ describe('FvSplitter', () => {
 
     it('exposes the vertical separator semantics and default position on the host', () => {
         expect(element.tabIndex).toBe(0);
-        expect(separator.tabIndex).toBe(0);
+        expect(separator.tabIndex).toBe(-1);
         expect(element.getAttribute('role')).toBe('separator');
         expect(element.getAttribute('aria-orientation')).toBe('vertical');
         expect(element.getAttribute('aria-label')).toBe('Resize panes');
@@ -36,6 +36,13 @@ describe('FvSplitter', () => {
         expect(element.getAttribute('aria-valuemax')).toBe('100');
         expect(element.getAttribute('aria-valuenow')).toBe('60');
         expect(element.getAttribute('aria-valuetext')).toBe('60 percent');
+    });
+
+    it('keeps keyboard focus on the semantic host', () => {
+        element.focus();
+
+        expect(document.activeElement).toBe(element);
+        expect(element.shadowRoot!.activeElement).toBeNull();
     });
 
     it('forwards an accessible name and description of the current position', async () => {
@@ -56,16 +63,16 @@ describe('FvSplitter', () => {
         element.max = 80;
         element.step = 5;
 
-        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true }));
         expect(element.position).toBe(55);
 
-        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true }));
         expect(element.position).toBe(60);
 
-        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home', cancelable: true }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home', cancelable: true }));
         expect(element.position).toBe(20);
 
-        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', cancelable: true }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', cancelable: true }));
         expect(element.position).toBe(80);
     });
 
@@ -74,10 +81,10 @@ describe('FvSplitter', () => {
         element.position = 60;
         element.step = 5;
 
-        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true }));
         expect(element.position).toBe(65);
 
-        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true }));
         expect(element.position).toBe(60);
     });
 
@@ -87,7 +94,7 @@ describe('FvSplitter', () => {
         element.addEventListener('input', inputSpy);
         element.addEventListener('change', changeSpy);
 
-        separator.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true }));
 
         expect(inputSpy).toHaveBeenCalledTimes(1);
         expect(changeSpy).toHaveBeenCalledTimes(1);
@@ -118,8 +125,8 @@ describe('FvSplitter', () => {
         expect(changeSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('focuses the pointer target before starting a resize', () => {
-        const focusSpy = spyOn(separator, 'focus');
+    it('focuses the semantic host before starting a resize', () => {
+        const focusSpy = spyOn(element, 'focus');
 
         separator.dispatchEvent(
             new PointerEvent('pointerdown', { pointerId: -1, button: 0, isPrimary: true })
@@ -201,6 +208,18 @@ describe('FvSplitter', () => {
         element.position = 10;
         await waitForUpdatesAsync();
         expect(element.position).toBe(25);
+    });
+
+    it('retains a requested position while synchronously widening the range', async () => {
+        element.min = 25;
+        element.max = 75;
+        element.position = 75;
+
+        element.position = 90;
+        element.max = 100;
+        await waitForUpdatesAsync();
+
+        expect(element.position).toBe(90);
     });
 
     it('rejects non-primary pointers and concurrent pointer resizing', () => {

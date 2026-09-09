@@ -47,6 +47,8 @@ export class FvSplitter extends FoundationElement {
 
     private pointerId: number | undefined;
     private pointerStartPosition = 0;
+    private requestedPosition = this.position;
+    private applyingConstrainedPosition = false;
 
     /** @internal */
     public override connectedCallback(): void {
@@ -56,25 +58,32 @@ export class FvSplitter extends FoundationElement {
         this.setAttribute('aria-orientation', 'vertical');
         this.setAttribute('aria-label', this.ariaLabel);
         this.tabIndex = 0;
+        this.addEventListener('keydown', this.keydownHandler);
         this.syncAriaValueAttributes();
     }
 
     /** @internal */
+    public override disconnectedCallback(): void {
+        this.removeEventListener('keydown', this.keydownHandler);
+        super.disconnectedCallback();
+    }
+
+    /** @internal */
     public positionChanged(): void {
-        this.position = this.constrain(this.position);
-        this.syncAriaValueAttributesIfConnected();
+        if (!this.applyingConstrainedPosition) {
+            this.requestedPosition = this.position;
+        }
+        this.applyConstrainedPosition();
     }
 
     /** @internal */
     public minChanged(): void {
-        this.position = this.constrain(this.position);
-        this.syncAriaValueAttributesIfConnected();
+        this.applyConstrainedPosition();
     }
 
     /** @internal */
     public maxChanged(): void {
-        this.position = this.constrain(this.position);
-        this.syncAriaValueAttributesIfConnected();
+        this.applyConstrainedPosition();
     }
 
     /** @internal */
@@ -85,7 +94,7 @@ export class FvSplitter extends FoundationElement {
 
         event.preventDefault();
         const pointerTarget = event.currentTarget as HTMLElement;
-        pointerTarget.focus();
+        this.focus();
         this.pointerId = event.pointerId;
         this.pointerStartPosition = this.position;
         this.resizing = true;
@@ -181,6 +190,10 @@ export class FvSplitter extends FoundationElement {
         return getComputedStyle(this).direction === 'rtl';
     }
 
+    private readonly keydownHandler = (event: KeyboardEvent): void => {
+        this.handleKeyDown(event);
+    };
+
     private constrain(position: number): number {
         const finitePosition = Number.isFinite(position) ? position : 60;
         return Math.min(this.validMax, Math.max(this.validMin, finitePosition));
@@ -188,10 +201,21 @@ export class FvSplitter extends FoundationElement {
 
     private updatePosition(position: number): void {
         const nextPosition = this.constrain(position);
+        this.requestedPosition = nextPosition;
         if (nextPosition !== this.position) {
             this.position = nextPosition;
             this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         }
+    }
+
+    private applyConstrainedPosition(): void {
+        const constrainedPosition = this.constrain(this.requestedPosition);
+        if (constrainedPosition !== this.position) {
+            this.applyingConstrainedPosition = true;
+            this.position = constrainedPosition;
+            this.applyingConstrainedPosition = false;
+        }
+        this.syncAriaValueAttributesIfConnected();
     }
 
     private finishResize(): void {
@@ -222,7 +246,7 @@ const okFvSplitter = FvSplitter.compose({
     template,
     styles,
     shadowOptions: {
-        delegatesFocus: true
+        delegatesFocus: false
     }
 });
 
