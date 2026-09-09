@@ -44,6 +44,24 @@ function registerEvents(Blazor) {
             };
         }
     });
+
+    Blazor.registerCustomEventType('okfvsplitterinput', {
+        browserEventName: 'input',
+        createEventArgs: event => {
+            return {
+                position: event.target.position
+            };
+        }
+    });
+
+    Blazor.registerCustomEventType('okfvsplitterchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            return {
+                position: event.target.position
+            };
+        }
+    });
 }
 
 function handleRuntimeStarted() {

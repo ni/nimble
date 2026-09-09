@@ -51,13 +51,13 @@ public partial class OkFvSplitter : ComponentBase
     /// Callback invoked while the splitter position changes.
     /// </summary>
     [Parameter]
-    public EventCallback<ChangeEventArgs> Input { get; set; }
+    public EventCallback<PositionChangeEventArgs> Input { get; set; }
 
     /// <summary>
     /// Callback invoked when a splitter resize is committed.
     /// </summary>
     [Parameter]
-    public EventCallback<ChangeEventArgs> Change { get; set; }
+    public EventCallback<PositionChangeEventArgs> Change { get; set; }
 
     /// <summary>
     /// Any additional attributes that did not match known properties.
