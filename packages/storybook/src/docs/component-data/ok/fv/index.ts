@@ -101,5 +101,14 @@ export const componentDataOkFv = [
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Fv Text Field',
+        componentHref: './?path=/docs/ok-fv-text-field--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     }
 ] as const;

@@ -40,6 +40,7 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "customElements": "dist/custom-elements.json",
   "dependencies": {
+    "@maskito/core": "^5.4.0",
     "@ni/fast-element": "^10.1.2",
     "@ni/fast-foundation": "^10.2.5",
     "@ni/fast-web-utilities": "^10.0.0",
