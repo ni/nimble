@@ -1,4 +1,4 @@
-import { observable } from '@ni/fast-element';
+import { html, observable } from '@ni/fast-element';
 import type { TextFieldOptions } from '@ni/fast-foundation';
 import {
     Maskito,
@@ -10,6 +10,8 @@ import {
 } from '@ni/nimble-components/dist/esm/text-field';
 import { styles } from '@ni/nimble-components/dist/esm/text-field/styles';
 import { template } from '@ni/nimble-components/dist/esm/text-field/template';
+import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
+import { iconExclamationMarkTag } from '@ni/nimble-components/dist/esm/icons/exclamation-mark';
 import { DesignSystem } from '@ni/fast-foundation';
 
 export type { MaskitoOptions } from '@maskito/core';
@@ -127,7 +129,17 @@ const okFvTextField = FvTextField.compose<TextFieldOptions>({
     styles,
     shadowOptions: {
         delegatesFocus: true
-    }
+    },
+    end: html<FvTextField>`
+        <${iconExclamationMarkTag}
+            severity="error"
+            class="error-icon"
+        ></${iconExclamationMarkTag}>
+        <span part="actions">
+            <slot name="actions"></slot>
+        </span>
+        ${errorTextTemplate}
+    `
 });
 
 DesignSystem.getOrCreate().withPrefix('ok').register(okFvTextField());

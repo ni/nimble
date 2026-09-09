@@ -71,6 +71,23 @@ describe('FvTextField', () => {
         expect(document.createElement(fvTextFieldTag)).toBeInstanceOf(FvTextField);
     });
 
+    it('renders inherited error and actions content', async () => {
+        ({ element, connect, disconnect } = await fixture<FvTextField>(html`
+            <${fvTextFieldTag} error-text="Invalid value">
+                <button slot="actions">Action</button>
+            </${fvTextFieldTag}>
+        `));
+        await connect();
+
+        expect(element.shadowRoot?.querySelector('.error-icon')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('.error-text')?.textContent?.trim()).toBe('Invalid value');
+        expect(
+            element.shadowRoot
+                ?.querySelector<HTMLSlotElement>('slot[name="actions"]')
+                ?.assignedElements()
+        ).toHaveSize(1);
+    });
+
     it('applies mask options to user input', async () => {
         ({ element, connect, disconnect } = await setup(groupedDigitsMask));
         await connect();
