@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add the ok-fv-splitter component for accessible pointer and keyboard resizing between panes.",
-  "packageName": "@ni/ok-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
