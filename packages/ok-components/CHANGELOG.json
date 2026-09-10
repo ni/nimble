@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Thu, 10 Sep 2026 14:28:09 GMT",
+      "version": "1.9.0",
+      "tag": "@ni/ok-components_v1.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "bf900cdc767156fcea93f558583929183f3c1465",
+            "comment": "Add the ok-fv-splitter component for accessible pointer and keyboard resizing between panes."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Sep 2026 17:39:26 GMT",
       "version": "1.8.3",
       "tag": "@ni/ok-components_v1.8.3",

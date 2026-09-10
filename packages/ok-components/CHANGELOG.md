@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 10 Sep 2026 14:28:09 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.9.0
+
+Thu, 10 Sep 2026 14:28:09 GMT
+
+### Minor changes
+
+- Add the ok-fv-splitter component for accessible pointer and keyboard resizing between panes. ([ni/nimble@bf900cd](https://github.com/ni/nimble/commit/bf900cdc767156fcea93f558583929183f3c1465))
 
 ## 1.8.3
 
