@@ -397,6 +397,9 @@ export const iconMetadata: {
     IconHashtag: {
         tags: ['number']
     },
+    IconHeadset: {
+        tags: ['IT', 'call', 'customer service', 'help', 'support']
+    },
     IconHome: {
         tags: []
     },
@@ -522,6 +525,9 @@ export const iconMetadata: {
     },
     IconPotWithLid: {
         tags: ['box', 'utilities']
+    },
+    IconPowerCog: {
+        tags: ['configuration', 'power', 'settings']
     },
     IconPrint: {
         tags: ['laser', 'inkjet', 'printer']
@@ -689,6 +695,9 @@ export const iconMetadata: {
     },
     IconUser: {
         tags: ['admin', 'account']
+    },
+    IconUserHeadset: {
+        tags: ['IT', 'call', 'customer service', 'help', 'support']
     },
     IconUserHelmetSafety: {
         tags: ['job', 'work', 'worker', 'operator', 'technician', 'safety']

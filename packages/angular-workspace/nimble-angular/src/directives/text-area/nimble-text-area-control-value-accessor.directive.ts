@@ -13,10 +13,10 @@ import { DefaultValueAccessor } from '../../thirdparty/directives/default_value_
     // The following host metadata is duplicated from DefaultValueAccessor
     host: {
         /* eslint-disable @typescript-eslint/naming-convention */
-        '(input)': '$any(this)._handleInput($event.target.value)',
+        '(input)': '$any(this)._handleInput($any($event.target).value)',
         '(blur)': 'onTouched()',
         '(compositionstart)': '$any(this)._compositionStart()',
-        '(compositionend)': '$any(this)._compositionEnd($event.target.value)'
+        '(compositionend)': '$any(this)._compositionEnd($any($event.target).value)'
         /* eslint-enable @typescript-eslint/naming-convention */
     },
     providers: [{

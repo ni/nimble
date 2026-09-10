@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleThemeProviderModule } from '../nimble-theme-provider.module';
 import { NimbleThemeProviderDirective, Theme, type ThemeProvider } from '../nimble-theme-provider.directive';
@@ -33,7 +33,8 @@ describe('Nimble theme provider', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleThemeProviderModule]
+                imports: [NimbleThemeProviderModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -87,7 +88,8 @@ describe('Nimble theme provider', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleThemeProviderModule]
+                imports: [NimbleThemeProviderModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -130,7 +132,8 @@ describe('Nimble theme provider', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleThemeProviderModule]
+                imports: [NimbleThemeProviderModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -185,7 +188,8 @@ describe('Nimble theme provider', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleThemeProviderModule]
+                imports: [NimbleThemeProviderModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

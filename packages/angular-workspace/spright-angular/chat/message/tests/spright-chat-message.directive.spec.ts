@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SprightChatMessageModule } from '../spright-chat-message.module';
 import { ChatMessageType, SprightChatMessageDirective, type ChatMessage } from '../spright-chat-message.directive';
@@ -35,7 +35,8 @@ describe('Spright chat message', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatMessageModule]
+                imports: [SprightChatMessageModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -70,7 +71,8 @@ describe('Spright chat message', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatMessageModule]
+                imports: [SprightChatMessageModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -106,7 +108,8 @@ describe('Spright chat message', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatMessageModule]
+                imports: [SprightChatMessageModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -148,7 +151,8 @@ describe('Spright chat message', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatMessageModule]
+                imports: [SprightChatMessageModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

@@ -23,6 +23,14 @@ function registerEvents(Blazor) {
 
     hasRegisteredEvents = true;
 
+    // Use by most components
+    Blazor.registerCustomEventType('nimbleblur', {
+        browserEventName: 'blur',
+        createEventArgs: _event => {
+            return {};
+        }
+    });
+
     // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
     // Necessary because the control's value property is always just the value 'on', so we need to look
     // at the checked property to correctly get the value.

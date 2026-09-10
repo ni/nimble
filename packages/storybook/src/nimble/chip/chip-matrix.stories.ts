@@ -17,6 +17,14 @@ import {
 } from '../../utilities/matrix';
 import { disabledStates, type DisabledState } from '../../utilities/states';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
+import { backgroundStates } from '../../utilities/states';
+import { createFixedThemeStory } from '../../utilities/storybook';
+
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground
+] = backgroundStates;
 
 const appearanceStates = [
     ['Outline', ChipAppearance.outline],
@@ -92,7 +100,7 @@ const component = (
     </div>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+export const lightThemeMatrix: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -101,7 +109,34 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
         showStartSlotIconStates,
         labelStates,
         widthStates
-    ])
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorThemeMatrix: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        sizeStates,
+        removableStates,
+        showStartSlotIconStates,
+        labelStates,
+        widthStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeMatrix: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        sizeStates,
+        removableStates,
+        showStartSlotIconStates,
+        labelStates,
+        widthStates
+    ]),
+    darkThemeBlackBackground
 );
 
 const interactionStates = cartesianProduct([

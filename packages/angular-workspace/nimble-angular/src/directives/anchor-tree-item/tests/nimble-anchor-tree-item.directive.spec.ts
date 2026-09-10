@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { type AnchorTreeItem, NimbleAnchorTreeItemDirective } from '../nimble-anchor-tree-item.directive';
@@ -49,7 +49,8 @@ describe('Nimble anchor tree item', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleAnchorTreeItemModule]
+                imports: [NimbleAnchorTreeItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -133,7 +134,8 @@ describe('Nimble anchor tree item', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleAnchorTreeItemModule]
+                imports: [NimbleAnchorTreeItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -226,7 +228,8 @@ describe('Nimble anchor tree item', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleAnchorTreeItemModule]
+                imports: [NimbleAnchorTreeItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -375,7 +378,8 @@ describe('Nimble anchor tree item', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleAnchorTreeItemModule]
+                imports: [NimbleAnchorTreeItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

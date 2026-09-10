@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NimbleRadioModule } from '../nimble-radio.module';
@@ -46,7 +46,8 @@ describe('Nimble radio control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRadioGroupModule, NimbleRadioModule, FormsModule, ReactiveFormsModule]
+                imports: [NimbleRadioGroupModule, NimbleRadioModule, FormsModule, ReactiveFormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 
@@ -147,7 +148,8 @@ describe('Nimble radio control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRadioGroupModule, NimbleRadioModule, ReactiveFormsModule]
+                imports: [NimbleRadioGroupModule, NimbleRadioModule, ReactiveFormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type Breadcrumb, BreadcrumbAppearance, NimbleBreadcrumbDirective } from '../nimble-breadcrumb.directive';
 import { NimbleBreadcrumbModule } from '../nimble-breadcrumb.module';
@@ -33,7 +33,8 @@ describe('Nimble breadcrumb', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleBreadcrumbModule]
+                imports: [NimbleBreadcrumbModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -68,7 +69,8 @@ describe('Nimble breadcrumb', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleBreadcrumbModule]
+                imports: [NimbleBreadcrumbModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -105,7 +107,8 @@ describe('Nimble breadcrumb', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleBreadcrumbModule]
+                imports: [NimbleBreadcrumbModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -148,7 +151,8 @@ describe('Nimble breadcrumb', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleBreadcrumbModule]
+                imports: [NimbleBreadcrumbModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

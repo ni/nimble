@@ -44,7 +44,7 @@
         "@ni/spright-components": "*",
         "cross-env": "^10.1.0",
         "glob": "^13.0.6",
-        "playwright": "1.60.0",
+        "playwright": "1.62.0",
         "globals": "^17.6.0"
     }
 }

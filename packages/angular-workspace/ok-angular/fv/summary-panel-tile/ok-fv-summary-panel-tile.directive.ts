@@ -2,11 +2,13 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { FvSummaryPanelTile } from '@ni/ok-components/dist/esm/fv/summary-panel-tile';
 import { fvSummaryPanelTileTag } from '@ni/ok-components/dist/esm/fv/summary-panel-tile';
 import { FvSummaryPanelTileTextPosition } from '@ni/ok-components/dist/esm/fv/summary-panel-tile/types';
+import { FvSummaryPanelSize } from '@ni/ok-components/dist/esm/fv/summary-panel/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { FvSummaryPanelTile };
 export { fvSummaryPanelTileTag };
 export { FvSummaryPanelTileTextPosition };
+export { FvSummaryPanelSize };
 
 /**
  * Directive to provide Angular integration for the summary panel tile.
@@ -41,6 +43,15 @@ export class OkFvSummaryPanelTileDirective {
     @Input('legacy-style')
     public set legacyStyle(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'legacyStyle', toBooleanProperty(value));
+    }
+
+    public get size(): FvSummaryPanelSize {
+        return this.elementRef.nativeElement.size;
+    }
+
+    @Input()
+    public set size(value: FvSummaryPanelSize) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'size', value);
     }
 
     public get selected(): boolean {

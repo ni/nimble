@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { processUpdates } from '../../../testing/async-helpers';
@@ -33,7 +33,8 @@ describe('Nimble toggle button control value accessor', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [NimbleToggleButtonModule, FormsModule]
+            imports: [NimbleToggleButtonModule, FormsModule],
+            providers: [provideZoneChangeDetection()],
         });
     });
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
 import { waitForUpdatesAsync } from '@ni/nimble-angular';
@@ -44,7 +44,8 @@ describe('Table page object', () => {
                 imports: [
                     NimbleTableModule,
                     NimbleTableColumnTextModule
-                ]
+                ],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

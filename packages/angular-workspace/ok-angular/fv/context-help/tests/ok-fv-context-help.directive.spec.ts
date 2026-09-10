@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type FvContextHelp, OkFvContextHelpDirective } from '../ok-fv-context-help.directive';
 import { OkFvContextHelpModule } from '../ok-fv-context-help.module';
@@ -35,7 +35,8 @@ describe('Ok fv context help', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvContextHelpModule]
+                imports: [OkFvContextHelpModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -88,7 +89,8 @@ describe('Ok fv context help', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvContextHelpModule]
+                imports: [OkFvContextHelpModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -145,7 +147,8 @@ describe('Ok fv context help', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvContextHelpModule]
+                imports: [OkFvContextHelpModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

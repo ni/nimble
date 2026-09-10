@@ -1,0 +1,26 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as stickyHeaderStories from './fv-sticky-header.stories';
+
+<Meta of={stickyHeaderStories} />
+<Title of={stickyHeaderStories} />
+
+A page-header container that replaces its primary header with a compact sticky overlay when the primary header scrolls out of the viewport.
+
+Use the `header` slot for the full page header and the `sticky-header` slot for its compact replacement. The sticky header stays hidden while the primary header is visible and is positioned at the top of the viewport after the primary header leaves the viewport.
+
+Both slots are optional, but the sticky overlay is only shown when both slots contain content.
+
+<Canvas of={stickyHeaderStories.fvStickyHeader} />
+
+## Summary Panel Header
+
+This composition uses a full-size summary panel in the `header` slot and a compact summary panel in the `sticky-header` slot.
+
+<Canvas of={stickyHeaderStories.fvStickyHeaderWithSummaryPanel} />
+
+## API
+
+<Controls of={stickyHeaderStories.fvStickyHeader} />
+
+<ComponentApisLink />

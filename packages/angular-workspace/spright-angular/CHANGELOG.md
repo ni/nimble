@@ -1,8 +1,32 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Tue, 04 Aug 2026 22:14:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 9.6.2
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.1
+
+## 9.6.1
+
+Tue, 25 Aug 2026 18:10:19 GMT
+
+### Patches
+
+- Prevent error squiggles in editor for Jasmine types ([ni/nimble@50f1422](https://github.com/ni/nimble/commit/50f1422c6affede328a34ee4ab399c8a2fd7206c))
+
+## 9.6.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.22.0
 
 ## 9.5.9
 

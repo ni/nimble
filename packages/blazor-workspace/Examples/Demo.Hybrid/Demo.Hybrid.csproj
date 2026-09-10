@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.102.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="10.0.90" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView" Version="10.0.10" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.103.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="10.0.100" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView" Version="10.0.11" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.35" />
   </ItemGroup>
 

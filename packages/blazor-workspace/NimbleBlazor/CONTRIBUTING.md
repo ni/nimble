@@ -57,6 +57,7 @@ public partial class NimbleButton : ComponentBase
 [Parameter(CaptureUnmatchedValues = true)]
 public IDictionary<string, object>? AdditionalAttributes { get; set; }
 ```
+- Interactive components should expose a `Blur` `EventCallback` so that clients can optionally listen to the event
 - Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide)
 
 ### 2-way Binding Support, Handling DOM Events

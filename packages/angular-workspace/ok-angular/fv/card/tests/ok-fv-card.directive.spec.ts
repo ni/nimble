@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type FvCard, FvCardAppearance, FvCardInteractionMode, OkFvCardDirective } from '../ok-fv-card.directive';
 import { OkFvCardModule } from '../ok-fv-card.module';
@@ -35,7 +35,8 @@ describe('Ok fv card', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvCardModule]
+                imports: [OkFvCardModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -106,7 +107,8 @@ describe('Ok fv card', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvCardModule]
+                imports: [OkFvCardModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -184,7 +186,8 @@ describe('Ok fv card', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvCardModule]
+                imports: [OkFvCardModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

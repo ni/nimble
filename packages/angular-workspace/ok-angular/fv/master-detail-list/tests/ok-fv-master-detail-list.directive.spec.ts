@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type FvMasterDetailList, OkFvMasterDetailListDirective } from '../ok-fv-master-detail-list.directive';
 import { OkFvMasterDetailListModule } from '../ok-fv-master-detail-list.module';
@@ -38,7 +38,8 @@ describe('Ok fv master detail list', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvMasterDetailListModule, OkFvMasterDetailListItemModule]
+                imports: [OkFvMasterDetailListModule, OkFvMasterDetailListItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -73,7 +74,8 @@ describe('Ok fv master detail list', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvMasterDetailListModule, OkFvMasterDetailListItemModule]
+                imports: [OkFvMasterDetailListModule, OkFvMasterDetailListItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -109,7 +111,8 @@ describe('Ok fv master detail list', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvMasterDetailListModule, OkFvMasterDetailListItemModule]
+                imports: [OkFvMasterDetailListModule, OkFvMasterDetailListItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

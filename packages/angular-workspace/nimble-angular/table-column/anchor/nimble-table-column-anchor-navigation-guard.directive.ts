@@ -18,8 +18,8 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
     @Input()
     public navigationGuard?: NavigationGuard;
 
-    @HostListener('delegated-event', ['$event.detail.originalEvent', '$event.detail.recordId'])
-    private onDelegatedEvent(delegatedEvent: Event, recordId: string | undefined): void {
+    @HostListener('delegated-event', ['$any($event).detail.originalEvent', '$any($event).detail.recordId'])
+    public onDelegatedEvent(delegatedEvent: Event, recordId: string | undefined): void {
         if (delegatedEvent.type !== 'click') {
             return;
         }

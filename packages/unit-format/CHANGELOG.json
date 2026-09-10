@@ -2,6 +2,27 @@
   "name": "@ni/unit-format",
   "entries": [
     {
+      "date": "Thu, 03 Sep 2026 17:39:26 GMT",
+      "version": "1.0.6",
+      "tag": "@ni/unit-format_v1.0.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "c730a12cacd3647af8265d25a138f172b74c8673",
+            "comment": "Update playwright and lock files"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/unit-format",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.11",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 May 2026 16:39:52 GMT",
       "version": "1.0.5",
       "tag": "@ni/unit-format_v1.0.5",

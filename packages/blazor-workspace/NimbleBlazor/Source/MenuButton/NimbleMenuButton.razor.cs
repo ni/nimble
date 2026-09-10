@@ -64,6 +64,9 @@ public partial class NimbleMenuButton : ComponentBase
     [Parameter]
     public EventCallback<MenuButtonToggleEventArgs> BeforeToggle { get; set; }
 
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
     /// <summary>
     /// Called when 'open' changes on the web component.
     /// </summary>
@@ -81,6 +84,11 @@ public partial class NimbleMenuButton : ComponentBase
     protected async void HandleBeforeToggle(MenuButtonToggleEventArgs eventArgs)
     {
         await BeforeToggle.InvokeAsync(eventArgs);
+    }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 
     /// <summary>

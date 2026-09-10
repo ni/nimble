@@ -1,0 +1,11 @@
+﻿@page "/InteractiveServer/NumberFieldClearValue"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@inherits LayoutComponentBase
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<NimbleNumberField id="number1" @bind-Value="_value"></NimbleNumberField>
+<NimbleNumberField id="number2" Value="_value"></NimbleNumberField>
+
+@code {
+    private double? _value = 123;
+}

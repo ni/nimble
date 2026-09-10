@@ -1,8 +1,58 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Tue, 04 Aug 2026 22:14:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 10 Sep 2026 14:28:09 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.6.5
+
+Thu, 10 Sep 2026 14:28:09 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.0
+
+## 1.6.4
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/ok-components to v1.8.3
+
+## 1.6.3
+
+Thu, 03 Sep 2026 16:57:10 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.8.2
+
+## 1.6.2
+
+Tue, 01 Sep 2026 15:14:14 GMT
+
+### Patches
+
+- Add the OK FV sticky-header component and framework wrappers ([ni/nimble@250b49e](https://github.com/ni/nimble/commit/250b49e90ad9ca2d6949521be428da2128ff54b8))
+- Bump @ni/ok-components to v1.8.1
+
+## 1.6.1
+
+Thu, 27 Aug 2026 14:33:47 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.8.0
+
+## 1.6.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.7.0
 
 ## 1.5.12
 

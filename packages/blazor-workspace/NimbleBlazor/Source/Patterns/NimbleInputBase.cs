@@ -10,7 +10,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
     private bool _previousParsingAttemptFailed;
     private ValidationMessageStore? _parsingValidationMessages;
-    private Type? _nullableUnderlyingType;
+    private readonly Type? _nullableUnderlyingType;
 
     [CascadingParameter] private EditContext? CascadedEditContext { get; set; }
 
@@ -129,6 +129,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
     /// </summary>
     protected NimbleInputBase()
     {
+        _nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
         _validationStateChangedHandler = OnValidateStateChanged;
     }
 
@@ -199,8 +200,6 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
                 EditContext = CascadedEditContext;
                 EditContext.OnValidationStateChanged += _validationStateChangedHandler;
             }
-
-            _nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
         }
         else if (CascadedEditContext != EditContext)
         {

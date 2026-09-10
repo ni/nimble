@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type LabelProviderCore, NimbleLabelProviderCoreDirective } from '../nimble-label-provider-core.directive';
 import { NimbleLabelProviderCoreModule } from '../nimble-label-provider-core.module';
@@ -48,7 +48,8 @@ describe('Nimble Label Provider Core', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderCoreModule]
+                imports: [NimbleLabelProviderCoreModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -162,7 +163,8 @@ describe('Nimble Label Provider Core', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderCoreModule]
+                imports: [NimbleLabelProviderCoreModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -290,7 +292,8 @@ describe('Nimble Label Provider Core', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderCoreModule]
+                imports: [NimbleLabelProviderCoreModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -502,7 +505,8 @@ describe('Nimble Label Provider Core', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleLabelProviderCoreModule]
+                imports: [NimbleLabelProviderCoreModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

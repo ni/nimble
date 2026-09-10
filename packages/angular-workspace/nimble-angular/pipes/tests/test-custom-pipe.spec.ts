@@ -1,4 +1,4 @@
-import { Component, ElementRef, Pipe, type PipeTransform, ViewChild } from '@angular/core';
+import { Component, ElementRef, Pipe, type PipeTransform, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { TestBed, type ComponentFixture } from '@angular/core/testing';
 
 describe('Custom pipe instantiation', () => {
@@ -38,7 +38,8 @@ describe('Custom pipe instantiation', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [InstanceIdPipe]
+            imports: [InstanceIdPipe],
+            providers: [provideZoneChangeDetection()],
         });
 
         fixture = TestBed.createComponent(TestHostComponent);

@@ -1,5 +1,6 @@
 @namespace NimbleBlazor
 <nimble-list-option
+    @onnimbleblur="HandleBlur"
     disabled="@Disabled"
     value="@BindConverter.FormatValue(Value?.ToString())"
     selected="@Context?.CurrentValue?.Equals(Value)"

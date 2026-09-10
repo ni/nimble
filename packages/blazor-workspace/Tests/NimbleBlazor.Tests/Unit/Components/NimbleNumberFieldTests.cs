@@ -36,6 +36,18 @@ public class NimbleNumberFieldTests : BunitTestBase
     }
 
     [Fact]
+    public void Render_ClearValue_ValueUpdated()
+    {
+        var field = Render<NimbleNumberField>();
+        field.Find(NumberFieldMarkup).Change("123");
+
+        field.Find(NumberFieldMarkup).Change(string.Empty);
+
+        Assert.Null(field.Instance.Value);
+        field.AssertAttribute("current-value", null);
+    }
+
+    [Fact]
     public void NimbleNumberField_SupportsAdditionalAttributes()
     {
         var exception = Record.Exception(() => Render<NimbleNumberField>(parameters => parameters.AddUnmatched("class", "foo")));

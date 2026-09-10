@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 11 Aug 2026 20:29:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.6.2
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.1
+- Bump @ni/unit-format to v1.0.6
+
+## 33.6.1
+
+Tue, 25 Aug 2026 18:10:19 GMT
+
+### Patches
+
+- Prevent error squiggles in editor for Jasmine types ([ni/nimble@50f1422](https://github.com/ni/nimble/commit/50f1422c6affede328a34ee4ab399c8a2fd7206c))
+
+## 33.6.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.13.0
+
+## 33.5.0
+
+Wed, 19 Aug 2026 23:19:23 GMT
+
+### Minor changes
+
+- Export TableColumnDateTextPageObject from nimble-angular ([ni/nimble@3904d1f](https://github.com/ni/nimble/commit/3904d1fa4354e05df999ffbad20a7b43be64c35a))
+
+## 33.4.10
+
+Fri, 14 Aug 2026 23:24:47 GMT
+
+### Patches
+
+- Fix type errors in VCA host bindings, and pre-emptively add provideZoneChangeDetection() to tests ([ni/nimble@149ab09](https://github.com/ni/nimble/commit/149ab0910b9b850f56e2b710bdbd3f10342a0d7e))
 
 ## 33.4.9
 

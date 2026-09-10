@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type FvSplitButtonAnchor, FvSplitButtonAnchorAppearance, FvSplitButtonAnchorAppearanceVariant, OkFvSplitButtonAnchorDirective } from '../ok-fv-split-button-anchor.directive';
 import { OkFvSplitButtonAnchorModule } from '../ok-fv-split-button-anchor.module';
@@ -35,7 +35,8 @@ describe('Ok fv split button anchor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSplitButtonAnchorModule]
+                imports: [OkFvSplitButtonAnchorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -117,7 +118,8 @@ describe('Ok fv split button anchor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSplitButtonAnchorModule]
+                imports: [OkFvSplitButtonAnchorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -204,7 +206,8 @@ describe('Ok fv split button anchor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSplitButtonAnchorModule]
+                imports: [OkFvSplitButtonAnchorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

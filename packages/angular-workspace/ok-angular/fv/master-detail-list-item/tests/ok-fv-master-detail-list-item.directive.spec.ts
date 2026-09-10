@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type FvMasterDetailListItem, OkFvMasterDetailListItemDirective } from '../ok-fv-master-detail-list-item.directive';
 import { OkFvMasterDetailListItemModule } from '../ok-fv-master-detail-list-item.module';
@@ -35,7 +35,8 @@ describe('Ok fv master detail list item', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvMasterDetailListItemModule]
+                imports: [OkFvMasterDetailListItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -106,7 +107,8 @@ describe('Ok fv master detail list item', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvMasterDetailListItemModule]
+                imports: [OkFvMasterDetailListItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -184,7 +186,8 @@ describe('Ok fv master detail list item', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvMasterDetailListItemModule]
+                imports: [OkFvMasterDetailListItemModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
