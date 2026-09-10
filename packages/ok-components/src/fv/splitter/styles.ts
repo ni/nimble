@@ -18,6 +18,7 @@ export const styles = css`
             height: 100%;
             min-height: 0;
             background: ${dividerBackgroundDynamicColor};
+            outline: none;
         }
 
         .splitter {
@@ -38,6 +39,11 @@ export const styles = css`
     }
 
     @layer focusVisible {
+        :host(:focus),
+        :host(:focus-visible) {
+            outline: none;
+        }
+
         :host(:focus-visible)::before {
             content: '';
             position: absolute;
