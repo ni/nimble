@@ -9,7 +9,7 @@ export const componentDataOkFv = [
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.ready,
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
@@ -91,7 +91,7 @@ export const componentDataOkFv = [
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
-        blazorStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
