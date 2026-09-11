@@ -138,6 +138,11 @@ When the \`loading-visible\` attribute is set, a loading spinner will be display
 
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
+    parameters: {
+        docs: {
+            toc: { disable: true }
+        }
+    },
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
         <${selectTag}
