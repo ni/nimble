@@ -1,5 +1,5 @@
-import { Meta } from '@storybook/addon-docs/blocks';
-import bannerImage from './capitalization-assets/banner.png';
+import { Story, Meta } from '@storybook/addon-docs/blocks';
+import { bannerExample } from './capitalization.stories';
 import breadcrumbImage from './capitalization-assets/breadcrumb.png';
 import chipImage from './capitalization-assets/chip.png';
 import containerImage from './capitalization-assets/container.png';
@@ -31,7 +31,7 @@ across the interface:
 The title of a banner should use sentence case along with the rest of the
 elements.
 
-<img src={bannerImage} alt="Banner capitalization example" />
+<Story of={bannerExample} />
 
 ### Breadcrumb
 
