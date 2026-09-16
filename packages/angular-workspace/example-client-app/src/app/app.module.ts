@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -220,7 +220,7 @@ import { FvSectionModule } from './customapp/fv/fv-section.module';
             { useHash: true }
         )
     ],
-    providers: [FormBuilder],
+    providers: [FormBuilder, provideZoneChangeDetection()],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
