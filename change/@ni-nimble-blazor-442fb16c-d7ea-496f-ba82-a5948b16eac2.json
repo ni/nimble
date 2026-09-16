@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix NimbleNumberField behavior when value is cleared",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

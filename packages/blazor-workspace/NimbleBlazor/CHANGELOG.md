@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 10 Sep 2026 16:04:02 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 22.0.2
+
+Thu, 10 Sep 2026 16:04:02 GMT
+
+### Patches
+
+- Fix NimbleNumberField behavior when value is cleared ([ni/nimble@c07dfad](https://github.com/ni/nimble/commit/c07dfadd105ba3334b7acdd7a7702e10d78d0f67))
 
 ## 22.0.1
 
