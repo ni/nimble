@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     selector: 'example-tabs-section',
     template: `
         <example-sub-container label="Tabs">
-            <nimble-tabs [(activeid)]="activeTabId">
+            <nimble-tabs activeid="tab-1">
                 <nimble-tab id="tab-1">Tab 1</nimble-tab>
                 <nimble-tab id="tab-2">Tab 2</nimble-tab>
                 <nimble-tab id="tab-3" disabled>Tab 3 (Disabled)</nimble-tab>
@@ -22,14 +22,6 @@ import { Component } from '@angular/core';
                     <div class="container-label">Tab 3 content</div>
                 </nimble-tab-panel>
             </nimble-tabs>
-            <label id="activeTabLabel">
-                Active tab:
-            </label>
-            <nimble-select [(ngModel)]="activeTabId" aria-labelledby="activeTabLabel">
-                <nimble-list-option value="tab-1">Tab 1</nimble-list-option>
-                <nimble-list-option value="tab-2">Tab 2</nimble-list-option>
-                <nimble-list-option value="tab-3">Tab 3</nimble-list-option>
-            </nimble-select>
         </example-sub-container>
     `,
     styles: [`
@@ -43,8 +35,6 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class TabsSectionComponent {
-    public activeTabId = 'tab-1';
-
     public onTabToolbarButtonClick(): void {
         alert('Tab toolbar button clicked');
     }

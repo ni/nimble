@@ -1,0 +1,11 @@
+@namespace OkBlazor
+<ok-fv-sticky-header @attributes="AdditionalAttributes">
+    @if (Header is not null)
+    {
+        <div slot="header">@Header</div>
+    }
+    @if (StickyHeader is not null)
+    {
+        <div slot="sticky-header">@StickyHeader</div>
+    }
+</ok-fv-sticky-header>

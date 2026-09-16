@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -21,9 +20,9 @@ public partial class NimbleTreeItem : ComponentBase
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
     [Parameter]
-    public EventCallback<FocusEventArgs> Blur { get; set; }
+    public EventCallback<EventArgs> Blur { get; set; }
 
-    protected async void HandleBlur(FocusEventArgs e)
+    protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
     }

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -66,7 +65,7 @@ public partial class NimbleMenuButton : ComponentBase
     public EventCallback<MenuButtonToggleEventArgs> BeforeToggle { get; set; }
 
     [Parameter]
-    public EventCallback<FocusEventArgs> Blur { get; set; }
+    public EventCallback<EventArgs> Blur { get; set; }
 
     /// <summary>
     /// Called when 'open' changes on the web component.
@@ -87,7 +86,7 @@ public partial class NimbleMenuButton : ComponentBase
         await BeforeToggle.InvokeAsync(eventArgs);
     }
 
-    protected async void HandleBlur(FocusEventArgs e)
+    protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
     }

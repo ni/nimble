@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace NimbleBlazor;
 
@@ -31,7 +30,7 @@ public partial class NimbleListOption : ComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public EventCallback<FocusEventArgs> Blur { get; set; }
+    public EventCallback<EventArgs> Blur { get; set; }
 
     [CascadingParameter] private NimbleOptionContext? CascadedContext { get; set; }
 
@@ -43,7 +42,7 @@ public partial class NimbleListOption : ComponentBase
                 $"with a matching 'Name' property, if specified.");
     }
 
-    protected async void HandleBlur(FocusEventArgs e)
+    protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
     }

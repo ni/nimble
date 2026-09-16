@@ -2,7 +2,6 @@
 using Apache.Arrow;
 using Apache.Arrow.Ipc;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
@@ -181,9 +180,9 @@ public partial class NimbleWaferMap : ComponentBase
     }
 
     [Parameter]
-    public EventCallback<FocusEventArgs> Blur { get; set; }
+    public EventCallback<EventArgs> Blur { get; set; }
 
-    protected async void HandleBlur(FocusEventArgs e)
+    protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
     }

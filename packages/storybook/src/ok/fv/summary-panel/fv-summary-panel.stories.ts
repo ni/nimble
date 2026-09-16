@@ -1,6 +1,7 @@
 import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html-vite';
-import { fvSummaryPanelTag } from '@ni/ok-components/dist/esm/fv/summary-panel';
+import { FvSummaryPanelSize, fvSummaryPanelTag } from '@ni/ok-components/dist/esm/fv/summary-panel';
+import type { FvSummaryPanelSize as FvSummaryPanelSizeType } from '@ni/ok-components/dist/esm/fv/summary-panel/types';
 import { fvSummaryPanelTileTag } from '@ni/ok-components/dist/esm/fv/summary-panel-tile';
 import {
     apiCategory,
@@ -12,6 +13,7 @@ interface FvSummaryPanelArgs {
     showEditItemsButton: boolean;
     editItemsButtonLabel: string;
     legacyStyle: boolean;
+    size: FvSummaryPanelSizeType;
     tileTextPosition: 'beside' | 'under';
     click?: (e: Event) => void;
     editItems?: (e: Event) => void;
@@ -37,6 +39,7 @@ const metadata: Meta<FvSummaryPanelArgs> = {
             ?show-edit-items-button="${x => x.showEditItemsButton}"
             edit-items-button-label="${x => x.editItemsButtonLabel}"
             ?legacy-style="${x => x.legacyStyle}"
+            size="${x => x.size}"
         >
             ${summaryItems}
         </${fvSummaryPanelTag}>
@@ -48,6 +51,12 @@ const metadata: Meta<FvSummaryPanelArgs> = {
         },
         editItemsButtonLabel: {
             name: 'edit-items-button-label',
+            table: { category: apiCategory.attributes }
+        },
+        size: {
+            name: 'size',
+            options: Object.values(FvSummaryPanelSize),
+            control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
         legacyStyle: {
@@ -76,6 +85,7 @@ const metadata: Meta<FvSummaryPanelArgs> = {
         showEditItemsButton: true,
         editItemsButtonLabel: 'Configure tiles',
         legacyStyle: false,
+        size: FvSummaryPanelSize.default,
         tileTextPosition: 'beside'
     }
 };

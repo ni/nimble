@@ -1,8 +1,17 @@
 # Change Log - @ni/unit-format
 
-<!-- This log was last generated on Sat, 02 May 2026 02:01:43 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.6
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update playwright and lock files ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/jasmine-parameterized to v1.0.11
 
 ## 1.0.4
 

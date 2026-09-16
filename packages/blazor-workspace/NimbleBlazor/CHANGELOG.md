@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 25 Aug 2026 15:55:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 10 Sep 2026 16:04:02 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 22.0.2
+
+Thu, 10 Sep 2026 16:04:02 GMT
+
+### Patches
+
+- Fix NimbleNumberField behavior when value is cleared ([ni/nimble@c07dfad](https://github.com/ni/nimble/commit/c07dfadd105ba3334b7acdd7a7702e10d78d0f67))
+
+## 22.0.1
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/nimble-components to v35.13.1
+
+## 22.0.0
+
+Wed, 26 Aug 2026 20:16:12 GMT
+
+### Major changes
+
+- Update the strategy for listening to blur events on nimble components. Breaking change: `Blur` events are now of type `EventHandler<EventArgs>` rather than `EventHandler<FocusEventArgs>`. ([ni/nimble@f99be71](https://github.com/ni/nimble/commit/f99be7166c07764a83ee5afce720ff13a3c7823f))
 
 ## 21.6.0
 

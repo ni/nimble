@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
@@ -44,7 +43,7 @@ public partial class NimbleTable<TData> : ComponentBase
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
     [Parameter]
-    public EventCallback<FocusEventArgs> Blur { get; set; }
+    public EventCallback<EventArgs> Blur { get; set; }
 
     /// <summary>
     /// Sets the data in the table.
@@ -172,7 +171,7 @@ public partial class NimbleTable<TData> : ComponentBase
         await RowExpandToggle.InvokeAsync(eventArgs);
     }
 
-    protected async void HandleBlur(FocusEventArgs e)
+    protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
     }
