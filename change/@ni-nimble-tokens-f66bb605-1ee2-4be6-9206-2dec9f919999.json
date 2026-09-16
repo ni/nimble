@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump typescript dependency from 5.8 to 5.9",
-  "packageName": "@ni/nimble-tokens",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

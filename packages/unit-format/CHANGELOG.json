@@ -2,6 +2,27 @@
   "name": "@ni/unit-format",
   "entries": [
     {
+      "date": "Wed, 16 Sep 2026 18:31:36 GMT",
+      "version": "1.0.7",
+      "tag": "@ni/unit-format_v1.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "ca768c0ef480e9916b8b289eb46088ecd1684166",
+            "comment": "Bump typescript dependency from 5.8 to 5.9"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/unit-format",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.12",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Sep 2026 17:39:26 GMT",
       "version": "1.0.6",
       "tag": "@ni/unit-format_v1.0.6",

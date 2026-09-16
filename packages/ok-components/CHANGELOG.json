@@ -2,6 +2,39 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Wed, 16 Sep 2026 18:31:36 GMT",
+      "version": "1.9.1",
+      "tag": "@ni/ok-components_v1.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "ca768c0ef480e9916b8b289eb46088ecd1684166",
+            "comment": "Bump typescript dependency from 5.8 to 5.9"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.13.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.22.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.12",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 10 Sep 2026 14:28:09 GMT",
       "version": "1.9.0",
       "tag": "@ni/ok-components_v1.9.0",
