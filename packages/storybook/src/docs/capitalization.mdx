@@ -1,17 +1,27 @@
-import { Story, Meta, Unstyled } from '@storybook/addon-docs/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
+import { useRef } from 'react';
 import { NimbleBanner } from '@ni/nimble-react/banner';
 import { NimbleButton } from '@ni/nimble-react/button';
-import { bannerExample } from './capitalization.stories';
-import breadcrumbImage from './capitalization-assets/breadcrumb.png';
-import chipImage from './capitalization-assets/chip.png';
+import { NimbleBreadcrumb } from '@ni/nimble-react/breadcrumb';
+import { NimbleBreadcrumbItem } from '@ni/nimble-react/breadcrumb-item';
+import { NimbleCard } from '@ni/nimble-react/card';
+import { NimbleChip } from '@ni/nimble-react/chip';
+import { NimbleDialog } from '@ni/nimble-react/dialog';
+import { NimbleDrawer } from '@ni/nimble-react/drawer';
+import { NimbleMenu } from '@ni/nimble-react/menu';
+import { NimbleMenuItem } from '@ni/nimble-react/menu-item';
+import { NimbleStepper } from '@ni/nimble-react/stepper';
+import { NimbleStep } from '@ni/nimble-react/step';
+import { NimbleTabs } from '@ni/nimble-react/tabs';
+import { NimbleTab } from '@ni/nimble-react/tab';
+import { NimbleTabPanel } from '@ni/nimble-react/tab-panel';
+import { NimbleTreeView } from '@ni/nimble-react/tree-view';
+import { NimbleTreeItem } from '@ni/nimble-react/tree-item';
+import { NimbleIconCheck } from '@ni/nimble-react/icons/check';
+import { NimbleIconHome } from '@ni/nimble-react/icons/home';
+import { NimbleIconDatabase } from '@ni/nimble-react/icons/database';
+import { ExampleSection } from '../utilities/story-layout';
 import containerImage from './capitalization-assets/container.png';
-import dialogImage from './capitalization-assets/dialog.png';
-import drawerImage from './capitalization-assets/drawer.png';
-import menuImage from './capitalization-assets/menu.png';
-import stepperImage from './capitalization-assets/stepper.png';
-import tileImage from './capitalization-assets/tile.png';
-import tabsImage from './capitalization-assets/tabs.png';
-import treeViewImage from './capitalization-assets/tree-view.png';
 
 <Meta title="Style/Capitalization" />
 
@@ -33,9 +43,7 @@ across the interface:
 The title of a banner should use sentence case along with the rest of the
 elements.
 
-<Story of={bannerExample} />
-
-<Unstyled>
+<ExampleSection>
 	<NimbleBanner open severity="error" prevent-dismiss>
 		<span slot="title">Sentence case</span>
 		<span>Sentence case.</span>
@@ -43,26 +51,42 @@ elements.
 			Sentence case
 		</NimbleButton>
 	</NimbleBanner>
-</Unstyled>
+</ExampleSection>
 
 ### Breadcrumb
 
 Breadcrumbs should use title case.
 
-<img src={breadcrumbImage} alt="Breadcrumb capitalization example" />
+<ExampleSection>
+	<NimbleBreadcrumb>
+		<NimbleBreadcrumbItem href="#">Title Case</NimbleBreadcrumbItem>
+		<NimbleBreadcrumbItem href="#">Title Case</NimbleBreadcrumbItem>
+		<NimbleBreadcrumbItem href="#">Title Case</NimbleBreadcrumbItem>
+		<NimbleBreadcrumbItem>Title Case</NimbleBreadcrumbItem>
+	</NimbleBreadcrumb>
+</ExampleSection>
 
 ### Card
 
 Cards should use all caps.
 
-<img src={tileImage} alt="Card capitalization example" />
-
+<ExampleSection>
+	<NimbleCard>
+		<span slot="title">SYSTEMS</span>
+		<span style={{ fontSize: '32px', fontWeight: 'bold' }}>15</span>
+	</NimbleCard>
+</ExampleSection>
 
 ### Chip
 
 Chips should use title case.
 
-<img src={chipImage} alt="Chip capitalization example" />
+<ExampleSection>
+	<NimbleChip removable>
+		<NimbleIconCheck slot="start"></NimbleIconCheck>
+		Title Case
+	</NimbleChip>
+</ExampleSection>
 
 ### Container
 
@@ -75,36 +99,147 @@ Containers should use sentence case for all elements.
 Dialog titles should use title case. Content inside the dialog should use
 sentence case.
 
-<img src={dialogImage} alt="Dialog capitalization example" />
+export const DialogExample = () => {
+	const dialogRef = useRef(null);
+
+	return (
+		<ExampleSection>
+			<NimbleButton onClick={() => dialogRef.current?.show()}>
+				Open dialog example
+			</NimbleButton>
+			<NimbleDialog ref={dialogRef}>
+				<span slot="title">Title Case</span>
+				<span>Sentence case.</span>
+				<NimbleButton
+					slot="footer"
+					appearance="ghost"
+					onClick={() => dialogRef.current?.close('cancel')}
+				>
+					Sentence case
+				</NimbleButton>
+				<NimbleButton
+					slot="footer"
+					appearance="outline"
+					appearance-variant="primary"
+					onClick={() => dialogRef.current?.close('ok')}
+				>
+					Close
+				</NimbleButton>
+			</NimbleDialog>
+		</ExampleSection>
+	);
+};
+
+<DialogExample />
 
 ### Drawer
 
 Drawer titles should be title case. Other elements should be sentence case.
 
-<img src={drawerImage} alt="Drawer capitalization example" />
+export const DrawerExample = () => {
+	const drawerRef = useRef(null);
+
+	return (
+		<ExampleSection>
+			<NimbleButton onClick={() => drawerRef.current?.show()}>
+				Open drawer example
+			</NimbleButton>
+			<NimbleDrawer ref={drawerRef} location="left">
+				<header>Title Case</header>
+				<section>Sentence case.</section>
+				<footer>
+					<NimbleButton
+						appearance="ghost"
+						onClick={() => drawerRef.current?.close('cancel')}
+					>
+						Sentence case
+					</NimbleButton>
+					<NimbleButton
+						appearance="outline"
+						appearance-variant="primary"
+						onClick={() => drawerRef.current?.close('ok')}
+					>
+						Close
+					</NimbleButton>
+				</footer>
+			</NimbleDrawer>
+		</ExampleSection>
+	);
+};
+
+<DrawerExample />
 
 ### Menu
 
 Menus group headers should be all caps. The rest of the elements should be
 sentence case.
 
-<img src={menuImage} alt="Menu capitalization example" />
+<ExampleSection>
+	<NimbleMenu>
+		<header>ALL CAPS</header>
+		<NimbleMenuItem>Sentence case</NimbleMenuItem>
+		<NimbleMenuItem>Sentence case</NimbleMenuItem>
+		<hr />
+		<header>ALL CAPS</header>
+		<NimbleMenuItem>Sentence case</NimbleMenuItem>
+		<NimbleMenuItem>Sentence case</NimbleMenuItem>
+	</NimbleMenu>
+</ExampleSection>
 
 ### Stepper
 
 Stepper titles should be title case, subtitles should be sentence case.
 
-<img src={stepperImage} alt="Stepper capitalization example" />
+<ExampleSection>
+	<NimbleStepper>
+		<NimbleStep selected>
+			<span slot="title">Title Case</span>
+			<span slot="subtitle">Sentence case</span>
+		</NimbleStep>
+		<NimbleStep>
+			<span slot="title">Title Case</span>
+			<span slot="subtitle">Sentence case</span>
+		</NimbleStep>
+		<NimbleStep>
+			<span slot="title">Title Case</span>
+			<span slot="subtitle">Sentence case</span>
+		</NimbleStep>
+	</NimbleStepper>
+</ExampleSection>
 
 ### Tabs
 
 Tabs in applications should be title case. Tabs in dialogs and drawers should
 be sentence case.
 
-<img src={tabsImage} alt="Tabs capitalization example" />
+<ExampleSection>
+	<NimbleTabs activeid="tab-1">
+		<NimbleTab id="tab-1">Title Case</NimbleTab>
+		<NimbleTab id="tab-2">Title Case</NimbleTab>
+		<NimbleTab id="tab-3">Title Case</NimbleTab>
+		<NimbleTabPanel>Sentence case.</NimbleTabPanel>
+		<NimbleTabPanel>Sentence case.</NimbleTabPanel>
+		<NimbleTabPanel>Sentence case.</NimbleTabPanel>
+	</NimbleTabs>
+</ExampleSection>
 
 ### Tree View
 
 Tree view should use sentence case for all elements and sub elements.
 
-<img src={treeViewImage} alt="Tree view capitalization example" />
+<ExampleSection>
+	<NimbleTreeView>
+		<NimbleTreeItem expanded>
+			<NimbleIconHome slot="start"></NimbleIconHome>
+			Sentence case
+			<NimbleTreeItem>
+				<NimbleIconDatabase slot="start"></NimbleIconDatabase>
+				Sentence case
+			</NimbleTreeItem>
+			<NimbleTreeItem>
+				<NimbleIconDatabase slot="start"></NimbleIconDatabase>
+				Sentence case
+			</NimbleTreeItem>
+		</NimbleTreeItem>
+	</NimbleTreeView>
+</ExampleSection>
