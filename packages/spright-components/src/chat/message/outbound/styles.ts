@@ -32,6 +32,9 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         width: 100%;
+        background: ${fillSelectedColor};
+        border: ${borderWidth} solid ${borderHoverColor};
+        border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
     }
 
     .message-content {
@@ -42,9 +45,6 @@ export const styles = css`
     }
 
     :host .message-content {
-        background: ${fillSelectedColor};
-        border: ${borderWidth} solid ${borderHoverColor};
-        border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
         padding: ${mediumPadding};
     }
 `;
