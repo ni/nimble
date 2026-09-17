@@ -1,8 +1,54 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Thu, 27 Aug 2026 14:33:47 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.9.1
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/nimble-components to v35.13.2
+- Bump @ni/spright-components to v6.22.2
+- Bump @ni/jasmine-parameterized to v1.0.12
+
+## 1.9.0
+
+Thu, 10 Sep 2026 14:28:09 GMT
+
+### Minor changes
+
+- Add the ok-fv-splitter component for accessible pointer and keyboard resizing between panes. ([ni/nimble@bf900cd](https://github.com/ni/nimble/commit/bf900cdc767156fcea93f558583929183f3c1465))
+
+## 1.8.3
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update playwright and lock files ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/nimble-components to v35.13.1
+- Bump @ni/spright-components to v6.22.1
+- Bump @ni/jasmine-parameterized to v1.0.11
+
+## 1.8.2
+
+Thu, 03 Sep 2026 16:57:10 GMT
+
+### Patches
+
+- Fix FV summary panel spacing and preserve compact tile hover styling ([ni/nimble@38ddfef](https://github.com/ni/nimble/commit/38ddfefe98820bd741b99a89d2b9b925bc0e43e2))
+
+## 1.8.1
+
+Tue, 01 Sep 2026 15:14:14 GMT
+
+### Patches
+
+- Add the OK FV sticky-header component and framework wrappers ([ni/nimble@250b49e](https://github.com/ni/nimble/commit/250b49e90ad9ca2d6949521be428da2128ff54b8))
 
 ## 1.8.0
 

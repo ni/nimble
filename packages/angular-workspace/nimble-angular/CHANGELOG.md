@@ -1,8 +1,27 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 25 Aug 2026 18:10:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.0.0
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Major changes
+
+- Update to Angular 21 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/nimble-components to v35.13.2
+- Bump @ni/unit-format to v1.0.7
+
+## 33.6.2
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.1
+- Bump @ni/unit-format to v1.0.6
 
 ## 33.6.1
 

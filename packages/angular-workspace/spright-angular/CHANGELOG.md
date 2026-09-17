@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Tue, 25 Aug 2026 18:10:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 10.0.0
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Major changes
+
+- Update to Angular 21 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/spright-components to v6.22.2
+
+## 9.6.2
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.1
 
 ## 9.6.1
 

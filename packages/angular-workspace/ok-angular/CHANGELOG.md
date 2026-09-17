@@ -1,8 +1,51 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Thu, 27 Aug 2026 14:33:47 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.0.0
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Major changes
+
+- Update to Angular 21 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/ok-components to v1.9.1
+
+## 2.7.4
+
+Thu, 10 Sep 2026 14:28:09 GMT
+
+### Patches
+
+- Add the OK FV splitter Angular wrapper ([ni/nimble@bf900cd](https://github.com/ni/nimble/commit/bf900cdc767156fcea93f558583929183f3c1465))
+- Bump @ni/ok-components to v1.9.0
+
+## 2.7.3
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.8.3
+
+## 2.7.2
+
+Thu, 03 Sep 2026 16:57:10 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.8.2
+
+## 2.7.1
+
+Tue, 01 Sep 2026 15:14:14 GMT
+
+### Patches
+
+- Add the OK FV sticky-header component and framework wrappers ([ni/nimble@250b49e](https://github.com/ni/nimble/commit/250b49e90ad9ca2d6949521be428da2128ff54b8))
+- Bump @ni/ok-components to v1.8.1
 
 ## 2.7.0
 

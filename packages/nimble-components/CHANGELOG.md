@@ -1,8 +1,29 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 24 Aug 2026 19:55:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.13.2
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/nimble-tokens to v8.19.1
+- Bump @ni/unit-format to v1.0.7
+- Bump @ni/jasmine-parameterized to v1.0.12
+
+## 35.13.1
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update playwright and lock files ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/unit-format to v1.0.6
+- Bump @ni/jasmine-parameterized to v1.0.11
 
 ## 35.13.0
 

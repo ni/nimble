@@ -1,6 +1,6 @@
 import { css } from '@ni/fast-element';
 import {
-    mediumPadding,
+    borderWidth,
     smallPadding,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -36,8 +36,7 @@ export const styles = css`
             box-sizing: border-box;
             overflow-x: auto;
             overflow-y: hidden;
-            gap: ${mediumPadding};
-            padding: calc(${standardPadding} - ${smallPadding});
+            gap: ${smallPadding};
             scrollbar-width: none;
         }
 
@@ -57,6 +56,10 @@ export const styles = css`
 
         ::slotted(*) {
             flex: 0 0 auto;
+        }
+
+        :host([size='compact']) ::slotted(ok-fv-summary-panel-tile) {
+            margin: calc(2 * ${borderWidth});
         }
     }
 

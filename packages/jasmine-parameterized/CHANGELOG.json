@@ -2,6 +2,36 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Wed, 16 Sep 2026 18:31:36 GMT",
+      "version": "1.0.12",
+      "tag": "@ni/jasmine-parameterized_v1.0.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "ca768c0ef480e9916b8b289eb46088ecd1684166",
+            "comment": "Bump typescript dependency from 5.8 to 5.9"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 03 Sep 2026 17:39:26 GMT",
+      "version": "1.0.11",
+      "tag": "@ni/jasmine-parameterized_v1.0.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "c730a12cacd3647af8265d25a138f172b74c8673",
+            "comment": "Update playwright and lock files"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 May 2026 16:39:52 GMT",
       "version": "1.0.10",
       "tag": "@ni/jasmine-parameterized_v1.0.10",

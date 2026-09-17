@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Mon, 24 Aug 2026 19:55:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.18.2
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.2
+
+## 4.18.1
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/spright-components to v6.22.1
 
 ## 4.18.0
 

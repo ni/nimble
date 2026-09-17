@@ -1,8 +1,24 @@
 # Change Log - @ni/jasmine-parameterized
 
-<!-- This log was last generated on Sat, 02 May 2026 02:01:43 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.12
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+
+## 1.0.11
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update playwright and lock files ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
 
 ## 1.0.10
 
