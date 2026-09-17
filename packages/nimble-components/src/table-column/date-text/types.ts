@@ -22,3 +22,33 @@ export type DayPeriodFormat = Intl.DateTimeFormatOptions['dayPeriod'];
 export type DateStyle = Intl.DateTimeFormatOptions['dateStyle'];
 export type TimeStyle = Intl.DateTimeFormatOptions['timeStyle'];
 export type HourCycleFormat = Intl.DateTimeFormatOptions['hourCycle'];
+
+/**
+ * The `Intl.DateTimeFormatOptions` properties supported by the date-text column and `DateTextFormatter`.
+ */
+export const supportedDateTimeFormatOptionNames = [
+    'localeMatcher',
+    'weekday',
+    'era',
+    'year',
+    'month',
+    'day',
+    'hour',
+    'minute',
+    'second',
+    'dayPeriod',
+    'timeZoneName',
+    'formatMatcher',
+    'hour12',
+    'timeZone',
+    'calendar',
+    'numberingSystem',
+    'dateStyle',
+    'timeStyle',
+    'hourCycle'
+] as const;
+
+export type SupportedDateTimeFormatOptions = Pick<
+    Intl.DateTimeFormatOptions,
+    (typeof supportedDateTimeFormatOptionNames)[number]
+>;

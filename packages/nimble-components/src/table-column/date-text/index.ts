@@ -24,16 +24,18 @@ import type {
     TimeStyle,
     HourCycleFormat,
     MonthFormat,
-    WeekdayFormat
+    WeekdayFormat,
+    SupportedDateTimeFormatOptions
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 import { lang } from '../../theme-provider';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
+import { DateTextFormatter } from './models/date-text-formatter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig extends TableColumnTextBaseColumnConfig {
-    formatter: Intl.DateTimeFormat;
+    formatter: DateTextFormatter;
 }
 
 declare global {
@@ -87,9 +89,6 @@ export class TableColumnDateText extends mixinTextBase(
     @attr({ attribute: 'custom-format-matcher' })
     public customFormatMatcher: FormatMatcherAlgorithm;
 
-    // Later versions of FAST (than the legacy branch we're on) have a nullableBooleanConverter.
-    // We should replace our converter with that one when it is available to us.
-    // See issue related to adopting FastElement 2.0: https://github.com/ni/nimble/issues/572
     @attr({ attribute: 'custom-hour12', converter: optionalBooleanConverter })
     public customHour12?: boolean;
 
@@ -242,28 +241,22 @@ export class TableColumnDateText extends mixinTextBase(
         }
     }
 
-    private createFormatter(): Intl.DateTimeFormat | undefined {
-        let options: Intl.DateTimeFormatOptions;
-        if (this.format === DateTextFormat.default) {
-            options = {
-                dateStyle: 'medium',
-                timeStyle: 'medium'
-            };
-        } else {
-            options = this.getCustomFormattingOptions();
-        }
+    private createFormatter(): DateTextFormatter | undefined {
+        const options = this.format === DateTextFormat.default
+            ? undefined
+            : this.getCustomFormattingOptions();
         try {
-            return new Intl.DateTimeFormat(lang.getValueFor(this), options);
+            return new DateTextFormatter(lang.getValueFor(this), options);
         } catch (_e) {
             return undefined;
         }
     }
 
-    private getCustomFormattingOptions(): Intl.DateTimeFormatOptions {
+    private getCustomFormattingOptions(): SupportedDateTimeFormatOptions {
         // There's a FAST bug (https://github.com/microsoft/fast/issues/6630) where removing
         // attributes sets their values to null instead of undefined. To work around this,
         // translate null values to undefined.
-        const options: Intl.DateTimeFormatOptions = {
+        const options: SupportedDateTimeFormatOptions = {
             localeMatcher: this.customLocaleMatcher ?? undefined,
             weekday: this.customWeekday ?? undefined,
             era: this.customEra ?? undefined,

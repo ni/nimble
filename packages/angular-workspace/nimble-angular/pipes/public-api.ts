@@ -1,4 +1,5 @@
 export * from './diacritic-insensitive.pipe';
+export * from './date-text.pipe';
 export * from './duration.pipe';
 export * from './number-text.pipe';
 export { unitScaleByte } from '@ni/unit-format/unit-scale/byte';
