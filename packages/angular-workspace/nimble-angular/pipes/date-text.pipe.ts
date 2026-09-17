@@ -1,16 +1,16 @@
 import { Inject, LOCALE_ID, Pipe, type PipeTransform } from '@angular/core';
-import { DateFormatter } from '@ni/nimble-components/dist/esm/table-column/date-text/models/date-formatter';
+import { DateTextFormatter } from '@ni/nimble-components/dist/esm/table-column/date-text/models/date-text-formatter';
 import type { SupportedDateTimeFormatOptions } from '@ni/nimble-components/dist/esm/table-column/date-text/types';
 
 /**
  * A pipe that transforms date values into localized date strings.
  */
 @Pipe({
-    name: 'nimbleDate',
+    name: 'dateText',
     standalone: true
 })
-export class DatePipe implements PipeTransform {
-    private dateFormatter?: DateFormatter;
+export class DateTextPipe implements PipeTransform {
+    private dateTextFormatter?: DateTextFormatter;
 
     public constructor(@Inject(LOCALE_ID) private readonly locale: string) {}
 
@@ -18,9 +18,9 @@ export class DatePipe implements PipeTransform {
         value: Date | number | null | undefined,
         options?: SupportedDateTimeFormatOptions
     ): string {
-        if (!this.dateFormatter?.optionsMatch(options)) {
-            this.dateFormatter = new DateFormatter(this.locale, options);
+        if (!this.dateTextFormatter?.optionsMatch(options)) {
+            this.dateTextFormatter = new DateTextFormatter(this.locale, options);
         }
-        return this.dateFormatter.format(value);
+        return this.dateTextFormatter.format(value);
     }
 }

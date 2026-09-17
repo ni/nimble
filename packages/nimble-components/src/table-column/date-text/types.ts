@@ -24,7 +24,7 @@ export type TimeStyle = Intl.DateTimeFormatOptions['timeStyle'];
 export type HourCycleFormat = Intl.DateTimeFormatOptions['hourCycle'];
 
 /**
- * The `Intl.DateTimeFormatOptions` properties supported by the date-text column and `DateFormatter`.
+ * The `Intl.DateTimeFormatOptions` properties supported by the date-text column and `DateTextFormatter`.
  */
 export const supportedDateTimeFormatOptionNames = [
     'localeMatcher',

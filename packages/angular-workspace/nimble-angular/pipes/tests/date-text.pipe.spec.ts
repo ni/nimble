@@ -1,6 +1,6 @@
-import { DatePipe } from '../date.pipe';
+import { DateTextPipe } from '../date-text.pipe';
 
-describe('DatePipe', () => {
+describe('DateTextPipe', () => {
     const options: Intl.DateTimeFormatOptions = {
         timeZone: 'UTC',
         year: 'numeric',
@@ -9,7 +9,7 @@ describe('DatePipe', () => {
     };
 
     it('formats numeric and Date values', () => {
-        const pipe = new DatePipe('en-US');
+        const pipe = new DateTextPipe('en-US');
         const timestamp = Date.UTC(2020, 0, 2);
 
         expect(pipe.transform(timestamp, options)).toBe('01/02/2020');
@@ -17,7 +17,7 @@ describe('DatePipe', () => {
     });
 
     it('returns an empty string for invalid values', () => {
-        const pipe = new DatePipe('en-US');
+        const pipe = new DateTextPipe('en-US');
 
         expect(pipe.transform(null, options)).toBe('');
         expect(pipe.transform(undefined, options)).toBe('');
@@ -25,7 +25,7 @@ describe('DatePipe', () => {
     });
 
     it('formats using the injected locale', () => {
-        const pipe = new DatePipe('de-DE');
+        const pipe = new DateTextPipe('de-DE');
 
         expect(pipe.transform(Date.UTC(2020, 0, 2), options)).toBe('02.01.2020');
     });

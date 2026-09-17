@@ -1,9 +1,9 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { DateFormatter } from '../date-formatter';
+import { DateTextFormatter } from '../date-text-formatter';
 import type { SupportedDateTimeFormatOptions } from '../../types';
 
-describe('DateFormatter', () => {
-    const formatter = new DateFormatter('en-US', {
+describe('DateTextFormatter', () => {
+    const formatter = new DateTextFormatter('en-US', {
         timeZone: 'UTC',
         year: 'numeric',
         month: '2-digit',
@@ -31,7 +31,7 @@ describe('DateFormatter', () => {
     });
 
     it('formats using the requested locale', () => {
-        const germanFormatter = new DateFormatter('de-DE', {
+        const germanFormatter = new DateTextFormatter('de-DE', {
             timeZone: 'UTC',
             year: 'numeric',
             month: '2-digit',
@@ -47,11 +47,11 @@ describe('DateFormatter', () => {
             minute: '2-digit',
             second: '2-digit'
         };
-        const withUnsupportedOption = new DateFormatter('en-US', {
+        const withUnsupportedOption = new DateTextFormatter('en-US', {
             ...timeOptions,
             notReal: 3
         } as SupportedDateTimeFormatOptions);
-        const withoutUnsupportedOption = new DateFormatter('en-US', timeOptions);
+        const withoutUnsupportedOption = new DateTextFormatter('en-US', timeOptions);
         const value = Date.UTC(2020, 0, 2, 3, 4, 5, 678);
 
         expect(withUnsupportedOption.format(value)).toBe(
@@ -60,7 +60,7 @@ describe('DateFormatter', () => {
     });
 
     it('ignores unsupported options when matching', () => {
-        const formatterWithSupportedOptions = new DateFormatter('en-US', {
+        const formatterWithSupportedOptions = new DateTextFormatter('en-US', {
             year: 'numeric'
         });
         const targetWithUnsupportedOption = {
@@ -74,7 +74,7 @@ describe('DateFormatter', () => {
     });
 
     describe('parses number and Date inputs consistently', () => {
-        const utcFormatter = new DateFormatter('en-US', {
+        const utcFormatter = new DateTextFormatter('en-US', {
             timeZone: 'UTC',
             year: 'numeric',
             month: '2-digit',

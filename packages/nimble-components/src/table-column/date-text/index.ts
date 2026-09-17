@@ -31,11 +31,11 @@ import { TableColumnDateTextValidator } from './models/table-column-date-text-va
 import { lang } from '../../theme-provider';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
-import { DateFormatter } from './models/date-formatter';
+import { DateTextFormatter } from './models/date-text-formatter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig extends TableColumnTextBaseColumnConfig {
-    formatter: DateFormatter;
+    formatter: DateTextFormatter;
 }
 
 declare global {
@@ -241,12 +241,12 @@ export class TableColumnDateText extends mixinTextBase(
         }
     }
 
-    private createFormatter(): DateFormatter | undefined {
+    private createFormatter(): DateTextFormatter | undefined {
         const options = this.format === DateTextFormat.default
             ? undefined
             : this.getCustomFormattingOptions();
         try {
-            return new DateFormatter(lang.getValueFor(this), options);
+            return new DateTextFormatter(lang.getValueFor(this), options);
         } catch (_e) {
             return undefined;
         }

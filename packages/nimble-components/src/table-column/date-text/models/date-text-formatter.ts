@@ -6,7 +6,7 @@ import {
 /**
  * A class for formatting date values using the provided locale and options.
  */
-export class DateFormatter {
+export class DateTextFormatter {
     private static readonly defaultOptions: SupportedDateTimeFormatOptions = {
         dateStyle: 'medium',
         timeStyle: 'medium'
@@ -37,7 +37,7 @@ export class DateFormatter {
     }
 
     public optionsMatch(targetOptions?: SupportedDateTimeFormatOptions): boolean {
-        const resolvedTargetOptions = targetOptions ?? DateFormatter.defaultOptions;
+        const resolvedTargetOptions = targetOptions ?? DateTextFormatter.defaultOptions;
         for (const name of supportedDateTimeFormatOptionNames) {
             if (this.options[name] !== resolvedTargetOptions[name]) {
                 return false;
@@ -60,7 +60,7 @@ export class DateFormatter {
         options: SupportedDateTimeFormatOptions | undefined
     ): SupportedDateTimeFormatOptions {
         if (options === undefined) {
-            return DateFormatter.defaultOptions;
+            return DateTextFormatter.defaultOptions;
         }
         const supportedOptions: SupportedDateTimeFormatOptions = {};
         for (const name of supportedDateTimeFormatOptionNames) {
