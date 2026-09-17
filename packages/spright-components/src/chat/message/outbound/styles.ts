@@ -17,6 +17,7 @@ export const styles = css`
     :host {
         min-width: ${standardPadding};
         min-height: ${standardPadding};
+        width: fit-content;
         max-width: 90%;
 
         flex-direction: row;
