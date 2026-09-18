@@ -28,6 +28,9 @@ import {
     BodyFamily,
     BodySize,
     BodyWeight,
+    CodeFamily,
+    CodeSize,
+    CodeWeight,
     Body2Family,
     Body2Size,
     Body2Weight,
@@ -406,6 +409,15 @@ export const tokenValues = {
         BodyFamily,
         BodyWeight,
         BodySize,
+        BodyLineHeight
+    ),
+    ...createFont(
+        'code',
+        alias.defaultFontColor,
+        hexToRgbaCssThemeColor(alias.defaultFontColor, 0.3, 0.3, 0.3),
+        CodeFamily,
+        CodeWeight,
+        CodeSize,
         BodyLineHeight
     ),
     ...createFont(
