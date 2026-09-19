@@ -2,6 +2,27 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Wed, 16 Sep 2026 18:31:36 GMT",
+      "version": "10.0.0",
+      "tag": "@ni/spright-angular_v10.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "ca768c0ef480e9916b8b289eb46088ecd1684166",
+            "comment": "Update to Angular 21"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.22.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Sep 2026 17:39:26 GMT",
       "version": "9.6.2",
       "tag": "@ni/spright-angular_v9.6.2",

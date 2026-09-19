@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Thu, 10 Sep 2026 14:28:09 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.0.0
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Major changes
+
+- Update to Angular 21 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/ok-components to v1.9.1
 
 ## 2.7.4
 

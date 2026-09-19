@@ -1,8 +1,17 @@
 # Change Log - @ni/unit-format
 
-<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.7
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/jasmine-parameterized to v1.0.12
 
 ## 1.0.6
 

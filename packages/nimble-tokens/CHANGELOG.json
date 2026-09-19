@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 16 Sep 2026 18:31:36 GMT",
+      "version": "8.19.1",
+      "tag": "@ni/nimble-tokens_v8.19.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ca768c0ef480e9916b8b289eb46088ecd1684166",
+            "comment": "Bump typescript dependency from 5.8 to 5.9"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 24 Aug 2026 19:55:50 GMT",
       "version": "8.19.0",
       "tag": "@ni/nimble-tokens_v8.19.0",
