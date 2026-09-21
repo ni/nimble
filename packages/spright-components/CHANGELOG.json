@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 21 Sep 2026 21:33:58 GMT",
+      "version": "6.22.3",
+      "tag": "@ni/spright-components_v6.22.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "6d1c5605d7fe5e68a9975fb1ed58191438c14f5f",
+            "comment": "Chat message sizing is more client configurable"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Sep 2026 18:31:36 GMT",
       "version": "6.22.2",
       "tag": "@ni/spright-components_v6.22.2",
