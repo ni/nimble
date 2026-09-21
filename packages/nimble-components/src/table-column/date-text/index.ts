@@ -25,7 +25,8 @@ import type {
     HourCycleFormat,
     MonthFormat,
     WeekdayFormat,
-    SupportedIntlDateTimeFormatOptions
+    SupportedIntlDateTimeFormatOptions,
+    supportedIntlDateTimeFormatOptionNames
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 import { lang } from '../../theme-provider';
@@ -43,6 +44,10 @@ declare global {
         'nimble-table-column-date-text': TableColumnDateText;
     }
 }
+
+type AllSupportedIntlDateTimeFormatOptions = {
+    [Key in (typeof supportedIntlDateTimeFormatOptionNames)[number]]: Intl.DateTimeFormatOptions[Key]
+};
 
 /**
  * The table column for displaying dates/times as text.
@@ -256,7 +261,7 @@ export class TableColumnDateText extends mixinTextBase(
         // There's a FAST bug (https://github.com/microsoft/fast/issues/6630) where removing
         // attributes sets their values to null instead of undefined. To work around this,
         // translate null values to undefined.
-        const options: SupportedIntlDateTimeFormatOptions = {
+        const options: AllSupportedIntlDateTimeFormatOptions = {
             localeMatcher: this.customLocaleMatcher ?? undefined,
             weekday: this.customWeekday ?? undefined,
             era: this.customEra ?? undefined,
