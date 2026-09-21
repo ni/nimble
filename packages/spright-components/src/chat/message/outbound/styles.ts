@@ -35,6 +35,7 @@ export const styles = css`
         background: ${fillSelectedColor};
         border: ${borderWidth} solid ${borderHoverColor};
         border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
+        padding: ${mediumPadding};
     }
 
     .message-content {
@@ -42,9 +43,5 @@ export const styles = css`
         height: fit-content;
         max-width: 100%;
         overflow-x: auto;
-    }
-
-    :host .message-content {
-        padding: ${mediumPadding};
     }
 `;
