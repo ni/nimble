@@ -1,23 +1,23 @@
 import {
-    supportedDateTimeFormatOptionNames,
-    type SupportedDateTimeFormatOptions
+    supportedIntlDateTimeFormatOptionNames,
+    type SupportedIntlDateTimeFormatOptions
 } from '../types';
 
 /**
  * A class for formatting date values using the provided locale and options.
  */
 export class DateTextFormatter {
-    private static readonly defaultOptions: SupportedDateTimeFormatOptions = {
+    private static readonly defaultOptions: SupportedIntlDateTimeFormatOptions = {
         dateStyle: 'medium',
         timeStyle: 'medium'
     } as const;
 
     private readonly formatter: Intl.DateTimeFormat;
-    private readonly options: SupportedDateTimeFormatOptions;
+    private readonly options: SupportedIntlDateTimeFormatOptions;
 
     public constructor(
         lang: string,
-        options?: SupportedDateTimeFormatOptions
+        options?: SupportedIntlDateTimeFormatOptions
     ) {
         this.options = this.resolveOptions(options);
         this.formatter = new Intl.DateTimeFormat(lang, this.options);
@@ -36,9 +36,9 @@ export class DateTextFormatter {
         }
     }
 
-    public optionsMatch(targetOptions?: SupportedDateTimeFormatOptions): boolean {
+    public optionsMatch(targetOptions?: SupportedIntlDateTimeFormatOptions): boolean {
         const resolvedTargetOptions = targetOptions ?? DateTextFormatter.defaultOptions;
-        for (const name of supportedDateTimeFormatOptionNames) {
+        for (const name of supportedIntlDateTimeFormatOptionNames) {
             if (this.options[name] !== resolvedTargetOptions[name]) {
                 return false;
             }
@@ -57,23 +57,23 @@ export class DateTextFormatter {
     }
 
     private resolveOptions(
-        options: SupportedDateTimeFormatOptions | undefined
-    ): SupportedDateTimeFormatOptions {
+        options: SupportedIntlDateTimeFormatOptions | undefined
+    ): SupportedIntlDateTimeFormatOptions {
         if (options === undefined) {
             return DateTextFormatter.defaultOptions;
         }
-        const supportedOptions: SupportedDateTimeFormatOptions = {};
-        for (const name of supportedDateTimeFormatOptionNames) {
-            this.resolvedOption(supportedOptions, options, name);
+        const supportedOptions: SupportedIntlDateTimeFormatOptions = {};
+        for (const name of supportedIntlDateTimeFormatOptionNames) {
+            this.resolveOption(supportedOptions, options, name);
         }
         return supportedOptions;
     }
 
-    private resolvedOption<
-        TKey extends keyof SupportedDateTimeFormatOptions
+    private resolveOption<
+        TKey extends keyof SupportedIntlDateTimeFormatOptions
     >(
-        target: SupportedDateTimeFormatOptions,
-        source: SupportedDateTimeFormatOptions,
+        target: SupportedIntlDateTimeFormatOptions,
+        source: SupportedIntlDateTimeFormatOptions,
         name: TKey
     ): void {
         if (source[name] !== undefined) {

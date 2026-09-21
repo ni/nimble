@@ -25,7 +25,7 @@ import type {
     HourCycleFormat,
     MonthFormat,
     WeekdayFormat,
-    SupportedDateTimeFormatOptions
+    SupportedIntlDateTimeFormatOptions
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 import { lang } from '../../theme-provider';
@@ -252,11 +252,11 @@ export class TableColumnDateText extends mixinTextBase(
         }
     }
 
-    private getCustomFormattingOptions(): SupportedDateTimeFormatOptions {
+    private getCustomFormattingOptions(): SupportedIntlDateTimeFormatOptions {
         // There's a FAST bug (https://github.com/microsoft/fast/issues/6630) where removing
         // attributes sets their values to null instead of undefined. To work around this,
         // translate null values to undefined.
-        const options: SupportedDateTimeFormatOptions = {
+        const options: SupportedIntlDateTimeFormatOptions = {
             localeMatcher: this.customLocaleMatcher ?? undefined,
             weekday: this.customWeekday ?? undefined,
             era: this.customEra ?? undefined,

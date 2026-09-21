@@ -1,3 +1,5 @@
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DateTextPipe } from '../date-text.pipe';
 
 describe('DateTextPipe', () => {
@@ -28,5 +30,35 @@ describe('DateTextPipe', () => {
         const pipe = new DateTextPipe('de-DE');
 
         expect(pipe.transform(Date.UTC(2020, 0, 2), options)).toBe('02.01.2020');
+    });
+
+    describe('in component template', () => {
+        @Component({
+            template: `
+            <div #div>{{ value | dateText:{ timeZone: 'UTC', year: 'numeric', month: '2-digit', day: '2-digit' } }}</div>
+            `,
+            standalone: false
+        })
+        class TestHostComponent {
+            @ViewChild('div') public divRef: ElementRef<HTMLDivElement>;
+            public value = Date.UTC(2020, 0, 2);
+        }
+        let fixture: ComponentFixture<TestHostComponent>;
+        let div: HTMLDivElement;
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [DateTextPipe],
+                providers: [provideZoneChangeDetection()],
+            });
+
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            div = fixture.componentInstance.divRef.nativeElement;
+        });
+
+        it('accepts parameters via object literal', () => {
+            expect(div.innerText).toEqual('01/02/2020');
+        });
     });
 });

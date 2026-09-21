@@ -26,7 +26,7 @@ export type HourCycleFormat = Intl.DateTimeFormatOptions['hourCycle'];
 /**
  * The `Intl.DateTimeFormatOptions` properties supported by the date-text column and `DateTextFormatter`.
  */
-export const supportedDateTimeFormatOptionNames = [
+export const supportedIntlDateTimeFormatOptionNames = [
     'localeMatcher',
     'weekday',
     'era',
@@ -48,7 +48,7 @@ export const supportedDateTimeFormatOptionNames = [
     'hourCycle'
 ] as const;
 
-export type SupportedDateTimeFormatOptions = Pick<
+export type SupportedIntlDateTimeFormatOptions = Pick<
     Intl.DateTimeFormatOptions,
-    (typeof supportedDateTimeFormatOptionNames)[number]
+    (typeof supportedIntlDateTimeFormatOptionNames)[number]
 >;

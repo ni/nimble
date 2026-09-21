@@ -1,6 +1,6 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { DateTextFormatter } from '../date-text-formatter';
-import type { SupportedDateTimeFormatOptions } from '../../types';
+import type { SupportedIntlDateTimeFormatOptions } from '../../types';
 
 describe('DateTextFormatter', () => {
     const formatter = new DateTextFormatter('en-US', {
@@ -41,7 +41,7 @@ describe('DateTextFormatter', () => {
     });
 
     it('ignores unsupported options when formatting', () => {
-        const timeOptions: SupportedDateTimeFormatOptions = {
+        const timeOptions: SupportedIntlDateTimeFormatOptions = {
             timeZone: 'UTC',
             hour: '2-digit',
             minute: '2-digit',
@@ -50,7 +50,7 @@ describe('DateTextFormatter', () => {
         const withUnsupportedOption = new DateTextFormatter('en-US', {
             ...timeOptions,
             notReal: 3
-        } as SupportedDateTimeFormatOptions);
+        } as SupportedIntlDateTimeFormatOptions);
         const withoutUnsupportedOption = new DateTextFormatter('en-US', timeOptions);
         const value = Date.UTC(2020, 0, 2, 3, 4, 5, 678);
 
@@ -66,7 +66,7 @@ describe('DateTextFormatter', () => {
         const targetWithUnsupportedOption = {
             year: 'numeric',
             fractionalSecondDigits: 3
-        } as SupportedDateTimeFormatOptions;
+        } as SupportedIntlDateTimeFormatOptions;
 
         expect(
             formatterWithSupportedOptions.optionsMatch(targetWithUnsupportedOption)
