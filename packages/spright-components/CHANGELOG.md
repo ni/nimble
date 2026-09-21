@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 21 Sep 2026 21:33:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.22.3
+
+Mon, 21 Sep 2026 21:33:58 GMT
+
+### Patches
+
+- Chat message sizing is more client configurable ([ni/nimble@6d1c560](https://github.com/ni/nimble/commit/6d1c5605d7fe5e68a9975fb1ed58191438c14f5f))
 
 ## 6.22.2
 
