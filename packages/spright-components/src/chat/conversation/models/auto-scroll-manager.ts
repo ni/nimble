@@ -99,6 +99,7 @@ export class AutoScrollManager implements Subscriber {
 
     private onMessagesChanged(): void {
         const current = this.getOrderedMessages();
+        const isInitialContent = this.previousMessages.length === 0;
         const previousSet = new Set(this.previousMessages);
         const addedMessages = current.filter(
             message => !previousSet.has(message)
@@ -111,7 +112,7 @@ export class AutoScrollManager implements Subscriber {
         const hasAnchorMessage = addedMessages.some(
             message => message.messageInternals.anchorOnInsert
         );
-        this.scheduleScrollUpdate(hasAnchorMessage);
+        this.scheduleScrollUpdate(hasAnchorMessage, isInitialContent);
     }
 
     private repartition(messages: ChatMessage[]): void {
@@ -130,18 +131,22 @@ export class AutoScrollManager implements Subscriber {
         }
     }
 
-    private scheduleScrollUpdate(hasAnchorMessage: boolean): void {
+    private scheduleScrollUpdate(
+        hasAnchorMessage: boolean,
+        isInitialContent: boolean
+    ): void {
         this.pendingAnchorInsert = this.pendingAnchorInsert || hasAnchorMessage;
         if (this.scrollUpdatePending) {
             return;
         }
+        const shouldAnimate = !isInitialContent;
         this.scrollUpdatePending = true;
         requestAnimationFrame(() => {
             this.scrollUpdatePending = false;
             const anchorInsert = this.pendingAnchorInsert;
             this.pendingAnchorInsert = false;
             if (anchorInsert) {
-                this.anchorToLastInsertedMessage();
+                this.anchorToLastInsertedMessage(shouldAnimate);
             } else if (this.autoScrollEngaged) {
                 this.followContent();
             }
@@ -152,14 +157,18 @@ export class AutoScrollManager implements Subscriber {
      * Pins the most recently inserted anchor message near the top of the
      * viewport.
      */
-    private anchorToLastInsertedMessage(): void {
+    private anchorToLastInsertedMessage(animate: boolean): void {
         const message = this.getLastAnchorMessage();
         if (message === undefined) {
             return;
         }
         this.setScrollAnchorMessage(message);
         this.autoScrollEngaged = true;
-        this.smoothScrollTo(this.getMaxScrollTop());
+        if (animate) {
+            this.smoothScrollTo(this.getMaxScrollTop());
+        } else {
+            this.instantScrollTo(this.getMaxScrollTop());
+        }
     }
 
     private followContent(): void {
