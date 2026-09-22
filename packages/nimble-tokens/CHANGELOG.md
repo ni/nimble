@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 22 Sep 2026 19:32:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.19.2
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Update new systemlink icon ([ni/nimble@78020c9](https://github.com/ni/nimble/commit/78020c9b8b27caeb58a27f48ec21c33050ddf1b3))
 
 ## 8.19.1
 
