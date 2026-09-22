@@ -200,6 +200,13 @@ export const comments: { readonly [key in TokenName]: string } = {
     bodyFontSize: 'Font size for the "Body" base token',
     bodyFontWeight: 'Font weight for the "Body" base token',
     bodyFontLineHeight: 'Font line height for the "Body" base token',
+    codeFont: 'Font shorthand for the code font token',
+    codeFontColor: 'Font color for the code font token',
+    codeDisabledFontColor: 'Disabled font color for the code font token',
+    codeFontFamily: 'Font family for the code font token',
+    codeFontSize: 'Font size for the code font token',
+    codeFontWeight: 'Font weight for the code font token',
+    codeFontLineHeight: 'Font line height for the code font token',
     bodyEmphasizedFont: 'Font shorthand for the "BodyEmphasized" base token',
     bodyEmphasizedFontColor: 'Font color for the "BodyEmphasized" base token',
     bodyEmphasizedDisabledFontColor:

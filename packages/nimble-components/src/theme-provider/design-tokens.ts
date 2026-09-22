@@ -372,6 +372,25 @@ export const [
 );
 
 export const [
+    codeFont,
+    codeFontColor,
+    codeDisabledFontColor,
+    codeFontFamily,
+    codeFontWeight,
+    codeFontSize,
+    codeFontLineHeight
+] = createFontTokens(
+    tokenNames.codeFont,
+    tokenValues.codeFont,
+    tokenValues.codeFontColor,
+    tokenValues.codeDisabledFontColor,
+    tokenValues.codeFontFamily,
+    tokenValues.codeFontWeight,
+    tokenValues.codeFontSize,
+    tokenValues.codeFontLineHeight
+);
+
+export const [
     bodyEmphasizedFont,
     bodyEmphasizedFontColor,
     bodyEmphasizedDisabledFontColor,

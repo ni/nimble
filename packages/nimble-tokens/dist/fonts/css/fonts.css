@@ -61,3 +61,19 @@
   size-adjust: 119%;
   src: local("Times New Roman");
 }
+
+@font-face {
+  font-family: 'Noto Sans Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/NotoSansMono-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans Mono Fallback";
+  font-style: normal;
+  font-weight: 400;
+  size-adjust: 100%;
+  src: local("Courier New");
+}
