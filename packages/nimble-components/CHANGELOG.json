@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 24 Sep 2026 22:05:36 GMT",
+      "version": "35.14.0",
+      "tag": "@ni/nimble-components_v35.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1f673014cafe5c432580c3b13df58041988f328a",
+            "comment": "DateTextFormatter"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 22 Sep 2026 19:32:36 GMT",
       "version": "35.13.3",
       "tag": "@ni/nimble-components_v35.13.3",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 22 Sep 2026 19:32:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 24 Sep 2026 22:05:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.14.0
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Minor changes
+
+- DateTextFormatter ([ni/nimble@1f67301](https://github.com/ni/nimble/commit/1f673014cafe5c432580c3b13df58041988f328a))
 
 ## 35.13.3
 
