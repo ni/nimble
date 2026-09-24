@@ -2,6 +2,21 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Thu, 24 Sep 2026 22:47:33 GMT",
+      "version": "1.0.13",
+      "tag": "@ni/jasmine-parameterized_v1.0.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "aefa2a2ccbca09b6faa758331c6633d46bedeb3c",
+            "comment": "Align types export paths"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Sep 2026 18:31:36 GMT",
       "version": "1.0.12",
       "tag": "@ni/jasmine-parameterized_v1.0.12",

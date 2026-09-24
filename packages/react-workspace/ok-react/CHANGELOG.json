@@ -2,6 +2,27 @@
   "name": "@ni/ok-react",
   "entries": [
     {
+      "date": "Thu, 24 Sep 2026 22:47:33 GMT",
+      "version": "0.12.9",
+      "tag": "@ni/ok-react_v0.12.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "aefa2a2ccbca09b6faa758331c6633d46bedeb3c",
+            "comment": "Align types export paths"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v1.9.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Sep 2026 22:05:36 GMT",
       "version": "0.12.8",
       "tag": "@ni/ok-react_v0.12.8",
