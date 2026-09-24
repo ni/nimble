@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-angular",
-  "version": "10.0.1",
+  "version": "10.0.2",
   "description": "Angular components for NI Spright",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/spright-angular && npm publish",
@@ -29,6 +29,6 @@
     "@angular/common": "^21.2.21",
     "@angular/core": "^21.2.21",
     "@angular/localize": "^21.2.21",
-    "@ni/spright-components": "^6.22.3"
+    "@ni/spright-components": "^6.22.4"
   }
 }

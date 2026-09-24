@@ -2,6 +2,27 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 22 Sep 2026 19:32:36 GMT",
+      "version": "1.9.3",
+      "tag": "@ni/ok-components_v1.9.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.13.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.22.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 21 Sep 2026 21:33:58 GMT",
       "version": "1.9.2",
       "tag": "@ni/ok-components_v1.9.2",
