@@ -14,7 +14,7 @@ These components will go in Spright along with existing chat components.
 
 ### Non-goals
 
-The following capabilities are feature gaps compared with the testhub reference:
+The following capabilities are feature gaps compared with the React reference below:
 
 - Presenting approval requests or rendering approval decision and preference actions. This has a complex API so is deferred to a future pass.
 - Detailed execution-result presentation, including commands, working directories, exit metadata, and standard output streams.
@@ -44,7 +44,7 @@ The following capabilities are feature gaps compared with the testhub reference:
 A customer can use the components together like this:
 
 ```html
-<spright-chat-message-tool-summary id="tool-summary">
+<spright-chat-message-tool-summary>
     <spright-chat-tool-call
         name="query_assets"
         status="pending">
@@ -63,9 +63,9 @@ The parent defaults to a collapsed summary of all slotted calls. Each child can 
 
 _The key elements of the public API surface are described separately for each component._
 
-#### `spright-chat-message-tool-summary`
+#### Chat message tool summary
 
-- _Component Name_: Class `ChatMessageToolSummary`, tag `spright-chat-message-tool-summary`, exported tag constant `chatMessageToolSummaryTag` 
+- _Tag_: `spright-chat-message-tool-summary`
 - _Props/Attrs_:
     - `expanded` - boolean, default `false`; controls whether the grouped child list is shown. User toggles are reflected to the property and attribute.
 - _Methods_
@@ -77,11 +77,10 @@ _The key elements of the public API surface are described separately for each co
 
 The parent does not participate in forms or delegate focus. Focus belongs to its internal disclosure and action controls.
 
-#### `spright-chat-tool-call`
+#### Tool call
 
-- _Component Name_: Class `ChatToolCall`, tag `spright-chat-tool-call`, exported tag constant `chatToolCallTag`
+- _Tag_: `spright-chat-tool-call`
 - _Props/Attrs_:
-    - `call-id` - string property identifying the call. It defaults to the host element's `id` when omitted.
     - `name` - string attribute and property identifying the tool and providing its visible label. Clients should assign the localized display value when needed.
     - `status` - string attribute and property. Supported values are `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`.
     - `input` - independent property containing the invocation input. It is not serialized as an attribute.
