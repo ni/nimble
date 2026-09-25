@@ -175,17 +175,62 @@ This package follows the [NI JavaScript and TypeScript Styleguide](https://githu
 
 Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
 
-#### Represent control states as attributes
+#### Comments
 
-##### Why attributes over classes
+At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
 
-It is common in web development to represent variations of control states using css classes. While it is possible to apply custom styles to web components based on user-added CSS classes, i.e. `:host(.my-class)`, it is not allowed in nimble for the following reasons:
+#### Custom element API design
 
-- The `class` attribute is a user-configured attribute. For native HTML elements it would be surprising if setting a class, i.e. `<div class="my-class">`, caused the element to have a new style that the user did not define in their stylesheet. However, other attributes are expected to have element defined behavior, i.e. `<div hidden>`.
-- Classes set in the `class` attribute are not as well-typed across frameworks. Users have to contort a bit to use exported enums for CSS class strings while attributes and attribute values are well-typed in wrappers.
-- Binding to updates in the `class` attribute is more difficult / not an expected pattern. This makes it difficult to forward configured properties to inner elements. Alternatively, binding to attributes and forwarding bound attribute values in templates is a well supported pattern.
+Custom element APIs should follow the guidance below. The custom element API surface includes the tag name, attributes, properties, methods, events, and slots for child content.
 
-##### Attribute naming convention
+##### Align with the platform
+
+Start with the API and semantics of the closest native HTML element, preserving native names and behavior when the component is intended to replace that element. Prefer a native element or an existing Nimble/FAST component over inventing a parallel API.
+
+Use the native platform's interaction, accessibility, form, link, and focus patterns whenever they apply. A custom element should not require clients to learn a different way to perform a familiar HTML task without a clear reason. Check relevant HTML and Open UI proposals before introducing a new attribute name so the custom API does not unnecessarily compete with an emerging platform API.
+
+##### HTML tag name
+
+The tag name is used to add the component to HTML (or the framework-equivalent template). For example, `nimble-button`
+
+##### Component naming convention
+
+Use the following structure when naming components.
+
+`nimble[-category][-variant]-presentation`
+
+1. All Nimble custom elements are prefixed with `nimble-` to avoid name collisions with other component libraries. Applications should choose their own unique prefix if they define their own elements. Other libraries within the Nimble repo use different prefixes, e.g. `spright-`.
+2. **category** can be used to group similar components together alphabetically. Examples include `icon` and `table-column`.
+3. **variant** can be used to distinguish alternate configurations of one presentation. For example, `anchor-`, `card-`, `menu-`, and `toggle-` are all variants of the `button` presentation. The primary configuration can omit the `variant` segment (e.g. `nimble-button`).
+4. **presentation** describes the visual presentation of the component. For example, `button`, `tab`, or `text-field`.
+
+##### Registering and exporting tag names
+
+Component custom element names are specified in `index.ts` when registering the element. Every component should export its custom element tag (e.g. `nimble-button`) as a string literal.
+
+```ts
+export const buttonTag = 'nimble-button';
+```
+
+Client code can use this to refer to the component in an HTML template and a dependency on the export will let a compiled application detect if a tag name changes.
+
+For any custom element definition, extend TypeScript's `HTMLElementTagNameMap` to register the new element. For example:
+
+```js
+declare global {
+    interface HTMLElementTagNameMap {
+        // register tag name and type of custom element
+        'nimble-button': Button;
+    }
+}
+```
+
+This enables TypeScript to infer the type of a returned element for DOM methods such as `document.createElement()` and `document.querySelector()`.
+##### Attributes
+
+Use attributes for serializable, declarative configuration and state that clients should be able to set in HTML markup (and the equivalent framework-specific template languages). Attributes can only be primitive types: boolean, string, and number.
+
+###### Attribute naming convention
 
 - Do not use attribute names that conflict with native attribute names:
     - Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
@@ -199,7 +244,7 @@ It is common in web development to represent variations of control states using 
         public errorText?: string;
     ```
 
-##### Attribute common name patterns
+###### Attribute common name patterns
 
 - For attributes that control the visibility of a part, use either the boolean attribute `<part>-visible` or `<part>-hidden`, i.e. `icon-visible` or `icon-hidden`.
 
@@ -209,7 +254,7 @@ It is common in web development to represent variations of control states using 
 
     An `appearance-variant` attribute may also be used to represent smaller mutually exclusive variations of an appearance. Likely implemented with CSS attribute selectors.
 
-##### Attribute common value patterns
+###### Attribute common value patterns
 
 - When applicable, the default value for an attribute that is allowed to be unconfigured should be first in the enum object, have a descriptive enum name, such as `default`, `none`, etc, based on the context, and be the enum value `undefined`.
 - Boolean attributes must always default to `false`. Otherwise, the configuration in HTML becomes meaningless, as both `<element></element>` and `<element bool-attr></element>` result in `bool-attr` being set to `true`.
@@ -217,7 +262,7 @@ It is common in web development to represent variations of control states using 
 
     Avoid shorthands, i.e. `warn`, `info` and avoid alternatives, i.e. `pass`, `fail`, `invalid`.
 
-##### Responding to attribute values
+###### Responding to attribute values
 
 With an attribute defined there are several ways to react to updates. To minimize performance overhead, prefer in order (may utilize more that one):
 
@@ -254,7 +299,35 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
     Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
 
-#### Don't throw exceptions when a component is misconfigured
+###### Why attributes over classes
+
+It is common in web development to represent variations of control states using css classes. While it is possible to apply custom styles to web components based on user-added CSS classes, i.e. `:host(.my-class)`, it is not allowed in nimble for the following reasons:
+
+- The `class` attribute is a user-configured attribute. For native HTML elements it would be surprising if setting a class, i.e. `<div class="my-class">`, caused the element to have a new style that the user did not define in their stylesheet. However, other attributes are expected to have element defined behavior, i.e. `<div hidden>`.
+- Classes set in the `class` attribute are not as well-typed across frameworks. Users have to contort a bit to use exported enums for CSS class strings while attributes and attribute values are well-typed in wrappers.
+- Binding to updates in the `class` attribute is more difficult / not an expected pattern. This makes it difficult to forward configured properties to inner elements. Alternatively, binding to attributes and forwarding bound attribute values in templates is a well supported pattern.
+
+##### Properties
+
+Attributes will typically be backed by a property on the component class.
+
+Use properties without a corresponding attribute for component configuration or state that should be available through JavaScript, especially when it is runtime-only, read-only, non-serializable, expensive to serialize, or structured data that isn't well represented by primitive types.
+
+##### Methods
+
+Use methods for imperative actions or lifecycle transitions that clients explicitly invoke. Keep methods small and imperative: they should perform an action or lifecycle transition.
+
+##### Events
+
+Use events to notify clients that something happened or that user interaction changed component state. Prefer standard DOM events and native event names when they accurately describe the behavior. For custom events, use lower-kebab-case names, document when they fire, and document the `detail` type and whether the event represents user interaction or programmatic state changes. Do not emit user-interaction events for state changes caused only by client code or data updates unless the component's contract explicitly requires it.
+
+##### Slots and content
+
+Use slots when clients need to provide visible content that should appear within the component or to specify declarative configuration that can't be represented as an attribute. This keeps markup declarative, allows clients to compose content, and avoids attribute APIs that accept configuration objects.
+
+Follow slot conventions from existing components. Use the unnamed "default" slot for primary content and labels. Use named slots with common names like `start` and `end` for content that's displayed before and after the primary content.
+
+##### Handling invalid configuration
 
 Components should be robust to having their properties and attributes configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
 
@@ -266,10 +339,6 @@ It is acceptable to throw exceptions in production code in other situations. For
 
 - when a case gets hit that should be impossible, like an invalid enum value.
 - from a component method when it shouldn't be called in the component's current state, like `show()` on a dialog that is already open.
-
-#### Comments
-
-At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
 
 ### Adhere to accessibility guidelines
 
@@ -321,31 +390,6 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 ### Icon components
 
 The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
-
-### Export component tag
-
-Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
-
-```ts
-export const buttonTag = 'nimble-button';
-```
-
-Client code can use this to refer to the component in an HTML template and having a dependency on the export will let a compiled application detect if a tag name changes.
-
-### TypeScript integration
-
-For any custom element definition, extend TypeScript's `HTMLElementTagNameMap` to register the new element. For example:
-
-```js
-declare global {
-    interface HTMLElementTagNameMap {
-        // register tag name and type of custom element
-        'nimble-button': Button;
-    }
-}
-```
-
-This enables TypeScript to infer the type of a returned element based on its tag name for DOM methods such as `document.createElement()` and `document.querySelector()`.
 
 ### Focus delegation
 
@@ -486,17 +530,6 @@ Components using localized labels should document them in Storybook. To add a "L
 
 - Their story `Args` should extend `LabelUserArgs`
 - Call `addLabelUseMetadata()` and pass their declared metadata object, the applicable label provider tag, and the label tokens that they're using
-
-## Component naming
-
-Component custom element names are specified in `index.ts` when registering the element. Use the following structure when naming components.
-
-`nimble[-category][-variant]-presentation`
-
-1. All Nimble custom elements are prefixed with `nimble-` to avoid name collisions with other component libraries. Applications should choose their own unique prefix if they define their own elements.
-2. **category** can be used to group similar components together alphabetically. Examples include `icon` and `table-column`.
-3. **variant** can be used to distinguish alternate configurations of one presentation. For example, `anchor-`, `card-`, `menu-`, and `toggle-` are all variants of the `button` presentation. The primary configuration can omit the `variant` segment (e.g. `nimble-button`).
-4. **presentation** describes the visual presentation of the component. For example, `button`, `tab`, or `text-field`.
 
 ## Theme-aware tokens
 
