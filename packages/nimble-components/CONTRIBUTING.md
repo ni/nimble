@@ -313,6 +313,8 @@ Attributes will typically be backed by a property on the component class.
 
 Use properties without a corresponding attribute for component configuration or state that should be available through JavaScript, especially when it is runtime-only, read-only, non-serializable, expensive to serialize, or structured data that isn't well represented by primitive types.
 
+For collections or nested configuration, prefer declarative child elements in a slot over a structured parent property. Children may expose primitive attributes and properties.
+
 ##### Methods
 
 Use methods for imperative actions or lifecycle transitions that clients explicitly invoke. Keep methods small and imperative: they should perform an action or lifecycle transition.
@@ -326,6 +328,8 @@ Use events to notify clients that something happened or that user interaction ch
 Use slots when clients need to provide visible content that should appear within the component or to specify declarative configuration that can't be represented as an attribute. This keeps markup declarative, allows clients to compose content, and avoids attribute APIs that accept configuration objects.
 
 Follow slot conventions from existing components. Use the unnamed "default" slot for primary content and labels. Use named slots with common names like `start` and `end` for content that's displayed before and after the primary content.
+
+For structured configuration that can be expressed as repeated or nested content, use the default slot for child elements rather than requiring a configuration object property. This keeps the API declarative and makes individual records independently addressable by framework wrappers. The child element's properties may still carry non-serializable or frequently changing runtime data.
 
 ##### Handling invalid configuration
 
