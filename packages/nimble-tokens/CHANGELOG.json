@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 28 Sep 2026 21:44:17 GMT",
+      "version": "8.20.0",
+      "tag": "@ni/nimble-tokens_v8.20.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "7b35ce12408e40866c7e34fd08b0be348a514857",
+            "comment": "Add new icons for file and folder operations, scissors/cut. Update icons for systemlink and electronic-chip-zoomed."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 22 Sep 2026 19:32:36 GMT",
       "version": "8.19.2",
       "tag": "@ni/nimble-tokens_v8.19.2",

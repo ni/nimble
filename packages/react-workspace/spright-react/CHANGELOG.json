@@ -2,6 +2,21 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Mon, 28 Sep 2026 21:44:17 GMT",
+      "version": "0.16.0",
+      "tag": "@ni/spright-react_v0.16.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v6.23.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 28 Sep 2026 14:45:42 GMT",
       "version": "0.15.7",
       "tag": "@ni/spright-react_v0.15.7",

@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add new icons for file and folder operations, scissors/cut. Update icons for systemlink and electronic-chip-zoomed.",
-  "packageName": "@ni/nimble-tokens",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "minor"
-}
