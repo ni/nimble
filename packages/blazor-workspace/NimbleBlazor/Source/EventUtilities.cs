@@ -2,6 +2,10 @@
 
 namespace NimbleBlazor;
 
+/*
+ * This class was copied and adapted from the Microsoft documentation:
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/performance/rendering?view=aspnetcore-10.0#avoid-rerendering-after-handling-events-without-state-changes
+ */
 internal static class EventUtilities
 {
     public static Action AsNonRenderingEventHandler(Action callback)
