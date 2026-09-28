@@ -1,7 +1,7 @@
 @namespace NimbleBlazor
 @inherits NimbleInputBase<string?>
 <nimble-text-field
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     autofocus="@AutoFocus"
     appearance="@Appearance.ToAttributeValue()"
     current-value="@BindConverter.FormatValue(CurrentValue)"

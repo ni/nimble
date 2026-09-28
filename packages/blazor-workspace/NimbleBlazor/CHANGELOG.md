@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 24 Sep 2026 22:47:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 28 Sep 2026 20:58:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 22.0.7
+
+Mon, 28 Sep 2026 20:58:54 GMT
+
+### Patches
+
+- Make 'blur' a non-rendering event ([ni/nimble@6631d56](https://github.com/ni/nimble/commit/6631d5619aa7e78a98572835fdeb73e23d0f66de))
 
 ## 22.0.6
 
