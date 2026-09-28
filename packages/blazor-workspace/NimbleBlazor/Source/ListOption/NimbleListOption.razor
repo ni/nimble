@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-list-option
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     disabled="@Disabled"
     value="@BindConverter.FormatValue(Value?.ToString())"
     selected="@Context?.CurrentValue?.Equals(Value)"

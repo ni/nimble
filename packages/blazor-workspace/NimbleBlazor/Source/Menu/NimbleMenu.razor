@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-menu
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-menu>
