@@ -97,6 +97,29 @@ export class AutoScrollManager implements Subscriber {
         }
     }
 
+    /** @internal */
+    public smoothScrollTo(scrollTop: number): void {
+        const container = this.conversation.messagesContainer;
+        if (Math.abs(container.scrollTop - scrollTop) <= 1) {
+            // No movement is needed, so `scrollTo` would not emit a scroll event
+            // to clear the programmatic guard. Snap to the exact target and
+            // leave the guard clear so streamed content keeps being followed.
+            this.programmaticScrollTarget = undefined;
+            container.scrollTop = scrollTop;
+            return;
+        }
+        this.programmaticScrollTarget = scrollTop;
+        container.scrollTo({
+            top: scrollTop,
+            behavior: 'smooth'
+        });
+    }
+
+    /** @internal */
+    public instantScrollTo(scrollTop: number): void {
+        this.conversation.messagesContainer.scrollTop = scrollTop;
+    }
+
     private onMessagesChanged(): void {
         const current = this.getOrderedMessages();
         const isInitialContent = this.previousMessages.length === 0;
@@ -213,27 +236,6 @@ export class AutoScrollManager implements Subscriber {
     private getMaxScrollTop(): number {
         const { scrollHeight, clientHeight } = this.conversation.messagesContainer;
         return Math.max(0, scrollHeight - clientHeight);
-    }
-
-    private smoothScrollTo(scrollTop: number): void {
-        const container = this.conversation.messagesContainer;
-        if (Math.abs(container.scrollTop - scrollTop) <= 1) {
-            // No movement is needed, so `scrollTo` would not emit a scroll event
-            // to clear the programmatic guard. Snap to the exact target and
-            // leave the guard clear so streamed content keeps being followed.
-            this.programmaticScrollTarget = undefined;
-            container.scrollTop = scrollTop;
-            return;
-        }
-        this.programmaticScrollTarget = scrollTop;
-        container.scrollTo({
-            top: scrollTop,
-            behavior: 'smooth'
-        });
-    }
-
-    private instantScrollTo(scrollTop: number): void {
-        this.conversation.messagesContainer.scrollTop = scrollTop;
     }
 
     private setScrollAnchorMessage(message?: ChatMessage): void {
