@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Make 'blur' a non-rendering event",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
