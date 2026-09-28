@@ -4,7 +4,7 @@ import * as labelTokensNamespace from '@ni/spright-components/dist/esm/label-pro
 import {
     type LabelProviderArgs,
     labelProviderMetadata
-} from '../../../nimble/label-provider/base/label-provider-stories-utils';
+} from '../../../utilities/label-provider/label-provider-stories-utils';
 
 const metadata: Meta<LabelProviderArgs> = {
     ...labelProviderMetadata,

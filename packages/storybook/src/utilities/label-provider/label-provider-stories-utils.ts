@@ -9,7 +9,7 @@ import {
     getPropertyName,
     removePrefixAndCamelCase
 } from './label-name-utils';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { createUserSelectedThemeStory } from '../storybook';
 
 export interface LabelProviderArgs {
     tableRef: Table;
