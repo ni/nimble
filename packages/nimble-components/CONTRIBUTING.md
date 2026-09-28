@@ -318,7 +318,7 @@ For collections or nested configuration which must be set by clients, prefer dec
 
 ###### Property naming convention
 
-Custom element properties follow the standard TypeScript class property naming convention: camelCase. Properties that map to attributes should also be camelCase, meaning the property and attribute name may not match exactly (e.g. `appearanceVariant` property and `appearance-variant` attribute).
+Custom element properties follow the standard TypeScript class property naming convention: camelCase. Properties that map to attributes should also be camelCase, meaning the property and attribute name may have a camelCase to kebap-case conversion (e.g. `appearanceVariant` property and `appearance-variant` attribute).
 
 ##### Methods
 
