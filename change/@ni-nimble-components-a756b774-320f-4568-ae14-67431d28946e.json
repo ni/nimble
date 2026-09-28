@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Keep the block appearance background for read-only text areas",
+  "packageName": "@ni/nimble-components",
+  "email": "152394158+sb123sb123@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
