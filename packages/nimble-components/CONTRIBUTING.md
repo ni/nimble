@@ -173,7 +173,7 @@ This package follows the [NI JavaScript and TypeScript Styleguide](https://githu
 
 #### Comments
 
-At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
+At a minimum all classes should have a JSDoc block comment and ultimately all parts of the public API should have a JSDoc block comment as well.
 
 #### CSS
 
