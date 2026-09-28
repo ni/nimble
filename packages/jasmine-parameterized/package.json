@@ -1,6 +1,6 @@
 {
   "name": "@ni/jasmine-parameterized",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Utilities to write parameterized jasmine tests",
   "keywords": [
     "jasmine",
@@ -29,7 +29,7 @@
       "import": "./dist/esm/index.js"
     },
     "./*": {
-      "types": "./dist/esm/*.d.ts",
+      "types": "./dist/esm/*/index.d.ts",
       "import": "./dist/esm/*/index.js"
     }
   },

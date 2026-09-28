@@ -2,6 +2,27 @@
   "name": "@ni/unit-format",
   "entries": [
     {
+      "date": "Thu, 24 Sep 2026 22:47:33 GMT",
+      "version": "1.0.8",
+      "tag": "@ni/unit-format_v1.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "aefa2a2ccbca09b6faa758331c6633d46bedeb3c",
+            "comment": "Align types export paths"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/unit-format",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.13",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Sep 2026 18:31:36 GMT",
       "version": "1.0.7",
       "tag": "@ni/unit-format_v1.0.7",

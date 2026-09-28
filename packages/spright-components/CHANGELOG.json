@@ -2,6 +2,57 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 28 Sep 2026 14:45:42 GMT",
+      "version": "6.22.7",
+      "tag": "@ni/spright-components_v6.22.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "238d3bc00a06f9a805e94f1f1d7713dfb5e230df",
+            "comment": "Disable scroll animation for initial Spright chat conversation scroll"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Sep 2026 22:47:33 GMT",
+      "version": "6.22.6",
+      "tag": "@ni/spright-components_v6.22.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.14.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.13",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Sep 2026 22:05:36 GMT",
+      "version": "6.22.5",
+      "tag": "@ni/spright-components_v6.22.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 22 Sep 2026 19:32:36 GMT",
       "version": "6.22.4",
       "tag": "@ni/spright-components_v6.22.4",

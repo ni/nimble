@@ -1,8 +1,33 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Tue, 22 Sep 2026 19:32:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 28 Sep 2026 14:45:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.12.10
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.6
+
+## 0.12.9
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Align types export paths ([ni/nimble@aefa2a2](https://github.com/ni/nimble/commit/aefa2a2ccbca09b6faa758331c6633d46bedeb3c))
+- Bump @ni/ok-components to v1.9.5
+
+## 0.12.8
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.4
 
 ## 0.12.7
 
