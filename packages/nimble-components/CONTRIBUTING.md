@@ -330,7 +330,9 @@ Custom element methods follow the standard TypeScript class method naming conven
 
 ##### Events
 
-Use events to notify clients that something happened or that user interaction changed component state. Do not emit user-interaction events for state changes caused only by client code or data updates unless the component's contract explicitly requires it.
+Use events to notify clients that user interaction changed component state. Do not emit events for state changes caused only by programmatic manipulation / client application code interacting with the DOM APIs (attributes, properties, methods).
+
+When aligning with a native DOM event name and behavior then prefer reproducing the event firing characteristics for the native event.
 
 ###### Event naming convention
 
