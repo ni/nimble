@@ -171,13 +171,13 @@ You should still use `fast-element` features to make it easier to build and main
 
 This package follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) with some exceptions listed in [Coding Conventions](/packages/nimble-components/docs/coding-conventions.md).
 
-#### CSS
-
-Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
-
 #### Comments
 
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
+
+#### CSS
+
+Component CSS should follow the patterns described in [CSS Guidelines](/packages/nimble-components/docs/css-guidelines.md).
 
 #### Custom element API design
 
@@ -191,7 +191,7 @@ Use the native platform's interaction, accessibility, form, link, and focus patt
 
 ##### HTML tag name
 
-The tag name is used to add the component to HTML (or the framework-equivalent template). For example, `nimble-button`
+The tag name is used to add the component to HTML (or the framework-equivalent template). For example, `nimble-button`.
 
 ##### Component naming convention
 
@@ -226,9 +226,10 @@ declare global {
 ```
 
 This enables TypeScript to infer the type of a returned element for DOM methods such as `document.createElement()` and `document.querySelector()`.
+
 ##### Attributes
 
-Use attributes for serializable, declarative configuration and state that clients should be able to set in HTML markup (and the equivalent framework-specific template languages). Attributes can only be primitive types: boolean, string, and number.
+Use attributes for declarative configuration and state that clients should be able to set in HTML markup (and the equivalent framework-specific template languages). Attributes can only be primitive types: boolean, string, and number.
 
 ###### Attribute naming convention
 
@@ -313,23 +314,37 @@ Attributes will typically be backed by a property on the component class.
 
 Use properties without a corresponding attribute for component configuration or state that should be available through JavaScript, especially when it is runtime-only, read-only, non-serializable, expensive to serialize, or structured data that isn't well represented by primitive types.
 
-For collections or nested configuration, prefer declarative child elements in a slot over a structured parent property. Children may expose primitive attributes and properties.
+For collections or nested configuration which must be set by clients, prefer declarative child elements in a slot over a property. Children may expose primitive attributes and properties.
+
+###### Property naming convention
+
+Custom element properties follow the standard TypeScript class property naming convention: camelCase. Properties that map to attributes should also be camelCase, meaning the property and attribute name may not match exactly (e.g. `appearanceVariant` property and `appearance-variant` attribute).
 
 ##### Methods
 
-Use methods for imperative actions or lifecycle transitions that clients explicitly invoke. Keep methods small and imperative: they should perform an action or lifecycle transition.
+Use methods for imperative actions or lifecycle transitions that clients explicitly invoke.
+
+###### Method naming convention
+
+Custom element methods follow the standard TypeScript class method naming convention: camelCase().
 
 ##### Events
 
-Use events to notify clients that something happened or that user interaction changed component state. Prefer standard DOM events and native event names when they accurately describe the behavior. For custom events, use lower-kebab-case names, document when they fire, and document the `detail` type and whether the event represents user interaction or programmatic state changes. Do not emit user-interaction events for state changes caused only by client code or data updates unless the component's contract explicitly requires it.
+Use events to notify clients that something happened or that user interaction changed component state. Do not emit user-interaction events for state changes caused only by client code or data updates unless the component's contract explicitly requires it.
+
+###### Event naming convention
+
+Prefer standard DOM events and native event names when they accurately describe the behavior. For custom events, use lower-kebab-case names, document when they fire, and document the `detail` type. 
 
 ##### Slots and content
 
-Use slots when clients need to provide visible content that should appear within the component or to specify declarative configuration that can't be represented as an attribute. This keeps markup declarative, allows clients to compose content, and avoids attribute APIs that accept configuration objects.
+Use slots when clients need to
+1. provide visible content that should appear within the component, for example labels, icons, or arbitrary HTML content.
+1. specify declarative configuration that can't be represented as an attribute. A slot with a custom child component can be used to represent array configuration (by providing multiple instances of the child component) and structured configuration (by setting attributes on the child component) while preserving strict typing and avoiding passing complex configuration objects or JSON strings to a property or attribute.
+
+###### Slot naming convention
 
 Follow slot conventions from existing components. Use the unnamed "default" slot for primary content and labels. Use named slots with common names like `start` and `end` for content that's displayed before and after the primary content.
-
-For structured configuration that can be expressed as repeated or nested content, use the default slot for child elements rather than requiring a configuration object property. This keeps the API declarative and makes individual records independently addressable by framework wrappers. The child element's properties may still carry non-serializable or frequently changing runtime data.
 
 ##### Handling invalid configuration
 
