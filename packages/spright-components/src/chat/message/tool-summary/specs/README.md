@@ -2,7 +2,7 @@
 
 ## Overview
 
-`spright-chat-message-tool-summary` is a chat message type that presents the status of one or more tool calls invoked during a chat session. It uses a reusable `spright-chat-tool-call` child component to represent each tool call.
+`spright-chat-message-tool-summary` is a chat message type that presents the status of one or more tool calls invoked during a chat session. It uses `spright-chat-tool-call` child components to represent each tool call, which use `spright-chat-tool-call-input` children for their inputs.
 
 ### Background
 
@@ -50,9 +50,36 @@ A customer can use the components together like this:
         status="pending">
     </spright-chat-tool-call>
     <spright-chat-tool-call
-        name="run_command"
-        status="success"
-        input='{"command":"npm test"}'>
+        name="systemlink.assets.search_assets"
+        status="success">
+        <spright-chat-tool-call-input
+            name="filter"
+            value="workspace: &quot;engineering&quot;">
+        </spright-chat-tool-call-input>
+        <spright-chat-tool-call-input
+            name="projection"
+            value='[&quot;id&quot;, &quot;name&quot;, &quot;serialNumber&quot;]'
+            value-type="json">
+        </spright-chat-tool-call-input>
+        <spright-chat-tool-call-input
+            name="take"
+            value="25"
+            value-type="number">
+        </spright-chat-tool-call-input>
+    </spright-chat-tool-call>
+    <spright-chat-tool-call
+        name="systemlink.tags.search_tags"
+        status="success">
+        <spright-chat-tool-call-input
+            name="paths"
+            value='[&quot;Line1.*&quot;, &quot;Line2.*&quot;]'
+            value-type="json">
+        </spright-chat-tool-call-input>
+        <spright-chat-tool-call-input
+            name="keywords"
+            value='[&quot;production&quot;]'
+            value-type="json">
+        </spright-chat-tool-call-input>
     </spright-chat-tool-call>
 </spright-chat-message-tool-summary>
 ```
@@ -83,13 +110,12 @@ The parent does not participate in forms or delegate focus. Focus belongs to its
 - _Props/Attrs_:
     - `name` - string attribute and property identifying the tool and providing its visible label. Clients should assign the localized display value when needed.
     - `status` - string attribute and property. Supported values are `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`.
-    - `input` - independent property containing the invocation input. It is not serialized as an attribute.
 - _Methods_
     - None. The child has no independent disclosure or action methods.
 - _Events_
     - None.
 - _Slots_
-    - None. The status icon, label, and invocation input presentation are built into the component.
+    - `(default)` - ordered `spright-chat-tool-call-input` child elements.
 - _CSS Classes, Parts, and CSS Custom Properties that affect the component_
     - No public CSS parts.
     - Internal rows use available inline size, wrap long invocation expressions, and do not require a fixed height.
@@ -99,13 +125,28 @@ The child does not participate in forms or delegate focus. It has no internal di
 
 `status` supports `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`. `complete` is not exposed as a status value; a call with no completion data can use `success` or `unknown` while the application determines its final state. Status names follow the Spright guidance and avoid abbreviations.
 
-The initial shared API normalizes each framework's tool identity and invocation input into the individual attributes and properties listed above. Each framework adapter owns transport-specific mapping before assigning the child values.
+
+#### Tool call input
+
+- _Tag_: `spright-chat-tool-call-input`
+- _Props/Attrs_:
+    - `name` - string attribute and property identifying the input.
+    - `value` - string attribute containing the input value. Scalar values are represented directly; arrays and objects are serialized as JSON.
+    - `value-type` - optional string attribute describing how to interpret `value`. Supported values are `string` (the default), `number`, `boolean`, and `json`.
+- _Methods_
+    - None.
+- _Events_
+    - None.
+- _Slots_
+    - None.
+- _CSS Classes, Parts, and CSS Custom Properties that affect the component_
+    - None.
 
 #### API Alternatives
 
 A single element with an `entries` property was rejected because it makes the structured model harder to compose declaratively and forces framework wrappers to manage all child identity and the lifecycle of each call. A child component lets applications update one live call without replacing the entire group.
 
-Using one JSON `data` attribute or object property was rejected because it is harder to bind safely from Angular and Blazor and conflicts with the guidance for primitive attributes.
+Using one JSON `data` attribute or object property for the entire tool call was rejected because it is harder to bind safely from Angular and Blazor and conflicts with the guidance for primitive attributes. JSON remains supported for an individual input when `value-type="json"` is used.
 
 ### Anatomy
 
@@ -125,8 +166,13 @@ spright-chat-tool-call
  +- header
 |  +- status icon
 |  +- label
- +- invocation input
+ +- input list
+|  +- slot (spright-chat-tool-call-input child elements) *
  +- footer
+
+spright-chat-tool-call-input
+ +- input name
+ +- input value
 ```
 
 Slotted children are rendered in DOM order. Canceled children are visually de-emphasized and have an equivalent text status; status must never be conveyed by color or decoration alone.
@@ -137,19 +183,19 @@ N/A. This is a status and disclosure component that does not accept input. The c
 
 ### Angular integration
 
-Add Angular wrappers/directives for both elements. The message wrapper should participate in the same conversation/message APIs as inbound and outbound messages, project `SlNigelToolCall` children into the default slot, and avoid binding an `entries` object. Each child wrapper assigns the individual normalized properties. No `ControlValueAccessor` is needed.
+Add Angular wrappers/directives for all three elements. The message wrapper should participate in the same conversation/message APIs as inbound and outbound messages, project `SlNigelToolCall` children into the default slot, and avoid binding an `entries` object. Each tool-call wrapper projects `spright-chat-tool-call-input` children and assigns the individual normalized properties. No `ControlValueAccessor` is needed.
 
-The Angular adapter should transform each existing `ToolCallEntry` into the child's individual properties, preserving grouped order. `ToolCallSummary` becomes the parent plus one child per entry. Approval prompts and detailed execution-result views remain outside this shared component and are owned by the application.
+The Angular adapter should transform each existing `ToolCallEntry` into the child's individual properties and slotted input elements, preserving grouped order. `ToolCallSummary` becomes the parent plus one child per entry. Approval prompts and detailed execution-result views remain outside this shared component and are owned by the application.
 
 ### Blazor integration
 
-Add Blazor wrappers for the message and child. The message participates in the same conversation/message composition as inbound and outbound messages and accepts projected child components. The child accepts individual parameters corresponding to `CallId`, `Name`, `Status`, and `Input`. Assign complex values through JS interop rather than serialize them into HTML attributes.
+Add Blazor wrappers for all three elements. The message participates in the same conversation/message composition as inbound and outbound messages and accepts projected child components. The tool call accepts individual parameters corresponding to `Name` and `Status` and accepts projected input children. The input accepts `Name`, `Value`, and `ValueType` parameters, with arrays and objects serialized as JSON in `Value`.
 
 No form integration is needed. Unknown data must not be rendered as executable markup.
 
 ### Visual Appearance
 
-Visual Design must define the parent's summary and the child's status-row presentation, all status states, long names and invocation expressions, empty input, and narrow widths. The compact Angular summary uses a connected list treatment and monospace tool expressions.
+Visual Design must define the parent's summary, the tool-call status row, input-name/value presentation, all status states, long names and query inputs, empty input, and narrow widths. The compact Angular summary uses a connected list treatment and monospace tool expressions.
 
 The default presentation should be neutral and fit both light and dark Spright themes. Status colors require text or icons with sufficient contrast and must be paired with labels. Canceled and declined states should not rely only on strikethrough.
 
@@ -160,9 +206,9 @@ The default presentation should be neutral and fit both light and dark Spright t
 
 ## Implementation
 
-Implement both elements with FAST Element. Use a custom parent template for the grouped disclosure and a custom child template for the status row. Use the existing button, icon, spinner, and relevant text primitives inside the templates.
+Implement all three elements with FAST Element. Use a custom parent template for the grouped disclosure, a custom tool-call template for the status row and input list, and a custom input template for the input name/value row. Use the existing button, icon, spinner, and relevant text primitives inside the templates.
 
-Keep status normalization and display formatting in small pure utilities. Do not embed parsing for a specific transport in the component. The child should tolerate missing values, unsupported status strings, and malformed input by falling back to `unknown` or a safe string representation. The parent should tolerate unrelated slotted nodes and children without a valid status.
+Keep status normalization and display formatting in small pure utilities. Do not embed parsing for a specific transport in the component. The input child should tolerate missing names, unsupported value types, and malformed JSON by falling back to a safe string representation. The parent should tolerate unrelated slotted nodes and children without a valid status.
 
 ### States
 
@@ -188,15 +234,15 @@ The component uses available width and wraps invocation expressions and labels. 
 
 ### Globalization
 
-All user-visible labels, including the count, pending and completed states, expanded and collapsed states, canceled state, and status labels, must come from a chat label provider. The provider supplies default labels that client applications can localize or replace. Use logical CSS properties and `text-align: start`; do not assume LTR ordering. Invocation input remains in its supplied representation and is not localized.
+All user-visible labels, including the count, pending and completed states, expanded and collapsed states, canceled state, and status labels, must come from a chat label provider. The provider supplies default labels that client applications can localize or replace. Use logical CSS properties and `text-align: start`; do not assume LTR ordering. Input names and values remain in their supplied representation and are not localized.
 
 ### Security
 
-Treat input and tool identity values as untrusted data. Render them as text, never as HTML. Do not execute commands, URLs, markdown, or embedded SVG from child data.
+Treat input names, values, and tool identity values as untrusted data. Render them as text, never as HTML. Do not execute commands, URLs, markdown, or embedded SVG from child data.
 
 ### Performance
 
-The child should update only the affected status row when an individual property changes. Avoid serializing large input values during every render.
+The child should update only the affected status row or input row when an individual property changes. Avoid serializing large input values during every render.
 
 The parent should observe slot changes and preserve DOM order. Duplicate child data IDs should not throw; generated internal IDs may be used for ARIA relationships.
 
@@ -209,19 +255,19 @@ The parent should observe slot changes and preserve DOM order. Duplicate child d
 ### Test Plan
 
 - Unit tests for parent empty, pending, settled, canceled, disabled, and invalid child states.
-- Unit tests for child invocation-input formatting and labels.
+- Unit tests for child input name/value/type parsing, JSON values, and labels.
 - Unit tests for disclosure keyboard behavior, ARIA attributes, and focus behavior.
 - Security tests confirming input and tool identity are rendered as text rather than interpreted as HTML or SVG.
 - Chromatic/Storybook coverage for summary and status-row usage, themes, narrow widths, long content, and every status.
-- Angular and Blazor wrapper tests verifying individual property assignment.
+- Angular and Blazor wrapper tests verifying individual property assignment and slotted input projection.
 
 ### Tooling
 
-Add both components to `src/all-components.ts`, the generated custom-elements manifest, Storybook, and the component status table. Add page objects and unit test folders following Spright conventions. Provide stories that exercise the individual child properties.
+Add all three components to `src/all-components.ts`, the generated custom-elements manifest, Storybook, and the component status table. Add page objects and unit test folders following Spright conventions. Provide stories that exercise the individual child properties and slotted input children.
 
 ### Documentation
 
-Document the primitive attributes, individual child properties and their types, parent/child examples, and the security boundary around untrusted tool data. Add framework examples for Angular, React, Blazor, and plain HTML. Include a migration note explaining how the Angular `ToolCallSummary` and React `ToolCallMessage` models map to slotted children and the shared normalized properties.
+Document the primitive attributes, individual child properties and their types, parent/child/input examples, and the security boundary around untrusted tool data. Add framework examples for Angular, React, Blazor, and plain HTML. Include a migration note explaining how the Angular `ToolCallSummary` and React `ToolCallMessage` models map to slotted children and the shared normalized properties. Document that React/backend `arguments` objects become one input child per named argument.
 
 ## Open Issues
 
