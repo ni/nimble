@@ -5,6 +5,9 @@ import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
+import { chatMessageToolSummaryTag } from '@ni/spright-components/dist/esm/chat/message/tool-summary';
+import { chatToolCallTag } from '@ni/spright-components/dist/esm/chat/message/tool-summary/tool-call';
+import { chatToolCallInputTag } from '@ni/spright-components/dist/esm/chat/message/tool-summary/tool-call-input';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
@@ -30,6 +33,11 @@ const endButtonDescription = 'Place 0 or more buttons with text. They appear bel
 interface ChatMessageInboundArgs {
     footerActions: boolean;
     endButtons: boolean;
+}
+
+interface ChatMessageToolSummaryArgs {
+    expanded: boolean;
+    content: undefined;
 }
 
 const metadata: Meta<ChatMessageInboundArgs> = {
@@ -154,5 +162,36 @@ export const chatMessageImage: StoryObj<ChatMessageInboundArgs> = {
     args: {
         footerActions: false,
         endButtons: false
+    }
+};
+
+export const chatMessageToolSummary: StoryObj<ChatMessageToolSummaryArgs> = {
+    render: createUserSelectedThemeStory(html<ChatMessageToolSummaryArgs>`
+        <div style="width: min(560px, 100%); ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused;' : ''}">
+            <${chatMessageToolSummaryTag} ?expanded="${x => x.expanded}">
+                <${chatToolCallTag} name="systemlink.systems.search_systems" status="pending">
+                    <${chatToolCallInputTag} name="filter" value='workspace: "engineering"'></${chatToolCallInputTag}>
+                    <${chatToolCallInputTag} name="take" value="25" value-type="number"></${chatToolCallInputTag}>
+                </${chatToolCallTag}>
+                <${chatToolCallTag} name="systemlink.assets.search_assets" status="success">
+                    <${chatToolCallInputTag} name="projection" value='["id","name","serialNumber"]' value-type="json"></${chatToolCallInputTag}>
+                </${chatToolCallTag}>
+            </${chatMessageToolSummaryTag}>
+        </div>
+    `),
+    argTypes: {
+        expanded: {
+            description: 'Whether the ordered tool-call list is visible.',
+            control: { type: 'boolean' },
+            table: { category: apiCategory.attributes }
+        },
+        content: {
+            name: 'default',
+            description: `Place ordered \`${chatToolCallTag}\` elements in the default slot. Unrelated elements are ignored when deriving status and count.`,
+            table: { category: apiCategory.slots }
+        }
+    },
+    args: {
+        expanded: false
     }
 };

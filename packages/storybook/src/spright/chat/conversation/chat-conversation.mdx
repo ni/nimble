@@ -4,10 +4,14 @@ import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/message/inbound';
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
+import { chatMessageToolSummaryTag } from '@ni/spright-components/dist/esm/chat/message/tool-summary';
+import { chatToolCallTag } from '@ni/spright-components/dist/esm/chat/message/tool-summary/tool-call';
+import { chatToolCallInputTag } from '@ni/spright-components/dist/esm/chat/message/tool-summary/tool-call-input';
 import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
 import * as conversationStories from './chat-conversation.stories';
 import * as messageStories from '../message/chat-message.stories';
 import * as inputStories from '../input/chat-input.stories';
+import * as toolSummaryStories from '../tool-summary/chat-tool-summary.stories';
 import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import { Tag } from '../../../utilities/story-layout';
 
@@ -79,6 +83,40 @@ Use the <Tag name={chatMessageWelcomeTag} /> element to display welcome content 
 <Canvas of={conversationStories.chatMessageWelcome} />
 <Controls of={conversationStories.chatMessageWelcome} />
 
+#### Tool summary message
+
+Use <Tag name={chatMessageToolSummaryTag} /> to present an ordered group of tool calls in a compact, collapsible chat message.
+
+<Canvas of={messageStories.chatMessageToolSummary} />
+<Controls of={messageStories.chatMessageToolSummary} />
+
+Place one <Tag name={chatToolCallTag} /> per invocation in the summary's default slot.
+
+```html
+<spright-chat-message-tool-summary>
+   <spright-chat-tool-call name="systemlink.assets.search_assets" status="success">
+      <spright-chat-tool-call-input name="take" value="25" value-type="number">
+      </spright-chat-tool-call-input>
+   </spright-chat-tool-call>
+</spright-chat-message-tool-summary>
+```
+
+##### Tool call
+
+Use <Tag name={chatToolCallTag} /> to present one tool call.
+
+<Canvas of={toolSummaryStories.toolCall} />
+<Controls of={toolSummaryStories.toolCall} />
+
+Place one <Tag name={chatToolCallInputTag} /> per named argument in the tool call's default slot.
+
+##### Tool call input
+
+Use <Tag name={chatToolCallInputTag} /> to present one named invocation input. Supported value types are `string`, `number`, `boolean`, and `json`.
+
+<Canvas of={toolSummaryStories.toolCallInput} />
+<Controls of={toolSummaryStories.toolCallInput} />
+
 ### Chat input
 
 Use the <Tag name={chatInputTag} /> element to allow the user to create and send
@@ -99,6 +137,12 @@ library for reasons including:
 3. the implementation has not yet prioritized Nimble requirements like
    accessibility and support for all frameworks
 
-{/* ## Accessibility */}
+Tool names, input names, and values are rendered as text. Do not place executable markup, markdown, command output, or rich result content in tool-call attributes. Detailed results, approvals, live output, and interactive requests remain application-owned.
+
+Arrays and objects must be JSON serialized into an input's `value`. A React or backend `arguments` object maps to one input child per named argument. Angular and Blazor consumers should likewise project child elements and bind primitive attributes; framework wrappers are not yet available.
+
+## Accessibility
+
+The tool summary uses a native disclosure button with `aria-expanded` and `aria-controls`. Status is always shown as text as well as an icon. Tool names and values remain selectable and wrap at narrow widths.
 
 {/* ## Resources */}

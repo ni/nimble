@@ -2,6 +2,16 @@ import { ComponentFrameworkStatus } from '../../types';
 
 export const componentDataSpright = [
     {
+        componentName: 'Chat Tool Summary',
+        componentHref: './?path=/docs/spright-chat-conversation--docs',
+        designLabel: 'Pending',
+        library: 'spright',
+        componentStatus: ComponentFrameworkStatus.incubating,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Chat Conversation',
         componentHref: './?path=/docs/spright-chat-conversation--docs',
         designHref:
