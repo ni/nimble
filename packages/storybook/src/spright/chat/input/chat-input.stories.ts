@@ -16,8 +16,6 @@ import {
 
 interface ChatInputArgs {
     placeholder: string;
-    sendButtonLabel: string;
-    stopButtonLabel: string;
     maxlength: number | undefined;
     value: string;
     processing: boolean;
@@ -55,8 +53,6 @@ export const chatInput: StoryObj<ChatInputArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatInputTag}
             placeholder="${x => x.placeholder}"
-            send-button-label="${x => x.sendButtonLabel}"
-            stop-button-label="${x => x.stopButtonLabel}"
             processing="${x => x.processing}"
             ?send-disabled="${x => x.sendDisabled}"
             maxlength="${x => x.maxlength}"
@@ -86,18 +82,6 @@ export const chatInput: StoryObj<ChatInputArgs> = {
                 componentName: 'chat input'
             }),
             control: { type: 'text' },
-            table: { category: apiCategory.attributes }
-        },
-        sendButtonLabel: {
-            name: 'send-button-label',
-            description:
-                'Text to use for a `title` and ARIA attributes on the send button.',
-            table: { category: apiCategory.attributes }
-        },
-        stopButtonLabel: {
-            name: 'stop-button-label',
-            description:
-                'Text to use for a `title` and ARIA attributes on the stop button.',
             table: { category: apiCategory.attributes }
         },
         maxlength: {
@@ -160,8 +144,6 @@ export const chatInput: StoryObj<ChatInputArgs> = {
     },
     args: {
         placeholder: 'Type a message',
-        sendButtonLabel: 'Send',
-        stopButtonLabel: 'Stop',
         processing: false,
         sendDisabled: false,
         maxlength: -1,

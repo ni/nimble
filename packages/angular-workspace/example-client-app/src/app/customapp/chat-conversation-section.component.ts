@@ -55,7 +55,7 @@ const streamingWords = songThatDoesNotEnd.split(' ');
                         <spright-chat-message-inbound><span>{{entry.text}}</span></spright-chat-message-inbound>
                     }
                 }
-                <spright-chat-input slot="input" placeholder='Type a message (try "start" or "stop")' send-button-label="Send" (send)="onChatInputSend($event)"></spright-chat-input>
+                <spright-chat-input slot="input" placeholder='Type a message (try "start" or "stop")' (send)="onChatInputSend($event)"></spright-chat-input>
                 <span slot="end">
                     AI-generated content may be incorrect.
                     <nimble-anchor href="https://www.ni.com" target="_blank">View Terms and Conditions</nimble-anchor>

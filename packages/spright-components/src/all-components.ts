@@ -14,4 +14,5 @@ import './chat/message/outbound';
 import './chat/message/system';
 import './chat/message/welcome';
 import './icons/all-icons';
+import './label-provider/chat';
 import './rectangle';

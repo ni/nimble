@@ -1,6 +1,7 @@
 import { NimbleThemeProvider, Theme } from '@ni/nimble-react/theme-provider';
 import { NimbleSelect } from '@ni/nimble-react/select';
 import { NimbleListOption } from '@ni/nimble-react/list-option';
+import { SprightLabelProviderChat } from '@ni/spright-react/label-provider/chat';
 
 import './App.scss';
 import { useState } from 'react';
@@ -53,6 +54,7 @@ export function App(): React.JSX.Element {
     return (
         <>
             <NimbleThemeProvider theme={theme}>
+                <SprightLabelProviderChat send="Send" stop="Stop" />
                 <div className="example-root">
                     <div className="header">
                         <NimbleSelect

@@ -50,16 +50,6 @@ describe('Spright chat input', () => {
             expect(nativeElement.placeholder).toBeUndefined();
         });
 
-        it('has expected defaults for sendButtonLabel', () => {
-            expect(directive.sendButtonLabel).toBeUndefined();
-            expect(nativeElement.sendButtonLabel).toBeUndefined();
-        });
-
-        it('has expected defaults for stopButtonLabel', () => {
-            expect(directive.stopButtonLabel).toBeUndefined();
-            expect(nativeElement.stopButtonLabel).toBeUndefined();
-        });
-
         it('has expected defaults for processing', () => {
             expect(directive.processing).toBeFalse();
             expect(nativeElement.processing).toBeFalse();
@@ -96,8 +86,6 @@ describe('Spright chat input', () => {
             template: `
                 <spright-chat-input #chatInput
                     placeholder="Placeholder value"
-                    send-button-label="Send button label value"
-                    stop-button-label="Stop button label value"
                     processing="true"
                     send-disabled="true"
                     value="Value value"
@@ -132,16 +120,6 @@ describe('Spright chat input', () => {
         it('will use template string values for placeholder', () => {
             expect(directive.placeholder).toBe('Placeholder value');
             expect(nativeElement.placeholder).toBe('Placeholder value');
-        });
-
-        it('will use template string values for sendButtonLabel', () => {
-            expect(directive.sendButtonLabel).toBe('Send button label value');
-            expect(nativeElement.sendButtonLabel).toBe('Send button label value');
-        });
-
-        it('will use template string values for stopButtonLabel', () => {
-            expect(directive.stopButtonLabel).toBe('Stop button label value');
-            expect(nativeElement.stopButtonLabel).toBe('Stop button label value');
         });
 
         it('will use template string values for processing', () => {
@@ -180,8 +158,6 @@ describe('Spright chat input', () => {
             template: `
                 <spright-chat-input #chatInput
                     [placeholder]="placeholder"
-                    [sendButtonLabel]="sendButtonLabel"
-                    [stopButtonLabel]="stopButtonLabel"
                     [processing]="processing"
                     [sendDisabled]="sendDisabled"
                     [value]="value"
@@ -196,8 +172,6 @@ describe('Spright chat input', () => {
             @ViewChild('chatInput', { read: SprightChatInputDirective }) public directive: SprightChatInputDirective;
             @ViewChild('chatInput', { read: ElementRef }) public elementRef: ElementRef<ChatInput>;
             public placeholder = 'initial';
-            public sendButtonLabel = 'initial';
-            public stopButtonLabel = 'initial';
             public value = 'initial';
             public processing = false;
             public sendDisabled = true;
@@ -232,28 +206,6 @@ describe('Spright chat input', () => {
 
             expect(directive.placeholder).toBe('updated placeholder value');
             expect(nativeElement.placeholder).toBe('updated placeholder value');
-        });
-
-        it('can be configured with property binding for sendButtonLabel', () => {
-            expect(directive.sendButtonLabel).toBe('initial');
-            expect(nativeElement.sendButtonLabel).toBe('initial');
-
-            fixture.componentInstance.sendButtonLabel = 'updated sendButtonLabel value';
-            fixture.detectChanges();
-
-            expect(directive.sendButtonLabel).toBe('updated sendButtonLabel value');
-            expect(nativeElement.sendButtonLabel).toBe('updated sendButtonLabel value');
-        });
-
-        it('can be configured with property binding for stopButtonLabel', () => {
-            expect(directive.stopButtonLabel).toBe('initial');
-            expect(nativeElement.stopButtonLabel).toBe('initial');
-
-            fixture.componentInstance.stopButtonLabel = 'updated stopButtonLabel value';
-            fixture.detectChanges();
-
-            expect(directive.stopButtonLabel).toBe('updated stopButtonLabel value');
-            expect(nativeElement.stopButtonLabel).toBe('updated stopButtonLabel value');
         });
 
         it('can be configured with property binding for processing', () => {
@@ -328,8 +280,6 @@ describe('Spright chat input', () => {
             template: `
                 <spright-chat-input #chatInput
                     [attr.placeholder]="placeholder"
-                    [attr.send-button-label]="sendButtonLabel"
-                    [attr.stop-button-label]="stopButtonLabel"
                     [attr.processing]="processing"
                     [attr.send-disabled]="sendDisabled"
                     [attr.value]="value"
@@ -344,8 +294,6 @@ describe('Spright chat input', () => {
             @ViewChild('chatInput', { read: SprightChatInputDirective }) public directive: SprightChatInputDirective;
             @ViewChild('chatInput', { read: ElementRef }) public elementRef: ElementRef<ChatInput>;
             public placeholder = 'initial';
-            public sendButtonLabel = 'initial';
-            public stopButtonLabel = 'initial';
             public processing = false;
             public sendDisabled = true;
             public value = 'initial';
@@ -379,28 +327,6 @@ describe('Spright chat input', () => {
 
             expect(directive.placeholder).toBe('updated placeholder value');
             expect(nativeElement.placeholder).toBe('updated placeholder value');
-        });
-
-        it('can be configured with attribute binding for sendButtonLabel', () => {
-            expect(directive.sendButtonLabel).toBe('initial');
-            expect(nativeElement.sendButtonLabel).toBe('initial');
-
-            fixture.componentInstance.sendButtonLabel = 'updated sendButtonLabel value';
-            fixture.detectChanges();
-
-            expect(directive.sendButtonLabel).toBe('updated sendButtonLabel value');
-            expect(nativeElement.sendButtonLabel).toBe('updated sendButtonLabel value');
-        });
-
-        it('can be configured with attribute binding for stopButtonLabel', () => {
-            expect(directive.stopButtonLabel).toBe('initial');
-            expect(nativeElement.stopButtonLabel).toBe('initial');
-
-            fixture.componentInstance.stopButtonLabel = 'updated stopButtonLabel value';
-            fixture.detectChanges();
-
-            expect(directive.stopButtonLabel).toBe('updated stopButtonLabel value');
-            expect(nativeElement.stopButtonLabel).toBe('updated stopButtonLabel value');
         });
 
         it('can be configured with attribute binding for processing', () => {

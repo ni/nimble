@@ -3,12 +3,29 @@ import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-hel
 import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
+import {
+    themeProviderTag,
+    type ThemeProvider
+} from '@ni/nimble-components/dist/esm/theme-provider';
 import { ChatInput, chatInputTag } from '..';
+import {
+    LabelProviderChat,
+    labelProviderChatTag
+} from '../../../label-provider/chat';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatInputPageObject } from '../testing/chat-input.pageobject';
 
 async function setup(): Promise<Fixture<ChatInput>> {
     return await fixture<ChatInput>(html`<${chatInputTag}></${chatInputTag}>`);
+}
+
+async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
+    return await fixture<ThemeProvider>(html`
+        <${themeProviderTag}>
+            <${labelProviderChatTag}></${labelProviderChatTag}>
+            <${chatInputTag}></${chatInputTag}>
+        </${themeProviderTag}>
+    `);
 }
 
 describe('ChatInput', () => {
@@ -66,20 +83,15 @@ describe('ChatInput', () => {
         });
 
         it('shows send button when not processing', () => {
-            const sendLabel = 'Send';
-            element.sendButtonLabel = sendLabel;
-            processUpdates();
-            expect(page.getButtonTitle()).toEqual(sendLabel);
+            expect(page.getButtonTitle()).toEqual('Send');
             expect(page.buttonHasSendIcon()).toBeTrue();
             expect(page.isProcessing()).toBeFalse();
         });
 
         it('shows stop button when processing', () => {
             element.processing = true;
-            const stopLabel = 'Stop';
-            element.stopButtonLabel = stopLabel;
             processUpdates();
-            expect(page.getButtonTitle()).toEqual(stopLabel);
+            expect(page.getButtonTitle()).toEqual('Stop');
             expect(page.buttonHasStopIcon()).toBeTrue();
         });
     });
@@ -417,41 +429,6 @@ describe('ChatInput', () => {
         });
     });
 
-    describe('sendButtonLabel', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        it('defaults to undefined', () => {
-            expect(element.sendButtonLabel).toBeUndefined();
-        });
-
-        it('affects button title and ARIA', () => {
-            element.sendButtonLabel = 'Send it!';
-            processUpdates();
-            expect(page.getButtonTitle()).toEqual('Send it!');
-            expect(page.getButtonTextContent()).toEqual('Send it!');
-        });
-    });
-
-    describe('stopButtonLabel', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        it('defaults to undefined', () => {
-            expect(element.stopButtonLabel).toBeUndefined();
-        });
-
-        it('affects button title and ARIA', () => {
-            element.stopButtonLabel = 'Stop it!';
-            element.processing = true;
-            processUpdates();
-            expect(page.getButtonTitle()).toEqual('Stop it!');
-            expect(page.getButtonTextContent()).toEqual('Stop it!');
-        });
-    });
-
     describe('tabindex', () => {
         beforeEach(async () => {
             await connect();
@@ -534,5 +511,43 @@ describe('ChatInput', () => {
             processUpdates();
             expect(page.isButtonEnabled()).toBeFalse();
         });
+    });
+});
+
+describe('ChatInput with LabelProviderChat', () => {
+    let element: ChatInput;
+    let labelProvider: LabelProviderChat;
+    let page: ChatInputPageObject;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        let themeProvider: ThemeProvider;
+        let connect: () => Promise<void>;
+        ({ element: themeProvider, connect, disconnect } = await setupWithLabelProvider());
+        await connect();
+        element = themeProvider.querySelector(chatInputTag)!;
+        labelProvider = themeProvider.querySelector(labelProviderChatTag)!;
+        page = new ChatInputPageObject(element);
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    it('uses the send label for button text and title', () => {
+        labelProvider.send = 'Send it!';
+        processUpdates();
+
+        expect(page.getButtonTitle()).toEqual('Send it!');
+        expect(page.getButtonTextContent()).toEqual('Send it!');
+    });
+
+    it('uses the stop label for button text and title', () => {
+        labelProvider.stop = 'Stop it!';
+        element.processing = true;
+        processUpdates();
+
+        expect(page.getButtonTitle()).toEqual('Stop it!');
+        expect(page.getButtonTextContent()).toEqual('Stop it!');
     });
 });
