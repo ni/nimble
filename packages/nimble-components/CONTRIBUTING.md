@@ -340,7 +340,7 @@ Prefer standard DOM events and native event names when they accurately describe 
 
 Use slots when clients need to
 1. provide visible content that should appear within the component, for example labels, icons, or arbitrary HTML content.
-1. specify declarative configuration that can't be represented as an attribute. A slot with a custom child component can be used to represent array configuration (by providing multiple instances of the child component) and structured configuration (by setting attributes on the child component) while preserving strict typing and avoiding passing complex configuration objects or JSON strings to a property or attribute.
+2. specify declarative configuration that can't be represented as an attribute. A slot with a custom child component can be used to represent array configuration (by providing multiple instances of the child component) and structured configuration (by setting attributes on the child component) while preserving strict typing and avoiding passing complex configuration objects or JSON strings to a property or attribute.
 
 ###### Slot naming convention
 
