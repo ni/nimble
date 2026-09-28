@@ -20,25 +20,25 @@ internal static class EventUtilities
     public static Func<TValue, Task> AsNonRenderingEventHandler<TValue>(Func<TValue, Task> callback)
         => new AsyncReceiver<TValue>(callback).InvokeAsync;
 
-    private record SyncReceiver(Action Callback)
+    private sealed record SyncReceiver(Action Callback)
         : ReceiverBase
     {
         public void Invoke() => Callback();
     }
 
-    private record SyncReceiver<T>(Action<T> Callback)
+    private sealed record SyncReceiver<T>(Action<T> Callback)
         : ReceiverBase
     {
         public void Invoke(T argument) => Callback(argument);
     }
 
-    private record AsyncReceiver(Func<Task> Callback)
+    private sealed record AsyncReceiver(Func<Task> Callback)
         : ReceiverBase
     {
         public Task InvokeAsync() => Callback();
     }
 
-    private record AsyncReceiver<T>(Func<T, Task> Callback)
+    private sealed record AsyncReceiver<T>(Func<T, Task> Callback)
         : ReceiverBase
     {
         public Task InvokeAsync(T argument) => Callback(argument);
