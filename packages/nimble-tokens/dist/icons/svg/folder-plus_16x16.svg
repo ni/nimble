@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-  <path class="cls-1" d="M8,7h6v7h-7v-6c0-.55.45-1,1-1ZM12,1v3h-2V1h-2v3c-2.21,0-4,1.79-4,4H1v2h3v2H1v2h5v-6c0-1.1.9-2,2-2h6V1h-2Z"/>
+  <path class="cls-1" d="M9,11h2v-2h3v-5h-7v-1H2v10h7v-2ZM3,5h10v1H3v-1ZM15,13h-2v2h-1v-2h-2v-1h2v-2h1v2h2v1Z"/>
 </svg>
