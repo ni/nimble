@@ -38,6 +38,27 @@ describe('Text Area', () => {
         expect(element.control.part.contains('control')).toBe(true);
     });
 
+    it('should retain the block background when read-only', async () => {
+        element.setAttribute('appearance', 'block');
+        element.setAttribute('readonly', '');
+        await connect();
+
+        expect(getComputedStyle(element.control).backgroundColor).toContain(
+            ', 0.07)'
+        );
+    });
+
+    it('should retain the block background when disabled with appearance-readonly', async () => {
+        element.setAttribute('appearance', 'block');
+        element.setAttribute('disabled', '');
+        element.setAttribute('appearance-readonly', '');
+        await connect();
+
+        expect(getComputedStyle(element.control).backgroundColor).toContain(
+            ', 0.07)'
+        );
+    });
+
     it('should set "aria-required" to true when "required-visible" is true', async () => {
         await connect();
         element.requiredVisible = true;
