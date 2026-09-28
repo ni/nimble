@@ -25,7 +25,7 @@ The following capabilities are feature gaps compared with the React reference be
 ### Features
 
 - Compact status presentation for an ordered group of tool call children.
-- A separately reusable child for one tool call, with individual attributes and properties for its runtime state and invocation input.
+- A separately reusable child for one tool call, with attributes and properties for its runtime state and slotted child elements representing its invocation input.
 - Expandable grouped status presentation with disclosure behavior that is accessible by keyboard.
 - Pending, success, warning, error, canceled, declined, and terminated states.
 - User-visible labels supplied by a chat label provider so applications can localize or replace them.
@@ -46,7 +46,7 @@ A customer can use the components together like this:
 ```html
 <spright-chat-message-tool-summary>
     <spright-chat-tool-call
-        name="query_assets"
+        name="systemlink.systems.search_systems"
         status="pending">
     </spright-chat-tool-call>
     <spright-chat-tool-call
@@ -58,7 +58,7 @@ A customer can use the components together like this:
         </spright-chat-tool-call-input>
         <spright-chat-tool-call-input
             name="projection"
-            value='[&quot;id&quot;, &quot;name&quot;, &quot;serialNumber&quot;]'
+            value='["id", "name", "serialNumber"]'
             value-type="json">
         </spright-chat-tool-call-input>
         <spright-chat-tool-call-input
@@ -72,12 +72,12 @@ A customer can use the components together like this:
         status="success">
         <spright-chat-tool-call-input
             name="paths"
-            value='[&quot;Line1.*&quot;, &quot;Line2.*&quot;]'
+            value='["Line1.*", "Line2.*"]'
             value-type="json">
         </spright-chat-tool-call-input>
         <spright-chat-tool-call-input
             name="keywords"
-            value='[&quot;production&quot;]'
+            value='["production"]'
             value-type="json">
         </spright-chat-tool-call-input>
     </spright-chat-tool-call>
@@ -96,7 +96,9 @@ _The key elements of the public API surface are described separately for each co
 - _Props/Attrs_:
     - `expanded` - boolean, default `false`; controls whether the grouped child list is shown. User toggles are reflected to the property and attribute.
 - _Methods_
+    - None.
 - _Events_
+    - None.
 - _Slots_
     - `(default)` - ordered `spright-chat-tool-call` child elements. Unrelated slotted nodes are ignored for count and status purposes.
 - _CSS Classes, Parts, and CSS Custom Properties that affect the component_
@@ -109,7 +111,7 @@ The parent does not participate in forms or delegate focus. Focus belongs to its
 - _Tag_: `spright-chat-tool-call`
 - _Props/Attrs_:
     - `name` - string attribute and property identifying the tool and providing its visible label. Clients should assign the localized display value when needed.
-    - `status` - string attribute and property. Supported values are `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`.
+    - `status` - string attribute and property, default `unknown`. Supported values are `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`.
 - _Methods_
     - None. The child has no independent disclosure or action methods.
 - _Events_
@@ -183,7 +185,7 @@ N/A. This is a status and disclosure component that does not accept input. The c
 
 ### Angular integration
 
-Add Angular wrappers/directives for all three elements. The message wrapper should participate in the same conversation/message APIs as inbound and outbound messages, project `SlNigelToolCall` children into the default slot, and avoid binding an `entries` object. Each tool-call wrapper projects `spright-chat-tool-call-input` children and assigns the individual normalized properties. No `ControlValueAccessor` is needed.
+Add Angular wrappers/directives for all three elements. The message wrapper should participate in the same conversation/message APIs as inbound and outbound messages, project one `spright-chat-tool-call` per Angular `ToolCallEntry` into the default slot, and avoid binding an `entries` object. Each tool-call wrapper projects `spright-chat-tool-call-input` children and assigns the individual normalized properties. No `ControlValueAccessor` is needed.
 
 The Angular adapter should transform each existing `ToolCallEntry` into the child's individual properties and slotted input elements, preserving grouped order. `ToolCallSummary` becomes the parent plus one child per entry. Approval prompts and detailed execution-result views remain outside this shared component and are owned by the application.
 
@@ -195,7 +197,7 @@ No form integration is needed. Unknown data must not be rendered as executable m
 
 ### Visual Appearance
 
-Visual Design must define the parent's summary, the tool-call status row, input-name/value presentation, all status states, long names and query inputs, empty input, and narrow widths. The compact Angular summary uses a connected list treatment and monospace tool expressions.
+Visual Design must define the parent's summary, the tool-call status row, input-name/value presentation, all status states, long names and input values, empty input, and narrow widths. The compact Angular summary uses a connected list treatment and monospace tool names.
 
 The default presentation should be neutral and fit both light and dark Spright themes. Status colors require text or icons with sufficient contrast and must be paired with labels. Canceled and declined states should not rely only on strikethrough.
 
@@ -223,14 +225,14 @@ Keep status normalization and display formatting in small pure utilities. Do not
 - Use a native `<button type="button">` for the grouped disclosure.
 - Provide an accessible name for the status and include canceled, declined, or terminated text in the accessible content.
 - Use `aria-expanded` and `aria-controls` for the grouped disclosure. Do not place `aria-expanded` on a non-interactive container.
-- Use an ordered or unordered list with list semantics for grouped entries. Keep tool expressions selectable and wrap long text.
+- Use an ordered or unordered list with list semantics for grouped entries. Keep tool names and input values selectable and wrap long text.
 - Do not rely on hover-only controls. The disclosure affordance and status remain visible or available to keyboard and touch users.
 - Respect `prefers-reduced-motion`; no motion is required for status changes or expansion. Any permitted opacity transition must be removed or reduced when that setting is enabled.
 - Ensure all status colors and focus indicators meet Spright contrast requirements.
 
 ### Mobile
 
-The component uses available width and wraps invocation expressions and labels. The header remains a touch target that fills the available width, with a minimum control height.
+The component uses available width and wraps tool names, input values, and labels. The header remains a touch target that fills the available width, with a minimum control height.
 
 ### Globalization
 
