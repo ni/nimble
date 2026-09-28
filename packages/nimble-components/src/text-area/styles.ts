@@ -201,7 +201,7 @@ export const styles = css`
             }
 
             :host([readonly]) .control {
-                background-color: transparent;
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
 
             :host([disabled]) .control {
@@ -211,7 +211,7 @@ export const styles = css`
 
             :host([disabled][appearance-readonly]) .control {
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
-                background-color: transparent;
+                background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
 
             :host([error-visible][disabled]) .control {
