@@ -24,6 +24,14 @@
         "value": "Regular"
       }
     },
+    "Code": {
+      "family": {
+        "value": "Noto Sans Mono"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
     "Body_2": {
       "family": {
         "value": "Source Sans Pro"
@@ -269,6 +277,10 @@
       },
       "Body": {
         "value": "14",
+        "type": "fontSize"
+      },
+      "Code": {
+        "value": "13",
         "type": "fontSize"
       },
       "Body_2": {
