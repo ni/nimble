@@ -29,7 +29,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
@@ -61,7 +61,7 @@ jobs:
       # Install dotnet 8 sdk for asp.net assemblies
       - uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: '8.0.424'
+          dotnet-version: '10.0.401'
       - run: dotnet restore --locked-mode
         working-directory: packages/blazor-workspace/
       - uses: actions/setup-node@v7
@@ -149,7 +149,7 @@ jobs:
   pages:
     needs: build
     if: github.repository_owner == 'ni' && startsWith(github.ref, 'refs/heads/main')
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       pages: write # to deploy to Pages
       id-token: write # to verify the deployment originates from an appropriate source
