@@ -35,6 +35,7 @@
       "enabled": true,
       "matchPackageNames": [
         "!/^@angular/",
+        "!/@tanstack/table-core",
         "!/@types/jasmine",
         "!/apache-arrow/",
         "!/beachball/",
