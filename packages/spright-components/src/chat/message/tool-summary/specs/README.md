@@ -2,41 +2,40 @@
 
 ## Overview
 
-`spright-chat-message-tool-summary` is a chat message type that presents the status of one or more tool calls invoked during a chat session. It uses `spright-chat-tool-call` child components to represent each tool call, which use `spright-chat-tool-call-input` children for their inputs.
+`spright-chat-message-tool-summary` is a chat message type that presents the status of one or more tool calls invoked during a chat session. It uses `spright-chat-tool-call` child components to represent each tool call, which use `spright-chat-tool-call-input` children to represent their inputs.
 
 ### Background
 
-Multiple clients of the Spright chat components have created custom tool summaries for their applications. These components unify the presentation of tool-call status.
+Multiple clients of the Spright chat components have created custom tool summaries for their applications. These components unify the presentation of tool call status.
 
 ### Containing Library
 
-These components will go in Spright along with existing chat components.
+These components will go in Spright along with [existing chat components](../../../specs/README.md).
 
 ### Non-goals
 
-The following capabilities are feature gaps compared with the React reference below:
+The following capabilities are feature gaps compared with the React reference below. They are initially omitted for scoping reasons but may be added in a follow-up.
 
-- Presenting approval requests or rendering approval decision and preference actions. This has a complex API so is deferred to a future pass.
-- Detailed execution-result presentation, including commands, working directories, exit metadata, and standard output streams.
-- Live-output management, truncation, and full-output expansion.
-- Rich result presentation such as diffs, plans, raw payloads, and optional Nigel plot content.
-- Presenting interactive user-input and MCP elicitation requests or their results.
+- Approval requests, approval decisions, and preference actions. (e.g. "Allow once"/"Always allow").
+- Detailed execution results including commands, working directories, exit codes, and standard output streams.
+- Rich result presentation such as diffs, plans, raw payloads, plot content.
 
 ### Features
 
-- Compact status presentation for an ordered group of tool call children.
-- A separately reusable child for one tool call, with attributes and properties for its runtime state and slotted child elements representing its invocation input.
-- Expandable grouped status presentation with disclosure behavior that is accessible by keyboard.
-- Pending, success, warning, error, canceled, declined, and terminated states.
-- User-visible labels supplied by a chat label provider so applications can localize or replace them.
+- Compact summary of multiple tool calls when children are collapsed.
+- Ability to expand the summary using disclosure/accordion interactions to see child tool calls.
+- When summary is expanded, a list of tool calls show summary information like tool name and status. 
+  - Status includes pending, success, warning, error, canceled, declined, and terminated states.
+- Ability to expand individual tool calls to see input information. 
 
 ### Risks and Challenges
 
-- The React implementation has a much larger capability surface than the Angular summary. The shared API therefore starts with the overlapping status, identity, and invocation-input capabilities.
+- The React implementation has a larger capability surface than the Angular implementation. The proposed API starts with the overlapping capabilities so will not initially be sufficient for the React application.
 
 ### Prior Art/Examples
 
 - [Angular implementation with grouped calls](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/nigel/src/components/sl-nigel-tool-call-summary/)
+    - [Storybook demo](https://stratus-storybook.ni.dev/?path=/story/components-nigel--with-tool-calls)
 - [React implementation with detailed calls](https://github.com/ni/testhub/blob/main/src/frontend/packages/chat-ui/src/ToolCallMessage.tsx)
 
 ## Design
@@ -127,7 +126,6 @@ The child does not participate in forms or delegate focus. It has no internal di
 
 `status` supports `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`. `complete` is not exposed as a status value; a call with no completion data can use `success` or `unknown` while the application determines its final state. Status names follow the Spright guidance and avoid abbreviations.
 
-
 #### Tool call input
 
 - _Tag_: `spright-chat-tool-call-input`
@@ -200,6 +198,8 @@ No form integration is needed. Unknown data must not be rendered as executable m
 Visual Design must define the parent's summary, the tool-call status row, input-name/value presentation, all status states, long names and input values, empty input, and narrow widths. The compact Angular summary uses a connected list treatment and monospace tool names.
 
 The default presentation should be neutral and fit both light and dark Spright themes. Status colors require text or icons with sufficient contrast and must be paired with labels. Canceled and declined states should not rely only on strikethrough.
+
+TODO: truncation and live updating outputs
 
 ### Interactions
 
