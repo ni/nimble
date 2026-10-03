@@ -57,13 +57,11 @@ A customer can use the components together like this:
         </spright-chat-tool-call-input>
         <spright-chat-tool-call-input
             name="projection"
-            value='["id", "name", "serialNumber"]'
-            value-type="json">
+            value='["id", "name", "serialNumber"]'>
         </spright-chat-tool-call-input>
         <spright-chat-tool-call-input
             name="take"
-            value="25"
-            value-type="number">
+            value="25">
         </spright-chat-tool-call-input>
     </spright-chat-tool-call>
     <spright-chat-tool-call
@@ -71,68 +69,53 @@ A customer can use the components together like this:
         status="success">
         <spright-chat-tool-call-input
             name="paths"
-            value='["Line1.*", "Line2.*"]'
-            value-type="json">
+            value='["Line1.*", "Line2.*"]'>
         </spright-chat-tool-call-input>
         <spright-chat-tool-call-input
             name="keywords"
-            value='["production"]'
-            value-type="json">
+            value='["production"]'>
         </spright-chat-tool-call-input>
     </spright-chat-tool-call>
 </spright-chat-message-tool-summary>
 ```
 
-The parent defaults to a collapsed summary of all slotted calls. Each child can also be used independently when an application needs status presentation for one call. The parent observes the individual child attributes and properties and derives count and aggregate state from them.
-
 ### API
-
-_The key elements of the public API surface are described separately for each component._
 
 #### Chat message tool summary
 
 - _Tag_: `spright-chat-message-tool-summary`
 - _Props/Attrs_:
-    - `expanded` - boolean, default `false`; controls whether the grouped child list is shown. User toggles are reflected to the property and attribute.
+    - `expanded` - boolean, default `false`; controls whether the grouped child list is shown. User toggles are reflected to the attribute.
 - _Methods_
     - None.
 - _Events_
     - None.
 - _Slots_
-    - `(default)` - ordered `spright-chat-tool-call` child elements. Unrelated slotted nodes are ignored for count and status purposes.
+    - `(default)` - ordered `spright-chat-tool-call` child elements.
 - _CSS Classes, Parts, and CSS Custom Properties that affect the component_
     - No public CSS parts.
-
-The parent does not participate in forms or delegate focus. Focus belongs to its internal disclosure and action controls.
 
 #### Tool call
 
 - _Tag_: `spright-chat-tool-call`
 - _Props/Attrs_:
-    - `name` - string attribute and property identifying the tool and providing its visible label. Clients should assign the localized display value when needed.
-    - `status` - string attribute and property, default `unknown`. Supported values are `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`.
+    - `name` - string attribute identifying the tool and providing its visible label. Clients should assign the localized display value when needed.
+    - `status` - string attribute, default `unknown`. Supported values are `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`.
 - _Methods_
-    - None. The child has no independent disclosure or action methods.
+    - None.
 - _Events_
     - None.
 - _Slots_
     - `(default)` - ordered `spright-chat-tool-call-input` child elements.
 - _CSS Classes, Parts, and CSS Custom Properties that affect the component_
     - No public CSS parts.
-    - Internal rows use available inline size, wrap long invocation expressions, and do not require a fixed height.
-    - The component should not expose internal implementation classes as API.
-
-The child does not participate in forms or delegate focus. It has no internal disclosure or action events in the initial scope. No event is emitted merely because one child value changes.
-
-`status` supports `pending`, `success`, `warning`, `error`, `canceled`, `declined`, `terminated`, and `unknown`. `complete` is not exposed as a status value; a call with no completion data can use `success` or `unknown` while the application determines its final state. Status names follow the Spright guidance and avoid abbreviations.
 
 #### Tool call input
 
 - _Tag_: `spright-chat-tool-call-input`
 - _Props/Attrs_:
-    - `name` - string attribute and property identifying the input.
+    - `name` - string attribute identifying the input.
     - `value` - string attribute containing the input value. Scalar values are represented directly; arrays and objects are serialized as JSON.
-    - `value-type` - optional string attribute describing how to interpret `value`. Supported values are `string` (the default), `number`, `boolean`, and `json`.
 - _Methods_
     - None.
 - _Events_
@@ -144,9 +127,11 @@ The child does not participate in forms or delegate focus. It has no internal di
 
 #### API Alternatives
 
-A single element with an `entries` property was rejected because it makes the structured model harder to compose declaratively and forces framework wrappers to manage all child identity and the lifecycle of each call. A child component lets applications update one live call without replacing the entire group.
-
-Using one JSON `data` attribute or object property for the entire tool call was rejected because it is harder to bind safely from Angular and Blazor and conflicts with the guidance for primitive attributes. JSON remains supported for an individual input when `value-type="json"` is used.
+Input values are modeled as any JSON-serializable type: boolean, string, number plus arrays and objects with arbitrary levels of nesting. The component will display them as JSON. There are several options available to provide these values:
+1. value is a string attribute, clients provide JSON which the component displays as-is
+1. value is a string attribute, clients provide JSON which the component will format for display (indentation, unescaping)
+1. value is a property which accepts the unserialized value. Its type would be roughly `JsonObject | JsonArray | string | number | boolean`. To avoid runtime type checking there could be an additional `value-type` attribute.
+1. Create several strongly typed input components: `tool-call-input-boolean`, `tool-call-input-string`, `tool-call-input-json`, etc.
 
 ### Anatomy
 
@@ -273,7 +258,4 @@ Document the primitive attributes, individual child properties and their types, 
 
 ## Open Issues
 
-- Confirm the final public names `spright-chat-message-tool-summary` and `spright-chat-tool-call` with the Spright maintainers.
-- Approval actions, detailed execution results, live-output handling, rich result views, and interactive follow-up presentation are out of scope for the initial shared component.
-- Confirm whether future richer result components should remain separate from this status-only component.
-- Complete Interaction Design, Visual Design, accessibility review, and security review before marking the component ready for general use.
+- Supported types for tool call input
