@@ -1,8 +1,18 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 28 Sep 2026 21:44:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 03 Oct 2026 01:32:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.23.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/nimble-components to v35.15.1
+- Bump @ni/jasmine-parameterized to v1.0.14
 
 ## 6.23.0
 

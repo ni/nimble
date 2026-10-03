@@ -2,6 +2,27 @@
   "name": "@ni/unit-format",
   "entries": [
     {
+      "date": "Sat, 03 Oct 2026 01:32:46 GMT",
+      "version": "1.0.9",
+      "tag": "@ni/unit-format_v1.0.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c",
+            "comment": "Update deps"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/unit-format",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.14",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Sep 2026 22:47:33 GMT",
       "version": "1.0.8",
       "tag": "@ni/unit-format_v1.0.8",

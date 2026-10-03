@@ -1,8 +1,17 @@
 # Change Log - @ni/unit-format
 
-<!-- This log was last generated on Thu, 24 Sep 2026 22:47:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 03 Oct 2026 01:32:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.9
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/jasmine-parameterized to v1.0.14
 
 ## 1.0.8
 

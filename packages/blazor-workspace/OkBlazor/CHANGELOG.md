@@ -1,8 +1,17 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Mon, 28 Sep 2026 21:44:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 03 Oct 2026 01:32:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.7.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/ok-components to v1.10.1
 
 ## 1.7.0
 

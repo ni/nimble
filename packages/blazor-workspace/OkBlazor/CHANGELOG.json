@@ -2,6 +2,27 @@
   "name": "@ni/ok-blazor",
   "entries": [
     {
+      "date": "Sat, 03 Oct 2026 01:32:46 GMT",
+      "version": "1.7.1",
+      "tag": "@ni/ok-blazor_v1.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-blazor",
+            "commit": "1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c",
+            "comment": "Update nuget dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-blazor",
+            "comment": "Bump @ni/ok-components to v1.10.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 28 Sep 2026 21:44:17 GMT",
       "version": "1.7.0",
       "tag": "@ni/ok-blazor_v1.7.0",
