@@ -11,6 +11,8 @@ This spec describes a set of components that can be used to compose a chat inter
    - outbound
    - welcome
 - chat conversation: a layout component that allows slotting messages and an input
+- chat tool summary: presents the status of tool calls invoked during a chat session and are covered in
+[a separate document](../message/tool-summary/specs/README.md)
 
 ### Background
 
