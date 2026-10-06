@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Banner should not reserve width for dimiss button when prevent-dismiss is true",
+  "packageName": "@ni/nimble-components",
+  "email": "5265744+hellovolcano@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
