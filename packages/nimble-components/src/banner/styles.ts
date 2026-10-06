@@ -17,7 +17,6 @@ import {
     bodyFontColor,
     controlHeight,
     controlSlimHeight,
-    mediumPadding,
     smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -91,7 +90,7 @@ export const styles = css`
     }
 
     :host([prevent-dismiss]) slot[name='action'] {
-        margin-right: calc(${mediumPadding} + ${smallPadding});
+        margin-right: 12px;
     }
 
     slot[name='action']::slotted(nimble-anchor) {
@@ -102,7 +101,7 @@ export const styles = css`
         width: 48px;
         display: flex;
         justify-content: center;
-    }
+    }wq
 
     :host([prevent-dismiss]) .dismiss {
         display: none;
