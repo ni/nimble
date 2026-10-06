@@ -101,7 +101,7 @@ export const styles = css`
         width: 48px;
         display: flex;
         justify-content: center;
-    }wq
+    }
 
     :host([prevent-dismiss]) .dismiss {
         display: none;
