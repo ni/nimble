@@ -17,6 +17,7 @@ import {
     bodyFontColor,
     controlHeight,
     controlSlimHeight,
+    mediumPadding,
     smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -89,6 +90,10 @@ export const styles = css`
         white-space: nowrap;
     }
 
+    :host([prevent-dismiss]) slot[name='action'] {
+        margin-right: calc(${mediumPadding} + ${smallPadding});
+    }
+
     slot[name='action']::slotted(nimble-anchor) {
         font-size: 12.8px;
     }
@@ -97,6 +102,10 @@ export const styles = css`
         width: 48px;
         display: flex;
         justify-content: center;
+    }
+
+    :host([prevent-dismiss]) .dismiss {
+        display: none;
     }
 `.withBehaviors(
     themeBehavior(

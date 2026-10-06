@@ -93,6 +93,16 @@ describe('Banner', () => {
         element.preventDismiss = true;
         await waitForUpdatesAsync();
         expect(element.shadowRoot?.querySelector(buttonTag)).toBeNull();
+        expect(
+            getComputedStyle(
+                element.shadowRoot!.querySelector('.dismiss')!
+            ).display
+        ).toBe('none');
+        expect(
+            getComputedStyle(
+                element.shadowRoot!.querySelector("slot[name='action']")!
+            ).marginRight
+        ).toBe('12px');
     });
 
     it("should default label of dismiss button to 'Close'", () => {
