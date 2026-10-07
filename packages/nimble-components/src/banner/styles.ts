@@ -53,14 +53,8 @@ export const styles = css`
         opacity: 0.6;
     }
 
-    :host([severity='error']) .icon {
-        display: flex;
-    }
-
-    :host([severity='warning']) .icon {
-        display: flex;
-    }
-
+    :host([severity='error']) .icon,
+    :host([severity='warning']) .icon,
     :host([severity='information']) .icon {
         display: flex;
     }
@@ -70,14 +64,8 @@ export const styles = css`
         margin: 7px 0 7px ${standardPadding};
     }
 
-    :host([severity='error']) .text {
-        margin-left: 0;
-    }
-
-    :host([severity='warning']) .text {
-        margin-left: 0;
-    }
-
+    :host([severity='error']) .text,
+    :host([severity='warning']) .text,
     :host([severity='information']) .text {
         margin-left: 0;
     }
