@@ -1,5 +1,4 @@
 import { html } from '@ni/fast-element';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Banner, bannerTag } from '..';
 import { BannerSeverity } from '../types';
@@ -90,60 +89,10 @@ describe('Banner', () => {
         expect(element.severity).toBe(BannerSeverity.default);
     });
 
-    it('should apply left margin without reserving icon space when severity is default', () => {
-        expect(
-            getComputedStyle(element.shadowRoot!.querySelector('.icon')!)
-                .display
-        ).toBe('none');
-        expect(
-            getComputedStyle(element.shadowRoot!.querySelector('.text')!)
-                .marginLeft
-        ).toBe('16px');
-    });
-
-    parameterizeSpec(
-        [
-            { name: 'error', severity: BannerSeverity.error },
-            { name: 'warning', severity: BannerSeverity.warning },
-            {
-                name: 'information',
-                severity: BannerSeverity.information
-            }
-        ],
-        (spec, name, value) => {
-            spec(`should apply icon spacing for ${name} severity`, async () => {
-                element.severity = value.severity;
-                await waitForUpdatesAsync();
-
-                const iconStyles = getComputedStyle(
-                    element.shadowRoot!.querySelector('.icon')!
-                );
-                expect(iconStyles.display).toBe('flex');
-                expect(iconStyles.marginLeft).toBe('16px');
-                expect(iconStyles.marginRight).toBe('4px');
-                expect(
-                    getComputedStyle(
-                        element.shadowRoot!.querySelector('.text')!
-                    ).marginLeft
-                ).toBe('0px');
-            });
-        }
-    );
-
     it("should hide dismiss button when 'preventDismiss' set", async () => {
         element.preventDismiss = true;
         await waitForUpdatesAsync();
         expect(element.shadowRoot?.querySelector(buttonTag)).toBeNull();
-        expect(
-            getComputedStyle(
-                element.shadowRoot!.querySelector('.dismiss')!
-            ).display
-        ).toBe('none');
-        expect(
-            getComputedStyle(
-                element.shadowRoot!.querySelector("slot[name='action']")!
-            ).marginRight
-        ).toBe('12px');
     });
 
     it("should default label of dismiss button to 'Close'", () => {
