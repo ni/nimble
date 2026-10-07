@@ -98,7 +98,7 @@ describe('Banner', () => {
         expect(
             getComputedStyle(element.shadowRoot!.querySelector('.text')!)
                 .marginLeft
-        ).toBe('12px');
+        ).toBe('16px');
     });
 
     parameterizeSpec(
