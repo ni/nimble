@@ -1,8 +1,59 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 09 Oct 2026 15:01:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.17.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.2
+
+## 0.17.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.1
+
+## 0.17.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.15.0
+- Bump @ni/nimble-tokens to v8.20.0
+
+## 0.16.5
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Align types export paths ([ni/nimble@aefa2a2](https://github.com/ni/nimble/commit/aefa2a2ccbca09b6faa758331c6633d46bedeb3c))
+- Bump @ni/nimble-components to v35.14.1
+
+## 0.16.4
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.0
+
+## 0.16.3
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.3
+- Bump @ni/nimble-tokens to v8.19.2
 
 ## 0.16.2
 

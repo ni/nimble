@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 28 Sep 2026 21:44:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.20.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Add new icons for file and folder operations, scissors/cut. Update icons for systemlink and electronic-chip-zoomed. ([ni/nimble@7b35ce1](https://github.com/ni/nimble/commit/7b35ce12408e40866c7e34fd08b0be348a514857))
+
+## 8.19.2
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Update new systemlink icon ([ni/nimble@78020c9](https://github.com/ni/nimble/commit/78020c9b8b27caeb58a27f48ec21c33050ddf1b3))
 
 ## 8.19.1
 

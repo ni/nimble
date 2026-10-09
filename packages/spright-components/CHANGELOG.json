@@ -2,6 +2,156 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Fri, 09 Oct 2026 15:01:32 GMT",
+      "version": "6.23.2",
+      "tag": "@ni/spright-components_v6.23.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.15.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 03 Oct 2026 01:32:46 GMT",
+      "version": "6.23.1",
+      "tag": "@ni/spright-components_v6.23.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c",
+            "comment": "Update deps"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.15.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.14",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 28 Sep 2026 21:44:17 GMT",
+      "version": "6.23.0",
+      "tag": "@ni/spright-components_v6.23.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.15.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-tokens to v8.20.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 28 Sep 2026 14:45:42 GMT",
+      "version": "6.22.7",
+      "tag": "@ni/spright-components_v6.22.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "238d3bc00a06f9a805e94f1f1d7713dfb5e230df",
+            "comment": "Disable scroll animation for initial Spright chat conversation scroll"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Sep 2026 22:47:33 GMT",
+      "version": "6.22.6",
+      "tag": "@ni/spright-components_v6.22.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.14.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.13",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Sep 2026 22:05:36 GMT",
+      "version": "6.22.5",
+      "tag": "@ni/spright-components_v6.22.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 22 Sep 2026 19:32:36 GMT",
+      "version": "6.22.4",
+      "tag": "@ni/spright-components_v6.22.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v35.13.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-tokens to v8.19.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 21 Sep 2026 21:33:58 GMT",
+      "version": "6.22.3",
+      "tag": "@ni/spright-components_v6.22.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "6d1c5605d7fe5e68a9975fb1ed58191438c14f5f",
+            "comment": "Chat message sizing is more client configurable"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Sep 2026 18:31:36 GMT",
       "version": "6.22.2",
       "tag": "@ni/spright-components_v6.22.2",

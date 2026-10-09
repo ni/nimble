@@ -320,7 +320,7 @@ export const iconMetadata: {
         tags: ['import']
     },
     IconElectronicChipZoomed: {
-        tags: ['data preparation']
+        tags: ['computer', 'data preparation', 'device', 'hardware', 'microchip', 'technology']
     },
     IconExclamationMark: {
         tags: ['error', 'warning']
@@ -340,11 +340,20 @@ export const iconMetadata: {
     IconFileArrowCurvedRight: {
         tags: ['export', 'extract']
     },
+    IconFileClock: {
+        tags: ['recent']
+    },
     IconFileDrawer: {
         tags: ['box', 'repository manager']
     },
+    IconFilePlus: {
+        tags: ['add', 'import']
+    },
     IconFileSearch: {
         tags: ['file viewer']
+    },
+    IconFileStar: {
+        tags: ['new', 'create']
     },
     IconFilter: {
         tags: []
@@ -367,8 +376,17 @@ export const iconMetadata: {
     IconFolder: {
         tags: ['ldap']
     },
+    IconFolderClock: {
+        tags: ['recent']
+    },
     IconFolderOpen: {
         tags: ['browse']
+    },
+    IconFolderPlus: {
+        tags: ['add', 'import']
+    },
+    IconFolderStar: {
+        tags: ['new', 'create']
     },
     IconForklift: {
         tags: ['transport', 'transit', 'transfer', 'convey', 'haul', 'lift', 'move']
@@ -549,6 +567,9 @@ export const iconMetadata: {
     },
     IconScannerGun: {
         tags: ['qr', 'code', 'barcode']
+    },
+    IconScissors: {
+        tags: ['cut', 'clipboard']
     },
     IconScreenCheckLines: {
         tags: ['test', 'plan', 'monitor', 'desktop']

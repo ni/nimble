@@ -1,7 +1,7 @@
 ﻿@namespace NimbleBlazor
 @typeparam TData
 <nimble-table
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     @ref="_table"
     id-field-name="@IdFieldName"
     parent-id-field-name="@ParentIdFieldName"

@@ -1,8 +1,67 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 09 Oct 2026 15:01:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 22.1.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.2
+
+## 22.1.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/nimble-components to v35.15.1
+
+## 22.1.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.15.0
+- Bump @ni/nimble-tokens to v8.20.0
+
+## 22.0.7
+
+Mon, 28 Sep 2026 20:58:54 GMT
+
+### Patches
+
+- Make 'blur' a non-rendering event ([ni/nimble@6631d56](https://github.com/ni/nimble/commit/6631d5619aa7e78a98572835fdeb73e23d0f66de))
+
+## 22.0.6
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.1
+
+## 22.0.5
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.0
+
+## 22.0.4
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.3
+- Bump @ni/nimble-tokens to v8.19.2
 
 ## 22.0.3
 

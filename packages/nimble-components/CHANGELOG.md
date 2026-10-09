@@ -1,8 +1,59 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 16 Sep 2026 18:31:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 09 Oct 2026 15:01:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.15.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Banner should not reserve width for dimiss button when prevent-dismiss is true ([ni/nimble@08ac36f](https://github.com/ni/nimble/commit/08ac36fb9aa0d523018fec0513bbd180e66f2911))
+
+## 35.15.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/unit-format to v1.0.9
+- Bump @ni/jasmine-parameterized to v1.0.14
+
+## 35.15.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.20.0
+
+## 35.14.1
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/unit-format to v1.0.8
+- Bump @ni/jasmine-parameterized to v1.0.13
+
+## 35.14.0
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Minor changes
+
+- DateTextFormatter ([ni/nimble@1f67301](https://github.com/ni/nimble/commit/1f673014cafe5c432580c3b13df58041988f328a))
+
+## 35.13.3
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.19.2
 
 ## 35.13.2
 

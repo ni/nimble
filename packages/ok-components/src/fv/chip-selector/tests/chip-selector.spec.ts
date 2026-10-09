@@ -49,8 +49,7 @@ describe('FvChipSelector', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
-        input.focus();
+        getRequiredElement<HTMLElement>('.chip-selector-field').click();
         await waitForUpdatesAsync();
 
         const option = getRequiredElement<HTMLElement>('[data-option-value="Active"]');
@@ -376,8 +375,7 @@ describe('FvChipSelector', () => {
             changeSpy();
         });
 
-        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
-        input.focus();
+        getRequiredElement<HTMLElement>('.chip-selector-field').click();
         await waitForUpdatesAsync();
 
         const option = getRequiredElement<HTMLElement>('[data-option-value="Active"]');
@@ -445,9 +443,9 @@ describe('FvChipSelector', () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
-        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
-        input.focus();
+        getRequiredElement<HTMLElement>('.chip-selector-field').click();
         await waitForUpdatesAsync();
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
 
         input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
         await waitForUpdatesAsync();
