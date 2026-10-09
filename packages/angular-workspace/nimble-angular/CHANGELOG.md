@@ -1,8 +1,69 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 09 Oct 2026 15:01:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.2.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.2
+
+## 34.2.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.1
+- Bump @ni/unit-format to v1.0.9
+
+## 34.2.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.15.0
+
+## 34.1.1
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.1
+- Bump @ni/unit-format to v1.0.8
+
+## 34.1.0
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Minor changes
+
+- DateTextPipe ([ni/nimble@1f67301](https://github.com/ni/nimble/commit/1f673014cafe5c432580c3b13df58041988f328a))
+- Bump @ni/nimble-components to v35.14.0
+
+## 34.0.1
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.3
+
+## 34.0.0
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Major changes
+
+- Update to Angular 21 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/nimble-components to v35.13.2
+- Bump @ni/unit-format to v1.0.7
 
 ## 33.6.2
 

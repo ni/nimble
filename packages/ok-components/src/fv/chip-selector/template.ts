@@ -134,10 +134,12 @@ export const template = html<FvChipSelector>`
                                         id="${(_, c) => `${c.parent.menuId}-option-${c.index}`}"
                                         class="chip-selector-option"
                                         data-option-value="${x => x}"
+                                        aria-selected="${(_, c) => String(c.index === c.parent.activeOptionIndex)}"
                                     >
                                         ${x => x}
                                     </${menuItemTag}>
-                                `
+                                `,
+                                { positioning: true }
                             )}
                             ${when(
                                 x => x.customValueCandidate.length > 0,
@@ -146,6 +148,7 @@ export const template = html<FvChipSelector>`
                                         id="${x => `${x.menuId}-option-create`}"
                                         class="chip-selector-option chip-selector-create-option"
                                         data-option-value="${x => x.customValueCandidate}"
+                                        aria-selected="${x => String(x.activeOptionIndex === x.visibleOptionList.length)}"
                                     >
                                         ${x => x.createOptionLabel}
                                     </${menuItemTag}>

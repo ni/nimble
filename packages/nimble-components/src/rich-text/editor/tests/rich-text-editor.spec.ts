@@ -498,7 +498,7 @@ describe('RichTextEditor', () => {
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Hard break in Nested list');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'OL',
                 'LI',
                 'P',
@@ -646,7 +646,7 @@ describe('RichTextEditor', () => {
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Nested List');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'UL',
                 'LI',
                 'P',

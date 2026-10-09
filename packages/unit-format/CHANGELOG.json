@@ -2,6 +2,69 @@
   "name": "@ni/unit-format",
   "entries": [
     {
+      "date": "Sat, 03 Oct 2026 01:32:46 GMT",
+      "version": "1.0.9",
+      "tag": "@ni/unit-format_v1.0.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c",
+            "comment": "Update deps"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/unit-format",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.14",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Sep 2026 22:47:33 GMT",
+      "version": "1.0.8",
+      "tag": "@ni/unit-format_v1.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "aefa2a2ccbca09b6faa758331c6633d46bedeb3c",
+            "comment": "Align types export paths"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/unit-format",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.13",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Sep 2026 18:31:36 GMT",
+      "version": "1.0.7",
+      "tag": "@ni/unit-format_v1.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/unit-format",
+            "commit": "ca768c0ef480e9916b8b289eb46088ecd1684166",
+            "comment": "Bump typescript dependency from 5.8 to 5.9"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/unit-format",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.12",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Sep 2026 17:39:26 GMT",
       "version": "1.0.6",
       "tag": "@ni/unit-format_v1.0.6",

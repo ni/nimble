@@ -633,7 +633,7 @@ export class TablePageObject<T extends TableRecord> {
         const groupRow = this.getGroupRow(groupRowIndex);
         const countDisplayString = groupRow
             .shadowRoot!.querySelector('.group-row-child-count')!
-            .textContent!.trim();
+            .textContent.trim();
         // Remove the parenthesis to get just the number as a string
         const countString = countDisplayString.substring(
             1,

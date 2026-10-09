@@ -1,8 +1,24 @@
 # Change Log - @ni/xliff-to-json-converter
 
-<!-- This log was last generated on Mon, 01 Jun 2026 23:00:44 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 24 Sep 2026 22:47:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.1.18
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Align types export paths ([ni/nimble@aefa2a2](https://github.com/ni/nimble/commit/aefa2a2ccbca09b6faa758331c6633d46bedeb3c))
+
+## 1.1.17
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
 
 ## 1.1.16
 
