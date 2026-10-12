@@ -71,12 +71,6 @@ appearanceBehavior<BannerAppearance | undefined>(
                 --ni-private-banner-block-container-background-color
             );
         }
-
-        slot[name='action']::slotted(nimble-button) {
-            ${buttonFillPrimaryColor.cssCustomProperty}: var(
-                --ni-private-banner-block-background-color
-            );
-        }
     `
 ),
 appearanceBehavior(
@@ -84,7 +78,7 @@ appearanceBehavior(
     css`
         :host {
             background: var(--ni-private-banner-outline-background-color);
-            border: ${borderWidth} solid
+            box-shadow: inset 0 0 0 ${borderWidth}
                 var(--ni-private-banner-outline-border-color);
         }
 
@@ -92,14 +86,23 @@ appearanceBehavior(
             background: transparent;
             color: var(--ni-private-banner-outline-font-color);
         }
+
+        .icon {
+            ${iconColor.cssCustomProperty}: var(
+                --ni-private-banner-outline-icon-color
+            );
+        }
     `
 )
 ```
 
-The action-button token override only affects a slotted `nimble-button` using
-`appearance="block"` and `appearance-variant="primary"`, because that is the
-button style that consumes `buttonFillPrimaryColor`. It does not recolor
-outline or ghost buttons, and it does not affect `nimble-anchor` content.
+The outline will use an inset box shadow rather than a border so that it does not increase the banner's overall dimensions.
+
+A block button with the default appearance variant is recommended for the
+action slot when the banner uses the outline appearance.
+
+In the light theme, button rollover states will use the banner's outline color
+for the selected severity.
 
 This results in the following behavior:
 
@@ -146,6 +149,17 @@ border colors are listed below.
 | Dark | `Black15` / `#F1F1F2` |
 | Color | `White` / `#FFFFFF` |
 
+#### Outline Icons
+
+The icon color matches the corresponding outline border color except for the
+warning severity.
+
+| Theme | Default | Error | Warning | Information |
+| --- | --- | --- | --- | --- |
+| Light | `Black80` | `Fail100LightUi` | `Warning100LightUi` | `Information100LightUi` |
+| Dark | `Black50` | `Fail100DarkUi` | `Warning100DarkUi` | `Information100DarkUi` |
+| Color | `White` at 60% opacity | Same as default | Same as default | Same as default |
+
 The theme behaviors assign the private palette properties:
 
 ```ts
@@ -158,21 +172,25 @@ themeBehavior(
             --ni-private-banner-outline-background-color: ${White};
             --ni-private-banner-outline-border-color: ${Black80};
             --ni-private-banner-outline-font-color: ${Black91};
+            --ni-private-banner-outline-icon-color: ${Black80};
         }
 
         :host([severity='error']) {
             --ni-private-banner-block-background-color: ${Fail100LightUi};
             --ni-private-banner-outline-border-color: ${Fail100LightUi};
+            --ni-private-banner-outline-icon-color: ${Fail100LightUi};
         }
 
         :host([severity='warning']) {
             --ni-private-banner-block-background-color: ${Warning100LightUi};
             --ni-private-banner-outline-border-color: ${WarningTypographyLightUi};
+            --ni-private-banner-outline-icon-color: ${Warning100LightUi};
         }
 
         :host([severity='information']) {
             --ni-private-banner-block-background-color: ${Information100LightUi};
             --ni-private-banner-outline-border-color: ${Information100LightUi};
+            --ni-private-banner-outline-icon-color: ${Information100LightUi};
         }
     `
 ),
@@ -185,21 +203,25 @@ themeBehavior(
             --ni-private-banner-outline-background-color: ${Black80};
             --ni-private-banner-outline-border-color: ${Black50};
             --ni-private-banner-outline-font-color: ${Black15};
+            --ni-private-banner-outline-icon-color: ${Black50};
         }
 
         :host([severity='error']) {
             --ni-private-banner-block-background-color: ${BannerFail100DarkUi};
             --ni-private-banner-outline-border-color: ${Fail100DarkUi};
+            --ni-private-banner-outline-icon-color: ${Fail100DarkUi};
         }
 
         :host([severity='warning']) {
             --ni-private-banner-block-background-color: ${Warning100DarkUi};
             --ni-private-banner-outline-border-color: ${Warning100DarkUi};
+            --ni-private-banner-outline-icon-color: ${Warning100DarkUi};
         }
 
         :host([severity='information']) {
             --ni-private-banner-block-background-color: ${Information100DarkUi};
             --ni-private-banner-outline-border-color: ${Information100DarkUi};
+            --ni-private-banner-outline-icon-color: ${Information100DarkUi};
         }
     `
 ),
@@ -221,6 +243,10 @@ themeBehavior(
                 0.6
             )};
             --ni-private-banner-outline-font-color: ${White};
+            --ni-private-banner-outline-icon-color: ${hexToRgbaCssColor(
+                White,
+                0.6
+            )};
         }
     `
 )
@@ -240,23 +266,15 @@ Tests will verify that:
   theme and severity combination.
 - Changing between `block` and `outline` updates the active styles.
 - Existing block rendering remains unchanged.
-- A supported block/primary action button receives the banner background
-  override.
+- Storybook exposes a block/default action button for the recommended outline
+    banner configuration.
 - Storybook examples exercise each appearance across themes and severities.
 
 ## Alternative Implementations / Designs
 
-- **Initialize `appearance` to `BannerAppearance.block`:** This would make the
-    property default concrete, but the selected design preserves the distinction
-    between an absent attribute and an explicit block appearance.
-- **Leave block styling unconditional and only add outline overrides:** This
-    would require outline rules to undo block rules. Conditional blocks keep each
-    appearance explicit within the same stylesheet and are easier to extend.
+None
 
 ## Open Issues
 
-- Confirm the supported or recommended action content for each appearance.
-  The proposed token override only mirrors the block background for a
-  `nimble-button` configured with block/primary styling.
-- Confirm the icon, action, and dismiss-button colors for every appearance,
-    theme, and severity combination.
+- Confirm the action and dismiss-button colors for every appearance, theme,
+    and severity combination.
