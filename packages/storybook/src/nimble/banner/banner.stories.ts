@@ -12,19 +12,24 @@ import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { labelProviderCoreTag } from '@ni/nimble-components/dist/esm/label-provider/core';
 import { popupDismissLabel } from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
-import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
+import {
+    BannerAppearance,
+    BannerSeverity
+} from '@ni/nimble-components/dist/esm/banner/types';
 import {
     type LocalizableLabelArgs,
     createLocalizableLabelArgTypes
 } from '../label-provider/base/label-user-stories-utils';
 import {
     apiCategory,
+    appearanceDescription,
     createUserSelectedThemeStory
 } from '../../utilities/storybook';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
     none: 'none',
+    buttonBlock: 'button (block)',
     buttonGhost: 'button (ghost)',
     buttonOutline: 'button (outline)',
     iconButtonOutline: 'icon button (outline)',
@@ -34,6 +39,7 @@ const ActionType = {
 type ActionType = (typeof ActionType)[keyof typeof ActionType];
 
 interface BannerArgs extends LocalizableLabelArgs {
+    appearance: keyof typeof BannerAppearance;
     open: boolean;
     title: string;
     text: string;
@@ -54,6 +60,7 @@ const metadata: Meta<BannerArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <${bannerTag}
+            appearance="${x => BannerAppearance[x.appearance]}"
             ?open="${x => x.open}"
             severity="${x => BannerSeverity[x.severity]}"
             ?title-hidden="${x => x.titleHidden}"
@@ -61,6 +68,10 @@ const metadata: Meta<BannerArgs> = {
         >
             <span slot="title">${x => x.title}</span>
             ${x => x.text}
+            ${when(x => x.action === 'button (block)', html`
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.block}">
+                    Do action
+                </${buttonTag}>`)}
             ${when(x => x.action === 'button (ghost)', html`
                 <${buttonTag} slot="action" appearance="${ButtonAppearance.ghost}" appearance-variant="${ButtonAppearanceVariant.primary}">
                     Do action
@@ -81,6 +92,12 @@ const metadata: Meta<BannerArgs> = {
         </${bannerTag}>
     `),
     argTypes: {
+        appearance: {
+            description: appearanceDescription({ componentName: 'banner' }),
+            options: Object.keys(BannerAppearance),
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
+        },
         open: {
             description: 'Controls whether the banner is visible.',
             table: { category: apiCategory.attributes }
@@ -129,6 +146,7 @@ const metadata: Meta<BannerArgs> = {
         ...createLocalizableLabelArgTypes(labelProviderCoreTag, popupDismissLabel)
     },
     args: {
+        appearance: 'block',
         open: true,
         title: 'Title text',
         text: 'This is the body text of the banner.',

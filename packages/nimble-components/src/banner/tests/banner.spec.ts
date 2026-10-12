@@ -1,7 +1,7 @@
 import { html } from '@ni/fast-element';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Banner, bannerTag } from '..';
-import { BannerSeverity } from '../types';
+import { BannerAppearance, BannerSeverity } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { waitForEvent } from '../../utilities/testing/component';
 import { themeProviderTag, type ThemeProvider } from '../../theme-provider';
@@ -48,6 +48,37 @@ describe('Banner', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement(bannerTag)).toBeInstanceOf(Banner);
+    });
+
+    it("should initialize 'appearance' to undefined", () => {
+        expect(element.appearance).toBeUndefined();
+    });
+
+    it("should reflect the 'appearance' property to the attribute", async () => {
+        element.appearance = BannerAppearance.outline;
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('appearance')).toBe(
+            BannerAppearance.outline
+        );
+    });
+
+    it("should reflect the 'appearance' attribute to the property", async () => {
+        element.setAttribute('appearance', BannerAppearance.block);
+        await waitForUpdatesAsync();
+
+        expect(element.appearance).toBe(BannerAppearance.block);
+    });
+
+    it('should not change height for outline appearance', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const blockHeight = element.getBoundingClientRect().height;
+
+        element.appearance = BannerAppearance.outline;
+        await waitForUpdatesAsync();
+
+        expect(element.getBoundingClientRect().height).toBe(blockHeight);
     });
 
     it("should initialize 'open' to false", () => {

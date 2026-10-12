@@ -1,4 +1,15 @@
 /**
+ * Appearances of banners.
+ * @public
+ */
+export const BannerAppearance = {
+    block: 'block',
+    outline: 'outline'
+} as const;
+
+export type BannerAppearance = (typeof BannerAppearance)[keyof typeof BannerAppearance];
+
+/**
  * Severities of banners.
  * @public
  */

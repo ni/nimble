@@ -267,7 +267,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
         css`
             @layer base {
                 :host([appearance-variant='primary']) .control {
-                    border-color: ${actionRgbPartialColor};
+                    border-color: rgb(${actionRgbPartialColor});
                 }
 
                 :host([appearance-variant='accent']) .control {

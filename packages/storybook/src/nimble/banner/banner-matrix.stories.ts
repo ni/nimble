@@ -5,8 +5,14 @@ import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
-import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
-import { ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
+import {
+    BannerAppearance,
+    BannerSeverity
+} from '@ni/nimble-components/dist/esm/banner/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '@ni/nimble-components/dist/esm/button/types';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrix,
@@ -22,12 +28,43 @@ const [
     darkThemeBlackBackground
 ] = backgroundStates;
 
+const appearanceStates = [
+    ['Block', BannerAppearance.block],
+    ['Outline', BannerAppearance.outline]
+] as const;
+type AppearanceState = (typeof appearanceStates)[number];
+
 const actionStates = [
-    ['', false, false, undefined],
-    ['link', true, false, undefined],
-    ['ghost button', false, false, 'ghost'],
-    ['outline button', false, false, 'outline'],
-    ['outline icon button', false, true, 'outline']
+    ['', false, false, undefined, undefined],
+    ['link', true, false, undefined, undefined],
+    [
+        'block button',
+        false,
+        false,
+        ButtonAppearance.block,
+        ButtonAppearanceVariant.default
+    ],
+    [
+        'ghost button',
+        false,
+        false,
+        ButtonAppearance.ghost,
+        ButtonAppearanceVariant.primary
+    ],
+    [
+        'outline button',
+        false,
+        false,
+        ButtonAppearance.outline,
+        ButtonAppearanceVariant.primary
+    ],
+    [
+        'outline icon button',
+        false,
+        true,
+        ButtonAppearance.outline,
+        ButtonAppearanceVariant.primary
+    ]
 ] as const;
 type ActionState = (typeof actionStates)[number];
 
@@ -61,24 +98,32 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [appearanceLabel, appearance]: AppearanceState,
     [severityLabel, severity]: SeverityState,
-    [actionLabel, linkVisible, iconButton, buttonAppearance]: ActionState,
+    [
+        actionLabel,
+        linkVisible,
+        iconButton,
+        buttonAppearance,
+        buttonAppearanceVariant
+    ]: ActionState,
     [partsHiddenLabel, partsHidden]: PartsHiddenState,
     [longTextLabel, longText]: LongTextState
 ): ViewTemplate => html`
     <${bannerTag}
         open
+        appearance="${() => appearance}"
         severity="${() => severity}"
         title-hidden="${partsHidden}"
         prevent-dismiss="${partsHidden}"
     >
-        <span slot="title">${severityLabel} ${actionLabel} ${partsHiddenLabel} ${longTextLabel} ${longText ? loremIpsum.substring(0, 78) : ''}</span>
+        <span slot="title">${appearanceLabel} ${severityLabel} ${actionLabel} ${partsHiddenLabel} ${longTextLabel} ${longText ? loremIpsum.substring(0, 78) : ''}</span>
         ${longText ? `${loremIpsum} abcdedfghijklmnopqrstuvwxyzabcdedfghijklmnopqrstuvwxyzabcdedfghijklmnopqrstuvwxyzabcdedfghijklmnopqrstuvwxyz` : 'This is message text.'}
         ${when(() => linkVisible, html`
             <${anchorTag} slot="action" href="#">${longText ? loremIpsum.substring(0, 78) : 'Nimble anchor'}</${anchorTag}>
         `)}
         ${when(() => buttonAppearance, html`
-            <${buttonTag} slot="action" appearance="${buttonAppearance!}" appearance-variant="${ButtonAppearanceVariant.primary}" content-hidden=${iconButton}>
+            <${buttonTag} slot="action" appearance="${buttonAppearance!}" appearance-variant="${() => buttonAppearanceVariant}" content-hidden=${iconButton}>
                 ${when(() => iconButton, html`
                     <${iconKeyTag} slot="start"></${iconKeyTag}>
                 `)}
@@ -91,6 +136,7 @@ const component = (
 
 export const lightThemeMatrix: StoryFn = createFixedThemeStory(
     createMatrix(component, [
+        appearanceStates,
         severityStates,
         actionStates,
         partsHiddenStates,
@@ -101,6 +147,7 @@ export const lightThemeMatrix: StoryFn = createFixedThemeStory(
 
 export const colorThemeMatrix: StoryFn = createFixedThemeStory(
     createMatrix(component, [
+        appearanceStates,
         severityStates,
         actionStates,
         partsHiddenStates,
@@ -111,6 +158,7 @@ export const colorThemeMatrix: StoryFn = createFixedThemeStory(
 
 export const darkThemeMatrix: StoryFn = createFixedThemeStory(
     createMatrix(component, [
+        appearanceStates,
         severityStates,
         actionStates,
         partsHiddenStates,

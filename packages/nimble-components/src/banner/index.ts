@@ -7,7 +7,11 @@ import {
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { BannerSeverity, type BannerToggleEventDetail } from './types';
+import {
+    type BannerAppearance,
+    BannerSeverity,
+    type BannerToggleEventDetail
+} from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,6 +23,14 @@ declare global {
  * A nimble-styled notification banner for persistent messages.
  */
 export class Banner extends FoundationElement {
+    /**
+     * @public
+     * @description
+     * Appearance of the banner
+     */
+    @attr
+    public appearance?: BannerAppearance;
+
     /**
      * @public
      * @description
