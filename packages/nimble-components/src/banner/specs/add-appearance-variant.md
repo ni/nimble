@@ -2,8 +2,7 @@
 
 ## Problem Statement
 
-The visual design spec for the Banner component includes an
-`outline` appearance that is not yet implemented.
+The visual design spec for the Banner component includes an `outline` appearance that is not yet implemented.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -12,8 +11,7 @@ The visual design spec for the Banner component includes an
 
 ## Implementation / Design
 
-Add an `appearance` attribute with `block` and `outline` values. The property
-will be optional and will default to the `block` styles.
+Add an `appearance` attribute with `block` and `outline` values. The property will default to `block`.
 
 ### Appearance Attribute
 
@@ -33,89 +31,53 @@ export type BannerAppearance =
     (typeof BannerAppearance)[keyof typeof BannerAppearance];
 ```
 
-Add the optional property to the `Banner` class:
+Add the property to the `Banner` class and initialize it to `block`:
 
 ```ts
 @attr
-public appearance?: BannerAppearance;
+public appearance: BannerAppearance = BannerAppearance.block;
 ```
-
-Do not initialize the property to `BannerAppearance.block`. The runtime value
-will remain `undefined` when the attribute is absent, while the styling
-behavior described below maps both `undefined` and `block` to the block
-appearance.
 
 ### Styling Architecture
 
-Common layout and typography will remain in the existing `styles.ts` file.
-Conditional CSS blocks added with `appearanceBehavior` will define the block
-and outline treatments. This keeps both appearances explicit and leaves a
-clear place to add another appearance, such as `ghost`, later.
+Common styles will reset appearance-specific backgrounds and box shadows to provide a neutral foundation for the different appearances. The styling architecture is intended to more easily extend to a possible `ghost` appearance type that has been requested.
 
-Private CSS custom properties will separate theme and severity palette
-selection from appearance styling. These properties are implementation details
-and will use the `--ni-private-banner-` prefix.
+Conditional CSS blocks added with `appearanceBehavior` will define the block and outline styles.
 
-Add the appearance behaviors to the existing stylesheet:
+Private CSS custom properties will separate theme and severity palette selection from appearance styling.
+
+As an example, the light theme will define the new private custom properties as follows. The dark and color themes will assign the same properties using the values listed below.
 
 ```ts
-appearanceBehavior<BannerAppearance | undefined>(
-    [undefined, BannerAppearance.block],
-    css`
-        :host {
-            background: var(--ni-private-banner-block-background-color);
-        }
-
-        .container {
-            background: var(
-                --ni-private-banner-block-container-background-color
-            );
-        }
-    `
-),
-appearanceBehavior(
-    BannerAppearance.outline,
-    css`
-        :host {
-            background: var(--ni-private-banner-outline-background-color);
-            box-shadow: inset 0 0 0 ${borderWidth}
-                var(--ni-private-banner-outline-border-color);
-        }
-
-        .container {
-            background: transparent;
-            color: var(--ni-private-banner-outline-font-color);
-        }
-
-        .icon {
-            ${iconColor.cssCustomProperty}: var(
-                --ni-private-banner-outline-icon-color
-            );
-        }
-    `
-)
+:host {
+    --ni-private-banner-block-background-color: ${Black75};
+    --ni-private-banner-block-container-background-color: transparent;
+    --ni-private-banner-outline-background-color: ${White};
+    --ni-private-banner-outline-border-color: ${Black80};
+    --ni-private-banner-outline-font-color: ${Black91};
+    --ni-private-banner-outline-icon-color: ${Black80};
+    --ni-private-banner-outline-button-border-color: ${hexToRgbaCssColor(
+        Black91,
+        0.75
+    )};
+    --ni-private-banner-outline-action-rgb-partial-color: 255, 255, 255;
+    --ni-private-banner-outline-button-font-color: ${Black91};
+    --ni-private-banner-outline-button-rgb-partial-color: 22, 22, 23;
+}
 ```
+
+The block behavior will apply the existing background styles. The outline behavior will apply the theme- and severity-specific background, border, text, and icon colors.
 
 The outline will use an inset box shadow rather than a border so that it does not increase the banner's overall dimensions.
 
-A block button with the default appearance variant is recommended for the
-action slot when the banner uses the outline appearance.
+A block button with the default appearance variant is recommended for the action slot when the banner uses the outline appearance and this guidance will be documented in storybook.
 
-In the light theme, button rollover states will use the banner's outline color
-for the selected severity.
+Because we have used the color theme for the banner for the white rollover and outline button styles, we will need to override those in a light-theme outline banner to use `Black91` at 75% opacity. 
 
-This results in the following behavior:
-
-| Attribute | Property value | Applied appearance |
-| --- | --- | --- |
-| Not present | `undefined` | Block |
-| `appearance="block"` | `"block"` | Block |
-| `appearance="outline"` | `"outline"` | Outline |
 
 ### Theme and Severity Colors
 
-The existing block colors will be preserved. Outline backgrounds and known
-border colors are listed below.
+The existing block colors will be preserved. Outline backgrounds and known border colors are listed below.
 
 #### Block Backgrounds
 
@@ -151,8 +113,7 @@ border colors are listed below.
 
 #### Outline Icons
 
-The icon color matches the corresponding outline border color except for the
-warning severity.
+The icon color matches the corresponding outline border color except for the warning severity.
 
 | Theme | Default | Error | Warning | Information |
 | --- | --- | --- | --- | --- |
@@ -160,121 +121,25 @@ warning severity.
 | Dark | `Black50` | `Fail100DarkUi` | `Warning100DarkUi` | `Information100DarkUi` |
 | Color | `White` at 60% opacity | Same as default | Same as default | Same as default |
 
-The theme behaviors assign the private palette properties:
-
-```ts
-themeBehavior(
-    Theme.light,
-    css`
-        :host {
-            --ni-private-banner-block-background-color: ${Black75};
-            --ni-private-banner-block-container-background-color: transparent;
-            --ni-private-banner-outline-background-color: ${White};
-            --ni-private-banner-outline-border-color: ${Black80};
-            --ni-private-banner-outline-font-color: ${Black91};
-            --ni-private-banner-outline-icon-color: ${Black80};
-        }
-
-        :host([severity='error']) {
-            --ni-private-banner-block-background-color: ${Fail100LightUi};
-            --ni-private-banner-outline-border-color: ${Fail100LightUi};
-            --ni-private-banner-outline-icon-color: ${Fail100LightUi};
-        }
-
-        :host([severity='warning']) {
-            --ni-private-banner-block-background-color: ${Warning100LightUi};
-            --ni-private-banner-outline-border-color: ${WarningTypographyLightUi};
-            --ni-private-banner-outline-icon-color: ${Warning100LightUi};
-        }
-
-        :host([severity='information']) {
-            --ni-private-banner-block-background-color: ${Information100LightUi};
-            --ni-private-banner-outline-border-color: ${Information100LightUi};
-            --ni-private-banner-outline-icon-color: ${Information100LightUi};
-        }
-    `
-),
-themeBehavior(
-    Theme.dark,
-    css`
-        :host {
-            --ni-private-banner-block-background-color: ${Black75};
-            --ni-private-banner-block-container-background-color: transparent;
-            --ni-private-banner-outline-background-color: ${Black80};
-            --ni-private-banner-outline-border-color: ${Black50};
-            --ni-private-banner-outline-font-color: ${Black15};
-            --ni-private-banner-outline-icon-color: ${Black50};
-        }
-
-        :host([severity='error']) {
-            --ni-private-banner-block-background-color: ${BannerFail100DarkUi};
-            --ni-private-banner-outline-border-color: ${Fail100DarkUi};
-            --ni-private-banner-outline-icon-color: ${Fail100DarkUi};
-        }
-
-        :host([severity='warning']) {
-            --ni-private-banner-block-background-color: ${Warning100DarkUi};
-            --ni-private-banner-outline-border-color: ${Warning100DarkUi};
-            --ni-private-banner-outline-icon-color: ${Warning100DarkUi};
-        }
-
-        :host([severity='information']) {
-            --ni-private-banner-block-background-color: ${Information100DarkUi};
-            --ni-private-banner-outline-border-color: ${Information100DarkUi};
-            --ni-private-banner-outline-icon-color: ${Information100DarkUi};
-        }
-    `
-),
-themeBehavior(
-    Theme.color,
-    css`
-        :host {
-            --ni-private-banner-block-background-color: ${applicationBackgroundColor};
-            --ni-private-banner-block-container-background-color: ${hexToRgbaCssColor(
-                White,
-                0.3
-            )};
-            --ni-private-banner-outline-background-color: ${hexToRgbaCssColor(
-                White,
-                0.07
-            )};
-            --ni-private-banner-outline-border-color: ${hexToRgbaCssColor(
-                White,
-                0.6
-            )};
-            --ni-private-banner-outline-font-color: ${White};
-            --ni-private-banner-outline-icon-color: ${hexToRgbaCssColor(
-                White,
-                0.6
-            )};
-        }
-    `
-)
-```
-
-Add the appearance and theme behaviors to the existing stylesheet's
-`.withBehaviors()` call.
-
 ### Test Coverage
 
 Tests will verify that:
 
 - The `appearance` property accepts only values from `BannerAppearance`.
-- An absent `appearance` attribute renders the block appearance.
+- An absent `appearance` attribute initializes the property to `block` and renders the block appearance.
 - `appearance="block"` renders identically to the absent attribute state.
-- `appearance="outline"` applies the correct background and border for each
-  theme and severity combination.
+- `appearance="outline"` applies the correct background and border for each theme and severity combination.
 - Changing between `block` and `outline` updates the active styles.
 - Existing block rendering remains unchanged.
-- Storybook exposes a block/default action button for the recommended outline
-    banner configuration.
 - Storybook examples exercise each appearance across themes and severities.
+
+### Frameworks
+Framework wrappers will be updated to expose the new BannerAppearance attribute.
 
 ## Alternative Implementations / Designs
 
-None
+Considered whether it made sense to introduce a common appearance API across components.
 
 ## Open Issues
 
-- Confirm the action and dismiss-button colors for every appearance, theme,
-    and severity combination.
+None
