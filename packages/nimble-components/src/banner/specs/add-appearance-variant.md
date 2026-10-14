@@ -42,104 +42,41 @@ public appearance: BannerAppearance = BannerAppearance.block;
 
 Common styles will reset appearance-specific backgrounds and box shadows to provide a neutral foundation for the different appearances. The styling architecture is intended to more easily extend to a possible `ghost` appearance type that has been requested.
 
-Conditional CSS blocks added with `appearanceBehavior` will define the block and outline styles.
+Conditional CSS blocks added with `appearanceBehavior` will define the block and outline styles. The appearance changes the banner background and container overlay, text and title color, icon color and border treatment. Layout, spacing, sizing, typography, content, icon selection, and interaction behavior remain the same.
 
-Private CSS custom properties will separate theme and severity palette selection from appearance styling.
+Because the banner uses the color theme to provide the existing white button outline and rollover styles, a light-theme outline banner will override those styles with `Black91` at 75% opacity.
 
-As an example, the light theme will define the new private custom properties as follows. The dark and color themes will assign the same properties using the values listed below.
+### Theme and Severity Color Strategy
 
-```ts
-:host {
-    --ni-private-banner-block-background-color: ${Black75};
-    --ni-private-banner-block-container-background-color: transparent;
-    --ni-private-banner-outline-background-color: ${White};
-    --ni-private-banner-outline-border-color: ${Black80};
-    --ni-private-banner-outline-font-color: ${Black91};
-    --ni-private-banner-outline-icon-color: ${Black80};
-    --ni-private-banner-outline-button-border-color: ${hexToRgbaCssColor(
-        Black91,
-        0.75
-    )};
-    --ni-private-banner-outline-action-rgb-partial-color: 255, 255, 255;
-    --ni-private-banner-outline-button-font-color: ${Black91};
-    --ni-private-banner-outline-button-rgb-partial-color: 22, 22, 23;
-}
-```
+The block appearance background and outline appearance border will use the same color tokens with two exceptions to match the visual design spec:
 
-The block behavior will apply the existing background styles. The outline behavior will apply the theme- and severity-specific background, border, text, and icon colors.
+- Light theme: warning block background and icon use `Warning100LightUi`; outline border will use `WarningTypographyLightUi`.
+- Dark theme: error block background uses `BannerFail100DarkUi`; outline border and icon will use `Fail100DarkUi`.
 
-The outline will use an inset box shadow rather than a border so that it does not increase the banner's overall dimensions.
-
-A block button with the default appearance variant is recommended for the action slot when the banner uses the outline appearance and this guidance will be documented in storybook.
-
-Because we have used the color theme for the banner for the white rollover and outline button styles, we will need to override those in a light-theme outline banner to use `Black91` at 75% opacity. 
-
-
-### Theme and Severity Colors
-
-The existing block colors will be preserved. Outline backgrounds and known border colors are listed below.
-
-#### Block Backgrounds
-
-| Theme | Default | Error | Warning | Information | Container overlay |
-| --- | --- | --- | --- | --- | --- |
-| Light | `Black75` | `Fail100LightUi` | `Warning100LightUi` | `Information100LightUi` | Transparent |
-| Dark | `Black75` | `BannerFail100DarkUi` | `Warning100DarkUi` | `Information100DarkUi` | Transparent |
-| Color | `applicationBackgroundColor` | Same as default | Same as default | Same as default | `White` at 30% opacity |
-
-#### Outline Backgrounds
-
-| Theme | Background |
-| --- | --- |
-| Light | `White` / `#FFFFFF` |
-| Dark | `Black80` / `#505153` |
-| Color | `White` at 7% opacity / `rgba(255, 255, 255, 0.07)` |
-
-#### Outline Borders
-
-| Theme | Default | Error | Warning | Information |
-| --- | --- | --- | --- | --- |
-| Light | `Black80` / `#505153` | `Fail100LightUi` / `#C4000C` | `WarningTypographyLightUi` / `#D3440D` | `Information100LightUi` / `#804AD9` |
-| Dark | `Black50` / `#AEB0B3` | `Fail100DarkUi` / `#FF4663` | `Warning100DarkUi` / `#FF8126` | `Information100DarkUi` / `#A46EFF` |
-| Color | `White` at 60% opacity / `rgba(255, 255, 255, 0.60)` | Same as default | Same as default | Same as default |
-
-#### Outline Text and Title
-
-| Theme | Color |
-| --- | --- |
-| Light | `Black91` / `#161617` |
-| Dark | `Black15` / `#F1F1F2` |
-| Color | `White` / `#FFFFFF` |
-
-#### Outline Icons
-
-The icon color matches the corresponding outline border color except for the warning severity.
-
-| Theme | Default | Error | Warning | Information |
-| --- | --- | --- | --- | --- |
-| Light | `Black80` | `Fail100LightUi` | `Warning100LightUi` | `Information100LightUi` |
-| Dark | `Black50` | `Fail100DarkUi` | `Warning100DarkUi` | `Information100DarkUi` |
-| Color | `White` at 60% opacity | Same as default | Same as default | Same as default |
+All solid colors required by the design already have named tokens. 
 
 ### Test Coverage
 
-Tests will verify that:
+The theme matrix story will be updated to include the appearance attribute.
+
+Unit tests will verify that:
 
 - The `appearance` property accepts only values from `BannerAppearance`.
-- An absent `appearance` attribute initializes the property to `block` and renders the block appearance.
-- `appearance="block"` renders identically to the absent attribute state.
-- `appearance="outline"` applies the correct background and border for each theme and severity combination.
-- Changing between `block` and `outline` updates the active styles.
-- Existing block rendering remains unchanged.
-- Storybook examples exercise each appearance across themes and severities.
+- An absent `appearance` attribute initializes the property to `block`.
+- The `appearance` property and attribute reflect one another.
 
 ### Frameworks
 Framework wrappers will be updated to expose the new BannerAppearance attribute.
 
+### Storybook/Usage Guidelines
+Update the Banner storybook to include:
+- A block button with the default appearance variant is recommended for the action slot when the banner uses the outline appearance and this guidance will be documented in storybook.
+- Specific guidelines from VxD on when to use either appearance. 
+
 ## Alternative Implementations / Designs
 
-Considered whether it made sense to introduce a common appearance API across components.
+None
 
 ## Open Issues
 
-None
+Identify VxD guidance on when to use each appearance mode and document in storybook.
