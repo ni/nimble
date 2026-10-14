@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update nuget dependencies",
-  "packageName": "@ni/ok-blazor",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
