@@ -8,7 +8,7 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 import {
-    type BannerAppearance,
+    BannerAppearance,
     BannerSeverity,
     type BannerToggleEventDetail
 } from './types';
@@ -29,7 +29,7 @@ export class Banner extends FoundationElement {
      * Appearance of the banner
      */
     @attr
-    public appearance?: BannerAppearance;
+    public appearance: BannerAppearance = BannerAppearance.block;
 
     /**
      * @public

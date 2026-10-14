@@ -50,8 +50,8 @@ describe('Banner', () => {
         expect(document.createElement(bannerTag)).toBeInstanceOf(Banner);
     });
 
-    it("should initialize 'appearance' to undefined", () => {
-        expect(element.appearance).toBeUndefined();
+    it("should initialize 'appearance' to block", () => {
+        expect(element.appearance).toBe(BannerAppearance.block);
     });
 
     it("should reflect the 'appearance' property to the attribute", async () => {
