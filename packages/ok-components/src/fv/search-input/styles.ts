@@ -152,6 +152,7 @@ export const styles = css`
         }
 
         :host([appearance='underline']) .search-input-container:hover::after {
+            border-bottom-width: calc(${borderWidth} + 1px);
             border-bottom-color: ${borderHoverColor};
         }
 
