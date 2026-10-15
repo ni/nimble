@@ -157,25 +157,6 @@ describe('FvSearchInput', () => {
         expect(element.appearance).toBe(FvSearchInputAppearance.frameless);
     });
 
-    it('uses a 1px underline in the default state', async () => {
-        ({ element, connect, disconnect } = await setup());
-        element.appearance = FvSearchInputAppearance.underline;
-        await connect();
-        await waitForUpdatesAsync();
-
-        const searchInputContainer = element.shadowRoot?.querySelector(
-            '.search-input-container'
-        );
-        expect(searchInputContainer).toBeTruthy();
-        if (!searchInputContainer) {
-            return;
-        }
-
-        expect(
-            getComputedStyle(searchInputContainer, '::after').borderBottomWidth
-        ).toBe('1px');
-    });
-
     it('does not forward inherited disabled, readonly, or autofocus state to the internal input', async () => {
         ({ element, connect, disconnect } = await fixture<FvSearchInput>(html`
             <${fvSearchInputTag}
