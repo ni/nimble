@@ -158,6 +158,7 @@ export const styles = css`
 
         :host([appearance='frameless']) .search-input-container:hover::after {
             transform: scaleX(1);
+            border-bottom-width: calc(${borderWidth} + 1px);
             border-bottom-color: ${borderHoverColor};
         }
     }
