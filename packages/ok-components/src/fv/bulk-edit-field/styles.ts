@@ -9,6 +9,7 @@ import {
     warningFontColor,
     controlHeight,
     labelHeight,
+    mediumPadding,
     smallPadding,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -83,6 +84,7 @@ export const styles = css`
     .actions {
         justify-content: flex-end;
         gap: 4px;
+        margin-inline-end: ${mediumPadding};
         ${controlHeight.cssCustomProperty}: ${labelHeight};
     }
 
