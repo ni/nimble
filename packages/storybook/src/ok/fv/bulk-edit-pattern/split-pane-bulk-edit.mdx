@@ -1,0 +1,113 @@
+import { Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as bulkEditPatternStories from './bulk-edit-pattern.stories';
+
+<Meta of={bulkEditPatternStories} name="Guide" />
+<Title of={bulkEditPatternStories} />
+
+Use `ok-fv-split-layout`, `ok-fv-bulk-edit-field`, `ok-fv-edit-commit-bar`, and
+`BulkEditState` together. Applications still own records, columns, filters,
+dialogs, persistence, and product-specific field controls.
+
+The commit bar supports a `heading-actions` slot for app-owned mode controls.
+Set `actions-hidden` when Save/Revert are placed in an application toolbar;
+the component's built-in actions remain enabled by default. Set
+`hide-empty-summary` to suppress “No pending changes” in read-only mode while
+continuing to announce any outstanding edits.
+
+```ts
+import { BulkEditState } from '@ni/ok-components/dist/esm/fv/bulk-edit-state';
+
+const edits = new BulkEditState({
+    records,
+    id: record => record.id,
+    read: (record, field) => record[field]
+});
+```
+
+```html
+<ok-fv-split-layout position="60" min="35" max="75" min-secondary-pixels="300">
+    <nimble-table slot="primary"></nimble-table>
+    <section slot="secondary">
+        <ok-fv-edit-commit-bar heading="Bulk Edit — 5 rows"></ok-fv-edit-commit-bar>
+        <ok-fv-bulk-edit-field label="Location" status="mixed">
+            <nimble-text-field></nimble-text-field>
+        </ok-fv-bulk-edit-field>
+    </section>
+</ok-fv-split-layout>
+```
+
+Angular consumers import the matching `@ni/ok-angular/fv/*` modules. Add
+`OkTableToggleSelectionModule` and `okTableToggleSelection` only when row-body
+clicks must toggle without a modifier. Handle `proposedSelection` synchronously;
+call `preventDefault()` before opening an asynchronous discard dialog, then
+assign the proposal's `selectedIds` to the bound selection if confirmed. Supply
+`visibleIds` in the table's current row order. Native checkbox and keyboard
+selection use the same proposal path, and hidden selections are preserved.
+
+## Field controls and layout
+
+Directly slot the Nimble text field, text area, select, or number field into a
+bulk-edit field. The shell applies the field label and status to the control's
+accessible name, including the overwrite hint for mixed values. Wrapping the
+control in another element requires application-owned labeling.
+
+Blank or whitespace-only input remains a draft but does not schedule a mutation.
+Clear explicitly writes an empty value; Reset restores the original common or
+mixed value. Entering a common saved value does not create a pending change.
+
+The secondary pane's `min-secondary-pixels` takes precedence over the primary
+pane's percentage minimum. At 445 px with a 300 px secondary minimum, the primary
+pane may therefore be smaller than 35%. Below the secondary minimum plus the
+2 px splitter, the layout scrolls horizontally instead of shrinking the editor.
+Both panes and their directly slotted roots fill the layout's configured height.
+Collapse retains the slotted editor, its active tab, drafts, and split position.
+
+## Interactive example and checks
+
+The asset-inventory example uses 120 in-memory records and the shared state
+model. It demonstrates selection, hidden selected rows, discard confirmation,
+field edits, save/retry/revert, read-only and edit modes, collapse, and
+pointer/keyboard resizing. Its failure checkbox is demo-only.
+
+<Canvas of={bulkEditPatternStories.splitPaneBulkEdit} />
+
+With Storybook running, execute:
+
+```sh
+node packages/storybook/src/ok/fv/bulk-edit-pattern/test-bulk-edit.mjs
+```
+
+Set `STORYBOOK_URL` to check a different running Storybook instance. The check
+also covers supported controls' accessible names, full-height pane geometry,
+secondary pixel minimum precedence, and narrow commit actions.
+
+## Save contract
+
+Call `createCommit()` before persistence. On complete success, pass the refreshed
+records to `commitSucceeded()`. On failure, do nothing so edits remain retryable.
+For partial success, refresh successful records and keep failed fields in
+application state; the shared model intentionally does not invent a server
+transaction protocol.
+
+## Migration
+
+| Application code | Package API |
+|---|---|
+| Grid tracks, resize observer, collapse | `ok-fv-split-layout` |
+| Field labels, statuses, Reset/Clear, change gutter | `ok-fv-bulk-edit-field` |
+| Edit heading, summary, banner, Save/Revert | `ok-fv-edit-commit-bar` |
+| Mixed values, pending changes, affected rows | `BulkEditState` |
+| Toggle selection and hidden-ID preservation | `OkTableToggleSelectionDirective` |
+| Columns, filters, tabs, save API, confirmation dialog | Application |
+
+## Integration checklist
+
+- Preserve selected IDs that are hidden by filtering.
+- Route every changed selection through one discard confirmation.
+- Treat blank input, Clear, and Reset as distinct operations.
+- Keep failed saves pending.
+- Use a text-hidden solid-circle mapping for changed rows with
+  `Unsaved changes` accessible text.
+- Expand a collapsed pane for save errors, not for success or revert.
+- Keep wrapped toolbar actions right-aligned.
+- Let the split layout own pane tracks and use the stock splitter.

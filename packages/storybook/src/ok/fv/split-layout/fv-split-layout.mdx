@@ -1,0 +1,52 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as splitLayoutStories from './fv-split-layout.stories';
+
+<Meta of={splitLayoutStories} />
+<Title of={splitLayoutStories} />
+
+A full-height, resizable two-pane layout. The application supplies the pane content; the layout handles the splitter, pane sizing, minimum secondary-pane width, scrolling, and collapse behavior.
+
+<Canvas of={splitLayoutStories.fvSplitLayout} />
+
+## Usage
+
+Place the primary and secondary content in their named slots and give the layout a height from its parent.
+
+```html
+<ok-fv-split-layout
+  position="60"
+  min="35"
+  max="75"
+  min-secondary-pixels="300"
+>
+  <section slot="primary" aria-label="Records">...</section>
+  <section slot="secondary" aria-label="Edit selected records">...</section>
+</ok-fv-split-layout>
+```
+
+`position`, `min`, and `max` are percentages. The secondary pane defaults to a 300 px minimum; when that minimum conflicts with the percentage limits, the layout adjusts the effective position to preserve the secondary width. Use `collapsed` to remove the secondary pane and splitter from the layout while keeping slotted content and its application state.
+
+The layout emits `input` as the splitter moves and `change` when resizing is committed. Applications can use these events to update or persist `position`. Pane IDs are generated automatically; set `primary-pane-id` and `secondary-pane-id` when stable IDs are needed.
+
+<Canvas of={splitLayoutStories.collapsed} />
+
+<Canvas of={splitLayoutStories.narrow} />
+
+## API
+
+<Controls of={splitLayoutStories.fvSplitLayout} />
+
+<ComponentApisLink />
+
+## Accessibility
+
+The embedded splitter is keyboard-operable and exposes the panes through its `aria-controls` relationship. Provide meaningful labels or headings for the slotted pane content, and use a sufficiently wide parent so both panes remain usable.
+
+## Styling
+
+The layout fills its parent's available height. Each pane scrolls independently, and the slotted pane elements stretch to the layout height. The component owns the grid tracks; consumers should size the host rather than create their own splitter tracks.
+
+## Resources
+
+See the [split-pane bulk-edit guide](?path=/docs/ok-patterns-split-pane-bulk-edit--guide) and its [interactive example](?path=/story/ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit).
