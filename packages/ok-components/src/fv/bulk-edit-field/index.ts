@@ -24,7 +24,7 @@ export class FvBulkEditField extends FoundationElement {
     public status: BulkEditFieldStatusType = BulkEditFieldStatus.unchanged;
 
     @attr({ attribute: 'reset-disabled', mode: 'boolean' })
-    public resetDisabled = true;
+    public resetDisabled = false;
 
     @attr({ attribute: 'clear-disabled', mode: 'boolean' })
     public clearDisabled = false;

@@ -53,6 +53,7 @@ describe('FvBulkEditField', () => {
         element.addEventListener('reset', resetSpy);
         element.addEventListener('clear', clearSpy);
 
+        element.resetDisabled = true;
         element.reset();
         element.clear();
         expect(resetSpy).not.toHaveBeenCalled();
@@ -64,6 +65,23 @@ describe('FvBulkEditField', () => {
         element.clear();
         expect(resetSpy).toHaveBeenCalledTimes(1);
         expect(clearSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('enables reset by default and disables it only when reset-disabled is present', async () => {
+        await waitForUpdatesAsync();
+        const resetButton = element.shadowRoot!.querySelector('nimble-button')!;
+        expect(element.resetDisabled).toBeFalse();
+        expect(resetButton.disabled).toBeFalse();
+
+        element.setAttribute('reset-disabled', '');
+        await waitForUpdatesAsync();
+        expect(element.resetDisabled).toBeTrue();
+        expect(resetButton.disabled).toBeTrue();
+
+        element.removeAttribute('reset-disabled');
+        await waitForUpdatesAsync();
+        expect(element.resetDisabled).toBeFalse();
+        expect(resetButton.disabled).toBeFalse();
     });
 
     it('keeps the control left edge fixed for every status', async () => {
