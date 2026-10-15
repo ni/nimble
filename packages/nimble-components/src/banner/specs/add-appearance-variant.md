@@ -66,9 +66,11 @@ Unit tests will verify that:
 - The `appearance` property and attribute reflect one another.
 
 ### Frameworks
+
 Framework wrappers will be updated to expose the new BannerAppearance attribute.
 
 ### Storybook/Usage Guidelines
+
 Update the Banner storybook to include:
 - A block button with the default appearance variant is recommended for the action slot when the banner uses the outline appearance and this guidance will be documented in storybook.
 - Specific guidelines from VxD on when to use either appearance. 
