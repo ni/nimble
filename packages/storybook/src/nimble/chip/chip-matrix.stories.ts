@@ -118,16 +118,16 @@ const component = (
 `;
 
 const createThemeMatrix = (selectableState: SelectableState): ViewTemplate => createMatrix(component, [
-        disabledStates,
-        appearanceStates,
-        sizeStates,
-        removableStates,
-        showStartSlotIconStates,
-        labelStates,
-        widthStates,
-        [selectableState],
-        [selectedStates[0]] // Only not selected
-    ]);
+    disabledStates,
+    appearanceStates,
+    sizeStates,
+    removableStates,
+    showStartSlotIconStates,
+    labelStates,
+    widthStates,
+    [selectableState],
+    [selectedStates[0]] // Only not selected
+]);
 
 export const lightThemeMatrix: StoryFn = createFixedThemeStory(
     createThemeMatrix(selectableStates[0]),
