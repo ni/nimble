@@ -57,7 +57,7 @@ export const styles = css`
             position: absolute;
             inset-inline: 0;
             inset-block-end: calc(-1 * ${borderWidth});
-            border-bottom: calc(${borderWidth} + 1px) solid ${borderHoverColor};
+            border-bottom: ${borderWidth} solid ${borderHoverColor};
             transform: scaleX(0);
             transform-origin: center;
             transition:
