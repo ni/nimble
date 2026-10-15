@@ -8,6 +8,7 @@ import {
     warningColor,
     warningFontColor,
     controlHeight,
+    labelHeight,
     smallPadding,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -51,7 +52,7 @@ export const styles = css`
 
     .header {
         flex-wrap: wrap;
-        margin-block-end: ${smallPadding};
+        margin-block-end: 0;
     }
 
     .label {
@@ -62,7 +63,7 @@ export const styles = css`
 
     .status {
         font-size: 0.875em;
-        line-height: 1.25;
+        line-height: 1;
         padding: 0 5px;
         border: 1px solid ${informationColor};
         border-radius: 4px;
@@ -82,7 +83,7 @@ export const styles = css`
     .actions {
         justify-content: flex-end;
         gap: 4px;
-        ${controlHeight.cssCustomProperty}: 24px;
+        ${controlHeight.cssCustomProperty}: ${labelHeight};
     }
 
     ::slotted(:not([slot])) {
