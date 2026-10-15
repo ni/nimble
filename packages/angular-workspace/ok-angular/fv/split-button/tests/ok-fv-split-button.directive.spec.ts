@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type FvSplitButton, FvSplitButtonAppearance, FvSplitButtonAppearanceVariant, OkFvSplitButtonDirective } from '../ok-fv-split-button.directive';
 import { OkFvSplitButtonModule } from '../ok-fv-split-button.module';
@@ -35,7 +35,8 @@ describe('Ok fv split button', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSplitButtonModule]
+                imports: [OkFvSplitButtonModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -94,7 +95,8 @@ describe('Ok fv split button', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSplitButtonModule]
+                imports: [OkFvSplitButtonModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -153,7 +155,8 @@ describe('Ok fv split button', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvSplitButtonModule]
+                imports: [OkFvSplitButtonModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnDurationTextModule } from '../nimble-table-column-duration-text.module';
@@ -53,7 +53,8 @@ describe('NimbleTableColumnDurationText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnDurationTextModule, NimbleTableModule]
+                imports: [NimbleTableColumnDurationTextModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -176,7 +177,8 @@ describe('NimbleTableColumnDurationText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnDurationTextModule, NimbleTableModule]
+                imports: [NimbleTableColumnDurationTextModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -421,7 +423,8 @@ describe('NimbleTableColumnDurationText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnDurationTextModule, NimbleTableModule]
+                imports: [NimbleTableColumnDurationTextModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

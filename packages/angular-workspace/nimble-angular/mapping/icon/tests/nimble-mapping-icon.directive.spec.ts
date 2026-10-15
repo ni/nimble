@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconSeverity } from '@ni/nimble-angular';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
@@ -49,7 +49,8 @@ describe('NimbleMappingIcon', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -119,7 +120,8 @@ describe('NimbleMappingIcon', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -219,7 +221,8 @@ describe('NimbleMappingIcon', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

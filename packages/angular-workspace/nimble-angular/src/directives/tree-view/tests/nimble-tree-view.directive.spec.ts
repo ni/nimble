@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { NimbleTreeViewModule } from '../nimble-tree-view.module';
 import { NimbleTreeViewDirective, type TreeView, TreeViewSelectionMode } from '../nimble-tree-view.directive';
 
@@ -35,7 +35,8 @@ describe('Nimble tree view', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTreeViewModule]
+                imports: [NimbleTreeViewModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -70,7 +71,8 @@ describe('Nimble tree view', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTreeViewModule]
+                imports: [NimbleTreeViewModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -107,7 +109,8 @@ describe('Nimble tree view', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTreeViewModule]
+                imports: [NimbleTreeViewModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -150,7 +153,8 @@ describe('Nimble tree view', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTreeViewModule]
+                imports: [NimbleTreeViewModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

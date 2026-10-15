@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnMenuButtonModule } from '../nimble-table-column-menu-button.module';
@@ -37,7 +37,8 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnMenuButtonModule, NimbleTableModule]
+                imports: [NimbleTableColumnMenuButtonModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -80,7 +81,8 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnMenuButtonModule, NimbleTableModule]
+                imports: [NimbleTableColumnMenuButtonModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -168,7 +170,8 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnMenuButtonModule, NimbleTableModule]
+                imports: [NimbleTableColumnMenuButtonModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -326,7 +329,8 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnMenuButtonModule, NimbleTableModule]
+                imports: [NimbleTableColumnMenuButtonModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

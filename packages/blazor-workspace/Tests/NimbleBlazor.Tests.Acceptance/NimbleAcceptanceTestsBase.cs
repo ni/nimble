@@ -1,17 +1,16 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
+using BlazorWorkspace.Testing.Acceptance;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 
 public abstract class NimbleAcceptanceTestsBase : AcceptanceTestsBase, IClassFixture<NimbleBlazorWebHostServerFixture>
 {
-    protected NimbleAcceptanceTestsBase(
-        PlaywrightFixture playwrightFixture,
-        NimbleBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture)
+    private readonly NimbleBlazorWebHostServerFixture _blazorServerClassFixture;
+
+    protected NimbleAcceptanceTestsBase(NimbleBlazorWebHostServerFixture blazorServerClassFixture)
     {
-        ServerAddress = blazorServerClassFixture.ServerAddress!;
+        _blazorServerClassFixture = blazorServerClassFixture;
     }
 
-    protected override Uri ServerAddress { get; }
+    protected override Uri ServerAddress => _blazorServerClassFixture.ServerAddress!;
 }

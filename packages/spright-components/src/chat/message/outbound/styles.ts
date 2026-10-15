@@ -17,9 +17,12 @@ export const styles = css`
     :host {
         min-width: ${standardPadding};
         min-height: ${standardPadding};
+        width: fit-content;
+        max-width: 90%;
 
         flex-direction: row;
         justify-content: flex-end;
+        align-self: flex-end;
         flex-shrink: 0;
         font: ${bodyFont};
         color: ${bodyFontColor};
@@ -28,19 +31,17 @@ export const styles = css`
     .container {
         display: flex;
         flex-direction: column;
-        max-width: calc(90%);
+        width: 100%;
+        background: ${fillSelectedColor};
+        border: ${borderWidth} solid ${borderHoverColor};
+        border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
+        padding: ${mediumPadding};
     }
 
     .message-content {
         width: fit-content;
         height: fit-content;
+        max-width: 100%;
         overflow-x: auto;
-    }
-
-    :host .message-content {
-        background: ${fillSelectedColor};
-        border: ${borderWidth} solid ${borderHoverColor};
-        border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
-        padding: ${mediumPadding};
     }
 `;

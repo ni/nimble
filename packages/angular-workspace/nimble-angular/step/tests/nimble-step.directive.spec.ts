@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleStepModule } from '../nimble-step.module';
@@ -41,7 +41,8 @@ describe('Nimble step', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleStepModule]
+                imports: [NimbleStepModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -100,7 +101,8 @@ describe('Nimble step', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleStepModule]
+                imports: [NimbleStepModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -164,7 +166,8 @@ describe('Nimble step', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleStepModule]
+                imports: [NimbleStepModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -258,7 +261,8 @@ describe('Nimble step', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleStepModule]
+                imports: [NimbleStepModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

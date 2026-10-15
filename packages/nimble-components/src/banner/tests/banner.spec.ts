@@ -141,7 +141,7 @@ describe('Banner with LabelProviderCore', () => {
         const actualCloseButtonText = element
             .shadowRoot!.querySelector('.dismiss')!
             .querySelector(buttonTag)!
-            .textContent!.trim();
+            .textContent.trim();
         expect(actualCloseButtonText).toBe('Customized Close');
     });
 });

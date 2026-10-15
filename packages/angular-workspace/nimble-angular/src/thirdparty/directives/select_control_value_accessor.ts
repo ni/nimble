@@ -1,13 +1,12 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/select_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/v21.2.19/packages/forms/src/directives/select_control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from SelectControlValueAccessor's `@Directive` decorator
  * - Remove all configuration from NgSelectOption's `@Directive` decorator
  * - Update validation within `compareWith` to use public APIs
  */
-
 
 /**
  * @license
@@ -311,7 +310,7 @@ export class NgSelectOption implements OnDestroy {
   @Input('value')
   set value(value: any) {
     this._setElementValue(value);
-    if (this._select) this._select._writeValueAfterRender();
+    this._select?._writeValueAfterRender();
   }
 
   /** @internal */
@@ -321,9 +320,7 @@ export class NgSelectOption implements OnDestroy {
 
   /** @docs-private */
   ngOnDestroy(): void {
-    if (this._select) {
-      this._select._optionMap.delete(this.id);
-      this._select._writeValueAfterRender();
-    }
+    this._select?._optionMap.delete(this.id);
+    this._select?._writeValueAfterRender();
   }
 }

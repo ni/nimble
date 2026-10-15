@@ -1,5 +1,6 @@
 @namespace NimbleBlazor
 <nimble-tooltip
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     anchor="@Anchor"
     delay="@Delay"
     severity="@Severity.ToAttributeValue()"

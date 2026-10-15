@@ -1,4 +1,3 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
 using Microsoft.Playwright;
 using Xunit;
 
@@ -6,13 +5,13 @@ namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
 public class WaferMapTestsExperimental : NimbleInteractiveAcceptanceTestsBase
 {
-    public WaferMapTestsExperimental(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public WaferMapTestsExperimental(NimbleBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     { }
 
     private async Task WaitForWaferMapRenderCompleteAsync(IPage page)
     {
-        await Assertions.Expect(page.Locator(".render-text-field")).ToHaveAttributeAsync("current-value", "RenderComplete");
+        await Expect(page.Locator(".render-text-field")).ToHaveAttributeAsync("current-value", "RenderComplete");
     }
 
     [Fact]
@@ -25,10 +24,10 @@ public class WaferMapTestsExperimental : NimbleInteractiveAcceptanceTestsBase
         var textField = page.Locator(".test-text-field");
 
         await WaitForWaferMapRenderCompleteAsync(page);
-        await Assertions.Expect(wafer).ToBeVisibleAsync();
+        await Expect(wafer).ToBeVisibleAsync();
         await validButton.ClickAsync();
 
-        await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "False");
+        await Expect(textField).ToHaveAttributeAsync("current-value", "False");
     }
 
     [Fact]
@@ -40,9 +39,9 @@ public class WaferMapTestsExperimental : NimbleInteractiveAcceptanceTestsBase
         var textField = page.Locator(".test-text-field");
 
         await WaitForWaferMapRenderCompleteAsync(page);
-        await Assertions.Expect(wafer).ToBeVisibleAsync();
+        await Expect(wafer).ToBeVisibleAsync();
         await wafer.HoverAsync();
 
-        await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "4");
+        await Expect(textField).ToHaveAttributeAsync("current-value", "4");
     }
 }

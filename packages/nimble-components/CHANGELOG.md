@@ -1,8 +1,129 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.16.0
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Minor changes
+
+- Add Noto Sans Mono code font token ([ni/nimble@5acaba9](https://github.com/ni/nimble/commit/5acaba9331b57c56116782553219749733c468e1))
+- Bump @ni/nimble-tokens to v8.21.0
+
+## 35.15.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Banner should not reserve width for dimiss button when prevent-dismiss is true ([ni/nimble@08ac36f](https://github.com/ni/nimble/commit/08ac36fb9aa0d523018fec0513bbd180e66f2911))
+
+## 35.15.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/unit-format to v1.0.9
+- Bump @ni/jasmine-parameterized to v1.0.14
+
+## 35.15.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.20.0
+
+## 35.14.1
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/unit-format to v1.0.8
+- Bump @ni/jasmine-parameterized to v1.0.13
+
+## 35.14.0
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Minor changes
+
+- DateTextFormatter ([ni/nimble@1f67301](https://github.com/ni/nimble/commit/1f673014cafe5c432580c3b13df58041988f328a))
+
+## 35.13.3
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.19.2
+
+## 35.13.2
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/nimble-tokens to v8.19.1
+- Bump @ni/unit-format to v1.0.7
+- Bump @ni/jasmine-parameterized to v1.0.12
+
+## 35.13.1
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update playwright and lock files ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/unit-format to v1.0.6
+- Bump @ni/jasmine-parameterized to v1.0.11
+
+## 35.13.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.19.0
+
+## 35.12.7
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Update to fast-foundation 10.2.5 ([ni/nimble@97dda99](https://github.com/ni/nimble/commit/97dda992014c79150846596631c19bdb00fdd406))
+
+## 35.12.6
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- npm dependency updates ([ni/nimble@6c8854c](https://github.com/ni/nimble/commit/6c8854c79818d5d4b47d43ea5327661cb2a37f3c))
+
+## 35.12.5
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Forward autocomplete attribute to nimble-text-field internal input for password manager / autofill support ([ni/nimble@793419c](https://github.com/ni/nimble/commit/793419cf85a74d38242eb23bab23478c9004db0e))
+
+## 35.12.4
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Add padding between switch and its label ([ni/nimble@4817316](https://github.com/ni/nimble/commit/4817316b71d434a689a16d0c44a9e2b01a0517b1))
 
 ## 35.12.3
 

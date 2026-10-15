@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconSeverity } from '../../../public-api';
 import { type IconCheck, NimbleIconCheckDirective } from '../../icons/check/nimble-icon-check.directive';
@@ -36,7 +36,8 @@ describe('Nimble icon check', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleIconCheckModule]
+                imports: [NimbleIconCheckModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -71,7 +72,8 @@ describe('Nimble icon check', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleIconCheckModule]
+                imports: [NimbleIconCheckModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -108,7 +110,8 @@ describe('Nimble icon check', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleIconCheckModule]
+                imports: [NimbleIconCheckModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -151,7 +154,8 @@ describe('Nimble icon check', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleIconCheckModule]
+                imports: [NimbleIconCheckModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

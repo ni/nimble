@@ -1,8 +1,158 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.2.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.16.0
+
+## 34.2.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.2
+
+## 34.2.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.1
+- Bump @ni/unit-format to v1.0.9
+
+## 34.2.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.15.0
+
+## 34.1.1
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.1
+- Bump @ni/unit-format to v1.0.8
+
+## 34.1.0
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Minor changes
+
+- DateTextPipe ([ni/nimble@1f67301](https://github.com/ni/nimble/commit/1f673014cafe5c432580c3b13df58041988f328a))
+- Bump @ni/nimble-components to v35.14.0
+
+## 34.0.1
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.3
+
+## 34.0.0
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Major changes
+
+- Update to Angular 21 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/nimble-components to v35.13.2
+- Bump @ni/unit-format to v1.0.7
+
+## 33.6.2
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.1
+- Bump @ni/unit-format to v1.0.6
+
+## 33.6.1
+
+Tue, 25 Aug 2026 18:10:19 GMT
+
+### Patches
+
+- Prevent error squiggles in editor for Jasmine types ([ni/nimble@50f1422](https://github.com/ni/nimble/commit/50f1422c6affede328a34ee4ab399c8a2fd7206c))
+
+## 33.6.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.13.0
+
+## 33.5.0
+
+Wed, 19 Aug 2026 23:19:23 GMT
+
+### Minor changes
+
+- Export TableColumnDateTextPageObject from nimble-angular ([ni/nimble@3904d1f](https://github.com/ni/nimble/commit/3904d1fa4354e05df999ffbad20a7b43be64c35a))
+
+## 33.4.10
+
+Fri, 14 Aug 2026 23:24:47 GMT
+
+### Patches
+
+- Fix type errors in VCA host bindings, and pre-emptively add provideZoneChangeDetection() to tests ([ni/nimble@149ab09](https://github.com/ni/nimble/commit/149ab0910b9b850f56e2b710bdbd3f10342a0d7e))
+
+## 33.4.9
+
+Tue, 11 Aug 2026 20:29:21 GMT
+
+### Patches
+
+- Remove forked RouterLink implementation ([ni/nimble@e0da38d](https://github.com/ni/nimble/commit/e0da38d81bcd987bb2f4710e10bd34209cd4d3d1))
+
+## 33.4.8
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.7
+
+## 33.4.7
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.6
+
+## 33.4.6
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.5
+
+## 33.4.5
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.4
 
 ## 33.4.4
 

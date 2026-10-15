@@ -1,8 +1,181 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.13.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.3
+
+## 0.13.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.2
+
+## 0.13.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.1
+
+## 0.13.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.10.0
+
+## 0.12.10
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.6
+
+## 0.12.9
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Align types export paths ([ni/nimble@aefa2a2](https://github.com/ni/nimble/commit/aefa2a2ccbca09b6faa758331c6633d46bedeb3c))
+- Bump @ni/ok-components to v1.9.5
+
+## 0.12.8
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.4
+
+## 0.12.7
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.3
+
+## 0.12.6
+
+Mon, 21 Sep 2026 21:33:58 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.2
+
+## 0.12.5
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/ok-components to v1.9.1
+
+## 0.12.4
+
+Thu, 10 Sep 2026 14:28:09 GMT
+
+### Patches
+
+- Add the OK FV splitter React wrapper ([ni/nimble@bf900cd](https://github.com/ni/nimble/commit/bf900cdc767156fcea93f558583929183f3c1465))
+- Bump @ni/ok-components to v1.9.0
+
+## 0.12.3
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.8.3
+
+## 0.12.2
+
+Thu, 03 Sep 2026 16:57:10 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.8.2
+
+## 0.12.1
+
+Tue, 01 Sep 2026 15:14:14 GMT
+
+### Patches
+
+- Add the OK FV sticky-header component and framework wrappers ([ni/nimble@250b49e](https://github.com/ni/nimble/commit/250b49e90ad9ca2d6949521be428da2128ff54b8))
+- Bump @ni/ok-components to v1.8.1
+
+## 0.12.0
+
+Thu, 27 Aug 2026 14:33:47 GMT
+
+### Minor changes
+
+- Expose compact FV summary panel sizing through the React wrappers ([ni/nimble@d0c3e30](https://github.com/ni/nimble/commit/d0c3e302500e7a33a5c957d9ffeb3a48918aa312))
+- Bump @ni/ok-components to v1.8.0
+
+## 0.11.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.7.0
+
+## 0.10.0
+
+Thu, 13 Aug 2026 18:40:18 GMT
+
+### Minor changes
+
+- Add OK React component wrappers ([ni/nimble@8c8d779](https://github.com/ni/nimble/commit/8c8d779c7550a126acb914692ebcd5180170594c))
+
+## 0.9.26
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.9
+
+## 0.9.25
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.8
+
+## 0.9.24
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.7
+
+## 0.9.23
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.6
 
 ## 0.9.22
 

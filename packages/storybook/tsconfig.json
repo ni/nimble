@@ -28,6 +28,8 @@
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": false,
         "jsx": "preserve",
+        // storybook's own .d.ts files have internal type conflicts (e.g. requiring @storybook/react types we don't install)
+        "skipLibCheck": true,
 
         // Support Chromatic Turbosnap in a monorepo
         // See: https://github.com/chromaui/chromatic-cli/issues/1149#issuecomment-2936493954

@@ -1,8 +1,127 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.17.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.16.0
+- Bump @ni/nimble-tokens to v8.21.0
+
+## 0.17.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.2
+
+## 0.17.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.1
+
+## 0.17.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.15.0
+- Bump @ni/nimble-tokens to v8.20.0
+
+## 0.16.5
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Align types export paths ([ni/nimble@aefa2a2](https://github.com/ni/nimble/commit/aefa2a2ccbca09b6faa758331c6633d46bedeb3c))
+- Bump @ni/nimble-components to v35.14.1
+
+## 0.16.4
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.0
+
+## 0.16.3
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.3
+- Bump @ni/nimble-tokens to v8.19.2
+
+## 0.16.2
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/nimble-components to v35.13.2
+- Bump @ni/nimble-tokens to v8.19.1
+
+## 0.16.1
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.1
+
+## 0.16.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.13.0
+- Bump @ni/nimble-tokens to v8.19.0
+
+## 0.15.14
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.7
+
+## 0.15.13
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.6
+
+## 0.15.12
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.5
+
+## 0.15.11
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.4
 
 ## 0.15.10
 

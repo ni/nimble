@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { type Tooltip, NimbleTooltipDirective, TooltipSeverity } from '../nimble-tooltip.directive';
@@ -44,7 +44,8 @@ describe('Nimble tooltip', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTooltipModule]
+                imports: [NimbleTooltipModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -97,7 +98,8 @@ describe('Nimble tooltip', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTooltipModule]
+                imports: [NimbleTooltipModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -155,7 +157,8 @@ describe('Nimble tooltip', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTooltipModule]
+                imports: [NimbleTooltipModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -237,7 +240,8 @@ describe('Nimble tooltip', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTooltipModule]
+                imports: [NimbleTooltipModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -256,8 +260,7 @@ describe('Nimble tooltip', () => {
             expect(nativeElement.anchor).toBe('anchor2');
         });
 
-        // Test is disabled because of [FAST bug](https://github.com/microsoft/fast/issues/6257)
-        xit('can be configured with attribute binding for delay', () => {
+        it('can be configured with attribute binding for delay', () => {
             expect(directive.delay).toBe(300);
             expect(nativeElement.delay).toBe(300);
 

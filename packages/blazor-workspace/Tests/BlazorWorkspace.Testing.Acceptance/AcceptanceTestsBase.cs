@@ -1,13 +1,10 @@
 ﻿using Microsoft.Playwright;
-using Xunit;
+using Microsoft.Playwright.Xunit.v3;
 
 namespace BlazorWorkspace.Testing.Acceptance;
 
-[Collection(nameof(PlaywrightFixture))]
-public abstract class AcceptanceTestsBase
+public abstract class AcceptanceTestsBase : PageTest
 {
-    private readonly PlaywrightFixture _playwrightFixture;
-
     protected abstract Uri ServerAddress { get; }
 
     /// <summary>
@@ -16,17 +13,11 @@ public abstract class AcceptanceTestsBase
     /// </summary>
     protected virtual string ComponentLibraryInitializationTestJavaScript => string.Empty;
 
-    protected AcceptanceTestsBase(PlaywrightFixture playwrightFixture)
-    {
-        _playwrightFixture = playwrightFixture;
-    }
-
     protected async Task<AsyncDisposablePage> NewPageForRouteAsync(string route)
     {
-        var page = await _playwrightFixture.BrowserContext!.NewPageAsync();
-        await NavigateToPageAsync(page, route);
-        await WaitForComponentsInitializationAsync(page);
-        return new AsyncDisposablePage(page);
+        await NavigateToPageAsync(Page, route);
+        await WaitForComponentsInitializationAsync(Page);
+        return new AsyncDisposablePage(Page);
     }
 
     private async Task NavigateToPageAsync(IPage page, string route)

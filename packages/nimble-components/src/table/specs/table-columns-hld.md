@@ -80,7 +80,7 @@ New columns can be created for any of the following use cases:
 
 Note that displaying data of different types but with the same presentation and configuration should not typically require a new column type. For example, a single column type maps string, numeric, and boolean enumerated values to a text presentation.
 
-Columns should follow the [Nimble components naming scheme](/packages/nimble-components/CONTRIBUTING.md#component-naming) with these rules:
+Columns should follow the [Nimble components naming scheme](/packages/nimble-components/CONTRIBUTING.md#component-naming-convention) with these rules:
 
 - the "category" is `table-column`
 - the "presentation" describes the cell visual. For example, `text`, `anchor`, or `progress`

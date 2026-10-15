@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/20.3.15/packages/forms/src/directives/number_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/v21.2.19/packages/forms/src/directives/number_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from NumberValueAccessor's `@Directive` decorator

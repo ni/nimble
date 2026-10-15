@@ -1,5 +1,9 @@
 import { css } from '@ni/fast-element';
-import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import {
+    borderWidth,
+    smallPadding,
+    standardPadding
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
 export const styles = css`
@@ -27,6 +31,24 @@ export const styles = css`
             display: none;
         }
 
+        :host([size='compact']) .summary-item-container {
+            flex-wrap: nowrap;
+            box-sizing: border-box;
+            overflow-x: auto;
+            overflow-y: hidden;
+            gap: ${smallPadding};
+            scrollbar-width: none;
+        }
+
+        :host([size='compact']) .summary-item-container.has-overflow {
+            -webkit-mask-image: linear-gradient(to right, black calc(100% - 48px), transparent);
+            mask-image: linear-gradient(to right, black calc(100% - 48px), transparent);
+        }
+
+        :host([size='compact']) .summary-item-container::-webkit-scrollbar {
+            display: none;
+        }
+
         .edit-items-button {
             align-self: start;
             justify-self: end;
@@ -34,6 +56,10 @@ export const styles = css`
 
         ::slotted(*) {
             flex: 0 0 auto;
+        }
+
+        :host([size='compact']) ::slotted(ok-fv-summary-panel-tile) {
+            margin: calc(2 * ${borderWidth});
         }
     }
 

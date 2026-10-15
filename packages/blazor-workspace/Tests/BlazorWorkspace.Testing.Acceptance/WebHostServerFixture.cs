@@ -4,13 +4,13 @@ using Xunit;
 
 namespace BlazorWorkspace.Testing.Acceptance;
 
-public abstract class WebHostServerFixture : IAsyncLifetime, IDisposable
+public abstract class WebHostServerFixture : IAsyncLifetime
 {
     private IHost? _host;
 
     public Uri? ServerAddress { get; set; }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = CreateWebHost();
         await _host.StartAsync();
@@ -22,26 +22,14 @@ public abstract class WebHostServerFixture : IAsyncLifetime, IDisposable
 
     protected abstract IStartup StartupFactory(WebHostBuilderContext context);
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (_host != null)
         {
             await _host.StopAsync();
             _host.Dispose();
         }
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
         GC.SuppressFinalize(this);
-    }
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            _host?.Dispose();
-        }
     }
 
     private IHost CreateWebHost()

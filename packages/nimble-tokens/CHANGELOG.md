@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Tue, 26 May 2026 18:42:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.21.0
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Minor changes
+
+- Add Noto Sans Mono code font token ([ni/nimble@5acaba9](https://github.com/ni/nimble/commit/5acaba9331b57c56116782553219749733c468e1))
+
+## 8.20.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Add new icons for file and folder operations, scissors/cut. Update icons for systemlink and electronic-chip-zoomed. ([ni/nimble@7b35ce1](https://github.com/ni/nimble/commit/7b35ce12408e40866c7e34fd08b0be348a514857))
+
+## 8.19.2
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Update new systemlink icon ([ni/nimble@78020c9](https://github.com/ni/nimble/commit/78020c9b8b27caeb58a27f48ec21c33050ddf1b3))
+
+## 8.19.1
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump typescript dependency from 5.8 to 5.9 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+
+## 8.19.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Add headset, user headset, and power cog icons; update user helmet safety icon ([ni/nimble@3fb3825](https://github.com/ni/nimble/commit/3fb3825211a44a60510ae283ab4680899ba17df9))
 
 ## 8.18.1
 

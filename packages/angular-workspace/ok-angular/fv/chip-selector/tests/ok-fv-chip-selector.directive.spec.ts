@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type FvChipSelector, OkFvChipSelectorDirective } from '../ok-fv-chip-selector.directive';
 import { OkFvChipSelectorModule } from '../ok-fv-chip-selector.module';
@@ -35,7 +35,8 @@ describe('Ok fv chip selector', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvChipSelectorModule]
+                imports: [OkFvChipSelectorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -105,7 +106,8 @@ describe('Ok fv chip selector', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvChipSelectorModule]
+                imports: [OkFvChipSelectorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -178,7 +180,8 @@ describe('Ok fv chip selector', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [OkFvChipSelectorModule]
+                imports: [OkFvChipSelectorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

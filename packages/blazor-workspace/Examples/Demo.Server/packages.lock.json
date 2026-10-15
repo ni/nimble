@@ -4,15 +4,15 @@
     "net10.0": {
       "AspNetCore.SassCompiler": {
         "type": "Direct",
-        "requested": "[1.101.0, )",
-        "resolved": "1.101.0",
-        "contentHash": "sL98cvZ1JOkehsZSxIxspCcGkwPyiogU2fWsFT4unH0x3mLtk45iAWkwMGi5tFIWXBFKaRLFQNfRXPhoHI+TmA=="
+        "requested": "[1.105.1, )",
+        "resolved": "1.105.1",
+        "contentHash": "li1LYujV26cWQymL7fqxSA9HoW1TGgYEe9fdinNzYZSeiljgkiTLqY1sPURR6eM+8RCsSPbo4RYheVimPWJq8g=="
       },
       "Microsoft.AspNetCore.App.Internal.Assets": {
         "type": "Direct",
-        "requested": "[10.0.9, )",
-        "resolved": "10.0.9",
-        "contentHash": "E9Wp/LPKAYkGOVBv4lt5U5TnUA/7pov7QZAwF3eI64kK8AAXqkPDwuadEOwpL1WXEfgecYm0fccluvABp32D8g=="
+        "requested": "[10.0.13, )",
+        "resolved": "10.0.13",
+        "contentHash": "Y2cXnMnqht5fvja2H8kkr5WA2fYItIPwXiBVo83+/9oySuKZCrz4T+yyZRFtLpxxDScvtYDt7e+J0eNElJ+AiA=="
       },
       "NI.CSharp.Analyzers": {
         "type": "Direct",
@@ -93,7 +93,7 @@
       "demo.shared": {
         "type": "Project",
         "dependencies": {
-          "AspNetCore.SassCompiler": "[1.101.0, )",
+          "AspNetCore.SassCompiler": "[1.105.1, )",
           "NI.CSharp.Analyzers": "[2.0.35, )",
           "NimbleBlazor": "[1.0.0, )",
           "OkBlazor": "[1.0.0, )",

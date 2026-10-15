@@ -1,4 +1,3 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
 using Microsoft.Playwright;
 using Xunit;
 
@@ -6,8 +5,8 @@ namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
 public class NumberFieldBindingTests : NimbleInteractiveAcceptanceTestsBase
 {
-    public NumberFieldBindingTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public NumberFieldBindingTests(NimbleBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     {
     }
 
@@ -23,9 +22,9 @@ public class NumberFieldBindingTests : NimbleInteractiveAcceptanceTestsBase
             var numberField2IncButton = numberField2.Locator("nimble-button", new LocatorLocatorOptions() { HasText = "Increment" });
 
             await numberField1IncButton.ClickAsync();
-            await Assertions.Expect(numberField2).ToHaveAttributeAsync("current-value", "0.5");
+            await Expect(numberField2).ToHaveAttributeAsync("current-value", "0.5");
             await numberField2IncButton.ClickAsync();
-            await Assertions.Expect(numberField1).ToHaveAttributeAsync("current-value", "3");
+            await Expect(numberField1).ToHaveAttributeAsync("current-value", "3");
         }
     }
 }

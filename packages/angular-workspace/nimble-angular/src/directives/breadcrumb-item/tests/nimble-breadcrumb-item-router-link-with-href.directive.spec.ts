@@ -1,4 +1,4 @@
-import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
@@ -14,7 +14,7 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
             <nimble-breadcrumb>
-                <nimble-breadcrumb-item #breadcrumbItem1 nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
+                <nimble-breadcrumb-item #breadcrumbItem1 [nimbleRouterLink]="route" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
                     Breadcrumb Text
                 </nimble-breadcrumb-item>
             </nimble-breadcrumb>
@@ -23,6 +23,7 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     })
     class TestHostComponent {
         @ViewChild('breadcrumbItem1', { static: true }) public breadcrumbItem1: ElementRef<BreadcrumbItem>;
+        public route = 'page1';
     }
 
     @Component({ template: '', standalone: false })
@@ -37,13 +38,9 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     let routerNavigateByUrlSpy: jasmine.Spy;
     let anchorClickHandlerSpy: jasmine.Spy;
     let separatorClickHandlerSpy: jasmine.Spy;
-    let sanitizer: jasmine.SpyObj<Sanitizer>;
     let harness: RouterTestingHarness;
 
     beforeEach(async () => {
-        sanitizer = jasmine.createSpyObj<Sanitizer>('Sanitizer', ['sanitize']);
-        sanitizer.sanitize.and.callFake((_, value: string) => value);
-
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, BlankComponent],
             imports: [
@@ -52,11 +49,11 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
                 CommonModule,
             ],
             providers: [
-                { provide: Sanitizer, useValue: sanitizer },
                 provideRouter([
                     { path: 'page1', component: BlankComponent },
                     { path: '', component: TestHostComponent }
-                ])
+                ]),
+                provideZoneChangeDetection(),
             ]
         });
         harness = await RouterTestingHarness.create('');
@@ -123,7 +120,10 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
         }));
     });
 
-    it('sanitized initial href created from nimbleRouterLink', () => {
-        expect(sanitizer.sanitize).toHaveBeenCalledWith(SecurityContext.URL, '/page1?param1=true');
+    it('sanitizes href created from nimbleRouterLink', () => {
+        testHostComponent.route = '/page1;javascript:alert(1)';
+        harness.detectChanges();
+        processUpdates();
+        expect(anchor.getAttribute('href')).toBe('/page1%3Bjavascript:alert%281%29?param1=true');
     });
 });

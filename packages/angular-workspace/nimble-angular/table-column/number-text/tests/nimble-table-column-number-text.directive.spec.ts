@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { TableColumnSortDirection } from '../../nimble-table-column-base.directive';
@@ -38,7 +38,8 @@ describe('NimbleTableColumnNumberText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnNumberTextModule, NimbleTableModule]
+                imports: [NimbleTableColumnNumberTextModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -98,7 +99,8 @@ describe('NimbleTableColumnNumberText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnNumberTextModule, NimbleTableModule]
+                imports: [NimbleTableColumnNumberTextModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -249,7 +251,8 @@ describe('NimbleTableColumnNumberText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnNumberTextModule, NimbleTableModule]
+                imports: [NimbleTableColumnNumberTextModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -568,7 +571,8 @@ describe('NimbleTableColumnNumberText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnNumberTextModule, NimbleTableModule]
+                imports: [NimbleTableColumnNumberTextModule, NimbleTableModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

@@ -2,6 +2,7 @@
 <nimble-chip
     selectable="@Selectable"
     selected="@Selected"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     removable="@Removable"
     disabled="@Disabled"
     @onnimblechipremove="HandleRemove"

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
@@ -84,7 +84,8 @@ describe('Nimble combobox control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleComboboxModule, NimbleListOptionModule, FormsModule]
+                imports: [NimbleComboboxModule, NimbleListOptionModule, FormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 
@@ -382,7 +383,8 @@ describe('Nimble combobox control value accessor', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleComboboxModule, NimbleListOptionModule, ReactiveFormsModule]
+                imports: [NimbleComboboxModule, NimbleListOptionModule, ReactiveFormsModule],
+                providers: [provideZoneChangeDetection()],
             });
         });
 

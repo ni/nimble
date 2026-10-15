@@ -8,6 +8,12 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     private NimbleOptionContext? _context;
 
     /// <summary>
+    /// Gets or sets a callback that's invoked when the select is blurred.
+    /// </summary>
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
+    /// <summary>
     /// Gets or sets the name of the Select.
     /// </summary>
     [Parameter]
@@ -104,5 +110,10 @@ public partial class NimbleSelect : NimbleInputBase<string?>
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }

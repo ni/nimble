@@ -1,8 +1,147 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.19.4
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.23.3
+
+## 4.19.3
+
+Wed, 14 Oct 2026 21:44:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@088efb2](https://github.com/ni/nimble/commit/088efb2c4cc014fae34e1364022aa5d0d008d3f7))
+
+## 4.19.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.23.2
+
+## 4.19.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/spright-components to v6.23.1
+
+## 4.19.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.23.0
+
+## 4.18.7
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.7
+
+## 4.18.6
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.6
+
+## 4.18.5
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.5
+
+## 4.18.4
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.4
+
+## 4.18.3
+
+Mon, 21 Sep 2026 21:33:58 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.3
+
+## 4.18.2
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.2
+
+## 4.18.1
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/spright-components to v6.22.1
+
+## 4.18.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.22.0
+
+## 4.17.9
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.9
+
+## 4.17.8
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@6c8854c](https://github.com/ni/nimble/commit/6c8854c79818d5d4b47d43ea5327661cb2a37f3c))
+- Bump @ni/spright-components to v6.21.8
+
+## 4.17.7
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.7
+
+## 4.17.6
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.6
 
 ## 4.17.5
 

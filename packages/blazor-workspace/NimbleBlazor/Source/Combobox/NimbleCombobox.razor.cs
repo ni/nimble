@@ -82,6 +82,9 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
     [CascadingParameter]
     private NimbleOptionContext? CascadedContext { get; set; }
 
@@ -99,5 +102,10 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }

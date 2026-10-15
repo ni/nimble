@@ -1,0 +1,1 @@
+export * from './table-column-date-text.pageobject';

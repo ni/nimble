@@ -1,13 +1,11 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
-using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
 public class TableColumnMenuButtonTests : NimbleInteractiveAcceptanceTestsBase
 {
-    public TableColumnMenuButtonTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public TableColumnMenuButtonTests(NimbleBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     {
     }
 
@@ -18,7 +16,7 @@ public class TableColumnMenuButtonTests : NimbleInteractiveAcceptanceTestsBase
         {
             var page = pageWrapper.Page;
             var table = page.Locator("nimble-table");
-            await Assertions.Expect(table).ToBeVisibleAsync();
+            await Expect(table).ToBeVisibleAsync();
 
             var beforeToggleOldState = page.Locator("#beforeToggleOldState");
             var beforeToggleNewState = page.Locator("#beforeToggleNewState");
@@ -31,22 +29,22 @@ public class TableColumnMenuButtonTests : NimbleInteractiveAcceptanceTestsBase
             // Open the menu button
             await menuButton.ClickAsync();
 
-            await Assertions.Expect(beforeToggleOldState).ToHaveAttributeAsync("current-value", "false");
-            await Assertions.Expect(beforeToggleNewState).ToHaveAttributeAsync("current-value", "true");
-            await Assertions.Expect(beforeToggleRecord).ToHaveAttributeAsync("current-value", "1");
-            await Assertions.Expect(toggleOldState).ToHaveAttributeAsync("current-value", "false");
-            await Assertions.Expect(toggleNewState).ToHaveAttributeAsync("current-value", "true");
-            await Assertions.Expect(toggleRecord).ToHaveAttributeAsync("current-value", "1");
+            await Expect(beforeToggleOldState).ToHaveAttributeAsync("current-value", "false");
+            await Expect(beforeToggleNewState).ToHaveAttributeAsync("current-value", "true");
+            await Expect(beforeToggleRecord).ToHaveAttributeAsync("current-value", "1");
+            await Expect(toggleOldState).ToHaveAttributeAsync("current-value", "false");
+            await Expect(toggleNewState).ToHaveAttributeAsync("current-value", "true");
+            await Expect(toggleRecord).ToHaveAttributeAsync("current-value", "1");
 
             // Close the menu button
             await menuButton.ClickAsync();
 
-            await Assertions.Expect(beforeToggleOldState).ToHaveAttributeAsync("current-value", "true");
-            await Assertions.Expect(beforeToggleNewState).ToHaveAttributeAsync("current-value", "false");
-            await Assertions.Expect(beforeToggleRecord).ToHaveAttributeAsync("current-value", "1");
-            await Assertions.Expect(toggleOldState).ToHaveAttributeAsync("current-value", "true");
-            await Assertions.Expect(toggleNewState).ToHaveAttributeAsync("current-value", "false");
-            await Assertions.Expect(toggleRecord).ToHaveAttributeAsync("current-value", "1");
+            await Expect(beforeToggleOldState).ToHaveAttributeAsync("current-value", "true");
+            await Expect(beforeToggleNewState).ToHaveAttributeAsync("current-value", "false");
+            await Expect(beforeToggleRecord).ToHaveAttributeAsync("current-value", "1");
+            await Expect(toggleOldState).ToHaveAttributeAsync("current-value", "true");
+            await Expect(toggleNewState).ToHaveAttributeAsync("current-value", "false");
+            await Expect(toggleRecord).ToHaveAttributeAsync("current-value", "1");
         }
     }
 }

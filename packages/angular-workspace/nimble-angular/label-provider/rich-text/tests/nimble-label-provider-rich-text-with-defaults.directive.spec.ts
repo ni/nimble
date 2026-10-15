@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { computeMsgId } from '@angular/compiler';
@@ -23,7 +23,8 @@ describe('Nimble LabelProviderRichText withDefaults directive', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [NimbleLabelProviderRichTextModule, CommonModule]
+            imports: [NimbleLabelProviderRichTextModule, CommonModule],
+            providers: [provideZoneChangeDetection()],
         });
         loadTranslations({
             [computeMsgId('Bold', 'Nimble rich text - toggle bold')]: 'Translated Bold',

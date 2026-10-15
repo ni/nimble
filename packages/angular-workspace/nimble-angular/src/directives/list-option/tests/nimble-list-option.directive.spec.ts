@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleListOptionModule } from '../nimble-list-option.module';
 import type { ListOption } from '../../../public-api';
@@ -37,7 +37,8 @@ describe('Nimble listbox option', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleListOptionModule]
+                imports: [NimbleListOptionModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -84,7 +85,8 @@ describe('Nimble listbox option', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleListOptionModule]
+                imports: [NimbleListOptionModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -135,7 +137,8 @@ describe('Nimble listbox option', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleListOptionModule]
+                imports: [NimbleListOptionModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -204,7 +207,8 @@ describe('Nimble listbox option', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleListOptionModule]
+                imports: [NimbleListOptionModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

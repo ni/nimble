@@ -2,6 +2,7 @@ import { attr } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
+import { FvSummaryPanelSize, type FvSummaryPanelSize as FvSummaryPanelSizeType } from '../summary-panel/types';
 import {
     FvSummaryPanelTileTextPosition,
     type FvSummaryPanelTileTextPosition as FvSummaryPanelTileTextPositionType
@@ -25,6 +26,9 @@ export class FvSummaryPanelTile extends FoundationElement {
 
     @attr({ attribute: 'legacy-style', mode: 'boolean' })
     public legacyStyle = false;
+
+    @attr
+    public size: FvSummaryPanelSizeType = FvSummaryPanelSize.default;
 
     @attr({ mode: 'boolean' })
     public selected = false;

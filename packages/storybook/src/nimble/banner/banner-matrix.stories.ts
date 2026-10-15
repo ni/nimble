@@ -7,14 +7,20 @@ import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
 import { ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
-import { createStory } from '../../utilities/storybook';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrix,
-    sharedMatrixParameters,
-    createMatrixThemeStory
+    sharedMatrixParameters
 } from '../../utilities/matrix';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
+import { backgroundStates } from '../../utilities/states';
+
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground
+] = backgroundStates;
 
 const actionStates = [
     ['', false, false, undefined],
@@ -83,13 +89,34 @@ const component = (
     <div style="height: var(${bannerGapSize.cssCustomProperty})"></div>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+export const lightThemeMatrix: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         severityStates,
         actionStates,
         partsHiddenStates,
         longTextStates
-    ])
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorThemeMatrix: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        severityStates,
+        actionStates,
+        partsHiddenStates,
+        longTextStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeMatrix: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        severityStates,
+        actionStates,
+        partsHiddenStates,
+        longTextStates
+    ]),
+    darkThemeBlackBackground
 );
 
 export const hidden: StoryFn = createStory(

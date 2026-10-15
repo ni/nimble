@@ -17,6 +17,14 @@ import {
 } from '../../utilities/matrix';
 import { disabledStates, type DisabledState } from '../../utilities/states';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
+import { backgroundStates } from '../../utilities/states';
+import { createFixedThemeStory } from '../../utilities/storybook';
+
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground
+] = backgroundStates;
 
 const appearanceStates = [
     ['Outline', ChipAppearance.outline],
@@ -109,8 +117,7 @@ const component = (
     </div>
 `;
 
-const createThemeMatrix = (selectableState: SelectableState): StoryFn => createMatrixThemeStory(
-    createMatrix(component, [
+const createThemeMatrix = (selectableState: SelectableState): ViewTemplate => createMatrix(component, [
         disabledStates,
         appearanceStates,
         sizeStates,
@@ -120,7 +127,21 @@ const createThemeMatrix = (selectableState: SelectableState): StoryFn => createM
         widthStates,
         [selectableState],
         [selectedStates[0]] // Only not selected
-    ])
+    ]);
+
+export const lightThemeMatrix: StoryFn = createFixedThemeStory(
+    createThemeMatrix(selectableStates[0]),
+    lightThemeWhiteBackground
+);
+
+export const colorThemeMatrix: StoryFn = createFixedThemeStory(
+    createThemeMatrix(selectableStates[0]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkThemeMatrix: StoryFn = createFixedThemeStory(
+    createThemeMatrix(selectableStates[0]),
+    darkThemeBlackBackground
 );
 
 const createSelectableThemeMatrix = (selectedState: SelectedState): StoryFn => createMatrixThemeStory(
@@ -136,8 +157,6 @@ const createSelectableThemeMatrix = (selectedState: SelectedState): StoryFn => c
         [selectedState]
     ])
 );
-
-export const themeMatrix: StoryFn = createThemeMatrix(selectableStates[0]);
 
 export const selectableThemeMatrix: StoryFn = createSelectableThemeMatrix(
     selectedStates[0]

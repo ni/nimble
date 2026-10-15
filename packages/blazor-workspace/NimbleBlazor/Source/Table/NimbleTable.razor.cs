@@ -42,6 +42,9 @@ public partial class NimbleTable<TData> : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    [Parameter]
+    public EventCallback<EventArgs> Blur { get; set; }
+
     /// <summary>
     /// Sets the data in the table.
     /// </summary>
@@ -166,5 +169,10 @@ public partial class NimbleTable<TData> : ComponentBase
     protected async void HandleRowExpandToggle(TableRowExpandToggleEventArgs eventArgs)
     {
         await RowExpandToggle.InvokeAsync(eventArgs);
+    }
+
+    protected async void HandleBlur(EventArgs e)
+    {
+        await Blur.InvokeAsync(e);
     }
 }

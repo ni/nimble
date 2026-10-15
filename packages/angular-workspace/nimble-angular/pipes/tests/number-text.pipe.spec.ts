@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { NumberTextPipe } from '../number-text.pipe';
@@ -132,7 +132,8 @@ describe('NumberTextPipe', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NumberTextPipe]
+                imports: [NumberTextPipe],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

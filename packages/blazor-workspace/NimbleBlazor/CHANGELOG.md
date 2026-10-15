@@ -1,8 +1,176 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 09 Jul 2026 19:42:47 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 22.1.4
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.16.0
+- Bump @ni/nimble-tokens to v8.21.0
+
+## 22.1.3
+
+Wed, 14 Oct 2026 21:44:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@088efb2](https://github.com/ni/nimble/commit/088efb2c4cc014fae34e1364022aa5d0d008d3f7))
+
+## 22.1.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.2
+
+## 22.1.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/nimble-components to v35.15.1
+
+## 22.1.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.15.0
+- Bump @ni/nimble-tokens to v8.20.0
+
+## 22.0.7
+
+Mon, 28 Sep 2026 20:58:54 GMT
+
+### Patches
+
+- Make 'blur' a non-rendering event ([ni/nimble@6631d56](https://github.com/ni/nimble/commit/6631d5619aa7e78a98572835fdeb73e23d0f66de))
+
+## 22.0.6
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.1
+
+## 22.0.5
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.0
+
+## 22.0.4
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.3
+- Bump @ni/nimble-tokens to v8.19.2
+
+## 22.0.3
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.2
+- Bump @ni/nimble-tokens to v8.19.1
+
+## 22.0.2
+
+Thu, 10 Sep 2026 16:04:02 GMT
+
+### Patches
+
+- Fix NimbleNumberField behavior when value is cleared ([ni/nimble@c07dfad](https://github.com/ni/nimble/commit/c07dfadd105ba3334b7acdd7a7702e10d78d0f67))
+
+## 22.0.1
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/nimble-components to v35.13.1
+
+## 22.0.0
+
+Wed, 26 Aug 2026 20:16:12 GMT
+
+### Major changes
+
+- Update the strategy for listening to blur events on nimble components. Breaking change: `Blur` events are now of type `EventHandler<EventArgs>` rather than `EventHandler<FocusEventArgs>`. ([ni/nimble@f99be71](https://github.com/ni/nimble/commit/f99be7166c07764a83ee5afce720ff13a3c7823f))
+
+## 21.6.0
+
+Tue, 25 Aug 2026 15:55:37 GMT
+
+### Minor changes
+
+- Add Blur event to interactive elements ([ni/nimble@870805d](https://github.com/ni/nimble/commit/870805dbda69a58c47b1197f1a2527baf7e07cde))
+
+## 21.5.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.13.0
+- Bump @ni/nimble-tokens to v8.19.0
+
+## 21.4.0
+
+Sat, 22 Aug 2026 14:27:16 GMT
+
+### Minor changes
+
+- Add Blur event to the NimbleSelect ([ni/nimble@830d696](https://github.com/ni/nimble/commit/830d696df7294b746a80cd11287ee93fdea6eac9))
+
+## 21.3.4
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.7
+
+## 21.3.3
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@6c8854c](https://github.com/ni/nimble/commit/6c8854c79818d5d4b47d43ea5327661cb2a37f3c))
+- Bump @ni/nimble-components to v35.12.6
+
+## 21.3.2
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.5
+
+## 21.3.1
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.12.4
 
 ## 21.3.0
 

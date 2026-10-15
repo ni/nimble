@@ -28,6 +28,7 @@ interface TextFieldArgs {
     label: string;
     placeholder: string;
     type: TextFieldType;
+    autocomplete: string;
     appearance: string;
     fullBleed: boolean;
     value: string;
@@ -66,6 +67,7 @@ const metadata: Meta<TextFieldArgs> = {
             placeholder="${x => x.placeholder}"
             :value="${x => x.value}"
             type="${x => x.type}"
+            autocomplete="${x => x.autocomplete}"
             appearance="${x => x.appearance}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
@@ -104,6 +106,11 @@ const metadata: Meta<TextFieldArgs> = {
             control: { type: 'radio' },
             description:
                 'They type of input to accept and render in the text field. This corresponds to [the `type` attribute of the native `input` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type) though only a subset of values are supported.',
+            table: { category: apiCategory.attributes }
+        },
+        autocomplete: {
+            description:
+                'The autofill hint forwarded to the internal input so browser password managers and native autofill can classify the field. This corresponds to [the `autocomplete` attribute of the native `input` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) (e.g. `username`, `current-password`, `new-password`, `email`, `off`).',
             table: { category: apiCategory.attributes }
         },
         appearance: {
@@ -185,6 +192,7 @@ const metadata: Meta<TextFieldArgs> = {
         label: 'default label',
         placeholder: 'Enter text...',
         type: TextFieldType.text,
+        autocomplete: '',
         appearance: 'underline',
         fullBleed: false,
         value: '',

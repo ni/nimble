@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableColumnSortDirection } from '@ni/nimble-angular/table-column';
 import { NimbleTableColumnAnchorDirective, type TableColumnAnchor } from '../nimble-table-column-anchor.directive';
@@ -49,7 +49,8 @@ describe('Nimble anchor table column', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnAnchorModule]
+                imports: [NimbleTableColumnAnchorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -223,7 +224,8 @@ describe('Nimble anchor table column', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnAnchorModule]
+                imports: [NimbleTableColumnAnchorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -421,7 +423,8 @@ describe('Nimble anchor table column', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnAnchorModule]
+                imports: [NimbleTableColumnAnchorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -807,7 +810,8 @@ describe('Nimble anchor table column', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnAnchorModule]
+                imports: [NimbleTableColumnAnchorModule],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();

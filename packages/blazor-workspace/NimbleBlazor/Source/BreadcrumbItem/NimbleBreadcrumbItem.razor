@@ -1,5 +1,6 @@
 @namespace NimbleBlazor
 <nimble-breadcrumb-item
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     href="@Href"
     hreflang="@HrefLang"
     ping="@Ping"

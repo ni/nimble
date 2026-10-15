@@ -1,10 +1,12 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { FvSummaryPanel } from '@ni/ok-components/dist/esm/fv/summary-panel';
 import { fvSummaryPanelTag } from '@ni/ok-components/dist/esm/fv/summary-panel';
+import { FvSummaryPanelSize } from '@ni/ok-components/dist/esm/fv/summary-panel/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { FvSummaryPanel };
 export { fvSummaryPanelTag };
+export { FvSummaryPanelSize };
 
 /**
  * Directive to provide Angular integration for the summary panel.
@@ -30,6 +32,15 @@ export class OkFvSummaryPanelDirective {
     @Input('legacy-style')
     public set legacyStyle(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'legacyStyle', toBooleanProperty(value));
+    }
+
+    public get size(): FvSummaryPanelSize {
+        return this.elementRef.nativeElement.size;
+    }
+
+    @Input()
+    public set size(value: FvSummaryPanelSize) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'size', value);
     }
 
     public get editItemsButtonLabel(): string {

@@ -1,4 +1,3 @@
-﻿using BlazorWorkspace.Testing.Acceptance;
 using Microsoft.Playwright;
 using Xunit;
 
@@ -6,8 +5,8 @@ namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
 public class DialogTests : NimbleInteractiveAcceptanceTestsBase
 {
-    public DialogTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
-        : base(playwrightFixture, blazorServerClassFixture)
+    public DialogTests(NimbleBlazorWebHostServerFixture blazorServerClassFixture)
+        : base(blazorServerClassFixture)
     {
     }
 
@@ -22,16 +21,16 @@ public class DialogTests : NimbleInteractiveAcceptanceTestsBase
 
             var dialog = page.Locator("nimble-dialog");
             var innerDialog = dialog.GetByRole(AriaRole.Dialog);
-            await Assertions.Expect(innerDialog).ToBeVisibleAsync();
-            await Assertions.Expect(dialog).ToContainTextAsync("Example Dialog");
+            await Expect(innerDialog).ToBeVisibleAsync();
+            await Expect(dialog).ToContainTextAsync("Example Dialog");
 
             var closeButton = page.Locator("nimble-button", new PageLocatorOptions() { HasText = "Close" });
             await closeButton.ClickAsync();
 
-            await Assertions.Expect(innerDialog).Not.ToBeVisibleAsync();
+            await Expect(innerDialog).Not.ToBeVisibleAsync();
 
             var textField = page.Locator("nimble-text-field");
-            await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "Custom Close Reason");
+            await Expect(textField).ToHaveAttributeAsync("current-value", "Custom Close Reason");
         }
     }
 }

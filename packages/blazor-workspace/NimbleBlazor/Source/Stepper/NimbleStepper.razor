@@ -1,5 +1,6 @@
 @namespace NimbleBlazor
 <nimble-stepper
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     orientation="@Orientation.ToAttributeValue()"
     @attributes="AdditionalAttributes">
     @ChildContent

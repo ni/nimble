@@ -1,8 +1,180 @@
 # Change Log - @ni/ok-blazor
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.7.4
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.3
+
+## 1.7.3
+
+Wed, 14 Oct 2026 21:44:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@088efb2](https://github.com/ni/nimble/commit/088efb2c4cc014fae34e1364022aa5d0d008d3f7))
+
+## 1.7.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.2
+
+## 1.7.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/ok-components to v1.10.1
+
+## 1.7.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.10.0
+
+## 1.6.11
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.6
+
+## 1.6.10
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.5
+
+## 1.6.9
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.4
+
+## 1.6.8
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.3
+
+## 1.6.7
+
+Mon, 21 Sep 2026 21:33:58 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.2
+
+## 1.6.6
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.1
+
+## 1.6.5
+
+Thu, 10 Sep 2026 14:28:09 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.0
+
+## 1.6.4
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@c730a12](https://github.com/ni/nimble/commit/c730a12cacd3647af8265d25a138f172b74c8673))
+- Bump @ni/ok-components to v1.8.3
+
+## 1.6.3
+
+Thu, 03 Sep 2026 16:57:10 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.8.2
+
+## 1.6.2
+
+Tue, 01 Sep 2026 15:14:14 GMT
+
+### Patches
+
+- Add the OK FV sticky-header component and framework wrappers ([ni/nimble@250b49e](https://github.com/ni/nimble/commit/250b49e90ad9ca2d6949521be428da2128ff54b8))
+- Bump @ni/ok-components to v1.8.1
+
+## 1.6.1
+
+Thu, 27 Aug 2026 14:33:47 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.8.0
+
+## 1.6.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.7.0
+
+## 1.5.12
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.9
+
+## 1.5.11
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@6c8854c](https://github.com/ni/nimble/commit/6c8854c79818d5d4b47d43ea5327661cb2a37f3c))
+- Bump @ni/ok-components to v1.6.8
+
+## 1.5.10
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.7
+
+## 1.5.9
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.6.6
 
 ## 1.5.8
 

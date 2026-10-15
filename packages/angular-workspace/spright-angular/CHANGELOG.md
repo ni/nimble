@@ -1,8 +1,145 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Wed, 08 Jul 2026 19:32:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 10.1.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.23.3
+
+## 10.1.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.23.2
+
+## 10.1.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.23.1
+
+## 10.1.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.23.0
+
+## 10.0.5
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.7
+
+## 10.0.4
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.6
+
+## 10.0.3
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.5
+
+## 10.0.2
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.4
+
+## 10.0.1
+
+Mon, 21 Sep 2026 21:33:58 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.3
+
+## 10.0.0
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Major changes
+
+- Update to Angular 21 ([ni/nimble@ca768c0](https://github.com/ni/nimble/commit/ca768c0ef480e9916b8b289eb46088ecd1684166))
+- Bump @ni/spright-components to v6.22.2
+
+## 9.6.2
+
+Thu, 03 Sep 2026 17:39:26 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.1
+
+## 9.6.1
+
+Tue, 25 Aug 2026 18:10:19 GMT
+
+### Patches
+
+- Prevent error squiggles in editor for Jasmine types ([ni/nimble@50f1422](https://github.com/ni/nimble/commit/50f1422c6affede328a34ee4ab399c8a2fd7206c))
+
+## 9.6.0
+
+Mon, 24 Aug 2026 19:55:50 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.22.0
+
+## 9.5.9
+
+Tue, 04 Aug 2026 22:14:49 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.9
+
+## 9.5.8
+
+Wed, 29 Jul 2026 20:58:18 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.8
+
+## 9.5.7
+
+Wed, 22 Jul 2026 17:36:56 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.7
+
+## 9.5.6
+
+Fri, 10 Jul 2026 18:20:51 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.21.6
 
 ## 9.5.5
 

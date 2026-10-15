@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleRichTextMentionUsersModule } from '../nimble-rich-text-mention-users.module';
 import { NimbleRichTextEditorModule } from '../../../rich-text/editor/nimble-rich-text-editor.module';
@@ -37,7 +37,8 @@ describe('NimbleRichTextMentionUsers', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRichTextMentionUsersModule, NimbleRichTextEditorModule]
+                imports: [NimbleRichTextMentionUsersModule, NimbleRichTextEditorModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -77,7 +78,8 @@ describe('NimbleRichTextMentionUsers', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRichTextMentionUsersModule, NimbleRichTextEditorModule]
+                imports: [NimbleRichTextMentionUsersModule, NimbleRichTextEditorModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -124,7 +126,8 @@ describe('NimbleRichTextMentionUsers', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRichTextMentionUsersModule, NimbleRichTextEditorModule]
+                imports: [NimbleRichTextMentionUsersModule, NimbleRichTextEditorModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -178,7 +181,8 @@ describe('NimbleRichTextMentionUsers', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleRichTextMentionUsersModule, NimbleRichTextEditorModule]
+                imports: [NimbleRichTextMentionUsersModule, NimbleRichTextEditorModule],
+                providers: [provideZoneChangeDetection()],
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

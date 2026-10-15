@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { type IconWorkItemCalendarWeek, SprightIconWorkItemCalendarWeekDirective, iconWorkItemCalendarWeekTag } from '@ni/spright-angular/icons/work-item-calendar-week';
 import { IconSeverity } from '../spright-icon-base.directive';
@@ -35,7 +35,8 @@ describe('Spright icon calendar week', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightIconWorkItemCalendarWeekDirective]
+                imports: [SprightIconWorkItemCalendarWeekDirective],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -70,7 +71,8 @@ describe('Spright icon calendar week', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightIconWorkItemCalendarWeekDirective]
+                imports: [SprightIconWorkItemCalendarWeekDirective],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -107,7 +109,8 @@ describe('Spright icon calendar week', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightIconWorkItemCalendarWeekDirective]
+                imports: [SprightIconWorkItemCalendarWeekDirective],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -150,7 +153,8 @@ describe('Spright icon calendar week', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightIconWorkItemCalendarWeekDirective]
+                imports: [SprightIconWorkItemCalendarWeekDirective],
+                providers: [provideZoneChangeDetection()],
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
