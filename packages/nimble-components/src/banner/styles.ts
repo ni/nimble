@@ -34,9 +34,7 @@ import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
-import { appearanceBehavior } from '../utilities/style/appearance';
 import { display } from '../utilities/style/display';
-import { BannerAppearance } from './types';
 
 export const styles = css`
     ${display('flex')}
@@ -130,75 +128,72 @@ export const styles = css`
         display: none;
     }
 `.withBehaviors(
-    appearanceBehavior(
-        BannerAppearance.block,
-        css`
-            :host {
-                background: var(--ni-private-banner-block-background-color);
-            }
-
-            .container {
-                background: var(
-                    --ni-private-banner-block-container-background-color
-                );
-            }
-        `
-    ),
-    appearanceBehavior(
-        BannerAppearance.outline,
-        css`
-            :host {
-                background: var(
-                    --ni-private-banner-outline-background-color
-                );
-                box-shadow: inset 0 0 0 ${borderWidth}
-                    var(--ni-private-banner-outline-border-color);
-            }
-
-            .container {
-                background: transparent;
-                color: var(--ni-private-banner-outline-font-color);
-            }
-
-            .icon {
-                ${iconColor.cssCustomProperty}: var(
-                    --ni-private-banner-outline-icon-color
-                );
-            }
-
-            .controls {
-                ${actionRgbPartialColor.cssCustomProperty}: var(
-                    --ni-private-banner-outline-action-rgb-partial-color
-                );
-                ${buttonLabelFontColor.cssCustomProperty}: var(
-                    --ni-private-banner-outline-button-font-color
-                );
-                ${borderRgbPartialColor.cssCustomProperty}: var(
-                    --ni-private-banner-outline-button-rgb-partial-color
-                );
-            }
-        `
-    ),
     themeBehavior(
         Theme.light,
         css`
-            :host {
-                --ni-private-banner-block-background-color: ${Black75};
-                --ni-private-banner-block-container-background-color: transparent;
-                --ni-private-banner-outline-background-color: ${White};
-                --ni-private-banner-outline-border-color: ${Black80};
-                --ni-private-banner-outline-font-color: ${Black91};
-                --ni-private-banner-outline-icon-color: ${Black80};
+            :host([appearance='block']) {
+                background: ${Black75};
+            }
+
+            :host([appearance='block'][severity='error']) {
+                background: ${Fail100LightUi};
+            }
+
+            :host([appearance='block'][severity='warning']) {
+                background: ${Warning100LightUi};
+            }
+
+            :host([appearance='block'][severity='information']) {
+                background: ${Information100LightUi};
+            }
+
+            :host([appearance='outline']) {
+                background: ${White};
+                box-shadow: inset 0 0 0 ${borderWidth} ${Black80};
                 --ni-private-banner-outline-button-border-color: ${hexToRgbaCssColor(
                     Black91,
                     0.75
                 )};
-                --ni-private-banner-outline-action-rgb-partial-color: 255, 255, 255;
-                --ni-private-banner-outline-button-font-color: ${Black91};
-                --ni-private-banner-outline-button-rgb-partial-color: 22, 22, 23;
+            }
+
+            :host([appearance='outline'][severity='error']) {
+                box-shadow: inset 0 0 0 ${borderWidth} ${Fail100LightUi};
+            }
+
+            :host([appearance='outline'][severity='warning']) {
+                box-shadow: inset 0 0 0 ${borderWidth}
+                    ${WarningTypographyLightUi};
+            }
+
+            :host([appearance='outline'][severity='information']) {
+                box-shadow: inset 0 0 0 ${borderWidth}
+                    ${Information100LightUi};
+            }
+
+            :host([appearance='outline']) .container {
+                color: ${Black91};
+            }
+
+            :host([appearance='outline']) .icon {
+                ${iconColor.cssCustomProperty}: ${Black80};
+            }
+
+            :host([appearance='outline'][severity='error']) .icon {
+                ${iconColor.cssCustomProperty}: ${Fail100LightUi};
+            }
+
+            :host([appearance='outline'][severity='warning']) .icon {
+                ${iconColor.cssCustomProperty}: ${Warning100LightUi};
+            }
+
+            :host([appearance='outline'][severity='information']) .icon {
+                ${iconColor.cssCustomProperty}: ${Information100LightUi};
             }
 
             :host([appearance='outline']) .controls {
+                ${actionRgbPartialColor.cssCustomProperty}: 255, 255, 255;
+                ${buttonLabelFontColor.cssCustomProperty}: ${Black91};
+                ${borderRgbPartialColor.cssCustomProperty}: 22, 22, 23;
                 ${borderHoverColor.cssCustomProperty}: var(
                     --ni-private-banner-outline-button-border-color
                 );
@@ -209,88 +204,116 @@ export const styles = css`
                 box-shadow: inset 0 0 0 ${borderWidth}
                     var(--ni-private-banner-outline-button-border-color);
             }
-
-            :host([severity='error']) {
-                --ni-private-banner-block-background-color: ${Fail100LightUi};
-                --ni-private-banner-outline-border-color: ${Fail100LightUi};
-                --ni-private-banner-outline-icon-color: ${Fail100LightUi};
-            }
-
-            :host([severity='warning']) {
-                --ni-private-banner-block-background-color: ${Warning100LightUi};
-                --ni-private-banner-outline-border-color: ${WarningTypographyLightUi};
-                --ni-private-banner-outline-icon-color: ${Warning100LightUi};
-            }
-
-            :host([severity='information']) {
-                --ni-private-banner-block-background-color: ${Information100LightUi};
-                --ni-private-banner-outline-border-color: ${Information100LightUi};
-                --ni-private-banner-outline-icon-color: ${Information100LightUi};
-            }
         `
     ),
     themeBehavior(
         Theme.dark,
         css`
-            :host {
-                --ni-private-banner-block-background-color: ${Black75};
-                --ni-private-banner-block-container-background-color: transparent;
-                --ni-private-banner-outline-background-color: ${Black80};
-                --ni-private-banner-outline-border-color: ${Black50};
-                --ni-private-banner-outline-action-rgb-partial-color: 174, 176, 179;
-                --ni-private-banner-outline-font-color: ${Black15};
-                --ni-private-banner-outline-icon-color: ${Black50};
-                --ni-private-banner-outline-button-font-color: ${Black15};
-                --ni-private-banner-outline-button-rgb-partial-color: 241, 241, 242;
+            :host([appearance='block']) {
+                background: ${Black75};
             }
 
-            :host([severity='error']) {
-                --ni-private-banner-block-background-color: ${BannerFail100DarkUi};
-                --ni-private-banner-outline-border-color: ${Fail100DarkUi};
-                --ni-private-banner-outline-action-rgb-partial-color: 255, 70, 99;
-                --ni-private-banner-outline-icon-color: ${Fail100DarkUi};
+            :host([appearance='block'][severity='error']) {
+                background: ${BannerFail100DarkUi};
             }
 
-            :host([severity='warning']) {
-                --ni-private-banner-block-background-color: ${Warning100DarkUi};
-                --ni-private-banner-outline-border-color: ${Warning100DarkUi};
-                --ni-private-banner-outline-action-rgb-partial-color: 255, 129, 38;
-                --ni-private-banner-outline-icon-color: ${Warning100DarkUi};
+            :host([appearance='block'][severity='warning']) {
+                background: ${Warning100DarkUi};
             }
 
-            :host([severity='information']) {
-                --ni-private-banner-block-background-color: ${Information100DarkUi};
-                --ni-private-banner-outline-border-color: ${Information100DarkUi};
-                --ni-private-banner-outline-action-rgb-partial-color: 164, 110, 255;
-                --ni-private-banner-outline-icon-color: ${Information100DarkUi};
+            :host([appearance='block'][severity='information']) {
+                background: ${Information100DarkUi};
+            }
+
+            :host([appearance='outline']) {
+                background: ${Black80};
+                box-shadow: inset 0 0 0 ${borderWidth} ${Black50};
+            }
+
+            :host([appearance='outline'][severity='error']) {
+                box-shadow: inset 0 0 0 ${borderWidth} ${Fail100DarkUi};
+            }
+
+            :host([appearance='outline'][severity='warning']) {
+                box-shadow: inset 0 0 0 ${borderWidth} ${Warning100DarkUi};
+            }
+
+            :host([appearance='outline'][severity='information']) {
+                box-shadow: inset 0 0 0 ${borderWidth}
+                    ${Information100DarkUi};
+            }
+
+            :host([appearance='outline']) .container {
+                color: ${Black15};
+            }
+
+            :host([appearance='outline']) .icon {
+                ${iconColor.cssCustomProperty}: ${Black50};
+            }
+
+            :host([appearance='outline'][severity='error']) .icon {
+                ${iconColor.cssCustomProperty}: ${Fail100DarkUi};
+            }
+
+            :host([appearance='outline'][severity='warning']) .icon {
+                ${iconColor.cssCustomProperty}: ${Warning100DarkUi};
+            }
+
+            :host([appearance='outline'][severity='information']) .icon {
+                ${iconColor.cssCustomProperty}: ${Information100DarkUi};
+            }
+
+            :host([appearance='outline']) .controls {
+                ${actionRgbPartialColor.cssCustomProperty}: 174, 176, 179;
+                ${buttonLabelFontColor.cssCustomProperty}: ${Black15};
+                ${borderRgbPartialColor.cssCustomProperty}: 241, 241, 242;
+            }
+
+            :host([appearance='outline'][severity='error']) .controls {
+                ${actionRgbPartialColor.cssCustomProperty}: 255, 70, 99;
+            }
+
+            :host([appearance='outline'][severity='warning']) .controls {
+                ${actionRgbPartialColor.cssCustomProperty}: 255, 129, 38;
+            }
+
+            :host([appearance='outline'][severity='information']) .controls {
+                ${actionRgbPartialColor.cssCustomProperty}: 164, 110, 255;
             }
         `
     ),
     themeBehavior(
         Theme.color,
         css`
-            :host {
-                --ni-private-banner-block-background-color: ${applicationBackgroundColor};
-                --ni-private-banner-block-container-background-color: ${hexToRgbaCssColor(
-                    White,
-                    0.3
-                )};
-                --ni-private-banner-outline-background-color: ${hexToRgbaCssColor(
+            :host([appearance='block']) {
+                background: ${applicationBackgroundColor};
+            }
+
+            :host([appearance='outline']) {
+                background: ${hexToRgbaCssColor(
                     White,
                     0.07
                 )};
-                --ni-private-banner-outline-border-color: ${hexToRgbaCssColor(
-                    White,
-                    0.6
-                )};
-                --ni-private-banner-outline-action-rgb-partial-color: 255, 255, 255;
-                --ni-private-banner-outline-font-color: ${White};
-                --ni-private-banner-outline-icon-color: ${hexToRgbaCssColor(
-                    White,
-                    0.6
-                )};
-                --ni-private-banner-outline-button-font-color: ${White};
-                --ni-private-banner-outline-button-rgb-partial-color: 255, 255, 255;
+                box-shadow: inset 0 0 0 ${borderWidth}
+                    ${hexToRgbaCssColor(White, 0.6)};
+            }
+
+            :host([appearance='block']) .container {
+                background: ${hexToRgbaCssColor(White, 0.3)};
+            }
+
+            :host([appearance='outline']) .container {
+                color: ${White};
+            }
+
+            :host([appearance='outline']) .icon {
+                ${iconColor.cssCustomProperty}: ${hexToRgbaCssColor(White, 0.6)};
+            }
+
+            :host([appearance='outline']) .controls {
+                ${actionRgbPartialColor.cssCustomProperty}: 255, 255, 255;
+                ${buttonLabelFontColor.cssCustomProperty}: ${White};
+                ${borderRgbPartialColor.cssCustomProperty}: 255, 255, 255;
             }
         `
     )
