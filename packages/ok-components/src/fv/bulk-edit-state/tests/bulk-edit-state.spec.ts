@@ -23,6 +23,48 @@ function createState(): BulkEditState<Record, Field> {
 }
 
 describe('BulkEditState', () => {
+    it('supports prototype names, numeric keys, and symbols before and after reverting', () => {
+        const fields = ['constructor', '__proto__', 0, Symbol('field')] as const;
+        const keyedRecords = [
+            { id: '1', values: new Map<PropertyKey, string>(fields.map(field => [field, 'Saved'])) },
+            { id: '2', values: new Map<PropertyKey, string>(fields.map(field => [field, 'Updated'])) }
+        ];
+        const state = new BulkEditState({
+            records: keyedRecords,
+            id: record => record.id,
+            read: (record, field: typeof fields[number]) => record.values.get(field)!
+        });
+        state.select(['1']);
+
+        for (const field of fields) {
+            expect(state.field(field).value).toBe('Saved');
+            state.edit(field, 'Updated');
+            expect(state.field(field).pending).toBeTrue();
+            expect(state.changes[field]).toBe('Updated');
+        }
+        state.revert();
+        expect(Reflect.ownKeys(state.changes)).toEqual([]);
+        for (const field of fields) {
+            expect(state.field(field).value).toBe('Saved');
+        }
+
+        state.select(['1', '2']);
+        for (const field of fields) {
+            state.edit(field, 'Updated');
+        }
+        const commit = state.createCommit();
+        expect(commit.affectedRecords).toEqual([keyedRecords[0]!]);
+        for (const field of fields) {
+            expect(commit.changes[field]).toBe('Updated');
+            state.clear(field);
+            expect(state.field(field).willClear).toBeTrue();
+            state.resetField(field);
+            expect(state.field(field).pending).toBeFalse();
+            expect(commit.changes[field]).toBe('Updated');
+        }
+        expect(Reflect.ownKeys(state.changes)).toEqual([]);
+    });
+
     it('reports common and mixed values', () => {
         const state = createState();
         state.select(['1', '2']);

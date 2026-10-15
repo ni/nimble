@@ -1,5 +1,4 @@
 import { css } from '@ni/fast-element';
-import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import {
     bodyFont,
     bodyFontColor,
@@ -53,10 +52,6 @@ export const styles = css`
         display: flex;
         flex: 0 0 auto;
         gap: ${standardPadding};
-    }
-
-    ${bannerTag} {
-        display: block;
     }
 
     @container (max-width: 420px) {

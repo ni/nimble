@@ -54,11 +54,39 @@ export class FvSplitLayout extends FoundationElement {
         this.constrainPosition();
     });
 
+    private requestedPosition = this.position;
+    private applyingConstrainedPosition = false;
+    private requestedPositionResetScheduled = false;
+    private positionChangeCallbackVersion = 0;
+
     public constructor() {
         super();
         const layoutId = takeLayoutId();
         this.primaryPaneId = `ok-fv-split-layout-primary-${layoutId}`;
         this.secondaryPaneId = `ok-fv-split-layout-secondary-${layoutId}`;
+
+        const positionDescriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), 'position');
+        if (!positionDescriptor?.get || !positionDescriptor.set) {
+            return;
+        }
+
+        const getPosition = positionDescriptor.get.bind(this) as () => number;
+        const setPosition = positionDescriptor.set.bind(this) as (value: number) => void;
+        Object.defineProperty(this, 'position', {
+            configurable: true,
+            enumerable: positionDescriptor.enumerable,
+            get: getPosition,
+            set: (value: number) => {
+                const previousPosition = getPosition();
+                const callbackVersion = this.positionChangeCallbackVersion;
+                setPosition(value);
+                if (!this.applyingConstrainedPosition
+                    && callbackVersion === this.positionChangeCallbackVersion
+                    && previousPosition === getPosition()) {
+                    this.requestedPosition = getPosition();
+                }
+            }
+        });
     }
 
     public override connectedCallback(): void {
@@ -72,6 +100,11 @@ export class FvSplitLayout extends FoundationElement {
     }
 
     public positionChanged(): void {
+        this.positionChangeCallbackVersion += 1;
+        if (!this.applyingConstrainedPosition) {
+            this.requestedPosition = this.position;
+            this.resetRequestedPositionAfterSynchronousUpdates();
+        }
         this.constrainPosition();
     }
 
@@ -141,11 +174,24 @@ export class FvSplitLayout extends FoundationElement {
         if (this.collapsed) {
             return;
         }
-        const finitePosition = Number.isFinite(this.position) ? this.position : 60;
+        const finitePosition = Number.isFinite(this.requestedPosition) ? this.requestedPosition : 60;
         const constrained = Math.min(this.effectiveMax, Math.max(this.effectiveMin, finitePosition));
         if (constrained !== this.position) {
+            this.applyingConstrainedPosition = true;
             this.position = constrained;
+            this.applyingConstrainedPosition = false;
         }
+    }
+
+    private resetRequestedPositionAfterSynchronousUpdates(): void {
+        if (this.requestedPositionResetScheduled) {
+            return;
+        }
+        this.requestedPositionResetScheduled = true;
+        queueMicrotask(() => {
+            this.requestedPositionResetScheduled = false;
+            this.requestedPosition = this.position;
+        });
     }
 }
 

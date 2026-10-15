@@ -11,7 +11,7 @@ export const template = html<FvEditCommitBar>`
         x => x.message !== undefined,
         html<FvEditCommitBar>`
             <${bannerTag}
-                open
+                :open="${x => x.message !== undefined}"
                 title-hidden
                 severity="${x => x.message?.severity}"
                 aria-live="${x => (x.message?.severity === 'error' ? 'assertive' : 'polite')}"

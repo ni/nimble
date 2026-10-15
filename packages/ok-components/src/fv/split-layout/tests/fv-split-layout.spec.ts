@@ -46,6 +46,34 @@ describe('FvSplitLayout', () => {
         expect(element.position).toBe(element.effectiveMax);
     });
 
+    it('preserves a requested position regardless of synchronous bounds assignment order', async () => {
+        element.position = 20;
+        element.min = 10;
+        await waitForUpdatesAsync();
+        expect(element.position).toBe(20);
+
+        element.min = 35;
+        await waitForUpdatesAsync();
+        element.min = 10;
+        element.position = 20;
+        await waitForUpdatesAsync();
+        expect(element.position).toBe(20);
+
+        element.position = 80;
+        element.max = 90;
+        element.minSecondaryPixels = 100;
+        await waitForUpdatesAsync();
+        expect(element.position).toBe(80);
+    });
+
+    it('does not restore an obsolete request after assigning the constrained position', async () => {
+        element.position = 20;
+        element.position = 35;
+        element.min = 10;
+        await waitForUpdatesAsync();
+        expect(element.position).toBe(35);
+    });
+
     it('prioritizes the secondary pixel minimum over the primary percentage minimum', async () => {
         element.style.width = '445px';
         await new Promise(resolve => {

@@ -30,8 +30,8 @@ export class BulkEditState<TRecord, TField extends PropertyKey> {
     private readonly id: (record: TRecord) => RecordId;
     private readonly read: (record: TRecord, field: TField) => string;
     private selected = new Set<RecordId>();
-    private pending: PendingChanges<TField> = {};
-    private draft: PendingChanges<TField> = {};
+    private readonly pending = new Map<TField, string>();
+    private readonly draft = new Map<TField, string>();
 
     public constructor(options: BulkEditStateOptions<TRecord, TField>) {
         this.records = options.records;
@@ -44,7 +44,7 @@ export class BulkEditState<TRecord, TField extends PropertyKey> {
     }
 
     public get changes(): Readonly<PendingChanges<TField>> {
-        return { ...this.pending };
+        return Object.fromEntries(this.pending) as PendingChanges<TField>;
     }
 
     public get selectedRecords(): readonly TRecord[] {
@@ -52,26 +52,26 @@ export class BulkEditState<TRecord, TField extends PropertyKey> {
     }
 
     public field(field: TField): BulkEditFieldValue {
-        if (Object.prototype.hasOwnProperty.call(this.pending, field)) {
-            const value = this.pending[field]!;
+        if (this.pending.has(field)) {
+            const value = this.pending.get(field)!;
             return { value, mixed: false, pending: true, willClear: value === '' };
         }
 
         const values = this.selectedRecords.map(record => this.read(record, field));
         const value = values[0] ?? '';
         const mixed = values.some(candidate => candidate !== value);
-        return { value: this.draft[field] ?? (mixed ? '' : value), mixed, pending: false, willClear: false };
+        return { value: this.draft.get(field) ?? (mixed ? '' : value), mixed, pending: false, willClear: false };
     }
 
     public edit(field: TField, value: string): void {
         if (this.selected.size === 0) {
             return;
         }
-        this.draft[field] = value;
+        this.draft.set(field, value);
         if (value.trim() !== '' && this.selectedRecords.some(record => this.read(record, field) !== value)) {
-            this.pending[field] = value;
+            this.pending.set(field, value);
         } else {
-            delete this.pending[field];
+            this.pending.delete(field);
         }
     }
 
@@ -79,22 +79,22 @@ export class BulkEditState<TRecord, TField extends PropertyKey> {
         if (this.selected.size === 0) {
             return;
         }
-        this.draft[field] = '';
+        this.draft.set(field, '');
         if (this.selectedRecords.some(record => this.read(record, field) !== '')) {
-            this.pending[field] = '';
+            this.pending.set(field, '');
         } else {
-            delete this.pending[field];
+            this.pending.delete(field);
         }
     }
 
     public resetField(field: TField): void {
-        delete this.pending[field];
-        delete this.draft[field];
+        this.pending.delete(field);
+        this.draft.delete(field);
     }
 
     public revert(): void {
-        this.pending = {};
-        this.draft = {};
+        this.pending.clear();
+        this.draft.clear();
     }
 
     public isSelection(ids: readonly RecordId[]): boolean {
@@ -128,8 +128,8 @@ export class BulkEditState<TRecord, TField extends PropertyKey> {
     }
 
     public createCommit(): BulkEditCommit<TRecord, TField> {
-        const changes = { ...this.pending };
-        const fields = Reflect.ownKeys(changes) as TField[];
+        const changes = this.changes;
+        const fields = [...this.pending.keys()];
         return {
             selectedIds: this.selectedIds,
             changes,

@@ -116,4 +116,25 @@ describe('FvEditCommitBar', () => {
 
         expect(dismissSpy).toHaveBeenCalledTimes(1);
     });
+
+    it('hides dismissed feedback and reopens it when the message is replaced', async () => {
+        const dismissSpy = jasmine.createSpy();
+        element.addEventListener('dismiss-message', dismissSpy);
+        element.message = { severity: 'information', text: 'Saved' };
+        await waitForUpdatesAsync();
+        const banner = element.shadowRoot!.querySelector('nimble-banner')!;
+        expect(getComputedStyle(banner).display).not.toBe('none');
+
+        banner.shadowRoot!.querySelector('nimble-button')!.click();
+        await waitForUpdatesAsync();
+        expect(banner.open).toBeFalse();
+        expect(getComputedStyle(banner).display).toBe('none');
+        expect(dismissSpy).toHaveBeenCalledTimes(1);
+
+        element.message = { severity: 'error', text: 'Save failed' };
+        await waitForUpdatesAsync();
+        expect(banner.open).toBeTrue();
+        expect(getComputedStyle(banner).display).not.toBe('none');
+        expect(banner.textContent).toBe('Save failed');
+    });
 });
