@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 15 Oct 2026 16:45:55 GMT",
+      "version": "35.16.0",
+      "tag": "@ni/nimble-components_v35.16.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5acaba9331b57c56116782553219749733c468e1",
+            "comment": "Add Noto Sans Mono code font token"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.21.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 09 Oct 2026 15:01:32 GMT",
       "version": "35.15.2",
       "tag": "@ni/nimble-components_v35.15.2",
