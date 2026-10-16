@@ -65,6 +65,28 @@ describe('BulkEditState', () => {
         expect(Reflect.ownKeys(state.changes)).toEqual([]);
     });
 
+    it('rejects pending numeric and string keys that collide in the changes object', () => {
+        const fields = [0, '0'] as const;
+        const keyedRecords = [
+            { id: '1', values: new Map<PropertyKey, string>(fields.map(field => [field, 'A'])) },
+            { id: '2', values: new Map<PropertyKey, string>(fields.map(field => [field, 'B'])) }
+        ];
+        const state = new BulkEditState({
+            records: keyedRecords,
+            id: record => record.id,
+            read: (record, field: typeof fields[number]) => record.values.get(field)!
+        });
+        state.select(['1', '2']);
+        state.edit(0, 'B');
+
+        expect(() => state.edit('0', 'A')).toThrowError(TypeError);
+
+        const commit = state.createCommit();
+        expect(Reflect.ownKeys(commit.changes)).toEqual(['0']);
+        expect(Object.entries(commit.changes)).toEqual([['0', 'B']]);
+        expect(commit.affectedRecords).toEqual([keyedRecords[0]!]);
+    });
+
     it('reports common and mixed values', () => {
         const state = createState();
         state.select(['1', '2']);
