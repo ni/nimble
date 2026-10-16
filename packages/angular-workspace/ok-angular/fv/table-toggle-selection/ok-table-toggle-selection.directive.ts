@@ -1,7 +1,6 @@
 import { Directive, ElementRef, ErrorHandler, EventEmitter, Input, Output } from '@angular/core';
 import type { AfterViewInit, OnDestroy } from '@angular/core';
-import type { Table } from '@ni/nimble-components/dist/esm/table';
-import type { TableRowSelectionEventDetail } from '@ni/nimble-components/dist/esm/table/types';
+import type { Table, TableRowSelectionEventDetail } from '@ni/nimble-angular/table';
 
 export interface OkTableSelectionProposal {
     readonly selectedIds: readonly string[];

@@ -29,7 +29,6 @@
     "@angular/common": "^21.2.21",
     "@angular/core": "^21.2.21",
     "@angular/localize": "^21.2.21",
-    "@ni/nimble-components": "^35.15.2",
     "@ni/ok-components": "^1.10.3"
   }
 }
