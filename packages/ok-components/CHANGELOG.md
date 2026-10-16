@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 16 Oct 2026 18:35:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 16 Oct 2026 19:27:05 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.11.1
+
+Fri, 16 Oct 2026 19:27:05 GMT
+
+### Patches
+
+- Fix Fv Search Input underline thickness ([ni/nimble@31d0f51](https://github.com/ni/nimble/commit/31d0f51c7469c49d4169cfff119cfdc008d08005))
 
 ## 1.11.0
 
