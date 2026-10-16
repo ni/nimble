@@ -137,19 +137,18 @@ export class FvSplitLayout extends FoundationElement {
         const configured = Number.isFinite(this.max)
             ? Math.min(100, Math.max(minimum, this.max))
             : Math.max(minimum, 75);
-        if (this.availableWidth <= 2 || !Number.isFinite(this.minSecondaryPixels) || this.minSecondaryPixels <= 0) {
+        const secondaryMinimum = this.effectiveMinSecondaryPixels;
+        if (this.availableWidth <= 2 || secondaryMinimum <= 0) {
             return configured;
         }
-        const pixelMaximum = 100 * (1 - this.minSecondaryPixels / (this.availableWidth - 2));
+        const pixelMaximum = 100 * (1 - secondaryMinimum / (this.availableWidth - 2));
         return Math.max(0, Math.min(configured, pixelMaximum));
     }
 
     /** @internal */
     @volatile
     public get gridTemplateColumns(): string {
-        const secondaryMinimum = Number.isFinite(this.minSecondaryPixels)
-            ? Math.max(0, this.minSecondaryPixels)
-            : 300;
+        const secondaryMinimum = this.effectiveMinSecondaryPixels;
         return this.collapsed
             ? 'minmax(0, 1fr)'
             : `minmax(0, ${this.position}fr) 2px minmax(${secondaryMinimum}px, ${100 - this.position}fr)`;
@@ -192,6 +191,12 @@ export class FvSplitLayout extends FoundationElement {
             this.requestedPositionResetScheduled = false;
             this.requestedPosition = this.position;
         });
+    }
+
+    private get effectiveMinSecondaryPixels(): number {
+        return Number.isFinite(this.minSecondaryPixels)
+            ? Math.max(0, this.minSecondaryPixels)
+            : 300;
     }
 }
 

@@ -46,6 +46,18 @@ describe('FvSplitLayout', () => {
         expect(element.position).toBe(element.effectiveMax);
     });
 
+    it('uses the fallback secondary pixel minimum when the configured minimum is non-finite', async () => {
+        element.availableWidth = 445;
+        element.position = 75;
+        element.minSecondaryPixels = Number.NaN;
+        await waitForUpdatesAsync();
+
+        const expectedMaximum = 100 * (1 - 300 / 443);
+        expect(element.effectiveMax).toBeCloseTo(expectedMaximum, 5);
+        expect(element.position).toBeCloseTo(expectedMaximum, 5);
+        expect(element.gridTemplateColumns).toContain('minmax(300px,');
+    });
+
     it('preserves a requested position regardless of synchronous bounds assignment order', async () => {
         element.position = 20;
         element.min = 10;

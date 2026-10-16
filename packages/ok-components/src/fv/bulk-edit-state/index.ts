@@ -67,24 +67,24 @@ export class BulkEditState<TRecord, TField extends PropertyKey> {
         if (this.selected.size === 0) {
             return;
         }
-        this.draft.set(field, value);
         if (value.trim() !== '' && this.selectedRecords.some(record => this.read(record, field) !== value)) {
-            this.pending.set(field, value);
+            this.setPending(field, value);
         } else {
             this.pending.delete(field);
         }
+        this.draft.set(field, value);
     }
 
     public clear(field: TField): void {
         if (this.selected.size === 0) {
             return;
         }
-        this.draft.set(field, '');
         if (this.selectedRecords.some(record => this.read(record, field) !== '')) {
-            this.pending.set(field, '');
+            this.setPending(field, '');
         } else {
             this.pending.delete(field);
         }
+        this.draft.set(field, '');
     }
 
     public resetField(field: TField): void {
@@ -144,5 +144,18 @@ export class BulkEditState<TRecord, TField extends PropertyKey> {
             this.records = updatedRecords;
         }
         this.revert();
+    }
+
+    private setPending(field: TField, value: string): void {
+        if (typeof field !== 'symbol') {
+            for (const existing of this.pending.keys()) {
+                if (typeof existing !== 'symbol'
+                    && typeof existing !== typeof field
+                    && String(existing) === String(field)) {
+                    throw new TypeError('Numeric and string field keys that map to the same object key cannot both be pending.');
+                }
+            }
+        }
+        this.pending.set(field, value);
     }
 }
