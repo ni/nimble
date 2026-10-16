@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add reusable split-pane bulk-edit components and state.",
-  "packageName": "@ni/ok-components",
-  "email": "223556219+Copilot@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
