@@ -31,6 +31,22 @@ export class NimbleChipDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
+    public get selectable(): boolean {
+        return this.elementRef.nativeElement.selectable;
+    }
+
+    @Input() public set selectable(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selectable', toBooleanProperty(value));
+    }
+
+    public get selected(): boolean {
+        return this.elementRef.nativeElement.selected;
+    }
+
+    @Input() public set selected(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selected', toBooleanProperty(value));
+    }
+
     public get appearance(): ChipAppearance {
         return this.elementRef.nativeElement.appearance;
     }

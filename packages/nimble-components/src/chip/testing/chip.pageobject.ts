@@ -35,6 +35,17 @@ export class ChipPageObject {
         throw new Error('Remove button not found');
     }
 
+    public mousedownRemoveButton(): void {
+        const removeButton = this.getRemoveButton();
+        if (removeButton) {
+            removeButton.dispatchEvent(
+                new MouseEvent('mousedown', { bubbles: true })
+            );
+        } else {
+            throw new Error('Remove button not found');
+        }
+    }
+
     private getRemoveButton(): Button | null {
         return (
             this.chipElement.shadowRoot?.querySelector<Button>(

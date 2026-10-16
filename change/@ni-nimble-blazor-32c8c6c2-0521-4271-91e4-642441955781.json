@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add selected chip Blazor wrapper",
+  "packageName": "@ni/nimble-blazor",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
