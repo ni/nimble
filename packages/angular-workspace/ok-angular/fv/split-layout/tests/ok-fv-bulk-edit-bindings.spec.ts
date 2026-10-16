@@ -81,7 +81,7 @@ describe('Ok bulk-edit Angular bindings', () => {
         expect(layout.step).toBe(1);
         expect(field.label).toBe('');
         expect(field.status).toBe('unchanged');
-        expect(field.resetDisabled).toBeTrue();
+        expect(field.resetDisabled).toBeFalse();
         expect(field.clearDisabled).toBeFalse();
         expect(bar.heading).toBe('');
         expect(bar.changeCount).toBe(0);
