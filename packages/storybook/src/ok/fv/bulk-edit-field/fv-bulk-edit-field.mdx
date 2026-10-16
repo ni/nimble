@@ -1,0 +1,53 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as bulkEditFieldStories from './fv-bulk-edit-field.stories';
+
+<Meta of={bulkEditFieldStories} />
+<Title of={bulkEditFieldStories} />
+
+A labeled field shell for editing one or more selected records. The application supplies the form control and handles the emitted reset and clear events; the field displays the label, edit status, and actions.
+
+<Canvas of={bulkEditFieldStories.fvBulkEditField} />
+
+## Status
+
+Set `status` to describe the value across the selected records:
+
+- `unchanged`: no pending edit; this is the default.
+- `mixed`: selected records have different values. The field labels its control so users know that entering a value will overwrite all selected rows.
+- `changed`: a value is pending.
+- `will-clear`: the field is pending a clear operation.
+
+The component does not read or update application data. Update the control and status in response to user input and to the `reset` and `clear` events.
+
+## API
+
+<Controls of={bulkEditFieldStories.fvBulkEditField} />
+
+<ComponentApisLink />
+
+## Usage
+
+Place the form control directly in the default slot. The field applies an accessible name using its `label` and current status.
+
+```html
+<ok-fv-bulk-edit-field label="Location" status="mixed">
+  <nimble-text-field></nimble-text-field>
+</ok-fv-bulk-edit-field>
+```
+
+Listen for `reset` to restore the original value and `clear` to mark the field for clearing across the selected records. Disable those actions with `reset-disabled` or `clear-disabled` when they are not available.
+
+## Accessibility
+
+- The field applies an accessible name to each directly slotted control. In the mixed state, that name explains that entering a value overwrites all selected rows.
+- Keep the control directly in the default slot so it receives the generated accessible name.
+- The built-in Reset and Clear buttons have action-specific names.
+
+## Styling
+
+The field uses Nimble theme tokens and inherits typography. Supply a Nimble form control through the default slot; the field sizes it to the available width.
+
+## Resources
+
+See the [split-pane bulk-edit guide](?path=/docs/ok-patterns-split-pane-bulk-edit--guide) and its [interactive example](?path=/story/ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit).
