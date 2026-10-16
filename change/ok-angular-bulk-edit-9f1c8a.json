@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add Angular integrations for split-pane bulk editing.",
-  "packageName": "@ni/ok-angular",
-  "email": "223556219+Copilot@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

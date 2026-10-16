@@ -2,6 +2,21 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Fri, 16 Oct 2026 20:25:12 GMT",
+      "version": "3.2.0",
+      "tag": "@ni/ok-angular_v3.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "223556219+Copilot@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "dfd2c8fefb2a0573b644850f53fc4318498b776f",
+            "comment": "Add Angular integrations for split-pane bulk editing."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Oct 2026 19:27:05 GMT",
       "version": "3.1.5",
       "tag": "@ni/ok-angular_v3.1.5",
