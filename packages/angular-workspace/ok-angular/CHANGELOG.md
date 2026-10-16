@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Fri, 16 Oct 2026 18:35:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 16 Oct 2026 19:27:05 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.1.5
+
+Fri, 16 Oct 2026 19:27:05 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.11.1
 
 ## 3.1.4
 
