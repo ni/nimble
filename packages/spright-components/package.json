@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "6.23.3",
+  "version": "6.24.0",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build:components && npm run build:cem",
@@ -43,8 +43,8 @@
     "@ni/fast-element": "^10.2.0",
     "@ni/fast-foundation": "^10.3.0",
     "@ni/fast-web-utilities": "^10.1.0",
-    "@ni/nimble-components": "^35.16.0",
-    "@ni/nimble-tokens": "^8.21.0",
+    "@ni/nimble-components": "^35.17.0",
+    "@ni/nimble-tokens": "^8.22.0",
     "tslib": "^2.2.0"
   },
   "devDependencies": {

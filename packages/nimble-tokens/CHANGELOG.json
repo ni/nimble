@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 16 Oct 2026 23:51:52 GMT",
+      "version": "8.22.0",
+      "tag": "@ni/nimble-tokens_v8.22.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "1132ed09df693f0575e890d4c23ffcd5719a9955",
+            "comment": "Add new icons for left/right arrows and variations on circle with sparkle"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Oct 2026 16:45:55 GMT",
       "version": "8.21.0",
       "tag": "@ni/nimble-tokens_v8.21.0",

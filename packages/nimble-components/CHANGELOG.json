@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Oct 2026 23:51:52 GMT",
+      "version": "35.17.0",
+      "tag": "@ni/nimble-components_v35.17.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.22.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Oct 2026 16:45:55 GMT",
       "version": "35.16.0",
       "tag": "@ni/nimble-components_v35.16.0",

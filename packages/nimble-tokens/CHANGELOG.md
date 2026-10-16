@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 16 Oct 2026 23:51:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.22.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Add new icons for left/right arrows and variations on circle with sparkle ([ni/nimble@1132ed0](https://github.com/ni/nimble/commit/1132ed09df693f0575e890d4c23ffcd5719a9955))
 
 ## 8.21.0
 
