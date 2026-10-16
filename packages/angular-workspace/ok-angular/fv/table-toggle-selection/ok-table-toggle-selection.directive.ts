@@ -95,6 +95,7 @@ export class OkTableToggleSelectionDirective implements AfterViewInit, OnDestroy
     private propose(selectedIds: readonly string[]): void {
         if (selectedIds.length === this.currentSelection.length
             && selectedIds.every(id => this.currentSelection.includes(id))) {
+            this.restoreSelection();
             return;
         }
         const proposal = {

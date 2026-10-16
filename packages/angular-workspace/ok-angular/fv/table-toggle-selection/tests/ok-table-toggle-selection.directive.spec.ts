@@ -54,6 +54,29 @@ describe('OkTableToggleSelectionDirective', () => {
         expect(write).toHaveBeenCalledWith([]);
     });
 
+    it('restores the table when an additive shift range shrinks without changing selection', async () => {
+        directive.selectedIds = [];
+        await settle();
+        selection(['a']);
+        await settle();
+
+        const shiftClickRow = (): void => {
+            const row = document.createElement('nimble-table-row');
+            table.append(row);
+            row.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true, shiftKey: true }));
+        };
+
+        shiftClickRow();
+        selection(['a', 'b', 'c']);
+        await settle();
+        shiftClickRow();
+        write.calls.reset();
+        selection(['a', 'b']);
+        await settle();
+
+        expect(write).toHaveBeenCalledWith(['a', 'b', 'c']);
+    });
+
     it('restores a rejected proposal and allows subsequent confirmation through selectedIds', async () => {
         const changed = jasmine.createSpy();
         directive.selectionChange.subscribe(changed);
