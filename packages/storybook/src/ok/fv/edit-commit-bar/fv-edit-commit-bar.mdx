@@ -9,6 +9,8 @@ A heading, pending-change summary, commit actions, and feedback for an editing p
 
 <Canvas of={editCommitBarStories.fvEditCommitBar} />
 
+Use the controls to explore row counts, hidden rows, disabled actions, feedback messages, and narrow widths.
+
 The summary is derived from `change-count`, `affected-row-count`, and `hidden-affected-row-count`. When there are no pending changes it reads “No pending changes”; otherwise it reports the affected rows, including any hidden by filtering.
 
 ## API
@@ -43,10 +45,6 @@ bar.message = { severity: 'error', text: 'Save failed. Pending edits are retaine
 ```
 
 The supported severities are `information` and `error`. Dismissing a banner emits `dismiss-message`.
-
-<Canvas of={editCommitBarStories.hiddenRows} />
-
-<Canvas of={editCommitBarStories.error} />
 
 ## Accessibility
 
