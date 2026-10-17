@@ -11,7 +11,8 @@ interface Args {
     affectedRowCount: number;
     hiddenAffectedRowCount: number;
     disabled: boolean;
-    message?: CommitMessage;
+    messageSeverity: 'none' | CommitMessage['severity'];
+    messageText: string;
     width: string;
 }
 
@@ -24,7 +25,7 @@ const metadata: Meta<Args> = {
             :changeCount="${x => x.changeCount}"
             :affectedRowCount="${x => x.affectedRowCount}"
             :hiddenAffectedRowCount="${x => x.hiddenAffectedRowCount}"
-            :message="${x => x.message}"
+            :message="${x => (x.messageSeverity === 'none' || !x.messageText ? undefined : { severity: x.messageSeverity, text: x.messageText })}"
             ?save-disabled="${x => x.disabled || x.changeCount === 0}"
             ?revert-disabled="${x => x.disabled || x.changeCount === 0}"
         ></${fvEditCommitBarTag}>
@@ -34,6 +35,8 @@ const metadata: Meta<Args> = {
         affectedRowCount: 0,
         hiddenAffectedRowCount: 0,
         disabled: false,
+        messageSeverity: 'none',
+        messageText: '',
         width: '100%'
     },
     argTypes: {
@@ -41,7 +44,8 @@ const metadata: Meta<Args> = {
         affectedRowCount: { control: { type: 'number', min: 0, step: 1 } },
         hiddenAffectedRowCount: { control: { type: 'number', min: 0, step: 1 } },
         disabled: { control: 'boolean' },
-        message: { control: 'object' },
+        messageSeverity: { control: 'select', options: ['none', 'information', 'error'] },
+        messageText: { control: 'text' },
         width: { control: 'text' }
     }
 };
