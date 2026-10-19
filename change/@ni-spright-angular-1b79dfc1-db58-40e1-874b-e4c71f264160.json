@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Move user-facing strings from attributes to label provider for chat components",
-  "packageName": "@ni/spright-angular",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
