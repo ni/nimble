@@ -49,9 +49,11 @@ export class RichTextEditorPageObject {
         isShiftKey: boolean
     ): Promise<void> {
         const editor = this.getTiptapEditor();
+        const isMac = navigator.platform.includes('Mac');
         const event = new KeyboardEvent('keydown', {
             key: shortcutKey,
-            ctrlKey: true,
+            ctrlKey: !isMac,
+            metaKey: isMac,
             shiftKey: isShiftKey,
             bubbles: true,
             cancelable: true
