@@ -36,16 +36,14 @@ const metadata: Meta<Args> = {
         status: {
             control: 'select',
             options: ['unchanged', 'mixed', 'changed', 'will-clear']
-        }
+        },
+        control: {
+            control: 'select',
+            options: ['text', 'textarea', 'select', 'number']
+        },
+        actionsDisabled: { control: 'boolean' }
     }
 };
 
 export default metadata;
 export const fvBulkEditField: StoryObj<Args> = {};
-export const mixed: StoryObj<Args> = { args: { status: 'mixed' } };
-export const changed: StoryObj<Args> = { args: { status: 'changed' } };
-export const willClear: StoryObj<Args> = { args: { status: 'will-clear' } };
-export const disabledActions: StoryObj<Args> = { args: { status: 'changed', actionsDisabled: true } };
-export const textArea: StoryObj<Args> = { args: { control: 'textarea', status: 'mixed' } };
-export const select: StoryObj<Args> = { args: { control: 'select', status: 'mixed' } };
-export const number: StoryObj<Args> = { args: { control: 'number', status: 'mixed' } };

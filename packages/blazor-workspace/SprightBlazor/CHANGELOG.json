@@ -2,6 +2,27 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Mon, 19 Oct 2026 21:08:34 GMT",
+      "version": "5.0.0",
+      "tag": "@ni/spright-blazor_v5.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "58fba61aa97053d740b3b5c6660f6fa563cc7ed1",
+            "comment": "Move user-facing strings from attributes to label provider for chat components"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v7.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Oct 2026 23:51:52 GMT",
       "version": "4.20.0",
       "tag": "@ni/spright-blazor_v4.20.0",

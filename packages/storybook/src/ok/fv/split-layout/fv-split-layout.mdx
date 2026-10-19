@@ -9,6 +9,8 @@ A full-height, resizable two-pane layout. The application supplies the pane cont
 
 <Canvas of={splitLayoutStories.fvSplitLayout} />
 
+Use the controls to adjust pane sizing, collapse behavior, and content length.
+
 ## Usage
 
 Place the primary and secondary content in their named slots and give the layout a height from its parent.
@@ -28,10 +30,6 @@ Place the primary and secondary content in their named slots and give the layout
 `position`, `min`, and `max` are percentages. The secondary pane defaults to a 300 px minimum; when that minimum conflicts with the percentage limits, the layout adjusts the effective position to preserve the secondary width. Use `collapsed` to remove the secondary pane and splitter from the layout while keeping slotted content and its application state.
 
 The layout emits `input` as the splitter moves and `change` when resizing is committed. Applications can use these events to update or persist `position`. Pane IDs are generated automatically; set `primary-pane-id` and `secondary-pane-id` when stable IDs are needed.
-
-<Canvas of={splitLayoutStories.collapsed} />
-
-<Canvas of={splitLayoutStories.narrow} />
 
 ## API
 

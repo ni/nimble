@@ -19,12 +19,6 @@ export class ChatInput extends mixinErrorPattern(FoundationElement) {
     @attr
     public placeholder?: string;
 
-    @attr({ attribute: 'send-button-label' })
-    public sendButtonLabel?: string;
-
-    @attr({ attribute: 'stop-button-label' })
-    public stopButtonLabel?: string;
-
     @attr
     public value = '';
 
