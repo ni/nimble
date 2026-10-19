@@ -56,6 +56,8 @@
 
 *Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.*
 
+*See the [API design guidance](/packages/nimble-components/CONTRIBUTING.md#custom-element-api-design) for more information.*
+
 ### Anatomy 
 
 *Outline the component structure with a diagram of its visual tree (shadow DOM). Enumerate key areas of visual customization, such as:*

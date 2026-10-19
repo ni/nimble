@@ -1,8 +1,96 @@
 # Change Log - @ni/ok-angular
 
-<!-- This log was last generated on Tue, 22 Sep 2026 19:32:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 16 Oct 2026 23:51:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.3.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.12.0
+
+## 3.2.0
+
+Fri, 16 Oct 2026 20:25:12 GMT
+
+### Minor changes
+
+- Add Angular integrations for split-pane bulk editing. ([ni/nimble@dfd2c8f](https://github.com/ni/nimble/commit/dfd2c8fefb2a0573b644850f53fc4318498b776f))
+
+## 3.1.5
+
+Fri, 16 Oct 2026 19:27:05 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.11.1
+
+## 3.1.4
+
+Fri, 16 Oct 2026 18:35:20 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.11.0
+
+## 3.1.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.3
+
+## 3.1.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.2
+
+## 3.1.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.1
+
+## 3.1.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.10.0
+
+## 3.0.5
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.6
+
+## 3.0.4
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.5
+
+## 3.0.3
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.4
 
 ## 3.0.2
 

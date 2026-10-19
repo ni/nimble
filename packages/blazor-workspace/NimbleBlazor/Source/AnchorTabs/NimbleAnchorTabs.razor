@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-anchor-tabs
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     activeid="@BindConverter.FormatValue(ActiveId)"
     @attributes="AdditionalAttributes">
     @ChildContent

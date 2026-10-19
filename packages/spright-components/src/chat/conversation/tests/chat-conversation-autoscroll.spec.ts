@@ -89,6 +89,30 @@ describe('ChatConversation auto-scroll behavior (characterization)', () => {
             expect(pageObject.isAnchorRegionReserved()).toBeTrue();
         });
 
+        it('does not animate scrolling to an anchor in the initial content', async () => {
+            const smoothScrollTo = pageObject.spyOnSmoothScrollTo();
+            const instantScrollTo = pageObject.spyOnInstantScrollTo();
+
+            await pageObject.appendOutboundMessage(
+                'An initial question with enough content to exceed the viewport. '.repeat(20)
+            );
+
+            expect(smoothScrollTo).not.toHaveBeenCalled();
+            expect(instantScrollTo).toHaveBeenCalled();
+            expect(pageObject.isScrolledToBottom()).toBeTrue();
+        });
+
+        it('smoothly scrolls to an anchor inserted after the initial content', async () => {
+            await fillWithInboundMessages(8);
+            const smoothScrollTo = pageObject.spyOnSmoothScrollTo();
+            const instantScrollTo = pageObject.spyOnInstantScrollTo();
+
+            await pageObject.appendOutboundMessage('A later user question');
+
+            expect(smoothScrollTo).toHaveBeenCalled();
+            expect(instantScrollTo).not.toHaveBeenCalled();
+        });
+
         it('keeps following after a programmatic scroll settles short of its target', async () => {
             await fillWithInboundMessages(8);
             await pageObject.scrollToBottom();

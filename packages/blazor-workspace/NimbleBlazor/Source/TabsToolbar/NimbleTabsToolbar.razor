@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-tabs-toolbar
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     @attributes="AdditionalAttributes">
     @ChildContent
 </nimble-tabs-toolbar>

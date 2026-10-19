@@ -1,8 +1,78 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 22 Sep 2026 19:32:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 16 Oct 2026 23:51:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.24.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.17.0
+- Bump @ni/nimble-tokens to v8.22.0
+
+## 6.23.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.16.0
+- Bump @ni/nimble-tokens to v8.21.0
+
+## 6.23.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.2
+
+## 6.23.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update deps ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/nimble-components to v35.15.1
+- Bump @ni/jasmine-parameterized to v1.0.14
+
+## 6.23.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.15.0
+- Bump @ni/nimble-tokens to v8.20.0
+
+## 6.22.7
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Disable scroll animation for initial Spright chat conversation scroll ([ni/nimble@238d3bc](https://github.com/ni/nimble/commit/238d3bc00a06f9a805e94f1f1d7713dfb5e230df))
+
+## 6.22.6
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.1
+- Bump @ni/jasmine-parameterized to v1.0.13
+
+## 6.22.5
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.0
 
 ## 6.22.4
 

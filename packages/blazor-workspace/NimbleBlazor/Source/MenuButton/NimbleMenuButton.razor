@@ -1,7 +1,7 @@
 @namespace NimbleBlazor
 @inherits ComponentBase
 <nimble-menu-button
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     open="@BindConverter.FormatValue(Open)"
     @onnimblemenubuttontoggle="(__value) => HandleToggle(__value)"
     @onnimblemenubuttonbeforetoggle="(__value) => HandleBeforeToggle(__value)"

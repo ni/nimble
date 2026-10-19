@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-button
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     appearance="@Appearance.ToAttributeValue()"
     appearance-variant="@AppearanceVariant.ToAttributeValue()"
     content-hidden="@ContentHidden"

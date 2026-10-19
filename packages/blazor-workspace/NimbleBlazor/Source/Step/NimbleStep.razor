@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-step
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     severity="@Severity.ToAttributeValue()"
     disabled="@Disabled"
     readonly="@ReadOnly"

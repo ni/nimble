@@ -61,6 +61,9 @@ export const iconMetadata: {
     IconArrowPartialRotateLeft: {
         tags: ['reset']
     },
+    IconArrowRightArrowLeft: {
+        tags: ['opposite', 'swap', 'exchange', 'bidirectional']
+    },
     IconArrowRightThin: {
         tags: ['link', 'open']
     },
@@ -220,6 +223,15 @@ export const iconMetadata: {
     IconCircleSlash: {
         tags: ['status', 'blocked']
     },
+    IconCircleSparkle: {
+        tags: ['credit', 'token', 'ai', 'nigel', 'star']
+    },
+    IconCircleSparkleExclamation: {
+        tags: ['credit', 'token', 'ai', 'nigel', 'star', 'alert', 'error']
+    },
+    IconCircleSparkleTriangle: {
+        tags: ['credit', 'token', 'ai', 'nigel', 'star', 'warning']
+    },
     IconCircleX: {
         tags: ['status', 'terminated']
     },
@@ -320,7 +332,7 @@ export const iconMetadata: {
         tags: ['import']
     },
     IconElectronicChipZoomed: {
-        tags: ['data preparation']
+        tags: ['computer', 'data preparation', 'device', 'hardware', 'microchip', 'technology']
     },
     IconExclamationMark: {
         tags: ['error', 'warning']
@@ -340,11 +352,20 @@ export const iconMetadata: {
     IconFileArrowCurvedRight: {
         tags: ['export', 'extract']
     },
+    IconFileClock: {
+        tags: ['recent']
+    },
     IconFileDrawer: {
         tags: ['box', 'repository manager']
     },
+    IconFilePlus: {
+        tags: ['add', 'import']
+    },
     IconFileSearch: {
         tags: ['file viewer']
+    },
+    IconFileStar: {
+        tags: ['new', 'create']
     },
     IconFilter: {
         tags: []
@@ -367,8 +388,17 @@ export const iconMetadata: {
     IconFolder: {
         tags: ['ldap']
     },
+    IconFolderClock: {
+        tags: ['recent']
+    },
     IconFolderOpen: {
         tags: ['browse']
+    },
+    IconFolderPlus: {
+        tags: ['add', 'import']
+    },
+    IconFolderStar: {
+        tags: ['new', 'create']
     },
     IconForklift: {
         tags: ['transport', 'transit', 'transfer', 'convey', 'haul', 'lift', 'move']
@@ -549,6 +579,9 @@ export const iconMetadata: {
     },
     IconScannerGun: {
         tags: ['qr', 'code', 'barcode']
+    },
+    IconScissors: {
+        tags: ['cut', 'clipboard']
     },
     IconScreenCheckLines: {
         tags: ['test', 'plan', 'monitor', 'desktop']

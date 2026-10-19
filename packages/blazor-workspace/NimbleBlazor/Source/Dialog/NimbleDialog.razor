@@ -1,7 +1,7 @@
 @typeparam TCloseReason
 @namespace NimbleBlazor
 <nimble-dialog
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     @ref="_dialogElement"
     prevent-dismiss="@PreventDismiss"
     header-hidden="@HeaderHidden"

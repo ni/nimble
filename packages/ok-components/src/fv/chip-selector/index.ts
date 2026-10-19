@@ -352,13 +352,6 @@ export class FvChipSelector extends FoundationElement {
     };
 
     private syncActiveOption(): void {
-        const options = Array.from(
-            this.shadowRoot?.querySelectorAll<HTMLElement>('.chip-selector-option') ?? []
-        );
-        options.forEach((option, index) => {
-            option.setAttribute('aria-selected', String(index === this.activeOptionIndex));
-        });
-
         if (this.activeOptionIndex < 0) {
             this.activeOptionId = null;
         } else if (

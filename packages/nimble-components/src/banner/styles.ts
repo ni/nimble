@@ -47,18 +47,27 @@ export const styles = css`
     }
 
     .icon {
-        width: 48px;
-        display: flex;
-        justify-content: center;
-        margin-top: 8px;
+        display: none;
+        margin: 8px ${smallPadding} 0 ${standardPadding};
         flex: 0 0 auto;
         opacity: 0.6;
     }
 
+    :host([severity='error']) .icon,
+    :host([severity='warning']) .icon,
+    :host([severity='information']) .icon {
+        display: flex;
+    }
+
     .text {
         display: inline;
-        margin-top: 7px;
-        margin-bottom: 7px;
+        margin: 7px 0 7px ${standardPadding};
+    }
+
+    :host([severity='error']) .text,
+    :host([severity='warning']) .text,
+    :host([severity='information']) .text {
+        margin-left: 0;
     }
 
     slot[name='title'] {
@@ -89,14 +98,20 @@ export const styles = css`
         white-space: nowrap;
     }
 
+    :host([prevent-dismiss]) slot[name='action'] {
+        margin-right: 12px;
+    }
+
     slot[name='action']::slotted(nimble-anchor) {
         font-size: 12.8px;
     }
 
     .dismiss {
-        width: 48px;
-        display: flex;
-        justify-content: center;
+        margin: 0 12px 0 ${standardPadding};
+    }
+
+    :host([prevent-dismiss]) .dismiss {
+        display: none;
     }
 `.withBehaviors(
     themeBehavior(

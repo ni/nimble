@@ -153,6 +153,14 @@ export class ChatConversationPageObject {
         this.getScrollContainer().dispatchEvent(new Event('scroll'));
     }
 
+    public spyOnSmoothScrollTo(): jasmine.Spy {
+        return spyOn(this.element.autoScrollManager, 'smoothScrollTo').and.callThrough();
+    }
+
+    public spyOnInstantScrollTo(): jasmine.Spy {
+        return spyOn(this.element.autoScrollManager, 'instantScrollTo').and.callThrough();
+    }
+
     private get autoScrollManagerInternals(): {
         programmaticScrollTarget?: number
     } {

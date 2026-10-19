@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Tue, 22 Sep 2026 19:32:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 16 Oct 2026 23:51:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.22.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Add new icons for left/right arrows and variations on circle with sparkle ([ni/nimble@1132ed0](https://github.com/ni/nimble/commit/1132ed09df693f0575e890d4c23ffcd5719a9955))
+
+## 8.21.0
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Minor changes
+
+- Add Noto Sans Mono code font token ([ni/nimble@5acaba9](https://github.com/ni/nimble/commit/5acaba9331b57c56116782553219749733c468e1))
+
+## 8.20.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Add new icons for file and folder operations, scissors/cut. Update icons for systemlink and electronic-chip-zoomed. ([ni/nimble@7b35ce1](https://github.com/ni/nimble/commit/7b35ce12408e40866c7e34fd08b0be348a514857))
 
 ## 8.19.2
 

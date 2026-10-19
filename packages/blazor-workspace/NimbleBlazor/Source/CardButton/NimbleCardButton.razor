@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-card-button
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     disabled="@Disabled"
     selected="@Selected"
     @attributes="AdditionalAttributes">

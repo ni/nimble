@@ -1,8 +1,89 @@
 # Change Log - @ni/ok-react
 
-<!-- This log was last generated on Tue, 22 Sep 2026 19:32:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 16 Oct 2026 23:51:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.14.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.12.0
+
+## 0.13.5
+
+Fri, 16 Oct 2026 19:27:05 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.11.1
+
+## 0.13.4
+
+Fri, 16 Oct 2026 18:35:20 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.11.0
+
+## 0.13.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.3
+
+## 0.13.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.2
+
+## 0.13.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.10.1
+
+## 0.13.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/ok-components to v1.10.0
+
+## 0.12.10
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.6
+
+## 0.12.9
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Align types export paths ([ni/nimble@aefa2a2](https://github.com/ni/nimble/commit/aefa2a2ccbca09b6faa758331c6633d46bedeb3c))
+- Bump @ni/ok-components to v1.9.5
+
+## 0.12.8
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/ok-components to v1.9.4
 
 ## 0.12.7
 
