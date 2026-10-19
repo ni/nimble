@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Fix rich text editor keyboard shortcut tests on Safari",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
