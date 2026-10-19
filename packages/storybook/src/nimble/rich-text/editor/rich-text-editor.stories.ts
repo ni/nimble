@@ -12,7 +12,7 @@ import {
 import {
     createLocalizableLabelArgTypes,
     type LocalizableLabelArgs
-} from '../../label-provider/base/label-user-stories-utils';
+} from '../../../utilities/label-provider/label-user-stories-utils';
 import { richTextMarkdownString } from '../../../utilities/rich-text-markdown-string';
 import {
     apiCategory,
