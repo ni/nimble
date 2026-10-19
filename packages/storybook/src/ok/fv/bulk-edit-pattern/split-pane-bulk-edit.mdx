@@ -4,20 +4,23 @@ import * as bulkEditPatternStories from './bulk-edit-pattern.stories';
 <Meta of={bulkEditPatternStories} name="Guide" />
 <Title of={bulkEditPatternStories} />
 
-Use `ok-fv-split-layout`, `ok-fv-bulk-edit-field`, `ok-fv-edit-commit-bar`, and
-`BulkEditState` together. Applications still own records, columns, filters,
-dialogs, persistence, and product-specific field controls.
+Combine these four APIs to build a bulk editor. The application owns record
+data, columns, filtering, dialogs, persistence, and product-specific field
+controls.
 
-The commit bar supports a `heading-actions` slot for app-owned mode controls.
-Set `actions-hidden` when Save/Revert are placed in an application toolbar;
-the component's built-in actions remain enabled by default. Set
-`hide-empty-summary` to suppress “No pending changes” in read-only mode while
-continuing to announce any outstanding edits.
+| API | Responsibility |
+|---|---|
+| `ok-fv-split-layout` | Sizes, resizes, and collapses the panes. |
+| `ok-fv-bulk-edit-field` | Labels each field, reports its status, and exposes Reset/Clear actions. |
+| `ok-fv-edit-commit-bar` | Shows the heading, change summary, banner, and Save/Revert actions. |
+| `BulkEditState` | Tracks selected records, common or mixed values, drafts, and pending changes. |
+
+## Quick start
 
 ```ts
 import { BulkEditState } from '@ni/ok-components/dist/esm/fv/bulk-edit-state';
 
-const edits = new BulkEditState({
+const state = new BulkEditState({
     records,
     id: record => record.id,
     read: (record, field) => record[field]
@@ -36,78 +39,79 @@ const edits = new BulkEditState({
 </ok-fv-split-layout>
 ```
 
-Angular consumers import the matching `@ni/ok-angular/fv/*` modules. Add
-`OkTableToggleSelectionModule` and `okTableToggleSelection` only when row-body
-clicks must toggle without a modifier. Handle `proposedSelection` synchronously;
-call `preventDefault()` before opening an asynchronous discard dialog, then
-assign the proposal's `selectedIds` to the bound selection if confirmed. Supply
-`visibleIds` in the table's current row order. Native checkbox and keyboard
-selection use the same proposal path, and hidden selections are preserved.
+The commit bar shows its built-in Save/Revert buttons by default. Use its
+`heading-actions` slot for app-owned mode controls, and set `actions-hidden`
+when Save/Revert live in an application toolbar. In read-only mode,
+`hide-empty-summary` hides “No pending changes” but still announces outstanding
+edits.
+
+## Angular selection
+
+Use the matching `@ni/ok-angular/fv/*` modules. Import
+`OkTableToggleSelectionModule` and add `okTableToggleSelection` only when
+row-body clicks should toggle selection without a modifier key.
+
+- Handle each `proposedSelection` synchronously. If selection needs an
+    asynchronous discard dialog, call `preventDefault()` before opening it; after
+    confirmation, assign the proposal's `selectedIds` to the bound selection.
+- Keep `visibleIds` in the table's current row order. The directive preserves
+    selected IDs hidden by filtering.
+- Native checkbox and keyboard selection use the same proposal path.
 
 ## Field controls and layout
 
-Directly slot the Nimble text field, text area, select, or number field into a
-bulk-edit field. The shell applies the field label and status to the control's
-accessible name, including the overwrite hint for mixed values. Wrapping the
-control in another element requires application-owned labeling.
+- Slot a Nimble text field, text area, select, or number field directly into
+    `ok-fv-bulk-edit-field`. The field shell supplies the accessible label and
+    status, including the mixed-value overwrite hint. If you wrap the control,
+    provide its labeling in the application.
+- Blank or whitespace-only input stays a draft and does not schedule a
+    mutation. Clear writes an empty value; Reset restores the original common or
+    mixed value. Entering a common saved value removes the pending change.
+- `min-secondary-pixels` takes precedence over the primary pane's percentage
+    minimum. At 445 px with a 300 px secondary minimum, the primary pane can be
+    narrower than 35%. If the layout cannot fit the secondary minimum plus the
+    2 px splitter, it scrolls horizontally instead of shrinking the editor.
+- Both panes and their directly slotted roots fill the configured height.
+    Collapsing the layout retains the editor, active tab, drafts, and split
+    position.
 
-Blank or whitespace-only input remains a draft but does not schedule a mutation.
-Clear explicitly writes an empty value; Reset restores the original common or
-mixed value. Entering a common saved value does not create a pending change.
+## Save behavior
 
-The secondary pane's `min-secondary-pixels` takes precedence over the primary
-pane's percentage minimum. At 445 px with a 300 px secondary minimum, the primary
-pane may therefore be smaller than 35%. Below the secondary minimum plus the
-2 px splitter, the layout scrolls horizontally instead of shrinking the editor.
-Both panes and their directly slotted roots fill the layout's configured height.
-Collapse retains the slotted editor, its active tab, drafts, and split position.
+1. Call `createCommit()` before persisting changes.
+2. On full success, refresh the records and pass them to
+     `commitSucceeded(refreshedRecords)`.
+3. On failure, do not call `commitSucceeded()`; the edits remain retryable.
+4. For partial success, refresh successful records and preserve failed field
+     edits in application state. `BulkEditState` does not define a server-side
+     transaction protocol.
 
 ## Interactive example and checks
 
-The asset-inventory example uses 120 in-memory records and the shared state
-model. It demonstrates selection, hidden selected rows, discard confirmation,
-field edits, save/retry/revert, read-only and edit modes, collapse, and
-pointer/keyboard resizing. Its failure checkbox is demo-only.
+The example uses 120 in-memory records and `BulkEditState`. It covers selection
+(including hidden rows), discard confirmation, field edits, save/retry/revert,
+read-only mode, collapse, and pointer/keyboard resizing. “Fail next save” is
+demo-only.
 
 <Canvas of={bulkEditPatternStories.splitPaneBulkEdit} />
 
-With Storybook running, execute:
+With Storybook running, run this from the repository root:
 
 ```sh
 node packages/storybook/src/ok/fv/bulk-edit-pattern/test-bulk-edit.mjs
 ```
 
 Set `STORYBOOK_URL` to check a different running Storybook instance. The check
-also covers supported controls' accessible names, full-height pane geometry,
-secondary pixel minimum precedence, and narrow commit actions.
-
-## Save contract
-
-Call `createCommit()` before persistence. On complete success, pass the refreshed
-records to `commitSucceeded()`. On failure, do nothing so edits remain retryable.
-For partial success, refresh successful records and keep failed fields in
-application state; the shared model intentionally does not invent a server
-transaction protocol.
-
-## Migration
-
-| Application code | Package API |
-|---|---|
-| Grid tracks, resize observer, collapse | `ok-fv-split-layout` |
-| Field labels, statuses, Reset/Clear, change gutter | `ok-fv-bulk-edit-field` |
-| Edit heading, summary, banner, Save/Revert | `ok-fv-edit-commit-bar` |
-| Mixed values, pending changes, affected rows | `BulkEditState` |
-| Toggle selection and hidden-ID preservation | `OkTableToggleSelectionDirective` |
-| Columns, filters, tabs, save API, confirmation dialog | Application |
+also checks accessible field names, full-height panes, the secondary pixel
+minimum, and narrow commit-bar actions.
 
 ## Integration checklist
 
 - Preserve selected IDs that are hidden by filtering.
-- Route every changed selection through one discard confirmation.
+- Route changed selections through one discard confirmation.
 - Treat blank input, Clear, and Reset as distinct operations.
 - Keep failed saves pending.
-- Use a text-hidden solid-circle mapping for changed rows with
-  `Unsaved changes` accessible text.
-- Expand a collapsed pane for save errors, not for success or revert.
+- Mark changed rows with a text-hidden solid-circle mapping and
+    `Unsaved changes` accessible text.
+- Expand a collapsed pane for save errors, but not for success or revert.
 - Keep wrapped toolbar actions right-aligned.
-- Let the split layout own pane tracks and use the stock splitter.
+- Let the split layout own pane tracks; use the stock splitter.

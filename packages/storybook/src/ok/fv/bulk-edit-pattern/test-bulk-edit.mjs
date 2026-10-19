@@ -7,14 +7,18 @@ try {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     const base = process.env.STORYBOOK_URL ?? 'http://localhost:6006';
-    const open = async id => {
-        await page.goto(`${base}/iframe.html?id=${id}&viewMode=story`);
+    const openStory = async (id, args = {}) => {
+        const query = new URLSearchParams({ id, viewMode: 'story' });
+        if (Object.keys(args).length > 0) {
+            query.set('args', Object.entries(args).map(([key, value]) => `${key}:${value}`).join(';'));
+        }
+        await page.goto(`${base}/iframe.html?${query}`);
     };
     const summary = text => page.locator('ok-fv-edit-commit-bar .summary').filter({ hasText: text }).waitFor();
     const row = id => page.locator(`nimble-table-row[record-id="asset-${id}"]`);
     const location = () => page.getByRole('textbox', { name: /^Location/ });
 
-    await open('ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit');
+    await openStory('ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit');
     await row(1).waitFor();
     await page.getByRole('heading', { name: 'Edit', exact: true }).waitFor();
     assert.equal(await page.locator('.view-fields').count(), 0);
@@ -170,12 +174,21 @@ try {
     await page.mouse.up();
     await page.waitForFunction(value => document.querySelector('ok-fv-split-layout').position !== value, beforeDrag);
 
-    for (const [story, role] of [['fv-bulk-edit-field', 'textbox'], ['mixed', 'textbox'], ['changed', 'textbox'], ['will-clear', 'textbox'], ['text-area', 'textbox'], ['select', 'combobox'], ['number', 'spinbutton']]) {
-        await open(`ok-fv-bulk-edit-field--${story}`);
+    const bulkEditFieldStory = 'ok-fv-bulk-edit-field--fv-bulk-edit-field';
+    for (const [args, role] of [
+        [{}, 'textbox'],
+        [{ status: 'mixed' }, 'textbox'],
+        [{ status: 'changed' }, 'textbox'],
+        [{ status: 'will-clear' }, 'textbox'],
+        [{ status: 'mixed', control: 'textarea' }, 'textbox'],
+        [{ status: 'mixed', control: 'select' }, 'combobox'],
+        [{ status: 'mixed', control: 'number' }, 'spinbutton']
+    ]) {
+        await openStory(bulkEditFieldStory, args);
         await page.getByRole(role, { name: /^Location/ }).waitFor();
     }
 
-    await open('ok-fv-split-layout--narrow');
+    await openStory('ok-fv-split-layout--fv-split-layout', { width: '445px' });
     const layout = page.locator('ok-fv-split-layout');
     await layout.waitFor();
     await page.waitForFunction(() => document.querySelector('ok-fv-split-layout').availableWidth === 445);
@@ -191,7 +204,7 @@ try {
     assert.equal(await separator.getAttribute('aria-valuenow'), await separator.getAttribute('aria-valuemax'));
     await separator.press('Home');
     assert.equal(await separator.getAttribute('aria-valuenow'), await separator.getAttribute('aria-valuemin'));
-    await open('ok-fv-edit-commit-bar--narrow');
+    await openStory('ok-fv-edit-commit-bar--fv-edit-commit-bar', { width: '388px', changeCount: 2, affectedRowCount: 5 });
     await page.getByRole('button', { name: 'Save', exact: true }).waitFor();
     const actionsBelowText = await page.locator('ok-fv-edit-commit-bar').evaluate(el => {
         const text = el.shadowRoot.querySelector('.text').getBoundingClientRect();
