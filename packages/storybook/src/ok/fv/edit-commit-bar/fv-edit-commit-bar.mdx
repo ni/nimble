@@ -1,0 +1,64 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as editCommitBarStories from './fv-edit-commit-bar.stories';
+
+<Meta of={editCommitBarStories} />
+<Title of={editCommitBarStories} />
+
+A heading, pending-change summary, commit actions, and feedback for an editing pane. The application owns persistence and should only report a successful save after its data update succeeds.
+
+<Canvas of={editCommitBarStories.fvEditCommitBar} />
+
+The summary is derived from `change-count`, `affected-row-count`, and `hidden-affected-row-count`. When there are no pending changes it reads “No pending changes”; otherwise it reports the affected rows, including any hidden by filtering.
+
+## API
+
+<Controls of={editCommitBarStories.fvEditCommitBar} />
+
+<ComponentApisLink />
+
+## Usage
+
+By default, the bar renders Save and Revert buttons and emits `save` and `revert` events when they are activated. Handle those events in the application and update the counts after the operation completes.
+
+Use `actions-hidden` when Save and Revert are provided elsewhere, and use the `heading-actions` slot for a heading-level control. `hide-empty-summary` hides only the zero-change summary; it does not hide a pending-change summary.
+
+```html
+<ok-fv-edit-commit-bar
+  heading="Edit — 2 rows"
+  change-count="2"
+  affected-row-count="5"
+  hidden-affected-row-count="3"
+>
+  <nimble-button slot="heading-actions" aria-label="View selected assets">
+    View
+  </nimble-button>
+</ok-fv-edit-commit-bar>
+```
+
+Set the `message` property to show a banner:
+
+```ts
+bar.message = { severity: 'error', text: 'Save failed. Pending edits are retained.' };
+```
+
+The supported severities are `information` and `error`. Dismissing a banner emits `dismiss-message`.
+
+<Canvas of={editCommitBarStories.hiddenRows} />
+
+<Canvas of={editCommitBarStories.error} />
+
+## Accessibility
+
+- The heading is rendered as an `h2`.
+- The pending-change summary uses `role="status"` and polite live announcements.
+- Information messages are announced politely; error messages use assertive live announcements.
+- Provide an accessible name for any icon-only control placed in `heading-actions`.
+
+## Styling
+
+The component uses Nimble theme tokens for typography, spacing, and the divider. Its container adapts the built-in Save and Revert actions to narrow widths.
+
+## Resources
+
+See the [split-pane bulk-edit guide](?path=/docs/ok-patterns-split-pane-bulk-edit--guide) and its [interactive example](?path=/story/ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit).

@@ -13,6 +13,15 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Fv Bulk Edit Field',
+        componentHref: './?path=/docs/ok-fv-bulk-edit-field--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Card',
         componentHref: './?path=/docs/ok-fv-card--docs',
         library: 'ok',
@@ -38,6 +47,15 @@ export const componentDataOkFv = [
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Fv Edit Commit Bar',
+        componentHref: './?path=/docs/ok-fv-edit-commit-bar--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Fv Master Detail List',
@@ -84,6 +102,15 @@ export const componentDataOkFv = [
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Fv Split Layout',
+        componentHref: './?path=/docs/ok-fv-split-layout--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Fv Splitter',

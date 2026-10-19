@@ -1,8 +1,42 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 09 Oct 2026 15:01:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 16 Oct 2026 23:51:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.12.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.17.0
+- Bump @ni/spright-components to v6.24.0
+
+## 1.11.1
+
+Fri, 16 Oct 2026 19:27:05 GMT
+
+### Patches
+
+- Fix Fv Search Input underline thickness ([ni/nimble@31d0f51](https://github.com/ni/nimble/commit/31d0f51c7469c49d4169cfff119cfdc008d08005))
+
+## 1.11.0
+
+Fri, 16 Oct 2026 18:35:20 GMT
+
+### Minor changes
+
+- Add reusable split-pane bulk-edit components and state. ([ni/nimble@5a023dc](https://github.com/ni/nimble/commit/5a023dc2302aece4a91b9fda274ef5d5fc3bf40d))
+
+## 1.10.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.16.0
+- Bump @ni/spright-components to v6.23.3
 
 ## 1.10.2
 

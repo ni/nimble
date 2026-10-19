@@ -2,6 +2,63 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 16 Oct 2026 23:51:52 GMT",
+      "version": "22.2.0",
+      "tag": "@ni/nimble-blazor_v22.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v35.17.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-tokens to v8.22.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Oct 2026 16:45:55 GMT",
+      "version": "22.1.4",
+      "tag": "@ni/nimble-blazor_v22.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v35.16.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-tokens to v8.21.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Oct 2026 21:44:27 GMT",
+      "version": "22.1.3",
+      "tag": "@ni/nimble-blazor_v22.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "088efb2c4cc014fae34e1364022aa5d0d008d3f7",
+            "comment": "Update nuget dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 09 Oct 2026 15:01:32 GMT",
       "version": "22.1.2",
       "tag": "@ni/nimble-blazor_v22.1.2",
