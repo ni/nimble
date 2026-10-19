@@ -7,6 +7,15 @@ import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconAddTag } from '@ni/nimble-components/dist/esm/icons/add';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
+import { labelProviderChatTag } from '@ni/spright-components/dist/esm/label-provider/chat';
+import {
+    chatSendLabel,
+    chatStopLabel
+} from '@ni/spright-components/dist/esm/label-provider/chat/label-tokens';
+import {
+    type LocalizableLabelArgs,
+    createLocalizableLabelArgTypes
+} from '../../../utilities/label-provider/label-user-stories-utils';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -14,10 +23,8 @@ import {
     errorTextDescription
 } from '../../../utilities/storybook';
 
-interface ChatInputArgs {
+interface ChatInputArgs extends LocalizableLabelArgs {
     placeholder: string;
-    sendButtonLabel: string;
-    stopButtonLabel: string;
     maxlength: number | undefined;
     value: string;
     processing: boolean;
@@ -55,8 +62,6 @@ export const chatInput: StoryObj<ChatInputArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatInputTag}
             placeholder="${x => x.placeholder}"
-            send-button-label="${x => x.sendButtonLabel}"
-            stop-button-label="${x => x.stopButtonLabel}"
             processing="${x => x.processing}"
             ?send-disabled="${x => x.sendDisabled}"
             maxlength="${x => x.maxlength}"
@@ -86,18 +91,6 @@ export const chatInput: StoryObj<ChatInputArgs> = {
                 componentName: 'chat input'
             }),
             control: { type: 'text' },
-            table: { category: apiCategory.attributes }
-        },
-        sendButtonLabel: {
-            name: 'send-button-label',
-            description:
-                'Text to use for a `title` and ARIA attributes on the send button.',
-            table: { category: apiCategory.attributes }
-        },
-        stopButtonLabel: {
-            name: 'stop-button-label',
-            description:
-                'Text to use for a `title` and ARIA attributes on the stop button.',
             table: { category: apiCategory.attributes }
         },
         maxlength: {
@@ -156,12 +149,15 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             description: attachmentsDescription,
             control: { type: 'boolean' },
             table: { category: apiCategory.slots }
-        }
+        },
+        ...createLocalizableLabelArgTypes(
+            labelProviderChatTag,
+            chatSendLabel,
+            chatStopLabel
+        )
     },
     args: {
         placeholder: 'Type a message',
-        sendButtonLabel: 'Send',
-        stopButtonLabel: 'Stop',
         processing: false,
         sendDisabled: false,
         maxlength: -1,

@@ -24,22 +24,6 @@ export class SprightChatInputDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
-    public get sendButtonLabel(): string | undefined {
-        return this.elementRef.nativeElement.sendButtonLabel;
-    }
-
-    @Input('send-button-label') public set sendButtonLabel(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'sendButtonLabel', value);
-    }
-
-    public get stopButtonLabel(): string | undefined {
-        return this.elementRef.nativeElement.stopButtonLabel;
-    }
-
-    @Input('stop-button-label') public set stopButtonLabel(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'stopButtonLabel', value);
-    }
-
     public get processing(): boolean | undefined {
         return this.elementRef.nativeElement.processing;
     }

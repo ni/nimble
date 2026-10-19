@@ -39,6 +39,7 @@ import { NimbleStepModule } from '@ni/nimble-angular/step';
 import { NimbleAnchorStepModule } from '@ni/nimble-angular/anchor-step';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
 import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
+import { SprightLabelProviderChatModule } from '@ni/spright-angular/label-provider/chat';
 import { SprightIconWorkItemCalendarWeekDirective } from '@ni/spright-angular/icons/work-item-calendar-week';
 import { SprightChatMessageInboundModule } from '@ni/spright-angular/chat/message/inbound';
 import { SprightChatMessageOutboundModule } from '@ni/spright-angular/chat/message/outbound';
@@ -203,6 +204,7 @@ import { FvSectionModule } from './customapp/fv/fv-section.module';
         ExSectionModule,
         SprightChatConversationModule,
         SprightChatInputModule,
+        SprightLabelProviderChatModule,
         SprightChatMessageInboundModule,
         SprightChatMessageOutboundModule,
         SprightChatMessageSystemModule,

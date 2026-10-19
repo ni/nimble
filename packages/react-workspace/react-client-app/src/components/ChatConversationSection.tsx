@@ -129,7 +129,6 @@ export function ChatConversationSection(): React.JSX.Element {
                 <SprightChatInput
                     slot="input"
                     placeholder={'Type a message (try "start" or "stop")'}
-                    sendButtonLabel="Send"
                     onSend={onChatInputSend}
                 ></SprightChatInput>
                 <span slot="end">

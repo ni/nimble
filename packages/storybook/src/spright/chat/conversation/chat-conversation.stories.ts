@@ -134,7 +134,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${buttonTag}>
             </${chatMessageInboundTag}>
             ${when(x => x.input, html<ChatConversationArgs, ChatInput>`
-                <${chatInputTag} slot='input' placeholder='Type a message (try "start" or "stop")' send-button-label='Send'
+                <${chatInputTag} slot='input' placeholder='Type a message (try "start" or "stop")'
                     @send="${(x2, c2) => x2.sendMessage(x2, c2.event as CustomEvent<ChatInputSendEventDetail>)}"
                 ></${chatInputTag}>
             `)}

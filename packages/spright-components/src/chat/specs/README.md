@@ -234,6 +234,15 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ### API
 
+#### Label provider
+
+- _Component Name_ `spright-label-provider-chat`
+- _Props/Attrs_
+    - `send` - label for the chat input send button. Defaults to "Send".
+    - `stop` - label for the chat input stop button. Defaults to "Stop".
+
+The label provider must be placed within the same `nimble-theme-provider` as the chat components that consume its labels.
+
 #### Messages
 
 Message components will be created with the following names:
