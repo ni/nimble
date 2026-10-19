@@ -2,6 +2,7 @@ import { Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
 import { coreLabelProvider } from '../core/label-provider-core.stories';
 import { tableLabelProvider } from '../table/label-provider-table.stories';
 import { richTextLabelProvider } from '../rich-text/label-provider-rich-text.stories';
+import { chatLabelProvider } from '../../../spright/label-provider/chat/label-provider-chat.stories';
 
 <Meta title="Tokens/Label Providers" />
 <Title>Label Providers</Title>
@@ -47,3 +48,9 @@ Provides labels for the `nimble-table` and all associated table sub-components /
 column types.
 
 <Canvas of={tableLabelProvider} sourceState="none" />
+
+## Spright Chat Label Provider
+
+Provides labels for the send and stop buttons in `spright-chat-input`.
+
+<Canvas of={chatLabelProvider} sourceState="none" />
