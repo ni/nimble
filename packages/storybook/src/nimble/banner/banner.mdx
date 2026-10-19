@@ -17,12 +17,17 @@ The banner is a component used to display a persistent notification to a user.
 
 ## Styling
 
+### Appearance
+
+The `block` banner appearance should be the default appearance, used when a notification needs a strong visual emphasis.
+
+Banners should use the `block` appearance by default. If the notification requires a less intrusive or softer notification, use the `outline` appearance.
+
+For an action in a block banner, use a `ghost` or `outline` button with the `primary` appearance variant. For an action in an outline banner, use a `block` button with the default appearance variant.
+
 ### Sizing
 
-Banners span the full width of their parent element, and that parent should span
-the full width of the page/panel. Banner messages should be limited to
-approximately three lines of text under normal display size at the intended
-location.
+Banners span the full width of their parent element, and that parent should span the full width of the page/panel. Banner messages should be limited to approximately three lines of text under normal display size at the intended location.
 
 ### Multiple banners
 

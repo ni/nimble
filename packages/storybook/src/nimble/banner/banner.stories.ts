@@ -123,7 +123,7 @@ const metadata: Meta<BannerArgs> = {
             options: Object.values(ActionType),
             control: { type: 'radio' },
             description:
-                'Display a button or anchor which the user can click to invoke an additional action. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance and have the `"primary"` appearance variant.',
+                'Display a button or anchor which the user can click to invoke an additional action. For a block banner, use a `ghost` or `outline` button with the `primary` appearance variant. For an outline banner, use a `block` button with the default appearance variant.',
             table: { category: apiCategory.slots }
         },
         preventDismiss: {

@@ -8,6 +8,12 @@ namespace NimbleBlazor;
 public partial class NimbleBanner : ComponentBase
 {
     /// <summary>
+    /// The appearance of the banner
+    /// </summary>
+    [Parameter]
+    public BannerAppearance? Appearance { get; set; }
+
+    /// <summary>
     /// Whether the banner is displayed or not
     /// </summary>
     [Parameter]

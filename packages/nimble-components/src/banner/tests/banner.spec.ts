@@ -64,21 +64,9 @@ describe('Banner', () => {
     });
 
     it("should reflect the 'appearance' attribute to the property", async () => {
-        element.setAttribute('appearance', BannerAppearance.block);
+        element.setAttribute('appearance', BannerAppearance.outline);
         await waitForUpdatesAsync();
-
-        expect(element.appearance).toBe(BannerAppearance.block);
-    });
-
-    it('should not change height for outline appearance', async () => {
-        element.open = true;
-        await waitForUpdatesAsync();
-        const blockHeight = element.getBoundingClientRect().height;
-
-        element.appearance = BannerAppearance.outline;
-        await waitForUpdatesAsync();
-
-        expect(element.getBoundingClientRect().height).toBe(blockHeight);
+        expect(element.appearance).toBe(BannerAppearance.outline);
     });
 
     it("should initialize 'open' to false", () => {

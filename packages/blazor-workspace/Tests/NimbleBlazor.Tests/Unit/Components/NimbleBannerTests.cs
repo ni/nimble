@@ -26,6 +26,16 @@ public class NimbleBannerTests : BunitTestBase
     }
 
     [Theory]
+    [InlineData(BannerAppearance.Block, "block")]
+    [InlineData(BannerAppearance.Outline, "outline")]
+    public void BannerAppearance_AttributeIsSet(BannerAppearance value, string expectedAttribute)
+    {
+        var banner = RenderWithPropertySet(x => x.Appearance, value);
+
+        banner.AssertAttribute("appearance", expectedAttribute);
+    }
+
+    [Theory]
     [InlineData(BannerSeverity.Default, null)]
     [InlineData(BannerSeverity.Error, "error")]
     [InlineData(BannerSeverity.Warning, "warning")]

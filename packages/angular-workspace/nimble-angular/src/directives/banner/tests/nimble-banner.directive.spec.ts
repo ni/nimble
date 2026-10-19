@@ -1,6 +1,11 @@
 import { Component, ElementRef, provideZoneChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { type Banner, BannerSeverity, NimbleBannerDirective } from '../nimble-banner.directive';
+import {
+    type Banner,
+    BannerAppearance,
+    BannerSeverity,
+    NimbleBannerDirective
+} from '../nimble-banner.directive';
 import { NimbleBannerModule } from '../nimble-banner.module';
 
 describe('Nimble banner', () => {
@@ -49,6 +54,11 @@ describe('Nimble banner', () => {
             expect(nativeElement.open).toBeFalse();
         });
 
+        it('has expected defaults for appearance', () => {
+            expect(directive.appearance).toBe(BannerAppearance.block);
+            expect(nativeElement.appearance).toBe(BannerAppearance.block);
+        });
+
         it('has expected defaults for severity', () => {
             expect(directive.severity).toBe(BannerSeverity.default);
             expect(nativeElement.severity).toBe(BannerSeverity.default);
@@ -69,6 +79,7 @@ describe('Nimble banner', () => {
         @Component({
             template: `
                 <nimble-banner #banner
+                    appearance="outline"
                     open
                     severity="error"
                     title-hidden
@@ -102,6 +113,11 @@ describe('Nimble banner', () => {
             expect(nativeElement.open).toBeTrue();
         });
 
+        it('will use template string values for appearance', () => {
+            expect(directive.appearance).toBe(BannerAppearance.outline);
+            expect(nativeElement.appearance).toBe(BannerAppearance.outline);
+        });
+
         it('will use template string values for severity', () => {
             expect(directive.severity).toBe(BannerSeverity.error);
             expect(nativeElement.severity).toBe(BannerSeverity.error);
@@ -122,6 +138,7 @@ describe('Nimble banner', () => {
         @Component({
             template: `
                 <nimble-banner #banner
+                    [appearance]="appearance"
                     [open]="open"
                     [severity]="severity"
                     [title-hidden]="titleHidden"
@@ -132,6 +149,7 @@ describe('Nimble banner', () => {
         class TestHostComponent {
             @ViewChild('banner', { read: NimbleBannerDirective }) public directive: NimbleBannerDirective;
             @ViewChild('banner', { read: ElementRef }) public elementRef: ElementRef<Banner>;
+            public appearance: BannerAppearance = BannerAppearance.block;
             public open = false;
             public severity: BannerSeverity = BannerSeverity.warning;
             public titleHidden = false;
@@ -163,6 +181,17 @@ describe('Nimble banner', () => {
 
             expect(directive.open).toBeTrue();
             expect(nativeElement.open).toBeTrue();
+        });
+
+        it('can be configured with property binding for appearance', () => {
+            expect(directive.appearance).toBe(BannerAppearance.block);
+            expect(nativeElement.appearance).toBe(BannerAppearance.block);
+
+            fixture.componentInstance.appearance = BannerAppearance.outline;
+            fixture.detectChanges();
+
+            expect(directive.appearance).toBe(BannerAppearance.outline);
+            expect(nativeElement.appearance).toBe(BannerAppearance.outline);
         });
 
         it('can be configured with property binding for severity', () => {
@@ -203,6 +232,7 @@ describe('Nimble banner', () => {
         @Component({
             template: `
                 <nimble-banner #banner
+                    [attr.appearance]="appearance"
                     [attr.open]="open"
                     [attr.severity]="severity"
                     [attr.title-hidden]="titleHidden"
@@ -213,6 +243,7 @@ describe('Nimble banner', () => {
         class TestHostComponent {
             @ViewChild('banner', { read: NimbleBannerDirective }) public directive: NimbleBannerDirective;
             @ViewChild('banner', { read: ElementRef }) public elementRef: ElementRef<Banner>;
+            public appearance: BannerAppearance = BannerAppearance.block;
             public open = false;
             public severity: BannerSeverity = BannerSeverity.warning;
             public titleHidden = false;
@@ -244,6 +275,17 @@ describe('Nimble banner', () => {
 
             expect(directive.open).toBeTrue();
             expect(nativeElement.open).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for appearance', () => {
+            expect(directive.appearance).toBe(BannerAppearance.block);
+            expect(nativeElement.appearance).toBe(BannerAppearance.block);
+
+            fixture.componentInstance.appearance = BannerAppearance.outline;
+            fixture.detectChanges();
+
+            expect(directive.appearance).toBe(BannerAppearance.outline);
+            expect(nativeElement.appearance).toBe(BannerAppearance.outline);
         });
 
         it('can be configured with attribute binding for severity', () => {

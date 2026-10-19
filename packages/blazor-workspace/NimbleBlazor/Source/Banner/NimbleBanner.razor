@@ -3,6 +3,7 @@
     @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     open="@BindConverter.FormatValue(Open)"
     @onnimblebannertoggle="(__value) => UpdateOpen(__value.NewState)"
+    appearance="@Appearance.ToAttributeValue()"
     severity="@Severity.ToAttributeValue()"
     title-hidden="@TitleHidden"
     prevent-dismiss="@PreventDismiss"

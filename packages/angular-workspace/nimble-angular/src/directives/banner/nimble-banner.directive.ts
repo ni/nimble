@@ -1,11 +1,15 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { type Banner, bannerTag } from '@ni/nimble-components/dist/esm/banner';
-import { BannerSeverity, type BannerToggleEventDetail } from '@ni/nimble-components/dist/esm/banner/types';
+import {
+    BannerAppearance,
+    BannerSeverity,
+    type BannerToggleEventDetail
+} from '@ni/nimble-components/dist/esm/banner/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Banner };
 export { bannerTag };
-export { BannerSeverity };
+export { BannerAppearance, BannerSeverity };
 export type { BannerToggleEventDetail };
 
 /**
@@ -16,6 +20,14 @@ export type { BannerToggleEventDetail };
     standalone: false
 })
 export class NimbleBannerDirective {
+    public get appearance(): BannerAppearance {
+        return this.elementRef.nativeElement.appearance;
+    }
+
+    @Input() public set appearance(value: BannerAppearance) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
+    }
+
     public get open(): boolean {
         return this.elementRef.nativeElement.open;
     }
