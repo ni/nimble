@@ -54,7 +54,7 @@ export function App(): React.JSX.Element {
     return (
         <>
             <NimbleThemeProvider theme={theme}>
-                <SprightLabelProviderChat send="Send" stop="Stop" />
+                <SprightLabelProviderChat/>
                 <div className="example-root">
                     <div className="header">
                         <NimbleSelect
