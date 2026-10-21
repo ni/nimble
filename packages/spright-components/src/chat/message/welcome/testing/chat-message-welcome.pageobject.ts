@@ -24,12 +24,23 @@ export class ChatMessageWelcomePageObject {
         return subtitleDiv.textContent?.trim() ?? '';
     }
 
+    public getSlottedSubtitleText(): string {
+        const assignedNodes = this.getSubtitleSlot()?.assignedNodes() ?? [];
+        return assignedNodes.map(node => node.textContent ?? '').join('').trim();
+    }
+
+    public getSlottedSubtitleLinkHref(): string | null {
+        const assignedElement = this.getSubtitleSlot()?.assignedElements()[0];
+        return assignedElement?.querySelector('a')?.getAttribute('href') ?? null;
+    }
+
     public isTitleRendered(): boolean {
         return this.element.shadowRoot?.querySelector('.title') !== null;
     }
 
     public isSubtitleRendered(): boolean {
-        return this.element.shadowRoot?.querySelector('.subtitle') !== null;
+        const subtitleDiv = this.element.shadowRoot?.querySelector('.subtitle');
+        return subtitleDiv !== null && subtitleDiv !== undefined && !subtitleDiv.hasAttribute('hidden');
     }
 
     public getSlottedBrandIconNodes(): Element[] {
@@ -55,5 +66,9 @@ export class ChatMessageWelcomePageObject {
 
     private getBrandIconSlot(): HTMLSlotElement | null | undefined {
         return this.element.shadowRoot?.querySelector('slot[name="brand-icon"]');
+    }
+
+    private getSubtitleSlot(): HTMLSlotElement | null | undefined {
+        return this.element.shadowRoot?.querySelector('slot[name="subtitle"]');
     }
 }

@@ -6,6 +6,7 @@ import { chatMessageInboundTag } from '@ni/spright-components/dist/esm/chat/mess
 import { chatMessageOutboundTag } from '@ni/spright-components/dist/esm/chat/message/outbound';
 import { chatMessageSystemTag } from '@ni/spright-components/dist/esm/chat/message/system';
 import { chatMessageWelcomeTag } from '@ni/spright-components/dist/esm/chat/message/welcome';
+import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import {
     sharedMatrixParameters,
     createMatrixThemeStory
@@ -99,6 +100,17 @@ export const messageWelcomeTextCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<${chatConversationTag}>
             <${chatMessageWelcomeTag} welcome-title="Welcome" subtitle="Get started">Welcome Message</${chatMessageWelcomeTag}>
+        </${chatConversationTag}>`
+    )
+);
+
+export const messageWelcomeSlottedSubtitle: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<${chatConversationTag}>
+            <${chatMessageWelcomeTag} welcome-title="Welcome">
+                <span slot="subtitle">Get started with <${anchorTag} href="https://www.ni.com">our guide</${anchorTag}></span>
+                Welcome Message
+            </${chatMessageWelcomeTag}>
         </${chatConversationTag}>`
     )
 );
