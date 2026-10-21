@@ -292,12 +292,12 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
         },
         subtitle: {
             name: 'subtitle attribute',
-            description: 'Plain-text subtitle displayed below the title. Use the named subtitle slot for rich content; provide only one subtitle source.',
+            description: 'Subtitle text displayed below the title. Use the named subtitle slot for rich content; provide only one subtitle source.',
             table: { category: apiCategory.attributes }
         },
         subtitleSlot: {
             name: 'subtitle',
-            description: 'Provide no slotted subtitle content, or render rich subtitle text with an inline link. Rich slot content replaces the subtitle attribute; only one source should be provided.',
+            description: 'Subtitle HTML content displayed below the title. Use the attribute for text content; provide only one subtitle source.',
             table: { category: apiCategory.slots },
             options: Object.values(ExampleWelcomeSubtitleSlot),
             control: {
