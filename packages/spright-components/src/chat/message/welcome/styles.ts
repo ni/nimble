@@ -5,6 +5,7 @@ import {
     bodyFontColor,
     mediumPadding,
     standardPadding,
+    linkFont,
     subtitleFont,
     subtitleFontColor,
     titlePlus1Font,
@@ -58,6 +59,10 @@ export const styles = css`
         font: ${subtitleFont};
         color: ${subtitleFontColor};
         text-align: center;
+    }
+
+    slot[name='subtitle']::slotted(*) {
+        ${linkFont.cssCustomProperty}: ${subtitleFont};
     }
 
     .message-content {
