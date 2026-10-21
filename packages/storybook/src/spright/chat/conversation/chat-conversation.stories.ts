@@ -260,7 +260,7 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
         <${chatConversationTag}>
             <${chatMessageWelcomeTag}
                 welcome-title="${x => x.welcomeTitle}"
-                :subtitle="${x => x.subtitleSlot === ExampleWelcomeSubtitleSlot.none ? x.subtitle : undefined}"
+                :subtitle="${x => (x.subtitleSlot === ExampleWelcomeSubtitleSlot.none ? x.subtitle : undefined)}"
             >
                 ${when(x => x.subtitleSlot === ExampleWelcomeSubtitleSlot.richContent, html<ChatMessageWelcomeArgs>`
                     <span slot="subtitle">Slotted content <${anchorTag} href="https://www.ni.com">can include links</${anchorTag}></span>
