@@ -105,12 +105,10 @@ export const messageWelcomeTextCustomized: StoryFn = createMatrixThemeStory(
 );
 
 export const messageWelcomeSlottedSubtitle: StoryFn = createMatrixThemeStory(
-    textCustomizationWrapper(
-        html`<${chatConversationTag}>
-            <${chatMessageWelcomeTag} welcome-title="Welcome">
-                <span slot="subtitle">Get started with <${anchorTag} href="https://www.ni.com">our guide</${anchorTag}></span>
-                Welcome Message
-            </${chatMessageWelcomeTag}>
-        </${chatConversationTag}>`
-    )
+    html`<${chatConversationTag}>
+        <${chatMessageWelcomeTag} welcome-title="Welcome">
+            <span slot="subtitle">Get started with <${anchorTag} href="https://www.ni.com">our guide</${anchorTag}></span>
+            Welcome Message
+        </${chatMessageWelcomeTag}>
+    </${chatConversationTag}>`
 );
