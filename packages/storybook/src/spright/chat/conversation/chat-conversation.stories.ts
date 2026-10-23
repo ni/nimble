@@ -41,7 +41,10 @@ import {
 import { imgBlobUrl, markdownExample } from './story-helpers';
 import { loremIpsum, songThatDoesNotEnd } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
-import { ExampleWelcomeSlotContent } from '../message/types';
+import {
+    ExampleWelcomeSlotContent,
+    ExampleWelcomeSubtitleSlot
+} from '../message/types';
 
 interface ChatConversationArgs {
     appearance: keyof typeof ChatConversationAppearance;
@@ -247,6 +250,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
 interface ChatMessageWelcomeArgs {
     welcomeTitle: string;
     subtitle: string;
+    subtitleSlot: ExampleWelcomeSubtitleSlot;
     brandIcon: boolean;
     defaultSlot: ExampleWelcomeSlotContent;
 }
@@ -256,8 +260,11 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
         <${chatConversationTag}>
             <${chatMessageWelcomeTag}
                 welcome-title="${x => x.welcomeTitle}"
-                subtitle="${x => x.subtitle}"
+                :subtitle="${x => (x.subtitleSlot === ExampleWelcomeSubtitleSlot.none ? x.subtitle : undefined)}"
             >
+                ${when(x => x.subtitleSlot === ExampleWelcomeSubtitleSlot.richContent, html<ChatMessageWelcomeArgs>`
+                    <span slot="subtitle">Slotted content <${anchorTag} href="https://www.ni.com">can include links</${anchorTag}></span>
+                `)}
                 ${when(x => x.brandIcon, html`
                     <${iconMessageBotTag} slot="brand-icon"></${iconMessageBotTag}>
                 `)}
@@ -284,8 +291,22 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
             table: { category: apiCategory.attributes }
         },
         subtitle: {
-            description: 'The secondary subtitle text displayed below the title.',
+            name: 'subtitle attribute',
+            description: 'Subtitle text displayed below the title. Use the named subtitle slot for rich content; provide only one subtitle source.',
             table: { category: apiCategory.attributes }
+        },
+        subtitleSlot: {
+            name: 'subtitle',
+            description: 'Subtitle HTML content displayed below the title. Use the attribute for text content; provide only one subtitle source.',
+            table: { category: apiCategory.slots },
+            options: Object.values(ExampleWelcomeSubtitleSlot),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleWelcomeSubtitleSlot.none]: 'No content',
+                    [ExampleWelcomeSubtitleSlot.richContent]: 'Rich content'
+                }
+            }
         },
         brandIcon: {
             name: 'brand-icon',
@@ -310,6 +331,7 @@ export const chatMessageWelcome: StoryObj<ChatMessageWelcomeArgs> = {
     args: {
         welcomeTitle: 'Welcome to Nigel™ AI',
         subtitle: 'Chat below to get started',
+        subtitleSlot: ExampleWelcomeSubtitleSlot.none,
         brandIcon: false,
         defaultSlot: ExampleWelcomeSlotContent.loginButton,
     }

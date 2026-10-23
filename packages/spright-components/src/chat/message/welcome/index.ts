@@ -1,4 +1,4 @@
-import { attr } from '@ni/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import {
     DesignSystem,
     FoundationElement,
@@ -28,6 +28,21 @@ export class ChatMessageWelcome extends FoundationElement {
 
     @attr
     public subtitle?: string;
+
+    /** @internal */
+    @observable
+    public readonly slottedSubtitleElements?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public subtitleIsEmpty = true;
+
+    public slottedSubtitleElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.subtitleIsEmpty = next === undefined || next.length === 0;
+    }
 }
 
 const sprightChatMessageWelcome = ChatMessageWelcome.compose({
