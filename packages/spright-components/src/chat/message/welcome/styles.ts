@@ -61,6 +61,10 @@ export const styles = css`
         text-align: center;
     }
 
+    .subtitle.subtitle-empty {
+        display: none;
+    }
+
     slot[name='subtitle']::slotted(*) {
         ${linkFont.cssCustomProperty}: ${subtitleFont};
     }

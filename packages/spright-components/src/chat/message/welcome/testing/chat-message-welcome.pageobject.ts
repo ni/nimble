@@ -40,7 +40,9 @@ export class ChatMessageWelcomePageObject {
 
     public isSubtitleRendered(): boolean {
         const subtitleDiv = this.element.shadowRoot?.querySelector('.subtitle');
-        return subtitleDiv !== null && subtitleDiv !== undefined && !subtitleDiv.hasAttribute('hidden');
+        return subtitleDiv !== null
+            && subtitleDiv !== undefined
+            && !subtitleDiv.classList.contains('subtitle-empty');
     }
 
     public getSlottedBrandIconNodes(): Element[] {

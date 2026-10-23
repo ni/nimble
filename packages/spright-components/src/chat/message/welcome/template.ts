@@ -17,7 +17,7 @@ ViewTemplate<ChatMessageWelcome>
         ${when(x => x.welcomeTitle, html<ChatMessageWelcome>`
             <div class="title">${x => x.welcomeTitle}</div>
         `)}
-        <div class="subtitle" ?hidden="${x => !x.subtitle && x.subtitleIsEmpty}">
+        <div class="subtitle ${x => (!x.subtitle && x.subtitleIsEmpty ? 'subtitle-empty' : '')}">
             <slot name="subtitle" ${slotted({ property: 'slottedSubtitleElements' })}>${x => x.subtitle}</slot>
         </div>
         <section class="message-content">
