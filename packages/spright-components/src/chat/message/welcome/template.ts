@@ -1,4 +1,4 @@
-import { html, ViewTemplate, when } from '@ni/fast-element';
+import { html, slotted, ViewTemplate, when } from '@ni/fast-element';
 import type {
     FoundationElementTemplate
 } from '@ni/fast-foundation';
@@ -17,9 +17,9 @@ ViewTemplate<ChatMessageWelcome>
         ${when(x => x.welcomeTitle, html<ChatMessageWelcome>`
             <div class="title">${x => x.welcomeTitle}</div>
         `)}
-        ${when(x => x.subtitle, html<ChatMessageWelcome>`
-            <div class="subtitle">${x => x.subtitle}</div>
-        `)}
+        <div class="subtitle ${x => (!x.subtitle && x.subtitleIsEmpty ? 'subtitle-empty' : '')}">
+            <slot name="subtitle" ${slotted({ property: 'slottedSubtitleElements' })}>${x => x.subtitle}</slot>
+        </div>
         <section class="message-content">
             <slot></slot>
         </section>
