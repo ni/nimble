@@ -22,19 +22,6 @@ const subtitleSlotStates = [
 ] as const;
 type SubtitleSlotState = (typeof subtitleSlotStates)[number];
 
-const welcomeSubtitleSlotMatrix = (
-    [stateLabel, hasRichContent]: SubtitleSlotState
-): ViewTemplate => html`
-    <p>Subtitle slot: ${stateLabel}</p>
-    <${chatConversationTag}>
-        <${chatMessageWelcomeTag} welcome-title="Welcome">
-            ${when(() => hasRichContent, html`
-                <span slot="subtitle">Get started with <${anchorTag} appearance="prominent" href="https://www.ni.com">our guide</${anchorTag}></span>
-            `)}
-            Welcome Message
-        </${chatMessageWelcomeTag}>
-    </${chatConversationTag}>`;
-
 const metadata: Meta = {
     title: 'Tests Spright/Chat Message',
     parameters: {
@@ -125,5 +112,17 @@ export const messageWelcomeTextCustomized: StoryFn = createMatrixThemeStory(
 );
 
 export const messageWelcomeSlottedSubtitle: StoryFn = createMatrixThemeStory(
-    createMatrix(welcomeSubtitleSlotMatrix, [subtitleSlotStates])
+    createMatrix(
+        ([stateLabel, hasRichContent]: SubtitleSlotState): ViewTemplate => html`
+            <p>Subtitle slot: ${stateLabel}</p>
+            <${chatConversationTag}>
+                <${chatMessageWelcomeTag} welcome-title="Welcome">
+                    ${when(() => hasRichContent, html`
+                        <span slot="subtitle">Get started with <${anchorTag} appearance="prominent" href="https://www.ni.com">our guide</${anchorTag}></span>
+                    `)}
+                    Welcome Message
+                </${chatMessageWelcomeTag}>
+            </${chatConversationTag}>`,
+        [subtitleSlotStates]
+    )
 );
