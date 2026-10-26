@@ -59,14 +59,11 @@ export const styles = css`
         font: ${subtitleFont};
         color: ${subtitleFontColor};
         text-align: center;
+        ${linkFont.cssCustomProperty}: ${subtitleFont};
     }
 
     .subtitle.subtitle-empty {
         display: none;
-    }
-
-    slot[name='subtitle']::slotted(*) {
-        ${linkFont.cssCustomProperty}: ${subtitleFont};
     }
 
     .message-content {
