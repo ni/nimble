@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 26 Oct 2026 21:00:16 GMT",
+      "version": "7.1.0",
+      "tag": "@ni/spright-components_v7.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "4faf19f743bbd0ce68e0354213eb251e78ae1162",
+            "comment": "Add slot for welcome message subtitle content"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 19 Oct 2026 21:08:34 GMT",
       "version": "7.0.0",
       "tag": "@ni/spright-components_v7.0.0",

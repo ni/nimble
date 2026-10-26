@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add slot for welcome message subtitle content",
-  "packageName": "@ni/spright-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

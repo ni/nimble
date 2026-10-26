@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 19 Oct 2026 21:08:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 26 Oct 2026 21:00:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 7.1.0
+
+Mon, 26 Oct 2026 21:00:16 GMT
+
+### Minor changes
+
+- Add slot for welcome message subtitle content ([ni/nimble@4faf19f](https://github.com/ni/nimble/commit/4faf19f743bbd0ce68e0354213eb251e78ae1162))
 
 ## 7.0.0
 
