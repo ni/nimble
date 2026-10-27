@@ -209,9 +209,12 @@ export const styles = css`
         padding-top: ${smallPadding};
     }
 
-    :popover-open {
-        border: none;
+    [popover] {
+        position: fixed;
+        inset: unset;
+        margin: 0;
         padding: 0;
+        border: none;
         width: anchor-size(width);
     }
 

@@ -1143,7 +1143,7 @@ describe('Select', () => {
                 const filteredOptions = pageObject
                     .getFilteredOptions()
                     .map(option => option.text);
-                await pageObject.closeDropdown();
+                pageObject.closeDropdown();
                 expect(filteredOptions).toContain('One');
                 expect(filteredOptions).toContain('Two');
                 expect(filteredOptions.length).toBe(2);
@@ -1154,7 +1154,7 @@ describe('Select', () => {
                 const filteredOptions = pageObject
                     .getFilteredOptions()
                     .map(option => option.text);
-                await pageObject.closeDropdown();
+                pageObject.closeDropdown();
                 expect(filteredOptions).toContain('Zürich');
                 expect(filteredOptions.length).toBe(1);
             });
@@ -1281,7 +1281,7 @@ describe('Select', () => {
 
             it('opening dropdown after applying filter previously starts with empty filter', async () => {
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-                await pageObject.closeDropdown();
+                pageObject.closeDropdown();
                 pageObject.clickSelect();
 
                 expect(pageObject.getFilterInputText()).toBe('');

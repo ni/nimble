@@ -1,7 +1,6 @@
 // Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
 import { attr, html, observable, Observable, volatile } from '@ni/fast-element';
 import {
-    AnchoredRegion,
     DesignSystem,
     Select as FoundationSelect,
     ListboxOption,
@@ -28,6 +27,7 @@ import {
     DropdownAppearance,
     type ListOptionOwner
 } from '../patterns/dropdown/types';
+import type { PopoverElement } from '../patterns/popover/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -103,8 +103,11 @@ export class Select
     /**
      * @internal
      */
-    @attr({ attribute: 'open', mode: 'boolean' })
-    public open = false;
+    @volatile
+    public get open(): boolean {
+        Observable.track(this, 'open');
+        return this.popoverElement?.matches(':popover-open') ?? false;
+    }
 
     /**
      * Holds the current state for the calculated position of the listbox.
@@ -121,6 +124,13 @@ export class Select
      */
     @observable
     public control!: HTMLElement;
+
+    /**
+     * Reference to the internal listbox element.
+     *
+     * @internal
+     */
+    public popoverElement?: PopoverElement;
 
     /**
      * Reference to the internal listbox element.
@@ -147,12 +157,6 @@ export class Select
      */
     @observable
     public filterInput?: HTMLInputElement;
-
-    /**
-     * @internal
-     */
-    @observable
-    public anchoredRegion!: AnchoredRegion;
 
     /** @internal */
     @observable
@@ -204,6 +208,7 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;
+    private popupToggling = false;
     private readonly selectedOptionObserver? = new MutationObserver(() => {
         this.updateDisplayValue();
     });
@@ -214,15 +219,16 @@ export class Select
     public override connectedCallback(): void {
         super.connectedCallback();
         this.forcedPosition = !!this.positionAttribute;
-        if (this.open) {
-            this.initializeOpenState();
-        }
+        this.popoverElement?.addEventListener('toggle', this.popupToggleHandler);
+        this.popoverElement?.addEventListener('beforetoggle', this.popupBeforeToggleHandler);
 
         this.observeSelectedOptionTextContent();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
+        this.popoverElement?.removeEventListener('toggle', this.popupToggleHandler);
+        this.popoverElement?.removeEventListener('beforetoggle', this.popupBeforeToggleHandler);
         this.selectedOptionObserver?.disconnect();
     }
 
@@ -268,30 +274,6 @@ export class Select
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
         return this.firstSelectedOption?.text ?? '';
-    }
-
-    /**
-     * @internal
-     */
-    public anchoredRegionChanged(
-        _prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
-    ): void {
-        if (this.anchoredRegion !== undefined && this.control !== undefined) {
-            this.anchoredRegion.anchorElement = this.control;
-        }
-    }
-
-    /**
-     * @internal
-     */
-    public controlChanged(
-        _prev: HTMLElement | undefined,
-        _next: HTMLElement | undefined
-    ): void {
-        if (this.anchoredRegion !== undefined && this.control !== undefined) {
-            this.anchoredRegion.anchorElement = this.control;
-        }
     }
 
     /**
@@ -344,35 +326,30 @@ export class Select
     /**
      * @internal
      */
-    public override clickHandler(e: MouseEvent): BooleanOrVoid {
-        // do nothing if the select is disabled
-        if (this.disabled) {
-            return;
+    public override clickHandler(): BooleanOrVoid {
+        if (!this.disabled && !this.popupToggling) {
+            this.popoverElement?.togglePopover({ source: this });
         }
+    }
 
+    public clickOptionHandler(e: MouseEvent): BooleanOrVoid {
         let optionClicked = false;
-        if (this.open) {
-            const captured = (e.target as HTMLElement).closest<ListOption>(
-                'option,[role=option]'
-            );
-            optionClicked = captured !== null;
+        const captured = (e.target as HTMLElement).closest<ListOption>(
+            'option,[role=option]'
+        );
+        optionClicked = captured !== null;
 
-            if (captured?.disabled) {
-                return;
-            }
+        if (captured?.disabled) {
+            return;
         }
 
         const previousSelectedIndex = this.selectedIndex;
         super.clickHandler(e);
 
-        if (
-            this.open
-            && this.selectedIndex !== previousSelectedIndex
-            && optionClicked
-        ) {
+        if (optionClicked && this.selectedIndex !== previousSelectedIndex) {
             this.updateValue(true);
         }
-        this.open = this.collapsible && !this.open;
+        this.popoverElement?.hidePopover();
     }
 
     /**
@@ -489,7 +466,7 @@ export class Select
      * @internal
      */
     public clearClickHandler(e: MouseEvent): void {
-        this.open = false;
+        this.clearActiveOption();
         this.clearSelect();
         this.updateValue(true);
         e.stopPropagation();
@@ -564,7 +541,7 @@ export class Select
             return true;
         }
 
-        this.open = false;
+        this.popoverElement?.hidePopover();
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
@@ -639,7 +616,7 @@ export class Select
 
                 e.preventDefault();
                 if (this.collapsible && this.typeAheadExpired) {
-                    this.open = !this.open;
+                    this.popoverElement?.togglePopover({ source: this });
                 }
                 if (!this.open) {
                     this.focus();
@@ -662,7 +639,7 @@ export class Select
                 if (this.open) {
                     commitValueThenClose = true;
                 } else {
-                    this.open = true;
+                    this.popoverElement?.showPopover({ source: this });
                 }
 
                 if (commitValueThenClose) {
@@ -679,11 +656,6 @@ export class Select
                     }
 
                     break;
-                }
-
-                if (this.collapsible && this.open) {
-                    e.preventDefault();
-                    this.open = false;
                 }
 
                 currentActiveIndex = this.selectedIndex;
@@ -707,7 +679,7 @@ export class Select
         }
 
         if (commitValueThenClose) {
-            this.open = false;
+            this.popoverElement?.hidePopover();
         }
 
         return !(key === keyArrowDown || key === keyArrowUp);
@@ -883,7 +855,7 @@ export class Select
         return matches.filter(o => !o.hidden && !o.disabled);
     }
 
-    protected positionChanged(
+    protected positionAttributeChanged(
         _: SelectPosition | undefined,
         next: SelectPosition | undefined
     ): void {
@@ -907,33 +879,6 @@ export class Select
         super.sizeChanged(prev, next);
 
         this.proxy.size = next;
-    }
-
-    protected openChanged(): void {
-        if (!this.collapsible) {
-            return;
-        }
-
-        if (this.open) {
-            this.initializeOpenState();
-            return;
-        }
-
-        const activeOption = this.options[this.openActiveIndex ?? this.selectedIndex];
-        if (isListOption(activeOption)) {
-            activeOption.activeOption = false;
-        }
-        this.openActiveIndex = undefined;
-        this.filter = '';
-        if (this.filterInput) {
-            this.filterInput.value = '';
-        }
-
-        if (this.filterMode !== FilterMode.none) {
-            this.emitFilterInputEvent();
-        }
-        this.ariaControls = '';
-        this.ariaExpanded = 'false';
     }
 
     /**
@@ -1005,6 +950,23 @@ export class Select
             this.selectedIndex = 0;
         }
     }
+
+    private readonly popupToggleHandler: (event: ToggleEvent) => void = (event: ToggleEvent) => {
+        this.popupToggling = false;
+        Observable.notify(this, 'open');
+        if (event.newState === 'open') {
+            this.onMenuOpened();
+        } else {
+            this.onMenuClosed();
+        }
+    };
+
+    private readonly popupBeforeToggleHandler: (event: ToggleEvent) => void = (event: ToggleEvent) => {
+        this.popupToggling = true;
+        if (event.newState === 'open') {
+            this.onMenuOpening();
+        }
+    };
 
     private getSlottedOptions(
         slottedElements: Element[] | undefined
@@ -1082,10 +1044,6 @@ export class Select
         } else {
             this.position = SelectPosition.below;
         }
-
-        this.positionAttribute = this.forcedPosition
-            ? this.positionAttribute
-            : this.position;
 
         this.availableViewportHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
@@ -1263,6 +1221,14 @@ export class Select
             : -1;
     }
 
+    private clearActiveOption(): void {
+        const activeOption = this.options[this.openActiveIndex ?? this.selectedIndex];
+        if (isListOption(activeOption)) {
+            activeOption.activeOption = false;
+        }
+        this.openActiveIndex = undefined;
+    }
+
     /**
      * Resets and fills the proxy to match the component's options.
      *
@@ -1296,13 +1262,28 @@ export class Select
         this.$emit('filter-input', eventDetail, { bubbles: true });
     }
 
-    private initializeOpenState(): void {
-        this.setActiveOption(this.selectedIndex);
-        this.ariaControls = this.listboxId;
-        this.ariaExpanded = 'true';
-
+    private onMenuOpening(): void {
         this.setPositioning();
+    }
+
+    private onMenuOpened(): void {
+        this.ariaExpanded = 'true';
+        this.setActiveOption(this.selectedIndex);
         this.focusAndScrollOptionIntoView();
+    }
+
+    private onMenuClosed(): void {
+        this.clearActiveOption();
+        this.ariaExpanded = 'false';
+
+        this.filter = '';
+        if (this.filterInput) {
+            this.filterInput.value = '';
+        }
+
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
     }
 
     private observeSelectedOptionTextContent(): void {

@@ -6,8 +6,6 @@ import {
     startSlotTemplate
 } from '@ni/fast-foundation';
 import type { Select } from '.';
-import { anchoredRegionTag } from '../anchored-region';
-import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
 import { iconMagnifyingGlassTag } from '../icons/magnifying-glass';
 import {
@@ -53,9 +51,8 @@ SelectOptions
                 x.collapsible && x.position,
             ].filter(Boolean).join(' ')}"
         aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
-        aria-controls="${x => (x.filterMode === FilterMode.none ? x.ariaControls : null)}"
         aria-disabled="${x => x.ariaDisabled}"
-        aria-expanded="${x => x.ariaExpanded}"
+        aria-expanded="${x => x.open}"
         aria-haspopup="${x => (x.collapsible ? 'listbox' : null)}"
         aria-label="${x => x.labelContent}"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
@@ -63,7 +60,7 @@ SelectOptions
         ?open="${x => x.open}"
         role="combobox"
         tabindex="${x => (!x.disabled ? '0' : null)}"
-        @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+        @click="${(x, c) => x.clickHandler()}"
         @contentchange="${x => x.updateDisplayValue()}"
         @focusin="${(x, c) => x.focusinHandler(c.event as FocusEvent)}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
@@ -104,74 +101,67 @@ SelectOptions
             </div>
             `)
         }
-        <${anchoredRegionTag}
-            ${ref('anchoredRegion')}
-            class="anchored-region"
-            fixed-placement
-            auto-update-mode="auto"
-            vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"
-            vertical-positioning-mode="${x => (!x.positionAttribute ? 'dynamic' : 'locktodefault')}"
-            horizontal-default-position="center"
-            horizontal-positioning-mode="locktodefault"
-            horizontal-scaling="anchor"
-            @loaded="${x => x.regionLoadedHandler()}"
-            ?hidden="${x => (x.collapsible ? !x.open : false)}">
-            <div class="listbox-background">
-                <div
-                    class="
-                        listbox
-                        ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
-                        ${x => x.positionAttribute}
-                    "
-                    id="${x => x.listboxId}"
-                    part="listbox"
-                    role="listbox"
-                    ?disabled="${x => x.disabled}"
-                    style="--ni-private-listbox-available-viewport-height: ${x => x.availableViewportHeight}px;"
-                    ${ref('listbox')}
-                >
-                    ${when(x => x.filterMode !== FilterMode.none, html<Select>`
-                        <div class="filter-field ${x => x.positionAttribute}">
-                            <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
-                            <input
-                                ${ref('filterInput')}
-                                class="filter-input"
-                                aria-controls="${x => x.ariaControls}"
-                                aria-activedescendant="${x => x.ariaActiveDescendant}"
-                                @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
-                                @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}"
-                                placeholder="${x => filterSearchLabel.getValueFor(x)}"
-                                value="${x => x.filter}"
-                            />
-                        </div>
-                    `)}
-                    <div ${ref('scrollableRegion')}
-                        class="scrollable-region">
-                        <slot
-                            name="option"
-                            ${slotted({
-                                filter: (n: Node) => n instanceof HTMLElement && (isListOption(n) || isListOptionGroup(n)),
-                                flatten: true,
-                                property: 'slottedOptions',
-                            })}
-                        ></slot>
-                        ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0 && !x.loadingVisible), html<Select>`
-                            <span class="no-results-label">
-                                ${x => filterNoResultsLabel.getValueFor(x)}
-                            </span>
-                        `)}
+        <div 
+            popover
+            style="--ni-private-preferred-position-area: ${x => (x.positionAttribute === 'above' ? 'top center' : 'bottom center')};
+                   --ni-private-position-fallbacks: ${x => (x.positionAttribute === undefined ? 'flip-block' : 'none')};"
+            @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}"
+            ${ref('popoverElement')}
+        >
+            <div
+                class="
+                    listbox
+                    ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
+                    ${x => x.position}
+                "
+                id="${x => x.listboxId}"
+                part="listbox"
+                role="listbox"
+                ?disabled="${x => x.disabled}"
+                style="--ni-private-listbox-available-viewport-height: ${x => x.availableViewportHeight}px;"
+                ${ref('listbox')}
+            >
+                ${when(x => x.filterMode !== FilterMode.none, html<Select>`
+                    <div class="filter-field ${x => x.position}">
+                        <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
+                        <input
+                            ${ref('filterInput')}
+                            class="filter-input"
+                            aria-controls="${x => x.ariaControls}"
+                            aria-activedescendant="${x => x.ariaActiveDescendant}"
+                            @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
+                            placeholder="${x => filterSearchLabel.getValueFor(x)}"
+                            value="${x => x.filter}"
+                        />
                     </div>
-                    ${when(x => x.loadingVisible, html<Select>`
-                        <div class="loading-container ${x => x.positionAttribute} ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}"
-                            @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}">
-                            <span class="loading-label">
-                                ${x => loadingLabel.getValueFor(x)}
-                            </span>
-                            <${spinnerTag} class="loading-spinner" appearance="accent"></${spinnerTag}>
-                        </div>
+                `)}
+                <div ${ref('scrollableRegion')}
+                    class="scrollable-region"
+                >
+                    <slot
+                        name="option"
+                        @click="${(x, c) => x.clickOptionHandler(c.event as MouseEvent)}"
+                        ${slotted({
+                            filter: (n: Node) => n instanceof HTMLElement && (isListOption(n) || isListOptionGroup(n)),
+                            flatten: true,
+                            property: 'slottedOptions',
+                        })}
+                    ></slot>
+                    ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0 && !x.loadingVisible), html<Select>`
+                        <span class="no-results-label">
+                            ${x => filterNoResultsLabel.getValueFor(x)}
+                        </span>
                     `)}
                 </div>
+                ${when(x => x.loadingVisible, html<Select>`
+                    <div class="loading-container ${x => x.position} ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}"
+                        <span class="loading-label">
+                            ${x => loadingLabel.getValueFor(x)}
+                        </span>
+                        <${spinnerTag} class="loading-spinner" appearance="accent"></${spinnerTag}>
+                    </div>
+                `)}
             </div>
-        </${anchoredRegionTag}>
+        </div>
     </template>
 `;

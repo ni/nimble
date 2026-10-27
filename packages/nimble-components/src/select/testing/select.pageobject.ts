@@ -41,9 +41,10 @@ export class SelectPageObject {
         await waitForUpdatesAsync();
     }
 
-    public async closeDropdown(): Promise<void> {
-        this.selectElement.open = false;
-        await waitForUpdatesAsync();
+    public closeDropdown(): void {
+        if (this.selectElement.open) {
+            this.clickSelect();
+        }
     }
 
     public async setOptions(options: ListOption[]): Promise<void> {
