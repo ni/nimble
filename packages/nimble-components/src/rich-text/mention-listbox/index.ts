@@ -237,7 +237,7 @@ export class RichTextMentionListbox extends FoundationListbox {
         }
         if (this.region && this.anchorElement) {
             this.region.anchorElement = this.anchorElement;
-            this.region.update();
+            // this.region.update();
             this.anchorElementIntersectionObserver.observe(next);
         }
     }

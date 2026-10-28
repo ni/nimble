@@ -209,6 +209,12 @@ export const styles = css`
         padding-top: ${smallPadding};
     }
 
+    :popover-open {
+        border: none;
+        padding: 0;
+        width: anchor-size(width);
+    }
+
     .listbox {
         display: inline-flex;
         flex-direction: column;

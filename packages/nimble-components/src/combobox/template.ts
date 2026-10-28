@@ -7,7 +7,6 @@ import {
     Listbox
 } from '@ni/fast-foundation';
 import type { Combobox } from '.';
-import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
 import { filterNoResultsLabel } from '../label-provider/core/label-tokens';
@@ -26,8 +25,8 @@ ComboboxOptions
     <template
         aria-disabled="${x => x.ariaDisabled}"
         autocomplete="${x => x.autocomplete}"
-        class="${x => (x.open ? 'open' : '')} ${x => (x.disabled ? 'disabled' : '')} ${x => x.position}"
-        ?open="${x => x.open}"
+        class="${x => (x.isOpen ? 'open' : '')} ${x => (x.disabled ? 'disabled' : '')} ${x => x.position}"
+        ?open="${x => x.isOpen}"
         tabindex="${x => (!x.disabled ? '0' : null)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
@@ -38,7 +37,7 @@ ComboboxOptions
             ${startSlotTemplate(context, definition)}
             <slot name="control">
                 <input
-                    aria-activedescendant="${x => (x.open ? x.ariaActiveDescendant : null)}"
+                    aria-activedescendant="${x => (x.isOpen ? x.ariaActiveDescendant : null)}"
                     aria-autocomplete="${x => x.ariaAutoComplete}"
                     aria-controls="${x => x.ariaControls}"
                     aria-disabled="${x => x.ariaDisabled}"
@@ -66,24 +65,19 @@ ComboboxOptions
             </slot>
             ${endSlotTemplate(context, definition)}
         </div>
-        <${anchoredRegionTag}
-            ${ref('region')}
+        <div
+            popover
             class="anchored-region"
-            fixed-placement
-            auto-update-mode="auto"
-            vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"
-            vertical-positioning-mode="${x => (!x.positionAttribute ? 'dynamic' : 'locktodefault')}"
-            horizontal-default-position="center"
-            horizontal-positioning-mode="locktodefault"
-            horizontal-scaling="anchor"
-            ?hidden="${x => !x.open}">
+            style="--ni-private-preferred-position-area: ${x => (x.positionAttribute === DropdownPosition.above ? 'top center' : 'bottom center')};
+                   --ni-private-position-fallbacks: ${x => (x.positionAttribute !== undefined ? 'flip-block' : 'none')};"
+            ${ref('popoverElement')}
+        >
             <div
                 class="
                     listbox
                     scrollable-region
                     ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
                 "
-                id="${x => x.listboxId}"
                 part="listbox"
                 role="listbox"
                 ?disabled="${x => x.disabled}"
@@ -103,6 +97,6 @@ ComboboxOptions
                     </span>
                 `)}
             </div>
-        </${anchoredRegionTag}>
+        </div>
     </template>
 `;
