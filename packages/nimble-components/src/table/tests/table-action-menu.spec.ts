@@ -364,7 +364,7 @@ describe('Table action menu', () => {
             key: keyEscape
         });
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.region!.dispatchEvent(escEvent);
+        menuButton.popoverElement!.dispatchEvent(escEvent);
 
         await listener;
         expect(spy).toHaveBeenCalledTimes(1);
@@ -415,12 +415,14 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
 
         await pageObject.clickCellActionMenu(1, 0);
-        await waitForUpdatesAsync();
+        await toggleListener;
+        toggleSpy.calls.reset();
+        toggleListener = waitForEvent(element, 'action-menu-toggle', toggleSpy);
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
         });
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.region!.dispatchEvent(escEvent);
+        menuButton.popoverElement!.dispatchEvent(escEvent);
 
         await toggleListener;
         expect(toggleSpy).toHaveBeenCalledTimes(1);

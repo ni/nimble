@@ -34,7 +34,9 @@ interface MenuButtonArgs {
     menu: () => void;
     appearance: keyof typeof ButtonAppearance;
     appearanceVariant: keyof typeof ButtonAppearanceVariant;
-    open: boolean;
+    open: undefined;
+    close: undefined;
+    isOpen: undefined;
     disabled: boolean;
     contentHidden: boolean;
     menuPosition: string;
@@ -96,9 +98,19 @@ const metadata: Meta<MenuButtonArgs> = {
             table: { category: apiCategory.attributes }
         },
         open: {
-            control: { type: 'boolean' },
-            description: 'Opens the menu.',
-            table: { category: apiCategory.attributes }
+            control: false,
+            description: 'Opens the menu after pending slot updates complete. Listen for toggle to observe the completed opening.',
+            table: { category: apiCategory.methods }
+        },
+        close: {
+            control: false,
+            description: 'Closes the menu.',
+            table: { category: apiCategory.methods }
+        },
+        isOpen: {
+            control: false,
+            description: 'Read-only boolean indicating whether the menu is open.',
+            table: { category: apiCategory.nonAttributeProperties }
         },
         disabled: {
             control: { type: 'boolean' },
@@ -111,7 +123,7 @@ const metadata: Meta<MenuButtonArgs> = {
             table: { category: apiCategory.attributes }
         },
         menuPosition: {
-            name: 'menu-position',
+            name: 'position',
             description: 'The position of the menu relative to the button.',
             options: Object.values(MenuButtonPosition),
             control: { type: 'radio' },
@@ -138,19 +150,19 @@ const metadata: Meta<MenuButtonArgs> = {
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
         <${menuButtonTag}
-            ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
             appearance="${x => ButtonAppearance[x.appearance]}"
             appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
             position="${x => x.menuPosition}"
+            style="margin-left: 200px"
         >
             ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${x => x.label}
+            ABC
             ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
             <${menuTag} slot="menu">
-                <${anchorMenuItemTag} href="#">Anchor item</${anchorMenuItemTag}>
+                <${anchorMenuItemTag} href="#">Anchor item.......................................</${anchorMenuItemTag}>
                 <${menuItemTag}>Item 1</${menuItemTag}>
                 <${menuItemTag}>
                     Item 2
@@ -169,7 +181,6 @@ const metadata: Meta<MenuButtonArgs> = {
     `),
     args: {
         appearanceVariant: 'default',
-        open: false,
         disabled: false,
         icon: false,
         contentHidden: false,

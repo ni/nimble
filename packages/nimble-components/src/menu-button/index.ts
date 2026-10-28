@@ -1,4 +1,4 @@
-import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
+import { attr, DOM, nullableNumberConverter, observable, Observable, volatile } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import {
     eventChange,
@@ -16,7 +16,7 @@ import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 import { template } from './template';
 import type { ButtonPattern } from '../patterns/button/types';
-import type { AnchoredRegion } from '../anchored-region';
+import type { PopoverElement } from '../patterns/popover/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -44,10 +44,24 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     public override tabIndex!: number;
 
     /**
-     * Specifies whether or not the menu is open.
+     * Whether or not the menu is open.
      */
-    @attr({ mode: 'boolean' })
-    public open = false;
+    @volatile
+    public get isOpen(): boolean {
+        Observable.track(this, 'isOpen');
+        return this.popoverElement?.matches(':popover-open') ?? false;
+    }
+
+    public get positionAreaFallbacks(): string {
+        switch (this.position) {
+            case MenuButtonPosition.above:
+                return 'flip-inline';
+            case MenuButtonPosition.below:
+                return 'flip-inline';
+            default:
+                return 'flip-block, flip-inline, flip-block flip-inline';
+        }
+    }
 
     /**
      * Configures where the menu should be placed relative to the button that opens the menu.
@@ -60,8 +74,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     public readonly toggleButton?: ToggleButton;
 
     /** @internal */
-    @observable
-    public readonly region?: AnchoredRegion;
+    public readonly popoverElement?: PopoverElement;
 
     /** @internal */
     @observable
@@ -72,77 +85,54 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
      * of the first menu item the next time the menu is opened.
      */
     private focusLastItemWhenOpened = false;
+    private deferredOpenInProgress = false;
+    private suppressTogglingPopover = false;
+    private popupToggling = false;
+
+    /**
+     * Opens the menu.
+     */
+    public open(): void {
+        if (this.isOpen || this.deferredOpenInProgress || !this.$fastController.isConnected) {
+            return;
+        }
+
+        this.popoverElement?.showPopover({ source: this.toggleButton });
+    }
+
+    /**
+     * Closes the menu.
+     */
+    public close(): void {
+        if (this.deferredOpenInProgress && this.toggleButton) {
+            this.updateToggleButton();
+        }
+        this.deferredOpenInProgress = false;
+        this.popoverElement?.hidePopover();
+        this.focusLastItemWhenOpened = false;
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.popoverElement?.addEventListener('beforetoggle', this.popupBeforeToggleHandler);
+        this.popoverElement?.addEventListener('toggle', this.popupToggleHandler);
+        this.popoverElement?.addEventListener(eventChange, this.menuChangeHandler, true);
+        this.updateToggleButton();
+        Observable.notify(this, 'isOpen');
+    }
 
     public override disconnectedCallback(): void {
+        this.deferredOpenInProgress = false;
+        this.popupToggling = false;
+        this.focusLastItemWhenOpened = false;
         super.disconnectedCallback();
-        if (this.region) {
-            this.region.removeEventListener(
-                eventChange,
-                this.menuChangeHandler
-            );
-        }
-    }
-
-    public toggleButtonChanged(
-        _prev: ToggleButton | undefined,
-        _next: ToggleButton | undefined
-    ): void {
-        if (this.region && this.toggleButton) {
-            this.region.anchorElement = this.toggleButton;
-        }
-    }
-
-    public regionChanged(
-        prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
-    ): void {
-        if (prev) {
-            prev.removeEventListener(eventChange, this.menuChangeHandler);
-        }
-
-        if (this.region) {
-            if (this.toggleButton) {
-                this.region.anchorElement = this.toggleButton;
-            }
-            this.region.addEventListener(eventChange, this.menuChangeHandler, {
-                capture: true
-            });
-        }
-    }
-
-    public openChanged(_prev: boolean | undefined, _next: boolean): void {
-        if (this.toggleButton) {
-            this.toggleButton.checked = this.open;
-        }
-
-        if (!this.open) {
-            // Only fire an event here if the menu is changing to being closed. Otherwise,
-            // wait until the menu is actually opened before firing the event.
-            const eventDetail: MenuButtonToggleEventDetail = {
-                oldState: true,
-                newState: false
-            };
-            this.$emit('toggle', eventDetail);
-        }
-    }
-
-    public regionLoadedHandler(): void {
-        if (this.focusLastItemWhenOpened) {
-            this.focusLastMenuItem();
-            this.focusLastItemWhenOpened = false;
-        } else {
-            this.focusMenu();
-        }
-
-        const eventDetail: MenuButtonToggleEventDetail = {
-            oldState: false,
-            newState: true
-        };
-        this.$emit('toggle', eventDetail);
+        this.popoverElement?.removeEventListener('beforetoggle', this.popupBeforeToggleHandler);
+        this.popoverElement?.removeEventListener('toggle', this.popupToggleHandler);
+        this.popoverElement?.removeEventListener(eventChange, this.menuChangeHandler, true);
     }
 
     public focusoutHandler(e: FocusEvent): boolean {
-        if (!this.open) {
+        if (!this.isOpen) {
             return true;
         }
 
@@ -151,7 +141,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
             !this.contains(focusTarget)
             && !this.getMenu()?.contains(focusTarget)
         ) {
-            this.setOpen(false);
+            this.close();
             return false;
         }
 
@@ -159,7 +149,12 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     }
 
     public toggleButtonCheckedChangeHandler(e: Event): boolean {
-        this.setOpen(this.toggleButton!.checked);
+        // When handling a toggle button 'change' event from user interaction, we need to toggle
+        // the popover, but if the event came from us programatically updating the toggle button,
+        // we must _not_ toggle the popover.
+        if (!this.suppressTogglingPopover && !this.popupToggling) {
+            this.toggle();
+        }
         // Don't bubble the 'change' event from the toggle button because
         // the menu button has its own 'toggle' event.
         e.stopPropagation();
@@ -170,10 +165,10 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         switch (e.key) {
             case keyArrowUp:
                 this.focusLastItemWhenOpened = true;
-                this.setOpen(true);
+                this.open();
                 return false;
             case keyArrowDown:
-                this.setOpen(true);
+                this.open();
                 return false;
             default:
                 return true;
@@ -183,7 +178,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     public menuKeyDownHandler(e: KeyboardEvent): boolean {
         switch (e.key) {
             case keyEscape:
-                this.setOpen(false);
+                this.close();
                 this.toggleButton!.focus();
                 return false;
             default:
@@ -191,18 +186,66 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         }
     }
 
-    private setOpen(newValue: boolean): void {
-        if (this.open === newValue) {
+    private readonly popupBeforeToggleHandler = (event: ToggleEvent): void => {
+        if (this.deferredOpenInProgress) {
             return;
         }
+        this.popupToggling = true;
+
+        const opening = event.newState === 'open';
+        this.deferredOpenInProgress = opening;
 
         const eventDetail: MenuButtonToggleEventDetail = {
-            oldState: this.open,
-            newState: newValue
+            oldState: event.oldState === 'open',
+            newState: event.newState === 'open'
         };
         this.$emit('beforetoggle', eventDetail);
 
-        this.open = newValue;
+        if (opening) {
+            // We will suppress opening so that we can defer it to after FAST updates have had a chance to run.
+            event.preventDefault();
+            DOM.queueUpdate(() => {
+                if (this.deferredOpenInProgress && this.$fastController.isConnected) {
+                    this.popoverElement?.showPopover({ source: this.toggleButton });
+                    this.deferredOpenInProgress = false;
+                }
+            });
+        }
+    };
+
+    private readonly popupToggleHandler = (event: ToggleEvent): void => {
+        this.popupToggling = false;
+        Observable.notify(this, 'isOpen');
+        this.updateToggleButton();
+
+        if (event.newState === 'open') {
+            if (this.focusLastItemWhenOpened) {
+                this.focusLastMenuItem();
+            } else {
+                this.focusMenu();
+            }
+        }
+        this.focusLastItemWhenOpened = false;
+
+        const eventDetail: MenuButtonToggleEventDetail = {
+            oldState: event.oldState === 'open',
+            newState: event.newState === 'open'
+        };
+        this.$emit('toggle', eventDetail);
+    };
+
+    private updateToggleButton(): void {
+        this.suppressTogglingPopover = true;
+        this.toggleButton!.checked = this.isOpen;
+        this.suppressTogglingPopover = false;
+    }
+
+    private toggle(): void {
+        if (this.isOpen) {
+            this.close();
+        } else {
+            this.open();
+        }
     }
 
     private getMenu(): HTMLElement | undefined {
@@ -253,7 +296,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     }
 
     private readonly menuChangeHandler = (): void => {
-        this.setOpen(false);
+        this.close();
         this.toggleButton!.focus();
     };
 }

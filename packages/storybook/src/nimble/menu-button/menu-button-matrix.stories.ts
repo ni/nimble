@@ -27,12 +27,6 @@ import {
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 
-const openStates = [
-    ['', false],
-    ['Open', true]
-] as const;
-type OpenState = (typeof openStates)[number];
-
 const metadata: Meta = {
     title: 'Tests/Menu Button',
     parameters: {
@@ -43,7 +37,6 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
-    [openName, open]: OpenState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
@@ -52,19 +45,17 @@ const component = (
     <${menuButtonTag}
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
-        ?open="${() => open}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${openName} ${appearanceVariantName} ${appearanceName} Menu Button ${disabledName}`}
+            ${() => `${appearanceVariantName} ${appearanceName} Menu Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
     </${menuButtonTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        openStates,
         partVisibilityStates,
         disabledStates,
         appearanceStates,
@@ -73,7 +64,6 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 const interactionStatesHover = cartesianProduct([
-    openStates,
     [partVisibilityStatesOnlyLabel],
     disabledStates,
     appearanceStates,
@@ -81,7 +71,6 @@ const interactionStatesHover = cartesianProduct([
 ] as const);
 
 const interactionStates = cartesianProduct([
-    openStates,
     [partVisibilityStatesOnlyLabel],
     [disabledStateIsEnabled],
     appearanceStates,
