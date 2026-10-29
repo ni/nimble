@@ -30,7 +30,7 @@ interface SelectArgs {
     errorVisible: boolean;
     errorText: string;
     requiredVisible: boolean;
-    dropDownPosition: string;
+    dropDownPosition: string | undefined;
     optionsType: ExampleOptionsType;
     appearance: string;
     filterMode: keyof typeof FilterMode;
@@ -295,7 +295,7 @@ const metadata: Meta<SelectArgs> = {
         errorVisible: false,
         errorText: 'Value is invalid',
         filterMode: 'none',
-        dropDownPosition: 'below',
+        dropDownPosition: undefined,
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
