@@ -458,13 +458,6 @@ export class Select
     }
 
     /**
-     * @internal
-     */
-    public regionLoadedHandler(): void {
-        this.focusAndScrollOptionIntoView();
-    }
-
-    /**
      * Sets the multiple property on the proxy element.
      *
      * @param prev - the previous multiple value
@@ -984,6 +977,8 @@ export class Select
         } else {
             this.onMenuClosed();
         }
+
+        this.$emit('toggle');
     };
 
     private readonly popupBeforeToggleHandler: (event: ToggleEvent) => void = (event: ToggleEvent) => {
