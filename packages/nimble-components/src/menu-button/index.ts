@@ -104,7 +104,6 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     public close(): void {
         this.deferredOpenInProgress = false;
         this.popoverElement?.hidePopover();
-        this.updateToggleButton();
         this.focusLastItemWhenOpened = false;
     }
 
@@ -208,7 +207,6 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
 
     private readonly popupToggleHandler = (event: ToggleEvent): void => {
         Observable.notify(this, 'isOpen');
-        this.updateToggleButton();
 
         if (event.newState === 'open') {
             if (this.focusLastItemWhenOpened) {
@@ -225,12 +223,6 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         };
         this.$emit('toggle', eventDetail);
     };
-
-    private updateToggleButton(): void {
-        if (this.toggleButton) {
-            this.toggleButton.checked = this.isOpen;
-        }
-    }
 
     private toggle(): void {
         if (this.isOpen) {
