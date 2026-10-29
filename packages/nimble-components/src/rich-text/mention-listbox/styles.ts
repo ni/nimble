@@ -15,6 +15,10 @@ export const styles = css`
         width: auto;
     }
 
+    [popover] {
+        preferred-position-area: bottom center
+    }
+
     .listbox {
         --ni-private-listbox-visible-option-count: 5.5;
         --ni-private-listbox-anchor-element-gap: 0px;
