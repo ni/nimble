@@ -41,6 +41,9 @@ interface SelectArgs {
     filterInput: undefined;
     appearanceReadOnly: boolean;
     fullBleed: boolean;
+    open: undefined;
+    close: undefined;
+    isOpen: undefined;
 }
 
 interface OptionArgs {
@@ -260,6 +263,21 @@ const metadata: Meta<SelectArgs> = {
             table: { category: apiCategory.nonAttributeProperties },
             control: false
         },
+        isOpen: {
+            control: false,
+            description: 'Read-only boolean indicating whether the dropdown is open.',
+            table: { category: apiCategory.nonAttributeProperties }
+        },
+        open: {
+            control: false,
+            description: 'Opens the dropdown menu of options.',
+            table: { category: apiCategory.methods }
+        },
+        close: {
+            control: false,
+            description: 'Closes the dropdown menu of options.',
+            table: { category: apiCategory.methods }
+        },
         optionsType: {
             name: 'default',
             description: optionsDescription({ includeGrouping: true }),
@@ -302,7 +320,9 @@ const metadata: Meta<SelectArgs> = {
         loadingVisible: false,
         requiredVisible: false,
         appearanceReadOnly: false,
-        fullBleed: false
+        fullBleed: false,
+        close: undefined,
+        isOpen: undefined
     }
 };
 

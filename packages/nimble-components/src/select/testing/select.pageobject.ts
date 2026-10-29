@@ -15,6 +15,7 @@ import {
 import { FilterMode } from '../types';
 import type { Button } from '../../button';
 import type { ListOptionGroup } from '../../list-option-group';
+import { waitForEvent } from '../../utilities/testing/component';
 
 /**
  * Page object for the `nimble-select` component to provide consistent ways
@@ -42,8 +43,8 @@ export class SelectPageObject {
     }
 
     public closeDropdown(): void {
-        if (this.selectElement.open) {
-            this.clickSelect();
+        if (this.selectElement.isOpen) {
+            this.selectElement.close();
         }
     }
 
@@ -122,8 +123,19 @@ export class SelectPageObject {
         this.selectElement.click();
     }
 
+    public async waitForToggleEvent(action: () => void): Promise<void> {
+        const toggled = waitForEvent(this.selectElement.popoverElement!, 'toggle');
+        action();
+        await toggled;
+    }
+
+    public async clickAndWaitForOpen(): Promise<void> {
+        await this.waitForToggleEvent(() => this.clickSelect());
+        await waitForUpdatesAsync();
+    }
+
     public clickActiveItem(): void {
-        if (!this.selectElement.open) {
+        if (!this.selectElement.isOpen) {
             throw new Error('Select must be open to click selectedItem');
         }
 
@@ -172,7 +184,7 @@ export class SelectPageObject {
      * be selected.
      */
     public clickOptionWithDisplayText(displayText: string): void {
-        if (!this.selectElement.open) {
+        if (!this.selectElement.isOpen) {
             this.clickSelect();
         }
         const optionIndex = this.getVisibleOptions().findIndex(
@@ -250,13 +262,13 @@ export class SelectPageObject {
         }
 
         if (
-            this.selectElement.open
+            this.selectElement.isOpen
             && this.selectElement.filterMode !== FilterMode.none
         ) {
             const filterInput = this.selectElement.filterInput!;
             filterInput.value += character;
         }
-        const inputElement = this.selectElement.open
+        const inputElement = this.selectElement.isOpen
             && this.selectElement.filterMode !== FilterMode.none
             ? this.selectElement.filterInput
             : this.selectElement;
@@ -267,7 +279,7 @@ export class SelectPageObject {
     }
 
     public async pressSpaceKey(): Promise<void> {
-        const alreadyOpen = this.selectElement.open;
+        const alreadyOpen = this.selectElement.isOpen;
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keySpace, bubbles: true })
         );
@@ -303,7 +315,7 @@ export class SelectPageObject {
             );
         }
 
-        if (!this.selectElement.open) {
+        if (!this.selectElement.isOpen) {
             throw new Error('Select must be open to set filter text');
         }
 

@@ -291,7 +291,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -323,7 +323,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -351,7 +351,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -381,7 +381,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -411,7 +411,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -443,7 +443,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -471,7 +471,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: 'Home'
@@ -501,7 +501,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -533,7 +533,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('one');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -563,7 +563,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('two');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -593,7 +593,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('three');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -619,7 +619,7 @@ describe('Select', () => {
 
             await connect();
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -640,7 +640,7 @@ describe('Select', () => {
             await disconnect();
         });
 
-        fit('with a sequence of directional inputs', async () => {
+        it('with a sequence of directional inputs', async () => {
             const { element, connect, disconnect } = await setup();
 
             await connect();
@@ -649,7 +649,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('two');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const arrowDownEvent = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -705,7 +705,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('one');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -735,7 +735,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('two');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -765,7 +765,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('three');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -791,7 +791,7 @@ describe('Select', () => {
 
             await connect();
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: 'End'

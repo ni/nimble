@@ -101,11 +101,13 @@ export class Select
     public displayPlaceholder = false;
 
     /**
-     * @internal
+     * Whether or not the dropdown is open.
+     *
+     * @public
      */
     @volatile
-    public get open(): boolean {
-        Observable.track(this, 'open');
+    public get isOpen(): boolean {
+        Observable.track(this, 'isOpen');
         return this.popoverElement?.matches(':popover-open') ?? false;
     }
 
@@ -332,6 +334,28 @@ export class Select
         }
     }
 
+    /**
+     * Opens the dropdown menu of options.
+     *
+     * @public
+     */
+    public open(): void {
+        if (!this.isOpen) {
+            this.popoverElement?.showPopover({ source: this });
+        }
+    }
+
+    /**
+     * Closes the dropdown menu of options.
+     *
+     * @public
+     */
+    public close(): void {
+        if (this.isOpen) {
+            this.popoverElement?.hidePopover();
+        }
+    }
+
     public clickOptionHandler(e: MouseEvent): BooleanOrVoid {
         let optionClicked = false;
         const captured = (e.target as HTMLElement).closest<ListOption>(
@@ -349,7 +373,7 @@ export class Select
         if (optionClicked && this.selectedIndex !== previousSelectedIndex) {
             this.updateValue(true);
         }
-        this.popoverElement?.hidePopover();
+        this.close();
     }
 
     /**
@@ -537,11 +561,11 @@ export class Select
      */
     public override focusoutHandler(e: FocusEvent): BooleanOrVoid {
         super.focusoutHandler(e);
-        if (!this.open) {
+        if (!this.isOpen) {
             return true;
         }
 
-        this.popoverElement?.hidePopover();
+        this.close();
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
@@ -571,7 +595,7 @@ export class Select
             case keyArrowDown: {
                 const selectedOption = this.options[this.selectedIndex];
                 if (
-                    this.open
+                    this.isOpen
                     && isListOption(selectedOption)
                     && !isOptionOrGroupVisible(selectedOption)
                 ) {
@@ -591,7 +615,7 @@ export class Select
             case keyArrowUp: {
                 const selectedOption = this.options[this.selectedIndex];
                 if (
-                    this.open
+                    this.isOpen
                     && isListOption(selectedOption)
                     && !isOptionOrGroupVisible(selectedOption)
                 ) {
@@ -610,7 +634,7 @@ export class Select
             }
             case keySpace: {
                 // when dropdown is open allow user to enter a space for filter text
-                if (this.open && this.filterMode !== FilterMode.none) {
+                if (this.isOpen && this.filterMode !== FilterMode.none) {
                     break;
                 }
 
@@ -618,7 +642,7 @@ export class Select
                 if (this.collapsible && this.typeAheadExpired) {
                     this.popoverElement?.togglePopover({ source: this });
                 }
-                if (!this.open) {
+                if (!this.isOpen) {
                     this.focus();
                 }
                 break;
@@ -636,7 +660,7 @@ export class Select
                 ) {
                     return false;
                 }
-                if (this.open) {
+                if (this.isOpen) {
                     commitValueThenClose = true;
                 } else {
                     this.popoverElement?.showPopover({ source: this });
@@ -648,7 +672,7 @@ export class Select
                 break;
             }
             case keyEscape: {
-                if (!this.open) {
+                if (!this.isOpen) {
                     if (this.clearable) {
                         this.clearSelect();
                         this.updateValue(true);
@@ -660,6 +684,7 @@ export class Select
 
                 currentActiveIndex = this.selectedIndex;
                 this.focus();
+                this.close();
                 break;
             }
 
@@ -668,7 +693,7 @@ export class Select
             }
         }
 
-        if (!this.open || commitValueThenClose) {
+        if (!this.isOpen || commitValueThenClose) {
             if (this.selectedIndex !== currentActiveIndex) {
                 this.selectedIndex = currentActiveIndex;
             }
@@ -679,7 +704,7 @@ export class Select
         }
 
         if (commitValueThenClose) {
-            this.popoverElement?.hidePopover();
+            this.close();
         }
 
         return !(key === keyArrowDown || key === keyArrowUp);
@@ -702,7 +727,7 @@ export class Select
         // implementation handles skipping non-selected disabled options for the initial
         // selected value.
         this.setSelectedOptions();
-        if (this.open) {
+        if (this.isOpen) {
             this.setActiveOption(this.selectedIndex);
         }
         this.updateValue();
@@ -721,7 +746,7 @@ export class Select
                 const activeOptionIndex = this.options.indexOf(
                     typeaheadMatches[0] as ListOption
                 );
-                if (!(this.open && this.filterMode !== FilterMode.none)) {
+                if (!(this.isOpen && this.filterMode !== FilterMode.none)) {
                     this.setActiveOption(activeOptionIndex);
                 }
             }
@@ -834,14 +859,14 @@ export class Select
         // Prevents parent classes from resetting selectedIndex to a positive
         // value while filtering, which can result in a disabled option being
         // selected.
-        if (this.open && this.selectedIndex === -1) {
+        if (this.isOpen && this.selectedIndex === -1) {
             return;
         }
         super.setSelectedOptions();
     }
 
     protected override focusAndScrollOptionIntoView(): void {
-        if (this.open) {
+        if (this.isOpen) {
             super.focusAndScrollOptionIntoView();
             window.requestAnimationFrame(() => {
                 this.filterInput?.focus();
@@ -953,7 +978,7 @@ export class Select
 
     private readonly popupToggleHandler: (event: ToggleEvent) => void = (event: ToggleEvent) => {
         this.popupToggling = false;
-        Observable.notify(this, 'open');
+        Observable.notify(this, 'isOpen');
         if (event.newState === 'open') {
             this.onMenuOpened();
         } else {
@@ -985,7 +1010,7 @@ export class Select
 
     private setActiveOption(newActiveIndex: number): void {
         const activeOption = this.options[newActiveIndex];
-        if (this.open) {
+        if (this.isOpen) {
             if (isListOption(activeOption)) {
                 activeOption.activeOption = true;
             }

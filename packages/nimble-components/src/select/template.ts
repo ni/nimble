@@ -46,21 +46,21 @@ SelectOptions
     <template
         class="${x => [
                 x.collapsible && 'collapsible',
-                x.collapsible && x.open && 'open',
+                x.collapsible && x.isOpen && 'open',
                 x.disabled && 'disabled',
                 x.collapsible && x.position,
             ].filter(Boolean).join(' ')}"
         aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
         aria-disabled="${x => x.ariaDisabled}"
-        aria-expanded="${x => x.open}"
+        aria-expanded="${x => x.isOpen}"
         aria-haspopup="${x => (x.collapsible ? 'listbox' : null)}"
         aria-label="${x => x.labelContent}"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         aria-required="${x => x.requiredVisible}"
-        ?open="${x => x.open}"
+        ?open="${x => x.isOpen}"
         role="combobox"
         tabindex="${x => (!x.disabled ? '0' : null)}"
-        @click="${(x, c) => x.clickHandler()}"
+        @click="${x => x.clickHandler()}"
         @contentchange="${x => x.updateDisplayValue()}"
         @focusin="${(x, c) => x.focusinHandler(c.event as FocusEvent)}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
