@@ -12,7 +12,7 @@ export const template = html<MenuButton>`
             appearance="${x => x.appearance}"
             appearance-variant="${x => x.appearanceVariant}"
             ?content-hidden="${x => x.contentHidden}"
-            ?checked="${x => x.isOpen}"
+            :checked="${x => x.isOpen}"
             ?disabled="${x => x.disabled}"
             tabindex="${x => x.tabIndex}"
             aria-haspopup="true"

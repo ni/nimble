@@ -20,6 +20,7 @@ export const styles = css`
         margin: 0;
         padding: 0;
         border: none;
+        overflow: visible;
         width: fit-content;
         position-area: var(--ni-private-preferred-position-area);
         position-try-fallbacks: var(--ni-private-position-fallbacks);

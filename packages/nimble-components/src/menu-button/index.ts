@@ -86,8 +86,6 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
      */
     private focusLastItemWhenOpened = false;
     private deferredOpenInProgress = false;
-    private suppressTogglingPopover = false;
-    private popupToggling = false;
 
     /**
      * Opens the menu.
@@ -104,11 +102,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
      * Closes the menu.
      */
     public close(): void {
-        if (this.deferredOpenInProgress && this.toggleButton) {
-            this.updateToggleButton();
-        }
         this.deferredOpenInProgress = false;
         this.popoverElement?.hidePopover();
+        this.updateToggleButton();
         this.focusLastItemWhenOpened = false;
     }
 
@@ -117,13 +113,10 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         this.popoverElement?.addEventListener('beforetoggle', this.popupBeforeToggleHandler);
         this.popoverElement?.addEventListener('toggle', this.popupToggleHandler);
         this.popoverElement?.addEventListener(eventChange, this.menuChangeHandler, true);
-        this.updateToggleButton();
-        Observable.notify(this, 'isOpen');
     }
 
     public override disconnectedCallback(): void {
         this.deferredOpenInProgress = false;
-        this.popupToggling = false;
         this.focusLastItemWhenOpened = false;
         super.disconnectedCallback();
         this.popoverElement?.removeEventListener('beforetoggle', this.popupBeforeToggleHandler);
@@ -149,10 +142,11 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     }
 
     public toggleButtonCheckedChangeHandler(e: Event): boolean {
-        // When handling a toggle button 'change' event from user interaction, we need to toggle
-        // the popover, but if the event came from us programatically updating the toggle button,
-        // we must _not_ toggle the popover.
-        if (!this.suppressTogglingPopover && !this.popupToggling) {
+        // When handling a toggle button 'change' event from user interaction, the checked state
+        // of the toggle button should not match the open state of the popover, so we need to toggle
+        // the popover. But if the event came from us programatically updating the toggle button,
+        // to match the popover, it will already be synced, so we don't toggle it.
+        if (this.toggleButton?.checked !== this.isOpen) {
             this.toggle();
         }
         // Don't bubble the 'change' event from the toggle button because
@@ -190,7 +184,6 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         if (this.deferredOpenInProgress) {
             return;
         }
-        this.popupToggling = true;
 
         const opening = event.newState === 'open';
         this.deferredOpenInProgress = opening;
@@ -214,7 +207,6 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     };
 
     private readonly popupToggleHandler = (event: ToggleEvent): void => {
-        this.popupToggling = false;
         Observable.notify(this, 'isOpen');
         this.updateToggleButton();
 
@@ -235,9 +227,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     };
 
     private updateToggleButton(): void {
-        this.suppressTogglingPopover = true;
-        this.toggleButton!.checked = this.isOpen;
-        this.suppressTogglingPopover = false;
+        if (this.toggleButton) {
+            this.toggleButton.checked = this.isOpen;
+        }
     }
 
     private toggle(): void {

@@ -155,14 +155,13 @@ const metadata: Meta<MenuButtonArgs> = {
             appearance="${x => ButtonAppearance[x.appearance]}"
             appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
             position="${x => x.menuPosition}"
-            style="margin-left: 200px"
         >
             ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ABC
+            ${x => x.label}
             ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
             <${menuTag} slot="menu">
-                <${anchorMenuItemTag} href="#">Anchor item.......................................</${anchorMenuItemTag}>
+                <${anchorMenuItemTag} href="#">Anchor item</${anchorMenuItemTag}>
                 <${menuItemTag}>Item 1</${menuItemTag}>
                 <${menuItemTag}>
                     Item 2

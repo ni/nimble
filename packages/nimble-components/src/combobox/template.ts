@@ -67,7 +67,6 @@ ComboboxOptions
         </div>
         <div
             popover
-            class="anchored-region"
             style="--ni-private-preferred-position-area: ${x => (x.positionAttribute === DropdownPosition.above ? 'top center' : 'bottom center')};
                    --ni-private-position-fallbacks: ${x => (x.positionAttribute !== undefined ? 'flip-block' : 'none')};"
             ${ref('popoverElement')}

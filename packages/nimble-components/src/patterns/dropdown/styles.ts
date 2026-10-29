@@ -201,12 +201,12 @@ export const styles = css`
         margin-inline-start: auto;
     }
 
-    :host([open][position='above']) .anchored-region {
-        padding-bottom: ${smallPadding};
+    :host([open][position='above']) [popover] {
+        margin-bottom: ${smallPadding};
     }
 
-    :host([open][position='below']) .anchored-region {
-        padding-top: ${smallPadding};
+    :host([open][position='below']) [popover] {
+        margin-top: ${smallPadding};
     }
 
     [popover] {
@@ -215,6 +215,7 @@ export const styles = css`
         margin: 0;
         padding: 0;
         border: none;
+        overflow: visible;
         width: anchor-size(width);
     }
 
