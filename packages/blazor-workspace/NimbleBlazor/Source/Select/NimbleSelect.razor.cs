@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
 
 public partial class NimbleSelect : NimbleInputBase<string?>
 {
+    private ElementReference _selectElement;
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;
+
+    internal static string IsSelectOpenMethodName = "NimbleBlazor.Select.isOpen";
+    internal static string CloseSelectMethodName = "NimbleBlazor.Select.close";
 
     /// <summary>
     /// Gets or sets a callback that's invoked when the select is blurred.
@@ -96,6 +101,9 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     [CascadingParameter]
     private NimbleOptionContext? CascadedContext { get; set; }
 
+    [Inject]
+    private IJSRuntime? JSRuntime { get; set; }
+
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
@@ -115,5 +123,21 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
+    }
+
+    /// <summary>
+    /// Gets whether the select dropdown is open.
+    /// </summary>
+    public ValueTask<bool> IsOpenAsync()
+    {
+        return JSRuntime!.InvokeAsync<bool>(IsSelectOpenMethodName, _selectElement);
+    }
+
+    /// <summary>
+    /// Closes the select dropdown.
+    /// </summary>
+    public Task CloseAsync()
+    {
+        return JSRuntime!.InvokeVoidAsync(CloseSelectMethodName, _selectElement).AsTask();
     }
 }

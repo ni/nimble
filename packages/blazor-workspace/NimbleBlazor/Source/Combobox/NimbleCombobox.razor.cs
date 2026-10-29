@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
 
 public partial class NimbleCombobox : NimbleInputBase<string?>
 {
+    private ElementReference _comboboxElement;
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N", null);
     private NimbleOptionContext? _context;
+
+    internal static string OpenComboboxMethodName = "NimbleBlazor.Combobox.open";
+    internal static string CloseComboboxMethodName = "NimbleBlazor.Combobox.close";
 
     /// <summary>
     /// Gets or sets the name of the combobox.
@@ -85,6 +90,15 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     [Parameter]
     public EventCallback<EventArgs> Blur { get; set; }
 
+    /// <summary>
+    /// Gets or sets a callback that's invoked when the combobox opens or closes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<EventArgs> Toggle { get; set; }
+
+    [Inject]
+    private IJSRuntime? JSRuntime { get; set; }
+
     [CascadingParameter]
     private NimbleOptionContext? CascadedContext { get; set; }
 
@@ -107,5 +121,26 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
+    }
+
+    /// <summary>
+    /// Opens the combobox dropdown.
+    /// </summary>
+    public Task OpenAsync()
+    {
+        return JSRuntime!.InvokeVoidAsync(OpenComboboxMethodName, _comboboxElement).AsTask();
+    }
+
+    /// <summary>
+    /// Closes the combobox dropdown.
+    /// </summary>
+    public Task CloseAsync()
+    {
+        return JSRuntime!.InvokeVoidAsync(CloseComboboxMethodName, _comboboxElement).AsTask();
+    }
+
+    protected async void HandleToggle(EventArgs e)
+    {
+        await Toggle.InvokeAsync(e);
     }
 }
