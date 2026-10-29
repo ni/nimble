@@ -72,6 +72,10 @@ export class NimbleSelectDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'loadingVisible', toBooleanProperty(value));
     }
 
+    public get isOpen(): boolean {
+        return this.elementRef.nativeElement.isOpen;
+    }
+
     public get requiredVisible(): boolean {
         return this.elementRef.nativeElement.requiredVisible;
     }
@@ -97,4 +101,8 @@ export class NimbleSelectDirective {
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Select>) {}
+
+    public close(): void {
+        this.elementRef.nativeElement.close();
+    }
 }
