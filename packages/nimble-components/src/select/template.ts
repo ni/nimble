@@ -51,8 +51,9 @@ SelectOptions
                 x.collapsible && x.position,
             ].filter(Boolean).join(' ')}"
         aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
+        aria-controls="${x => x.ariaControls}"
         aria-disabled="${x => x.ariaDisabled}"
-        aria-expanded="${x => x.isOpen}"
+        aria-expanded="${x => x.ariaExpanded ?? String(x.isOpen)}"
         aria-haspopup="${x => (x.collapsible ? 'listbox' : null)}"
         aria-label="${x => x.labelContent}"
         aria-multiselectable="${x => x.ariaMultiSelectable}"

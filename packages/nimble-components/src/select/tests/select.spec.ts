@@ -503,7 +503,7 @@ describe('Select', () => {
         const pageObject = new SelectPageObject(element);
         await connect();
         await waitForUpdatesAsync();
-        pageObject.clickSelect();
+        await pageObject.clickAndWaitForOpen();
         pageObject.pressCharacterKey('t');
         await waitForUpdatesAsync();
 
@@ -720,7 +720,7 @@ describe('Select', () => {
         const pageObject = new SelectPageObject(element);
         await connect();
         await waitForUpdatesAsync();
-        pageObject.clickSelect();
+        await pageObject.clickAndWaitForOpen();
         pageObject.pressArrowDownKey();
 
         expect(pageObject.getActiveOption()?.value).toBe('one');
@@ -924,6 +924,7 @@ describe('Select', () => {
         it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
+            const pageObject = new SelectPageObject(element);
             await pageObject.clickAndWaitForOpen();
             element.listbox.style.setProperty(
                 '--ni-private-listbox-visible-option-count',
@@ -944,6 +945,7 @@ describe('Select', () => {
             element.value = '300';
             await connect();
             element.focus();
+            const pageObject = new SelectPageObject(element);
             await pageObject.clickAndWaitForOpen();
             await waitForUpdatesAsync();
             await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
@@ -977,7 +979,8 @@ describe('Select', () => {
             const { element, connect, disconnect } = await setupInDiv();
             const select: Select = element.querySelector(selectTag)!;
             await connect();
-            await pageObject.clickAndWaitForOpen(select);
+            const pageObject = new SelectPageObject(select);
+            await pageObject.clickAndWaitForOpen();
             const fullyVisible = await checkFullyInViewport(select.listbox);
 
             expect(fullyVisible).toBe(true);
@@ -1190,9 +1193,11 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
                 currentSelection = pageObject.getActiveOption();
                 expect(currentSelection?.text).toBe('Two');
-                pageObject.pressEscapeKey();
+                await pageObject.waitForToggleEvent(
+                    () => pageObject.pressEscapeKey()
+                );
 
-                pageObject.clickSelect();
+                await pageObject.clickAndWaitForOpen();
                 currentSelection = pageObject.getActiveOption();
                 expect(currentSelection?.text).toBe('One');
             });
@@ -1291,8 +1296,10 @@ describe('Select', () => {
 
             it('opening dropdown after applying filter previously starts with empty filter', async () => {
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-                pageObject.closeDropdown();
-                pageObject.clickSelect();
+                await pageObject.waitForToggleEvent(
+                    () => pageObject.closeDropdown()
+                );
+                await pageObject.clickAndWaitForOpen();
 
                 expect(pageObject.getFilterInputText()).toBe('');
                 expect(pageObject.getFilteredOptions().length).toBe(6);
@@ -1402,7 +1409,7 @@ describe('Select', () => {
                 await pageObject.clickAndWaitForOpen();
                 const filterInput = element.shadowRoot?.querySelector('.filter-input');
                 expect(filterInput?.getAttribute('aria-controls')).toBe(
-                    element.ariaControls
+                    element.ariaControls ?? null
                 );
                 expect(filterInput?.getAttribute('aria-activedescendant')).toBe(
                     element.ariaActiveDescendant
@@ -1426,13 +1433,16 @@ describe('Select', () => {
             it('can not select option that has been filtered out pressing arrowUp', async () => {
                 await pageObject.openAndSetFilterText('tw');
                 pageObject.pressArrowUpKey();
-                pageObject.pressEnterKey();
+                const closed = pageObject.waitForToggleEvent(
+                    () => pageObject.pressEnterKey()
+                );
+                await closed;
                 await waitForUpdatesAsync();
                 let currentSelection = pageObject.getSelectedOption();
                 expect(currentSelection?.value).toBe('two');
 
                 // make sure we can select other options after clearing filter
-                pageObject.clickSelect();
+                await pageObject.clickAndWaitForOpen();
                 pageObject.pressArrowUpKey();
                 pageObject.pressEnterKey();
                 currentSelection = pageObject.getSelectedOption();
@@ -1442,12 +1452,16 @@ describe('Select', () => {
             it('can not select option that has been filtered out pressing arrowDown', async () => {
                 await pageObject.openAndSetFilterText('tw');
                 pageObject.pressArrowDownKey();
-                pageObject.pressEnterKey();
+                const closed = pageObject.waitForToggleEvent(
+                    () => pageObject.pressEnterKey()
+                );
+                await closed;
+                await waitForUpdatesAsync();
                 let currentSelection = pageObject.getSelectedOption();
                 expect(currentSelection?.value).toBe('two');
 
                 // make sure we can select other options after clearing filter
-                pageObject.clickSelect();
+                await pageObject.clickAndWaitForOpen();
                 pageObject.pressArrowDownKey();
                 pageObject.pressEnterKey();
                 currentSelection = pageObject.getSelectedOption();
@@ -1630,7 +1644,9 @@ describe('Select', () => {
         it('selecting option will replace placeholder text with selected option text', async () => {
             expect(pageObject.getDisplayText()).toBe('One');
             await pageObject.clickAndWaitForOpen();
-            pageObject.clickOptionWithDisplayText('Two');
+            await pageObject.waitForToggleEvent(
+                () => pageObject.clickOptionWithDisplayText('Two')
+            );
             await waitForUpdatesAsync();
 
             expect(pageObject.getDisplayText()).toBe('Two');
@@ -1663,7 +1679,9 @@ describe('Select', () => {
 
         it('programmatically setting selected of current selected option to false results in placeholder being displayed', async () => {
             await pageObject.clickAndWaitForOpen();
-            pageObject.clickOptionWithDisplayText('Two');
+            await pageObject.waitForToggleEvent(
+                () => pageObject.clickOptionWithDisplayText('Two')
+            );
             const selectedOption = pageObject.getSelectedOption();
             selectedOption!.selected = false;
             await waitForUpdatesAsync();
@@ -2246,6 +2264,8 @@ describe('Select', () => {
             });
 
             it('when clicking value, filter-input event occurs after value has been updated', async () => {
+                element.filterMode = FilterMode.standard;
+                await waitForUpdatesAsync();
                 await pageObject.clickAndWaitForOpen();
                 const eventSpy = jasmine.createSpy<CustomEventHandler>();
                 element.addEventListener(
@@ -2257,7 +2277,9 @@ describe('Select', () => {
                     eventSpy as unknown as EventListener
                 );
 
-                pageObject.clickOptionWithDisplayText('Two');
+                await pageObject.waitForToggleEvent(
+                    () => pageObject.clickOptionWithDisplayText('Two')
+                );
                 expect(eventSpy).toHaveBeenCalledTimes(2);
                 expect(eventSpy.calls.argsFor(0)[0].type).toBe('change');
                 expect(eventSpy.calls.argsFor(1)[0].type).toBe('filter-input');
@@ -2276,7 +2298,9 @@ describe('Select', () => {
                 );
 
                 pageObject.pressArrowDownKey();
-                pageObject.pressEnterKey();
+                await pageObject.waitForToggleEvent(
+                    () => pageObject.pressEnterKey()
+                );
                 expect(eventSpy).toHaveBeenCalledTimes(2);
                 expect(eventSpy.calls.argsFor(0)[0].type).toBe('change');
                 expect(eventSpy.calls.argsFor(1)[0].type).toBe('filter-input');

@@ -30,7 +30,7 @@ export class SelectPageObject {
                 'Can not set filter text with filterMode set to "none".'
             );
         }
-        this.clickSelect();
+        await this.clickAndWaitForOpen();
         const filterInput = this.getFilterInput();
         if (filterInput) {
             filterInput.value = filterText;
