@@ -8,6 +8,7 @@ import { keyArrowDown, keyArrowUp, keyEnter } from '@ni/fast-web-utilities';
 import { Combobox } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
+import { waitForEvent } from '../../utilities/testing/component';
 import { template } from '../template';
 import { listOptionTag } from '../../list-option';
 
@@ -458,8 +459,10 @@ describe('Combobox', () => {
             element.control.getAttribute('aria-activedescendant')
         ).toBeNull();
 
+        const togglePromise = waitForEvent(element, 'toggle');
         element.open();
 
+        await togglePromise;
         await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-activedescendant')).toEqual(
@@ -575,7 +578,7 @@ describe('Combobox', () => {
         element.dispatchEvent(keyDownEvent); // open dropdown
 
         await waitForUpdatesAsync();
-        expect(element.hasAttribute('open')).toBeTrue();
+        expect(element.isOpen).toBeTrue();
 
         element.dispatchEvent(keyDownEvent); // select "two"
         element.dispatchEvent(keyDownEvent); // select "three"

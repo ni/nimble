@@ -201,11 +201,11 @@ export const styles = css`
         margin-inline-start: auto;
     }
 
-    :host([open][position='above']) [popover] {
+    :host(.above[open]) [popover] {
         margin-bottom: ${smallPadding};
     }
 
-    :host([open][position='below']) [popover] {
+    :host(.below[open]) [popover] {
         margin-top: ${smallPadding};
     }
 
@@ -217,6 +217,7 @@ export const styles = css`
         border: none;
         overflow: visible;
         width: anchor-size(width);
+        color: inherit;
     }
 
     .listbox {
@@ -255,12 +256,12 @@ export const styles = css`
         --ni-private-listbox-loading-indicator-height: ${controlHeight};
     }
 
-    :host([open][position='above']) .listbox {
+    :host(.above[open]) .listbox {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    :host([open][position='below']) .listbox {
+    :host(.below[open]) .listbox {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }

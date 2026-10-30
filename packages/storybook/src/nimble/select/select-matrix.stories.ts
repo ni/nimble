@@ -425,11 +425,12 @@ export const hidden: StoryFn = createStory(
     )
 );
 
-export const blankListOption: StoryFn = createStory(
+export const blankListOption: StoryFn = createFixedThemeStory(
     html`<${selectTag} style="width: 250px;">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
-    </${selectTag}>`
+    </${selectTag}>`,
+    lightThemeWhiteBackground
 );
 blankListOption.play = async ({ canvasElement }) => {
     const select = canvasElement.querySelector(selectTag)!;

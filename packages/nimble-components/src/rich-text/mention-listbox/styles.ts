@@ -16,7 +16,7 @@ export const styles = css`
     }
 
     [popover] {
-        preferred-position-area: bottom center
+        position-area: bottom center
     }
 
     .listbox {

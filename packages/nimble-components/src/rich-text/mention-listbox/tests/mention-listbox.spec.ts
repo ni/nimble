@@ -48,6 +48,7 @@ describe('RichTextMentionListbox', () => {
     }
 
     async function showAndWaitForOpen(filter = ''): Promise<void> {
+        await waitForUpdatesAsync();
         const popupToggledPromise = waitForEvent(element, 'toggle');
         element.show({
             anchorNode: anchor,
