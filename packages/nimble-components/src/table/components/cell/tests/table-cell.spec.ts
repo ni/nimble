@@ -80,7 +80,8 @@ describe('TableCell', () => {
         expect(renderedContent).toBe('bar');
     });
 
-    it('fires cell-view-focus-in/cell-focus-in/cell-blur events when cell contents are focused/blurred', async () => {
+    // This test relies on the blur event, which headless WebKit doesn't fire when its window lacks focus (as in CI)
+    it('fires cell-view-focus-in/cell-focus-in/cell-blur events when cell contents are focused/blurred #SkipWebkit', async () => {
         await connect();
         await waitForUpdatesAsync();
 
