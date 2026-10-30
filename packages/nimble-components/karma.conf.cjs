@@ -38,6 +38,8 @@ module.exports = config => {
     const options = {
         basePath,
         browserDisconnectTimeout: 10000,
+        // Exceeds jasmine.DEFAULT_TIMEOUT_INTERVAL so a hung spec is reported as a timeout instead of disconnecting the browser
+        browserNoActivityTimeout: 60000,
         processKillTimeout: 10000,
         frameworks: [
             'vite',

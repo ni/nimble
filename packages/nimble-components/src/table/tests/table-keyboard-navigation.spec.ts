@@ -1411,7 +1411,8 @@ describe('Table keyboard navigation', () => {
                     );
                 });
 
-                it('and then a scroll happens, the interactive content is blurred', async () => {
+                // This test relies on the blur event, which headless WebKit doesn't fire when its window lacks focus (as in CI)
+                it('and then a scroll happens, the interactive content is blurred #SkipWebkit', async () => {
                     const tableData = createTableData(50);
                     await element.setData(tableData);
                     await waitForUpdatesAsync();
