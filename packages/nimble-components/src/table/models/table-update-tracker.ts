@@ -182,14 +182,20 @@ export class TableUpdateTracker<
         this.queueUpdate();
     }
 
-    public trackColumnInstancesChanged(): void {
+    public trackColumnInstancesChanged(groupedColumnsChanged: boolean): void {
         this.track('columnIds');
         this.track('columnDefinition');
         this.track('columnSort');
         this.track('columnSortDisabled');
         this.track('columnWidths');
         this.track('actionMenuSlots');
-        this.track('groupRows');
+        if (groupedColumnsChanged) {
+            // Only mark row grouping as needing an update (which resets the expanded/collapsed
+            // state of all group rows) when the set of columns participating in grouping actually
+            // changed. Otherwise, adding/removing/reordering columns unrelated to grouping (even
+            // hidden ones) would needlessly re-expand all previously-collapsed groups.
+            this.track('groupRows');
+        }
 
         this.queueUpdate();
     }
