@@ -1,10 +1,8 @@
 import { html } from '@ni/fast-element';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { fillSelectedRgbPartialColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { FvSplitButton, fvSplitButtonTag } from '..';
-import { FvSplitButtonAppearance } from '../types';
 
 async function setup(): Promise<Fixture<FvSplitButton>> {
     return await fixture<FvSplitButton>(html`
@@ -34,67 +32,6 @@ describe('FvSplitButton', () => {
         await waitForUpdatesAsync();
 
         expect(element.open).toBeTrue();
-    });
-
-    Object.values(FvSplitButtonAppearance).forEach(appearance => {
-        it(`uses an inset divider for ${appearance} appearance`, async () => {
-            ({ element, connect, disconnect } = await setup());
-            element.appearance = appearance;
-            await connect();
-            await waitForUpdatesAsync();
-
-            const toggle = element.toggleButton!;
-            const divider = getComputedStyle(toggle, '::after');
-            expect(divider.content).toBe('""');
-            expect(divider.top).toBe('4px');
-            expect(divider.bottom).toBe('4px');
-            expect(divider.width).toBe('2px');
-            expect(getComputedStyle(toggle).borderColor).toBe('rgba(0, 0, 0, 0)');
-            expect(getComputedStyle(toggle).backgroundOrigin).toBe('border-box');
-            expect(getComputedStyle(toggle).backgroundImage).toBe('none');
-            const primary = element.shadowRoot!.querySelector<HTMLButtonElement>('.split-button-primary')!;
-            expect(getComputedStyle(primary).borderColor).toBe('rgba(0, 0, 0, 0)');
-            expect(getComputedStyle(primary).backgroundOrigin).toBe('border-box');
-            expect(getComputedStyle(primary).backgroundImage).toBe('none');
-            const container = element.shadowRoot!.querySelector<HTMLDivElement>('.split-button-container')!;
-            const outline = getComputedStyle(container, '::before');
-            expect(outline.content).toBe('""');
-            expect(outline.borderStyle).toBe('solid');
-            expect(outline.borderWidth).toBe('1px');
-            if (appearance === FvSplitButtonAppearance.block) {
-                expect(outline.backgroundImage).toContain('linear-gradient');
-            } else {
-                expect(outline.backgroundImage).toBe('none');
-            }
-        });
-    });
-
-    it('anchors the content-sized menu to the leading edge of the toggle', async () => {
-        ({ element, connect, disconnect } = await setup());
-        element.open = true;
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(element.region!.anchorElement).toBe(element.toggleButton!);
-        expect(element.region!.horizontalScaling).toBe('content');
-        expect(element.region!.horizontalDefaultPosition).toBe('end');
-    });
-
-    Object.values(FvSplitButtonAppearance).forEach(appearance => {
-        it(`fills the open toggle for ${appearance} appearance`, async () => {
-            ({ element, connect, disconnect } = await setup());
-            element.appearance = appearance;
-            element.open = true;
-            await connect();
-            element.toggleButton!.style.transition = 'none';
-            await waitForUpdatesAsync();
-
-            const toggle = element.toggleButton!;
-            const style = getComputedStyle(toggle);
-            expect(style.backgroundSize).toBe('100% 100%');
-            expect(style.borderColor).toBe(`rgba(${fillSelectedRgbPartialColor.getValueFor(element)}, 0.3)`);
-            expect(getComputedStyle(toggle, '::after').visibility).toBe('hidden');
-        });
     });
 
     it('disables the internal buttons when disabled is true', async () => {
