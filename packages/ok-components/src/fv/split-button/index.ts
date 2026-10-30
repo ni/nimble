@@ -37,7 +37,7 @@ export class FvSplitButton extends FoundationElement {
 
     /** @internal */
     @observable
-    public splitButtonContainer?: HTMLDivElement;
+    public toggleButton?: HTMLButtonElement;
 
     /** @internal */
     @observable
@@ -96,15 +96,15 @@ export class FvSplitButton extends FoundationElement {
             prev.removeEventListener('change', this.menuChangeHandler);
         }
         if (this.region) {
-            this.region.anchorElement = this.splitButtonContainer ?? this;
+            this.region.anchorElement = this.toggleButton ?? this;
             this.region.addEventListener('change', this.menuChangeHandler, { capture: true });
         }
     }
 
     /** @internal */
-    public splitButtonContainerChanged(): void {
+    public toggleButtonChanged(): void {
         if (this.region) {
-            this.region.anchorElement = this.splitButtonContainer ?? this;
+            this.region.anchorElement = this.toggleButton ?? this;
         }
     }
 
