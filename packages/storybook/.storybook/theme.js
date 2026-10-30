@@ -3,6 +3,8 @@ import { tokenValues } from '@ni/nimble-components/dist/esm/theme-provider/desig
 import logoLight from './nimble-light.svg';
 import logoDark from './nimble-dark.svg';
 
+const fontFamily = family => `"${family}", sans-serif`;
+
 const light = create({
     base: 'light',
 
@@ -23,6 +25,7 @@ const light = create({
     appPreviewBg: tokenValues.applicationBackgroundColor.light,
     appBorderColor: tokenValues.tableRowBorderColor.light,
     appBorderRadius: 1,
+    fontBase: fontFamily(tokenValues.bodyFontFamily),
 
     // Text colors
     textColor: tokenValues.bodyFontColor.light,
@@ -66,6 +69,7 @@ const dark = create({
     appPreviewBg: tokenValues.applicationBackgroundColor.dark,
     appBorderColor: tokenValues.tableRowBorderColor.dark,
     appBorderRadius: 1,
+    fontBase: fontFamily(tokenValues.bodyFontFamily),
 
     // Text colors
     textColor: tokenValues.bodyFontColor.dark,

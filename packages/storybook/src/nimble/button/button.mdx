@@ -1,46 +1,189 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
 import ButtonStylingDocs from '../patterns/button/button-styling-docs.mdx';
+import { buttonSections as sections } from './button-sections';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
+import { NimbleButton } from '@ni/nimble-react/button';
 import * as buttonStories from './button.stories';
-import { Tag } from '../../utilities/story-layout';
+import { ButtonAnatomy } from './button-anatomy';
+import {
+	Do,
+	Dont,
+	StoryAnatomy,
+	StoryApi,
+	StoryGuidance,
+	StoryGuidanceGrid,
+	StoryPage,
+	StoryPreview,
+	StorySection,
+	StorySubsection,
+	Tag
+} from '../../utilities/story-layout';
 
 <Meta of={buttonStories} />
-<Title of={buttonStories} />
+<StoryPage toc={[
+		sections.overview,
+		sections.buttonAnatomy,
+		sections.implementationApi,
+		sections.usage,
+		sections.whenToUse,
+		sections.appearanceStyling,
+		sections.appearances,
+		sections.appearanceVariants,
+		sections.sizing,
+		sections.spacingWithOtherComponents,
+		sections.buttonGuidelines,
+		sections.accessibility,
+		sections.accessibleIconButtons,
+		sections.keyboardUsage,
+		sections.alternativesRelated,
+		sections.alternativesToConsider
+	]}>
+	<Title of={buttonStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A button is a
-widget that enables users to trigger an action or event, such as submitting a
-form, opening a dialog, canceling an action, or performing a delete operation.
+	<StorySection {...sections.overview}>
+		<div>
+			Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/), a
+			button is a widget that enables users to trigger an action or event,
+			such as submitting a form, opening a dialog, canceling an action, or
+			performing a delete operation.
+		</div>
 
-Consider <Tag name={anchorButtonTag} /> if you want a button that triggers
-navigation to a URL.
+		<div>
+			Consider <Tag name={anchorButtonTag} /> if you want a button that
+			triggers navigation to a URL.
+		</div>
+	</StorySection>
 
-<Canvas of={buttonStories.button} />
+	<StorySection {...sections.buttonAnatomy}>
+		<StoryAnatomy alt="Button anatomy showing the Container, Icon, and Label parts of a button." bordered={false}>
+			<ButtonAnatomy alt="Button anatomy showing the Container, Icon, and Label parts of a button." />
+		</StoryAnatomy>
+	</StorySection>
 
-## API
+	<StorySection {...sections.implementationApi}>
+		<StoryPreview>
+			<Canvas of={buttonStories.button} />
+		</StoryPreview>
+		<StoryApi>
+			<Controls of={buttonStories.button} />
+			<ComponentApisLink />
+		</StoryApi>
+	</StorySection>
 
-<Controls of={buttonStories.button} />
+	<StorySection {...sections.usage}>
+		<StorySubsection {...sections.whenToUse}>
+			<div>
+				<strong>Primary Actions:</strong> Use buttons for primary actions
+				that users need to take, such as submitting a form, saving changes,
+				or proceeding to the next step.
+			</div>
 
-<ComponentApisLink />
+			<div>
+				<strong>Call to Action (CTA):</strong> Buttons are ideal for CTAs
+				that encourage users to take a specific action, like "Sign Up,"
+				"Buy Now," or "Learn More."
+			</div>
+		</StorySubsection>
+	</StorySection>
 
-## Styling
+	<StorySection {...sections.appearanceStyling}>
+		<div>
+			Standard styling options for the button control are found below, in
+			order of usage from least to most prominent. Consider the intended
+			context before employing an appearance variant.
+		</div>
+		<ButtonStylingDocs components={{ Button: buttonTag }} />
 
-<ButtonStylingDocs components={{ Button: buttonTag }} />
+		<StorySubsection {...sections.sizing}>
+			<div>
+				Nimble Buttons are currently always 32px tall. Designs exist for
+				other sizes; if you need these in an application, please comment on
+				[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
+			</div>
+		</StorySubsection>
+		<StorySubsection {...sections.spacingWithOtherComponents}>
+			<div>
+				Use consistent spacing between elements to keep layouts clean and
+				organized. Adequate padding around components prevents visual
+				clutter and helps users focus on key information. Use responsive
+				spacing when layouts change across screen sizes.
+			</div>
+		</StorySubsection>
+	</StorySection>
 
-### Sizing
+	<StorySection {...sections.buttonGuidelines}>
+		<StoryGuidanceGrid>
+			<Do
+				title="Create a clear action hierarchy"
+				example={
+					<div className="story-guidance-actions">
+						<NimbleButton appearance="ghost">Cancel</NimbleButton>
+						<NimbleButton appearance="block">Save</NimbleButton>
+					</div>
+				}
+			>
+				Use one visually prominent action per section and pair it with
+				less prominent actions when users need a clear hierarchy.
+			</Do>
+			<Dont
+				title="Prioritize one prominent action"
+				example={
+					<div className="story-guidance-actions">
+						<NimbleButton appearance="block">Save</NimbleButton>
+						<NimbleButton appearance="block">Submit</NimbleButton>
+					</div>
+				}
+			>
+				Do not use multiple visually prominent buttons together when
+				one action should take priority.
+			</Dont>
+			<Do
+				title="Use concise labels"
+				example={
+					<div className="story-guidance-actions">
+						<NimbleButton appearance="outline">Save Changes</NimbleButton>
+					</div>
+				}
+			>
+				Use concise labels that describe the action the button performs.
+			</Do>
+			<Dont
+				title="Avoid vague labels"
+				example={
+					<div className="story-guidance-actions">
+						<NimbleButton appearance="outline">Click Here</NimbleButton>
+					</div>
+				}
+			>
+				Avoid vague labels that do not tell users what will happen when
+				the button is activated.
+			</Dont>
+		</StoryGuidanceGrid>
+	</StorySection>
 
-Nimble Buttons are currently always 32px tall. Designs exist for other sizes; if
-you need these in an application, please comment on
-[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
+	<StorySection {...sections.accessibility}>
+		<StoryGuidance>
+			<StorySubsection {...sections.accessibleIconButtons}>
+				<ContentHiddenDocs buttonElement="nimble-button" />
+			</StorySubsection>
+			<StorySubsection {...sections.keyboardUsage}>
+				<div>
+					Buttons must remain keyboard accessible so users can move focus
+					to them and activate them with standard keyboard controls.
+				</div>
+			</StorySubsection>
+		</StoryGuidance>
+	</StorySection>
 
-{/* ## Usage */}
-
-{/* ## Examples */}
-
-## Accessibility
-
-<ContentHiddenDocs buttonElement="nimble-button" />
-
-{/* ## Resources */}
+	<StorySection {...sections.alternativesRelated}>
+		<StorySubsection {...sections.alternativesToConsider}>
+			<div>
+				Consider <Tag name={anchorButtonTag} /> if you need a button that
+				triggers navigation to a URL.
+			</div>
+		</StorySubsection>
+	</StorySection>
+</StoryPage>
