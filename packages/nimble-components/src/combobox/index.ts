@@ -1,4 +1,4 @@
-import { DOM, Observable, attr, html, observable, ref } from '@ni/fast-element';
+import { DOM, Observable, attr, html, observable, ref, volatile } from '@ni/fast-element';
 import {
     DesignSystem,
     type ComboboxOptions,
@@ -17,7 +17,6 @@ import {
     keySpace,
     keyTab,
     limit,
-    uniqueId
 } from '@ni/fast-web-utilities';
 import { ToggleButton, toggleButtonTag } from '../toggle-button';
 import { errorTextTemplate } from '../patterns/error/template';
@@ -30,7 +29,7 @@ import {
     DropdownAppearance,
     type DropdownPattern
 } from '../patterns/dropdown/types';
-import type { AnchoredRegion } from '../anchored-region';
+import type { PopoverElement } from '../patterns/popover/types';
 import { template } from './template';
 import { FormAssociatedCombobox } from './models/combobox-form-associated';
 import type { ListOption } from '../list-option';
@@ -72,10 +71,13 @@ export class Combobox
     public positionAttribute?: SelectPosition;
 
     /**
-     * The open attribute.
+     * @internal
      */
-    @attr({ attribute: 'open', mode: 'boolean' })
-    public open = false;
+    @volatile
+    public get isOpen(): boolean {
+        Observable.track(this, 'isOpen');
+        return this.popoverElement?.matches(':popover-open') ?? false;
+    }
 
     /**
      * Sets the placeholder value of the element, generally used to provide a hint to the user.
@@ -95,10 +97,11 @@ export class Combobox
     public position?: SelectPosition;
 
     /**
+     * Reference to the internal listbox element.
+     *
      * @internal
      */
-    @observable
-    public region?: AnchoredRegion;
+    public popoverElement?: PopoverElement;
 
     /**
      * @internal
@@ -188,13 +191,6 @@ export class Combobox
     }
 
     /**
-     * The unique id for the internal listbox element.
-     *
-     * @internal
-     */
-    public listboxId: string = uniqueId('listbox-');
-
-    /**
      * The space available in the viewport for the listbox when opened.
      *
      * @internal
@@ -243,14 +239,36 @@ export class Combobox
         }
     }
 
+    /**
+     * Opens the dropdown menu of options.
+     */
+    public open(): void {
+        this.popoverElement?.showPopover({ source: this });
+    }
+
+    /**
+     * Closes the dropdown menu of options.
+     */
+    public close(): void {
+        this.popoverElement?.hidePopover();
+    }
+
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.popoverElement?.addEventListener('toggle', this.popupToggleHandler);
+        this.popoverElement?.addEventListener('beforetoggle', this.popupBeforeToggleHandler);
         this.forcedPosition = !!this.positionAttribute;
         if (this.value) {
             this.initialValue = this.value;
         }
         this.setPositioning();
         this.updateInputAriaLabel();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.popoverElement?.removeEventListener('toggle', this.popupToggleHandler);
+        this.popoverElement?.removeEventListener('beforetoggle', this.popupBeforeToggleHandler);
     }
 
     /**
@@ -261,7 +279,7 @@ export class Combobox
             return false;
         }
 
-        if (this.open) {
+        if (this.isOpen) {
             const captured = (e.target as HTMLElement).closest<ListOption>(
                 'option,[role=option]'
             );
@@ -276,9 +294,9 @@ export class Combobox
             this.updateValue(true);
         }
 
-        this.open = !this.open;
+        this.popoverElement?.togglePopover({ source: this });
 
-        if (this.open) {
+        if (this.isOpen) {
             this.control.focus();
         }
 
@@ -296,7 +314,7 @@ export class Combobox
      * @internal
      */
     public toggleButtonChangeHandler(e: Event): void {
-        this.open = this.dropdownButton!.checked;
+        this.popoverElement?.togglePopover({ source: this, force: this.dropdownButton!.checked });
         e.stopImmediatePropagation();
     }
 
@@ -309,7 +327,7 @@ export class Combobox
             case keyArrowDown:
             case keySpace:
             case keyEnter:
-                this.open = true;
+                this.popoverElement?.showPopover({ source: this });
                 this.stopPropagation(e);
                 return false;
             default:
@@ -355,8 +373,8 @@ export class Combobox
         }
 
         if (!e.inputType.includes('deleteContent') && this.filter.length > 0) {
-            if (this.isAutocompleteList && !this.open) {
-                this.open = true;
+            if (this.isAutocompleteList && !this.isOpen) {
+                this.popoverElement?.showPopover({ source: this });
             }
 
             if (this.isAutocompleteInline) {
@@ -402,7 +420,7 @@ export class Combobox
                     this.filter = this.value;
                 }
 
-                this.open = false;
+                this.popoverElement?.hidePopover();
                 this.clearSelectionRange();
                 this.emitChangeIfValueUpdated();
                 break;
@@ -411,8 +429,7 @@ export class Combobox
                     this.selectedIndex = -1;
                 }
 
-                if (this.open) {
-                    this.open = false;
+                if (this.isOpen) {
                     break;
                 }
 
@@ -424,19 +441,18 @@ export class Combobox
             case keyTab:
                 this.setInputToSelection();
 
-                if (!this.open) {
+                if (!this.isOpen) {
                     return true;
                 }
 
                 e.preventDefault();
-                this.open = false;
                 break;
             case keyArrowDown:
             case keyArrowUp:
                 this.filterOptions();
 
-                if (!this.open) {
-                    this.open = true;
+                if (!this.isOpen) {
+                    this.popoverElement?.showPopover({ source: this });
                     break;
                 }
 
@@ -448,7 +464,7 @@ export class Combobox
                     this.setInlineSelection();
                 }
 
-                if (this.open && this.valueUpdatedByInput) {
+                if (this.isOpen && this.valueUpdatedByInput) {
                     this.valueUpdatedByInput = false;
                 }
                 break;
@@ -490,14 +506,13 @@ export class Combobox
     public override focusoutHandler(e: FocusEvent): boolean {
         this.syncValue();
 
-        if (this.open) {
+        if (this.isOpen) {
             const focusTarget = e.relatedTarget as HTMLElement;
             if (this.isSameNode(focusTarget)) {
                 this.focus();
             }
         }
 
-        this.open = false;
         this.emitChangeIfValueUpdated();
         return true;
     }
@@ -659,7 +674,7 @@ export class Combobox
      * Overrides: `Listbox.focusAndScrollOptionIntoView`
      */
     protected override focusAndScrollOptionIntoView(): void {
-        if (this.open) {
+        if (this.isOpen) {
             if (this.contains(document.activeElement)) {
                 this.control.focus();
                 if (this.firstSelectedOption !== null) {
@@ -670,26 +685,6 @@ export class Combobox
                     });
                 }
             }
-        }
-    }
-
-    protected openChanged(): void {
-        if (this.open) {
-            this.ariaControls = this.listboxId;
-            this.ariaExpanded = 'true';
-
-            this.setPositioning();
-            this.focusAndScrollOptionIntoView();
-
-            // focus is directed to the element when `open` is changed programmatically
-            DOM.queueUpdate(() => this.focus());
-        } else {
-            this.ariaControls = '';
-            this.ariaExpanded = 'false';
-        }
-
-        if (this.dropdownButton) {
-            this.dropdownButton.checked = this.open;
         }
     }
 
@@ -736,23 +731,30 @@ export class Combobox
         this.setPositioning();
     }
 
-    private regionChanged(
-        _prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
-    ): void {
-        if (this.region) {
-            this.region.anchorElement = this.controlWrapper;
+    private readonly popupToggleHandler: (event: ToggleEvent) => void = (event: ToggleEvent) => {
+        Observable.notify(this, 'isOpen');
+        if (event.newState === 'open') {
+            this.ariaExpanded = 'true';
+            this.focusAndScrollOptionIntoView();
+            // focus is directed to the element when `open` is changed programmatically
+            DOM.queueUpdate(() => this.focus());
+        } else {
+            this.ariaControls = '';
+            this.ariaExpanded = 'false';
         }
-    }
 
-    private controlWrapperChanged(
-        _prev: HTMLElement | undefined,
-        _next: HTMLElement | undefined
-    ): void {
-        if (this.region) {
-            this.region.anchorElement = this.controlWrapper;
+        if (this.dropdownButton) {
+            this.dropdownButton.checked = this.isOpen;
         }
-    }
+
+        this.$emit('toggle');
+    };
+
+    private readonly popupBeforeToggleHandler: (event: ToggleEvent) => void = (event: ToggleEvent) => {
+        if (event.newState === 'open') {
+            this.setPositioning();
+        }
+    };
 
     // Workaround for https://github.com/microsoft/fast/issues/6041.
     private ariaLabelChanged(_oldValue: string, _newValue: string): void {
@@ -866,7 +868,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
             <${toggleButtonTag}
                 ${ref('dropdownButton')}
                 appearance="ghost"
-                ?checked="${x => x.open}"
+                ?checked="${x => x.isOpen}"
                 ?disabled="${x => x.disabled}"
                 content-hidden="true"
                 @click="${(x, c) => x.toggleButtonClickHandler(c.event)}"

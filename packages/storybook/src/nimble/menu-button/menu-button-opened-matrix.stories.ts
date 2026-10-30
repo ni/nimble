@@ -17,6 +17,14 @@ const metadata: Meta = {
     title: 'Tests/Menu Button',
     parameters: {
         ...sharedMatrixParameters()
+    },
+    play: async ({ canvasElement }) => {
+        const menuButton = canvasElement.querySelector(menuButtonTag)!;
+        const toggled = new Promise<void>(resolve => {
+            menuButton.addEventListener('toggle', () => resolve(), { once: true });
+        });
+        menuButton.open();
+        await toggled;
     }
 };
 
@@ -26,7 +34,7 @@ const component = ([
     position,
     positionStyle
 ]: PositionState): ViewTemplate => html`
-    <${menuButtonTag} open position="${() => position}" style="${() => positionStyle}">
+    <${menuButtonTag} position="${() => position}" style="${() => positionStyle}">
         Open menu button ${position}
 
         <${menuTag} slot="menu">

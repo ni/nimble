@@ -772,11 +772,11 @@ describe('Table', () => {
                 );
                 await pageObject.clickCellActionMenu(0, 0);
                 await toggleListener;
-                expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(true);
+                expect(pageObject.getCellActionMenu(0, 0)!.isOpen).toBe(true);
 
                 await pageObject.scrollToLastRowAsync();
 
-                expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(false);
+                expect(pageObject.getCellActionMenu(0, 0)!.isOpen).toBe(false);
             });
 
             it('and shows additional rows when the table height increases', async () => {

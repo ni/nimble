@@ -21,6 +21,12 @@ display a menu.
 
 <ComponentApisLink />
 
+Use `open()` and `close()` to control the menu programmatically, and read
+`isOpen` to check its current state. The `open` attribute is not supported.
+Native dismissal, such as clicking outside the menu, is reflected in `isOpen`.
+Opening waits for pending slot updates; listen for `toggle` before interacting
+with the opened menu.
+
 ## Styling
 
 <StylingDocs components={{ Button: menuButtonTag }} />

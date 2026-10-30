@@ -32,6 +32,10 @@ to those in the list. .
 <Controls of={comboboxStories.combobox} />
 <ComponentApisLink />
 
+Use `open()` and `close()` to control the dropdown programmatically. The `open`
+attribute is not supported. The `toggle` event fires after the dropdown opens or
+closes; listen for it before interacting with the opened options.
+
 ## Styling
 
 <FieldSizingDocs hasMinWidth={true} />

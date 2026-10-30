@@ -4,6 +4,7 @@ import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilit
 import { ButtonAppearance, ButtonAppearanceVariant } from '../../../public-api';
 import { NimbleMenuButtonDirective, type MenuButton } from '../nimble-menu-button.directive';
 import { NimbleMenuButtonModule } from '../nimble-menu-button.module';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 describe('Nimble menu button', () => {
     describe('module', () => {
@@ -66,9 +67,22 @@ describe('Nimble menu button', () => {
             expect(nativeElement.contentHidden).toBeFalse();
         });
 
-        it('has expected defaults for open', () => {
-            expect(directive.open).toBeFalse();
-            expect(nativeElement.open).toBeFalse();
+        it('isOpen reflects state', async () => {
+            expect(directive.isOpen).toBeFalse();
+            directive.open();
+            await waitForUpdatesAsync();
+            expect(directive.isOpen).toBeTrue();
+        });
+
+        it('can use the directive to open and close', () => {
+            spyOn(nativeElement, 'open');
+            spyOn(nativeElement, 'close');
+
+            directive.open();
+            directive.close();
+
+            expect(nativeElement.open).toHaveBeenCalled();
+            expect(nativeElement.close).toHaveBeenCalled();
         });
     });
 
@@ -79,8 +93,7 @@ describe('Nimble menu button', () => {
                     disabled
                     appearance="${ButtonAppearance.ghost}"
                     appearance-variant="${ButtonAppearanceVariant.primary}"
-                    content-hidden
-                    open>
+                    content-hidden>
                 </nimble-menu-button>`,
             standalone: false
         })
@@ -124,11 +137,6 @@ describe('Nimble menu button', () => {
             expect(directive.contentHidden).toBeTrue();
             expect(nativeElement.contentHidden).toBeTrue();
         });
-
-        it('will use template string values for open', () => {
-            expect(directive.open).toBeTrue();
-            expect(nativeElement.open).toBeTrue();
-        });
     });
 
     describe('with property bound values', () => {
@@ -138,8 +146,7 @@ describe('Nimble menu button', () => {
                     [disabled]="disabled"
                     [appearance]="appearance"
                     [appearance-variant]="appearanceVariant"
-                    [content-hidden]="contentHidden"
-                    [open]="open">
+                    [content-hidden]="contentHidden">
                 </nimble-menu-button>
             `,
             standalone: false
@@ -151,7 +158,6 @@ describe('Nimble menu button', () => {
             public appearance: ButtonAppearance = ButtonAppearance.outline;
             public appearanceVariant: ButtonAppearanceVariant;
             public contentHidden = false;
-            public open = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -213,17 +219,6 @@ describe('Nimble menu button', () => {
             expect(directive.contentHidden).toBeTrue();
             expect(nativeElement.contentHidden).toBeTrue();
         });
-
-        it('can be configured with property binding for open', () => {
-            expect(directive.open).toBeFalse();
-            expect(nativeElement.open).toBeFalse();
-
-            fixture.componentInstance.open = true;
-            fixture.detectChanges();
-
-            expect(directive.open).toBeTrue();
-            expect(nativeElement.open).toBeTrue();
-        });
     });
 
     describe('with attribute bound values', () => {
@@ -233,8 +228,7 @@ describe('Nimble menu button', () => {
                     [attr.disabled]="disabled"
                     [attr.appearance]="appearance"
                     [attr.appearance-variant]="appearanceVariant"
-                    [attr.content-hidden]="contentHidden"
-                    [attr.open]="open">
+                    [attr.content-hidden]="contentHidden">
                 </nimble-menu-button>
             `,
             standalone: false
@@ -246,7 +240,6 @@ describe('Nimble menu button', () => {
             public appearance: ButtonAppearance = ButtonAppearance.outline;
             public appearanceVariant: ButtonAppearanceVariant;
             public contentHidden: BooleanValueOrAttribute = null;
-            public open: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -307,17 +300,6 @@ describe('Nimble menu button', () => {
 
             expect(directive.contentHidden).toBeTrue();
             expect(nativeElement.contentHidden).toBeTrue();
-        });
-
-        it('can be configured with attribute binding for open', () => {
-            expect(directive.open).toBeFalse();
-            expect(nativeElement.open).toBeFalse();
-
-            fixture.componentInstance.open = '';
-            fixture.detectChanges();
-
-            expect(directive.open).toBeTrue();
-            expect(nativeElement.open).toBeTrue();
         });
     });
 });

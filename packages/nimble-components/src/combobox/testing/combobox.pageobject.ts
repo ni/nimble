@@ -13,11 +13,6 @@ import { slotTextContent } from '../../utilities/models/slot-text-content';
  * of querying and interacting with the component during tests.
  */
 export class ComboboxPageObject {
-    private readonly regionLoadedListener = waitForEvent(
-        this.comboboxElement,
-        'loaded'
-    );
-
     public constructor(protected readonly comboboxElement: Combobox) {}
 
     /**
@@ -31,9 +26,9 @@ export class ComboboxPageObject {
      * Sets the input text and commits the value by pressing Enter. Will emit a 'change' event.
      */
     public async commitValue(text: string): Promise<void> {
-        await this.waitForAnchoredRegionLoaded();
         this.setInputText(text);
         this.pressEnterKey();
+        await waitForUpdatesAsync();
     }
 
     /**
@@ -65,7 +60,7 @@ export class ComboboxPageObject {
     /**
      * @internal
      *
-     * Either opens or closes the dropdown depending on its current state
+     * Opens the dropdown if is is closed. If open, does nothing.
      */
     public clickCombobox(): void {
         this.comboboxElement.click();
@@ -75,9 +70,7 @@ export class ComboboxPageObject {
      * @internal
      */
     public async clickAndWaitForOpen(): Promise<void> {
-        this.clickCombobox();
-        await this.waitForAnchoredRegionLoaded();
-        await waitForUpdatesAsync();
+        await this.waitForToggle(() => this.clickCombobox());
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
@@ -94,8 +87,7 @@ export class ComboboxPageObject {
      * @internal
      */
     public async clickDropdownButtonAndWaitForOpen(): Promise<void> {
-        this.clickDropdownButton();
-        await this.waitForAnchoredRegionLoaded();
+        await this.waitForToggle(() => this.clickDropdownButton());
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
@@ -219,7 +211,9 @@ export class ComboboxPageObject {
         );
     }
 
-    private async waitForAnchoredRegionLoaded(): Promise<void> {
-        await this.regionLoadedListener;
+    public async waitForToggle(triggeringAction?: () => void): Promise<void> {
+        const toggle = waitForEvent(this.comboboxElement, 'toggle');
+        triggeringAction?.();
+        await toggle;
     }
 }

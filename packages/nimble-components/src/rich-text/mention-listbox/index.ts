@@ -1,4 +1,4 @@
-import { type Notifier, Observable, observable } from '@ni/fast-element';
+import { Observable, observable, volatile } from '@ni/fast-element';
 import {
     DesignSystem,
     ListboxElement as FoundationListbox,
@@ -8,10 +8,10 @@ import { keyEnter, keyEscape, keyTab } from '@ni/fast-web-utilities';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';
-import type { AnchoredRegion } from '../../anchored-region';
 import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/string-normalizers';
 import type { ListOption } from '../../list-option';
 import type { MentionListboxShowOptions } from './types';
+import type { PopoverElement } from '../../patterns/popover/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,14 +26,17 @@ export class RichTextMentionListbox extends FoundationListbox {
     /**
      * @internal
      */
-    @observable
-    public open?: boolean;
+    @volatile
+    public get isOpen(): boolean {
+        Observable.track(this, 'isOpen');
+        return this.popoverElement?.matches(':popover-open') ?? false;
+    }
 
     /**
      * @internal
      */
     @observable
-    public region?: AnchoredRegion;
+    public popoverElement?: PopoverElement;
 
     /**
      * The space available in the viewport for the listbox when opened.
@@ -67,12 +70,10 @@ export class RichTextMentionListbox extends FoundationListbox {
     @observable
     private anchorElement?: HTMLElement;
 
-    private regionNotifier?: Notifier;
-
     private readonly anchorElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
             if (!entries[0]?.isIntersecting) {
-                this.setOpen(false);
+                this.close();
             }
         },
         { threshold: 1.0, root: document }
@@ -82,7 +83,7 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @public
      */
     public close(): void {
-        this.setOpen(false);
+        this.popoverElement?.hidePopover();
     }
 
     /**
@@ -114,8 +115,24 @@ export class RichTextMentionListbox extends FoundationListbox {
         );
         this.filter = options.filter;
         this.anchorElement = options.anchorNode;
-        this.setOpen(true);
         this.filterOptions();
+        this.open();
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.popoverElement?.addEventListener('toggle', this.popupToggleHandler);
+        if (this.anchorElement) {
+            this.anchorElementIntersectionObserver.observe(this.anchorElement);
+        }
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.popoverElement?.removeEventListener('toggle', this.popupToggleHandler);
+        if (this.anchorElement) {
+            this.anchorElementIntersectionObserver.unobserve(this.anchorElement);
+        }
     }
 
     /**
@@ -125,7 +142,7 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @public
      */
     public override keydownHandler(event: KeyboardEvent): boolean {
-        if (!this.open) {
+        if (!this.isOpen) {
             return false;
         }
         switch (event.key) {
@@ -139,11 +156,11 @@ export class RichTextMentionListbox extends FoundationListbox {
                     displayName: this.firstSelectedOption.text
                 };
                 this.$emit('mention-selected', mentionDetail);
-                this.setOpen(false);
+                this.close();
                 return true;
             }
             case keyEscape: {
-                this.setOpen(false);
+                this.close();
                 return false;
             }
             default: {
@@ -221,7 +238,7 @@ export class RichTextMentionListbox extends FoundationListbox {
             displayName: capturedListOption.text
         };
         this.$emit('mention-selected', mentionDetail);
-        this.setOpen(false);
+        this.close();
         return true;
     }
 
@@ -235,24 +252,9 @@ export class RichTextMentionListbox extends FoundationListbox {
         if (prev) {
             this.anchorElementIntersectionObserver.unobserve(prev);
         }
-        if (this.region && this.anchorElement) {
-            this.region.anchorElement = this.anchorElement;
-            this.region.update();
+        if (this.anchorElement) {
             this.anchorElementIntersectionObserver.observe(next);
         }
-    }
-
-    /**
-     * Observes the anchor region.
-     *
-     * @internal
-     */
-    public regionChanged(): void {
-        if (this.regionNotifier) {
-            this.regionNotifier.unsubscribe(this);
-        }
-        this.regionNotifier = Observable.getNotifier(this.region);
-        this.regionNotifier.subscribe(this);
     }
 
     /**
@@ -277,15 +279,20 @@ export class RichTextMentionListbox extends FoundationListbox {
      * Overrides: `Listbox.focusAndScrollOptionIntoView`
      */
     protected override focusAndScrollOptionIntoView(): void {
-        if (this.open && this.firstSelectedOption !== null) {
+        if (this.isOpen && this.firstSelectedOption !== null) {
             requestAnimationFrame(() => {
                 this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
             });
         }
     }
 
-    private setOpen(value: boolean): void {
-        this.open = value;
+    private readonly popupToggleHandler: (event: ToggleEvent) => void = (_: ToggleEvent) => {
+        Observable.notify(this, 'open');
+        this.$emit('toggle');
+    };
+
+    private open(): void {
+        this.popoverElement?.showPopover({ source: this.anchorElement });
     }
 }
 

@@ -2,7 +2,9 @@
 @inherits NimbleInputBase<string?>
 <CascadingValue TValue=NimbleOptionContext IsFixed=true Value=_context @key=_context>
     <nimble-combobox
+        @ref="_comboboxElement"
         @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
+        @onnimblecomboboxtoggle="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleToggle)"
         current-value="@CurrentValueAsString"
         @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
         disabled="@Disabled"
