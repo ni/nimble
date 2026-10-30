@@ -55,6 +55,16 @@ describe('Nimble chip', () => {
             expect(nativeElement.disabled).toBeFalse();
         });
 
+        it('has expected defaults for selectable', () => {
+            expect(directive.selectable).toBeFalse();
+            expect(nativeElement.selectable).toBeFalse();
+        });
+
+        it('has expected defaults for selected', () => {
+            expect(directive.selected).toBeFalse();
+            expect(nativeElement.selected).toBeFalse();
+        });
+
         it('has expected defaults for appearance', () => {
             expect(directive.appearance).toBe(ChipAppearance.outline);
             expect(nativeElement.appearance).toBe(ChipAppearance.outline);
@@ -67,6 +77,8 @@ describe('Nimble chip', () => {
                 <nimble-chip #chip
                     removable
                     disabled
+                    selectable
+                    selected
                     appearance="block">
                 </nimble-chip>`,
             standalone: false
@@ -102,6 +114,16 @@ describe('Nimble chip', () => {
             expect(nativeElement.disabled).toBeTrue();
         });
 
+        it('will use template string values for selectable', () => {
+            expect(directive.selectable).toBeTrue();
+            expect(nativeElement.selectable).toBeTrue();
+        });
+
+        it('will use template string values for selected', () => {
+            expect(directive.selected).toBeTrue();
+            expect(nativeElement.selected).toBeTrue();
+        });
+
         it('will use template string values for appearance', () => {
             expect(directive.appearance).toBe(ChipAppearance.block);
             expect(nativeElement.appearance).toBe(ChipAppearance.block);
@@ -114,6 +136,8 @@ describe('Nimble chip', () => {
                 <nimble-chip #chip
                     [removable]="removable"
                     [disabled]="disabled"
+                    [selectable]="selectable"
+                    [selected]="selected"
                     [appearance]="appearance">
                 </nimble-chip>
             `,
@@ -124,6 +148,8 @@ describe('Nimble chip', () => {
             @ViewChild('chip', { read: ElementRef }) public elementRef: ElementRef<Chip>;
             public removable = false;
             public disabled = false;
+            public selectable = false;
+            public selected = false;
             public appearance: ChipAppearance = ChipAppearance.outline;
         }
 
@@ -165,6 +191,28 @@ describe('Nimble chip', () => {
             expect(nativeElement.disabled).toBeTrue();
         });
 
+        it('can be configured with property binding for selectable', () => {
+            expect(directive.selectable).toBeFalse();
+            expect(nativeElement.selectable).toBeFalse();
+
+            fixture.componentInstance.selectable = true;
+            fixture.detectChanges();
+
+            expect(directive.selectable).toBeTrue();
+            expect(nativeElement.selectable).toBeTrue();
+        });
+
+        it('can be configured with property binding for selected', () => {
+            expect(directive.selected).toBeFalse();
+            expect(nativeElement.selected).toBeFalse();
+
+            fixture.componentInstance.selected = true;
+            fixture.detectChanges();
+
+            expect(directive.selected).toBeTrue();
+            expect(nativeElement.selected).toBeTrue();
+        });
+
         it('can be configured with property binding for appearance', () => {
             expect(directive.appearance).toBe(ChipAppearance.outline);
             expect(nativeElement.appearance).toBe(ChipAppearance.outline);
@@ -183,6 +231,8 @@ describe('Nimble chip', () => {
                 <nimble-chip #chip
                     [attr.removable]="removable"
                     [attr.disabled]="disabled"
+                    [attr.selectable]="selectable"
+                    [attr.selected]="selected"
                     [attr.appearance]="appearance">
                 </nimble-chip>
             `,
@@ -193,6 +243,8 @@ describe('Nimble chip', () => {
             @ViewChild('chip', { read: ElementRef }) public elementRef: ElementRef<Chip>;
             public removable: BooleanValueOrAttribute = null;
             public disabled: BooleanValueOrAttribute = null;
+            public selectable: BooleanValueOrAttribute = null;
+            public selected: BooleanValueOrAttribute = null;
             public appearance: ChipAppearance = ChipAppearance.outline;
         }
 
@@ -232,6 +284,28 @@ describe('Nimble chip', () => {
 
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for selectable', () => {
+            expect(directive.selectable).toBeFalse();
+            expect(nativeElement.selectable).toBeFalse();
+
+            fixture.componentInstance.selectable = '';
+            fixture.detectChanges();
+
+            expect(directive.selectable).toBeTrue();
+            expect(nativeElement.selectable).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for selected', () => {
+            expect(directive.selected).toBeFalse();
+            expect(nativeElement.selected).toBeFalse();
+
+            fixture.componentInstance.selected = '';
+            fixture.detectChanges();
+
+            expect(directive.selected).toBeTrue();
+            expect(nativeElement.selected).toBeTrue();
         });
 
         it('can be configured with attribute binding for appearance', () => {
