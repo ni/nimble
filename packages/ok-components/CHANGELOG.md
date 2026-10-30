@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Mon, 26 Oct 2026 21:00:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 30 Oct 2026 23:11:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.12.3
+
+Fri, 30 Oct 2026 23:11:06 GMT
+
+### Patches
+
+- Update split-button spacing, inset divider, interaction styling, and menu alignment to match the design. ([ni/nimble@8859e14](https://github.com/ni/nimble/commit/8859e14d264c39233303749fc166d0c19d5ad8b7))
 
 ## 1.12.2
 
