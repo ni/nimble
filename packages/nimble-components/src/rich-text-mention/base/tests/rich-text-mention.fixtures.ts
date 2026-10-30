@@ -1,4 +1,4 @@
-// eslint-disable-next-line max-classes-per-file
+/* eslint-disable max-classes-per-file */
 import { customElement, html, slotted } from '@ni/fast-element';
 import { RichTextMention } from '..';
 import type { Mapping } from '../../../mapping/base';

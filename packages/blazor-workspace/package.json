@@ -43,7 +43,7 @@
         "@ni/ok-components": "*",
         "@ni/spright-components": "*",
         "cross-env": "^10.1.0",
-        "glob": "^13.0.6",
+        "glob": "^14.0.3",
         "playwright": "1.62.0",
         "globals": "^17.6.0"
     }
