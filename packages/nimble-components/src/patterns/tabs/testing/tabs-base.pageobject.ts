@@ -1,6 +1,10 @@
 import type { Button } from '../../../button';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import { waitTimeout } from '../../../utilities/testing/component';
+import {
+    waitForResizeObserverAsync,
+    waitAbortTimer,
+    waitTimeout
+} from '../../../utilities/testing/component';
 import type { TabsOwner } from '../types';
 
 /**
@@ -33,8 +37,7 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
 
     public async setTabsWidth(width: number): Promise<void> {
         this.tabsElement.style.width = `${width}px`;
-        await waitForUpdatesAsync();
-        await waitForUpdatesAsync(); // wait for the resize observer to fire
+        await this.waitForOverflowSettleAsync();
     }
 
     public async clickScrollLeftButton(): Promise<void> {
@@ -83,6 +86,7 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
             lastTabPanel.insertAdjacentElement('afterend', tabPanel);
         }
         await waitForUpdatesAsync();
+        await this.waitForOverflowSettleAsync();
     }
 
     public async removeTab(index: number): Promise<void> {
@@ -98,6 +102,7 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
             tabPanelToRemove?.remove();
         }
         await waitForUpdatesAsync();
+        await this.waitForOverflowSettleAsync();
     }
 
     public async updateTabLabel(index: number, label: string): Promise<void> {
@@ -107,10 +112,21 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
         const tab = this.tabsElement.tabs[index]!;
         tab.textContent = label;
         await waitForUpdatesAsync();
+        await this.waitForOverflowSettleAsync();
     }
 
     public getTabsViewScrollOffset(): number {
         return this.tabsElement.shadowRoot!.querySelector('.tablist')!
             .scrollLeft;
+    }
+
+    private async waitForOverflowSettleAsync(): Promise<void> {
+        await Promise.race([
+            waitForResizeObserverAsync(this.tabsElement.tablist),
+            waitAbortTimer(
+                'Tablist ResizeObserver notification was not received'
+            )
+        ]);
+        await waitForUpdatesAsync();
     }
 }

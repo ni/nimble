@@ -8,6 +8,7 @@ import {
     TableRowSelectionState
 } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { waitAbortTimer } from '../../utilities/testing/component';
 import { menuButtonTag, type MenuButton } from '../../menu-button';
 import { tableCellTag, type TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
@@ -317,14 +318,44 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public async scrollToFirstRowAsync(): Promise<void> {
-        const scrollElement = this.tableElement.viewport;
-        scrollElement.scroll({ top: 0 });
-        await waitForUpdatesAsync();
+        await this.scrollViewportAsync(0);
     }
 
     public async scrollToLastRowAsync(): Promise<void> {
-        const scrollElement = this.tableElement.viewport;
-        scrollElement.scroll({ top: scrollElement.scrollHeight });
+        await this.scrollViewportAsync(
+            this.tableElement.viewport.scrollHeight
+        );
+    }
+
+    /**
+     * Dispatches a scroll event on the viewport without changing the scroll position,
+     * which puts the table in its scrolling state.
+     */
+    public async dispatchViewportScrollEventAsync(): Promise<void> {
+        this.tableElement.viewport.dispatchEvent(new Event('scroll'));
+        await waitForUpdatesAsync();
+    }
+
+    /**
+     * Waits for the table to leave its scrolling state, which happens after a debounce
+     * once scroll events stop.
+     */
+    public async waitForScrollingToEndAsync(): Promise<void> {
+        let aborted = false;
+        const waitScrollingEnded = async (): Promise<void> => {
+            while (!aborted && this.tableElement.virtualizer.isScrolling) {
+                // eslint-disable-next-line no-await-in-loop
+                await waitForUpdatesAsync();
+            }
+        };
+        try {
+            await Promise.race([
+                waitScrollingEnded(),
+                waitAbortTimer('Table did not leave its scrolling state')
+            ]);
+        } finally {
+            aborted = true;
+        }
         await waitForUpdatesAsync();
     }
 
@@ -685,6 +716,32 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return cells.item(columnIndex);
+    }
+
+    private async scrollViewportAsync(top: number): Promise<void> {
+        const viewport = this.tableElement.viewport;
+        let onScroll: (() => void) | undefined;
+        const waitForScrollEvent = async (): Promise<void> => {
+            await new Promise<void>(resolve => {
+                onScroll = resolve;
+                viewport.addEventListener('scroll', onScroll, { once: true });
+            });
+        };
+        const originalScrollTop = viewport.scrollTop;
+        viewport.scroll({ top });
+        if (viewport.scrollTop !== originalScrollTop) {
+            // The virtualizer tracks the scroll offset from scroll events, which are dispatched during
+            // the next rendering update, so listening after scrolling still receives the event
+            try {
+                await Promise.race([
+                    waitForScrollEvent(),
+                    waitAbortTimer('Table viewport scroll event was not received')
+                ]);
+            } finally {
+                viewport.removeEventListener('scroll', onScroll!);
+            }
+        }
+        await waitForUpdatesAsync();
     }
 
     private getRowById(recordId: string): TableRow {

@@ -10,7 +10,7 @@ import {
     controlHeight,
     tableFitRowsHeight
 } from '../../theme-provider/design-tokens';
-import { waitForEvent, waitTimeout } from '../../utilities/testing/component';
+import { waitForEvent } from '../../utilities/testing/component';
 import {
     type Fixture,
     fixture,
@@ -497,8 +497,7 @@ describe('Table', () => {
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            element.viewport.dispatchEvent(new Event('scroll'));
-            await waitForUpdatesAsync();
+            await pageObject.dispatchViewportScrollEventAsync();
             expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
         });
 
@@ -508,8 +507,8 @@ describe('Table', () => {
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            element.viewport.dispatchEvent(new Event('scroll'));
-            await waitTimeout(300);
+            await pageObject.dispatchViewportScrollEventAsync();
+            await pageObject.waitForScrollingToEndAsync();
             expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
         });
 
