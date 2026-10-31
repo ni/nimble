@@ -1,6 +1,10 @@
 import type { Button } from '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { waitTimeout } from '../../utilities/testing/component';
+import {
+    waitForIntersectionObserverAsync,
+    waitAbortTimer,
+    waitTimeout
+} from '../../utilities/testing/component';
 import type { Stepper } from '..';
 import { stepTag } from '../../step';
 import { StepperOrientation } from '../types';
@@ -17,8 +21,7 @@ export class StepperPageObject {
         } else {
             this.element.style.height = `${size}px`;
         }
-        await waitForUpdatesAsync();
-        await waitForUpdatesAsync(); // wait for the resize observer to fire
+        await this.waitForOverflowSettleAsync();
     }
 
     public async clickScrollStartButton(): Promise<void> {
@@ -76,8 +79,8 @@ export class StepperPageObject {
             textContent: title ?? ''
         }));
         this.element.appendChild(step);
-        await waitForUpdatesAsync();
-        await waitForUpdatesAsync(); // wait for overflow check queued by stepsChanged
+        await waitForUpdatesAsync(); // wait for slotted steps to update
+        await this.waitForOverflowSettleAsync();
     }
 
     public async removeStepByIndex(index: number): Promise<void> {
@@ -86,8 +89,8 @@ export class StepperPageObject {
             throw new Error(`Step with index ${index} not found`);
         }
         steps[index]!.remove();
-        await waitForUpdatesAsync();
-        await waitForUpdatesAsync(); // wait for overflow check queued by stepsChanged
+        await waitForUpdatesAsync(); // wait for slotted steps to update
+        await this.waitForOverflowSettleAsync();
     }
 
     public async updateStepTitle(
@@ -104,7 +107,19 @@ export class StepperPageObject {
             throw new Error(`No slot="title" element found to update for step with index ${index}`);
         }
         titleSlot.textContent = title;
-        await waitForUpdatesAsync();
+        await this.waitForOverflowSettleAsync();
+    }
+
+    private async waitForOverflowSettleAsync(): Promise<void> {
+        await Promise.race([
+            waitForIntersectionObserverAsync(
+                this.element.steps ?? [],
+                this.element.list
+            ),
+            waitAbortTimer(
+                'Stepper steps IntersectionObserver notification was not received'
+            )
+        ]);
         await waitForUpdatesAsync();
     }
 }
