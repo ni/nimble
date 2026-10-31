@@ -2,6 +2,39 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Sat, 31 Oct 2026 00:18:04 GMT",
+      "version": "1.12.4",
+      "tag": "@ni/ok-components_v1.12.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "4d89363de301e097eca18cb7de75ff7be10af0a7",
+            "comment": "npm dependency updates"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v35.17.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v7.1.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.15",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 30 Oct 2026 23:11:06 GMT",
       "version": "1.12.3",
       "tag": "@ni/ok-components_v1.12.3",

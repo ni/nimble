@@ -1,8 +1,19 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 30 Oct 2026 23:11:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 31 Oct 2026 00:18:04 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.12.4
+
+Sat, 31 Oct 2026 00:18:04 GMT
+
+### Patches
+
+- npm dependency updates ([ni/nimble@4d89363](https://github.com/ni/nimble/commit/4d89363de301e097eca18cb7de75ff7be10af0a7))
+- Bump @ni/nimble-components to v35.17.1
+- Bump @ni/spright-components to v7.1.1
+- Bump @ni/jasmine-parameterized to v1.0.15
 
 ## 1.12.3
 

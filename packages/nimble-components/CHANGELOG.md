@@ -1,8 +1,18 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 16 Oct 2026 23:51:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 31 Oct 2026 00:18:04 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.17.1
+
+Sat, 31 Oct 2026 00:18:04 GMT
+
+### Patches
+
+- npm dependency updates ([ni/nimble@4d89363](https://github.com/ni/nimble/commit/4d89363de301e097eca18cb7de75ff7be10af0a7))
+- Bump @ni/unit-format to v1.0.10
+- Bump @ni/jasmine-parameterized to v1.0.15
 
 ## 35.17.0
 

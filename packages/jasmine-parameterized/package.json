@@ -1,6 +1,6 @@
 {
   "name": "@ni/jasmine-parameterized",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Utilities to write parameterized jasmine tests",
   "keywords": [
     "jasmine",
