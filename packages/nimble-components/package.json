@@ -52,7 +52,7 @@
     "@ni/fast-web-utilities": "^10.1.0",
     "@ni/nimble-tokens": "^8.22.0",
     "@ni/unit-format": "^1.0.10",
-    "@tanstack/table-core": "^8.19.3",
+    "@tanstack/table-core": "^9.0.0",
     "@tanstack/virtual-core": "^3.14.0",
     "@tiptap/core": "^3.27.1",
     "@tiptap/extension-bold": "^3.27.1",
