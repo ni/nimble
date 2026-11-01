@@ -4,9 +4,9 @@
     "net10.0": {
       "AngleSharp": {
         "type": "Direct",
-        "requested": "[1.8.6, )",
-        "resolved": "1.8.6",
-        "contentHash": "tdvrWSsHz8iRcb8U2cbFtYF6/1Mvhbe5ZxN/VdhVeIfp5vOvbwz3Bn7OZknnm2QSyGvM9ZaZLNLvfanPzNa61Q=="
+        "requested": "[1.9.0, )",
+        "resolved": "1.9.0",
+        "contentHash": "NOKbXBsj4gaudXjAmdfSPxgUmKNbxP0k87ZRN56N0FW3u2z8AT7sRnTEOWjKoNrPI1vq4slV7Ld2nBCOvu/v8w=="
       },
       "bunit": {
         "type": "Direct",
@@ -548,7 +548,7 @@
       "blazorworkspace.testing.unit": {
         "type": "Project",
         "dependencies": {
-          "AngleSharp": "[1.8.6, )",
+          "AngleSharp": "[1.9.0, )",
           "NI.CSharp.Analyzers": "[2.0.35, )",
           "bunit": "[2.13.3, )",
           "xunit.v3.assert": "[3.2.2, )"
@@ -564,9 +564,9 @@
     "net8.0": {
       "AngleSharp": {
         "type": "Direct",
-        "requested": "[1.8.6, )",
-        "resolved": "1.8.6",
-        "contentHash": "tdvrWSsHz8iRcb8U2cbFtYF6/1Mvhbe5ZxN/VdhVeIfp5vOvbwz3Bn7OZknnm2QSyGvM9ZaZLNLvfanPzNa61Q=="
+        "requested": "[1.9.0, )",
+        "resolved": "1.9.0",
+        "contentHash": "NOKbXBsj4gaudXjAmdfSPxgUmKNbxP0k87ZRN56N0FW3u2z8AT7sRnTEOWjKoNrPI1vq4slV7Ld2nBCOvu/v8w=="
       },
       "bunit": {
         "type": "Direct",
@@ -1071,7 +1071,7 @@
       "blazorworkspace.testing.unit": {
         "type": "Project",
         "dependencies": {
-          "AngleSharp": "[1.8.6, )",
+          "AngleSharp": "[1.9.0, )",
           "NI.CSharp.Analyzers": "[2.0.35, )",
           "bunit": "[2.13.3, )",
           "xunit.v3.assert": "[3.2.2, )"
