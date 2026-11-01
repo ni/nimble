@@ -86,6 +86,10 @@ module.exports = config => {
                 flags: [...commonChromeFlags]
             }
         },
+        proxies: {
+            // Global styles are served from /base/ but the Angular builder serves their media (fonts) from the root
+            '/base/media/': '/media/'
+        },
         singleRun: false,
         restartOnFileChange: true,
         customHeaders: [
