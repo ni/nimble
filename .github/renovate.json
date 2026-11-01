@@ -8,6 +8,7 @@
     "nuget",
     "github-actions"
   ],
+  "recreateWhen": "never",
   "rebaseWhen": "conflicted",
   "schedule": [
     "monthly"
