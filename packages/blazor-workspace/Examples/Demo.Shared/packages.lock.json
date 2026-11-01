@@ -4,9 +4,9 @@
     "net10.0": {
       "AspNetCore.SassCompiler": {
         "type": "Direct",
-        "requested": "[1.106.0, )",
-        "resolved": "1.106.0",
-        "contentHash": "erqL7QvB8XJsOoQjzMX/bNxg9kOUEA8+d5iL7N+dPwaB2AROo8r3H9ZVXNEb2Kl38Foi88dSteVPobE9srxEfg==",
+        "requested": "[1.107.1, )",
+        "resolved": "1.107.1",
+        "contentHash": "Iy5pdeQpQqrY8Ny+sfCBLlpaZ9jyIW9sfgLtJaiS1sG7AF8PiQoR0qqGL0zodQBW/9aA+EFbVEyo/yUsgCl6YA==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "3.1.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
