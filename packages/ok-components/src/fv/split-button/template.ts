@@ -16,7 +16,7 @@ export const template = html<FvSplitButton>`
                 return true;
             }}"
         >
-            ${x => x.label}
+            <slot>${x => x.label}</slot>
         </button>
         <button
             class="split-button-toggle"

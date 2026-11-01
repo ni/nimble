@@ -7,6 +7,14 @@ import { diacriticInsensitiveStringNormalizer } from '@ni/nimble-components/dist
 import { styles } from './styles';
 import { template } from './template';
 
+export type FvChipSelectorValue = string | number | boolean | null;
+
+export interface FvChipSelectorOption {
+    readonly value: FvChipSelectorValue;
+    readonly label: string;
+    readonly disabled?: boolean;
+}
+
 declare global {
     interface HTMLElementTagNameMap {
         'ok-fv-chip-selector': FvChipSelector;
@@ -31,6 +39,14 @@ export class FvChipSelector extends FoundationElement {
 
     @attr
     public options = '';
+
+    /** Typed, property-only options for consumers that cannot round-trip comma-separated strings. */
+    @observable
+    public optionItems?: readonly FvChipSelectorOption[];
+
+    /** Typed, property-only selection used with optionItems. */
+    @observable
+    public selectedOptionValues?: readonly FvChipSelectorValue[];
 
     @attr
     public placeholder = 'Select values';
@@ -151,6 +167,9 @@ export class FvChipSelector extends FoundationElement {
 
     /** @internal */
     public get selectedValueList(): string[] {
+        if (this.optionItems !== undefined) {
+            return (this.selectedOptionValues ?? []).map(value => this.typedOptionKey(value));
+        }
         return Array.from(new Set(
             this.selectedValues
                 .split(',')
@@ -161,6 +180,9 @@ export class FvChipSelector extends FoundationElement {
 
     /** @internal */
     public get optionList(): string[] {
+        if (this.optionItems !== undefined) {
+            return this.optionItems.map(option => this.typedOptionKey(option.value));
+        }
         return Array.from(new Set(
             this.options
                 .split(',')
@@ -178,9 +200,12 @@ export class FvChipSelector extends FoundationElement {
             if (selectedValues.has(option)) {
                 return false;
             }
+            if (this.getOption(option)?.disabled) {
+                return false;
+            }
 
             return normalizedFilter.length === 0
-                || diacriticInsensitiveStringNormalizer(option).includes(normalizedFilter);
+                || diacriticInsensitiveStringNormalizer(this.formatValue(option)).includes(normalizedFilter);
         });
     }
 
@@ -188,7 +213,7 @@ export class FvChipSelector extends FoundationElement {
     public get customValueCandidate(): string {
         const trimmedFilterText = this.filterText.trim();
 
-        if (!this.allowCustomValues || trimmedFilterText.length === 0 || trimmedFilterText.includes(',')) {
+        if (this.optionItems !== undefined || !this.allowCustomValues || trimmedFilterText.length === 0 || trimmedFilterText.includes(',')) {
             return '';
         }
 
@@ -202,6 +227,32 @@ export class FvChipSelector extends FoundationElement {
     /** @internal */
     public get createOptionLabel(): string {
         return `Add '${this.customValueCandidate}'`;
+    }
+
+    /** @internal */
+    public formatValue(key: string): string {
+        const option = this.getOption(key);
+        if (option) {
+            return option.label;
+        }
+        if (key.startsWith('typed:')) {
+            try {
+                return JSON.stringify(JSON.parse(decodeURIComponent(key.slice('typed:'.length))));
+            } catch {
+                return key;
+            }
+        }
+        return key;
+    }
+
+    /** @internal */
+    public typedOptionKey(value: FvChipSelectorValue): string {
+        return `typed:${encodeURIComponent(JSON.stringify(value))}`;
+    }
+
+    /** @internal */
+    public getOptionDisabled(key: string): boolean {
+        return this.getOption(key)?.disabled ?? false;
     }
 
     /** @internal */
@@ -379,6 +430,9 @@ export class FvChipSelector extends FoundationElement {
         if (this.disabled) {
             return;
         }
+        if (this.getOption(value)?.disabled) {
+            return;
+        }
 
         const nextValues = this.selectedValueList;
         if (nextValues.includes(value)) {
@@ -403,12 +457,33 @@ export class FvChipSelector extends FoundationElement {
     }
 
     private commitSelection(nextValues: string[]): void {
-        this.selectedValues = nextValues.join(',');
+        const previousValues = new Map(
+            (this.selectedOptionValues ?? []).map(value => [this.typedOptionKey(value), value])
+        );
+        const selectedOptionValues = this.optionItems === undefined
+            ? undefined
+            : nextValues.map(value => {
+                const option = this.getOption(value);
+                return option ? option.value : previousValues.get(value);
+            })
+                .filter((value): value is FvChipSelectorValue => value !== undefined);
+        if (selectedOptionValues !== undefined) {
+            this.selectedOptionValues = selectedOptionValues;
+        } else {
+            this.selectedValues = nextValues.join(',');
+        }
         this.dispatchEvent(new CustomEvent('change', {
             bubbles: true,
             composed: true,
-            detail: { selectedValues: nextValues }
+            detail: {
+                selectedValues: nextValues,
+                ...(selectedOptionValues !== undefined ? { selectedOptionValues } : {})
+            }
         }));
+    }
+
+    private getOption(key: string): FvChipSelectorOption | undefined {
+        return this.optionItems?.find(option => this.typedOptionKey(option.value) === key);
     }
 
     private setOpen(nextOpen: boolean): void {

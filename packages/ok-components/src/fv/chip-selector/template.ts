@@ -46,7 +46,7 @@ export const template = html<FvChipSelector>`
                                 return true;
                             }}"
                         >
-                            ${x => x}
+                            ${(x, c) => c.parent.formatValue(x)}
                         </${chipTag}>
                     `
                 )}
@@ -135,8 +135,9 @@ export const template = html<FvChipSelector>`
                                         class="chip-selector-option"
                                         data-option-value="${x => x}"
                                         aria-selected="${(_, c) => String(c.index === c.parent.activeOptionIndex)}"
+                                        ?disabled="${(x, c) => c.parent.getOptionDisabled(x)}"
                                     >
-                                        ${x => x}
+                                        ${(x, c) => c.parent.formatValue(x)}
                                     </${menuItemTag}>
                                 `,
                                 { positioning: true }

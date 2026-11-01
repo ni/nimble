@@ -1,0 +1,2339 @@
+import { html } from '@ni/fast-element';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { fixture, type Fixture } from '../../../utilities/tests/fixture';
+import {
+    FvQueryEditor,
+    fvQueryEditorTag,
+    MAX_QUERY_GROUP_DEPTH,
+    type QueryBuilderDefinition,
+    type QueryBuilderOperand,
+    type JsonValue,
+    type QueryDocument,
+    type QueryNode,
+    type QueryEditorDraft,
+    type QueryEditorDraftToken,
+    type QueryEditorEventDetail
+} from '..';
+
+type ValueControl = HTMLElement & { value: string };
+
+const portableDefinition: QueryBuilderDefinition = {
+    version: 1,
+    fields: [
+        {
+            id: 'status',
+            path: '/status',
+            label: 'Status',
+            valueSchema: {
+                oneOf: [
+                    { const: 'failed', title: 'Failed' },
+                    { const: 'passed', title: 'Passed' },
+                    { const: 'error', title: 'Error' }
+                ]
+            },
+            operatorIds: ['in', 'is', 'is-any-of'],
+            editor: { kind: 'select' }
+        },
+        {
+            id: 'duration',
+            path: '/duration',
+            label: 'Duration',
+            valueSchema: { type: 'number', minimum: 0 },
+            operatorIds: ['gt', 'greater-than', 'between']
+        },
+        {
+            id: 'date',
+            path: '/date',
+            label: 'Date',
+            valueSchema: { type: 'string', pattern: '^\\d{4}-\\d{2}-\\d{2}$' },
+            operatorIds: ['eq']
+        },
+        {
+            id: 'started-at',
+            path: '/startedAt',
+            label: 'Started at',
+            valueSchema: { type: 'string', format: 'date' },
+            operatorIds: ['before'],
+            editor: { kind: 'date' }
+        },
+        {
+            id: 'workspace',
+            path: '/workspace',
+            label: 'Workspace',
+            valueSchema: { type: ['string', 'number'] },
+            operatorIds: ['eq'],
+            editor: {
+                kind: 'select',
+                optionsSource: { sourceId: 'workspaces', dependsOn: ['tenantId'], pageSize: 1 }
+            }
+        }
+    ],
+    operators: [
+        { id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } },
+        { id: 'is', label: 'Is', operand: { kind: 'field-value' } },
+        { id: 'is-any-of', label: 'Is any of', operand: { kind: 'field-value-list' } },
+        { id: 'gt', label: 'Greater than', operand: { kind: 'field-value' } },
+        { id: 'greater-than', label: 'Greater than', operand: { kind: 'field-value' } },
+        {
+            id: 'between',
+            label: 'Between',
+            operand: { kind: 'range', endpointSchema: { type: 'number', minimum: 0 } }
+        },
+        { id: 'before', label: 'Before', operand: { kind: 'field-value' } },
+        { id: 'eq', label: 'Equals', operand: { kind: 'field-value' } }
+    ]
+};
+
+function portableQueryWithNestedGroups(depth: number): QueryDocument {
+    const predicate: QueryNode = {
+        kind: 'predicate',
+        fieldId: 'duration',
+        operatorId: 'gt',
+        value: 10
+    };
+    let node: QueryNode = predicate;
+    for (let level = 0; level < depth; level += 1) {
+        node = { kind: 'group', combinator: 'and', children: [predicate, node] };
+    }
+    return {
+        version: 1,
+        root: {
+            kind: 'group',
+            combinator: 'and',
+            children: [predicate, node]
+        }
+    };
+}
+
+interface TestRule {
+    readonly id: string;
+    readonly fieldId: string;
+    readonly operatorId: string;
+    readonly operand: QueryBuilderOperand;
+}
+
+const testDrafts = new WeakMap<QueryDocument, QueryEditorDraft>();
+
+function rule(id: string, fieldId: string, operatorId: string, operand: QueryBuilderOperand): TestRule {
+    return { id, fieldId, operatorId, operand };
+}
+
+function valueForOperand(operand: QueryBuilderOperand): JsonValue | undefined {
+    switch (operand.kind) {
+        case 'none':
+            return undefined;
+        case 'scalar':
+            return operand.value;
+        case 'collection':
+            return [...operand.values];
+        case 'range':
+            return { start: operand.start, end: operand.end };
+        case 'key':
+            return { key: operand.key };
+        case 'key-value':
+            return { key: operand.key, value: operand.value };
+        default:
+            return undefined;
+    }
+}
+
+function queryWithLogic(logic: 'and' | 'or', ...rules: TestRule[]): QueryDocument {
+    const tokens: QueryEditorDraftToken[] = [];
+    rules.forEach((condition, index) => {
+        if (index > 0) {
+            tokens.push({ kind: 'logic', logic });
+        }
+        const value = valueForOperand(condition.operand);
+        tokens.push({
+            kind: 'condition',
+            id: condition.id,
+            fieldId: condition.fieldId,
+            operatorId: condition.operatorId,
+            ...(value === undefined ? {} : { value })
+        });
+    });
+
+    const predicates: QueryNode[] = rules.map(condition => {
+        const value = valueForOperand(condition.operand);
+        return {
+            kind: 'predicate',
+            fieldId: condition.fieldId,
+            operatorId: condition.operatorId,
+            ...(value === undefined ? {} : { value })
+        };
+    });
+    let root: QueryNode | null = null;
+    if (predicates.length === 1) {
+        root = predicates[0]!;
+    } else if (predicates.length > 1) {
+        root = { kind: 'group', combinator: logic, children: predicates };
+    }
+    const document: QueryDocument = { version: 1, root };
+    testDrafts.set(document, { version: 1, tokens, caretPosition: tokens.length, inputText: '' });
+    return document;
+}
+
+function queryWithGroups(
+    logic: 'and' | 'or',
+    ...groups: { readonly id: string, readonly logic: 'and' | 'or', readonly rules: TestRule[] }[]
+): QueryDocument {
+    const tokens: QueryEditorDraftToken[] = [];
+    const nodes: QueryNode[] = [];
+    groups.forEach((group, groupIndex) => {
+        if (groupIndex > 0) {
+            tokens.push({ kind: 'logic', logic });
+        }
+        const predicates = group.rules.map(condition => {
+            const value = valueForOperand(condition.operand);
+            return {
+                kind: 'predicate' as const,
+                fieldId: condition.fieldId,
+                operatorId: condition.operatorId,
+                ...(value === undefined ? {} : { value })
+            };
+        });
+        nodes.push(predicates.length > 1
+            ? { kind: 'group', combinator: group.logic, children: predicates }
+            : predicates[0]!);
+        if (group.rules.length > 1) {
+            tokens.push({ kind: 'open', id: group.id });
+        }
+        group.rules.forEach((condition, ruleIndex) => {
+            if (ruleIndex > 0) {
+                tokens.push({ kind: 'logic', logic: group.logic });
+            }
+            const value = valueForOperand(condition.operand);
+            tokens.push({
+                kind: 'condition',
+                id: condition.id,
+                fieldId: condition.fieldId,
+                operatorId: condition.operatorId,
+                ...(value === undefined ? {} : { value })
+            });
+        });
+        if (group.rules.length > 1) {
+            tokens.push({ kind: 'close' });
+        }
+    });
+    let root: QueryNode | null = null;
+    if (nodes.length === 1) {
+        root = nodes[0]!;
+    } else if (nodes.length > 1) {
+        root = { kind: 'group', combinator: logic, children: nodes };
+    }
+    const document: QueryDocument = { version: 1, root };
+    testDrafts.set(document, { version: 1, tokens, caretPosition: tokens.length, inputText: '' });
+    return document;
+}
+
+function query(...rules: TestRule[]): QueryDocument {
+    return queryWithLogic('and', ...rules);
+}
+
+interface TestQueryGroup {
+    readonly id: string;
+    logic: 'and' | 'or';
+    readonly rules: TestRule[];
+}
+
+interface TestQueryView {
+    readonly logic: 'and' | 'or';
+    readonly groups: TestQueryGroup[];
+}
+
+function operandFromValue(value: JsonValue | undefined): QueryBuilderOperand {
+    if (value === undefined) {
+        return { kind: 'none' };
+    }
+    if (Array.isArray(value)) {
+        return value.every(item => typeof item === 'string')
+            ? { kind: 'collection', values: value }
+            : { kind: 'none' };
+    }
+    if (typeof value === 'object' && value !== null) {
+        const start = value.start;
+        const end = value.end;
+        if ((typeof start === 'string' || typeof start === 'number' || start === null || start === undefined)
+            && (typeof end === 'string' || typeof end === 'number' || end === null || end === undefined)
+            && ('start' in value || 'end' in value)) {
+            return {
+                kind: 'range',
+                start: start ?? null,
+                end: end ?? null
+            };
+        }
+        if (typeof value.key === 'string' && typeof value.value === 'string') {
+            return { kind: 'key-value', key: value.key, value: value.value };
+        }
+        if (typeof value.key === 'string') {
+            return { kind: 'key', key: value.key };
+        }
+    }
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean' || value === null) {
+        return { kind: 'scalar', value };
+    }
+    return { kind: 'none' };
+}
+
+function queryView(editor: FvQueryEditor): TestQueryView {
+    const groups: TestQueryGroup[] = [];
+    const stack: TestQueryGroup[] = [];
+    let logic: 'and' | 'or' = editor.query?.root?.kind === 'group'
+        ? editor.query.root.combinator
+        : 'and';
+    let nextGroup = 0;
+    const addRule = (token: Extract<QueryEditorDraftToken, { kind: 'condition' }>): TestRule => ({
+        id: token.id,
+        fieldId: token.fieldId,
+        operatorId: token.operatorId,
+        operand: operandFromValue(token.value)
+    });
+    const flush = (group: TestQueryGroup): void => {
+        if (stack.length > 0) {
+            stack[stack.length - 1]!.rules.push(...group.rules);
+        } else {
+            groups.push(group);
+        }
+    };
+
+    for (const token of editor.draft.tokens) {
+        if (token.kind === 'open') {
+            stack.push({ id: token.id, logic: 'and', rules: [] });
+        } else if (token.kind === 'close') {
+            const group = stack.pop();
+            if (group) {
+                flush(group);
+            }
+        } else if (token.kind === 'condition') {
+            if (stack.length > 0) {
+                stack[stack.length - 1]!.rules.push(addRule(token));
+            } else {
+                groups.push({ id: `test-group-${nextGroup}`, logic: 'and', rules: [addRule(token)] });
+                nextGroup += 1;
+            }
+        } else if (stack.length > 0) {
+            stack[stack.length - 1]!.logic = token.logic;
+        } else {
+            logic = token.logic;
+        }
+    }
+
+    while (stack.length > 0) {
+        flush(stack.pop()!);
+    }
+    return { logic, groups };
+}
+
+async function setup(initialQuery: QueryDocument = { version: 1, root: null }): Promise<Fixture<FvQueryEditor>> {
+    const result = await fixture<FvQueryEditor>(html`
+        <${fvQueryEditorTag} label="Query conditions"></${fvQueryEditorTag}>
+    `);
+    result.element.definition = portableDefinition;
+    result.element.query = initialQuery;
+    await result.connect();
+    await waitForUpdatesAsync();
+    const initialDraft = testDrafts.get(initialQuery);
+    if (initialDraft) {
+        result.element.draft = initialDraft;
+        await waitForUpdatesAsync();
+    }
+    return result;
+}
+
+async function setupPortable(initialQuery: QueryDocument = { version: 1, root: null }): Promise<Fixture<FvQueryEditor>> {
+    return await setup(initialQuery);
+}
+
+function getOptionState(editor: FvQueryEditor): FvQueryEditor['optionState'] {
+    return editor.optionState;
+}
+
+async function waitForCalloutAlignment(root: ShadowRoot, chip: HTMLElement, frame = 0): Promise<void> {
+    await new Promise<void>(resolve => {
+        requestAnimationFrame(() => resolve());
+    });
+    await waitForUpdatesAsync();
+
+    const panel = root.querySelector<HTMLElement>('.editor-panel-container');
+    const arrow = root.querySelector<HTMLElement>('.editor-panel-arrow');
+    if (panel && arrow) {
+        const chipRect = chip.getBoundingClientRect();
+        const panelRect = panel.getBoundingClientRect();
+        const arrowRect = arrow.getBoundingClientRect();
+        if (
+            Math.abs(panelRect.left - chipRect.left) <= 1
+            && Math.abs(arrowRect.left + arrowRect.width / 2 - chipRect.left - chipRect.width / 2) <= 1
+        ) {
+            return;
+        }
+    }
+    if (frame === 19) {
+        throw new Error('The editor callout did not align with its condition chip');
+    }
+    await waitForCalloutAlignment(root, chip, frame + 1);
+}
+
+async function waitForFieldFocus(root: ShadowRoot, field: HTMLElement, frame = 0): Promise<void> {
+    if (root.activeElement === field) {
+        return;
+    }
+    if (frame === 19) {
+        throw new Error('The first editor field did not receive focus');
+    }
+    await new Promise<void>(resolve => {
+        requestAnimationFrame(() => resolve());
+    });
+    await waitForUpdatesAsync();
+    await waitForFieldFocus(root, field, frame + 1);
+}
+
+describe('FvQueryEditor', () => {
+    let element: FvQueryEditor;
+    let disconnect: (() => Promise<void>) | undefined;
+
+    function getRequiredElement<T extends HTMLElement>(selector: string): T {
+        const found = element.shadowRoot?.querySelector<T>(selector);
+        if (!found) {
+            throw new Error(`Expected element matching selector ${selector}`);
+        }
+        return found;
+    }
+
+    afterEach(async () => {
+        await disconnect?.();
+        disconnect = undefined;
+    });
+
+    it('renders an empty, focused-editable field and Add filter action', async () => {
+        ({ element, disconnect } = await setup());
+
+        expect(element.valid).toBeTrue();
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        const placeholder = 'Type to add a condition · Tab to complete · Delete to remove';
+        expect(queryInput.getAttribute('placeholder')).toBe(placeholder);
+        const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        expect(nativeInput?.placeholder).toBe(placeholder);
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+        const canvasContext = document.createElement('canvas').getContext('2d');
+        if (!canvasContext) {
+            throw new Error('Expected a canvas context to measure the placeholder');
+        }
+        canvasContext.font = getComputedStyle(nativeInput).font;
+        expect(nativeInput.clientWidth).toBeGreaterThanOrEqual(canvasContext.measureText(placeholder).width);
+        expect(getComputedStyle(nativeInput).textAlign).toBe('left');
+        expect(parseFloat(getComputedStyle(nativeInput).textIndent)).toBeGreaterThan(0);
+        expect(queryInput.tagName.toLowerCase()).toBe('nimble-text-field');
+        expect(element.shadowRoot?.querySelector('.conditions-heading span')).toBeNull();
+        expect(element.shadowRoot?.querySelector('.condition-chip')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="add-filter"]')).not.toBeNull();
+    });
+
+    it('shows the insertion caret when clicking anywhere in the empty conditions field', async () => {
+        ({ element, disconnect } = await setup());
+
+        const editorField = getRequiredElement<HTMLElement>('.editor-field');
+        const fieldRect = editorField.getBoundingClientRect();
+        editorField.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: fieldRect.right - 8,
+            clientY: fieldRect.top + fieldRect.height / 2
+        }));
+        await waitForUpdatesAsync();
+
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        await waitForFieldFocus(element.shadowRoot!, queryInput);
+        const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+        expect(element.caretPosition).toBe(0);
+        expect(queryInput.getAttribute('data-focused')).toBe('true');
+        expect(queryInput.parentElement?.getBoundingClientRect().width).toBe(8);
+        expect(getComputedStyle(nativeInput).textAlign).toBe('center');
+        expect(parseFloat(getComputedStyle(nativeInput, '::placeholder').opacity)).toBe(0);
+    });
+
+    it('uses 8px insertion slots and centers the empty text caret', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+
+        const slots = Array.from(element.shadowRoot?.querySelectorAll<HTMLElement>('.insertion-slot') ?? []);
+        expect(slots.map(slot => slot.getBoundingClientRect().width)).toEqual([8, 8]);
+
+        const nativeInput = getRequiredElement<ValueControl>('.query-input').shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+        expect(getComputedStyle(nativeInput).textAlign).toBe('center');
+    });
+
+    it('keeps the first typed character visible when leaving the centered insertion slot', async () => {
+        ({ element, disconnect } = await setup());
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+
+        const emptyLeftPadding = parseFloat(getComputedStyle(nativeInput).paddingLeft);
+        nativeInput.value = 'W';
+        nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+
+        expect(queryInput.getAttribute('data-empty')).toBe('false');
+        expect(getComputedStyle(nativeInput).textAlign).not.toBe('center');
+        const typedLeftPadding = parseFloat(getComputedStyle(nativeInput).paddingLeft);
+        expect(typedLeftPadding).toBe(emptyLeftPadding + 2);
+
+        const canvasContext = document.createElement('canvas').getContext('2d');
+        if (!canvasContext) {
+            throw new Error('Expected a canvas context to measure the input character');
+        }
+        canvasContext.font = getComputedStyle(nativeInput).font;
+        expect(nativeInput.clientWidth).toBeGreaterThanOrEqual(canvasContext.measureText(nativeInput.value).width);
+        expect(nativeInput.scrollWidth).toBeLessThanOrEqual(nativeInput.clientWidth);
+        nativeInput.setSelectionRange(0, 0);
+        expect(parseFloat(getComputedStyle(nativeInput).paddingLeft)).toBe(typedLeftPadding);
+    });
+
+    it('allows typing into the query field and autocompletes matching fields', async () => {
+        ({ element, disconnect } = await setup());
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        let nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+
+        const openGroup = new KeyboardEvent('keydown', {
+            key: '(',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(openGroup);
+        await waitForUpdatesAsync();
+        expect(openGroup.defaultPrevented).toBeTrue();
+        expect(element.shadowRoot?.querySelectorAll('.group-parenthesis')).toHaveSize(1);
+
+        nativeInput = getRequiredElement<ValueControl>('.query-input').shadowRoot?.querySelector<HTMLInputElement>('input') ?? null;
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input after opening a group');
+        }
+        const keydown = new KeyboardEvent('keydown', {
+            key: 's',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(keydown);
+        expect(keydown.defaultPrevented).toBeFalse();
+
+        nativeInput.value = 'sta';
+        nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(Array.from(element.shadowRoot?.querySelectorAll('.suggestion-label') ?? [])
+            .map(suggestion => suggestion.textContent?.trim())).toEqual(['Status', 'Started at']);
+    });
+
+    it('positions autocomplete suggestions directly below the query text', async () => {
+        ({ element, disconnect } = await setup());
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+
+        nativeInput.value = 'sta';
+        nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const inputRect = queryInput.getBoundingClientRect();
+        const listboxRect = getRequiredElement<HTMLElement>('.suggestions').getBoundingClientRect();
+        const verticalGap = listboxRect.top - inputRect.bottom;
+        expect(Math.abs(listboxRect.left - inputRect.left)).toBeLessThanOrEqual(1);
+        expect(verticalGap).toBeGreaterThanOrEqual(0);
+        expect(verticalGap).toBeLessThanOrEqual(5);
+    });
+
+    it('uses an accessible listbox for autocomplete with keyboard navigation and selection', async () => {
+        ({ element, disconnect } = await setup());
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+
+        nativeInput.value = 'sta';
+        nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const menu = getRequiredElement<HTMLElement>('.suggestions');
+        const suggestions = Array.from(menu.querySelectorAll<HTMLElement>('.suggestion'));
+        expect(menu.getAttribute('role')).toBe('listbox');
+        expect(suggestions.map(suggestion => suggestion.getAttribute('role'))).toEqual(['option', 'option']);
+        const listboxStyles = getComputedStyle(menu);
+        expect(listboxStyles.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+        expect(listboxStyles.borderTopStyle).toBe('solid');
+        expect(listboxStyles.boxShadow).not.toBe('none');
+        expect(listboxStyles.padding).toBe('4px');
+        expect(suggestions.map(suggestion => suggestion.querySelector('.suggestion-label')?.textContent?.trim()))
+            .toEqual(['Status', 'Started at']);
+        expect(getComputedStyle(suggestions[0]!).paddingInlineStart).toBe('8px');
+        expect(getComputedStyle(suggestions[0]!).cursor).toBe('pointer');
+        expect(element.activeSuggestionIndex).toBe(0);
+        expect(suggestions[0]?.getAttribute('aria-selected')).toBe('true');
+        expect(getComputedStyle(suggestions[0]!).backgroundColor)
+            .not.toBe(getComputedStyle(suggestions[1]!).backgroundColor);
+        expect(nativeInput.getAttribute('role')).toBe('combobox');
+        expect(nativeInput.getAttribute('aria-haspopup')).toBe('listbox');
+        expect(nativeInput.getAttribute('aria-expanded')).toBe('true');
+        expect(nativeInput.getAttribute('aria-controls')).toBe(menu.id);
+
+        nativeInput.focus();
+        const openMenu = new KeyboardEvent('keydown', {
+            key: 'ArrowDown',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(openMenu);
+        await waitForUpdatesAsync();
+
+        expect(openMenu.defaultPrevented).toBeTrue();
+        expect(element.activeSuggestionIndex).toBe(1);
+        expect(suggestions[1]?.getAttribute('aria-selected')).toBe('true');
+        expect(nativeInput.getAttribute('aria-activedescendant')).toBe(suggestions[1]?.id ?? null);
+        expect(suggestions[0]?.matches(':focus')).toBeFalse();
+        expect(element.shadowRoot?.activeElement).toBe(queryInput);
+
+        const moveToPrevious = new KeyboardEvent('keydown', {
+            key: 'ArrowUp',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(moveToPrevious);
+        await waitForUpdatesAsync();
+
+        expect(moveToPrevious.defaultPrevented).toBeTrue();
+        expect(element.activeSuggestionIndex).toBe(0);
+        expect(suggestions[0]?.getAttribute('aria-selected')).toBe('true');
+        expect(nativeInput.getAttribute('aria-activedescendant')).toBe(suggestions[0]?.id ?? null);
+        expect(element.shadowRoot?.activeElement).toBe(queryInput);
+
+        const moveToNext = new KeyboardEvent('keydown', {
+            key: 'ArrowDown',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(moveToNext);
+        await waitForUpdatesAsync();
+
+        expect(moveToNext.defaultPrevented).toBeTrue();
+        expect(element.activeSuggestionIndex).toBe(1);
+
+        const selectSuggestion = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(selectSuggestion);
+        await waitForUpdatesAsync();
+        await waitForUpdatesAsync();
+
+        expect(selectSuggestion.defaultPrevented).toBeTrue();
+        expect(queryView(element).groups[0]?.rules[0]?.fieldId).toBe('started-at');
+        expect(element.activeRuleId).toBe(queryView(element).groups[0]?.rules[0]?.id ?? null);
+        expect(element.shadowRoot?.querySelector('[role="dialog"]')).not.toBeNull();
+    });
+
+    it('selects autocomplete suggestions with pointer activation', async () => {
+        ({ element, disconnect } = await setup());
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        queryInput.value = 'sta';
+        queryInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        getRequiredElement<HTMLElement>('.suggestion').click();
+        await waitForUpdatesAsync();
+
+        expect(queryView(element).groups[0]?.rules[0]?.fieldId).toBe('status');
+        expect(element.activeRuleId).toBe(queryView(element).groups[0]?.rules[0]?.id ?? null);
+    });
+
+    it('closes autocomplete and restores query focus when Escape is pressed in the menu', async () => {
+        ({ element, disconnect } = await setup());
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+
+        nativeInput.value = 'sta';
+        nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const openMenu = new KeyboardEvent('keydown', {
+            key: 'ArrowDown',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(openMenu);
+        await waitForUpdatesAsync();
+
+        const firstSuggestion = getRequiredElement<HTMLElement>('.suggestion');
+        const escape = new KeyboardEvent('keydown', {
+            key: 'Escape',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        firstSuggestion.dispatchEvent(escape);
+        await waitForUpdatesAsync();
+
+        expect(escape.defaultPrevented).toBeTrue();
+        expect(element.queryInputText).toBe('');
+        expect(getRequiredElement<HTMLElement>('.suggestions').hidden).toBeTrue();
+        expect(element.shadowRoot?.activeElement).toBe(queryInput);
+    });
+
+    it('applies combobox semantics to the focused native input', async () => {
+        ({ element, disconnect } = await setup());
+        const input = getRequiredElement<ValueControl>('.query-input').shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!input) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+
+        expect(input.getAttribute('role')).toBe('combobox');
+        expect(input.getAttribute('aria-autocomplete')).toBe('list');
+        expect(input.getAttribute('aria-haspopup')).toBe('listbox');
+        expect(input.getAttribute('aria-expanded')).toBe('false');
+        expect(input.getAttribute('aria-controls')).toBe(element.suggestionListId);
+    });
+
+    it('keeps condition-chip spacing stable when the insertion cursor moves', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        element.style.width = '1000px';
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+
+        const chips = element.shadowRoot?.querySelectorAll<HTMLElement>('.condition-chip');
+        if (chips?.length !== 2) {
+            throw new Error('Expected two condition chips');
+        }
+        const first = chips[0]!.getBoundingClientRect();
+        const second = chips[1]!.getBoundingClientRect();
+        const initialGap = second.left - first.right;
+        expect(second.top).toBe(first.top);
+
+        element.caretPosition = 1;
+        await waitForUpdatesAsync();
+        const movedFirst = chips[0]!.getBoundingClientRect();
+        const movedSecond = chips[1]!.getBoundingClientRect();
+        expect(movedSecond.top).toBe(movedFirst.top);
+        expect(movedSecond.left - movedFirst.right).toBeCloseTo(initialGap, 1);
+    });
+
+    it('shows a text cursor in trailing editor space', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        element.style.width = '1000px';
+        await waitForUpdatesAsync();
+
+        const editorField = getRequiredElement<HTMLElement>('.editor-field');
+        expect(getComputedStyle(editorField).cursor).toBe('text');
+    });
+
+    it('places the insertion cursor after the last condition when trailing space is clicked', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        element.style.width = '1000px';
+        await waitForUpdatesAsync();
+
+        const editorField = getRequiredElement<HTMLElement>('.editor-field');
+        const chips = element.shadowRoot?.querySelectorAll<HTMLElement>('.condition-chip');
+        if (chips?.length !== 2) {
+            throw new Error('Expected two condition chips');
+        }
+        const lastChip = chips[chips.length - 1]!;
+
+        const fieldRect = editorField.getBoundingClientRect();
+        editorField.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: fieldRect.right - 8,
+            clientY: fieldRect.top + 8
+        }));
+        await waitForUpdatesAsync();
+
+        expect(element.caretPosition).toBe(Number(lastChip.dataset.tokenIndex) + 1);
+    });
+
+    it('places the insertion cursor after the last condition when its trailing slot is clicked', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        element.style.width = '1000px';
+        await waitForUpdatesAsync();
+
+        const chips = element.shadowRoot?.querySelectorAll<HTMLElement>('.condition-chip');
+        if (chips?.length !== 2) {
+            throw new Error('Expected two condition chips');
+        }
+        const lastChip = chips[chips.length - 1]!;
+        const lastPosition = Number(lastChip.dataset.tokenIndex);
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+
+        const trailingSlot = getRequiredElement<HTMLElement>(
+            `[data-action="set-caret"][data-position="${lastPosition + 1}"]`
+        );
+        const slotRect = trailingSlot.getBoundingClientRect();
+        trailingSlot.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: slotRect.left + slotRect.width / 2,
+            clientY: slotRect.top + slotRect.height / 2
+        }));
+        await waitForUpdatesAsync();
+
+        expect(element.caretPosition).toBe(lastPosition + 1);
+    });
+
+    it('aligns formatted conditions and indents grouped rows without changing the query', async () => {
+        const initialQuery = queryWithGroups(
+            'or',
+            {
+                id: 'grouped-rules',
+                logic: 'and',
+                rules: [
+                    rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: ['failed', 'error'] }),
+                    rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+                ]
+            },
+            {
+                id: 'standalone-rule-group',
+                logic: 'and',
+                rules: [rule('standalone-status-rule', 'status', 'is', { kind: 'scalar', value: 'error' })]
+            }
+        );
+        ({ element, disconnect } = await setup(initialQuery));
+        const queryChange = jasmine.createSpy('query-change');
+        element.addEventListener('query-change', queryChange);
+        element.layout = 'formatted';
+        await waitForUpdatesAsync();
+
+        const conditionChips = Array.from(element.shadowRoot?.querySelectorAll<HTMLElement>('.condition-chip') ?? []);
+        const parentheses = Array.from(element.shadowRoot?.querySelectorAll<HTMLElement>('.group-parenthesis') ?? []);
+        if (conditionChips.length !== 3 || parentheses.length !== 2) {
+            throw new Error('Expected three conditions and one parenthesized group');
+        }
+        const [firstGroupedChip, secondGroupedChip, standaloneChip] = conditionChips;
+        const firstGroupedRect = firstGroupedChip!.getBoundingClientRect();
+        const secondGroupedRect = secondGroupedChip!.getBoundingClientRect();
+        const standaloneRect = standaloneChip!.getBoundingClientRect();
+        expect(Math.abs(firstGroupedRect.left - secondGroupedRect.left)).toBeLessThanOrEqual(1);
+        expect(firstGroupedRect.left).toBeGreaterThan(standaloneRect.left);
+        expect(parentheses[0]!.getBoundingClientRect().left).toBeLessThan(firstGroupedRect.left);
+        expect(parentheses[1]!.getBoundingClientRect().left).toBeGreaterThan(secondGroupedRect.right);
+        expect(
+            getRequiredElement<HTMLElement>('.logic-chip[data-layout-role="operator"][data-indent="true"]').getBoundingClientRect().left
+        ).toBeGreaterThan(firstGroupedRect.right);
+        expect(firstGroupedRect.top).toBeLessThan(secondGroupedRect.top);
+        expect(secondGroupedRect.top).toBeLessThan(standaloneRect.top);
+        expect(element.query).toEqual(initialQuery);
+        expect(queryChange).not.toHaveBeenCalled();
+    });
+
+    it('keeps incomplete draft structure visible in formatted layout', async () => {
+        ({ element, disconnect } = await setup());
+        element.draft = {
+            version: 1,
+            tokens: [
+                { kind: 'open', id: 'draft-group' },
+                {
+                    kind: 'condition',
+                    id: 'draft-status-rule',
+                    fieldId: 'status',
+                    operatorId: 'is',
+                    value: 'failed'
+                },
+                { kind: 'logic', logic: 'and' }
+            ],
+            caretPosition: 3,
+            inputText: ''
+        };
+        element.layout = 'formatted';
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeFalse();
+        expect(element.shadowRoot?.querySelectorAll('.group-parenthesis')).toHaveSize(1);
+        expect(element.shadowRoot?.querySelector('.condition-chip[data-layout-role="condition"]')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('.logic-chip[data-layout-role="operator"][data-indent="true"]')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('.query-input')).not.toBeNull();
+    });
+
+    it('formats four nested group levels and rejects queries nested beyond the limit', async () => {
+        const validQuery = portableQueryWithNestedGroups(MAX_QUERY_GROUP_DEPTH);
+        ({ element, disconnect } = await setupPortable(validQuery));
+        element.layout = 'formatted';
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeTrue();
+        const conditionIndents = element.parts
+            .filter(part => part.kind === 'condition')
+            .map(part => part.indentLevel);
+        expect(conditionIndents).toContain(MAX_QUERY_GROUP_DEPTH);
+        expect(element.shadowRoot?.querySelector(
+            `.condition-chip[data-indent-level="${MAX_QUERY_GROUP_DEPTH}"]`
+        )).not.toBeNull();
+        const conditionLeftByDepth = Array.from({ length: MAX_QUERY_GROUP_DEPTH + 1 }, (_, depth) => {
+            const chip = element.shadowRoot?.querySelector<HTMLElement>(`.condition-chip[data-indent-level="${depth}"]`);
+            if (!chip) {
+                throw new Error(`Expected a condition at indentation depth ${depth}`);
+            }
+            return chip.getBoundingClientRect().left;
+        });
+        for (let depth = 1; depth < conditionLeftByDepth.length; depth += 1) {
+            expect(conditionLeftByDepth[depth]).toBeGreaterThan(conditionLeftByDepth[depth - 1]!);
+        }
+
+        element.query = portableQueryWithNestedGroups(MAX_QUERY_GROUP_DEPTH + 1);
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeFalse();
+        expect(element.issues[0]?.message).toContain(`${MAX_QUERY_GROUP_DEPTH} levels`);
+        expect(element.query).toEqual(validQuery);
+    });
+
+    it('moves and indents immediately after typing opening parentheses', async () => {
+        ({ element, disconnect } = await setupPortable());
+        element.layout = 'formatted';
+        await waitForUpdatesAsync();
+
+        const typeOpeningParenthesis = async (): Promise<void> => {
+            const nativeInput = getRequiredElement<ValueControl>('.query-input')
+                .shadowRoot?.querySelector<HTMLInputElement>('input');
+            if (!nativeInput) {
+                throw new Error('Expected the query field to contain an input');
+            }
+            nativeInput.focus();
+            const keydown = new KeyboardEvent('keydown', {
+                key: '(',
+                bubbles: true,
+                composed: true,
+                cancelable: true
+            });
+            nativeInput.dispatchEvent(keydown);
+            await waitForUpdatesAsync();
+            expect(keydown.defaultPrevented).toBeTrue();
+            const currentQueryInput = getRequiredElement<ValueControl>('.query-input');
+            expect(element.shadowRoot?.activeElement).toBe(currentQueryInput);
+            expect(currentQueryInput.shadowRoot?.activeElement).not.toBeNull();
+            expect(currentQueryInput.closest<HTMLElement>('.formatted-row')?.dataset.indentLevel)
+                .toBe(String(element.caretPosition));
+            const groupOpenings = Array.from(
+                element.shadowRoot?.querySelectorAll<HTMLElement>('.group-parenthesis[data-layout-role="group-open"]') ?? []
+            );
+            const opening = groupOpenings[groupOpenings.length - 1];
+            if (!opening) {
+                throw new Error('Expected the typed opening parenthesis to be rendered');
+            }
+            expect(currentQueryInput.getBoundingClientRect().left)
+                .toBeGreaterThanOrEqual(opening.getBoundingClientRect().right);
+        };
+
+        await typeOpeningParenthesis();
+        expect(element.caretPosition).toBe(1);
+        await typeOpeningParenthesis();
+        expect(element.caretPosition).toBe(2);
+
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        queryInput.value = 'status';
+        queryInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const groupOpenings = Array.from(
+            element.shadowRoot?.querySelectorAll<HTMLElement>('.group-parenthesis[data-layout-role="group-open"]') ?? []
+        );
+        expect(groupOpenings.map(group => group.closest<HTMLElement>('.formatted-row')?.dataset.indentLevel))
+            .toEqual(['1', '2']);
+        const currentQueryInput = getRequiredElement<ValueControl>('.query-input');
+        expect(element.queryInputText).toBe('status');
+        expect(currentQueryInput.getBoundingClientRect().left)
+            .toBeGreaterThanOrEqual(groupOpenings[1]!.getBoundingClientRect().right);
+    });
+
+    it('indents opening parentheses for each nested group level', async () => {
+        ({ element, disconnect } = await setupPortable(portableQueryWithNestedGroups(MAX_QUERY_GROUP_DEPTH)));
+        element.layout = 'formatted';
+        await waitForUpdatesAsync();
+
+        const groupOpeningLeftByDepth = Array.from(
+            element.shadowRoot?.querySelectorAll<HTMLElement>('.group-parenthesis[data-layout-role="group-open"]') ?? [],
+            group => group.getBoundingClientRect().left
+        );
+        expect(groupOpeningLeftByDepth.length).toBe(MAX_QUERY_GROUP_DEPTH);
+        for (let depth = 1; depth < groupOpeningLeftByDepth.length; depth += 1) {
+            expect(groupOpeningLeftByDepth[depth]).toBeGreaterThan(groupOpeningLeftByDepth[depth - 1]!);
+        }
+    });
+
+    it('uses the clicked row for formatted trailing-space caret placement', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: ['failed', 'error'] }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        element.style.width = '1000px';
+        element.layout = 'formatted';
+        await waitForUpdatesAsync();
+
+        const editorField = getRequiredElement<HTMLElement>('.editor-field');
+        const chips = Array.from(element.shadowRoot?.querySelectorAll<HTMLElement>('.condition-chip') ?? []);
+        const firstChip = chips[0];
+        const lastChip = chips[chips.length - 1];
+        if (!firstChip || !lastChip) {
+            throw new Error('Expected two condition chips');
+        }
+        const fieldRect = editorField.getBoundingClientRect();
+        const firstRect = firstChip.getBoundingClientRect();
+        const lastRect = lastChip.getBoundingClientRect();
+        const trailingX = fieldRect.right - 8;
+        expect(trailingX).toBeGreaterThan(lastRect.right);
+
+        editorField.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: trailingX,
+            clientY: firstRect.top + firstRect.height / 2
+        }));
+        await waitForUpdatesAsync();
+        expect(element.caretPosition).toBe(Number(firstChip.dataset.tokenIndex) + 2);
+
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+        editorField.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: trailingX,
+            clientY: lastRect.top + lastRect.height / 2
+        }));
+        await waitForUpdatesAsync();
+        expect(element.caretPosition).toBe(Number(lastChip.dataset.tokenIndex) + 1);
+    });
+
+    it('keeps the insertion cursor after the last condition when the trailing query input is clicked', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        element.style.width = '1000px';
+        await waitForUpdatesAsync();
+
+        const chips = element.shadowRoot?.querySelectorAll<HTMLElement>('.condition-chip');
+        if (chips?.length !== 2) {
+            throw new Error('Expected two condition chips');
+        }
+        const lastChip = chips[chips.length - 1]!;
+        const lastPosition = Number(lastChip.dataset.tokenIndex);
+        element.caretPosition = lastPosition + 1;
+        await waitForUpdatesAsync();
+
+        const input = getRequiredElement<HTMLElement>('.query-input');
+        const inputRect = input.getBoundingClientRect();
+        input.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: inputRect.left + inputRect.width / 2,
+            clientY: inputRect.top + inputRect.height / 2
+        }));
+        await waitForUpdatesAsync();
+
+        expect(element.caretPosition).toBe(lastPosition + 1);
+    });
+
+    it('preserves wrapped insertion slots and places trailing clicks after the last condition', async () => {
+        ({ element, disconnect } = await setup(queryWithGroups(
+            'or',
+            {
+                id: 'group-1',
+                logic: 'and',
+                rules: [
+                    rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+                    rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+                ]
+            },
+            {
+                id: 'group-2',
+                logic: 'and',
+                rules: [rule('second-status-rule', 'status', 'is', { kind: 'scalar', value: 'error' })]
+            }
+        )));
+        element.style.width = '668px';
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+
+        const editorField = getRequiredElement<HTMLElement>('.editor-field');
+        const lastChip = element.shadowRoot?.querySelectorAll<HTMLElement>('.condition-chip').item(2);
+        const wrappedSlot = getRequiredElement<HTMLElement>('[data-action="set-caret"][data-position="4"]');
+        if (!lastChip) {
+            throw new Error('Expected a final condition chip');
+        }
+        const chipRect = lastChip.getBoundingClientRect();
+        const slotRect = wrappedSlot.getBoundingClientRect();
+        expect(slotRect.top).toBeLessThan(chipRect.top);
+        expect(slotRect.left).toBeGreaterThan(chipRect.right);
+
+        wrappedSlot.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: slotRect.left + slotRect.width / 2,
+            clientY: slotRect.top + slotRect.height / 2
+        }));
+        await waitForUpdatesAsync();
+
+        expect(element.caretPosition).toBe(4);
+
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+        const fieldRect = editorField.getBoundingClientRect();
+        const lastChipRect = lastChip.getBoundingClientRect();
+        editorField.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: fieldRect.right - 8,
+            clientY: lastChipRect.top + lastChipRect.height / 2
+        }));
+        await waitForUpdatesAsync();
+
+        expect(element.caretPosition).toBe(Number(lastChip.dataset.tokenIndex) + 1);
+    });
+
+    it('autocompletes a field and opens the new condition editor', async () => {
+        ({ element, disconnect } = await setup());
+        const input = getRequiredElement<ValueControl>('.query-input');
+        input.value = 'stat';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelector('.suggestion')?.textContent).toContain('Status');
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.ruleCount).toBe(1);
+        expect(queryView(element).groups[0]?.rules[0]?.fieldId).toBe('status');
+        expect(element.activeRuleId).toBe(queryView(element).groups[0]?.rules[0]?.id ?? null);
+        expect(element.shadowRoot?.querySelector('[role="dialog"]')).not.toBeNull();
+    });
+
+    it('shows the AND chip preview whenever the caret moves to the query end', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+
+        const expectLogicChipPreview = (): void => {
+            expect(element.shadowRoot?.querySelectorAll('.logic-chip-preview').length).toBe(1);
+            const preview = getRequiredElement<HTMLElement>('.logic-chip-preview');
+            expect(preview.dataset.logic).toBe('and');
+            const button = preview.shadowRoot?.querySelector('button');
+            expect(button && getComputedStyle(button).borderStyle).toBe('dashed');
+            expect(getRequiredElement<HTMLElement>('.suggestions').hidden).toBeTrue();
+        };
+        expect(element.caretPosition).toBe(element.editorTokens.length);
+        expectLogicChipPreview();
+
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelector('.logic-chip-preview')).toBeNull();
+
+        const input = getRequiredElement<ValueControl>('.query-input').shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!input) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+        input.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'ArrowRight',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        expect(element.caretPosition).toBe(element.editorTokens.length);
+        expectLogicChipPreview();
+
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-action="set-caret"][data-position="1"]').click();
+        await waitForUpdatesAsync();
+        expect(element.caretPosition).toBe(element.editorTokens.length);
+        expectLogicChipPreview();
+    });
+
+    it('shows AND in the autocomplete list and inserts it only when selected', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+
+        const input = getRequiredElement<ValueControl>('.query-input');
+        input.value = 'a';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const menu = getRequiredElement<HTMLElement>('.suggestions');
+        expect(menu.hidden).toBeFalse();
+        expect(Array.from(menu.querySelectorAll('.suggestion-label'))
+            .map(suggestion => suggestion.textContent?.trim())).toEqual(['AND']);
+        expect(element.shadowRoot?.querySelector('.logic-chip-preview')).toBeNull();
+        expect(element.shadowRoot?.querySelector('.logic-chip')).toBeNull();
+
+        const nativeInput = input.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+        const selectSuggestion = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(selectSuggestion);
+        await waitForUpdatesAsync();
+
+        expect(selectSuggestion.defaultPrevented).toBeTrue();
+        expect(element.queryInputText).toBe('');
+        expect(element.shadowRoot?.querySelectorAll('.logic-chip').length).toBe(1);
+        expect(getRequiredElement<HTMLElement>('.logic-chip').dataset.logic).toBe('and');
+        expect(element.shadowRoot?.querySelector('.logic-chip')?.textContent?.trim()).toBe('AND');
+        expect(getRequiredElement<HTMLElement>('.logic-chip').getBoundingClientRect().height).toBe(24);
+    });
+
+    it('inserts AND when the end logic-chip preview is clicked', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+
+        getRequiredElement<HTMLElement>('.logic-chip-preview').click();
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelectorAll('.logic-chip').length).toBe(1);
+        expect(getRequiredElement<HTMLElement>('.logic-chip').dataset.logic).toBe('and');
+    });
+
+    it('previews the existing query-level logic operator at the end', async () => {
+        const initialQuery = queryWithLogic(
+            'or',
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        );
+        ({ element, disconnect } = await setup(initialQuery));
+
+        const preview = getRequiredElement<HTMLElement>('.logic-chip-preview');
+        expect(preview.dataset.logic).toBe('or');
+        expect(preview.textContent?.trim()).toBe('OR');
+
+        preview.click();
+        await waitForUpdatesAsync();
+
+        expect(queryView(element).logic).toBe('or');
+        expect(Array.from(element.shadowRoot?.querySelectorAll<HTMLElement>('.logic-chip') ?? [])
+            .every(chip => chip.dataset.logic === 'or')).toBeTrue();
+    });
+
+    it('previews the most recent logic operator at the same level', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('first-status', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('middle-duration', 'duration', 'greater-than', { kind: 'scalar', value: 500 }),
+            rule('last-started', 'started-at', 'before', { kind: 'scalar', value: '2026-10-22' })
+        )));
+        let logicIndex = 0;
+        const mixedDraft = element.draft.tokens.map(token => {
+            if (token.kind !== 'logic') {
+                return token;
+            }
+            const logic = logicIndex === 0 ? 'and' as const : 'or' as const;
+            logicIndex += 1;
+            return { ...token, logic };
+        });
+        element.draft = { ...element.draft, tokens: mixedDraft };
+        await waitForUpdatesAsync();
+
+        expect(getRequiredElement<HTMLElement>('.logic-chip-preview').dataset.logic).toBe('or');
+    });
+
+    it('places the insertion cursor after the last logic chip when that area is clicked', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+
+        getRequiredElement<HTMLElement>('.logic-chip-preview').click();
+        await waitForUpdatesAsync();
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+
+        const lastLogicChip = getRequiredElement<HTMLElement>('.logic-chip');
+        const chipRect = lastLogicChip.getBoundingClientRect();
+        getRequiredElement<HTMLElement>('.editor-field').dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            composed: true,
+            clientX: chipRect.right + 2,
+            clientY: chipRect.top + chipRect.height / 2
+        }));
+        await waitForUpdatesAsync();
+
+        expect(element.caretPosition).toBe(element.editorTokens.length);
+        expect(element.shadowRoot?.activeElement).toBe(getRequiredElement<ValueControl>('.query-input'));
+    });
+
+    it('shows OR in the autocomplete list and replaces the existing separator on selection', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        getRequiredElement<HTMLElement>('[data-action="set-caret"][data-position="1"]').click();
+        await waitForUpdatesAsync();
+
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        queryInput.value = 'o';
+        queryInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const menu = getRequiredElement<HTMLElement>('.suggestions');
+        expect(menu.hidden).toBeFalse();
+        expect(Array.from(menu.querySelectorAll('.suggestion-label'))
+            .map(suggestion => suggestion.textContent?.trim())).toEqual(['OR']);
+        expect(element.shadowRoot?.querySelector('.logic-chip-preview')).toBeNull();
+        expect(element.shadowRoot?.querySelectorAll('.logic-chip').length).toBe(1);
+        expect(getRequiredElement<HTMLElement>('.logic-chip').dataset.logic).toBe('and');
+
+        getRequiredElement<HTMLElement>('.suggestion').click();
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelectorAll('.logic-chip').length).toBe(1);
+        expect(getRequiredElement<HTMLElement>('.logic-chip').dataset.logic).toBe('or');
+        expect(getRequiredElement<HTMLElement>('.logic-chip').textContent?.trim()).toBe('OR');
+        expect(element.queryInputText).toBe('');
+    });
+
+    it('supports a parenthesized group and exposes unmatched grouping as invalid', async () => {
+        ({ element, disconnect } = await setup());
+        let input = getRequiredElement<ValueControl>('.query-input');
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: '(', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeFalse();
+        expect(element.structureError).not.toBe('');
+
+        input = getRequiredElement<ValueControl>('.query-input');
+        input.value = 'duration';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+
+        input = getRequiredElement<ValueControl>('.query-input');
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: ')', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.structureError).toBe('');
+        expect(queryView(element).groups).toHaveSize(1);
+        expect(queryView(element).groups[0]?.rules[0]?.fieldId).toBe('duration');
+        expect(element.valid).toBeFalse();
+    });
+
+    it('allows typing a closing parenthesis before its opening parenthesis', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        element.caretPosition = element.editorTokens.length;
+        await waitForUpdatesAsync();
+
+        let input = getRequiredElement<ValueControl>('.query-input');
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: ')', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeFalse();
+        expect(element.shadowRoot?.querySelector('.group-parenthesis')?.textContent).toBe(')');
+
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+        input = getRequiredElement<ValueControl>('.query-input');
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: '(', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.structureError).toBe('');
+        expect(element.valid).toBeTrue();
+        expect(queryView(element).groups[0]?.rules[0]?.fieldId).toBe('status');
+    });
+
+    it('emits and restores the exact draft for an unfinished expression', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        const initialQuery = element.query;
+        let detail: QueryEditorEventDetail | undefined;
+        element.addEventListener('query-change', event => {
+            detail = (event as CustomEvent<QueryEditorEventDetail>).detail;
+        }, { once: true });
+
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+        const input = getRequiredElement<ValueControl>('.query-input')
+            .shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!input) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+        input.dispatchEvent(new KeyboardEvent('keydown', {
+            key: '(',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        }));
+        await waitForUpdatesAsync();
+
+        expect(detail?.valid).toBeFalse();
+        expect(detail?.query).toBeNull();
+        expect(detail?.draft.tokens.map(token => token.kind)).toEqual(['open', 'condition']);
+        expect(detail?.ruleCount).toBe(1);
+
+        element.draft = detail!.draft;
+        await waitForUpdatesAsync();
+        expect(element.draft.tokens.map(token => token.kind)).toEqual(['open', 'condition']);
+        expect(element.query).toEqual(initialQuery);
+    });
+
+    it('inserts a condition before a group close without adding a trailing operator', async () => {
+        const initialQuery = queryWithGroups('and', {
+            id: 'grouped-rules',
+            logic: 'and',
+            rules: [
+                rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+                rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+            ]
+        });
+        ({ element, disconnect } = await setup(initialQuery));
+        element.caretPosition = element.editorTokens.length - 1;
+        await waitForUpdatesAsync();
+        element.addFilter();
+        await waitForUpdatesAsync();
+
+        expect(element.structureError).toBe('');
+        expect(queryView(element).groups[0]?.rules).toHaveSize(3);
+        expect(element.editorTokens[element.editorTokens.length - 1]?.kind).toBe('close');
+    });
+
+    it('rejects duplicate rule identifiers', async () => {
+        const duplicate = rule('duplicate-rule', 'status', 'is', { kind: 'scalar', value: 'failed' });
+        ({ element, disconnect } = await setup(query(duplicate, duplicate)));
+
+        expect(element.valid).toBeFalse();
+        expect(element.issues.some(issue => issue.code === 'duplicate-id')).toBeTrue();
+        expect(element.shadowRoot?.querySelector('[data-rule-id="duplicate-rule"]')).toBeNull();
+    });
+
+    it('shows error styling only when invalid condition callouts are closed', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('missing-value-rule', 'status', 'is', { kind: 'none' }),
+            rule('invalid-value-rule', 'status', 'is', { kind: 'scalar', value: 'unknown' }),
+            rule('complete-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+
+        const completeButton = getRequiredElement<HTMLElement>('[data-rule-id="complete-rule"]')
+            .shadowRoot?.querySelector<HTMLButtonElement>('.expandable-chip');
+        if (!completeButton) {
+            throw new Error('Expected a complete condition chip to contain its button');
+        }
+        const completeBackground = getComputedStyle(completeButton).backgroundColor;
+
+        for (const [id, state] of [
+            ['missing-value-rule', 'incomplete'],
+            ['invalid-value-rule', 'invalid']
+        ] as const) {
+            const chip = getRequiredElement<HTMLElement>(`[data-rule-id="${id}"]`);
+            expect(chip.getAttribute('data-state')).toBe(state);
+
+            const button = chip.shadowRoot?.querySelector<HTMLButtonElement>('.expandable-chip');
+            if (!button) {
+                throw new Error('Expected an incomplete condition chip to contain its button');
+            }
+            const styles = getComputedStyle(button);
+            const channels = styles.color.match(/\d+/g)?.map(Number);
+            if (!channels || channels.length < 3) {
+                throw new Error('Expected the invalid condition-chip color to use RGB');
+            }
+            const red = channels[0] ?? 0;
+            const green = channels[1] ?? 0;
+            const blue = channels[2] ?? 0;
+            expect(red).toBeGreaterThan(green);
+            expect(red).toBeGreaterThan(blue);
+            expect(styles.borderColor).toBe(styles.color);
+            expect(styles.backgroundColor).not.toBe(completeBackground);
+        }
+
+        const incompleteChip = getRequiredElement<HTMLElement>('[data-rule-id="missing-value-rule"]');
+        const incompleteButton = incompleteChip.shadowRoot?.querySelector<HTMLButtonElement>('.expandable-chip');
+        if (!incompleteButton) {
+            throw new Error('Expected the incomplete condition chip to contain its button');
+        }
+        const errorColor = getComputedStyle(incompleteButton).color;
+        incompleteButton.click();
+        await waitForUpdatesAsync();
+
+        expect(element.activeRuleId).toBe('missing-value-rule');
+        expect(incompleteChip.hasAttribute('expanded')).toBeTrue();
+        expect(getComputedStyle(incompleteButton).color).toBe(getComputedStyle(completeButton).color);
+        expect(getComputedStyle(incompleteButton).backgroundColor).toBe(completeBackground);
+
+        getRequiredElement<HTMLElement>('.add-filter-button').focus();
+        await waitForUpdatesAsync();
+
+        expect(element.activeRuleId).toBeNull();
+        expect(incompleteChip.hasAttribute('expanded')).toBeFalse();
+        expect(getComputedStyle(incompleteButton).color).toBe(errorColor);
+    });
+
+    it('lets an open child select handle Escape before dismissing the rule editor', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]').click();
+        await waitForUpdatesAsync();
+        const operatorSelect = getRequiredElement<HTMLElement & { open: boolean }>('[data-control="operator"]');
+        operatorSelect.open = true;
+
+        const escape = new KeyboardEvent('keydown', {
+            key: 'Escape',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        operatorSelect.dispatchEvent(escape);
+        await waitForUpdatesAsync();
+
+        expect(escape.defaultPrevented).toBeTrue();
+        expect(operatorSelect.open).toBeFalse();
+        expect(element.activeRuleId).toBe('status-rule');
+    });
+
+    it('supports multiple independent parenthesized groups with separate group logic', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('first-status', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('first-duration', 'duration', 'greater-than', { kind: 'scalar', value: 500 }),
+            rule('second-started', 'started-at', 'before', { kind: 'scalar', value: '2026-10-22' }),
+            rule('second-status', 'status', 'is', { kind: 'scalar', value: 'error' })
+        )));
+
+        const enterParenthesis = async (key: '(' | ')', position: number): Promise<void> => {
+            element.caretPosition = position;
+            await waitForUpdatesAsync();
+            const input = getRequiredElement<ValueControl>('.query-input');
+            input.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+            await waitForUpdatesAsync();
+        };
+
+        await enterParenthesis('(', 0);
+        await enterParenthesis(')', 4);
+        await enterParenthesis('(', 6);
+        await enterParenthesis(')', 10);
+
+        expect(queryView(element).groups).toHaveSize(2);
+        expect(queryView(element).groups.map(group => group.rules.map(condition => condition.id))).toEqual([
+            ['first-status', 'first-duration'],
+            ['second-started', 'second-status']
+        ]);
+        expect(queryView(element).logic).toBe('and');
+        expect(queryView(element).groups[0]?.logic).toBe('and');
+        expect(queryView(element).groups[1]?.logic).toBe('and');
+
+        getRequiredElement<HTMLElement>('[data-action="toggle-logic"][data-token-index="2"]').click();
+        await waitForUpdatesAsync();
+
+        expect(queryView(element).groups[0]?.logic).toBe('or');
+        expect(queryView(element).groups[1]?.logic).toBe('and');
+        expect(queryView(element).logic).toBe('and');
+    });
+
+    it('renders compact block conditions and deletes the focused condition', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: ['failed', 'error'] })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+        expect(chip.textContent).toContain('Status Is any of Failed, Error');
+        expect(chip.getAttribute('data-state')).toBe('complete');
+        expect(chip.querySelector('.condition-operator')?.textContent).toBe('Is any of');
+        expect(getComputedStyle(getRequiredElement<HTMLElement>('.condition-operator')).fontWeight).toBe('700');
+
+        const button = chip.shadowRoot?.querySelector<HTMLButtonElement>('button');
+        expect(button?.getBoundingClientRect().height).toBe(24);
+        button?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Delete', bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.ruleCount).toBe(0);
+        expect(queryView(element).groups).toHaveSize(0);
+    });
+
+    it('includes and bolds the operator in every condition summary', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-is', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('status-is-any-of', 'status', 'is-any-of', { kind: 'collection', values: ['failed', 'error'] }),
+            rule('duration-greater-than', 'duration', 'greater-than', { kind: 'scalar', value: 500 }),
+            rule('duration-between', 'duration', 'between', { kind: 'range', start: 100, end: 500 }),
+            rule('started-before', 'started-at', 'before', { kind: 'scalar', value: '2026-10-22' })
+        )));
+
+        const summaries = [
+            { id: 'status-is', text: 'Status Is Failed', operator: 'Is' },
+            { id: 'status-is-any-of', text: 'Status Is any of Failed, Error', operator: 'Is any of' },
+            { id: 'duration-greater-than', text: 'Duration Greater than 500', operator: 'Greater than' },
+            { id: 'duration-between', text: 'Duration Between 100 - 500', operator: 'Between' },
+            { id: 'started-before', text: 'Started at Before 2026-10-22', operator: 'Before' }
+        ];
+        for (const summary of summaries) {
+            const chip = getRequiredElement<HTMLElement>(`[data-rule-id="${summary.id}"]`);
+            const operator = chip.querySelector<HTMLElement>('.condition-operator');
+            if (!operator) {
+                throw new Error(`Expected an operator in condition chip ${summary.id}`);
+            }
+            expect(chip.textContent).toContain(summary.text);
+            expect(operator.textContent).toBe(summary.operator);
+            expect(getComputedStyle(operator).fontWeight).toBe('700');
+            expect(chip.getAttribute('accessible-label')).toContain(summary.text);
+        }
+    });
+
+    it('deletes only the condition chip and preserves adjacent logic for a separate deletion', async () => {
+        const groupedQuery = queryWithGroups('and', {
+            id: 'grouped-rules',
+            logic: 'and',
+            rules: [
+                rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+                rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+            ]
+        });
+        ({ element, disconnect } = await setup(groupedQuery));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]');
+        chip.shadowRoot?.querySelector<HTMLButtonElement>('button')?.dispatchEvent(
+            new KeyboardEvent('keydown', { key: 'Delete', bubbles: true, composed: true })
+        );
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeFalse();
+        expect(element.ruleCount).toBe(1);
+        expect(element.editorTokens.map(token => token.kind)).toEqual(['open', 'condition', 'logic', 'close']);
+        expect(element.shadowRoot?.querySelector('[data-rule-id="duration-rule"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-rule-id="status-rule"]')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('.logic-chip')).not.toBeNull();
+
+        const nativeInput = getRequiredElement<ValueControl>('.query-input')
+            .shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+        nativeInput.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Backspace',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        }));
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeTrue();
+        expect(element.editorTokens.map(token => token.kind)).toEqual(['open', 'condition', 'close']);
+        expect(queryView(element).groups[0]?.rules.map(condition => condition.id)).toEqual(['status-rule']);
+    });
+
+    it('opens and closes a condition popover with focus returned to its chip', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await waitForCalloutAlignment(element.shadowRoot!, chip);
+
+        expect(element.activeRuleId).toBe('duration-rule');
+        expect(getRequiredElement<HTMLElement>('[data-control="field"]').tagName.toLowerCase()).toBe('nimble-select');
+        expect(getRequiredElement<HTMLElement>('[data-control="operator"]').tagName.toLowerCase()).toBe('nimble-select');
+        const editorPanel = getRequiredElement<HTMLElement>('.editor-panel');
+        const fieldControl = getRequiredElement<HTMLElement>('[data-control="field"]');
+        const operatorControl = getRequiredElement<HTMLElement>('[data-control="operator"]');
+        const valueControl = getRequiredElement<ValueControl>('[data-control="scalar-number"]');
+        await waitForFieldFocus(element.shadowRoot!, fieldControl);
+        expect(element.shadowRoot?.activeElement).toBe(fieldControl);
+        expect(valueControl.value).toBe('500');
+        expect(valueControl.tagName.toLowerCase()).toBe('nimble-number-field');
+        expect(editorPanel.querySelector('label.control-label')).toBeNull();
+        expect(fieldControl.textContent?.trim().startsWith(element.labels.field)).toBeTrue();
+        expect(operatorControl.textContent?.trim().startsWith(element.labels.operator)).toBeTrue();
+        expect(valueControl.textContent?.trim()).toBe(element.labels.value);
+
+        const escape = new KeyboardEvent('keydown', {
+            key: 'Escape',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        valueControl.dispatchEvent(escape);
+        await waitForUpdatesAsync();
+        expect(escape.defaultPrevented).toBeTrue();
+        expect(element.activeRuleId).toBeNull();
+        expect(element.shadowRoot?.activeElement?.tagName.toLowerCase()).toBe('ok-fv-expandable-chip');
+    });
+
+    it('uses the chip selector for multiselect values while retaining option values', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: ['failed'] })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await waitForCalloutAlignment(element.shadowRoot!, chip);
+
+        const selector = getRequiredElement<HTMLElement & {
+            optionItems: readonly { value: string, label: string }[],
+            selectedOptionValues: readonly unknown[]
+        }>('[data-control="collection-selector"]');
+        expect(selector.tagName.toLowerCase()).toBe('ok-fv-chip-selector');
+        expect(selector.optionItems.map(option => option.label)).toEqual(['Failed', 'Passed', 'Error']);
+        expect(selector.selectedOptionValues).toEqual(['failed']);
+
+        selector.dispatchEvent(new CustomEvent('change', {
+            bubbles: true,
+            composed: true,
+            detail: { selectedOptionValues: ['error'] }
+        }));
+        await waitForUpdatesAsync();
+
+        expect(queryView(element).groups[0]?.rules[0]?.operand).toEqual({ kind: 'collection', values: ['error'] });
+    });
+
+    it('closes an open collection selector when the rule editor is dismissed', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: ['failed'] })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const selector = getRequiredElement<HTMLElement & { open: boolean }>('[data-control="collection-selector"]');
+        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input');
+        if (!input) {
+            throw new Error('Expected the collection selector to contain an input');
+        }
+        selector.open = true;
+        await waitForUpdatesAsync();
+        expect(selector.open).toBeTrue();
+
+        const tabFromSelector = new KeyboardEvent('keydown', {
+            key: 'Tab',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        input.dispatchEvent(tabFromSelector);
+        await waitForUpdatesAsync();
+        expect(tabFromSelector.defaultPrevented).toBeTrue();
+        expect(element.activeRuleId).toBeNull();
+
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        const reopenedSelector = getRequiredElement<HTMLElement & { open: boolean }>(
+            '[data-control="collection-selector"]'
+        );
+        expect(reopenedSelector.open).toBeFalse();
+    });
+
+    it('aligns the editor panel with the left edge of its condition chip', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await waitForCalloutAlignment(element.shadowRoot!, chip);
+
+        const chipRect = chip.getBoundingClientRect();
+        const panel = getRequiredElement<HTMLElement>('.editor-panel');
+        const panelContainer = getRequiredElement<HTMLElement>('.editor-panel-container');
+        const panelRect = panel.getBoundingClientRect();
+        const arrowRect = getRequiredElement<HTMLElement>('.editor-panel-arrow').getBoundingClientRect();
+        const panelStyles = getComputedStyle(panel);
+        const arrowStyles = getComputedStyle(getRequiredElement<HTMLElement>('.editor-panel-arrow'));
+
+        expect(element.editorRegion?.horizontalDefaultPosition).toBe('right');
+        expect(element.editorRegion?.horizontalInset).toBeTrue();
+        expect(element.editorRegion?.horizontalPositioningMode).toBe('locktodefault');
+        expect(panelRect.left).toBeCloseTo(chipRect.left, 1);
+        expect(arrowRect.left + arrowRect.width / 2).toBeCloseTo(chipRect.left + chipRect.width / 2, 1);
+        expect(arrowRect.width).toBe(30);
+        expect(arrowRect.height).toBe(15);
+        expect(arrowRect.top).toBeCloseTo(chipRect.bottom, 1);
+        expect(arrowRect.bottom).toBeCloseTo(panelRect.top, 1);
+        expect(panelStyles.borderTopStyle).toBe('solid');
+        expect(panelStyles.borderRadius).toBe('0px');
+        expect(panelStyles.boxShadow).not.toBe('none');
+        expect(arrowStyles.zIndex).toBe(panelStyles.zIndex);
+        expect(panelStyles.borderTopColor).toBe('rgba(0, 0, 0, 0)');
+        expect(panelStyles.backgroundImage).not.toBe('none');
+        expect(getComputedStyle(panelContainer, '::before').content).toBe('none');
+    });
+
+    it('keeps the scrollable editor panel out of a stacking context for value dropdowns', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await waitForCalloutAlignment(element.shadowRoot!, chip);
+
+        const panel = getRequiredElement<HTMLElement>('.editor-panel');
+        const valueSelect = getRequiredElement<HTMLElement & { open: boolean }>('[data-control="scalar-select"]');
+        valueSelect.open = true;
+        await waitForUpdatesAsync();
+
+        const anchoredRegion = valueSelect.shadowRoot?.querySelector<HTMLElement>('.anchored-region');
+        if (!anchoredRegion) {
+            throw new Error('Expected the value select to contain an anchored region');
+        }
+
+        expect(valueSelect.open).toBeTrue();
+        expect(getComputedStyle(panel).backgroundImage).not.toBe('none');
+        expect(getComputedStyle(panel).overflow).toBe('auto');
+        expect(getComputedStyle(panel).zIndex).toBe('auto');
+        expect(Number.parseInt(getComputedStyle(anchoredRegion).zIndex, 10))
+            .toBeGreaterThan(0);
+
+        valueSelect.open = false;
+        await waitForUpdatesAsync();
+    });
+
+    it('opens the value list above its control when the callout is near the viewport bottom', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        element.style.position = 'fixed';
+        element.style.left = '16px';
+        element.style.top = `${Math.max(0, window.innerHeight - 300)}px`;
+        element.style.width = '600px';
+
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await waitForCalloutAlignment(element.shadowRoot!, chip);
+
+        const valueSelect = getRequiredElement<HTMLElement & { open: boolean, position: string }>(
+            '[data-control="scalar-select"]'
+        );
+        valueSelect.open = true;
+        await waitForUpdatesAsync();
+        await waitForUpdatesAsync();
+
+        const listbox = valueSelect.shadowRoot?.querySelector<HTMLElement>('[part="listbox"]');
+        const anchoredRegion = valueSelect.shadowRoot?.querySelector<HTMLElement & {
+            verticalDefaultPosition: string,
+            verticalPositioningMode: string
+        }>('.anchored-region');
+        if (!listbox || !anchoredRegion) {
+            throw new Error('Expected the value select to render an anchored listbox');
+        }
+        await new Promise<void>(resolve => {
+            requestAnimationFrame(() => resolve());
+        });
+        await new Promise<void>(resolve => {
+            requestAnimationFrame(() => resolve());
+        });
+        const selectRect = valueSelect.getBoundingClientRect();
+        const listboxRect = listbox.getBoundingClientRect();
+        const regionRect = anchoredRegion.getBoundingClientRect();
+        expect(valueSelect.position).toBe('above');
+        expect(anchoredRegion.verticalDefaultPosition).toBe('top');
+        expect(anchoredRegion.verticalPositioningMode).toBe('locktodefault');
+        expect(regionRect.bottom).toBeLessThanOrEqual(selectRect.bottom + 1);
+        expect(listboxRect.top).toBeLessThan(selectRect.top);
+        expect(listboxRect.bottom).toBeLessThanOrEqual(selectRect.bottom + 1);
+    });
+
+    it('points the editor callout at each condition chip as it is opened', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        const openRuleAndMeasure = async (ruleId: string): Promise<{
+            activeRuleId: string | null,
+            pointerError: number | null
+        }> => {
+            const chip = getRequiredElement<HTMLElement>(`[data-rule-id="${ruleId}"]`);
+            const trigger = chip.shadowRoot?.querySelector<HTMLButtonElement>('button');
+            if (!trigger) {
+                throw new Error(`Expected the ${ruleId} condition chip to expose its button`);
+            }
+            trigger.click();
+            await waitForUpdatesAsync();
+            await waitForCalloutAlignment(element.shadowRoot!, chip);
+
+            const chipRect = chip.getBoundingClientRect();
+            const arrow = element.shadowRoot?.querySelector<HTMLElement>('.editor-panel-arrow');
+            const arrowRect = arrow?.getBoundingClientRect();
+            return {
+                activeRuleId: element.activeRuleId,
+                pointerError: arrowRect
+                    ? arrowRect.left + arrowRect.width / 2 - chipRect.left - chipRect.width / 2
+                    : null
+            };
+        };
+        const outcomes = [
+            await openRuleAndMeasure('status-rule'),
+            await openRuleAndMeasure('duration-rule')
+        ];
+
+        expect(outcomes.map(outcome => outcome.activeRuleId)).toEqual(['status-rule', 'duration-rule']);
+        expect(outcomes.every(outcome => outcome.pointerError !== null && Math.abs(outcome.pointerError) <= 1)).toBeTrue();
+    });
+
+    it('keeps the callout pointer on the chip when the panel shifts to fit the viewport', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        const viewportWidth = document.documentElement.clientWidth;
+        element.style.position = 'fixed';
+        element.style.left = `${viewportWidth - 480}px`;
+        element.style.top = '0';
+        element.style.width = '480px';
+
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]');
+        const trigger = chip.shadowRoot?.querySelector<HTMLButtonElement>('button');
+        if (!trigger) {
+            throw new Error('Expected the duration condition chip to expose its edit button');
+        }
+        trigger.click();
+        await waitForUpdatesAsync();
+        await waitForCalloutAlignment(element.shadowRoot!, chip);
+
+        const chipRect = chip.getBoundingClientRect();
+        const panelRect = getRequiredElement<HTMLElement>('.editor-panel').getBoundingClientRect();
+        const arrowRect = getRequiredElement<HTMLElement>('.editor-panel-arrow').getBoundingClientRect();
+        expect(panelRect.left).toBeCloseTo(chipRect.left, 1);
+        expect(arrowRect.left + arrowRect.width / 2).toBeCloseTo(chipRect.left + chipRect.width / 2, 1);
+        expect(panelRect.left).toBeGreaterThanOrEqual(0);
+        expect(panelRect.right).toBeLessThanOrEqual(viewportWidth);
+    });
+
+    it('keeps the condition editor open between controls and closes it when focus leaves', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const editorPanel = getRequiredElement<HTMLElement>('.editor-panel');
+        const fieldControl = getRequiredElement<HTMLElement>('[data-control="field"]');
+        const operatorControl = getRequiredElement<HTMLElement>('[data-control="operator"]');
+        expect(editorPanel.querySelector('[data-action="done"]')).toBeNull();
+
+        operatorControl.focus();
+        await waitForUpdatesAsync();
+        expect(element.activeRuleId).toBe('duration-rule');
+
+        fieldControl.focus();
+        await waitForUpdatesAsync();
+        expect(element.activeRuleId).toBe('duration-rule');
+
+        const addFilterButton = getRequiredElement<HTMLElement>('.add-filter-button');
+        addFilterButton.focus();
+        await waitForUpdatesAsync();
+
+        expect(element.activeRuleId).toBeNull();
+        expect(element.shadowRoot?.querySelector('.editor-panel')).toBeNull();
+    });
+
+    it('offers an AND chip preview after tabbing past the condition editor', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const fieldControl = getRequiredElement<HTMLElement>('[data-control="field"]');
+        const operatorControl = getRequiredElement<HTMLElement>('[data-control="operator"]');
+        const valueControl = getRequiredElement<HTMLElement>('[data-control="scalar-select"]');
+        const pressTab = (control: HTMLElement): KeyboardEvent => {
+            const event = new KeyboardEvent('keydown', {
+                key: 'Tab',
+                bubbles: true,
+                composed: true,
+                cancelable: true
+            });
+            control.dispatchEvent(event);
+            return event;
+        };
+
+        fieldControl.focus();
+        expect(pressTab(fieldControl).defaultPrevented).toBeFalse();
+        operatorControl.focus();
+        expect(pressTab(operatorControl).defaultPrevented).toBeFalse();
+        valueControl.focus();
+        const tabFromValue = pressTab(valueControl);
+        await waitForUpdatesAsync();
+
+        expect(tabFromValue.defaultPrevented).toBeTrue();
+        expect(element.activeRuleId).toBeNull();
+        expect(element.caretPosition).toBe(element.editorTokens.length);
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        expect(element.shadowRoot?.activeElement).toBe(queryInput);
+
+        const preview = getRequiredElement<HTMLElement>('.logic-chip-preview');
+        expect(preview.dataset.logic).toBe('and');
+        expect(getRequiredElement<HTMLElement>('.suggestions').hidden).toBeTrue();
+
+        const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the Nimble text field to contain an input');
+        }
+        const selectSuggestion = new KeyboardEvent('keydown', {
+            key: 'Tab',
+            bubbles: true,
+            composed: true,
+            cancelable: true
+        });
+        nativeInput.dispatchEvent(selectSuggestion);
+        await waitForUpdatesAsync();
+
+        expect(selectSuggestion.defaultPrevented).toBeTrue();
+        expect(element.shadowRoot?.querySelectorAll('.logic-chip').length).toBe(1);
+        expect(getRequiredElement<HTMLElement>('.logic-chip').dataset.logic).toBe('and');
+    });
+
+    it('round-trips recursive portable queries and indents nested formatted groups', async () => {
+        const initialQuery: QueryDocument = {
+            version: 1,
+            root: {
+                kind: 'group',
+                combinator: 'or',
+                children: [
+                    {
+                        kind: 'group',
+                        combinator: 'and',
+                        children: [
+                            { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value: 500 },
+                            {
+                                kind: 'group',
+                                combinator: 'or',
+                                children: [
+                                    { kind: 'predicate', fieldId: 'status', operatorId: 'in', value: ['failed'] },
+                                    { kind: 'predicate', fieldId: 'date', operatorId: 'eq', value: '2025-01-01' }
+                                ]
+                            }
+                        ]
+                    },
+                    { kind: 'predicate', fieldId: 'workspace', operatorId: 'eq', value: 'production' }
+                ]
+            }
+        };
+        ({ element, disconnect } = await setupPortable(initialQuery));
+        const initialDraft = JSON.parse(JSON.stringify(element.draft)) as QueryEditorDraft;
+        const logicTokens = initialDraft.tokens.filter(token => token.kind === 'logic');
+        const queryChange = jasmine.createSpy('layout-query-change');
+        element.addEventListener('query-change', queryChange);
+
+        expect(element.valid).toBeTrue();
+        expect(element.query).toEqual(initialQuery);
+        expect(element.draft.tokens.filter(token => token.kind === 'open').length).toBe(2);
+        expect(element.draft.tokens.filter(token => token.kind === 'close').length).toBe(2);
+        expect(logicTokens.length).toBeGreaterThan(0);
+        expect(logicTokens.every(token => Object.keys(token).sort().join(',') === 'kind,logic')).toBeTrue();
+
+        element.layout = 'formatted';
+        await waitForUpdatesAsync();
+        const groupedConditions = element.parts.filter(part => part.kind === 'condition' && part.indented);
+        expect(groupedConditions.length).toBe(3);
+        expect(groupedConditions.every(part => part.layoutRow > 0)).toBeTrue();
+        expect(element.query).toEqual(initialQuery);
+        expect(element.draft).toEqual(initialDraft);
+
+        element.layout = 'inline';
+        await waitForUpdatesAsync();
+        expect(element.query).toEqual(initialQuery);
+        expect(element.draft).toEqual(initialDraft);
+        expect(queryChange).not.toHaveBeenCalled();
+    });
+
+    it('emits incomplete portable query snapshots and restores invalid scalar text from drafts', async () => {
+        ({ element, disconnect } = await setupPortable({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'date', operatorId: 'eq', value: '2025-01-01' }
+        }));
+        const queryChanges: QueryEditorEventDetail[] = [];
+        element.addEventListener('query-change', event => {
+            queryChanges.push((event as CustomEvent<QueryEditorEventDetail>).detail);
+        });
+
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        const dateInput = getRequiredElement<ValueControl>('[data-control="scalar-text"]');
+        dateInput.value = 'not-a-date';
+        dateInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const invalidDraft = JSON.parse(JSON.stringify(element.draft)) as QueryEditorDraft;
+        const conditionToken = invalidDraft.tokens.find(token => token.kind === 'condition');
+        expect(conditionToken?.kind).toBe('condition');
+        if (conditionToken?.kind !== 'condition') {
+            throw new Error('Expected the date condition to remain in the draft.');
+        }
+        const rawValuePath = '/value';
+        expect(conditionToken.rawInputs).toEqual({ [rawValuePath]: 'not-a-date' });
+        expect(queryChanges[queryChanges.length - 1]?.query).toBeNull();
+        expect(queryChanges[queryChanges.length - 1]?.valid).toBeFalse();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate',
+            fieldId: 'date',
+            operatorId: 'eq',
+            value: '2025-01-01'
+        }));
+
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'date', operatorId: 'eq', value: '2026-03-04' }
+        };
+        await waitForUpdatesAsync();
+        element.draft = invalidDraft;
+        await waitForUpdatesAsync();
+
+        getRequiredElement<HTMLElement>('[data-rule-id]').dispatchEvent(
+            new MouseEvent('click', { bubbles: true, composed: true })
+        );
+        await waitForUpdatesAsync();
+        const restoredInput = getRequiredElement<ValueControl>('[data-control="scalar-text"]');
+        expect(restoredInput.value).toBe('not-a-date');
+        expect(element.draft.tokens).toEqual(invalidDraft.tokens);
+        expect(element.valid).toBeFalse();
+    });
+
+    it('updates the portable draft and emits null query while query text is incomplete', async () => {
+        ({ element, disconnect } = await setupPortable());
+        const queryChanges: QueryEditorEventDetail[] = [];
+        element.addEventListener('query-change', event => {
+            queryChanges.push((event as CustomEvent<QueryEditorEventDetail>).detail);
+        });
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        queryInput.value = 'stat';
+        queryInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.draft.inputText).toBe('stat');
+        expect(queryChanges[queryChanges.length - 1]?.query).toBeNull();
+        expect(queryChanges[queryChanges.length - 1]?.issues[0]?.code).toBe('incomplete-expression');
+    });
+
+    it('reports invalid external queries and preserves drafts across definition changes', async () => {
+        const validQuery: QueryDocument = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value: 10 }
+        };
+        ({ element, disconnect } = await setupPortable(validQuery));
+        const validityChanges: { valid: boolean, issues: readonly { code: string }[] }[] = [];
+        const configurationErrors: CustomEvent[] = [];
+        element.addEventListener('validity-change', event => {
+            validityChanges.push((event as CustomEvent<{
+                valid: boolean,
+                issues: readonly { code: string }[]
+            }>).detail);
+        });
+        element.addEventListener('configuration-error', event => {
+            configurationErrors.push(event as CustomEvent);
+        });
+
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'unknown', operatorId: 'gt', value: 10 }
+        };
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeFalse();
+        expect(element.issues[0]?.code).toBe('unknown-field');
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify(validQuery.root));
+        expect(validityChanges[validityChanges.length - 1]?.valid).toBeFalse();
+
+        const savedTokens = JSON.stringify(element.draft.tokens);
+        element.definition = {
+            ...portableDefinition,
+            fields: portableDefinition.fields.map((field, index) => (index === 1
+                ? { ...field, operatorIds: ['missing'] }
+                : field))
+        };
+        await waitForUpdatesAsync();
+        expect(configurationErrors.length).toBeGreaterThan(0);
+        expect(JSON.stringify(element.draft.tokens)).toBe(savedTokens);
+        expect(element.issues[0]?.code).toBe('unknown-operator');
+
+        element.definition = portableDefinition;
+        await waitForUpdatesAsync();
+        element.query = validQuery;
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeTrue();
+        expect(element.issues).toEqual([]);
+        expect(validityChanges[validityChanges.length - 1]?.valid).toBeTrue();
+    });
+
+    it('resolves typed dynamic options with dependencies and appends later pages', async () => {
+        ({ element, disconnect } = await setupPortable({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'eq', value: 'production' }
+        }));
+        element.optionContext = { tenantId: 'tenant-a' };
+        const requests: { sourceId: string, dependentValues: Readonly<{ [key: string]: unknown }>, cursor?: string }[] = [];
+        element.optionResolver = {
+            resolve: async request => {
+                requests.push({
+                    sourceId: request.sourceId,
+                    dependentValues: request.dependentValues,
+                    ...(request.cursor ? { cursor: request.cursor } : {})
+                });
+                const page = request.cursor
+                    ? { options: [{ value: 2, label: 'Test' }] }
+                    : { options: [{ value: 'production', label: 'Production' }], nextCursor: 'next-page' };
+                return await Promise.resolve(page);
+            }
+        };
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+
+        expect(element.optionState.status).toBe('ready');
+        expect(requests[0]).toEqual({
+            sourceId: 'workspaces',
+            dependentValues: { tenantId: 'tenant-a' }
+        });
+        expect(element.activeOptions.map(option => option.label)).toEqual(['Production']);
+        expect(element.activeOptions[0]?.value.startsWith('dynamic:')).toBeTrue();
+
+        element.loadMoreOptions();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(requests[1]?.cursor).toBe('next-page');
+        expect(element.activeOptions.map(option => option.label)).toEqual(['Production', 'Test']);
+        const numericOption = element.activeOptions.find(option => option.label === 'Test');
+        if (!numericOption) {
+            throw new Error('Expected the numeric dynamic option to be loaded.');
+        }
+        const select = getRequiredElement<ValueControl>('[data-control="scalar-select"]');
+        select.value = numericOption.value;
+        select.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate',
+            fieldId: 'workspace',
+            operatorId: 'eq',
+            value: 2
+        }));
+    });
+
+    it('blocks missing option context and retries typed resolver failures without invalidating the query', async () => {
+        ({ element, disconnect } = await setupPortable({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'eq', value: 'production' }
+        }));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.optionState.status).toBe('blocked');
+        if (element.optionState.status !== 'blocked') {
+            throw new Error('Expected missing dynamic option context to block resolution.');
+        }
+        expect(element.optionState.issues[0]?.code).toBe('missing-option-context');
+
+        element.optionContext = { tenantId: null };
+        await waitForUpdatesAsync();
+        expect(element.optionState.status).toBe('blocked');
+        if (element.optionState.status !== 'blocked') {
+            throw new Error('Expected a missing resolver to block option loading.');
+        }
+        expect(element.optionState.issues[0]?.code).toBe('missing-option-resolver');
+
+        const optionErrors: CustomEvent[] = [];
+        element.addEventListener('options-error', event => optionErrors.push(event as CustomEvent));
+        let attempts = 0;
+        element.optionResolver = {
+            resolve: async request => {
+                attempts += 1;
+                expect(JSON.stringify(request.dependentValues)).toBe(JSON.stringify({ tenantId: null }));
+                if (attempts === 1) {
+                    throw Object.assign(new Error('No matching source.'), { code: 'unknown-option-source' });
+                }
+                return await Promise.resolve({ options: [{ value: 'production', label: 'Production' }] });
+            }
+        };
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        const failedOptionState = getOptionState(element);
+        expect(failedOptionState.status).toBe('error');
+        expect(optionErrors.length).toBe(1);
+        expect(failedOptionState.status === 'error' && failedOptionState.issues[0]?.code)
+            .toBe('unknown-option-source');
+        expect(element.valid).toBeTrue();
+        expect(element.issues).toEqual([]);
+
+        element.loadMoreOptions();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(attempts).toBe(2);
+        expect(element.optionState.status).toBe('ready');
+    });
+
+    it('ignores a late option page after its dependency context changes', async () => {
+        ({ element, disconnect } = await setupPortable({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'eq', value: 'production' }
+        }));
+        element.optionContext = { tenantId: 'tenant-a' };
+        const pending: {
+            readonly resolve: (page: { options: { value: string, label: string }[] }) => void,
+            readonly signal: AbortSignal
+        }[] = [];
+        element.optionResolver = {
+            resolve: async (_request, signal) => {
+                const page = await new Promise<{ options: { value: string, label: string }[] }>(resolve => {
+                    pending.push({ resolve, signal });
+                });
+                return page;
+            }
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').dispatchEvent(
+            new MouseEvent('click', { bubbles: true, composed: true })
+        );
+        await waitForUpdatesAsync();
+        expect(pending.length).toBe(1);
+
+        element.optionContext = { tenantId: 'tenant-b' };
+        await waitForUpdatesAsync();
+        expect(pending.length).toBe(2);
+        expect(pending[0]?.signal.aborted).toBeTrue();
+        pending[0]?.resolve({ options: [{ value: 'production', label: 'Stale' }] });
+        pending[1]?.resolve({ options: [{ value: 'production', label: 'Current' }] });
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+
+        expect(element.optionState.status).toBe('ready');
+        expect(element.activeOptions.map(option => option.label)).toEqual(['Current']);
+    });
+});

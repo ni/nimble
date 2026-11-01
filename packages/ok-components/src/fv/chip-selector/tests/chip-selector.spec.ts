@@ -559,4 +559,43 @@ describe('FvChipSelector', () => {
 
         expect(input.getAttribute('aria-activedescendant')).toBeNull();
     });
+
+    it('preserves typed values, duplicate labels, commas, and disabled options', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.optionItems = [
+            { value: 1, label: 'Same, label' },
+            { value: '1', label: 'Same, label' },
+            { value: null, label: 'No value' },
+            { value: false, label: 'False' },
+            { value: 'blocked', label: 'Blocked', disabled: true }
+        ];
+        element.selectedOptionValues = [null];
+        await connect();
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('.chip-selector-field').click();
+        await waitForUpdatesAsync();
+
+        const changeEvents: CustomEvent[] = [];
+        element.addEventListener('change', event => changeEvents.push(event as CustomEvent));
+        const numberKey = element.typedOptionKey(1);
+        const stringKey = element.typedOptionKey('1');
+        const numberOption = getRequiredElement<HTMLElement>(`[data-option-value="${numberKey}"]`);
+        numberOption.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.selectedOptionValues).toEqual([null, 1]);
+        expect(element.selectedValues).toBe('');
+        expect((changeEvents[0] as CustomEvent<{
+            selectedOptionValues: readonly (string | number | boolean | null)[]
+        }>).detail.selectedOptionValues).toEqual([null, 1]);
+        expect(getRequiredElement<HTMLElement>(`[data-option-value="${stringKey}"]`).textContent?.trim())
+            .toBe('Same, label');
+        expect(element.shadowRoot?.querySelector(`[data-option-value="${element.typedOptionKey('blocked')}"]`))
+            .toBeNull();
+
+        const nullChip = getRequiredElement<HTMLElement>(`${chipTag}[data-chip-value="${element.typedOptionKey(null)}"]`);
+        nullChip.dispatchEvent(new Event('remove', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.selectedOptionValues).toEqual([1]);
+    });
 });

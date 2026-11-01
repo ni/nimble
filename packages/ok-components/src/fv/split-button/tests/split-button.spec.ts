@@ -24,6 +24,22 @@ describe('FvSplitButton', () => {
         expect(document.createElement(fvSplitButtonTag)).toBeInstanceOf(FvSplitButton);
     });
 
+    it('supports primary content with the label as its fallback', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        await waitForUpdatesAsync();
+        const slot = element.shadowRoot?.querySelector<HTMLSlotElement>('.split-button-primary slot');
+        if (!slot) {
+            throw new Error('Expected the primary content slot.');
+        }
+        expect(slot.textContent).toBe('Primary function');
+        const content = document.createElement('span');
+        content.textContent = 'Custom primary content';
+        element.append(content);
+        await waitForUpdatesAsync();
+        expect(slot.assignedElements()).toEqual([content]);
+    });
+
     it('opens when the toggle button is clicked', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
