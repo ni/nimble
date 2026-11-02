@@ -1,7 +1,10 @@
 import { keySpace, keyEnter, keyTab, keyEscape } from '@ni/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import { waitAbortTimer } from '../../../utilities/testing/component';
+import {
+    abortableRace,
+    waitAbortTimer
+} from '../../../utilities/testing/component';
 import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
 import {
     ArrowKeyButton,
@@ -463,26 +466,24 @@ export class RichTextEditorPageObject {
     public async waitForMentionMappingsAsync(
         mappingCount: number
     ): Promise<void> {
-        let aborted = false;
-        const waitMappingsApplied = async (): Promise<void> => {
+        const waitMappingsApplied = async (
+            signal: AbortSignal
+        ): Promise<void> => {
             while (
-                !aborted
+                !signal.aborted
                 && this.getAppliedMentionMappingCount() !== mappingCount
             ) {
                 // eslint-disable-next-line no-await-in-loop
                 await waitForUpdatesAsync();
             }
         };
-        try {
-            await Promise.race([
-                waitMappingsApplied(),
-                waitAbortTimer(
-                    `Mention configuration with ${mappingCount} mappings was not applied`
-                )
-            ]);
-        } finally {
-            aborted = true;
-        }
+        await abortableRace(signal => [
+            waitMappingsApplied(signal),
+            waitAbortTimer({
+                signal,
+                message: `Mention configuration with ${mappingCount} mappings was not applied`
+            })
+        ]);
     }
 
     private getEditorSection(): Element | null | undefined {

@@ -1,6 +1,7 @@
 import type { Button } from '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
+    abortableRace,
     waitForIntersectionObserverAsync,
     waitAbortTimer,
     waitTimeout
@@ -111,14 +112,17 @@ export class StepperPageObject {
     }
 
     private async waitForOverflowSettleAsync(): Promise<void> {
-        await Promise.race([
-            waitForIntersectionObserverAsync(
-                this.element.steps ?? [],
-                this.element.list
-            ),
-            waitAbortTimer(
-                'Stepper steps IntersectionObserver notification was not received'
-            )
+        await abortableRace(signal => [
+            waitForIntersectionObserverAsync({
+                signal,
+                elements: this.element.steps ?? [],
+                root: this.element.list
+            }),
+            waitAbortTimer({
+                signal,
+                message:
+                    'Stepper steps IntersectionObserver notification was not received'
+            })
         ]);
         await waitForUpdatesAsync();
     }

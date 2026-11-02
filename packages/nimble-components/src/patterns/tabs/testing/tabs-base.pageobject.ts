@@ -1,6 +1,7 @@
 import type { Button } from '../../../button';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import {
+    abortableRace,
     waitForResizeObserverAsync,
     waitAbortTimer,
     waitTimeout
@@ -121,11 +122,15 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
     }
 
     private async waitForOverflowSettleAsync(): Promise<void> {
-        await Promise.race([
-            waitForResizeObserverAsync(this.tabsElement.tablist),
-            waitAbortTimer(
-                'Tablist ResizeObserver notification was not received'
-            )
+        await abortableRace(signal => [
+            waitForResizeObserverAsync({
+                signal,
+                element: this.tabsElement.tablist
+            }),
+            waitAbortTimer({
+                signal,
+                message: 'Tablist ResizeObserver notification was not received'
+            })
         ]);
         await waitForUpdatesAsync();
     }

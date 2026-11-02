@@ -8,7 +8,11 @@ import {
     TableRowSelectionState
 } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { waitAbortTimer } from '../../utilities/testing/component';
+import {
+    abortableRace,
+    waitAbortTimer,
+    waitForResizeObserverAsync
+} from '../../utilities/testing/component';
 import { menuButtonTag, type MenuButton } from '../../menu-button';
 import { tableCellTag, type TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
@@ -341,21 +345,44 @@ export class TablePageObject<T extends TableRecord> {
      * once scroll events stop.
      */
     public async waitForScrollingToEndAsync(): Promise<void> {
-        let aborted = false;
-        const waitScrollingEnded = async (): Promise<void> => {
-            while (!aborted && this.tableElement.virtualizer.isScrolling) {
+        const waitScrollingEnded = async (
+            signal: AbortSignal
+        ): Promise<void> => {
+            while (
+                !signal.aborted
+                && this.tableElement.virtualizer.isScrolling
+            ) {
                 // eslint-disable-next-line no-await-in-loop
                 await waitForUpdatesAsync();
             }
         };
-        try {
-            await Promise.race([
-                waitScrollingEnded(),
-                waitAbortTimer('Table did not leave its scrolling state')
-            ]);
-        } finally {
-            aborted = true;
-        }
+        await abortableRace(signal => [
+            waitScrollingEnded(signal),
+            waitAbortTimer({
+                signal,
+                message: 'Table did not leave its scrolling state'
+            })
+        ]);
+        await waitForUpdatesAsync();
+    }
+
+    /**
+     * Waits for the table's virtualizer to handle a pending viewport size change (e.g. a table height
+     * change) and for the rendered rows to update. The virtualizer is notified of viewport size changes
+     * by a ResizeObserver, which is delivered after layout rather than with other table updates.
+     */
+    public async waitForViewportResizeAsync(): Promise<void> {
+        await abortableRace(signal => [
+            waitForResizeObserverAsync({
+                signal,
+                element: this.tableElement.viewport
+            }),
+            waitAbortTimer({
+                signal,
+                message:
+                    'Table viewport ResizeObserver notification was not received'
+            })
+        ]);
         await waitForUpdatesAsync();
     }
 
@@ -720,11 +747,14 @@ export class TablePageObject<T extends TableRecord> {
 
     private async scrollViewportAsync(top: number): Promise<void> {
         const viewport = this.tableElement.viewport;
-        let onScroll: (() => void) | undefined;
-        const waitForScrollEvent = async (): Promise<void> => {
+        const waitForScrollEvent = async (
+            signal: AbortSignal
+        ): Promise<void> => {
             await new Promise<void>(resolve => {
-                onScroll = resolve;
-                viewport.addEventListener('scroll', onScroll, { once: true });
+                viewport.addEventListener('scroll', () => resolve(), {
+                    once: true,
+                    signal
+                });
             });
         };
         const originalScrollTop = viewport.scrollTop;
@@ -732,14 +762,13 @@ export class TablePageObject<T extends TableRecord> {
         if (viewport.scrollTop !== originalScrollTop) {
             // The virtualizer tracks the scroll offset from scroll events, which are dispatched during
             // the next rendering update, so listening after scrolling still receives the event
-            try {
-                await Promise.race([
-                    waitForScrollEvent(),
-                    waitAbortTimer('Table viewport scroll event was not received')
-                ]);
-            } finally {
-                viewport.removeEventListener('scroll', onScroll!);
-            }
+            await abortableRace(signal => [
+                waitForScrollEvent(signal),
+                waitAbortTimer({
+                    signal,
+                    message: 'Table viewport scroll event was not received'
+                })
+            ]);
         }
         await waitForUpdatesAsync();
     }

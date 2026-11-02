@@ -788,7 +788,7 @@ describe('Table', () => {
                 const originalRenderedRowCount = pageObject.getRenderedRowCount();
 
                 element.style.height = '700px';
-                await waitForUpdatesAsync();
+                await pageObject.waitForViewportResizeAsync();
 
                 const newRenderedRowCount = pageObject.getRenderedRowCount();
                 expect(newRenderedRowCount).toBeGreaterThan(
@@ -2637,6 +2637,9 @@ describe('Table', () => {
             }
             await connect();
             await waitForUpdatesAsync();
+            if (updatesWhileDisconnected.height) {
+                await pageObject.waitForViewportResizeAsync();
+            }
         }
 
         // Firefox skipped, see https://github.com/ni/nimble/issues/2491

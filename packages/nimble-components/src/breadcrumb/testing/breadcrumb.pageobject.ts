@@ -1,6 +1,7 @@
 import type { Button } from '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
+    abortableRace,
     waitForResizeObserverAsync,
     waitAbortTimer,
     waitTimeout
@@ -122,11 +123,16 @@ export class BreadcrumbPageObject {
     }
 
     private async waitForOverflowSettleAsync(): Promise<void> {
-        await Promise.race([
-            waitForResizeObserverAsync(this.breadcrumbElement.list),
-            waitAbortTimer(
-                'Breadcrumb list ResizeObserver notification was not received'
-            )
+        await abortableRace(signal => [
+            waitForResizeObserverAsync({
+                signal,
+                element: this.breadcrumbElement.list
+            }),
+            waitAbortTimer({
+                signal,
+                message:
+                    'Breadcrumb list ResizeObserver notification was not received'
+            })
         ]);
         await waitForUpdatesAsync();
     }
