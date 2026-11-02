@@ -217,19 +217,21 @@ function predicate(fieldId: string, operatorId: string, value?: JsonValue): Quer
 }
 
 function document(...nodes: QueryNode[]): QueryDocument {
+    let root: QueryDocument['root'] = null;
+    if (nodes.length === 1) {
+        root = nodes[0]!;
+    } else if (nodes.length > 1) {
+        root = { kind: 'group', combinator: 'and', children: nodes };
+    }
     return {
         version: 1,
-        root: nodes.length === 0
-            ? null
-            : nodes.length === 1
-                ? nodes[0]!
-                : { kind: 'group', combinator: 'and', children: nodes }
+        root
     };
 }
 
 type PresetName = 'empty' | 'basic' | 'multigroup' | 'validation' | 'saved' | 'complex';
 
-export const queryBuilderPresets: Readonly<Record<PresetName, QueryDocument>> = {
+export const queryBuilderPresets: { readonly [name in PresetName]: QueryDocument } = {
     empty: document(),
     basic: document(
         predicate('status', 'is-any-of', ['failed', 'error']),
@@ -301,13 +303,13 @@ export const queryBuilderPresets: Readonly<Record<PresetName, QueryDocument>> = 
     }
 };
 
-export const queryBuilderSavedPresets: Readonly<Record<'failedProduction' | 'longRunning' | 'regressionFailures', QueryDocument>> = {
+export const queryBuilderSavedPresets: { readonly [name in 'failedProduction' | 'longRunning' | 'regressionFailures']: QueryDocument } = {
     failedProduction: queryBuilderPresets.basic,
     longRunning: document(predicate('duration', 'greater-than', 1000)),
     regressionFailures: queryBuilderPresets.multigroup
 };
 
-export const queryBuilderOperandExamples: readonly { readonly name: string; readonly query: QueryDocument }[] = [
+export const queryBuilderOperandExamples: readonly { readonly name: string, readonly query: QueryDocument }[] = [
     { name: 'No-value predicate', query: document(predicate('description', 'is-blank')) },
     {
         name: 'Boolean false and numeric zero',
