@@ -54,6 +54,53 @@ describe('FvToolbar', () => {
         expect(region.scrollWidth).toBeLessThanOrEqual(region.clientWidth);
     }
 
+    async function expectConfigurationError(change: () => void, message: RegExp): Promise<void> {
+        let layout: FrameRequestCallback | undefined;
+        const frameSpy = spyOn(window, 'requestAnimationFrame').and.callFake(callback => {
+            layout = callback;
+            return 1;
+        });
+        change();
+        await Promise.resolve();
+        frameSpy.and.callThrough();
+        expect(layout).toBeDefined();
+        expect(() => layout!(0)).toThrowError(message);
+    }
+
+    it('rejects end-slot icons for the icon presentation', async () => {
+        await expectConfigurationError(() => {
+            buttons[0]!.querySelector('[slot="start"]')!.setAttribute('slot', 'end');
+        }, /icon-only actions/);
+    });
+
+    it('rejects nested start-slot icons for the icon presentation', async () => {
+        await expectConfigurationError(() => {
+            const wrapper = document.createElement('span');
+            wrapper.appendChild(buttons[0]!.querySelector('[slot="start"]')!);
+            buttons[0]!.appendChild(wrapper);
+        }, /icon-only actions/);
+    });
+
+    it('excludes comments while retaining text and non-slotted elements in overflow labels', async () => {
+        const label = document.createElement('span');
+        label.textContent = 'Export';
+        buttons[0]!.setAttribute('data-responsive', 'label overflow');
+        buttons[0]!.replaceChildren(
+            document.createComment('internal note'),
+            label,
+            document.createTextNode(' selected assets')
+        );
+        await resize(100);
+        expect(element.overflowMenu.firstElementChild!.textContent).toBe('Export selected assets');
+    });
+
+    it('rejects a comment-only action without an accessible label', async () => {
+        await expectConfigurationError(() => {
+            buttons[0]!.setAttribute('data-responsive', 'label overflow');
+            buttons[0]!.replaceChildren(document.createComment('internal note'));
+        }, /text label or aria-label/);
+    });
+
     it('extends the Nimble toolbar and starts with labeled actions', () => {
         expect(element).toBeInstanceOf(FvToolbar);
         expect(element.getAttribute('role')).toBe('toolbar');
@@ -155,6 +202,19 @@ describe('FvToolbar', () => {
 
     it('moves focus into overflow when the focused action is hidden', async () => {
         buttons[2]!.focus();
+        expect(document.activeElement).toBe(buttons[2]!);
+        await resize(100);
+        expect(element.shadowRoot!.activeElement).toBe(element.overflowButton);
+    });
+
+    it('moves focus into overflow when the toolbar is inside a shadow root', async () => {
+        const host = document.createElement('div');
+        testFixture.parent.appendChild(host);
+        const root = host.attachShadow({ mode: 'open' });
+        root.appendChild(element);
+        await settle();
+        buttons[2]!.focus();
+        expect(root.activeElement).toBe(buttons[2]!);
         await resize(100);
         expect(element.shadowRoot!.activeElement).toBe(element.overflowButton);
     });

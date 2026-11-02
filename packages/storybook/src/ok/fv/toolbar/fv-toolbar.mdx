@@ -44,7 +44,8 @@ those same buttons, without cloning or moving application-owned markup.
 | `slot` | Toolbar child | Existing Nimble `start`, default, and `end` positioning. |
 
 `label` shows the button's icon and text. `icon` uses Nimble's `content-hidden`
-behavior and requires a slotted icon. `overflow` shows a labeled menu entry.
+behavior and requires a direct child icon with `slot="start"`; end-slot icons
+are hidden in this mode. `overflow` shows a labeled menu entry.
 Presentations always follow that order; omit a presentation to skip it.
 Use `icon overflow` for an initially icon-only action or `overflow` for an action
 that always belongs in the menu.
@@ -64,6 +65,7 @@ for a flex/grid child).
 Provide a toolbar name and meaningful text for every action. Icon-only buttons
 retain their accessible text; an explicit `aria-label` takes precedence for
 overflow entries. Supply a localized `overflow-label` as needed.
+Overflow labels use text nodes and non-slotted elements; HTML comments are ignored.
 
 Toolbar arrow navigation and menu keyboard behavior reuse Nimble's implementations.
 If resizing hides a focused action, focus moves to the overflow trigger. If the

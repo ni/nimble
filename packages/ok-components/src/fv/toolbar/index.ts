@@ -135,8 +135,8 @@ export class FvToolbar extends Toolbar {
             const priority = Number(button.getAttribute('data-priority') ?? 0);
             if (stages.length === 0 || tokens.some(token => !stages.some(stage => stage === token))
                 || !Number.isFinite(priority)
-                || (stages.includes('icon') && !button.querySelector('[slot="start"], [slot="end"]'))) {
-                throw new Error('ok-fv-toolbar requires valid data-responsive stages, a finite data-priority, and an icon for icon-only actions.');
+                || (stages.includes('icon') && !button.querySelector(':scope > [slot="start"]'))) {
+                throw new Error('ok-fv-toolbar requires valid data-responsive stages, a finite data-priority, and a direct start-slot icon for icon-only actions.');
             }
             let item = this.items.get(button);
             if (!item) {
@@ -161,7 +161,8 @@ export class FvToolbar extends Toolbar {
             item.menuItem.disabled = button.disabled;
             const label = button.getAttribute('aria-label')
                 ?? Array.from(button.childNodes)
-                    .filter(node => !(node instanceof Element) || !node.hasAttribute('slot'))
+                    .filter(node => node.nodeType === Node.TEXT_NODE
+                        || (node instanceof Element && !node.hasAttribute('slot')))
                     .map(node => node.textContent).join('')
                     .trim();
             if (!label) {
@@ -179,7 +180,9 @@ export class FvToolbar extends Toolbar {
         this.mutationObserver.disconnect();
         try {
             const items = this.syncItems();
-            const focusedItem = items.find(item => item.button.matches(':focus-within'));
+            const root = this.getRootNode();
+            const activeElement = root instanceof ShadowRoot ? root.activeElement : this.ownerDocument.activeElement;
+            const focusedItem = items.find(item => item.button === activeElement);
             const menuFocus = this.shadowRoot?.activeElement;
             const menuHadFocus = menuFocus && this.overflowButton.contains(menuFocus);
             for (const child of this.observedChildren) {
