@@ -1,7 +1,6 @@
 import { html, ref, repeat, when } from '@ni/fast-element';
 import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { iconAddTag } from '@ni/nimble-components/dist/esm/icons/add';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';
@@ -154,6 +153,7 @@ const insertionTemplate = html<QueryEditorPartView, FvQueryEditor>`
                     :value="${x => x.owner.queryInputText}"
                     data-empty="${x => String(x.owner.queryInputText.length === 0)}"
                     data-placeholder="${x => String(x.owner.editorTokens.length === 0 && x.owner.queryInputText.length === 0)}"
+                    data-field-focused="${x => String(x.owner.queryFieldFocused)}"
                     style="${x => `--query-input-width: ${x.owner.queryInputWidth}`}"
                     ?disabled="${x => x.owner.disabled}"
                 ></${textFieldTag}>
@@ -179,6 +179,19 @@ const partTemplate = html<QueryEditorPartView, FvQueryEditor>`
     ${when(
         x => x.kind === 'insertion' && x.position === x.owner.caretPosition && x.owner.shouldShowLogicChipPreviews,
         logicChipPreviewsTemplate
+    )}
+    ${when(
+        x => x.kind === 'insertion' && x.position === x.owner.caretPosition && x.owner.shouldShowConditionChipPreview,
+        html<QueryEditorPartView, FvQueryEditor>`
+            <${fvExpandableChipTag}
+                class="condition-chip-preview"
+                data-action="add-condition"
+                data-layout-role="condition"
+                data-indent-level="${x => x.indentLevel}"
+                accessible-label="${x => x.owner.labels.addCondition ?? 'Add condition'}"
+                @pointerdown="${() => false}"
+            >${x => x.owner.labels.addCondition ?? 'Add condition'}</${fvExpandableChipTag}>
+        `
     )}
     ${when(
         x => x.kind === 'condition' && x.rule !== null,
@@ -283,21 +296,10 @@ export const template = html<FvQueryEditor>`
                 <div class="structure-error" role="status">${x => x.structureError}</div>
             `
         )}
-        <div class="editor-actions">
-            <${buttonTag}
-                class="add-filter-button"
-                appearance="ghost"
-                data-action="add-filter"
-                ?disabled="${x => !x.canAddFilter}"
-            >
-                <${iconAddTag} slot="start"></${iconAddTag}>
-                ${x => x.labels.addFilter}
-            </${buttonTag}>
-            ${when(
-                x => !x.canAddFilter,
-                html<FvQueryEditor>`<span class="no-fields">${x => x.labels.noAvailableFields}</span>`
-            )}
-        </div>
+        ${when(
+            x => !x.canAddFilter && !x.disabled,
+            html<FvQueryEditor>`<span class="no-fields">${x => x.labels.noAvailableFields}</span>`
+        )}
         ${when(
             x => Boolean(x.activeRule),
             html<FvQueryEditor>`
@@ -457,6 +459,11 @@ export const template = html<FvQueryEditor>`
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
                                             :optionItems="${x => x.activeCollectionOptions}"
                                             :selectedOptionValues="${x => x.activeCollectionOptionValues}"
+                                            :filterLocally="${x => !x.activeCollectionSearchable}"
+                                            @filter-change="${(x, c) => {
+                                                x.handleCollectionFilterChange(c.event);
+                                                return true;
+                                            }}"
                                         ></${fvChipSelectorTag}>
                                     `
                                 )}
@@ -483,8 +490,13 @@ export const template = html<FvQueryEditor>`
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
                                             :value="${x => x.getActiveCollectionInput()}"
                                         >
-                                            ${x => x.labels.value}
+                                            ${x => (x.definition ? x.labels.collectionValueLabel ?? 'Values (JSON array)' : x.labels.value)}
                                         </${textFieldTag}>
+                                        ${when(x => Boolean(x.definition), html<FvQueryEditor>`
+                                            <div class="collection-input-hint" ${ref('collectionInputHintElement')}>
+                                                ${x => x.labels.collectionValueHint ?? 'Enter a JSON array, for example ["one", "two"] or [1, 2].'}
+                                            </div>
+                                        `)}
                                     `
                                 )}
                             `
@@ -578,6 +590,9 @@ export const template = html<FvQueryEditor>`
                             x => x.activeRuleError.length > 0,
                             html<FvQueryEditor>`
                                 <div class="editor-error" id="${x => x.editorPanelErrorId}" role="alert" ${ref('editorPanelErrorElement')}>${x => x.activeRuleError}</div>
+                            `,
+                            html<FvQueryEditor>`
+                                <div class="editor-hint">${x => x.labels.closeEditorHint}</div>
                             `
                         )}
                         ${when(

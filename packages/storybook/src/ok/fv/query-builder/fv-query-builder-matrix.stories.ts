@@ -133,13 +133,15 @@ const prepareBuilders: NonNullable<StoryFn['play']> = async ({ canvasElement }) 
             }
             option.click();
             await waitForUpdatesAsync();
-            builder.savedQueryName = 'Updated production tests';
-            const nameInput = builder.shadowRoot?.querySelector<HTMLInputElement>('[data-control="saved-query-name"]');
-            if (!nameInput) {
-                throw new Error('Matrix saved-query name input was not rendered.');
+            if (state.editing !== false) {
+                builder.savedQueryName = 'Updated production tests';
+                const nameInput = builder.shadowRoot?.querySelector<HTMLInputElement>('[data-control="saved-query-name"]');
+                if (!nameInput) {
+                    throw new Error('Matrix saved-query name input was not rendered.');
+                }
+                nameInput.value = builder.savedQueryName;
+                nameInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
             }
-            nameInput.value = builder.savedQueryName;
-            nameInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         }
         builder.isQuickEdit = state.view === undefined || state.view === 'query';
         builder.isCreatingSavedQuery = state.view === 'create';

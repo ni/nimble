@@ -278,9 +278,6 @@ export class FvQueryBuilder extends FoundationElement {
     public isOperationPending = false;
 
     @observable
-    public isPopoverMoveMode = false;
-
-    @observable
     public queryPopoverRegion?: AnchoredRegion;
 
     /** @internal */
@@ -611,7 +608,6 @@ export class FvQueryBuilder extends FoundationElement {
     public isManagerOpenChanged(): void {
         if (!this.isManagerOpen) {
             this.resetPopoverDrag();
-            this.isPopoverMoveMode = false;
         }
         this.updateBuilderAriaRelationships();
     }
@@ -729,21 +725,6 @@ export class FvQueryBuilder extends FoundationElement {
             case 'clear-query':
                 this.clear();
                 break;
-            case 'toggle-popover-move-mode':
-                this.isPopoverMoveMode = !this.isPopoverMoveMode;
-                break;
-            case 'move-popover-up':
-                this.movePopover('ArrowUp');
-                break;
-            case 'move-popover-down':
-                this.movePopover('ArrowDown');
-                break;
-            case 'move-popover-left':
-                this.movePopover('ArrowLeft');
-                break;
-            case 'move-popover-right':
-                this.movePopover('ArrowRight');
-                break;
             default:
                 break;
         }
@@ -789,8 +770,7 @@ export class FvQueryBuilder extends FoundationElement {
     /** @internal */
     public handlePopoverDragStart(event: PointerEvent): void {
         if (
-            this.isPopoverMoveMode
-            || event.button !== 0
+            event.button !== 0
             || !event.isPrimary
             || event.composedPath().some(item => (
                 item instanceof HTMLElement
@@ -828,7 +808,6 @@ export class FvQueryBuilder extends FoundationElement {
     public resetPopoverDrag(): void {
         this.popoverDrag = undefined;
         this.popoverDragOffset = { x: 0, y: 0 };
-        this.isPopoverMoveMode = false;
         this.queryPopoverRegion?.style.removeProperty('--query-popover-drag-x');
         this.queryPopoverRegion?.style.removeProperty('--query-popover-drag-y');
     }
@@ -877,24 +856,14 @@ export class FvQueryBuilder extends FoundationElement {
             return true;
         }
         const path = event.composedPath();
-        const moveControlFocused = path.some(item => (
-            item instanceof HTMLElement
-            && (
-                item.dataset.action === 'toggle-popover-move-mode'
-                || item.dataset.action?.startsWith('move-popover')
-            )
-        ));
+        const target = path[0];
         if (
-            this.isPopoverMoveMode
-            && moveControlFocused
+            this.isManagerOpen
+            && target instanceof HTMLElement
+            && target.classList.contains('query-popover')
             && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)
         ) {
             this.movePopover(event.key);
-            event.preventDefault();
-            return true;
-        }
-        if (this.isPopoverMoveMode && moveControlFocused && event.key === 'Escape') {
-            this.isPopoverMoveMode = false;
             event.preventDefault();
             return true;
         }

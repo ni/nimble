@@ -149,6 +149,8 @@ export const template = html<FvQueryBuilder>`
                 id="${x => x.queryDialogId}"
                 role="dialog"
                 aria-labelledby="${x => `${x.queryDialogId}-title`}"
+                aria-describedby="${x => `${x.queryDialogId}-move-hint`}"
+                tabindex="0"
                 ?hidden="${x => !x.isManagerOpen}"
                 @keydown="${(x, c) => x.handleKeydown(c.event as KeyboardEvent)}"
             >
@@ -175,26 +177,8 @@ export const template = html<FvQueryBuilder>`
                                 : x.labels.editSavedQueries;
                         }}
                     </h2>
-                    <div
-                        class="popover-move-controls"
-                        style="position: absolute; top: 8px; right: 24px; display: flex; align-items: center; gap: 4px;"
-                    >
-                        <${buttonTag}
-                            appearance="ghost"
-                            data-action="toggle-popover-move-mode"
-                            aria-pressed="${x => String(x.isPopoverMoveMode)}"
-                            aria-label="${x => (x.isPopoverMoveMode ? x.labels.finishMovingPopover : x.labels.movePopover)}"
-                            title="${x => x.labels.movePopoverHint}"
-                        >${x => (x.isPopoverMoveMode ? x.labels.finishMovingPopover : x.labels.movePopover)}</${buttonTag}>
-                        ${when(x => x.isPopoverMoveMode, html<FvQueryBuilder>`
-                            <span class="visually-hidden" role="status">${x => x.labels.movePopoverHint}</span>
-                            <${buttonTag} appearance="ghost" data-action="move-popover-up" aria-label="${x => x.labels.movePopoverUp}">↑</${buttonTag}>
-                            <${buttonTag} appearance="ghost" data-action="move-popover-down" aria-label="${x => x.labels.movePopoverDown}">↓</${buttonTag}>
-                            <${buttonTag} appearance="ghost" data-action="move-popover-left" aria-label="${x => x.labels.movePopoverLeft}">←</${buttonTag}>
-                            <${buttonTag} appearance="ghost" data-action="move-popover-right" aria-label="${x => x.labels.movePopoverRight}">→</${buttonTag}>
-                        `)}
-                    </div>
                 </header>
+                <span class="visually-hidden" id="${x => `${x.queryDialogId}-move-hint`}">${x => x.labels.movePopoverHint}</span>
                 <div class="popover-content">
                     <div class="query-controls-header">
                         ${when(x => !x.isQuickEdit && (x.isCreatingSavedQuery || x.savedQueryEditingEnabled), html<FvQueryBuilder>`
@@ -210,11 +194,6 @@ export const template = html<FvQueryBuilder>`
                                     :value="${x => x.savedQueryName}"
                                     :disabled="${x => x.isEditorDisabled}"
                                 >${x => x.labels.queryName}</${textFieldTag}>
-                                ${when(x => x.operationError, html<FvQueryBuilder>`
-                                    <span class="operation-error" id="${x => `${x.queryDialogId}-error`}" role="alert">
-                                        ${x => x.operationError}
-                                    </span>
-                                `)}
                             </div>
                         `)}
                         ${when(x => x.isNigelPromptEnabled, html<FvQueryBuilder>`
@@ -248,6 +227,12 @@ export const template = html<FvQueryBuilder>`
                             </section>
                         `)}
                     </div>
+
+                    ${when(x => x.operationError, html<FvQueryBuilder>`
+                        <span class="operation-error" id="${x => `${x.queryDialogId}-error`}" role="alert">
+                            ${x => x.operationError}
+                        </span>
+                    `)}
 
                     ${when(x => x.isNigelPromptEnabled && Boolean(x.aiQueryPreview), html<FvQueryBuilder>`
                         <div class="ai-preview-notice" role="status">

@@ -32,12 +32,38 @@ describe('FvSplitButton', () => {
         if (!slot) {
             throw new Error('Expected the primary content slot.');
         }
-        expect(slot.textContent).toBe('Primary function');
+        expect(element.shadowRoot?.querySelector('.split-button-primary')?.textContent?.trim()).toBe('Primary function');
         const content = document.createElement('span');
         content.textContent = 'Custom primary content';
         element.append(content);
         await waitForUpdatesAsync();
         expect(slot.assignedElements()).toEqual([content]);
+        expect(element.shadowRoot?.querySelector('.split-button-primary')?.textContent?.trim()).toBe('');
+        content.remove();
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelector('.split-button-primary')?.textContent?.trim()).toBe('Primary function');
+    });
+
+    it('uses the label for multiline menu-only markup with whitespace in the default slot', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
+            <${fvSplitButtonTag} label="Run query">
+                <${menuTag} slot="menu"></${menuTag}>
+            </${fvSplitButtonTag}>
+        `));
+        await connect();
+        await waitForUpdatesAsync();
+
+        const primary = element.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary');
+        expect(primary?.innerText.trim()).toBe('Run query');
+        const text = document.createTextNode('Custom action');
+        element.append(text);
+        await waitForUpdatesAsync();
+        expect(element.hasPrimaryContent).toBeTrue();
+        expect(primary?.querySelector('slot')?.assignedNodes()).toContain(text);
+        expect(primary?.querySelector('span')).toBeNull();
+        text.data = '  ';
+        await waitForUpdatesAsync();
+        expect(primary?.innerText.trim()).toBe('Run query');
     });
 
     it('opens when the toggle button is clicked', async () => {

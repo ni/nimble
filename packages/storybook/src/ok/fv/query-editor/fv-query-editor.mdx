@@ -18,6 +18,8 @@ Condition popovers scroll when their height is constrained. Value dropdowns can 
 
 The [state matrix](?path=/story/tests-ok-fv-query-editor--states-theme-matrix) tests query presets, layouts, and disabled states across themes and backgrounds. The [operand matrix](?path=/story/tests-ok-fv-query-editor--operands-theme-matrix) shows open condition popovers, including multiselect values. The [value dropdown matrix](?path=/story/tests-ok-fv-query-editor--value-dropdown-theme-matrix) tests dropdowns that extend outside the condition popover.
 
+Focus the query input to show a dashed **Add condition** chip at the caret when a condition can be inserted. Click it, press Enter in the input, or focus the chip and press Enter or Space to open the condition editor. When a logical operator is next, its dashed preview appears instead. Typing hides the preview and shows matching suggestions. Set `labels.addCondition` to localize the chip. The [insertion preview matrix](?path=/story/tests-ok-fv-query-editor--insertion-previews-theme-matrix) covers these states across themes.
+
 ## Formatted layout
 
 Set `layout` to `"formatted"` to put each condition on its own row and indent grouped conditions. Groups can nest through four levels (`MAX_QUERY_GROUP_DEPTH`). Changing the layout does not change the query or draft. The default layout is `"inline"`.
@@ -76,6 +78,8 @@ editor.addEventListener('query-change', event => {
 
 The `query-change` event includes a copy of the user's draft. Its `query` field contains a validated query document when the draft is complete, or `null` when it is incomplete or invalid. Use the `draft` field to preserve unfinished edits, and assign it to the editor's `draft` property to restore them. Draft tokens keep number and date input text in `rawInputs`, including intermediate input that is not yet valid. Setting properties programmatically does not emit `query-change`.
 
+Free-entry `field-value-list` operands use a JSON array, such as `["Test, nightly", "Integration"]`, `[1, 2]`, or `[true, false]`. Quote and escape strings using JSON syntax; numbers and booleans stay typed. Invalid or unfinished arrays remain in the draft and do not replace the last valid query. Customize the field label, instructions, and invalid-array message with `labels.collectionValueLabel`, `labels.collectionValueHint`, and `labels.errors.invalidJsonArray`.
+
 The `issues` property and `validity-change` event report errors in the definition, query, or draft. The `configuration-error` event reports an invalid definition.
 
 Use `optionResolver` to load options dynamically. Each select or combobox `optionsSource` specifies a host-defined `sourceId`, optional dependencies, search support, and page size. The resolver receives the dependency values and an `AbortSignal`. The `options-state-change` event reports loading, ready, blocked, and error states; `options-error` reports failures.
@@ -116,7 +120,7 @@ editor.optionResolver = {
 };
 ```
 
-In this example, the host application's `searchWorkspaces` function returns a `QueryOptionPage`. The resolver receives `sourceId`, field and operator IDs, required dependency values, optional search text and cursor, and an abort signal. Changing the context or search cancels the previous request. Users can retry a failed request without invalidating an otherwise valid query document.
+In this example, the host application's `searchWorkspaces` function returns a `QueryOptionPage`. The resolver receives `sourceId`, field and operator IDs, required dependency values, optional search text and cursor, and an abort signal. Changing the context or search cancels the previous request. For searchable collection sources, the resolver filters the results; nonsearchable sources use local label filtering instead. Users can retry a failed request without invalidating an otherwise valid query document.
 
 The editor does not apply queries or include saved queries, Nigel assistance, or footer actions. Use the query builder for those features.
 
@@ -125,6 +129,8 @@ The editor is not a drop-in replacement for the Stratus query builder. Applicati
 ## Accessibility
 
 Users can open condition chips with the keyboard. The query input supports token navigation and deletion, field and logical-operator autocomplete, and visible validation for incomplete groups and conditions. Closing a condition popover with Escape returns focus to its chip.
+
+Pressing Tab from the last condition control closes the popover and returns focus to the query input. When the condition has no validation errors, a hint appears in place of the error message. Customize it with `labels.closeEditorHint`.
 
 Autocomplete uses the native Popover API so suggestions remain visible outside scrolling containers. The list sizes to its content and stays within the viewport, opening above the input when there is not enough room below.
 

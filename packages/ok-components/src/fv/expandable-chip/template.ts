@@ -5,6 +5,7 @@ import type { FvExpandableChip } from '.';
 export const template = html<FvExpandableChip>`
     <button
         class="expandable-chip"
+        part="control"
         type="button"
         ?disabled="${x => x.disabled}"
         ${ref('buttonElement')}

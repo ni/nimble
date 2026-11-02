@@ -112,6 +112,7 @@ export interface QueryBuilderLabels {
     readonly matchingFields: string;
     readonly logicalOperator: string;
     readonly queryHelperText: string;
+    readonly closeEditorHint: string;
     readonly askAi: string;
     readonly aiPromptDescription: string;
     readonly aiPreviewReady: string;
@@ -147,23 +148,20 @@ export interface QueryBuilderLabels {
     readonly savedQueryDeleted: string;
     readonly nameRequired: string;
     readonly deleteConfirmation: string;
-    readonly movePopover: string;
-    readonly finishMovingPopover: string;
-    readonly movePopoverUp: string;
-    readonly movePopoverDown: string;
-    readonly movePopoverLeft: string;
-    readonly movePopoverRight: string;
     readonly movePopoverHint: string;
     readonly closeSavedMenu: string;
     readonly selectSavedQuery: string;
     readonly field: string;
     readonly operator: string;
     readonly value: string;
+    readonly collectionValueLabel?: string;
+    readonly collectionValueHint?: string;
     readonly loadingOptions: string;
     readonly editRule: string;
     readonly removeRule: (fieldLabel: string) => string;
     readonly removeValue: (value: string) => string;
     readonly addFilter: string;
+    readonly addCondition?: string;
     readonly addFirstFilter: string;
     readonly addGroup: string;
     readonly groupSplitUnavailable: string;
@@ -193,6 +191,7 @@ export interface QueryBuilderLabels {
         readonly invalidDate: string,
         readonly invalidRange: string,
         readonly invalidCollection: string,
+        readonly invalidJsonArray?: string,
         readonly invalidOption: string,
         readonly invalidKey: string,
         readonly invalidValue: string,
@@ -287,6 +286,7 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     matchingFields: 'Matching fields',
     logicalOperator: 'Logical operator',
     queryHelperText: 'Type to add a condition · Tab to complete · Delete to remove',
+    closeEditorHint: 'Press Tab to close the editor.',
     askAi: 'Ask Nigel',
     aiPromptDescription: 'Generate a query with Nigel using natural language',
     aiPreviewReady: 'AI query preview ready for review.',
@@ -322,23 +322,20 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     savedQueryDeleted: 'Saved query deleted.',
     nameRequired: 'Enter a name.',
     deleteConfirmation: 'Delete this saved query? This cannot be undone.',
-    movePopover: 'Move query editor',
-    finishMovingPopover: 'Finish moving query editor',
-    movePopoverUp: 'Move query editor up',
-    movePopoverDown: 'Move query editor down',
-    movePopoverLeft: 'Move query editor left',
-    movePopoverRight: 'Move query editor right',
-    movePopoverHint: 'Use the arrow keys to move the editor. Press Escape to finish.',
+    movePopoverHint: 'Use the arrow keys to move the query editor.',
     closeSavedMenu: 'Close saved queries',
     selectSavedQuery: 'Select saved query',
     field: 'Field',
     operator: 'Operator',
     value: 'Value',
+    collectionValueLabel: 'Values (JSON array)',
+    collectionValueHint: 'Enter a JSON array, for example ["one", "two"] or [1, 2].',
     loadingOptions: 'Loading options...',
     editRule: 'Edit filter',
     removeRule: fieldLabel => `Remove ${fieldLabel} filter`,
     removeValue: value => `Remove ${value}`,
     addFilter: 'Add filter',
+    addCondition: 'Add condition',
     addFirstFilter: 'Add first filter',
     addGroup: 'Add group',
     groupSplitUnavailable: 'A group cannot be inserted here without changing the query logic.',
@@ -368,6 +365,7 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
         invalidDate: 'Enter a valid date.',
         invalidRange: 'Enter a valid range with the first value no greater than the second.',
         invalidCollection: 'Add at least one non-empty, unique value.',
+        invalidJsonArray: 'Enter a valid JSON array.',
         invalidOption: 'Choose a configured option.',
         invalidKey: 'Enter a property key.',
         invalidValue: 'Enter a comparison value.',

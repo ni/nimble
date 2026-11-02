@@ -144,6 +144,52 @@ describe('portable query interface', () => {
         expectIssueCode(validateDefinition(badVersion), 'unsupported-version');
     });
 
+    it('checks references only in schema-bearing locations', () => {
+        const annotations = withFieldUpdate(1, field => ({
+            ...field,
+            valueSchema: {
+                type: 'number',
+                examples: [{ $ref: 'https://example.invalid/example' }],
+                default: { $dynamicRef: 'https://example.invalid/default' },
+                properties: { $ref: { type: 'string' } },
+                $defs: { $dynamicRef: { type: 'string' } }
+            }
+        }));
+        expect(validateDefinition(annotations).valid).toBeTrue();
+
+        const schemas: QueryBuilderDefinition['fields'][number]['valueSchema'][] = [
+            { type: 'number', allOf: [{ $ref: 'https://example.invalid/schema' }] },
+            { type: 'number', properties: { nested: { $dynamicRef: 'https://example.invalid/schema' } } },
+            { type: 'number', $defs: { nested: { $ref: 'https://example.invalid/schema' } } },
+            { type: 'number', not: { $ref: 'https://example.invalid/schema' } }
+        ];
+        for (const valueSchema of schemas) {
+            expectIssueCode(validateDefinition(withFieldUpdate(1, field => ({ ...field, valueSchema }))), 'invalid-schema');
+        }
+    });
+
+    it('validates a zero maximum directly and inside oneOf branches', () => {
+        const maximum = withFieldUpdate(1, field => ({
+            ...field,
+            valueSchema: { type: 'number', maximum: 0 }
+        }));
+        const alternativeSchema: QueryBuilderDefinition['fields'][number]['valueSchema'] = {
+            oneOf: [{ type: 'number', maximum: 0 }, { type: 'number', minimum: 1 }]
+        };
+        const alternatives = withFieldUpdate(1, field => ({ ...field, valueSchema: alternativeSchema }));
+        const query = (value: number): QueryDocument => ({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value }
+        });
+
+        for (const value of [-1, 0]) {
+            expect(validateQuery(query(value), maximum).valid).toBeTrue();
+            expect(validateQuery(query(value), alternatives).valid).toBeTrue();
+        }
+        expect(validateQuery(query(5), maximum).valid).toBeFalse();
+        expect(validateQuery(query(5), alternatives).valid).toBeTrue();
+    });
+
     it('rejects unknown and disallowed operators', () => {
         const unknownOperator = withFieldUpdate(0, field => ({ ...field, operatorIds: ['missing'] }));
         expectIssueCode(validateDefinition(unknownOperator), 'unknown-operator');

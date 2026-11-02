@@ -10,6 +10,8 @@ import {
     type JsonValue,
     type QueryDocument,
     type QueryNode,
+    type QueryOptionPage,
+    type QueryOptionRequest,
     type QueryEditorDraft,
     type QueryEditorDraftToken,
     type QueryEditorEventDetail
@@ -408,7 +410,7 @@ describe('FvQueryEditor', () => {
         disconnect = undefined;
     });
 
-    it('renders an empty, focused-editable field and Add filter action', async () => {
+    it('renders an empty, focused-editable field without a separate Add filter action', async () => {
         ({ element, disconnect } = await setup());
 
         expect(element.valid).toBeTrue();
@@ -431,7 +433,202 @@ describe('FvQueryEditor', () => {
         expect(queryInput.tagName.toLowerCase()).toBe('nimble-text-field');
         expect(element.shadowRoot?.querySelector('.conditions-heading span')).toBeNull();
         expect(element.shadowRoot?.querySelector('.condition-chip')).toBeNull();
-        expect(element.shadowRoot?.querySelector('[data-action="add-filter"]')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="add-filter"]')).toBeNull();
+    });
+
+    it('shows one Add condition preview after the focused caret and hides it while typing or blurred', async () => {
+        ({ element, disconnect } = await setup());
+        expect(element.shadowRoot?.querySelector('.condition-chip-preview')).toBeNull();
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!nativeInput) {
+            throw new Error('Expected the query input.');
+        }
+        nativeInput.focus();
+        await waitForUpdatesAsync();
+        let preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
+        expect(preview.textContent?.trim()).toBe('Add condition');
+        expect(queryInput.parentElement?.nextElementSibling).toBe(preview);
+        expect(element.shadowRoot?.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length).toBe(1);
+        expect(preview.shadowRoot?.querySelector('button')?.getAttribute('aria-haspopup')).toBe('dialog');
+
+        nativeInput.value = 's';
+        nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelector('.condition-chip-preview, .logic-chip-preview')).toBeNull();
+        nativeInput.value = '';
+        nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
+        preview.focus();
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelector('.condition-chip-preview')).toBe(preview);
+        const previewButton = preview.shadowRoot?.querySelector<HTMLButtonElement>('button');
+        if (!previewButton) {
+            throw new Error('Expected the condition preview button.');
+        }
+        previewButton.blur();
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelector('.condition-chip-preview')).toBeNull();
+    });
+
+    (['inline', 'formatted'] as const).forEach(layout => {
+        it(`keeps the ${layout} condition preview through Safari pointer focus loss until click`, async () => {
+            ({ element, disconnect } = await setup());
+            element.layout = layout;
+            await waitForUpdatesAsync();
+            const queryInput = getRequiredElement<ValueControl>('.query-input');
+            const input = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+            if (!input) {
+                throw new Error('Expected the query input.');
+            }
+            input.focus();
+            await waitForUpdatesAsync();
+            const preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
+            const button = preview.shadowRoot?.querySelector<HTMLButtonElement>('button');
+            if (!button) {
+                throw new Error('Expected the condition preview button.');
+            }
+            const pointerdown = new PointerEvent('pointerdown', {
+                bubbles: true, composed: true, cancelable: true, pointerType: 'mouse', button: 0
+            });
+            button.dispatchEvent(pointerdown);
+            // Safari blurs the input without focusing the button unless pointerdown is canceled.
+            if (!pointerdown.defaultPrevented) {
+                input.blur();
+            }
+            await waitForUpdatesAsync();
+            expect(element.shadowRoot?.querySelector('.condition-chip-preview')).toBe(preview);
+            expect(element.ruleCount).toBe(0);
+            button.click();
+            await waitForUpdatesAsync();
+            expect(element.ruleCount).toBe(1);
+            expect(element.activeRuleId).not.toBeNull();
+            const condition = getRequiredElement<HTMLElement>(`[data-rule-id="${element.activeRuleId}"]`);
+            expect(element.editorRegion?.anchorElement).toBe(condition);
+            expect(element.shadowRoot?.querySelector('.editor-panel')).not.toBeNull();
+        });
+    });
+
+    it('keeps focus in the query input when clicking the logic preview before adding a condition', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('existing', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        const input = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!input) {
+            throw new Error('Expected the query input.');
+        }
+        input.focus();
+        await waitForUpdatesAsync();
+        const logic = getRequiredElement<HTMLElement>('.logic-chip-preview');
+        const pointerdown = new PointerEvent('pointerdown', {
+            bubbles: true, composed: true, cancelable: true, pointerType: 'mouse', button: 0
+        });
+        logic.dispatchEvent(pointerdown);
+        if (!pointerdown.defaultPrevented) {
+            input.blur();
+        }
+        await waitForUpdatesAsync();
+        logic.click();
+        await waitForUpdatesAsync();
+        expect(element.editorTokens.map(token => token.kind)).toEqual(['condition', 'logic']);
+        expect(element.shadowRoot?.querySelector('.condition-chip-preview')).not.toBeNull();
+    });
+
+    it('moves the single preview with the caret in formatted expressions', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('first', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+            rule('second', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        element.layout = 'formatted';
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('.query-input').focus();
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelector('.logic-chip-preview')).not.toBeNull();
+        const moveLeft = async (): Promise<void> => {
+            const input = getRequiredElement<ValueControl>('.query-input').shadowRoot?.querySelector<HTMLInputElement>('input');
+            if (!input) {
+                throw new Error('Expected the query input.');
+            }
+            input.dispatchEvent(new KeyboardEvent('keydown', {
+                key: 'ArrowLeft', bubbles: true, composed: true, cancelable: true
+            }));
+            await waitForUpdatesAsync();
+        };
+        await moveLeft();
+        expect(element.caretPosition).toBe(2);
+        let queryInput = getRequiredElement<ValueControl>('.query-input');
+        let preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
+        expect(queryInput.parentElement?.nextElementSibling).toBe(preview);
+        expect(queryInput.closest('.formatted-row')).toBe(preview.closest('.formatted-row'));
+        expect(element.shadowRoot?.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length).toBe(1);
+        await moveLeft();
+        expect(element.caretPosition).toBe(1);
+        queryInput = getRequiredElement<ValueControl>('.query-input');
+        preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
+        expect(queryInput.parentElement?.nextElementSibling).toBe(preview);
+        expect(element.shadowRoot?.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length).toBe(1);
+    });
+
+    it('opens a new condition from its localized preview at the caret', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('existing', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        element.labels = { ...element.labels, addCondition: 'Create condition' };
+        element.defaultField = 'duration';
+        element.caretPosition = 0;
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('.query-input').focus();
+        await waitForUpdatesAsync();
+        const preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
+        expect(preview.textContent?.trim()).toBe('Create condition');
+        expect(preview.shadowRoot?.querySelector('button')?.getAttribute('aria-label')).toBe('Create condition');
+        preview.shadowRoot?.querySelector<HTMLButtonElement>('button')?.click();
+        await waitForUpdatesAsync();
+
+        expect(element.editorTokens.map(token => token.kind)).toEqual(['condition', 'logic', 'condition']);
+        expect(element.ruleCount).toBe(2);
+        expect(element.activeRule?.fieldId).toBe('duration');
+        expect(element.shadowRoot?.querySelector('.editor-panel')).not.toBeNull();
+        const newChip = getRequiredElement<HTMLElement>(`[data-rule-id="${element.activeRuleId}"]`);
+        expect(element.editorRegion?.anchorElement).toBe(newChip);
+        expect(element.shadowRoot?.querySelector('.condition-chip-preview, .logic-chip-preview')).toBeNull();
+    });
+
+    it('moves from a logic preview to a condition preview and supports Enter from the input', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('existing', 'status', 'is', { kind: 'scalar', value: 'failed' })
+        )));
+        getRequiredElement<HTMLElement>('.query-input').focus();
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length).toBe(1);
+        getRequiredElement<HTMLElement>('.logic-chip-preview').click();
+        await waitForUpdatesAsync();
+        expect(element.editorTokens.map(token => token.kind)).toEqual(['condition', 'logic']);
+        expect(element.shadowRoot?.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length).toBe(1);
+        expect(element.shadowRoot?.querySelector('.condition-chip-preview')).not.toBeNull();
+
+        const input = getRequiredElement<ValueControl>('.query-input').shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!input) {
+            throw new Error('Expected the query input.');
+        }
+        const enter = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, composed: true, cancelable: true });
+        input.dispatchEvent(enter);
+        await waitForUpdatesAsync();
+        expect(enter.defaultPrevented).toBeTrue();
+        expect(element.editorTokens.map(token => token.kind)).toEqual(['condition', 'logic', 'condition']);
+        expect(element.activeRuleId).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('.editor-panel')).not.toBeNull();
+    });
+
+    it('does not offer a condition preview when no default field is available', async () => {
+        ({ element, disconnect } = await setup());
+        element.defaultField = 'unavailable';
+        getRequiredElement<HTMLElement>('.query-input').focus();
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelector('.condition-chip-preview')).toBeNull();
+        expect(element.shadowRoot?.querySelector('.no-fields')?.textContent).toBe(element.labels.noAvailableFields);
     });
 
     it('shows the insertion caret when clicking anywhere in the empty conditions field', async () => {
@@ -1498,7 +1695,7 @@ describe('FvQueryEditor', () => {
         expect(getComputedStyle(incompleteButton).color).toBe(getComputedStyle(completeButton).color);
         expect(getComputedStyle(incompleteButton).backgroundColor).toBe(completeBackground);
 
-        getRequiredElement<HTMLElement>('.add-filter-button').focus();
+        getRequiredElement<HTMLElement>('.query-input').focus();
         await waitForUpdatesAsync();
 
         expect(element.activeRuleId).toBeNull();
@@ -1694,6 +1891,37 @@ describe('FvQueryEditor', () => {
         expect(element.shadowRoot?.activeElement?.tagName.toLowerCase()).toBe('ok-fv-expandable-chip');
     });
 
+    it('shows a localizable close hint in place of the editor error when the condition is valid', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]').click();
+        await waitForUpdatesAsync();
+
+        expect(getRequiredElement<HTMLElement>('.editor-hint').textContent?.trim()).toBe('Press Tab to close the editor.');
+        expect(element.shadowRoot?.querySelector('.editor-error')).toBeNull();
+
+        element.labels = { ...element.labels, closeEditorHint: 'Tab closes this condition.' };
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<HTMLElement>('.editor-hint').textContent?.trim()).toBe('Tab closes this condition.');
+
+        const control = getRequiredElement<ValueControl>('[data-control="scalar-number"]');
+        control.value = '';
+        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelector('.editor-hint')).toBeNull();
+        expect(getRequiredElement<HTMLElement>('.editor-error').textContent?.trim()).toBe(element.activeRuleError);
+        expect(element.activeRuleError.length).toBeGreaterThan(0);
+
+        control.value = '500';
+        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelector('.editor-error')).toBeNull();
+        expect(getRequiredElement<HTMLElement>('.editor-hint').textContent?.trim()).toBe('Tab closes this condition.');
+    });
+
     it('associates an invalid value with the active editor error message', async () => {
         const definition: QueryBuilderDefinition = {
             version: 1,
@@ -1730,10 +1958,205 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
 
         const selector = getRequiredElement<HTMLElement>('[data-control="collection-selector"]');
-        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input');
+        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input') as
+            (HTMLInputElement & { ariaErrorMessageElements?: Element[] }) | null;
         const error = getRequiredElement<HTMLElement>('.editor-error');
         expect(input?.getAttribute('aria-invalid')).toBe('true');
         expect((selector as HTMLElement & { ariaErrorMessageElements?: Element[] }).ariaErrorMessageElements).toEqual([error]);
+        expect(input?.ariaErrorMessageElements).toEqual([error]);
+    });
+
+    it('uses a numeric editor and numeric values for a numeric oneOf schema', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'value',
+                path: '/value',
+                label: 'Value',
+                valueSchema: { oneOf: [{ type: 'number', maximum: 0 }, { type: 'number', minimum: 1 }] },
+                operatorIds: ['is']
+            }],
+            operators: [{ id: 'is', label: 'Is', operand: { kind: 'field-value' } }]
+        };
+        expect(validateDefinition(definition).valid).toBeTrue();
+        expect(validateQuery({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'value', operatorId: 'is', value: 5 }
+        }, definition).valid).toBeTrue();
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'value', operatorId: 'is', value: -1 }
+        }, definition));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+
+        const input = getRequiredElement<ValueControl>('[data-control="scalar-number"]');
+        input.value = '5';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.draft.tokens[0])).toContain('"value":5');
+        expect(JSON.stringify(element.issues)).toBe('[]');
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({ kind: 'predicate', fieldId: 'value', operatorId: 'is', value: 5 }));
+        expect(element.valid).toBeTrue();
+    });
+
+    it('round-trips free-text lists with commas, quotes, and operator changes', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'name',
+                path: '/name',
+                label: 'Name',
+                valueSchema: { type: 'string' },
+                operatorIds: ['in', 'not-in']
+            }],
+            operators: [
+                { id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } },
+                { id: 'not-in', label: 'Is not one of', operand: { kind: 'field-value-list' } }
+            ]
+        };
+        const original = ['Test, nightly', 'Integration'];
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'name', operatorId: 'in', value: original }
+        }, definition));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+
+        let input = getRequiredElement<ValueControl>('[data-control="collection-values"]');
+        expect(input.value).toBe(JSON.stringify(original));
+        expect(input.textContent).toContain('JSON array');
+        const nativeInput = input.shadowRoot?.querySelector<HTMLInputElement>('input');
+        expect(nativeInput?.ariaDescribedByElements).toEqual([
+            getRequiredElement<HTMLElement>('.collection-input-hint')
+        ]);
+        const nextValues = ['Test, nightly', 'Quote "inside"', ''];
+        input.value = JSON.stringify(nextValues);
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeTrue();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate', fieldId: 'name', operatorId: 'in', value: nextValues
+        }));
+
+        const operator = getRequiredElement<ValueControl>('[data-control="operator"]');
+        operator.value = 'not-in';
+        operator.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        input = getRequiredElement<ValueControl>('[data-control="collection-values"]');
+        expect(input.value).toBe(JSON.stringify(nextValues));
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate', fieldId: 'name', operatorId: 'not-in', value: nextValues
+        }));
+
+        const restoredDraft = JSON.parse(JSON.stringify(element.draft)) as QueryEditorDraft;
+        element.draft = restoredDraft;
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<ValueControl>('[data-control="collection-values"]').value).toBe(JSON.stringify(nextValues));
+        expect(element.valid).toBeTrue();
+    });
+
+    it('preserves numeric and boolean types in free-entry lists', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [
+                { id: 'number', path: '/number', label: 'Number', valueSchema: { type: 'number' }, operatorIds: ['in'] },
+                { id: 'boolean', path: '/boolean', label: 'Boolean', valueSchema: { type: 'boolean' }, operatorIds: ['in'] }
+            ],
+            operators: [{ id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'number', operatorId: 'in', value: [1, 2] }
+        }, definition));
+        const checkList = async (
+            fieldId: string,
+            initialValue: readonly (number | boolean)[],
+            nextValue: readonly (number | boolean)[]
+        ): Promise<void> => {
+            element.query = { version: 1, root: { kind: 'predicate', fieldId, operatorId: 'in', value: [...initialValue] } };
+            await waitForUpdatesAsync();
+            getRequiredElement<HTMLElement>('[data-rule-id]').click();
+            await waitForUpdatesAsync();
+            const input = getRequiredElement<ValueControl>('[data-control="collection-values"]');
+            expect(input.value).toBe(JSON.stringify(initialValue));
+            input.value = JSON.stringify(nextValue);
+            input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            await waitForUpdatesAsync();
+            expect(element.valid).toBeTrue();
+            expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+                kind: 'predicate', fieldId, operatorId: 'in', value: nextValue
+            }));
+        };
+        await checkList('number', [1, 2], [1, 2.5, -3]);
+        const numberInput = getRequiredElement<ValueControl>('[data-control="collection-values"]');
+        numberInput.value = '[1,"2"]';
+        numberInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeFalse();
+        expect(element.issues[0]?.code).toBe('invalid-value');
+        await checkList('boolean', [true], [true, false]);
+    });
+
+    it('preserves invalid collection input in the draft and reports it until corrected', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{ id: 'name', path: '/name', label: 'Name', valueSchema: { type: 'string' }, operatorIds: ['in'] }],
+            operators: [{ id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } }]
+        };
+        const initialQuery: QueryDocument = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'name', operatorId: 'in', value: ['first'] }
+        };
+        ({ element, disconnect } = await setup(initialQuery, definition));
+        element.labels = {
+            ...element.labels,
+            collectionValueLabel: 'Custom JSON array label',
+            collectionValueHint: 'Custom JSON array hint',
+            errors: { ...element.labels.errors, invalidJsonArray: 'Custom JSON array error' }
+        };
+        const changes: QueryEditorEventDetail[] = [];
+        element.addEventListener('query-change', event => changes.push((event as CustomEvent<QueryEditorEventDetail>).detail));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        let input = getRequiredElement<ValueControl>('[data-control="collection-values"]');
+        expect(input.textContent).toContain('Custom JSON array label');
+        expect(getRequiredElement<HTMLElement>('.collection-input-hint').textContent).toContain('Custom JSON array hint');
+        const checkInvalid = async (invalid: string): Promise<void> => {
+            input.value = invalid;
+            input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            await waitForUpdatesAsync();
+            expect(element.valid).toBeFalse();
+            expect(changes[changes.length - 1]?.query).toBeNull();
+            expect(element.activeRuleError).toBe('Custom JSON array error');
+            expect(input.shadowRoot?.querySelector<HTMLInputElement>('input')?.ariaErrorMessageElements).toEqual([
+                getRequiredElement<HTMLElement>('.editor-error')
+            ]);
+            expect(JSON.stringify(element.query)).toBe(JSON.stringify(initialQuery));
+        };
+        await checkInvalid('["first",');
+        await checkInvalid('42');
+        await checkInvalid('{"value":"first"}');
+        input.value = '["first",';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        const draft = JSON.parse(JSON.stringify(element.draft)) as QueryEditorDraft;
+        expect(draft.tokens[0]?.kind === 'condition' && draft.tokens[0].rawInputs?.['/value']).toBe('["first",');
+        element.draft = draft;
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        input = getRequiredElement<ValueControl>('[data-control="collection-values"]');
+        expect(input.value).toBe('["first",');
+        expect(element.valid).toBeFalse();
+        input.value = '["first","second"]';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeTrue();
+        expect(JSON.stringify(element.query.root)).toContain('"value":["first","second"]');
+        expect(input.shadowRoot?.querySelector<HTMLInputElement>('input')?.ariaErrorMessageElements).toEqual([]);
     });
 
     it('uses the chip selector for multiselect values while retaining option values', async () => {
@@ -1932,6 +2355,213 @@ describe('FvQueryEditor', () => {
             fieldId: 'workspace',
             operatorId: 'is',
             value: 'production-test'
+        }));
+    });
+
+    it('forwards collection searches, cancels stale requests, and shows server-matched options', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'workspace',
+                path: '/workspace',
+                label: 'Workspace',
+                valueSchema: { type: 'string' },
+                operatorIds: ['in'],
+                editor: { kind: 'combobox', optionsSource: { sourceId: 'workspaces', searchable: true } }
+            }],
+            operators: [{ id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'in', value: ['existing'] }
+        }, definition));
+        const pending: {
+            readonly request: QueryOptionRequest,
+            readonly signal: AbortSignal,
+            readonly resolve: (page: QueryOptionPage) => void
+        }[] = [];
+        element.optionResolver = {
+            resolve: async (request, signal) => await new Promise(resolve => {
+                pending.push({ request, signal, resolve });
+            })
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        const selector = getRequiredElement<HTMLElement>('[data-control="collection-selector"]');
+        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input');
+        if (!input) {
+            throw new Error('Expected the collection selector input.');
+        }
+        expect(pending.length).toBe(1);
+        input.value = 'first';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        input.value = 'alias';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(pending.map(item => item.request.searchText)).toEqual([undefined, 'first', 'alias']);
+        expect(pending[0]?.signal.aborted).toBeTrue();
+        expect(pending[1]?.signal.aborted).toBeTrue();
+        pending[2]?.resolve({ options: [{ value: 'match', label: 'Assembly' }] });
+        pending[1]?.resolve({ options: [{ value: 'stale', label: 'Stale' }] });
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(element.activeOptions.map(option => option.label)).toEqual(['Assembly']);
+        const match = selector.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option');
+        expect(match?.textContent?.trim()).toBe('Assembly');
+        match?.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate', fieldId: 'workspace', operatorId: 'in', value: ['existing', 'match']
+        }));
+        expect(pending[3]?.request.searchText).toBeUndefined();
+
+        input.value = 'new search';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, composed: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(pending[4]?.request.searchText).toBe('new search');
+        expect(pending[4]?.signal.aborted).toBeTrue();
+        expect(pending[5]?.request.searchText).toBeUndefined();
+        pending[0]?.resolve({ options: [] });
+        pending[3]?.resolve({ options: [] });
+        pending[4]?.resolve({ options: [{ value: 'stale', label: 'Stale again' }] });
+        pending[5]?.resolve({ options: [{ value: 'current', label: 'Current' }] });
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(element.activeOptions.map(option => option.label)).toEqual(['Current']);
+    });
+
+    it('keeps local filtering for nonsearchable collection options', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'workspace',
+                path: '/workspace',
+                label: 'Workspace',
+                valueSchema: { type: 'string' },
+                operatorIds: ['in'],
+                editor: { kind: 'combobox', optionsSource: { sourceId: 'workspaces', searchable: false } }
+            }],
+            operators: [{ id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'in', value: ['existing'] }
+        }, definition));
+        const requests: QueryOptionRequest[] = [];
+        element.optionResolver = {
+            resolve: async request => {
+                requests.push(request);
+                return await Promise.resolve({ options: [{ value: 'production', label: 'Production' }] });
+            }
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        const selector = getRequiredElement<HTMLElement>('[data-control="collection-selector"]');
+        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input');
+        if (!input) {
+            throw new Error('Expected the collection selector input.');
+        }
+        input.value = 'alias';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(selector.shadowRoot?.querySelector('.chip-selector-option')).toBeNull();
+        input.value = 'prod';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(selector.shadowRoot?.querySelector('.chip-selector-option')?.textContent?.trim()).toBe('Production');
+        expect(requests.length).toBe(1);
+    });
+
+    it('forwards collection search text for searchable dynamic selects', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'priority',
+                path: '/priority',
+                label: 'Priority',
+                valueSchema: { type: 'number' },
+                operatorIds: ['in'],
+                editor: { kind: 'select', optionsSource: { sourceId: 'priorities', searchable: true } }
+            }],
+            operators: [{ id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'priority', operatorId: 'in', value: [1] }
+        }, definition));
+        const searches: (string | undefined)[] = [];
+        element.optionResolver = {
+            resolve: async request => {
+                searches.push(request.searchText);
+                return await Promise.resolve({ options: [{ value: 2, label: 'High' }] });
+            }
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        const selector = getRequiredElement<HTMLElement>('[data-control="collection-selector"]');
+        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input');
+        if (!input) {
+            throw new Error('Expected the collection selector input.');
+        }
+        input.value = 'important';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(searches).toEqual([undefined, 'important']);
+        expect(selector.shadowRoot?.querySelector('.chip-selector-option')?.textContent?.trim()).toBe('High');
+    });
+
+    it('uses the selected values after changing from a free-entry list to a dynamic list', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'name', path: '/name', label: 'Name', valueSchema: { type: 'string' }, operatorIds: ['in', 'choose']
+            }],
+            operators: [
+                { id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } },
+                {
+                    id: 'choose',
+                    label: 'Choose from options',
+                    operand: { kind: 'field-value-list' },
+                    editor: { kind: 'combobox', optionsSource: { sourceId: 'names', searchable: true } }
+                }
+            ]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'name', operatorId: 'in', value: ['first'] }
+        }, definition));
+        element.optionResolver = {
+            resolve: async () => await Promise.resolve({ options: [{ value: 'third', label: 'Third' }] })
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        const input = getRequiredElement<ValueControl>('[data-control="collection-values"]');
+        input.value = '["first","second"]';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        const operator = getRequiredElement<ValueControl>('[data-control="operator"]');
+        operator.value = 'choose';
+        operator.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        const selector = getRequiredElement<HTMLElement>('[data-control="collection-selector"]');
+        selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')?.focus();
+        await waitForUpdatesAsync();
+        const option = selector.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option');
+        expect(option?.textContent?.trim()).toBe('Third');
+        option?.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate', fieldId: 'name', operatorId: 'choose', value: ['first', 'second', 'third']
         }));
     });
 
@@ -2478,8 +3108,7 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
         expect(element.activeRuleId).toBe('duration-rule');
 
-        const addFilterButton = getRequiredElement<HTMLElement>('.add-filter-button');
-        addFilterButton.focus();
+        getRequiredElement<HTMLElement>('.query-input').focus();
         await waitForUpdatesAsync();
 
         expect(element.activeRuleId).toBeNull();

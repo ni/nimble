@@ -14,7 +14,6 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
-    mediumPadding,
     placeholderFontColor,
     popupBorderColor,
     smallPadding,
@@ -175,16 +174,16 @@ export const styles = css`
             text-indent: 2.5ch;
         }
 
-        .query-input[data-placeholder='true'][data-focused='true'] {
+        .query-input[data-placeholder='true'][data-field-focused='true'] {
             width: 8px;
         }
 
-        .query-input[data-placeholder='true'][data-focused='true']::part(control) {
+        .query-input[data-placeholder='true'][data-field-focused='true']::part(control) {
             text-align: center;
             text-indent: 0;
         }
 
-        .query-input[data-placeholder='true'][data-focused='true']::part(control)::placeholder {
+        .query-input[data-placeholder='true'][data-field-focused='true']::part(control)::placeholder {
             opacity: 0;
         }
 
@@ -203,8 +202,15 @@ export const styles = css`
             cursor: text;
         }
 
-        .condition-chip {
+        .condition-chip,
+        .condition-chip-preview {
             max-width: min(320px, 80vw);
+        }
+
+        .condition-chip-preview::part(control) {
+            border-style: dashed;
+            border-color: ${borderHoverColor};
+            background: transparent;
         }
 
         .condition-operator {
@@ -296,15 +302,9 @@ export const styles = css`
             color: ${errorTextFontColor};
         }
 
-        .editor-actions {
-            display: flex;
-            align-items: center;
-            gap: ${standardPadding};
-            margin-block-start: calc(${mediumPadding} - ${smallPadding});
-        }
-
-        .add-filter-button {
-            min-height: ${controlHeight};
+        .editor-hint,
+        .collection-input-hint {
+            color: ${controlLabelFontColor};
         }
 
         .editor-region {

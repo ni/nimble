@@ -16,7 +16,8 @@ export const template = html<FvSplitButton>`
                 return true;
             }}"
         >
-            <slot>${x => x.label}</slot>
+            <slot ${ref('primarySlot')} @slotchange="${x => x.updatePrimaryContent()}"></slot>
+            ${when(x => !x.hasPrimaryContent, html<FvSplitButton>`<span>${x => x.label}</span>`)}
         </button>
         <button
             class="split-button-toggle"

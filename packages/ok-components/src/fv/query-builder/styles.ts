@@ -3,6 +3,7 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
+    borderHoverColor,
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
@@ -16,7 +17,7 @@ import {
 import { display } from '../../utilities/style/display';
 
 export const styles = css`
-    @layer base, disabled;
+    @layer base, focusVisible, disabled;
 
     @layer base {
         ${display('inline-block')}
@@ -234,6 +235,13 @@ export const styles = css`
             overflow: hidden;
             clip-path: inset(50%);
             white-space: nowrap;
+        }
+    }
+
+    @layer focusVisible {
+        .query-popover:focus-visible {
+            outline: ${borderWidth} solid ${borderHoverColor};
+            outline-offset: 2px;
         }
     }
 

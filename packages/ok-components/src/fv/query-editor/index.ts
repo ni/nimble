@@ -23,6 +23,7 @@ import {
 } from '../query-builder/types';
 import {
     MAX_QUERY_GROUP_DEPTH,
+    getSimpleSchemaType,
     validateDefinition,
     validateQuery,
     type JsonPrimitive,
@@ -146,8 +147,12 @@ export type QueryEditorEventDetail = {
 export type QueryEditorLabels = Pick<
     QueryBuilderLabels,
     | 'addFilter'
+    | 'addCondition'
     | 'and'
     | 'comparisonValue'
+    | 'closeEditorHint'
+    | 'collectionValueHint'
+    | 'collectionValueLabel'
     | 'completeFilterExpression'
     | 'done'
     | 'editRule'
@@ -251,17 +256,6 @@ function staticOptions(schema: QueryBuilderDefinition['fields'][number]['valueSc
     return undefined;
 }
 
-function simpleSchemaType(schema: QueryBuilderDefinition['fields'][number]['valueSchema']): string | undefined {
-    if (typeof schema === 'boolean') {
-        return undefined;
-    }
-    if (Array.isArray(schema.type)) {
-        const types = schema.type.filter((type): type is string => typeof type === 'string' && type !== 'null');
-        return types.length === 1 ? types[0] : undefined;
-    }
-    return typeof schema.type === 'string' ? schema.type : undefined;
-}
-
 function editorOperandKind(operand: QueryBuilderDefinition['operators'][number]['operand']): QueryBuilderOperandKind {
     switch (operand.kind) {
         case 'none':
@@ -312,7 +306,7 @@ function editorFieldType(
     if (kind === 'range') {
         return 'number';
     }
-    switch (simpleSchemaType(schema)) {
+    switch (getSimpleSchemaType(schema)) {
         case 'number':
         case 'integer':
             return 'number';
@@ -392,6 +386,10 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     @observable
+    public queryFieldFocused = false;
+
+    /** @internal */
+    @observable
     public activeSuggestionIndex = 0;
 
     /** @internal */
@@ -421,6 +419,10 @@ export class FvQueryEditor extends FoundationElement {
     /** @internal */
     @observable
     public editorPanelErrorElement?: HTMLElement;
+
+    /** @internal */
+    @observable
+    public collectionInputHintElement?: HTMLElement;
 
     /** @internal */
     @observable
@@ -457,7 +459,7 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public get canAddFilter(): boolean {
-        return !this.disabled && this.getDefaultField() !== undefined;
+        return !this.disabled && this.definition !== undefined && this.getDefaultField() !== undefined;
     }
 
     /** Whether the current draft has valid structure and operands. */
@@ -636,7 +638,7 @@ export class FvQueryEditor extends FoundationElement {
         if (typeof schema === 'boolean') {
             return 'text';
         }
-        const type = simpleSchemaType(schema);
+        const type = getSimpleSchemaType(schema);
         if (type === 'string' && schema.format === 'date') {
             return 'date';
         }
@@ -655,6 +657,13 @@ export class FvQueryEditor extends FoundationElement {
             this.activeRule.fieldId,
             this.activeRule.operatorId
         ));
+    }
+
+    /** @internal */
+    public get activeCollectionSearchable(): boolean {
+        const rule = this.activeRule;
+        const source = rule ? this.getOptionSource(rule.fieldId, rule.operatorId) : undefined;
+        return source !== undefined && source.searchable !== false;
     }
 
     /** @internal */
@@ -711,6 +720,10 @@ export class FvQueryEditor extends FoundationElement {
                 candidate => candidate.kind === 'condition' && candidate.rule.id === rule.id
             );
             if (token?.kind === 'condition') {
+                if (this.portableOperator(rule.fieldId, rule.operatorId)?.operand.kind === 'field-value-list'
+                    && token.rawInputs?.['/value'] !== undefined && !Array.isArray(token.value)) {
+                    return this.labels.errors.invalidJsonArray ?? 'Enter a valid JSON array.';
+                }
                 const result = validateQuery({
                     version: 1,
                     root: this.createPredicate(token)
@@ -786,6 +799,16 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
+    public get shouldShowConditionChipPreview(): boolean {
+        return this.queryFieldFocused
+            && this.canAddFilter
+            && !this.activeRuleId
+            && !this.logicSuggestionsDismissed
+            && this.queryInputText.length === 0
+            && !this.shouldShowLogicChipPreviews;
+    }
+
+    /** @internal */
     public get queryInputWidth(): string {
         if (this.queryInputText.length === 0) {
             return this.editorTokens.length === 0 ? '60ch' : '8px';
@@ -840,7 +863,12 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public editorPanelErrorElementChanged(): void {
-        DOM.queueUpdate(() => this.syncEditorControlAccessibility());
+        this.syncEditorControlAccessibilityAfterRender();
+    }
+
+    /** @internal */
+    public collectionInputHintElementChanged(): void {
+        this.syncEditorControlAccessibilityAfterRender();
     }
 
     /** @internal */
@@ -1141,6 +1169,12 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public handleEditorFocusIn(event: Event): void {
+        if (this.findPathElement<HTMLElement>(event, '.editor-field')) {
+            if (!this.queryFieldFocused) {
+                this.logicSuggestionsDismissed = false;
+            }
+            this.queryFieldFocused = true;
+        }
         const queryInput = this.findPathElement<HTMLElement>(event, '.query-input');
         if (queryInput) {
             queryInput.dataset.focused = 'true';
@@ -1170,6 +1204,12 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public handleEditorFocusOut(event: Event): void {
+        if (this.findPathElement<HTMLElement>(event, '.editor-field')) {
+            DOM.queueUpdate(() => {
+                const focused = this.shadowRoot?.activeElement;
+                this.queryFieldFocused = Boolean(focused?.closest('.editor-field'));
+            });
+        }
         const queryInput = this.findPathElement<HTMLElement>(event, '.query-input');
         queryInput?.removeAttribute('data-focused');
         DOM.queueUpdate(() => this.syncQueryInputAccessibility());
@@ -1268,7 +1308,7 @@ export class FvQueryEditor extends FoundationElement {
                     this.setCaret(this.getTrailingCaretPosition(event, position) ?? position);
                     return;
                 }
-                case 'add-filter':
+                case 'add-condition':
                     this.addFilter(actionElement);
                     return;
                 case 'toggle-logic':
@@ -1407,6 +1447,21 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
+    public handleCollectionFilterChange(event: Event): void {
+        if (this.disabled || !this.activeCollectionSearchable) {
+            return;
+        }
+        if (!(event instanceof CustomEvent)) {
+            throw new Error('Expected the collection selector to emit a filter string.');
+        }
+        const detail: unknown = event.detail;
+        if (!isRecord(detail) || typeof detail.filterText !== 'string') {
+            throw new Error('Expected the collection selector to emit a filter string.');
+        }
+        void this.resolveOptions(detail.filterText);
+    }
+
+    /** @internal */
     public handleSuggestionChange(event: Event): void {
         event.stopPropagation();
         if (this.disabled) {
@@ -1527,6 +1582,14 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public getActiveCollectionInput(): string {
+        if (this.definition) {
+            const token = this.editorTokens.find(
+                candidate => candidate.kind === 'condition' && candidate.rule.id === this.activeRuleId
+            );
+            if (token?.kind === 'condition') {
+                return token.rawInputs?.['/value'] ?? JSON.stringify(token.value ?? []);
+            }
+        }
         return this.activeCollectionValues.join(', ');
     }
 
@@ -1549,7 +1612,7 @@ export class FvQueryEditor extends FoundationElement {
         if (schema === undefined || typeof schema === 'boolean') {
             return this.activeField?.type === 'number' ? 'number' : 'text';
         }
-        const type = simpleSchemaType(schema);
+        const type = getSimpleSchemaType(schema);
         if (type === 'number' || type === 'integer') {
             return 'number';
         }
@@ -2243,8 +2306,18 @@ export class FvQueryEditor extends FoundationElement {
 
     private syncEditorControlAccessibility(): void {
         const errorElement = this.editorPanelErrorElement;
+        const collectionHint = this.shadowRoot?.querySelector<HTMLElement>('.collection-input-hint');
         const controls = this.shadowRoot?.querySelectorAll<HTMLElement>('.editor-panel [data-control]') ?? [];
         for (const control of controls) {
+            if (control.dataset.control === 'collection-values' && collectionHint) {
+                const input = control.shadowRoot?.querySelector<HTMLInputElement>('input');
+                if (input) {
+                    input.ariaDescribedByElements = [collectionHint];
+                    input.ariaErrorMessageElements = errorElement && control.getAttribute('aria-invalid') === 'true'
+                        ? [errorElement]
+                        : [];
+                }
+            }
             if (!errorElement || control.getAttribute('aria-invalid') !== 'true') {
                 continue;
             }
@@ -2411,6 +2484,19 @@ export class FvQueryEditor extends FoundationElement {
             }
         }
 
+        if (this.shouldShowConditionChipPreview) {
+            if (event.key === 'Enter' && !event.isComposing) {
+                event.preventDefault();
+                this.addFilter();
+                return;
+            }
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                this.logicSuggestionsDismissed = true;
+                return;
+            }
+        }
+
         const suggestions = this.suggestions;
         if (suggestions.length > 0) {
             if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -2562,16 +2648,29 @@ export class FvQueryEditor extends FoundationElement {
             return;
         }
         let values: string[];
+        let rawInput: Readonly<{ [key: string]: string }> | null | undefined;
         if (typeof value === 'string') {
-            values = value.trim() === '' ? [] : value.split(',').map(item => item.trim());
+            if (this.definition) {
+                const parsed = this.parseCollectionInput(value);
+                values = Array.isArray(parsed)
+                    ? parsed.map(item => (isJsonPrimitive(item)
+                        ? this.encodeOptionValue(rule.fieldId, rule.operatorId, item)
+                        : JSON.stringify(item)))
+                    : [];
+                const rawValuePath = '/value';
+                rawInput = { [rawValuePath]: value };
+            } else {
+                values = value.trim() === '' ? [] : value.split(',').map(item => item.trim());
+            }
         } else {
             values = [...value];
+            rawInput = this.definition ? null : undefined;
         }
         this.updateRule({
             ...rule,
             revision: rule.revision + 1,
             operand: { kind: 'collection', values }
-        });
+        }, rawInput);
     }
 
     private updateCollectionFromSelectorEvent(event: Event): void {
@@ -2615,7 +2714,7 @@ export class FvQueryEditor extends FoundationElement {
         const endpointSchema = operator?.operand.kind === 'range' ? operator.operand.endpointSchema : undefined;
         const endpointType = endpointSchema === undefined
             ? this.activeField?.type
-            : simpleSchemaType(endpointSchema);
+            : getSimpleSchemaType(endpointSchema);
         if (value === '' && endpointType !== 'string' && endpointType !== 'date') {
             parsedValue = null;
         } else if (value === '') {
@@ -2656,7 +2755,7 @@ export class FvQueryEditor extends FoundationElement {
         }, this.definition ? { [rawValuePath]: value } : undefined);
     }
 
-    private updateRule(rule: QueryBuilderRule, rawInput?: Readonly<{ [key: string]: string }>): void {
+    private updateRule(rule: QueryBuilderRule, rawInput?: Readonly<{ [key: string]: string }> | null): void {
         const index = this.editorTokens.findIndex(
             token => token.kind === 'condition' && token.rule.id === rule.id
         );
@@ -2670,7 +2769,7 @@ export class FvQueryEditor extends FoundationElement {
         }
         const identityChanged = token.rule.fieldId !== rule.fieldId || token.rule.operatorId !== rule.operatorId;
         let rawInputs = token.rawInputs;
-        if (identityChanged) {
+        if (identityChanged || rawInput === null) {
             rawInputs = undefined;
         } else if (rawInput !== undefined) {
             rawInputs = { ...token.rawInputs, ...rawInput };
@@ -2750,10 +2849,10 @@ export class FvQueryEditor extends FoundationElement {
         schema: QueryBuilderDefinition['fields'][number]['valueSchema'] | undefined
     ): JsonPrimitive {
         if (value === '') {
-            const type = schema === undefined ? undefined : simpleSchemaType(schema);
+            const type = schema === undefined ? undefined : getSimpleSchemaType(schema);
             return type === 'number' || type === 'integer' ? null : '';
         }
-        const type = schema === undefined ? undefined : simpleSchemaType(schema);
+        const type = schema === undefined ? undefined : getSimpleSchemaType(schema);
         if (type === 'number' || type === 'integer') {
             const numberValue = Number(value);
             return Number.isFinite(numberValue) ? numberValue : null;
@@ -2772,6 +2871,9 @@ export class FvQueryEditor extends FoundationElement {
             return undefined;
         }
         if (Object.prototype.hasOwnProperty.call(rawInputs, '/value')) {
+            if (operator.operand.kind === 'field-value-list') {
+                return this.parseCollectionInput(rawInputs['/value']!);
+            }
             return this.parseRawInput(rawInputs['/value']!, this.getEffectiveSchema(fieldId, operatorId));
         }
         if (operator.operand.kind === 'range') {
@@ -2796,6 +2898,18 @@ export class FvQueryEditor extends FoundationElement {
             };
         }
         return currentValue;
+    }
+
+    private parseCollectionInput(value: string): JsonValue {
+        try {
+            const parsed: unknown = JSON.parse(value);
+            return this.isJsonValue(parsed) ? parsed : value;
+        } catch (error) {
+            if (error instanceof SyntaxError) {
+                return value;
+            }
+            throw error;
+        }
     }
 
     private staticChoiceValues(schema: QueryBuilderDefinition['fields'][number]['valueSchema']): readonly JsonPrimitive[] {

@@ -69,6 +69,10 @@ export class FvChipSelector extends FoundationElement {
     @attr({ attribute: 'allow-custom-values', mode: 'boolean' })
     public allowCustomValues = false;
 
+    /** Whether to filter options by their labels locally. Disable for server-filtered options. */
+    @observable
+    public filterLocally = true;
+
     /** @internal */
     @observable
     public filterText = '';
@@ -127,6 +131,13 @@ export class FvChipSelector extends FoundationElement {
     /** @internal */
     public filterTextChanged(): void {
         this.activeOptionIndex = -1;
+        if (this.isConnected) {
+            this.dispatchEvent(new CustomEvent('filter-change', {
+                bubbles: true,
+                composed: true,
+                detail: { filterText: this.filterText }
+            }));
+        }
     }
 
     /** @internal */
@@ -248,7 +259,7 @@ export class FvChipSelector extends FoundationElement {
                 return false;
             }
 
-            return normalizedFilter.length === 0
+            return !this.filterLocally || normalizedFilter.length === 0
                 || diacriticInsensitiveStringNormalizer(this.formatValue(option)).includes(normalizedFilter);
         });
     }
@@ -473,33 +484,29 @@ export class FvChipSelector extends FoundationElement {
         const list = this.shadowRoot?.getElementById(this.menuId);
         const descriptionId = this.ariaDescribedby;
         const errorMessageId = this.ariaErrormessage;
-        const inputDescriptions = this.validElements(this.ariaDescribedbyElements, input.getRootNode());
-        const inputErrors = this.validElements(this.ariaErrormessageElements, input.getRootNode());
+        const inputDescriptions = this.validElements([
+            ...(this.ariaDescribedbyElements ?? []),
+            ...this.resolveAriaIds(descriptionId)
+        ], input.getRootNode());
+        const inputErrors = this.validElements([
+            ...(this.ariaErrormessageElements ?? []),
+            ...this.resolveAriaIds(errorMessageId)
+        ], input.getRootNode());
         const hostDescriptions = this.validElements(this.ariaDescribedbyElements, this.getRootNode());
         const hostErrors = this.validElements(this.ariaErrormessageElements, this.getRootNode());
-        const host = this as unknown as {
-            ariaDescribedByElements?: readonly Element[] | null,
-            ariaErrorMessageElements?: readonly Element[] | null
-        };
-        if (hostDescriptions.length > 0) {
-            host.ariaDescribedByElements = hostDescriptions;
-        } else if ((host.ariaDescribedByElements?.length ?? 0) > 0) {
-            host.ariaDescribedByElements = [];
+        if (!descriptionId && hostDescriptions.length > 0) {
+            this.ariaDescribedByElements = hostDescriptions;
+        } else if (!descriptionId && (this.ariaDescribedByElements?.length ?? 0) > 0) {
+            this.ariaDescribedByElements = [];
         }
-        if (hostErrors.length > 0) {
-            host.ariaErrorMessageElements = hostErrors;
-        } else if ((host.ariaErrorMessageElements?.length ?? 0) > 0) {
-            host.ariaErrorMessageElements = [];
+        if (!errorMessageId && hostErrors.length > 0) {
+            this.ariaErrorMessageElements = hostErrors;
+        } else if (!errorMessageId && (this.ariaErrorMessageElements?.length ?? 0) > 0) {
+            this.ariaErrorMessageElements = [];
         }
         input.ariaControlsElements = list ? [list] : [];
         input.ariaDescribedByElements = inputDescriptions;
         input.ariaErrorMessageElements = inputErrors;
-        if (inputDescriptions.length === 0 && hostDescriptions.length === 0 && descriptionId) {
-            input.setAttribute('aria-describedby', descriptionId);
-        }
-        if (inputErrors.length === 0 && hostErrors.length === 0 && errorMessageId) {
-            input.setAttribute('aria-errormessage', errorMessageId);
-        }
     }
 
     private commitActiveOption(): void {
@@ -595,7 +602,24 @@ export class FvChipSelector extends FoundationElement {
     }
 
     private validElements(values: readonly Element[] | undefined, root: Node): Element[] {
-        return values?.filter(value => value.getRootNode() === root) ?? [];
+        const roots = new Set<Node>();
+        let current = root;
+        roots.add(current);
+        while (current instanceof ShadowRoot) {
+            current = current.host.getRootNode();
+            roots.add(current);
+        }
+        return [...new Set(values?.filter(value => roots.has(value.getRootNode())) ?? [])];
+    }
+
+    private resolveAriaIds(ids: string): Element[] {
+        const root = this.getRootNode();
+        if (!(root instanceof Document || root instanceof ShadowRoot)) {
+            return [];
+        }
+        return ids.trim().split(/\s+/)
+            .map(id => root.getElementById(id))
+            .filter((element): element is HTMLElement => element !== null);
     }
 
     private setOpen(nextOpen: boolean): void {

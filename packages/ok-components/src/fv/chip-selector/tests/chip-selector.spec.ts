@@ -89,6 +89,35 @@ describe('FvChipSelector', () => {
         expect(visibleOptions).toEqual(['Maintenance due']);
     });
 
+    it('can show server-filtered options and reports filter changes and clearing', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.filterLocally = false;
+        const filters: string[] = [];
+        element.addEventListener('filter-change', event => {
+            const change = event as CustomEvent<{ filterText: string }>;
+            expect(change.bubbles).toBeTrue();
+            expect(change.composed).toBeTrue();
+            filters.push(change.detail.filterText);
+        });
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.value = 'alias';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.visibleOptionList).toContain('Active');
+        expect(filters).toEqual(['alias']);
+
+        getRequiredElement<HTMLElement>('[data-option-value="Active"]').click();
+        await waitForUpdatesAsync();
+        expect(filters).toEqual(['alias', '']);
+        input.value = 'again';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(filters).toEqual(['alias', '', 'again', '']);
+    });
+
     it('filters the option list with case-insensitive diacritic-insensitive matching', async () => {
         ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
             <${fvChipSelectorTag}
@@ -213,6 +242,53 @@ describe('FvChipSelector', () => {
         expect(input.ariaErrorMessageElements).toEqual([error]);
         description.remove();
         error.remove();
+    });
+
+    it('forwards host ID references and ancestor shadow-root elements to its input', async () => {
+        const result = await setup();
+        ({ element, connect, disconnect } = result);
+        const wrapper = document.createElement('div');
+        const root = wrapper.attachShadow({ mode: 'open' });
+        const description = document.createElement('span');
+        const error = document.createElement('span');
+        description.id = 'selector-description';
+        error.id = 'selector-error';
+        element.replaceWith(wrapper);
+        root.append(element, description, error);
+        element.ariaDescribedby = description.id;
+        element.ariaErrormessage = error.id;
+        await connect();
+        await waitForUpdatesAsync();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input') as HTMLInputElement & {
+            ariaDescribedByElements?: Element[],
+            ariaErrorMessageElements?: Element[]
+        };
+        expect(input.ariaDescribedByElements).toEqual([description]);
+        expect(input.ariaErrorMessageElements).toEqual([error]);
+
+        const extraDescription = document.createElement('span');
+        const extraError = document.createElement('span');
+        const unrelatedHost = document.createElement('div');
+        const unrelated = unrelatedHost.attachShadow({ mode: 'open' });
+        const unrelatedElement = document.createElement('span');
+        unrelated.append(unrelatedElement);
+        root.append(extraDescription, extraError, unrelatedHost);
+        element.ariaDescribedbyElements = [extraDescription, unrelatedElement];
+        element.ariaErrormessageElements = [extraError, unrelatedElement];
+        await waitForUpdatesAsync();
+        expect(element.getAttribute('aria-describedby')).toBe(description.id);
+        expect(element.getAttribute('aria-errormessage')).toBe(error.id);
+        expect(input.ariaDescribedByElements).toEqual([extraDescription, description]);
+        expect(input.ariaErrorMessageElements).toEqual([extraError, error]);
+
+        element.ariaDescribedby = '';
+        element.ariaErrormessage = '';
+        element.ariaDescribedbyElements = [description];
+        element.ariaErrormessageElements = [error];
+        await waitForUpdatesAsync();
+        expect(input.ariaDescribedByElements).toEqual([description]);
+        expect(input.ariaErrorMessageElements).toEqual([error]);
     });
 
     it('adds a value by clicking an option in the menu', async () => {

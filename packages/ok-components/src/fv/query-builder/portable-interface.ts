@@ -1,4 +1,4 @@
-import { compileSchema, draft2020 } from 'json-schema-library';
+import { compileSchema, draft2020, extendDraft } from 'json-schema-library';
 import { remotes } from 'json-schema-library/remotes';
 
 export type JsonPrimitive = string | number | boolean | null;
@@ -164,8 +164,31 @@ const draft2020MetaSchemaUri = 'https://json-schema.org/draft/2020-12/schema';
 const standardMetaSchemas = remotes.filter(
     schema => typeof schema.$id === 'string' && schema.$id.startsWith('https://json-schema.org/draft/2020-12/')
 );
+const maximumKeyword = draft2020.keywords.find(keyword => keyword.keyword === 'maximum');
+if (!maximumKeyword?.validate) {
+    throw new Error('The JSON Schema maximum validator is not available.');
+}
+const validateMaximum = maximumKeyword.validate;
+// json-schema-library 11.6.16 ignores a maximum of zero.
+const querySchemaDraft = extendDraft(draft2020, {
+    keywords: [{
+        ...maximumKeyword,
+        validate: (params): ReturnType<typeof validateMaximum> => {
+            if (params.node.maximum === 0 && typeof params.data === 'number' && params.data > 0) {
+                return params.node.createError('maximum-error', {
+                    maximum: 0,
+                    length: params.data,
+                    value: params.data,
+                    pointer: params.pointer,
+                    schema: params.node.schema
+                });
+            }
+            return validateMaximum(params);
+        }
+    }]
+});
 const validatorOptions = {
-    drafts: [draft2020],
+    drafts: [querySchemaDraft],
     remotes: standardMetaSchemas,
     formatAssertion: true as const,
     throwOnInvalidRef: true,
@@ -249,14 +272,15 @@ function validateLocalSchemaReferences(
     issues: QueryBuilderIssue[]
 ): void {
     const pending: { readonly value: unknown, readonly path: string }[] = [{ value: schema, path }];
+    const schemaKeywords = [
+        'additionalProperties', 'unevaluatedProperties', 'propertyNames', 'items', 'contains',
+        'unevaluatedItems', 'not', 'if', 'then', 'else', 'contentSchema'
+    ];
+    const schemaMapKeywords = ['$defs', 'properties', 'patternProperties', 'dependentSchemas'];
+    const schemaArrayKeywords = ['allOf', 'anyOf', 'oneOf', 'prefixItems'];
     while (pending.length > 0) {
         const current = pending.pop()!;
-        if (Array.isArray(current.value)) {
-            current.value.forEach((value, index) => pending.push({
-                value,
-                path: appendPointer(current.path, index)
-            }));
-        } else if (isRecord(current.value)) {
+        if (isRecord(current.value)) {
             const dialect = current.value.$schema;
             if (dialect !== undefined && dialect !== draft2020MetaSchemaUri) {
                 issues.push(issue('invalid-schema', 'definition', appendPointer(current.path, '$schema'), 'Only JSON Schema Draft 2020-12 is supported.'));
@@ -267,10 +291,28 @@ function validateLocalSchemaReferences(
                     issues.push(issue('invalid-schema', 'definition', appendPointer(current.path, key), 'Only local JSON Schema references are supported.'));
                 }
             }
-            Object.entries(current.value).forEach(([key, value]) => pending.push({
-                value,
-                path: appendPointer(current.path, key)
-            }));
+            for (const key of schemaKeywords) {
+                if (hasOwn(current.value, key)) {
+                    pending.push({ value: current.value[key], path: appendPointer(current.path, key) });
+                }
+            }
+            for (const key of schemaMapKeywords) {
+                const map = current.value[key];
+                if (isRecord(map)) {
+                    for (const [name, value] of Object.entries(map)) {
+                        pending.push({ value, path: appendPointer(appendPointer(current.path, key), name) });
+                    }
+                }
+            }
+            for (const key of schemaArrayKeywords) {
+                const schemas = current.value[key];
+                if (Array.isArray(schemas)) {
+                    schemas.forEach((value, index) => pending.push({
+                        value,
+                        path: appendPointer(appendPointer(current.path, key), index)
+                    }));
+                }
+            }
         }
     }
 }
@@ -340,7 +382,8 @@ function isJsonPrimitive(value: unknown): value is JsonPrimitive {
         || (typeof value === 'number' && Number.isFinite(value));
 }
 
-function getSimpleSchemaType(schema: JsonSchema202012): string | undefined {
+/** @internal */
+export function getSimpleSchemaType(schema: JsonSchema202012): string | undefined {
     if (typeof schema === 'boolean') {
         return undefined;
     }
@@ -884,7 +927,9 @@ function validateQueryInner(input: unknown, definition: QueryBuilderDefinition):
                 issues.push(...issueForSchemaErrors(validator.validate(value).errors, 'query', `${current.path}/value`));
             }
         } else if (operator.operand.kind === 'field-value-list') {
-            if (!Array.isArray(value) || value.length < (operator.operand.minItems ?? 1)) {
+            if (!Array.isArray(value)) {
+                issues.push(issue('invalid-value', 'query', `${current.path}/value`, 'List operand must be an array.'));
+            } else if (value.length < (operator.operand.minItems ?? 1)) {
                 issues.push(issue('invalid-value', 'query', `${current.path}/value`, 'List operand does not meet its minimum item count.'));
             } else {
                 const valueValidator = validators?.get(`field:${field.id}`);

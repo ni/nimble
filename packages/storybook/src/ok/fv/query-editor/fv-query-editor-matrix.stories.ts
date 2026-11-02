@@ -125,3 +125,31 @@ autocompleteThemeMatrix.play = async ({ canvasElement }) => {
     }
     await waitForUpdatesAsync();
 };
+
+export const insertionPreviewsThemeMatrix: StoryFn = createMatrixThemeStory(html`
+    ${disableStorybookZoomTransform}
+    ${component('Focused empty condition', queryEditorPresets.empty)}
+    ${component('Focused logic preview', queryEditorPresets.basic)}
+    ${component('Focused condition after logic', queryEditorPresets.basic)}
+`);
+insertionPreviewsThemeMatrix.play = async ({ canvasElement }) => {
+    await waitForUpdatesAsync();
+    for (const editor of canvasElement.querySelectorAll<FvQueryEditor>(fvQueryEditorTag)) {
+        if (editor.parentElement?.querySelector('h3')?.textContent?.startsWith('Focused condition after logic')) {
+            const tokens = [...editor.draft.tokens, { kind: 'logic' as const, logic: 'and' as const }];
+            editor.draft = { ...editor.draft, tokens, caretPosition: tokens.length };
+        }
+        editor.queryFieldFocused = true;
+    }
+    await waitForUpdatesAsync();
+    for (const editor of canvasElement.querySelectorAll<FvQueryEditor>(fvQueryEditorTag)) {
+        const input = editor.shadowRoot?.querySelector<HTMLElement>('.query-input');
+        if (!input) {
+            throw new Error('Matrix query input was not rendered.');
+        }
+        input.dataset.focused = 'true';
+        if (editor.shadowRoot?.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length !== 1) {
+            throw new Error('Matrix insertion preview was not rendered.');
+        }
+    }
+};

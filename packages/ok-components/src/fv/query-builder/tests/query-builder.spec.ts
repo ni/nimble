@@ -525,15 +525,13 @@ describe('FvQueryBuilder', () => {
         expect(editorLabel?.getBoundingClientRect().height).toBeGreaterThan(0);
         expect(element.shadowRoot?.querySelector('.conditions-label')).toBeNull();
         const editorField = queryConditions.shadowRoot?.querySelector<HTMLElement>('.editor-field');
-        const addFilter = queryConditions.shadowRoot?.querySelector<HTMLElement>('.add-filter-button');
         const askNigelButton = getRequiredElement<HTMLElement>('[data-action="toggle-ai-prompt"]');
-        if (!editorField || !addFilter || !editorLabel) {
-            throw new Error('Expected the editor field, its label, and Add filter button.');
+        if (!editorField || !editorLabel) {
+            throw new Error('Expected the editor field and its label.');
         }
         expect(editorField.getBoundingClientRect().top - editorLabel.getBoundingClientRect().bottom).toBe(8);
         expect(askNigelButton.getBoundingClientRect().bottom).toBe(nameControl.getBoundingClientRect().bottom);
-        expect(addFilter.getBoundingClientRect().top - editorField.getBoundingClientRect().bottom).toBe(8);
-        expect(addFilter.getAttribute('appearance')).toBe('ghost');
+        expect(queryConditions.shadowRoot?.querySelector('.add-filter-button')).toBeNull();
         const nameInput = getRequiredElement<HTMLElement>('.query-name-input');
         expect(nameInput.textContent).toBe('Name');
         expect(element.shadowRoot?.querySelector('.query-name-label')).toBeNull();
@@ -1549,6 +1547,32 @@ describe('FvQueryBuilder', () => {
         expect(getRequiredElement<HTMLElement>('[data-action="request-delete"]')).not.toBeNull();
     });
 
+    it('shows a retryable delete error when saved-query editing is disabled', async () => {
+        ({ element, disconnect } = await setup());
+        element.allowSavedQueryEditing = false;
+        let attempts = 0;
+        element.deleteHandler = async () => {
+            attempts += 1;
+            await Promise.resolve();
+            if (attempts === 1) {
+                throw new Error('temporary');
+            }
+        };
+        await selectSavedQuery('saved-a');
+        getRequiredElement<HTMLElement>('[data-action="request-delete"]').click();
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-action="confirm-delete"]').click();
+        await waitForUpdatesAsync();
+
+        expect(element.selectedSavedQueryId).toBe('saved-a');
+        expect(element.shadowRoot?.querySelector('[data-control="saved-query-name"]')).toBeNull();
+        expect(getRequiredElement<HTMLElement>('.operation-error[role="alert"]').textContent).toContain(element.labels.deleteFailed);
+        getRequiredElement<HTMLElement>('[data-action="confirm-delete"]').click();
+        await waitForUpdatesAsync();
+        expect(attempts).toBe(2);
+        expect(element.savedQueries.map(record => record.id)).toEqual(['saved-b']);
+    });
+
     it('uses false-default declarative disable flags while keeping features enabled by default', async () => {
         ({ element, disconnect } = await setup(false));
         expect(element.allowSavedQueryCreation).toBeTrue();
@@ -1621,28 +1645,56 @@ describe('FvQueryBuilder', () => {
         expect(element.savedQueryMenuButton?.shadowRoot?.activeElement).toBe(toggle);
     });
 
-    it('exposes keyboard and single-pointer controls for moving the query popover', async () => {
+    it('moves the query popover with arrow keys when the popover itself has focus', async () => {
         ({ element, disconnect } = await setup());
-        const moveMode = getRequiredElement<HTMLElement>('[data-action="toggle-popover-move-mode"]');
-        moveMode.click();
-        await waitForUpdatesAsync();
-        expect(moveMode.getAttribute('aria-pressed')).toBe('true');
-        expect(getRequiredElement<HTMLElement>('.popover-move-controls [role="status"]').textContent).toContain('arrow keys');
-        moveMode.focus();
-        moveMode.dispatchEvent(new KeyboardEvent('keydown', {
-            key: 'ArrowRight', bubbles: true, composed: true, cancelable: true
-        }));
-        await waitForUpdatesAsync();
-        expect(parseFloat(element.queryPopoverRegion?.style.getPropertyValue('--query-popover-drag-x') ?? '0')).toBeGreaterThan(0);
+        const popover = getRequiredElement<HTMLElement>('.query-popover');
+        expect(popover.tabIndex).toBe(0);
+        expect(getRequiredElement<HTMLElement>(`#${popover.getAttribute('aria-describedby')}`).textContent).toContain('arrow keys');
+        expect(element.shadowRoot?.querySelector('.popover-move-controls')).toBeNull();
+        popover.focus();
+        expect(element.shadowRoot?.activeElement).toBe(popover);
 
-        getRequiredElement<HTMLElement>('[data-action="move-popover-down"]').click();
-        await waitForUpdatesAsync();
-        expect(parseFloat(element.queryPopoverRegion?.style.getPropertyValue('--query-popover-drag-y') ?? '0')).toBeGreaterThan(0);
-        getRequiredElement<HTMLElement>('[data-action="toggle-popover-move-mode"]').dispatchEvent(new KeyboardEvent('keydown', {
+        for (const key of ['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp']) {
+            const before = popover.getBoundingClientRect();
+            const event = new KeyboardEvent('keydown', {
+                key, bubbles: true, composed: true, cancelable: true
+            });
+            popover.dispatchEvent(event);
+            expect(event.defaultPrevented).toBeTrue();
+            const after = popover.getBoundingClientRect();
+            if (key === 'ArrowRight') {
+                expect(after.left).toBeGreaterThan(before.left);
+            } else if (key === 'ArrowDown') {
+                expect(after.top).toBeGreaterThan(before.top);
+            } else if (key === 'ArrowLeft') {
+                expect(after.left).toBeLessThan(before.left);
+            } else {
+                expect(after.top).toBeLessThan(before.top);
+            }
+        }
+
+        popover.dispatchEvent(new KeyboardEvent('keydown', {
             key: 'Escape', bubbles: true, composed: true, cancelable: true
         }));
         await waitForUpdatesAsync();
-        expect(element.isPopoverMoveMode).toBeFalse();
+        expect(element.isManagerOpen).toBeFalse();
+    });
+
+    it('does not move the query popover when arrow keys are used in a child control', async () => {
+        ({ element, disconnect } = await setup());
+        const popover = getRequiredElement<HTMLElement>('.query-popover');
+        const control = getRequiredElement<HTMLElement>('[data-control="saved-query-name"]');
+        const initial = popover.getBoundingClientRect();
+        control.focus();
+        for (const key of ['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp']) {
+            const event = new KeyboardEvent('keydown', {
+                key, bubbles: true, composed: true, cancelable: true
+            });
+            control.dispatchEvent(event);
+            expect(event.defaultPrevented).toBeFalse();
+        }
+        expect(popover.getBoundingClientRect().left).toBeCloseTo(initial.left, 1);
+        expect(popover.getBoundingClientRect().top).toBeCloseTo(initial.top, 1);
     });
 
     it('connects builder menu and dialog triggers to their targets by element references', async () => {
