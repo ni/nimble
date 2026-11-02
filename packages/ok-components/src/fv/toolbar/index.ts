@@ -179,12 +179,13 @@ export class FvToolbar extends Toolbar {
         // Ignore our own presentation mutations, not application changes.
         this.mutationObserver.disconnect();
         try {
+            const menuFocus = this.shadowRoot?.activeElement;
+            const menuHadFocus = menuFocus && this.overflowButton.contains(menuFocus);
+            const previousMenuItems = Array.from(this.overflowMenu.children);
             const items = this.syncItems();
             const root = this.getRootNode();
             const activeElement = root instanceof ShadowRoot ? root.activeElement : this.ownerDocument.activeElement;
             const focusedItem = items.find(item => item.button === activeElement);
-            const menuFocus = this.shadowRoot?.activeElement;
-            const menuHadFocus = menuFocus && this.overflowButton.contains(menuFocus);
             for (const child of this.observedChildren) {
                 if (child.parentElement !== this) {
                     this.resizeObserver.unobserve(child);
@@ -229,14 +230,16 @@ export class FvToolbar extends Toolbar {
             }
             const overflowItems = items.filter(item => overflow.has(item));
             const nextMenuItems = overflowItems.map(item => item.menuItem);
-            if (nextMenuItems.length !== this.overflowMenu.children.length
-                || nextMenuItems.some((item, index) => this.overflowMenu.children[index] !== item)) {
+            if (nextMenuItems.length !== previousMenuItems.length
+                || nextMenuItems.some((item, index) => previousMenuItems[index] !== item)) {
                 this.overflowButton.open = false;
                 this.overflowMenu.replaceChildren(...nextMenuItems);
             }
             if (!this.hasOverflow) {
                 this.overflowButton.open = false;
             }
+            this.overflowButton.hidden = !this.hasOverflow;
+            this.overflowButton.classList.remove('unreserved');
             this.reduceFocusableElements();
             if (focusedItem && overflow.has(focusedItem)) {
                 this.overflowButton.focus();
@@ -259,7 +262,9 @@ export class FvToolbar extends Toolbar {
 
     private showOverflow(show: boolean): void {
         this.hasOverflow = show;
-        this.overflowButton.hidden = !show;
+        // Remove the trigger from width calculations without hiding its focused menu.
+        this.overflowButton.classList.toggle('unreserved', !show);
+        this.overflowButton.hidden = false;
     }
 
     private fits(): boolean {

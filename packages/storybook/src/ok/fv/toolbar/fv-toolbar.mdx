@@ -72,6 +72,9 @@ If resizing hides a focused action, focus moves to the overflow trigger. If the
 trigger disappears while focused, focus returns to a visible enabled control,
 including pinned controls.
 Disabled actions remain disabled in the menu.
+Refitting preserves an open menu when its entries are unchanged. Removing an
+overflow action or its responsive behavior closes the changed menu and restores
+focus to the overflow trigger, or a visible enabled control if the trigger is gone.
 
 ## Scope
 

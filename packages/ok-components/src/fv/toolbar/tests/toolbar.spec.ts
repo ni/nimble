@@ -273,10 +273,36 @@ describe('FvToolbar', () => {
         await settle();
         const firstItem = element.overflowMenu.firstElementChild!;
         expect(element.shadowRoot!.activeElement).toBe(firstItem);
+        const hiddenSpy = spyOnProperty(element.overflowButton, 'hidden', 'set').and.callThrough();
         element.setAttribute('class', 'updated');
         await settle();
+        expect(hiddenSpy).not.toHaveBeenCalledWith(true);
         expect(element.overflowButton.open).toBeTrue();
         expect(element.shadowRoot!.activeElement).toBe(firstItem);
+    });
+
+    async function expectFocusAfterActionChange(change: 'remove' | 'unmanage'): Promise<void> {
+        await resize(100);
+        element.overflowButton.open = true;
+        await settle();
+        expect(element.shadowRoot!.activeElement).toBe(element.overflowMenu.firstElementChild);
+        if (change === 'remove') {
+            buttons[0]!.remove();
+        } else {
+            buttons[0]!.removeAttribute('data-responsive');
+        }
+        await settle();
+        expect(element.hasOverflow).toBeTrue();
+        expect(element.overflowButton.open).toBeFalse();
+        expect(element.shadowRoot!.activeElement).toBe(element.overflowButton);
+    }
+
+    it('restores focus when a focused overflow action is removed', async () => {
+        await expectFocusAfterActionChange('remove');
+    });
+
+    it('restores focus when a focused overflow action is no longer responsive', async () => {
+        await expectFocusAfterActionChange('unmanage');
     });
 
     it('closes the menu with Escape and retains focus on its trigger', async () => {

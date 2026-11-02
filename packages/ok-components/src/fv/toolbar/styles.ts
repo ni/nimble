@@ -11,7 +11,13 @@ export const styles = css`
     }
 
     .positioning-region {
+        position: relative;
         overflow-x: auto;
+    }
+
+    .unreserved {
+        position: absolute;
+        inset-inline-end: 0;
     }
 
     [part='start'],
