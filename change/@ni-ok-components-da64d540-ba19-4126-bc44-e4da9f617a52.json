@@ -1,7 +1,7 @@
 {
-  "type": "patch",
-  "comment": "Style fixes",
+  "type": "none",
+  "comment": "Tests update karma to load fonts before run",
   "packageName": "@ni/ok-components",
   "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "none"
 }

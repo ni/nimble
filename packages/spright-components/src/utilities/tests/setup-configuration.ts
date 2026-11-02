@@ -1,5 +1,6 @@
 // Scripts that should run at the very beginning of jasmine tests
-import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
+// @ts-expect-error SCSS is loaded by the test bundler and has no TypeScript declarations.
+import './test.scss';
 
 // Elevate console errors and warnings to test failures
 // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
