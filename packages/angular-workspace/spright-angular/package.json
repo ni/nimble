@@ -29,6 +29,6 @@
     "@angular/common": "^21.2.21",
     "@angular/core": "^21.2.21",
     "@angular/localize": "^21.2.21",
-    "@ni/spright-components": "^7.1.1"
+    "@ni/spright-components": "^7.1.2"
   }
 }
