@@ -70,23 +70,29 @@ describe('Component testing utilities', () => {
         });
 
         it('cleans up once and ignores later aborts when the timeout elapses asynchronously', async () => {
+            const setTimeoutSpy = spyOn(window, 'setTimeout').and.callThrough();
             const clearTimeoutSpy = spyOn(
                 window,
                 'clearTimeout'
             ).and.callThrough();
             const abortController = new AbortController();
 
-            await expectAsync(
-                waitAbortTimer({
-                    signal: abortController.signal,
-                    message: 'timed out',
-                    ms: 0
-                })
-            ).toBeRejectedWithError('timed out');
-            expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
+            const timer = waitAbortTimer({
+                signal: abortController.signal,
+                message: 'timed out',
+                ms: 0
+            });
+            const timeoutId = setTimeoutSpy.calls.mostRecent().returnValue;
+            const clearedTimerCount = (): number => {
+                return clearTimeoutSpy.calls
+                    .allArgs()
+                    .filter(([id]) => id === timeoutId).length;
+            };
 
+            await expectAsync(timer).toBeRejectedWithError('timed out');
+            expect(clearedTimerCount()).toBe(1);
             abortController.abort();
-            expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
+            expect(clearedTimerCount()).toBe(1);
         });
 
         it('cleans up once and ignores later aborts when the timeout elapses synchronously', async () => {
