@@ -5,6 +5,7 @@ import './chip-selector';
 import './context-help';
 import './edit-commit-bar';
 import './expandable-chip';
+import './filter-bar';
 import './master-detail-list-item';
 import './master-detail-list';
 import './query-builder';
