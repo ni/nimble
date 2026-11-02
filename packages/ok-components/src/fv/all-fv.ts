@@ -14,3 +14,4 @@ import './summary-panel-tile';
 import './search-input';
 import './splitter';
 import './split-layout';
+import './toolbar';
