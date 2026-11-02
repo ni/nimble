@@ -124,7 +124,7 @@ export interface QueryBuilderLabels {
     readonly reviewGeneratedQuery: string;
     readonly clearAll: string;
     readonly cancel: string;
-    readonly apply: (count: number) => string;
+    readonly apply: string;
     readonly noSavedQueries: string;
     readonly queryApplied: string;
     readonly queryCanceled: string;
@@ -150,6 +150,7 @@ export interface QueryBuilderLabels {
     readonly field: string;
     readonly operator: string;
     readonly value: string;
+    readonly loadingOptions: string;
     readonly editRule: string;
     readonly removeRule: (fieldLabel: string) => string;
     readonly removeValue: (value: string) => string;
@@ -289,7 +290,7 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     reviewGeneratedQuery: 'Review generated query',
     clearAll: 'Clear all',
     cancel: 'Cancel',
-    apply: count => `Apply (${count})`,
+    apply: 'Apply',
     noSavedQueries: 'No saved queries',
     queryApplied: 'Query applied.',
     queryCanceled: 'Changes canceled.',
@@ -315,6 +316,7 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     field: 'Field',
     operator: 'Operator',
     value: 'Value',
+    loadingOptions: 'Loading options...',
     editRule: 'Edit filter',
     removeRule: fieldLabel => `Remove ${fieldLabel} filter`,
     removeValue: value => `Remove ${value}`,

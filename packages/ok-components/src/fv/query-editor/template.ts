@@ -329,6 +329,8 @@ export const template = html<FvQueryEditor>`
                                         <${selectTag}
                                             class="editor-control"
                                             data-control="boolean-value"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveScalarValue()}"
                                         >
                                             ${x => x.labels.value}
@@ -344,6 +346,8 @@ export const template = html<FvQueryEditor>`
                                         <${selectTag}
                                             class="editor-control"
                                             data-control="scalar-select"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveScalarValue()}"
                                         >
                                             ${x => x.labels.value}
@@ -359,6 +363,7 @@ export const template = html<FvQueryEditor>`
                                             class="editor-control"
                                             data-control="scalar-text"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveScalarValue()}"
                                         >
                                             ${x => x.labels.value}
@@ -375,6 +380,7 @@ export const template = html<FvQueryEditor>`
                                                     class="editor-control"
                                                     data-control="scalar-number"
                                                     aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                                    aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                                     :value="${x => x.getActiveScalarValue()}"
                                                 >
                                                     ${x => x.labels.value}
@@ -389,6 +395,7 @@ export const template = html<FvQueryEditor>`
                                                     type="${x => x.getActiveScalarInputType()}"
                                                     data-control="scalar-text"
                                                     aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                                    aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                                     :value="${x => x.getActiveScalarValue()}"
                                                 >
                                                     ${x => x.labels.value}
@@ -410,6 +417,8 @@ export const template = html<FvQueryEditor>`
                                             data-control="collection-selector"
                                             label="${x => x.labels.value}"
                                             placeholder="${x => x.labels.value}"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :optionItems="${x => x.activeCollectionOptions}"
                                             :selectedOptionValues="${x => x.activeCollectionOptionValues}"
                                         ></${fvChipSelectorTag}>
@@ -423,6 +432,8 @@ export const template = html<FvQueryEditor>`
                                             data-control="collection-selector"
                                             label="${x => x.labels.value}"
                                             placeholder="${x => x.labels.value}"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             options="${x => x.activeCollectionOptionLabels}"
                                             :selectedValues="${x => x.getActiveCollectionSelectorValues()}"
                                         ></${fvChipSelectorTag}>
@@ -434,6 +445,8 @@ export const template = html<FvQueryEditor>`
                                         <${textFieldTag}
                                             class="editor-control"
                                             data-control="collection-values"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveCollectionInput()}"
                                         >
                                             ${x => x.labels.value}
@@ -451,6 +464,8 @@ export const template = html<FvQueryEditor>`
                                         <${numberFieldTag}
                                             class="editor-control"
                                             data-control="range-start"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveRangeValue('start')}"
                                         >
                                             ${x => x.labels.rangeStart}
@@ -464,6 +479,8 @@ export const template = html<FvQueryEditor>`
                                             class="editor-control"
                                             type="${x => x.getActiveScalarInputType()}"
                                             data-control="range-start"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveRangeValue('start')}"
                                         >
                                             ${x => x.labels.rangeStart}
@@ -476,6 +493,8 @@ export const template = html<FvQueryEditor>`
                                         <${numberFieldTag}
                                             class="editor-control"
                                             data-control="range-end"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveRangeValue('end')}"
                                         >
                                             ${x => x.labels.rangeEnd}
@@ -489,6 +508,8 @@ export const template = html<FvQueryEditor>`
                                             class="editor-control"
                                             type="${x => x.getActiveScalarInputType()}"
                                             data-control="range-end"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveRangeValue('end')}"
                                         >
                                             ${x => x.labels.rangeEnd}
@@ -503,6 +524,8 @@ export const template = html<FvQueryEditor>`
                                 <${textFieldTag}
                                     class="editor-control"
                                     data-control="property-key"
+                                    aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                    aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                     :value="${x => x.getActivePropertyKey()}"
                                 >
                                     ${x => x.labels.key}
@@ -515,6 +538,8 @@ export const template = html<FvQueryEditor>`
                                 <${textFieldTag}
                                     class="editor-control"
                                     data-control="property-value"
+                                    aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                    aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                     :value="${x => x.getActivePropertyValue()}"
                                 >
                                     ${x => x.labels.comparisonValue}
@@ -524,12 +549,12 @@ export const template = html<FvQueryEditor>`
                         ${when(
                             x => x.activeRuleError.length > 0,
                             html<FvQueryEditor>`
-                                <div class="editor-error" role="alert">${x => x.activeRuleError}</div>
+                                <div class="editor-error" id="${x => x.editorPanelErrorId}" role="alert">${x => x.activeRuleError}</div>
                             `
                         )}
                         ${when(
                             x => x.optionState.status === 'loading',
-                            html<FvQueryEditor>`<div class="option-status" role="status">Loading options...</div>`
+                            html<FvQueryEditor>`<div class="option-status" role="status">${x => x.labels.loadingOptions}</div>`
                         )}
                         ${when(
                             x => x.optionStateMessage.length > 0,

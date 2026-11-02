@@ -1692,6 +1692,36 @@ describe('FvQueryEditor', () => {
         expect(element.shadowRoot?.activeElement?.tagName.toLowerCase()).toBe('ok-fv-expandable-chip');
     });
 
+    it('associates an invalid value with the active editor error message', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is', { kind: 'none' })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const select = getRequiredElement<HTMLElement>('[data-control="scalar-select"]');
+        const error = getRequiredElement<HTMLElement>('.editor-error');
+        expect(select.getAttribute('aria-invalid')).toBe('true');
+        expect(select.getAttribute('aria-errormessage')).toBe(error.id);
+        expect(error.id).toBe(element.editorPanelErrorId);
+    });
+
+    it('associates a collection error with the chip selector input', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: [] })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+        chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const selector = getRequiredElement<HTMLElement>('[data-control="collection-selector"]');
+        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input');
+        const error = getRequiredElement<HTMLElement>('.editor-error');
+        expect(input?.getAttribute('aria-invalid')).toBe('true');
+        expect(input?.getAttribute('aria-errormessage')).toBe(error.id);
+    });
+
     it('uses the chip selector for multiselect values while retaining option values', async () => {
         ({ element, disconnect } = await setup(query(
             rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: ['failed'] })

@@ -153,6 +153,7 @@ export type QueryEditorLabels = Pick<
     | 'invalid'
     | 'key'
     | 'logicalOperator'
+    | 'loadingOptions'
     | 'matchingFields'
     | 'noAvailableFields'
     | 'operator'
@@ -761,6 +762,11 @@ export class FvQueryEditor extends FoundationElement {
     /** @internal */
     public get editorPanelId(): string {
         return `${this.editorId}-condition-editor`;
+    }
+
+    /** @internal */
+    public get editorPanelErrorId(): string {
+        return `${this.editorPanelId}-error`;
     }
 
     /** @internal */

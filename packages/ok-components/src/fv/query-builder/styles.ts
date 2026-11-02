@@ -138,6 +138,7 @@ export const styles = css`
             flex-direction: column;
             gap: 4px;
             min-width: 160px;
+            margin-block-start: 8px;
         }
 
         .query-name-input,

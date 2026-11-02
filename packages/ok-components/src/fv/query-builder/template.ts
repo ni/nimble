@@ -247,10 +247,15 @@ export const template = html<FvQueryBuilder>`
                             <${buttonTag} appearance="ghost" data-action="cancel-query" ?disabled="${x => x.isEditorDisabled}">
                                 ${x => x.labels.cancel}
                             </${buttonTag}>
+                        `)}
+                        ${when(
+        x => !x.isCreatingSavedQuery && (x.isQuickEdit || x.selectedSavedQueryId === null),
+        html<FvQueryBuilder>`
                             <${buttonTag} appearance="ghost" data-action="done-manager" ?disabled="${x => x.isOperationPending}">
                                 ${x => x.labels.done}
                             </${buttonTag}>
-                        `)}
+                        `
+    )}
                         ${when(x => !x.isQuickEdit, html<FvQueryBuilder>`
                         <${buttonTag}
                             appearance="outline"
@@ -264,7 +269,7 @@ export const template = html<FvQueryBuilder>`
                             appearance-variant="accent"
                             data-action="apply-query"
                             ?disabled="${x => x.isEditorDisabled || !x.valid}"
-                        >${x => x.labels.apply(x.ruleCount)}</${buttonTag}>
+                        >${x => x.labels.apply}</${buttonTag}>
                     </div>
                 </footer>
             </section>

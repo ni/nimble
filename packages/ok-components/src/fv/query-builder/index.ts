@@ -53,13 +53,12 @@ interface SavedQueryView {
 const emptyDocument: QueryDocument = { version: 1, root: null };
 const emptyDraft: QueryEditorDraft = { version: 1, tokens: [], caretPosition: 0, inputText: '' };
 
-function cloneDocument(document: QueryDocument): QueryDocument {
-    return JSON.parse(JSON.stringify(document)) as QueryDocument;
+function clone<T>(value: T): T {
+    return JSON.parse(JSON.stringify(value)) as T;
 }
 
-function cloneDraft(draft: QueryEditorDraft): QueryEditorDraft {
-    return JSON.parse(JSON.stringify(draft)) as QueryEditorDraft;
-}
+const cloneDocument = clone;
+const cloneDraft = clone;
 
 function draftForDocument(document: QueryDocument): QueryEditorDraft {
     const tokens: QueryEditorDraftToken[] = [];

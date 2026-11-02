@@ -205,7 +205,10 @@ describe('FvQueryBuilder', () => {
         expect(element.shadowRoot?.querySelector('[data-control="saved-query-name"]')).toBeNull();
         expect(element.shadowRoot?.querySelector('[data-action="save-query"]')).toBeNull();
         expect(element.shadowRoot?.querySelector('[data-action="request-delete"]')).toBeNull();
-        expect(getRequiredElement<HTMLElement>('[data-action="apply-query"]').hasAttribute('disabled')).toBeFalse();
+        const applyButton = getRequiredElement<HTMLElement>('[data-action="apply-query"]');
+        expect(applyButton.hasAttribute('disabled')).toBeFalse();
+        expect(applyButton.textContent?.trim()).toBe('Apply');
+        expect(element.shadowRoot?.querySelector('[data-action="done-manager"]')).not.toBeNull();
         expect(element.queryEditor?.shadowRoot?.activeElement?.classList.contains('query-input')).toBeTrue();
 
         getRequiredElement<HTMLElement>('.query-popover').dispatchEvent(new KeyboardEvent('keydown', {
@@ -293,7 +296,7 @@ describe('FvQueryBuilder', () => {
 
         expect(region.getBoundingClientRect().left).toBeCloseTo(menuButton.getBoundingClientRect().left, 0);
         expect(nameControl.getBoundingClientRect().height).toBeLessThan(100);
-        expect(nameControl.getBoundingClientRect().top - dialogTitle.getBoundingClientRect().bottom).toBe(0);
+        expect(nameControl.getBoundingClientRect().top - dialogTitle.getBoundingClientRect().bottom).toBe(8);
         expect(queryConditions.getBoundingClientRect().top - queryControlsHeader.getBoundingClientRect().bottom).toBe(16);
         const editorLabel = queryConditions.shadowRoot?.querySelector<HTMLElement>('.conditions-heading strong');
         expect(editorLabel?.textContent).toBe(element.labels.queryConditions);
@@ -340,6 +343,7 @@ describe('FvQueryBuilder', () => {
         await selectSavedQuery('saved-a');
         expect(getRequiredElement<HTMLElement>('.menu-button-label').textContent).toBe('Failed queries');
         expect(getRequiredElement<HTMLElement>('.popover-header h2').textContent?.trim()).toBe('Edit saved query');
+        expect(element.shadowRoot?.querySelector('[data-action="done-manager"]')).toBeNull();
 
         await openSavedMenu();
         expect(getRequiredElement<HTMLElement>('[data-action="edit-saved-queries"]').textContent?.trim())
@@ -744,7 +748,7 @@ describe('FvQueryBuilder', () => {
         expect(element.operationError).toBe('');
     });
 
-    it('keeps selection and Done separate from saving and applying', async () => {
+    it('hides Done while editing a saved query without affecting save or apply', async () => {
         ({ element, disconnect } = await setup());
         const saveHandler = jasmine.createSpy('saveHandler').and.resolveTo(savedRecords[0]!);
         element.saveHandler = saveHandler;
@@ -754,7 +758,10 @@ describe('FvQueryBuilder', () => {
         await selectSavedQuery('saved-a');
         await openSavedMenu();
         await activateSavedMenuItem('[data-action="edit-saved-queries"]');
-        getRequiredElement<HTMLElement>('[data-action="done-manager"]').click();
+        expect(element.shadowRoot?.querySelector('[data-action="done-manager"]')).toBeNull();
+        getRequiredElement<HTMLElement>('.query-popover').dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Escape', bubbles: true, composed: true, cancelable: true
+        }));
         await waitForUpdatesAsync();
 
         expect(saveHandler).not.toHaveBeenCalled();

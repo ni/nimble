@@ -34,6 +34,15 @@ export class FvChipSelector extends FoundationElement {
     @attr
     public label = '';
 
+    @attr({ attribute: 'aria-describedby' })
+    public ariaDescribedby = '';
+
+    @attr({ attribute: 'aria-errormessage' })
+    public ariaErrormessage = '';
+
+    @attr({ attribute: 'aria-invalid' })
+    public override ariaInvalid = '';
+
     @attr({ attribute: 'selected-values' })
     public selectedValues = '';
 
