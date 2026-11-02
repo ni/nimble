@@ -1,0 +1,117 @@
+import { Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as bulkEditPatternStories from './bulk-edit-pattern.stories';
+
+<Meta of={bulkEditPatternStories} name="Guide" />
+<Title of={bulkEditPatternStories} />
+
+Combine these four APIs to build a bulk editor. The application owns record
+data, columns, filtering, dialogs, persistence, and product-specific field
+controls.
+
+| API | Responsibility |
+|---|---|
+| `ok-fv-split-layout` | Sizes, resizes, and collapses the panes. |
+| `ok-fv-bulk-edit-field` | Labels each field, reports its status, and exposes Reset/Clear actions. |
+| `ok-fv-edit-commit-bar` | Shows the heading, change summary, banner, and Save/Revert actions. |
+| `BulkEditState` | Tracks selected records, common or mixed values, drafts, and pending changes. |
+
+## Quick start
+
+```ts
+import { BulkEditState } from '@ni/ok-components/dist/esm/fv/bulk-edit-state';
+
+const state = new BulkEditState({
+    records,
+    id: record => record.id,
+    read: (record, field) => record[field]
+});
+```
+
+```html
+<ok-fv-split-layout position="60" min="35" max="75" min-secondary-pixels="300">
+    <nimble-table slot="primary"></nimble-table>
+    <section slot="secondary">
+        <ok-fv-edit-commit-bar heading="Bulk Edit — 5 rows"></ok-fv-edit-commit-bar>
+        <ok-fv-bulk-edit-field label="Location" status="mixed">
+            <nimble-text-field></nimble-text-field>
+        </ok-fv-bulk-edit-field>
+    </section>
+</ok-fv-split-layout>
+```
+
+The commit bar shows its built-in Save/Revert buttons by default. Use its
+`heading-actions` slot for app-owned mode controls, and set `actions-hidden`
+when Save/Revert live in an application toolbar. In read-only mode,
+`hide-empty-summary` hides “No pending changes” but still announces outstanding
+edits.
+
+## Angular selection
+
+Use the matching `@ni/ok-angular/fv/*` modules. Import
+`OkTableToggleSelectionModule` and add `okTableToggleSelection` only when
+row-body clicks should toggle selection without a modifier key.
+
+- Handle each `proposedSelection` synchronously. If selection needs an
+    asynchronous discard dialog, call `preventDefault()` before opening it; after
+    confirmation, assign the proposal's `selectedIds` to the bound selection.
+- Keep `visibleIds` in the table's current row order. The directive preserves
+    selected IDs hidden by filtering.
+- Native checkbox and keyboard selection use the same proposal path.
+
+## Field controls and layout
+
+- Slot a Nimble text field, text area, select, or number field directly into
+    `ok-fv-bulk-edit-field`. The field shell supplies the accessible label and
+    status, including the mixed-value overwrite hint. If you wrap the control,
+    provide its labeling in the application.
+- Blank or whitespace-only input stays a draft and does not schedule a
+    mutation. Clear writes an empty value; Reset restores the original common or
+    mixed value. Entering a common saved value removes the pending change.
+- `min-secondary-pixels` takes precedence over the primary pane's percentage
+    minimum. At 445 px with a 300 px secondary minimum, the primary pane can be
+    narrower than 35%. If the layout cannot fit the secondary minimum plus the
+    2 px splitter, it scrolls horizontally instead of shrinking the editor.
+- Both panes and their directly slotted roots fill the configured height.
+    Collapsing the layout retains the editor, active tab, drafts, and split
+    position.
+
+## Save behavior
+
+1. Call `createCommit()` before persisting changes.
+2. On full success, refresh the records and pass them to
+     `commitSucceeded(refreshedRecords)`.
+3. On failure, do not call `commitSucceeded()`; the edits remain retryable.
+4. For partial success, refresh successful records and preserve failed field
+     edits in application state. `BulkEditState` does not define a server-side
+     transaction protocol.
+
+## Interactive example and checks
+
+The example uses 120 in-memory records and `BulkEditState`. It covers selection
+(including hidden rows), discard confirmation, field edits, save/retry/revert,
+read-only mode, collapse, and pointer/keyboard resizing. “Fail next save” is
+demo-only.
+
+<Canvas of={bulkEditPatternStories.splitPaneBulkEdit} />
+
+With Storybook running, run this from the repository root:
+
+```sh
+node packages/storybook/src/ok/fv/bulk-edit-pattern/test-bulk-edit.mjs
+```
+
+Set `STORYBOOK_URL` to check a different running Storybook instance. The check
+also checks accessible field names, full-height panes, the secondary pixel
+minimum, and narrow commit-bar actions.
+
+## Integration checklist
+
+- Preserve selected IDs that are hidden by filtering.
+- Route changed selections through one discard confirmation.
+- Treat blank input, Clear, and Reset as distinct operations.
+- Keep failed saves pending.
+- Mark changed rows with a text-hidden solid-circle mapping and
+    `Unsaved changes` accessible text.
+- Expand a collapsed pane for save errors, but not for success or revert.
+- Keep wrapped toolbar actions right-aligned.
+- Let the split layout own pane tracks; use the stock splitter.

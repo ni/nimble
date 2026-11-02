@@ -1,8 +1,91 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 09 Oct 2026 15:01:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.13.0
+
+Mon, 02 Nov 2026 22:26:58 GMT
+
+### Minor changes
+
+- Add the FV filter bar with Stratus-style condition chips and query-builder-compatible inputs. ([ni/nimble@b1321ac](https://github.com/ni/nimble/commit/b1321ac98ae75f1f4484583799892fadecd7bfd8))
+- Bump @ni/nimble-components to v35.17.3
+- Bump @ni/spright-components to v7.1.3
+
+### Patches
+
+- Sync package version ([ni/nimble@b87a311](https://github.com/ni/nimble/commit/b87a311a5b9cdb6c8a875cd37fa74f4480781b7f))
+
+## 1.12.4
+
+Sat, 31 Oct 2026 00:18:04 GMT
+
+### Patches
+
+- npm dependency updates ([ni/nimble@4d89363](https://github.com/ni/nimble/commit/4d89363de301e097eca18cb7de75ff7be10af0a7))
+- Bump @ni/nimble-components to v35.17.1
+- Bump @ni/spright-components to v7.1.1
+- Bump @ni/jasmine-parameterized to v1.0.15
+
+## 1.12.3
+
+Fri, 30 Oct 2026 23:11:06 GMT
+
+### Patches
+
+- Update split-button spacing, inset divider, interaction styling, and menu alignment to match the design. ([ni/nimble@8859e14](https://github.com/ni/nimble/commit/8859e14d264c39233303749fc166d0c19d5ad8b7))
+
+## 1.12.2
+
+Mon, 26 Oct 2026 21:00:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v7.1.0
+
+## 1.12.1
+
+Mon, 19 Oct 2026 21:08:34 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v7.0.0
+
+## 1.12.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.17.0
+- Bump @ni/spright-components to v6.24.0
+
+## 1.11.1
+
+Fri, 16 Oct 2026 19:27:05 GMT
+
+### Patches
+
+- Fix Fv Search Input underline thickness ([ni/nimble@31d0f51](https://github.com/ni/nimble/commit/31d0f51c7469c49d4169cfff119cfdc008d08005))
+
+## 1.11.0
+
+Fri, 16 Oct 2026 18:35:20 GMT
+
+### Minor changes
+
+- Add reusable split-pane bulk-edit components and state. ([ni/nimble@5a023dc](https://github.com/ni/nimble/commit/5a023dc2302aece4a91b9fda274ef5d5fc3bf40d))
+
+## 1.10.3
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.16.0
+- Bump @ni/spright-components to v6.23.3
 
 ## 1.10.2
 

@@ -1,8 +1,44 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 09 Oct 2026 15:01:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.17.3
+
+Mon, 02 Nov 2026 22:26:58 GMT
+
+### Patches
+
+- Sync package version ([ni/nimble@b87a311](https://github.com/ni/nimble/commit/b87a311a5b9cdb6c8a875cd37fa74f4480781b7f))
+- Page object updates for event handlers ([ni/nimble@b2da313](https://github.com/ni/nimble/commit/b2da313168a8fd6aa59cc2c7a564f48ddbbe1af9))
+
+## 35.17.1
+
+Sat, 31 Oct 2026 00:18:04 GMT
+
+### Patches
+
+- npm dependency updates ([ni/nimble@4d89363](https://github.com/ni/nimble/commit/4d89363de301e097eca18cb7de75ff7be10af0a7))
+- Bump @ni/unit-format to v1.0.10
+- Bump @ni/jasmine-parameterized to v1.0.15
+
+## 35.17.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.22.0
+
+## 35.16.0
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Minor changes
+
+- Add Noto Sans Mono code font token ([ni/nimble@5acaba9](https://github.com/ni/nimble/commit/5acaba9331b57c56116782553219749733c468e1))
+- Bump @ni/nimble-tokens to v8.21.0
 
 ## 35.15.2
 

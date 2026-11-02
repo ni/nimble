@@ -61,6 +61,9 @@ export const iconMetadata: {
     IconArrowPartialRotateLeft: {
         tags: ['reset']
     },
+    IconArrowRightArrowLeft: {
+        tags: ['opposite', 'swap', 'exchange', 'bidirectional']
+    },
     IconArrowRightThin: {
         tags: ['link', 'open']
     },
@@ -219,6 +222,15 @@ export const iconMetadata: {
     },
     IconCircleSlash: {
         tags: ['status', 'blocked']
+    },
+    IconCircleSparkle: {
+        tags: ['credit', 'token', 'ai', 'nigel', 'star']
+    },
+    IconCircleSparkleExclamation: {
+        tags: ['credit', 'token', 'ai', 'nigel', 'star', 'alert', 'error']
+    },
+    IconCircleSparkleTriangle: {
+        tags: ['credit', 'token', 'ai', 'nigel', 'star', 'warning']
     },
     IconCircleX: {
         tags: ['status', 'terminated']

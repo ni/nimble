@@ -1,7 +1,10 @@
 import './accordion-item';
 import './card';
+import './bulk-edit-field';
 import './chip-selector';
 import './context-help';
+import './edit-commit-bar';
+import './filter-bar';
 import './master-detail-list-item';
 import './master-detail-list';
 import './split-button';
@@ -11,3 +14,4 @@ import './summary-panel';
 import './summary-panel-tile';
 import './search-input';
 import './splitter';
+import './split-layout';

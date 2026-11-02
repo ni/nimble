@@ -1,4 +1,5 @@
 import { html } from '@ni/fast-element';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import {
     ChatMessageWelcome,
     chatMessageWelcomeTag
@@ -24,6 +25,14 @@ async function setupWithBrandIcon(): Promise<Fixture<ChatMessageWelcome>> {
     return await fixture<ChatMessageWelcome>(
         // prettier-ignore
         html`<${chatMessageWelcomeTag}><div slot="brand-icon" class="custom-icon"></div></${chatMessageWelcomeTag}>`
+    );
+}
+
+async function setupWithSubtitleContent(subtitle?: string): Promise<Fixture<ChatMessageWelcome>> {
+    const subtitleAttr = subtitle ? `subtitle="${subtitle}"` : '';
+    return await fixture<ChatMessageWelcome>(
+        // prettier-ignore
+        html`<${chatMessageWelcomeTag} ${subtitleAttr}><span slot="subtitle">Read the <a href="https://example.com">guide</a></span></${chatMessageWelcomeTag}>`
     );
 }
 
@@ -54,7 +63,7 @@ describe('ChatMessageWelcome', () => {
             expect(pageObject.isTitleRendered()).toBeFalse();
         });
 
-        it('should not render subtitle element when subtitle is not set', () => {
+        it('should not show the subtitle when it is not set', () => {
             expect(pageObject.isSubtitleRendered()).toBeFalse();
         });
 
@@ -107,6 +116,54 @@ describe('ChatMessageWelcome', () => {
 
         it('should display the subtitle when set', () => {
             expect(pageObject.getSubtitleText()).toBe('Chat below to get started');
+        });
+    });
+
+    describe('with slotted subtitle content', () => {
+        let element: ChatMessageWelcome;
+        let disconnect: () => Promise<void>;
+
+        beforeEach(async () => {
+            let connect: () => Promise<void>;
+            ({ element, connect, disconnect } = await setupWithSubtitleContent());
+            await connect();
+            await waitForUpdatesAsync();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('should render inline HTML content in the subtitle', () => {
+            const pageObject = new ChatMessageWelcomePageObject(element);
+
+            expect(pageObject.isSubtitleRendered()).toBeTrue();
+            expect(pageObject.getSlottedSubtitleText()).toBe('Read the guide');
+            expect(pageObject.getSlottedSubtitleLinkHref()).toBe('https://example.com');
+        });
+    });
+
+    describe('with subtitle attribute and slotted subtitle content', () => {
+        let element: ChatMessageWelcome;
+        let disconnect: () => Promise<void>;
+
+        beforeEach(async () => {
+            let connect: () => Promise<void>;
+            ({ element, connect, disconnect } = await setupWithSubtitleContent('Attribute fallback'));
+            await connect();
+            await waitForUpdatesAsync();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('should use slotted content and ignore the subtitle attribute', () => {
+            const pageObject = new ChatMessageWelcomePageObject(element);
+
+            expect(pageObject.isSubtitleRendered()).toBeTrue();
+            expect(pageObject.getSlottedSubtitleText()).toBe('Read the guide');
+            expect(pageObject.getSlottedSubtitleLinkHref()).toBe('https://example.com');
         });
     });
 
