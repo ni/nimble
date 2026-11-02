@@ -2,6 +2,29 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Mon, 02 Nov 2026 22:26:58 GMT",
+      "version": "3.3.5",
+      "tag": "@ni/ok-angular_v3.3.5",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-angular",
+            "commit": "b2da313168a8fd6aa59cc2c7a564f48ddbbe1af9",
+            "comment": "Tests update karma to load fonts before run"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.13.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 31 Oct 2026 00:18:04 GMT",
       "version": "3.3.4",
       "tag": "@ni/ok-angular_v3.3.4",

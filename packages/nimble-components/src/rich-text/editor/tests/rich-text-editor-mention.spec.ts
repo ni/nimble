@@ -872,10 +872,10 @@ describe('RichTextEditorMention', () => {
                 element,
                 [{ key: 'user:1', displayName: 'username1' }]
             );
-            await waitForUpdatesAsync();
+            await pageObject.waitForMentionMappingsAsync(1);
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             userMentionElement.pattern = 'invalid';
-            await waitForUpdatesAsync();
+            await pageObject.waitForMentionMappingsAsync(0);
             expect(element.getMentionedHrefs()).toEqual([]);
         });
 
@@ -885,16 +885,16 @@ describe('RichTextEditorMention', () => {
                 element,
                 [{ key: 'user:1', displayName: 'username1' }]
             );
-            await waitForUpdatesAsync();
+            await pageObject.waitForMentionMappingsAsync(1);
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             element.removeChild(userMentionElement);
-            await waitForUpdatesAsync();
+            await pageObject.waitForMentionMappingsAsync(0);
             expect(element.children.length).toBe(0);
             expect(element.getMentionedHrefs()).toEqual([]);
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            await waitForUpdatesAsync();
+            await pageObject.waitForMentionMappingsAsync(1);
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
 
@@ -961,6 +961,8 @@ describe('RichTextEditor user mention via template', () => {
         ({ element, connect, disconnect } = await setupMentionConfig());
         pageObject = new RichTextEditorPageObject(element);
         await connect();
+        // Applying the template mention configuration resets the editor content, so wait for it before interacting
+        await pageObject.waitForMentionMappingsAsync(2);
     });
 
     afterEach(async () => {
@@ -1005,10 +1007,6 @@ describe('RichTextEditor user mention via template', () => {
     });
 
     describe('user mention button', () => {
-        beforeEach(async () => {
-            await waitForUpdatesAsync();
-        });
-
         it('should get `@` text without a preceding whitespace at the start of a line, when button clicked', async () => {
             await pageObject.clickUserMentionButton();
 
@@ -1492,10 +1490,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             expect(pageObject.getMentionListboxItemsName()).toEqual([]);
             mappingElements[0]!.key = 'user:1';
-            // After the first wait, `activeMappingConfigs` is updated,
-            // which is directly bound to the template for populating the `nimble-list-option`.
-            // But only after the second wait, `nimble-list-option` gets populated.
-            await waitForUpdatesAsync();
+            await pageObject.waitForMentionMappingsAsync(1);
+            // `activeMappingConfigs` is updated with the configuration, then `nimble-list-option` is populated on the next update
             await waitForUpdatesAsync();
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1'

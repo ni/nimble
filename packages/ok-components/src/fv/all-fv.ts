@@ -4,6 +4,7 @@ import './bulk-edit-field';
 import './chip-selector';
 import './context-help';
 import './edit-commit-bar';
+import './filter-bar';
 import './master-detail-list-item';
 import './master-detail-list';
 import './split-button';
