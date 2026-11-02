@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Sat, 31 Oct 2026 00:18:04 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 7.1.3
+
+Mon, 02 Nov 2026 22:26:58 GMT
+
+### Patches
+
+- Sync package version ([ni/nimble@b87a311](https://github.com/ni/nimble/commit/b87a311a5b9cdb6c8a875cd37fa74f4480781b7f))
+- Bump @ni/nimble-components to v35.17.3
 
 ## 7.1.1
 

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Page object updates for event handlers",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
