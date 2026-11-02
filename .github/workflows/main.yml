@@ -69,6 +69,7 @@ jobs:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
+      - run: npm install -g npm@12
       - run: npm ci
         timeout-minutes: 20
 
