@@ -133,6 +133,24 @@ describe('Select', () => {
         propSetter: (x: Select, value: string) => void
     }[] = [
         {
+            attrName: 'aria-describedby',
+            propSetter: (x, v) => {
+                x.ariaDescribedby = v;
+            }
+        },
+        {
+            attrName: 'aria-errormessage',
+            propSetter: (x, v) => {
+                x.ariaErrormessage = v;
+            }
+        },
+        {
+            attrName: 'aria-invalid',
+            propSetter: (x, v) => {
+                x.ariaInvalid = v;
+            }
+        },
+        {
             attrName: 'aria-controls',
             propSetter: (x, v) => {
                 x.ariaControls = v;
@@ -210,6 +228,20 @@ describe('Select', () => {
         expect(element.getAttribute('open')).not.toBeNull();
         expect(element.getAttribute('position')).toBe(position);
 
+        await disconnect();
+    });
+
+    it('updates the anchored region after changing dropdown position', async () => {
+        const { element, connect, disconnect } = await setup('below');
+        await connect();
+        await clickAndWaitForOpen(element);
+        const region = element.anchoredRegion;
+        const update = spyOn(region, 'update').and.callThrough();
+        element.position = 'above';
+        await waitForUpdatesAsync();
+
+        expect(update).toHaveBeenCalled();
+        expect(region.verticalDefaultPosition).toBe('top');
         await disconnect();
     });
 
