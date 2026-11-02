@@ -166,6 +166,20 @@ describe('FvToolbar', () => {
         expect(document.activeElement).toBe(buttons[0]!);
     });
 
+    it('restores focus to a pinned control when every responsive action is disabled', async () => {
+        buttons[0]!.removeAttribute('data-responsive');
+        buttons[0]!.textContent = 'Pinned';
+        buttons[1]!.disabled = true;
+        buttons[2]!.disabled = true;
+        await resize(200);
+        expect(element.hasOverflow).toBeTrue();
+        element.overflowButton.focus();
+        expect(element.shadowRoot!.activeElement).toBe(element.overflowButton);
+        await resize(1000);
+        expect(element.hasOverflow).toBeFalse();
+        expect(document.activeElement).toBe(buttons[0]!);
+    });
+
     it('includes the overflow trigger in toolbar arrow navigation', async () => {
         await resize(140);
         buttons[0]!.focus();

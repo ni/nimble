@@ -245,7 +245,8 @@ export class FvToolbar extends Toolbar {
                         this.overflowButton.focus();
                     }
                 } else {
-                    items.find(item => !item.button.hidden && !item.button.disabled)?.button.focus();
+                    Array.from(this.querySelectorAll<HTMLElement>('[tabindex="0"]'))
+                        .find(control => !control.closest('[hidden], [disabled]'))?.focus();
                 }
             }
         } finally {
