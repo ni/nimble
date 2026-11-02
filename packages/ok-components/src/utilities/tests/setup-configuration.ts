@@ -1,6 +1,5 @@
 // Scripts that should run at the very beginning of jasmine tests
 // Test setup is not in the published package so can use devDependencies
-// @ts-expect-error SCSS is loaded by the test bundler and has no TypeScript declarations.
 import './test.scss';
 
 // Elevate console errors and warnings to test failures
