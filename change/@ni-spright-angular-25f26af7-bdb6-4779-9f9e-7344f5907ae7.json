@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Tests update karma to load fonts before run",
+  "packageName": "@ni/spright-angular",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
