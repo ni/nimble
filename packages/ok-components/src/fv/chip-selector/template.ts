@@ -3,8 +3,6 @@ import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-regio
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
-import { menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 import type { FvChipSelector } from '.';
 
@@ -20,11 +18,7 @@ export const template = html<FvChipSelector>`
         )}
         <div
             class="chip-selector-field"
-            role="combobox"
-            aria-expanded="${x => x.open}"
-            aria-controls="${x => x.menuId}"
-            aria-haspopup="listbox"
-            aria-disabled="${x => x.disabled}"
+            role="group"
             aria-labelledby="${x => (x.label.length > 0 ? x.labelId : null)}"
             ${ref('field')}
             @click="${(x, c) => {
@@ -64,11 +58,11 @@ export const template = html<FvChipSelector>`
                     aria-expanded="${x => x.open}"
                     aria-label="${x => (x.label.length === 0 ? x.placeholder || 'Chip selector' : null)}"
                     aria-labelledby="${x => (x.label.length > 0 ? x.labelId : null)}"
-                    aria-describedby="${x => x.ariaDescribedby}"
-                    aria-errormessage="${x => x.ariaErrormessage}"
                     aria-invalid="${x => x.ariaInvalid}"
                     aria-haspopup="listbox"
                     role="combobox"
+                    aria-expanded="${x => x.open}"
+                    aria-controls="${x => x.menuId}"
                     ?disabled="${x => x.disabled}"
                     ${ref('captureInputRef')}
                     @focus="${x => {
@@ -122,49 +116,50 @@ export const template = html<FvChipSelector>`
                             return true;
                         }}"
                     >
-                        <${menuTag}
+                        <div
                             id="${x => x.menuId}"
                             class="chip-selector-menu"
-                            @change="${(_, c) => {
-                                c.event.stopPropagation();
-                                return true;
-                            }}"
+                            role="listbox"
+                            aria-multiselectable="true"
+                            aria-label="${x => x.label || x.placeholder || 'Options'}"
                         >
                             ${repeat(
                                 x => x.visibleOptionList,
                                 html<string, FvChipSelector>`
-                                    <${menuItemTag}
+                                    <div
                                         id="${(_, c) => `${c.parent.menuId}-option-${c.index}`}"
-                                        class="chip-selector-option"
                                         data-option-value="${x => x}"
-                                        aria-selected="${(_, c) => String(c.index === c.parent.activeOptionIndex)}"
-                                        ?disabled="${(x, c) => c.parent.getOptionDisabled(x)}"
+                                        class="${(_, c) => `chip-selector-option${c.index === c.parent.activeOptionIndex ? ' active' : ''}`}"
+                                        role="option"
+                                        aria-selected="false"
+                                        aria-disabled="${(x, c) => String(c.parent.getOptionDisabled(x))}"
                                     >
                                         ${(x, c) => c.parent.formatValue(x)}
-                                    </${menuItemTag}>
+                                    </div>
                                 `,
                                 { positioning: true }
                             )}
                             ${when(
                                 x => x.customValueCandidate.length > 0,
                                 html<FvChipSelector>`
-                                    <${menuItemTag}
+                                    <div
                                         id="${x => `${x.menuId}-option-create`}"
-                                        class="chip-selector-option chip-selector-create-option"
                                         data-option-value="${x => x.customValueCandidate}"
-                                        aria-selected="${x => String(x.activeOptionIndex === x.visibleOptionList.length)}"
+                                        class="${x => `chip-selector-option chip-selector-create-option${x.activeOptionIndex === x.visibleOptionList.length ? ' active' : ''}`}"
+                                        role="option"
+                                        aria-selected="false"
                                     >
                                         ${x => x.createOptionLabel}
-                                    </${menuItemTag}>
+                                    </div>
                                 `
                             )}
                             ${when(
                                 x => x.showEmptyState,
                                 html<FvChipSelector>`
-                                    <div class="chip-selector-empty">No matches</div>
+                                    <div class="chip-selector-empty" role="presentation">No matches</div>
                                 `
                             )}
-                        </${menuTag}>
+                        </div>
                     </div>
                 </${anchoredRegionTag}>
             `

@@ -179,6 +179,42 @@ describe('FvChipSelector', () => {
         expect(element.shadowRoot?.querySelector('.label')?.textContent?.trim()).toBe('Status');
     });
 
+    it('exposes one combobox and a connected listbox with resolved ARIA references', async () => {
+        ({ element, connect, disconnect } = await setup());
+        const description = document.createElement('span');
+        const error = document.createElement('span');
+        await connect();
+        element.open = true;
+        await waitForUpdatesAsync();
+        element.shadowRoot?.append(description, error);
+        element.ariaDescribedbyElements = [description];
+        element.ariaErrormessageElements = [error];
+        await waitForUpdatesAsync();
+
+        const root = element.shadowRoot;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input') as
+            (HTMLInputElement & {
+                ariaControlsElements?: Element[],
+                ariaDescribedByElements?: Element[],
+                ariaErrorMessageElements?: Element[]
+            });
+        const list = root?.getElementById(element.menuId);
+        if (!list) {
+            throw new Error('Expected the listbox to be rendered');
+        }
+
+        expect(root?.querySelectorAll('[role="combobox"]').length).toBe(1);
+        expect(root?.querySelectorAll('[role="listbox"]').length).toBe(1);
+        expect(list.getAttribute('aria-multiselectable')).toBe('true');
+        expect(root?.querySelectorAll('[role="menu"], [role="menuitem"]').length).toBe(0);
+        expect(root?.querySelectorAll('[role="option"]').length).toBeGreaterThan(0);
+        expect(input.ariaControlsElements).toEqual([list]);
+        expect(input.ariaDescribedByElements).toEqual([description]);
+        expect(input.ariaErrorMessageElements).toEqual([error]);
+        description.remove();
+        error.remove();
+    });
+
     it('adds a value by clicking an option in the menu', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
@@ -451,7 +487,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         expect(element.activeOptionIndex).toBe(0);
-        const activeOption = element.shadowRoot?.querySelector<HTMLElement>("[aria-selected='true']");
+        const activeOption = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option.active');
         expect(activeOption?.getAttribute('data-option-value')).toBe('Active');
     });
 
@@ -469,7 +505,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         expect(element.activeOptionIndex).toBe(1);
-        const activeOption = element.shadowRoot?.querySelector<HTMLElement>("[aria-selected='true']");
+        const activeOption = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option.active');
         expect(activeOption?.getAttribute('data-option-value')).toBe('Paused');
     });
 
@@ -597,5 +633,32 @@ describe('FvChipSelector', () => {
         nullChip.dispatchEvent(new Event('remove', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
         expect(element.selectedOptionValues).toEqual([1]);
+    });
+
+    it('keeps an empty string option typed and displays its label', async () => {
+        ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
+            <${fvChipSelectorTag} label="Status"></${fvChipSelectorTag}>
+        `));
+        element.optionItems = [{ value: '', label: 'Empty value' }];
+        element.selectedOptionValues = [''];
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValueList).toEqual([element.typedOptionKey('')]);
+        expect(getRequiredElement<HTMLElement>('.chip-selector-field').textContent).toContain('Empty value');
+        expect(element.selectedOptionValues).toEqual(['']);
+    });
+
+    it('ignores malformed typed option properties without throwing', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        element.optionItems = null as unknown as FvChipSelector['optionItems'];
+        element.selectedOptionValues = null as unknown as FvChipSelector['selectedOptionValues'];
+        element.options = null as unknown as string;
+        element.selectedValues = null as unknown as string;
+
+        expect(() => element.optionList).not.toThrow();
+        expect(() => element.selectedValueList).not.toThrow();
+        expect(() => element.visibleOptionList).not.toThrow();
     });
 });

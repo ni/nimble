@@ -20,6 +20,7 @@ import type {
     QueryBuilderLogicalOperator,
     QueryBuilderOperatorDefinition
 } from '../query-builder/types';
+import type { QueryOption } from '../query-builder/portable-interface';
 
 const fieldOptionTemplate = html<QueryBuilderField, FvQueryEditor>`
     <${listOptionTag} value="${x => x.id}">${x => x.label}</${listOptionTag}>
@@ -31,6 +32,23 @@ const operatorOptionTemplate = html<QueryBuilderOperatorDefinition, FvQueryEdito
 
 const enumOptionTemplate = html<QueryEditorOptionView, FvQueryEditor>`
     <${listOptionTag} value="${x => x.value}" ?disabled="${x => x.disabled ?? false}">${x => x.label}</${listOptionTag}>
+`;
+
+const dynamicOptionTemplate = html<QueryOption, FvQueryEditor>`
+    <div
+        class="suggestion"
+        role="option"
+        id="${(_, c) => `${c.parent.dynamicOptionListId}-option-${c.index}`}"
+        data-action="select-dynamic-option"
+        data-option-index="${(_, c) => c.index}"
+        aria-selected="${(_, c) => String(c.parent.activeOptionIndex === c.index)}"
+        aria-disabled="${x => String(x.disabled ?? false)}"
+        @pointermove="${(_, c) => {
+            c.parent.activeOptionIndex = c.index;
+        }}"
+    >
+        <span class="suggestion-label">${x => x.label}</span>
+    </div>
 `;
 
 const conditionValueTemplate = html<QueryEditorPartView>`<span class="condition-value"> ${x => x.valueLabel}</span>`;
@@ -73,6 +91,20 @@ const suggestionListTemplate = html<QueryEditorPartView, FvQueryEditor>`
             suggestionTemplate,
             { positioning: true }
         )}
+    </div>
+`;
+
+const dynamicOptionSuggestionsTemplate = html<FvQueryEditor>`
+    <div
+        class="suggestions dynamic-option-suggestions"
+        popover="manual"
+        id="${x => x.dynamicOptionListId}"
+        role="listbox"
+        aria-label="${x => x.labels.matchingFields}"
+        ?hidden="${x => x.activeDynamicOptions.length === 0}"
+        @pointerdown="${() => false}"
+    >
+        ${repeat(x => x.activeDynamicOptions, dynamicOptionTemplate, { positioning: true })}
     </div>
 `;
 
@@ -161,6 +193,7 @@ const partTemplate = html<QueryEditorPartView, FvQueryEditor>`
                 data-indent="${x => String(x.indented)}"
                 accessible-label="${x => `${x.owner.labels.editRule}: ${x.text}${x.stateLabel ? `, ${x.stateLabel}` : ''}`}"
                 controls="${x => x.owner.editorPanelId}"
+                :controlsElement="${x => x.owner.editorPanelElement}"
                 ?expanded="${x => x.owner.activeRuleId === x.rule?.id}"
                 ?disabled="${x => x.owner.disabled}"
             ><span class="condition-summary">${x => x.fieldLabel} <strong class="condition-operator">${x => x.operatorLabel}</strong>${when(x => x.valueLabel.length > 0, conditionValueTemplate)}</span></${fvExpandableChipTag}>
@@ -301,6 +334,7 @@ export const template = html<FvQueryEditor>`
                             id="${x => x.editorPanelId}"
                             role="dialog"
                             aria-label="${x => x.labels.editRule}"
+                            ${ref('editorPanelElement')}
                         >
                         <${selectTag}
                             class="editor-control"
@@ -326,13 +360,12 @@ export const template = html<FvQueryEditor>`
                             x => x.activeOperandKind === 'scalar',
                             html<FvQueryEditor>`
                                 ${when(
-                                    x => x.activeField?.type === 'boolean',
+                                    x => x.activeEditorKind === 'boolean',
                                     html<FvQueryEditor>`
                                         <${selectTag}
                                             class="editor-control"
                                             data-control="boolean-value"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveScalarValue()}"
                                         >
                                             ${x => x.labels.value}
@@ -343,13 +376,12 @@ export const template = html<FvQueryEditor>`
                                     `
                                 )}
                                 ${when(
-                                    x => x.activeField?.type === 'enum' && !x.isActiveCombobox,
+                                    x => x.activeEditorKind === 'select',
                                     html<FvQueryEditor>`
                                         <${selectTag}
                                             class="editor-control"
                                             data-control="scalar-select"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveScalarValue()}"
                                         >
                                             ${x => x.labels.value}
@@ -359,30 +391,34 @@ export const template = html<FvQueryEditor>`
                                     `
                                 )}
                                 ${when(
-                                    x => x.activeField?.type === 'enum' && x.isActiveCombobox,
+                                    x => x.isActiveCombobox,
                                     html<FvQueryEditor>`
                                         <${textFieldTag}
                                             class="editor-control"
                                             data-control="scalar-text"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
+                                            aria-autocomplete="list"
+                                            aria-haspopup="listbox"
+                                            aria-expanded="false"
+                                            aria-controls="${x => x.dynamicOptionListId}"
+                                            autocomplete="off"
                                             :value="${x => x.getActiveScalarValue()}"
                                         >
                                             ${x => x.labels.value}
                                         </${textFieldTag}>
                                     `
                                 )}
+                                ${when(x => x.isActiveCombobox, dynamicOptionSuggestionsTemplate)}
                                 ${when(
-                                    x => x.activeField?.type === 'number' || x.activeField?.type === 'date' || x.activeField?.type === 'string' || x.activeField?.type === 'array',
+                                    x => ['number', 'date', 'datetime', 'text'].includes(x.activeEditorKind),
                                     html<FvQueryEditor>`
                                         ${when(
-                                            x => x.activeField?.type === 'number',
+                                            x => x.activeEditorKind === 'number',
                                             html<FvQueryEditor>`
                                                 <${numberFieldTag}
                                                     class="editor-control"
                                                     data-control="scalar-number"
                                                     aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                                    aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                                     :value="${x => x.getActiveScalarValue()}"
                                                 >
                                                     ${x => x.labels.value}
@@ -390,14 +426,13 @@ export const template = html<FvQueryEditor>`
                                             `
                                         )}
                                         ${when(
-                                            x => x.activeField?.type !== 'number',
+                                            x => x.activeEditorKind !== 'number',
                                             html<FvQueryEditor>`
                                                 <${textFieldTag}
                                                     class="editor-control"
                                                     type="${x => x.getActiveScalarInputType()}"
                                                     data-control="scalar-text"
                                                     aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                                    aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                                     :value="${x => x.getActiveScalarValue()}"
                                                 >
                                                     ${x => x.labels.value}
@@ -412,7 +447,7 @@ export const template = html<FvQueryEditor>`
                             x => x.activeOperandKind === 'collection',
                             html<FvQueryEditor>`
                                 ${when(
-                                    x => x.activeField?.type === 'enum' && Boolean(x.definition),
+                                    x => (x.activeEditorKind === 'select' || x.isActiveCombobox) && Boolean(x.definition),
                                     html<FvQueryEditor>`
                                         <${fvChipSelectorTag}
                                             class="editor-control collection-selector"
@@ -420,14 +455,13 @@ export const template = html<FvQueryEditor>`
                                             label="${x => x.labels.value}"
                                             placeholder="${x => x.labels.value}"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :optionItems="${x => x.activeCollectionOptions}"
                                             :selectedOptionValues="${x => x.activeCollectionOptionValues}"
                                         ></${fvChipSelectorTag}>
                                     `
                                 )}
                                 ${when(
-                                    x => x.activeField?.type === 'enum' && !x.definition,
+                                    x => (x.activeEditorKind === 'select' || x.isActiveCombobox) && !x.definition,
                                     html<FvQueryEditor>`
                                         <${fvChipSelectorTag}
                                             class="editor-control collection-selector"
@@ -435,20 +469,18 @@ export const template = html<FvQueryEditor>`
                                             label="${x => x.labels.value}"
                                             placeholder="${x => x.labels.value}"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             options="${x => x.activeCollectionOptionLabels}"
                                             :selectedValues="${x => x.getActiveCollectionSelectorValues()}"
                                         ></${fvChipSelectorTag}>
                                     `
                                 )}
                                 ${when(
-                                    x => x.activeField?.type !== 'enum',
+                                    x => x.activeEditorKind !== 'select' && !x.isActiveCombobox,
                                     html<FvQueryEditor>`
                                         <${textFieldTag}
                                             class="editor-control"
                                             data-control="collection-values"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveCollectionInput()}"
                                         >
                                             ${x => x.labels.value}
@@ -461,13 +493,12 @@ export const template = html<FvQueryEditor>`
                             x => x.activeOperandKind === 'range',
                             html<FvQueryEditor>`
                                 ${when(
-                                    x => x.activeField?.type === 'number',
+                                    x => x.getActiveRangeInputType() === 'number',
                                     html<FvQueryEditor>`
                                         <${numberFieldTag}
                                             class="editor-control"
                                             data-control="range-start"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveRangeValue('start')}"
                                         >
                                             ${x => x.labels.rangeStart}
@@ -475,14 +506,13 @@ export const template = html<FvQueryEditor>`
                                     `
                                 )}
                                 ${when(
-                                    x => x.activeField?.type !== 'number',
+                                    x => x.getActiveRangeInputType() !== 'number',
                                     html<FvQueryEditor>`
                                         <${textFieldTag}
                                             class="editor-control"
-                                            type="${x => x.getActiveScalarInputType()}"
+                                            type="${x => x.getActiveRangeInputType()}"
                                             data-control="range-start"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveRangeValue('start')}"
                                         >
                                             ${x => x.labels.rangeStart}
@@ -490,13 +520,12 @@ export const template = html<FvQueryEditor>`
                                     `
                                 )}
                                 ${when(
-                                    x => x.activeField?.type === 'number',
+                                    x => x.getActiveRangeInputType() === 'number',
                                     html<FvQueryEditor>`
                                         <${numberFieldTag}
                                             class="editor-control"
                                             data-control="range-end"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveRangeValue('end')}"
                                         >
                                             ${x => x.labels.rangeEnd}
@@ -504,14 +533,13 @@ export const template = html<FvQueryEditor>`
                                     `
                                 )}
                                 ${when(
-                                    x => x.activeField?.type !== 'number',
+                                    x => x.getActiveRangeInputType() !== 'number',
                                     html<FvQueryEditor>`
                                         <${textFieldTag}
                                             class="editor-control"
-                                            type="${x => x.getActiveScalarInputType()}"
+                                            type="${x => x.getActiveRangeInputType()}"
                                             data-control="range-end"
                                             aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                             :value="${x => x.getActiveRangeValue('end')}"
                                         >
                                             ${x => x.labels.rangeEnd}
@@ -527,7 +555,6 @@ export const template = html<FvQueryEditor>`
                                     class="editor-control"
                                     data-control="property-key"
                                     aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                    aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                     :value="${x => x.getActivePropertyKey()}"
                                 >
                                     ${x => x.labels.key}
@@ -541,7 +568,6 @@ export const template = html<FvQueryEditor>`
                                     class="editor-control"
                                     data-control="property-value"
                                     aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                    aria-errormessage="${x => (x.activeRuleError ? x.editorPanelErrorId : '')}"
                                     :value="${x => x.getActivePropertyValue()}"
                                 >
                                     ${x => x.labels.comparisonValue}
@@ -551,7 +577,7 @@ export const template = html<FvQueryEditor>`
                         ${when(
                             x => x.activeRuleError.length > 0,
                             html<FvQueryEditor>`
-                                <div class="editor-error" id="${x => x.editorPanelErrorId}" role="alert">${x => x.activeRuleError}</div>
+                                <div class="editor-error" id="${x => x.editorPanelErrorId}" role="alert" ${ref('editorPanelErrorElement')}>${x => x.activeRuleError}</div>
                             `
                         )}
                         ${when(

@@ -389,6 +389,9 @@ function inferEditor(schema: JsonSchema202012, choices: readonly QueryOption[] |
 }
 
 function hasExpectedSchemaType(schema: JsonSchema202012, expected: string): boolean {
+    if (typeof schema !== 'boolean' && !isRecord(schema)) {
+        return false;
+    }
     if (typeof schema === 'boolean') {
         return false;
     }
@@ -403,9 +406,13 @@ function isKeyValueSchema(schema: JsonSchema202012): boolean {
         || !isRecord(schema.properties)) {
         return false;
     }
+    const keySchema = schema.properties.key;
+    const valueSchema = schema.properties.value;
     return Object.keys(schema.properties).length === 2
-        && hasExpectedSchemaType(schema.properties.key as JsonSchema202012, 'string')
-        && hasExpectedSchemaType(schema.properties.value as JsonSchema202012, 'string');
+        && keySchema !== undefined
+        && valueSchema !== undefined
+        && hasExpectedSchemaType(keySchema as JsonSchema202012, 'string')
+        && hasExpectedSchemaType(valueSchema as JsonSchema202012, 'string');
 }
 
 function editorCompatibilityIssues(
@@ -627,13 +634,6 @@ function validateDefinitionInner(input: unknown): ValidationResult<QueryBuilderD
     definition.operators.forEach(operator => {
         if (operator.operand.kind === 'schema') {
             validators.set(`operator:${operator.id}`, getSchemaValidator(operator.operand.schema));
-        } else if (operator.operand.kind === 'range') {
-            validators.set(`range:${operator.id}`, getSchemaValidator({
-                type: 'object',
-                required: ['start', 'end'],
-                properties: { start: operator.operand.endpointSchema, end: operator.operand.endpointSchema },
-                additionalProperties: false
-            }));
         }
     });
     definitionCache.set(definition, validators);
@@ -906,11 +906,21 @@ function validateQueryInner(input: unknown, definition: QueryBuilderDefinition):
                 }
             }
         } else if (operator.operand.kind === 'range') {
-            const validator = validators?.get(`range:${operator.id}`);
-            if (validator) {
-                issues.push(...issueForSchemaErrors(validator.validate(value).errors, 'query', `${current.path}/value`));
-            }
-            if (isRecord(value) && hasOwn(value, 'start') && hasOwn(value, 'end')) {
+            if (!isRecord(value) || !hasOwn(value, 'start') || !hasOwn(value, 'end')
+                || Object.keys(value).some(key => key !== 'start' && key !== 'end')) {
+                issues.push(issue('invalid-value', 'query', `${current.path}/value`, 'Range operands require start and end values.'));
+            } else {
+                const endpointValidator = getSchemaValidator(operator.operand.endpointSchema);
+                issues.push(...issueForSchemaErrors(
+                    endpointValidator.validate(value.start).errors,
+                    'query',
+                    `${current.path}/value/start`
+                ));
+                issues.push(...issueForSchemaErrors(
+                    endpointValidator.validate(value.end).errors,
+                    'query',
+                    `${current.path}/value/end`
+                ));
                 const start = value.start;
                 const end = value.end;
                 if ((typeof start === 'number' && typeof end === 'number' && start > end)

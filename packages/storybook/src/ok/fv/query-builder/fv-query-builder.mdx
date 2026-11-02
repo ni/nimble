@@ -9,7 +9,7 @@ The query builder combines the query editor with saved queries, Nigel assistance
 
 The split button shows **Configure query** when no saved query is selected, or the selected saved query's name. Its primary button opens a popover with query conditions, Nigel assistance, and Apply, Cancel, and Done buttons. This view has no name field or save and delete actions. The dropdown button opens the saved-query menu. **Edit saved query** and **Create saved query** open a popover with a name field and save actions. Both views use the same draft.
 
-Place the query builder directly in an application toolbar or a toolbar slot. It sizes to its split button and has no internal toolbar, surrounding border, or toolbar padding. The containing toolbar controls spacing and alignment. The query popover is at most 600px wide, stays within the viewport, and can open above the split button when space below is limited. Its contents scroll when necessary. Drag the popover header to move the popover, for example to uncover table content beneath it. The popover stays at least 8px inside the viewport while dragging, scrolling, and resizing. Double-click the header to return it to its anchored position. Closing the popover also resets its position. Footer actions stay together and wrap below the secondary actions only when they no longer fit beside them.
+Place the query builder directly in an application toolbar or a toolbar slot. It sizes to its split button and has no internal toolbar, surrounding border, or toolbar padding. The containing toolbar controls spacing and alignment. The query popover is at most 600px wide, stays within the viewport, and can open above the split button when space below is limited. Its contents scroll when necessary. Drag the popover header to move it. For keyboard or single-pointer operation, use **Move query editor** in the header: press an arrow key to move it, or use the visible direction buttons. Press Escape or **Finish moving query editor** to leave move mode. The popover stays at least 8px inside the viewport while dragging, scrolling, and resizing. Double-click the header to return it to its anchored position. Closing the popover also resets its position. Footer actions stay together and wrap below the secondary actions only when they no longer fit beside them.
 
 <Canvas of={queryBuilderStories.configurable} />
 <Controls of={queryBuilderStories.configurable} />
@@ -18,7 +18,7 @@ Place the query builder directly in an application toolbar or a toolbar slot. It
 
 Use `preset` to choose an empty, grouped, invalid, saved, or complex query. Set `query` to override the preset with a custom query document, and use `definition` to configure fields and operators.
 
-The Controls panel also lets you change the saved queries, disabled state, and feature flags. Enable `persistence` to try the in-memory save and delete handlers. Enable `failFirstSave` to make the first save fail, then retry without losing the draft.
+The Controls panel also lets you change the saved queries, disabled state, and feature flags. Enable `persistence` to try the in-memory save and delete handlers. Enable `failFirstSave` to make the first save fail, then retry without losing the draft. A save started from the menu opens the editor with the error and retry action if it fails.
 
 Enable `aiPreview` to show a sample generated query. Sending a Nigel prompt also shows this sample. The example does not call an AI service.
 
@@ -106,7 +106,7 @@ Provide `saveHandler` and `deleteHandler` to enable save and delete actions. A s
 
 When the selected saved query has unsaved changes, **Update saved query** saves those changes under the same ID. **Create saved query** saves a copy with a new ID.
 
-All four feature flags default to `true`. `showNigelPrompt` controls Nigel assistance and the generated-query preview. `allowSavedQueryCreation` controls creating saved queries, including copies of existing saved queries. `allowSavedQueryEditing` controls editing and updating existing saved queries; users can still change query conditions and, if creation is enabled, save a new query. `allowSavedQueryDeletion` controls the delete action and its confirmation. Disabling creation does not prevent applying query conditions or updating existing saved queries.
+All four feature flags default to `true`. The JavaScript properties `showNigelPrompt`, `allowSavedQueryCreation`, `allowSavedQueryEditing`, and `allowSavedQueryDeletion` retain their default-on behavior. HTML uses the false-by-default boolean attributes `hide-nigel-prompt`, `disable-saved-query-creation`, `disable-saved-query-editing`, and `disable-saved-query-deletion` to opt out. `showNigelPrompt` controls Nigel assistance and the generated-query preview. Creation controls new saved queries, including copies; editing controls changing names and updating existing records. Deletion remains independently available when editing is disabled, without exposing the name or update controls. Disabling creation does not prevent applying query conditions or updating existing saved queries.
 
 ```ts
 builder.showNigelPrompt = false;
@@ -115,7 +115,16 @@ builder.allowSavedQueryEditing = false;
 builder.allowSavedQueryDeletion = false;
 ```
 
-Switching queries keeps the draft for the query you leave and automatically applies the selected query's draft if it is valid, including when returning to **Current query**. An incomplete or invalid draft remains available for editing without changing the applied query. **Save** saves a query without applying it or closing the popover. **Apply** validates the draft and emits `query-apply` with the query document and selected saved-query ID (`undefined` for Current query). It also leaves the popover open.
+```html
+<ok-fv-query-builder
+    disable-saved-query-creation
+    disable-saved-query-editing
+    disable-saved-query-deletion
+    hide-nigel-prompt
+></ok-fv-query-builder>
+```
+
+Switching queries keeps the draft for the query you leave and automatically applies the selected query's draft if it is valid, including when returning to **Current query**. If the host removes a dirty saved query, its draft remains available as an **Unsaved draft**; it is no longer applied or emitted with the deleted saved-query ID. Catalog refreshes update clean selections while retaining dirty work. An incomplete or invalid draft remains available for editing without changing the applied query. **Save** saves a query without applying it or closing the popover. **Apply** validates the draft and emits `query-apply` with the query document and selected saved-query ID (`undefined` for Current query). It also leaves the popover open.
 
 **Done** closes the popover without saving, applying, or discarding drafts. It is not shown when editing a saved query. **Cancel** restores the last applied query document and selection. It does not undo completed saves or discard drafts for other saved queries.
 

@@ -57,6 +57,34 @@ try {
         console.log(`${story.id}: passed (${result.width} x ${result.height})`);
         page.off('pageerror', onError);
     }
+
+    await page.goto(`${baseUrl}/iframe.html?id=ok-fv-query-builder--configurable&viewMode=story`);
+    const builder = page.locator('ok-fv-query-builder');
+    await builder.waitFor();
+    await builder.locator('.split-button-primary').click();
+    await page.waitForFunction(() => {
+        const element = document.querySelector('ok-fv-query-builder');
+        return element.queryPopoverRegion?.classList.contains('loaded');
+    });
+    const placement = await builder.evaluate(element => {
+        const anchor = element.shadowRoot.querySelector('ok-fv-split-button').getBoundingClientRect();
+        const popover = element.shadowRoot.querySelector('.query-popover').getBoundingClientRect();
+        return {
+            anchorBottom: anchor.bottom,
+            popoverTop: popover.top,
+            popoverBottom: popover.bottom,
+            viewportHeight: document.documentElement.clientHeight
+        };
+    });
+    assert.ok(
+        placement.popoverTop >= placement.anchorBottom - 1,
+        `configurable story popover opened above its anchor despite room below: ${JSON.stringify(placement)}`
+    );
+    assert.ok(
+        placement.popoverBottom <= placement.viewportHeight + 1,
+        `configurable story popover extends below the viewport: ${JSON.stringify(placement)}`
+    );
+    console.log('ok-fv-query-builder--configurable short-document placement: passed');
 } finally {
     await browser.close();
 }

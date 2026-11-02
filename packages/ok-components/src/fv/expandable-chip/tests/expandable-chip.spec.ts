@@ -40,6 +40,21 @@ describe('FvExpandableChip', () => {
         expect(button?.getAttribute('aria-expanded')).toBe('true');
     });
 
+    it('sets the controlled element relationship when the dialog is in another shadow root', async () => {
+        ({ element, disconnect } = await setup());
+        const dialog = document.createElement('section');
+        dialog.id = 'status-editor';
+        document.body.append(dialog);
+        element.controlsElement = dialog;
+        await waitForUpdatesAsync();
+
+        const button = element.shadowRoot?.querySelector<HTMLButtonElement>('button') as
+            (HTMLButtonElement & { ariaControlsElements?: Element[] }) | undefined;
+
+        expect(button?.ariaControlsElements).toEqual([dialog]);
+        dialog.remove();
+    });
+
     it('lets the host handle activation', async () => {
         ({ element, disconnect } = await setup());
         const clickSpy = jasmine.createSpy('click');

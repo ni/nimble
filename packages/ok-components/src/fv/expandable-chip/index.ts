@@ -1,4 +1,4 @@
-import { attr } from '@ni/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -22,6 +22,46 @@ export class FvExpandableChip extends FoundationElement {
 
     @attr({ attribute: 'controls' })
     public controls = '';
+
+    @observable
+    public controlsElement?: Element;
+
+    /** @internal */
+    @observable
+    public buttonElement?: HTMLButtonElement;
+
+    /** @internal */
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.syncControlsRelationship();
+    }
+
+    /** @internal */
+    public controlsChanged(): void {
+        this.syncControlsRelationship();
+    }
+
+    /** @internal */
+    public controlsElementChanged(): void {
+        this.syncControlsRelationship();
+    }
+
+    /** @internal */
+    public buttonElementChanged(): void {
+        this.syncControlsRelationship();
+    }
+
+    private syncControlsRelationship(): void {
+        const button = this.buttonElement as (HTMLButtonElement & { ariaControlsElements?: Element[] }) | undefined;
+        if (button) {
+            const root = this.getRootNode() as Document | ShadowRoot;
+            const controlledElement = this.controlsElement
+                ?? (this.controls ? root.getElementById(this.controls) : null);
+            if (controlledElement) {
+                button.ariaControlsElements = [controlledElement];
+            }
+        }
+    }
 }
 
 const okFvExpandableChip = FvExpandableChip.compose({

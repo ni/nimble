@@ -14,6 +14,7 @@ import {
     type QueryEditorDraftToken,
     type QueryEditorEventDetail
 } from '..';
+import { validateDefinition, validateQuery } from '../../query-builder/portable-interface';
 
 type ValueControl = HTMLElement & { value: string };
 
@@ -324,11 +325,14 @@ function queryView(editor: FvQueryEditor): TestQueryView {
     return { logic, groups };
 }
 
-async function setup(initialQuery: QueryDocument = { version: 1, root: null }): Promise<Fixture<FvQueryEditor>> {
+async function setup(
+    initialQuery: QueryDocument = { version: 1, root: null },
+    definition: QueryBuilderDefinition = portableDefinition
+): Promise<Fixture<FvQueryEditor>> {
     const result = await fixture<FvQueryEditor>(html`
         <${fvQueryEditorTag} label="Query conditions"></${fvQueryEditorTag}>
     `);
-    result.element.definition = portableDefinition;
+    result.element.definition = definition;
     result.element.query = initialQuery;
     await result.connect();
     await waitForUpdatesAsync();
@@ -584,6 +588,7 @@ describe('FvQueryEditor', () => {
         expect(nativeInput.getAttribute('aria-haspopup')).toBe('listbox');
         expect(nativeInput.getAttribute('aria-expanded')).toBe('true');
         expect(nativeInput.getAttribute('aria-controls')).toBe(menu.id);
+        expect((queryInput as ValueControl & { ariaControlsElements?: Element[] }).ariaControlsElements).toEqual([menu]);
 
         nativeInput.focus();
         const openMenu = new KeyboardEvent('keydown', {
@@ -599,6 +604,11 @@ describe('FvQueryEditor', () => {
         expect(element.activeSuggestionIndex).toBe(1);
         expect(suggestions[1]?.getAttribute('aria-selected')).toBe('true');
         expect(nativeInput.getAttribute('aria-activedescendant')).toBe(suggestions[1]?.id ?? null);
+        const activeSuggestion = suggestions[1];
+        if (!activeSuggestion) {
+            throw new Error('Expected the active suggestion to exist');
+        }
+        expect(queryInput.ariaActiveDescendantElement).toBe(activeSuggestion);
         expect(suggestions[0]?.matches(':focus')).toBeFalse();
         expect(element.shadowRoot?.activeElement).toBe(queryInput);
 
@@ -1685,18 +1695,30 @@ describe('FvQueryEditor', () => {
     });
 
     it('associates an invalid value with the active editor error message', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'name',
+                path: '/name',
+                label: 'Name',
+                valueSchema: { type: 'string', minLength: 1 },
+                operatorIds: ['is'],
+                editor: { kind: 'text' }
+            }],
+            operators: [{ id: 'is', label: 'Is', operand: { kind: 'field-value' } }]
+        };
         ({ element, disconnect } = await setup(query(
-            rule('status-rule', 'status', 'is', { kind: 'none' })
-        )));
-        const chip = getRequiredElement<HTMLElement>('[data-rule-id="status-rule"]');
+            rule('name-rule', 'name', 'is', { kind: 'none' })
+        ), definition));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="name-rule"]');
         chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        const select = getRequiredElement<HTMLElement>('[data-control="scalar-select"]');
+        const control = getRequiredElement<HTMLElement>('[data-control="scalar-text"]');
         const error = getRequiredElement<HTMLElement>('.editor-error');
-        expect(select.getAttribute('aria-invalid')).toBe('true');
-        expect(select.getAttribute('aria-errormessage')).toBe(error.id);
+        expect(control.getAttribute('aria-invalid')).toBe('true');
         expect(error.id).toBe(element.editorPanelErrorId);
+        expect((control as HTMLElement & { ariaErrorMessageElements?: Element[] }).ariaErrorMessageElements).toEqual([error]);
     });
 
     it('associates a collection error with the chip selector input', async () => {
@@ -1711,7 +1733,7 @@ describe('FvQueryEditor', () => {
         const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input');
         const error = getRequiredElement<HTMLElement>('.editor-error');
         expect(input?.getAttribute('aria-invalid')).toBe('true');
-        expect(input?.getAttribute('aria-errormessage')).toBe(error.id);
+        expect((selector as HTMLElement & { ariaErrorMessageElements?: Element[] }).ariaErrorMessageElements).toEqual([error]);
     });
 
     it('uses the chip selector for multiselect values while retaining option values', async () => {
@@ -1724,11 +1746,12 @@ describe('FvQueryEditor', () => {
         await waitForCalloutAlignment(element.shadowRoot!, chip);
 
         const selector = getRequiredElement<HTMLElement & {
-            optionItems: readonly { value: string, label: string }[],
+            optionItems: readonly { value: unknown, label: string }[],
             selectedOptionValues: readonly unknown[]
         }>('[data-control="collection-selector"]');
         expect(selector.tagName.toLowerCase()).toBe('ok-fv-chip-selector');
         expect(selector.optionItems.map(option => option.label)).toEqual(['Failed', 'Passed', 'Error']);
+        expect(selector.optionItems.map(option => option.value)).toEqual(['failed', 'passed', 'error']);
         expect(selector.selectedOptionValues).toEqual(['failed']);
 
         selector.dispatchEvent(new CustomEvent('change', {
@@ -1739,6 +1762,483 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
 
         expect(queryView(element).groups[0]?.rules[0]?.operand).toEqual({ kind: 'collection', values: ['error'] });
+    });
+
+    it('keeps scalar static choices typed and displays their labels instead of encoded values', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'priority',
+                path: '/priority',
+                label: 'Priority',
+                valueSchema: {
+                    oneOf: [
+                        { const: 1, title: 'Low' },
+                        { const: 2, title: 'High' }
+                    ]
+                },
+                operatorIds: ['is'],
+                editor: { kind: 'select' }
+            }],
+            operators: [{ id: 'is', label: 'Is', operand: { kind: 'field-value' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'priority', operatorId: 'is', value: 2 }
+        }, definition));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+
+        const select = getRequiredElement<ValueControl>('[data-control="scalar-select"]');
+        expect(select.textContent).toContain('High');
+        expect(select.textContent).not.toContain('option-');
+        expect(JSON.stringify(element.query.root)).toContain('"value":2');
+
+        select.value = 'option-0';
+        select.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate',
+            fieldId: 'priority',
+            operatorId: 'is',
+            value: 1
+        }));
+    });
+
+    it('uses the active range endpoint schema to render and parse date controls', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'date-range',
+                path: '/date',
+                label: 'Date range',
+                valueSchema: { type: 'number' },
+                operatorIds: ['between-dates']
+            }],
+            operators: [{
+                id: 'between-dates',
+                label: 'Between dates',
+                operand: { kind: 'range', endpointSchema: { type: 'string', format: 'date' } },
+                editor: { kind: 'range' }
+            }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: {
+                kind: 'predicate',
+                fieldId: 'date-range',
+                operatorId: 'between-dates',
+                value: { start: '2025-01-01', end: '2025-01-31' }
+            }
+        }, definition));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelector('[data-control="range-start"]')?.tagName.toLowerCase())
+            .toBe('nimble-text-field');
+        expect((getRequiredElement<HTMLElement>('[data-control="range-start"]') as HTMLElement & { type: string }).type).toBe('date');
+        expect(element.shadowRoot?.querySelector('[data-control="range-start"]')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-control="scalar-number"]')).toBeNull();
+    });
+
+    it('preserves empty string input and validates it against the string schema', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'name',
+                path: '/name',
+                label: 'Name',
+                valueSchema: { type: 'string', minLength: 1 },
+                operatorIds: ['is'],
+                editor: { kind: 'text' }
+            }],
+            operators: [{ id: 'is', label: 'Is', operand: { kind: 'field-value' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'name', operatorId: 'is', value: 'ready' }
+        }, definition));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+
+        const input = getRequiredElement<ValueControl>('[data-control="scalar-text"]');
+        input.value = '';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.draft.tokens[0]).toEqual(jasmine.objectContaining({
+            kind: 'condition',
+            value: ''
+        }));
+        expect(element.valid).toBeFalse();
+        expect(element.issues[0]?.code).toBe('invalid-value');
+    });
+
+    it('shows selectable accessible suggestions for dynamic combobox options', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'workspace',
+                path: '/workspace',
+                label: 'Workspace',
+                valueSchema: { type: 'string' },
+                operatorIds: ['is'],
+                editor: {
+                    kind: 'combobox',
+                    optionsSource: { sourceId: 'workspaces', searchable: true }
+                }
+            }],
+            operators: [{ id: 'is', label: 'Is', operand: { kind: 'field-value' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'is', value: 'production' }
+        }, definition));
+        element.optionResolver = {
+            resolve: async () => await Promise.resolve({
+                options: [
+                    { value: 'production', label: 'Production' },
+                    { value: 'production-test', label: 'Production test' }
+                ]
+            })
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+
+        const field = getRequiredElement<HTMLElement & { shadowRoot: ShadowRoot, ariaControlsElements?: Element[] }>(
+            '[data-control="scalar-text"]'
+        );
+        const input = field.shadowRoot.querySelector<HTMLInputElement>('input') as
+            (HTMLInputElement & { ariaControlsElements?: Element[] });
+        input.focus();
+        await waitForUpdatesAsync();
+        const list = getRequiredElement<HTMLElement>('.dynamic-option-suggestions');
+        expect(list.getAttribute('role')).toBe('listbox');
+        expect(list.textContent).toContain('Production');
+        expect(list.textContent).not.toContain('dynamic:');
+        expect(input.getAttribute('role')).toBe('combobox');
+        expect(input.getAttribute('aria-controls')).toBe(list.id);
+        expect(field.ariaControlsElements).toEqual([list]);
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true, cancelable: true }));
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, composed: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate',
+            fieldId: 'workspace',
+            operatorId: 'is',
+            value: 'production-test'
+        }));
+    });
+
+    it('omits searchText for a nonsearchable dynamic option source', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'workspace',
+                path: '/workspace',
+                label: 'Workspace',
+                valueSchema: { type: 'string' },
+                operatorIds: ['is'],
+                editor: {
+                    kind: 'combobox',
+                    optionsSource: { sourceId: 'workspaces', searchable: false }
+                }
+            }],
+            operators: [{ id: 'is', label: 'Is', operand: { kind: 'field-value' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'is', value: 'production' }
+        }, definition));
+        const requests: { searchText?: string }[] = [];
+        element.optionResolver = {
+            resolve: async request => {
+                requests.push({ ...(request.searchText !== undefined ? { searchText: request.searchText } : {}) });
+                return await Promise.resolve({ options: [{ value: 'production', label: 'Production' }] });
+            }
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        const field = getRequiredElement<HTMLElement>('[data-control="scalar-text"]');
+        const input = field.shadowRoot?.querySelector<HTMLInputElement>('input');
+        if (!input) {
+            throw new Error('Expected the dynamic combobox to contain an input');
+        }
+        input.value = 'prod';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+
+        expect(requests.length).toBeGreaterThan(1);
+        expect(requests.every(request => request.searchText === undefined)).toBeTrue();
+    });
+
+    it('toggles root and nested group logic independently', async () => {
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: {
+                kind: 'group',
+                combinator: 'or',
+                children: [
+                    {
+                        kind: 'group',
+                        combinator: 'and',
+                        children: [
+                            { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value: 1 },
+                            { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value: 2 }
+                        ]
+                    },
+                    { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value: 3 }
+                ]
+            }
+        }));
+        const logicTokenIndices = element.editorTokens.flatMap((token, index) => {
+            return token.kind === 'logic' ? [index] : [];
+        });
+        const nestedLogic = getRequiredElement<HTMLElement>(
+            `[data-action="toggle-logic"][data-token-index="${logicTokenIndices[0]}"]`
+        );
+        const rootLogic = getRequiredElement<HTMLElement>(
+            `[data-action="toggle-logic"][data-token-index="${logicTokenIndices[logicTokenIndices.length - 1]}"]`
+        );
+        rootLogic.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        const toggledRoot = element.query.root;
+        if (toggledRoot?.kind !== 'group' || toggledRoot.children[0]?.kind !== 'group') {
+            throw new Error('Expected root and nested query groups.');
+        }
+        expect(toggledRoot.combinator).toBe('and');
+        expect(toggledRoot.children[0].combinator).toBe('and');
+
+        nestedLogic.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        const nested = element.query.root;
+        if (nested?.kind !== 'group' || nested.children[0]?.kind !== 'group') {
+            throw new Error('Expected a nested group to remain in the query.');
+        }
+        expect(nested.combinator).toBe('and');
+        expect(nested.children[0].combinator).toBe('or');
+    });
+
+    it('preserves unfinished query text when disabled and re-enabled', async () => {
+        ({ element, disconnect } = await setup());
+        const queryInput = getRequiredElement<ValueControl>('.query-input');
+        queryInput.value = 'sta';
+        queryInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        element.disabled = true;
+        await waitForUpdatesAsync();
+        element.disabled = false;
+        await waitForUpdatesAsync();
+
+        expect(element.queryInputText).toBe('sta');
+        expect(element.draft.inputText).toBe('sta');
+    });
+
+    it('validates range endpoint references from their own schema root', () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'duration',
+                path: '/duration',
+                label: 'Duration',
+                valueSchema: { type: 'number' },
+                operatorIds: ['between']
+            }],
+            operators: [{
+                id: 'between',
+                label: 'Between',
+                operand: {
+                    kind: 'range',
+                    endpointSchema: {
+                        $defs: { nonnegative: { minimum: 0 } },
+                        $ref: '#/$defs/nonnegative',
+                        type: 'integer'
+                    }
+                },
+                editor: { kind: 'range' }
+            }]
+        };
+        expect(validateDefinition(definition).valid).toBeTrue();
+        expect(validateQuery({
+            version: 1,
+            root: {
+                kind: 'predicate',
+                fieldId: 'duration',
+                operatorId: 'between',
+                value: { start: 1, end: 5 }
+            }
+        }, definition).valid).toBeTrue();
+        expect(validateQuery({
+            version: 1,
+            root: {
+                kind: 'predicate',
+                fieldId: 'duration',
+                operatorId: 'between',
+                value: { start: -1, end: 5 }
+            }
+        }, definition).valid).toBeFalse();
+    });
+
+    it('reports an unsupported key-value editor for malformed property schemas without throwing', () => {
+        const definition = {
+            version: 1,
+            fields: [{
+                id: 'metadata',
+                path: '/metadata',
+                label: 'Metadata',
+                valueSchema: { type: 'string' },
+                operatorIds: ['has-property']
+            }],
+            operators: [{
+                id: 'has-property',
+                label: 'Has property',
+                operand: {
+                    kind: 'schema',
+                    schema: {
+                        type: 'object',
+                        properties: { first: { type: 'string' }, second: { type: 'string' } },
+                        required: ['key', 'value'],
+                        additionalProperties: false
+                    }
+                },
+                editor: { kind: 'key-value' }
+            }]
+        };
+        expect(() => validateDefinition(definition)).not.toThrow();
+        const result = validateDefinition(definition);
+        expect(result.valid).toBeFalse();
+        expect(result.valid ? [] : result.issues.map(issue => issue.code)).toContain('unsupported-editor');
+    });
+
+    it('enforces multiselect minimum item counts', () => {
+        const definition: QueryBuilderDefinition = {
+            ...portableDefinition,
+            operators: portableDefinition.operators.map(operator => {
+                if (operator.id === 'is-any-of') {
+                    return { ...operator, operand: { kind: 'field-value-list' as const, minItems: 2 } };
+                }
+                return operator;
+            })
+        };
+        expect(validateQuery({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'status', operatorId: 'is-any-of', value: ['failed'] }
+        }, definition).valid).toBeFalse();
+        expect(validateQuery({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'status', operatorId: 'is-any-of', value: ['failed', 'passed'] }
+        }, definition).valid).toBeTrue();
+    });
+
+    it('applies a query assigned before its definition', async () => {
+        const result = await fixture<FvQueryEditor>(html`<${fvQueryEditorTag}></${fvQueryEditorTag}>`);
+        const assignedQuery: QueryDocument = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value: 10 }
+        };
+        result.element.query = assignedQuery;
+        result.element.definition = portableDefinition;
+        expect(result.element.query).toEqual(assignedQuery);
+        ({ element, disconnect } = result);
+        await result.connect();
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeTrue();
+        expect(element.query).toEqual(assignedQuery);
+        expect(element.draft.tokens).toHaveSize(1);
+    });
+
+    it('rejects malformed runtime query and draft values without throwing', async () => {
+        ({ element, disconnect } = await setup());
+        expect(() => {
+            element.query = null as unknown as QueryDocument;
+        }).not.toThrow();
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeFalse();
+
+        const cyclicValue: { [key: string]: unknown } = {};
+        cyclicValue.self = cyclicValue;
+        const malformedDraft = {
+            version: 1,
+            tokens: [{ kind: 'condition', id: 'bad', fieldId: 'status', operatorId: 'is', value: cyclicValue }],
+            caretPosition: 0,
+            inputText: ''
+        };
+        expect(() => {
+            element.draft = malformedDraft as unknown as QueryEditorDraft;
+        }).not.toThrow();
+        await waitForUpdatesAsync();
+        expect(element.issues.some(issue => issue.code === 'invalid-draft')).toBeTrue();
+    });
+
+    it('blocks malformed dynamic option context without throwing', async () => {
+        ({ element, disconnect } = await setupPortable({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'eq', value: 'production' }
+        }));
+        const cyclicContext: { [key: string]: unknown } = {};
+        cyclicContext.self = cyclicContext;
+        element.optionContext = cyclicContext as unknown as { [key: string]: JsonValue };
+        element.optionResolver = {
+            resolve: async () => await Promise.resolve({ options: [] })
+        };
+
+        expect(() => getRequiredElement<HTMLElement>('[data-rule-id]').click()).not.toThrow();
+        await waitForUpdatesAsync();
+        expect(element.optionState.status).toBe('blocked');
+    });
+
+    it('disables stale choices after paging failure and retries the failed page', async () => {
+        ({ element, disconnect } = await setupPortable({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'eq', value: 'production' }
+        }));
+        const cursors: (string | undefined)[] = [];
+        let failedPageAttempts = 0;
+        element.optionContext = { tenantId: 'tenant-a' };
+        element.optionResolver = {
+            resolve: async request => {
+                cursors.push(request.cursor);
+                if (!request.cursor) {
+                    return await Promise.resolve({
+                        options: [{ value: 'production', label: 'Production' }],
+                        nextCursor: 'page-2'
+                    });
+                }
+                failedPageAttempts += 1;
+                if (failedPageAttempts === 1) {
+                    throw new Error('Page unavailable');
+                }
+                return await Promise.resolve({ options: [{ value: 'staging', label: 'Staging' }] });
+            }
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        element.loadMoreOptions();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+
+        expect(element.optionState.status).toBe('error');
+        expect(element.activeOptions[0]?.disabled).toBeTrue();
+        getRequiredElement<HTMLElement>('.retry-options').click();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+
+        expect(cursors).toEqual([undefined, 'page-2', 'page-2']);
+        expect(element.optionState.status).toBe('ready');
+        expect(element.activeOptions.map(option => option.label)).toEqual(['Production', 'Staging']);
+        expect(element.activeOptions[0]?.disabled ?? false).toBeFalse();
     });
 
     it('closes an open collection selector when the rule editor is dismissed', async () => {
@@ -1966,6 +2466,9 @@ describe('FvQueryEditor', () => {
         const fieldControl = getRequiredElement<HTMLElement>('[data-control="field"]');
         const operatorControl = getRequiredElement<HTMLElement>('[data-control="operator"]');
         expect(editorPanel.querySelector('[data-action="done"]')).toBeNull();
+        const triggerButton = chip.shadowRoot?.querySelector<HTMLButtonElement>('button') as
+            (HTMLButtonElement & { ariaControlsElements?: Element[] }) | null;
+        expect(triggerButton?.ariaControlsElements).toEqual([editorPanel]);
 
         operatorControl.focus();
         await waitForUpdatesAsync();

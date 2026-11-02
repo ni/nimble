@@ -88,14 +88,14 @@ try {
     assert.ok(openingFrames.length > 0);
     assert.ok(openingFrames.every(frame => Math.abs(frame.left - openingFrames.at(-1).left) <= 1
         && Math.abs(frame.top - openingFrames.at(-1).top) <= 1), 'Popover must not move after becoming visible');
-    const assertQueryInViewport = async () => {
+    const assertQueryInViewport = async (timeout = 30000) => {
         await page.waitForFunction(() => {
             const el = document.querySelector('ok-fv-query-builder');
             const rect = el.shadowRoot.querySelector('.query-popover').getBoundingClientRect();
             return rect.width > 0 && rect.left >= -1 && rect.top >= -1
                 && rect.right <= document.documentElement.clientWidth + 1
                 && rect.bottom <= document.documentElement.clientHeight + 1;
-        });
+        }, { timeout });
     };
     for (const viewport of [
         { width: 900, height: 650 },
@@ -162,7 +162,6 @@ try {
     assert.equal(await conditionEditor.getByText('A value is required.', { exact: true }).isVisible(), false);
     assert.equal(await conditionEditor.evaluate(editor => editor.valid), true);
     assert.deepEqual(await conditionEditor.evaluate(editor => editor.query.root), { ...available, operatorId: 'is-not' });
-    await conditionEditor.locator('[data-control="operator"]').press('Escape');
     await setQuery(available);
     const queryInput = builder.locator('ok-fv-query-editor').getByRole('combobox', { name: 'Query conditions', exact: true });
     await page.setViewportSize({ width: 445, height: 600 });
@@ -417,6 +416,32 @@ try {
         return actions.top >= text.bottom;
     });
     assert.equal(actionsBelowText, true);
+
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await openStory('ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit');
+    await page.waitForFunction(() => window.__STORYBOOK_PREVIEW__?.currentRender?.phase === 'finished');
+    const dragBuilder = page.locator('ok-fv-query-builder');
+    await dragBuilder.waitFor();
+    await dragBuilder.locator('.split-button-primary').click();
+    await dragBuilder.locator('.popover-header').waitFor({ state: 'visible' });
+    const dragHeader = await dragBuilder.locator('.popover-header').boundingBox();
+    assert.ok(dragHeader);
+    await page.mouse.move(dragHeader.x + 40, dragHeader.y + 15);
+    await page.mouse.down();
+    await page.mouse.move(2200, 1400, { steps: 10 });
+    await page.mouse.up();
+    await page.setViewportSize({ width: 800, height: 500 });
+    await page.waitForTimeout(400);
+    await page.setViewportSize({ width: 375, height: 500 });
+    await page.waitForTimeout(750);
+    const draggedPopover = await dragBuilder.locator('.query-popover').boundingBox();
+    assert.ok(draggedPopover);
+    assert.ok(draggedPopover.x >= -1
+        && draggedPopover.x + draggedPopover.width <= 376
+        && draggedPopover.y >= -1
+        && draggedPopover.y + draggedPopover.height <= 501,
+    `dragged query popover escaped the resized viewport: ${JSON.stringify(draggedPopover)}`);
+
     assert.deepEqual(errors, []);
     console.log('Bulk-edit workflow, accessible controls, pane sizing, and responsive actions passed.');
 } finally {

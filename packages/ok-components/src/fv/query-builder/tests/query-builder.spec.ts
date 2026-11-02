@@ -173,6 +173,20 @@ describe('FvQueryBuilder', () => {
         expect(element.queryPopoverRegion?.verticalViewportLock).toBeTrue();
     });
 
+    it('ignores saved-query refresh callbacks before draft state is initialized', () => {
+        const builder = document.createElement(fvQueryBuilderTag);
+        const earlyBuilder = builder as unknown as {
+            savedDrafts?: Map<string, unknown>,
+            orphanedDrafts?: Map<string, unknown>,
+            selectedSavedQueryId?: string | null
+        };
+        earlyBuilder.savedDrafts = undefined;
+        earlyBuilder.orphanedDrafts = undefined;
+        earlyBuilder.selectedSavedQueryId = undefined;
+
+        expect(() => builder.savedQueriesChanged()).not.toThrow();
+    });
+
     it('renders the split button without an internal toolbar', async () => {
         ({ element, disconnect } = await setup(false));
 
@@ -269,6 +283,7 @@ describe('FvQueryBuilder', () => {
 
         let header: HTMLElement;
         let setPointerCapture: jasmine.Spy;
+        let popoverWidth: number;
 
         function dragOffset(): { x: string, y: string } {
             const style = element.queryPopoverRegion!.style;
@@ -284,12 +299,13 @@ describe('FvQueryBuilder', () => {
             setPointerCapture = spyOn(header, 'setPointerCapture');
             // Fixture layout depends on the Karma window, so report a fixed undragged rect plus the applied offset.
             const popover = getRequiredElement<HTMLElement>('.query-popover');
+            popoverWidth = 200;
             spyOn(popover, 'getBoundingClientRect').and.callFake(() => {
                 const offset = dragOffset();
                 return new DOMRect(
                     100 + (offset.x ? parseFloat(offset.x) : 0),
                     100 + (offset.y ? parseFloat(offset.y) : 0),
-                    200,
+                    popoverWidth,
                     150
                 );
             });
@@ -375,6 +391,54 @@ describe('FvQueryBuilder', () => {
                 y: `${parseFloat(clamped.y) - 10}px`
             });
         });
+
+        it('re-clamps the drag offset after responsive popover resizing', async () => {
+            const popover = getRequiredElement<HTMLElement>('.query-popover');
+            spyOn(element.queryViewport!, 'getBoundingClientRect').and.returnValue(new DOMRect(0, 0, 375, 500));
+
+            drag(header, 20000, 0);
+            expect(dragOffset().x).toBe('67px');
+
+            window.dispatchEvent(new Event('resize'));
+            await waitForUpdatesAsync();
+            popoverWidth = 359;
+            popover.style.width = '359px';
+            await new Promise<void>(resolve => {
+                window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve()));
+            });
+
+            expect(dragOffset().x).toBe('-92px');
+        });
+    });
+
+    it('places the query popover using viewport bounds when the document is short', async () => {
+        const rootStyle = document.documentElement.getAttribute('style');
+        const bodyStyle = document.body.getAttribute('style');
+        document.documentElement.style.setProperty('height', '162px', 'important');
+        document.body.style.setProperty('height', '162px', 'important');
+        try {
+            ({ element, disconnect } = await setup());
+            element.savedQueryMenuButton!.style.marginTop = '66px';
+            element.queryPopoverRegion!.update();
+            await new Promise<void>(resolve => {
+                window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve()));
+            });
+            const anchor = element.savedQueryMenuButton!.getBoundingClientRect();
+            const popover = getRequiredElement<HTMLElement>('.query-popover').getBoundingClientRect();
+            expect(document.documentElement.getBoundingClientRect().height).toBeLessThan(window.innerHeight);
+            expect(popover.top).toBeGreaterThanOrEqual(anchor.bottom - 1);
+        } finally {
+            if (rootStyle === null) {
+                document.documentElement.removeAttribute('style');
+            } else {
+                document.documentElement.setAttribute('style', rootStyle);
+            }
+            if (bodyStyle === null) {
+                document.body.removeAttribute('style');
+            } else {
+                document.body.setAttribute('style', bodyStyle);
+            }
+        }
     });
 
     it('preserves saved-query drafts between the primary popover and the full menu editor', async () => {
@@ -601,7 +665,7 @@ describe('FvQueryBuilder', () => {
         await openSavedMenu();
 
         expect(element.shadowRoot?.querySelector('[data-action="update-saved-query"]')).toBeNull();
-        expect(element.shadowRoot?.querySelector('[data-action="edit-saved-queries"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="edit-saved-queries"]')).not.toBeNull();
         expect(element.shadowRoot?.querySelector('[data-action="save-as-new"]')).not.toBeNull();
     });
 
@@ -677,7 +741,7 @@ describe('FvQueryBuilder', () => {
         expect(saveHandler).not.toHaveBeenCalled();
     });
 
-    it('closes the saved-query editor when editing is disabled at runtime', async () => {
+    it('keeps deletion management open without editing controls when editing is disabled at runtime', async () => {
         ({ element, disconnect } = await setup());
         await selectSavedQuery('saved-a');
         await openSavedMenu();
@@ -685,7 +749,10 @@ describe('FvQueryBuilder', () => {
         element.allowSavedQueryEditing = false;
         await waitForUpdatesAsync();
 
-        expect(element.isManagerOpen).toBeFalse();
+        expect(element.isManagerOpen).toBeTrue();
+        expect(element.shadowRoot?.querySelector('[data-control="saved-query-name"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="save-query"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="request-delete"]')).not.toBeNull();
     });
 
     it('hides saved-query deletion when disabled', async () => {
@@ -1231,5 +1298,366 @@ describe('FvQueryBuilder', () => {
         expect(element.selectedSavedQueryId).toBe('saved-a');
         expect(element.savedQueries).toHaveSize(2);
         expect(element.queryEditor?.query).toEqual(savedDocument);
+    });
+
+    it('reconciles refreshed and removed saved queries without losing drafts or emitting deleted IDs', async () => {
+        ({ element, disconnect } = await setup(false));
+        await selectSavedQuery('saved-a');
+        const changedDocument: QueryDocument = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'name', operatorId: 'is', value: 'Refreshed' }
+        };
+        element.savedQueries = [
+            { id: 'saved-a', name: 'Refreshed name', document: changedDocument },
+            savedRecords[1]!
+        ];
+        await waitForUpdatesAsync();
+
+        expect(element.selectedName).toBe('Refreshed name');
+        expect(element.queryEditor?.query).toEqual(changedDocument);
+        expect(element.query).toEqual(currentDocument);
+
+        const editor = element.queryEditor;
+        const changedDraft = editor?.draft;
+        if (!editor || !changedDraft) {
+            throw new Error('Expected the query editor draft.');
+        }
+        const dirtyDraft = {
+            ...changedDraft,
+            inputText: 'unfinished'
+        };
+        editor.dispatchEvent(new CustomEvent('query-change', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                draft: dirtyDraft,
+                query: changedDocument,
+                ruleCount: 1,
+                valid: true,
+                issues: []
+            }
+        }));
+        await waitForUpdatesAsync();
+        const applied: { selectedId?: string, query: QueryDocument }[] = [];
+        element.addEventListener('query-apply', event => {
+            applied.push((event as CustomEvent<{ selectedId?: string, query: QueryDocument }>).detail);
+        });
+
+        element.savedQueries = [savedRecords[1]!];
+        await waitForUpdatesAsync();
+
+        expect(element.selectedSavedQueryId).toBeNull();
+        expect(element.selectedQueryIsDirty).toBeTrue();
+        expect(element.queryEditor?.query).toEqual(changedDocument);
+        expect(element.query).toEqual(currentDocument);
+        expect(element.savedQueryViews.some(view => view.name.includes('Refreshed name'))).toBeTrue();
+        const unsavedDraft = getRequiredElement<HTMLElement>(
+            '[data-action="select-unsaved-draft"][data-saved-query-id="saved-a"]'
+        );
+        expect(unsavedDraft.textContent).toContain(element.labels.unsavedDraft);
+        expect(applied).toEqual([]);
+
+        let canceledSelectionId: string | undefined;
+        element.addEventListener('query-cancel', event => {
+            canceledSelectionId = (event as CustomEvent<{ selectedId?: string }>).detail.selectedId;
+        });
+        getRequiredElement<HTMLElement>('[data-action="cancel-query"]').click();
+        await waitForUpdatesAsync();
+        expect(canceledSelectionId).toBeUndefined();
+    });
+
+    it('preserves dirty selected drafts when their host record is refreshed', async () => {
+        ({ element, disconnect } = await setup(false));
+        await selectSavedQuery('saved-a');
+        const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
+        name.value = 'My unsaved name';
+        name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const refreshedDocument: QueryDocument = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'name', operatorId: 'is', value: 'New host value' }
+        };
+        element.savedQueries = [
+            { id: 'saved-a', name: 'Host name', document: refreshedDocument },
+            savedRecords[1]!
+        ];
+        await waitForUpdatesAsync();
+
+        expect(element.selectedSavedQueryId).toBe('saved-a');
+        expect(element.savedQueryName).toBe('My unsaved name');
+        expect(element.selectedQueryIsDirty).toBeTrue();
+        expect(element.queryEditor?.query).toEqual(refreshedDocument);
+        expect(element.savedDrafts.get('saved-a')?.document).toEqual(refreshedDocument);
+    });
+
+    it('ignores stale save completions after host catalog changes and blocks selection while pending', async () => {
+        ({ element, disconnect } = await setup());
+        await selectSavedQuery('saved-a');
+        const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
+        name.value = 'Pending update';
+        name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        let resolveSave!: (saved: QueryBuilderSavedQuery) => void;
+        element.saveHandler = async () => {
+            const result = await new Promise<QueryBuilderSavedQuery>(resolve => {
+                resolveSave = resolve;
+            });
+            return result;
+        };
+        await waitForUpdatesAsync();
+
+        expect(element.savedQueryName).toBe('Pending update');
+        expect(element.selectedQueryIsDirty).toBeTrue();
+        expect(element.canSaveChanges).toBeTrue();
+        const saveButton = getRequiredElement<HTMLElement>('[data-action="save-query"]');
+        expect(saveButton.hasAttribute('disabled')).toBeFalse();
+        saveButton.click();
+        expect(element.isOperationPending).withContext(`Save state for ${element.savedQueryName}`).toBeTrue();
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<FvSplitButton>('[data-control="saved-query-menu-button"]').disabled).toBeTrue();
+        const invokeSelection = (element as unknown as { selectSavedQuery: (id: string | null) => void }).selectSavedQuery;
+        invokeSelection.call(element, 'saved-b');
+        expect(element.selectedSavedQueryId).toBe('saved-a');
+        element.savedQueries = [savedRecords[1]!];
+        await waitForUpdatesAsync();
+        resolveSave({ id: 'saved-a', name: 'Pending update', document: savedDocument });
+        await waitForUpdatesAsync();
+
+        expect(element.isOperationPending).toBeFalse();
+        expect(element.savedQueries.map(record => record.id)).toEqual(['saved-b']);
+        expect(element.selectedSavedQueryId).toBeNull();
+        expect(element.operationError).toBe(element.labels.saveFailed);
+    });
+
+    it('blocks selection and ignores stale delete completions after host catalog changes', async () => {
+        ({ element, disconnect } = await setup());
+        await selectSavedQuery('saved-a');
+        let resolveDelete!: () => void;
+        element.deleteHandler = async () => {
+            await new Promise<void>(resolve => {
+                resolveDelete = resolve;
+            });
+        };
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-action="request-delete"]').click();
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-action="confirm-delete"]').click();
+        expect(element.isOperationPending).toBeTrue();
+
+        const invokeSelection = (element as unknown as { selectSavedQuery: (id: string | null) => void }).selectSavedQuery;
+        invokeSelection.call(element, 'saved-b');
+        expect(element.selectedSavedQueryId).toBe('saved-a');
+        element.savedQueries = [savedRecords[1]!];
+        await waitForUpdatesAsync();
+        resolveDelete();
+        await waitForUpdatesAsync();
+
+        expect(element.isOperationPending).toBeFalse();
+        expect(element.savedQueries.map(record => record.id)).toEqual(['saved-b']);
+        expect(element.selectedSavedQueryId).toBeNull();
+        expect(element.operationError).toBe(element.labels.deleteFailed);
+    });
+
+    it('restores the source query name when create is canceled or dismissed', async () => {
+        ({ element, disconnect } = await setup());
+        element.saveHandler = async request => {
+            await Promise.resolve();
+            return {
+                id: request.id ?? 'created',
+                name: request.name,
+                document: request.document
+            };
+        };
+        await selectSavedQuery('saved-a');
+
+        const openCreate = async (): Promise<void> => {
+            await openSavedMenu();
+            await activateSavedMenuItem('[data-action="save-as-new"]');
+        };
+        await openCreate();
+        getRequiredElement<HTMLElement>('[data-action="cancel-create"]').click();
+        await waitForUpdatesAsync();
+        expect(element.savedQueryName).toBe('Failed queries');
+
+        await openCreate();
+        getRequiredElement<HTMLElement>('.query-popover').dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Escape', bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        expect(element.savedQueryName).toBe('Failed queries');
+
+        await openCreate();
+        document.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+        await waitForUpdatesAsync();
+        expect(element.savedQueryName).toBe('Failed queries');
+
+        await openCreate();
+        element.allowSavedQueryCreation = false;
+        await waitForUpdatesAsync();
+        expect(element.isManagerOpen).toBeFalse();
+        expect(element.savedQueryName).toBe('Failed queries');
+    });
+
+    it('opens the manager with a visible retryable error when a menu save fails', async () => {
+        ({ element, disconnect } = await setup());
+        let fail = true;
+        element.saveHandler = async request => {
+            if (fail) {
+                fail = false;
+                await Promise.resolve();
+                throw new Error('temporary');
+            }
+            await Promise.resolve();
+            return { id: request.id ?? 'created', name: request.name, document: request.document };
+        };
+        await selectSavedQuery('saved-a');
+        const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
+        name.value = 'Menu retry';
+        name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        await openSavedMenu();
+        await activateSavedMenuItem('[data-action="update-saved-query"]');
+        await waitForUpdatesAsync();
+
+        expect(element.isManagerOpen).toBeTrue();
+        expect(element.operationError).toBe(element.labels.saveFailed);
+        expect(getRequiredElement<HTMLElement>('[role="alert"]').textContent).toContain(element.labels.saveFailed);
+        expect(element.savedQueryName).toBe('Menu retry');
+        expect(getRequiredElement<HTMLElement>('[data-action="save-query"]').hasAttribute('disabled')).toBeFalse();
+
+        getRequiredElement<HTMLElement>('[data-action="save-query"]').click();
+        await waitForUpdatesAsync();
+        expect(element.selectedQueryIsDirty).toBeFalse();
+    });
+
+    it('keeps deletion reachable without exposing saved-query name editing or update', async () => {
+        ({ element, disconnect } = await setup());
+        element.allowSavedQueryEditing = false;
+        element.deleteHandler = async () => {
+            await Promise.resolve();
+        };
+        await selectSavedQuery('saved-a');
+        await openSavedMenu();
+
+        expect(getRequiredElement<HTMLElement>('[data-action="edit-saved-queries"]')).not.toBeNull();
+        await activateSavedMenuItem('[data-action="edit-saved-queries"]');
+        expect(element.isManagerOpen).toBeTrue();
+        expect(element.shadowRoot?.querySelector('[data-control="saved-query-name"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="save-query"]')).toBeNull();
+        expect(getRequiredElement<HTMLElement>('[data-action="request-delete"]')).not.toBeNull();
+    });
+
+    it('uses false-default declarative disable flags while keeping features enabled by default', async () => {
+        ({ element, disconnect } = await setup(false));
+        expect(element.allowSavedQueryCreation).toBeTrue();
+        expect(element.allowSavedQueryEditing).toBeTrue();
+        expect(element.allowSavedQueryDeletion).toBeTrue();
+        expect(element.hasAttribute('disable-saved-query-creation')).toBeFalse();
+        expect(element.hasAttribute('disable-saved-query-editing')).toBeFalse();
+        expect(element.hasAttribute('disable-saved-query-deletion')).toBeFalse();
+        element.setAttribute('disable-saved-query-creation', '');
+        element.setAttribute('disable-saved-query-editing', '');
+        element.setAttribute('disable-saved-query-deletion', '');
+        element.setAttribute('hide-nigel-prompt', '');
+        await waitForUpdatesAsync();
+        expect(element.savedQueryCreationEnabled).toBeFalse();
+        expect(element.savedQueryEditingEnabled).toBeFalse();
+        expect(element.savedQueryDeletionEnabled).toBeFalse();
+        expect(element.isNigelPromptEnabled).toBeFalse();
+    });
+
+    it('emits query-change for clear and AI preview actions', async () => {
+        ({ element, disconnect } = await setup());
+        const changes: { query: QueryDocument | null, valid: boolean }[] = [];
+        element.addEventListener('query-change', event => {
+            const detail = (event as CustomEvent<{ query: QueryDocument | null, valid: boolean }>).detail;
+            changes.push({ query: detail.query, valid: detail.valid });
+        });
+
+        element.clear();
+        await waitForUpdatesAsync();
+        expect(changes[changes.length - 1]).toEqual({
+            query: { version: 1, root: null },
+            valid: true
+        });
+
+        element.aiQueryPreview = secondSavedDocument;
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-action="use-ai-preview"]').click();
+        await waitForUpdatesAsync();
+        expect(changes[changes.length - 1]).toEqual({ query: secondSavedDocument, valid: true });
+    });
+
+    it('moves focus into the saved-query menu and restores it on Escape', async () => {
+        ({ element, disconnect } = await setup(false));
+        const toggle = getRequiredElement<FvSplitButton>('[data-control="saved-query-menu-button"]')
+            .shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle');
+        if (!toggle) {
+            throw new Error('Expected the saved-query menu toggle.');
+        }
+        toggle.focus();
+        toggle.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'ArrowDown', bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        await new Promise<void>(resolve => {
+            window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve()));
+        });
+
+        expect(element.isSavedMenuOpen).toBeTrue();
+        const menuItem = getRequiredElement<HTMLElement>('[data-action="select-current-query"]');
+        expect(element.shadowRoot?.activeElement).toBe(menuItem);
+        const focusedMenuItem = element.shadowRoot?.activeElement as HTMLElement | null;
+        if (!focusedMenuItem) {
+            throw new Error('Expected the saved-query menu item to receive focus.');
+        }
+        focusedMenuItem.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Escape', bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        expect(element.isSavedMenuOpen).toBeFalse();
+        expect(element.savedQueryMenuButton?.shadowRoot?.activeElement).toBe(toggle);
+    });
+
+    it('exposes keyboard and single-pointer controls for moving the query popover', async () => {
+        ({ element, disconnect } = await setup());
+        const moveMode = getRequiredElement<HTMLElement>('[data-action="toggle-popover-move-mode"]');
+        moveMode.click();
+        await waitForUpdatesAsync();
+        expect(moveMode.getAttribute('aria-pressed')).toBe('true');
+        expect(getRequiredElement<HTMLElement>('.popover-move-controls [role="status"]').textContent).toContain('arrow keys');
+        moveMode.focus();
+        moveMode.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'ArrowRight', bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        expect(parseFloat(element.queryPopoverRegion?.style.getPropertyValue('--query-popover-drag-x') ?? '0')).toBeGreaterThan(0);
+
+        getRequiredElement<HTMLElement>('[data-action="move-popover-down"]').click();
+        await waitForUpdatesAsync();
+        expect(parseFloat(element.queryPopoverRegion?.style.getPropertyValue('--query-popover-drag-y') ?? '0')).toBeGreaterThan(0);
+        getRequiredElement<HTMLElement>('[data-action="toggle-popover-move-mode"]').dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Escape', bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        expect(element.isPopoverMoveMode).toBeFalse();
+    });
+
+    it('connects builder menu and dialog triggers to their targets by element references', async () => {
+        ({ element, disconnect } = await setup());
+        const menuButton = getRequiredElement<FvSplitButton>('[data-control="saved-query-menu-button"]');
+        const primary = menuButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary') as (
+            HTMLButtonElement & { ariaControlsElements?: Element[] }
+        ) | null;
+        const toggle = menuButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle') as (
+            HTMLButtonElement & { ariaControlsElements?: Element[] }
+        ) | null;
+        const dialog = getRequiredElement<HTMLElement>('.query-popover');
+        const menu = getRequiredElement<HTMLElement>('.saved-query-menu');
+
+        expect(primary?.ariaControlsElements).toEqual([dialog]);
+        expect(toggle?.ariaControlsElements).toEqual([menu]);
     });
 });

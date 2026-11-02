@@ -16,6 +16,7 @@ interface SavedQueryTemplateView {
     readonly name: string;
     readonly dirty: boolean;
     readonly selected: boolean;
+    readonly unsaved: boolean;
     readonly unsavedChangesLabel: string;
 }
 
@@ -36,7 +37,7 @@ export const template = html<FvQueryBuilder>`
                 appearance="ghost"
                 data-control="saved-query-menu-button"
                 ${ref('savedQueryMenuButton')}
-                ?disabled="${x => x.disabled}"
+                ?disabled="${x => x.isEditorDisabled}"
                 ?open="${x => x.isSavedMenuOpen}"
                 label="${x => x.queryButtonLabel}"
                 @trigger="${x => x.openQuickEditor()}"
@@ -59,10 +60,10 @@ export const template = html<FvQueryBuilder>`
                     <${menuItemTag}
                         class="saved-query-option"
                         role="menuitem"
-                        aria-current="${x => (x.selectedSavedQueryId === null ? 'true' : null)}"
+                        aria-current="${x => (x.selectedSavedQueryId === null && x.selectedUnsavedDraftId === null ? 'true' : null)}"
                         data-action="select-current-query"
                     >
-                        <span slot="start" aria-hidden="true">${x => (x.selectedSavedQueryId === null ? '✓' : '')}</span>
+                        <span slot="start" aria-hidden="true">${x => (x.selectedSavedQueryId === null && x.selectedUnsavedDraftId === null ? '✓' : '')}</span>
                         ${x => x.labels.currentQuery}
                     </${menuItemTag}>
                     ${repeat(x => x.savedQueryViews, html<SavedQueryTemplateView, FvQueryBuilder>`
@@ -70,7 +71,7 @@ export const template = html<FvQueryBuilder>`
                             class="saved-query-option"
                             role="menuitem"
                             aria-current="${x => (x.selected ? 'true' : null)}"
-                            data-action="select-saved-query"
+                            data-action="${x => (x.unsaved ? 'select-unsaved-draft' : 'select-saved-query')}"
                             data-saved-query-id="${x => x.id}"
                         >
                             <span slot="start" aria-hidden="true">${x => (x.selected ? '✓' : '')}</span>
@@ -81,18 +82,18 @@ export const template = html<FvQueryBuilder>`
                             `)}
                         </${menuItemTag}>
                     `)}
-                    ${when(x => x.savedQueries.length === 0, html<FvQueryBuilder>`
+                    ${when(x => x.savedQueryViews.length === 0, html<FvQueryBuilder>`
                         <${menuItemTag} disabled>${x => x.labels.noSavedQueries}</${menuItemTag}>
                     `)}
                     <hr role="separator">
-                    ${when(x => x.allowSavedQueryCreation, html<FvQueryBuilder>`
+                    ${when(x => x.savedQueryCreationEnabled, html<FvQueryBuilder>`
                         <${menuItemTag}
                             role="menuitem"
                             data-action="save-as-new"
                             ?disabled="${x => x.isEditorDisabled || !x.saveHandler}"
                         >${x => x.labels.saveAsNew}</${menuItemTag}>
                     `)}
-                    ${when(x => x.allowSavedQueryEditing && x.selectedQueryIsDirty, html<FvQueryBuilder>`
+                    ${when(x => x.savedQueryEditingEnabled && x.selectedSavedQueryId !== null && x.selectedQueryIsDirty, html<FvQueryBuilder>`
                         <${menuItemTag}
                             role="menuitem"
                             data-action="update-saved-query"
@@ -100,21 +101,38 @@ export const template = html<FvQueryBuilder>`
                         >${x => x.labels.updateSavedQuery}</${menuItemTag}>
                     `)}
                     ${when(
-                        x => (x.selectedSavedQueryId === null ? x.allowSavedQueryCreation : x.allowSavedQueryEditing),
+                        x => (
+                            x.selectedSavedQueryId === null
+                                ? x.savedQueryCreationEnabled
+                                : x.savedQueryEditingEnabled || x.savedQueryDeletionEnabled
+                        ),
                         html<FvQueryBuilder>`
                             <${menuItemTag}
                                 role="menuitem"
                                 data-action="edit-saved-queries"
-                                ?disabled="${x => x.disabled}"
-                            >${x => x.labels.editSavedQueries}</${menuItemTag}>
+                                ?disabled="${x => x.isEditorDisabled}"
+                            >${x => (
+                                x.selectedSavedQueryId !== null
+                                    && !x.savedQueryEditingEnabled
+                                    && x.savedQueryDeletionEnabled
+                                    ? x.labels.manageSavedQueries
+                                    : x.labels.editSavedQueries
+                            )}</${menuItemTag}>
                         `
                     )}
                 </${menuTag}>
             </${fvSplitButtonTag}>
+        <div
+            class="query-viewport"
+            style="position: fixed; inset: 0; pointer-events: none; opacity: 0;"
+            aria-hidden="true"
+            ${ref('queryViewport')}
+        ></div>
         <${anchoredRegionTag}
             class="query-popover-region"
             ${ref('queryPopoverRegion')}
             :anchorElement="${x => (x.isManagerOpen ? x.savedQueryMenuButton ?? null : null)}"
+            :viewportElement="${x => x.queryViewport ?? null}"
             fixed-placement
             auto-update-mode="auto"
             vertical-default-position="bottom"
@@ -147,13 +165,39 @@ export const template = html<FvQueryBuilder>`
                             if (x.isQuickEdit) {
                                 return x.labels.configureQuery;
                             }
-                            return x.isCreatingSavedQuery ? x.labels.createSavedQuery : x.labels.editSavedQueries;
+                            if (x.isCreatingSavedQuery) {
+                                return x.labels.createSavedQuery;
+                            }
+                            return x.selectedSavedQueryId !== null
+                                && !x.savedQueryEditingEnabled
+                                && x.savedQueryDeletionEnabled
+                                ? x.labels.manageSavedQueries
+                                : x.labels.editSavedQueries;
                         }}
                     </h2>
+                    <div
+                        class="popover-move-controls"
+                        style="position: absolute; top: 8px; right: 24px; display: flex; align-items: center; gap: 4px;"
+                    >
+                        <${buttonTag}
+                            appearance="ghost"
+                            data-action="toggle-popover-move-mode"
+                            aria-pressed="${x => String(x.isPopoverMoveMode)}"
+                            aria-label="${x => (x.isPopoverMoveMode ? x.labels.finishMovingPopover : x.labels.movePopover)}"
+                            title="${x => x.labels.movePopoverHint}"
+                        >${x => (x.isPopoverMoveMode ? x.labels.finishMovingPopover : x.labels.movePopover)}</${buttonTag}>
+                        ${when(x => x.isPopoverMoveMode, html<FvQueryBuilder>`
+                            <span class="visually-hidden" role="status">${x => x.labels.movePopoverHint}</span>
+                            <${buttonTag} appearance="ghost" data-action="move-popover-up" aria-label="${x => x.labels.movePopoverUp}">↑</${buttonTag}>
+                            <${buttonTag} appearance="ghost" data-action="move-popover-down" aria-label="${x => x.labels.movePopoverDown}">↓</${buttonTag}>
+                            <${buttonTag} appearance="ghost" data-action="move-popover-left" aria-label="${x => x.labels.movePopoverLeft}">←</${buttonTag}>
+                            <${buttonTag} appearance="ghost" data-action="move-popover-right" aria-label="${x => x.labels.movePopoverRight}">→</${buttonTag}>
+                        `)}
+                    </div>
                 </header>
                 <div class="popover-content">
                     <div class="query-controls-header">
-                        ${when(x => !x.isQuickEdit, html<FvQueryBuilder>`
+                        ${when(x => !x.isQuickEdit && (x.isCreatingSavedQuery || x.savedQueryEditingEnabled), html<FvQueryBuilder>`
                             <div class="query-name-control">
                                 <${textFieldTag}
                                     class="query-name-input"
@@ -173,7 +217,7 @@ export const template = html<FvQueryBuilder>`
                                 `)}
                             </div>
                         `)}
-                        ${when(x => x.showNigelPrompt, html<FvQueryBuilder>`
+                        ${when(x => x.isNigelPromptEnabled, html<FvQueryBuilder>`
                             <div class="ai-prompt-toggle-row">
                                 <${buttonTag}
                                     class="ai-prompt-toggle"
@@ -205,7 +249,7 @@ export const template = html<FvQueryBuilder>`
                         `)}
                     </div>
 
-                    ${when(x => x.showNigelPrompt && Boolean(x.aiQueryPreview), html<FvQueryBuilder>`
+                    ${when(x => x.isNigelPromptEnabled && Boolean(x.aiQueryPreview), html<FvQueryBuilder>`
                         <div class="ai-preview-notice" role="status">
                             <span>${x => x.labels.aiPreviewReady}</span>
                             <${buttonTag} appearance="outline" data-action="use-ai-preview" ?disabled="${x => x.isEditorDisabled}">
@@ -233,7 +277,7 @@ export const template = html<FvQueryBuilder>`
                     <${buttonTag} appearance="ghost" data-action="clear-query" ?disabled="${x => x.isEditorDisabled}">
                         ${x => x.labels.clearAll}
                     </${buttonTag}>
-                        ${when(x => x.allowSavedQueryDeletion && !x.isQuickEdit && x.selectedSavedQueryId !== null && !x.isCreatingSavedQuery, html<FvQueryBuilder>`
+                        ${when(x => x.savedQueryDeletionEnabled && !x.isQuickEdit && x.selectedSavedQueryId !== null && !x.isCreatingSavedQuery, html<FvQueryBuilder>`
                             ${when(x => !x.confirmingDelete, html<FvQueryBuilder>`
                                 <${buttonTag}
                                     appearance="ghost"
@@ -271,7 +315,7 @@ export const template = html<FvQueryBuilder>`
                             </${buttonTag}>
                         `
     )}
-                        ${when(x => !x.isQuickEdit, html<FvQueryBuilder>`
+                        ${when(x => !x.isQuickEdit && (x.isCreatingSavedQuery || x.savedQueryEditingEnabled), html<FvQueryBuilder>`
                         <${buttonTag}
                             appearance="outline"
                             data-action="save-query"

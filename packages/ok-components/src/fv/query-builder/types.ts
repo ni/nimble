@@ -119,6 +119,8 @@ export interface QueryBuilderLabels {
     readonly saved: string;
     readonly currentQuery: string;
     readonly unsavedChanges: string;
+    readonly unsavedDraft: string;
+    readonly manageSavedQueries: string;
     readonly aiPromptPlaceholder: string;
     readonly generateQuery: string;
     readonly reviewGeneratedQuery: string;
@@ -145,6 +147,13 @@ export interface QueryBuilderLabels {
     readonly savedQueryDeleted: string;
     readonly nameRequired: string;
     readonly deleteConfirmation: string;
+    readonly movePopover: string;
+    readonly finishMovingPopover: string;
+    readonly movePopoverUp: string;
+    readonly movePopoverDown: string;
+    readonly movePopoverLeft: string;
+    readonly movePopoverRight: string;
+    readonly movePopoverHint: string;
     readonly closeSavedMenu: string;
     readonly selectSavedQuery: string;
     readonly field: string;
@@ -285,6 +294,8 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     saved: 'Saved',
     currentQuery: 'Current query',
     unsavedChanges: 'Unsaved changes',
+    unsavedDraft: 'Unsaved draft',
+    manageSavedQueries: 'Manage saved query',
     aiPromptPlaceholder: 'E.g., Failed tests in Production that took longer than 1 second',
     generateQuery: 'Create query',
     reviewGeneratedQuery: 'Review generated query',
@@ -311,6 +322,13 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     savedQueryDeleted: 'Saved query deleted.',
     nameRequired: 'Enter a name.',
     deleteConfirmation: 'Delete this saved query? This cannot be undone.',
+    movePopover: 'Move query editor',
+    finishMovingPopover: 'Finish moving query editor',
+    movePopoverUp: 'Move query editor up',
+    movePopoverDown: 'Move query editor down',
+    movePopoverLeft: 'Move query editor left',
+    movePopoverRight: 'Move query editor right',
+    movePopoverHint: 'Use the arrow keys to move the editor. Press Escape to finish.',
     closeSavedMenu: 'Close saved queries',
     selectSavedQuery: 'Select saved query',
     field: 'Field',

@@ -101,6 +101,12 @@ export interface QueryEditorOptionView {
     readonly disabled?: boolean;
 }
 
+interface QueryEditorTypedOptionView {
+    readonly value: JsonPrimitive;
+    readonly label: string;
+    readonly disabled?: boolean;
+}
+
 interface QueryEditorRuleSummary {
     readonly fieldLabel: string;
     readonly operatorLabel: string;
@@ -240,7 +246,7 @@ function staticOptions(schema: QueryBuilderDefinition['fields'][number]['valueSc
     }
     if (Array.isArray(schema.enum) && schema.enum.every(isJsonPrimitive)) {
         const values = schema.enum.filter(isJsonPrimitive);
-        return values.map((value, index) => ({ value: `option-${index}`, label: JSON.stringify(value) }));
+        return values.map((value, index) => ({ value: `option-${index}`, label: String(value) }));
     }
     return undefined;
 }
@@ -388,6 +394,10 @@ export class FvQueryEditor extends FoundationElement {
     @observable
     public activeSuggestionIndex = 0;
 
+    /** @internal */
+    @observable
+    public activeOptionIndex = -1;
+
     /** Whether the user dismissed logic suggestions at the query end. */
     @observable
     public logicSuggestionsDismissed = false;
@@ -406,6 +416,14 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     @observable
+    public editorPanelElement?: HTMLElement;
+
+    /** @internal */
+    @observable
+    public editorPanelErrorElement?: HTMLElement;
+
+    /** @internal */
+    @observable
     public editorPanelArrowOffset: string | null = null;
 
     /** @internal */
@@ -415,6 +433,9 @@ export class FvQueryEditor extends FoundationElement {
     private fields: readonly QueryBuilderField[] = [];
     private internallyAssignedQuery?: QueryDocument;
     private internallyAssignedDraft?: QueryEditorDraft;
+    private pendingQuery?: QueryDocument;
+    private pendingInitialQuery?: QueryDocument;
+    private pendingDraft?: QueryEditorDraft;
     private lastValidity?: boolean;
     private lastValidityIssues?: readonly QueryBuilderIssue[];
     private definitionIssues: readonly QueryBuilderIssue[] = [];
@@ -425,7 +446,9 @@ export class FvQueryEditor extends FoundationElement {
     private readonly optionLabelCache = new Map<string, QueryOption>();
     private optionCursor?: string;
     private optionSearchText = '';
+    private optionFailedCursor?: string;
     private optionContextKey = '';
+    private dynamicOptionsDismissed = false;
 
     /** Number of conditions, including incomplete ones. */
     public get ruleCount(): number {
@@ -577,11 +600,79 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
+    public get activeEditorKind(): string {
+        const rule = this.activeRule;
+        if (!rule) {
+            return '';
+        }
+        if (!this.definition) {
+            const type = this.activeField?.type;
+            if (type === 'enum') {
+                return 'select';
+            }
+            if (type === 'number') {
+                return 'number';
+            }
+            if (type === 'boolean') {
+                return 'boolean';
+            }
+            return type === 'date' ? 'date' : 'text';
+        }
+        const operator = this.portableOperator(rule.fieldId, rule.operatorId);
+        const explicit = this.getEffectiveEditor(rule.fieldId, rule.operatorId);
+        if (explicit && explicit.kind !== 'auto') {
+            return explicit.kind;
+        }
+        if (operator?.operand.kind === 'range') {
+            return 'range';
+        }
+        const schema = this.getEffectiveSchema(rule.fieldId, rule.operatorId);
+        if (schema === undefined) {
+            return '';
+        }
+        if (staticOptions(schema) !== undefined) {
+            return 'select';
+        }
+        if (typeof schema === 'boolean') {
+            return 'text';
+        }
+        const type = simpleSchemaType(schema);
+        if (type === 'string' && schema.format === 'date') {
+            return 'date';
+        }
+        if (type === 'string' && schema.format === 'date-time') {
+            return 'datetime';
+        }
+        if (type === 'number' || type === 'integer' || type === 'boolean') {
+            return type === 'integer' ? 'number' : type;
+        }
+        return 'text';
+    }
+
+    /** @internal */
     public get isActiveCombobox(): boolean {
         return Boolean(this.activeRule && this.isDynamicCombobox(
             this.activeRule.fieldId,
             this.activeRule.operatorId
         ));
+    }
+
+    /** @internal */
+    public get dynamicOptionListId(): string {
+        return `${this.editorId}-dynamic-options`;
+    }
+
+    /** @internal */
+    public get activeDynamicOptions(): readonly QueryOption[] {
+        if (!this.isActiveCombobox || !('options' in this.optionState)) {
+            return [];
+        }
+        return this.optionState.options.map(option => ({
+            ...option,
+            ...(option.disabled || this.optionFailedCursor !== undefined || this.optionState.status === 'error'
+                ? { disabled: true }
+                : {})
+        }));
     }
 
     /** @internal */
@@ -729,10 +820,27 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
+    public activeOptionIndexChanged(): void {
+        this.syncDynamicOptionAccessibility();
+    }
+
+    /** @internal */
+    public optionStateChanged(): void {
+        DOM.queueUpdate(() => this.syncDynamicOptionAccessibility());
+    }
+
+    /** @internal */
     /** @internal */
     public editorTokensChanged(): void {
         this.logicSuggestionsDismissed = false;
         this.syncQueryInputAccessibilityAfterRender();
+        this.syncEditorControlAccessibilityAfterRender();
+        DOM.queueUpdate(() => this.syncDynamicOptionAccessibility());
+    }
+
+    /** @internal */
+    public editorPanelErrorElementChanged(): void {
+        DOM.queueUpdate(() => this.syncEditorControlAccessibility());
     }
 
     /** @internal */
@@ -799,7 +907,7 @@ export class FvQueryEditor extends FoundationElement {
             return options.map(option => ({
                 value: this.encodeDynamicOption(option.value),
                 label: option.label,
-                ...(option.disabled ? { disabled: true } : {})
+                ...(option.disabled || this.optionState.status === 'error' ? { disabled: true } : {})
             }));
         }
         const schema = this.getEffectiveSchema(this.activeField.id, this.activeRule.operatorId);
@@ -810,26 +918,29 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
-    public get activeCollectionOptions(): readonly QueryEditorOptionView[] {
-        const options = [...this.activeOptions];
-        if (this.definition === undefined || this.activeRule === undefined
-            || this.getOptionSource(this.activeRule.fieldId, this.activeRule.operatorId) === undefined) {
-            return options;
+    public get activeCollectionOptions(): readonly QueryEditorTypedOptionView[] {
+        const rule = this.activeRule;
+        if (!rule) {
+            return [];
         }
-        const visibleValues = new Set(options.map(option => option.value));
+        const options = this.activeOptions.map(option => ({
+            value: this.decodeOptionValue(rule.fieldId, rule.operatorId, option.value),
+            label: option.label,
+            ...(option.disabled ? { disabled: true } : {})
+        }));
+        const visibleValues = new Set(options.map(option => JSON.stringify(option.value)));
         for (const value of this.activeCollectionOptionValues) {
-            const encoded = this.encodeDynamicOption(value);
-            if (visibleValues.has(encoded)) {
+            const key = JSON.stringify(value);
+            if (visibleValues.has(key)) {
                 continue;
             }
-            const cached = this.optionLabelCache.get(JSON.stringify(value));
-            if (cached) {
-                options.push({
-                    value: encoded,
-                    label: cached.label,
-                    ...(cached.disabled ? { disabled: true } : {})
-                });
-            }
+            const cached = this.optionLabelCache.get(key);
+            options.push({
+                value,
+                label: cached?.label ?? String(value),
+                ...(cached?.disabled || this.optionState.status === 'error' ? { disabled: true } : {})
+            });
+            visibleValues.add(key);
         }
         return options;
     }
@@ -865,6 +976,20 @@ export class FvQueryEditor extends FoundationElement {
         } else {
             this.fields = [];
         }
+        if (this.pendingInitialQuery?.root) {
+            this.pendingQuery = this.pendingInitialQuery;
+        }
+        if (validation?.valid) {
+            this.restorePendingInputs();
+        }
+        if (validation?.valid && this.editorTokens.length === 0 && this.query?.root) {
+            const initialQuery = validateQuery(this.query, validation.value);
+            if (initialQuery.valid) {
+                this.editorTokens = this.createTokens(initialQuery.value);
+                this.assignDraft(this.editorTokens);
+                this.caretPosition = this.editorTokens.length;
+            }
+        }
         if (this.activeRule && !this.fields.some(field => field.id === this.activeRule?.fieldId)) {
             this.closeEditor(false);
         }
@@ -881,7 +1006,6 @@ export class FvQueryEditor extends FoundationElement {
     /** @internal */
     public disabledChanged(): void {
         if (this.disabled) {
-            this.queryInputText = '';
             this.closeEditor(false);
             this.cancelOptionRequest();
         }
@@ -889,18 +1013,49 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public queryChanged(previous: QueryDocument | undefined, next: QueryDocument): void {
+        if (this.pendingInitialQuery?.root && !next.root) {
+            return;
+        }
+        if (this.pendingQuery?.root && !next.root) {
+            return;
+        }
+        if (next !== this.query) {
+            return;
+        }
         if (next === this.internallyAssignedQuery) {
             this.internallyAssignedQuery = undefined;
             return;
         }
-        const validation = this.definition ? validateQuery(next, this.definition) : undefined;
-        if (!validation?.valid) {
-            const issues = validation && !validation.valid
+        if (!this.definition) {
+            if (!this.isConnected && next.root) {
+                this.pendingInitialQuery = next;
+            } else if (this.pendingInitialQuery?.root && this.editorTokens.length === 0) {
+                return;
+            }
+            this.pendingQuery = next;
+            this.externalInputIssues = [];
+            return;
+        }
+        let validation: ReturnType<typeof validateQuery> | undefined;
+        try {
+            validation = validateQuery(next, this.definition);
+        } catch {
+            validation = undefined;
+        }
+        if (validation?.valid !== true) {
+            this.cancelOptionRequest();
+            const issues = validation?.valid === false
                 ? validation.issues
                 : [{ code: 'invalid-query' as const, target: 'query' as const, path: '', message: 'A valid definition is required before assigning a query document.' }];
             this.externalInputIssues = issues;
-            if (previous !== undefined) {
-                this.assignQuery(previous);
+            if (previous !== undefined && this.definition !== undefined) {
+                try {
+                    if (validateQuery(previous, this.definition).valid) {
+                        this.assignQuery(previous);
+                    }
+                } catch {
+                    // Keep the invalid external value out of the editor state.
+                }
             }
             this.updateValidationState(true);
             return;
@@ -920,15 +1075,36 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public draftChanged(previous: QueryEditorDraft, next: QueryEditorDraft): void {
+        if (next !== this.draft) {
+            return;
+        }
+        if (this.pendingQuery?.root && next.tokens.length === 0 && next.inputText.length === 0) {
+            return;
+        }
         if (next === this.internallyAssignedDraft) {
             this.internallyAssignedDraft = undefined;
             return;
         }
-        if (JSON.stringify(previous) === JSON.stringify(next)) {
+        if (!this.definition) {
+            this.pendingDraft = next;
+            return;
+        }
+        if (previous === next) {
             this.internallyAssignedDraft = undefined;
             return;
         }
-        const converted = this.tokensFromDraft(next);
+        this.cancelOptionRequest();
+        let converted: readonly QueryEditorToken[] | undefined;
+        try {
+            converted = this.tokensFromDraft(next);
+        } catch {
+            this.setIssues([{
+                code: 'invalid-draft',
+                target: 'draft',
+                path: '',
+                message: 'The query editor draft shape is invalid.'
+            }]);
+        }
         if (!converted) {
             this.externalInputIssues = [...this.issues];
             this.assignDraft(this.editorTokens);
@@ -939,7 +1115,7 @@ export class FvQueryEditor extends FoundationElement {
         this.editorTokens = converted;
         this.assignDraft(this.editorTokens);
         const query = this.createQueryFromTokens();
-        if (query && this.definition && validateQuery(query, this.definition).valid) {
+        if (query !== undefined && this.definition !== undefined && validateQuery(query, this.definition).valid) {
             this.assignQuery(query);
         }
         this.caretPosition = next.caretPosition;
@@ -970,6 +1146,11 @@ export class FvQueryEditor extends FoundationElement {
             queryInput.dataset.focused = 'true';
             DOM.queueUpdate(() => this.syncQueryInputAccessibility());
         }
+        const editorControl = this.findPathElement<HTMLElement>(event, '[data-control="scalar-text"]');
+        if (editorControl && this.isActiveCombobox) {
+            this.dynamicOptionsDismissed = false;
+        }
+        DOM.queueUpdate(() => this.syncDynamicOptionAccessibility());
         if (!this.activeRuleId) {
             return;
         }
@@ -996,6 +1177,8 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public activeRuleIdChanged(): void {
+        this.dynamicOptionsDismissed = false;
+        this.activeOptionIndex = -1;
         const collectionSelector = this.shadowRoot?.querySelector<HTMLElement & { open: boolean }>(
             '[data-control="collection-selector"]'
         );
@@ -1006,6 +1189,8 @@ export class FvQueryEditor extends FoundationElement {
         DOM.queueUpdate(() => {
             this.updateEditorAnchor();
             this.focusFirstEditorFieldIfReady();
+            this.syncEditorControlAccessibility();
+            this.syncDynamicOptionAccessibility();
         });
         this.refreshOptions();
     }
@@ -1026,12 +1211,15 @@ export class FvQueryEditor extends FoundationElement {
         if (this.optionState.status === 'ready' && this.optionState.nextCursor) {
             void this.resolveOptions(this.optionSearchText, this.optionState.nextCursor, true);
         } else if (this.optionState.status === 'error') {
-            void this.resolveOptions(this.optionSearchText);
+            void this.resolveOptions(this.optionSearchText, this.optionFailedCursor, this.optionFailedCursor !== undefined);
         }
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        if (this.definition && (this.pendingQuery !== undefined || this.pendingDraft !== undefined)) {
+            this.restorePendingInputs();
+        }
         const hasInitialQuery = this.query?.root !== undefined && this.query.root !== null;
         if (this.editorTokens.length === 0 && hasInitialQuery) {
             this.editorTokens = this.createTokens(this.query);
@@ -1044,6 +1232,7 @@ export class FvQueryEditor extends FoundationElement {
         document.addEventListener('focusin', this.documentFocusInHandler, true);
         document.addEventListener('scroll', this.editorViewportChangeHandler, true);
         window.addEventListener('resize', this.editorViewportChangeHandler);
+        this.pendingInitialQuery = undefined;
     }
 
     public override disconnectedCallback(): void {
@@ -1088,6 +1277,9 @@ export class FvQueryEditor extends FoundationElement {
                 case 'load-more-options':
                 case 'retry-options':
                     this.loadMoreOptions();
+                    return;
+                case 'select-dynamic-option':
+                    this.selectDynamicOption(Number(actionElement.dataset.optionIndex));
                     return;
                 default:
                     break;
@@ -1151,6 +1343,8 @@ export class FvQueryEditor extends FoundationElement {
                     this.activeRule.fieldId,
                     this.activeRule.operatorId
                 )) {
+                    this.dynamicOptionsDismissed = false;
+                    this.activeOptionIndex = -1;
                     void this.resolveOptions(value);
                 }
                 break;
@@ -1227,6 +1421,10 @@ export class FvQueryEditor extends FoundationElement {
     /** @internal */
     public handleKeydown(event: KeyboardEvent): void {
         if (this.disabled || event.defaultPrevented) {
+            return;
+        }
+        const dynamicControl = this.findPathElement<HTMLElement>(event, '[data-control="scalar-text"]');
+        if (dynamicControl && this.isActiveCombobox && this.handleDynamicOptionKeydown(event)) {
             return;
         }
         if (event.key === 'Escape' && this.activeRuleId) {
@@ -1334,10 +1532,28 @@ export class FvQueryEditor extends FoundationElement {
 
     /** @internal */
     public getActiveScalarInputType(): 'number' | 'date' | 'text' {
-        if (this.activeField?.type === 'number' || this.activeField?.type === 'date') {
-            return this.activeField.type;
+        if (this.activeEditorKind === 'number') {
+            return 'number';
+        }
+        if (this.activeEditorKind === 'date') {
+            return 'date';
         }
         return 'text';
+    }
+
+    /** @internal */
+    public getActiveRangeInputType(): 'number' | 'date' | 'text' {
+        const rule = this.activeRule;
+        const operator = rule ? this.portableOperator(rule.fieldId, rule.operatorId) : undefined;
+        const schema = operator?.operand.kind === 'range' ? operator.operand.endpointSchema : undefined;
+        if (schema === undefined || typeof schema === 'boolean') {
+            return this.activeField?.type === 'number' ? 'number' : 'text';
+        }
+        const type = simpleSchemaType(schema);
+        if (type === 'number' || type === 'integer') {
+            return 'number';
+        }
+        return type === 'string' && schema.format === 'date' ? 'date' : 'text';
     }
 
     /** @internal */
@@ -1808,6 +2024,44 @@ export class FvQueryEditor extends FoundationElement {
         return this.fields.find(field => this.supportedOperators(field).length > 0);
     }
 
+    private handleDynamicOptionKeydown(event: KeyboardEvent): boolean {
+        const options = this.activeDynamicOptions;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            if (options.length === 0) {
+                return false;
+            }
+            event.preventDefault();
+            this.dynamicOptionsDismissed = false;
+            this.activeOptionIndex = event.key === 'ArrowDown'
+                ? Math.min(this.activeOptionIndex + 1, options.length - 1)
+                : Math.max(this.activeOptionIndex - 1, 0);
+            return true;
+        }
+        if (event.key === 'Enter' && this.activeOptionIndex >= 0) {
+            event.preventDefault();
+            this.selectDynamicOption(this.activeOptionIndex);
+            return true;
+        }
+        if (event.key === 'Escape' && !this.dynamicOptionsDismissed) {
+            this.dynamicOptionsDismissed = true;
+            this.activeOptionIndex = -1;
+            this.syncDynamicOptionAccessibility();
+            return true;
+        }
+        return false;
+    }
+
+    private selectDynamicOption(index: number): void {
+        const option = this.activeDynamicOptions[index];
+        if (!option || option.disabled) {
+            return;
+        }
+        this.dynamicOptionsDismissed = true;
+        this.activeOptionIndex = -1;
+        this.updateScalarValue(option.value);
+        DOM.queueUpdate(() => this.syncDynamicOptionAccessibility());
+    }
+
     private selectSuggestion(index: number): void {
         const suggestion = this.suggestions[index];
         if (!suggestion) {
@@ -1861,10 +2115,7 @@ export class FvQueryEditor extends FoundationElement {
         position: number,
         logic: QueryBuilderLogicalOperator
     ): void {
-        const currentToken = tokens[position];
-        const groupId = currentToken?.kind === 'logic' && currentToken.groupId
-            ? currentToken.groupId
-            : this.getGroupIdAtPosition(position, tokens);
+        const groupId = this.getGroupIdAtPosition(position, tokens);
         for (let index = 0; index < tokens.length; index += 1) {
             const token = tokens[index];
             if (token?.kind === 'logic' && this.getGroupIdAtPosition(index, tokens) === groupId) {
@@ -1928,9 +2179,9 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     private syncQueryInputAccessibility(): void {
-        const input = this.shadowRoot
-            ?.querySelector<TextField>('.query-input')
-            ?.shadowRoot?.querySelector<HTMLInputElement>('input');
+        const textField = this.shadowRoot?.querySelector<TextField>('.query-input');
+        const input = textField?.shadowRoot?.querySelector<HTMLInputElement>('input') as
+            (HTMLInputElement & { ariaControlsElements?: Element[] }) | null;
         if (!input) {
             return;
         }
@@ -1939,12 +2190,22 @@ export class FvQueryEditor extends FoundationElement {
         input.setAttribute('aria-haspopup', 'listbox');
         this.updateSuggestionsPopover();
         input.setAttribute('aria-expanded', String(this.shadowRoot?.querySelector('.suggestions')?.matches(':popover-open') ?? false));
+        const list = this.shadowRoot?.getElementById(this.suggestionListId);
+        if (list) {
+            input.ariaControlsElements = [list];
+            (textField as TextField & { ariaControlsElements?: Element[] }).ariaControlsElements = [list];
+        }
         input.setAttribute('aria-controls', this.suggestionListId);
         input.setAttribute('aria-label', this.label);
         if (this.activeSuggestionId) {
             input.setAttribute('aria-activedescendant', this.activeSuggestionId);
+            const active = this.shadowRoot?.getElementById(this.activeSuggestionId);
+            (textField as TextField & { ariaActiveDescendantElement?: Element | null })
+                .ariaActiveDescendantElement = active ?? null;
         } else {
             input.removeAttribute('aria-activedescendant');
+            (textField as TextField & { ariaActiveDescendantElement?: Element | null })
+                .ariaActiveDescendantElement = null;
         }
     }
 
@@ -1974,6 +2235,87 @@ export class FvQueryEditor extends FoundationElement {
 
     private syncQueryInputAccessibilityAfterRender(): void {
         DOM.queueUpdate(() => DOM.queueUpdate(() => this.syncActiveSuggestionId()));
+    }
+
+    private syncEditorControlAccessibilityAfterRender(): void {
+        DOM.queueUpdate(() => DOM.queueUpdate(() => this.syncEditorControlAccessibility()));
+    }
+
+    private syncEditorControlAccessibility(): void {
+        const errorElement = this.editorPanelErrorElement;
+        const controls = this.shadowRoot?.querySelectorAll<HTMLElement>('.editor-panel [data-control]') ?? [];
+        for (const control of controls) {
+            if (!errorElement || control.getAttribute('aria-invalid') !== 'true') {
+                continue;
+            }
+            const controlWithErrorReference = control as HTMLElement & { ariaErrorMessageElements?: Element[] };
+            controlWithErrorReference.ariaErrorMessageElements = [errorElement];
+            if (control.tagName.toLowerCase() === 'ok-fv-chip-selector') {
+                const selector = control as HTMLElement & {
+                    ariaErrormessageElements?: readonly Element[],
+                    ariaDescribedbyElements?: readonly Element[]
+                };
+                selector.ariaErrormessageElements = [errorElement];
+                selector.ariaDescribedbyElements = [];
+            }
+        }
+    }
+
+    private syncDynamicOptionAccessibility(): void {
+        const host = this.shadowRoot?.querySelector<TextField>('.editor-panel [data-control="scalar-text"]');
+        const input = host?.shadowRoot?.querySelector<HTMLInputElement>('input') as
+            (HTMLInputElement & {
+                ariaActiveDescendantElement?: Element | null,
+                ariaControlsElements?: Element[]
+            }) | null;
+        const list = this.shadowRoot?.getElementById(this.dynamicOptionListId) as HTMLElement | null;
+        const isOpen = Boolean(
+            host
+            && list
+            && !this.disabled
+            && !this.dynamicOptionsDismissed
+            && this.activeDynamicOptions.length > 0
+            && host.matches(':focus-within')
+        );
+        const activeOption = isOpen && this.activeOptionIndex >= 0
+            ? this.shadowRoot?.getElementById(`${this.dynamicOptionListId}-option-${this.activeOptionIndex}`) ?? null
+            : null;
+        if (input) {
+            input.setAttribute('role', 'combobox');
+            input.setAttribute('aria-autocomplete', 'list');
+            input.setAttribute('aria-haspopup', 'listbox');
+            if (list) {
+                (host as TextField & { ariaControlsElements?: Element[] }).ariaControlsElements = [list];
+                input.ariaControlsElements = [list];
+            }
+            input.setAttribute('aria-expanded', String(isOpen));
+            input.setAttribute('aria-controls', this.dynamicOptionListId);
+            if (activeOption) {
+                input.ariaActiveDescendantElement = activeOption;
+                input.setAttribute('aria-activedescendant', `${this.dynamicOptionListId}-option-${this.activeOptionIndex}`);
+            } else {
+                input.removeAttribute('aria-activedescendant');
+                input.ariaActiveDescendantElement = null;
+                (host as TextField & { ariaActiveDescendantElement?: Element | null })
+                    .ariaActiveDescendantElement = null;
+            }
+        }
+        if (!list) {
+            return;
+        }
+        if (!isOpen || !input) {
+            if (host) {
+                (host as TextField & { ariaActiveDescendantElement?: Element | null })
+                    .ariaActiveDescendantElement = null;
+            }
+            list.hidePopover();
+            return;
+        }
+        list.showPopover();
+        const anchor = input.getBoundingClientRect();
+        const bounds = list.getBoundingClientRect();
+        list.style.left = `${Math.max(8, Math.min(anchor.left, document.documentElement.clientWidth - bounds.width - 8))}px`;
+        list.style.top = `${anchor.bottom + 4}px`;
     }
 
     private findOpenGroupIndex(position: number): number {
@@ -2187,13 +2529,25 @@ export class FvQueryEditor extends FoundationElement {
         });
     }
 
+    private updateScalarValue(value: JsonPrimitive): void {
+        const rule = this.activeRule;
+        if (rule?.operand.kind !== 'scalar') {
+            return;
+        }
+        this.updateRule({
+            ...rule,
+            revision: rule.revision + 1,
+            operand: { kind: 'scalar', value }
+        });
+    }
+
     private updateScalarInput(value: string): void {
         const rule = this.activeRule;
         if (rule?.operand.kind !== 'scalar') {
             return;
         }
         const schema = this.getEffectiveSchema(rule.fieldId, rule.operatorId);
-        const parsedValue = value === '' ? null : this.parseRawInput(value, schema);
+        const parsedValue = this.parseRawInput(value, schema);
         const rawValuePath = '/value';
         this.updateRule({
             ...rule,
@@ -2257,9 +2611,16 @@ export class FvQueryEditor extends FoundationElement {
             return;
         }
         let parsedValue: string | number | null = value;
-        if (value === '') {
+        const operator = this.portableOperator(rule.fieldId, rule.operatorId);
+        const endpointSchema = operator?.operand.kind === 'range' ? operator.operand.endpointSchema : undefined;
+        const endpointType = endpointSchema === undefined
+            ? this.activeField?.type
+            : simpleSchemaType(endpointSchema);
+        if (value === '' && endpointType !== 'string' && endpointType !== 'date') {
             parsedValue = null;
-        } else if (this.activeField?.type === 'number') {
+        } else if (value === '') {
+            parsedValue = '';
+        } else if (endpointType === 'number' || endpointType === 'integer') {
             parsedValue = Number(value);
         }
         this.updateRule({
@@ -2341,7 +2702,13 @@ export class FvQueryEditor extends FoundationElement {
             }
         }
         next[index] = updated;
+        if (identityChanged) {
+            this.cancelOptionRequest();
+        }
         this.commitTokens(next);
+        if (identityChanged) {
+            this.refreshOptions();
+        }
     }
 
     private valueFromRule(rule: QueryBuilderRule): JsonValue | undefined {
@@ -2383,7 +2750,8 @@ export class FvQueryEditor extends FoundationElement {
         schema: QueryBuilderDefinition['fields'][number]['valueSchema'] | undefined
     ): JsonPrimitive {
         if (value === '') {
-            return null;
+            const type = schema === undefined ? undefined : simpleSchemaType(schema);
+            return type === 'number' || type === 'integer' ? null : '';
         }
         const type = schema === undefined ? undefined : simpleSchemaType(schema);
         if (type === 'number' || type === 'integer') {
@@ -2628,6 +2996,7 @@ export class FvQueryEditor extends FoundationElement {
         if (!this.activeRuleId) {
             return;
         }
+        this.cancelOptionRequest();
         const trigger = this.activeEditorTrigger;
         this.activeRuleId = null;
         this.activeEditorTrigger = null;
@@ -3111,6 +3480,55 @@ export class FvQueryEditor extends FoundationElement {
         this.issues = [...issues];
     }
 
+    private restorePendingInputs(): void {
+        if (!this.definition) {
+            return;
+        }
+        if (this.pendingQuery !== undefined) {
+            const pendingQuery = this.pendingQuery;
+            this.pendingQuery = undefined;
+            const validation = validateQuery(pendingQuery, this.definition);
+            if (validation.valid) {
+                this.externalInputIssues = [];
+                this.assignQuery(validation.value);
+                this.editorTokens = this.createTokens(validation.value);
+                this.assignDraft(this.editorTokens);
+                this.caretPosition = this.editorTokens.length;
+                this.queryInputText = '';
+            } else {
+                this.externalInputIssues = validation.issues;
+            }
+        }
+        if (this.pendingDraft !== undefined) {
+            const pendingDraft = this.pendingDraft;
+            this.pendingDraft = undefined;
+            let converted: readonly QueryEditorToken[] | undefined;
+            try {
+                converted = this.tokensFromDraft(pendingDraft);
+            } catch {
+                this.setIssues([{
+                    code: 'invalid-draft',
+                    target: 'draft',
+                    path: '',
+                    message: 'The query editor draft shape is invalid.'
+                }]);
+            }
+            if (converted) {
+                this.externalInputIssues = [];
+                this.editorTokens = converted;
+                this.assignDraft(converted);
+                this.caretPosition = pendingDraft.caretPosition;
+                this.queryInputText = pendingDraft.inputText;
+                const query = this.createQueryFromTokens();
+                if (query && validateQuery(query, this.definition).valid) {
+                    this.assignQuery(query);
+                }
+            } else {
+                this.externalInputIssues = [...this.issues];
+            }
+        }
+    }
+
     private updateValidationState(notify = false): void {
         if (!this.definition) {
             this.setIssues([]);
@@ -3145,15 +3563,18 @@ export class FvQueryEditor extends FoundationElement {
         }
         const valid = this.valid;
         const issuesChanged = JSON.stringify(this.lastValidityIssues ?? []) !== JSON.stringify(this.issues);
-        if (notify && (this.lastValidity !== valid || issuesChanged)) {
+        const shouldNotify = notify && (this.lastValidity !== valid || issuesChanged);
+        const detachedIssues = this.issues.map(issue => ({ ...issue }));
+        this.lastValidity = valid;
+        this.lastValidityIssues = detachedIssues;
+        DOM.queueUpdate(() => this.syncEditorControlAccessibility());
+        if (shouldNotify) {
             this.dispatchEvent(new CustomEvent('validity-change', {
                 bubbles: true,
                 composed: true,
-                detail: { valid, issues: [...this.issues] }
+                detail: { valid, issues: detachedIssues }
             }));
         }
-        this.lastValidity = valid;
-        this.lastValidityIssues = this.issues.map(issue => ({ ...issue }));
     }
 
     private getOptionSource(fieldId: string, operatorId: string): NonNullable<Extract<
@@ -3181,6 +3602,20 @@ export class FvQueryEditor extends FoundationElement {
             this.cancelOptionRequest();
             return;
         }
+        if (!isRecord(this.optionContext)
+            || Object.values(this.optionContext).some(value => !this.isJsonValue(value))) {
+            this.cancelOptionRequest(false);
+            this.setOptionState({
+                status: 'blocked',
+                issues: [{
+                    code: 'options-load-failed',
+                    target: 'options',
+                    path: '/optionContext',
+                    message: 'Option context values must be JSON values.'
+                }]
+            });
+            return;
+        }
         const contextKey = JSON.stringify([
             rule.fieldId,
             rule.operatorId,
@@ -3202,6 +3637,20 @@ export class FvQueryEditor extends FoundationElement {
         const source = this.getOptionSource(rule.fieldId, rule.operatorId);
         if (!source) {
             this.cancelOptionRequest();
+            return;
+        }
+        if (!isRecord(this.optionContext)
+            || Object.values(this.optionContext).some(value => !this.isJsonValue(value))) {
+            this.cancelOptionRequest(false);
+            this.setOptionState({
+                status: 'blocked',
+                issues: [{
+                    code: 'options-load-failed',
+                    target: 'options',
+                    path: '/optionContext',
+                    message: 'Option context values must be JSON values.'
+                }]
+            });
             return;
         }
         const dependentValues: { [key: string]: JsonValue } = {};
@@ -3241,10 +3690,12 @@ export class FvQueryEditor extends FoundationElement {
         this.optionRequestVersion += 1;
         const version = this.optionRequestVersion;
         this.optionRequest = controller;
-        this.optionSearchText = searchText;
+        const effectiveSearchText = source.searchable === false ? '' : searchText;
+        this.optionSearchText = effectiveSearchText;
         if (!append) {
             this.optionPages = [];
             this.optionCursor = undefined;
+            this.optionFailedCursor = undefined;
         }
         this.setOptionState({ status: 'loading', options: [...this.optionPages] });
         const request: QueryOptionRequest = {
@@ -3252,7 +3703,7 @@ export class FvQueryEditor extends FoundationElement {
             fieldId: rule.fieldId,
             operatorId: rule.operatorId,
             dependentValues,
-            ...(searchText.length > 0 ? { searchText } : {}),
+            ...(effectiveSearchText.length > 0 ? { searchText: effectiveSearchText } : {}),
             ...(cursor ? { cursor } : {}),
             ...(source.pageSize !== undefined ? { pageSize: source.pageSize } : {})
         };
@@ -3275,6 +3726,7 @@ export class FvQueryEditor extends FoundationElement {
             }
             this.optionPages = [...unique.values()];
             this.optionCursor = page.nextCursor;
+            this.optionFailedCursor = undefined;
             this.setOptionState({
                 status: 'ready',
                 options: [...this.optionPages],
@@ -3300,9 +3752,10 @@ export class FvQueryEditor extends FoundationElement {
             }];
             this.setOptionState({
                 status: 'error',
-                options: [...this.optionPages],
+                options: this.optionPages.map(option => ({ ...option, disabled: true })),
                 issues
             });
+            this.optionFailedCursor = cursor;
             this.dispatchEvent(new CustomEvent('options-error', {
                 bubbles: true,
                 composed: true,
@@ -3378,6 +3831,7 @@ export class FvQueryEditor extends FoundationElement {
         if (clearPages) {
             this.optionPages = [];
             this.optionCursor = undefined;
+            this.optionFailedCursor = undefined;
             this.optionLabelCache?.clear();
             this.optionContextKey = '';
             if (this.optionState.status !== 'idle') {
