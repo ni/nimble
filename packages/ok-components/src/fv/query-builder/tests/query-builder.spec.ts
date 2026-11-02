@@ -244,6 +244,139 @@ describe('FvQueryBuilder', () => {
         expect(element.savedQueryMenuButton?.shadowRoot?.activeElement).toBe(trigger);
     });
 
+    describe('popover dragging', () => {
+        function dispatchPointer(target: Element, type: string, x: number, y: number, init: PointerEventInit = {}): PointerEvent {
+            const event = new PointerEvent(type, {
+                pointerId: 1,
+                isPrimary: true,
+                button: 0,
+                clientX: x,
+                clientY: y,
+                bubbles: true,
+                composed: true,
+                cancelable: true,
+                ...init
+            });
+            target.dispatchEvent(event);
+            return event;
+        }
+
+        function drag(header: Element, dx: number, dy: number, init: PointerEventInit = {}): void {
+            dispatchPointer(header, 'pointerdown', 100, 100, init);
+            dispatchPointer(header, 'pointermove', 100 + dx, 100 + dy, init);
+            dispatchPointer(header, 'pointerup', 100 + dx, 100 + dy, init);
+        }
+
+        let header: HTMLElement;
+        let setPointerCapture: jasmine.Spy;
+
+        function dragOffset(): { x: string, y: string } {
+            const style = element.queryPopoverRegion!.style;
+            return {
+                x: style.getPropertyValue('--query-popover-drag-x'),
+                y: style.getPropertyValue('--query-popover-drag-y')
+            };
+        }
+
+        beforeEach(async () => {
+            ({ element, disconnect } = await setup());
+            header = getRequiredElement<HTMLElement>('.popover-header');
+            setPointerCapture = spyOn(header, 'setPointerCapture');
+            // Fixture layout depends on the Karma window, so report a fixed undragged rect plus the applied offset.
+            const popover = getRequiredElement<HTMLElement>('.query-popover');
+            spyOn(popover, 'getBoundingClientRect').and.callFake(() => {
+                const offset = dragOffset();
+                return new DOMRect(
+                    100 + (offset.x ? parseFloat(offset.x) : 0),
+                    100 + (offset.y ? parseFloat(offset.y) : 0),
+                    200,
+                    150
+                );
+            });
+        });
+
+        it('moves the popover with a header drag without closing it', async () => {
+            const down = dispatchPointer(header, 'pointerdown', 100, 100);
+            dispatchPointer(header, 'pointermove', 95, 104);
+            dispatchPointer(header, 'pointerup', 95, 104);
+            await waitForUpdatesAsync();
+
+            expect(down.defaultPrevented).toBeTrue();
+            expect(setPointerCapture).toHaveBeenCalledWith(1);
+            expect(element.isManagerOpen).toBeTrue();
+            expect(dragOffset()).toEqual({ x: '-5px', y: '4px' });
+        });
+
+        it('moves the popover without creating a containing block for fixed condition popovers', () => {
+            drag(header, -5, 4);
+
+            const style = getComputedStyle(getRequiredElement<HTMLElement>('.query-popover'));
+            expect(style.translate).toBe('none');
+            expect(style.transform).toBe('none');
+            expect(style.position).toBe('relative');
+            expect(style.left).toBe('-5px');
+            expect(style.top).toBe('4px');
+        });
+
+        it('accumulates offsets across drags', () => {
+            drag(header, -5, 4);
+            drag(header, 10, 6);
+
+            expect(dragOffset()).toEqual({ x: '5px', y: '10px' });
+        });
+
+        it('keeps the dragged popover at least 8px inside the viewport', () => {
+            const { clientWidth, clientHeight } = document.documentElement;
+
+            drag(header, -10000, -10000);
+            expect(dragOffset()).toEqual({ x: '-92px', y: '-92px' });
+
+            drag(header, 20000, 20000);
+            expect(dragOffset()).toEqual({
+                x: `${clientWidth - 8 - 200 - 100}px`,
+                y: `${clientHeight - 8 - 150 - 100}px`
+            });
+        });
+
+        it('ignores secondary buttons and stops following the pointer after release', () => {
+            drag(header, -5, 4, { button: 2 });
+            expect(dragOffset()).toEqual({ x: '', y: '' });
+            expect(setPointerCapture).not.toHaveBeenCalled();
+
+            drag(header, -5, 4);
+            dispatchPointer(header, 'pointermove', 50, 50);
+            expect(dragOffset()).toEqual({ x: '-5px', y: '4px' });
+        });
+
+        it('resets the position on double-click and when the popover closes', async () => {
+            drag(header, -5, 4);
+            header.dispatchEvent(new MouseEvent('dblclick', { bubbles: true, composed: true }));
+            expect(dragOffset()).withContext('after double-click').toEqual({ x: '', y: '' });
+
+            drag(header, -5, 4);
+            getRequiredElement<HTMLElement>('.query-popover').dispatchEvent(new KeyboardEvent('keydown', {
+                key: 'Escape', bubbles: true, composed: true, cancelable: true
+            }));
+            window.dispatchEvent(new Event('resize'));
+            await waitForUpdatesAsync();
+            expect(element.isManagerOpen).toBeFalse();
+            expect(dragOffset()).withContext('after close').toEqual({ x: '', y: '' });
+        });
+
+        it('re-clamps a dragged popover when the viewport changes', async () => {
+            drag(header, 20000, 20000);
+            const clamped = dragOffset();
+            drag(header, -10, -10);
+            window.dispatchEvent(new Event('resize'));
+            await waitForUpdatesAsync();
+
+            expect(dragOffset()).toEqual({
+                x: `${parseFloat(clamped.x) - 10}px`,
+                y: `${parseFloat(clamped.y) - 10}px`
+            });
+        });
+    });
+
     it('preserves saved-query drafts between the primary popover and the full menu editor', async () => {
         ({ element, disconnect } = await setup());
         await selectSavedQuery('saved-a');

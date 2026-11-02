@@ -134,7 +134,14 @@ export const template = html<FvQueryBuilder>`
                 ?hidden="${x => !x.isManagerOpen}"
                 @keydown="${(x, c) => x.handleKeydown(c.event as KeyboardEvent)}"
             >
-                <header class="popover-header">
+                <header
+                    class="popover-header"
+                    @pointerdown="${(x, c) => x.handlePopoverDragStart(c.event as PointerEvent)}"
+                    @pointermove="${(x, c) => x.handlePopoverDragMove(c.event as PointerEvent)}"
+                    @pointerup="${(x, c) => x.handlePopoverDragEnd(c.event as PointerEvent)}"
+                    @pointercancel="${(x, c) => x.handlePopoverDragEnd(c.event as PointerEvent)}"
+                    @dblclick="${x => x.resetPopoverDrag()}"
+                >
                     <h2 id="${x => `${x.queryDialogId}-title`}">
                         ${x => {
                             if (x.isQuickEdit) {

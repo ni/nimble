@@ -84,6 +84,10 @@ export const styles = css`
             max-height: min(80vh, 760px, var(--query-popover-available-height, 760px));
             box-sizing: border-box;
             overflow: auto;
+            /* Offset with relative insets: transforms would clip fixed-position condition popovers. */
+            position: relative;
+            left: var(--query-popover-drag-x, 0px);
+            top: var(--query-popover-drag-y, 0px);
             border: ${borderWidth} solid ${popupBorderColor};
             background: ${applicationBackgroundColor};
             color: ${bodyFontColor};
@@ -97,6 +101,9 @@ export const styles = css`
         .popover-header {
             flex: 0 0 auto;
             padding: ${standardPadding} 24px 0;
+            cursor: move;
+            touch-action: none;
+            user-select: none;
         }
 
         .popover-header h2 {

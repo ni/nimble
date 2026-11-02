@@ -243,6 +243,8 @@ export class FvQueryBuilder extends FoundationElement {
     public readonly aiDialogId = uniqueId('ok-fv-query-builder-ai-dialog');
     public readonly queryDialogId = uniqueId('ok-fv-query-builder-dialog');
 
+    private popoverDragOffset = { x: 0, y: 0 };
+    private popoverDrag?: { pointerId: number, startX: number, startY: number };
     private appliedDocument: QueryDocument = cloneDocument(emptyDocument);
     private appliedSelectionId: string | undefined;
     private internallyAssignedQuery?: QueryDocument;
@@ -398,6 +400,13 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     /** @internal */
+    public isManagerOpenChanged(): void {
+        if (!this.isManagerOpen) {
+            this.resetPopoverDrag();
+        }
+    }
+
+    /** @internal */
     public handleInput(event: Event): void {
         const control = this.findControl(event);
         if (control?.dataset.control === 'saved-query-name') {
@@ -525,6 +534,44 @@ export class FvQueryBuilder extends FoundationElement {
         if (this.isManagerOpen && this.isQuickEdit) {
             this.focusQuickEditor();
         }
+    }
+
+    /** @internal */
+    public handlePopoverDragStart(event: PointerEvent): void {
+        if (event.button !== 0 || !event.isPrimary) {
+            return;
+        }
+        (event.currentTarget as Element).setPointerCapture(event.pointerId);
+        this.popoverDrag = {
+            pointerId: event.pointerId,
+            startX: event.clientX - this.popoverDragOffset.x,
+            startY: event.clientY - this.popoverDragOffset.y
+        };
+        event.preventDefault();
+    }
+
+    /** @internal */
+    public handlePopoverDragMove(event: PointerEvent): void {
+        const drag = this.popoverDrag;
+        if (drag?.pointerId !== event.pointerId) {
+            return;
+        }
+        this.setPopoverDragOffset(event.clientX - drag.startX, event.clientY - drag.startY);
+    }
+
+    /** @internal */
+    public handlePopoverDragEnd(event: PointerEvent): void {
+        if (this.popoverDrag?.pointerId === event.pointerId) {
+            this.popoverDrag = undefined;
+        }
+    }
+
+    /** @internal */
+    public resetPopoverDrag(): void {
+        this.popoverDrag = undefined;
+        this.popoverDragOffset = { x: 0, y: 0 };
+        this.queryPopoverRegion?.style.removeProperty('--query-popover-drag-x');
+        this.queryPopoverRegion?.style.removeProperty('--query-popover-drag-y');
     }
 
     /** @internal */
@@ -742,6 +789,27 @@ export class FvQueryBuilder extends FoundationElement {
         DOM.queueUpdate(() => this.focusQueryTrigger());
     }
 
+    private setPopoverDragOffset(x: number, y: number): void {
+        const region = this.queryPopoverRegion;
+        const popover = region?.querySelector<HTMLElement>('.query-popover');
+        if (!this.isManagerOpen || !region || !popover) {
+            return;
+        }
+        // Clamp against the undragged rect so the popover stays fully in view.
+        const rect = popover.getBoundingClientRect();
+        const left = rect.left - this.popoverDragOffset.x;
+        const top = rect.top - this.popoverDragOffset.y;
+        const margin = 8;
+        const { clientWidth, clientHeight } = document.documentElement;
+        const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), Math.max(min, max));
+        this.popoverDragOffset = {
+            x: clamp(x, margin - left, clientWidth - margin - rect.width - left),
+            y: clamp(y, margin - top, clientHeight - margin - rect.height - top)
+        };
+        region.style.setProperty('--query-popover-drag-x', `${this.popoverDragOffset.x}px`);
+        region.style.setProperty('--query-popover-drag-y', `${this.popoverDragOffset.y}px`);
+    }
+
     private readonly queryViewportChangeHandler = (): void => {
         const anchor = this.savedQueryMenuButton;
         const region = this.queryPopoverRegion;
@@ -755,6 +823,11 @@ export class FvQueryBuilder extends FoundationElement {
             region.style.setProperty('--query-popover-available-height', availableHeight);
         }
         region.update();
+        DOM.queueUpdate(() => {
+            if (this.isManagerOpen && (this.popoverDragOffset.x !== 0 || this.popoverDragOffset.y !== 0)) {
+                this.setPopoverDragOffset(this.popoverDragOffset.x, this.popoverDragOffset.y);
+            }
+        });
     };
 
     private closeManager(restoreFocus: boolean): void {
