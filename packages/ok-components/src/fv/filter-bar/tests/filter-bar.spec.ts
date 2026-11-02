@@ -82,6 +82,32 @@ describe('FvFilterBar', () => {
         expect(element.shadowRoot?.querySelector('.filter-bar-clear')).toBeNull();
     });
 
+    it('updates the hover title when a definition arrives after an initially empty query', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        const editButton = element.shadowRoot?.querySelector<HTMLButtonElement>('.filter-bar-edit');
+        expect(editButton?.title).toBe('');
+
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'status', operatorId: 'is', value: 'failed' }
+        };
+        await waitForUpdatesAsync();
+        expect(editButton?.title).toBe('status is failed');
+
+        element.definition = {
+            fields: [{
+                id: 'status',
+                label: 'Status',
+                valueSchema: { oneOf: [{ const: 'failed', title: 'Failed' }] }
+            }],
+            operators: [{ id: 'is', label: 'Is' }]
+        };
+        await waitForUpdatesAsync();
+        expect(editButton?.title).toBe('Status Is Failed');
+        expect(element.shadowRoot?.querySelector('.query-expression')?.textContent).toBe('Status Is Failed');
+    });
+
     it('dispatches edit and clear events with the query-builder document', async () => {
         ({ element, connect, disconnect } = await setup());
         const query: FvFilterBarQueryDocument = {

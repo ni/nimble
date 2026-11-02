@@ -1,4 +1,4 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, observable, volatile } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -49,6 +49,7 @@ export class FvFilterBar extends FoundationElement {
     }
 
     /** @internal */
+    @volatile
     public get queryTokens(): readonly FvFilterBarToken[] {
         return this.query.root ? this.formatNode(this.query.root, true) : [];
     }
