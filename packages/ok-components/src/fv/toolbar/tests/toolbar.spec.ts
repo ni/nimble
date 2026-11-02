@@ -55,14 +55,16 @@ describe('FvToolbar', () => {
     }
 
     async function expectConfigurationError(change: () => void, message: RegExp): Promise<void> {
-        let layout: FrameRequestCallback | undefined;
+        const callbacks: FrameRequestCallback[] = [];
         const frameSpy = spyOn(window, 'requestAnimationFrame').and.callFake(callback => {
-            layout = callback;
+            callbacks.push(callback);
             return 1;
         });
         change();
         await Promise.resolve();
         frameSpy.and.callThrough();
+        const layout = callbacks.pop();
+        callbacks.forEach(callback => callback(0));
         expect(layout).toBeDefined();
         expect(() => layout!(0)).toThrowError(message);
     }
@@ -99,6 +101,18 @@ describe('FvToolbar', () => {
             buttons[0]!.setAttribute('data-responsive', 'label overflow');
             buttons[0]!.replaceChildren(document.createComment('internal note'));
         }, /text label or aria-label/);
+    });
+
+    it('rejects a whitespace-only aria-label even when button text exists', async () => {
+        await expectConfigurationError(() => {
+            buttons[0]!.setAttribute('aria-label', ' \t\n ');
+        }, /text label or aria-label/);
+    });
+
+    it('trims an explicit aria-label before displaying it in overflow', async () => {
+        buttons[0]!.setAttribute('aria-label', ' \tEdit assets\n ');
+        await resize(100);
+        expect(element.overflowMenu.firstElementChild!.textContent).toBe('Edit assets');
     });
 
     it('extends the Nimble toolbar and starts with labeled actions', () => {

@@ -66,6 +66,7 @@ Provide a toolbar name and meaningful text for every action. Icon-only buttons
 retain their accessible text; an explicit `aria-label` takes precedence for
 overflow entries. Supply a localized `overflow-label` as needed.
 Overflow labels use text nodes and non-slotted elements; HTML comments are ignored.
+The selected label is trimmed, and whitespace-only labels are rejected.
 
 Toolbar arrow navigation and menu keyboard behavior reuse Nimble's implementations.
 If resizing hides a focused action, focus moves to the overflow trigger. If the

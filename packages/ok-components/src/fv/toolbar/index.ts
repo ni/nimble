@@ -159,12 +159,11 @@ export class FvToolbar extends Toolbar {
             item.stages = stages;
             item.priority = priority;
             item.menuItem.disabled = button.disabled;
-            const label = button.getAttribute('aria-label')
+            const label = (button.getAttribute('aria-label')
                 ?? Array.from(button.childNodes)
                     .filter(node => node.nodeType === Node.TEXT_NODE
                         || (node instanceof Element && !node.hasAttribute('slot')))
-                    .map(node => node.textContent).join('')
-                    .trim();
+                    .map(node => node.textContent).join('')).trim();
             if (!label) {
                 throw new Error('ok-fv-toolbar responsive actions require a text label or aria-label.');
             }
