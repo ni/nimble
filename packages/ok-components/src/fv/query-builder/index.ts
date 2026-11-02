@@ -316,11 +316,15 @@ export class FvQueryBuilder extends FoundationElement {
         this.loadSelection(null);
         document.addEventListener('pointerdown', this.documentPointerDownHandler, true);
         document.addEventListener('focusin', this.documentFocusInHandler, true);
+        document.addEventListener('scroll', this.queryViewportChangeHandler, true);
+        window.addEventListener('resize', this.queryViewportChangeHandler);
     }
 
     public override disconnectedCallback(): void {
         document.removeEventListener('pointerdown', this.documentPointerDownHandler, true);
         document.removeEventListener('focusin', this.documentFocusInHandler, true);
+        document.removeEventListener('scroll', this.queryViewportChangeHandler, true);
+        window.removeEventListener('resize', this.queryViewportChangeHandler);
         super.disconnectedCallback();
     }
 
@@ -348,14 +352,6 @@ export class FvQueryBuilder extends FoundationElement {
             }
         }
         this.savedDrafts = drafts;
-    }
-
-    /** @internal */
-    /** @internal */
-    public queryPopoverRegionChanged(): void {
-        if (this.queryPopoverRegion) {
-            this.queryPopoverRegion.anchorElement = this.savedQueryMenuButton ?? null;
-        }
     }
 
     /** @internal */
@@ -525,6 +521,7 @@ export class FvQueryBuilder extends FoundationElement {
 
     /** @internal */
     public handleQueryPopoverLoaded(): void {
+        this.queryViewportChangeHandler();
         if (this.isManagerOpen && this.isQuickEdit) {
             this.focusQuickEditor();
         }
@@ -605,6 +602,11 @@ export class FvQueryBuilder extends FoundationElement {
         this.operationError = '';
         this.loadSelection(id);
         this.closeEditorCallout();
+        DOM.queueUpdate(() => {
+            if (this.selectedSavedQueryId === id && this.validate()) {
+                this.applyQuery();
+            }
+        });
     }
 
     private loadSelection(id: string | null): void {
@@ -701,6 +703,7 @@ export class FvQueryBuilder extends FoundationElement {
         this.isQuickEdit = false;
         this.isManagerOpen = true;
         this.isCreatingSavedQuery = true;
+        this.queryViewportChangeHandler();
         this.savedQueryName = '';
         this.confirmingDelete = false;
         this.operationError = '';
@@ -711,6 +714,7 @@ export class FvQueryBuilder extends FoundationElement {
         this.closeSavedMenu(false);
         this.isQuickEdit = false;
         this.isManagerOpen = true;
+        this.queryViewportChangeHandler();
         const selectedId = this.selectedSavedQueryId;
         this.isCreatingSavedQuery = selectedId === null;
         this.confirmingDelete = false;
@@ -737,6 +741,21 @@ export class FvQueryBuilder extends FoundationElement {
         this.confirmingDelete = false;
         DOM.queueUpdate(() => this.focusQueryTrigger());
     }
+
+    private readonly queryViewportChangeHandler = (): void => {
+        const anchor = this.savedQueryMenuButton;
+        const region = this.queryPopoverRegion;
+        if (!this.isManagerOpen || !anchor || !region) {
+            return;
+        }
+        const bounds = anchor.getBoundingClientRect();
+        const viewportHeight = document.documentElement.clientHeight;
+        const availableHeight = `${Math.max(0, Math.max(bounds.top, viewportHeight - bounds.bottom) - 16)}px`;
+        if (region.style.getPropertyValue('--query-popover-available-height') !== availableHeight) {
+            region.style.setProperty('--query-popover-available-height', availableHeight);
+        }
+        region.update();
+    };
 
     private closeManager(restoreFocus: boolean): void {
         if (this.isManagerOpen) {

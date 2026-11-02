@@ -55,6 +55,7 @@ const suggestionTemplate = html<QueryEditorSuggestion, QueryEditorPartView>`
 const suggestionListTemplate = html<QueryEditorPartView, FvQueryEditor>`
     <div
         class="suggestions"
+        popover="manual"
         id="${x => x.owner.suggestionListId}"
         data-suggestion-kind="${x => x.owner.suggestions[0]?.kind ?? ''}"
         role="listbox"
@@ -64,6 +65,7 @@ const suggestionListTemplate = html<QueryEditorPartView, FvQueryEditor>`
                 : x.owner.labels.matchingFields;
         }}"
         ?hidden="${x => x.owner.suggestions.length === 0}"
+        @pointerdown="${() => false}"
         @click="${(x, c) => x.owner.handleSuggestionChange(c.event)}"
     >
         ${repeat(

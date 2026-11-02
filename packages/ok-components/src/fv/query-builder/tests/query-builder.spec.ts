@@ -102,7 +102,15 @@ async function setup(openPopover = true): Promise<Fixture<FvQueryBuilder>> {
         if (!editItem) {
             throw new Error('Expected the Edit menu item.');
         }
+        const region = result.element.queryPopoverRegion;
+        if (!region) {
+            throw new Error('Expected the query popover region.');
+        }
+        const loaded = new Promise<void>(resolve => {
+            region.addEventListener('loaded', () => resolve(), { once: true });
+        });
         editItem.click();
+        await loaded;
         await waitForUpdatesAsync();
     }
     return result;
@@ -158,8 +166,21 @@ describe('FvQueryBuilder', () => {
         expect(menuButton.querySelector('nimble-menu')?.querySelectorAll('nimble-menu-item')).toHaveSize(5);
         expect(menuButton.querySelector('[data-action="select-current-query"]')?.getAttribute('aria-current')).toBe('true');
         expect(getRequiredElement<HTMLElement>('.query-popover').hasAttribute('hidden')).toBeTrue();
-        expect(element.queryPopoverRegion?.horizontalDefaultPosition).toBe('right');
+        expect(element.queryPopoverRegion?.horizontalDefaultPosition).toBe('center');
         expect(element.queryPopoverRegion?.horizontalInset).toBeTrue();
+        expect(element.queryPopoverRegion?.horizontalViewportLock).toBeTrue();
+        expect(element.queryPopoverRegion?.verticalPositioningMode).toBe('dynamic');
+        expect(element.queryPopoverRegion?.verticalViewportLock).toBeTrue();
+    });
+
+    it('renders the split button without an internal toolbar', async () => {
+        ({ element, disconnect } = await setup(false));
+
+        const group = getRequiredElement<HTMLElement>('.query-builder');
+        expect(group.getAttribute('role')).toBe('group');
+        expect(group.firstElementChild).toBe(getRequiredElement<HTMLElement>('.queries-menu-button'));
+        expect(element.shadowRoot?.querySelector('[role="toolbar"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('.builder-toolbar')).toBeNull();
     });
 
     it('does not prevent printable keyboard input in the embedded query editor', async () => {
@@ -188,7 +209,8 @@ describe('FvQueryBuilder', () => {
         if (!region) {
             throw new Error('Expected the query popover region.');
         }
-        const loaded = region.initialLayoutComplete ? Promise.resolve() : new Promise<void>(resolve => {
+        expect(region.anchorElement).toBeNull();
+        const loaded = new Promise<void>(resolve => {
             region.addEventListener('loaded', () => resolve(), { once: true });
         });
         const trigger = getRequiredElement<FvSplitButton>('[data-control="saved-query-menu-button"]')
@@ -201,6 +223,7 @@ describe('FvQueryBuilder', () => {
         await waitForUpdatesAsync();
 
         expect(element.isManagerOpen).toBeTrue();
+        expect(region.anchorElement).toBe(element.savedQueryMenuButton ?? null);
         expect(element.isQuickEdit).toBeTrue();
         expect(element.isSavedMenuOpen).toBeFalse();
         expect(element.shadowRoot?.querySelector('[data-control="saved-query-name"]')).toBeNull();
@@ -217,6 +240,7 @@ describe('FvQueryBuilder', () => {
         }));
         await waitForUpdatesAsync();
         expect(element.isManagerOpen).toBeFalse();
+        expect(region.anchorElement).toBeNull();
         expect(element.savedQueryMenuButton?.shadowRoot?.activeElement).toBe(trigger);
     });
 
@@ -295,7 +319,7 @@ describe('FvQueryBuilder', () => {
             throw new Error('Expected the query popover region.');
         }
 
-        expect(region.getBoundingClientRect().left).toBeCloseTo(menuButton.getBoundingClientRect().left, 0);
+        expect(region.anchorElement).toBe(menuButton);
         expect(nameControl.getBoundingClientRect().height).toBeLessThan(100);
         expect(nameControl.getBoundingClientRect().top - dialogTitle.getBoundingClientRect().bottom).toBe(8);
         expect(queryConditions.getBoundingClientRect().top - queryControlsHeader.getBoundingClientRect().bottom).toBe(16);
@@ -689,6 +713,49 @@ describe('FvQueryBuilder', () => {
         expect(element.queryEditor?.query).toEqual(currentDocument);
     });
 
+    it('automatically applies saved queries and Current query without saving', async () => {
+        ({ element, disconnect } = await setup(false));
+        const applied: { query: QueryDocument, selectedId?: string }[] = [];
+        element.addEventListener('query-apply', event => {
+            applied.push((event as CustomEvent<{ query: QueryDocument, selectedId?: string }>).detail);
+        });
+        const save = jasmine.createSpy('save');
+        element.saveHandler = save;
+
+        await selectSavedQuery('saved-a');
+        await selectSavedQuery('saved-b');
+        await openSavedMenu();
+        await activateSavedMenuItem('[data-action="select-current-query"]');
+
+        expect(applied).toEqual([
+            { query: savedDocument, selectedId: 'saved-a' },
+            { query: secondSavedDocument, selectedId: 'saved-b' },
+            { query: currentDocument, selectedId: undefined }
+        ]);
+        expect(save).not.toHaveBeenCalled();
+        expect(element.isManagerOpen).toBeFalse();
+    });
+
+    it('does not apply an incomplete saved-query draft when reselected', async () => {
+        ({ element, disconnect } = await setup(false));
+        await selectSavedQuery('saved-a');
+        const input = element.queryEditor?.shadowRoot?.querySelector<HTMLElement & { value: string }>('.query-input');
+        if (!input) {
+            throw new Error('Expected the query input.');
+        }
+        input.value = 'sta';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await selectSavedQuery('saved-b');
+        const apply = jasmine.createSpy('query-apply');
+        element.addEventListener('query-apply', apply);
+        await selectSavedQuery('saved-a');
+
+        expect(element.queryEditor?.draft.inputText).toBe('sta');
+        expect(element.valid).toBeFalse();
+        expect(apply).not.toHaveBeenCalled();
+    });
+
     it('does not count caret or generated group IDs as saved-query edits', async () => {
         ({ element, disconnect } = await setup());
         const nestedDocument: QueryDocument = {
@@ -890,6 +957,8 @@ describe('FvQueryBuilder', () => {
         element.addEventListener('query-apply', apply);
 
         await selectSavedQuery('saved-a');
+        expect(apply).toHaveBeenCalledTimes(1);
+        apply.calls.reset();
         await openSavedMenu();
         await activateSavedMenuItem('[data-action="edit-saved-queries"]');
         expect(element.shadowRoot?.querySelector('[data-action="done-manager"]')).toBeNull();

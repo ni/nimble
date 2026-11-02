@@ -19,10 +19,10 @@ export const styles = css`
     @layer base, disabled;
 
     @layer base {
-        ${display('block')}
+        ${display('inline-block')}
 
         :host {
-            display: block;
+            vertical-align: middle;
             max-width: 100%;
             box-sizing: border-box;
             color: ${bodyFontColor};
@@ -31,20 +31,9 @@ export const styles = css`
 
         .query-builder {
             position: relative;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
+            display: inline-flex;
             min-width: 0;
             box-sizing: border-box;
-            border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-            background: ${applicationBackgroundColor};
-        }
-
-        .builder-toolbar {
-            display: flex;
-            align-items: center;
-            min-height: 56px;
-            padding: ${smallPadding} ${standardPadding};
         }
 
         .queries-menu-button {
@@ -91,8 +80,8 @@ export const styles = css`
         .query-popover {
             display: flex;
             flex-direction: column;
-            width: min(880px, calc(100vw - 64px));
-            max-height: min(80vh, 760px);
+            width: min(600px, calc(100vw - 32px));
+            max-height: min(80vh, 760px, var(--query-popover-available-height, 760px));
             box-sizing: border-box;
             overflow: auto;
             border: ${borderWidth} solid ${popupBorderColor};
@@ -220,6 +209,12 @@ export const styles = css`
             min-width: 92px;
         }
 
+        .footer-actions {
+            flex: 0 0 auto;
+            flex-wrap: nowrap;
+            margin-inline-start: auto;
+        }
+
         .delete-confirmation {
             color: ${errorTextFontColor};
         }
@@ -243,7 +238,7 @@ export const styles = css`
 
     @media (max-width: 600px) {
         .query-popover {
-            width: min(880px, calc(100vw - 16px));
+            width: min(600px, calc(100vw - 16px));
         }
 
         .popover-header,
@@ -252,13 +247,7 @@ export const styles = css`
         }
 
         .builder-footer {
-            align-items: stretch;
-            flex-direction: column;
             padding-inline: ${standardPadding};
-        }
-
-        .footer-actions {
-            justify-content: flex-start;
         }
     }
 `;

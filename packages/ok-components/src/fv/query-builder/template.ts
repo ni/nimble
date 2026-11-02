@@ -22,7 +22,7 @@ interface SavedQueryTemplateView {
 export const template = html<FvQueryBuilder>`
     <div
         class="query-builder"
-        role="region"
+        role="group"
         aria-label="${x => x.label}"
         aria-disabled="${x => String(x.disabled)}"
         @click="${(x, c) => x.handleClick(c.event)}"
@@ -31,7 +31,6 @@ export const template = html<FvQueryBuilder>`
         @query-change="${(x, c) => x.handleEditorChange(c.event)}"
         @keydown="${(x, c) => x.handleKeydown(c.event as KeyboardEvent)}"
     >
-        <div class="builder-toolbar" role="toolbar" aria-label="${x => x.labels.queries}">
             <${fvSplitButtonTag}
                 class="queries-menu-button"
                 appearance="ghost"
@@ -112,16 +111,16 @@ export const template = html<FvQueryBuilder>`
                     )}
                 </${menuTag}>
             </${fvSplitButtonTag}>
-        </div>
-
         <${anchoredRegionTag}
             class="query-popover-region"
             ${ref('queryPopoverRegion')}
+            :anchorElement="${x => (x.isManagerOpen ? x.savedQueryMenuButton ?? null : null)}"
             fixed-placement
             auto-update-mode="auto"
             vertical-default-position="bottom"
-            vertical-positioning-mode="locktodefault"
-            horizontal-default-position="right"
+            vertical-positioning-mode="dynamic"
+            vertical-viewport-lock
+            horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-inset
             horizontal-viewport-lock

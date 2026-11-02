@@ -28,6 +28,8 @@ Select `layout: formatted` and `preset: deeplyNested` in Controls to see nested 
 
 Set `definition`, `query`, and `draft` as JavaScript properties, not HTML attributes. The definition specifies stable field IDs, JSON Pointer paths, JSON Schemas for values, allowed operators, and optional editor configuration.
 
+Changing an operator preserves the value when the field and operand kind stay the same, then validates it against the new operator. Changing the field or operand kind clears the value.
+
 A query is a versioned document that can contain nested groups up to `MAX_QUERY_GROUP_DEPTH`. A draft is a versioned sequence of tokens that also preserves unfinished input. The editor uses these formats directly and has no adapter for legacy grouped-query data.
 
 ```ts
@@ -122,6 +124,8 @@ The editor is not a drop-in replacement for the Stratus query builder. Applicati
 
 ## Accessibility
 
-Users can open condition chips with the keyboard. The query input supports token navigation and deletion, field and logical-operator autocomplete, and visible validation for incomplete groups and conditions. Closing a condition popover with **Done** or Escape returns focus to its chip.
+Users can open condition chips with the keyboard. The query input supports token navigation and deletion, field and logical-operator autocomplete, and visible validation for incomplete groups and conditions. Closing a condition popover with Escape returns focus to its chip.
+
+Autocomplete uses the native Popover API so suggestions remain visible outside scrolling containers. The list sizes to its content and stays within the viewport, opening above the input when there is not enough room below.
 
 <ComponentApisLink />

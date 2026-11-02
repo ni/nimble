@@ -17,7 +17,10 @@ import { queryBuilderDefinition, queryBuilderPresets } from './fixtures';
 
 const metadata: Meta = {
     title: 'Tests Ok/Fv Query Builder',
-    parameters: { ...sharedMatrixParameters() }
+    parameters: {
+        ...sharedMatrixParameters(),
+        chromatic: { viewports: [1440] }
+    }
 };
 
 export default metadata;
@@ -75,7 +78,7 @@ const featureStates: readonly BuilderState[] = cartesianProduct([
 
 // Inert cells prevent callout autofocus from dismissing neighboring matrix examples.
 const component = (state: BuilderState): ViewTemplate => html`
-    <section inert style="display: inline-block; vertical-align: top; width: 960px; max-width: 100%; min-height: 560px; padding: 16px; box-sizing: border-box;">
+    <section inert style="width: 660px; min-height: 640px; padding: 16px; box-sizing: border-box;">
         <h3>${() => state.name}</h3>
         <${fvQueryBuilderTag}
             data-state="${() => state.name}"
@@ -98,6 +101,16 @@ const prepareBuilders: NonNullable<StoryFn['play']> = async ({ canvasElement }) 
             throw new Error('Matrix builder state was not found.');
         }
         builder.savedQueries = [{ id: 'saved', name: 'Failed production tests', document: queryBuilderPresets.saved }];
+        const region = builder.queryPopoverRegion;
+        if (!region) {
+            throw new Error('Matrix query popover region was not rendered.');
+        }
+        // Keep offscreen examples beside their anchors instead of locking them to the viewport.
+        region.fixedPlacement = false;
+        region.horizontalViewportLock = false;
+        region.verticalViewportLock = false;
+        region.horizontalDefaultPosition = 'right';
+        region.verticalPositioningMode = 'locktodefault';
         if (state.persistence !== false) {
             builder.saveHandler = async request => {
                 await waitForUpdatesAsync();
@@ -111,14 +124,15 @@ const prepareBuilders: NonNullable<StoryFn['play']> = async ({ canvasElement }) 
         }
     }
     await waitForUpdatesAsync();
-    for (const builder of canvasElement.querySelectorAll<FvQueryBuilder>(fvQueryBuilderTag)) {
+    await Promise.all(Array.from(canvasElement.querySelectorAll<FvQueryBuilder>(fvQueryBuilderTag)).map(async builder => {
         const state = [...states, ...featureStates].find(candidate => candidate.name === builder.dataset.state)!;
         if (state.view === 'saved' || state.view === 'menu') {
             const option = builder.shadowRoot?.querySelector<HTMLElement>('[data-saved-query-id="saved"]');
             if (!option) {
                 throw new Error('Matrix saved-query option was not rendered.');
             }
-            option.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            option.click();
+            await waitForUpdatesAsync();
             builder.savedQueryName = 'Updated production tests';
             const nameInput = builder.shadowRoot?.querySelector<HTMLInputElement>('[data-control="saved-query-name"]');
             if (!nameInput) {
@@ -136,18 +150,40 @@ const prepareBuilders: NonNullable<StoryFn['play']> = async ({ canvasElement }) 
         builder.confirmingDelete = state.confirmation ?? false;
         builder.isOperationPending = state.pending ?? false;
         builder.operationError = state.error ? builder.labels.saveFailed : '';
-    }
+    }));
     await waitForUpdatesAsync();
+    await Promise.all(Array.from(canvasElement.querySelectorAll<FvQueryBuilder>(fvQueryBuilderTag))
+        .filter(builder => builder.isManagerOpen)
+        .map(async builder => {
+            const region = builder.queryPopoverRegion!;
+            if (!region.classList.contains('loaded')) {
+                await new Promise<void>(resolve => {
+                    region.addEventListener('loaded', () => resolve(), { once: true });
+                });
+            }
+        }));
 };
 
 export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${disableStorybookZoomTransform}
-    ${createMatrix(component, [states])}
+    <div style="display: grid; grid-template-columns: repeat(2, 660px);">
+        ${createMatrix(component, [states])}
+    </div>
 `);
 statesThemeMatrix.play = prepareBuilders;
 
 export const featuresThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${disableStorybookZoomTransform}
-    ${createMatrix(component, [featureStates])}
+    <div style="display: grid; grid-template-columns: repeat(2, 660px);">
+        ${createMatrix(component, [featureStates.filter(state => state.view === 'saved')])}
+    </div>
 `);
 featuresThemeMatrix.play = prepareBuilders;
+
+export const menuFeaturesThemeMatrix: StoryFn = createMatrixThemeStory(html`
+    ${disableStorybookZoomTransform}
+    <div style="display: grid; grid-template-columns: repeat(2, 660px);">
+        ${createMatrix(component, [featureStates.filter(state => state.view === 'menu')])}
+    </div>
+`);
+menuFeaturesThemeMatrix.play = prepareBuilders;

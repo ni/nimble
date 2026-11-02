@@ -14,7 +14,6 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
-    menuMinWidth,
     mediumPadding,
     placeholderFontColor,
     popupBorderColor,
@@ -249,12 +248,11 @@ export const styles = css`
         }
 
         .suggestions {
-            position: absolute;
-            z-index: 2;
-            inset-block-start: calc(100% + 4px);
-            inset-inline-start: 0;
-            min-width: min(${menuMinWidth}, calc(100vw - 32px));
-            width: min(360px, calc(100vw - 32px));
+            position: fixed;
+            inset: auto;
+            margin: 0;
+            width: max-content;
+            max-width: calc(100vw - 16px);
             max-height: min(320px, 50vh);
             overflow: auto;
             padding: 4px;
@@ -263,6 +261,8 @@ export const styles = css`
             background: ${applicationBackgroundColor};
             box-shadow: ${elevation2BoxShadow};
             box-sizing: border-box;
+            color: ${bodyFontColor};
+            font: ${bodyFont};
         }
 
         .suggestion {
@@ -276,6 +276,7 @@ export const styles = css`
             cursor: pointer;
             font: ${bodyFont};
             white-space: nowrap;
+            gap: 16px;
         }
 
         .suggestion-label {

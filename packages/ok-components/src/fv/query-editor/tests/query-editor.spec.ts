@@ -539,7 +539,7 @@ describe('FvQueryEditor', () => {
             .map(suggestion => suggestion.textContent?.trim())).toEqual(['Status', 'Started at']);
     });
 
-    it('positions autocomplete suggestions directly below the query text', async () => {
+    it('opens autocomplete in the top layer while the query input has focus', async () => {
         ({ element, disconnect } = await setup());
         const queryInput = getRequiredElement<ValueControl>('.query-input');
         const nativeInput = queryInput.shadowRoot?.querySelector<HTMLInputElement>('input');
@@ -547,16 +547,16 @@ describe('FvQueryEditor', () => {
             throw new Error('Expected the Nimble text field to contain an input');
         }
 
+        nativeInput.focus();
         nativeInput.value = 'sta';
         nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        const inputRect = queryInput.getBoundingClientRect();
-        const listboxRect = getRequiredElement<HTMLElement>('.suggestions').getBoundingClientRect();
-        const verticalGap = listboxRect.top - inputRect.bottom;
-        expect(Math.abs(listboxRect.left - inputRect.left)).toBeLessThanOrEqual(1);
-        expect(verticalGap).toBeGreaterThanOrEqual(0);
-        expect(verticalGap).toBeLessThanOrEqual(5);
+        const listbox = getRequiredElement<HTMLElement>('.suggestions');
+        expect(listbox.matches(':popover-open')).toBeTrue();
+        nativeInput.blur();
+        await waitForUpdatesAsync();
+        expect(listbox.matches(':popover-open')).toBeFalse();
     });
 
     it('uses an accessible listbox for autocomplete with keyboard navigation and selection', async () => {
@@ -567,6 +567,7 @@ describe('FvQueryEditor', () => {
             throw new Error('Expected the Nimble text field to contain an input');
         }
 
+        nativeInput.focus();
         nativeInput.value = 'sta';
         nativeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
@@ -575,19 +576,10 @@ describe('FvQueryEditor', () => {
         const suggestions = Array.from(menu.querySelectorAll<HTMLElement>('.suggestion'));
         expect(menu.getAttribute('role')).toBe('listbox');
         expect(suggestions.map(suggestion => suggestion.getAttribute('role'))).toEqual(['option', 'option']);
-        const listboxStyles = getComputedStyle(menu);
-        expect(listboxStyles.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
-        expect(listboxStyles.borderTopStyle).toBe('solid');
-        expect(listboxStyles.boxShadow).not.toBe('none');
-        expect(listboxStyles.padding).toBe('4px');
         expect(suggestions.map(suggestion => suggestion.querySelector('.suggestion-label')?.textContent?.trim()))
             .toEqual(['Status', 'Started at']);
-        expect(getComputedStyle(suggestions[0]!).paddingInlineStart).toBe('8px');
-        expect(getComputedStyle(suggestions[0]!).cursor).toBe('pointer');
         expect(element.activeSuggestionIndex).toBe(0);
         expect(suggestions[0]?.getAttribute('aria-selected')).toBe('true');
-        expect(getComputedStyle(suggestions[0]!).backgroundColor)
-            .not.toBe(getComputedStyle(suggestions[1]!).backgroundColor);
         expect(nativeInput.getAttribute('role')).toBe('combobox');
         expect(nativeInput.getAttribute('aria-haspopup')).toBe('listbox');
         expect(nativeInput.getAttribute('aria-expanded')).toBe('true');
@@ -2156,6 +2148,72 @@ describe('FvQueryEditor', () => {
         expect(restoredInput.value).toBe('not-a-date');
         expect(element.draft.tokens).toEqual(invalidDraft.tokens);
         expect(element.valid).toBeFalse();
+    });
+
+    [
+        { fieldId: 'duration', from: 'gt', to: 'greater-than', value: 0 },
+        { fieldId: 'status', from: 'in', to: 'is-any-of', value: ['failed', 'error'] }
+    ].forEach(testCase => {
+        it(`preserves the portable ${testCase.fieldId} value when switching compatible operators`, async () => {
+            ({ element, disconnect } = await setupPortable({
+                version: 1,
+                root: { kind: 'predicate', fieldId: testCase.fieldId, operatorId: testCase.from, value: testCase.value }
+            }));
+            getRequiredElement<HTMLElement>('[data-rule-id]').click();
+            await waitForUpdatesAsync();
+            const operator = getRequiredElement<ValueControl>('[data-control="operator"]');
+            operator.value = testCase.to;
+            operator.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            await waitForUpdatesAsync();
+
+            expect(element.valid).toBeTrue();
+            expect(element.activeRuleError).toBe('');
+            expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+                kind: 'predicate', fieldId: testCase.fieldId, operatorId: testCase.to, value: testCase.value
+            }));
+            const token = element.draft.tokens.find(candidate => candidate.kind === 'condition');
+            expect(JSON.stringify(token?.kind === 'condition' ? token.value : undefined)).toBe(JSON.stringify(testCase.value));
+        });
+    });
+
+    it('clears incompatible portable values when switching operand kinds', async () => {
+        ({ element, disconnect } = await setupPortable({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value: 500 }
+        }));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        const operator = getRequiredElement<ValueControl>('[data-control="operator"]');
+        operator.value = 'between';
+        operator.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeFalse();
+        const token = element.draft.tokens.find(candidate => candidate.kind === 'condition');
+        expect(token?.kind === 'condition' ? token.value : undefined).toBeUndefined();
+        expect(element.activeRule?.operand).toEqual({ kind: 'range', start: null, end: null });
+    });
+
+    it('preserves invalid raw input when switching compatible operators', async () => {
+        ({ element, disconnect } = await setupPortable({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'duration', operatorId: 'gt', value: 500 }
+        }));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        const input = getRequiredElement<ValueControl>('[data-control="scalar-number"]');
+        input.value = '-1';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        const operator = getRequiredElement<ValueControl>('[data-control="operator"]');
+        operator.value = 'greater-than';
+        operator.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.valid).toBeFalse();
+        expect(element.getActiveScalarValue()).toBe('-1');
+        const token = element.draft.tokens.find(candidate => candidate.kind === 'condition');
+        expect(token?.kind === 'condition' ? token.rawInputs?.['/value'] : undefined).toBe('-1');
     });
 
     it('updates the portable draft and emits null query while query text is incomplete', async () => {

@@ -968,6 +968,7 @@ export class FvQueryEditor extends FoundationElement {
         const queryInput = this.findPathElement<HTMLElement>(event, '.query-input');
         if (queryInput) {
             queryInput.dataset.focused = 'true';
+            DOM.queueUpdate(() => this.syncQueryInputAccessibility());
         }
         if (!this.activeRuleId) {
             return;
@@ -990,6 +991,7 @@ export class FvQueryEditor extends FoundationElement {
     public handleEditorFocusOut(event: Event): void {
         const queryInput = this.findPathElement<HTMLElement>(event, '.query-input');
         queryInput?.removeAttribute('data-focused');
+        DOM.queueUpdate(() => this.syncQueryInputAccessibility());
     }
 
     /** @internal */
@@ -1045,6 +1047,7 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     public override disconnectedCallback(): void {
+        this.shadowRoot?.querySelector<HTMLElement>('.suggestions')?.hidePopover();
         this.cancelOptionRequest();
         document.removeEventListener('pointerdown', this.documentPointerDownHandler, true);
         document.removeEventListener('focusin', this.documentFocusInHandler, true);
@@ -1486,18 +1489,25 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     private readonly documentPointerDownHandler = (event: Event): void => {
+        if (!event.composedPath().includes(this)) {
+            this.shadowRoot?.querySelector<HTMLElement>('.suggestions')?.hidePopover();
+        }
         if (this.activeRuleId && !event.composedPath().includes(this)) {
             this.closeEditor(false);
         }
     };
 
     private readonly documentFocusInHandler = (event: Event): void => {
+        if (!event.composedPath().includes(this)) {
+            this.shadowRoot?.querySelector<HTMLElement>('.suggestions')?.hidePopover();
+        }
         if (this.activeRuleId && !event.composedPath().includes(this)) {
             this.closeEditor(false);
         }
     };
 
     private readonly editorViewportChangeHandler = (): void => {
+        this.updateSuggestionsPopover();
         if (this.updateEditorPanelAvailableWidth(this.activeEditorTrigger)) {
             this.editorRegion?.update();
         }
@@ -1927,7 +1937,8 @@ export class FvQueryEditor extends FoundationElement {
         input.setAttribute('role', 'combobox');
         input.setAttribute('aria-autocomplete', 'list');
         input.setAttribute('aria-haspopup', 'listbox');
-        input.setAttribute('aria-expanded', String(this.suggestions.length > 0));
+        this.updateSuggestionsPopover();
+        input.setAttribute('aria-expanded', String(this.shadowRoot?.querySelector('.suggestions')?.matches(':popover-open') ?? false));
         input.setAttribute('aria-controls', this.suggestionListId);
         input.setAttribute('aria-label', this.label);
         if (this.activeSuggestionId) {
@@ -1935,6 +1946,30 @@ export class FvQueryEditor extends FoundationElement {
         } else {
             input.removeAttribute('aria-activedescendant');
         }
+    }
+
+    private updateSuggestionsPopover(): void {
+        const list = this.shadowRoot?.querySelector<HTMLElement>('.suggestions');
+        const input = this.shadowRoot?.querySelector<HTMLElement>('.query-input');
+        if (!list || !input) {
+            return;
+        }
+        const anchor = input.getBoundingClientRect();
+        if (this.disabled || this.suggestions.length === 0 || !input.hasAttribute('data-focused') || anchor.width === 0 || anchor.height === 0) {
+            list.hidePopover();
+            return;
+        }
+        list.showPopover();
+        const viewportWidth = document.documentElement.clientWidth;
+        const viewportHeight = document.documentElement.clientHeight;
+        const below = viewportHeight - anchor.bottom - 8;
+        const above = anchor.top - 8;
+        list.style.maxHeight = `${Math.max(0, Math.min(320, Math.max(above, below) - 4))}px`;
+        const bounds = list.getBoundingClientRect();
+        list.style.left = `${Math.max(8, Math.min(anchor.left, viewportWidth - bounds.width - 8))}px`;
+        list.style.top = `${below >= bounds.height + 4 || below >= above
+            ? anchor.bottom + 4
+            : anchor.top - bounds.height - 4}px`;
     }
 
     private syncQueryInputAccessibilityAfterRender(): void {
@@ -2281,8 +2316,13 @@ export class FvQueryEditor extends FoundationElement {
         }
         let updated: Extract<QueryEditorToken, { kind: 'condition' }> = { ...token, rule };
         if (this.definition && identityChanged) {
-            const { value: _value, rawInputs: _rawInputs, ...withoutInput } = updated;
-            updated = withoutInput;
+            if (token.rule.fieldId === rule.fieldId && token.rule.operand.kind === rule.operand.kind) {
+                const predicate = { ...this.createPredicate(token), operatorId: rule.operatorId };
+                updated = { ...updated, rule: { ...rule, operand: this.createRuleForPredicate(predicate).operand } };
+            } else {
+                const { value: _value, rawInputs: _rawInputs, ...withoutInput } = updated;
+                updated = withoutInput;
+            }
         } else if (this.definition) {
             const value = rawInputs
                 ? this.valueFromRawInputs(rule.fieldId, rule.operatorId, this.valueFromRule(rule), rawInputs)

@@ -5,6 +5,7 @@ import type { TableRowSelectionEventDetail } from '@ni/nimble-components/dist/es
 import { BulkEditState } from '@ni/ok-components/dist/esm/fv/bulk-edit-state';
 import type { BulkEditFieldStatus } from '@ni/ok-components/dist/esm/fv/bulk-edit-field/types';
 import type { CommitMessage } from '@ni/ok-components/dist/esm/fv/edit-commit-bar';
+import type { QueryBuilderDefinition, QueryBuilderSavedQuery, QueryBuilderSaveHandler, QueryBuilderDeleteHandler, QueryDocument, QueryNode } from '@ni/ok-components/dist/esm/fv/query-builder';
 
 export const fields = [
     { key: 'name', label: 'Name', section: 'General' },
@@ -51,7 +52,26 @@ export class AssetInventory {
     @observable public declare records: Asset[];
     @observable public declare state: BulkEditState<Asset, Field>;
     @observable public declare search: string;
-    @observable public declare statusFilter: string;
+    @observable public declare appliedQuery: QueryDocument;
+    @observable public savedQueries: readonly QueryBuilderSavedQuery[] = [
+        {
+            id: 'available-assets',
+            name: 'Available assets',
+            document: {
+                version: 1,
+                root: { kind: 'predicate', fieldId: 'status', operatorId: 'is', value: 'Available' }
+            }
+        },
+        {
+            id: 'battery-lab-assets',
+            name: 'Battery Lab assets',
+            document: {
+                version: 1,
+                root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'is', value: 'Battery Lab' }
+            }
+        }
+    ];
+
     @observable public declare collapsed: boolean;
     @observable public declare editMode: boolean;
     @observable public declare failNextSave: boolean;
@@ -62,18 +82,37 @@ export class AssetInventory {
     public dialog!: Dialog<boolean>;
     public readonly fields: readonly FieldDefinition[] = fields;
     public readonly sections = ['General', 'Properties'];
+    public readonly queryDefinition: QueryBuilderDefinition = {
+        version: 1,
+        fields: this.fields.map((field): QueryBuilderDefinition['fields'][number] => ({
+            id: field.key,
+            path: `/${field.key}`,
+            label: field.label,
+            valueSchema: field.options
+                ? { oneOf: field.options.map(value => ({ const: value, title: value })) }
+                : { type: 'string' },
+            operatorIds: field.options ? ['is', 'is-not'] : ['is', 'is-not', 'contains'],
+            ...(field.options ? { editor: { kind: 'select' } } : {})
+        })),
+        operators: [
+            { id: 'is', label: 'Is', operand: { kind: 'field-value' } },
+            { id: 'is-not', label: 'Is not', operand: { kind: 'field-value' } },
+            { id: 'contains', label: 'Contains', operand: { kind: 'field-value' } }
+        ]
+    };
 
     private initialized = false;
     private confirming = false;
     private additiveRange = false;
     private updates = Promise.resolve();
     private visibleIds: readonly string[] = [];
+    private nextQueryId = 0;
 
     public constructor() {
         this.records = createAssets();
         this.state = this.createState();
         this.search = '';
-        this.statusFilter = '';
+        this.appliedQuery = { version: 1, root: null };
         this.collapsed = false;
         this.editMode = true;
         this.failNextSave = false;
@@ -81,9 +120,28 @@ export class AssetInventory {
         this.busy = false;
     }
 
+    public readonly saveQuery: QueryBuilderSaveHandler = async request => {
+        await Promise.resolve();
+        if (request.kind === 'create') {
+            this.nextQueryId += 1;
+        }
+        const saved: QueryBuilderSavedQuery = {
+            id: request.id ?? `asset-query-${this.nextQueryId}`,
+            name: request.name,
+            document: structuredClone(request.document)
+        };
+        this.savedQueries = [...this.savedQueries.filter(query => query.id !== saved.id), saved];
+        return structuredClone(saved);
+    };
+
+    public readonly deleteQuery: QueryBuilderDeleteHandler = async id => {
+        await Promise.resolve();
+        this.savedQueries = this.savedQueries.filter(query => query.id !== id);
+    };
+
     public get visibleRecords(): readonly Asset[] {
         const query = this.search.trim().toLowerCase();
-        return this.records.filter(record => (!this.statusFilter || record.status === this.statusFilter)
+        return this.records.filter(record => (this.appliedQuery.root === null || this.matchesQuery(record, this.appliedQuery.root))
             && (!query || Object.values(record).some(value => value.toLowerCase().includes(query))));
     }
 
@@ -164,13 +222,14 @@ export class AssetInventory {
         return true;
     }
 
-    public filter(event: Event, status = false): boolean {
-        const value = (event.target as HTMLInputElement).value;
-        if (status) {
-            this.statusFilter = value;
-        } else {
-            this.search = value;
-        }
+    public filter(event: Event): boolean {
+        this.search = (event.target as HTMLInputElement).value;
+        this.refresh();
+        return true;
+    }
+
+    public applyQuery(event: CustomEvent<{ readonly query: QueryDocument }>): boolean {
+        this.appliedQuery = structuredClone(event.detail.query);
         this.refresh();
         return true;
     }
@@ -252,6 +311,29 @@ export class AssetInventory {
             this.collapsed = false;
             this.message = { severity: 'error', text: `Unable to update the table: ${String(error)}` };
         });
+    }
+
+    private matchesQuery(record: Asset, node: QueryNode): boolean {
+        if (node.kind === 'group') {
+            return node.combinator === 'and'
+                ? node.children.every(child => this.matchesQuery(record, child))
+                : node.children.some(child => this.matchesQuery(record, child));
+        }
+        const field = this.fields.find(candidate => candidate.key === node.fieldId);
+        if (!field || typeof node.value !== 'string') {
+            throw new Error('The asset filter requires a known field and a string value.');
+        }
+        const value = record[field.key];
+        switch (node.operatorId) {
+            case 'is':
+                return value === node.value;
+            case 'is-not':
+                return value !== node.value;
+            case 'contains':
+                return value.toLowerCase().includes(node.value.toLowerCase());
+            default:
+                throw new Error(`Unsupported asset filter operator: ${node.operatorId}`);
+        }
     }
 
     private changed(): void {

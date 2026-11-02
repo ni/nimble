@@ -9,6 +9,8 @@ The query builder combines the query editor with saved queries, Nigel assistance
 
 The split button shows **Configure query** when no saved query is selected, or the selected saved query's name. Its primary button opens a popover with query conditions, Nigel assistance, and Apply, Cancel, and Done buttons. This view has no name field or save and delete actions. The dropdown button opens the saved-query menu. **Edit saved query** and **Create saved query** open a popover with a name field and save actions. Both views use the same draft.
 
+Place the query builder directly in an application toolbar or a toolbar slot. It sizes to its split button and has no internal toolbar, surrounding border, or toolbar padding. The containing toolbar controls spacing and alignment. The query popover is at most 600px wide, stays within the viewport, and can open above the split button when space below is limited. Its contents scroll when necessary. Footer actions stay together and wrap below the secondary actions only when they no longer fit beside them.
+
 <Canvas of={queryBuilderStories.configurable} />
 <Controls of={queryBuilderStories.configurable} />
 
@@ -22,7 +24,9 @@ Enable `aiPreview` to show a sample generated query. Sending a Nigel prompt also
 
 ## Visual tests
 
-The [builder state matrix](?path=/story/tests-ok-fv-query-builder--states-theme-matrix) and [feature matrix](?path=/story/tests-ok-fv-query-builder--features-theme-matrix) test the builder across themes and backgrounds. The [editor operand matrix](?path=/story/tests-ok-fv-query-editor--operands-theme-matrix) shows open condition popovers for conditions without values, booleans, collections, ranges, array members, and custom-property values.
+The [builder state matrix](?path=/story/tests-ok-fv-query-builder--states-theme-matrix), [editor feature matrix](?path=/story/tests-ok-fv-query-builder--features-theme-matrix), and [menu feature matrix](?path=/story/tests-ok-fv-query-builder--menu-features-theme-matrix) test the builder across themes and backgrounds. The [editor operand matrix](?path=/story/tests-ok-fv-query-editor--operands-theme-matrix) shows open condition popovers for conditions without values, booleans, collections, ranges, array members, and custom-property values.
+
+The builder matrices use two columns and separate menu and editor configurations to keep snapshots below 16,000 CSS pixels high. Popovers stay beside their examples rather than locking to the browser viewport. With Storybook running, use `node packages/storybook/src/ok/fv/query-builder/test-query-stories.mjs` from the repository root to check story completion, selected-query state, popover containment, and capture dimensions. Pass a base URL as the first argument to test a production build.
 
 ## Portable data contract
 
@@ -111,7 +115,7 @@ builder.allowSavedQueryEditing = false;
 builder.allowSavedQueryDeletion = false;
 ```
 
-Switching queries keeps the draft for the query you leave. **Save** saves a query without applying it or closing the popover. **Apply** validates the draft and emits `query-apply` with the query document and selected saved-query ID (`undefined` for Current query). It also leaves the popover open.
+Switching queries keeps the draft for the query you leave and automatically applies the selected query's draft if it is valid, including when returning to **Current query**. An incomplete or invalid draft remains available for editing without changing the applied query. **Save** saves a query without applying it or closing the popover. **Apply** validates the draft and emits `query-apply` with the query document and selected saved-query ID (`undefined` for Current query). It also leaves the popover open.
 
 **Done** closes the popover without saving, applying, or discarding drafts. It is not shown when editing a saved query. **Cancel** restores the last applied query document and selection. It does not undo completed saves or discard drafts for other saved queries.
 
@@ -129,7 +133,7 @@ The query editor controls the appearance of condition chips and AND/OR controls.
 
 ## Accessibility
 
-Both buttons in the Queries split button support keyboard interaction. The dropdown menu has an accessible name and identifies the selected query. The query popover is a nonmodal dialog below the toolbar. The saved-query view has a visible label for the name field, and **Ask Nigel** exposes whether the prompt is expanded in either view.
+Both buttons in the Queries split button support keyboard interaction. They are in a named group rather than a nested toolbar. The dropdown menu has an accessible name and identifies the selected query. The query popover is a nonmodal dialog anchored to the split button. The saved-query view has a visible label for the name field, and **Ask Nigel** exposes whether the prompt is expanded in either view.
 
 Unsaved-change indicators include accessible text. The builder announces save and delete errors. The primary button focuses the query input; **Edit saved query** and **Create saved query** focus the name field. Dismissing the popover returns focus to the primary button. Within the query editor, condition popovers and select dropdowns handle Escape separately from the query popover.
 

@@ -106,3 +106,22 @@ valueDropdownThemeMatrix.play = async context => {
     }
     await waitForUpdatesAsync();
 };
+
+export const autocompleteThemeMatrix: StoryFn = createMatrixThemeStory(html`
+    ${disableStorybookZoomTransform}
+    ${component('Field autocomplete', queryEditorPresets.empty)}
+    ${component('Logical operator autocomplete', queryEditorPresets.basic)}
+`);
+autocompleteThemeMatrix.play = async ({ canvasElement }) => {
+    await waitForUpdatesAsync();
+    for (const editor of canvasElement.querySelectorAll<FvQueryEditor>(fvQueryEditorTag)) {
+        const input = editor.shadowRoot?.querySelector<HTMLElement>('.query-input');
+        if (!input) {
+            throw new Error('Matrix query input was not rendered.');
+        }
+        // Inert cells cannot take focus, but each autocomplete needs a focused input.
+        input.dataset.focused = 'true';
+        editor.queryInputText = editor.query.root ? 'AND' : 'sta';
+    }
+    await waitForUpdatesAsync();
+};

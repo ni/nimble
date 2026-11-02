@@ -92,6 +92,17 @@ The example uses 120 in-memory records and `BulkEditState`. It covers selection
 read-only mode, collapse, and pointer/keyboard resizing. “Fail next save” is
 demo-only.
 
+The query builder filters asset fields with Is, Is not, and, for text fields,
+Contains. Combine conditions with AND, OR, and groups, then choose Apply to
+filter the table. Text search further narrows the results. Editing or canceling
+a query does not change the applied filter, and filtering preserves selected
+rows and pending bulk edits, including rows hidden by the filter. Apply an empty
+query to remove the query filter. The saved-query menu starts with Available
+assets and Battery Lab assets. Selecting a query applies it immediately when its
+draft is valid. Create, update, and delete saved queries using
+in-memory handlers; reloading the story restores the initial queries. Saving a
+query does not apply it to the table. Nigel assistance is disabled.
+
 <Canvas of={bulkEditPatternStories.splitPaneBulkEdit} />
 
 With Storybook running, run this from the repository root:
