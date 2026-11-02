@@ -1,38 +1,34 @@
-import { Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
 import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import * as queryEditorStories from './fv-query-editor.stories';
 
 <Meta of={queryEditorStories} />
 <Title of={queryEditorStories} />
 
-An independently usable inline query editor for field conditions, AND/OR operators, and parenthesized filter groups. This Storybook surface is used to refine its visual and keyboard interactions before the editor is composed into the query builder.
+The query editor lets users edit conditions, combine them with AND or OR, and group them with parentheses. Use it on its own or within the query builder.
 
-Use the **Controls** panel to configure the editor label, disabled state, default field, layout, field/operator definition, and query document.
+Use the Controls panel to change the label, disabled state, default field, layout, and field and operator definition. Select `preset` to choose an empty, grouped, invalid, complex, or deeply nested query. Set `query` to override the preset with a custom query document.
 
 <Canvas of={queryEditorStories.configurable} />
+<Controls of={queryEditorStories.configurable} />
 
 ## States
 
-Condition callouts scroll when their height is constrained. Value dropdowns can extend beyond the callout border without being clipped, including in Safari.
+Condition popovers scroll when their height is constrained. Value dropdowns can extend beyond the popover border without being clipped, including in Safari.
 
-<Canvas of={queryEditorStories.valueDropdown} />
-
-### Multiselect values
-
-<Canvas of={queryEditorStories.multiselect} />
-
-<Canvas of={queryEditorStories.empty} />
-<Canvas of={queryEditorStories.grouped} />
+The [state matrix](?path=/story/tests-ok-fv-query-editor--states-theme-matrix) tests query presets, layouts, and disabled states across themes and backgrounds. The [operand matrix](?path=/story/tests-ok-fv-query-editor--operands-theme-matrix) shows open condition popovers, including multiselect values. The [value dropdown matrix](?path=/story/tests-ok-fv-query-editor--value-dropdown-theme-matrix) tests dropdowns that extend outside the condition popover.
 
 ## Formatted layout
 
-Set `layout` to `"formatted"` to put each condition on its own aligned row and indent grouped conditions. Nested groups continue indenting through four levels (`MAX_QUERY_GROUP_DEPTH`). Switching `layout` changes presentation only; the query and draft are preserved. The default `"inline"` layout is unchanged.
+Set `layout` to `"formatted"` to put each condition on its own row and indent grouped conditions. Groups can nest through four levels (`MAX_QUERY_GROUP_DEPTH`). Changing the layout does not change the query or draft. The default layout is `"inline"`.
 
-<Canvas of={queryEditorStories.formatted} />
+Select `layout: formatted` and `preset: deeplyNested` in Controls to see nested indentation.
 
 ## Data and events
 
-`definition`, `query`, and `draft` are property-only values. The definition declares stable field IDs and JSON Pointer paths, JSON Schemas for values, allowed operators, and optional editor configuration. The query is a versioned recursive document with a maximum nested-group depth of `MAX_QUERY_GROUP_DEPTH`; the draft is a versioned token snapshot that can also preserve unfinished text inputs. The portable contract is the editor's only API; it has no adapter for the removed grouped-query shape.
+Set `definition`, `query`, and `draft` as JavaScript properties, not HTML attributes. The definition specifies stable field IDs, JSON Pointer paths, JSON Schemas for values, allowed operators, and optional editor configuration.
+
+A query is a versioned document that can contain nested groups up to `MAX_QUERY_GROUP_DEPTH`. A draft is a versioned sequence of tokens that also preserves unfinished input. The editor uses these formats directly and has no adapter for legacy grouped-query data.
 
 ```ts
 import {
@@ -76,11 +72,13 @@ editor.addEventListener('query-change', event => {
 });
 ```
 
-`query-change` fires for user edits with a detached snapshot. `query` is a validated document when the edit is complete and `null` while the draft is incomplete or invalid; `draft` remains the source of truth and can be reassigned to restore an unfinished expression. Draft tokens retain numeric/date input text in `rawInputs`, so invalid intermediate keystrokes are not lost. Programmatic property changes do not emit `query-change`.
+The `query-change` event includes a copy of the user's draft. Its `query` field contains a validated query document when the draft is complete, or `null` when it is incomplete or invalid. Use the `draft` field to preserve unfinished edits, and assign it to the editor's `draft` property to restore them. Draft tokens keep number and date input text in `rawInputs`, including intermediate input that is not yet valid. Setting properties programmatically does not emit `query-change`.
 
-The `issues` property and `validity-change` event report definition, query, and draft errors. `configuration-error` reports an invalid definition. Dynamic options are supplied through `optionResolver`; each select or combobox `optionsSource` includes a host-defined `sourceId`, optional dependencies, search support, and page size. The resolver receives those dependent values and an `AbortSignal`; `options-state-change` reports loading, ready, blocked, and error states, while `options-error` reports failures.
+The `issues` property and `validity-change` event report errors in the definition, query, or draft. The `configuration-error` event reports an invalid definition.
 
-For dynamic values, keep the source lookup in the host and pass only its identifier and dependencies in the definition:
+Use `optionResolver` to load options dynamically. Each select or combobox `optionsSource` specifies a host-defined `sourceId`, optional dependencies, search support, and page size. The resolver receives the dependency values and an `AbortSignal`. The `options-state-change` event reports loading, ready, blocked, and error states; `options-error` reports failures.
+
+The host application looks up dynamic options. The definition identifies the source and its dependencies:
 
 ```ts
 import type { QueryOptionPage, QueryOptionRequest } from '@ni/ok-components/dist/esm/fv/query-editor';
@@ -116,12 +114,14 @@ editor.optionResolver = {
 };
 ```
 
-`searchWorkspaces` is a host function that returns a `QueryOptionPage`. The resolver receives `sourceId`, field/operator IDs, the required dependent values, optional search text and cursor, and an abort signal. Changing context or search cancels the previous request; resolver failures can be retried without invalidating an otherwise valid document.
+In this example, the host application's `searchWorkspaces` function returns a `QueryOptionPage`. The resolver receives `sourceId`, field and operator IDs, required dependency values, optional search text and cursor, and an abort signal. Changing the context or search cancels the previous request. Users can retry a failed request without invalidating an otherwise valid query document.
 
-The editor does not apply queries or provide saved-query, AI, or footer workflows. It is not a drop-in Stratus query-builder replacement: applications must map field/operator and query shapes themselves, including preserving datetime semantics. The editor does not generate Stratus filter objects or LINQ.
+The editor does not apply queries or include saved queries, Nigel assistance, or footer actions. Use the query builder for those features.
+
+The editor is not a drop-in replacement for the Stratus query builder. Applications must translate their fields, operators, and query formats and preserve datetime semantics. The editor does not generate Stratus filter objects or LINQ.
 
 ## Accessibility
 
-Conditions are keyboard-activatable expandable chips. The inline query control supports token navigation and deletion, field and logic autocomplete, and visible validation for incomplete grouping and conditions. The editor popover returns focus to its chip when dismissed with Done or Escape.
+Users can open condition chips with the keyboard. The query input supports token navigation and deletion, field and logical-operator autocomplete, and visible validation for incomplete groups and conditions. Closing a condition popover with **Done** or Escape returns focus to its chip.
 
 <ComponentApisLink />

@@ -9,6 +9,7 @@ import {
     fvQueryBuilderTag,
     type QueryBuilderDefinition,
     type QueryBuilderSavedQuery,
+    type QueryBuilderSaveRequest,
     type QueryDocument
 } from '..';
 
@@ -409,6 +410,139 @@ describe('FvQueryBuilder', () => {
         expect(element.queryEditor?.query).toEqual(secondSavedDocument);
         expect(popover.querySelector('.ai-preview-notice')).toBeNull();
         expect(popover.hasAttribute('hidden')).toBeFalse();
+    });
+
+    it('hides Nigel prompt and generated preview when disabled', async () => {
+        ({ element, disconnect } = await setup());
+        expect(element.showNigelPrompt).toBeTrue();
+        const toggle = getRequiredElement<HTMLElement>('[data-action="toggle-ai-prompt"]');
+        toggle.click();
+        await waitForUpdatesAsync();
+        element.aiQueryPreview = secondSavedDocument;
+        let requestFired = false;
+        element.addEventListener('query-ai-request', () => {
+            requestFired = true;
+        });
+        element.showNigelPrompt = false;
+        await waitForUpdatesAsync();
+        element.handleAiPromptSend(new CustomEvent('send', { detail: { text: 'ignored prompt' } }));
+
+        expect(element.shadowRoot?.querySelector('[data-action="toggle-ai-prompt"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('.ai-prompt-content')).toBeNull();
+        expect(element.shadowRoot?.querySelector('.ai-preview-notice')).toBeNull();
+        expect(element.isAiPromptOpen).toBeFalse();
+        expect(requestFired).toBeFalse();
+    });
+
+    it('keeps saved-query creation available while existing-query editing is disabled', async () => {
+        ({ element, disconnect } = await setup());
+        expect(element.allowSavedQueryEditing).toBeTrue();
+        expect(element.allowSavedQueryDeletion).toBeTrue();
+        await selectSavedQuery('saved-a');
+        element.allowSavedQueryEditing = false;
+        await waitForUpdatesAsync();
+        await openSavedMenu();
+
+        expect(element.shadowRoot?.querySelector('[data-action="update-saved-query"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="edit-saved-queries"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="save-as-new"]')).not.toBeNull();
+    });
+
+    it('hides creation actions without disabling the quick query editor', async () => {
+        ({ element, disconnect } = await setup(false));
+        expect(element.allowSavedQueryCreation).toBeTrue();
+        element.allowSavedQueryCreation = false;
+        await waitForUpdatesAsync();
+        await openSavedMenu();
+
+        expect(element.shadowRoot?.querySelector('[data-action="save-as-new"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="edit-saved-queries"]')).toBeNull();
+        element.openQuickEditor();
+        await waitForUpdatesAsync();
+        expect(element.isManagerOpen).toBeTrue();
+        expect(element.isQuickEdit).toBeTrue();
+        expect(element.queryEditor?.query).toEqual(currentDocument);
+    });
+
+    it('preserves the query draft when creation is disabled with the create form open', async () => {
+        ({ element, disconnect } = await setup());
+        element.allowSavedQueryCreation = false;
+        await waitForUpdatesAsync();
+
+        expect(element.isManagerOpen).toBeFalse();
+        element.openQuickEditor();
+        await waitForUpdatesAsync();
+        expect(element.queryEditor?.query).toEqual(currentDocument);
+    });
+
+    it('keeps existing-query updates available when creation is disabled', async () => {
+        ({ element, disconnect } = await setup());
+        await selectSavedQuery('saved-a');
+        element.allowSavedQueryCreation = false;
+        const saveHandler = jasmine.createSpy('saveHandler').and.callFake(async (request: QueryBuilderSaveRequest) => {
+            await Promise.resolve();
+            return { id: request.id!, name: request.name, document: request.document };
+        });
+        element.saveHandler = saveHandler;
+        const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
+        name.value = 'Updated saved query';
+        name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.canSaveChanges).toBeTrue();
+        getRequiredElement<HTMLElement>('[data-action="save-query"]').click();
+        await waitForUpdatesAsync();
+
+        expect(saveHandler).toHaveBeenCalledTimes(1);
+        expect(saveHandler.calls.mostRecent().args[0]).toEqual(jasmine.objectContaining({ kind: 'update' }));
+    });
+
+    it('blocks create actions and save requests when creation is disabled', async () => {
+        ({ element, disconnect } = await setup(false));
+        const saveHandler = jasmine.createSpy('saveHandler');
+        element.saveHandler = saveHandler;
+        element.allowSavedQueryCreation = false;
+        await waitForUpdatesAsync();
+        const action = document.createElement('button');
+        getRequiredElement<HTMLElement>('.query-builder').append(action);
+        action.dataset.action = 'save-as-new';
+        action.click();
+        expect(element.isManagerOpen).toBeFalse();
+        action.dataset.action = 'edit-saved-queries';
+        action.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        expect(element.isManagerOpen).toBeFalse();
+
+        element.isCreatingSavedQuery = true;
+        element.savedQueryName = 'Blocked query';
+        action.dataset.action = 'save-query';
+        action.click();
+        await waitForUpdatesAsync();
+        expect(element.canSave).toBeFalse();
+        expect(saveHandler).not.toHaveBeenCalled();
+    });
+
+    it('closes the saved-query editor when editing is disabled at runtime', async () => {
+        ({ element, disconnect } = await setup());
+        await selectSavedQuery('saved-a');
+        await openSavedMenu();
+        await activateSavedMenuItem('[data-action="edit-saved-queries"]');
+        element.allowSavedQueryEditing = false;
+        await waitForUpdatesAsync();
+
+        expect(element.isManagerOpen).toBeFalse();
+    });
+
+    it('hides saved-query deletion when disabled', async () => {
+        ({ element, disconnect } = await setup());
+        await selectSavedQuery('saved-a');
+        await openSavedMenu();
+        await activateSavedMenuItem('[data-action="edit-saved-queries"]');
+        element.confirmingDelete = true;
+        element.allowSavedQueryDeletion = false;
+        await waitForUpdatesAsync();
+
+        expect(element.confirmingDelete).toBeFalse();
+        expect(element.shadowRoot?.querySelector('[data-action="request-delete"]')).toBeNull();
+        expect(element.shadowRoot?.querySelector('[data-action="confirm-delete"]')).toBeNull();
     });
 
     it('closes the query popover on Escape without discarding saved-query edits', async () => {

@@ -86,23 +86,30 @@ export const template = html<FvQueryBuilder>`
                         <${menuItemTag} disabled>${x => x.labels.noSavedQueries}</${menuItemTag}>
                     `)}
                     <hr role="separator">
-                    <${menuItemTag}
-                        role="menuitem"
-                        data-action="save-as-new"
-                        ?disabled="${x => x.isEditorDisabled || !x.saveHandler}"
-                    >${x => x.labels.saveAsNew}</${menuItemTag}>
-                    ${when(x => x.selectedQueryIsDirty, html<FvQueryBuilder>`
+                    ${when(x => x.allowSavedQueryCreation, html<FvQueryBuilder>`
+                        <${menuItemTag}
+                            role="menuitem"
+                            data-action="save-as-new"
+                            ?disabled="${x => x.isEditorDisabled || !x.saveHandler}"
+                        >${x => x.labels.saveAsNew}</${menuItemTag}>
+                    `)}
+                    ${when(x => x.allowSavedQueryEditing && x.selectedQueryIsDirty, html<FvQueryBuilder>`
                         <${menuItemTag}
                             role="menuitem"
                             data-action="update-saved-query"
                             ?disabled="${x => !x.canSaveChanges}"
                         >${x => x.labels.updateSavedQuery}</${menuItemTag}>
                     `)}
-                    <${menuItemTag}
-                        role="menuitem"
-                        data-action="edit-saved-queries"
-                        ?disabled="${x => x.disabled}"
-                    >${x => x.labels.editSavedQueries}</${menuItemTag}>
+                    ${when(
+                        x => (x.selectedSavedQueryId === null ? x.allowSavedQueryCreation : x.allowSavedQueryEditing),
+                        html<FvQueryBuilder>`
+                            <${menuItemTag}
+                                role="menuitem"
+                                data-action="edit-saved-queries"
+                                ?disabled="${x => x.disabled}"
+                            >${x => x.labels.editSavedQueries}</${menuItemTag}>
+                        `
+                    )}
                 </${menuTag}>
             </${fvSplitButtonTag}>
         </div>
@@ -160,37 +167,39 @@ export const template = html<FvQueryBuilder>`
                                 `)}
                             </div>
                         `)}
-                        <div class="ai-prompt-toggle-row">
-                            <${buttonTag}
-                                class="ai-prompt-toggle"
-                                appearance="ghost"
-                                data-action="toggle-ai-prompt"
-                                ${ref('aiPromptTrigger')}
-                                ?disabled="${x => x.isEditorDisabled}"
-                                aria-expanded="${x => String(x.isAiPromptOpen)}"
-                                aria-controls="${x => x.aiDialogId}"
+                        ${when(x => x.showNigelPrompt, html<FvQueryBuilder>`
+                            <div class="ai-prompt-toggle-row">
+                                <${buttonTag}
+                                    class="ai-prompt-toggle"
+                                    appearance="ghost"
+                                    data-action="toggle-ai-prompt"
+                                    ${ref('aiPromptTrigger')}
+                                    ?disabled="${x => x.isEditorDisabled}"
+                                    aria-expanded="${x => String(x.isAiPromptOpen)}"
+                                    aria-controls="${x => x.aiDialogId}"
+                                >
+                                    <${iconSparklesTag} slot="start"></${iconSparklesTag}>${x => x.labels.askAi}
+                                </${buttonTag}>
+                            </div>
+                            <section
+                                class="ai-prompt-content"
+                                id="${x => x.aiDialogId}"
+                                aria-label="${x => x.labels.askAi}"
+                                ?hidden="${x => !x.isAiPromptOpen}"
                             >
-                                <${iconSparklesTag} slot="start"></${iconSparklesTag}>${x => x.labels.askAi}
-                            </${buttonTag}>
-                        </div>
-                        <section
-                            class="ai-prompt-content"
-                            id="${x => x.aiDialogId}"
-                            aria-label="${x => x.labels.askAi}"
-                            ?hidden="${x => !x.isAiPromptOpen}"
-                        >
-                            <${chatInputTag}
-                                class="ai-prompt-input"
-                                data-control="ai-prompt"
-                                aria-label="${x => x.labels.aiPromptDescription}"
-                                placeholder="${x => x.labels.aiPromptPlaceholder}"
-                                ?inert="${x => x.isEditorDisabled}"
-                                @send="${(x, c) => x.handleAiPromptSend(c.event)}"
-                            ></${chatInputTag}>
-                        </section>
+                                <${chatInputTag}
+                                    class="ai-prompt-input"
+                                    data-control="ai-prompt"
+                                    aria-label="${x => x.labels.aiPromptDescription}"
+                                    placeholder="${x => x.labels.aiPromptPlaceholder}"
+                                    ?inert="${x => x.isEditorDisabled}"
+                                    @send="${(x, c) => x.handleAiPromptSend(c.event)}"
+                                ></${chatInputTag}>
+                            </section>
+                        `)}
                     </div>
 
-                    ${when(x => Boolean(x.aiQueryPreview), html<FvQueryBuilder>`
+                    ${when(x => x.showNigelPrompt && Boolean(x.aiQueryPreview), html<FvQueryBuilder>`
                         <div class="ai-preview-notice" role="status">
                             <span>${x => x.labels.aiPreviewReady}</span>
                             <${buttonTag} appearance="outline" data-action="use-ai-preview" ?disabled="${x => x.isEditorDisabled}">
@@ -218,7 +227,7 @@ export const template = html<FvQueryBuilder>`
                     <${buttonTag} appearance="ghost" data-action="clear-query" ?disabled="${x => x.isEditorDisabled}">
                         ${x => x.labels.clearAll}
                     </${buttonTag}>
-                        ${when(x => !x.isQuickEdit && x.selectedSavedQueryId !== null && !x.isCreatingSavedQuery, html<FvQueryBuilder>`
+                        ${when(x => x.allowSavedQueryDeletion && !x.isQuickEdit && x.selectedSavedQueryId !== null && !x.isCreatingSavedQuery, html<FvQueryBuilder>`
                             ${when(x => !x.confirmingDelete, html<FvQueryBuilder>`
                                 <${buttonTag}
                                     appearance="ghost"

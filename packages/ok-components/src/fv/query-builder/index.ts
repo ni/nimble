@@ -132,6 +132,22 @@ export class FvQueryBuilder extends FoundationElement {
     @attr({ mode: 'boolean' })
     public disabled = false;
 
+    /** Controls whether the Nigel prompt and generated-query preview are shown. */
+    @attr({ attribute: 'show-nigel-prompt', mode: 'boolean' })
+    public showNigelPrompt = true;
+
+    /** Controls whether new saved queries can be created. */
+    @attr({ attribute: 'allow-saved-query-creation', mode: 'boolean' })
+    public allowSavedQueryCreation = true;
+
+    /** Controls editing and updating existing saved queries. */
+    @attr({ attribute: 'allow-saved-query-editing', mode: 'boolean' })
+    public allowSavedQueryEditing = true;
+
+    /** Controls whether saved queries can be deleted. */
+    @attr({ attribute: 'allow-saved-query-deletion', mode: 'boolean' })
+    public allowSavedQueryDeletion = true;
+
     @attr
     public label = 'Filters';
 
@@ -276,13 +292,17 @@ export class FvQueryBuilder extends FoundationElement {
 
     public get canSave(): boolean {
         return !this.isEditorDisabled
+            && (!this.isCreatingSavedQuery || this.allowSavedQueryCreation)
             && Boolean(this.saveHandler)
             && this.savedQueryName.trim().length > 0
             && this.valid;
     }
 
     public get canSaveChanges(): boolean {
-        return this.canSave && !this.isCreatingSavedQuery && this.selectedQueryIsDirty;
+        return this.allowSavedQueryEditing
+            && this.canSave
+            && !this.isCreatingSavedQuery
+            && this.selectedQueryIsDirty;
     }
 
     public get isEditorDisabled(): boolean {
@@ -348,6 +368,40 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     /** @internal */
+    public showNigelPromptChanged(): void {
+        if (!this.showNigelPrompt) {
+            this.closeAiPrompt(false);
+        }
+    }
+
+    /** @internal */
+    public allowSavedQueryCreationChanged(): void {
+        if (!this.allowSavedQueryCreation && this.isCreatingSavedQuery && !this.isQuickEdit) {
+            this.closeManager(false);
+        }
+    }
+
+    /** @internal */
+    public allowSavedQueryEditingChanged(): void {
+        if (
+            !this.allowSavedQueryEditing
+            && this.selectedSavedQueryId !== null
+            && this.isManagerOpen
+            && !this.isQuickEdit
+            && !this.isCreatingSavedQuery
+        ) {
+            this.closeManager(false);
+        }
+    }
+
+    /** @internal */
+    public allowSavedQueryDeletionChanged(): void {
+        if (!this.allowSavedQueryDeletion) {
+            this.confirmingDelete = false;
+        }
+    }
+
+    /** @internal */
     public handleInput(event: Event): void {
         const control = this.findControl(event);
         if (control?.dataset.control === 'saved-query-name') {
@@ -359,6 +413,9 @@ export class FvQueryBuilder extends FoundationElement {
 
     /** @internal */
     public handleAiPromptSend(event: Event): void {
+        if (!this.showNigelPrompt) {
+            return;
+        }
         this.requestAiQuery((event as CustomEvent<ChatInputSendEventDetail>).detail.text);
     }
 
@@ -375,6 +432,9 @@ export class FvQueryBuilder extends FoundationElement {
         }
         switch (action) {
             case 'toggle-ai-prompt':
+                if (!this.showNigelPrompt) {
+                    break;
+                }
                 this.closeSavedMenu(false);
                 if (this.isAiPromptOpen) {
                     this.closeAiPrompt(true);
@@ -397,10 +457,14 @@ export class FvQueryBuilder extends FoundationElement {
                 this.openCreateForm();
                 break;
             case 'update-saved-query':
-                void this.saveQuery();
+                if (this.allowSavedQueryEditing) {
+                    void this.saveQuery();
+                }
                 break;
             case 'edit-saved-queries':
-                this.openManager();
+                if (this.selectedSavedQueryId === null ? this.allowSavedQueryCreation : this.allowSavedQueryEditing) {
+                    this.openManager();
+                }
                 break;
             case 'save-query':
                 void this.saveQuery();
@@ -412,14 +476,18 @@ export class FvQueryBuilder extends FoundationElement {
                 this.closeManager(true);
                 break;
             case 'request-delete':
-                this.confirmingDelete = true;
-                this.operationError = '';
+                if (this.allowSavedQueryDeletion) {
+                    this.confirmingDelete = true;
+                    this.operationError = '';
+                }
                 break;
             case 'cancel-delete':
                 this.confirmingDelete = false;
                 break;
             case 'confirm-delete':
-                void this.deleteSelectedQuery();
+                if (this.allowSavedQueryDeletion) {
+                    void this.deleteSelectedQuery();
+                }
                 break;
             case 'apply-query':
                 this.applyQuery();
@@ -624,7 +692,7 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     private openCreateForm(): void {
-        if (!this.saveHandler || this.isEditorDisabled) {
+        if (!this.allowSavedQueryCreation || !this.saveHandler || this.isEditorDisabled) {
             return;
         }
         this.closeSavedMenu(false);
@@ -689,7 +757,15 @@ export class FvQueryBuilder extends FoundationElement {
         const handler = this.saveHandler;
         const document = this.queryEditor?.query;
         const name = this.savedQueryName.trim();
-        if (!handler || this.isOperationPending || name.length === 0 || !document || !this.validate()) {
+        if (
+            !handler
+            || this.isOperationPending
+            || (this.isCreatingSavedQuery && !this.allowSavedQueryCreation)
+            || (!this.isCreatingSavedQuery && !this.allowSavedQueryEditing)
+            || name.length === 0
+            || !document
+            || !this.validate()
+        ) {
             this.operationError = name.length === 0 ? this.labels.nameRequired : '';
             return;
         }
@@ -741,7 +817,7 @@ export class FvQueryBuilder extends FoundationElement {
     private async deleteSelectedQuery(): Promise<void> {
         const id = this.selectedSavedQueryId;
         const handler = this.deleteHandler;
-        if (!id || !handler || this.isOperationPending) {
+        if (!this.allowSavedQueryDeletion || !id || !handler || this.isOperationPending) {
             return;
         }
         this.isOperationPending = true;
@@ -826,7 +902,7 @@ export class FvQueryBuilder extends FoundationElement {
 
     private requestAiQuery(promptText: string): void {
         const prompt = promptText.trim();
-        if (this.isEditorDisabled || prompt.length === 0) {
+        if (!this.showNigelPrompt || this.isEditorDisabled || prompt.length === 0) {
             return;
         }
         const query = this.queryEditor?.valid ? cloneDocument(this.queryEditor.query) : null;
@@ -844,7 +920,7 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     private useAiQueryPreview(): void {
-        if (!this.aiQueryPreview || this.isEditorDisabled) {
+        if (!this.showNigelPrompt || !this.aiQueryPreview || this.isEditorDisabled) {
             return;
         }
         const document = cloneDocument(this.aiQueryPreview);
