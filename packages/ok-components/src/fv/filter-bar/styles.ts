@@ -9,6 +9,7 @@ import {
     fillHoverColor,
     iconColor,
     iconSize,
+    linkProminentFontColor,
     sectionBackgroundColor,
     smallPadding,
     standardPadding
@@ -78,7 +79,7 @@ export const styles = css`
 
         .logical-operator {
             font-weight: 600;
-            color: ${borderHoverColor};
+            color: ${linkProminentFontColor};
         }
 
         .compound-expression-container {

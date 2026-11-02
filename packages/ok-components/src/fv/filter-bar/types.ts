@@ -27,7 +27,11 @@ export interface FvFilterBarDefinition {
     }[];
     readonly operators: readonly {
         readonly id: string,
-        readonly label: string
+        readonly label: string,
+        readonly operand?: | { readonly kind: 'none' | 'field-value' }
+            | { readonly kind: 'field-value-list', readonly minItems?: number }
+            | { readonly kind: 'range', readonly endpointSchema: unknown }
+            | { readonly kind: 'schema', readonly schema: unknown }
     }[];
 }
 

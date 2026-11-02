@@ -1,4 +1,4 @@
-import { html, repeat, when } from '@ni/fast-element';
+import { html, ref, repeat, when } from '@ni/fast-element';
 import { iconFilterTag } from '@ni/nimble-components/dist/esm/icons/filter';
 import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import type { FvFilterBar } from '.';
@@ -18,6 +18,7 @@ const queryTokenTemplate = html<FvFilterBarToken>`${when(
 export const template = html<FvFilterBar>`
     <div class="filter-bar" role="group" aria-label="${x => x.label}">
         <button
+            ${ref('editButton')}
             class="filter-bar-edit"
             type="button"
             aria-label="${x => `Edit filters: ${x.label}`}"

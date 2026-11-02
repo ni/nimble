@@ -42,6 +42,9 @@ export class FvFilterBar extends FoundationElement {
     @observable
     public definition?: FvFilterBarDefinition;
 
+    /** @internal */
+    public editButton!: HTMLButtonElement;
+
     public get expression(): string {
         return this.queryTokens.map(token => (token.kind === 'predicate'
             ? `${token.field} ${token.operator}${token.value}`
@@ -63,6 +66,7 @@ export class FvFilterBar extends FoundationElement {
     }
 
     public handleClearClick(): void {
+        this.editButton.focus();
         this.dispatchEvent(new CustomEvent<FvFilterBarEventDetail>('clear-filter', {
             bubbles: true,
             composed: true,
@@ -74,11 +78,12 @@ export class FvFilterBar extends FoundationElement {
         if (node.kind === 'predicate') {
             const field = this.definition?.fields.find(candidate => candidate.id === node.fieldId);
             const operator = this.definition?.operators.find(candidate => candidate.id === node.operatorId);
+            const valueSchema = operator?.operand?.kind === 'schema' ? operator.operand.schema : field?.valueSchema;
             return [{
                 kind: 'predicate',
                 field: field?.label ?? node.fieldId,
                 operator: operator?.label ?? node.operatorId,
-                value: node.value === undefined ? '' : ` ${this.formatValue(node.value, field?.valueSchema)}`
+                value: node.value === undefined ? '' : ` ${this.formatValue(node.value, valueSchema)}`
             }];
         }
 

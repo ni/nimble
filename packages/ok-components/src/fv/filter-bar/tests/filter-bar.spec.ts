@@ -108,6 +108,55 @@ describe('FvFilterBar', () => {
         expect(element.shadowRoot?.querySelector('.query-expression')?.textContent).toBe('Status Is Failed');
     });
 
+    it('uses operator-defined choice labels instead of field-defined labels', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.definition = {
+            fields: [{
+                id: 'status',
+                label: 'Status',
+                valueSchema: { oneOf: [{ const: 'failed', title: 'Field label' }] }
+            }],
+            operators: [{
+                id: 'is',
+                label: 'Is',
+                operand: { kind: 'schema', schema: { oneOf: [{ const: 'failed', title: 'Operator label' }] } }
+            }]
+        };
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'status', operatorId: 'is', value: 'failed' }
+        };
+        await connect();
+
+        expect(element.expression).toBe('Status Is Operator label');
+        expect(element.shadowRoot?.querySelector('.query-expression')?.textContent).toBe('Status Is Operator label');
+        expect(element.shadowRoot?.querySelector<HTMLButtonElement>('.filter-bar-edit')?.title)
+            .toBe('Status Is Operator label');
+    });
+
+    it('keeps focus in the filter bar when the host clears the query', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'status', operatorId: 'is', value: 'failed' }
+        };
+        await connect();
+        const editButton = element.shadowRoot!.querySelector<HTMLButtonElement>('.filter-bar-edit')!;
+        const clearButton = element.shadowRoot!.querySelector<HTMLButtonElement>('.filter-bar-clear')!;
+        element.addEventListener('clear-filter', () => {
+            expect(element.shadowRoot!.activeElement).toBe(editButton);
+            element.query = { version: 1, root: null };
+        });
+        clearButton.focus();
+        expect(element.shadowRoot!.activeElement).toBe(clearButton);
+
+        clearButton.click();
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot!.querySelector('.filter-bar-clear')).toBeNull();
+        expect(element.shadowRoot!.activeElement).toBe(editButton);
+    });
+
     it('dispatches edit and clear events with the query-builder document', async () => {
         ({ element, connect, disconnect } = await setup());
         const query: FvFilterBarQueryDocument = {
