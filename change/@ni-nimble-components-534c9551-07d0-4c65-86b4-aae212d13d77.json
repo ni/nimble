@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix select dropdown positioning updates and forward validation and description ARIA attributes to the combobox.",
+  "packageName": "@ni/nimble-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
