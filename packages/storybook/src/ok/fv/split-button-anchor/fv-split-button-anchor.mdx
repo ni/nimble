@@ -7,6 +7,12 @@ import * as splitButtonAnchorStories from './fv-split-button-anchor.stories';
 
 A split button variant whose primary action is a navigational anchor.
 
+The outline, block, and ghost appearances use the same inset divider and independent hover and keyboard-focus indicators as the split button. An open menu highlights the toggle and aligns beneath it, with a width determined by the menu content.
+
+Disabled block primary and accent variants retain their variant foreground color at 30% opacity.
+
+Use the `start` and `end` slots for icons before and after the primary action label. These slots follow the text direction and remain available when disabled or when no `href` is provided.
+
 The `menu` slot supports a single slotted `nimble-menu`. Menu closing behavior is wired to that menu's `change` event.
 
 <Canvas of={splitButtonAnchorStories.fvSplitButtonAnchor} />
