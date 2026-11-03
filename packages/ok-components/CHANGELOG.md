@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 03 Nov 2026 01:48:11 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 03 Nov 2026 21:20:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.15.0
+
+Tue, 03 Nov 2026 21:20:06 GMT
+
+### Minor changes
+
+- Align FV split button anchor styling and menu placement with the split button, and support start and end icon slots on both variants. ([ni/nimble@a5f08c0](https://github.com/ni/nimble/commit/a5f08c0e855d1dce18aa6b06c75b6fd83adc22a6))
 
 ## 1.14.0
 
