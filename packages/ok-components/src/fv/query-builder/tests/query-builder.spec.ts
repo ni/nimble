@@ -184,7 +184,9 @@ describe('FvQueryBuilder', () => {
         expect(element.queryEditor?.valid).toBeTrue();
         const menuButton = getRequiredElement<FvSplitButton>('[data-control="saved-query-menu-button"]');
         expect(menuButton.tagName.toLowerCase()).toBe('ok-fv-split-button');
-        expect(menuButton.querySelector('.menu-button-label')?.textContent).toBe('Query');
+        expect(menuButton.label).toBe('Query');
+        const startSlot = menuButton.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="start"]');
+        expect(startSlot?.assignedElements()).toEqual([menuButton.querySelector('[slot="start"]')!]);
         expect(menuButton.querySelector('nimble-icon-arrow-down')).toBeNull();
         expect(menuButton.querySelector('nimble-menu')?.querySelectorAll('nimble-menu-item')).toHaveSize(5);
         expect(menuButton.querySelector('[data-action="select-current-query"]')?.getAttribute('aria-current')).toBe('true');
@@ -590,7 +592,7 @@ describe('FvQueryBuilder', () => {
 
     it('uses descriptive query titles and matching saved-query menu labels', async () => {
         ({ element, disconnect } = await setup(false));
-        expect(getRequiredElement<HTMLElement>('.menu-button-label').textContent).toBe('Query');
+        expect(getRequiredElement<FvSplitButton>('.queries-menu-button').label).toBe('Query');
         element.saveHandler = async request => {
             await Promise.resolve();
             return {
@@ -612,7 +614,7 @@ describe('FvQueryBuilder', () => {
         await waitForUpdatesAsync();
 
         await selectSavedQuery('saved-a');
-        expect(getRequiredElement<HTMLElement>('.menu-button-label').textContent).toBe('Failed queries');
+        expect(getRequiredElement<FvSplitButton>('.queries-menu-button').label).toBe('Failed queries');
         expect(getRequiredElement<HTMLElement>('.popover-header h2').textContent?.trim()).toBe('Edit saved query');
         expect(element.shadowRoot?.querySelector('[data-action="cancel-query"]')).not.toBeNull();
 
@@ -900,6 +902,11 @@ describe('FvQueryBuilder', () => {
         expect(getRequiredElement<HTMLElement>('.query-popover').hasAttribute('hidden')).toBeTrue();
         expect(element.selectedQueryIsDirty).toBeTrue();
         expect(element.savedDrafts.get('saved-a')?.name).toBe('Edited name');
+        const menuButton = getRequiredElement<FvSplitButton>('.queries-menu-button');
+        const endSlot = menuButton.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="end"]');
+        const indicator = menuButton.querySelector('[slot="end"]');
+        expect(endSlot?.assignedElements()).toEqual([indicator!]);
+        expect(indicator?.querySelector('.visually-hidden')?.textContent).toBe(element.labels.unsavedChanges);
     });
 
     it('closes the query popover on outside pointer input without discarding its draft', async () => {
@@ -1160,7 +1167,7 @@ describe('FvQueryBuilder', () => {
         expect(apply).toHaveBeenCalledTimes(1);
         expect(element.isManagerOpen).toBeFalse();
         const menuButton = getRequiredElement<FvSplitButton>('[data-control="saved-query-menu-button"]');
-        expect(menuButton.querySelector('.menu-button-label')?.textContent).toBe('Failed production');
+        expect(menuButton.label).toBe('Failed production');
         await openSavedMenu();
         expect(getRequiredElement<HTMLElement>('[data-action="select-saved-query"][data-saved-query-id="saved-a"]')
             .textContent).toContain('Failed production');

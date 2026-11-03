@@ -43,17 +43,11 @@ export const styles = css`
             min-height: ${controlHeight};
         }
 
-        .menu-button-label {
+        .queries-menu-button::part(label) {
             overflow: hidden;
             max-width: 24ch;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-
-        .query-trigger-content {
-            display: inline-flex;
-            align-items: center;
-            gap: ${smallPadding};
         }
 
         .query-popover-region {

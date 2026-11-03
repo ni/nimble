@@ -50,16 +50,6 @@ export class FvSplitButton extends FoundationElement {
     public region?: AnchoredRegion;
 
     /** @internal */
-    @observable
-    public primarySlot?: HTMLSlotElement;
-
-    /** @internal */
-    @observable
-    public hasPrimaryContent = false;
-
-    private readonly primaryContentObserver = new MutationObserver(() => this.updatePrimaryContent());
-
-    /** @internal */
     public disabledChanged(): void {
         if (this.disabled) {
             this.setOpen(false);
@@ -85,8 +75,6 @@ export class FvSplitButton extends FoundationElement {
     /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.primaryContentObserver.observe(this, { childList: true, characterData: true, subtree: true });
-        this.updatePrimaryContent();
         this.openChanged();
         document.addEventListener('click', this.documentClickHandler);
         document.addEventListener('keydown', this.keydownHandler);
@@ -99,16 +87,7 @@ export class FvSplitButton extends FoundationElement {
         }
         document.removeEventListener('click', this.documentClickHandler);
         document.removeEventListener('keydown', this.keydownHandler);
-        this.primaryContentObserver.disconnect();
         super.disconnectedCallback();
-    }
-
-    /** @internal */
-    public updatePrimaryContent(): void {
-        this.hasPrimaryContent = this.primarySlot?.assignedNodes().some(node => (
-            node.nodeType === Node.ELEMENT_NODE
-            || (node.nodeType === Node.TEXT_NODE && Boolean(node.textContent?.trim()))
-        )) ?? false;
     }
 
     /** @internal */

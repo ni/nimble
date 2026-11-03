@@ -25,26 +25,6 @@ describe('FvSplitButton', () => {
         expect(document.createElement(fvSplitButtonTag)).toBeInstanceOf(FvSplitButton);
     });
 
-    it('supports primary content with the label as its fallback', async () => {
-        ({ element, connect, disconnect } = await setup());
-        await connect();
-        await waitForUpdatesAsync();
-        const slot = element.shadowRoot?.querySelector<HTMLSlotElement>('.split-button-primary slot');
-        if (!slot) {
-            throw new Error('Expected the primary content slot.');
-        }
-        expect(element.shadowRoot?.querySelector('.split-button-primary')?.textContent?.trim()).toBe('Primary function');
-        const content = document.createElement('span');
-        content.textContent = 'Custom primary content';
-        element.append(content);
-        await waitForUpdatesAsync();
-        expect(slot.assignedElements()).toEqual([content]);
-        expect(element.shadowRoot?.querySelector('.split-button-primary')?.textContent?.trim()).toBe('');
-        content.remove();
-        await waitForUpdatesAsync();
-        expect(element.shadowRoot?.querySelector('.split-button-primary')?.textContent?.trim()).toBe('Primary function');
-    });
-
     it('uses the label for multiline menu-only markup with whitespace in the default slot', async () => {
         ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
             <${fvSplitButtonTag} label="Run query">
@@ -56,15 +36,25 @@ describe('FvSplitButton', () => {
 
         const primary = element.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary');
         expect(primary?.innerText.trim()).toBe('Run query');
-        const text = document.createTextNode('Custom action');
-        element.append(text);
+        element.label = 'Updated action';
         await waitForUpdatesAsync();
-        expect(element.hasPrimaryContent).toBeTrue();
-        expect(primary?.querySelector('slot')?.assignedNodes()).toContain(text);
-        expect(primary?.querySelector('span')).toBeNull();
-        text.data = '  ';
-        await waitForUpdatesAsync();
-        expect(primary?.innerText.trim()).toBe('Run query');
+        expect(primary?.innerText.trim()).toBe('Updated action');
+    });
+
+    it('projects start and end icons into the primary button', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
+            <${fvSplitButtonTag} label="Run">
+                <span slot="start">Start</span>
+                <span slot="end">End</span>
+            </${fvSplitButtonTag}>
+        `));
+        await connect();
+
+        const primary = element.shadowRoot!.querySelector('.split-button-primary')!;
+        for (const name of ['start', 'end']) {
+            const slot = primary.querySelector<HTMLSlotElement>(`slot[name="${name}"]`)!;
+            expect(slot.assignedElements()).toEqual([element.querySelector(`[slot="${name}"]`)!]);
+        }
     });
 
     it('opens its menu in the top layer and closes on Escape', async () => {

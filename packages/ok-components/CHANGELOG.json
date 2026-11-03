@@ -2,6 +2,36 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 03 Nov 2026 21:20:06 GMT",
+      "version": "1.15.0",
+      "tag": "@ni/ok-components_v1.15.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "a5f08c0e855d1dce18aa6b06c75b6fd83adc22a6",
+            "comment": "Align FV split button anchor styling and menu placement with the split button, and support start and end icon slots on both variants."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Nov 2026 01:48:11 GMT",
+      "version": "1.14.0",
+      "tag": "@ni/ok-components_v1.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "6d953bc60578c041fee92a23546f1626f021b1eb",
+            "comment": "Add an FV toolbar with declarative responsive icon and overflow presentations."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Nov 2026 22:26:58 GMT",
       "version": "1.13.0",
       "tag": "@ni/ok-components_v1.13.0",

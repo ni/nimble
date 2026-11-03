@@ -43,14 +43,13 @@ export const template = html<FvQueryBuilder>`
                 @trigger="${x => x.openQuickEditor()}"
                 @toggle="${(x, c) => x.handleSavedMenuToggle(c.event)}"
             >
-                <span class="query-trigger-content">
-                    <${iconBookMagnifyingGlassTag}></${iconBookMagnifyingGlassTag}>
-                    <span class="menu-button-label">${x => x.queryButtonLabel}</span>
-                    ${when(x => x.selectedQueryIsDirty, html<FvQueryBuilder>`
+                <${iconBookMagnifyingGlassTag} slot="start"></${iconBookMagnifyingGlassTag}>
+                ${when(x => x.selectedQueryIsDirty, html<FvQueryBuilder>`
+                    <span slot="end">
                         <span class="dirty-indicator" aria-hidden="true">●</span>
                         <span class="visually-hidden">${x => x.labels.unsavedChanges}</span>
-                    `)}
-                </span>
+                    </span>
+                `)}
                 <${menuTag}
                     slot="menu"
                     class="saved-query-menu"

@@ -9,7 +9,11 @@ A split button that exposes a primary action and a secondary menu.
 
 The outline, block, and ghost appearances use an inset divider and independent hover and keyboard-focus indicators for each action. An open menu highlights the toggle and aligns beneath it, with a width determined by the menu content.
 
-The default slot optionally supplies primary content, such as an icon and label. Without slotted content, the primary button displays `label`. Keep `label` meaningful because it also names the secondary menu toggle.
+Disabled primary and accent variants use the standard disabled label color and dimmed icons. Block variants use the neutral block fill and border, matching `nimble-button`.
+
+Use the `start` and `end` slots for icons before and after the primary action label. These slots follow the text direction.
+
+The primary action displays `label`, which also names the secondary menu toggle. Its `label` CSS part supports label styling.
 
 The `menu` slot supports a single slotted `nimble-menu`. Its anchored region uses a manual popover so the menu renders in the top layer instead of being clipped by ancestor overflow. Menu closing behavior is wired to that menu's `change` event.
 

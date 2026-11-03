@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
-import { html } from '@ni/fast-element';
+import { html, when } from '@ni/fast-element';
+import { iconLinkTag } from '@ni/nimble-components/dist/esm/icons/link';
+import { iconArrowExpanderRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
 import { fvSplitButtonTag } from '@ni/ok-components/dist/esm/fv/split-button';
 import {
     FvSplitButtonAppearance,
@@ -20,6 +22,8 @@ interface FvSplitButtonArgs {
     appearance: keyof typeof FvSplitButtonAppearance;
     appearanceVariant: keyof typeof FvSplitButtonAppearanceVariant;
     disabled: boolean;
+    icon: boolean;
+    endIcon: boolean;
     trigger?: (e: Event) => void;
     toggle?: (e: Event) => void;
     change?: (e: Event) => void;
@@ -40,6 +44,12 @@ const metadata: Meta<FvSplitButtonArgs> = {
                 appearance-variant="${x => FvSplitButtonAppearanceVariant[x.appearanceVariant]}"
                 :disabled="${x => x.disabled}"
             >
+                ${when(x => x.icon, html`
+                    <${iconLinkTag} slot="start"></${iconLinkTag}>
+                `)}
+                ${when(x => x.endIcon, html`
+                    <${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>
+                `)}
                 <${menuTag} slot="menu">
                     <${menuItemTag}>Open item</${menuItemTag}>
                     <${menuItemTag}>Create copy</${menuItemTag}>
@@ -69,6 +79,16 @@ const metadata: Meta<FvSplitButtonArgs> = {
             description: disabledDescription({ componentName: 'split button' }),
             table: { category: apiCategory.attributes }
         },
+        icon: {
+            name: 'start',
+            description: 'Icon before the primary action label.',
+            table: { category: apiCategory.slots }
+        },
+        endIcon: {
+            name: 'end',
+            description: 'Icon after the primary action label.',
+            table: { category: apiCategory.slots }
+        },
         trigger: {
             table: { category: apiCategory.events },
             control: false
@@ -87,7 +107,9 @@ const metadata: Meta<FvSplitButtonArgs> = {
         label: 'Run action',
         appearance: 'outline',
         appearanceVariant: 'default',
-        disabled: false
+        disabled: false,
+        icon: false,
+        endIcon: false
     }
 };
 
