@@ -3,10 +3,15 @@ import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/a
 import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import type { FvSplitButtonAnchor } from '.';
 
+const primaryContent = html<FvSplitButtonAnchor>`
+    <slot name="start"></slot>
+    <span>${x => x.label}</span>
+    <slot name="end"></slot>
+`;
+
 export const template = html<FvSplitButtonAnchor>`
     <div
         class="split-button-container"
-        ${ref('splitButtonContainer')}
     >
         ${when(
             x => !x.disabled && x.href.length > 0,
@@ -22,7 +27,7 @@ export const template = html<FvSplitButtonAnchor>`
                         return true;
                     }}"
                 >
-                    ${x => x.label}
+                    ${primaryContent}
                 </a>
             `
         )}
@@ -33,12 +38,13 @@ export const template = html<FvSplitButtonAnchor>`
                     class="split-button-primary split-button-primary-disabled"
                     aria-disabled="${x => x.disabled}"
                 >
-                    ${x => x.label}
+                    ${primaryContent}
                 </span>
             `
         )}
         <button
             class="split-button-toggle"
+            ${ref('toggleButton')}
             type="button"
             ?disabled="${x => x.disabled}"
             aria-label="${x => `More actions for ${x.label}`}"
@@ -60,9 +66,9 @@ export const template = html<FvSplitButtonAnchor>`
                 auto-update-mode="auto"
                 horizontal-inset
                 horizontal-positioning-mode="dynamic"
+                horizontal-default-position="end"
                 vertical-positioning-mode="locktodefault"
                 vertical-default-position="bottom"
-                horizontal-scaling="anchor"
                 ${ref('region')}
             >
                 <span part="menu">

@@ -133,9 +133,32 @@ export const styles = css`
         }
 
         .split-button-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 0 ${standardPadding};
             padding-inline-end: ${mediumPadding};
             white-space: nowrap;
+            text-decoration: none;
+        }
+
+        slot[name='start']::slotted(*),
+        slot[name='end']::slotted(*) {
+            flex-shrink: 0;
+            color: currentColor;
+            ${iconColor.cssCustomProperty}: currentColor;
+        }
+
+        slot[name='start']::slotted(*) {
+            margin-inline-end: ${smallPadding};
+        }
+
+        slot[name='end']::slotted(*) {
+            margin-inline-start: ${smallPadding};
+        }
+
+        .split-button-primary-disabled {
+            cursor: default;
         }
 
         .split-button-toggle {
@@ -169,21 +192,21 @@ export const styles = css`
     }
 
     @layer hover {
-        .split-button-primary:enabled:hover,
+        .split-button-primary:is(:enabled, [href]):hover,
         .split-button-toggle:enabled:hover {
             border-color: ${borderHoverColor};
             box-shadow: 0 0 0 ${borderWidth} ${borderHoverColor} inset;
             z-index: 1;
         }
 
-        .split-button-primary:enabled:hover + .split-button-toggle::after,
+        .split-button-primary:is(:enabled, [href]):hover + .split-button-toggle::after,
         .split-button-toggle:enabled:hover::after {
             visibility: hidden;
         }
     }
 
     @layer focusVisible {
-        .split-button-primary:enabled:focus-visible,
+        .split-button-primary:is(:enabled, [href]):focus-visible,
         .split-button-toggle:enabled:focus-visible {
             border-color: ${borderHoverColor};
             box-shadow: 0 0 0 ${borderWidth} ${borderHoverColor} inset;
@@ -202,7 +225,7 @@ export const styles = css`
     }
 
     @layer active {
-        .split-button-primary:enabled:active,
+        .split-button-primary:is(:enabled, [href]):active,
         .split-button-toggle:enabled:active,
         :host([open]) .split-button-toggle {
             border-color: ${borderHoverColor};
@@ -220,7 +243,7 @@ export const styles = css`
             visibility: hidden;
         }
 
-        :host([appearance='block']) .split-button-primary:enabled:active,
+        :host([appearance='block']) .split-button-primary:is(:enabled, [href]):active,
         :host([appearance='block']) .split-button-toggle:enabled:active,
         :host([appearance='block'][open]) .split-button-toggle {
             background-color: ${applicationBackgroundColor};
@@ -238,6 +261,14 @@ export const styles = css`
             --ni-private-ok-fv-split-button-color: ${buttonLabelDisabledFontColor};
         }
 
+        :host([disabled][appearance='block']) {
+            --ni-private-ok-fv-split-button-background-image: linear-gradient(
+                rgba(${borderRgbPartialColor}, 0.1),
+                rgba(${borderRgbPartialColor}, 0.1)
+            );
+            --ni-private-ok-fv-split-button-border: rgba(${borderRgbPartialColor}, 0.1);
+        }
+
         :host([disabled][appearance='outline']) {
             --ni-private-ok-fv-split-button-border: rgba(${borderRgbPartialColor}, 0.3);
         }
@@ -246,6 +277,15 @@ export const styles = css`
         :host([disabled]) .split-button-toggle {
             cursor: default;
             box-shadow: none;
+            background-image: none;
+            background-size: 100% 100%;
+        }
+
+        :host([disabled]) slot[name='start']::slotted(*),
+        :host([disabled]) slot[name='end']::slotted(*),
+        :host([disabled]) .split-button-toggle > * {
+            opacity: 0.3;
+            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
         }
 
         :host([disabled][appearance='ghost']) .split-button-primary,

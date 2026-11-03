@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Align FV split button anchor styling and menu placement with the split button, and support start and end icon slots on both variants.",
+  "packageName": "@ni/ok-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

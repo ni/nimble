@@ -1,4 +1,5 @@
 import { html } from '@ni/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
@@ -45,6 +46,41 @@ describe('FvSplitButtonAnchor', () => {
         await waitForUpdatesAsync();
 
         expect(element.open).toBeTrue();
+        expect(element.region?.anchorElement).toBe(element.toggleButton);
+    });
+
+    parameterizeSpec([
+        { name: 'disabled', disabled: true, href: 'https://example.com' },
+        { name: 'missing href', disabled: false, href: '' }
+    ], (spec, stateName, state) => {
+        spec(`keeps icon slots in the primary surface across ${stateName} state changes`, async () => {
+            ({ element, connect, disconnect } = await fixture<FvSplitButtonAnchor>(html`
+                <${fvSplitButtonAnchorTag} label="Open" href="https://example.com">
+                    <span slot="start">Start</span>
+                    <span slot="end">End</span>
+                </${fvSplitButtonAnchorTag}>
+            `));
+            await connect();
+
+            const expectIconSlots = (tag: string): void => {
+                const primary = element.shadowRoot!.querySelector('.split-button-primary')!;
+                expect(primary.tagName).toBe(tag);
+                for (const name of ['start', 'end']) {
+                    const slot = primary.querySelector<HTMLSlotElement>(`slot[name="${name}"]`)!;
+                    expect(slot.assignedElements()).toEqual([element.querySelector(`[slot="${name}"]`)!]);
+                }
+            };
+
+            expectIconSlots('A');
+            element.disabled = state.disabled;
+            element.href = state.href;
+            await waitForUpdatesAsync();
+            expectIconSlots('SPAN');
+            element.disabled = false;
+            element.href = 'https://example.com';
+            await waitForUpdatesAsync();
+            expectIconSlots('A');
+        });
     });
 
     it('emits trigger when the primary anchor is clicked', async () => {

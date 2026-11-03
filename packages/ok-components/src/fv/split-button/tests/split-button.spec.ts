@@ -24,6 +24,22 @@ describe('FvSplitButton', () => {
         expect(document.createElement(fvSplitButtonTag)).toBeInstanceOf(FvSplitButton);
     });
 
+    it('projects start and end icons into the primary button', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
+            <${fvSplitButtonTag} label="Run">
+                <span slot="start">Start</span>
+                <span slot="end">End</span>
+            </${fvSplitButtonTag}>
+        `));
+        await connect();
+
+        const primary = element.shadowRoot!.querySelector('.split-button-primary')!;
+        for (const name of ['start', 'end']) {
+            const slot = primary.querySelector<HTMLSlotElement>(`slot[name="${name}"]`)!;
+            expect(slot.assignedElements()).toEqual([element.querySelector(`[slot="${name}"]`)!]);
+        }
+    });
+
     it('opens when the toggle button is clicked', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
