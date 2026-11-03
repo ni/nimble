@@ -1,6 +1,10 @@
 import { keySpace, keyEnter, keyTab, keyEscape } from '@ni/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
+import {
+    abortableRace,
+    waitAbortTimer
+} from '../../../utilities/testing/component';
 import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
 import {
     ArrowKeyButton,
@@ -49,9 +53,11 @@ export class RichTextEditorPageObject {
         isShiftKey: boolean
     ): Promise<void> {
         const editor = this.getTiptapEditor();
+        const isMac = navigator.platform.includes('Mac');
         const event = new KeyboardEvent('keydown', {
             key: shortcutKey,
-            ctrlKey: true,
+            ctrlKey: !isMac,
+            metaKey: isMac,
             shiftKey: isShiftKey,
             bubbles: true,
             cancelable: true
@@ -348,7 +354,7 @@ export class RichTextEditorPageObject {
         toolbarButton: ToolbarButton
     ): string {
         const button = this.getFormattingButton(toolbarButton);
-        return button!.textContent!.trim();
+        return button!.textContent.trim();
     }
 
     public getFormattingButtonTitle(toolbarButton: ToolbarButton): string {
@@ -423,7 +429,7 @@ export class RichTextEditorPageObject {
 
     public getMentionListboxItemsName(): string[] {
         const listItemsName: string[] = [];
-        this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent!)));
+        this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent)));
         return listItemsName;
     }
 
@@ -452,6 +458,34 @@ export class RichTextEditorPageObject {
         return this.richTextEditorElement.tiptapEditor.state.selection.anchor;
     }
 
+    /**
+     * Waits for the editor to apply mention configuration with the given total number of mappings.
+     * Mention configuration is applied asynchronously after mention elements are connected or updated,
+     * and applying it re-renders the editor content.
+     */
+    public async waitForMentionMappingsAsync(
+        mappingCount: number
+    ): Promise<void> {
+        const waitMappingsApplied = async (
+            signal: AbortSignal
+        ): Promise<void> => {
+            while (
+                !signal.aborted
+                && this.getAppliedMentionMappingCount() !== mappingCount
+            ) {
+                // eslint-disable-next-line no-await-in-loop
+                await waitForUpdatesAsync();
+            }
+        };
+        await abortableRace(signal => [
+            waitMappingsApplied(signal),
+            waitAbortTimer({
+                signal,
+                message: `Mention configuration with ${mappingCount} mappings was not applied`
+            })
+        ]);
+    }
+
     private getEditorSection(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
     }
@@ -460,6 +494,14 @@ export class RichTextEditorPageObject {
         return this.richTextEditorElement.shadowRoot!.querySelector(
             '.footer-section'
         );
+    }
+
+    private getAppliedMentionMappingCount(): number {
+        let count = 0;
+        for (const config of this.richTextEditorElement.getMentionExtensionConfig()) {
+            count += config.mappingConfigs?.size ?? 0;
+        }
+        return count;
     }
 
     private getTiptapEditor(): HTMLDivElement {

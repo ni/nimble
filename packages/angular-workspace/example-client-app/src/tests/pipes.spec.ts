@@ -1,6 +1,10 @@
-import { DurationPipe, NumberTextPipe, unitScaleByte, unitScaleByte1024, unitScaleCelsius, unitScaleFahrenheit, unitScaleVolt } from '@ni/nimble-angular/pipes';
+import { DateTextPipe, DurationPipe, NumberTextPipe, unitScaleByte, unitScaleByte1024, unitScaleCelsius, unitScaleFahrenheit, unitScaleVolt } from '@ni/nimble-angular/pipes';
 
 describe('Pipes', () => {
+    it('exports DateTextPipe', () => {
+        expect(new DateTextPipe('en')).toBeTruthy();
+    });
+
     it('exports DurationPipe', () => {
         expect(new DurationPipe('en')).toBeTruthy();
     });

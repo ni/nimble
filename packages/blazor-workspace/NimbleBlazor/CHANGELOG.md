@@ -1,8 +1,128 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 22.2.2
+
+Mon, 02 Nov 2026 22:26:58 GMT
+
+### Patches
+
+- Sync package version ([ni/nimble@b87a311](https://github.com/ni/nimble/commit/b87a311a5b9cdb6c8a875cd37fa74f4480781b7f))
+- Bump @ni/nimble-components to v35.17.3
+
+## 22.2.1
+
+Sat, 31 Oct 2026 00:18:04 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@4d89363](https://github.com/ni/nimble/commit/4d89363de301e097eca18cb7de75ff7be10af0a7))
+- Bump @ni/nimble-components to v35.17.1
+
+## 22.2.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.17.0
+- Bump @ni/nimble-tokens to v8.22.0
+
+## 22.1.4
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.16.0
+- Bump @ni/nimble-tokens to v8.21.0
+
+## 22.1.3
+
+Wed, 14 Oct 2026 21:44:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@088efb2](https://github.com/ni/nimble/commit/088efb2c4cc014fae34e1364022aa5d0d008d3f7))
+
+## 22.1.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.15.2
+
+## 22.1.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/nimble-components to v35.15.1
+
+## 22.1.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.15.0
+- Bump @ni/nimble-tokens to v8.20.0
+
+## 22.0.7
+
+Mon, 28 Sep 2026 20:58:54 GMT
+
+### Patches
+
+- Make 'blur' a non-rendering event ([ni/nimble@6631d56](https://github.com/ni/nimble/commit/6631d5619aa7e78a98572835fdeb73e23d0f66de))
+
+## 22.0.6
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.1
+
+## 22.0.5
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.14.0
+
+## 22.0.4
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.3
+- Bump @ni/nimble-tokens to v8.19.2
+
+## 22.0.3
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v35.13.2
+- Bump @ni/nimble-tokens to v8.19.1
+
+## 22.0.2
+
+Thu, 10 Sep 2026 16:04:02 GMT
+
+### Patches
+
+- Fix NimbleNumberField behavior when value is cleared ([ni/nimble@c07dfad](https://github.com/ni/nimble/commit/c07dfadd105ba3334b7acdd7a7702e10d78d0f67))
 
 ## 22.0.1
 

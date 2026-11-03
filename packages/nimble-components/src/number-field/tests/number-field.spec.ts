@@ -226,11 +226,11 @@ describe('NumberField with LabelProviderCore', () => {
 
         const actualIncrementText = element
             .shadowRoot!.querySelector('slot[name="step-up-glyph"]')!
-            .textContent!.trim();
+            .textContent.trim();
         expect(actualIncrementText).toEqual('Customized Increment');
         const actualDecrementText = element
             .shadowRoot!.querySelector('slot[name="step-down-glyph"]')!
-            .textContent!.trim();
+            .textContent.trim();
         expect(actualDecrementText).toEqual('Customized Decrement');
     });
 });

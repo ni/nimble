@@ -1,5 +1,5 @@
 import type { DesignToken } from '@ni/fast-foundation';
-import { apiCategory } from '../../../utilities/storybook';
+import { apiCategory } from '../storybook';
 
 export interface LocalizableLabelArgs {
     localizableLabels: null;

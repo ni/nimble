@@ -1,0 +1,26 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as splitterStories from './fv-splitter.stories';
+
+<Meta of={splitterStories} />
+<Title of={splitterStories} />
+
+A vertical separator for resizing adjacent panes with a pointer or keyboard. The splitter owns interaction and accessibility while the application owns the pane layout and open or closed state.
+
+<Canvas of={splitterStories.splitter} />
+
+Handle `input` to update pane sizes continuously and `change` to persist the committed position. `position`, `min`, and `max` are percentages of the splitter's parent. Applications can convert pixel minimums to percentages whenever the container resizes.
+
+For a CSS grid, use the current position as fractional tracks around the fixed 2 px splitter:
+
+```css
+grid-template-columns: 60fr 2px 40fr;
+```
+
+Remove the splitter from the layout when the secondary pane closes. At narrow widths, switch the host layout to an overlay or stacked presentation before either pane becomes unusable.
+
+## API
+
+<Controls of={splitterStories.splitter} />
+
+<ComponentApisLink />

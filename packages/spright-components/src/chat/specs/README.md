@@ -234,6 +234,15 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ### API
 
+#### Label provider
+
+- _Component Name_ `spright-label-provider-chat`
+- _Props/Attrs_
+    - `send` - label for the chat input send button. Defaults to "Send".
+    - `stop` - label for the chat input stop button. Defaults to "Stop".
+
+The label provider must be placed within the same `nimble-theme-provider` as the chat components that consume its labels.
+
 #### Messages
 
 Message components will be created with the following names:
@@ -273,6 +282,7 @@ All message types will share the following API:
     - `subtitle` - string attribute for a secondary welcome message. Naming is aligned with `nimble-dialog`
 - _Slots_
     - `brand-icon` slot can be used to customize the brand image. By default it will display a new icon `spright-icon-nigel-chat` which is a theme-aware custom icon (a custom element that derives from `IconSvg`)
+    - `subtitle` slot can be used instead of attribute to specify non-text content like links
     - default slot can be used to provide content below the icon, title, and subtitle. For example, a login button or suggested outbound messages.
 
 #### Conversation

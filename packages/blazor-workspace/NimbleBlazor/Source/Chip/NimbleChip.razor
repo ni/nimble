@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-chip
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     removable="@Removable"
     disabled="@Disabled"
     @onnimblechipremove="HandleRemove"

@@ -5,6 +5,7 @@ import {
     bodyFontColor,
     mediumPadding,
     standardPadding,
+    linkFont,
     subtitleFont,
     subtitleFontColor,
     titlePlus1Font,
@@ -18,10 +19,12 @@ export const styles = css`
     :host {
         min-width: ${standardPadding};
         min-height: ${standardPadding};
+        max-width: 90%;
 
         flex: 1;
         flex-direction: row;
         justify-content: center;
+        align-self: center;
         align-items: center;
         font: ${bodyFont};
         color: ${bodyFontColor};
@@ -31,7 +34,6 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: calc(90%);
         gap: ${mediumPadding};
     }
 
@@ -57,6 +59,11 @@ export const styles = css`
         font: ${subtitleFont};
         color: ${subtitleFontColor};
         text-align: center;
+        ${linkFont.cssCustomProperty}: ${subtitleFont};
+    }
+
+    .subtitle.subtitle-empty {
+        display: none;
     }
 
     .message-content {
@@ -65,6 +72,7 @@ export const styles = css`
         align-items: center;
         width: fit-content;
         height: fit-content;
+        max-width: 100%;
         overflow-x: auto;
         gap: ${mediumPadding};
     }

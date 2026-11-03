@@ -31,6 +31,9 @@ import {
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {
+    abortableRace,
+    waitAbortTimer,
+    waitAnimationFrame,
     waitForEvent,
     sendKeyDownEvent
 } from '../../utilities/testing/component';
@@ -1411,7 +1414,8 @@ describe('Table keyboard navigation', () => {
                     );
                 });
 
-                it('and then a scroll happens, the interactive content is blurred', async () => {
+                // This test relies on the blur event, which headless WebKit doesn't fire when its window lacks focus (as in CI)
+                it('and then a scroll happens, the interactive content is blurred #SkipWebkit', async () => {
                     const tableData = createTableData(50);
                     await element.setData(tableData);
                     await waitForUpdatesAsync();
@@ -1471,6 +1475,22 @@ describe('Table keyboard navigation', () => {
             );
         }
 
+        // WebKit can defer scrolling a focused element into view until the next rendering update
+        async function waitForFullyVisible(elt: HTMLElement): Promise<void> {
+            const waitVisible = async (signal: AbortSignal): Promise<void> => {
+                while (!signal.aborted && !isFullyVisible(elt)) {
+                    await waitAnimationFrame();
+                }
+            };
+            await abortableRace(signal => [
+                waitVisible(signal),
+                waitAbortTimer({
+                    signal,
+                    message: 'Element was not scrolled into view'
+                })
+            ]);
+        }
+
         beforeEach(async () => {
             const fixtureResult = await setupTableInScrollableViewport();
             scrollableDiv = fixtureResult.element;
@@ -1495,6 +1515,7 @@ describe('Table keyboard navigation', () => {
 
             element.focus();
             await waitForUpdatesAsync();
+            await waitForFullyVisible(firstHeader);
 
             expect(currentFocusedElement()).toBe(firstHeader);
             expect(isFullyVisible(firstHeader)).toBeTrue();
@@ -1515,6 +1536,7 @@ describe('Table keyboard navigation', () => {
             scrollHeaderOutOfView();
 
             await sendKeyPressToTable(keyArrowRight);
+            await waitForFullyVisible(firstHeader);
 
             expect(currentFocusedElement()).toBe(secondHeader);
             expect(isFullyVisible(firstHeader)).toBeTrue();

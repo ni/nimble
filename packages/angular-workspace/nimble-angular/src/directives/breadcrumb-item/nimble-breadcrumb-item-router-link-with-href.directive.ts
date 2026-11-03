@@ -37,7 +37,7 @@ export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLink 
 
     @HostListener(
         'click',
-        ['$event', '$event.button', '$event.ctrlKey', '$event.shiftKey', '$event.altKey', '$event.metaKey']
+        ['$event']
     )
     public nimbleOnClick(event: MouseEvent): boolean {
         // Call onClick on the base class only when the anchor within the breadcrumb item was clicked.

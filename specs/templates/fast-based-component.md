@@ -36,6 +36,8 @@
 - *How native CSS Properties (height, width, etc.) affect the component*
 - *Slots*
 
+*See the [API design guidance](/packages/nimble-components/CONTRIBUTING.md#custom-element-api-design) for more information.*
+
 ### Native form integration
 
 *Summarize the component's form integration. Is it built in to FAST, requiring custom development, or not necessary?*

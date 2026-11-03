@@ -57,7 +57,7 @@ export const styles = css`
             position: absolute;
             inset-inline: 0;
             inset-block-end: calc(-1 * ${borderWidth});
-            border-bottom: calc(${borderWidth} + 1px) solid ${borderHoverColor};
+            border-bottom: ${borderWidth} solid ${borderHoverColor};
             transform: scaleX(0);
             transform-origin: center;
             transition:
@@ -151,12 +151,15 @@ export const styles = css`
             border-bottom-color: ${borderHoverColor};
         }
 
+        :host([appearance='block']) .search-input-container:hover::after,
         :host([appearance='underline']) .search-input-container:hover::after {
+            border-bottom-width: calc(${borderWidth} + 1px);
             border-bottom-color: ${borderHoverColor};
         }
 
         :host([appearance='frameless']) .search-input-container:hover::after {
             transform: scaleX(1);
+            border-bottom-width: calc(${borderWidth} + 1px);
             border-bottom-color: ${borderHoverColor};
         }
     }

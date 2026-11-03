@@ -1,8 +1,140 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 03 Sep 2026 17:39:26 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.3
+
+Mon, 02 Nov 2026 22:26:58 GMT
+
+### Patches
+
+- Sync package version ([ni/nimble@b87a311](https://github.com/ni/nimble/commit/b87a311a5b9cdb6c8a875cd37fa74f4480781b7f))
+- Bump @ni/spright-components to v7.1.3
+
+## 5.0.2
+
+Sat, 31 Oct 2026 00:18:04 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@4d89363](https://github.com/ni/nimble/commit/4d89363de301e097eca18cb7de75ff7be10af0a7))
+- Bump @ni/spright-components to v7.1.1
+
+## 5.0.1
+
+Mon, 26 Oct 2026 21:00:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v7.1.0
+
+## 5.0.0
+
+Mon, 19 Oct 2026 21:08:34 GMT
+
+### Major changes
+
+- Move user-facing strings from attributes to label provider for chat components ([ni/nimble@58fba61](https://github.com/ni/nimble/commit/58fba61aa97053d740b3b5c6660f6fa563cc7ed1))
+- Bump @ni/spright-components to v7.0.0
+
+## 4.20.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.24.0
+
+## 4.19.4
+
+Thu, 15 Oct 2026 16:45:55 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.23.3
+
+## 4.19.3
+
+Wed, 14 Oct 2026 21:44:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@088efb2](https://github.com/ni/nimble/commit/088efb2c4cc014fae34e1364022aa5d0d008d3f7))
+
+## 4.19.2
+
+Fri, 09 Oct 2026 15:01:32 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.23.2
+
+## 4.19.1
+
+Sat, 03 Oct 2026 01:32:46 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@1ac9ad8](https://github.com/ni/nimble/commit/1ac9ad8ed87cd747e43437d8bc50279f7fc7d15c))
+- Bump @ni/spright-components to v6.23.1
+
+## 4.19.0
+
+Mon, 28 Sep 2026 21:44:17 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.23.0
+
+## 4.18.7
+
+Mon, 28 Sep 2026 14:45:42 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.7
+
+## 4.18.6
+
+Thu, 24 Sep 2026 22:47:33 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.6
+
+## 4.18.5
+
+Thu, 24 Sep 2026 22:05:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.5
+
+## 4.18.4
+
+Tue, 22 Sep 2026 19:32:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.4
+
+## 4.18.3
+
+Mon, 21 Sep 2026 21:33:58 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.3
+
+## 4.18.2
+
+Wed, 16 Sep 2026 18:31:36 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.22.2
 
 ## 4.18.1
 

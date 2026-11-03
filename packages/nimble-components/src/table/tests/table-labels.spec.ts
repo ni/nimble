@@ -85,7 +85,7 @@ describe('Table with LabelProviderTable', () => {
 
         const actualGroupsCollapseAllLabel = element
             .shadowRoot!.querySelector('.collapse-all-button')!
-            .textContent!.trim();
+            .textContent.trim();
         expect(actualGroupsCollapseAllLabel).toBe('Customized Collapse All');
         const actualColumnHeaderGroupedIndicatorLabel = pageObject
             .getHeaderElement(0)
@@ -128,7 +128,7 @@ describe('Table with LabelProviderTable', () => {
 
         const actualCellActionMenuLabel = pageObject
             .getCellActionMenu(0, 0)!
-            .textContent!.trim();
+            .textContent.trim();
         expect(actualCellActionMenuLabel).toBe('Customized Cell Options');
     });
 });

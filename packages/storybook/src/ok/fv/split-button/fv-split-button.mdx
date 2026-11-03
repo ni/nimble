@@ -7,6 +7,8 @@ import * as splitButtonStories from './fv-split-button.stories';
 
 A split button that exposes a primary action and a secondary menu.
 
+The outline, block, and ghost appearances use an inset divider and independent hover and keyboard-focus indicators for each action. An open menu highlights the toggle and aligns beneath it, with a width determined by the menu content.
+
 The `menu` slot supports a single slotted `nimble-menu`. Menu closing behavior is wired to that menu's `change` event.
 
 <Canvas of={splitButtonStories.fvSplitButton} />

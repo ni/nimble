@@ -1,0 +1,28 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as filterBarStories from './fv-filter-bar.stories';
+
+<Meta of={filterBarStories} />
+<Title of={filterBarStories} />
+
+Displays the active query using Stratus-style inline condition chips: bold fields
+and values, normal-weight operator labels, highlighted logical operators, and
+parentheses around nested groups. Long queries truncate on a single line; the
+complete expression is available on hover. Logical operators use a prominent
+text color for contrast rather than the original Stratus border-hover color.
+
+<Canvas of={filterBarStories.withValues} />
+
+## API
+
+<Controls of={filterBarStories.withValues} />
+<ComponentApisLink />
+
+Pass the query builder's `query` and `definition` objects directly to the filter
+bar. The bar is display-only: handle `edit-filter` to open the query builder and
+`clear-filter` to clear the host-owned query. Both events include the current
+document in `event.detail.query`.
+
+Clearing returns focus to the edit button before dispatching `clear-filter`.
+Values use titles from an operator's `operand.schema` when its kind is `schema`;
+otherwise they use the field's `valueSchema`.

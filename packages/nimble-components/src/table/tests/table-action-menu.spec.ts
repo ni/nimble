@@ -230,7 +230,8 @@ describe('Table action menu', () => {
         expect(focusableElements.cells[1]!.actionMenuButton).toBeUndefined();
     });
 
-    it('when action menu button is blurred, cell fires cell-action-menu-blur event', async () => {
+    // This test relies on the blur event, which headless WebKit doesn't fire when its window lacks focus (as in CI)
+    it('when action menu button is blurred, cell fires cell-action-menu-blur event #SkipWebkit', async () => {
         const slot = 'my-action-menu';
         column1.actionMenuSlot = slot;
         createAndSlotMenu(slot);

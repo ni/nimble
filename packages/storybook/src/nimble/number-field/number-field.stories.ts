@@ -11,7 +11,7 @@ import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-fie
 import {
     createLocalizableLabelArgTypes,
     type LocalizableLabelArgs
-} from '../label-provider/base/label-user-stories-utils';
+} from '../../utilities/label-provider/label-user-stories-utils';
 import {
     apiCategory,
     appearanceDescription,

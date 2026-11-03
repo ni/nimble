@@ -1,6 +1,6 @@
 ﻿@namespace NimbleBlazor
 <nimble-rich-text-viewer
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     markdown="@Markdown"
     @attributes="AdditionalAttributes">
     @ChildContent

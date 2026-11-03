@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 <nimble-breadcrumb
-    @onnimbleblur="HandleBlur"
+    @onnimbleblur="EventUtilities.AsNonRenderingEventHandler<EventArgs>(HandleBlur)"
     appearance="@Appearance.ToAttributeValue()"
     @attributes="AdditionalAttributes">
     @ChildContent

@@ -16,7 +16,7 @@ import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
 import {
     type LocalizableLabelArgs,
     createLocalizableLabelArgTypes
-} from '../label-provider/base/label-user-stories-utils';
+} from '../../utilities/label-provider/label-user-stories-utils';
 import {
     apiCategory,
     createUserSelectedThemeStory

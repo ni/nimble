@@ -8,6 +8,7 @@
     "nuget",
     "github-actions"
   ],
+  "recreateWhen": "never",
   "rebaseWhen": "conflicted",
   "schedule": [
     "monthly"
@@ -35,6 +36,7 @@
       "enabled": true,
       "matchPackageNames": [
         "!/^@angular/",
+        "!/@tanstack/table-core",
         "!/@types/jasmine",
         "!/apache-arrow/",
         "!/beachball/",

@@ -5,6 +5,7 @@ import { iconStopSquareTag } from '@ni/nimble-components/dist/esm/icons/stop-squ
 import { iconExclamationMarkTag } from '@ni/nimble-components/dist/esm/icons/exclamation-mark';
 import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
 import type { ChatInput } from '.';
+import { chatSendLabel, chatStopLabel } from '../../label-provider/chat/label-tokens';
 
 export const template = html<ChatInput>`
 <div class="container">
@@ -37,10 +38,10 @@ export const template = html<ChatInput>`
             ?disabled=${x => (x.processing ? false : (x.sendDisabled || x.isInputEmpty))}
             @click=${x => (x.processing ? x.stopButtonClickHandler() : x.sendButtonClickHandler())}
             tabindex="${x => x.tabIndex}"
-            title=${x => (x.processing ? x.stopButtonLabel : x.sendButtonLabel)}
+            title=${x => (x.processing ? chatStopLabel.getValueFor(x) : chatSendLabel.getValueFor(x))}
             content-hidden
         >
-            ${x => (x.processing ? x.stopButtonLabel : x.sendButtonLabel)}
+            ${x => (x.processing ? chatStopLabel.getValueFor(x) : chatSendLabel.getValueFor(x))}
             ${when(
                 x => x.processing,
                 html`<${iconStopSquareTag} slot="start"></${iconStopSquareTag}>`,

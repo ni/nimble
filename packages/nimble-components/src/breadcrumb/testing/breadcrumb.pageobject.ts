@@ -1,6 +1,11 @@
 import type { Button } from '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { waitTimeout } from '../../utilities/testing/component';
+import {
+    abortableRace,
+    waitForResizeObserverAsync,
+    waitAbortTimer,
+    waitTimeout
+} from '../../utilities/testing/component';
 import type { Breadcrumb } from '..';
 import { breadcrumbItemTag } from '../../breadcrumb-item';
 
@@ -32,8 +37,7 @@ export class BreadcrumbPageObject {
 
     public async setBreadcrumbWidth(width: number): Promise<void> {
         this.breadcrumbElement.style.width = `${width}px`;
-        await waitForUpdatesAsync();
-        await waitForUpdatesAsync(); // wait for the resize observer to fire
+        await this.waitForOverflowSettleAsync();
     }
 
     public async clickScrollLeftButton(): Promise<void> {
@@ -76,6 +80,7 @@ export class BreadcrumbPageObject {
         )!;
         lastBreadcrumbItem.insertAdjacentElement('afterend', breadcrumbItem);
         await waitForUpdatesAsync();
+        await this.waitForOverflowSettleAsync();
     }
 
     public async removeBreadcrumbItemByIndex(index: number): Promise<void> {
@@ -85,6 +90,7 @@ export class BreadcrumbPageObject {
         const breadcrumbItemToRemove = this.breadcrumbElement.slottedBreadcrumbItems[index];
         breadcrumbItemToRemove?.remove();
         await waitForUpdatesAsync();
+        await this.waitForOverflowSettleAsync();
     }
 
     public async updateBreadcrumbItemLabel(
@@ -97,6 +103,7 @@ export class BreadcrumbPageObject {
         const breadcrumb = this.breadcrumbElement.slottedBreadcrumbItems[index]!;
         breadcrumb.textContent = label;
         await waitForUpdatesAsync();
+        await this.waitForOverflowSettleAsync();
     }
 
     public async scrollBreadcrumbItemIntoViewByIndex(
@@ -113,5 +120,20 @@ export class BreadcrumbPageObject {
     public getBreadcrumbViewScrollOffset(): number {
         return this.breadcrumbElement.shadowRoot!.querySelector('.list')!
             .scrollLeft;
+    }
+
+    private async waitForOverflowSettleAsync(): Promise<void> {
+        await abortableRace(signal => [
+            waitForResizeObserverAsync({
+                signal,
+                element: this.breadcrumbElement.list
+            }),
+            waitAbortTimer({
+                signal,
+                message:
+                    'Breadcrumb list ResizeObserver notification was not received'
+            })
+        ]);
+        await waitForUpdatesAsync();
     }
 }
