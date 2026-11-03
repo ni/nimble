@@ -117,6 +117,7 @@ export interface QueryBuilderLabels {
     readonly aiPromptDescription: string;
     readonly aiPreviewReady: string;
     readonly queries: string;
+    readonly query: string;
     readonly saved: string;
     readonly currentQuery: string;
     readonly unsavedChanges: string;
@@ -127,11 +128,14 @@ export interface QueryBuilderLabels {
     readonly reviewGeneratedQuery: string;
     readonly clearAll: string;
     readonly cancel: string;
+    readonly closePopover: string;
+    readonly discardAndClose: string;
     readonly apply: string;
     readonly noSavedQueries: string;
     readonly queryApplied: string;
     readonly queryCanceled: string;
     readonly queryCleared: string;
+    readonly queryActions: string;
     readonly saveAsNew: string;
     readonly updateSavedQuery: string;
     readonly editSavedQueries: string;
@@ -291,8 +295,9 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     aiPromptDescription: 'Generate a query with Nigel using natural language',
     aiPreviewReady: 'AI query preview ready for review.',
     queries: 'Queries',
+    query: 'Query',
     saved: 'Saved',
-    currentQuery: 'Current query',
+    currentQuery: 'Working query',
     unsavedChanges: 'Unsaved changes',
     unsavedDraft: 'Unsaved draft',
     manageSavedQueries: 'Manage saved query',
@@ -301,12 +306,15 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     reviewGeneratedQuery: 'Review generated query',
     clearAll: 'Clear all',
     cancel: 'Cancel',
+    closePopover: 'Close',
+    discardAndClose: 'Discard and close',
     apply: 'Apply',
     noSavedQueries: 'No saved queries',
     queryApplied: 'Query applied.',
-    queryCanceled: 'Changes canceled.',
+    queryCanceled: 'Changes discarded.',
     queryCleared: 'Query cleared.',
-    saveAsNew: 'Create saved query',
+    queryActions: 'Query actions',
+    saveAsNew: 'Save as new…',
     updateSavedQuery: 'Update saved query',
     editSavedQueries: 'Edit saved query',
     save: 'Save',

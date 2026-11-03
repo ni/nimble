@@ -140,7 +140,14 @@ try {
     await input.press('ArrowRight');
     await logicPreview.waitFor({ state: 'visible' });
     assert.equal(await editor.locator('.condition-chip-preview, .logic-chip-preview').count(), 1);
-    await input.press('Tab');
+    const draftBeforeTab = await editor.evaluate(element => JSON.stringify(element.draft));
+    await input.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
+    assert.equal(await logicPreview.evaluate(element => element.matches(':focus-within')), true);
+    await logicPreview.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
+    assert.equal(await logicPreview.evaluate(element => element.matches(':focus-within')), false);
+    assert.equal(await editor.evaluate(element => JSON.stringify(element.draft)), draftBeforeTab);
+    await logicPreview.focus();
+    await logicPreview.press('Enter');
     await conditionPreview.waitFor({ state: 'visible' });
     await conditionPreview.press('Space');
     await editor.getByRole('dialog').waitFor();

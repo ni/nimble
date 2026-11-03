@@ -30,6 +30,7 @@ import { fvEditCommitBarTag } from '@ni/ok-components/dist/esm/fv/edit-commit-ba
 import { fvSplitLayoutTag } from '@ni/ok-components/dist/esm/fv/split-layout';
 import { fvSearchInputTag } from '@ni/ok-components/dist/esm/fv/search-input';
 import { fvQueryBuilderTag, type QueryDocument } from '@ni/ok-components/dist/esm/fv/query-builder';
+import { fvFilterBarTag } from '@ni/ok-components/dist/esm/fv/filter-bar';
 import { bodyFont, bodyFontColor, applicationBackgroundColor, dividerBackgroundColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createUserSelectedThemeStory, disableStorybookZoomTransform } from '../../../utilities/storybook';
 import { AssetInventory, type FieldDefinition } from './asset-inventory';
@@ -148,6 +149,7 @@ const template = html<AssetInventory>`
                     <div class="table-actions">
                         <${fvSearchInputTag} appearance="underline" aria-label="Search assets" placeholder="Search items..." :value="${x => x.search}" @input="${(x, c) => x.filter(c.event)}"></${fvSearchInputTag}>
                         <${fvQueryBuilderTag}
+                            ${ref('queryBuilder')}
                             label="Filter assets"
                             :definition="${x => x.queryDefinition}"
                             :savedQueries="${x => x.savedQueries}"
@@ -173,6 +175,13 @@ const template = html<AssetInventory>`
                         </${buttonTag}>
                     </div>
                 </div>
+                <${fvFilterBarTag}
+                    label="${x => `${x.visibleRecords.length} records`}"
+                    :query="${x => x.appliedQuery}"
+                    :definition="${x => x.queryDefinition}"
+                    @edit-filter="${x => x.queryBuilder.openQuickEditor()}"
+                    @clear-filter="${x => x.clearQuery()}"
+                ></${fvFilterBarTag}>
                 <div class="table-body">
                     <${tableTag} ${ref('table')} id-field-name="id" selection-mode="multiple"
                         aria-label="Asset inventory" @selection-change="${(x, c) => x.onSelection(c.event as CustomEvent<TableRowSelectionEventDetail>)}"

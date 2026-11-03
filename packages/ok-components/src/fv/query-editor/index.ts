@@ -2469,11 +2469,6 @@ export class FvQueryEditor extends FoundationElement {
 
     private handleQueryInputKeydown(event: KeyboardEvent, input: TextField): void {
         if (this.shouldShowLogicChipPreviews) {
-            if (event.key === 'Tab' && !event.shiftKey) {
-                event.preventDefault();
-                this.insertLogic(this.logicChipPreviewOptions[0]!);
-                return;
-            }
             if (event.key === 'Escape') {
                 event.preventDefault();
                 this.logicSuggestionsDismissed = true;

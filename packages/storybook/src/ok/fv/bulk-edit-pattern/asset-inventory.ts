@@ -5,7 +5,7 @@ import type { TableRowSelectionEventDetail } from '@ni/nimble-components/dist/es
 import { BulkEditState } from '@ni/ok-components/dist/esm/fv/bulk-edit-state';
 import type { BulkEditFieldStatus } from '@ni/ok-components/dist/esm/fv/bulk-edit-field/types';
 import type { CommitMessage } from '@ni/ok-components/dist/esm/fv/edit-commit-bar';
-import type { QueryBuilderDefinition, QueryBuilderSavedQuery, QueryBuilderSaveHandler, QueryBuilderDeleteHandler, QueryDocument, QueryNode } from '@ni/ok-components/dist/esm/fv/query-builder';
+import type { FvQueryBuilder, QueryBuilderDefinition, QueryBuilderSavedQuery, QueryBuilderSaveHandler, QueryBuilderDeleteHandler, QueryDocument, QueryNode } from '@ni/ok-components/dist/esm/fv/query-builder';
 
 export const fields = [
     { key: 'name', label: 'Name', section: 'General' },
@@ -79,6 +79,7 @@ export class AssetInventory {
     @observable public declare busy: boolean;
 
     public table!: Table;
+    public queryBuilder!: FvQueryBuilder;
     public dialog!: Dialog<boolean>;
     public readonly fields: readonly FieldDefinition[] = fields;
     public readonly sections = ['General', 'Properties'];
@@ -232,6 +233,12 @@ export class AssetInventory {
         this.appliedQuery = structuredClone(event.detail.query);
         this.refresh();
         return true;
+    }
+
+    public clearQuery(): void {
+        this.appliedQuery = { version: 1, root: null };
+        this.queryBuilder.query = this.appliedQuery;
+        this.refresh();
     }
 
     public onSelection(event: CustomEvent<TableRowSelectionEventDetail>): boolean {

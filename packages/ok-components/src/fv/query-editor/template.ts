@@ -181,7 +181,10 @@ const partTemplate = html<QueryEditorPartView, FvQueryEditor>`
         logicChipPreviewsTemplate
     )}
     ${when(
-        x => x.kind === 'insertion' && x.position === x.owner.caretPosition && x.owner.shouldShowConditionChipPreview,
+        x => x.kind === 'insertion'
+            && x.position === x.owner.caretPosition
+            && x.position === x.owner.editorTokens.length
+            && x.owner.shouldShowConditionChipPreview,
         html<QueryEditorPartView, FvQueryEditor>`
             <${fvExpandableChipTag}
                 class="condition-chip-preview"

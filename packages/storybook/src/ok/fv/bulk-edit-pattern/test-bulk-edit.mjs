@@ -207,10 +207,25 @@ try {
     assert.equal(await page.locator('.table-footer').textContent(), '120 records2 pending');
     await builder.getByRole('button', { name: 'Apply', exact: true }).click();
     await page.locator('.table-footer').getByText('60 records', { exact: true }).waitFor();
+    const filterBar = page.locator('ok-fv-filter-bar');
+    assert.equal(await filterBar.locator('.filter-bar-expression').textContent(), 'Status Is Available');
+    assert.equal(await filterBar.locator('.filter-bar-label').textContent(), '60 records');
+    assert.equal(await filterBar.evaluate(element => element.previousElementSibling.classList.contains('table-tools')
+        && element.nextElementSibling.classList.contains('table-body')), true);
+    await filterBar.getByRole('button', { name: 'Edit filters: 60 records', exact: true }).click();
+    await builder.getByRole('button', { name: 'Cancel', exact: true }).click();
+    await filterBar.getByRole('button', { name: 'Clear filters', exact: true }).click();
+    await page.locator('.table-footer').getByText('120 records', { exact: true }).waitFor();
+    assert.equal(await filterBar.locator('.filter-bar-expression').count(), 0);
+    await filterBar.getByRole('button', { name: 'Edit filters: 120 records', exact: true }).click();
+    await setQuery(available);
+    await builder.getByRole('button', { name: 'Apply', exact: true }).click();
+    await page.locator('.table-footer').getByText('60 records', { exact: true }).waitFor();
     await summary('1 unsaved change in 2 rows (1 hidden)');
     await setQuery({ kind: 'predicate', fieldId: 'status', operatorId: 'is', value: 'Maintenance' });
     await builder.getByRole('button', { name: 'Cancel', exact: true }).click();
     await page.locator('.table-footer').getByText('60 records', { exact: true }).waitFor();
+    assert.equal(await filterBar.locator('.filter-bar-expression').textContent(), 'Status Is Available');
     await page.getByRole('textbox', { name: 'Search assets' }).fill('Precision DMM');
     await page.locator('.table-footer').getByText('20 records', { exact: true }).waitFor();
     await page.getByRole('textbox', { name: 'Search assets' }).fill('');
@@ -350,7 +365,7 @@ try {
     await row(3).click({ modifiers: ['Shift'] });
     await page.getByRole('heading', { name: 'Edit — 3 rows' }).waitFor();
     await page.getByRole('textbox', { name: 'Search assets' }).fill('Precision DMM');
-    await page.getByText('20 records', { exact: true }).waitFor();
+    await page.locator('.table-footer').getByText('20 records', { exact: true }).waitFor();
     await page.getByRole('checkbox', { name: 'Select all rows', exact: true }).click();
     await page.getByRole('heading', { name: 'Edit — 22 rows' }).waitFor();
     await page.getByRole('checkbox', { name: 'Select all rows', exact: true }).click();

@@ -10,7 +10,7 @@ export const template = html<FvSplitButton>`
         <button
             class="split-button-primary"
             type="button"
-            ?disabled="${x => x.disabled}"
+            ?disabled="${x => x.disabled || x.primaryDisabled}"
             @click="${x => {
                 x.handlePrimaryClick();
                 return true;
@@ -39,11 +39,12 @@ export const template = html<FvSplitButton>`
         x => x.open,
         html<FvSplitButton>`
             <${anchoredRegionTag}
+                popover="manual"
                 fixed-placement
                 auto-update-mode="auto"
                 horizontal-inset
                 horizontal-positioning-mode="dynamic"
-                horizontal-default-position="end"
+                horizontal-default-position="${x => x.menuHorizontalDefaultPosition}"
                 vertical-positioning-mode="locktodefault"
                 vertical-default-position="bottom"
                 ${ref('region')}

@@ -132,7 +132,7 @@ function renderState(
     });
     builder.addEventListener('query-cancel', () => {
         if (source.status) {
-            source.status.textContent = 'Draft changes canceled.';
+            source.status.textContent = 'Draft changes discarded.';
         }
     });
     builder.addEventListener('query-ai-request', () => {

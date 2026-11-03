@@ -536,50 +536,68 @@ describe('FvQueryEditor', () => {
         expect(element.shadowRoot?.querySelector('.condition-chip-preview')).not.toBeNull();
     });
 
-    it('moves the single preview with the caret in formatted expressions', async () => {
-        ({ element, disconnect } = await setup(query(
-            rule('first', 'status', 'is', { kind: 'scalar', value: 'failed' }),
-            rule('second', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
-        )));
-        element.layout = 'formatted';
-        await waitForUpdatesAsync();
-        getRequiredElement<HTMLElement>('.query-input').focus();
-        await waitForUpdatesAsync();
-        expect(element.shadowRoot?.querySelector('.logic-chip-preview')).not.toBeNull();
-        const moveLeft = async (): Promise<void> => {
+    (['inline', 'formatted'] as const).forEach(layout => {
+        it(`hides insertion previews away from the end of ${layout} expressions`, async () => {
+            ({ element, disconnect } = await setup(query(
+                rule('first', 'status', 'is', { kind: 'scalar', value: 'failed' }),
+                rule('second', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+            )));
+            element.layout = layout;
+            await waitForUpdatesAsync();
+            getRequiredElement<HTMLElement>('.query-input').focus();
+            await waitForUpdatesAsync();
+            expect(element.shadowRoot?.querySelector('.logic-chip-preview')).not.toBeNull();
+            const moveLeft = async (): Promise<void> => {
+                const input = getRequiredElement<ValueControl>('.query-input').shadowRoot?.querySelector<HTMLInputElement>('input');
+                if (!input) {
+                    throw new Error('Expected the query input.');
+                }
+                input.dispatchEvent(new KeyboardEvent('keydown', {
+                    key: 'ArrowLeft', bubbles: true, composed: true, cancelable: true
+                }));
+                await waitForUpdatesAsync();
+            };
+            await moveLeft();
+            expect(element.caretPosition).toBe(2);
+            expect(element.shadowRoot?.querySelector('.condition-chip-preview, .logic-chip-preview')).toBeNull();
+            await moveLeft();
+            expect(element.caretPosition).toBe(1);
+            expect(element.shadowRoot?.querySelector('.condition-chip-preview, .logic-chip-preview')).toBeNull();
+            await moveLeft();
+            expect(element.caretPosition).toBe(0);
+            expect(element.shadowRoot?.querySelector('.condition-chip-preview, .logic-chip-preview')).toBeNull();
+            element.caretPosition = element.editorTokens.length;
+            await waitForUpdatesAsync();
+            getRequiredElement<HTMLElement>('.query-input').focus();
+            await waitForUpdatesAsync();
+            expect(element.shadowRoot?.querySelector('.logic-chip-preview')).not.toBeNull();
+            element.caretPosition = 0;
+            await waitForUpdatesAsync();
             const input = getRequiredElement<ValueControl>('.query-input').shadowRoot?.querySelector<HTMLInputElement>('input');
             if (!input) {
                 throw new Error('Expected the query input.');
             }
+            input.focus();
+            await waitForUpdatesAsync();
             input.dispatchEvent(new KeyboardEvent('keydown', {
-                key: 'ArrowLeft', bubbles: true, composed: true, cancelable: true
+                key: 'Enter', bubbles: true, composed: true, cancelable: true
             }));
             await waitForUpdatesAsync();
-        };
-        await moveLeft();
-        expect(element.caretPosition).toBe(2);
-        let queryInput = getRequiredElement<ValueControl>('.query-input');
-        let preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
-        expect(queryInput.parentElement?.nextElementSibling).toBe(preview);
-        expect(queryInput.closest('.formatted-row')).toBe(preview.closest('.formatted-row'));
-        expect(element.shadowRoot?.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length).toBe(1);
-        await moveLeft();
-        expect(element.caretPosition).toBe(1);
-        queryInput = getRequiredElement<ValueControl>('.query-input');
-        preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
-        expect(queryInput.parentElement?.nextElementSibling).toBe(preview);
-        expect(element.shadowRoot?.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length).toBe(1);
+            expect(element.ruleCount).toBe(3);
+            expect(element.activeRuleId).not.toBeNull();
+        });
     });
 
-    it('opens a new condition from its localized preview at the caret', async () => {
+    it('opens a new condition from its localized preview at the end', async () => {
         ({ element, disconnect } = await setup(query(
             rule('existing', 'status', 'is', { kind: 'scalar', value: 'failed' })
         )));
         element.labels = { ...element.labels, addCondition: 'Create condition' };
         element.defaultField = 'duration';
-        element.caretPosition = 0;
         await waitForUpdatesAsync();
         getRequiredElement<HTMLElement>('.query-input').focus();
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('.logic-chip-preview').click();
         await waitForUpdatesAsync();
         const preview = getRequiredElement<HTMLElement>('.condition-chip-preview');
         expect(preview.textContent?.trim()).toBe('Create condition');
@@ -2553,8 +2571,8 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
         await Promise.resolve();
         await waitForUpdatesAsync();
-        const selector = getRequiredElement<HTMLElement>('[data-control="collection-selector"]');
-        selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input')?.focus();
+        const selector = getRequiredElement<HTMLElement & { open: boolean }>('[data-control="collection-selector"]');
+        selector.open = true;
         await waitForUpdatesAsync();
         const option = selector.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option');
         expect(option?.textContent?.trim()).toBe('Third');
@@ -3161,18 +3179,23 @@ describe('FvQueryEditor', () => {
         if (!nativeInput) {
             throw new Error('Expected the Nimble text field to contain an input');
         }
-        const selectSuggestion = new KeyboardEvent('keydown', {
-            key: 'Tab',
-            bubbles: true,
-            composed: true,
-            cancelable: true
-        });
-        nativeInput.dispatchEvent(selectSuggestion);
+        const draftBeforeTab = JSON.stringify(element.draft);
+        for (const altKey of [false, true]) {
+            for (const control of [nativeInput, preview]) {
+                const tab = new KeyboardEvent('keydown', {
+                    key: 'Tab',
+                    altKey,
+                    bubbles: true,
+                    composed: true,
+                    cancelable: true
+                });
+                control.dispatchEvent(tab);
+                expect(tab.defaultPrevented).toBeFalse();
+            }
+        }
         await waitForUpdatesAsync();
-
-        expect(selectSuggestion.defaultPrevented).toBeTrue();
-        expect(element.shadowRoot?.querySelectorAll('.logic-chip').length).toBe(1);
-        expect(getRequiredElement<HTMLElement>('.logic-chip').dataset.logic).toBe('and');
+        expect(JSON.stringify(element.draft)).toBe(draftBeforeTab);
+        expect(element.shadowRoot?.querySelector('.logic-chip-preview')).toBe(preview);
     });
 
     it('round-trips recursive portable queries and indents nested formatted groups', async () => {

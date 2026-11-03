@@ -93,13 +93,6 @@ export const template = html<FvQueryBuilder>`
                             ?disabled="${x => x.isEditorDisabled || !x.saveHandler}"
                         >${x => x.labels.saveAsNew}</${menuItemTag}>
                     `)}
-                    ${when(x => x.savedQueryEditingEnabled && x.selectedSavedQueryId !== null && x.selectedQueryIsDirty, html<FvQueryBuilder>`
-                        <${menuItemTag}
-                            role="menuitem"
-                            data-action="update-saved-query"
-                            ?disabled="${x => !x.canSaveChanges}"
-                        >${x => x.labels.updateSavedQuery}</${menuItemTag}>
-                    `)}
                     ${when(
                         x => (
                             x.selectedSavedQueryId === null
@@ -258,62 +251,79 @@ export const template = html<FvQueryBuilder>`
                 </div>
 
                 <footer class="builder-footer">
-                    <div class="footer-secondary-actions">
-                    <${buttonTag} appearance="ghost" data-action="clear-query" ?disabled="${x => x.isEditorDisabled}">
-                        ${x => x.labels.clearAll}
-                    </${buttonTag}>
-                        ${when(x => x.savedQueryDeletionEnabled && !x.isQuickEdit && x.selectedSavedQueryId !== null && !x.isCreatingSavedQuery, html<FvQueryBuilder>`
-                            ${when(x => !x.confirmingDelete, html<FvQueryBuilder>`
-                                <${buttonTag}
-                                    appearance="ghost"
-                                    data-action="request-delete"
-                                    ?disabled="${x => x.isEditorDisabled || !x.deleteHandler}"
-                                >${x => x.labels.delete}</${buttonTag}>
-                            `)}
-                            ${when(x => x.confirmingDelete, html<FvQueryBuilder>`
-                                <span class="delete-confirmation">${x => x.labels.deleteConfirmation}</span>
-                                <${buttonTag} appearance="ghost" data-action="cancel-delete" ?disabled="${x => x.isOperationPending}">
-                                    ${x => x.labels.cancelDelete}
-                                </${buttonTag}>
-                                <${buttonTag} appearance="outline" data-action="confirm-delete" ?disabled="${x => x.isEditorDisabled || !x.deleteHandler}">
-                                    ${x => x.labels.confirmDelete}
-                                </${buttonTag}>
-                            `)}
-                        `)}
-                    </div>
                     <div class="footer-actions">
-                        ${when(x => x.isCreatingSavedQuery, html<FvQueryBuilder>`
-                            <${buttonTag} appearance="ghost" data-action="cancel-create" ?disabled="${x => x.isOperationPending}">
-                                ${x => x.labels.cancel}
-                            </${buttonTag}>
-                        `)}
-                        ${when(x => !x.isCreatingSavedQuery, html<FvQueryBuilder>`
-                            <${buttonTag} appearance="ghost" data-action="cancel-query" ?disabled="${x => x.isEditorDisabled}">
-                                ${x => x.labels.cancel}
-                            </${buttonTag}>
-                        `)}
-                        ${when(
-        x => !x.isCreatingSavedQuery && (x.isQuickEdit || x.selectedSavedQueryId === null),
-        html<FvQueryBuilder>`
-                            <${buttonTag} appearance="ghost" data-action="done-manager" ?disabled="${x => x.isOperationPending}">
-                                ${x => x.labels.done}
-                            </${buttonTag}>
-                        `
-    )}
-                        ${when(x => !x.isQuickEdit && (x.isCreatingSavedQuery || x.savedQueryEditingEnabled), html<FvQueryBuilder>`
-                        <${buttonTag}
-                            appearance="outline"
-                            data-action="save-query"
-                            ?disabled="${x => (x.isCreatingSavedQuery ? !x.canSave : !x.canSaveChanges)}"
-                        >${x => (x.isCreatingSavedQuery ? x.labels.save : x.labels.saveChanges)}</${buttonTag}>
-                        `)}
-                        <${buttonTag}
-                            class="apply-button"
+                        <${fvSplitButtonTag}
+                            class="query-action-split-button"
+                            menu-horizontal-default-position="start"
                             appearance="block"
                             appearance-variant="accent"
-                            data-action="apply-query"
-                            ?disabled="${x => x.isEditorDisabled || !x.valid}"
-                        >${x => x.labels.apply}</${buttonTag}>
+                            label="${x => x.primaryActionLabel}"
+                            ?disabled="${x => x.isEditorDisabled}"
+                            ?primary-disabled="${x => x.primaryActionDisabled}"
+                            @trigger="${x => x.handlePrimaryAction()}"
+                        >
+                            <${menuTag}
+                                slot="menu"
+                                class="query-action-menu"
+                                id="${x => x.queryActionMenuId}"
+                                aria-label="${x => x.labels.queryActions}"
+                            >
+                                ${when(x => x.confirmingDelete, html<FvQueryBuilder>`
+                                    <${menuItemTag} disabled>${x => x.labels.deleteConfirmation}</${menuItemTag}>
+                                    <${menuItemTag}
+                                        role="menuitem"
+                                        data-action="cancel-delete"
+                                        ?disabled="${x => x.isOperationPending}"
+                                    >${x => x.labels.cancelDelete}</${menuItemTag}>
+                                    <${menuItemTag}
+                                        role="menuitem"
+                                        data-action="confirm-delete"
+                                        ?disabled="${x => x.isEditorDisabled || !x.deleteHandler}"
+                                    >${x => x.labels.confirmDelete}</${menuItemTag}>
+                                `)}
+                                ${when(x => !x.confirmingDelete && x.isQuickEdit, html<FvQueryBuilder>`
+                                    <${menuItemTag}
+                                        role="menuitem"
+                                        data-action="save-as-new"
+                                        ?disabled="${x => x.isEditorDisabled || !x.savedQueryCreationEnabled || !x.saveHandler}"
+                                    >${x => x.labels.saveAsNew}</${menuItemTag}>
+                                `)}
+                                ${when(x => !x.confirmingDelete && x.isCreatingSavedQuery, html<FvQueryBuilder>`
+                                    <${menuItemTag}
+                                        role="menuitem"
+                                        data-action="apply-query"
+                                        ?disabled="${x => x.isEditorDisabled || !x.valid}"
+                                    >${x => x.labels.apply}</${menuItemTag}>
+                                `)}
+                                ${when(x => !x.confirmingDelete && !x.isQuickEdit && !x.isCreatingSavedQuery, html<FvQueryBuilder>`
+                                    <${menuItemTag}
+                                        role="menuitem"
+                                        data-action="apply-query"
+                                        ?disabled="${x => x.isEditorDisabled || !x.valid}"
+                                    >${x => x.labels.apply}</${menuItemTag}>
+                                    ${when(x => x.selectedQueryIsDirty && x.savedQueryEditingEnabled, html<FvQueryBuilder>`
+                                        <${menuItemTag}
+                                            role="menuitem"
+                                            data-action="save-query"
+                                            ?disabled="${x => x.isEditorDisabled || !x.canSaveChanges}"
+                                        >${x => x.labels.updateSavedQuery}</${menuItemTag}>
+                                    `)}
+                                    ${when(x => x.savedQueryDeletionEnabled && x.selectedSavedQueryId !== null, html<FvQueryBuilder>`
+                                        <hr role="separator">
+                                        <${menuItemTag}
+                                            role="menuitem"
+                                            data-action="request-delete"
+                                            ?disabled="${x => x.isEditorDisabled || !x.deleteHandler}"
+                                        >${x => x.labels.delete}</${menuItemTag}>
+                                    `)}
+                                `)}
+                            </${menuTag}>
+                        </${fvSplitButtonTag}>
+                        <${buttonTag}
+                            appearance="ghost"
+                            data-action="cancel-query"
+                            ?disabled="${x => x.isOperationPending}"
+                        >${x => x.labels.cancel}</${buttonTag}>
                     </div>
                 </footer>
             </section>

@@ -372,6 +372,13 @@ export const styles = css`
 
         .logic-chip::part(control):focus-visible {
             background-size: 100% 100%;
+            box-shadow: none;
+            outline: ${borderWidth} solid ${borderHoverColor};
+            outline-offset: 2px;
+        }
+
+        .logic-chip::part(control):focus-visible::before {
+            outline: none;
         }
     }
 

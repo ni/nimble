@@ -1,5 +1,6 @@
 import { html } from '@ni/fast-element';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { FvSplitButton, fvSplitButtonTag } from '..';
@@ -66,7 +67,7 @@ describe('FvSplitButton', () => {
         expect(primary?.innerText.trim()).toBe('Run query');
     });
 
-    it('opens when the toggle button is clicked', async () => {
+    it('opens its menu in the top layer and closes on Escape', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
 
@@ -74,6 +75,72 @@ describe('FvSplitButton', () => {
         await waitForUpdatesAsync();
 
         expect(element.open).toBeTrue();
+        const region = element.region;
+        expect(region?.isConnected).toBeTrue();
+        expect(region?.matches(':popover-open')).toBeTrue();
+
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.open).toBeFalse();
+        expect(region?.matches(':popover-open')).toBeFalse();
+    });
+
+    it('reopens the menu in the top layer without growing it', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
+            <${fvSplitButtonTag} label="Apply">
+                <${menuTag} slot="menu">
+                    <${menuItemTag}>Save as new</${menuItemTag}>
+                </${menuTag}>
+            </${fvSplitButtonTag}>
+        `));
+        await connect();
+        const toggle = element.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle');
+        const menu = element.querySelector(menuTag);
+        if (!toggle || !menu) {
+            throw new Error('Expected the toggle and slotted menu.');
+        }
+        let initialBounds: DOMRect | undefined;
+        /* eslint-disable no-await-in-loop -- Reopening the same cached view requires sequential render cycles. */
+        for (let cycle = 0; cycle < 4; cycle += 1) {
+            toggle.click();
+            await waitForUpdatesAsync();
+            await new Promise<void>(resolve => {
+                requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+            });
+            expect(element.region?.matches(':popover-open')).withContext(`Open cycle ${cycle}`).toBeTrue();
+            const bounds = menu.getBoundingClientRect();
+            if (initialBounds) {
+                expect(bounds.width).withContext(`Width on cycle ${cycle}`).toBeCloseTo(initialBounds.width, 0);
+                expect(bounds.height).withContext(`Height on cycle ${cycle}`).toBeCloseTo(initialBounds.height, 0);
+            } else {
+                initialBounds = bounds;
+                expect(bounds.width).toBeGreaterThan(0);
+                expect(bounds.height).toBeGreaterThan(0);
+            }
+            if (cycle === 0) {
+                menu.dispatchEvent(new Event('change', { bubbles: true }));
+            } else if (cycle === 1) {
+                toggle.click();
+            } else if (cycle === 2) {
+                document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+            } else {
+                document.body.click();
+            }
+            await waitForUpdatesAsync();
+            expect(element.open).toBeFalse();
+        }
+        /* eslint-enable no-await-in-loop */
+        toggle.click();
+        await waitForUpdatesAsync();
+        const parent = element.parentElement;
+        if (!parent) {
+            throw new Error('Expected the connected fixture parent.');
+        }
+        element.remove();
+        parent.append(element);
+        await waitForUpdatesAsync();
+        expect(element.region?.matches(':popover-open')).withContext('Reconnected while open').toBeTrue();
     });
 
     it('disables the internal buttons when disabled is true', async () => {
@@ -88,6 +155,26 @@ describe('FvSplitButton', () => {
 
         expect(buttons.length).toBe(2);
         expect(buttons.every(button => button.disabled)).toBeTrue();
+    });
+
+    it('can disable the primary action without disabling the menu toggle', async () => {
+        ({ element, connect, disconnect } = await setup());
+        const triggerSpy = jasmine.createSpy('trigger');
+        element.primaryDisabled = true;
+        element.addEventListener('trigger', triggerSpy);
+        await connect();
+        await waitForUpdatesAsync();
+
+        const primary = element.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary');
+        const toggle = element.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle');
+        expect(primary?.disabled).toBeTrue();
+        expect(toggle?.disabled).toBeFalse();
+        primary?.click();
+        toggle?.click();
+        await waitForUpdatesAsync();
+
+        expect(triggerSpy).not.toHaveBeenCalled();
+        expect(element.open).toBeTrue();
     });
 
     it('does not open or emit toggle when disabled', async () => {

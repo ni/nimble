@@ -204,8 +204,7 @@ export const styles = css`
             background: ${applicationBackgroundColor};
         }
 
-        .footer-actions,
-        .footer-secondary-actions {
+        .footer-actions {
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -213,18 +212,16 @@ export const styles = css`
             gap: 8px;
         }
 
-        .apply-button {
+        .query-action-split-button {
             min-width: 92px;
         }
 
         .footer-actions {
             flex: 0 0 auto;
+            flex-direction: row-reverse;
             flex-wrap: nowrap;
             margin-inline-start: auto;
-        }
-
-        .delete-confirmation {
-            color: ${errorTextFontColor};
+            order: 1;
         }
 
         .builder-status,
@@ -240,8 +237,8 @@ export const styles = css`
 
     @layer focusVisible {
         .query-popover:focus-visible {
-            outline: ${borderWidth} solid ${borderHoverColor};
-            outline-offset: 2px;
+            outline: 2px solid ${borderHoverColor};
+            outline-offset: 0;
         }
     }
 

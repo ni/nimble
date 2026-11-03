@@ -297,6 +297,7 @@ export class FvQueryBuilder extends FoundationElement {
     public queryNameInput?: TextField;
 
     public readonly savedMenuId = uniqueId('ok-fv-query-builder-saved-menu');
+    public readonly queryActionMenuId = uniqueId('ok-fv-query-builder-action-menu');
     public readonly aiDialogId = uniqueId('ok-fv-query-builder-ai-dialog');
     public readonly queryDialogId = uniqueId('ok-fv-query-builder-dialog');
 
@@ -304,6 +305,7 @@ export class FvQueryBuilder extends FoundationElement {
     private popoverDrag?: { pointerId: number, startX: number, startY: number };
     private popoverResizeObserver?: ResizeObserver;
     private appliedDocument: QueryDocument = cloneDocument(emptyDocument);
+    private appliedCurrentDocument: QueryDocument = cloneDocument(emptyDocument);
     private appliedSelectionId: string | undefined;
     private internallyAssignedQuery?: QueryDocument;
     private savedQueriesRevision = 0;
@@ -333,10 +335,32 @@ export class FvQueryBuilder extends FoundationElement {
 
     @volatile
     public get queryButtonLabel(): string {
-        if (this.selectedUnsavedDraftId !== null) {
-            return this.selectedName;
+        return this.selectedSavedQueryId === null && this.selectedUnsavedDraftId === null
+            ? this.labels.query
+            : this.selectedName;
+    }
+
+    @volatile
+    public get saveIsPrimaryAction(): boolean {
+        return !this.isQuickEdit
+            && (this.isCreatingSavedQuery
+                || (this.selectedSavedQueryId !== null && this.savedQueryEditingEnabled));
+    }
+
+    @volatile
+    public get primaryActionLabel(): string {
+        return this.saveIsPrimaryAction ? this.labels.save : this.labels.apply;
+    }
+
+    @volatile
+    public get primaryActionDisabled(): boolean {
+        if (this.isEditorDisabled) {
+            return true;
         }
-        return this.selectedSavedQueryId === null ? this.labels.configureQuery : this.selectedName;
+        if (!this.saveIsPrimaryAction) {
+            return !this.valid;
+        }
+        return this.isCreatingSavedQuery ? !this.canSave : !this.canSaveChanges;
     }
 
     public get selectedQueryIsDirty(): boolean {
@@ -411,6 +435,7 @@ export class FvQueryBuilder extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.appliedDocument = cloneDocument(this.query);
+        this.appliedCurrentDocument = cloneDocument(this.query);
         this.currentDraft = draftForDocument(this.query);
         this.loadSelection(null);
         document.addEventListener('pointerdown', this.documentPointerDownHandler, true);
@@ -443,6 +468,7 @@ export class FvQueryBuilder extends FoundationElement {
             this.setEditorState(document, this.currentDraft);
         }
         this.appliedDocument = document;
+        this.appliedCurrentDocument = cloneDocument(document);
         this.appliedSelectionId = undefined;
     }
 
@@ -646,7 +672,9 @@ export class FvQueryBuilder extends FoundationElement {
             return;
         }
         if (event.type === 'click' && actionElement.getAttribute('role')?.startsWith('menuitem')) {
-            this.closeSavedMenu(false);
+            if (this.isSavedMenuOpen) {
+                this.closeSavedMenu(false);
+            }
             return;
         }
         switch (action) {
@@ -679,11 +707,6 @@ export class FvQueryBuilder extends FoundationElement {
             case 'save-as-new':
                 this.openCreateForm();
                 break;
-            case 'update-saved-query':
-                if (this.savedQueryEditingEnabled) {
-                    void this.saveQuery();
-                }
-                break;
             case 'edit-saved-queries':
                 if (
                     this.selectedSavedQueryId === null
@@ -698,9 +721,6 @@ export class FvQueryBuilder extends FoundationElement {
                 break;
             case 'cancel-create':
                 this.cancelCreate();
-                break;
-            case 'done-manager':
-                this.closeManager(true);
                 break;
             case 'request-delete':
                 if (this.savedQueryDeletionEnabled) {
@@ -717,10 +737,20 @@ export class FvQueryBuilder extends FoundationElement {
                 }
                 break;
             case 'apply-query':
-                this.applyQuery();
+                this.applyQuery(true);
                 break;
             case 'cancel-query':
-                this.cancelQuery();
+                if (this.isCreatingSavedQuery) {
+                    this.cancelCreate();
+                } else {
+                    this.closeManager(true);
+                }
+                break;
+            case 'close-manager':
+                this.closeManager(true);
+                break;
+            case 'discard-query':
+                this.discardChangesAndClose();
                 break;
             case 'clear-query':
                 this.clear();
@@ -743,6 +773,15 @@ export class FvQueryBuilder extends FoundationElement {
         if (this.isSavedMenuOpen) {
             this.closeManager(false);
             this.closeAiPrompt(false);
+        }
+    }
+
+    /** @internal */
+    public handlePrimaryAction(): void {
+        if (this.saveIsPrimaryAction) {
+            void this.saveAndApply();
+        } else {
+            this.applyQuery(true);
         }
     }
 
@@ -1277,7 +1316,7 @@ export class FvQueryBuilder extends FoundationElement {
         }
     }
 
-    private async saveQuery(): Promise<void> {
+    private async saveQuery(): Promise<boolean> {
         const handler = this.saveHandler;
         const document = this.queryEditor?.query;
         const name = this.savedQueryName.trim();
@@ -1291,7 +1330,7 @@ export class FvQueryBuilder extends FoundationElement {
             || !this.validate()
         ) {
             this.operationError = name.length === 0 ? this.labels.nameRequired : '';
-            return;
+            return false;
         }
 
         const selectedId = this.selectedSavedQueryId;
@@ -1299,7 +1338,7 @@ export class FvQueryBuilder extends FoundationElement {
             ? { kind: 'create', name, document: cloneDocument(document) }
             : { kind: 'update', id: selectedId ?? undefined, name, document: cloneDocument(document) };
         if (request.kind === 'update' && !request.id) {
-            return;
+            return false;
         }
         const catalogRevision = this.savedQueriesRevision;
         const catalogFingerprint = savedQueryCatalogFingerprint(this.savedQueries);
@@ -1339,6 +1378,7 @@ export class FvQueryBuilder extends FoundationElement {
             this.savedQueryName = saved.name;
             this.setEditorState(saved.document, committedDraft);
             this.actionStatus = this.labels.savedQuerySaved;
+            return true;
         } catch {
             if (!managerWasOpen) {
                 this.isQuickEdit = false;
@@ -1348,6 +1388,7 @@ export class FvQueryBuilder extends FoundationElement {
             }
             this.operationError = this.labels.saveFailed;
             this.actionStatus = this.labels.saveFailed;
+            return false;
         } finally {
             this.isOperationPending = false;
         }
@@ -1395,7 +1436,7 @@ export class FvQueryBuilder extends FoundationElement {
         }
     }
 
-    private applyQuery(): void {
+    private applyQuery(closePopover = false): void {
         if (this.isEditorDisabled || !this.validate()) {
             this.queryEditor?.focus();
             return;
@@ -1411,8 +1452,14 @@ export class FvQueryBuilder extends FoundationElement {
             : undefined;
         this.appliedDocument = document;
         this.appliedSelectionId = selectedId;
+        if (selectedId === undefined && this.selectedUnsavedDraftId === null) {
+            this.appliedCurrentDocument = cloneDocument(document);
+        }
         this.actionStatus = this.labels.queryApplied;
         this.closeEditorCallout();
+        if (closePopover) {
+            this.closeManager(true);
+        }
         this.dispatchEvent(new CustomEvent('query-apply', {
             bubbles: true,
             composed: true,
@@ -1423,34 +1470,51 @@ export class FvQueryBuilder extends FoundationElement {
         }));
     }
 
-    private cancelQuery(): void {
+    private discardChangesAndClose(): void {
         if (this.isEditorDisabled) {
             return;
         }
-        const selectedId = this.appliedSelectionId ?? null;
-        this.selectedSavedQueryId = selectedId;
-        this.selectedUnsavedDraftId = null;
-        const draft = draftForDocument(this.appliedDocument);
-        const savedDraft = selectedId === null
-            ? undefined
-            : this.savedDrafts.get(selectedId);
-        if (savedDraft && selectedId !== null) {
-            this.savedQueryName = savedDraft.committedName;
-            this.updateSavedDraft(selectedId, {
-                name: savedDraft.committedName,
-                draft
+        let document: QueryDocument;
+        let selectedId: string | undefined;
+        if (this.selectedUnsavedDraftId !== null) {
+            const working = this.orphanedDrafts.get(this.selectedUnsavedDraftId);
+            if (!working) {
+                return;
+            }
+            document = cloneDocument(working.document);
+            this.savedQueryName = working.committedName;
+            this.orphanedDrafts = new Map(this.orphanedDrafts).set(this.selectedUnsavedDraftId, {
+                ...working,
+                name: working.committedName,
+                draft: cloneDraft(working.committedDraft)
             });
+        } else if (this.selectedSavedQueryId !== null) {
+            const working = this.savedDrafts.get(this.selectedSavedQueryId);
+            if (!working) {
+                return;
+            }
+            document = cloneDocument(working.document);
+            selectedId = this.selectedSavedQueryId;
+            this.savedQueryName = working.committedName;
+            this.updateSavedDraft(this.selectedSavedQueryId, {
+                name: working.committedName,
+                draft: working.committedDraft
+            });
+        } else {
+            document = cloneDocument(this.appliedCurrentDocument);
+            this.currentDraft = draftForDocument(document);
+            this.assignCurrentQuery(document);
         }
-        this.setActiveDocument(this.appliedDocument, draft);
-        this.isSavedMenuOpen = false;
+        const draft = draftForDocument(document);
+        this.setEditorState(document, draft);
         this.closeManager(true);
         this.actionStatus = this.labels.queryCanceled;
         this.dispatchEvent(new CustomEvent('query-cancel', {
             bubbles: true,
             composed: true,
             detail: {
-                query: cloneDocument(this.appliedDocument),
-                selectedId: this.appliedSelectionId
+                query: cloneDocument(document),
+                selectedId
             }
         }));
     }
@@ -1496,6 +1560,12 @@ export class FvQueryBuilder extends FoundationElement {
         this.isSavedMenuOpen = false;
         if (restoreFocus) {
             DOM.queueUpdate(() => this.focusQueryTrigger(false));
+        }
+    }
+
+    private async saveAndApply(): Promise<void> {
+        if (await this.saveQuery()) {
+            this.applyQuery(true);
         }
     }
 
