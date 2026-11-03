@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 03 Nov 2026 01:48:11 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.14.0
+
+Tue, 03 Nov 2026 01:48:11 GMT
+
+### Minor changes
+
+- Add an FV toolbar with declarative responsive icon and overflow presentations. ([ni/nimble@6d953bc](https://github.com/ni/nimble/commit/6d953bc60578c041fee92a23546f1626f021b1eb))
 
 ## 1.13.0
 
