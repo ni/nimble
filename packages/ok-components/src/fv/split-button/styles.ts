@@ -261,12 +261,12 @@ export const styles = css`
             --ni-private-ok-fv-split-button-color: ${buttonLabelDisabledFontColor};
         }
 
-        :host([disabled][appearance='block'][appearance-variant='primary']) {
-            --ni-private-ok-fv-split-button-color: color-mix(in srgb, ${buttonPrimaryFontColor} 30%, transparent);
-        }
-
-        :host([disabled][appearance='block'][appearance-variant='accent']) {
-            --ni-private-ok-fv-split-button-color: color-mix(in srgb, ${buttonAccentBlockFontColor} 30%, transparent);
+        :host([disabled][appearance='block']) {
+            --ni-private-ok-fv-split-button-background-image: linear-gradient(
+                rgba(${borderRgbPartialColor}, 0.1),
+                rgba(${borderRgbPartialColor}, 0.1)
+            );
+            --ni-private-ok-fv-split-button-border: rgba(${borderRgbPartialColor}, 0.1);
         }
 
         :host([disabled][appearance='outline']) {
@@ -277,6 +277,15 @@ export const styles = css`
         :host([disabled]) .split-button-toggle {
             cursor: default;
             box-shadow: none;
+            background-image: none;
+            background-size: 100% 100%;
+        }
+
+        :host([disabled]) slot[name='start']::slotted(*),
+        :host([disabled]) slot[name='end']::slotted(*),
+        :host([disabled]) .split-button-toggle > * {
+            opacity: 0.3;
+            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
         }
 
         :host([disabled][appearance='ghost']) .split-button-primary,
