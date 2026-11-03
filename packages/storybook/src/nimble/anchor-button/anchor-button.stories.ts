@@ -18,7 +18,8 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription,
-    textContentDescription
+    textContentDescription,
+    storyPageParameters
 } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
@@ -36,6 +37,7 @@ interface AnchorButtonArgs {
 const metadata: Meta<AnchorButtonArgs> = {
     title: 'Components/Anchor Button',
     parameters: {
+        ...storyPageParameters,
         actions: {}
     },
     render: createUserSelectedThemeStory(html`

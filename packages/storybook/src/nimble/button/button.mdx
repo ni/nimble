@@ -1,7 +1,6 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
 import ButtonStylingDocs from '../patterns/button/button-styling-docs.mdx';
-import { buttonSections as sections } from './button-sections';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
@@ -18,32 +17,14 @@ import {
 	StoryPage,
 	StoryPreview,
 	StorySection,
-	StorySubsection,
 	Tag
 } from '../../utilities/story-layout';
 
 <Meta of={buttonStories} />
-<StoryPage toc={[
-		sections.overview,
-		sections.buttonAnatomy,
-		sections.implementationApi,
-		sections.usage,
-		sections.whenToUse,
-		sections.appearanceStyling,
-		sections.appearances,
-		sections.appearanceVariants,
-		sections.sizing,
-		sections.spacingWithOtherComponents,
-		sections.buttonGuidelines,
-		sections.accessibility,
-		sections.accessibleIconButtons,
-		sections.keyboardUsage,
-		sections.alternativesRelated,
-		sections.alternativesToConsider
-	]}>
+<StoryPage>
 	<Title of={buttonStories} />
 
-	<StorySection {...sections.overview}>
+	<StorySection id="overview" title="Overview">
 		<div>
 			Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/), a
 			button is a widget that enables users to trigger an action or event,
@@ -57,13 +38,13 @@ import {
 		</div>
 	</StorySection>
 
-	<StorySection {...sections.buttonAnatomy}>
+	<StorySection id="button-anatomy" title="Button Anatomy" level={3}>
 		<StoryAnatomy alt="Button anatomy showing the Container, Icon, and Label parts of a button." bordered={false}>
 			<ButtonAnatomy alt="Button anatomy showing the Container, Icon, and Label parts of a button." />
 		</StoryAnatomy>
 	</StorySection>
 
-	<StorySection {...sections.implementationApi}>
+	<StorySection id="implementation-api" title="Implementation & API">
 		<StoryPreview>
 			<Canvas of={buttonStories.button} />
 		</StoryPreview>
@@ -73,8 +54,8 @@ import {
 		</StoryApi>
 	</StorySection>
 
-	<StorySection {...sections.usage}>
-		<StorySubsection {...sections.whenToUse}>
+	<StorySection id="usage" title="Usage">
+		<StorySection id="when-to-use" title="When to Use" level={3}>
 			<div>
 				<strong>Primary Actions:</strong> Use buttons for primary actions
 				that users need to take, such as submitting a form, saving changes,
@@ -86,10 +67,10 @@ import {
 				that encourage users to take a specific action, like "Sign Up,"
 				"Buy Now," or "Learn More."
 			</div>
-		</StorySubsection>
+		</StorySection>
 	</StorySection>
 
-	<StorySection {...sections.appearanceStyling}>
+	<StorySection id="appearance-styling" title="Appearance & Styling">
 		<div>
 			Standard styling options for the button control are found below, in
 			order of usage from least to most prominent. Consider the intended
@@ -97,32 +78,32 @@ import {
 		</div>
 		<ButtonStylingDocs components={{ Button: buttonTag }} />
 
-		<StorySubsection {...sections.sizing}>
+		<StorySection id="sizing" title="Sizing" level={3}>
 			<div>
 				Nimble Buttons are currently always 32px tall. Designs exist for
 				other sizes; if you need these in an application, please comment on
 				[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
 			</div>
-		</StorySubsection>
-		<StorySubsection {...sections.spacingWithOtherComponents}>
+		</StorySection>
+		<StorySection id="spacing-with-other-components" title="Spacing with Other Components" level={3}>
 			<div>
 				Use consistent spacing between elements to keep layouts clean and
 				organized. Adequate padding around components prevents visual
 				clutter and helps users focus on key information. Use responsive
 				spacing when layouts change across screen sizes.
 			</div>
-		</StorySubsection>
+		</StorySection>
 	</StorySection>
 
-	<StorySection {...sections.buttonGuidelines}>
+	<StorySection id="button-guidelines" title="Button Guidelines">
 		<StoryGuidanceGrid>
 			<Do
 				title="Create a clear action hierarchy"
 				example={
-					<div className="story-guidance-actions">
+					<>
 						<NimbleButton appearance="ghost">Cancel</NimbleButton>
 						<NimbleButton appearance="block">Save</NimbleButton>
-					</div>
+					</>
 				}
 			>
 				Use one visually prominent action per section and pair it with
@@ -131,10 +112,10 @@ import {
 			<Dont
 				title="Prioritize one prominent action"
 				example={
-					<div className="story-guidance-actions">
+					<>
 						<NimbleButton appearance="block">Save</NimbleButton>
 						<NimbleButton appearance="block">Submit</NimbleButton>
-					</div>
+					</>
 				}
 			>
 				Do not use multiple visually prominent buttons together when
@@ -143,9 +124,7 @@ import {
 			<Do
 				title="Use concise labels"
 				example={
-					<div className="story-guidance-actions">
-						<NimbleButton appearance="outline">Save Changes</NimbleButton>
-					</div>
+					<NimbleButton appearance="outline">Save Changes</NimbleButton>
 				}
 			>
 				Use concise labels that describe the action the button performs.
@@ -153,9 +132,7 @@ import {
 			<Dont
 				title="Avoid vague labels"
 				example={
-					<div className="story-guidance-actions">
-						<NimbleButton appearance="outline">Click Here</NimbleButton>
-					</div>
+					<NimbleButton appearance="outline">Click Here</NimbleButton>
 				}
 			>
 				Avoid vague labels that do not tell users what will happen when
@@ -164,26 +141,26 @@ import {
 		</StoryGuidanceGrid>
 	</StorySection>
 
-	<StorySection {...sections.accessibility}>
+	<StorySection id="accessibility" title="Accessibility">
 		<StoryGuidance>
-			<StorySubsection {...sections.accessibleIconButtons}>
+			<StorySection id="accessible-icon-buttons" title="Accessible Icon Buttons" level={3}>
 				<ContentHiddenDocs buttonElement="nimble-button" />
-			</StorySubsection>
-			<StorySubsection {...sections.keyboardUsage}>
+			</StorySection>
+			<StorySection id="keyboard-usage" title="Keyboard Usage" level={3}>
 				<div>
 					Buttons must remain keyboard accessible so users can move focus
 					to them and activate them with standard keyboard controls.
 				</div>
-			</StorySubsection>
+			</StorySection>
 		</StoryGuidance>
 	</StorySection>
 
-	<StorySection {...sections.alternativesRelated}>
-		<StorySubsection {...sections.alternativesToConsider}>
+	<StorySection id="alternatives-related" title="Alternatives & Related">
+		<StorySection id="alternatives-to-consider" title="Alternatives to Consider" level={3}>
 			<div>
 				Consider <Tag name={anchorButtonTag} /> if you need a button that
 				triggers navigation to a URL.
 			</div>
-		</StorySubsection>
+		</StorySection>
 	</StorySection>
 </StoryPage>

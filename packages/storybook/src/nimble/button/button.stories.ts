@@ -19,7 +19,8 @@ import {
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    disabledDescription
+    disabledDescription,
+    storyPageParameters
 } from '../../utilities/storybook';
 
 interface ButtonArgs {
@@ -37,11 +38,9 @@ const metadata: Meta<ButtonArgs> = {
     title: 'Components/Button',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
+        ...storyPageParameters,
         actions: {
             handles: ['click']
-        },
-        docs: {
-            toc: { disable: true }
         }
     },
     argTypes: {

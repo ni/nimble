@@ -38,42 +38,66 @@ template:
 ```jsx
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import * as componentNameStories from './component-name.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import {
+    StoryApi,
+    StoryPage,
+    StoryPreview,
+    StorySection,
+    StoryShowcase
+} from '../../utilities/story-layout';
 
 <Meta of={componentNameStories} />
+<StoryPage>
 <Title of={componentNameStories} />
 
+<StorySection id="overview" title="Overview">
 <div>
 *Component description*
 > Note: Wrap combined text and html markup in a `div` tag so the formatter doesn't add line breaks
 </div>
+</StorySection>
 
+<StorySection id="implementation-api" title="Implementation & API">
+<StoryPreview>
 <Canvas of={componentNameStories.firstStoryName} />
+</StoryPreview>
 
-## API
-
+<StoryApi>
 <Controls of={componentNameStories.firstStoryName} />
 <ComponentApisLink />
+</StoryApi>
+</StorySection>
 
-## Usage
+<StorySection id="usage" title="Usage">
+    <StorySection id="examples" title="Examples" level={3}>
+        <StoryShowcase example={<p>Component example</p>}>
+            Explain when to use this example.
+        </StoryShowcase>
+    </StorySection>
+</StorySection>
 
-## Styling
-
-### Appearances
-
-### Appearance Variants
-
-### Sizing
-
-## Examples
-
-## Accessibility
-
-## Resources
-
+{/* Add Styling, Accessibility, and Resources sections when applicable. */}
+</StoryPage>
 ```
 
-Fill out the template with all available information, and comment out any empty
-sections. E.g. `{/* ## Examples */}`
+In the corresponding `component-name.stories.ts`, import `storyPageParameters`
+from `../../utilities/storybook` and spread it into the metadata's `parameters`.
+This disables Storybook's built-in TOC only for the migrated page. Leave legacy
+pages' TOC configuration unchanged.
+
+`StoryPage` provides the theme context for inline examples and discovers its
+content's `h2[id]` and `h3[id]` headings in document order. Use `StorySection`
+with a stable, page-unique `id`, a `title`, and `level={3}` for subsections.
+There is no separate section registry or TOC array to maintain. Shared MDX
+fragments own their headings and must be embedded inside `StoryPage`.
+Headings without IDs, such as guidance-card titles, stay out of the TOC.
+
+Use `StoryShowcase`'s `example` prop for the preview and its children for guidance.
+Keep example-specific layout styles with the example; do not rely on the
+showcase's internal CSS classes.
+
+Fill out the template with all available information and omit empty sections.
 
 If the component has a
 [W3C ARIA description](https://www.w3.org/WAI/ARIA/apg/patterns/), consider
@@ -143,6 +167,11 @@ guidelines:
       `Light Theme$ White Background$ Open$ No Filter`
 
 ### Testing
+
+The shared layout's `Tests/Story Layout` matrix stories cover light/dark themes
+at narrow and wide viewport sizes in Chromatic. For navigation behavior, start
+Storybook and run `npm run test:story-layout -w @ni-private/storybook`.
+Set `STORYBOOK_URL` to test another running Storybook server.
 
 When you run Storybook (See **Getting Started** above), you should see the
 `component-name.mdx` file rendered as the component **Docs** page.

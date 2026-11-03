@@ -22,7 +22,6 @@ import {
     dialogLargeWidth,
     dividerBackgroundColor,
     dividerWidth,
-    elevation1BoxShadow,
     failColor,
     largePadding,
     linkProminentFontColor,
@@ -59,11 +58,11 @@ interface StoryTokenStyles extends React.CSSProperties {
     [name: `--ni-nimble-${string}`]: string;
 }
 
-const storyTokenStyles = (Object.keys(tokenValues) as (keyof typeof tokenValues)[]).reduce<StoryTokenStyles>(
+const storyTokenStyles = (pageTheme: 'light' | 'dark'): StoryTokenStyles => (Object.keys(tokenValues) as (keyof typeof tokenValues)[]).reduce<StoryTokenStyles>(
     (styles, tokenName) => {
         const cssTokenName = tokenNames[tokenName];
         const value = tokenValues[tokenName];
-        styles[`--ni-nimble-${cssTokenName}`] = typeof value === 'string' ? value : value[theme];
+        styles[`--ni-nimble-${cssTokenName}`] = typeof value === 'string' ? value : value[pageTheme];
         return styles;
     },
     {}
@@ -75,28 +74,14 @@ interface StorySectionProps extends ChildrenProp {
     level?: 2 | 3;
 }
 
-export interface StoryTocItem {
-    id: string;
-    title: string;
-    level: 2 | 3;
-}
-
 interface StoryPageProps extends ChildrenProp {
-    toc?: readonly StoryTocItem[];
+    theme?: 'light' | 'dark';
 }
 
-export const StoryTableOfContents = ({ items }: { items: readonly StoryTocItem[] }): React.JSX.Element => {
-    const [activeId, setActiveId] = React.useState(items[0]?.id ?? '');
+const StoryTableOfContents = ({ headings }: { headings: readonly HTMLHeadingElement[] }): React.JSX.Element => {
+    const [activeId, setActiveId] = React.useState('');
 
     React.useEffect(() => {
-        const headings = items
-            .map(item => document.getElementById(item.id))
-            .filter((heading): heading is HTMLElement => heading instanceof HTMLElement);
-
-        if (headings.length === 0) {
-            return undefined;
-        }
-
         const firstHeading = headings[0];
         if (!firstHeading) {
             return undefined;
@@ -135,9 +120,9 @@ export const StoryTableOfContents = ({ items }: { items: readonly StoryTocItem[]
             window.removeEventListener('scroll', updateActiveHeading);
             window.removeEventListener('resize', updateActiveHeading);
         };
-    }, [items]);
+    }, [headings]);
 
-    return <nav aria-labelledby='story-table-of-contents' className='story-table-of-contents'>
+    return <nav aria-label='Contents' className='story-table-of-contents'>
         {css`
             :scope {
                 align-self: start;
@@ -195,32 +180,38 @@ export const StoryTableOfContents = ({ items }: { items: readonly StoryTocItem[]
                 }
             }
         `}
-        <h2 id='story-table-of-contents'>Contents</h2>
+        <h2>Contents</h2>
         <ol>
-            {items.map(item => <li key={item.id} data-level={item.level} data-active={item.id === activeId}>
+            {headings.map(heading => <li key={heading.id} data-level={heading.tagName === 'H3' ? 3 : 2} data-active={heading.id === activeId}>
                 <a
-                    href={`#${item.id}`}
-                    aria-current={item.id === activeId ? 'location' : undefined}
+                    href={`#${heading.id}`}
+                    aria-current={heading.id === activeId ? 'location' : undefined}
                     onClick={event => {
                         event.preventDefault();
-                        document.getElementById(item.id)?.scrollIntoView({ block: 'start' });
-                        setActiveId(item.id);
+                        heading.scrollIntoView({ block: 'start' });
+                        setActiveId(heading.id);
                     }}
-                >{item.title}</a>
+                >{heading.textContent}</a>
             </li>)}
         </ol>
     </nav>;
 };
 
-export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Element => {
+export const StoryPage = ({ children, theme: pageTheme = theme }: StoryPageProps): React.JSX.Element => {
     const themeProviderRef = React.useRef<ThemeProvider>(null);
+    const contentRef = React.useRef<HTMLElement>(null);
+    const [headings, setHeadings] = React.useState<HTMLHeadingElement[]>([]);
 
     React.useLayoutEffect(() => {
-        themeProviderRef.current?.setAttribute('theme', theme);
-    }, []);
+        themeProviderRef.current?.setAttribute('theme', pageTheme);
+    }, [pageTheme]);
 
-    return <NimbleThemeProvider ref={themeProviderRef} theme={theme}>
-        <div className='story-page' style={storyTokenStyles}>
+    React.useEffect(() => {
+        setHeadings(Array.from(contentRef.current?.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]') ?? []));
+    }, [children]);
+
+    return <NimbleThemeProvider ref={themeProviderRef} theme={pageTheme}>
+        <div className='story-page' style={storyTokenStyles(pageTheme)}>
             {css`
                 :scope {
                     display: grid;
@@ -230,6 +221,7 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
                     width: fit-content;
                     max-width: 100%;
                     margin-inline: auto;
+                    background: var(${applicationBackgroundColor.cssCustomProperty});
                 }
                 :scope > .story-page-toc {
                     grid-column: 2;
@@ -246,8 +238,8 @@ export const StoryPage = ({ children, toc = [] }: StoryPageProps): React.JSX.Ele
                     }
                 }
             `}
-            {toc.length > 0 ? <div className='story-page-toc'><StoryTableOfContents items={toc}/></div> : null}
-            <main className='story-page-content'>
+            {headings.length > 0 ? <div className='story-page-toc'><StoryTableOfContents headings={headings}/></div> : null}
+            <main ref={contentRef} className='story-page-content'>
                 {css`
                 :scope {
                     box-sizing: border-box;
@@ -348,13 +340,6 @@ export const StorySection = ({ id, title, level = 2, children }: StorySectionPro
     </section>;
 };
 
-export const StorySubsection = ({ id, title, children }: StorySectionProps): React.JSX.Element => {
-    return <section>
-        <h3 id={id}>{title}</h3>
-        {children}
-    </section>;
-};
-
 export const StoryPreview = ({ children }: ChildrenProp): React.JSX.Element => {
     return <div>
         {css`
@@ -383,11 +368,11 @@ export const StoryApi = ({ children }: ChildrenProp): React.JSX.Element => {
             :scope .docblock-argstable {
                 margin-inline: 0;
             }
-            :scope > * {
-                margin-top: var(${standardPadding.cssCustomProperty});
-            }
-            :scope > *:first-child {
+            :scope > :not(style) {
                 margin-top: 0;
+            }
+            :scope > :not(style) ~ :not(style) {
+                margin-top: var(${standardPadding.cssCustomProperty});
             }
         `}
         {children}
@@ -458,7 +443,11 @@ export const StoryGuidanceGrid = ({ children }: ChildrenProp): React.JSX.Element
     </div>;
 };
 
-export const StoryShowcase = ({ children }: ChildrenProp): React.JSX.Element => {
+interface StoryShowcaseProps extends ChildrenProp {
+    example: ReactNode;
+}
+
+export const StoryShowcase = ({ children, example }: StoryShowcaseProps): React.JSX.Element => {
     return <div>
         {css`
             :scope {
@@ -490,32 +479,6 @@ export const StoryShowcase = ({ children }: ChildrenProp): React.JSX.Element => 
             :scope .story-showcase-preview > * {
                 margin: 0 !important;
             }
-            :scope .story-showcase-actions {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                gap: var(${standardPadding.cssCustomProperty});
-            }
-            :scope .story-showcase-button-stack {
-                display: flex;
-                width: min(100%, 420px);
-                flex-direction: column;
-                align-items: center;
-                gap: var(${standardPadding.cssCustomProperty});
-            }
-            :scope .story-showcase-button-row {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: var(${standardPadding.cssCustomProperty});
-            }
-            :scope .story-showcase-button-stack hr {
-                width: 100%;
-                margin: 0;
-                border: 0;
-                border-top: var(${dividerWidth.cssCustomProperty}) solid var(${dividerBackgroundColor.cssCustomProperty});
-            }
             @media (max-width: 640px) {
                 :scope .story-showcase-preview {
                     min-height: 128px;
@@ -523,106 +486,8 @@ export const StoryShowcase = ({ children }: ChildrenProp): React.JSX.Element => 
                 }
             }
         `}
-        {children}
-    </div>;
-};
-
-/**
- * Renders a frame to match visual design of existing Storybook Doc blocks.
- */
-export const Frame = ({ children }: ChildrenProp): React.JSX.Element => {
-    return <div>
-        {css`
-            :scope {
-                margin-bottom: var(${largePadding.cssCustomProperty}) !important;
-                overflow: hidden;
-                border: var(${dividerWidth.cssCustomProperty}) solid var(${cardBorderColor.cssCustomProperty});
-                border-radius: 4px;
-                box-shadow: var(${elevation1BoxShadow.cssCustomProperty});
-                background: var(${applicationBackgroundColor.cssCustomProperty});
-            }
-        `}
-        {children}
-    </div>;
-};
-
-interface ContainerProp {
-    children?: ReactNode;
-    config?: string;
-}
-
-/**
- * Renders a container with grid configuration. Use with <Column> to create grided documentation.
- * Use CSS grid syntax for the config prop to specify the number of columns and their widths.
- */
-export const Container = ({ children, config = '200px 1fr' }: ContainerProp): React.JSX.Element => {
-    return <div style={{ gridTemplateColumns: config }}>
-        {css`
-            :scope {
-                display: grid;
-                min-width: 0;
-                align-items: stretch;
-                gap: calc(var(${standardPadding.cssCustomProperty}) + var(${standardPadding.cssCustomProperty}));
-            }
-            @media (max-width: 640px) {
-                :scope {
-                    grid-template-columns: 1fr !important;
-                    gap: var(${standardPadding.cssCustomProperty});
-                }
-            }
-        `}
-        {children}
-    </div>;
-};
-
-interface ColumnProp {
-    children?: ReactNode;
-    stylingClass?: string;
-}
-
-/**
- * Renders a column for use with <Container>.
- * If you need to put Nimble components in a column, use the stylingClass="controls" prop to apply the correct margins.
- */
-export const Column = ({ children, stylingClass = '' }: ColumnProp): React.JSX.Element => {
-    return <div className={stylingClass}>
-        {css`
-            :scope {
-                min-width: 0;
-            }
-            :scope.controls {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                gap: var(${standardPadding.cssCustomProperty});
-                padding: var(${largePadding.cssCustomProperty});
-            }
-            :scope.controls > * {
-                margin: 0;
-            }
-            :scope:not(.controls) > * {
-                margin: var(${smallPadding.cssCustomProperty});
-            }
-        `}
-        {children}
-    </div>;
-};
-
-/**
- * Renders a simple divider to vertically separate the contents of a <Column>.
- */
-export const Divider = (): React.JSX.Element => {
-    return <div>
-        {css`
-            :scope hr {
-                width: 100%;
-                margin: var(${mediumPadding.cssCustomProperty}) 0;
-                border: 0;
-                border-top: var(${dividerWidth.cssCustomProperty}) solid var(${dividerBackgroundColor.cssCustomProperty});
-            }
-        `}
-        <hr/>
+        <div className='story-showcase-preview'>{example}</div>
+        {children ? <div className='story-showcase-description'>{children}</div> : null}
     </div>;
 };
 
@@ -697,10 +562,12 @@ const Guidance = (
             }
             :scope .guidance-example-content {
                 display: flex;
+                flex-wrap: wrap;
                 width: 100%;
                 min-height: 180px;
                 align-items: center;
                 justify-content: center;
+                gap: var(${standardPadding.cssCustomProperty});
                 padding: calc(var(${standardPadding.cssCustomProperty}) + var(${standardPadding.cssCustomProperty}));
                 overflow: hidden;
                 background: var(${applicationBackgroundColor.cssCustomProperty});
@@ -709,13 +576,6 @@ const Guidance = (
             }
             :scope .guidance-example-content > * {
                 margin: 0 !important;
-            }
-            :scope .guidance-example .story-guidance-actions {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                gap: var(${standardPadding.cssCustomProperty});
             }
             :scope .guidance-copy {
                 padding: var(${standardPadding.cssCustomProperty}) var(${largePadding.cssCustomProperty}) var(${mediumPadding.cssCustomProperty});

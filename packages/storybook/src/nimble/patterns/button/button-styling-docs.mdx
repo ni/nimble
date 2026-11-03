@@ -1,8 +1,32 @@
 import { NimbleIconKey } from '@ni/nimble-react/icons/key';
-import { StoryShowcase, StorySubsection } from '../../../utilities/story-layout';
-import { buttonSections } from '../../button/button-sections';
+import { StoryShowcase, StorySection, css } from '../../../utilities/story-layout';
+import { standardPadding, dividerWidth, dividerBackgroundColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
-<StorySubsection {...buttonSections.appearances}>
+<div>
+{css`
+    :scope .button-actions, :scope .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: var(${standardPadding.cssCustomProperty});
+    }
+    :scope .button-stack {
+        display: flex;
+        width: min(100%, 420px);
+        flex-direction: column;
+        align-items: center;
+        gap: var(${standardPadding.cssCustomProperty});
+    }
+    :scope .button-stack hr {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        border-top: var(${dividerWidth.cssCustomProperty}) solid var(${dividerBackgroundColor.cssCustomProperty});
+    }
+`}
+
+<StorySection id="appearances" title="Appearances" level={3}>
 
 These are the standard styling options for the button, ordered from least to
 most visually prominent. Consider each option before employing an appearance
@@ -10,17 +34,15 @@ variant.
 
 #### Ghost Button
 
-<StoryShowcase>
-    <div className="story-showcase-preview">
-        <div className="story-showcase-actions">
+<StoryShowcase example={
+        <div className="button-actions">
             <Button appearance="ghost">Ghost Button</Button>
             <Button appearance="ghost" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
                 Ghost Button
             </Button>
         </div>
-    </div>
-    <div className="story-showcase-description">
+    }>
         <h5>When to Use</h5>
         <ul>
             <li>Ghost is the default appearance and should be the first considered for use.</li>
@@ -35,22 +57,19 @@ variant.
             </li>
             <li>Use in combination with a primary outline or primary block buttons to create a hierarchy of importance. There is no primary ghost button.</li>
         </ul>
-    </div>
 </StoryShowcase>
 
 #### Outline Button
 
-<StoryShowcase>
-    <div className="story-showcase-preview">
-        <div className="story-showcase-actions">
+<StoryShowcase example={
+        <div className="button-actions">
             <Button appearance="outline">Outline Button</Button>
             <Button appearance="outline" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
                 Outline Button
             </Button>
         </div>
-    </div>
-    <div className="story-showcase-description">
+    }>
         <h5>When to Use</h5>
         <ul>
             <li>
@@ -71,22 +90,19 @@ variant.
                 buttons) to create hierarchy.
             </li>
         </ul>
-    </div>
 </StoryShowcase>
 
 #### Block Button
 
-<StoryShowcase>
-    <div className="story-showcase-preview">
-        <div className="story-showcase-actions">
+<StoryShowcase example={
+        <div className="button-actions">
             <Button appearance="block">Block Button</Button>
             <Button appearance="block" content-hidden>
                 <NimbleIconKey slot="start"></NimbleIconKey>
                 Block Button
             </Button>
         </div>
-    </div>
-    <div className="story-showcase-description">
+    }>
         <h5>When to Use</h5>
         <ul>
             <li>
@@ -106,12 +122,11 @@ variant.
                 buttons) to create hierarchy.
             </li>
         </ul>
-    </div>
 </StoryShowcase>
 
-</StorySubsection>
+</StorySection>
 
-<StorySubsection {...buttonSections.appearanceVariants}>
+<StorySection id="appearance-variants" title="Appearance Variants" level={3}>
 
 Button appearance variants are mainly used when a button needs be distinguished
 for one of the following reasons:
@@ -124,23 +139,21 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
 
 #### Accent Button
 
-<StoryShowcase>
-    <div className="story-showcase-preview">
-        <div className="story-showcase-button-stack">
-            <div className="story-showcase-button-row">
+<StoryShowcase example={
+        <div className="button-stack">
+            <div className="button-row">
                 <Button appearance="ghost">Ghost</Button>
                 <Button appearance="ghost">Ghost</Button>
                 <Button appearance="outline" appearance-variant="accent">Outline Accent</Button>
             </div>
             <hr/>
-            <div className="story-showcase-button-row">
+            <div className="button-row">
                 <Button appearance="ghost">Ghost</Button>
                 <Button appearance="ghost">Ghost</Button>
                 <Button appearance="block" appearance-variant="accent">Block Accent</Button>
             </div>
         </div>
-    </div>
-    <div className="story-showcase-description">
+    }>
         <h5>When to Use</h5>
         <ul>
             <li>
@@ -158,28 +171,25 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
                 hierarchy.
             </li>
         </ul>
-    </div>
 </StoryShowcase>
 
 #### Primary Button
 
-<StoryShowcase>
-    <div className="story-showcase-preview">
-        <div className="story-showcase-button-stack">
-            <div className="story-showcase-button-row">
+<StoryShowcase example={
+        <div className="button-stack">
+            <div className="button-row">
                 <Button appearance="ghost">Ghost</Button>
                 <Button appearance="ghost">Ghost</Button>
                 <Button appearance="outline" appearance-variant="primary">Outline Primary</Button>
             </div>
             <hr/>
-            <div className="story-showcase-button-row">
+            <div className="button-row">
                 <Button appearance="ghost">Ghost</Button>
                 <Button appearance="ghost">Ghost</Button>
                 <Button appearance="block" appearance-variant="primary">Block Primary</Button>
             </div>
         </div>
-    </div>
-    <div className="story-showcase-description">
+    }>
         <h5>When to Use</h5>
         <ul>
             <li>
@@ -192,7 +202,6 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
                 hierarchy.
             </li>
         </ul>
-    </div>
 </StoryShowcase>
 
 #### Examples
@@ -201,4 +210,5 @@ To see more examples of appearance variant button hierarchy, see the Figma docs
 for
 [Primary and Standard Actions](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1604-74603&mode=design&t=SQ3lyK83VHBUaOkg-0).
 
-</StorySubsection>
+</StorySection>
+</div>

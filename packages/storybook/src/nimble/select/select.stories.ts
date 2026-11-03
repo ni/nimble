@@ -20,7 +20,8 @@ import {
     fullBleedDescription,
     optionsDescription,
     requiredVisibleDescription,
-    slottedLabelDescription
+    slottedLabelDescription,
+    storyPageParameters
 } from '../../utilities/storybook';
 import { ExampleOptionsType } from './types';
 
@@ -138,11 +139,7 @@ When the \`loading-visible\` attribute is set, a loading spinner will be display
 
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
-    parameters: {
-        docs: {
-            toc: { disable: true }
-        }
-    },
+    parameters: storyPageParameters,
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
         <${selectTag}

@@ -13,39 +13,51 @@ import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import * as anchorButtonStories from './anchor-button.stories';
-import { Tag } from '../../utilities/story-layout';
+import { StoryApi, StoryPage, StoryPreview, StorySection, Tag } from '../../utilities/story-layout';
 
 <Meta of={anchorButtonStories} />
+<StoryPage>
 <Title of={anchorButtonStories} />
 
+<StorySection id="overview" title="Overview">
 An anchor button is a component with the visual appearance of a button, but it
 navigates like an anchor/link when pressed.
 
 Use <Tag name={buttonTag} /> if you want a button that triggers an action or
 event.
+</StorySection>
 
+<StoryPreview>
 <Canvas of={anchorButtonStories.anchorButton} />
+</StoryPreview>
 
-## API
+<StorySection id="api" title="API">
 
+<StoryApi>
 <Controls of={anchorButtonStories.anchorButton} />
 
 <ComponentApisLink />
+</StoryApi>
 
-### Target Configuration
+<StorySection id="target-configuration" title="Target Configuration" level={3}>
 
 <TargetDocs />
+</StorySection>
+</StorySection>
 
-## Styling
+<StorySection id="styling" title="Styling">
 
 <StylingDocs components={{ Button: anchorButtonTag }} />
+</StorySection>
 
 {/* ## Usage */}
 
 {/* ## Examples */}
 
-## Accessibility
+<StorySection id="accessibility" title="Accessibility">
 
 <ContentHiddenDocs buttonElement="nimble-anchor-button" />
+</StorySection>
 
 {/* ## Resources */}
+</StoryPage>
