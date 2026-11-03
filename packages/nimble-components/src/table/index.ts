@@ -864,15 +864,20 @@ export class Table<
     }
 
     protected columnsChanged(
-        _prev: TableColumn[] | undefined,
-        _next: TableColumn[]
+        prev: TableColumn[] | undefined,
+        next: TableColumn[]
     ): void {
         if (!this.$fastController.isConnected) {
             return;
         }
 
+        const groupedColumnsChanged = this.getGroupedColumnsSignature(prev ?? [])
+            !== this.getGroupedColumnsSignature(next);
+
         this.observeColumns();
-        this.tableUpdateTracker.trackColumnInstancesChanged();
+        this.tableUpdateTracker.trackColumnInstancesChanged(
+            groupedColumnsChanged
+        );
     }
 
     private getPinnedColumnResolvedPixelWidth(
@@ -1020,11 +1025,24 @@ export class Table<
         );
     }
 
-    private getColumnsParticipatingInGrouping(): TableColumn[] {
-        return this.columns.filter(
+    private getColumnsParticipatingInGrouping(
+        columns: readonly TableColumn[] = this.columns
+    ): TableColumn[] {
+        return columns.filter(
             x => !x.columnInternals.groupingDisabled
                 && typeof x.columnInternals.groupIndex === 'number'
         );
+    }
+
+    // Returns a value that uniquely identifies the ordered set of columns participating in
+    // grouping, so that it can be compared before/after a change to the table's column instances.
+    private getGroupedColumnsSignature(columns: readonly TableColumn[]): string {
+        return this.getColumnsParticipatingInGrouping(columns)
+            .sort(
+                (x, y) => x.columnInternals.groupIndex! - y.columnInternals.groupIndex!
+            )
+            .map(x => x.columnInternals.uniqueId)
+            .join();
     }
 
     private childItemsChanged(): void {
