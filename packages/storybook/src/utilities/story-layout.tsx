@@ -33,47 +33,18 @@ const getPreferredTheme = (): 'dark' | 'light' => (
 
 export const theme = getPreferredTheme();
 
-interface StoryAnatomyProps extends ChildrenProp {
-    src?: string;
-    alt: string;
-    bordered?: boolean;
-}
-
-export const StoryAnatomy = ({ children, src, alt, bordered = true }: StoryAnatomyProps): React.JSX.Element => {
+export const StoryAnatomy = ({ children }: ChildrenProp): React.JSX.Element => {
     return <figure>
         {css`
             :scope {
                 margin: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty})) 0 calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}));
-                border: ${bordered ? `var(${dividerWidth.cssCustomProperty}) solid var(${cardBorderColor.cssCustomProperty})` : '0'};
-                border-radius: ${bordered ? '4px' : '0'};
-                overflow: ${bordered ? 'hidden' : 'visible'};
-                background: ${bordered ? `var(${applicationBackgroundColor.cssCustomProperty})` : 'transparent'};
-            }
-            :scope img {
-                display: block;
-                width: 100%;
-                height: auto;
             }
             :scope > :not(style) {
                 margin-inline: auto;
             }
         `}
-        {children ?? (src ? <img src={src} alt={alt}/> : null)}
-    </figure>;
-};
-
-export const StoryGuidance = ({ children }: ChildrenProp): React.JSX.Element => {
-    return <div>
-        {css`
-            :scope {
-                margin-top: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty}));
-            }
-            :scope > * + * {
-                margin-top: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty}));
-            }
-        `}
         {children}
-    </div>;
+    </figure>;
 };
 
 export const StoryGuidanceGrid = ({ children }: ChildrenProp): React.JSX.Element => {

@@ -12,7 +12,6 @@ import {
 	Do,
 	Dont,
 	StoryAnatomy,
-	StoryGuidance,
 	StoryGuidanceGrid,
 	Tag,
 	theme
@@ -37,7 +36,7 @@ import {
 ### Button Anatomy
 
 <NimbleThemeProvider theme={theme}>
-	<StoryAnatomy alt="Button anatomy showing the Container, Icon, and Label parts of a button." bordered={false}>
+	<StoryAnatomy>
 		<ButtonAnatomy alt="Button anatomy showing the Container, Icon, and Label parts of a button." />
 	</StoryAnatomy>
 </NimbleThemeProvider>
@@ -105,8 +104,6 @@ import {
 
 ## Accessibility
 
-<StoryGuidance>
-
 ### Accessible Icon Buttons
 
 <ContentHiddenDocs buttonElement="nimble-button" />
@@ -118,4 +115,3 @@ import {
 	Press Enter or Space to activate it. These behaviors are built in;
 	do not override them with custom keyboard handlers.
 </div>
-</StoryGuidance>

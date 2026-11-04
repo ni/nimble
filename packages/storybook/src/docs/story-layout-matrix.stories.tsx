@@ -6,10 +6,12 @@ import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
 import {
     Do,
     Dont,
+    StoryAnatomy,
     StoryGuidanceGrid,
     StoryShowcase
 } from '../utilities/story-layout';
 import { sharedMatrixParameters } from '../utilities/matrix';
+import { ButtonAnatomy } from '../nimble/button/button-anatomy';
 
 interface LayoutArgs {
     theme: 'light' | 'dark';
@@ -29,6 +31,9 @@ const metadata: Meta<LayoutArgs> = {
         root?.unmount();
         root = createRoot(container);
         root.render(<NimbleThemeProvider theme={theme}>
+            <StoryAnatomy>
+                <ButtonAnatomy alt='Button anatomy showing the Container, Icon, and Label parts of a button.' />
+            </StoryAnatomy>
             <StoryShowcase example={<NimbleButton appearance='outline'>Example</NimbleButton>}>
                 <p>Example guidance.</p>
             </StoryShowcase>
