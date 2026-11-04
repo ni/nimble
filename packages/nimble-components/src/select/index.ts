@@ -870,7 +870,10 @@ export class Select
 
     protected override focusAndScrollOptionIntoView(): void {
         if (this.open) {
-            super.focusAndScrollOptionIntoView();
+            // Foundation checks document.activeElement, which cannot identify a select inside a shadow root.
+            if (this.matches(':focus-within')) {
+                this.focusAndScrollActiveOptionIntoView();
+            }
             window.requestAnimationFrame(() => {
                 this.filterInput?.focus();
             });

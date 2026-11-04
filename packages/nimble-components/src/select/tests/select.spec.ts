@@ -948,6 +948,32 @@ describe('Select', () => {
 
             await disconnect();
         });
+
+        it('should scroll the selected option into view on first open inside a shadow root', async () => {
+            const { element, connect, disconnect } = await setup500Options();
+            const host = document.createElement('div');
+            const shadow = host.attachShadow({ mode: 'open' });
+            document.body.appendChild(host);
+            try {
+                await connect();
+                shadow.appendChild(element);
+                element.value = '300';
+                await waitForUpdatesAsync();
+                element.focus();
+                await clickAndWaitForOpen(element);
+                await waitForUpdatesAsync();
+                await waitAnimationFrame();
+
+                expect(element.value).toBe('300');
+                const optionBounds = element.firstSelectedOption.getBoundingClientRect();
+                const listBounds = element.scrollableRegion.getBoundingClientRect();
+                expect(optionBounds.top).toBeGreaterThanOrEqual(listBounds.top);
+                expect(optionBounds.bottom).toBeLessThanOrEqual(listBounds.bottom);
+            } finally {
+                await disconnect();
+                host.remove();
+            }
+        });
     });
 
     describe('within a div', () => {
