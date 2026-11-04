@@ -14,7 +14,17 @@ export const styles = css`
         height: 100%;
     }
 
-    slot[name='menu']::slotted(*) {
+    [popover] {
+        position: fixed;
+        inset: unset;
+        margin: 0;
+        padding: 0;
+        border: none;
+        overflow: visible;
+        width: fit-content;
+        position-area: var(--ni-private-preferred-position-area);
+        position-try-fallbacks: var(--ni-private-position-fallbacks);
+        align-self: var(--ni-private-menu-relative-alignment);
         margin-top: ${smallPadding};
         margin-bottom: ${smallPadding};
     }

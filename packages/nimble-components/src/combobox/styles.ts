@@ -105,6 +105,11 @@ export const styles = css`
     :host([disabled]) .dropdown-icon {
         fill: ${bodyDisabledFontColor};
     }
+
+    [popover] {
+        position-area: var(--ni-private-preferred-position-area);
+        position-try-fallbacks: var(--ni-private-position-fallbacks);
+    }
 `.withBehaviors(
     appearanceBehavior(
         DropdownAppearance.block,

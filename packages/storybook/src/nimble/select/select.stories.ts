@@ -30,7 +30,7 @@ interface SelectArgs {
     errorVisible: boolean;
     errorText: string;
     requiredVisible: boolean;
-    dropDownPosition: string;
+    dropDownPosition: string | undefined;
     optionsType: ExampleOptionsType;
     appearance: string;
     filterMode: keyof typeof FilterMode;
@@ -41,6 +41,9 @@ interface SelectArgs {
     filterInput: undefined;
     appearanceReadOnly: boolean;
     fullBleed: boolean;
+    open: undefined;
+    close: undefined;
+    isOpen: undefined;
 }
 
 interface OptionArgs {
@@ -260,6 +263,21 @@ const metadata: Meta<SelectArgs> = {
             table: { category: apiCategory.nonAttributeProperties },
             control: false
         },
+        isOpen: {
+            control: false,
+            description: 'Read-only boolean indicating whether the dropdown is open.',
+            table: { category: apiCategory.nonAttributeProperties }
+        },
+        open: {
+            control: false,
+            description: 'Opens the dropdown menu of options.',
+            table: { category: apiCategory.methods }
+        },
+        close: {
+            control: false,
+            description: 'Closes the dropdown menu of options.',
+            table: { category: apiCategory.methods }
+        },
         optionsType: {
             name: 'default',
             description: optionsDescription({ includeGrouping: true }),
@@ -295,14 +313,16 @@ const metadata: Meta<SelectArgs> = {
         errorVisible: false,
         errorText: 'Value is invalid',
         filterMode: 'none',
-        dropDownPosition: 'below',
+        dropDownPosition: undefined,
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
         loadingVisible: false,
         requiredVisible: false,
         appearanceReadOnly: false,
-        fullBleed: false
+        fullBleed: false,
+        close: undefined,
+        isOpen: undefined
     }
 };
 

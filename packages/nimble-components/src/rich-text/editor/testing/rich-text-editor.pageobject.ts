@@ -21,9 +21,11 @@ import {
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { RichTextMarkdownParser } from '../../models/markdown-parser';
 import { buttonTag, type Button } from '../../../button';
-import { richTextMentionListboxTag } from '../../mention-listbox';
+import {
+    richTextMentionListboxTag,
+    type RichTextMentionListbox
+} from '../../mention-listbox';
 import { listOptionTag, type ListOption } from '../../../list-option';
-import { anchoredRegionTag } from '../../../anchored-region';
 import { iconAtTag } from '../../../icons/at';
 import { MarkdownParserMentionConfiguration } from '../../models/markdown-parser-mention-configuration';
 import { MentionInternals } from '../../../rich-text-mention/base/models/mention-internals';
@@ -289,9 +291,7 @@ export class RichTextEditorPageObject {
     public async isMentionListboxOpened(): Promise<boolean> {
         await waitForUpdatesAsync();
 
-        return !this.getMentionListbox()?.shadowRoot?.querySelector(
-            anchoredRegionTag
-        )?.hidden;
+        return this.getMentionListbox()?.isOpen ?? false;
     }
 
     public getEditorMentionViewAttributeValues(attribute: string): string[] {
@@ -530,7 +530,7 @@ export class RichTextEditorPageObject {
         );
     }
 
-    private getMentionListbox(): Element | null {
+    private getMentionListbox(): RichTextMentionListbox | null {
         return this.richTextEditorElement.shadowRoot!.querySelector(
             richTextMentionListboxTag
         );
