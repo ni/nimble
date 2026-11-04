@@ -2289,16 +2289,6 @@ export class FvQueryEditor extends FoundationElement {
             return;
         }
         list.showPopover();
-        const viewportWidth = document.documentElement.clientWidth;
-        const viewportHeight = document.documentElement.clientHeight;
-        const below = viewportHeight - anchor.bottom - 8;
-        const above = anchor.top - 8;
-        list.style.maxHeight = `${Math.max(0, Math.min(320, Math.max(above, below) - 4))}px`;
-        const bounds = list.getBoundingClientRect();
-        list.style.left = `${Math.max(8, Math.min(anchor.left, viewportWidth - bounds.width - 8))}px`;
-        list.style.top = `${below >= bounds.height + 4 || below >= above
-            ? anchor.bottom + 4
-            : anchor.top - bounds.height - 4}px`;
     }
 
     private syncQueryInputAccessibilityAfterRender(): void {

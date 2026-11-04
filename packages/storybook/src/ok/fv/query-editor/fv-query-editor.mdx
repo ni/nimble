@@ -136,6 +136,6 @@ Clicking the condition popover's background or hint keeps it open. The panel can
 
 Pressing Tab from the last condition control closes the popover and returns focus to the query input. When the condition has no validation errors, a hint appears. Its space stays reserved while the hint is hidden, so showing it does not resize the popover. Customize it with `labels.closeEditorHint`.
 
-Autocomplete uses the native Popover API so suggestions remain visible outside scrolling containers. The list sizes to its content and stays within the viewport, opening above the input when there is not enough room below.
+Autocomplete uses the native Popover API so suggestions remain visible outside scrolling containers. CSS anchor positioning keeps the list attached to the query input as fonts load or the layout changes. The list sizes to its content and stays within the viewport, opening above the input when there is not enough room below.
 
 <ComponentApisLink />

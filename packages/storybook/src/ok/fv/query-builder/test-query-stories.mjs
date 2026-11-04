@@ -30,6 +30,40 @@ try {
         assert.deepEqual(errors, [], story.id);
         assert.ok(result.height < 16000, `${story.id}: ${result.height}px exceeds the matrix capture budget`);
         assert.ok(result.width <= 1440, `${story.id}: horizontal overflow`);
+        if (story.id === 'tests-ok-fv-query-editor--autocomplete-theme-matrix') {
+            const assertAutocompleteAnchors = async () => {
+                const menus = await page.locator('ok-fv-query-editor').evaluateAll(editors => editors.map(editor => {
+                    const input = editor.shadowRoot.querySelector('.query-input').getBoundingClientRect();
+                    const list = editor.shadowRoot.querySelector('.suggestions');
+                    const menu = list.getBoundingClientRect();
+                    return {
+                        open: list.matches(':popover-open'),
+                        horizontalOffset: menu.left - input.left,
+                        verticalOffset: menu.top - input.bottom
+                    };
+                }));
+                assert.equal(menus.length, 6);
+                for (const menu of menus) {
+                    assert.ok(menu.open, `${story.id}: autocomplete menu is closed`);
+                    assert.ok(Math.abs(menu.horizontalOffset) < 1, `${story.id}: autocomplete is detached horizontally`);
+                    assert.ok(Math.abs(menu.verticalOffset - 4) < 1, `${story.id}: autocomplete is detached vertically`);
+                }
+            };
+            await assertAutocompleteAnchors();
+            try {
+                await page.evaluate(async () => {
+                    document.querySelector('#storybook-root').style.paddingTop = '80px';
+                    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+                });
+                await assertAutocompleteAnchors();
+            } finally {
+                await page.evaluate(async () => {
+                    document.querySelector('#storybook-root').style.removeProperty('padding-top');
+                    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+                });
+            }
+            await assertAutocompleteAnchors();
+        }
         if (story.id.startsWith('tests-ok-fv-query-builder--')) {
             const states = await page.locator('ok-fv-query-builder').evaluateAll(builders => builders.map(builder => {
                 const bounds = builder.shadowRoot.querySelector('.query-popover').getBoundingClientRect();

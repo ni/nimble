@@ -18,6 +18,49 @@ try {
     const row = id => page.locator(`nimble-table-row[record-id="asset-${id}"]`);
     const location = () => page.getByRole('textbox', { name: /^Location/ });
 
+    for (const [fieldId, values, count] of [
+        ['status', ['Available', 'Maintenance'], 90],
+        ['workspace', ['Battery Lab', 'Validation'], 30],
+        ['location', ['Austin / Lab A', 'Munich / Lab C'], 80],
+        ['model', ['PXIe-4081', 'PXIe-4139'], 40]
+    ]) {
+        await openStory('ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit');
+        const queryBuilder = page.locator('ok-fv-query-builder');
+        await queryBuilder.evaluate((builder, { fieldId: field, values: selected }) => {
+            builder.query = {
+                version: 1,
+                root: { kind: 'predicate', fieldId: field, operatorId: 'is-one-of', value: selected }
+            };
+            builder.openQuickEditor();
+        }, { fieldId, values });
+        const editor = queryBuilder.locator('ok-fv-query-editor');
+        await editor.locator('[data-rule-id]').click();
+        const selector = editor.locator('ok-fv-chip-selector');
+        await selector.waitFor({ state: 'visible' });
+        assert.deepEqual(await selector.evaluate(element => element.selectedOptionValues), values);
+        assert.equal(await editor.evaluate(element => element.valid), true);
+        await queryBuilder.getByRole('button', { name: 'Apply', exact: true }).click();
+        await page.locator('.table-footer').getByText(`${count} records`, { exact: true }).waitFor();
+    }
+
+    for (const [fieldId, value, count] of [['location', 'Austin', 80], ['model', 'PXIe', 100]]) {
+        await openStory('ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit');
+        const queryBuilder = page.locator('ok-fv-query-builder');
+        await queryBuilder.evaluate((builder, { fieldId: field, value: text }) => {
+            builder.query = {
+                version: 1,
+                root: { kind: 'predicate', fieldId: field, operatorId: 'contains', value: text }
+            };
+            builder.openQuickEditor();
+        }, { fieldId, value });
+        const editor = queryBuilder.locator('ok-fv-query-editor');
+        await editor.locator('[data-rule-id]').click();
+        await editor.locator('[data-control="scalar-text"]').waitFor({ state: 'visible' });
+        assert.equal(await editor.evaluate(element => element.valid), true);
+        await queryBuilder.getByRole('button', { name: 'Apply', exact: true }).click();
+        await page.locator('.table-footer').getByText(`${count} records`, { exact: true }).waitFor();
+    }
+
     await openStory('ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit');
     await row(1).waitFor();
     await page.getByRole('heading', { name: 'Edit', exact: true }).waitFor();

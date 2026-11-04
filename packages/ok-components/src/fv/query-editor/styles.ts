@@ -253,6 +253,19 @@ export const styles = css`
             font-weight: 600;
         }
 
+        .query-input {
+            anchor-name: --query-autocomplete-input;
+        }
+
+        .suggestions:not(.dynamic-option-suggestions) {
+            position-anchor: --query-autocomplete-input;
+            position-area: bottom span-right;
+            position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+            align-self: unsafe start;
+            justify-self: unsafe start;
+            margin-block: 4px;
+        }
+
         .suggestions {
             position: fixed;
             inset: auto;

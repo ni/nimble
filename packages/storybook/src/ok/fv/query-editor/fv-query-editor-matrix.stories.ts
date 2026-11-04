@@ -113,11 +113,9 @@ export const autocompleteThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${component('Field autocomplete', queryEditorPresets.empty)}
     ${component('Logical operator autocomplete', queryEditorPresets.basic)}
 `);
-autocompleteThemeMatrix.parameters = {
-    chromatic: { delay: 300 }
-};
 autocompleteThemeMatrix.play = async ({ canvasElement }) => {
     await waitForUpdatesAsync();
+    await document.fonts.ready;
     for (const editor of canvasElement.querySelectorAll<FvQueryEditor>(fvQueryEditorTag)) {
         const input = editor.shadowRoot?.querySelector<HTMLElement>('.query-input');
         if (!input) {

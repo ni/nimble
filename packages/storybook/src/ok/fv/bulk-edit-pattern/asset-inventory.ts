@@ -28,13 +28,15 @@ export interface FieldDefinition {
 }
 type Asset = { id: string } & { [Key in Field]: string };
 
+const models = ['PXIe-4081', 'PXIe-4139', 'PXIe-6363', 'PXIe-5162', 'cDAQ-9178', 'PXIe-8840'];
+const locations = ['Austin / Lab A', 'Austin / Lab B', 'Munich / Lab C'];
+
 function createAssets(): Asset[] {
-    const models = ['PXIe-4081', 'PXIe-4139', 'PXIe-6363', 'PXIe-5162', 'cDAQ-9178', 'PXIe-8840'];
     const names = ['Precision DMM', 'Source measure unit', 'Multifunction DAQ', 'Oscilloscope', 'DAQ chassis', 'Embedded controller'];
     return Array.from({ length: 120 }, (_, index) => ({
         id: `asset-${index + 1}`,
         name: `${names[index % 6]} ${String(Math.floor(index / 6) + 1).padStart(2, '0')}`,
-        location: ['Austin / Lab A', 'Austin / Lab B', 'Munich / Lab C'][index % 3]!,
+        location: locations[index % 3]!,
         workspace: index % 4 === 0 ? 'Battery Lab' : 'Default',
         status: ['Available', 'In use', 'Available', 'Maintenance'][index % 4]!,
         owner: ['Alex Morgan', 'Sam Chen', 'Jordan Lee'][index % 3]!,
@@ -85,20 +87,30 @@ export class AssetInventory {
     public readonly sections = ['General', 'Properties'];
     public readonly queryDefinition: QueryBuilderDefinition = {
         version: 1,
-        fields: this.fields.map((field): QueryBuilderDefinition['fields'][number] => ({
-            id: field.key,
-            path: `/${field.key}`,
-            label: field.label,
-            valueSchema: field.options
-                ? { oneOf: field.options.map(value => ({ const: value, title: value })) }
-                : { type: 'string' },
-            operatorIds: field.options ? ['is', 'is-not'] : ['is', 'is-not', 'contains'],
-            ...(field.options ? { editor: { kind: 'select' } } : {})
-        })),
+        fields: this.fields.map((field): QueryBuilderDefinition['fields'][number] => {
+            const options = field.options
+                ?? (field.key === 'location' ? locations : undefined)
+                ?? (field.key === 'model' ? models : undefined);
+            return {
+                id: field.key,
+                path: `/${field.key}`,
+                label: field.label,
+                valueSchema: options
+                    ? { oneOf: options.map(value => ({ const: value, title: value })) }
+                    : { type: 'string' },
+                operatorIds: [
+                    'is', 'is-not',
+                    ...(!field.options ? ['contains'] : []),
+                    ...(options ? ['is-one-of'] : [])
+                ],
+                ...(options ? { editor: { kind: 'select' } } : {})
+            };
+        }),
         operators: [
             { id: 'is', label: 'Is', operand: { kind: 'field-value' } },
             { id: 'is-not', label: 'Is not', operand: { kind: 'field-value' } },
-            { id: 'contains', label: 'Contains', operand: { kind: 'field-value' } }
+            { id: 'contains', label: 'Contains', operand: { kind: 'schema', schema: { type: 'string' } }, editor: { kind: 'text' } },
+            { id: 'is-one-of', label: 'Is one of', operand: { kind: 'field-value-list' } }
         ]
     };
 
@@ -327,10 +339,19 @@ export class AssetInventory {
                 : node.children.some(child => this.matchesQuery(record, child));
         }
         const field = this.fields.find(candidate => candidate.key === node.fieldId);
-        if (!field || typeof node.value !== 'string') {
-            throw new Error('The asset filter requires a known field and a string value.');
+        if (!field) {
+            throw new Error('The asset filter requires a known field.');
         }
         const value = record[field.key];
+        if (node.operatorId === 'is-one-of') {
+            if (!Array.isArray(node.value) || !node.value.every(item => typeof item === 'string')) {
+                throw new Error('The Is one of asset filter requires a list of string values.');
+            }
+            return node.value.includes(value);
+        }
+        if (typeof node.value !== 'string') {
+            throw new Error('The asset filter requires a known field and a string value.');
+        }
         switch (node.operatorId) {
             case 'is':
                 return value === node.value;
