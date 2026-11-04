@@ -27,14 +27,14 @@ Concept2 imports `../components/ui`, whose actual controls are in `components/ui
 
 ### Repository Sources
 
-Repository links are relative to this document. Generated declarations are evidence of local artifacts only, not proof of a maintained or published contract.
+Repository links are relative to this document. Generated declarations are evidence of local artifacts only, not proof of a maintained or published contract. Their paths are shown as text because they are not checked in and may be absent in a clean checkout.
 
 | Source | Relevance |
 | --- | --- |
 | <requirements.md> | Requested behavior and seven open questions |
 | [packages/ok-components/src/fv/all-fv.ts](../../all-fv.ts) | FV registration convention; no query-builder import in the inspected barrel |
-| [packages/ok-components/dist/esm/query-builder/index.d.ts](../../../../dist/esm/query-builder/index.d.ts) | Locally generated `ok-query-builder` declaration |
-| [packages/ok-components/dist/esm/query-builder/types.d.ts](../../../../dist/esm/query-builder/types.d.ts) | Different nested query/field/value model |
+| `packages/ok-components/dist/esm/query-builder/index.d.ts` | Locally generated `ok-query-builder` declaration |
+| `packages/ok-components/dist/esm/query-builder/types.d.ts` | Different nested query/field/value model |
 | [packages/nimble-components/src/chip/index.ts](../../../../../nimble-components/src/chip/index.ts) and [template.ts](../../../../../nimble-components/src/chip/template.ts) | Removal support, but no built-in edit-button interaction |
 | [packages/nimble-components/src/anchored-region/index.ts](../../../../../nimble-components/src/anchored-region/index.ts) and [styles.ts](../../../../../nimble-components/src/anchored-region/styles.ts) | Positioning primitive, update/anchor lifecycle and stacking limitations |
 | [packages/nimble-components/src/select/index.ts](../../../../../nimble-components/src/select/index.ts) and [template.ts](../../../../../nimble-components/src/select/template.ts) | Keyboard/focus handling and local anchored popup |

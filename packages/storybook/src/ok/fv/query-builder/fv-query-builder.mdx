@@ -108,6 +108,12 @@ Provide `saveHandler` and `deleteHandler` to enable save and delete actions. A s
 
 The action split button uses its standard `disabled` state when its primary action is unavailable, disabling both the primary button and menu toggle. The query name field is required and shows missing-name validation through Nimble's error text; persistence failures remain separate operation errors.
 
+The Features Theme Matrix keeps each action split-button menu open so visual snapshots include the options available for each feature configuration.
+
+The saved-query menu omits its action divider when no creation, editing, or deletion actions are available for the current selection.
+
+Unsaved edits show a dirty dot on both the saved-query menu item and the selected-query split button, including when the saved-query catalog loads asynchronously.
+
 When the selected saved query has unsaved changes, **Save** saves those changes under the same ID and applies the saved query. **Update saved query** in the action menu saves the changes without applying them. **Apply** applies the draft without saving it. In the Working query view, **Save as new…** saves a copy with a new ID.
 
 All four feature flags default to `true`. The JavaScript properties `showNigelPrompt`, `allowSavedQueryCreation`, `allowSavedQueryEditing`, and `allowSavedQueryDeletion` retain their default-on behavior. HTML uses the false-by-default boolean attributes `hide-nigel-prompt`, `disable-saved-query-creation`, `disable-saved-query-editing`, and `disable-saved-query-deletion` to opt out. `showNigelPrompt` controls Nigel assistance and the generated-query preview. Creation controls new saved queries, including copies; editing controls changing names and updating existing records. Deletion remains independently available when editing is disabled, without exposing the name or update controls. Disabling creation does not prevent applying query conditions or updating existing saved queries.

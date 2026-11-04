@@ -43,11 +43,22 @@ try {
                     open: builder.isManagerOpen,
                     contained: bounds.left >= cell.left && bounds.right <= cell.right
                         && bounds.top >= cell.top && bounds.bottom <= cell.bottom,
-                    loaded: builder.queryPopoverRegion.classList.contains('loaded')
+                    loaded: builder.queryPopoverRegion.classList.contains('loaded'),
+                    actionMenuOpen: builder.shadowRoot.querySelector('.query-action-split-button')?.region?.matches(':popover-open'),
+                    dirtyMenuItem: Boolean(builder.shadowRoot.querySelector('[data-saved-query-id="saved"] .dirty-indicator')),
+                    dirtySplitButton: Boolean(builder.shadowRoot.querySelector('.queries-menu-button > [slot="end"] .dirty-indicator')),
+                    actionMenuContained: (() => {
+                        const menu = builder.shadowRoot.querySelector('.query-action-menu').getBoundingClientRect();
+                        return menu.width > 0 && menu.height > 0 && menu.left >= cell.left && menu.right <= cell.right
+                            && menu.top >= cell.top && menu.bottom <= cell.bottom;
+                    })()
                 };
             }));
             assert.ok(states.length > 0);
             for (const state of states) {
+                if (story.id === 'tests-ok-fv-query-builder--features-theme-matrix') {
+                    assert.ok(state.actionMenuOpen && state.actionMenuContained, `${story.id}: action menu not visible within cell for ${state.name}`);
+                }
                 if (state.open) {
                     assert.ok(state.loaded && state.contained, `${story.id}: misplaced popover for ${state.name}`);
                 }
@@ -61,6 +72,7 @@ try {
                 if (state.name.startsWith('Nigel ') && state.name.includes('creation ')) {
                     if (state.editing) {
                         assert.equal(state.nameInputValue, 'Updated production tests', `${story.id}: rename missing for ${state.name}`);
+                        assert.ok(state.dirtyMenuItem && state.dirtySplitButton, `${story.id}: dirty indicators missing for ${state.name}`);
                     } else {
                         assert.equal(state.nameInputValue, undefined, `${story.id}: unexpected rename input for ${state.name}`);
                         assert.equal(state.savedQueryName, 'Failed production tests', `${story.id}: unexpected rename for ${state.name}`);

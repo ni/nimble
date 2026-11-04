@@ -793,6 +793,31 @@ describe('FvQueryBuilder', () => {
         expect(element.shadowRoot?.querySelector('[data-action="save-as-new"]')).not.toBeNull();
     });
 
+    it('shows the saved-query menu divider only when actions follow it', async () => {
+        ({ element, disconnect } = await setup(false));
+        const menu = getRequiredElement<HTMLElement>('.saved-query-menu');
+        expect(menu.querySelector('[role="separator"]')).not.toBeNull();
+
+        element.allowSavedQueryCreation = false;
+        await waitForUpdatesAsync();
+        expect(menu.querySelector('[role="separator"]')).toBeNull();
+
+        await selectSavedQuery('saved-a');
+        expect(menu.querySelector('[role="separator"]')).not.toBeNull();
+
+        element.allowSavedQueryEditing = false;
+        await waitForUpdatesAsync();
+        expect(menu.querySelector('[role="separator"]')).not.toBeNull();
+
+        element.allowSavedQueryDeletion = false;
+        await waitForUpdatesAsync();
+        expect(menu.querySelector('[role="separator"]')).toBeNull();
+
+        element.allowSavedQueryCreation = true;
+        await waitForUpdatesAsync();
+        expect(menu.querySelector('[role="separator"]')).not.toBeNull();
+    });
+
     it('hides creation actions without disabling the quick query editor', async () => {
         ({ element, disconnect } = await setup(false));
         expect(element.allowSavedQueryCreation).toBeTrue();
@@ -893,6 +918,27 @@ describe('FvQueryBuilder', () => {
         expect(element.shadowRoot?.querySelector('[data-action="confirm-delete"]')).toBeNull();
     });
 
+    it('updates menu selection and dirty indicators when saved queries load after connection', async () => {
+        const result = await fixture<FvQueryBuilder>(html`<${fvQueryBuilderTag}></${fvQueryBuilderTag}>`);
+        ({ element, disconnect } = result);
+        element.definition = definition;
+        element.query = currentDocument;
+        await result.connect();
+        await waitForUpdatesAsync();
+        element.savedQueries = savedRecords;
+        await waitForUpdatesAsync();
+        await selectSavedQuery('saved-a');
+        const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
+        name.value = 'Edited after catalog load';
+        name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        const savedOption = getRequiredElement<HTMLElement>('[data-saved-query-id="saved-a"]');
+        expect(savedOption.getAttribute('aria-current')).toBe('true');
+        expect(savedOption.querySelector('.dirty-indicator')).not.toBeNull();
+        expect(getRequiredElement<FvSplitButton>('.queries-menu-button').querySelector('[slot="end"] .dirty-indicator')).not.toBeNull();
+    });
+
     it('closes the query popover on Escape without discarding saved-query edits', async () => {
         ({ element, disconnect } = await setup());
         await selectSavedQuery('saved-a');
@@ -919,6 +965,10 @@ describe('FvQueryBuilder', () => {
         const indicator = menuButton.querySelector('[slot="end"]');
         expect(endSlot?.assignedElements()).toEqual([indicator!]);
         expect(indicator?.querySelector('.visually-hidden')?.textContent).toBe(element.labels.unsavedChanges);
+        const savedOption = getRequiredElement<HTMLElement>('[data-saved-query-id="saved-a"]');
+        expect(savedOption.getAttribute('aria-current')).toBe('true');
+        expect(savedOption.querySelector('.dirty-indicator')).not.toBeNull();
+        expect(savedOption.querySelector('.visually-hidden')?.textContent).toBe(element.labels.unsavedChanges);
     });
 
     it('closes the query popover on outside pointer input without discarding its draft', async () => {

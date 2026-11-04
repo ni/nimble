@@ -84,7 +84,12 @@ export const template = html<FvQueryBuilder>`
                     ${when(x => x.savedQueryViews.length === 0, html<FvQueryBuilder>`
                         <${menuItemTag} disabled>${x => x.labels.noSavedQueries}</${menuItemTag}>
                     `)}
-                    <hr role="separator">
+                    ${when(
+                        x => x.savedQueryCreationEnabled
+                            || (x.selectedSavedQueryId !== null
+                                && (x.savedQueryEditingEnabled || x.savedQueryDeletionEnabled)),
+                        html<FvQueryBuilder>`<hr role="separator">`
+                    )}
                     ${when(x => x.savedQueryCreationEnabled, html<FvQueryBuilder>`
                         <${menuItemTag}
                             role="menuitem"

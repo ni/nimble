@@ -373,6 +373,7 @@ export class FvQueryBuilder extends FoundationElement {
         return draft ? isDirty(draft) : false;
     }
 
+    @volatile
     public get savedQueryViews(): readonly SavedQueryView[] {
         const savedViews = this.savedQueries.map(query => {
             const draft = this.savedDrafts.get(query.id);

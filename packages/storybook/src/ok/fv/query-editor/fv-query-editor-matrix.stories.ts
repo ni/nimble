@@ -2,6 +2,7 @@ import type { Meta, StoryFn } from '@storybook/html-vite';
 import { html, type ViewTemplate } from '@ni/fast-element';
 import type { Select } from '@ni/nimble-components/dist/esm/select';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     fvQueryEditorTag,
     type FvQueryEditor,
@@ -33,7 +34,7 @@ const component = (
     open = false
 ): ViewTemplate => html`
     <section inert style="display: inline-block; vertical-align: top; width: 660px; min-height: ${() => (open ? 640 : 180)}px; padding: 16px; box-sizing: border-box;">
-        <h3>${() => `${name}, ${layout}${disabled ? ', disabled' : ''}`}</h3>
+        <h3 style="color: var(${bodyFontColor.cssCustomProperty});">${() => `${name}, ${layout}${disabled ? ', disabled' : ''}`}</h3>
         <${fvQueryEditorTag}
             label="Query conditions"
             :definition="${() => queryBuilderDefinition}"

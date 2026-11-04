@@ -1,6 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/html-vite';
 import { html, type ViewTemplate } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import type { FvSplitButton } from '@ni/ok-components/dist/esm/fv/split-button';
 import {
     fvQueryBuilderTag,
     type FvQueryBuilder,
@@ -79,7 +81,7 @@ const featureStates: readonly BuilderState[] = cartesianProduct([
 // Inert cells prevent callout autofocus from dismissing neighboring matrix examples.
 const component = (state: BuilderState): ViewTemplate => html`
     <section inert style="width: 660px; min-height: 640px; padding: 16px; box-sizing: border-box;">
-        <h3>${() => state.name}</h3>
+        <h3 style="color: var(${bodyFontColor.cssCustomProperty});">${() => state.name}</h3>
         <${fvQueryBuilderTag}
             data-state="${() => state.name}"
             :definition="${() => queryBuilderDefinition}"
@@ -180,7 +182,35 @@ export const featuresThemeMatrix: StoryFn = createMatrixThemeStory(html`
         ${createMatrix(component, [featureStates.filter(state => state.view === 'saved')])}
     </div>
 `);
-featuresThemeMatrix.play = prepareBuilders;
+featuresThemeMatrix.play = async context => {
+    await prepareBuilders(context);
+    const buttons = Array.from(context.canvasElement.querySelectorAll<FvQueryBuilder>(fvQueryBuilderTag))
+        .map(builder => {
+            const button = builder.shadowRoot?.querySelector<FvSplitButton>('.query-action-split-button');
+            if (!button || button.disabled) {
+                throw new Error('Matrix query action split button must be available.');
+            }
+            button.open = true;
+            return button;
+        });
+    await waitForUpdatesAsync();
+    await Promise.all(buttons.map(async button => {
+        const region = button.region;
+        if (!region) {
+            throw new Error('Matrix query action menu region was not rendered.');
+        }
+        region.fixedPlacement = false;
+        region.horizontalViewportLock = false;
+        region.verticalViewportLock = false;
+        region.verticalPositioningMode = 'locktodefault';
+        if (!region.classList.contains('loaded')) {
+            await new Promise<void>(resolve => {
+                region.addEventListener('loaded', () => resolve(), { once: true });
+            });
+        }
+    }));
+    await waitForUpdatesAsync();
+};
 
 export const menuFeaturesThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${disableStorybookZoomTransform}
