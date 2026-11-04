@@ -13,6 +13,7 @@ import './sticky-header';
 import './summary-panel';
 import './summary-panel-tile';
 import './search-input';
+import './text-field';
 import './splitter';
 import './split-layout';
 import './toolbar';
