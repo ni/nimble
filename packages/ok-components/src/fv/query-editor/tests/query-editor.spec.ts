@@ -1884,6 +1884,7 @@ describe('FvQueryEditor', () => {
         expect(getRequiredElement<HTMLElement>('[data-control="field"]').tagName.toLowerCase()).toBe('nimble-select');
         expect(getRequiredElement<HTMLElement>('[data-control="operator"]').tagName.toLowerCase()).toBe('nimble-select');
         const editorPanel = getRequiredElement<HTMLElement>('.editor-panel');
+        expect(editorPanel.tabIndex).toBe(-1);
         const fieldControl = getRequiredElement<HTMLElement>('[data-control="field"]');
         const operatorControl = getRequiredElement<HTMLElement>('[data-control="operator"]');
         const valueControl = getRequiredElement<ValueControl>('[data-control="scalar-number"]');
@@ -1895,6 +1896,9 @@ describe('FvQueryEditor', () => {
         expect(fieldControl.textContent?.trim().startsWith(element.labels.field)).toBeTrue();
         expect(operatorControl.textContent?.trim().startsWith(element.labels.operator)).toBeTrue();
         expect(valueControl.textContent?.trim()).toBe(element.labels.value);
+        editorPanel.focus();
+        await waitForUpdatesAsync();
+        expect(element.activeRuleId).toBe('duration-rule');
 
         const escape = new KeyboardEvent('keydown', {
             key: 'Escape',

@@ -85,6 +85,20 @@ try {
     }
 
     await page.goto(`${baseUrl}/iframe.html?id=ok-fv-query-editor--configurable&viewMode=story`);
+    const conditionEditor = page.locator('ok-fv-query-editor');
+    await conditionEditor.locator('.condition-chip').first().click();
+    const hint = conditionEditor.locator('.editor-hint');
+    await hint.waitFor({ state: 'visible' });
+    const activeRuleId = await conditionEditor.evaluate(element => element.activeRuleId);
+    await hint.click();
+    assert.equal(await conditionEditor.evaluate(element => element.activeRuleId), activeRuleId);
+    await conditionEditor.locator('.editor-panel').click({ position: { x: 4, y: 4 } });
+    assert.equal(await conditionEditor.evaluate(element => element.activeRuleId), activeRuleId);
+    await conditionEditor.locator('.query-input').click();
+    assert.equal(await conditionEditor.evaluate(element => element.activeRuleId), null);
+    console.log('ok-fv-query-editor--configurable condition background clicks retain editor: passed');
+
+    await page.goto(`${baseUrl}/iframe.html?id=ok-fv-query-editor--configurable&viewMode=story`);
     const editor = page.locator('ok-fv-query-editor');
     await editor.waitFor();
     await editor.evaluate(element => {

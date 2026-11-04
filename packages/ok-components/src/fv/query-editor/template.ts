@@ -336,6 +336,7 @@ export const template = html<FvQueryEditor>`
                         )}
                         <section
                             class="editor-panel"
+                            tabindex="-1"
                             id="${x => x.editorPanelId}"
                             role="dialog"
                             aria-label="${x => x.labels.editRule}"
