@@ -147,6 +147,24 @@ describe('FvDateTimePicker', () => {
     });
 
     parameterizeSpec([
+        { name: 'omitted AM/PM', text: '11/13/2024 02:25', value: '2024-11-13T02:25' },
+        { name: 'omitted time', text: '11/13/2024', value: '2024-11-13T00:00' }
+    ], (spec, name, { text, value }) => {
+        spec(`completes pasted ${name}`, async () => {
+            element.value = '';
+            await waitForUpdatesAsync();
+            element.control.setSelectionRange(0, 0);
+            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
+            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
+            expect(element.control.dispatchEvent(paste)).toBeFalse();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(value);
+            expect(element.control.value).toBe(element.displayValue);
+            expect(element.checkValidity()).toBeTrue();
+        });
+    });
+
+    parameterizeSpec([
         { name: 'midnight', display: '12:00 AM', value: '00:00' },
         { name: 'noon', display: '12:00 PM', value: '12:00' },
         { name: 'morning', display: '01:05 AM', value: '01:05' },
@@ -162,7 +180,7 @@ describe('FvDateTimePicker', () => {
         });
     });
 
-    it('requires a complete day period during direct entry and recovers on programmatic updates', async () => {
+    it('preserves an incomplete day period while typing and recovers on programmatic updates', async () => {
         element.control.value = '11/13/2024 02:25';
         element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
@@ -174,6 +192,118 @@ describe('FvDateTimePicker', () => {
         await waitForUpdatesAsync();
         expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:25 PM');
         expect(element.checkValidity()).toBeTrue();
+    });
+
+    parameterizeSpec([
+        { name: 'omitted AM/PM', locale: 'en-US', text: '11/13/2024 02:25', value: '2024-11-13T02:25', display: '11/13/2024 02:25 AM' },
+        { name: 'omitted AM/PM at twelve', locale: 'en-US', text: '11/13/2024 12:25', value: '2024-11-13T00:25', display: '11/13/2024 12:25 AM' },
+        { name: 'explicit PM', locale: 'en-US', text: '11/13/2024 02:25 PM', value: '2024-11-13T14:25', display: '11/13/2024 02:25 PM' },
+        { name: 'omitted time', locale: 'en-US', text: '11/13/2024', value: '2024-11-13T00:00', display: '11/13/2024 12:00 AM' },
+        { name: '24-hour omitted time', locale: 'de-DE', text: '13.11.2024', value: '2024-11-13T00:00', display: '13.11.2024 00:00' }
+    ], (spec, name, { locale, text, value, display }) => {
+        spec(`completes ${name} on commit`, async () => {
+            lang.setValueFor(element, locale);
+            await waitForUpdatesAsync();
+            element.control.value = text;
+            element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            const input = jasmine.createSpy('input');
+            const change = jasmine.createSpy('change');
+            element.addEventListener('input', input);
+            element.addEventListener('change', change);
+            const previous = element.value;
+            element.control.dispatchEvent(new Event('change', { bubbles: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(value);
+            expect(element.control.value.replace(/\s/g, ' ')).toBe(display);
+            expect(element.checkValidity()).toBeTrue();
+            expect(input).toHaveBeenCalledTimes(previous === value ? 0 : 1);
+            expect(change).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('completes omitted AM/PM in the popup without losing the selected date', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const time = element.timeField!;
+        time.value = '09:07';
+        time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(element.validity.badInput).toBeTrue();
+        time.dispatchEvent(new Event('change', { bubbles: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T09:07');
+        expect(time.value.replace(/\s/g, ' ')).toBe('09:07 AM');
+        expect(time.checkValidity()).toBeTrue();
+        expect(element.checkValidity()).toBeTrue();
+    });
+
+    it('shows invalid popup time feedback and clears the main draft when corrected in the popup', async () => {
+        element.control.value = '11/';
+        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        element.open = true;
+        await waitForUpdatesAsync();
+        const time = element.timeField!;
+        for (const text of ['09:', '', ' ']) {
+            time.value = text;
+            time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            time.dispatchEvent(new Event('change', { bubbles: true }));
+            expect(element.value).withContext(text).toBe('');
+            expect(element.validity.badInput).withContext(text).toBeTrue();
+            expect(element.entryError).withContext(text).toBe('Enter a valid time.');
+        }
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot!.querySelector('.picker #entry-error')!.textContent).toContain('Enter a valid time.');
+        expect(time.getAttribute('aria-invalid')).toBe('true');
+        time.value = '09:07';
+        time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        time.dispatchEvent(new Event('change', { bubbles: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe(`${element.dateKey(calendarToday())}T09:07`);
+        expect(element.control.value).toBe(element.displayValue);
+        expect(element.checkValidity()).toBeTrue();
+        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent.trim()).toBe('');
+    });
+
+    it('shows accessible feedback for invalid committed drafts and clears it after correction or reset', async () => {
+        const form = document.createElement('form');
+        element.parentElement!.appendChild(form);
+        form.appendChild(element);
+        element.control.value = '02/30/2024 02:25';
+        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        element.control.dispatchEvent(new Event('change', { bubbles: true }));
+        await waitForUpdatesAsync();
+        expect(element.control.value).toBe('02/30/2024 02:25');
+        expect(element.value).toBe('');
+        expect(element.checkValidity()).toBeFalse();
+        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent).toContain(element.validationMessage);
+        expect(element.control.getAttribute('aria-invalid')).toBe('true');
+        expect(element.control.getAttribute('aria-describedby')).toContain('entry-error');
+        element.control.value = '02/29/2024 02:25 PM';
+        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent.trim()).toBe('');
+        expect(element.control.getAttribute('aria-invalid')).not.toBe('true');
+        element.control.value = '11/';
+        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        form.reset();
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent.trim()).toBe('');
+        expect(element.checkValidity()).toBeTrue();
+    });
+
+    it('keeps constraints invalid after completion and preserves application error state', async () => {
+        element.min = '2024-11-13T09:00';
+        element.errorText = 'Application error';
+        element.errorVisible = true;
+        element.control.value = '11/13/2024 02:25';
+        element.control.dispatchEvent(new Event('change', { bubbles: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T02:25');
+        expect(element.validity.rangeUnderflow).toBeTrue();
+        expect(element.errorText).toBe('Application error');
+        expect(element.errorVisible).toBeTrue();
+        element.errorVisible = false;
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent).toContain(element.validationMessage);
     });
 
     it('sanitizes invalid programmatic values and validates required like native controls', () => {

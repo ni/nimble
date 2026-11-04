@@ -1,6 +1,7 @@
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { withActions } from 'storybook/actions/decorator';
 import { html } from '@ni/fast-element';
+import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import { fvDateTimePickerTag } from '@ni/ok-components/dist/esm/fv/date-time-picker';
 import { FvDateTimePickerAppearance, FvDateTimePickerType } from '@ni/ok-components/dist/esm/fv/date-time-picker/types';
 import { apiCategory, createUserSelectedThemeStory, okWarning } from '../../../utilities/storybook';
@@ -8,6 +9,7 @@ import { apiCategory, createUserSelectedThemeStory, okWarning } from '../../../u
 interface DateTimePickerArgs {
     appearance: FvDateTimePickerAppearance;
     type: FvDateTimePickerType;
+    locale: string;
     value: string;
     min: string;
     max: string;
@@ -30,7 +32,7 @@ const metadata: Meta<DateTimePickerArgs> = {
             componentName: 'Fv Date Time Picker',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
-        <div style="padding: 16px; min-height: 460px;">
+        <${themeProviderTag} lang="${x => x.locale}" style="display: block; padding: 16px; min-height: 460px;">
             <${fvDateTimePickerTag}
                 style="width: 320px;"
                 appearance="${x => x.appearance}"
@@ -45,9 +47,14 @@ const metadata: Meta<DateTimePickerArgs> = {
                 ?required-visible="${x => x.required}"
                 ?open="${x => x.open}"
             >${x => x.label}</${fvDateTimePickerTag}>
-        </div>
+        </${themeProviderTag}>
     `),
     argTypes: {
+        locale: {
+            description: 'Locale supplied by the surrounding theme provider. Controls date order, month names, week start, and 12/24-hour time; UI labels remain English.',
+            options: ['en-US', 'en-GB', 'de-DE', 'fr-FR', 'es-ES', 'ja-JP', 'zh-CN', 'ar-EG'],
+            control: { type: 'select' }
+        },
         appearance: {
             options: Object.values(FvDateTimePickerAppearance),
             control: { type: 'radio' },
@@ -74,6 +81,7 @@ const metadata: Meta<DateTimePickerArgs> = {
     args: {
         appearance: FvDateTimePickerAppearance.underline,
         type: FvDateTimePickerType.datetimeLocal,
+        locale: 'en-US',
         label: 'Date and time',
         value: '2024-11-13T14:25',
         min: '',

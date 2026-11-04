@@ -66,7 +66,22 @@ export function formatDisplay(date: Date, type: FvDateTimePickerType, locale: st
 
 const normalize = (text: string): string => text.replace(/\s/g, ' ').toLocaleLowerCase();
 
-export function parseDisplay(text: string, type: FvDateTimePickerType, locale: string, mode: MaskitoTimeMode): string {
+export function parseDisplay(text: string, type: FvDateTimePickerType, locale: string, mode: MaskitoTimeMode, complete = false): string {
+    if (complete && type === 'datetime-local') {
+        const { dayPeriod } = timeFormat(locale, mode);
+        const candidates = [
+            text,
+            ...(dayPeriod[0] ? [`${text.trimEnd()} ${dayPeriod[0]}`] : []),
+            `${text.trimEnd()} ${formatTime(calendarDate(1970, 0, 1), locale, mode)}`
+        ];
+        for (const candidate of candidates) {
+            const value = parseDisplay(candidate, type, locale, mode);
+            if (value) {
+                return value;
+            }
+        }
+        return '';
+    }
     const { mode: dateMode, separator } = dateFormat(locale);
     const length = dateMode.split('/').join(separator).length;
     const segments = text.slice(0, length).split(separator);

@@ -20,6 +20,12 @@ const label = createRequiredVisibleLabelTemplate(html<FvDateTimePicker>`
     </label>
 `);
 
+const entryErrorTemplate = html<FvDateTimePicker>`
+    <div id="entry-error" class="entry-error" aria-live="polite">
+        ${x => (x.errorVisible ? '' : x.entryError)}
+    </div>
+`;
+
 const dayTemplate = html<Date, { picker: FvDateTimePicker }>`
     <td role="gridcell" aria-selected="${(x, c) => c.parent.picker.isSelected(x)}">
         <button type="button" class="day"
@@ -38,6 +44,7 @@ const dayTemplate = html<Date, { picker: FvDateTimePicker }>`
 
 export const template = html<FvDateTimePicker>`
     <template class="${x => (x.readOnly ? 'readonly' : '')}"
+        @invalid="${x => x.handleInvalid()}"
         @keydown="${(x, c) => x.handleKeydown(c.event as KeyboardEvent)}"
         @focusout="${x => x.handleFocusout()}">
         ${label}
@@ -52,7 +59,7 @@ export const template = html<FvDateTimePicker>`
                 ?required="${x => x.required}" ?autofocus="${x => x.autofocus}"
                 aria-label="${x => x.ariaLabel}"
                 aria-labelledby="${x => x.ariaLabelledby}"
-                aria-describedby="${x => x.ariaDescribedby}"
+                aria-describedby="${x => [x.ariaDescribedby, x.entryError ? 'entry-error' : ''].filter(Boolean).join(' ') || null}"
                 aria-atomic="${x => x.ariaAtomic}"
                 aria-busy="${x => x.ariaBusy}"
                 aria-controls="${x => x.ariaControls}"
@@ -63,7 +70,7 @@ export const template = html<FvDateTimePicker>`
                 aria-flowto="${x => x.ariaFlowto}"
                 aria-haspopup="${x => x.ariaHaspopup}"
                 aria-hidden="${x => x.ariaHidden}"
-                aria-invalid="${x => x.ariaInvalid}"
+                aria-invalid="${x => x.ariaInvalid ?? (x.entryError ? 'true' : null)}"
                 aria-keyshortcuts="${x => x.ariaKeyshortcuts}"
                 aria-live="${x => x.ariaLive}"
                 aria-owns="${x => x.ariaOwns}"
@@ -86,6 +93,7 @@ export const template = html<FvDateTimePicker>`
                 ${errorTextTemplate}
             </span>
         </div>
+        ${when(x => !x.open, entryErrorTemplate)}
         ${when(x => x.open, html<FvDateTimePicker>`
             <${anchoredRegionTag} ${ref('region')} fixed-placement auto-update-mode="auto"
                 @loaded="${x => x.focusDay()}"
@@ -103,6 +111,12 @@ export const template = html<FvDateTimePicker>`
                             :value="${x => String(x.visibleDate.getUTCMonth())}"
                             @change="${(x, c) => x.changeMonth(c.event)}">
                             <span class="sr-only">${x => x.localizedLabels.month}</span>
+                            <span slot="selected-value" class="month-value">
+                                ${repeat(x => x.months, html<string>`
+                                    <span class="month-size" aria-hidden="true">${x => x}</span>
+                                `)}
+                                <span>${x => x.months[x.visibleDate.getUTCMonth()]}</span>
+                            </span>
                             ${repeat(x => x.months, html<string, FvDateTimePicker>`
                                 <${listOptionTag} value="${(_, c) => c.index}">${x => x}</${listOptionTag}>
                             `, { positioning: true })}
@@ -146,12 +160,15 @@ x => x.weekdays,
                         ${when(x => x.type === 'datetime-local', html<FvDateTimePicker>`
                             <${textFieldTag} id="time" class="time-field" appearance="outline"
                                 placeholder="${x => x.timePlaceholder}" ${ref('timeField')}
+                                aria-invalid="${x => (x.entryError ? 'true' : null)}"
+                                aria-describedby="${x => (x.entryError ? 'entry-error' : null)}"
                                 :value="${x => x.timeDisplay}"
                                 @input="${(x, c) => x.handleTimeInput(c.event)}"
                                 @change="${(x, c) => x.changeTime(c.event)}">${x => x.localizedLabels.time}</${textFieldTag}>
                         `)}
                         <${buttonTag} type="button" appearance="ghost" @click="${x => x.closePicker()}">${x => x.localizedLabels.done}</${buttonTag}>
                     </div>
+                    ${entryErrorTemplate}
                 </div>
             </${anchoredRegionTag}>
         `)}

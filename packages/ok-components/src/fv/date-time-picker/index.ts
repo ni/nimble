@@ -106,6 +106,12 @@ export class FvDateTimePicker extends mixinErrorPattern(
     @observable
     public timeField?: TextField;
 
+    /** @internal */
+    @observable
+    public entryError = '';
+
+    private validationAttempted = false;
+
     private mask?: Maskito;
     private timeMask?: Maskito;
 
@@ -204,40 +210,60 @@ export class FvDateTimePicker extends mixinErrorPattern(
         if (this.proxy === undefined) {
             return;
         }
+        const badTime = this.timeText !== undefined && !this.parseTimeText(this.timeText);
         const badInput = (this.editingText !== undefined && this.editingText !== '' && !this.parseText(this.editingText))
-            || (this.timeText !== undefined && !this.parseTimeText(this.timeText));
+            || badTime;
         const native = this.proxy.validity;
+        const invalidEntryMessage = badTime ? this.localizedLabels.invalidTime
+            : this.localizedLabels[this.type === 'date' ? 'invalidDate' : 'invalidDateTime'];
         this.setValidity(this.disabled || this.readOnly ? {} : {
             badInput,
             valueMissing: native.valueMissing,
             rangeUnderflow: native.rangeUnderflow,
             rangeOverflow: native.rangeOverflow,
             stepMismatch: native.stepMismatch
-        }, badInput ? this.localizedLabels[this.type === 'date' ? 'invalidDate' : 'invalidDateTime']
-            : this.proxy.validationMessage, this.control);
+        }, badInput ? invalidEntryMessage : this.proxy.validationMessage, this.control);
+        this.entryError = this.validationAttempted ? this.validationMessage : '';
+    }
+
+    /** @internal */
+    public handleInvalid(): void {
+        this.validationAttempted = true;
+        this.validate();
     }
 
     /** @internal */
     public handleChange(): void {
-        this.handleTextInput();
+        if (this.disabled || this.readOnly) {
+            return;
+        }
+        this.validationAttempted = true;
+        const previous = this.value;
+        this.handleTextInput(true);
         if (this.editingText === undefined) {
             this.editingTimeMode = undefined;
             this.updateMask();
+        }
+        if (previous !== this.value) {
+            this.$emit('input');
         }
         this.$emit('change');
     }
 
     /** @internal */
-    public handleTextInput(): void {
+    public handleTextInput(complete = false): void {
         if (this.disabled || this.readOnly) {
             return;
         }
         const text = this.control.value;
-        const value = this.parseText(text);
+        const value = this.parseText(text, complete);
         this.setTextValue(value);
         this.timeText = undefined;
         this.timeEditDate = undefined;
         this.editingText = value || !text ? undefined : text;
+        if (complete && value) {
+            this.control.value = this.displayValue;
+        }
         this.validate();
     }
 
@@ -254,9 +280,11 @@ export class FvDateTimePicker extends mixinErrorPattern(
         if (canonical && start === 0 && end === this.control.value.length) {
             next = formatDisplay(canonical, this.type, this.locale, this.timeMode);
         }
-        if (!this.parseText(next)) {
+        const parsed = parseValue(this.parseText(next, true), this.type);
+        if (!parsed) {
             return true;
         }
+        next = formatDisplay(parsed, this.type, this.locale, this.timeMode);
         // Maskito's date/time paste normalizer drops the meridiem from complete dates.
         this.control.value = next;
         this.control.setSelectionRange(next.length, next.length);
@@ -267,6 +295,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
     /** @internal */
     public override valueChanged(previous: string, next: string): void {
         if (!this.updatingText) {
+            this.validationAttempted = false;
+            this.entryError = '';
             this.editingText = undefined;
             this.timeText = undefined;
             this.timeEditDate = undefined;
@@ -294,6 +324,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     /** @internal */
     public override formResetCallback(): void {
+        this.validationAttempted = false;
+        this.entryError = '';
         this.editingText = undefined;
         this.timeText = undefined;
         this.timeEditDate = undefined;
@@ -548,7 +580,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     /** @internal */
-    public handleTimeInput(event: Event): boolean {
+    public handleTimeInput(event: Event, complete = false): boolean {
         event.stopPropagation();
         if (this.disabled || this.readOnly) {
             return true;
@@ -556,10 +588,14 @@ export class FvDateTimePicker extends mixinErrorPattern(
         const input = event.currentTarget as TextField;
         const text = input.value;
         const date = this.timeEditDate ?? this.parsedValue ?? today();
-        const value = this.parseTimeText(text, date);
+        const value = this.parseTimeText(text, date, complete);
         this.setTextValue(value);
+        this.editingText = undefined;
         this.timeEditDate = date;
-        this.timeText = text;
+        this.timeText = complete && value ? undefined : text;
+        if (complete && value) {
+            input.value = this.timeDisplay;
+        }
         input.setValidity(value ? {} : { customError: true }, value ? '' : this.localizedLabels.invalidTime, input.control);
         this.validate();
         this.$emit('input');
@@ -570,10 +606,12 @@ export class FvDateTimePicker extends mixinErrorPattern(
     public changeTime(event: Event): boolean {
         event.stopPropagation();
         if (!this.disabled && !this.readOnly) {
+            this.validationAttempted = true;
             const input = event.currentTarget as TextField;
-            if (input.value !== this.timeText) {
-                this.handleTimeInput(event);
+            if (input.value !== this.timeText || !this.parseTimeText(input.value)) {
+                this.handleTimeInput(event, true);
             }
+            this.validate();
             this.$emit('change');
         }
         return true;
@@ -722,8 +760,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
         this.validate();
     }
 
-    private parseText(text: string): string {
-        return parseDisplay(text, this.type, this.locale, this.timeMode);
+    private parseText(text: string, complete = false): string {
+        return parseDisplay(text, this.type, this.locale, this.timeMode, complete);
     }
 
     private setTextValue(value: string): void {
@@ -759,9 +797,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
         return this.type === 'date' ? this.localizedLabels.chooseDate : this.localizedLabels.chooseDateTime;
     }
 
-    private parseTimeText(text: string, date = this.timeEditDate ?? this.parsedValue ?? today()): string {
+    private parseTimeText(text: string, date = this.timeEditDate ?? this.parsedValue ?? today(), complete = false): string {
         const dateText = formatDisplay(date, 'date', this.locale, this.timeMode);
-        return parseDisplay(`${dateText} ${text}`, 'datetime-local', this.locale, this.timeMode);
+        return text.trim() ? parseDisplay(`${dateText} ${text}`, 'datetime-local', this.locale, this.timeMode, complete) : '';
     }
 
     private refreshLocale(): void {

@@ -27,9 +27,21 @@ export const statesThemeMatrix: StoryFn = createMatrixThemeStory(
                 error-text="Enter a valid date and time."
             >${() => `${appearance}: ${state}`}</${fvDateTimePickerTag}>
         `,
-        [Object.values(FvDateTimePickerAppearance), ['Selected', 'Empty', 'Disabled', 'Read only', 'Required', 'Error']]
+        [Object.values(FvDateTimePickerAppearance), ['Selected', 'Empty', 'Disabled', 'Read only', 'Required', 'Error', 'Invalid entry']]
     )
 );
+
+statesThemeMatrix.play = async ({ canvasElement }) => {
+    await waitForUpdatesAsync();
+    const pickers = canvasElement.querySelectorAll<FvDateTimePicker>(fvDateTimePickerTag);
+    for (const picker of pickers) {
+        if (picker.textContent?.includes('Invalid entry')) {
+            picker.control.value = '11/';
+            picker.control.dispatchEvent(new Event('change'));
+        }
+    }
+    await waitForUpdatesAsync();
+};
 
 export const triggerInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractions(
@@ -82,8 +94,13 @@ export const popupThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(
 popupThemeMatrix.play = async ({ canvasElement }) => {
     await waitForUpdatesAsync();
     const pickers = canvasElement.querySelectorAll<FvDateTimePicker>(fvDateTimePickerTag);
-    await Promise.all(Array.from(pickers, async picker => {
+    for (const picker of pickers) {
         lang.setValueFor(picker, picker.parentElement!.dataset.locale!);
+        picker.open = false;
+        picker.open = true;
+    }
+    await waitForUpdatesAsync();
+    await Promise.all(Array.from(pickers, async picker => {
         const region = picker.region!;
         if (!region.classList.contains('loaded')) {
             await new Promise<void>(resolve => {

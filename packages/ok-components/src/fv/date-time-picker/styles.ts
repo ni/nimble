@@ -16,7 +16,11 @@ import {
     controlHeight,
     controlLabelFontColor,
     elevation2BoxShadow,
+    errorTextFont,
+    failColor,
     fillSelectedColor,
+    largePadding,
+    mediumPadding,
     popupBorderColor,
     smallPadding,
     standardPadding
@@ -41,7 +45,7 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         flex: none;
-        width: 40px;
+        width: 100%;
         max-width: 100%;
         height: 40px;
         padding: 0;
@@ -96,7 +100,7 @@ export const styles = css`
         max-width: calc(100vw - 2 * ${standardPadding});
         max-height: calc(100vh - 2 * ${standardPadding} - 2 * ${smallPadding});
         overflow: auto;
-        padding: ${standardPadding};
+        padding: ${largePadding};
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         box-shadow: ${elevation2BoxShadow};
@@ -112,6 +116,7 @@ export const styles = css`
     }
 
     .calendar-header {
+        column-gap: ${mediumPadding};
         margin-bottom: ${standardPadding};
     }
 
@@ -124,14 +129,27 @@ export const styles = css`
         padding: ${smallPadding};
     }
 
-    .month {
-        flex: 1;
+    .month,
+    .year {
+        flex: none;
+        width: max-content;
         min-width: 0;
     }
 
-    .year {
-        width: 88px;
-        min-width: 0;
+    .year + nimble-button {
+        margin-inline-start: auto;
+    }
+
+    .month-value {
+        display: inline-grid;
+    }
+
+    .month-value > span {
+        grid-area: 1 / 1;
+    }
+
+    .month-size {
+        visibility: hidden;
     }
 
     table {
@@ -218,6 +236,11 @@ export const styles = css`
     .time-field {
         flex: 1;
         min-width: 0;
+    }
+
+    .entry-error {
+        color: ${failColor};
+        font: ${errorTextFont};
     }
 
     input::selection,
