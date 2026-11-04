@@ -9,7 +9,7 @@
 This specification defines a portable configuration and value contract for a
 reusable query builder, plus an Angular standalone component adapter. The
 serialized contracts are framework-independent and can be copied into another
-repository without Skyline-specific packages, services, query formats, or UI
+repository without application-specific packages, services, query formats, or UI
 libraries.
 
 The query builder module owns field/operator presentation, editing, local

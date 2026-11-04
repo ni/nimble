@@ -4,65 +4,10 @@
 
 ## Purpose
 
-This note summarizes the current shared query-builder field API in Skyline and
-recommends a typed, serializable configuration contract for a replacement
-component. It draws on the codebase and primary standards documentation,
+This note recommends a typed, serializable configuration contract for a
+standalone query-builder component. It draws on public standards documentation,
 including JSON Schema Draft 2020-12, OpenAPI 3.1.1, OData 4.01, JSON:API 1.1,
 and GraphQL.
-
-## Current Skyline API
-
-The shared Angular component is
-[`SlQueryBuilderComponent`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/components/sl-query-builder/sl-query-builder.component.ts).
-It accepts an `ISlFilterField[]` through its `fields` input. Most applications
-provide those fields through
-[`FilterFieldProvider`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/filter-field-provider.ts).
-
-[`ISlFilterField`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/models/sl-filter-field.ts)
-currently defines:
-
-| Property                                 | Current role                                                                           |
-| ---------------------------------------- | -------------------------------------------------------------------------------------- |
-| `dataType`, `dataField`, `label`         | Type, resource property, and display label                                             |
-| `supportedOperations`                    | Optional per-field operator override; otherwise the component selects defaults by type |
-| `supportedValues`                        | `{ label, value }` string options for enum fields                                      |
-| `comboBox`                               | Chooses an editable combo box rather than a read-only dropdown                         |
-| `convertFunction`, `actualQueryProperty` | Adapt displayed/query values to the existing query representation                      |
-| `valuesResolvedDynamically`              | Metadata used by AI tool descriptions; it is not an option-fetching API                |
-
-Built-in field types include string, number, boolean, date, datetime, enum,
-list, dictionary, and custom properties. The component has a default operator
-list for each type; an application can override that list with
-`supportedOperations`. Operator identifiers and LINQ expression templates are
-defined separately in
-[`sl-filter-operations.ts`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/models/sl-filter-operations.ts)
-and the component.
-
-Some parts of the current contract are executable implementation details rather
-than serializable configuration.
-[`IQueryOperation`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/models/sl-query-operation.ts)
-can contain editor, value-conversion, parsing, and validation callbacks; the
-JQX-facing
-[`IQueryField`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/models/sl-query-field.ts)
-has an `any`-typed `lookup`. Custom field extensions also register functions
-through
-[`FilterExtensionProvider`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/filter-extension-provider.ts).
-These are useful runtime extension seams, but cannot be sent as JSON or
-statically type-check a field/operator/value combination.
-
-Options are currently assembled outside the component. For example, the Test
-Insights specs provider populates `supportedValues` and updates them after
-fetching data. The replacement should preserve this runtime capability without
-embedding closures or fetch URLs in the configuration.
-
-The query output is also a separate concern:
-[`QueryFilterObjects`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/models/sl-query-filter-objects.ts)
-uses nested tuple arrays, with permissive string operator types. The existing
-Zod builder
-([`createZodQueryFilterObjects`](../../../Web/Workspaces/SystemLinkShared/projects/systemlink-lib-angular/filter/src/models/zod-query-filter-objects.ts))
-is a useful precedent for runtime validation: it can restrict field identifiers,
-extend operator sets, and validate allowed operations per field. It describes
-the query payload, not the UI configuration.
 
 ## What JSON Schema should own
 
@@ -213,9 +158,9 @@ as the component's primary value. Validate that the selected field exists, that
 the field allows the selected operator, and that the operator's operand shape
 matches the field schema. JSON Schema alone does not express this
 config-dependent relationship in a convenient, reusable way; use a runtime
-validator plus an explicit compatibility check. Keep an adapter to the existing
-`QueryFilterObjects`/LINQ formats during migration if current services still
-require them.
+validator plus an explicit compatibility check. Host applications can provide
+adapters for backend-specific query formats without coupling the component to
+those formats.
 
 For statically authored TypeScript configurations, expose generic or generated
 types that narrow the allowed operator and operand for a selected field. For
