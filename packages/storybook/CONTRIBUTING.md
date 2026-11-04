@@ -32,52 +32,85 @@ Each folder should include the following files:
 
 ## Documentation Workflow
 
-Add `component-name.mdx` file in component directory with the following
-template:
+Create `component-name.mdx` alongside the component's stories. Use this
+structure as a starting point, then keep only sections that apply:
 
 ```jsx
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import * as componentNameStories from './component-name.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 <Meta of={componentNameStories} />
 <Title of={componentNameStories} />
 
-<div>
-*Component description*
-> Note: Wrap combined text and html markup in a `div` tag so the formatter doesn't add line breaks
-</div>
+## Overview
+
+Describe what the component does, when to use it, and any important alternative.
+
+{/* Add an anatomy diagram here when it helps explain the component's parts. */}
+
+## Implementation & API
 
 <Canvas of={componentNameStories.firstStoryName} />
-
-## API
 
 <Controls of={componentNameStories.firstStoryName} />
 <ComponentApisLink />
 
-## Usage
+## Appearance & Styling (when applicable)
 
-## Styling
+Describe the available appearances, variants, sizing, and layout guidance.
 
-### Appearances
+## Guidelines (when useful)
 
-### Appearance Variants
+Show concise examples of recommended usage and common mistakes.
 
-### Sizing
+## Accessibility (when applicable)
 
-## Examples
-
-## Accessibility
-
-## Resources
-
+Document accessible naming, keyboard interaction, and consumer responsibilities.
 ```
 
-Fill out the template with all available information, and comment out any empty
-sections. E.g. `{/* ## Examples */}`
+Use Markdown headings (`##` for sections and `###` for subsections) with
+Storybook's `Title`, `Canvas`, and `Controls` blocks. Replace the sample story
+name with the story that best demonstrates the component. Omit empty sections,
+and keep each recommendation in one place; examples should illustrate guidance
+rather than repeat it.
 
-If the component has a
+If the component has a relevant
 [W3C ARIA description](https://www.w3.org/WAI/ARIA/apg/patterns/), consider
-using that to describe the component purpose.
+linking to it from the overview.
+
+See the [Button story](src/nimble/button/button.mdx) for a complete example of
+this structure, including appearance guidance, do/don't examples, accessibility
+notes, and an anatomy diagram.
+
+### Anatomy diagrams
+
+Add an anatomy diagram after the overview when it clarifies the component's
+parts. Label the parts and include a numbered legend. Store SVG artwork in the
+component's `images` directory, with its layout and `viewBox` defined in the
+asset.
+
+Follow [ButtonAnatomy](src/nimble/button/button-anatomy.tsx) for themed SVGs:
+import the asset with `?raw`, map its colors to Nimble design tokens, and render
+it once inline so it inherits the theme. Give the diagram an accessible
+description with `role="img"` and `aria-label`, and hide decorative SVG artwork
+from assistive technology. Keep any required SVG IDs unique.
+
+Wrap inline examples in `NimbleThemeProvider`, using `theme` from
+`utilities/story-layout`; shared MDX fragments should provide their own theme
+context. `StoryAnatomy` supplies spacing around a diagram.
+
+### Examples and usage guidance
+
+Use `StoryShowcase` for an example paired with explanatory content: its
+`example` prop contains the preview, and its children contain the guidance.
+Keep example-specific styles with the example. See the shared
+[Button styling docs](src/nimble/patterns/button/button-styling-docs.mdx).
+
+Use `StoryGuidanceGrid` with `Do` and `Dont` for contrasting examples. Each card
+accepts a `title`, an `example`, and explanatory children. Phrase titles so they
+read naturally after "Do" or "Don't"; avoid repeating the same advice in the
+card title and description.
 
 ### Markdown
 
@@ -144,5 +177,11 @@ guidelines:
 
 ### Testing
 
-When you run Storybook (See **Getting Started** above), you should see the
-`component-name.mdx` file rendered as the component **Docs** page.
+Run Storybook (see **Getting Started**) and open the component's **Docs** page.
+Check the anatomy labels and legend, live examples, Controls, and links.
+
+Use Chromatic matrix stories for visual coverage across themes and viewport
+sizes. The [Story Layout matrix](src/docs/story-layout-matrix.stories.tsx)
+covers the Button anatomy diagram, showcase, and guidance cards in light/dark
+themes at 480px and 1440px. Add visual coverage for new anatomy diagrams and
+shared presentation patterns.

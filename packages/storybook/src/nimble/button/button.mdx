@@ -4,43 +4,114 @@ import ButtonStylingDocs from '../patterns/button/button-styling-docs.mdx';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
+import { NimbleButton } from '@ni/nimble-react/button';
+import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
 import * as buttonStories from './button.stories';
-import { Tag } from '../../utilities/story-layout';
+import { ButtonAnatomy } from './button-anatomy';
+import {
+	Do,
+	Dont,
+	StoryAnatomy,
+	StoryGuidanceGrid,
+	Tag,
+	theme
+} from '../../utilities/story-layout';
 
 <Meta of={buttonStories} />
 <Title of={buttonStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A button is a
-widget that enables users to trigger an action or event, such as submitting a
-form, opening a dialog, canceling an action, or performing a delete operation.
+## Overview
 
-Consider <Tag name={anchorButtonTag} /> if you want a button that triggers
-navigation to a URL.
+<div>
+	Use a button to perform an action, such as saving changes, opening a
+	dialog, or deleting an item. See the
+	[W3C button pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/).
+</div>
+
+<div>
+	Use <Tag name={anchorButtonTag} /> instead when the action navigates
+	to a URL.
+</div>
+
+### Button Anatomy
+
+<NimbleThemeProvider theme={theme}>
+	<StoryAnatomy>
+		<ButtonAnatomy theme={theme} alt="Button anatomy showing the Container, Icon, and Label parts of a button." />
+	</StoryAnatomy>
+</NimbleThemeProvider>
+
+## Implementation & API
 
 <Canvas of={buttonStories.button} />
-
-## API
-
 <Controls of={buttonStories.button} />
-
 <ComponentApisLink />
 
-## Styling
+## Appearance & Styling
 
 <ButtonStylingDocs components={{ Button: buttonTag }} />
 
 ### Sizing
 
-Nimble Buttons are currently always 32px tall. Designs exist for other sizes; if
-you need these in an application, please comment on
-[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
+<div>
+	Nimble Buttons are currently always 32px tall. Designs exist for
+	other sizes; if you need these in an application, please comment on
+	[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
+</div>
 
-{/* ## Usage */}
+## Button Guidelines
 
-{/* ## Examples */}
+<NimbleThemeProvider theme={theme}>
+	<StoryGuidanceGrid>
+		<Do
+			title="Create a clear action hierarchy"
+			example={
+				<>
+					<NimbleButton appearance="ghost">Cancel</NimbleButton>
+					<NimbleButton appearance="block">Save</NimbleButton>
+				</>
+			}
+		>
+			Make Save more prominent than Cancel so the intended next
+			step is easy to find.
+		</Do>
+		<Dont
+			title="Emphasize multiple competing actions"
+			example={
+				<>
+					<NimbleButton appearance="block">Save</NimbleButton>
+					<NimbleButton appearance="block">Submit</NimbleButton>
+				</>
+			}
+		>
+			Save and Submit have equal emphasis here, leaving the intended
+			next step unclear.
+		</Dont>
+		<Do
+			title="Use concise labels"
+			example={<NimbleButton appearance="outline">Save Changes</NimbleButton>}
+		>
+			Name the action and, when needed, its object: Save Changes.
+		</Do>
+		<Dont
+			title="Use vague labels"
+			example={<NimbleButton appearance="outline">Click Here</NimbleButton>}
+		>
+			Click Here describes the interaction, not its result.
+		</Dont>
+	</StoryGuidanceGrid>
+</NimbleThemeProvider>
 
 ## Accessibility
 
+### Accessible Icon Buttons
+
 <ContentHiddenDocs buttonElement="nimble-button" />
 
-{/* ## Resources */}
+### Keyboard Usage
+
+<div>
+	Use Tab and Shift+Tab to move focus to and from an enabled button.
+	Press Enter or Space to activate it. These behaviors are built in;
+	do not override them with custom keyboard handlers.
+</div>
