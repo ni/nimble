@@ -2,6 +2,36 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Tue, 03 Nov 2026 21:20:06 GMT",
+      "version": "3.3.7",
+      "tag": "@ni/ok-angular_v3.3.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.15.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Nov 2026 01:48:11 GMT",
+      "version": "3.3.6",
+      "tag": "@ni/ok-angular_v3.3.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v1.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Nov 2026 22:26:58 GMT",
       "version": "3.3.5",
       "tag": "@ni/ok-angular_v3.3.5",

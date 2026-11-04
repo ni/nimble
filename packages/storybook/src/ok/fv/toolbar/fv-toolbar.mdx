@@ -1,0 +1,89 @@
+import { Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as toolbarStories from './fv-toolbar.stories';
+
+<Meta of={toolbarStories} />
+<Title of={toolbarStories} />
+
+A responsive extension of `nimble-toolbar`. Actions automatically change from
+icon and text to icon only, then into an overflow menu as the **container** narrows.
+No application resize handlers or viewport breakpoints are required.
+
+<Canvas of={toolbarStories.responsive} />
+
+## Usage
+
+```html
+<ok-fv-toolbar aria-label="Asset actions" overflow-label="More actions">
+    <nimble-button
+        slot="start"
+        type="button"
+        appearance="ghost"
+        data-responsive="label icon overflow"
+        data-priority="10"
+    >
+        <nimble-icon-pencil slot="start"></nimble-icon-pencil>
+        Edit
+    </nimble-button>
+    <nimble-button slot="end" type="button" data-responsive="label overflow">
+        Export
+    </nimble-button>
+</ok-fv-toolbar>
+```
+
+Attach action handlers to the original buttons as usual. Overflow entries invoke
+those same buttons, without cloning or moving application-owned markup.
+
+## Interface
+
+| Attribute | Element | Behavior |
+| --- | --- | --- |
+| `aria-label` / `aria-labelledby` | Toolbar | Accessible toolbar name. |
+| `overflow-label` | Toolbar | Localizable overflow button name; defaults to `More actions`. |
+| `data-responsive` | Direct child `nimble-button` | Space-separated allowed presentations: `label`, `icon`, `overflow`. |
+| `data-priority` | Responsive button | Finite number; higher values remain expanded longer. Default `0`. |
+| `slot` | Toolbar child | Existing Nimble `start`, default, and `end` positioning. |
+
+`label` shows the button's icon and text. `icon` uses Nimble's `content-hidden`
+behavior and requires a direct child icon with `slot="start"`; end-slot icons
+are hidden in this mode. `overflow` shows a labeled menu entry.
+Presentations always follow that order; omit a presentation to skip it.
+Use `icon overflow` for an initially icon-only action or `overflow` for an action
+that always belongs in the menu.
+
+Labels collapse before actions overflow. Within each phase, lower priorities
+degrade first; ties degrade last-in-markup first. The menu retains markup order
+and reserves room for its trigger. Presentations automatically restore as space
+returns, including after label, disabled state, item, or font changes.
+
+Buttons without `data-responsive` and other controls remain pinned and untouched.
+If pinned content cannot fit, the toolbar scrolls horizontally rather than
+discarding controls. Use the toolbar in a shrinkable container (`min-width: 0`
+for a flex/grid child).
+
+## Accessibility
+
+Provide a toolbar name and meaningful text for every action. Icon-only buttons
+retain their accessible text; an explicit `aria-label` takes precedence for
+overflow entries. Supply a localized `overflow-label` as needed.
+Overflow labels use text nodes and non-slotted elements; HTML comments are ignored.
+The selected label is trimmed, and whitespace-only labels are rejected.
+
+Toolbar arrow navigation and menu keyboard behavior reuse Nimble's implementations.
+If resizing hides a focused action, focus moves to the overflow trigger. If the
+trigger disappears while focused, focus returns to a visible enabled control,
+including pinned controls.
+Disabled actions remain disabled in the menu.
+Refitting preserves an open menu when its entries are unchanged. Removing an
+overflow action or its responsive behavior closes the changed menu and restores
+focus to the overflow trigger, or a visible enabled control if the trigger is gone.
+
+## Scope
+
+Automatic conversion supports ordinary `nimble-button` actions only. Inputs,
+anchors, toggle buttons, split buttons, and nested menus can be pinned, but are
+not converted into menu entries. While connected, the toolbar owns responsive
+buttons' `hidden` and `content-hidden` presentation; original values are restored
+when the button leaves the toolbar or the toolbar disconnects.
+
+Empty or unknown presentations, non-finite priorities, missing icon-only icons,
+and missing action labels produce an explicit configuration error.
