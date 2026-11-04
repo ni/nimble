@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Standalone Query Builder Query Document",
+  "type": "object",
+  "required": ["version", "root"],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "root": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/node"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "jsonValue": {
+      "anyOf": [
+        {
+          "type": ["string", "number", "boolean", "null"]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        }
+      ]
+    },
+    "node": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/group"
+        },
+        {
+          "$ref": "#/$defs/predicate"
+        }
+      ]
+    },
+    "group": {
+      "type": "object",
+      "required": ["kind", "combinator", "children"],
+      "properties": {
+        "kind": {
+          "const": "group"
+        },
+        "combinator": {
+          "enum": ["and", "or"]
+        },
+        "children": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "predicate": {
+      "type": "object",
+      "required": ["kind", "fieldId", "operatorId"],
+      "properties": {
+        "kind": {
+          "const": "predicate"
+        },
+        "fieldId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operatorId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "$ref": "#/$defs/jsonValue"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,161 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as queryBuilderStories from './fv-query-builder.stories';
+
+<Meta of={queryBuilderStories} />
+<Title of={queryBuilderStories} />
+
+The query builder combines the query editor with saved queries, Nigel assistance, and actions to apply or save changes. The host application supplies the fields and operators, Working query, saved queries, and asynchronous save and delete handlers. The builder keeps track of drafts. **Save** persists and applies on success; **Apply** applies without saving.
+
+The **Queries** split button opens the editor with its primary action and saved-query menu. Its label reads **Query** when **Working query** is selected, and changes to the selected saved-query name otherwise. The menu identifies the unsaved workspace as **Working query** and lists saved query names. In the Working query view, **Apply** is primary, **Save as new…** is in the action menu, and **Cancel** closes the popover while keeping the draft. In create and saved-query edit views, **Save** is primary and **Apply** is in the action menu. Save persists and applies only after the save succeeds; Apply applies without saving. The saved-query edit menu also contains **Delete** and its confirmation. Create and edit views include a name field. All views share the same active draft.
+
+Place the query builder directly in an application toolbar or a toolbar slot. It sizes to its split button and has no internal toolbar, surrounding border, or toolbar padding. The containing toolbar controls spacing and alignment. The query popover is at most 600px wide, stays within the viewport, and can open above the split button when space below is limited. Its contents scroll when necessary. Drag the popover header to move it. For keyboard movement, focus the popover itself with Shift+Tab from its first control, then use the arrow keys. A focus ring identifies the focused popover. Arrow keys within form controls keep their normal behavior, and Escape closes the popover. The popover stays at least 8px inside the viewport while moving, scrolling, and resizing. Double-click the header to return it to its anchored position. Closing the popover also resets its position. Footer actions stay together and wrap below the secondary actions only when they no longer fit beside them.
+
+<Canvas of={queryBuilderStories.configurable} />
+<Controls of={queryBuilderStories.configurable} />
+
+## Configuring the example
+
+Use `preset` to choose an empty, grouped, invalid, saved, or complex query. Set `query` to override the preset with a custom query document, and use `definition` to configure fields and operators.
+
+The Controls panel also lets you change the saved queries, disabled state, and feature flags. Enable `persistence` to try the in-memory save and delete handlers. Enable `failFirstSave` to make the first save fail, then retry without losing the draft.
+
+Enable `aiPreview` to show a sample generated query. Sending a Nigel prompt also shows this sample. The example does not call an AI service.
+
+## Visual tests
+
+The [builder state matrix](?path=/story/tests-ok-fv-query-builder--states-theme-matrix), [editor feature matrix](?path=/story/tests-ok-fv-query-builder--features-theme-matrix), and [menu feature matrix](?path=/story/tests-ok-fv-query-builder--menu-features-theme-matrix) test the builder across themes and backgrounds. The [editor operand matrix](?path=/story/tests-ok-fv-query-editor--operands-theme-matrix) shows open condition popovers for conditions without values, booleans, collections, ranges, array members, and custom-property values.
+
+The builder matrices use two columns and separate menu and editor configurations to keep snapshots below 16,000 CSS pixels high. Popovers stay beside their examples rather than locking to the browser viewport. With Storybook running, use `node packages/storybook/src/ok/fv/query-builder/test-query-stories.mjs` from the repository root to check story completion, selected-query state, popover containment, and capture dimensions. Pass a base URL as the first argument to test a production build.
+
+Set `BROWSER=webkit` to run the same checks in WebKit. The interaction checks cover keyboard activation and pointer clicks held across rendering frames, including Safari's non-focusing button behavior.
+
+## Portable data contract
+
+Set `definition`, `query`, and `savedQueries` as JavaScript properties, not HTML attributes. The definition specifies stable field IDs, JSON Pointer paths, JSON Schemas for values, and the values each operator accepts. A query is a versioned document that can contain nested groups. The editor keeps unfinished conditions and expressions in a `QueryEditorDraft` rather than exposing them as an executable query.
+
+```ts
+import {
+    fvQueryBuilderTag,
+    type QueryBuilderDefinition,
+    type QueryBuilderSavedQuery,
+    type QueryDocument
+} from '@ni/ok-components/dist/esm/fv/query-builder';
+
+declare function deleteSavedQuery(id: string): Promise<void>;
+declare function applyToResults(query: QueryDocument, selectedId?: string): void;
+
+const definition: QueryBuilderDefinition = {
+    version: 1,
+    fields: [{
+        id: 'status',
+        path: '/status',
+        label: 'Status',
+        valueSchema: {
+            oneOf: [
+                { const: 'failed', title: 'Failed' },
+                { const: 'passed', title: 'Passed' }
+            ]
+        },
+        operatorIds: ['is'],
+        editor: { kind: 'select' }
+    }],
+    operators: [{
+        id: 'is',
+        label: 'Is',
+        operand: { kind: 'field-value' }
+    }]
+};
+
+const query: QueryDocument = {
+    version: 1,
+    root: {
+        kind: 'predicate',
+        fieldId: 'status',
+        operatorId: 'is',
+        value: 'failed'
+    }
+};
+
+const savedQueries: readonly QueryBuilderSavedQuery[] = [{
+    id: 'failed',
+    name: 'Failed tests',
+    document: query
+}];
+
+const builder = document.createElement(fvQueryBuilderTag);
+builder.definition = definition;
+builder.query = query;
+builder.savedQueries = savedQueries;
+builder.saveHandler = async request => ({
+    id: request.id ?? 'new-query',
+    name: request.name,
+    document: request.document
+});
+builder.deleteHandler = async id => {
+    await deleteSavedQuery(id);
+};
+builder.addEventListener('query-apply', event => {
+    const detail = (event as CustomEvent<{
+        readonly query: QueryDocument;
+        readonly selectedId?: string;
+    }>).detail;
+    applyToResults(detail.query, detail.selectedId);
+});
+```
+
+Provide `saveHandler` and `deleteHandler` to enable save and delete actions. A save request creates or updates a saved query and contains a copy of its name and query document. The handler returns the saved record. If the promise rejects, the builder keeps the draft and shows an error so the user can retry. The host application handles authorization, IDs, permanent storage, and translation to backend query formats.
+
+The action split button uses its standard `disabled` state when its primary action is unavailable, disabling both the primary button and menu toggle. The query name field is required and shows missing-name validation through Nimble's error text; persistence failures remain separate operation errors.
+
+The Features Theme Matrix keeps each action split-button menu open so visual snapshots include the options available for each feature configuration.
+
+The saved-query menu omits its action divider when no creation, editing, or deletion actions are available for the current selection.
+
+Unsaved edits show a dirty dot on both the saved-query menu item and the selected-query split button, including when the saved-query catalog loads asynchronously.
+
+When the selected saved query has unsaved changes, **Save** saves those changes under the same ID and applies the saved query. **Update saved query** in the action menu saves the changes without applying them. **Apply** applies the draft without saving it. In the Working query view, **Save as new…** saves a copy with a new ID.
+
+All four feature flags default to `true`. The JavaScript properties `showNigelPrompt`, `allowSavedQueryCreation`, `allowSavedQueryEditing`, and `allowSavedQueryDeletion` retain their default-on behavior. HTML uses the false-by-default boolean attributes `hide-nigel-prompt`, `disable-saved-query-creation`, `disable-saved-query-editing`, and `disable-saved-query-deletion` to opt out. `showNigelPrompt` controls Nigel assistance and the generated-query preview. Creation controls new saved queries, including copies; editing controls changing names and updating existing records. Deletion remains independently available when editing is disabled, without exposing the name or update controls. Disabling creation does not prevent applying query conditions or updating existing saved queries.
+
+```ts
+builder.showNigelPrompt = false;
+builder.allowSavedQueryCreation = false;
+builder.allowSavedQueryEditing = false;
+builder.allowSavedQueryDeletion = false;
+```
+
+```html
+<ok-fv-query-builder
+    disable-saved-query-creation
+    disable-saved-query-editing
+    disable-saved-query-deletion
+    hide-nigel-prompt
+></ok-fv-query-builder>
+```
+
+Switching queries keeps the draft for the query you leave and automatically applies the selected query's draft if it is valid, including when returning to **Working query**. There is no Clear all footer action; the host can still clear the query through the component API. If the host removes a dirty saved query, its draft remains available as an **Unsaved draft**; it is no longer applied or emitted with the deleted saved-query ID. Catalog refreshes update clean selections while retaining dirty work. An incomplete or invalid draft remains available for editing without changing the applied query. **Apply** validates the draft, emits `query-apply` with the query document and selected saved-query ID (`undefined` for Working query), then closes the popover. **Save** persists first and applies only after persistence succeeds. Cancel closes without applying and keeps existing working drafts; canceling a new-query form restores its source selection.
+
+The builder does not execute queries. An empty query document is valid and means no filtering. Users cannot apply incomplete or invalid drafts. The `query-change` event includes a copy of the draft, a validated query document or `null`, the condition count (`ruleCount`), and validity. Use `labels` to localize the builder and editor.
+
+## Nigel assistance
+
+**Ask Nigel** is a ghost button in the query editor heading, 8px above the editor outline. Clicking it shows a Spright chat input below the button. Sending a prompt emits `query-ai-request` with the trimmed prompt text and a copy of the current draft. The host application can then set `aiQueryPreview` to a generated query document for review in the same popover. The builder does not call an AI service or save generated queries.
+
+## Visual hierarchy
+
+The **Queries** split button uses ghost appearance. The action split button uses accent-filled appearance, with its primary action and menu alternatives kept beside the **Cancel** button. In the saved-query view, the **Name** field and **Ask Nigel** button share a row, and the chat input uses Spright styling. Delete confirmation is part of the action menu rather than the footer.
+
+The query editor controls the appearance of condition chips and AND/OR controls, with a dashed preview at the caret for the next condition or logical operator. The popover has aligned content insets, 16px gaps between sections, and 8px gaps between actions. **Query conditions** uses the control-label font tokens; **Name** uses the text field's native label.
+
+## Accessibility
+
+Both buttons in the Queries split button support keyboard interaction. They are in a named group rather than a nested toolbar. The dropdown menu has an accessible name and identifies the selected query. The query popover is a nonmodal dialog anchored to the split button. The saved-query view has a visible label for the name field, and **Ask Nigel** exposes whether the prompt is expanded in either view.
+
+Unsaved-change indicators include accessible text. The builder announces save and delete errors. The Queries button focuses the query input; **Edit saved query** and **Save as new…** focus the name field. Dismissing the popover returns focus to the Queries split button. Within the query editor, condition popovers and select dropdowns handle Escape separately from the query popover.
+
+In the popover's footer, the action split button's primary action is the first tab stop, followed by its menu toggle and **Cancel**.
+
+Dragging the popover is an optional pointer-only convenience. The popover is usable in its anchored position, so keyboard and screen-reader users do not need to move it. The header has a move cursor but no visible grip or accessible move control.
+
+<ComponentApisLink />

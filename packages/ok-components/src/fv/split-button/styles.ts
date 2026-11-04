@@ -96,6 +96,16 @@ export const styles = css`
             pointer-events: none;
         }
 
+        nimble-anchored-region:popover-open {
+            inset: auto;
+            margin: 0;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            color: inherit;
+            overflow: visible;
+        }
+
         .split-button-primary,
         .split-button-toggle {
             appearance: none;
@@ -286,6 +296,12 @@ export const styles = css`
         :host([disabled]) .split-button-toggle > * {
             opacity: 0.3;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+        }
+
+        .split-button-primary:disabled {
+            color: ${buttonLabelDisabledFontColor};
+            cursor: default;
+            box-shadow: none;
         }
 
         :host([disabled][appearance='ghost']) .split-button-primary,

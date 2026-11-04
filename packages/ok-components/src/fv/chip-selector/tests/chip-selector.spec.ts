@@ -89,6 +89,35 @@ describe('FvChipSelector', () => {
         expect(visibleOptions).toEqual(['Maintenance due']);
     });
 
+    it('can show server-filtered options and reports filter changes and clearing', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.filterLocally = false;
+        const filters: string[] = [];
+        element.addEventListener('filter-change', event => {
+            const change = event as CustomEvent<{ filterText: string }>;
+            expect(change.bubbles).toBeTrue();
+            expect(change.composed).toBeTrue();
+            filters.push(change.detail.filterText);
+        });
+        await connect();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        input.value = 'alias';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.visibleOptionList).toContain('Active');
+        expect(filters).toEqual(['alias']);
+
+        getRequiredElement<HTMLElement>('[data-option-value="Active"]').click();
+        await waitForUpdatesAsync();
+        expect(filters).toEqual(['alias', '']);
+        input.value = 'again';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(filters).toEqual(['alias', '', 'again', '']);
+    });
+
     it('filters the option list with case-insensitive diacritic-insensitive matching', async () => {
         ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
             <${fvChipSelectorTag}
@@ -177,6 +206,89 @@ describe('FvChipSelector', () => {
         await connect();
 
         expect(element.shadowRoot?.querySelector('.label')?.textContent?.trim()).toBe('Status');
+    });
+
+    it('exposes one combobox and a connected listbox with resolved ARIA references', async () => {
+        ({ element, connect, disconnect } = await setup());
+        const description = document.createElement('span');
+        const error = document.createElement('span');
+        await connect();
+        element.open = true;
+        await waitForUpdatesAsync();
+        element.shadowRoot?.append(description, error);
+        element.ariaDescribedbyElements = [description];
+        element.ariaErrormessageElements = [error];
+        await waitForUpdatesAsync();
+
+        const root = element.shadowRoot;
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input') as
+            (HTMLInputElement & {
+                ariaControlsElements?: Element[],
+                ariaDescribedByElements?: Element[],
+                ariaErrorMessageElements?: Element[]
+            });
+        const list = root?.getElementById(element.menuId);
+        if (!list) {
+            throw new Error('Expected the listbox to be rendered');
+        }
+
+        expect(root?.querySelectorAll('[role="combobox"]').length).toBe(1);
+        expect(root?.querySelectorAll('[role="listbox"]').length).toBe(1);
+        expect(list.getAttribute('aria-multiselectable')).toBe('true');
+        expect(root?.querySelectorAll('[role="menu"], [role="menuitem"]').length).toBe(0);
+        expect(root?.querySelectorAll('[role="option"]').length).toBeGreaterThan(0);
+        expect(input.ariaControlsElements).toEqual([list]);
+        expect(input.ariaDescribedByElements).toEqual([description]);
+        expect(input.ariaErrorMessageElements).toEqual([error]);
+        description.remove();
+        error.remove();
+    });
+
+    it('forwards host ID references and ancestor shadow-root elements to its input', async () => {
+        const result = await setup();
+        ({ element, connect, disconnect } = result);
+        const wrapper = document.createElement('div');
+        const root = wrapper.attachShadow({ mode: 'open' });
+        const description = document.createElement('span');
+        const error = document.createElement('span');
+        description.id = 'selector-description';
+        error.id = 'selector-error';
+        element.replaceWith(wrapper);
+        root.append(element, description, error);
+        element.ariaDescribedby = description.id;
+        element.ariaErrormessage = error.id;
+        await connect();
+        await waitForUpdatesAsync();
+
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input') as HTMLInputElement & {
+            ariaDescribedByElements?: Element[],
+            ariaErrorMessageElements?: Element[]
+        };
+        expect(input.ariaDescribedByElements).toEqual([description]);
+        expect(input.ariaErrorMessageElements).toEqual([error]);
+
+        const extraDescription = document.createElement('span');
+        const extraError = document.createElement('span');
+        const unrelatedHost = document.createElement('div');
+        const unrelated = unrelatedHost.attachShadow({ mode: 'open' });
+        const unrelatedElement = document.createElement('span');
+        unrelated.append(unrelatedElement);
+        root.append(extraDescription, extraError, unrelatedHost);
+        element.ariaDescribedbyElements = [extraDescription, unrelatedElement];
+        element.ariaErrormessageElements = [extraError, unrelatedElement];
+        await waitForUpdatesAsync();
+        expect(element.getAttribute('aria-describedby')).toBe(description.id);
+        expect(element.getAttribute('aria-errormessage')).toBe(error.id);
+        expect(input.ariaDescribedByElements).toEqual([extraDescription, description]);
+        expect(input.ariaErrorMessageElements).toEqual([extraError, error]);
+
+        element.ariaDescribedby = '';
+        element.ariaErrormessage = '';
+        element.ariaDescribedbyElements = [description];
+        element.ariaErrormessageElements = [error];
+        await waitForUpdatesAsync();
+        expect(input.ariaDescribedByElements).toEqual([description]);
+        expect(input.ariaErrorMessageElements).toEqual([error]);
     });
 
     it('adds a value by clicking an option in the menu', async () => {
@@ -451,7 +563,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         expect(element.activeOptionIndex).toBe(0);
-        const activeOption = element.shadowRoot?.querySelector<HTMLElement>("[aria-selected='true']");
+        const activeOption = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option.active');
         expect(activeOption?.getAttribute('data-option-value')).toBe('Active');
     });
 
@@ -469,7 +581,7 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         expect(element.activeOptionIndex).toBe(1);
-        const activeOption = element.shadowRoot?.querySelector<HTMLElement>("[aria-selected='true']");
+        const activeOption = element.shadowRoot?.querySelector<HTMLElement>('.chip-selector-option.active');
         expect(activeOption?.getAttribute('data-option-value')).toBe('Paused');
     });
 
@@ -558,5 +670,71 @@ describe('FvChipSelector', () => {
         await waitForUpdatesAsync();
 
         expect(input.getAttribute('aria-activedescendant')).toBeNull();
+    });
+
+    it('preserves typed values, duplicate labels, commas, and disabled options', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.optionItems = [
+            { value: 1, label: 'Same, label' },
+            { value: '1', label: 'Same, label' },
+            { value: null, label: 'No value' },
+            { value: false, label: 'False' },
+            { value: 'blocked', label: 'Blocked', disabled: true }
+        ];
+        element.selectedOptionValues = [null];
+        await connect();
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('.chip-selector-field').click();
+        await waitForUpdatesAsync();
+
+        const changeEvents: CustomEvent[] = [];
+        element.addEventListener('change', event => changeEvents.push(event as CustomEvent));
+        const numberKey = element.typedOptionKey(1);
+        const stringKey = element.typedOptionKey('1');
+        const numberOption = getRequiredElement<HTMLElement>(`[data-option-value="${numberKey}"]`);
+        numberOption.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(element.selectedOptionValues).toEqual([null, 1]);
+        expect(element.selectedValues).toBe('');
+        expect((changeEvents[0] as CustomEvent<{
+            selectedOptionValues: readonly (string | number | boolean | null)[]
+        }>).detail.selectedOptionValues).toEqual([null, 1]);
+        expect(getRequiredElement<HTMLElement>(`[data-option-value="${stringKey}"]`).textContent?.trim())
+            .toBe('Same, label');
+        expect(element.shadowRoot?.querySelector(`[data-option-value="${element.typedOptionKey('blocked')}"]`))
+            .toBeNull();
+
+        const nullChip = getRequiredElement<HTMLElement>(`${chipTag}[data-chip-value="${element.typedOptionKey(null)}"]`);
+        nullChip.dispatchEvent(new Event('remove', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.selectedOptionValues).toEqual([1]);
+    });
+
+    it('keeps an empty string option typed and displays its label', async () => {
+        ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
+            <${fvChipSelectorTag} label="Status"></${fvChipSelectorTag}>
+        `));
+        element.optionItems = [{ value: '', label: 'Empty value' }];
+        element.selectedOptionValues = [''];
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(element.selectedValueList).toEqual([element.typedOptionKey('')]);
+        expect(getRequiredElement<HTMLElement>('.chip-selector-field').textContent).toContain('Empty value');
+        expect(element.selectedOptionValues).toEqual(['']);
+    });
+
+    it('ignores malformed typed option properties without throwing', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        element.optionItems = null as unknown as FvChipSelector['optionItems'];
+        element.selectedOptionValues = null as unknown as FvChipSelector['selectedOptionValues'];
+        element.options = null as unknown as string;
+        element.selectedValues = null as unknown as string;
+
+        expect(() => element.optionList).not.toThrow();
+        expect(() => element.selectedValueList).not.toThrow();
+        expect(() => element.visibleOptionList).not.toThrow();
     });
 });

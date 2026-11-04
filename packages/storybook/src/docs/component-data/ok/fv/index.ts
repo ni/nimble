@@ -58,6 +58,14 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
+        componentName: 'Fv Expandable Chip',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.incubating,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Master Detail List',
         componentHref: './?path=/docs/ok-fv-master-detail-list--docs',
         library: 'ok',
@@ -73,6 +81,24 @@ export const componentDataOkFv = [
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Fv Query Builder',
+        componentHref: './?path=/docs/ok-fv-query-builder--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.incubating,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
+        componentName: 'Fv Query Editor',
+        componentHref: './?path=/docs/ok-fv-query-editor--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.incubating,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Fv Search Input',

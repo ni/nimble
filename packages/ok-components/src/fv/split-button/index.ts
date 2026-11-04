@@ -1,4 +1,4 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, DOM, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
 import { styles } from './styles';
@@ -26,6 +26,9 @@ export class FvSplitButton extends FoundationElement {
     @attr({ mode: 'boolean' })
     public disabled = false;
 
+    @attr({ attribute: 'primary-disabled', mode: 'boolean' })
+    public primaryDisabled = false;
+
     @attr({ mode: 'boolean' })
     public open = false;
 
@@ -34,6 +37,9 @@ export class FvSplitButton extends FoundationElement {
 
     @attr({ attribute: 'appearance-variant' })
     public appearanceVariant: FvSplitButtonAppearanceVariantType = FvSplitButtonAppearanceVariant.default;
+
+    @attr({ attribute: 'menu-horizontal-default-position' })
+    public menuHorizontalDefaultPosition: 'start' | 'end' = 'end';
 
     /** @internal */
     @observable
@@ -51,14 +57,34 @@ export class FvSplitButton extends FoundationElement {
     }
 
     /** @internal */
+    public openChanged(): void {
+        // FAST reinserts the cached conditional view after the open-state observers run.
+        DOM.queueUpdate(() => DOM.queueUpdate(() => {
+            const region = this.region;
+            if (!region?.isConnected) {
+                return;
+            }
+            if (this.open && !region.matches(':popover-open')) {
+                region.showPopover();
+            } else if (!this.open && region.matches(':popover-open')) {
+                region.hidePopover();
+            }
+        }));
+    }
+
+    /** @internal */
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.openChanged();
         document.addEventListener('click', this.documentClickHandler);
         document.addEventListener('keydown', this.keydownHandler);
     }
 
     /** @internal */
     public override disconnectedCallback(): void {
+        if (this.region?.isConnected && this.region.matches(':popover-open')) {
+            this.region.hidePopover();
+        }
         document.removeEventListener('click', this.documentClickHandler);
         document.removeEventListener('keydown', this.keydownHandler);
         super.disconnectedCallback();
@@ -66,7 +92,7 @@ export class FvSplitButton extends FoundationElement {
 
     /** @internal */
     public handlePrimaryClick(): void {
-        if (this.disabled) {
+        if (this.disabled || this.primaryDisabled) {
             return;
         }
 
@@ -94,10 +120,14 @@ export class FvSplitButton extends FoundationElement {
     public regionChanged(prev: AnchoredRegion | undefined, _next: AnchoredRegion | undefined): void {
         if (prev) {
             prev.removeEventListener('change', this.menuChangeHandler);
+            if (prev.isConnected && prev.matches(':popover-open')) {
+                prev.hidePopover();
+            }
         }
         if (this.region) {
             this.region.anchorElement = this.toggleButton ?? this;
             this.region.addEventListener('change', this.menuChangeHandler, { capture: true });
+            this.openChanged();
         }
     }
 
