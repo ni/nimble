@@ -32,7 +32,7 @@ const metadata: Meta<LayoutArgs> = {
         root = createRoot(container);
         root.render(<NimbleThemeProvider theme={theme}>
             <StoryAnatomy>
-                <ButtonAnatomy alt='Button anatomy showing the Container, Icon, and Label parts of a button.' />
+                <ButtonAnatomy theme={theme} alt='Button anatomy showing the Container, Icon, and Label parts of a button.' />
             </StoryAnatomy>
             <StoryShowcase example={<NimbleButton appearance='outline'>Example</NimbleButton>}>
                 <p>Example guidance.</p>
