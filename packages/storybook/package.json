@@ -9,7 +9,6 @@
     "build:sb": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
     "launch-webkit": "playwright wk http://localhost:6006",
-    "test:story-layout": "node src/docs/test-story-layout.mjs",
     "lint": "eslint .",
     "format": "eslint . --fix"
   },

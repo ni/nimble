@@ -1,44 +1,23 @@
 import React, { type ReactNode } from 'react';
 import { NimbleIconCheck } from '@ni/nimble-react/icons/check';
-import { NimbleThemeProvider, type ThemeProvider } from '@ni/nimble-react/theme-provider';
 import { NimbleIconXmark } from '@ni/nimble-react/icons/xmark';
 import {
     applicationBackgroundColor,
     bodyEmphasizedFont,
-    bodyEmphasizedFontColor,
-    bodyDisabledFontColor,
-    bodyFontColor,
-    bodyPlus1FontFamily,
-    bodyPlus1FontSize,
-    bodyPlus1FontWeight,
-    bodyPlus1EmphasizedFontWeight,
     bodyPlus1EmphasizedFont,
     bodyPlus1Font,
-    bodyPlus1FontColor,
     buttonAccentBlockFontColor,
-    buttonLabelFont,
-    buttonLabelFontWeight,
     cardBorderColor,
-    dialogLargeWidth,
-    dividerBackgroundColor,
     dividerWidth,
     failColor,
     largePadding,
-    linkProminentFontColor,
     mediumPadding,
     passColor,
     smallPadding,
     standardPadding,
-    subtitlePlus1FontColor,
-    tableRowBorderColor,
-    tooltipCaptionFont,
     titlePlus1FontColor,
-    titlePlus2FontColor,
-    headlinePlus1FontColor,
     iconColor,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { tokenNames } from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
-import { tokenValues } from '@ni/nimble-components/dist/esm/theme-provider/design-token-values';
 
 export const css = (strings: TemplateStringsArray, ...values: unknown[]): React.JSX.Element => <style>
     {`@scope {${String.raw({ raw: strings }, ...values)}}`}
@@ -53,331 +32,6 @@ const getPreferredTheme = (): 'dark' | 'light' => (
 );
 
 export const theme = getPreferredTheme();
-
-interface StoryTokenStyles extends React.CSSProperties {
-    [name: `--ni-nimble-${string}`]: string;
-}
-
-const storyTokenStyles = (pageTheme: 'light' | 'dark'): StoryTokenStyles => (Object.keys(tokenValues) as (keyof typeof tokenValues)[]).reduce<StoryTokenStyles>(
-    (styles, tokenName) => {
-        const cssTokenName = tokenNames[tokenName];
-        const value = tokenValues[tokenName];
-        styles[`--ni-nimble-${cssTokenName}`] = typeof value === 'string' ? value : value[pageTheme];
-        return styles;
-    },
-    {}
-);
-
-interface StorySectionProps extends ChildrenProp {
-    id: string;
-    title: string;
-    level?: 2 | 3;
-}
-
-interface StoryPageProps extends ChildrenProp {
-    theme?: 'light' | 'dark';
-}
-
-const StoryTableOfContents = ({ headings }: { headings: readonly HTMLHeadingElement[] }): React.JSX.Element => {
-    const [activeId, setActiveId] = React.useState('');
-
-    React.useEffect(() => {
-        const firstHeading = headings[0];
-        if (!firstHeading) {
-            return undefined;
-        }
-
-        const lastHeading = headings[headings.length - 1] ?? firstHeading;
-        const hashHeading = headings.find(heading => heading.id === window.location.hash.slice(1));
-        if (hashHeading) {
-            hashHeading.scrollIntoView({ block: 'start' });
-            setActiveId(hashHeading.id);
-        }
-
-        const updateActiveHeading = (): void => {
-            if (window.scrollY === 0) {
-                setActiveId(firstHeading.id);
-                return;
-            }
-            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1) {
-                setActiveId(lastHeading.id);
-                return;
-            }
-            let activeHeading = firstHeading;
-            const activationLine = window.innerHeight / 3;
-            for (const heading of headings.slice(1)) {
-                if (heading.getBoundingClientRect().top <= activationLine) {
-                    activeHeading = heading;
-                }
-            }
-            setActiveId(activeHeading.id);
-        };
-
-        updateActiveHeading();
-        window.addEventListener('scroll', updateActiveHeading, { passive: true });
-        window.addEventListener('resize', updateActiveHeading);
-        return () => {
-            window.removeEventListener('scroll', updateActiveHeading);
-            window.removeEventListener('resize', updateActiveHeading);
-        };
-    }, [headings]);
-
-    return <nav aria-label='Contents' className='story-table-of-contents'>
-        {css`
-            :scope {
-                align-self: start;
-                min-width: 0;
-                position: sticky;
-                top: var(${standardPadding.cssCustomProperty});
-                font: var(${tooltipCaptionFont.cssCustomProperty});
-            }
-            :scope h2 {
-                margin: 0 0 var(${standardPadding.cssCustomProperty});
-                padding: 0;
-                border: 0;
-                color: var(${bodyDisabledFontColor.cssCustomProperty});
-                font: var(${buttonLabelFont.cssCustomProperty});
-                text-transform: uppercase;
-            }
-            :scope ol {
-                margin: 0;
-                padding: 0;
-                border-inline-start: var(${dividerWidth.cssCustomProperty}) solid var(${dividerBackgroundColor.cssCustomProperty});
-                list-style: none;
-            }
-            :scope li {
-                position: relative;
-                margin: 0;
-                padding: var(${smallPadding.cssCustomProperty}) var(${mediumPadding.cssCustomProperty});
-            }
-            :scope li[data-level='3'] {
-                padding-inline-start: var(${largePadding.cssCustomProperty});
-            }
-            :scope li[data-active='true']::before {
-                position: absolute;
-                inset-block: 0;
-                inset-inline-start: calc(-1 * var(${dividerWidth.cssCustomProperty}));
-                border-inline-start: var(${dividerWidth.cssCustomProperty}) solid var(${linkProminentFontColor.cssCustomProperty});
-                content: '';
-            }
-            :scope a {
-                display: block;
-                color: var(${bodyDisabledFontColor.cssCustomProperty});
-                font: inherit;
-                text-decoration: none;
-            }
-            :scope li[data-active='true'] a {
-                color: var(${bodyFontColor.cssCustomProperty});
-                font-weight: var(${bodyPlus1EmphasizedFontWeight.cssCustomProperty}, 600);
-            }
-            :scope a:focus-visible {
-                outline: var(${dividerWidth.cssCustomProperty}) solid var(${linkProminentFontColor.cssCustomProperty});
-                outline-offset: var(${smallPadding.cssCustomProperty});
-            }
-            @media (max-width: 800px) {
-                :scope {
-                    display: none;
-                }
-            }
-        `}
-        <h2>Contents</h2>
-        <ol>
-            {headings.map(heading => <li key={heading.id} data-level={heading.tagName === 'H3' ? 3 : 2} data-active={heading.id === activeId}>
-                <a
-                    href={`#${heading.id}`}
-                    aria-current={heading.id === activeId ? 'location' : undefined}
-                    onClick={event => {
-                        event.preventDefault();
-                        heading.scrollIntoView({ block: 'start' });
-                        setActiveId(heading.id);
-                    }}
-                >{heading.textContent}</a>
-            </li>)}
-        </ol>
-    </nav>;
-};
-
-export const StoryPage = ({ children, theme: pageTheme = theme }: StoryPageProps): React.JSX.Element => {
-    const themeProviderRef = React.useRef<ThemeProvider>(null);
-    const contentRef = React.useRef<HTMLElement>(null);
-    const [headings, setHeadings] = React.useState<HTMLHeadingElement[]>([]);
-
-    React.useLayoutEffect(() => {
-        themeProviderRef.current?.setAttribute('theme', pageTheme);
-    }, [pageTheme]);
-
-    React.useEffect(() => {
-        setHeadings(Array.from(contentRef.current?.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]') ?? []));
-    }, [children]);
-
-    return <NimbleThemeProvider ref={themeProviderRef} theme={pageTheme}>
-        <div className='story-page' style={storyTokenStyles(pageTheme)}>
-            {css`
-                :scope {
-                    display: grid;
-                    grid-template-columns: minmax(0, var(${dialogLargeWidth.cssCustomProperty})) max-content;
-                    position: relative;
-                    gap: var(${standardPadding.cssCustomProperty});
-                    width: fit-content;
-                    max-width: 100%;
-                    margin-inline: auto;
-                    background: var(${applicationBackgroundColor.cssCustomProperty});
-                }
-                :scope > .story-page-toc {
-                    grid-column: 2;
-                    grid-row: 1;
-                }
-                :scope > .story-page-content {
-                    grid-column: 1;
-                    grid-row: 1;
-                    min-width: 0;
-                }
-                @media (max-width: 640px) {
-                    :scope {
-                        gap: 0;
-                    }
-                }
-            `}
-            {headings.length > 0 ? <div className='story-page-toc'><StoryTableOfContents headings={headings}/></div> : null}
-            <main ref={contentRef} className='story-page-content'>
-                {css`
-                :scope {
-                    box-sizing: border-box;
-                    width: 100%;
-                    min-width: 0;
-                    margin-inline: auto;
-                    padding: 0 var(${standardPadding.cssCustomProperty}) var(${largePadding.cssCustomProperty});
-                    color: var(${bodyPlus1FontColor.cssCustomProperty});
-                    background: var(${applicationBackgroundColor.cssCustomProperty});
-                    font-family: var(${bodyPlus1FontFamily.cssCustomProperty});
-                    font-size: var(${bodyPlus1FontSize.cssCustomProperty});
-                    font-weight: var(${bodyPlus1FontWeight.cssCustomProperty});
-                    line-height: 21px;
-                }
-                :scope *, :scope *::before, :scope *::after {
-                    box-sizing: border-box;
-                }
-                :scope h1 {
-                    margin: 0 0 calc(var(${largePadding.cssCustomProperty}) + var(${standardPadding.cssCustomProperty}));
-                    scroll-margin-block-start: var(${largePadding.cssCustomProperty});
-                    color: var(${headlinePlus1FontColor.cssCustomProperty});
-                    font-family: var(${bodyPlus1FontFamily.cssCustomProperty});
-                    font-size: 52px;
-                    font-weight: var(${buttonLabelFontWeight.cssCustomProperty}, 600);
-                    line-height: 56px;
-                    letter-spacing: -1px;
-                }
-                :scope h2 {
-                    margin: 36px 0 var(${largePadding.cssCustomProperty});
-                    scroll-margin-block-start: var(${largePadding.cssCustomProperty});
-                    padding-bottom: calc(var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty}));
-                    border-bottom: var(${dividerWidth.cssCustomProperty}) solid var(${dividerBackgroundColor.cssCustomProperty});
-                    color: var(${titlePlus2FontColor.cssCustomProperty});
-                    font-family: var(${bodyPlus1FontFamily.cssCustomProperty});
-                    font-size: 30px;
-                    font-weight: var(${bodyPlus1FontWeight.cssCustomProperty});
-                    line-height: 34px;
-                }
-                :scope h2:first-of-type {
-                    margin-top: 36px;
-                }
-                :scope h3 {
-                    margin: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty})) 0 var(${standardPadding.cssCustomProperty});
-                    scroll-margin-block-start: var(${largePadding.cssCustomProperty});
-                    color: var(${subtitlePlus1FontColor.cssCustomProperty});
-                    font-family: var(${bodyPlus1FontFamily.cssCustomProperty});
-                    font-size: 21px;
-                    font-weight: var(${buttonLabelFontWeight.cssCustomProperty}, 600);
-                    line-height: 26px;
-                    letter-spacing: -1px;
-                }
-                :scope h3:first-of-type {
-                    margin-top: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty}));
-                }
-                :scope h4 {
-                    margin: var(${largePadding.cssCustomProperty}) 0 calc(var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty}));
-                    color: var(${bodyEmphasizedFontColor.cssCustomProperty});
-                    font-family: var(${bodyPlus1FontFamily.cssCustomProperty});
-                    font-size: var(${bodyPlus1FontSize.cssCustomProperty});
-                    font-weight: var(${buttonLabelFontWeight.cssCustomProperty}, 600);
-                    line-height: 21px;
-                }
-                :scope h5 {
-                    color: var(${bodyEmphasizedFontColor.cssCustomProperty});
-                    font-family: var(${bodyPlus1FontFamily.cssCustomProperty});
-                    font-size: 14px;
-                    font-weight: var(${buttonLabelFontWeight.cssCustomProperty}, 600);
-                    line-height: 16px;
-                }
-                :scope a {
-                    font: inherit;
-                }
-                :scope strong {
-                    font-weight: var(${buttonLabelFontWeight.cssCustomProperty}, 600);
-                }
-                :scope p:first-child {
-                    margin-top: 0;
-                }
-                :scope p {
-                    max-width: 750px;
-                }
-                :scope code {
-                    font: var(${bodyEmphasizedFont.cssCustomProperty});
-                    padding-top: 2px;
-                }
-                `}
-                {children}
-            </main>
-        </div>
-    </NimbleThemeProvider>;
-};
-
-export const StorySection = ({ id, title, level = 2, children }: StorySectionProps): React.JSX.Element => {
-    const Heading = level === 3 ? 'h3' : 'h2';
-    return <section>
-        <Heading id={id}>{title}</Heading>
-        {children}
-    </section>;
-};
-
-export const StoryPreview = ({ children }: ChildrenProp): React.JSX.Element => {
-    return <div>
-        {css`
-            :scope {
-                margin: calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}) + var(${smallPadding.cssCustomProperty})) 0 calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}));
-                border: var(${dividerWidth.cssCustomProperty}) solid var(${tableRowBorderColor.cssCustomProperty});
-                border-radius: 4px;
-                overflow: hidden;
-                background: var(${applicationBackgroundColor.cssCustomProperty});
-            }
-            :scope > * {
-                margin: 0 !important;
-            }
-        `}
-        {children}
-    </div>;
-};
-
-export const StoryApi = ({ children }: ChildrenProp): React.JSX.Element => {
-    return <div>
-        {css`
-            :scope {
-                margin: var(${largePadding.cssCustomProperty}) 0 calc(var(${largePadding.cssCustomProperty}) + var(${mediumPadding.cssCustomProperty}));
-                overflow-x: auto;
-            }
-            :scope .docblock-argstable {
-                margin-inline: 0;
-            }
-            :scope > :not(style) {
-                margin-top: 0;
-            }
-            :scope > :not(style) ~ :not(style) {
-                margin-top: var(${standardPadding.cssCustomProperty});
-            }
-        `}
-        {children}
-    </div>;
-};
 
 interface StoryAnatomyProps extends ChildrenProp {
     src?: string;
@@ -543,6 +197,7 @@ const Guidance = (
                 ${iconColor.cssCustomProperty}: var(${buttonAccentBlockFontColor.cssCustomProperty});
             }
             :scope .guidance-example {
+                box-sizing: border-box;
                 display: flex;
                 width: 100%;
                 min-height: 202px;
@@ -561,6 +216,7 @@ const Guidance = (
                 background: color-mix(in srgb, var(${failColor.cssCustomProperty}) 7%, var(${applicationBackgroundColor.cssCustomProperty}));
             }
             :scope .guidance-example-content {
+                box-sizing: border-box;
                 display: flex;
                 flex-wrap: wrap;
                 width: 100%;
@@ -611,7 +267,7 @@ const Guidance = (
         </header>
         {example ? <div className='guidance-example'><div className='guidance-example-content'>{example}</div></div> : null}
         <div className='guidance-copy'>
-            <h3>{title}</h3>
+            <h3 className='skip-toc'>{title}</h3>
             {children}
         </div>
     </article>;

@@ -15,12 +15,6 @@ import {
 } from './states';
 import { transformSource } from './transformSource';
 
-export const storyPageParameters = {
-    docs: {
-        toc: { disable: true }
-    }
-} as const;
-
 export const fastParameters = () => ({
     a11y: { disable: true },
     docs: {

@@ -1,7 +1,9 @@
 import { NimbleIconKey } from '@ni/nimble-react/icons/key';
-import { StoryShowcase, StorySection, css } from '../../../utilities/story-layout';
+import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
+import { StoryShowcase, css, theme } from '../../../utilities/story-layout';
 import { standardPadding, dividerWidth, dividerBackgroundColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
+<NimbleThemeProvider theme={theme}>
 <div>
 {css`
     :scope .button-actions, :scope .button-row {
@@ -26,11 +28,11 @@ import { standardPadding, dividerWidth, dividerBackgroundColor } from '@ni/nimbl
     }
 `}
 
-<StorySection id="appearances" title="Appearances" level={3}>
+### Appearances
 
-These are the standard styling options for the button, ordered from least to
-most visually prominent. Consider each option before employing an appearance
-variant.
+Use `appearance` to choose visual emphasis: `ghost` (least), `outline`, or
+`block` (most). For a group of actions, choose one prominent action and pair it
+with ghost buttons. Do not mix outline and block buttons to create hierarchy.
 
 #### Ghost Button
 
@@ -45,17 +47,10 @@ variant.
     }>
         <h5>When to Use</h5>
         <ul>
-            <li>Ghost is the default appearance and should be the first considered for use.</li>
+            <li>Use ghost, the default appearance, for low-emphasis actions.</li>
             <li>
-                Use as the default and standard option to create a clean airy and open UI
-                feel. Ghost buttons fit comfortably in tight spaces and help control the
-                visual density of the UI.
+                Ensure the button is distinguishable from nearby text, tabs, and links.
             </li>
-            <li>
-                Be careful when using that the surrounding context does not cause this
-                button to be confused for emphasized body text, tabs or a standalone links.
-            </li>
-            <li>Use in combination with a primary outline or primary block buttons to create a hierarchy of importance. There is no primary ghost button.</li>
         </ul>
 </StoryShowcase>
 
@@ -73,21 +68,8 @@ variant.
         <h5>When to Use</h5>
         <ul>
             <li>
-                Outline is the secondary style and should be considered for
-                use when ghost button is not sufficient.
-            </li>
-            <li>
-                Use as an alternative standard button when a ghost button is
-                not suitable. Use like a ghost button to create a clean,
-                light and airy feel.
-            </li>
-            <li>
-                The outline button is more visually direct about the
-                control's functionality than a ghost button.
-            </li>
-            <li>
-                Use in combination with ghost buttons (but not block
-                buttons) to create hierarchy.
+                Use outline when an action needs a visible boundary and more
+                emphasis than a ghost button, without a filled background.
             </li>
         </ul>
 </StoryShowcase>
@@ -106,36 +88,18 @@ variant.
         <h5>When to Use</h5>
         <ul>
             <li>
-                Block is the tertiary style used for creating the most eye
-                catching and functionally direct button. Use in areas where
-                controls are not often present or obvious, or when lots of
-                busy information can cause an important control to be overlooked.
-            </li>
-            <li>
-                Use as a standard button when the most visible solution is
-                required. Use as an alternative to overly subtle button
-                solutions when it is important to emphasize an action and
-                the functionality of the control.
-            </li>
-            <li>
-                Use in combination with ghost buttons (but not outline
-                buttons) to create hierarchy.
+                Use block for the strongest emphasis, such as an important
+                action that could otherwise be overlooked in a busy layout.
             </li>
         </ul>
 </StoryShowcase>
 
-</StorySection>
+### Appearance Variants
 
-<StorySection id="appearance-variants" title="Appearance Variants" level={3}>
-
-Button appearance variants are mainly used when a button needs be distinguished
-for one of the following reasons:
-
-- To indicate the action that allows the user to accomplish their most common or
-  important goal
-- To indicate the action that allows the user to complete their task
-
-There are two available values for `appearance-variant`: `primary` and `accent`.
+Use `appearance-variant` to change the color treatment of an outline or block
+button: `accent` uses the brand accent color, while `primary` provides an
+alternative when that color would convey the wrong meaning. Variants do not
+apply to ghost buttons.
 
 #### Accent Button
 
@@ -157,18 +121,9 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
         <h5>When to Use</h5>
         <ul>
             <li>
-                Use only 1 accent button in a section. It should be used when
-                trying to achieve the most prominent eye-catching approach.
-                Consider the contextual implications of using a green colored
-                button in relation to its name or metaphor. Remember that color
-                has accessibility constraints and the color alone should not be
-                relied on.
-            </li>
-            <li>Use in situations that lack color and enthusiasm to help support the brand.</li>
-            <li>Use in combination with ghost buttons to create hierarchy.</li>
-            <li>
-                Do not use an outline button with a block button to create
-                hierarchy.
+                Choose accent when brand color is appropriate for the action.
+                Avoid it when green could misleadingly imply success or safety.
+                Use a clear label rather than relying on color alone.
             </li>
         </ul>
 </StoryShowcase>
@@ -193,13 +148,9 @@ There are two available values for `appearance-variant`: `primary` and `accent`.
         <h5>When to Use</h5>
         <ul>
             <li>
-                Use only 1 primary button in a section. It should be used when
-                there is a conflict with color and its context.
-            </li>
-            <li>Use in combination with ghost buttons to create hierarchy.</li>
-            <li>
-                Do not use an outline button with a block button to create
-                hierarchy.
+                Choose primary when the action needs emphasis without the
+                accent color, for example when green would imply a positive
+                outcome for a destructive action.
             </li>
         </ul>
 </StoryShowcase>
@@ -210,5 +161,5 @@ To see more examples of appearance variant button hierarchy, see the Figma docs
 for
 [Primary and Standard Actions](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1604-74603&mode=design&t=SQ3lyK83VHBUaOkg-0).
 
-</StorySection>
 </div>
+</NimbleThemeProvider>
