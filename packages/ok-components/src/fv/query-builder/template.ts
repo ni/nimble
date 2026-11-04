@@ -180,8 +180,11 @@ export const template = html<FvQueryBuilder>`
                                     appearance="outline"
                                     data-control="saved-query-name"
                                     ${ref('queryNameInput')}
-                                    aria-invalid="${x => String(Boolean(x.operationError))}"
-                                    aria-errormessage="${x => (x.operationError ? `${x.queryDialogId}-error` : '')}"
+                                    required
+                                    required-visible
+                                    error-text="${x => (x.operationError === x.labels.nameRequired ? x.operationError : '')}"
+                                    ?error-visible="${x => x.operationError === x.labels.nameRequired}"
+                                    aria-invalid="${x => String(x.operationError === x.labels.nameRequired)}"
                                     placeholder="${x => x.labels.queryName}"
                                     :value="${x => x.savedQueryName}"
                                     :disabled="${x => x.isEditorDisabled}"
@@ -220,7 +223,7 @@ export const template = html<FvQueryBuilder>`
                         `)}
                     </div>
 
-                    ${when(x => x.operationError, html<FvQueryBuilder>`
+                    ${when(x => x.operationError && x.operationError !== x.labels.nameRequired, html<FvQueryBuilder>`
                         <span class="operation-error" id="${x => `${x.queryDialogId}-error`}" role="alert">
                             ${x => x.operationError}
                         </span>
@@ -257,8 +260,7 @@ export const template = html<FvQueryBuilder>`
                             appearance="block"
                             appearance-variant="accent"
                             label="${x => x.primaryActionLabel}"
-                            ?disabled="${x => x.isEditorDisabled}"
-                            ?primary-disabled="${x => x.primaryActionDisabled}"
+                            ?disabled="${x => x.primaryActionDisabled}"
                             @trigger="${x => x.handlePrimaryAction()}"
                         >
                             <${menuTag}

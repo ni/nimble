@@ -862,6 +862,11 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
+    public editorPanelElementChanged(): void {
+        this.syncEditorControlAccessibilityAfterRender();
+    }
+
+    /** @internal */
     public editorPanelErrorElementChanged(): void {
         this.syncEditorControlAccessibilityAfterRender();
     }
@@ -1226,10 +1231,10 @@ export class FvQueryEditor extends FoundationElement {
             collectionSelector.open = false;
         }
         this.shouldFocusFirstEditorField = this.activeRuleId !== null;
+        this.syncEditorControlAccessibilityAfterRender();
         DOM.queueUpdate(() => {
             this.updateEditorAnchor();
             this.focusFirstEditorFieldIfReady();
-            this.syncEditorControlAccessibility();
             this.syncDynamicOptionAccessibility();
         });
         this.refreshOptions();
@@ -2305,30 +2310,31 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     private syncEditorControlAccessibility(): void {
-        const errorElement = this.editorPanelErrorElement;
         const collectionHint = this.shadowRoot?.querySelector<HTMLElement>('.collection-input-hint');
         const controls = this.shadowRoot?.querySelectorAll<HTMLElement>('.editor-panel [data-control]') ?? [];
         for (const control of controls) {
+            const nativeErrorElement = control.shadowRoot?.querySelector<HTMLElement>('.error-text');
+            const errorElement = nativeErrorElement ?? this.editorPanelErrorElement;
+            const invalid = control.getAttribute('aria-invalid') === 'true';
+            const input = control.shadowRoot?.querySelector<HTMLInputElement>('input');
+            if (input) {
+                input.ariaErrorMessageElements = invalid && errorElement ? [errorElement] : [];
+            }
             if (control.dataset.control === 'collection-values' && collectionHint) {
-                const input = control.shadowRoot?.querySelector<HTMLInputElement>('input');
                 if (input) {
                     input.ariaDescribedByElements = [collectionHint];
-                    input.ariaErrorMessageElements = errorElement && control.getAttribute('aria-invalid') === 'true'
-                        ? [errorElement]
-                        : [];
                 }
             }
-            if (!errorElement || control.getAttribute('aria-invalid') !== 'true') {
-                continue;
-            }
             const controlWithErrorReference = control as HTMLElement & { ariaErrorMessageElements?: Element[] };
-            controlWithErrorReference.ariaErrorMessageElements = [errorElement];
+            controlWithErrorReference.ariaErrorMessageElements = invalid && errorElement && !nativeErrorElement
+                ? [errorElement]
+                : [];
             if (control.tagName.toLowerCase() === 'ok-fv-chip-selector') {
                 const selector = control as HTMLElement & {
                     ariaErrormessageElements?: readonly Element[],
                     ariaDescribedbyElements?: readonly Element[]
                 };
-                selector.ariaErrormessageElements = [errorElement];
+                selector.ariaErrormessageElements = invalid && errorElement ? [errorElement] : [];
                 selector.ariaDescribedbyElements = [];
             }
         }

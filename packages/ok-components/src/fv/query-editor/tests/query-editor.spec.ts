@@ -1917,6 +1917,7 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
 
         expect(getRequiredElement<HTMLElement>('.editor-hint').textContent?.trim()).toBe('Press Tab to close the editor.');
+        expect(getRequiredElement<HTMLElement>('.editor-hint').getAttribute('aria-hidden')).toBe('false');
         expect(element.shadowRoot?.querySelector('.editor-error')).toBeNull();
 
         element.labels = { ...element.labels, closeEditorHint: 'Tab closes this condition.' };
@@ -1928,8 +1929,13 @@ describe('FvQueryEditor', () => {
         control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        expect(element.shadowRoot?.querySelector('.editor-hint')).toBeNull();
-        expect(getRequiredElement<HTMLElement>('.editor-error').textContent?.trim()).toBe(element.activeRuleError);
+        expect(getRequiredElement<HTMLElement>('.editor-hint').getAttribute('aria-hidden')).toBe('true');
+        expect(getRequiredElement<HTMLElement>('.editor-hint').textContent?.trim()).toBe('Tab closes this condition.');
+        expect(control.getAttribute('error-text')).toBe(element.activeRuleError);
+        expect(control.hasAttribute('error-visible')).toBeTrue();
+        expect(control.hasAttribute('required')).toBeTrue();
+        expect(control.hasAttribute('required-visible')).toBeTrue();
+        expect(element.shadowRoot?.querySelector('.editor-error')).toBeNull();
         expect(element.activeRuleError.length).toBeGreaterThan(0);
 
         control.value = '500';
@@ -1937,10 +1943,44 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
 
         expect(element.shadowRoot?.querySelector('.editor-error')).toBeNull();
+        expect(control.hasAttribute('error-visible')).toBeFalse();
+        expect(control.getAttribute('error-text')).toBe('');
         expect(getRequiredElement<HTMLElement>('.editor-hint').textContent?.trim()).toBe('Tab closes this condition.');
+        expect(getRequiredElement<HTMLElement>('.editor-hint').getAttribute('aria-hidden')).toBe('false');
     });
 
-    it('associates an invalid value with the active editor error message', async () => {
+    ([
+        { fieldId: 'status', operatorId: 'is', operand: { kind: 'scalar', value: 'failed' }, controls: ['scalar-select'] },
+        { fieldId: 'duration', operatorId: 'between', operand: { kind: 'range', start: 0, end: 10 }, controls: ['range-start', 'range-end'] },
+        { fieldId: 'started-at', operatorId: 'before', operand: { kind: 'scalar', value: '2026-01-01' }, controls: ['scalar-text'] }
+    ] satisfies { fieldId: string, operatorId: string, operand: QueryBuilderOperand, controls: string[] }[]).forEach(testCase => {
+        it(`uses required Nimble value controls and inline errors for ${testCase.fieldId} ${testCase.operatorId}`, async () => {
+            ({ element, disconnect } = await setup(query(
+                rule('value-rule', testCase.fieldId, testCase.operatorId, testCase.operand)
+            )));
+            getRequiredElement<HTMLElement>('[data-rule-id="value-rule"]').click();
+            await waitForUpdatesAsync();
+
+            for (const name of testCase.controls) {
+                const control = getRequiredElement<ValueControl>(`[data-control="${name}"]`);
+                expect(control.hasAttribute('required')).toBeTrue();
+                expect(control.hasAttribute('required-visible')).toBeTrue();
+                expect(control.hasAttribute('error-visible')).toBeFalse();
+            }
+            const firstControl = getRequiredElement<ValueControl>(`[data-control="${testCase.controls[0]}"]`);
+            firstControl.value = '';
+            firstControl.dispatchEvent(new Event(testCase.controls[0] === 'scalar-select' ? 'change' : 'input', { bubbles: true, composed: true }));
+            await waitForUpdatesAsync();
+            for (const name of testCase.controls) {
+                const control = getRequiredElement<ValueControl>(`[data-control="${name}"]`);
+                expect(control.getAttribute('error-text')).toBe(element.activeRuleError);
+                expect(control.hasAttribute('error-visible')).toBe(Boolean(element.activeRuleError));
+                expect(element.shadowRoot?.querySelector('.editor-error')).toBeNull();
+            }
+        });
+    });
+
+    it('associates an invalid value with the native value control error message', async () => {
         const definition: QueryBuilderDefinition = {
             version: 1,
             fields: [{
@@ -1961,10 +2001,15 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
 
         const control = getRequiredElement<HTMLElement>('[data-control="scalar-text"]');
-        const error = getRequiredElement<HTMLElement>('.editor-error');
+        const error = control.shadowRoot?.querySelector('.error-text');
+        if (!error) {
+            throw new Error('Expected the value control error text.');
+        }
         expect(control.getAttribute('aria-invalid')).toBe('true');
-        expect(error.id).toBe(element.editorPanelErrorId);
-        expect((control as HTMLElement & { ariaErrorMessageElements?: Element[] }).ariaErrorMessageElements).toEqual([error]);
+        expect(control.hasAttribute('error-visible')).toBeTrue();
+        expect(control.getAttribute('error-text')).toBe(element.activeRuleError);
+        expect(error?.textContent?.trim()).toBe(element.activeRuleError);
+        expect(control.shadowRoot?.querySelector<HTMLInputElement>('input')?.ariaErrorMessageElements).toEqual([error]);
     });
 
     it('associates a collection error with the chip selector input', async () => {
@@ -2149,8 +2194,12 @@ describe('FvQueryEditor', () => {
             expect(element.valid).toBeFalse();
             expect(changes[changes.length - 1]?.query).toBeNull();
             expect(element.activeRuleError).toBe('Custom JSON array error');
+            const error = input.shadowRoot?.querySelector('.error-text');
+            if (!error) {
+                throw new Error('Expected the collection control error text.');
+            }
             expect(input.shadowRoot?.querySelector<HTMLInputElement>('input')?.ariaErrorMessageElements).toEqual([
-                getRequiredElement<HTMLElement>('.editor-error')
+                error
             ]);
             expect(JSON.stringify(element.query)).toBe(JSON.stringify(initialQuery));
         };

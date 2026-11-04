@@ -268,7 +268,7 @@ describe('FvQueryBuilder', () => {
         expect(element.shadowRoot?.querySelector('[data-control="saved-query-name"]')).toBeNull();
         const actionSplitButton = getRequiredElement<FvSplitButton>('.query-action-split-button');
         expect(actionSplitButton.label).toBe('Apply');
-        expect(actionSplitButton.primaryDisabled).toBeFalse();
+        expect(actionSplitButton.disabled).toBeFalse();
         expect(element.shadowRoot?.querySelector('[data-action="save-as-new"]')).not.toBeNull();
         expect(element.shadowRoot?.querySelector('[data-action="cancel-query"]')?.textContent?.trim()).toBe('Cancel');
         expect(element.shadowRoot?.querySelector('[data-action="clear-query"]')).toBeNull();
@@ -493,7 +493,7 @@ describe('FvQueryBuilder', () => {
         await activateSavedMenuItem('[data-action="edit-saved-queries"]');
         expect(element.isQuickEdit).toBeFalse();
         expect(getRequiredElement<HTMLElement>('[data-control="saved-query-name"]').getAttribute('appearance')).toBe('outline');
-        expect(getRequiredElement<FvSplitButton>('.query-action-split-button').primaryDisabled).toBeFalse();
+        expect(getRequiredElement<FvSplitButton>('.query-action-split-button').disabled).toBeFalse();
         expect(element.queryEditor?.ruleCount).toBe(0);
 
         await openSavedMenu();
@@ -653,7 +653,19 @@ describe('FvQueryBuilder', () => {
 
     it('keeps the action menu visible beyond the query popover edges', async () => {
         ({ element, disconnect } = await setup(false));
+        element.saveHandler = async request => {
+            await Promise.resolve();
+            return {
+                id: request.id ?? 'saved-new',
+                name: request.name,
+                document: request.document
+            };
+        };
         await selectSavedQuery('saved-a');
+        const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
+        name.value = 'Updated saved query';
+        name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
         await openActionMenu();
         await new Promise<void>(resolve => {
             window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve()));
@@ -1148,14 +1160,19 @@ describe('FvQueryBuilder', () => {
 
         const saveButton = getRequiredElement<FvSplitButton>('.query-action-split-button');
         const deleteButton = getRequiredElement<HTMLElement>('[data-action="request-delete"]');
-        expect(saveButton.primaryDisabled).toBeTrue();
+        expect(saveButton.disabled).toBeTrue();
+        expect(saveButton.hasAttribute('primary-disabled')).toBeFalse();
+        expect(saveButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary')?.disabled).toBeTrue();
+        expect(saveButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle')?.disabled).toBeTrue();
         expect(deleteButton.hasAttribute('disabled')).toBeFalse();
         const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
         name.value = 'Failed production';
+        expect(name.hasAttribute('required')).toBeTrue();
+        expect(name.hasAttribute('required-visible')).toBeTrue();
         name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
         expect(element.selectedQueryIsDirty).toBeTrue();
-        expect(saveButton.primaryDisabled).toBeFalse();
+        expect(saveButton.disabled).toBeFalse();
 
         expect(element.selectedSavedQueryId).toBe('saved-a');
         const apply = jasmine.createSpy('query-apply');
@@ -1569,7 +1586,7 @@ describe('FvQueryBuilder', () => {
         expect(element.selectedQueryIsDirty).toBeTrue();
         expect(element.canSaveChanges).toBeTrue();
         const actionSplitButton = getRequiredElement<FvSplitButton>('.query-action-split-button');
-        expect(actionSplitButton.primaryDisabled).toBeFalse();
+        expect(actionSplitButton.disabled).toBeFalse();
         await activatePrimaryAction();
         expect(element.isOperationPending).withContext(`Save state for ${element.savedQueryName}`).toBeTrue();
         await waitForUpdatesAsync();
@@ -1680,7 +1697,7 @@ describe('FvQueryBuilder', () => {
         expect(element.operationError).toBe(element.labels.saveFailed);
         expect(getRequiredElement<HTMLElement>('[role="alert"]').textContent).toContain(element.labels.saveFailed);
         expect(element.savedQueryName).toBe('Menu retry');
-        expect(getRequiredElement<FvSplitButton>('.query-action-split-button').primaryDisabled).toBeFalse();
+        expect(getRequiredElement<FvSplitButton>('.query-action-split-button').disabled).toBeFalse();
 
         await activatePrimaryAction();
         expect(element.selectedQueryIsDirty).toBeFalse();

@@ -307,6 +307,10 @@ export const styles = css`
             color: ${controlLabelFontColor};
         }
 
+        .editor-hint[aria-hidden='true'] {
+            visibility: hidden;
+        }
+
         .editor-region {
             z-index: 3;
         }

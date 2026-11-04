@@ -82,6 +82,8 @@ Free-entry `field-value-list` operands use a JSON array, such as `["Test, nightl
 
 The `issues` property and `validity-change` event report errors in the definition, query, or draft. The `configuration-error` event reports an invalid definition.
 
+Nimble value controls show required indicators and display validation messages using `error-text` and `error-visible`. Collection chip selectors retain a separate accessible error message.
+
 Use `optionResolver` to load options dynamically. Each select or combobox `optionsSource` specifies a host-defined `sourceId`, optional dependencies, search support, and page size. The resolver receives the dependency values and an `AbortSignal`. The `options-state-change` event reports loading, ready, blocked, and error states; `options-error` reports failures.
 
 The host application looks up dynamic options. The definition identifies the source and its dependencies:
@@ -130,7 +132,7 @@ The editor is not a drop-in replacement for the Stratus query builder. Applicati
 
 Users can open condition chips with the keyboard. The query input supports token navigation and deletion, field and logical-operator autocomplete, and visible validation for incomplete groups and conditions. Closing a condition popover with Escape returns focus to its chip.
 
-Pressing Tab from the last condition control closes the popover and returns focus to the query input. When the condition has no validation errors, a hint appears in place of the error message. Customize it with `labels.closeEditorHint`.
+Pressing Tab from the last condition control closes the popover and returns focus to the query input. When the condition has no validation errors, a hint appears. Its space stays reserved while the hint is hidden, so showing it does not resize the popover. Customize it with `labels.closeEditorHint`.
 
 Autocomplete uses the native Popover API so suggestions remain visible outside scrolling containers. The list sizes to its content and stays within the viewport, opening above the input when there is not enough room below.
 
