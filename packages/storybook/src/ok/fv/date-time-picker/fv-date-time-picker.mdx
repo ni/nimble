@@ -1,0 +1,138 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as stories from './fv-date-time-picker.stories';
+
+<Meta of={stories} />
+<Title of={stories} />
+
+Enter a local date and time, or choose a date from the calendar.
+Use the `locale` control to try different date formats and 12/24-hour time.
+
+<Canvas of={stories.defaultStory} />
+
+## API
+
+<Controls of={stories.defaultStory} />
+<ComponentApisLink />
+
+## Usage
+
+Import `@ni/ok-components/dist/esm/fv/date-time-picker`.
+Provide the field label in the default slot, or use `aria-label`.
+
+```html
+<ok-fv-date-time-picker name="scheduled" value="2024-11-13T14:25">
+    Scheduled time
+</ok-fv-date-time-picker>
+```
+
+### Modes and values
+
+| Mode | Submitted value | Calendar |
+| --- | --- | --- |
+| `datetime-local` (default) | `YYYY-MM-DDTHH:mm` | Date and Time fields |
+| `date` | `YYYY-MM-DD` | Date only |
+
+Date/time values can include seconds and up to three fractional-second digits.
+Values represent local wall time, without a time zone or UTC conversion. Daylight-saving
+gaps are valid. The supported year range is 0001 to 9999.
+
+An empty string means no selection. Use `name` for form submission.
+The `value` attribute sets the default/reset value; the `value` property or
+`current-value` attribute sets the current value. Invalid programmatic values become
+empty. Changing `type` clears incompatible values and closes the popup.
+
+### Manual entry and defaults
+
+Both entry fields show locale-specific format placeholders and insert separators
+while typing. On paste or commit (blur or Enter):
+
+- A complete time without AM/PM defaults to AM in 12-hour locales.
+- A complete date without a time defaults to midnight.
+- The field displays the completed value, including AM/PM when applicable.
+
+Incomplete or impossible entries remain visible but expose an empty `value` and
+`validity.badInput`. Invalid committed entries show an accessible validation message.
+The picker does not silently correct impossible dates or constraint violations.
+Application-supplied `error-visible` and `error-text` take precedence.
+
+Calendar selection preserves the current time, or uses midnight without a complete
+value. Editing the popup Time field without a selected date uses today.
+Picker edits commit immediately; Done dismisses the popup.
+
+### Constraints and forms
+
+`min` and `max` use the same format as `value`. `step` uses days for `date` (default
+1), seconds for `datetime-local` (default 60), or `"any"` to disable step validation.
+Seconds/fractional precision is shown when needed by values, bounds, or step.
+The step base is `min`, then the `value` attribute, then the native epoch default.
+Invalid constraints are ignored as by native controls.
+
+Use `checkValidity()` or `reportValidity()` to check native validity flags:
+`rangeUnderflow`, `rangeOverflow`, `stepMismatch`, `valueMissing`, and `badInput`.
+Calendar days outside the bounds are disabled; date mode also disables off-step days.
+Times on a boundary day are checked against the full date/time limits.
+
+`required` rejects empty values. `readonly` and `disabled` prevent editing and skip
+validation; disabled fields are omitted from submission. Form reset restores the
+default value and clears drafts.
+
+### Localization
+
+Set `lang` on a surrounding `nimble-theme-provider`, not on the picker.
+The Storybook `locale` control does this for you.
+
+| Locale | Display | Submitted value |
+| --- | --- | --- |
+| `en-US` | `11/13/2024 02:25 PM` | `2024-11-13T14:25` |
+| `de-DE` | `13.11.2024 14:25` | `2024-11-13T14:25` |
+
+The locale controls date order/separators, month and weekday names, 12/24-hour time,
+and the first weekday (Sunday if the browser lacks week information).
+The calendar uses Gregorian dates and Latin digits. In 12-hour locales, midnight is
+12:00 AM and noon is 12:00 PM. The theme provider's `direction` controls layout and
+horizontal arrow navigation.
+
+As with Nimble label providers, `lang` does not translate UI strings. Import
+`@ni/ok-components/dist/esm/fv/date-time-picker/label-provider` and place
+`ok-fv-date-time-picker-label-provider` inside the picker's theme provider to translate `choose-date`, `choose-date-time`,
+`month`, `year`, `previous-month`, `next-month`, `time`, `done`, `invalid-date`,
+`invalid-date-time`, and `invalid-time`. Defaults are English. Native constraint
+validation messages use the browser's language.
+
+### Events and input attributes
+
+Direct entry in either field emits `input` while editing and `change` on commit.
+Each changed calendar selection emits one `input` and one `change`. Programmatic value
+updates do not emit either event. `placeholder`, `autocomplete`, `autofocus`, and
+global ARIA attributes are forwarded to the primary text input. Text-only constraints
+such as `pattern`, `minlength`, and `maxlength` are intentionally not exposed.
+
+## Styling
+
+Appearances are `underline` (default), `outline`, `block`, and `frameless`.
+Use `full-bleed` with frameless fields and `appearance-readonly` with disabled fields
+as with Nimble text fields.
+
+The popup has 24px padding. Month and year selectors have a medium gap; navigation
+arrows align to the opposite edge. The month selector fits the widest localized
+month name, so changing months does not move the year selector.
+Today has an outline, the selected day has an accent fill, and adjacent-month days
+use muted text but remain selectable.
+
+## Accessibility
+
+Tab to the calendar button, or press Alt+Down in the field, to open the picker.
+Arrow keys move through days; Home/End move to the start/end of the week.
+Page Up/Down change months, clamping to the last day when needed. Enter or Space
+selects the focused day. Month and year controls allow direct navigation.
+The year list covers the current year plus or minus 100 years and includes the
+displayed year if outside that range. Type other years directly into the main field.
+Escape or Done dismisses the popup and returns focus to the field.
+Tab moves through the non-modal popup; leaving the component or clicking outside closes it.
+
+## Resources
+
+[Picker design in Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=9200-35922)
+
+[Calendar day states in Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=9200-25196)

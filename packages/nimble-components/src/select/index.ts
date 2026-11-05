@@ -870,7 +870,12 @@ export class Select
 
     protected override focusAndScrollOptionIntoView(): void {
         if (this.open) {
-            super.focusAndScrollOptionIntoView();
+            // :focus-within may not match in an unfocused WebKit window; use the select's own root.
+            const root = this.getRootNode();
+            if ((root instanceof Document || root instanceof ShadowRoot)
+                && (root.activeElement === this || this.contains(root.activeElement))) {
+                this.focusAndScrollActiveOptionIntoView();
+            }
             window.requestAnimationFrame(() => {
                 this.filterInput?.focus();
             });
