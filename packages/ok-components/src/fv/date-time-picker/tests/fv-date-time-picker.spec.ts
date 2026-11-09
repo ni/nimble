@@ -1664,6 +1664,37 @@ describe('FvDateTimePicker', () => {
             await waitForUpdatesAsync();
             expect(change).toHaveBeenCalledTimes(1);
         });
+
+        spec(`keeps successive ${name} edits independent across native and Enter commits`, async () => {
+            element.open = popup;
+            await waitForUpdatesAsync();
+            const control = popup ? element.timeField!.control : element.control;
+            const change = jasmine.createSpy('change');
+            element.addEventListener('change', change);
+            control.value = popup ? '09:07 AM' : '11/13/2024 09:07 AM';
+            control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            control.dispatchEvent(new Event('change', { bubbles: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('2024-11-13T09:07');
+            expect(element.checkValidity()).toBeTrue();
+            expect(change).toHaveBeenCalledTimes(1);
+            control.dispatchEvent(new Event('change', { bubbles: true }));
+            control.dispatchEvent(new FocusEvent('blur'));
+            await waitForUpdatesAsync();
+            expect(change).toHaveBeenCalledTimes(1);
+
+            control.value = popup ? '10:08 AM' : '11/13/2024 10:08 AM';
+            control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('2024-11-13T10:08');
+            expect(element.checkValidity()).toBeTrue();
+            expect(change).toHaveBeenCalledTimes(2);
+            control.dispatchEvent(new Event('change', { bubbles: true }));
+            control.dispatchEvent(new FocusEvent('blur'));
+            await waitForUpdatesAsync();
+            expect(change).toHaveBeenCalledTimes(2);
+        });
     });
 
     it('does not let a pending native change overwrite a programmatic update', () => {

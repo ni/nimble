@@ -16,6 +16,13 @@ import { styles } from './styles';
 import { template } from './template';
 import { FvDateTimePickerAppearance, FvDateTimePickerType, type FvDateTimePickerAppearance as Appearance, type FvDateTimePickerType as PickerType } from './types';
 
+interface InputEditState {
+    input?: { start: number, end: number, text: string };
+    pending: boolean;
+    draftLength?: number;
+    committedText?: string;
+}
+
 declare global {
     interface HTMLElementTagNameMap {
         'ok-fv-date-time-picker': FvDateTimePicker;
@@ -130,12 +137,10 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     private maskKey = '';
 
-    private readonly mainSegmentState: {
-        input?: { start: number, end: number, text: string }, pending: boolean, draftLength?: number, committedText?: string
-    } = { pending: false };
+    private readonly mainSegmentState: InputEditState = { pending: false };
 
     private timeSegmentListeners?: AbortController;
-    private readonly timeSegmentState: typeof this.mainSegmentState = { pending: false };
+    private readonly timeSegmentState: InputEditState = { pending: false };
 
     private readonly localeSubscriber = { handleChange: (): void => this.refreshLocale() };
 
@@ -186,11 +191,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
                 this.handleInputBlur(this.timeField.control);
             }
             this.timeSegmentListeners?.abort();
-            if (this.timeSegmentState !== undefined) {
-                this.timeSegmentState.input = undefined;
-                this.timeSegmentState.pending = false;
-                this.timeSegmentState.draftLength = undefined;
-            }
+            this.resetInputState(this.timeSegmentState);
             this.timeMask?.destroy();
             this.timeMask = undefined;
             return;
@@ -284,25 +285,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     /** @internal */
     public handleChange(): void {
-        if (this.disabled || this.readOnly) {
-            return;
-        }
-        if (this.mainSegmentState.committedText === this.control.value) {
-            return;
-        }
-        this.mainSegmentState.pending = false;
-        this.mainSegmentState.input = undefined;
-        this.validationAttempted = true;
-        const previous = this.value;
-        this.handleTextInput(true);
-        if (this.editingText === undefined) {
-            this.editingTimeMode = undefined;
-            this.updateMask();
-        }
-        if (previous !== this.value) {
-            this.$emit('input');
-        }
-        this.$emit('change');
+        this.commitControl(this.control);
     }
 
     /** @internal */
@@ -310,12 +293,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
         if (this.disabled || this.readOnly) {
             return;
         }
-        this.mainSegmentState.pending = !complete;
-        this.mainSegmentState.committedText = undefined;
         const text = this.control.value;
-        if (text.length !== this.mainSegmentState.draftLength) {
-            this.mainSegmentState.draftLength = undefined;
-        }
+        this.trackInput(this.mainSegmentState, text, complete);
         const value = this.parseText(text, complete);
         this.setTextValue(value);
         this.timeText = undefined;
@@ -676,55 +655,16 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     /** @internal */
-    public handleTimeInput(event: Event, complete = false): boolean {
+    public handleTimeInput(event: Event): boolean {
         event.stopPropagation();
-        if (this.disabled || this.readOnly) {
-            return true;
-        }
-        this.timeSegmentState.pending = !complete;
-        this.timeSegmentState.committedText = undefined;
-        const input = event.currentTarget as TextField;
-        const text = input.value;
-        if (text.length !== this.timeSegmentState.draftLength) {
-            this.timeSegmentState.draftLength = undefined;
-        }
-        const date = this.timeEditDate ?? this.parsedValue ?? today();
-        const value = this.parseTimeText(text, date, complete);
-        this.setTextValue(value);
-        this.editingText = undefined;
-        this.timeEditDate = date;
-        this.timeText = complete && value ? undefined : text;
-        if (complete && value) {
-            input.value = this.timeDisplay;
-        }
-        input.setValidity(value ? {} : { customError: true }, value ? '' : this.localizedLabels.invalidTime, input.control);
-        this.validate();
-        this.$emit('input');
+        this.updateTimeInput(event.currentTarget as TextField);
         return true;
     }
 
     /** @internal */
     public changeTime(event: Event): boolean {
         event.stopPropagation();
-        if (this.timeSegmentState.committedText === this.timeField?.control.value) {
-            return true;
-        }
-        this.timeSegmentState.pending = false;
-        this.timeSegmentState.input = undefined;
-        if (!this.disabled && !this.readOnly) {
-            this.validationAttempted = true;
-            const input = event.currentTarget as TextField;
-            if (input.value !== this.timeText || !this.parseTimeText(input.value)) {
-                this.handleTimeInput(event, true);
-            }
-            if (this.parseTimeText(input.value)) {
-                this.timeText = undefined;
-                this.editingTimeMode = undefined;
-                this.updateMask();
-            }
-            this.validate();
-            this.$emit('change');
-        }
+        this.commitControl((event.currentTarget as TextField).control);
         return true;
     }
 
@@ -1080,6 +1020,26 @@ export class FvDateTimePicker extends mixinErrorPattern(
         return this.type === 'date' ? this.localizedLabels.chooseDate : this.localizedLabels.chooseDateTime;
     }
 
+    private updateTimeInput(input: TextField, complete = false): void {
+        if (this.disabled || this.readOnly) {
+            return;
+        }
+        const text = input.value;
+        this.trackInput(this.timeSegmentState, text, complete);
+        const date = this.timeEditDate ?? this.parsedValue ?? today();
+        const value = this.parseTimeText(text, date, complete);
+        this.setTextValue(value);
+        this.editingText = undefined;
+        this.timeEditDate = date;
+        this.timeText = complete && value ? undefined : text;
+        if (complete && value) {
+            input.value = this.timeDisplay;
+        }
+        input.setValidity(value ? {} : { customError: true }, value ? '' : this.localizedLabels.invalidTime, input.control);
+        this.validate();
+        this.$emit('input');
+    }
+
     private parseTimeText(text: string, date = this.timeEditDate ?? this.parsedValue ?? today(), complete = false): string {
         const dateText = formatDisplay(date, 'date', this.locale, this.timeMode);
         return text.trim() ? parseDisplay(`${dateText} ${text}`, 'datetime-local', this.locale, this.timeMode, complete) : '';
@@ -1093,7 +1053,6 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     private emitSegmentInput(event: InputEvent, control: HTMLInputElement): void {
-        this.getSegmentState(control).pending = true;
         // Maskito must not compact or reapply an edit already handled positionally.
         event.stopImmediatePropagation();
         control.dispatchEvent(new InputEvent('input', {
@@ -1101,19 +1060,31 @@ export class FvDateTimePicker extends mixinErrorPattern(
         }));
     }
 
-    private getSegmentState(control: HTMLInputElement): typeof this.mainSegmentState {
+    private getSegmentState(control: HTMLInputElement): InputEditState {
         return control === this.control ? this.mainSegmentState : this.timeSegmentState;
     }
 
-    private resetSegmentStates(): void {
-        for (const state of [this.mainSegmentState, this.timeSegmentState]) {
-            if (state !== undefined) {
-                state.input = undefined;
-                state.pending = false;
-                state.draftLength = undefined;
-                state.committedText = undefined;
-            }
+    private trackInput(state: InputEditState, text: string, complete: boolean): void {
+        state.pending = !complete;
+        state.committedText = undefined;
+        if (text.length !== state.draftLength) {
+            state.draftLength = undefined;
         }
+    }
+
+    private resetInputState(state: InputEditState | undefined): void {
+        // Attribute callbacks can run before private field initializers.
+        if (state !== undefined) {
+            state.input = undefined;
+            state.pending = false;
+            state.draftLength = undefined;
+            state.committedText = undefined;
+        }
+    }
+
+    private resetSegmentStates(): void {
+        this.resetInputState(this.mainSegmentState);
+        this.resetInputState(this.timeSegmentState);
     }
 
     private parseControl(control: HTMLInputElement): string {
@@ -1131,15 +1102,37 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     private commitControl(control: HTMLInputElement): void {
+        const state = this.getSegmentState(control);
+        if (this.disabled || this.readOnly || state.committedText === control.value) {
+            return;
+        }
+        state.pending = false;
+        state.input = undefined;
+        this.validationAttempted = true;
         if (control === this.control) {
-            this.handleChange();
+            const previous = this.value;
+            this.handleTextInput(true);
+            if (this.editingText === undefined) {
+                this.editingTimeMode = undefined;
+                this.updateMask();
+            }
+            if (previous !== this.value) {
+                this.$emit('input');
+            }
         } else if (this.timeField) {
-            this.timeSegmentState.pending = false;
-            this.timeSegmentState.input = undefined;
-            this.timeField.dispatchEvent(new Event('change', { bubbles: true }));
+            if (this.timeField.value !== this.timeText || !this.parseTimeText(this.timeField.value)) {
+                this.updateTimeInput(this.timeField, true);
+            }
+            if (this.parseTimeText(this.timeField.value)) {
+                this.timeText = undefined;
+                this.editingTimeMode = undefined;
+                this.updateMask();
+            }
             control.value = this.timeField.value;
         }
-        this.getSegmentState(control).committedText = control.value;
+        this.validate();
+        state.committedText = control.value;
+        this.$emit('change');
     }
 
     private updateConstraints(): void {
