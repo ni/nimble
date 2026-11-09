@@ -31,7 +31,7 @@ const dayTemplate = html<Date, { picker: FvDateTimePicker }>`
         <button type="button" class="day"
             data-date="${(x, c) => c.parent.picker.dateKey(x)}"
             tabindex="${(x, c) => (c.parent.picker.dateKey(x) === c.parent.picker.focusedDate ? 0 : -1)}"
-            ?disabled="${(x, c) => c.parent.picker.isDayDisabled(x)}"
+            aria-disabled="${(x, c) => c.parent.picker.isDayDisabled(x)}"
             aria-label="${(x, c) => c.parent.picker.dayLabel(x)}"
             aria-current="${(x, c) => (c.parent.picker.isToday(x) ? 'date' : null)}"
             ?data-outside-month="${(x, c) => x.getUTCMonth() !== c.parent.picker.visibleDate.getUTCMonth()}"
@@ -167,7 +167,6 @@ x => x.weekdays,
                             <${textFieldTag} id="time" class="time-field" appearance="outline"
                                 placeholder="${x => x.timePlaceholder}" ${ref('timeField')}
                                 aria-invalid="${x => (x.entryError ? 'true' : null)}"
-                                aria-describedby="${x => (x.entryError ? 'entry-error' : null)}"
                                 :value="${x => x.timeDisplay}"
                                 @input="${(x, c) => x.handleTimeInput(c.event)}"
                                 @change="${(x, c) => x.changeTime(c.event)}">${x => x.localizedLabels.time}</${textFieldTag}>

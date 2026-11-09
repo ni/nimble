@@ -98,6 +98,9 @@ Invalid constraints are ignored as by native controls.
 Use `checkValidity()` or `reportValidity()` to check native validity flags:
 `rangeUnderflow`, `rangeOverflow`, `stepMismatch`, `valueMissing`, and `badInput`.
 Calendar days outside the bounds are disabled; date mode also disables off-step days.
+These days remain focusable with arrow keys so calendar navigation stays predictable,
+but cannot be selected. Header navigation gives an available day the grid's Tab stop
+when the displayed grid contains one.
 Times on a boundary day are checked against the full date/time limits.
 
 `required` rejects empty values. `readonly` and `disabled` prevent editing and skip
@@ -157,6 +160,7 @@ The year list covers the current year plus or minus 100 years and includes the
 displayed year if outside that range. Type other years directly into the main field.
 Escape dismisses the popup and returns focus to the field.
 Tab moves through the non-modal popup; leaving the component or clicking outside closes it.
+Dismissal commits pending Time edits before closing.
 
 ## Resources
 

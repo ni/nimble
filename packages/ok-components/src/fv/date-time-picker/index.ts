@@ -180,6 +180,11 @@ export class FvDateTimePicker extends mixinErrorPattern(
     /** @internal */
     public openChanged(): void {
         if (!this.open) {
+            if (this.timeField && this.timeSegmentState !== undefined) {
+                // Flush native change before the synthetic fallback to avoid duplicate commits.
+                this.timeField.control.blur();
+                this.handleInputBlur(this.timeField.control);
+            }
             this.timeSegmentListeners?.abort();
             if (this.timeSegmentState !== undefined) {
                 this.timeSegmentState.input = undefined;
@@ -197,7 +202,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
         const date = this.parsedValue ?? this.timeEditDate ?? today();
         this.visibleDate = new Date(date);
         this.visibleDate.setUTCDate(1);
-        this.focusedDate = this.dateKey(date);
+        const focus = this.isDayDisabled(date) ? this.days.find(day => !this.isDayDisabled(day)) ?? date : date;
+        this.focusedDate = this.dateKey(focus);
         this.focusDay();
         this.timeFieldChanged();
     }
@@ -227,6 +233,17 @@ export class FvDateTimePicker extends mixinErrorPattern(
                 listen('blur', () => this.handleInputBlur(control));
                 const mask = maskitoTime(timeFormat(this.locale, this.timeMode));
                 this.timeMask = new Maskito(control, { mask: mask.mask, overwriteMode: mask.overwriteMode });
+                this.entryErrorChanged();
+            }
+        });
+    }
+
+    /** @internal */
+    public entryErrorChanged(): void {
+        DOM.queueUpdate(() => {
+            if (this.timeField) {
+                const error = this.shadowRoot?.querySelector('#entry-error');
+                this.timeField.control.ariaDescribedByElements = this.entryError && error ? [error] : [];
             }
         });
     }
@@ -527,16 +544,16 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     /** @internal */
     public get timeMode(): MaskitoTimeMode {
-        if (this.editingTimeMode !== undefined) {
-            return this.editingTimeMode;
-        }
         const sources = [this.value, this.min, this.max, this.initialValue];
         const step = Number(this.step);
+        let mode: MaskitoTimeMode = 'HH:MM';
         if (this.step === 'any' || sources.some(value => value?.includes('.')) || (step > 0 && step % 1 !== 0)) {
-            return 'HH:MM:SS.MSS';
+            mode = 'HH:MM:SS.MSS';
+        } else if (sources.some(value => value !== undefined && value.length > 16)
+            || (step > 0 && step % 60 !== 0)) {
+            mode = 'HH:MM:SS';
         }
-        return sources.some(value => value !== undefined && value.length > 16)
-            || (step > 0 && step % 60 !== 0) ? 'HH:MM:SS' : 'HH:MM';
+        return this.editingTimeMode !== undefined && this.editingTimeMode.length > mode.length ? this.editingTimeMode : mode;
     }
 
     /** @internal */
@@ -685,6 +702,11 @@ export class FvDateTimePicker extends mixinErrorPattern(
             const input = event.currentTarget as TextField;
             if (input.value !== this.timeText || !this.parseTimeText(input.value)) {
                 this.handleTimeInput(event, true);
+            }
+            if (this.parseTimeText(input.value)) {
+                this.timeText = undefined;
+                this.editingTimeMode = undefined;
+                this.updateMask();
             }
             this.validate();
             this.$emit('change');
@@ -956,15 +978,14 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     /** @internal */
-    public focusDay(preserveInputFocus = false): boolean {
+    public focusDay(preserveFocus = false): boolean {
         DOM.queueUpdate(() => {
-            if (preserveInputFocus && (this.shadowRoot?.activeElement === this.control
-                || this.shadowRoot?.activeElement === this.timeField)) {
+            const active = this.shadowRoot?.activeElement;
+            if (preserveFocus && active && active !== this.trigger) {
                 return;
             }
             const requested = this.shadowRoot?.querySelector<HTMLButtonElement>(`[data-date="${this.focusedDate}"]`);
-            const day = requested && !requested.disabled ? requested
-                : this.shadowRoot?.querySelector<HTMLButtonElement>('.day:not(:disabled)');
+            const day = requested ?? this.shadowRoot?.querySelector<HTMLButtonElement>('.day:not([aria-disabled="true"])');
             if (day) {
                 this.focusedDate = day.dataset.date ?? '';
                 day.focus();
@@ -986,7 +1007,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
         date.setUTCFullYear(year, month, 1);
         if (date.getUTCFullYear() >= 1 && date.getUTCFullYear() <= 9999) {
             this.visibleDate = date;
-            this.focusedDate = this.dateKey(date);
+            const enabled = this.days.filter(day => !this.isDayDisabled(day));
+            const target = enabled.find(day => day.getUTCMonth() === date.getUTCMonth()) ?? enabled[0] ?? date;
+            this.focusedDate = this.dateKey(target);
         }
     }
 
@@ -995,12 +1018,16 @@ export class FvDateTimePicker extends mixinErrorPattern(
         this.timeText = undefined;
         this.timeEditDate = undefined;
         this.editingTimeMode = undefined;
-        if (this.value !== value) {
+        const changed = this.value !== value;
+        if (changed) {
             this.value = value;
+        }
+        this.validationAttempted = true;
+        this.validate();
+        if (changed) {
             this.$emit('input');
             this.$emit('change');
         }
-        this.validate();
     }
 
     private parseText(text: string, complete = false): string {

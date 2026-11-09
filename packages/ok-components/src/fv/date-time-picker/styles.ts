@@ -85,7 +85,7 @@ export const styles = css`
         outline-offset: -2px;
     }
 
-    button:disabled {
+    button[aria-disabled='true'] {
         cursor: default;
         opacity: 0.3;
     }
@@ -190,7 +190,7 @@ export const styles = css`
         background: ${selectedDayFill};
     }
 
-    .day:hover:not(:disabled)::after {
+    .day:hover:not([aria-disabled='true'])::after {
         border: 2px solid ${borderHoverColor};
     }
 
@@ -203,12 +203,12 @@ export const styles = css`
         border: 2px solid ${borderHoverColor};
     }
 
-    [aria-selected='true'] .day:hover,
+    [aria-selected='true'] .day:hover:not([aria-disabled='true']),
     [aria-selected='true'] .day:focus-visible {
         color: ${bodyFontColor};
     }
 
-    [aria-selected='true'] .day:hover::before {
+    [aria-selected='true'] .day:hover:not([aria-disabled='true'])::before {
         inset: 5px;
         background: ${fillSelectedColor};
     }
@@ -218,17 +218,17 @@ export const styles = css`
         background: ${fillSelectedColor};
     }
 
-    .day:active:not(:disabled)::before {
+    .day:active:not([aria-disabled='true'])::before {
         inset: 3px;
         background: ${fillSelectedColor};
     }
 
-    .day:active:not(:disabled)::after {
+    .day:active:not([aria-disabled='true'])::after {
         inset: 0;
         border: 1px solid ${borderHoverColor};
     }
 
-    .day:active:not(:disabled) {
+    .day:active:not([aria-disabled='true']) {
         color: ${bodyFontColor};
     }
 

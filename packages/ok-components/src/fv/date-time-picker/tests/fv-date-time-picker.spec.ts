@@ -31,6 +31,16 @@ describe('FvDateTimePicker', () => {
         await disconnect();
     });
 
+    async function waitForPickerLoaded(): Promise<void> {
+        await waitForUpdatesAsync();
+        if (!element.region!.classList.contains('loaded')) {
+            await new Promise<void>(resolve => {
+                element.region!.addEventListener('loaded', () => resolve(), { once: true });
+            });
+        }
+        await waitForUpdatesAsync();
+    }
+
     it('constructs a labeled, form-associated field', () => {
         expect(element).toBeInstanceOf(FvDateTimePicker);
         expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:25 PM');
@@ -259,6 +269,104 @@ describe('FvDateTimePicker', () => {
         await waitForUpdatesAsync();
         expect(element.value).toBe('2024-11-13T23:07');
         expect(element.checkValidity()).toBeTrue();
+    });
+
+    parameterizeSpec([
+        { name: 'Escape' },
+        { name: 'outside pointer' },
+        { name: 'native change then outside pointer' }
+    ], (spec, name) => {
+        spec(`commits pending Time segment edits once on ${name}`, async () => {
+            element.open = true;
+            await waitForUpdatesAsync();
+            const control = element.timeField!.control;
+            control.focus();
+            const input = jasmine.createSpy('input');
+            const change = jasmine.createSpy('change');
+            element.addEventListener('input', input);
+            element.addEventListener('change', change);
+            control.setSelectionRange(3, 5);
+            control.dispatchEvent(new InputEvent('beforeinput', {
+                inputType: 'insertText', data: '07', bubbles: true, cancelable: true, composed: true
+            }));
+            if (name.startsWith('native')) {
+                control.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            if (name === 'Escape') {
+                control.dispatchEvent(new KeyboardEvent('keydown', {
+                    key: 'Escape', bubbles: true, composed: true, cancelable: true
+                }));
+            } else {
+                document.body.dispatchEvent(new Event('pointerdown', { bubbles: true, composed: true }));
+            }
+            await waitForUpdatesAsync();
+            expect(element.open).toBeFalse();
+            expect(element.value).toBe('2024-11-13T14:07');
+            expect(input).toHaveBeenCalledTimes(1);
+            expect(change).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('increases both masks precision after a committed Time edit when constraints change', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const control = element.timeField!.control;
+        control.setSelectionRange(3, 5);
+        control.dispatchEvent(new InputEvent('beforeinput', {
+            inputType: 'insertText', data: '07', bubbles: true, cancelable: true, composed: true
+        }));
+        control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+        element.step = '0.001';
+        await waitForUpdatesAsync();
+        expect(element.timeMode).toBe('HH:MM:SS.MSS');
+        expect(control.value.replace(/\s/g, ' ')).toBe('02:07:00.000 PM');
+        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:07:00.000 PM');
+        control.value = '02:07:01.123 PM';
+        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(element.value).toBe('2024-11-13T14:07:01.123');
+    });
+
+    it('preserves invalid Time drafts when constraints increase precision', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const control = element.timeField!.control;
+        control.value = '02:';
+        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        element.step = '0.001';
+        await waitForUpdatesAsync();
+        expect(element.timeMode).toBe('HH:MM:SS.MSS');
+        expect(control.value).toBe('02:');
+        expect(element.value).toBe('');
+        expect(element.validity.badInput).toBeTrue();
+    });
+
+    it('preserves invalid main drafts when constraints increase precision', async () => {
+        element.control.value = '11/13/2024 02:';
+        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        element.step = '0.001';
+        await waitForUpdatesAsync();
+        expect(element.timeMode).toBe('HH:MM:SS.MSS');
+        expect(element.control.value).toBe('11/13/2024 02:');
+        expect(element.value).toBe('');
+        expect(element.validity.badInput).toBeTrue();
+    });
+
+    it('associates the Time error with its actual input across shadow roots', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const control = element.timeField!.control;
+        control.value = '02:';
+        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        control.dispatchEvent(new Event('change', { bubbles: true }));
+        await waitForUpdatesAsync();
+        const error = element.shadowRoot!.querySelector('#entry-error')!;
+        expect(error.textContent).toContain('Enter a valid time.');
+        expect(control.ariaDescribedByElements).toEqual([error]);
+        control.value = '02:25 PM';
+        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        control.dispatchEvent(new Event('change', { bubbles: true }));
+        await waitForUpdatesAsync();
+        expect(control.ariaDescribedByElements ?? []).toEqual([]);
     });
 
     it('keeps main and popover edit state independent and reconnects listeners after reopening', async () => {
@@ -1144,6 +1252,66 @@ describe('FvDateTimePicker', () => {
         expect(element.value).toBe('2024-11-13T14:25');
     });
 
+    it('keeps unavailable days focusable for directional navigation but prevents selection', async () => {
+        element.type = 'date';
+        element.value = '2024-11-12';
+        element.min = '2024-11-10';
+        element.max = '2024-11-20';
+        element.step = '2';
+        element.open = true;
+        await waitForPickerLoaded();
+        const key = (date: string, value: string): void => {
+            element.shadowRoot!.querySelector<HTMLButtonElement>(`[data-date="${date}"]`)!
+                .dispatchEvent(new KeyboardEvent('keydown', { key: value, bubbles: true, cancelable: true }));
+        };
+        key('2024-11-12', 'ArrowRight');
+        await waitForUpdatesAsync();
+        const unavailable = element.shadowRoot!.querySelector<HTMLButtonElement>('[data-date="2024-11-13"]')!;
+        expect(element.focusedDate).toBe('2024-11-13');
+        expect(element.shadowRoot!.activeElement).toBe(unavailable);
+        expect(unavailable.getAttribute('aria-disabled')).toBe('true');
+        unavailable.click();
+        expect(element.value).toBe('2024-11-12');
+        key('2024-11-13', 'ArrowRight');
+        await waitForUpdatesAsync();
+        expect(element.focusedDate).toBe('2024-11-14');
+        key('2024-11-14', 'ArrowLeft');
+        await waitForUpdatesAsync();
+        expect(element.focusedDate).toBe('2024-11-13');
+    });
+
+    it('keeps an enabled grid tab stop when returning to a constrained month without moving header focus', async () => {
+        element.type = 'date';
+        element.value = '2024-11-12';
+        element.min = '2024-11-10';
+        element.max = '2024-11-20';
+        element.step = '2';
+        element.open = true;
+        await waitForPickerLoaded();
+        const month = element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.month')!;
+        month.focus();
+        element.moveMonth(1);
+        await waitForUpdatesAsync();
+        element.moveMonth(-1);
+        await waitForUpdatesAsync();
+        const day = element.shadowRoot!.querySelector<HTMLButtonElement>('.day[tabindex="0"]')!;
+        expect(element.isDayDisabled(new Date(`${day.dataset.date}T00:00Z`))).toBeFalse();
+        expect(day.dataset.date?.startsWith('2024-11-')).toBeTrue();
+        expect(element.shadowRoot!.activeElement).toBe(month);
+    });
+
+    it('shows accessible constraint errors immediately after segment adjustment', async () => {
+        element.max = element.value;
+        await waitForUpdatesAsync();
+        element.control.setSelectionRange(14, 16);
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.validity.rangeOverflow).toBeTrue();
+        expect(element.entryError).not.toBe('');
+        expect(element.control.getAttribute('aria-invalid')).toBe('true');
+        expect(element.control.getAttribute('aria-describedby')).toContain('entry-error');
+    });
+
     it('supports Alt+Down and Escape, restoring field focus', async () => {
         element.control.setSelectionRange(element.value.length, element.value.length);
         element.control.dispatchEvent(new KeyboardEvent('keydown', {
@@ -1341,7 +1509,7 @@ describe('FvDateTimePicker', () => {
         element.open = true;
         await waitForUpdatesAsync();
         for (const date of ['2024-11-09', '2024-11-11', '2024-11-21']) {
-            expect(element.shadowRoot!.querySelector<HTMLButtonElement>(`[data-date="${date}"]`)!.disabled).withContext(date).toBeTrue();
+            expect(element.shadowRoot!.querySelector(`[data-date="${date}"]`)!.getAttribute('aria-disabled')).withContext(date).toBe('true');
             element.selectDay(new Date(`${date}T00:00Z`));
             expect(element.value).toBe('2024-11-12');
         }
