@@ -39,6 +39,25 @@ export function formatValue(date: Date, type: FvDateTimePickerType): string {
     return type === 'date' ? dateKey(date) : date.toISOString().slice(0, -1).replace(/\.?0+$/, '').replace(/:00$/, '');
 }
 
+export function parseIsoPaste(text: string, type: FvDateTimePickerType): Date | null {
+    const match = /^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?)(Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)?)?$/.exec(text.trim());
+    if (!match) {
+        return null;
+    }
+    const [, dateText, timeText, offset] = match;
+    const date = parseValue(`${dateText}T${timeText ?? '00:00'}`, 'datetime-local');
+    if (!date) {
+        return null;
+    }
+    if (offset) {
+        const instant = new Date(`${dateText}T${timeText}${offset}`);
+        date.setUTCFullYear(instant.getFullYear(), instant.getMonth(), instant.getDate());
+        date.setUTCHours(instant.getHours(), instant.getMinutes(), instant.getSeconds(), instant.getMilliseconds());
+    }
+    return date.getUTCFullYear() >= 1 && date.getUTCFullYear() <= 9999
+        ? parseValue(formatValue(date, type), type) : null;
+}
+
 export function dateFormat(locale: string): ReturnType<typeof maskitoWithDateDefaults> {
     return maskitoWithDateDefaults({ locale });
 }

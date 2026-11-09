@@ -51,6 +51,15 @@ while typing. On paste or commit (blur or Enter):
 - A complete date without a time defaults to midnight.
 - The field displays the completed value, including AM/PM when applicable.
 
+Paste an ISO date (`2024-11-13`) or date/time (`2024-11-13T14:25`) into an empty
+field or with the entire value selected. A space can replace `T`; optional seconds
+and up to three fractional-second digits are supported. Surrounding whitespace is ignored.
+Timestamps with `Z` or an explicit offset such as `+02:00` are converted to the browser's
+local time. Without an offset, the written date/time is preserved, including daylight-saving
+gaps. Date-only input defaults to midnight; date mode keeps only the resulting date.
+The pasted value is displayed in the selected locale. Invalid ISO input remains visible
+for correction rather than being rearranged by the input mask.
+
 Incomplete or impossible entries remain visible but expose an empty `value` and
 `validity.badInput`. Invalid committed entries show an accessible validation message.
 The picker does not silently correct impossible dates or constraint violations.

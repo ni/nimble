@@ -10,7 +10,7 @@ import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error
 import { mixinRequiredVisiblePattern } from '@ni/nimble-components/dist/esm/patterns/required-visible/types';
 import { direction, lang } from '@ni/nimble-components/dist/esm/theme-provider';
 import { FormAssociatedDateTimePicker } from './models/form-associated';
-import { calendarDate, dateFormat, dateKey, formatDisplay, formatTime, parseDisplay, parseValue, timeFormat, today } from './models/date-time';
+import { calendarDate, dateFormat, dateKey, formatDisplay, formatTime, parseDisplay, parseIsoPaste, parseValue, timeFormat, today } from './models/date-time';
 import { labels } from './label-provider';
 import { styles } from './styles';
 import { template } from './template';
@@ -276,19 +276,32 @@ export class FvDateTimePicker extends mixinErrorPattern(
         const start = this.control.selectionStart ?? 0;
         const end = this.control.selectionEnd ?? start;
         let next = this.control.value.slice(0, start) + text + this.control.value.slice(end);
-        const canonical = parseValue(text, this.type);
-        if (canonical && start === 0 && end === this.control.value.length) {
-            next = formatDisplay(canonical, this.type, this.locale, this.timeMode);
-        }
-        const parsed = parseValue(this.parseText(next, true), this.type);
-        if (!parsed) {
+        const iso = start === 0 && end === this.control.value.length && /^\d{4}-/.test(text.trim());
+        const parsed = iso ? parseIsoPaste(text, this.type) : parseValue(this.parseText(next, true), this.type);
+        if (!parsed && !iso) {
             return true;
         }
-        next = formatDisplay(parsed, this.type, this.locale, this.timeMode);
+        if (parsed) {
+            if (parsed.getUTCMilliseconds() !== 0) {
+                this.editingTimeMode = 'HH:MM:SS.MSS';
+            } else if (parsed.getUTCSeconds() !== 0 && this.timeMode === 'HH:MM') {
+                this.editingTimeMode = 'HH:MM:SS';
+            }
+            this.updateMask();
+            next = formatDisplay(parsed, this.type, this.locale, this.timeMode);
+        } else {
+            // Preserve invalid ISO drafts without Maskito rearranging their digits.
+            this.mask?.destroy();
+            this.maskKey = '';
+            next = text.trim();
+        }
         // Maskito's date/time paste normalizer drops the meridiem from complete dates.
         this.control.value = next;
         this.control.setSelectionRange(next.length, next.length);
         this.control.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true, inputType: 'insertFromPaste' }));
+        if (!parsed) {
+            this.updateMask();
+        }
         return false;
     }
 

@@ -147,6 +147,124 @@ describe('FvDateTimePicker', () => {
     });
 
     parameterizeSpec([
+        { name: 'canonical date/time', text: '2024-02-29T23:59', value: '2024-02-29T23:59', locale: 'en-US', dateOnly: false },
+        { name: 'space separator and whitespace', text: ' \n2024-02-29 23:59\t', value: '2024-02-29T23:59', locale: 'de-DE', dateOnly: false },
+        { name: 'date defaulting to midnight', text: '2024-02-29', value: '2024-02-29T00:00', locale: 'en-US', dateOnly: false },
+        { name: 'seconds', text: '2024-02-29T23:59:37', value: '2024-02-29T23:59:37', locale: 'en-US', dateOnly: false },
+        { name: 'fractional seconds', text: '2024-02-29T23:59:37.125', value: '2024-02-29T23:59:37.125', locale: 'de-DE', dateOnly: false },
+        { name: 'single fractional digit', text: '2024-02-29T23:59:00.1', value: '2024-02-29T23:59:00.1', locale: 'en-US', dateOnly: false },
+        { name: 'minimum year', text: '0001-01-01T00:00', value: '0001-01-01T00:00', locale: 'en-GB', dateOnly: false },
+        { name: 'maximum year', text: '9999-12-31T23:59', value: '9999-12-31T23:59', locale: 'ar-EG', dateOnly: false },
+        { name: 'date mode', text: '2024-02-29', value: '2024-02-29', locale: 'ja-JP', dateOnly: true },
+        { name: 'date/time in date mode', text: '2024-02-29T23:59:37.125', value: '2024-02-29', locale: 'en-US', dateOnly: true },
+        { name: 'DST gap without an offset', text: '2024-03-10T02:30', value: '2024-03-10T02:30', locale: 'en-US', dateOnly: false }
+    ], (spec, name, { text, value, locale, dateOnly }) => {
+        spec(`pastes ISO ${name} over an existing value`, async () => {
+            lang.setValueFor(element, locale);
+            if (dateOnly) {
+                element.type = 'date';
+                element.value = '2024-11-13';
+            }
+            await waitForUpdatesAsync();
+            const input = jasmine.createSpy('input');
+            const change = jasmine.createSpy('change');
+            element.addEventListener('input', input);
+            element.addEventListener('change', change);
+            element.control.select();
+            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
+            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
+            expect(element.control.dispatchEvent(paste)).toBeFalse();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(value);
+            expect(element.control.value).toBe(element.displayValue);
+            expect(element.validity.badInput).toBeFalse();
+            expect(input).toHaveBeenCalledTimes(1);
+            expect(change).not.toHaveBeenCalled();
+            element.control.dispatchEvent(new Event('change', { bubbles: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(value);
+            expect(input).toHaveBeenCalledTimes(1);
+            expect(change).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    parameterizeSpec([
+        { name: 'UTC', text: '2024-01-01T00:15:37.125Z', dateOnly: false },
+        { name: 'positive offset', text: '2024-01-01T00:15+14:00', dateOnly: false },
+        { name: 'negative offset', text: '2024-12-31T23:45-12:00', dateOnly: false },
+        { name: 'UTC in date mode', text: '2024-01-01T00:15Z', dateOnly: true }
+    ], (spec, name, { text, dateOnly }) => {
+        spec(`converts pasted ISO ${name} to browser-local time`, async () => {
+            if (dateOnly) {
+                element.type = 'date';
+            }
+            element.value = '';
+            await waitForUpdatesAsync();
+            const instant = new Date(text);
+            const local = new Date(instant.getTime() - instant.getTimezoneOffset() * 60000).toISOString().slice(0, -1);
+            const expected = dateOnly ? local.slice(0, 10) : local.replace(/\.?0+$/, '').replace(/:00$/, '');
+            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
+            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
+            expect(element.control.dispatchEvent(paste)).toBeFalse();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(expected);
+            expect(element.control.value).toBe(element.displayValue);
+            expect(element.validity.badInput).toBeFalse();
+        });
+    });
+
+    parameterizeSpec([
+        { name: 'impossible day', text: '2024-02-30T12:00Z' },
+        { name: 'non-leap year', text: '2023-02-29' },
+        { name: 'invalid hour', text: '2024-02-29T24:00' },
+        { name: 'invalid offset', text: '2024-02-29T12:00+24:00' },
+        { name: 'invalid offset minutes', text: '2024-02-29T12:00+01:60' },
+        { name: 'unsupported precision', text: '2024-02-29T12:00:00.1234' },
+        { name: 'out-of-range year', text: '0000-02-29T12:00' },
+        { name: 'trailing text', text: '2024-02-29T12:00 extra' }
+    ], (spec, name, { text }) => {
+        spec(`preserves invalid ISO ${name} for correction`, async () => {
+            element.control.select();
+            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
+            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
+            expect(element.control.dispatchEvent(paste)).toBeFalse();
+            element.control.dispatchEvent(new Event('change', { bubbles: true }));
+            await waitForUpdatesAsync();
+            expect(element.control.value).toBe(text);
+            expect(element.value).toBe('');
+            expect(element.validity.badInput).toBeTrue();
+            expect(element.entryError).not.toBe('');
+            element.control.select();
+            const correction = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
+            Object.defineProperty(correction, 'clipboardData', { value: { getData: () => '02/29/2024 11:59 PM' } });
+            expect(element.control.dispatchEvent(correction)).toBeFalse();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('2024-02-29T23:59');
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.entryError).toBe('');
+        });
+    });
+
+    it('validates pasted ISO values against form constraints without changing them', async () => {
+        const form = document.createElement('form');
+        element.parentElement!.appendChild(form);
+        form.appendChild(element);
+        element.min = '2024-03-01T00:00';
+        element.step = '900';
+        await waitForUpdatesAsync();
+        element.control.select();
+        const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
+        Object.defineProperty(paste, 'clipboardData', { value: { getData: () => '2024-02-29T23:59' } });
+        expect(element.control.dispatchEvent(paste)).toBeFalse();
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-02-29T23:59');
+        expect(new FormData(form).get('scheduled')).toBe(element.value);
+        expect(element.validity.rangeUnderflow).toBeTrue();
+        expect(element.validity.stepMismatch).toBeTrue();
+        expect(element.checkValidity()).toBeFalse();
+    });
+
+    parameterizeSpec([
         { name: 'omitted AM/PM', text: '11/13/2024 02:25', value: '2024-11-13T02:25' },
         { name: 'omitted time', text: '11/13/2024', value: '2024-11-13T00:00' }
     ], (spec, name, { text, value }) => {
