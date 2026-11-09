@@ -51,6 +51,19 @@ describe('FvDateTimePicker', () => {
         expect(element.shadowRoot!.querySelector('[data-date="2024-11-13"]')?.getAttribute('tabindex')).toBe('0');
     });
 
+    parameterizeSpec([
+        { name: 'date', type: 'date' as const },
+        { name: 'datetime-local', type: 'datetime-local' as const }
+    ], (spec, name, { type }) => {
+        spec(`omits the Done button and only shows the time row in datetime-local mode (${name})`, async () => {
+            element.type = type;
+            element.open = true;
+            await waitForUpdatesAsync();
+            expect(element.shadowRoot!.querySelectorAll(`.picker ${buttonTag}`).length).toBe(2);
+            expect(element.shadowRoot!.querySelector('.time-row') !== null).toBe(type === 'datetime-local');
+        });
+    });
+
     it('commits date selection, preserving time and emitting one event pair', async () => {
         const input = jasmine.createSpy('input');
         const change = jasmine.createSpy('change');
@@ -64,6 +77,67 @@ describe('FvDateTimePicker', () => {
         expect(element.control.value.replace(/\s/g, ' ')).toBe('11/21/2024 02:25 PM');
         expect(input).toHaveBeenCalledTimes(1);
         expect(change).toHaveBeenCalledTimes(1);
+    });
+
+    parameterizeSpec([
+        { name: 'typed month', value: '2024-12-13T14:25', text: '12/13/2024 02:25 PM' },
+        { name: 'typed year', value: '2025-11-13T14:25', text: '11/13/2025 02:25 PM' }
+    ], (spec, name, { value, text }) => {
+        spec(`synchronizes the open calendar with the ${name} without stealing focus`, async () => {
+            element.open = true;
+            await waitForUpdatesAsync();
+            element.control.focus();
+            element.control.value = text;
+            element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(value);
+            expect(element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.month')!.value)
+                .toBe(String(Number(value.slice(5, 7)) - 1));
+            expect(element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.year')!.value).toBe(value.slice(0, 4));
+            expect(element.shadowRoot!.querySelector('[aria-selected="true"] button')?.getAttribute('data-date')).toBe(value.slice(0, 10));
+            expect(element.focusedDate).toBe(value.slice(0, 10));
+            expect(element.shadowRoot!.activeElement).toBe(element.control);
+        });
+    });
+
+    it('synchronizes segment adjustment and ISO paste with the open calendar', async () => {
+        element.value = '2024-12-31T14:25';
+        element.open = true;
+        await waitForUpdatesAsync();
+        element.control.focus();
+        element.control.setSelectionRange(0, 2);
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.visibleDate.getUTCFullYear()).toBe(2025);
+        expect(element.visibleDate.getUTCMonth()).toBe(0);
+        expect(element.focusedDate).toBe('2025-01-31');
+        expect(element.control.selectionStart).toBe(0);
+        expect(element.control.selectionEnd).toBe(2);
+        element.control.select();
+        const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
+        Object.defineProperty(paste, 'clipboardData', { value: { getData: () => '2023-02-28T14:25' } });
+        element.control.dispatchEvent(paste);
+        await waitForUpdatesAsync();
+        expect(element.visibleDate.getUTCFullYear()).toBe(2023);
+        expect(element.visibleDate.getUTCMonth()).toBe(1);
+        expect(element.focusedDate).toBe('2023-02-28');
+        expect(element.shadowRoot!.activeElement).toBe(element.control);
+    });
+
+    it('preserves calendar browsing on time-only edits and incomplete date drafts', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        element.moveMonth(2);
+        await waitForUpdatesAsync();
+        const browsed = element.visibleDate.getTime();
+        element.control.value = '11/13/2024 03:25 PM';
+        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.visibleDate.getTime()).toBe(browsed);
+        element.control.value = '02/30/2025 03:25 PM';
+        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.visibleDate.getTime()).toBe(browsed);
     });
 
     it('marks today independently of selection', async () => {
@@ -111,6 +185,153 @@ describe('FvDateTimePicker', () => {
         expect(change).toHaveBeenCalledTimes(1);
     });
 
+    parameterizeSpec([
+        {
+            name: 'hour', value: '2024-11-13T23:25', start: 0, end: 2, key: 'ArrowUp', expected: '2024-11-14T00:25'
+        },
+        {
+            name: 'minute', value: '2024-12-31T23:59', start: 3, end: 5, key: 'ArrowUp', expected: '2025-01-01T00:00'
+        },
+        {
+            name: 'second', value: '2024-11-13T14:25:59', start: 6, end: 8, key: 'ArrowUp', expected: '2024-11-13T14:26'
+        },
+        {
+            name: 'millisecond', value: '2024-11-13T14:25:37.999', start: 9, end: 12, key: 'ArrowUp', expected: '2024-11-13T14:25:38'
+        },
+        {
+            name: 'AM/PM', value: '2024-11-13T14:25', start: 6, end: 8, key: 'ArrowDown', expected: '2024-11-13T02:25'
+        }
+    ], (spec, name, { value, start, end, key, expected }) => {
+        spec(`highlights and adjusts the popover ${name} without leaking events`, async () => {
+            element.value = value;
+            element.open = true;
+            await waitForUpdatesAsync();
+            const control = element.timeField!.control;
+            control.setSelectionRange(start, start);
+            control.click();
+            expect(control.selectionStart).toBe(start);
+            expect(control.selectionEnd).toBe(end);
+            const input = jasmine.createSpy('input');
+            const change = jasmine.createSpy('change');
+            element.addEventListener('input', input);
+            element.addEventListener('change', change);
+            expect(control.dispatchEvent(new KeyboardEvent('keydown', {
+                key, bubbles: true, composed: true, cancelable: true
+            }))).toBeFalse();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(expected);
+            expect(control.value).toBe(element.timeDisplay);
+            expect(control.selectionStart).toBe(start);
+            expect(control.selectionEnd).toBe(end);
+            expect(element.open).toBeTrue();
+            expect(input).toHaveBeenCalledTimes(1);
+            expect(change).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('replaces and deletes popover segments without shifting other time fields', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const control = element.timeField!.control;
+        control.setSelectionRange(3, 5);
+        for (const digit of '07') {
+            control.dispatchEvent(new InputEvent('beforeinput', {
+                inputType: 'insertText', data: digit, bubbles: true, cancelable: true, composed: true
+            }));
+        }
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T14:07');
+        expect(control.value.replace(/\s/g, ' ')).toBe('02:07 PM');
+        control.setSelectionRange(1, 1);
+        control.dispatchEvent(new InputEvent('beforeinput', {
+            inputType: 'deleteContentForward', bubbles: true, cancelable: true, composed: true
+        }));
+        await waitForUpdatesAsync();
+        expect(control.value.replace(/\s/g, ' ')).toBe('00:07 PM');
+        expect(element.value).toBe('');
+        expect(element.validity.badInput).toBeTrue();
+        control.setSelectionRange(0, 0);
+        control.click();
+        control.dispatchEvent(new InputEvent('beforeinput', {
+            inputType: 'insertText', data: '11', bubbles: true, cancelable: true, composed: true
+        }));
+        control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T23:07');
+        expect(element.checkValidity()).toBeTrue();
+    });
+
+    it('keeps main and popover edit state independent and reconnects listeners after reopening', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const control = element.timeField!.control;
+        control.setSelectionRange(3, 5);
+        control.dispatchEvent(new InputEvent('beforeinput', {
+            inputType: 'insertText', data: '1', bubbles: true, cancelable: true, composed: true
+        }));
+        element.open = false;
+        await waitForUpdatesAsync();
+        element.open = true;
+        await waitForUpdatesAsync();
+        const reopened = element.timeField!.control;
+        const input = jasmine.createSpy('input');
+        element.addEventListener('input', input);
+        reopened.setSelectionRange(0, 2);
+        reopened.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T15:01');
+        expect(input).toHaveBeenCalledTimes(1);
+        expect(reopened.selectionStart).toBe(0);
+        expect(reopened.selectionEnd).toBe(2);
+    });
+
+    it('focuses the trigger before reopening so Safari does not dismiss the time field', async () => {
+        element.control.focus();
+        expect(element.handleTriggerMousedown(new MouseEvent('mousedown', { button: 0 }))).toBeFalse();
+        element.trigger.click();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeTrue();
+        element.closePicker();
+        await waitForUpdatesAsync();
+        expect(element.handleTriggerMousedown(new MouseEvent('mousedown', { button: 2 }))).toBeTrue();
+        element.handleTriggerMousedown(new MouseEvent('mousedown', { button: 0 }));
+        element.trigger.click();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeTrue();
+        expect(element.timeField!.isConnected).toBeTrue();
+    });
+
+    parameterizeSpec([
+        { name: '24-hour German', locale: 'de-DE', rtl: false },
+        { name: 'RTL Arabic', locale: 'ar-EG', rtl: true }
+    ], (spec, name, { locale, rtl }) => {
+        spec(`preserves popover navigation and validation in ${name}`, async () => {
+            lang.setValueFor(element, locale);
+            direction.setValueFor(element, rtl ? Direction.rtl : Direction.ltr);
+            element.min = element.value;
+            element.max = element.value;
+            element.step = '900';
+            element.open = true;
+            await waitForUpdatesAsync();
+            const control = element.timeField!.control;
+            control.setSelectionRange(0, 0);
+            control.click();
+            control.dispatchEvent(new KeyboardEvent('keydown', {
+                key: rtl ? 'ArrowLeft' : 'ArrowRight', bubbles: true, cancelable: true
+            }));
+            expect(control.selectionStart).toBe(3);
+            expect(control.selectionEnd).toBe(5);
+            control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('2024-11-13T14:26');
+            expect(element.validity.rangeOverflow).toBeTrue();
+            expect(element.validity.stepMismatch).toBeTrue();
+            control.select();
+            expect(element.handleInputKeydown(new KeyboardEvent('keydown', { key: 'ArrowUp' }), control)).toBeTrue();
+            expect(element.handleInputKeydown(new KeyboardEvent('keydown', { key: 'Tab' }), control)).toBeTrue();
+        });
+    });
+
     it('keeps direct input, form value, and validity in sync', async () => {
         const form = document.createElement('form');
         element.parentElement!.appendChild(form);
@@ -144,6 +365,388 @@ describe('FvDateTimePicker', () => {
         expect(element.control.value.replace(/\s/g, ' ')).toBe('02/29/2024 11:59 PM');
         expect(element.value).toBe('2024-02-29T23:59');
         expect(element.checkValidity()).toBeTrue();
+    });
+
+    parameterizeSpec([
+        { name: 'US month', locale: 'en-US', position: 1, start: 0, end: 2 },
+        { name: 'US day', locale: 'en-US', position: 4, start: 3, end: 5 },
+        { name: 'US year', locale: 'en-US', position: 8, start: 6, end: 10 },
+        { name: 'US hour', locale: 'en-US', position: 12, start: 11, end: 13 },
+        { name: 'US minute', locale: 'en-US', position: 15, start: 14, end: 16 },
+        { name: 'US AM/PM', locale: 'en-US', position: 18, start: 17, end: 19 },
+        { name: 'German day', locale: 'de-DE', position: 1, start: 0, end: 2 },
+        { name: 'German month', locale: 'de-DE', position: 4, start: 3, end: 5 },
+        { name: 'Japanese year', locale: 'ja-JP', position: 2, start: 0, end: 4 },
+        { name: 'Japanese month', locale: 'ja-JP', position: 6, start: 5, end: 7 }
+    ], (spec, name, { locale, position, start, end }) => {
+        spec(`highlights the ${name} segment on click`, async () => {
+            lang.setValueFor(element, locale);
+            await waitForUpdatesAsync();
+            element.control.setSelectionRange(position, position);
+            element.control.click();
+            expect(element.control.selectionStart).toBe(start);
+            expect(element.control.selectionEnd).toBe(end);
+        });
+    });
+
+    parameterizeSpec([
+        { name: 'month end', value: '2024-01-31T14:25', position: 0, key: 'ArrowUp', expected: '2024-02-29T14:25' },
+        { name: 'previous month end', value: '2024-03-31T14:25', position: 0, key: 'ArrowDown', expected: '2024-02-29T14:25' },
+        { name: 'leap year', value: '2024-02-29T14:25', position: 6, key: 'ArrowUp', expected: '2025-02-28T14:25' },
+        { name: 'day rollover', value: '2024-12-31T14:25', position: 3, key: 'ArrowUp', expected: '2025-01-01T14:25' },
+        { name: 'hour rollover', value: '2024-12-31T23:25', position: 11, key: 'ArrowUp', expected: '2025-01-01T00:25' },
+        { name: 'minute rollover', value: '2024-12-31T23:59', position: 14, key: 'ArrowUp', expected: '2025-01-01T00:00' },
+        { name: 'minute borrow', value: '2024-01-01T00:00', position: 14, key: 'ArrowDown', expected: '2023-12-31T23:59' },
+        { name: 'seconds', value: '2024-12-31T23:59:59', position: 17, key: 'ArrowUp', expected: '2025-01-01T00:00' },
+        { name: 'milliseconds', value: '2024-12-31T23:59:59.999', position: 20, key: 'ArrowUp', expected: '2025-01-01T00:00' },
+        { name: 'AM/PM', value: '2024-11-13T02:25', position: 17, key: 'ArrowUp', expected: '2024-11-13T14:25' },
+        { name: 'DST gap', value: '2024-03-10T01:30', position: 11, key: 'ArrowUp', expected: '2024-03-10T02:30' }
+    ], (spec, name, { value, position, key, expected }) => {
+        spec(`adjusts ${name} and retains the selected segment`, async () => {
+            element.value = value;
+            await waitForUpdatesAsync();
+            element.control.setSelectionRange(position, position);
+            element.control.click();
+            const start = element.control.selectionStart;
+            const end = element.control.selectionEnd;
+            const input = jasmine.createSpy('input');
+            const change = jasmine.createSpy('change');
+            element.addEventListener('input', input);
+            element.addEventListener('change', change);
+            expect(element.control.dispatchEvent(new KeyboardEvent('keydown', {
+                key, bubbles: true, composed: true, cancelable: true
+            }))).toBeFalse();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(expected);
+            expect(element.control.value).toBe(element.displayValue);
+            expect(element.control.selectionStart).toBe(start);
+            expect(element.control.selectionEnd).toBe(end);
+            expect(input).toHaveBeenCalledTimes(1);
+            expect(change).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('navigates segments without trapping Left/Right at a selection boundary', async () => {
+        element.control.setSelectionRange(1, 1);
+        element.control.click();
+        for (const [key, start, end] of [
+            ['ArrowRight', 3, 5], ['ArrowRight', 6, 10], ['ArrowLeft', 3, 5], ['End', 17, 19], ['Home', 0, 2]
+        ] as const) {
+            element.control.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+            element.control.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true }));
+            expect(element.control.selectionStart).toBe(start);
+            expect(element.control.selectionEnd).toBe(end);
+        }
+        await waitForUpdatesAsync();
+    });
+
+    it('handles End from a separator and adjusts at the end of the text', async () => {
+        element.control.setSelectionRange(10, 10);
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true, cancelable: true }));
+        expect(element.control.selectionStart).toBe(17);
+        expect(element.control.selectionEnd).toBe(19);
+        element.control.setSelectionRange(19, 19);
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T02:25');
+        expect(element.control.selectionStart).toBe(17);
+        expect(element.control.selectionEnd).toBe(19);
+    });
+
+    it('does not restore an old selection after adjusting and immediately navigating', async () => {
+        element.control.setSelectionRange(3, 5);
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-14T14:25');
+        expect(element.control.selectionStart).toBe(6);
+        expect(element.control.selectionEnd).toBe(10);
+    });
+
+    parameterizeSpec([
+        { name: 'day', start: 3, end: 5, digits: '21', expected: '2024-11-21T14:25' },
+        { name: 'month', start: 0, end: 2, digits: '2', expected: '2024-02-13T14:25' },
+        { name: 'year', start: 6, end: 10, digits: '2025', expected: '2025-11-13T14:25' },
+        { name: 'hour', start: 11, end: 13, digits: '11', expected: '2024-11-13T23:25' },
+        { name: 'minute', start: 14, end: 16, digits: '07', expected: '2024-11-13T14:07' }
+    ], (spec, name, { start, end, digits, expected }) => {
+        spec(`replaces the selected ${name} without shifting other segments`, async () => {
+            const input = jasmine.createSpy('input');
+            const change = jasmine.createSpy('change');
+            element.addEventListener('input', input);
+            element.addEventListener('change', change);
+            element.control.setSelectionRange(start, end);
+            for (const digit of digits) {
+                element.control.dispatchEvent(new KeyboardEvent('keydown', { key: digit, bubbles: true }));
+                expect(element.control.dispatchEvent(new InputEvent('beforeinput', {
+                    inputType: 'insertText', data: digit, bubbles: true, cancelable: true, composed: true
+                }))).toBeFalse();
+            }
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(expected);
+            expect(input).toHaveBeenCalledTimes(digits.length);
+            expect(change).not.toHaveBeenCalled();
+            element.control.dispatchEvent(new FocusEvent('blur'));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(expected);
+            expect(change).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('commits typed segment replacement on Enter and resets it with the form', async () => {
+        const form = document.createElement('form');
+        element.parentElement!.appendChild(form);
+        form.appendChild(element);
+        await waitForUpdatesAsync();
+        const change = jasmine.createSpy('change');
+        element.addEventListener('change', change);
+        element.control.setSelectionRange(3, 5);
+        element.control.dispatchEvent(new InputEvent('beforeinput', {
+            inputType: 'insertText', data: '2', bubbles: true, cancelable: true
+        }));
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+        element.control.dispatchEvent(new FocusEvent('blur'));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-02T14:25');
+        expect(new FormData(form).get('scheduled')).toBe(element.value);
+        expect(change).toHaveBeenCalledTimes(1);
+        form.reset();
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T14:25');
+    });
+
+    parameterizeSpec([
+        {
+            name: 'backspace in day', start: 4, end: 4, inputType: 'deleteContentBackward', expected: '11/03/2024 02:25 PM', caret: 3
+        },
+        {
+            name: 'delete in day', start: 3, end: 3, inputType: 'deleteContentForward', expected: '11/03/2024 02:25 PM', caret: 3
+        },
+        {
+            name: 'selected day', start: 3, end: 5, inputType: 'deleteContentBackward', expected: '11/00/2024 02:25 PM', caret: 3
+        },
+        {
+            name: 'selected year and day', start: 4, end: 10, inputType: 'deleteByCut', expected: '11/10/0000 02:25 PM', caret: 4
+        },
+        {
+            name: 'backspace across separator', start: 6, end: 6, inputType: 'deleteContentBackward', expected: '11/10/2024 02:25 PM', caret: 4
+        },
+        {
+            name: 'delete across separator', start: 5, end: 5, inputType: 'deleteContentForward', expected: '11/13/0024 02:25 PM', caret: 6
+        },
+        {
+            name: 'selected minute', start: 14, end: 16, inputType: 'deleteContentForward', expected: '11/13/2024 02:00 PM', caret: 14
+        }
+    ], (spec, name, { start, end, inputType, expected, caret }) => {
+        spec(`keeps other segments in place when deleting ${name}`, async () => {
+            element.control.setSelectionRange(start, end);
+            expect(element.control.dispatchEvent(new InputEvent('beforeinput', {
+                inputType, bubbles: true, cancelable: true, composed: true
+            }))).toBeFalse();
+            await waitForUpdatesAsync();
+            expect(element.control.value.replace(/\s/g, ' ')).toBe(expected);
+            expect(element.control.selectionStart).toBe(caret);
+            expect(element.control.selectionEnd).toBe(caret);
+        });
+    });
+
+    it('keeps deletion drafts positional until corrected, with normal validation and events', async () => {
+        const input = jasmine.createSpy('input');
+        const change = jasmine.createSpy('change');
+        element.addEventListener('input', input);
+        element.addEventListener('change', change);
+        element.control.setSelectionRange(3, 5);
+        element.control.dispatchEvent(new InputEvent('beforeinput', {
+            inputType: 'deleteContentBackward', bubbles: true, cancelable: true
+        }));
+        element.control.setSelectionRange(7, 7);
+        element.control.dispatchEvent(new InputEvent('beforeinput', {
+            inputType: 'deleteContentForward', bubbles: true, cancelable: true
+        }));
+        element.control.dispatchEvent(new FocusEvent('blur'));
+        await waitForUpdatesAsync();
+        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/00/2024 02:25 PM');
+        expect(element.value).toBe('');
+        expect(element.validity.badInput).toBeTrue();
+        expect(element.entryError).not.toBe('');
+        expect(input).toHaveBeenCalledTimes(1);
+        expect(change).toHaveBeenCalledTimes(1);
+        element.control.setSelectionRange(3, 3);
+        element.control.click();
+        element.control.dispatchEvent(new InputEvent('beforeinput', {
+            inputType: 'insertText', data: '21', bubbles: true, cancelable: true
+        }));
+        element.control.dispatchEvent(new FocusEvent('blur'));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-21T14:25');
+        expect(element.checkValidity()).toBeTrue();
+        expect(element.entryError).toBe('');
+    });
+
+    it('leaves clearing all text and deletion during initial entry to the native mask', async () => {
+        element.control.select();
+        expect(element.handleSegmentInput(new InputEvent('beforeinput', {
+            inputType: 'deleteContentBackward'
+        }))).toBeTrue();
+        element.value = '';
+        await waitForUpdatesAsync();
+        element.control.value = '11/1';
+        element.handleTextInput();
+        element.control.setSelectionRange(4, 4);
+        expect(element.handleSegmentInput(new InputEvent('beforeinput', {
+            inputType: 'deleteContentBackward'
+        }))).toBeTrue();
+    });
+
+    parameterizeSpec([
+        {
+            name: 'German date', locale: 'de-DE', value: '2024-11-13', type: 'date' as const, position: 4, expected: '2024-10-13'
+        },
+        {
+            name: 'Japanese year', locale: 'ja-JP', value: '2024-11-13T14:25', type: 'datetime-local' as const, position: 3, expected: '2020-11-13T14:25'
+        },
+        {
+            name: 'seconds', locale: 'en-US', value: '2024-11-13T14:25:37', type: 'datetime-local' as const, position: 18, expected: '2024-11-13T14:25:30'
+        },
+        {
+            name: 'milliseconds', locale: 'en-US', value: '2024-11-13T14:25:37.125', type: 'datetime-local' as const, position: 22, expected: '2024-11-13T14:25:37.12'
+        }
+    ], (spec, name, { locale, value, type, position, expected }) => {
+        spec(`deletes ${name} without moving later segments`, async () => {
+            lang.setValueFor(element, locale);
+            element.type = type;
+            element.value = value;
+            await waitForUpdatesAsync();
+            const length = element.control.value.length;
+            element.control.setSelectionRange(position, position);
+            element.control.dispatchEvent(new InputEvent('beforeinput', {
+                inputType: 'deleteContentForward', bubbles: true, cancelable: true
+            }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(expected);
+            expect(element.control.value.length).toBe(length);
+        });
+    });
+
+    it('does not handle canceled input or truncate text longer than the selected segment', () => {
+        element.control.setSelectionRange(3, 5);
+        const canceled = new InputEvent('beforeinput', { inputType: 'insertText', data: '2', cancelable: true });
+        canceled.preventDefault();
+        expect(element.handleSegmentInput(canceled)).toBeTrue();
+        expect(element.handleSegmentInput(new InputEvent('beforeinput', {
+            inputType: 'insertText', data: '2025', cancelable: true
+        }))).toBeTrue();
+        expect(element.value).toBe('2024-11-13T14:25');
+        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:25 PM');
+    });
+
+    it('preserves drag selections, Select All, modifier shortcuts, and Tab', () => {
+        element.control.setSelectionRange(1, 8);
+        element.control.click();
+        expect(element.control.selectionStart).toBe(1);
+        expect(element.control.selectionEnd).toBe(8);
+        element.control.select();
+        element.control.dispatchEvent(new KeyboardEvent('keyup', { key: 'a', ctrlKey: true }));
+        expect(element.control.selectionStart).toBe(0);
+        expect(element.control.selectionEnd).toBe(element.control.value.length);
+        for (const options of [{ key: 'ArrowUp' }, { key: 'ArrowRight', shiftKey: true }, { key: 'Tab' }]) {
+            expect(element.control.dispatchEvent(new KeyboardEvent('keydown', {
+                ...options, bubbles: true, cancelable: true
+            }))).toBeTrue();
+        }
+        expect(element.value).toBe('2024-11-13T14:25');
+    });
+
+    parameterizeSpec([
+        { name: 'empty', text: '' },
+        { name: 'incomplete', text: '11/13/2024 02:' },
+        { name: 'impossible', text: '02/30/2024 02:25 PM' }
+    ], (spec, name, { text }) => {
+        spec(`does not guess a value when adjusting ${name} input`, async () => {
+            element.control.value = text;
+            element.handleTextInput();
+            await waitForUpdatesAsync();
+            element.control.setSelectionRange(0, 0);
+            element.control.click();
+            element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('');
+            expect(element.control.value).toBe(text);
+            expect(element.control.selectionStart).toBe(0);
+            expect(element.control.selectionEnd).toBe(0);
+        });
+    });
+
+    it('adjusts localized date-only input with RTL navigation', async () => {
+        lang.setValueFor(element, 'de-DE');
+        direction.setValueFor(element, Direction.rtl);
+        element.type = 'date';
+        element.value = '2024-01-31';
+        await waitForUpdatesAsync();
+        element.control.setSelectionRange(4, 4);
+        element.control.click();
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-02-29');
+        expect(element.control.value).toBe('29.02.2024');
+        expect(element.control.selectionStart).toBe(3);
+        expect(element.control.selectionEnd).toBe(5);
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true, cancelable: true }));
+        expect(element.control.selectionStart).toBe(6);
+        expect(element.control.selectionEnd).toBe(10);
+    });
+
+    parameterizeSpec([
+        { name: 'minimum year', value: '0001-01-01T00:00', key: 'ArrowDown' },
+        { name: 'maximum year', value: '9999-12-31T23:59', key: 'ArrowUp' }
+    ], (spec, name, { value, key }) => {
+        spec(`does not adjust beyond the ${name}`, async () => {
+            element.value = value;
+            await waitForUpdatesAsync();
+            const input = jasmine.createSpy('input');
+            element.addEventListener('input', input);
+            element.control.setSelectionRange(6, 10);
+            element.control.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(value);
+            expect(input).not.toHaveBeenCalled();
+        });
+    });
+
+    it('validates adjusted values without snapping to min/max or step', async () => {
+        element.min = element.value;
+        element.max = element.value;
+        element.step = '900';
+        await waitForUpdatesAsync();
+        element.control.setSelectionRange(14, 16);
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T14:26');
+        expect(element.validity.rangeOverflow).toBeTrue();
+        expect(element.validity.stepMismatch).toBeTrue();
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T14:24');
+        expect(element.validity.rangeUnderflow).toBeTrue();
+    });
+
+    parameterizeSpec([
+        { name: 'disabled', disabled: true, readOnly: false },
+        { name: 'readonly', disabled: false, readOnly: true }
+    ], (spec, name, { disabled, readOnly }) => {
+        spec(`does not adjust or highlight ${name} input`, async () => {
+            element.disabled = disabled;
+            element.readOnly = readOnly;
+            await waitForUpdatesAsync();
+            element.control.setSelectionRange(1, 1);
+            element.control.click();
+            element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('2024-11-13T14:25');
+            expect(element.control.selectionStart).toBe(1);
+            expect(element.control.selectionEnd).toBe(1);
+        });
     });
 
     parameterizeSpec([
@@ -868,7 +1471,6 @@ describe('FvDateTimePicker', () => {
         const provider = document.createElement(fvDateTimePickerLabelProviderTag);
         provider.chooseDateTime = 'Datum und Uhrzeit auswählen';
         provider.time = 'Uhrzeit';
-        provider.done = 'Fertig';
         provider.invalidDateTime = 'Datum und Uhrzeit eingeben.';
         const themeProvider = document.createElement(themeProviderTag);
         element.parentElement!.appendChild(themeProvider);
@@ -878,7 +1480,6 @@ describe('FvDateTimePicker', () => {
         await waitForUpdatesAsync();
         expect(element.trigger.ariaLabel).toBe('Datum und Uhrzeit auswählen');
         expect(element.timeField!.textContent).toContain('Uhrzeit');
-        expect(element.shadowRoot!.querySelector('.time-row nimble-button')!.textContent).toBe('Fertig');
         element.control.value = '11/';
         element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         expect(element.validationMessage).toBe('Datum und Uhrzeit eingeben.');

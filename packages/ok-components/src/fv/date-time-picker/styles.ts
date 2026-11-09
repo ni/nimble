@@ -38,6 +38,11 @@ export const styles = css`
         min-width: 240px;
     }
 
+    ${/* Keep block height stable on hover so the open popup does not shift. */ ''}
+    :host([appearance='block']:hover:not([error-visible])) .root:not(:focus-within) {
+        padding-bottom: ${borderWidth};
+    }
+
     .picker .day {
         position: relative;
         box-sizing: border-box;
@@ -228,8 +233,6 @@ export const styles = css`
     }
 
     .time-row {
-        align-items: flex-end;
-        justify-content: flex-end;
         margin-top: ${standardPadding};
     }
 

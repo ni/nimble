@@ -83,6 +83,56 @@ export function formatDisplay(date: Date, type: FvDateTimePickerType, locale: st
     return type === 'date' ? dateText : `${dateText} ${formatTime(date, locale, mode)}`;
 }
 
+export type DateTimeSegment = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond' | 'dayPeriod';
+
+export function displaySegments(text: string, type: FvDateTimePickerType, locale: string, mode: MaskitoTimeMode): { part: DateTimeSegment, start: number, end: number }[] {
+    const date = dateFormat(locale);
+    const parts: { [key: string]: DateTimeSegment } = {
+        yyyy: 'year', mm: 'month', dd: 'day'
+    };
+    let start = 0;
+    const segments = date.mode.split('/').map(segment => {
+        const range = { part: parts[segment]!, start, end: start + segment.length };
+        start = range.end + date.separator.length;
+        return range;
+    });
+    if (type !== 'date') {
+        start = segments[segments.length - 1]!.end + 1;
+        const time = timeFormat(locale, mode);
+        const timeParts: DateTimeSegment[] = ['hour', 'minute', 'second', 'millisecond'];
+        time.mode.split(/[:.]/).forEach((segment, index) => {
+            const end = start + segment.length;
+            segments.push({ part: timeParts[index]!, start, end });
+            start = end + (time.separators[index]?.length ?? 1);
+        });
+        if (time.dayPeriod[0]) {
+            segments.push({ part: 'dayPeriod', start, end: text.length });
+        }
+    }
+    return segments;
+}
+
+export function adjustSegment(date: Date, part: DateTimeSegment, offset: number): Date {
+    const next = new Date(date);
+    if (part === 'month' || part === 'year') {
+        const day = next.getUTCDate();
+        next.setUTCDate(1);
+        if (part === 'month') {
+            next.setUTCMonth(next.getUTCMonth() + offset);
+        } else {
+            next.setUTCFullYear(next.getUTCFullYear() + offset);
+        }
+        const last = calendarDate(next.getUTCFullYear(), next.getUTCMonth() + 1, 0);
+        next.setUTCDate(Math.min(day, last.getUTCDate()));
+    } else {
+        const milliseconds = {
+            day: 86400000, hour: 3600000, minute: 60000, second: 1000, millisecond: 1, dayPeriod: 43200000
+        };
+        next.setTime(next.getTime() + offset * milliseconds[part]);
+    }
+    return next;
+}
+
 const normalize = (text: string): string => text.replace(/\s/g, ' ').toLocaleLowerCase();
 
 export function parseDisplay(text: string, type: FvDateTimePickerType, locale: string, mode: MaskitoTimeMode, complete = false): string {

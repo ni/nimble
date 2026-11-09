@@ -16,7 +16,6 @@ export const labels = {
     previousMonth: label('previous-month', 'Previous month'),
     nextMonth: label('next-month', 'Next month'),
     time: label('time', 'Time'),
-    done: label('done', 'Done'),
     invalidDate: label('invalid-date', 'Enter a valid date.'),
     invalidDateTime: label('invalid-date-time', 'Enter a valid date and time.'),
     invalidTime: label('invalid-time', 'Enter a valid time.')
@@ -53,9 +52,6 @@ export class FvDateTimePickerLabelProvider extends LabelProviderBase<typeof labe
 
     @attr
     public time: string | undefined;
-
-    @attr
-    public done: string | undefined;
 
     @attr({ attribute: 'invalid-date' })
     public invalidDate: string | undefined;

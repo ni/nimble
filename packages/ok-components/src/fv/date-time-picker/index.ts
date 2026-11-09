@@ -10,7 +10,7 @@ import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error
 import { mixinRequiredVisiblePattern } from '@ni/nimble-components/dist/esm/patterns/required-visible/types';
 import { direction, lang } from '@ni/nimble-components/dist/esm/theme-provider';
 import { FormAssociatedDateTimePicker } from './models/form-associated';
-import { calendarDate, dateFormat, dateKey, formatDisplay, formatTime, parseDisplay, parseIsoPaste, parseValue, timeFormat, today } from './models/date-time';
+import { adjustSegment, calendarDate, dateFormat, dateKey, displaySegments, formatDisplay, formatTime, formatValue, parseDisplay, parseIsoPaste, parseValue, timeFormat, today } from './models/date-time';
 import { labels } from './label-provider';
 import { styles } from './styles';
 import { template } from './template';
@@ -130,6 +130,13 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     private maskKey = '';
 
+    private readonly mainSegmentState: {
+        input?: { start: number, end: number, text: string }, pending: boolean, draftLength?: number
+    } = { pending: false };
+
+    private timeSegmentListeners?: AbortController;
+    private readonly timeSegmentState: typeof this.mainSegmentState = { pending: false };
+
     private readonly localeSubscriber = { handleChange: (): void => this.refreshLocale() };
 
     private readonly stateSubscriber = {
@@ -157,6 +164,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     /** @internal */
     public override disconnectedCallback(): void {
+        this.timeSegmentListeners?.abort();
         this.timeMask?.destroy();
         this.mask?.destroy();
         this.mask = undefined;
@@ -172,6 +180,12 @@ export class FvDateTimePicker extends mixinErrorPattern(
     /** @internal */
     public openChanged(): void {
         if (!this.open) {
+            this.timeSegmentListeners?.abort();
+            if (this.timeSegmentState !== undefined) {
+                this.timeSegmentState.input = undefined;
+                this.timeSegmentState.pending = false;
+                this.timeSegmentState.draftLength = undefined;
+            }
             this.timeMask?.destroy();
             this.timeMask = undefined;
             return;
@@ -185,15 +199,34 @@ export class FvDateTimePicker extends mixinErrorPattern(
         this.visibleDate.setUTCDate(1);
         this.focusedDate = this.dateKey(date);
         this.focusDay();
+        this.timeFieldChanged();
     }
 
     /** @internal */
     public timeFieldChanged(): void {
+        this.timeSegmentListeners?.abort();
         this.timeMask?.destroy();
         DOM.queueUpdate(() => {
-            if (this.open && this.timeField?.isConnected) {
+            if (this.open && this.timeField) {
                 this.timeMask?.destroy();
-                this.timeMask = new Maskito(this.timeField.control, maskitoTime(timeFormat(this.locale, this.timeMode)));
+                const control = this.timeField.control;
+                this.timeSegmentListeners?.abort();
+                this.timeSegmentListeners = new AbortController();
+                const options = { signal: this.timeSegmentListeners.signal };
+                const listen = <K extends keyof HTMLElementEventMap>(name: K, handler: (event: HTMLElementEventMap[K]) => boolean): void => {
+                    control.addEventListener(name, event => {
+                        if (!handler(event)) {
+                            event.preventDefault();
+                        }
+                    }, options);
+                };
+                listen('click', () => this.highlightSegment(control));
+                listen('keyup', event => this.handleInputKeyup(event, control));
+                listen('keydown', event => this.handleInputKeydown(event, control));
+                listen('beforeinput', event => this.handleSegmentInput(event, control));
+                listen('blur', () => this.handleInputBlur(control));
+                const mask = maskitoTime(timeFormat(this.locale, this.timeMode));
+                this.timeMask = new Maskito(control, { mask: mask.mask, overwriteMode: mask.overwriteMode });
             }
         });
     }
@@ -237,6 +270,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
         if (this.disabled || this.readOnly) {
             return;
         }
+        this.mainSegmentState.pending = false;
+        this.mainSegmentState.input = undefined;
         this.validationAttempted = true;
         const previous = this.value;
         this.handleTextInput(true);
@@ -256,6 +291,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
             return;
         }
         const text = this.control.value;
+        if (text.length !== this.mainSegmentState.draftLength) {
+            this.mainSegmentState.draftLength = undefined;
+        }
         const value = this.parseText(text, complete);
         this.setTextValue(value);
         this.timeText = undefined;
@@ -269,6 +307,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     /** @internal */
     public handlePaste(event: ClipboardEvent): boolean {
+        this.mainSegmentState.input = undefined;
+        this.mainSegmentState.draftLength = undefined;
         const text = event.clipboardData?.getData('text');
         if (!text || this.disabled || this.readOnly) {
             return true;
@@ -308,6 +348,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
     /** @internal */
     public override valueChanged(previous: string, next: string): void {
         if (!this.updatingText) {
+            this.resetSegmentStates();
             this.validationAttempted = false;
             this.entryError = '';
             this.editingText = undefined;
@@ -327,6 +368,11 @@ export class FvDateTimePicker extends mixinErrorPattern(
             }
         }
         super.valueChanged(previous, next);
+        const date = this.parsedValue;
+        if (this.open && date && previous.slice(0, 10) !== next.slice(0, 10)) {
+            this.focusedDate = this.dateKey(date);
+            this.visibleDate = calendarDate(date.getUTCFullYear(), date.getUTCMonth(), 1);
+        }
         if (!this.updatingText) {
             this.updateMask();
             if (this.control !== undefined) {
@@ -337,6 +383,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     /** @internal */
     public override formResetCallback(): void {
+        this.resetSegmentStates();
         this.validationAttempted = false;
         this.entryError = '';
         this.editingText = undefined;
@@ -353,6 +400,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
             throw new RangeError('Date/time picker type must be "date" or "datetime-local".');
         }
         if (this.proxy !== undefined) {
+            this.resetSegmentStates();
             this.open = false;
             this.editingText = undefined;
             this.timeText = undefined;
@@ -574,6 +622,15 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     /** @internal */
+    public handleTriggerMousedown(event: MouseEvent): boolean {
+        if (event.button !== 0 || this.disabled || this.readOnly) {
+            return true;
+        }
+        this.trigger.focus();
+        return false;
+    }
+
+    /** @internal */
     public closePicker(): boolean {
         this.open = false;
         this.control.focus();
@@ -600,6 +657,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
         }
         const input = event.currentTarget as TextField;
         const text = input.value;
+        if (text.length !== this.timeSegmentState.draftLength) {
+            this.timeSegmentState.draftLength = undefined;
+        }
         const date = this.timeEditDate ?? this.parsedValue ?? today();
         const value = this.parseTimeText(text, date, complete);
         this.setTextValue(value);
@@ -618,6 +678,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
     /** @internal */
     public changeTime(event: Event): boolean {
         event.stopPropagation();
+        this.timeSegmentState.pending = false;
+        this.timeSegmentState.input = undefined;
         if (!this.disabled && !this.readOnly) {
             this.validationAttempted = true;
             const input = event.currentTarget as TextField;
@@ -689,6 +751,175 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     /** @internal */
+    public highlightSegment(control = this.control): boolean {
+        const state = this.getSegmentState(control);
+        state.input = undefined;
+        if (this.disabled || this.readOnly || control.selectionStart !== control.selectionEnd
+            || (!this.parseControl(control) && state.draftLength !== control.value.length)) {
+            return true;
+        }
+        const position = control.selectionStart ?? 0;
+        const segments = this.controlSegments(control);
+        const segment = segments.find(range => position < range.end) ?? segments[segments.length - 1]!;
+        control.setSelectionRange(segment.start, segment.end);
+        return true;
+    }
+
+    /** @internal */
+    public handleSegmentInput(event: InputEvent, control = this.control): boolean {
+        const state = this.getSegmentState(control);
+        if (event.defaultPrevented || this.disabled || this.readOnly || event.isComposing) {
+            state.input = undefined;
+            return true;
+        }
+        const start = control.selectionStart ?? 0;
+        const end = control.selectionEnd ?? start;
+        const text = control.value;
+        const segmented = Boolean(this.parseControl(control)) || state.draftLength === text.length;
+        if (segmented && ['deleteContentBackward', 'deleteContentForward', 'deleteByCut'].includes(event.inputType)
+            && !(start === 0 && end === text.length)) {
+            const segments = this.controlSegments(control)
+                .filter(range => range.part !== 'dayPeriod');
+            const positions = segments.flatMap(range => Array.from({ length: range.end - range.start }, (_, i) => range.start + i));
+            let from = start;
+            let to = end;
+            if (start === end) {
+                const position = event.inputType === 'deleteContentBackward'
+                    ? positions.filter(i => i < start).pop() : positions.find(i => i >= start);
+                if (position === undefined) {
+                    event.stopImmediatePropagation();
+                    return false;
+                }
+                from = position;
+                to = position + 1;
+            }
+            control.value = Array.from(text, (character, index) => (
+                index >= from && index < to && positions.includes(index) ? '0' : character
+            )).join('');
+            control.setSelectionRange(from, from);
+            state.input = undefined;
+            if (control.value !== text) {
+                state.draftLength = text.length;
+                this.emitSegmentInput(event, control);
+            } else {
+                event.stopImmediatePropagation();
+            }
+            return false;
+        }
+        if (event.inputType !== 'insertText' || !event.data || !/^\d+$/.test(event.data)) {
+            state.input = undefined;
+            return true;
+        }
+        let input = state.input;
+        if (!input || start !== end || start !== input.end) {
+            const segment = segmented
+                ? this.controlSegments(control)
+                    .find(range => range.part !== 'dayPeriod' && (start === end
+                        ? start >= range.start && start + event.data!.length <= range.end
+                        : start === range.start && end === range.end))
+                : undefined;
+            if (!segment) {
+                state.input = undefined;
+                return true;
+            }
+            input = { start, end: start === end ? start + event.data.length : end, text: '' };
+        }
+        const length = input.end - input.start;
+        if (input.text.length + event.data.length > length) {
+            state.input = undefined;
+            return true;
+        }
+        input.text += event.data;
+        control.value = control.value.slice(0, input.start)
+            + input.text.padStart(length, '0') + control.value.slice(input.end);
+        control.setSelectionRange(input.end, input.end);
+        state.input = input.text.length < length ? input : undefined;
+        this.emitSegmentInput(event, control);
+        return false;
+    }
+
+    /** @internal */
+    public handleInputBlur(control = this.control): boolean {
+        const state = this.getSegmentState(control);
+        state.input = undefined;
+        if (state.pending) {
+            this.commitControl(control);
+        }
+        return true;
+    }
+
+    /** @internal */
+    public handleInputKeyup(event: KeyboardEvent, control = this.control): boolean {
+        if (!event.shiftKey && !event.ctrlKey && !event.metaKey && !event.altKey
+            && ['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Tab'].includes(event.key)) {
+            this.highlightSegment(control);
+        }
+        return true;
+    }
+
+    /** @internal */
+    public handleInputKeydown(event: KeyboardEvent, control = this.control): boolean {
+        const state = this.getSegmentState(control);
+        if (!/^\d$/.test(event.key)) {
+            state.input = undefined;
+        }
+        if (event.defaultPrevented || event.isComposing || this.disabled || this.readOnly
+            || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+            return true;
+        }
+        if (event.key === 'Enter' && state.pending) {
+            this.commitControl(control);
+            return false;
+        }
+        const date = parseValue(this.parseControl(control), this.type);
+        if (!date) {
+            return true;
+        }
+        const segments = this.controlSegments(control);
+        const start = control.selectionStart ?? 0;
+        const end = control.selectionEnd ?? start;
+        const index = segments.findIndex(range => (start === end
+            ? start < range.end || range === segments[segments.length - 1]
+            : start === range.start && end === range.end));
+        if (index < 0) {
+            return true;
+        }
+        const segment = segments[index]!;
+        if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+            const offset = (event.key === 'ArrowRight' ? 1 : -1) * (this.rtl ? -1 : 1);
+            let targetIndex = Math.max(0, Math.min(segments.length - 1, index + offset));
+            if (event.key === 'Home') {
+                targetIndex = 0;
+            } else if (event.key === 'End') {
+                targetIndex = segments.length - 1;
+            }
+            const target = segments[targetIndex]!;
+            control.setSelectionRange(target.start, target.end);
+            return false;
+        }
+        if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') {
+            return true;
+        }
+        const next = adjustSegment(date, segment.part, event.key === 'ArrowUp' ? 1 : -1);
+        if (next.getUTCFullYear() >= 1 && next.getUTCFullYear() <= 9999) {
+            state.pending = false;
+            const mode = this.timeMode;
+            this.commit(formatValue(next, this.type));
+            this.editingTimeMode = mode;
+            this.updateMask();
+            this.control.value = this.displayValue;
+            if (control !== this.control && this.timeField) {
+                this.timeField.value = this.timeDisplay;
+                control.value = this.timeDisplay;
+                this.timeEditDate = next;
+            }
+            const range = this.controlSegments(control)[index]!;
+            control.setSelectionRange(range.start, range.end);
+        }
+        return false;
+    }
+
+    /** @internal */
     public handleDayKeydown(event: KeyboardEvent, date: Date): boolean {
         const next = new Date(date);
         switch (event.key) {
@@ -700,12 +931,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
             case 'End': next.setUTCDate(date.getUTCDate() + 6 - ((date.getUTCDay() - this.firstDayOfWeek + 7) % 7)); break;
             case 'PageUp':
             case 'PageDown': {
-                const day = date.getUTCDate();
-                next.setUTCDate(1);
-                next.setUTCMonth(next.getUTCMonth() + (event.key === 'PageUp' ? -1 : 1));
-                const last = new Date(next);
-                last.setUTCMonth(last.getUTCMonth() + 1, 0);
-                next.setUTCDate(Math.min(day, last.getUTCDate()));
+                next.setTime(adjustSegment(date, 'month', event.key === 'PageUp' ? -1 : 1).getTime());
                 break;
             }
             default: return true;
@@ -730,8 +956,12 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     /** @internal */
-    public focusDay(): boolean {
+    public focusDay(preserveInputFocus = false): boolean {
         DOM.queueUpdate(() => {
+            if (preserveInputFocus && (this.shadowRoot?.activeElement === this.control
+                || this.shadowRoot?.activeElement === this.timeField)) {
+                return;
+            }
             const requested = this.shadowRoot?.querySelector<HTMLButtonElement>(`[data-date="${this.focusedDate}"]`);
             const day = requested && !requested.disabled ? requested
                 : this.shadowRoot?.querySelector<HTMLButtonElement>('.day:not(:disabled)');
@@ -798,7 +1028,6 @@ export class FvDateTimePicker extends mixinErrorPattern(
             previousMonth: labels.previousMonth.getValueFor(this),
             nextMonth: labels.nextMonth.getValueFor(this),
             time: labels.time.getValueFor(this),
-            done: labels.done.getValueFor(this),
             invalidDate: labels.invalidDate.getValueFor(this),
             invalidDateTime: labels.invalidDateTime.getValueFor(this),
             invalidTime: labels.invalidTime.getValueFor(this)
@@ -816,9 +1045,57 @@ export class FvDateTimePicker extends mixinErrorPattern(
     }
 
     private refreshLocale(): void {
+        this.resetSegmentStates();
         this.locale = new Intl.Locale(lang.getValueFor(this), { calendar: 'gregory', numberingSystem: 'latn' }).toString();
         this.rtl = direction.getValueFor(this) === 'rtl';
         this.updateMask();
+    }
+
+    private emitSegmentInput(event: InputEvent, control: HTMLInputElement): void {
+        this.getSegmentState(control).pending = true;
+        // Maskito must not compact or reapply an edit already handled positionally.
+        event.stopImmediatePropagation();
+        control.dispatchEvent(new InputEvent('input', {
+            bubbles: true, composed: true, inputType: event.inputType, data: event.data
+        }));
+    }
+
+    private getSegmentState(control: HTMLInputElement): typeof this.mainSegmentState {
+        return control === this.control ? this.mainSegmentState : this.timeSegmentState;
+    }
+
+    private resetSegmentStates(): void {
+        for (const state of [this.mainSegmentState, this.timeSegmentState]) {
+            if (state !== undefined) {
+                state.input = undefined;
+                state.pending = false;
+                state.draftLength = undefined;
+            }
+        }
+    }
+
+    private parseControl(control: HTMLInputElement): string {
+        return control === this.control ? this.parseText(control.value) : this.parseTimeText(control.value);
+    }
+
+    private controlSegments(control: HTMLInputElement): ReturnType<typeof displaySegments> {
+        if (control === this.control) {
+            return displaySegments(control.value, this.type, this.locale, this.timeMode);
+        }
+        const prefix = `${formatDisplay(calendarDate(2000, 0, 1), 'date', this.locale, this.timeMode)} `;
+        return displaySegments(prefix + control.value, 'datetime-local', this.locale, this.timeMode)
+            .filter(range => range.start >= prefix.length)
+            .map(range => ({ ...range, start: range.start - prefix.length, end: range.end - prefix.length }));
+    }
+
+    private commitControl(control: HTMLInputElement): void {
+        if (control === this.control) {
+            this.handleChange();
+        } else if (this.timeField) {
+            this.timeSegmentState.pending = false;
+            this.timeSegmentState.input = undefined;
+            this.timeField.dispatchEvent(new Event('change', { bubbles: true }));
+        }
     }
 
     private updateConstraints(): void {

@@ -80,6 +80,11 @@ export const template = html<FvDateTimePicker>`
                 @input="${x => x.handleTextInput()}"
                 @paste="${(x, c) => x.handlePaste(c.event as ClipboardEvent)}"
                 @change="${x => x.handleChange()}"
+                @click="${x => x.highlightSegment()}"
+                @blur="${x => x.handleInputBlur()}"
+                @beforeinput="${(x, c) => x.handleSegmentInput(c.event as InputEvent)}"
+                @keydown="${(x, c) => x.handleInputKeydown(c.event as KeyboardEvent)}"
+                @keyup="${(x, c) => x.handleInputKeyup(c.event as KeyboardEvent)}"
                 ${ref('control')} />
             <span part="end">
                 <${iconExclamationMarkTag} severity="error" class="error-icon"></${iconExclamationMarkTag}>
@@ -87,6 +92,7 @@ export const template = html<FvDateTimePicker>`
                     aria-label="${x => x.pickerLabel}" aria-haspopup="dialog"
                     aria-expanded="${x => x.open}" aria-controls="picker"
                     ?disabled="${x => x.disabled || x.readOnly}"
+                    @mousedown="${(x, c) => x.handleTriggerMousedown(c.event as MouseEvent)}"
                     @click="${x => x.togglePicker()}">
                     <${iconCalendarDaysTag} slot="start"></${iconCalendarDaysTag}>
                 </${buttonTag}>
@@ -96,7 +102,7 @@ export const template = html<FvDateTimePicker>`
         ${when(x => !x.open, entryErrorTemplate)}
         ${when(x => x.open, html<FvDateTimePicker>`
             <${anchoredRegionTag} ${ref('region')} fixed-placement auto-update-mode="auto"
-                @loaded="${x => x.focusDay()}"
+                @loaded="${x => x.focusDay(true)}"
                 vertical-default-position="bottom" vertical-positioning-mode="dynamic"
                 horizontal-inset horizontal-viewport-lock vertical-viewport-lock
                 horizontal-default-position="end" horizontal-positioning-mode="dynamic">
@@ -156,8 +162,8 @@ x => x.weekdays,
                             `)}
                         </tbody>
                     </table>
-                    <div class="time-row">
-                        ${when(x => x.type === 'datetime-local', html<FvDateTimePicker>`
+                    ${when(x => x.type === 'datetime-local', html<FvDateTimePicker>`
+                        <div class="time-row">
                             <${textFieldTag} id="time" class="time-field" appearance="outline"
                                 placeholder="${x => x.timePlaceholder}" ${ref('timeField')}
                                 aria-invalid="${x => (x.entryError ? 'true' : null)}"
@@ -165,9 +171,8 @@ x => x.weekdays,
                                 :value="${x => x.timeDisplay}"
                                 @input="${(x, c) => x.handleTimeInput(c.event)}"
                                 @change="${(x, c) => x.changeTime(c.event)}">${x => x.localizedLabels.time}</${textFieldTag}>
-                        `)}
-                        <${buttonTag} type="button" appearance="ghost" @click="${x => x.closePicker()}">${x => x.localizedLabels.done}</${buttonTag}>
-                    </div>
+                        </div>
+                    `)}
                     ${entryErrorTemplate}
                 </div>
             </${anchoredRegionTag}>
