@@ -99,15 +99,3 @@ export default metadata;
 export const defaultStory: StoryObj<DateTimePickerArgs> = {
     name: 'Fv Date Time Picker'
 };
-
-export const empty: StoryObj<DateTimePickerArgs> = {
-    args: { value: '' }
-};
-
-export const dateOnly: StoryObj<DateTimePickerArgs> = {
-    args: { type: FvDateTimePickerType.date, value: '2024-11-13', label: 'Date' }
-};
-
-export const constrained: StoryObj<DateTimePickerArgs> = {
-    args: { min: '2024-11-10T09:00', max: '2024-11-20T17:00', step: '900', value: '2024-11-13T14:30' }
-};

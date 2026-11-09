@@ -43,7 +43,7 @@
         "type": "Direct",
         "requested": "[10.0.14, )",
         "resolved": "10.0.14",
-        "contentHash": "YlTamXppEQls6DYWt7RdUuwWDb0lyw/vXCaGeQpLCpsLmfwGuCkOz/vIGgMTV7ECsJcavkCOkxZXv9s8rdAHkQ=="
+        "contentHash": "pKA7jcIr2pgnxWL9UUKY6a78hoybXkpXYR6avSggZH8roKVPThwMgMtUY3OS+KO/ABKYuwRyCOP0go4i9iqamQ=="
       },
       "Microsoft.NET.Sdk.WebAssembly.Pack": {
         "type": "Direct",
