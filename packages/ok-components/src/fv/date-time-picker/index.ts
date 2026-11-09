@@ -131,7 +131,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
     private maskKey = '';
 
     private readonly mainSegmentState: {
-        input?: { start: number, end: number, text: string }, pending: boolean, draftLength?: number
+        input?: { start: number, end: number, text: string }, pending: boolean, draftLength?: number, committedText?: string
     } = { pending: false };
 
     private timeSegmentListeners?: AbortController;
@@ -287,6 +287,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
         if (this.disabled || this.readOnly) {
             return;
         }
+        if (this.mainSegmentState.committedText === this.control.value) {
+            return;
+        }
         this.mainSegmentState.pending = false;
         this.mainSegmentState.input = undefined;
         this.validationAttempted = true;
@@ -307,6 +310,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
         if (this.disabled || this.readOnly) {
             return;
         }
+        this.mainSegmentState.pending = !complete;
+        this.mainSegmentState.committedText = undefined;
         const text = this.control.value;
         if (text.length !== this.mainSegmentState.draftLength) {
             this.mainSegmentState.draftLength = undefined;
@@ -394,6 +399,10 @@ export class FvDateTimePicker extends mixinErrorPattern(
             this.updateMask();
             if (this.control !== undefined) {
                 this.control.value = this.displayValue;
+            }
+            if (this.timeField) {
+                this.timeField.value = this.timeDisplay;
+                this.timeField.control.value = this.timeDisplay;
             }
         }
     }
@@ -672,6 +681,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
         if (this.disabled || this.readOnly) {
             return true;
         }
+        this.timeSegmentState.pending = !complete;
+        this.timeSegmentState.committedText = undefined;
         const input = event.currentTarget as TextField;
         const text = input.value;
         if (text.length !== this.timeSegmentState.draftLength) {
@@ -695,6 +706,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
     /** @internal */
     public changeTime(event: Event): boolean {
         event.stopPropagation();
+        if (this.timeSegmentState.committedText === this.timeField?.control.value) {
+            return true;
+        }
         this.timeSegmentState.pending = false;
         this.timeSegmentState.input = undefined;
         if (!this.disabled && !this.readOnly) {
@@ -1097,6 +1111,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
                 state.input = undefined;
                 state.pending = false;
                 state.draftLength = undefined;
+                state.committedText = undefined;
             }
         }
     }
@@ -1122,7 +1137,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
             this.timeSegmentState.pending = false;
             this.timeSegmentState.input = undefined;
             this.timeField.dispatchEvent(new Event('change', { bubbles: true }));
+            control.value = this.timeField.value;
         }
+        this.getSegmentState(control).committedText = control.value;
     }
 
     private updateConstraints(): void {

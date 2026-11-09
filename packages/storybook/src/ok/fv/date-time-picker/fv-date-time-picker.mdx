@@ -104,7 +104,8 @@ when the displayed grid contains one.
 Times on a boundary day are checked against the full date/time limits.
 
 `required` rejects empty values. `readonly` and `disabled` prevent editing and skip
-validation; disabled fields are omitted from submission. Form reset restores the
+validation. Readonly fields omit the calendar button; disabled fields keep it disabled
+and are omitted from submission. Form reset restores the
 default value and clears drafts.
 
 ### Localization
@@ -144,7 +145,8 @@ Appearances are `underline` (default), `outline`, `block`, and `frameless`.
 Use `full-bleed` with frameless fields and `appearance-readonly` with disabled fields
 as with Nimble text fields.
 
-The popup has 24px padding. Month and year selectors have a medium gap; navigation
+The popup scrolls with the field rather than staying locked to the viewport.
+It has 24px padding. Month and year selectors have a medium gap; navigation
 arrows align to the opposite edge. The month selector fits the widest localized
 month name, so changing months does not move the year selector.
 Today has an outline, the selected day has an accent fill, and adjacent-month days

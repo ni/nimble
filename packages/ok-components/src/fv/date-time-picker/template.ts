@@ -88,23 +88,25 @@ export const template = html<FvDateTimePicker>`
                 ${ref('control')} />
             <span part="end">
                 <${iconExclamationMarkTag} severity="error" class="error-icon"></${iconExclamationMarkTag}>
-                <${buttonTag} type="button" appearance="ghost" content-hidden class="calendar-trigger" ${ref('trigger')}
-                    aria-label="${x => x.pickerLabel}" aria-haspopup="dialog"
-                    aria-expanded="${x => x.open}" aria-controls="picker"
-                    ?disabled="${x => x.disabled || x.readOnly}"
-                    @mousedown="${(x, c) => x.handleTriggerMousedown(c.event as MouseEvent)}"
-                    @click="${x => x.togglePicker()}">
-                    <${iconCalendarDaysTag} slot="start"></${iconCalendarDaysTag}>
-                </${buttonTag}>
+                ${when(x => !x.readOnly, html<FvDateTimePicker>`
+                    <${buttonTag} type="button" appearance="ghost" content-hidden class="calendar-trigger" ${ref('trigger')}
+                        aria-label="${x => x.pickerLabel}" aria-haspopup="dialog"
+                        aria-expanded="${x => x.open}" aria-controls="picker"
+                        ?disabled="${x => x.disabled}"
+                        @mousedown="${(x, c) => x.handleTriggerMousedown(c.event as MouseEvent)}"
+                        @click="${x => x.togglePicker()}">
+                        <${iconCalendarDaysTag} slot="start"></${iconCalendarDaysTag}>
+                    </${buttonTag}>
+                `)}
                 ${errorTextTemplate}
             </span>
         </div>
         ${when(x => !x.open, entryErrorTemplate)}
         ${when(x => x.open, html<FvDateTimePicker>`
-            <${anchoredRegionTag} ${ref('region')} fixed-placement auto-update-mode="auto"
+            <${anchoredRegionTag} ${ref('region')} auto-update-mode="auto"
                 @loaded="${x => x.focusDay(true)}"
                 vertical-default-position="bottom" vertical-positioning-mode="dynamic"
-                horizontal-inset horizontal-viewport-lock vertical-viewport-lock
+                horizontal-inset
                 horizontal-default-position="end" horizontal-positioning-mode="dynamic">
                 <div id="picker" class="picker" part="picker" role="dialog" aria-label="${x => x.pickerLabel}"
                     dir="${x => (x.rtl ? 'rtl' : 'ltr')}"

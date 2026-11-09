@@ -74,6 +74,15 @@ describe('FvDateTimePicker', () => {
         });
     });
 
+    it('uses document placement without viewport locks while allowing automatic popup direction', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        expect(element.region!.fixedPlacement).toBeFalse();
+        expect(element.region!.horizontalViewportLock).toBeFalse();
+        expect(element.region!.verticalViewportLock).toBeFalse();
+        expect(element.region!.verticalPositioningMode).toBe('dynamic');
+    });
+
     it('commits date selection, preserving time and emitting one event pair', async () => {
         const input = jasmine.createSpy('input');
         const change = jasmine.createSpy('change');
@@ -1354,7 +1363,11 @@ describe('FvDateTimePicker', () => {
             element[property] = true;
             await waitForUpdatesAsync();
             expect(element.open).toBeFalse();
-            expect(element.trigger.disabled).toBeTrue();
+            if (property === 'readOnly') {
+                expect(element.shadowRoot!.querySelector('.calendar-trigger')).toBeNull();
+            } else {
+                expect(element.trigger.disabled).toBeTrue();
+            }
             element.selectDay(new Date(Date.UTC(2024, 0, 1)));
             expect(element.value).toBe('2024-11-13T14:25');
             element.open = true;
@@ -1379,6 +1392,30 @@ describe('FvDateTimePicker', () => {
             expect(element.validity.badInput).toBeTrue();
             expect(element.checkValidity()).toBeFalse();
         });
+    });
+
+    it('omits the calendar button when initially readonly and restores it when editable', async () => {
+        await disconnect();
+        const view = await fixture<FvDateTimePicker>(html`
+            <${fvDateTimePickerTag} readonly value="2024-11-13T14:25">Scheduled time</${fvDateTimePickerTag}>
+        `);
+        element = view.element;
+        disconnect = view.disconnect;
+        await view.connect();
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot!.querySelector('.calendar-trigger')).toBeNull();
+        expect(element.control.readOnly).toBeTrue();
+        element.readOnly = false;
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot!.querySelector('.calendar-trigger')).toBe(element.trigger);
+        expect(element.trigger.disabled).toBeFalse();
+        element.trigger.click();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeTrue();
+        element.readOnly = true;
+        await waitForUpdatesAsync();
+        expect(element.open).toBeFalse();
+        expect(element.shadowRoot!.querySelector('.calendar-trigger')).toBeNull();
     });
 
     it('uses the standard field appearances and underline default', () => {
@@ -1553,6 +1590,80 @@ describe('FvDateTimePicker', () => {
         expect(element.value).toBe('');
         expect(element.control.value.replace(/\s/g, ' ')).toBe('');
         expect(element.checkValidity()).toBeTrue();
+    });
+
+    it('preserves programmatic updates when dismissing a Time field with a pending native change', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const field = element.timeField!;
+        const control = field.control;
+        control.value = '09:07 AM';
+        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(element.value).toBe('2024-11-13T09:07');
+        element.value = '2025-01-01T10:00';
+        expect(field.value.replace(/\s/g, ' ')).toBe('10:00 AM');
+        expect(control.value.replace(/\s/g, ' ')).toBe('10:00 AM');
+        // Native change runs synchronously during blur, before queued bindings settle.
+        spyOn(control, 'blur').and.callFake(() => {
+            control.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+        element.closePicker();
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2025-01-01T10:00');
+        expect(element.control.value.replace(/\s/g, ' ')).toBe('01/01/2025 10:00 AM');
+    });
+
+    parameterizeSpec([
+        { name: 'valid paste then blur', paste: '2025-01-02T10:30', enter: false },
+        { name: 'valid paste then Enter', paste: '2025-01-02T10:30', enter: true },
+        { name: 'invalid paste then blur', paste: '2025-02-30T10:30', enter: false },
+        { name: 'invalid paste then Enter', paste: '2025-02-30T10:30', enter: true }
+    ], (spec, name, { paste: text, enter }) => {
+        spec(`commits ${name} without a native change event`, async () => {
+            const change = jasmine.createSpy('change');
+            element.addEventListener('change', change);
+            element.control.select();
+            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
+            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
+            element.control.dispatchEvent(paste);
+            expect(change).not.toHaveBeenCalled();
+            element.control.dispatchEvent(enter
+                ? new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+                : new FocusEvent('blur'));
+            await waitForUpdatesAsync();
+            expect(change).toHaveBeenCalledTimes(1);
+            if (text.includes('02-30')) {
+                expect(element.value).toBe('');
+                expect(element.entryError).not.toBe('');
+            } else {
+                expect(element.value).toBe(text);
+            }
+        });
+    });
+
+    parameterizeSpec([
+        { name: 'main', popup: false },
+        { name: 'Time', popup: true }
+    ], (spec, name, { popup }) => {
+        spec(`commits ordinary ${name} typing on Enter once, including a later native change`, async () => {
+            element.value = '';
+            element.open = popup;
+            await waitForUpdatesAsync();
+            const control = popup ? element.timeField!.control : element.control;
+            const change = jasmine.createSpy('change');
+            element.addEventListener('change', change);
+            control.value = popup ? '02:25' : '11/13/2024 02:25';
+            control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+            await waitForUpdatesAsync();
+            expect(element.value).toBe(`${popup ? element.dateKey(calendarToday()) : '2024-11-13'}T02:25`);
+            expect(element.checkValidity()).toBeTrue();
+            expect(change).toHaveBeenCalledTimes(1);
+            control.dispatchEvent(new Event('change', { bubbles: true }));
+            control.dispatchEvent(new FocusEvent('blur'));
+            await waitForUpdatesAsync();
+            expect(change).toHaveBeenCalledTimes(1);
+        });
     });
 
     it('does not let a pending native change overwrite a programmatic update', () => {
