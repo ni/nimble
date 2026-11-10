@@ -7,6 +7,7 @@ import './edit-commit-bar';
 import './filter-bar';
 import './master-detail-list-item';
 import './master-detail-list';
+import './multi-select';
 import './split-button';
 import './split-button-anchor';
 import './sticky-header';
