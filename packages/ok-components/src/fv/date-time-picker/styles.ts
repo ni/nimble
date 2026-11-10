@@ -5,7 +5,6 @@ import { theme } from '@ni/nimble-components/dist/esm/theme-provider';
 import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 import {
     applicationBackgroundColor,
-    bodyDisabledFontColor,
     bodyFont,
     bodyFontColor,
     borderHoverColor,
@@ -17,7 +16,6 @@ import {
     controlLabelFontColor,
     elevation2BoxShadow,
     errorTextFont,
-    failColor,
     fillSelectedColor,
     largePadding,
     mediumPadding,
@@ -27,7 +25,7 @@ import {
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
 const selectedDayFill = DesignToken.create<string>('ok-fv-date-time-picker-selected-day-fill')
-    .withDefault(element => (theme.getValueFor(element) === Theme.light
+    .withDefault(element => (theme.getValueFor(element) !== Theme.color
         ? calendarEventBackgroundDynamicColor.getValueFor(element)
         : buttonFillAccentColor.getValueFor(element)));
 
@@ -175,7 +173,7 @@ export const styles = css`
     }
 
     .day[data-outside-month] {
-        color: ${bodyDisabledFontColor};
+        color: ${controlLabelFontColor};
     }
 
     .day[aria-current='date']::after {
@@ -242,7 +240,7 @@ export const styles = css`
     }
 
     .entry-error {
-        color: ${failColor};
+        color: ${bodyFontColor};
         font: ${errorTextFont};
     }
 

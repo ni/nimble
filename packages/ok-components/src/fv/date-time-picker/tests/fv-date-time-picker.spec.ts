@@ -48,6 +48,49 @@ describe('FvDateTimePicker', () => {
         expect(element.checkValidity()).toBeTrue();
     });
 
+    it('associates application help text across the input shadow boundary', async () => {
+        const help = document.createElement('p');
+        help.id = 'schedule-help';
+        help.textContent = 'Use the local time of the test station.';
+        element.parentElement!.appendChild(help);
+        element.ariaDescribedby = help.id;
+        await waitForUpdatesAsync();
+        expect(element.control.ariaDescribedByElements).toEqual([help]);
+        element.control.value = '11/';
+        element.control.dispatchEvent(new Event('input', { bubbles: true }));
+        element.control.dispatchEvent(new Event('change', { bubbles: true }));
+        await waitForUpdatesAsync();
+        expect(element.entryError).not.toBe('');
+        const error = element.shadowRoot!.querySelector('#entry-error')!;
+        expect(element.control.ariaDescribedByElements).toEqual([help, error]);
+        element.open = true;
+        await waitForPickerLoaded();
+        const popupError = element.shadowRoot!.querySelector('#entry-error')!;
+        expect(element.control.ariaDescribedByElements).toEqual([help, popupError]);
+        element.ariaDescribedby = '';
+        await waitForUpdatesAsync();
+        expect(element.control.ariaDescribedByElements).toEqual([popupError]);
+    });
+
+    it('does not implicitly submit the form when pressing Enter on the calendar trigger', async () => {
+        const form = document.createElement('form');
+        element.parentElement!.appendChild(form);
+        form.appendChild(element);
+        const submit = document.createElement('button');
+        submit.type = 'submit';
+        form.appendChild(submit);
+        const click = jasmine.createSpy('click');
+        submit.addEventListener('click', event => {
+            event.preventDefault();
+            click();
+        });
+        await waitForUpdatesAsync();
+        element.trigger.dispatchEvent(new KeyboardEvent('keypress', {
+            key: 'Enter', bubbles: true, composed: true, cancelable: true
+        }));
+        expect(click).not.toHaveBeenCalled();
+    });
+
     it('opens the selected month with a six-week grid and selected day', async () => {
         element.trigger.click();
         await waitForUpdatesAsync();
@@ -59,6 +102,15 @@ describe('FvDateTimePicker', () => {
         expect(element.shadowRoot!.querySelectorAll('[role="gridcell"]').length).toBe(42);
         expect(element.shadowRoot!.querySelector('[aria-selected="true"] button')?.textContent?.trim()).toBe('13');
         expect(element.shadowRoot!.querySelector('[data-date="2024-11-13"]')?.getAttribute('tabindex')).toBe('0');
+    });
+
+    it('moves focus into the calendar when Alt+Down opens it from the input', async () => {
+        element.control.focus();
+        element.control.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'ArrowDown', altKey: true, bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForPickerLoaded();
+        expect(element.shadowRoot!.activeElement?.getAttribute('data-date')).toBe('2024-11-13');
     });
 
     parameterizeSpec([
@@ -1114,7 +1166,7 @@ describe('FvDateTimePicker', () => {
         expect(element.checkValidity()).toBeFalse();
         expect(element.shadowRoot!.querySelector('#entry-error')!.textContent).toContain(element.validationMessage);
         expect(element.control.getAttribute('aria-invalid')).toBe('true');
-        expect(element.control.getAttribute('aria-describedby')).toContain('entry-error');
+        expect(element.control.ariaDescribedByElements).toContain(element.shadowRoot!.querySelector('#entry-error'));
         element.control.value = '02/29/2024 02:25 PM';
         element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
@@ -1318,7 +1370,7 @@ describe('FvDateTimePicker', () => {
         expect(element.validity.rangeOverflow).toBeTrue();
         expect(element.entryError).not.toBe('');
         expect(element.control.getAttribute('aria-invalid')).toBe('true');
-        expect(element.control.getAttribute('aria-describedby')).toContain('entry-error');
+        expect(element.control.ariaDescribedByElements).toContain(element.shadowRoot!.querySelector('#entry-error'));
     });
 
     it('supports Alt+Down and Escape, restoring field focus', async () => {

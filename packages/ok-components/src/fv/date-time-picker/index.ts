@@ -117,6 +117,10 @@ export class FvDateTimePicker extends mixinErrorPattern(
     @observable
     public entryError = '';
 
+    /** @internal */
+    @observable
+    public entryErrorElement?: HTMLElement;
+
     private validationAttempted = false;
 
     private mask?: Maskito;
@@ -162,6 +166,7 @@ export class FvDateTimePicker extends mixinErrorPattern(
         direction.subscribe(this.localeSubscriber, this);
         Observable.getNotifier(this).subscribe(this.stateSubscriber, 'disabled');
         Observable.getNotifier(this).subscribe(this.stateSubscriber, 'readOnly');
+        this.entryErrorChanged();
         if (this.autofocus) {
             DOM.queueUpdate(() => this.control.focus());
         }
@@ -242,11 +247,37 @@ export class FvDateTimePicker extends mixinErrorPattern(
     /** @internal */
     public entryErrorChanged(): void {
         DOM.queueUpdate(() => {
+            const root = this.getRootNode();
+            const descriptions: Element[] = [];
+            if (root instanceof Document || root instanceof ShadowRoot) {
+                for (const id of this.ariaDescribedby?.split(/\s+/) ?? []) {
+                    const description = root.getElementById(id);
+                    if (description) {
+                        descriptions.push(description);
+                    }
+                }
+            }
+            if (this.entryError && this.entryErrorElement) {
+                descriptions.push(this.entryErrorElement);
+            }
+            // String ID references cannot cross the native inputs' shadow boundaries.
+            if (this.control !== undefined) {
+                this.control.ariaDescribedByElements = descriptions;
+            }
             if (this.timeField) {
-                const error = this.shadowRoot?.querySelector('#entry-error');
-                this.timeField.control.ariaDescribedByElements = this.entryError && error ? [error] : [];
+                this.timeField.control.ariaDescribedByElements = descriptions;
             }
         });
+    }
+
+    /** @internal */
+    public entryErrorElementChanged(): void {
+        this.entryErrorChanged();
+    }
+
+    /** @internal */
+    public ariaDescribedbyChanged(): void {
+        this.entryErrorChanged();
     }
 
     /** @internal */
@@ -720,6 +751,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
             return false;
         }
         if (event.altKey && event.key === 'ArrowDown') {
+            if (!this.disabled && !this.readOnly) {
+                this.trigger.focus();
+            }
             this.open = true;
             return false;
         }

@@ -139,6 +139,18 @@ updates do not emit either event. `placeholder`, `autocomplete`, `autofocus`, an
 global ARIA attributes are forwarded to the primary text input. Text-only constraints
 such as `pattern`, `minlength`, and `maxlength` are intentionally not exposed.
 
+### Keyboard access and descriptions
+
+Alt+Down opens the calendar and focuses its selected day. Arrow keys navigate
+days; Enter or Space selects a day. Escape closes the popup and returns focus
+to the text input. Activating the calendar button with Enter does not submit
+the containing form.
+
+Use `aria-describedby` to reference application help text in the same document
+or shadow root as the picker. The picker associates those elements with both
+native entry fields across their shadow boundaries, alongside its own validation
+message. Mount the referenced help before setting `aria-describedby`.
+
 ## Styling
 
 Appearances are `underline` (default), `outline`, `block`, and `frameless`.

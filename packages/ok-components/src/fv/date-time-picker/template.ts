@@ -21,7 +21,7 @@ const label = createRequiredVisibleLabelTemplate(html<FvDateTimePicker>`
 `);
 
 const entryErrorTemplate = html<FvDateTimePicker>`
-    <div id="entry-error" class="entry-error" aria-live="polite">
+    <div id="entry-error" class="entry-error" aria-live="polite" ${ref('entryErrorElement')}>
         ${x => (x.errorVisible ? '' : x.entryError)}
     </div>
 `;
@@ -59,7 +59,6 @@ export const template = html<FvDateTimePicker>`
                 ?required="${x => x.required}" ?autofocus="${x => x.autofocus}"
                 aria-label="${x => x.ariaLabel}"
                 aria-labelledby="${x => x.ariaLabelledby}"
-                aria-describedby="${x => [x.ariaDescribedby, x.entryError ? 'entry-error' : ''].filter(Boolean).join(' ') || null}"
                 aria-atomic="${x => x.ariaAtomic}"
                 aria-busy="${x => x.ariaBusy}"
                 aria-controls="${x => x.ariaControls}"
@@ -93,6 +92,7 @@ export const template = html<FvDateTimePicker>`
                         aria-label="${x => x.pickerLabel}" aria-haspopup="dialog"
                         aria-expanded="${x => x.open}" aria-controls="picker"
                         ?disabled="${x => x.disabled}"
+                        @keypress="${(x, c) => x.stopPickerEvent(c.event)}"
                         @mousedown="${(x, c) => x.handleTriggerMousedown(c.event as MouseEvent)}"
                         @click="${x => x.togglePicker()}">
                         <${iconCalendarDaysTag} slot="start"></${iconCalendarDaysTag}>
