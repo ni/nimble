@@ -162,6 +162,62 @@ describe('FvMultiSelect', () => {
         expect(query('.control').getAttribute('aria-labelledby')).toBe(query('.selected-value').id);
     });
 
+    it('updates the search active descendant after navigation and filtering', async () => {
+        await open();
+        const input = query('input');
+        expect(input.getAttribute('aria-activedescendant')).toBe(element.activeOptionId);
+        await key('ArrowDown', input);
+        expect(element.activeIndex).toBe(2);
+        expect(input.getAttribute('aria-activedescendant')).toBe(element.activeOptionId);
+        await search('maintenance');
+        expect(element.activeIndex).toBe(0);
+        expect(input.getAttribute('aria-activedescendant')).toBe(element.activeOptionId);
+        await search('missing');
+        expect(input.hasAttribute('aria-activedescendant')).toBeFalse();
+    });
+
+    it('restores the trigger binding after removing initial disabled inside a disabled fieldset', async () => {
+        const fieldset = document.createElement('fieldset');
+        fieldset.disabled = true;
+        const initial = document.createElement(fvMultiSelectTag);
+        initial.disabled = true;
+        fieldset.appendChild(initial);
+        document.body.appendChild(fieldset);
+        try {
+            await waitForUpdatesAsync();
+            initial.disabled = false;
+            await waitForUpdatesAsync();
+            expect(initial.control.disabled).toBeTrue();
+            fieldset.disabled = false;
+            await waitForUpdatesAsync();
+            expect(initial.effectiveDisabled).toBeFalse();
+            expect(initial.control.disabled).toBeFalse();
+        } finally {
+            fieldset.remove();
+        }
+    });
+
+    it('preserves keyboard activation state and clears it only for pointer activation', async () => {
+        element.filterable = false;
+        await waitForUpdatesAsync();
+        await key('Enter', query('.control'));
+        query('.control').click();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeTrue();
+        expect(element.keyboardNavigation).toBeTrue();
+        expect(query('.popup').classList.contains('keyboard-navigation')).toBeTrue();
+        await key('Escape');
+        await key(' ', query('.control'));
+        query('.control').click();
+        await waitForUpdatesAsync();
+        expect(element.keyboardNavigation).toBeTrue();
+        await key('Escape');
+        query('.control').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+        query('.control').click();
+        await waitForUpdatesAsync();
+        expect(element.keyboardNavigation).toBeFalse();
+    });
+
     it('supports values containing commas without parsing them', async () => {
         element.options = [{ value: 'a,b', label: 'A, B' }];
         await open();
@@ -379,10 +435,16 @@ describe('FvMultiSelect', () => {
         await new Promise<void>(resolve => {
             requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
         });
+        const loaded = waitForEvent(element.region, 'loaded');
         element.open = true;
-        await new Promise<void>(resolve => {
-            requestAnimationFrame(() => resolve());
-        });
+        await waitAnimationFrame();
+        if (element.region.style.opacity !== '0') {
+            const anchorBounds = element.controlField.getBoundingClientRect();
+            const regionBounds = element.region.getBoundingClientRect();
+            expect(Math.abs(regionBounds.left - anchorBounds.left)).toBeLessThan(1);
+            expect(Math.abs(regionBounds.top - anchorBounds.bottom)).toBeLessThan(1);
+        }
+        await loaded;
         const anchorBounds = element.controlField.getBoundingClientRect();
         const regionBounds = element.region.getBoundingClientRect();
         expect(Math.abs(regionBounds.left - anchorBounds.left)).toBeLessThan(1);

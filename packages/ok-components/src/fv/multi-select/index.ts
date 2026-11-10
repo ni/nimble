@@ -1,4 +1,4 @@
-import { attr, DOM, observable } from '@ni/fast-element';
+import { attr, DOM, observable, volatile } from '@ni/fast-element';
 import { DesignSystem } from '@ni/fast-foundation';
 import { uniqueId } from '@ni/fast-web-utilities';
 import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
@@ -81,6 +81,7 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     public formDisabled = false;
 
     /** @internal */
+    @volatile
     public get effectiveDisabled(): boolean {
         return this.disabled || this.formDisabled;
     }
@@ -102,6 +103,7 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     }
 
     /** @internal */
+    @volatile
     public get activeOptionId(): string | null {
         return this.open && this.activeIndex >= 0
             ? `${this.listboxId}-${this.activeIndex}`
@@ -114,7 +116,8 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
         super.connectedCallback();
         this.syncFormValue();
         document.addEventListener('click', this.documentClickHandler);
-        this.region.anchorElement = this.controlField;
+        window.addEventListener('resize', this.updatePopupLayout);
+        window.addEventListener('scroll', this.updatePopupLayout, true);
         this.resetActiveOption();
         if (this.open) {
             void this.openChanged();
@@ -124,6 +127,8 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     /** @internal */
     public override disconnectedCallback(): void {
         document.removeEventListener('click', this.documentClickHandler);
+        window.removeEventListener('resize', this.updatePopupLayout);
+        window.removeEventListener('scroll', this.updatePopupLayout, true);
         super.disconnectedCallback();
     }
 
@@ -183,11 +188,20 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
             return;
         }
         if (!this.open) {
+            if (this.$fastController.isConnected) {
+                // Rebinding on opening waits for a fresh anchored-region layout.
+                this.region.anchorElement = null;
+            }
             this.filter = '';
             this.activeIndex = -1;
             this.keyboardNavigation = false;
             return;
         }
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        this.region.anchorElement = this.controlField;
+        this.updatePopupLayout();
         this.resetActiveOption();
         await DOM.nextUpdate();
         this.focusPopup();
@@ -327,6 +341,15 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
             }
         });
     }
+
+    private readonly updatePopupLayout = (): void => {
+        if (this.open && this.isConnected) {
+            const bounds = this.controlField.getBoundingClientRect();
+            const availableHeight = Math.max(0, bounds.top, window.innerHeight - bounds.bottom);
+            this.style.setProperty('--ok-fv-multi-select-available-height', `${availableHeight}px`);
+            this.region.update();
+        }
+    };
 
     private syncFormValue(): void {
         if (!this.$fastController.isConnected) {

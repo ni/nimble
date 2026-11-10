@@ -162,7 +162,10 @@ export const styles = css`
     }
 
     .popup {
+        display: flex;
+        flex-direction: column;
         width: 100%;
+        max-height: max(0px, calc(var(--ok-fv-multi-select-available-height, 100vh) - ${smallPadding}));
         box-sizing: border-box;
         border: ${borderWidth} solid ${popupBorderColor};
         background: ${applicationBackgroundColor};
@@ -170,6 +173,7 @@ export const styles = css`
     }
 
     .filter-field {
+        flex-shrink: 0;
         display: flex;
         align-items: center;
         height: ${controlHeight};
@@ -200,6 +204,7 @@ export const styles = css`
     }
 
     .listbox {
+        min-height: 0;
         max-height: 240px;
         overflow-y: auto;
         outline: none;
@@ -249,6 +254,7 @@ export const styles = css`
     }
 
     .empty {
+        flex-shrink: 0;
         padding: ${standardPadding};
     }
 `.withBehaviors(

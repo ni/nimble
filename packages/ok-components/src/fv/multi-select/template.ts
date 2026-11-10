@@ -28,8 +28,11 @@ export const template = html<FvMultiSelect>`
                 return true;
             }}"
             @click="${x => {
-                x.keyboardNavigation = false;
                 x.open = !x.open;
+            }}"
+            @pointerdown="${x => {
+                x.keyboardNavigation = false;
+                return true;
             }}">
             <button
                 ${ref('control')}

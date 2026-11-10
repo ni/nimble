@@ -4,7 +4,7 @@ import { html } from '@ni/fast-element';
 import { fvMultiSelectTag } from '@ni/ok-components/dist/esm/fv/multi-select';
 import type { FvMultiSelectOption } from '@ni/ok-components/dist/esm/fv/multi-select/types';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
-import { apiCategory, createUserSelectedThemeStory, okWarning } from '../../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disableStorybookZoomTransform, okWarning } from '../../../utilities/storybook';
 
 interface MultiSelectArgs {
     label: string;
@@ -24,6 +24,7 @@ const metadata: Meta<MultiSelectArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: { actions: { handles: ['input', 'change'] } },
     render: createUserSelectedThemeStory(html<MultiSelectArgs>`
+        ${disableStorybookZoomTransform}
         ${okWarning({
             componentName: 'Fv Multi Select',
             statusLink: './?path=/docs/component-status--docs#ok-components'
