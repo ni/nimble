@@ -94,6 +94,8 @@ export const styles = css`
     }
 
     nimble-anchored-region {
+        ${/* Size the positioner before its deferred slot content is measured. */ ''}
+        min-width: min(352px, calc(100vw - 2 * ${standardPadding}));
         padding-block: ${smallPadding};
     }
 
