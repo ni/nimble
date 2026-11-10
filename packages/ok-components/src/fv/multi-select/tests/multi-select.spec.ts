@@ -397,4 +397,129 @@ describe('FvMultiSelect', () => {
         expect(element.activeOptionId).toBeNull();
         expect(element.selectedValues).toEqual([]);
     });
+
+    describe('native forms', () => {
+        let form: HTMLFormElement;
+
+        beforeEach(() => {
+            form = document.createElement('form');
+            document.body.appendChild(form);
+            form.appendChild(element);
+            element.name = 'status';
+        });
+
+        afterEach(() => {
+            form.remove();
+        });
+
+        it('submits each selected value under the same name without encoding delimiters', () => {
+            element.selectedValues = ['active', 'a,b', 'missing', ''];
+            expect(new FormData(form).getAll('status')).toEqual(['active', 'a,b', 'missing', '']);
+            element.name = 'renamed';
+            expect(new FormData(form).getAll('status')).toEqual([]);
+            expect(new FormData(form).getAll('renamed')).toEqual(['active', 'a,b', 'missing', '']);
+            element.name = '';
+            expect(Array.from(new FormData(form).entries())).toEqual([]);
+        });
+
+        it('omits empty and disabled selections and follows disabled fieldsets', async () => {
+            expect(new FormData(form).getAll('status')).toEqual([]);
+            element.selectedValues = ['active'];
+            element.disabled = true;
+            expect(new FormData(form).getAll('status')).toEqual([]);
+            element.disabled = false;
+            const fieldset = document.createElement('fieldset');
+            form.appendChild(fieldset);
+            fieldset.appendChild(element);
+            fieldset.disabled = true;
+            await waitForUpdatesAsync();
+            expect(element.effectiveDisabled).toBeTrue();
+            expect(query<HTMLButtonElement>('.control').disabled).toBeTrue();
+            element.open = true;
+            element.toggleOption(element.options[0]!);
+            expect(element.open).toBeFalse();
+            expect(element.selectedValues).toEqual(['active']);
+            expect(element.hasAttribute('disabled')).toBeFalse();
+            expect(new FormData(form).getAll('status')).toEqual([]);
+            fieldset.disabled = false;
+            await waitForUpdatesAsync();
+            expect(element.effectiveDisabled).toBeFalse();
+            expect(new FormData(form).getAll('status')).toEqual(['active']);
+        });
+
+        it('updates submitted entries after selection and clearing without submitting search text', async () => {
+            element.clearable = true;
+            await open();
+            await search('cafe');
+            query('.option').click();
+            expect(new FormData(form).getAll('status')).toEqual(['cafe']);
+            element.clearSelection();
+            expect(new FormData(form).getAll('status')).toEqual([]);
+        });
+
+        it('validates required selections and excludes disabled controls from validation', async () => {
+            element.required = true;
+            await waitForUpdatesAsync();
+            expect(element.validity.valueMissing).toBeTrue();
+            expect(form.checkValidity()).toBeFalse();
+            expect(query('.listbox').getAttribute('aria-required')).toBe('true');
+            element.selectedValues = [''];
+            expect(form.checkValidity()).toBeTrue();
+            element.selectedValues = ['active'];
+            expect(element.validity.valueMissing).toBeFalse();
+            expect(form.checkValidity()).toBeTrue();
+            element.selectedValues = [];
+            element.disabled = true;
+            await waitForUpdatesAsync();
+            expect(form.checkValidity()).toBeTrue();
+            element.disabled = false;
+            await waitForUpdatesAsync();
+            expect(form.checkValidity()).toBeFalse();
+            const fieldset = document.createElement('fieldset');
+            fieldset.disabled = true;
+            form.appendChild(fieldset);
+            fieldset.appendChild(element);
+            await waitForUpdatesAsync();
+            expect(form.checkValidity()).toBeTrue();
+            fieldset.disabled = false;
+            await waitForUpdatesAsync();
+            expect(form.checkValidity()).toBeFalse();
+            element.required = false;
+            expect(form.checkValidity()).toBeTrue();
+        });
+
+        it('does not implicitly submit the form when using Enter in the dropdown', async () => {
+            const submit = document.createElement('button');
+            submit.type = 'submit';
+            const click = jasmine.createSpy('click').and.callFake((event: Event) => event.preventDefault());
+            submit.addEventListener('click', click);
+            form.appendChild(submit);
+            query('.control').dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter', bubbles: true }));
+            await open();
+            query('.filter-input').dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter', bubbles: true }));
+            expect(click).not.toHaveBeenCalled();
+        });
+
+        it('resets to values assigned before first connection without emitting events', async () => {
+            const initial = document.createElement(fvMultiSelectTag);
+            initial.name = 'initial';
+            initial.selectedValues = ['a,b', 'active'];
+            form.appendChild(initial);
+            initial.selectedValues = ['changed'];
+            initial.remove();
+            form.appendChild(initial);
+            const change = jasmine.createSpy('change');
+            const input = jasmine.createSpy('input');
+            initial.addEventListener('change', change);
+            initial.addEventListener('input', input);
+            initial.open = true;
+            await waitForUpdatesAsync();
+            form.reset();
+            expect(initial.selectedValues).toEqual(['a,b', 'active']);
+            expect(initial.open).toBeFalse();
+            expect(new FormData(form).getAll('initial')).toEqual(['a,b', 'active']);
+            expect(change).not.toHaveBeenCalled();
+            expect(input).not.toHaveBeenCalled();
+        });
+    });
 });

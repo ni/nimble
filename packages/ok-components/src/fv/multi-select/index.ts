@@ -1,5 +1,5 @@
 import { attr, DOM, observable } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
 import { uniqueId } from '@ni/fast-web-utilities';
 import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
@@ -7,6 +7,7 @@ import { diacriticInsensitiveStringNormalizer } from '@ni/nimble-components/dist
 import { styles } from './styles';
 import { template } from './template';
 import type { FvMultiSelectOption } from './types';
+import { FormAssociatedMultiSelect } from './models/form-associated';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,7 +18,7 @@ declare global {
 /**
  * A dropdown with checkbox options and optional local search.
  */
-export class FvMultiSelect extends FoundationElement {
+export class FvMultiSelect extends FormAssociatedMultiSelect {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -26,9 +27,6 @@ export class FvMultiSelect extends FoundationElement {
 
     @attr
     public placeholder = '';
-
-    @attr({ mode: 'boolean' })
-    public disabled = false;
 
     @attr({ mode: 'boolean' })
     public filterable = false;
@@ -79,6 +77,17 @@ export class FvMultiSelect extends FoundationElement {
     public region!: AnchoredRegion;
 
     /** @internal */
+    @observable
+    public formDisabled = false;
+
+    /** @internal */
+    public get effectiveDisabled(): boolean {
+        return this.disabled || this.formDisabled;
+    }
+
+    private initialSelectedValues?: string[];
+
+    /** @internal */
     public get visibleOptions(): FvMultiSelectOption[] {
         const filter = diacriticInsensitiveStringNormalizer(this.filter);
         return this.options.filter(option => !this.filterable
@@ -101,7 +110,9 @@ export class FvMultiSelect extends FoundationElement {
 
     /** @internal */
     public override connectedCallback(): void {
+        this.initialSelectedValues ??= [...this.selectedValues];
         super.connectedCallback();
+        this.syncFormValue();
         document.addEventListener('click', this.documentClickHandler);
         this.region.anchorElement = this.controlField;
         this.resetActiveOption();
@@ -117,15 +128,57 @@ export class FvMultiSelect extends FoundationElement {
     }
 
     /** @internal */
-    public disabledChanged(): void {
+    public override disabledChanged(previous: boolean, next: boolean): void {
+        super.disabledChanged?.(previous, next);
         if (this.disabled) {
             this.open = false;
+        }
+        this.syncFormValue();
+    }
+
+    /** @internal */
+    public override formDisabledCallback(disabled: boolean): void {
+        this.formDisabled = disabled;
+        if (disabled) {
+            this.open = false;
+        }
+        this.syncFormValue();
+    }
+
+    /** @internal */
+    public selectedValuesChanged(): void {
+        this.syncFormValue();
+    }
+
+    /** @internal */
+    public override nameChanged(previous: string, next: string): void {
+        super.nameChanged?.(previous, next);
+        this.syncFormValue();
+    }
+
+    /** @internal */
+    public override valueChanged(): void {
+        this.syncFormValue();
+    }
+
+    /** @internal */
+    public override validate(): void {
+        if (this.effectiveDisabled) {
+            this.setValidity({});
+        } else {
+            super.validate(this.control);
         }
     }
 
     /** @internal */
+    public override formResetCallback(): void {
+        this.open = false;
+        this.selectedValues = [...(this.initialSelectedValues ?? [])];
+    }
+
+    /** @internal */
     public async openChanged(): Promise<void> {
-        if (this.open && this.disabled) {
+        if (this.open && this.effectiveDisabled) {
             this.open = false;
             return;
         }
@@ -173,7 +226,7 @@ export class FvMultiSelect extends FoundationElement {
 
     /** @internal */
     public toggleOption(option: FvMultiSelectOption): void {
-        if (this.disabled || option.disabled) {
+        if (this.effectiveDisabled || option.disabled) {
             return;
         }
         this.selectedValues = this.selectedValues.includes(option.value)
@@ -185,7 +238,7 @@ export class FvMultiSelect extends FoundationElement {
 
     /** @internal */
     public clearSelection(): void {
-        if (this.disabled || !this.clearable || this.selectedValues.length === 0) {
+        if (this.effectiveDisabled || !this.clearable || this.selectedValues.length === 0) {
             return;
         }
         this.open = false;
@@ -208,7 +261,7 @@ export class FvMultiSelect extends FoundationElement {
             this.clearSelection();
         }
         if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-            this.open = !this.disabled;
+            this.open = !this.effectiveDisabled;
             if (event.key === 'ArrowUp') {
                 this.moveActiveOption(-1, true);
             }
@@ -265,6 +318,23 @@ export class FvMultiSelect extends FoundationElement {
         }
     }
 
+    private syncFormValue(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        this.proxy.required = this.required;
+        this.proxy.disabled = this.effectiveDisabled;
+        this.proxy.replaceChildren(...this.selectedValues.map(value => new Option(value, value, false, true)));
+        const data = new FormData();
+        if (this.name) {
+            for (const value of this.selectedValues) {
+                data.append(this.name, value);
+            }
+        }
+        this.setFormValue(this.effectiveDisabled ? null : data);
+        this.validate();
+    }
+
     private moveActiveOption(direction: number, fromEdge = false): void {
         const options = this.visibleOptions;
         let index = this.activeIndex;
@@ -291,6 +361,7 @@ export class FvMultiSelect extends FoundationElement {
 
 const okFvMultiSelect = FvMultiSelect.compose({
     baseName: 'fv-multi-select',
+    baseClass: FormAssociatedMultiSelect,
     template,
     styles
 });

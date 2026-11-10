@@ -8,6 +8,8 @@ import { apiCategory, createUserSelectedThemeStory, okWarning } from '../../../u
 
 interface MultiSelectArgs {
     label: string;
+    name: string;
+    required: boolean;
     placeholder: string;
     appearance: DropdownAppearance;
     disabled: boolean;
@@ -29,6 +31,8 @@ const metadata: Meta<MultiSelectArgs> = {
         <div style="padding: 16px; min-height: 340px;">
             <${fvMultiSelectTag}
                 label="${x => x.label}"
+                name="${x => x.name}"
+                ?required="${x => x.required}"
                 placeholder="${x => x.placeholder}"
                 appearance="${x => x.appearance}"
                 ?disabled="${x => x.disabled}"
@@ -41,6 +45,8 @@ const metadata: Meta<MultiSelectArgs> = {
     `),
     argTypes: {
         label: { table: { category: apiCategory.attributes } },
+        name: { table: { category: apiCategory.attributes } },
+        required: { table: { category: apiCategory.attributes } },
         placeholder: { table: { category: apiCategory.attributes } },
         appearance: {
             options: Object.values(DropdownAppearance),
@@ -61,6 +67,8 @@ const metadata: Meta<MultiSelectArgs> = {
     },
     args: {
         label: 'Status',
+        name: 'status',
+        required: false,
         placeholder: 'Select statuses',
         appearance: DropdownAppearance.underline,
         disabled: false,

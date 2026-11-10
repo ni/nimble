@@ -15,6 +15,10 @@ export const template = html<FvMultiSelect>`
             <label class="label" id="${x => `${x.controlId}-label`}" for="${x => x.controlId}">${x => x.label}</label>
         `)}
         <div ${ref('controlField')} class="control-field"
+            @keypress="${(_, c) => {
+                c.event.stopPropagation();
+                return true;
+            }}"
             @click="${x => {
                 x.keyboardNavigation = false;
                 x.open = !x.open;
@@ -25,7 +29,7 @@ export const template = html<FvMultiSelect>`
                 class="control"
                 part="control"
                 type="button"
-                ?disabled="${x => x.disabled}"
+                ?disabled="${x => x.effectiveDisabled}"
                 aria-labelledby="${x => `${x.label ? `${x.controlId}-label ` : ''}${x.controlId}-value`}"
                 aria-haspopup="listbox"
                 aria-expanded="${x => x.open}"
@@ -38,7 +42,7 @@ export const template = html<FvMultiSelect>`
                     ${x => x.displayValue || x.placeholder}
                 </span>
             </button>
-            ${when(x => x.clearable && !x.disabled && x.selectedValues.length > 0, html<FvMultiSelect>`
+            ${when(x => x.clearable && !x.effectiveDisabled && x.selectedValues.length > 0, html<FvMultiSelect>`
                 <${buttonTag}
                     class="clear-button"
                     part="clear-button"
@@ -70,6 +74,10 @@ export const template = html<FvMultiSelect>`
             @loaded="${x => x.focusPopup()}"
         >
             <div class="popup ${x => (x.keyboardNavigation ? 'keyboard-navigation' : '')}"
+                @keypress="${(_, c) => {
+                    c.event.stopPropagation();
+                    return true;
+                }}"
                 @pointerdown="${x => {
                     x.keyboardNavigation = false;
                     return true;
@@ -109,6 +117,7 @@ export const template = html<FvMultiSelect>`
                     role="listbox"
                     aria-label="${x => x.label || x.placeholder || null}"
                     aria-multiselectable="true"
+                    aria-required="${x => x.required}"
                     aria-activedescendant="${x => (!x.filterable ? x.activeOptionId : null)}"
                     tabindex="${x => (x.filterable ? '-1' : '0')}"
                 >

@@ -124,12 +124,12 @@ export const styles = css`
         border-bottom: calc(${borderWidth} + 1px) solid ${borderHoverColor};
     }
 
-    :host(:not([disabled])) .control-field:has(.control${focusVisible})::before {
+    :host(:not([disabled], :disabled)) .control-field:has(.control${focusVisible})::before {
         width: calc(100% - 8px);
     }
 
-    :host(:not([disabled])) .control-field:hover::after,
-    :host(:not([disabled])) .control-field:has(.control${focusVisible})::after {
+    :host(:not([disabled], :disabled)) .control-field:hover::after,
+    :host(:not([disabled], :disabled)) .control-field:has(.control${focusVisible})::after {
         width: 100%;
     }
 
@@ -237,14 +237,14 @@ export const styles = css`
         background: ${fillHoverSelectedColor};
     }
 
-    :host([disabled]) .control-field,
-    :host([disabled]) .label,
+    :host(:is([disabled], :disabled)) .control-field,
+    :host(:is([disabled], :disabled)) .label,
     .option[aria-disabled='true'] {
         color: ${bodyDisabledFontColor};
         cursor: default;
     }
 
-    :host([disabled]) .control-field {
+    :host(:is([disabled], :disabled)) .control-field {
         ${iconColor.cssCustomProperty}: ${bodyDisabledFontColor};
     }
 

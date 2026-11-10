@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add the FV multi-select dropdown with checkbox options and optional local search",
+  "comment": "Add the FV multi-select dropdown with checkbox options, optional local search and clearing, and native multi-value form submission",
   "packageName": "@ni/ok-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"

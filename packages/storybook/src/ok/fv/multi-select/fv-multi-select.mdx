@@ -52,6 +52,32 @@ than an outline. Hover uses Nimble Select's hover and active-hover fills.
 Supported appearances are `underline` (default), `outline`, `block`, and `frameless`.
 Set the host's CSS width to change its width.
 
+## Native forms
+
+Set `name` to submit one entry per selected value, like a native `<select multiple>`:
+
+```html
+<form id="filters">
+    <ok-fv-multi-select name="status" label="Status" required clearable></ok-fv-multi-select>
+    <button type="submit">Apply</button>
+</form>
+```
+
+Read the array with `new FormData(form).getAll('status')`. Values are not joined or
+JSON-encoded; commas and empty strings are preserved. All values in `selectedValues`
+are submitted, including values hidden by filtering or absent from `options`.
+An empty selection, an unnamed control, or a disabled control submits no entries.
+The search text is never submitted.
+
+`required` makes an empty selection invalid and supports `checkValidity()` and
+`reportValidity()`. A disabled ancestor fieldset disables interaction and submission;
+reenabling it restores the control without changing its own `disabled` attribute.
+
+`form.reset()` restores a copy of `selectedValues` captured on the first connection
+to the document and closes the popup without emitting selection events. Assign
+initial selections before inserting the component into the document when reset
+should restore a nonempty selection.
+
 ## Accessibility
 
 Clicking a row toggles its selection without closing the popup. The checkbox is a
@@ -70,5 +96,5 @@ non-interactive visual indicator; the option exposes its selection to assistive 
 
 ## Scope
 
-This component does not submit values through native forms. Framework wrappers,
-remote filtering, grouping, select-all, custom values, and virtualization are not provided.
+Framework wrappers, remote filtering, grouping, select-all, custom values, and
+virtualization are not provided.
