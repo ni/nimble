@@ -271,6 +271,15 @@ describe('FvDateTimePicker', () => {
         },
         {
             name: 'AM/PM', value: '2024-11-13T14:25', start: 6, end: 8, key: 'ArrowDown', expected: '2024-11-13T02:25'
+        },
+        {
+            name: 'AM to PM with Up', value: '2024-11-13T02:25', start: 6, end: 8, key: 'ArrowUp', expected: '2024-11-13T14:25'
+        },
+        {
+            name: 'PM to AM with Up', value: '9999-12-31T12:25', start: 6, end: 8, key: 'ArrowUp', expected: '9999-12-31T00:25'
+        },
+        {
+            name: 'AM to PM with Down', value: '0001-01-01T00:25', start: 6, end: 8, key: 'ArrowDown', expected: '0001-01-01T12:25'
         }
     ], (spec, name, { value, start, end, key, expected }) => {
         spec(`highlights and adjusts the popover ${name} without leaking events`, async () => {
@@ -569,6 +578,9 @@ describe('FvDateTimePicker', () => {
         { name: 'seconds', value: '2024-12-31T23:59:59', position: 17, key: 'ArrowUp', expected: '2025-01-01T00:00' },
         { name: 'milliseconds', value: '2024-12-31T23:59:59.999', position: 20, key: 'ArrowUp', expected: '2025-01-01T00:00' },
         { name: 'AM/PM', value: '2024-11-13T02:25', position: 17, key: 'ArrowUp', expected: '2024-11-13T14:25' },
+        { name: 'PM to AM with Down', value: '2024-11-13T14:25', position: 17, key: 'ArrowDown', expected: '2024-11-13T02:25' },
+        { name: 'PM to AM with Up', value: '9999-12-31T12:25', position: 17, key: 'ArrowUp', expected: '9999-12-31T00:25' },
+        { name: 'AM to PM with Down', value: '0001-01-01T00:25', position: 17, key: 'ArrowDown', expected: '0001-01-01T12:25' },
         { name: 'DST gap', value: '2024-03-10T01:30', position: 11, key: 'ArrowUp', expected: '2024-03-10T02:30' }
     ], (spec, name, { value, position, key, expected }) => {
         spec(`adjusts ${name} and retains the selected segment`, async () => {

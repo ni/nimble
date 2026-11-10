@@ -124,9 +124,12 @@ export function adjustSegment(date: Date, part: DateTimeSegment, offset: number)
         }
         const last = calendarDate(next.getUTCFullYear(), next.getUTCMonth() + 1, 0);
         next.setUTCDate(Math.min(day, last.getUTCDate()));
+    } else if (part === 'dayPeriod') {
+        const hours = next.getUTCHours() + offset * 12;
+        next.setUTCHours(((hours % 24) + 24) % 24);
     } else {
         const milliseconds = {
-            day: 86400000, hour: 3600000, minute: 60000, second: 1000, millisecond: 1, dayPeriod: 43200000
+            day: 86400000, hour: 3600000, minute: 60000, second: 1000, millisecond: 1
         };
         next.setTime(next.getTime() + offset * milliseconds[part]);
     }
