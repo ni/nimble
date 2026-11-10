@@ -197,6 +197,7 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     public focusPopup(): void {
         if (this.open && this.isConnected) {
             (this.filterable ? this.filterInput : this.listbox)?.focus();
+            this.scrollActiveOptionIntoView();
         }
     }
 
@@ -315,7 +316,16 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     private resetActiveOption(): void {
         if (this.$fastController.isConnected) {
             this.activeIndex = this.visibleOptions.findIndex(option => !option.disabled);
+            this.scrollActiveOptionIntoView();
         }
+    }
+
+    private scrollActiveOptionIntoView(): void {
+        requestAnimationFrame(() => {
+            if (this.open && this.isConnected) {
+                this.shadowRoot?.getElementById(this.activeOptionId ?? '')?.scrollIntoView({ block: 'nearest' });
+            }
+        });
     }
 
     private syncFormValue(): void {
@@ -344,9 +354,7 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
         for (index += direction; index >= 0 && index < options.length; index += direction) {
             if (!options[index]!.disabled) {
                 this.activeIndex = index;
-                DOM.queueUpdate(() => {
-                    this.shadowRoot?.getElementById(this.activeOptionId ?? '')?.scrollIntoView({ block: 'nearest' });
-                });
+                this.scrollActiveOptionIntoView();
                 break;
             }
         }
@@ -363,7 +371,10 @@ const okFvMultiSelect = FvMultiSelect.compose({
     baseName: 'fv-multi-select',
     baseClass: FormAssociatedMultiSelect,
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('ok').register(okFvMultiSelect());

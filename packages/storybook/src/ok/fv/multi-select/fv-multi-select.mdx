@@ -85,6 +85,7 @@ non-interactive visual indicator; the option exposes its selection to assistive 
 
 - Enter/Space on the trigger opens the popup. Arrow Down/Up opens it at the first/last enabled option.
 - Arrow keys move the active option without changing selection.
+- Opening or replacing options scrolls the active option into view.
 - Enter toggles the active option. Space also toggles when focus is on the listbox,
   but types a space when focus is in search.
 - Home/End moves to the first/last enabled option without search; in search, they move the text cursor.
@@ -93,6 +94,8 @@ non-interactive visual indicator; the option exposes its selection to assistive 
 - The clear button is excluded from the Tab order, matching Nimble Select; use Escape to clear with the keyboard.
 - Composing search text with an input method editor does not navigate, select, or close the popup.
 - Tab/Shift+Tab closes and continues normal navigation. Outside clicks or focus leaving also close.
+- Calling `focus()` on the component or activating an external associated label focuses
+  the trigger. Disabled controls, including those in disabled fieldsets, do not receive focus.
 
 ## Scope
 

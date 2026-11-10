@@ -10,7 +10,15 @@ import type { FvMultiSelect } from '.';
 import type { FvMultiSelectOption } from './types';
 
 export const template = html<FvMultiSelect>`
-    <template @focusout="${(x, c) => x.handleFocusout(c.event as FocusEvent)}">
+    <template
+        @focusout="${(x, c) => x.handleFocusout(c.event as FocusEvent)}"
+        @click="${(x, c) => {
+            if (c.event.composedPath()[0] === x && !x.effectiveDisabled) {
+                x.control.focus();
+            }
+            return true;
+        }}"
+    >
         ${when(x => x.label.length > 0, html<FvMultiSelect>`
             <label class="label" id="${x => `${x.controlId}-label`}" for="${x => x.controlId}">${x => x.label}</label>
         `)}

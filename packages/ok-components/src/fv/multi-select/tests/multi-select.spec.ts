@@ -1,6 +1,7 @@
 import { html } from '@ni/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
+import { waitAnimationFrame, waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import type { Checkbox } from '@ni/nimble-components/dist/esm/checkbox';
 import { fixture } from '../../../utilities/tests/fixture';
 import { FvMultiSelect, fvMultiSelectTag } from '..';
@@ -66,6 +67,59 @@ describe('FvMultiSelect', () => {
 
     it('registers the custom element', () => {
         expect(document.createElement(fvMultiSelectTag)).toBeInstanceOf(FvMultiSelect);
+    });
+
+    it('delegates host focus to the trigger without opening the popup', async () => {
+        element.clearable = true;
+        element.selectedValues = ['active'];
+        await waitForUpdatesAsync();
+        element.focus();
+        expect(element.shadowRoot?.activeElement).toBe(query('.control'));
+        expect(element.open).toBeFalse();
+    });
+
+    it('focuses the trigger when an external label is activated', async () => {
+        element.clearable = true;
+        element.selectedValues = ['active'];
+        await waitForUpdatesAsync();
+        element.id = 'external-label-multi-select';
+        const label = document.createElement('label');
+        label.htmlFor = element.id;
+        label.textContent = 'External status';
+        element.before(label);
+        try {
+            label.click();
+            expect(element.shadowRoot?.activeElement).toBe(query('.control'));
+            expect(element.open).toBeFalse();
+            query('.control').blur();
+            element.disabled = true;
+            await waitForUpdatesAsync();
+            label.click();
+            expect(element.shadowRoot?.activeElement).not.toBe(query('.control'));
+        } finally {
+            label.remove();
+        }
+    });
+
+    it('does not delegate focus when explicitly disabled or in a disabled fieldset', async () => {
+        element.disabled = true;
+        await waitForUpdatesAsync();
+        element.focus();
+        expect(element.shadowRoot?.activeElement).toBeNull();
+        element.disabled = false;
+        const fieldset = document.createElement('fieldset');
+        element.before(fieldset);
+        fieldset.appendChild(element);
+        fieldset.disabled = true;
+        await waitForUpdatesAsync();
+        element.focus();
+        expect(element.shadowRoot?.activeElement).toBeNull();
+        fieldset.disabled = false;
+        await waitForUpdatesAsync();
+        element.focus();
+        expect(element.shadowRoot?.activeElement).toBe(query('.control'));
+        fieldset.before(element);
+        fieldset.remove();
     });
 
     it('toggles options once per click, emits events, and stays open', async () => {
@@ -387,6 +441,40 @@ describe('FvMultiSelect', () => {
         element.filterable = true;
         await waitForUpdatesAsync();
         expect(element.shadowRoot?.activeElement).toBe(query('input'));
+    });
+
+    parameterizeSpec([
+        { name: 'without search', filterable: false },
+        { name: 'with search', filterable: true }
+    ], (spec, name, { filterable }) => {
+        spec(`keeps the active row visible after reopening and replacing options ${name}`, async () => {
+            element.filterable = filterable;
+            element.options = Array.from({ length: 30 }, (_, index) => ({
+                value: `${index}`, label: `Option ${index}`
+            }));
+            await open();
+            const listbox = query('.listbox');
+            await key('ArrowUp', query('.control'));
+            await waitAnimationFrame();
+            expect(element.activeIndex).toBe(29);
+            expect(listbox.scrollTop).toBeGreaterThan(0);
+            await key('Escape', filterable ? query('input') : listbox);
+            await key('ArrowDown', query('.control'));
+            await waitAnimationFrame();
+            expect(element.activeIndex).toBe(0);
+            expect(listbox.scrollTop).toBe(0);
+            const activeRow = query('.option.active').getBoundingClientRect();
+            const listboxBounds = listbox.getBoundingClientRect();
+            expect(activeRow.top).toBeGreaterThanOrEqual(listboxBounds.top);
+            expect(activeRow.bottom).toBeLessThanOrEqual(listboxBounds.bottom);
+            await key('ArrowUp', query('.control'));
+            await waitAnimationFrame();
+            element.options = [...element.options];
+            await waitForUpdatesAsync();
+            await waitAnimationFrame();
+            expect(element.activeIndex).toBe(0);
+            expect(listbox.scrollTop).toBe(0);
+        });
     });
 
     it('handles an all-disabled option set without changing selection', async () => {
