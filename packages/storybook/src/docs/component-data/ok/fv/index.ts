@@ -86,6 +86,15 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Fv Multi Select',
+        componentHref: './?path=/docs/ok-fv-multi-select--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Search Input',
         componentHref: './?path=/docs/ok-fv-search-input--docs',
         designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1453-32903',

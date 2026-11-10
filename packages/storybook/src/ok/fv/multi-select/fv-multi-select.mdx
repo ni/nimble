@@ -1,0 +1,105 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as multiSelectStories from './fv-multi-select.stories';
+
+<Meta of={multiSelectStories} />
+<Title of={multiSelectStories} />
+
+A Nimble-styled multi-select dropdown with a checkbox beside each option and optional local search.
+
+<Canvas of={multiSelectStories.defaultStory} />
+
+## API
+
+<Controls of={multiSelectStories.defaultStory} />
+<ComponentApisLink />
+
+## Usage
+
+Import `@ni/ok-components/dist/esm/fv/multi-select` to register `ok-fv-multi-select`.
+Set a `label` to give the control an accessible name.
+Assign `options` and `selectedValues` as JavaScript properties, not attributes:
+
+```javascript
+const select = document.querySelector('ok-fv-multi-select');
+select.options = [
+    { value: 'active', label: 'Active' },
+    { value: 'paused', label: 'Paused', disabled: true }
+];
+select.selectedValues = ['active'];
+select.addEventListener('change', () => {
+    console.log(select.selectedValues);
+});
+```
+
+Option values must be unique. Replace arrays rather than mutating them in place.
+Values can contain commas. Selected values remain selected when filtered out or
+temporarily absent from `options`; absent values display their value as a label.
+Programmatic updates do not emit events. Each user toggle or clear emits bubbling, composed
+`input` and `change` events; read `selectedValues` from the component.
+
+Add `filterable` to show search. Matching is case- and diacritic-insensitive and
+matches any substring of the option label. Search clears when the popup closes.
+Search and no-results strings use Nimble's core label provider.
+
+Add `clearable` to show a clear button when selections exist and the control is enabled.
+Clearing removes all selected values, closes the popup, and restores trigger focus.
+
+The closed field shows comma-separated selected labels with truncation and a tooltip.
+Checkboxes indicate selection. The trigger uses Nimble Select's underline focus
+indicators, and keyboard navigation highlights the active row with a fill rather
+than an outline. Hover uses Nimble Select's hover and active-hover fills.
+Supported appearances are `underline` (default), `outline`, `block`, and `frameless`.
+Set the host's CSS width to change its width.
+The popup refreshes its anchor position on opening and limits its height to the
+available viewport space. The options scroll independently of the search field.
+
+## Native forms
+
+Set `name` to submit one entry per selected value, like a native `<select multiple>`:
+
+```html
+<form id="filters">
+    <ok-fv-multi-select name="status" label="Status" required clearable></ok-fv-multi-select>
+    <button type="submit">Apply</button>
+</form>
+```
+
+Read the array with `new FormData(form).getAll('status')`. Values are not joined or
+JSON-encoded; commas and empty strings are preserved. All values in `selectedValues`
+are submitted, including values hidden by filtering or absent from `options`.
+An empty selection, an unnamed control, or a disabled control submits no entries.
+The search text is never submitted.
+
+`required` makes an empty selection invalid and supports `checkValidity()` and
+`reportValidity()`. A disabled ancestor fieldset disables interaction and submission;
+reenabling it restores the control without changing its own `disabled` attribute.
+
+`form.reset()` restores a copy of `selectedValues` captured on the first connection
+to the document and closes the popup without emitting selection events. Assign
+initial selections before inserting the component into the document when reset
+should restore a nonempty selection.
+
+## Accessibility
+
+Clicking a row toggles its selection without closing the popup. The checkbox is a
+non-interactive visual indicator; the option exposes its selection to assistive technology.
+
+- Enter/Space on the trigger opens the popup. Arrow Down/Up opens it at the first/last enabled option.
+- Arrow keys move the active option without changing selection.
+- Opening or replacing options scrolls the active option into view.
+- Enter toggles the active option. Space also toggles when focus is on the listbox,
+  but types a space when focus is in search.
+- Home/End moves to the first/last enabled option without search; in search, they move the text cursor.
+- Escape closes and restores trigger focus without undoing selections.
+- Escape on the closed trigger clears selections when `clearable` is enabled.
+- The clear button is excluded from the Tab order, matching Nimble Select; use Escape to clear with the keyboard.
+- Composing search text with an input method editor does not navigate, select, or close the popup.
+- Tab/Shift+Tab closes and continues normal navigation. Outside clicks or focus leaving also close.
+- Calling `focus()` on the component or activating an external associated label focuses
+  the trigger. Disabled controls, including those in disabled fieldsets, do not receive focus.
+
+## Scope
+
+Framework wrappers, remote filtering, grouping, select-all, custom values, and
+virtualization are not provided.
