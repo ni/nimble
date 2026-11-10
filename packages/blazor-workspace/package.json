@@ -14,7 +14,7 @@
         "pack:spright": "cd SprightBlazor && npm run invoke-pack",
         "pack:ok": "cd OkBlazor && npm run invoke-pack",
         "lint": "npm run lint:cs && npm run lint:js",
-        "lint:cs": "dotnet format --verify-no-changes --no-restore",
+        "lint:cs": "dotnet format --verify-no-changes",
         "lint:js": "eslint .",
         "format": "npm run format:cs && npm run format:js",
         "format:cs": "dotnet format",

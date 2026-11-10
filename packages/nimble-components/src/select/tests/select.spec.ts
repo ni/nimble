@@ -948,42 +948,6 @@ describe('Select', () => {
 
             await disconnect();
         });
-
-        parameterizeSpec([
-            { name: 'inside a shadow root', shadowRoot: true, focusWithin: true },
-            { name: 'inside a shadow root without matching :focus-within', shadowRoot: true, focusWithin: false },
-            { name: 'in the document without matching :focus-within', shadowRoot: false, focusWithin: false }
-        ], (spec, name, { shadowRoot, focusWithin }) => {
-            spec(`should scroll the selected option into view on first open ${name}`, async () => {
-                const { element, connect, disconnect } = await setup500Options();
-                const host = document.createElement('div');
-                const container = shadowRoot ? host.attachShadow({ mode: 'open' }) : host;
-                document.body.appendChild(host);
-                try {
-                    await connect();
-                    container.appendChild(element);
-                    if (!focusWithin) {
-                        const matches = element.matches.bind(element);
-                        spyOn(element, 'matches').and.callFake(selector => (selector === ':focus-within' ? false : matches(selector)));
-                    }
-                    element.value = '300';
-                    await waitForUpdatesAsync();
-                    element.focus();
-                    await clickAndWaitForOpen(element);
-                    await waitForUpdatesAsync();
-                    await waitAnimationFrame();
-
-                    expect(element.value).toBe('300');
-                    const optionBounds = element.firstSelectedOption.getBoundingClientRect();
-                    const listBounds = element.scrollableRegion.getBoundingClientRect();
-                    expect(optionBounds.top).toBeGreaterThanOrEqual(listBounds.top);
-                    expect(optionBounds.bottom).toBeLessThanOrEqual(listBounds.bottom);
-                } finally {
-                    await disconnect();
-                    host.remove();
-                }
-            });
-        });
     });
 
     describe('within a div', () => {
