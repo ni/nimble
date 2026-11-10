@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Tue, 10 Nov 2026 22:50:35 GMT",
+      "version": "1.16.0",
+      "tag": "@ni/ok-components_v1.16.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "b9229cb2992459116271d9af630a1fef74eb6dec",
+            "comment": "Add the FV multi-select dropdown with checkbox options, optional local search and clearing, and native multi-value form submission"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Nov 2026 21:20:06 GMT",
       "version": "1.15.0",
       "tag": "@ni/ok-components_v1.15.0",
