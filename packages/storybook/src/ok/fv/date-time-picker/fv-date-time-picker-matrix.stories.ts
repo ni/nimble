@@ -102,6 +102,9 @@ popupThemeMatrix.play = async ({ canvasElement }) => {
     await waitForUpdatesAsync();
     await Promise.all(Array.from(pickers, async picker => {
         const region = picker.region!;
+        // Cells reserve popup space; Chrome's cropped captures briefly use a 1px viewport.
+        region.horizontalPositioningMode = 'uncontrolled';
+        await waitForUpdatesAsync();
         if (!region.classList.contains('loaded')) {
             await new Promise<void>(resolve => {
                 region.addEventListener('loaded', () => resolve(), { once: true });
