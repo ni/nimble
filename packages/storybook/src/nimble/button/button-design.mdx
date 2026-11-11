@@ -1,0 +1,55 @@
+import { Meta, Title } from '@storybook/addon-docs/blocks';
+import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
+import * as buttonStories from './button.stories';
+import { ButtonAnatomy } from './button-anatomy';
+import { StoryAnatomy, theme } from '../../utilities/story-layout';
+
+<Meta of={buttonStories} name="Design" />
+<Title of={buttonStories} />
+
+## Design reference
+
+The [Nimble Documentation design in Figma](https://www.figma.com/design/nLzBixLwGsNTbwbzGQ7sX7/Nimble-Documentation?node-id=1117-28754)
+provides the documentation and anatomy presentation model. For action hierarchy
+and appearance variants, see
+[Primary and Standard Actions](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1604-74603).
+
+## Anatomy
+
+<NimbleThemeProvider theme={theme}>
+	<StoryAnatomy>
+		<ButtonAnatomy theme={theme} alt="Button anatomy showing the Container, Icon, and Label parts of a button." />
+	</StoryAnatomy>
+</NimbleThemeProvider>
+
+| Part | Implementation |
+| --- | --- |
+| Container | Native `button` in the shadow DOM, exposed as the `control` part. Owns the boundary, fill, and interaction states. |
+| Icon | Optional `start` and `end` slots. The diagram shows a start icon. |
+| Label | Default slot inside the `content` part. With `content-hidden`, the label is visually hidden but remains available to assistive technology. |
+
+## Tokens & states
+
+Button and Anchor Button share the
+[button pattern styles](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/patterns/button/styles.ts).
+Keep shared visual behavior there rather than duplicating it in each component.
+
+| Concern | Implementation |
+| --- | --- |
+| Size & spacing | `controlHeight` sets the height; `standardPadding` sets horizontal padding. Icon-to-label spacing is 4px. |
+| Typography | `buttonLabelFont` and `buttonLabelFontColor`; disabled text uses `buttonLabelDisabledFontColor`. |
+| Appearance variants | Primary uses `buttonFillPrimaryColor` and `buttonPrimaryFontColor`. Accent uses `buttonFillAccentColor`, `buttonAccentBlockFontColor`, `buttonBorderAccentOutlineColor`, and `buttonAccentOutlineFontColor`. |
+| Interaction | Hover and keyboard focus use `borderHoverColor`; active uses `fillSelectedColor`. Disabled buttons suppress interactive styling. |
+
+Review the [theme matrix](?path=/story/tests-button--theme-matrix) and
+[interaction matrix](?path=/story/tests-button--interactions-theme-matrix)
+when changing styles. These cover more states than the examples on the Usage page.
+
+## Implementation constraints
+
+The [Button template](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/button/template.ts)
+uses a native button for keyboard and form behavior. Preserve that behavior and
+accessible naming when changing its structure.
+
+Icon-only buttons retain their label, use a square container, and hide the end
+icon. Keep these behaviors aligned with the consumer guidance on the Usage page.

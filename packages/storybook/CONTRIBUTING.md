@@ -79,20 +79,29 @@ If the component has a relevant
 [W3C ARIA description](https://www.w3.org/WAI/ARIA/apg/patterns/), consider
 linking to it from the overview.
 
-See the [Button story](src/nimble/button/button.mdx) for a complete example of
-this structure, including appearance guidance, do/don't examples, accessibility
-notes, and an anatomy diagram.
+Button demonstrates a two-page alternative using Storybook's named MDX pages:
+
+- [Usage](src/nimble/button/button.mdx) (`<Meta of={buttonStories} name="Usage" />`)
+  covers application examples, public API, appearance choices, and accessibility.
+- [Design](src/nimble/button/button-design.mdx)
+  (`<Meta of={buttonStories} name="Design" />`) covers design
+  references, anatomy, token mappings, states, and maintenance constraints.
+
+Both pages attach to the same stories, with Usage ordered before Design. Keep each topic
+in one place rather than duplicating API tables or examples. Other components
+can keep a single page until they have enough design-specific content to split.
 
 ### Anatomy diagrams
 
-Add an anatomy diagram after the overview when it clarifies the component's
-parts. Label the parts and include a numbered legend. Store SVG artwork in the
+Add an anatomy diagram when it clarifies the component's parts; for a two-page
+component, place it on Design. Label the parts and include a
+numbered legend. Store SVG artwork in the
 component's `images` directory, with its layout and `viewBox` defined in the
 asset.
 
 Follow [ButtonAnatomy](src/nimble/button/button-anatomy.tsx) for themed SVGs:
-import the asset with `?raw`, map its colors to Nimble design tokens, and render
-it once inline so it inherits the theme. Give the diagram an accessible
+import the asset with `?raw`, pass the active theme, map its colors to that
+theme's Nimble token values, and render it once inline. Give the diagram an accessible
 description with `role="img"` and `aria-label`, and hide decorative SVG artwork
 from assistive technology. Keep any required SVG IDs unique.
 
@@ -177,7 +186,8 @@ guidelines:
 
 ### Testing
 
-Run Storybook (see **Getting Started**) and open the component's **Docs** page.
+Run Storybook (see **Getting Started**) and open the component's documentation
+pages (**Usage** and **Design** for Button).
 Check the anatomy labels and legend, live examples, Controls, and links.
 
 Use Chromatic matrix stories for visual coverage across themes and viewport
