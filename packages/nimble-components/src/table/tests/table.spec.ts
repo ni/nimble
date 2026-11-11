@@ -10,7 +10,7 @@ import {
     controlHeight,
     tableFitRowsHeight
 } from '../../theme-provider/design-tokens';
-import { waitForEvent, waitTimeout } from '../../utilities/testing/component';
+import { waitForEvent } from '../../utilities/testing/component';
 import {
     type Fixture,
     fixture,
@@ -497,8 +497,7 @@ describe('Table', () => {
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            element.viewport.dispatchEvent(new Event('scroll'));
-            await waitForUpdatesAsync();
+            await pageObject.dispatchViewportScrollEventAsync();
             expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
         });
 
@@ -508,8 +507,8 @@ describe('Table', () => {
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            element.viewport.dispatchEvent(new Event('scroll'));
-            await waitTimeout(300);
+            await pageObject.dispatchViewportScrollEventAsync();
+            await pageObject.waitForScrollingToEndAsync();
             expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
         });
 
@@ -789,7 +788,7 @@ describe('Table', () => {
                 const originalRenderedRowCount = pageObject.getRenderedRowCount();
 
                 element.style.height = '700px';
-                await waitForUpdatesAsync();
+                await pageObject.waitForViewportResizeAsync();
 
                 const newRenderedRowCount = pageObject.getRenderedRowCount();
                 expect(newRenderedRowCount).toBeGreaterThan(
@@ -2638,6 +2637,9 @@ describe('Table', () => {
             }
             await connect();
             await waitForUpdatesAsync();
+            if (updatesWhileDisconnected.height) {
+                await pageObject.waitForViewportResizeAsync();
+            }
         }
 
         // Firefox skipped, see https://github.com/ni/nimble/issues/2491

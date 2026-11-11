@@ -1,3 +1,20 @@
+diff --git a/node_modules/beachball/lib/packageManager/getNpmPackageInfo.js b/node_modules/beachball/lib/packageManager/getNpmPackageInfo.js
+index 50e42cf..acd748c 100644
+--- a/node_modules/beachball/lib/packageManager/getNpmPackageInfo.js
++++ b/node_modules/beachball/lib/packageManager/getNpmPackageInfo.js
+@@ -33,7 +33,11 @@ options) {
+             ...exports._npmShowProperties,
+         ], { timeout: options.timeout, cwd: options.path, all: true });
+         if (showResult.success && showResult.stdout !== '') {
+-            const data = JSON.parse(showResult.stdout);
++            let data = JSON.parse(showResult.stdout);
++            // npm 12+ wraps `npm show --json` output in an array
++            if (Array.isArray(data)) {
++                data = data[0];
++            }
+             // Weird thing showing up in tests only with npm 8: sometimes `versions` is a single string?
+             if (typeof data.versions === 'string') {
+                 data.versions = [data.versions];
 diff --git a/node_modules/beachball/lib/packageManager/npmArgs.js b/node_modules/beachball/lib/packageManager/npmArgs.js
 index 022b51d..171c4b7 100644
 --- a/node_modules/beachball/lib/packageManager/npmArgs.js
