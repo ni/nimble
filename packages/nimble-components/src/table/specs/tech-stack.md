@@ -13,15 +13,26 @@ Tables are used widely throughout NI, and are a common component in design syste
 
 ## Implementation / Design
 
-We have decided to build our table using [TanStack Table](https://tanstack.com/table/v8) as the data model, and create the UI ourselves using typical FAST-based templates. Using TanStack Table provides a lot of lift for the state management/API of the table, including:
+We build our table using the framework-agnostic [TanStack Table v9](https://tanstack.com/table/latest) core as the data model, and create the UI ourselves using FAST-based templates. Explicitly registered features provide:
 
 - Row selection
-- Column sizing/sorting/ordering/pinning
+- Sorting
 - Grouping
 - Expand/collapse
 - Hierarchical data
 
 The bulk of the effort, then, comes from creating the expected UI pieces and then hooking them up to the TanStack model, along with the various APIs we need to design for the table component itself.
+
+The core uses TanStack Store reactivity bindings. Nimble controls selection,
+grouping, sorting, and expansion through table options and per-slice callbacks,
+then projects row state into FAST observables. No framework adapter or additional
+render subscription is required. Numeric aggregation is registered to preserve
+sorting group rows by non-grouped numeric fields.
+
+Column sizing, resizing, visibility, ordering, and pinning are managed by Nimble's
+column and layout implementations, not by TanStack's similarly named features.
+Expansion defaults and delayed-child state remain owned by Nimble's expansion
+manager, and range selection remains owned by Nimble's selection manager.
 
 ### Virtualization
 

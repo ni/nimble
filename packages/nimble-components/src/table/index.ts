@@ -12,20 +12,13 @@ import {
     type DesignTokenSubscriber,
     FoundationElement
 } from '@ni/fast-foundation';
-import {
-    createTable as tanStackCreateTable,
-    getCoreRowModel as tanStackGetCoreRowModel,
-    getSortedRowModel as tanStackGetSortedRowModel,
-    getGroupedRowModel as tanStackGetGroupedRowModel,
-    getExpandedRowModel as tanStackGetExpandedRowModel
-} from '@tanstack/table-core';
+import { constructTable as tanStackConstructTable } from '@tanstack/table-core';
 import type {
     ColumnDef as TanStackColumnDef,
-    TableState as TanStackTableState,
     Updater as TanStackUpdater,
     Table as TanStackTable,
     Row as TanStackRow,
-    TableOptionsResolved as TanStackTableOptionsResolved,
+    TableOptions as TanStackTableOptions,
     SortingState as TanStackSortingState,
     RowSelectionState as TanStackRowSelectionState,
     GroupingState as TanStackGroupingState,
@@ -72,6 +65,14 @@ import { ColumnValidator } from '../table-column/base/models/column-validator';
 import { uniquifySlotNameForColumnId } from './models/utilities';
 import { KeyboardNavigationManager } from './models/keyboard-navigation-manager';
 import { borderWidth, controlHeight } from '../theme-provider/design-tokens';
+import {
+    tanStackTableFeatures,
+    type TanStackTableFeatures
+} from './models/tanstack-table-features';
+
+type TableOptionsUpdate<TData extends TableRecord> = {
+    -readonly [K in keyof TanStackTableOptions<TanStackTableFeatures, TableNode<TData>>]?: TanStackTableOptions<TanStackTableFeatures, TableNode<TData>>[K];
+};
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -316,8 +317,8 @@ export class Table<
         return this._rowHeight;
     }
 
-    private readonly table: TanStackTable<TableNode<TData>>;
-    private options: TanStackTableOptionsResolved<TableNode<TData>>;
+    private readonly table: TanStackTable<TanStackTableFeatures, TableNode<TData>>;
+    private options: TanStackTableOptions<TanStackTableFeatures, TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
@@ -360,14 +361,10 @@ export class Table<
     public constructor() {
         super();
         this.options = {
+            features: tanStackTableFeatures,
             data: [],
-            onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             onRowSelectionChange: this.handleRowSelectionChange,
             onExpandedChange: this.handleExpandedChange,
-            getCoreRowModel: tanStackGetCoreRowModel(),
-            getSortedRowModel: tanStackGetSortedRowModel(),
-            getGroupedRowModel: tanStackGetGroupedRowModel(),
-            getExpandedRowModel: tanStackGetExpandedRowModel(),
             getRowCanExpand: this.getRowCanExpand,
             getIsRowExpanded: this.getIsRowExpanded,
             getSubRows: r => r.subRows,
@@ -385,7 +382,7 @@ export class Table<
             renderFallbackValue: null,
             autoResetAll: false
         };
-        this.table = tanStackCreateTable(this.options);
+        this.table = tanStackConstructTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
         this.keyboardNavigationManager = new KeyboardNavigationManager(
             this,
@@ -787,7 +784,7 @@ export class Table<
      */
     public calculateTanStackData(
         data: readonly TData[]
-    ): Partial<TanStackTableOptionsResolved<TableNode<TData>>> {
+    ): TableOptionsUpdate<TData> {
         this.dataHierarchyManager = new DataHierarchyManager(
             data,
             this.idFieldName,
@@ -797,9 +794,7 @@ export class Table<
         this.tableValidator.setParentIdConfigurationValidity(
             this.dataHierarchyManager.parentIdConfigurationValid
         );
-        const tanStackUpdates: Partial<
-            TanStackTableOptionsResolved<TableNode<TData>>
-        > = {
+        const tanStackUpdates: TableOptionsUpdate<TData> = {
             data: tableNodes
         };
         this.validateWithData(data);
@@ -1039,9 +1034,7 @@ export class Table<
     }
 
     private updateTanStack(): void {
-        const updatedOptions: Partial<
-            TanStackTableOptionsResolved<TableNode<TData>>
-        > = {};
+        const updatedOptions: TableOptionsUpdate<TData> = {};
         updatedOptions.state = {};
 
         if (this.tableUpdateTracker.updateColumnSort) {
@@ -1280,7 +1273,7 @@ export class Table<
     }
 
     private getRowSelectionState(
-        row: TanStackRow<TableNode<TData>>
+        row: TanStackRow<TanStackTableFeatures, TableNode<TData>>
     ): TableRowSelectionState {
         if (row.getIsGrouped()) {
             return this.getGroupedRowSelectionState(row);
@@ -1292,7 +1285,7 @@ export class Table<
     }
 
     private getGroupedRowSelectionState(
-        groupedRow: TanStackRow<TableNode<TData>>
+        groupedRow: TanStackRow<TanStackTableFeatures, TableNode<TData>>
     ): TableRowSelectionState {
         const leafRows = groupedRow.getLeafRows().filter(x => !x.getIsGrouped()) ?? [];
         let foundSelectedRow = false;
@@ -1315,7 +1308,7 @@ export class Table<
     }
 
     private getGroupRowColumn(
-        row: TanStackRow<TableNode<TData>>
+        row: TanStackRow<TanStackTableFeatures, TableNode<TData>>
     ): TableColumn | undefined {
         const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
@@ -1328,7 +1321,7 @@ export class Table<
     }
 
     private updateTableOptions(
-        updatedOptions: Partial<TanStackTableOptionsResolved<TableNode<TData>>>
+        updatedOptions: TableOptionsUpdate<TData>
     ): void {
         this.options = {
             ...this.options,
@@ -1344,20 +1337,20 @@ export class Table<
     }
 
     private readonly getRowCanExpand = (
-        row: TanStackRow<TableNode<TData>>
+        row: TanStackRow<TanStackTableFeatures, TableNode<TData>>
     ): boolean => {
         return this.expansionManager.isRowExpandable(row);
     };
 
     private readonly getIsRowExpanded = (
-        row: TanStackRow<TableNode<TData>>
+        row: TanStackRow<TanStackTableFeatures, TableNode<TData>>
     ): boolean => {
         return this.expansionManager.isRowExpanded(row);
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
         const rowSelectionState = updaterOrValue instanceof Function
-            ? updaterOrValue(this.table.getState().rowSelection)
+            ? updaterOrValue(this.table.atoms.rowSelection.get())
             : updaterOrValue;
 
         this.updateTableOptions({
@@ -1369,7 +1362,7 @@ export class Table<
 
     private readonly handleExpandedChange: TanStackOnChangeFn<TanStackExpandedState> = (updaterOrValue: TanStackUpdater<TanStackExpandedState>): void => {
         const expandedState = updaterOrValue instanceof Function
-            ? updaterOrValue(this.table.getState().expanded)
+            ? updaterOrValue(this.table.atoms.expanded.get())
             : updaterOrValue;
 
         this.updateTableOptions({
@@ -1416,7 +1409,7 @@ export class Table<
         ((
             originalRow: TableNode<TData>,
             index: number,
-            parent?: TanStackRow<TableNode<TData>>
+            parent?: TanStackRow<TanStackTableFeatures, TableNode<TData>>
         ) => string)
         | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
@@ -1424,7 +1417,7 @@ export class Table<
             : (record: TableNode<TData>) => record.clientRecord[this.idFieldName!] as string;
     }
 
-    private calculateTanStackColumns(): TanStackColumnDef<TableNode<TData>>[] {
+    private calculateTanStackColumns(): TanStackColumnDef<TanStackTableFeatures, TableNode<TData>>[] {
         return this.columns.map(column => {
             return {
                 id: column.columnInternals.uniqueId,
@@ -1435,7 +1428,7 @@ export class Table<
                     }
                     return record.clientRecord[fieldName];
                 },
-                sortingFn: getTanStackSortingFunction(
+                sortFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation
                 ),
                 sortUndefined: false

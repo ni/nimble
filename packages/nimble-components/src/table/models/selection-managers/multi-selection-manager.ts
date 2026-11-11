@@ -9,6 +9,7 @@ import {
     type TableRowState
 } from '../../types';
 import { SelectionManagerBase } from './selection-manager-base';
+import type { TanStackTableFeatures } from '../tanstack-table-features';
 
 /**
  * Selection manager for interactive selection when the selection mode of the table is
@@ -102,7 +103,7 @@ export class MultiSelectionManager<
             // If the range selection is additive to the existing selection, start with the initial selection state
             // and remove the previous range selection, if any. Otherwise, the range selection will start empty and
             // only contain the new range selection.
-            selectionState = this.tanStackTable.getState().rowSelection;
+            selectionState = { ...this.tanStackTable.atoms.rowSelection.get() };
             this.removePreviousRangeSelection(
                 selectionState,
                 selectionStartIndex,
@@ -125,7 +126,7 @@ export class MultiSelectionManager<
     private removePreviousRangeSelection(
         selection: TanStackRowSelectionState,
         shiftSelectStartRowIndex: number,
-        allRows: TanStackRow<TableNode<TData>>[]
+        allRows: TanStackRow<TanStackTableFeatures, TableNode<TData>>[]
     ): void {
         const previousRangeEndIndex = this.getRowIndexForId(
             this.previousShiftSelectRowEndId,
@@ -144,7 +145,7 @@ export class MultiSelectionManager<
         selection: TanStackRowSelectionState,
         endRangeRowId: string,
         shiftSelectStartRowIndex: number,
-        allRows: TanStackRow<TableNode<TData>>[]
+        allRows: TanStackRow<TanStackTableFeatures, TableNode<TData>>[]
     ): void {
         const newRangeEndIndex = this.getRowIndexForId(endRangeRowId, allRows);
         this.updateSelectionStateForRange(
@@ -160,7 +161,7 @@ export class MultiSelectionManager<
         selection: TanStackRowSelectionState,
         rangeStartIndex: number,
         rangeEndIndex: number,
-        allRows: TanStackRow<TableNode<TData>>[],
+        allRows: TanStackRow<TanStackTableFeatures, TableNode<TData>>[],
         isSelecting: boolean
     ): void {
         if (rangeStartIndex === -1 || rangeEndIndex === -1) {
@@ -197,7 +198,7 @@ export class MultiSelectionManager<
 
     private getRowIndexForId(
         id: string | undefined,
-        rows: TanStackRow<TableNode<TData>>[]
+        rows: TanStackRow<TanStackTableFeatures, TableNode<TData>>[]
     ): number {
         if (!id) {
             return -1;
