@@ -6,8 +6,10 @@ import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
 import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 import type { FvSplitButton } from '../split-button';
 import type { FvQueryEditor, QueryEditorEventDetail } from '../query-editor';
+import { validateQueryDocumentShape } from './portable-interface';
 import type {
     QueryBuilderDefinition,
+    QueryBuilderIssue,
     QueryDocument,
     QueryEditorDraft,
     QueryEditorDraftToken,
@@ -311,12 +313,20 @@ export class FvQueryBuilder extends FoundationElement {
     private savedQueriesRevision = 0;
     private readonly popoverMoveStep = 12;
 
+    @observable
+    private inputIssues: readonly QueryBuilderIssue[] = [];
+
     public get ruleCount(): number {
         return this.queryEditor?.ruleCount ?? 0;
     }
 
+    @volatile
     public get valid(): boolean {
-        return this.queryEditor?.valid ?? false;
+        return this.inputIssues.length === 0 && (this.queryEditor?.valid ?? false);
+    }
+
+    public get issues(): readonly QueryBuilderIssue[] {
+        return this.inputIssues.length > 0 ? this.inputIssues : (this.queryEditor?.issues ?? []);
     }
 
     @volatile
@@ -435,6 +445,11 @@ export class FvQueryBuilder extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        const validation = validateQueryDocumentShape(this.query);
+        if (!validation.valid) {
+            this.assignCurrentQuery(emptyDocument);
+            this.setInputIssues(validation.issues);
+        }
         this.appliedDocument = cloneDocument(this.query);
         this.appliedCurrentDocument = cloneDocument(this.query);
         this.currentDraft = draftForDocument(this.query);
@@ -455,12 +470,19 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     /** @internal */
-    public queryChanged(_previous: QueryDocument, next: QueryDocument): void {
+    public queryChanged(previous: QueryDocument, next: QueryDocument): void {
         if (next === this.internallyAssignedQuery) {
             this.internallyAssignedQuery = undefined;
             return;
         }
         if (!this.isConnected) {
+            return;
+        }
+        const validation = validateQueryDocumentShape(next);
+        if (!validation.valid) {
+            const previousValidation = validateQueryDocumentShape(previous);
+            this.assignCurrentQuery(previousValidation.valid ? previousValidation.value : this.appliedCurrentDocument);
+            this.setInputIssues(validation.issues);
             return;
         }
         const document = cloneDocument(next);
@@ -471,6 +493,7 @@ export class FvQueryBuilder extends FoundationElement {
         this.appliedDocument = document;
         this.appliedCurrentDocument = cloneDocument(document);
         this.appliedSelectionId = undefined;
+        this.setInputIssues([]);
     }
 
     /** @internal */
@@ -855,6 +878,7 @@ export class FvQueryBuilder extends FoundationElement {
     /** @internal */
     public handleEditorChange(event: Event): void {
         event.stopPropagation();
+        this.setInputIssues([]);
         const detail = (event as CustomEvent<QueryEditorEventDetail>).detail;
         const editorDraft = this.queryEditor?.draft;
         // Echo the editor's own draft reference so it doesn't treat a user edit as a new external draft.
@@ -951,7 +975,28 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     public validate(): boolean {
-        return this.queryEditor?.validate() ?? false;
+        return this.inputIssues.length === 0 && (this.queryEditor?.validate() ?? false);
+    }
+
+    private setInputIssues(issues: readonly QueryBuilderIssue[]): void {
+        if (this.inputIssues.length === 0 && issues.length === 0) {
+            return;
+        }
+        this.inputIssues = issues;
+        const notify = (): void => {
+            if (this.inputIssues === issues) {
+                this.dispatchEvent(new CustomEvent('validity-change', {
+                    bubbles: true,
+                    composed: true,
+                    detail: { valid: this.valid, issues: this.issues.map(issue => ({ ...issue })) }
+                }));
+            }
+        };
+        if (issues.length > 0) {
+            notify();
+        } else {
+            DOM.queueUpdate(notify);
+        }
     }
 
     private selectSavedQuery(id: string | null): void {

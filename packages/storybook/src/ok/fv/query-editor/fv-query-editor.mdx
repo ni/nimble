@@ -82,7 +82,7 @@ Free-entry `field-value-list` operands use a JSON array, such as `["Test, nightl
 
 The `issues` property and `validity-change` event report errors in the definition, query, or draft. The `configuration-error` event reports an invalid definition.
 
-Nimble value controls show required indicators and display validation messages using `error-text` and `error-visible`. Collection chip selectors retain a separate accessible error message.
+Nimble value controls show required indicators and display validation messages using `error-text` and `error-visible`. Static collection choices use the FV multi-select; dynamic choices retain the chip selector for remote search. Date-only values and range endpoints use the FV date-time picker. Offset-bearing datetimes remain text inputs because the picker represents local wall time.
 
 Use `optionResolver` to load options dynamically. Each select or combobox `optionsSource` specifies a host-defined `sourceId`, optional dependencies, search support, and page size. The resolver receives the dependency values and an `AbortSignal`. The `options-state-change` event reports loading, ready, blocked, and error states; `options-error` reports failures.
 

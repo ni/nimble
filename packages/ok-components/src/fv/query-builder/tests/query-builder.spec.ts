@@ -198,6 +198,49 @@ describe('FvQueryBuilder', () => {
         expect(element.queryPopoverRegion?.verticalViewportLock).toBeTrue();
     });
 
+    it('rejects malformed assigned queries without throwing or replacing the working query', async () => {
+        ({ element, disconnect } = await setup());
+        const original = element.query;
+        const cyclic: { [key: string]: unknown } = {};
+        cyclic.self = cyclic;
+        const checkInvalid = async (invalid: unknown): Promise<void> => {
+            expect(() => {
+                element.query = invalid as QueryDocument;
+            }).not.toThrow();
+            await waitForUpdatesAsync();
+            expect(element.valid).toBeFalse();
+            expect(element.validate()).toBeFalse();
+            expect(element.issues.some(issue => issue.target === 'query')).toBeTrue();
+            expect(element.query).toEqual(original);
+        };
+        await checkInvalid(null);
+        await checkInvalid({ version: 1, root: { kind: 'group', combinator: 'and' } });
+        await checkInvalid(cyclic);
+        const validity: boolean[] = [];
+        element.addEventListener('validity-change', event => {
+            validity.push((event as CustomEvent<{ valid: boolean }>).detail.valid);
+        });
+        element.query = {
+            version: 1, root: { kind: 'predicate', fieldId: 'unknown', operatorId: 'is', value: 'passed' }
+        };
+        await waitForUpdatesAsync();
+        expect(validity).not.toContain(true);
+        expect(element.valid).toBeFalse();
+        element.query = currentDocument;
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeTrue();
+    });
+
+    it('reports a malformed query assigned before connection', async () => {
+        const result = await fixture<FvQueryBuilder>(html`<${fvQueryBuilderTag}></${fvQueryBuilderTag}>`);
+        ({ element, disconnect } = result);
+        element.query = null as unknown as QueryDocument;
+        await result.connect();
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeFalse();
+        expect(element.issues.some(issue => issue.target === 'query')).toBeTrue();
+    });
+
     it('ignores saved-query refresh callbacks before draft state is initialized', () => {
         const builder = document.createElement(fvQueryBuilderTag);
         const earlyBuilder = builder as unknown as {
@@ -1037,16 +1080,13 @@ describe('FvQueryBuilder', () => {
         expect(activeRuleId).not.toBeNull();
 
         const valueControl = editor.shadowRoot?.querySelector<HTMLElement & {
-            selectedOptionValues: readonly unknown[]
-        }>('[data-control="collection-selector"]');
+            selectedValues: string[]
+        }>('[data-control="collection-multi-select"]');
         if (!valueControl) {
             throw new Error('Expected the collection selector value control.');
         }
-        valueControl.dispatchEvent(new CustomEvent('change', {
-            bubbles: true,
-            composed: true,
-            detail: { selectedOptionValues: ['failed'] }
-        }));
+        valueControl.selectedValues = ['option-1'];
+        valueControl.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
         expect(JSON.stringify(element.query?.root)).toBe(JSON.stringify({

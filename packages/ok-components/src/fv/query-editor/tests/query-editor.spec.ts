@@ -2016,7 +2016,7 @@ describe('FvQueryEditor', () => {
         expect(control.shadowRoot?.querySelector<HTMLInputElement>('input')?.ariaErrorMessageElements).toEqual([error]);
     });
 
-    it('associates a collection error with the chip selector input', async () => {
+    it('associates a collection error with the multi-select trigger', async () => {
         ({ element, disconnect } = await setup(query(
             rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: [] })
         )));
@@ -2024,9 +2024,8 @@ describe('FvQueryEditor', () => {
         chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        const selector = getRequiredElement<HTMLElement>('[data-control="collection-selector"]');
-        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input') as
-            (HTMLInputElement & { ariaErrorMessageElements?: Element[] }) | null;
+        const selector = getRequiredElement<HTMLElement>('[data-control="collection-multi-select"]');
+        const input = selector.shadowRoot?.querySelector<HTMLButtonElement>('.control');
         const error = getRequiredElement<HTMLElement>('.editor-error');
         expect(input?.getAttribute('aria-invalid')).toBe('true');
         expect((selector as HTMLElement & { ariaErrorMessageElements?: Element[] }).ariaErrorMessageElements).toEqual([error]);
@@ -2230,7 +2229,7 @@ describe('FvQueryEditor', () => {
         expect(input.shadowRoot?.querySelector<HTMLInputElement>('input')?.ariaErrorMessageElements).toEqual([]);
     });
 
-    it('uses the chip selector for multiselect values while retaining option values', async () => {
+    it('uses the multi-select for static choices while retaining typed option values', async () => {
         ({ element, disconnect } = await setup(query(
             rule('status-rule', 'status', 'is-any-of', { kind: 'collection', values: ['failed'] })
         )));
@@ -2240,22 +2239,52 @@ describe('FvQueryEditor', () => {
         await waitForCalloutAlignment(element.shadowRoot!, chip);
 
         const selector = getRequiredElement<HTMLElement & {
-            optionItems: readonly { value: unknown, label: string }[],
-            selectedOptionValues: readonly unknown[]
-        }>('[data-control="collection-selector"]');
-        expect(selector.tagName.toLowerCase()).toBe('ok-fv-chip-selector');
-        expect(selector.optionItems.map(option => option.label)).toEqual(['Failed', 'Passed', 'Error']);
-        expect(selector.optionItems.map(option => option.value)).toEqual(['failed', 'passed', 'error']);
-        expect(selector.selectedOptionValues).toEqual(['failed']);
+            options: readonly { value: string, label: string }[],
+            selectedValues: string[]
+        }>('[data-control="collection-multi-select"]');
+        expect(selector.tagName.toLowerCase()).toBe('ok-fv-multi-select');
+        expect(selector.options.map(option => option.label)).toEqual(['Failed', 'Passed', 'Error']);
+        expect(selector.selectedValues).toEqual(['option-0']);
 
-        selector.dispatchEvent(new CustomEvent('change', {
-            bubbles: true,
-            composed: true,
-            detail: { selectedOptionValues: ['error'] }
-        }));
+        selector.selectedValues = ['option-2'];
+        selector.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
         expect(queryView(element).groups[0]?.rules[0]?.operand).toEqual({ kind: 'collection', values: ['error'] });
+    });
+
+    it('keeps numeric and string choices distinct when selecting a static collection option', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'priority',
+                path: '/priority',
+                label: 'Priority',
+                valueSchema: { enum: [1, '1'] },
+                operatorIds: ['in'],
+                editor: { kind: 'select' }
+            }],
+            operators: [{ id: 'in', label: 'Is one of', operand: { kind: 'field-value-list' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'priority', operatorId: 'in', value: [1] }
+        }, definition));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id]');
+        chip.click();
+        await waitForUpdatesAsync();
+        await waitForCalloutAlignment(element.shadowRoot!, chip);
+        const selector = getRequiredElement<HTMLElement & { open: boolean }>('[data-control="collection-multi-select"]');
+        selector.open = true;
+        await waitForUpdatesAsync();
+        const options = selector.shadowRoot?.querySelectorAll<HTMLElement>('[role="option"]');
+        expect(options?.length).toBe(2);
+        options?.[1]?.click();
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate', fieldId: 'priority', operatorId: 'in', value: [1, '1']
+        }));
+        expect(selector.open).toBeTrue();
     });
 
     it('keeps scalar static choices typed and displays their labels instead of encoded values', async () => {
@@ -2329,10 +2358,62 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
 
         expect(element.shadowRoot?.querySelector('[data-control="range-start"]')?.tagName.toLowerCase())
-            .toBe('nimble-text-field');
+            .toBe('ok-fv-date-time-picker');
         expect((getRequiredElement<HTMLElement>('[data-control="range-start"]') as HTMLElement & { type: string }).type).toBe('date');
         expect(element.shadowRoot?.querySelector('[data-control="range-start"]')).not.toBeNull();
         expect(element.shadowRoot?.querySelector('[data-control="scalar-number"]')).toBeNull();
+        const start = getRequiredElement<ValueControl>('[data-control="range-start"]');
+        start.value = '2025-01-02';
+        start.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate',
+            fieldId: 'date-range',
+            operatorId: 'between-dates',
+            value: { start: '2025-01-02', end: '2025-01-31' }
+        }));
+    });
+
+    it('preserves an unfinished date picker draft and accepts a calendar selection', async () => {
+        ({ element, disconnect } = await setup({
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'started-at', operatorId: 'before', value: '2025-01-01' }
+        }));
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        const picker = getRequiredElement<HTMLElement & { control: HTMLInputElement, open: boolean }>(
+            '[data-control="scalar-text"]'
+        );
+        expect(picker.tagName.toLowerCase()).toBe('ok-fv-date-time-picker');
+        const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, composed: true, cancelable: true });
+        picker.control.dispatchEvent(tab);
+        expect(tab.defaultPrevented).toBeFalse();
+        expect(element.activeRuleId).not.toBeNull();
+        picker.control.value = '12/3';
+        picker.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeFalse();
+        const draft = JSON.parse(JSON.stringify(element.draft)) as QueryEditorDraft;
+        element.draft = draft;
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        const restored = getRequiredElement<HTMLElement & { control: HTMLInputElement, open: boolean }>(
+            '[data-control="scalar-text"]'
+        );
+        expect(restored.control.value).toBe('12/3');
+        restored.open = true;
+        await waitForUpdatesAsync();
+        const day = restored.shadowRoot?.querySelector<HTMLElement>('.day:not([aria-disabled="true"])');
+        if (!day) {
+            throw new Error('Expected an enabled calendar day');
+        }
+        const date = day.dataset.date;
+        day.click();
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate', fieldId: 'started-at', operatorId: 'before', value: date
+        }));
     });
 
     it('preserves empty string input and validates it against the string schema', async () => {
@@ -2427,6 +2508,172 @@ describe('FvQueryEditor', () => {
             operatorId: 'is',
             value: 'production-test'
         }));
+    });
+
+    it('restores dynamic scalar values and labels for select and combobox editors', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'workspace',
+                path: '/workspace',
+                label: 'Workspace',
+                valueSchema: { type: 'string' },
+                operatorIds: ['select', 'combo'],
+                editor: { kind: 'select', optionsSource: { sourceId: 'workspaces' } }
+            }],
+            operators: [
+                { id: 'select', label: 'Is', operand: { kind: 'field-value' } },
+                {
+                    id: 'combo',
+                    label: 'Matches',
+                    operand: { kind: 'field-value' },
+                    editor: { kind: 'combobox', optionsSource: { sourceId: 'workspaces' } }
+                }
+            ]
+        };
+        ({ element, disconnect } = await setup());
+        element.definition = definition;
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'select', value: 'production' }
+        };
+        await waitForUpdatesAsync();
+        let resolvePage: (page: QueryOptionPage) => void = () => {
+            throw new Error('Resolver was not called.');
+        };
+        element.optionResolver = {
+            resolve: async () => await new Promise(resolve => {
+                resolvePage = resolve;
+            })
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('"production"');
+        resolvePage({
+            options: [
+                { value: 'production', label: 'Production' },
+                { value: 'staging', label: 'Staging' }
+            ]
+        });
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<ValueControl>('[data-control="scalar-select"]').value).toBe('dynamic:%22production%22');
+        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('Production');
+
+        const select = getRequiredElement<ValueControl>('[data-control="scalar-select"]');
+        select.value = 'dynamic:%22staging%22';
+        select.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate', fieldId: 'workspace', operatorId: 'select', value: 'staging'
+        }));
+        element.optionResolver = { resolve: async () => await Promise.resolve({ options: [] }) };
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<ValueControl>('[data-control="scalar-select"]').value).toBe('dynamic:%22staging%22');
+        expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
+            kind: 'predicate', fieldId: 'workspace', operatorId: 'select', value: 'staging'
+        }));
+
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'combo', value: 'production' }
+        };
+        await waitForUpdatesAsync();
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<ValueControl>('[data-control="scalar-text"]').value).toBe('production');
+    });
+
+    it('formats choices using the active operator schema', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'priority',
+                path: '/priority',
+                label: 'Priority',
+                valueSchema: { type: 'string' },
+                operatorIds: ['text', 'choice']
+            }],
+            operators: [
+                { id: 'text', label: 'Contains', operand: { kind: 'field-value' } },
+                {
+                    id: 'choice',
+                    label: 'Is',
+                    operand: {
+                        kind: 'schema',
+                        schema: { oneOf: [{ const: 1, title: 'Low' }, { const: 2, title: 'High' }] }
+                    }
+                }
+            ]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1, root: { kind: 'predicate', fieldId: 'priority', operatorId: 'choice', value: 2 }
+        }, definition));
+        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('High');
+    });
+
+    it('restores a null dynamic option without treating it as unset', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'value',
+                path: '/value',
+                label: 'Value',
+                valueSchema: { type: ['string', 'null'] },
+                operatorIds: ['is'],
+                editor: { kind: 'select', optionsSource: { sourceId: 'values' } }
+            }],
+            operators: [{ id: 'is', label: 'Is', operand: { kind: 'field-value' } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1, root: { kind: 'predicate', fieldId: 'value', operatorId: 'is', value: null }
+        }, definition));
+        element.optionResolver = {
+            resolve: async () => await Promise.resolve({ options: [{ value: null, label: 'No value' }] })
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<ValueControl>('[data-control="scalar-select"]').value).toBe('dynamic:null');
+        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('No value');
+    });
+
+    it('validates dynamic list options individually regardless of the list minimum', async () => {
+        const definition: QueryBuilderDefinition = {
+            version: 1,
+            fields: [{
+                id: 'workspace',
+                path: '/workspace',
+                label: 'Workspace',
+                valueSchema: { type: 'string', minLength: 2 },
+                operatorIds: ['in'],
+                editor: { kind: 'select', optionsSource: { sourceId: 'workspaces' } }
+            }],
+            operators: [{ id: 'in', label: 'Is one of', operand: { kind: 'field-value-list', minItems: 2 } }]
+        };
+        ({ element, disconnect } = await setup({
+            version: 1, root: { kind: 'predicate', fieldId: 'workspace', operatorId: 'in', value: ['aa', 'bb'] }
+        }, definition));
+        element.optionResolver = {
+            resolve: async () => await Promise.resolve({ options: [{ value: 'aa', label: 'Alpha' }] })
+        };
+        getRequiredElement<HTMLElement>('[data-rule-id]').click();
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(element.optionState.status).toBe('ready');
+        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('Alpha');
+
+        element.optionResolver = {
+            resolve: async () => await Promise.resolve({ options: [{ value: 'x', label: 'Invalid' }] })
+        };
+        await waitForUpdatesAsync();
+        await Promise.resolve();
+        await waitForUpdatesAsync();
+        expect(element.optionState.status).toBe('error');
     });
 
     it('forwards collection searches, cancels stale requests, and shows server-matched options', async () => {
@@ -2950,14 +3197,14 @@ describe('FvQueryEditor', () => {
         chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
 
-        const selector = getRequiredElement<HTMLElement & { open: boolean }>('[data-control="collection-selector"]');
-        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input');
-        if (!input) {
-            throw new Error('Expected the collection selector to contain an input');
-        }
+        const selector = getRequiredElement<HTMLElement & { open: boolean }>('[data-control="collection-multi-select"]');
         selector.open = true;
         await waitForUpdatesAsync();
         expect(selector.open).toBeTrue();
+        const input = selector.shadowRoot?.querySelector<HTMLInputElement>('.filter-input');
+        if (!input) {
+            throw new Error('Expected the collection selector to contain an input');
+        }
 
         const tabFromSelector = new KeyboardEvent('keydown', {
             key: 'Tab',
@@ -2973,7 +3220,7 @@ describe('FvQueryEditor', () => {
         chip.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
         const reopenedSelector = getRequiredElement<HTMLElement & { open: boolean }>(
-            '[data-control="collection-selector"]'
+            '[data-control="collection-multi-select"]'
         );
         expect(reopenedSelector.open).toBeFalse();
     });

@@ -97,6 +97,15 @@ export const styles = css`
         padding-block: ${smallPadding};
     }
 
+    nimble-anchored-region:popover-open {
+        inset: auto;
+        margin: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        overflow: visible;
+    }
+
     .picker {
         box-sizing: border-box;
         width: 352px;

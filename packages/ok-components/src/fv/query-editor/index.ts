@@ -1,10 +1,13 @@
-import { attr, DOM, observable } from '@ni/fast-element';
+import { attr, DOM, observable, volatile } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { uniqueId } from '@ni/fast-web-utilities';
 import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
 import type { NumberField } from '@ni/nimble-components/dist/esm/number-field';
 import type { Select } from '@ni/nimble-components/dist/esm/select';
 import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
+import type { FvMultiSelect } from '../multi-select';
+import type { FvDateTimePicker } from '../date-time-picker';
+import { parseValue as parseDatePickerValue } from '../date-time-picker/models/date-time';
 import {
     cloneOperand,
     createEmptyOperand,
@@ -24,6 +27,7 @@ import {
 import {
     MAX_QUERY_GROUP_DEPTH,
     getSimpleSchemaType,
+    isValidSchemaValue,
     validateDefinition,
     validateQuery,
     type JsonPrimitive,
@@ -478,6 +482,7 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
+    @volatile
     public get parts(): readonly QueryEditorPartView[] {
         const result: QueryEditorPartView[] = [];
         for (let position = 0; position <= this.editorTokens.length; position += 1) {
@@ -657,6 +662,11 @@ export class FvQueryEditor extends FoundationElement {
             this.activeRule.fieldId,
             this.activeRule.operatorId
         ));
+    }
+
+    /** @internal */
+    public get hasActiveOptionSource(): boolean {
+        return Boolean(this.activeRule && this.getOptionSource(this.activeRule.fieldId, this.activeRule.operatorId));
     }
 
     /** @internal */
@@ -937,11 +947,27 @@ export class FvQueryEditor extends FoundationElement {
         }
         if (this.getOptionSource(this.activeField.id, this.activeRule.operatorId) !== undefined) {
             const options = 'options' in this.optionState ? this.optionState.options : [];
-            return options.map(option => ({
+            const result = options.map(option => ({
                 value: this.encodeDynamicOption(option.value),
                 label: option.label,
                 ...(option.disabled || this.optionState.status === 'error' ? { disabled: true } : {})
             }));
+            const operand = this.activeRule.operand;
+            const token = this.editorTokens.find(
+                candidate => candidate.kind === 'condition' && candidate.rule.id === this.activeRuleId
+            );
+            if (operand.kind === 'scalar'
+                && (operand.value !== null || (token?.kind === 'condition' && token.value === null))) {
+                const value = this.encodeDynamicOption(operand.value);
+                if (!result.some(option => option.value === value)) {
+                    result.push({
+                        value,
+                        label: this.optionLabelCache.get(JSON.stringify(operand.value))?.label ?? JSON.stringify(operand.value),
+                        disabled: true
+                    });
+                }
+            }
+            return result;
         }
         const schema = this.getEffectiveSchema(this.activeField.id, this.activeRule.operatorId);
         return schema === undefined ? [] : (staticOptions(schema) ?? []).map(option => ({
@@ -976,18 +1002,6 @@ export class FvQueryEditor extends FoundationElement {
             visibleValues.add(key);
         }
         return options;
-    }
-
-    /** @internal */
-    public get activeCollectionOptionLabels(): string {
-        return this.activeField?.options?.map(option => option.label).join(',') ?? '';
-    }
-
-    /** @internal */
-    public getActiveCollectionSelectorValues(): string {
-        return this.activeCollectionValues
-            .map(value => this.activeField?.options?.find(option => option.value === value)?.label ?? value)
-            .join(',');
     }
 
     /** @internal */
@@ -1236,6 +1250,7 @@ export class FvQueryEditor extends FoundationElement {
             this.updateEditorAnchor();
             this.focusFirstEditorFieldIfReady();
             this.syncDynamicOptionAccessibility();
+            DOM.queueUpdate(() => this.restoreDatePickerDrafts());
         });
         this.refreshOptions();
     }
@@ -1373,7 +1388,10 @@ export class FvQueryEditor extends FoundationElement {
         if (!control || !this.activeRuleId) {
             return;
         }
-        const value = (control as TextField | NumberField | Select).value;
+        const valueControl = control as TextField | NumberField | Select;
+        const value = control.tagName.toLowerCase() === 'ok-fv-date-time-picker'
+            ? valueControl.value || (control as FvDateTimePicker).control.value
+            : valueControl.value;
         switch (control.dataset.control) {
             case 'scalar-number':
                 this.updateScalarInput(value);
@@ -1424,6 +1442,10 @@ export class FvQueryEditor extends FoundationElement {
         }
         if (control.dataset.control === 'collection-selector') {
             this.updateCollectionFromSelectorEvent(event);
+            return;
+        }
+        if (control.dataset.control === 'collection-multi-select') {
+            this.updateCollection((control as FvMultiSelect).selectedValues);
             return;
         }
         const value = (control as TextField | NumberField | Select).value;
@@ -1558,14 +1580,22 @@ export class FvQueryEditor extends FoundationElement {
             return token.rawInputs['/value'];
         }
         const operand = this.activeRule?.operand;
-        if (operand?.kind !== 'scalar' || operand.value === null) {
+        if (operand?.kind !== 'scalar') {
             return '';
         }
         if (this.isActiveCombobox) {
             return typeof operand.value === 'string' ? operand.value : '';
         }
         if (this.definition && this.activeRule) {
+            if (operand.value === null && !(token?.kind === 'condition' && token.value === null
+                && (this.hasActiveOptionSource
+                    || staticOptions(this.getEffectiveSchema(this.activeRule.fieldId, this.activeRule.operatorId) ?? true)))) {
+                return '';
+            }
             return this.encodeOptionValue(this.activeRule.fieldId, this.activeRule.operatorId, operand.value);
+        }
+        if (operand.value === null) {
+            return '';
         }
         return String(operand.value);
     }
@@ -1586,6 +1616,11 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
+    public getDatePickerValue(value: string): string {
+        return parseDatePickerValue(value, 'date') ? value : '';
+    }
+
+    /** @internal */
     public getActiveCollectionInput(): string {
         if (this.definition) {
             const token = this.editorTokens.find(
@@ -1599,23 +1634,15 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     /** @internal */
-    public getActiveScalarInputType(): 'number' | 'date' | 'text' {
-        if (this.activeEditorKind === 'number') {
-            return 'number';
-        }
-        if (this.activeEditorKind === 'date') {
-            return 'date';
-        }
-        return 'text';
-    }
-
-    /** @internal */
     public getActiveRangeInputType(): 'number' | 'date' | 'text' {
         const rule = this.activeRule;
         const operator = rule ? this.portableOperator(rule.fieldId, rule.operatorId) : undefined;
         const schema = operator?.operand.kind === 'range' ? operator.operand.endpointSchema : undefined;
         if (schema === undefined || typeof schema === 'boolean') {
-            return this.activeField?.type === 'number' ? 'number' : 'text';
+            if (this.activeField?.type === 'number' || this.activeField?.type === 'date') {
+                return this.activeField.type;
+            }
+            return 'text';
         }
         const type = getSimpleSchemaType(schema);
         if (type === 'number' || type === 'integer') {
@@ -2299,6 +2326,19 @@ export class FvQueryEditor extends FoundationElement {
         DOM.queueUpdate(() => DOM.queueUpdate(() => this.syncEditorControlAccessibility()));
     }
 
+    private restoreDatePickerDrafts(): void {
+        const pickers = this.shadowRoot?.querySelectorAll<FvDateTimePicker>('ok-fv-date-time-picker[data-control]') ?? [];
+        for (const picker of pickers) {
+            const raw = picker.dataset.control === 'scalar-text'
+                ? this.getActiveScalarValue()
+                : this.getActiveRangeValue(picker.dataset.control === 'range-start' ? 'start' : 'end');
+            if (raw && !this.getDatePickerValue(raw)) {
+                picker.control.value = raw;
+                picker.handleTextInput();
+            }
+        }
+    }
+
     private syncEditorControlAccessibility(): void {
         const collectionHint = this.shadowRoot?.querySelector<HTMLElement>('.collection-input-hint');
         const controls = this.shadowRoot?.querySelectorAll<HTMLElement>('.editor-panel [data-control]') ?? [];
@@ -2326,6 +2366,13 @@ export class FvQueryEditor extends FoundationElement {
                 };
                 selector.ariaErrormessageElements = invalid && errorElement ? [errorElement] : [];
                 selector.ariaDescribedbyElements = [];
+            }
+            if (control.tagName.toLowerCase() === 'ok-fv-multi-select') {
+                const button = control.shadowRoot?.querySelector<HTMLButtonElement>('.control');
+                if (button) {
+                    button.setAttribute('aria-invalid', String(invalid));
+                    button.ariaErrorMessageElements = invalid && errorElement ? [errorElement] : [];
+                }
             }
         }
     }
@@ -3007,7 +3054,7 @@ export class FvQueryEditor extends FoundationElement {
             if (operand.values.length === 0) {
                 valueLabel = this.labels.unset.toLocaleLowerCase();
             } else {
-                const labels = operand.values.map(value => this.formatCollectionOptionForField(field, value));
+                const labels = operand.values.map(value => this.formatCollectionOptionForField(field, rule, value));
                 const shown = labels.slice(0, 2).join(', ');
                 const remainder = labels.length > 2 ? ` +${labels.length - 2}` : '';
                 valueLabel = `${shown}${remainder}`;
@@ -3018,20 +3065,47 @@ export class FvQueryEditor extends FoundationElement {
             valueLabel = operand.key || this.labels.unset.toLocaleLowerCase();
         } else if (operand.kind === 'key-value') {
             valueLabel = `${operand.key || this.labels.unset.toLocaleLowerCase()}: ${operand.value || this.labels.unset.toLocaleLowerCase()}`;
-        } else if (operand.value === null || operand.value === '') {
+        } else if ((operand.value === null || operand.value === '')
+            && !(this.definition && this.editorTokens.some(token => token.kind === 'condition'
+                && token.rule.id === rule.id && token.value === operand.value)
+                && (this.getOptionSource(rule.fieldId, rule.operatorId)
+                    || staticOptions(this.getEffectiveSchema(rule.fieldId, rule.operatorId) ?? true)))) {
             valueLabel = this.labels.unset.toLocaleLowerCase();
+        } else if (this.definition && (
+            this.getOptionSource(rule.fieldId, rule.operatorId)
+            || staticOptions(this.getEffectiveSchema(rule.fieldId, rule.operatorId) ?? true)
+        )) {
+            valueLabel = this.formatCollectionOptionForField(field, rule, this.encodeOptionValue(rule.fieldId, rule.operatorId, operand.value));
         } else if (typeof operand.value === 'boolean') {
             valueLabel = operand.value ? this.labels.true : this.labels.false;
         } else {
             valueLabel = field?.type === 'enum'
-                ? this.formatCollectionOptionForField(field, String(operand.value))
+                ? this.formatCollectionOptionForField(field, rule, String(operand.value))
                 : String(operand.value);
         }
         const text = [fieldLabel, operatorLabel, valueLabel].filter(Boolean).join(' ');
         return { fieldLabel, operatorLabel, valueLabel, text };
     }
 
-    private formatCollectionOptionForField(field: QueryBuilderField | undefined, value: string): string {
+    private formatCollectionOptionForField(field: QueryBuilderField | undefined, rule: QueryBuilderRule, value: string): string {
+        if (this.definition) {
+            const dynamicValue = this.getOptionSource(rule.fieldId, rule.operatorId)
+                ? this.decodeDynamicOption(value)
+                : undefined;
+            if (dynamicValue !== undefined) {
+                const options = 'options' in this.optionState ? this.optionState.options : [];
+                const active = this.activeRule?.fieldId === rule.fieldId
+                    && this.activeRule.operatorId === rule.operatorId;
+                const label = active
+                    ? options.find(option => Object.is(option.value, dynamicValue))?.label
+                        ?? this.optionLabelCache.get(JSON.stringify(dynamicValue))?.label
+                    : undefined;
+                return label ?? JSON.stringify(dynamicValue);
+            }
+            const schema = this.getEffectiveSchema(rule.fieldId, rule.operatorId);
+            return (schema === undefined ? undefined : staticOptions(schema))
+                ?.find(option => option.value === value)?.label ?? value;
+        }
         return field?.options?.find(option => option.value === value)?.label ?? value;
     }
 
@@ -3079,6 +3153,15 @@ export class FvQueryEditor extends FoundationElement {
         const controls = panel.querySelectorAll<HTMLElement>('[data-control]');
         const control = this.findPathElement<HTMLElement>(event, '[data-control]');
         if (controls.length === 0 || control !== controls.item(controls.length - 1)) {
+            return false;
+        }
+        if (control.tagName.toLowerCase() === 'ok-fv-date-time-picker') {
+            const picker = control as FvDateTimePicker;
+            if (picker.open || event.composedPath()[0] === picker.control) {
+                return false;
+            }
+        }
+        if (control.tagName.toLowerCase() === 'ok-fv-multi-select' && (control as FvMultiSelect).open) {
             return false;
         }
         const conditionPosition = this.editorTokens.findIndex(
@@ -3308,15 +3391,7 @@ export class FvQueryEditor extends FoundationElement {
         let mappedOperand = operand;
         if (predicate.value !== undefined) {
             if (operand.kind === 'scalar' && isJsonPrimitive(predicate.value)) {
-                const schema = this.getEffectiveSchema(predicate.fieldId, predicate.operatorId);
-                const usesOptions = this.getOptionSource(predicate.fieldId, predicate.operatorId) !== undefined
-                    || (schema !== undefined && this.staticChoiceValues(schema).length > 0);
-                mappedOperand = {
-                    kind: 'scalar',
-                    value: usesOptions
-                        ? this.encodeOptionValue(predicate.fieldId, predicate.operatorId, predicate.value)
-                        : predicate.value
-                };
+                mappedOperand = { kind: 'scalar', value: predicate.value };
             } else if (operand.kind === 'collection' && Array.isArray(predicate.value)) {
                 mappedOperand = {
                     kind: 'collection',
@@ -3883,14 +3958,17 @@ export class FvQueryEditor extends FoundationElement {
                 return true;
             }
             const operator = this.portableOperator(fieldId, operatorId);
-            const candidateValue = operator?.operand.kind === 'field-value-list' ? [option.value] : option.value;
+            if (operator?.operand.kind === 'field-value-list') {
+                const schema = this.getEffectiveSchema(fieldId, operatorId);
+                return schema !== undefined && isValidSchemaValue(option.value, schema);
+            }
             return validateQuery({
                 version: 1,
                 root: {
                     kind: 'predicate',
                     fieldId,
                     operatorId,
-                    value: candidateValue
+                    value: option.value
                 }
             }, this.definition).valid;
         });

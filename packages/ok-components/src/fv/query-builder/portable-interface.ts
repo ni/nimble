@@ -785,6 +785,37 @@ function isQueryDocument(value: unknown): value is QueryDocument {
         && (value.root === null || isQueryNode(value.root));
 }
 
+/** @internal */
+export function validateQueryDocumentShape(input: unknown): ValidationResult<QueryDocument> {
+    if (!isRecord(input)) {
+        return invalidResult([issue('invalid-query', 'query', '', 'A query document must be a JSON object.')]);
+    }
+    if (input.version !== 1) {
+        return invalidResult([issue('unsupported-version', 'query', '/version', 'Only query document version 1 is supported.')]);
+    }
+    const excessiveDepthPath = excessiveGroupDepthPath(input.root);
+    if (excessiveDepthPath !== undefined) {
+        return invalidResult([issue(
+            'invalid-query',
+            'query',
+            excessiveDepthPath,
+            `Query groups cannot be nested more than ${MAX_QUERY_GROUP_DEPTH} levels.`
+        )]);
+    }
+    if (!isJsonValue(input)) {
+        return invalidResult([issue('invalid-query', 'query', '', 'A query document must be a JSON object.')]);
+    }
+    if (!isQueryDocument(input)) {
+        return invalidResult([issue('invalid-query', 'query', '/root', 'The query document shape is invalid.')]);
+    }
+    return validResult(input);
+}
+
+/** @internal */
+export function isValidSchemaValue(value: JsonValue, schema: JsonSchema202012): boolean {
+    return getSchemaValidator(schema).validate(value).errors.length === 0;
+}
+
 export function validateDefinition(input: unknown): ValidationResult<QueryBuilderDefinition> {
     if (isDefinition(input) && Object.isFrozen(input)) {
         const definition = input;
@@ -840,34 +871,18 @@ function excessiveGroupDepthPath(root: unknown): string | undefined {
 
 function validateQueryInner(input: unknown, definition: QueryBuilderDefinition): ValidationResult<QueryDocument> {
     const issues: QueryBuilderIssue[] = [];
-    if (!isRecord(input)) {
-        return invalidResult([issue('invalid-query', 'query', '', 'A query document must be a JSON object.')]);
+    const shape = validateQueryDocumentShape(input);
+    if (!shape.valid) {
+        return shape;
     }
-    if (input.version !== 1) {
-        return invalidResult([issue('unsupported-version', 'query', '/version', 'Only query document version 1 is supported.')]);
-    }
-    const excessiveDepthPath = excessiveGroupDepthPath(input.root);
-    if (excessiveDepthPath !== undefined) {
-        return invalidResult([issue(
-            'invalid-query',
-            'query',
-            excessiveDepthPath,
-            `Query groups cannot be nested more than ${MAX_QUERY_GROUP_DEPTH} levels.`
-        )]);
-    }
-    if (!isJsonValue(input)) {
-        return invalidResult([issue('invalid-query', 'query', '', 'A query document must be a JSON object.')]);
-    }
-    if (!isQueryDocument(input)) {
-        return invalidResult([issue('invalid-query', 'query', '/root', 'The query document shape is invalid.')]);
-    }
+    const document = shape.value;
     const fieldMap = new Map(definition.fields.map(field => [field.id, field]));
     const operatorMap = new Map(definition.operators.map(operator => [operator.id, operator]));
     const validators = definitionCache.get(definition);
-    if (input.root === null) {
-        return issues.length > 0 ? invalidResult(issues) : validResult(cloneAndFreeze(input));
+    if (document.root === null) {
+        return issues.length > 0 ? invalidResult(issues) : validResult(cloneAndFreeze(document));
     }
-    const stack: { readonly node: unknown, readonly path: string }[] = [{ node: input.root, path: '/root' }];
+    const stack: { readonly node: unknown, readonly path: string }[] = [{ node: document.root, path: '/root' }];
     while (stack.length > 0) {
         const current = stack.pop()!;
         if (!isRecord(current.node)) {
@@ -980,7 +995,7 @@ function validateQueryInner(input: unknown, definition: QueryBuilderDefinition):
             }
         }
     }
-    return issues.length > 0 ? invalidResult(issues) : validResult(cloneAndFreeze(input));
+    return issues.length > 0 ? invalidResult(issues) : validResult(cloneAndFreeze(document));
 }
 
 function jsonValuesEqual(left: JsonValue, right: JsonValue): boolean {

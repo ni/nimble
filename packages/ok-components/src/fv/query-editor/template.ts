@@ -6,7 +6,9 @@ import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';
 import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import { fvChipSelectorTag } from '../chip-selector';
+import { fvDateTimePickerTag } from '../date-time-picker';
 import { fvExpandableChipTag } from '../expandable-chip';
+import { fvMultiSelectTag } from '../multi-select';
 import type {
     FvQueryEditor,
     QueryEditorLineView,
@@ -448,11 +450,26 @@ export const template = html<FvQueryEditor>`
                                             `
                                         )}
                                         ${when(
-                                            x => x.activeEditorKind !== 'number',
+                                            x => x.activeEditorKind === 'date',
+                                            html<FvQueryEditor>`
+                                                <${fvDateTimePickerTag}
+                                                    class="editor-control"
+                                                    type="date"
+                                                    data-control="scalar-text"
+                                                    required
+                                                    required-visible
+                                                    error-text="${x => x.activeRuleError}"
+                                                    ?error-visible="${x => Boolean(x.activeRuleError)}"
+                                                    aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                                    :value="${x => x.getDatePickerValue(x.getActiveScalarValue())}"
+                                                >${x => x.labels.value}</${fvDateTimePickerTag}>
+                                            `
+                                        )}
+                                        ${when(
+                                            x => x.activeEditorKind !== 'number' && x.activeEditorKind !== 'date',
                                             html<FvQueryEditor>`
                                                 <${textFieldTag}
                                                     class="editor-control"
-                                                    type="${x => x.getActiveScalarInputType()}"
                                                     data-control="scalar-text"
                                                     required
                                                     required-visible
@@ -473,7 +490,22 @@ export const template = html<FvQueryEditor>`
                             x => x.activeOperandKind === 'collection',
                             html<FvQueryEditor>`
                                 ${when(
-                                    x => (x.activeEditorKind === 'select' || x.isActiveCombobox) && Boolean(x.definition),
+                                    x => x.activeEditorKind === 'select' && !x.hasActiveOptionSource,
+                                    html<FvQueryEditor>`
+                                        <${fvMultiSelectTag}
+                                            class="editor-control collection-selector"
+                                            data-control="collection-multi-select"
+                                            label="${x => x.labels.value}"
+                                            placeholder="${x => x.labels.value}"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            filterable
+                                            :options="${x => x.activeOptions}"
+                                            :selectedValues="${x => x.activeCollectionValues}"
+                                        ></${fvMultiSelectTag}>
+                                    `
+                                )}
+                                ${when(
+                                    x => (x.activeEditorKind === 'select' || x.isActiveCombobox) && x.hasActiveOptionSource,
                                     html<FvQueryEditor>`
                                         <${fvChipSelectorTag}
                                             class="editor-control collection-selector"
@@ -488,20 +520,6 @@ export const template = html<FvQueryEditor>`
                                                 x.handleCollectionFilterChange(c.event);
                                                 return true;
                                             }}"
-                                        ></${fvChipSelectorTag}>
-                                    `
-                                )}
-                                ${when(
-                                    x => (x.activeEditorKind === 'select' || x.isActiveCombobox) && !x.definition,
-                                    html<FvQueryEditor>`
-                                        <${fvChipSelectorTag}
-                                            class="editor-control collection-selector"
-                                            data-control="collection-selector"
-                                            label="${x => x.labels.value}"
-                                            placeholder="${x => x.labels.value}"
-                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
-                                            options="${x => x.activeCollectionOptionLabels}"
-                                            :selectedValues="${x => x.getActiveCollectionSelectorValues()}"
                                         ></${fvChipSelectorTag}>
                                     `
                                 )}
@@ -550,7 +568,23 @@ export const template = html<FvQueryEditor>`
                                     `
                                 )}
                                 ${when(
-                                    x => x.getActiveRangeInputType() !== 'number',
+                                    x => x.getActiveRangeInputType() === 'date',
+                                    html<FvQueryEditor>`
+                                        <${fvDateTimePickerTag}
+                                            class="editor-control"
+                                            type="date"
+                                            data-control="range-start"
+                                            required
+                                            required-visible
+                                            error-text="${x => x.activeRuleError}"
+                                            ?error-visible="${x => Boolean(x.activeRuleError)}"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            :value="${x => x.getDatePickerValue(x.getActiveRangeValue('start'))}"
+                                        >${x => x.labels.rangeStart}</${fvDateTimePickerTag}>
+                                    `
+                                )}
+                                ${when(
+                                    x => x.getActiveRangeInputType() === 'text',
                                     html<FvQueryEditor>`
                                         <${textFieldTag}
                                             class="editor-control"
@@ -585,7 +619,23 @@ export const template = html<FvQueryEditor>`
                                     `
                                 )}
                                 ${when(
-                                    x => x.getActiveRangeInputType() !== 'number',
+                                    x => x.getActiveRangeInputType() === 'date',
+                                    html<FvQueryEditor>`
+                                        <${fvDateTimePickerTag}
+                                            class="editor-control"
+                                            type="date"
+                                            data-control="range-end"
+                                            required
+                                            required-visible
+                                            error-text="${x => x.activeRuleError}"
+                                            ?error-visible="${x => Boolean(x.activeRuleError)}"
+                                            aria-invalid="${x => String(Boolean(x.activeRuleError))}"
+                                            :value="${x => x.getDatePickerValue(x.getActiveRangeValue('end'))}"
+                                        >${x => x.labels.rangeEnd}</${fvDateTimePickerTag}>
+                                    `
+                                )}
+                                ${when(
+                                    x => x.getActiveRangeInputType() === 'text',
                                     html<FvQueryEditor>`
                                         <${textFieldTag}
                                             class="editor-control"

@@ -3,6 +3,7 @@ import { html, type ViewTemplate } from '@ni/fast-element';
 import type { Select } from '@ni/nimble-components/dist/esm/select';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import type { FvDateTimePicker } from '@ni/ok-components/dist/esm/fv/date-time-picker';
 import {
     fvQueryEditorTag,
     type FvQueryEditor,
@@ -88,6 +89,30 @@ const openConditions: NonNullable<StoryFn['play']> = async ({ canvasElement }) =
     }));
 };
 operandsThemeMatrix.play = openConditions;
+
+export const datePickerThemeMatrix: StoryFn = createMatrixThemeStory(html`
+    ${disableStorybookZoomTransform}
+    ${component('Date range calendar', {
+        version: 1,
+        root: {
+            kind: 'predicate',
+            fieldId: 'started_at',
+            operatorId: 'between-dates',
+            value: { start: '2026-01-01', end: '2026-06-30' }
+        }
+    }, 'inline', false, true)}
+`);
+datePickerThemeMatrix.play = async context => {
+    await openConditions(context);
+    for (const editor of context.canvasElement.querySelectorAll<FvQueryEditor>(fvQueryEditorTag)) {
+        const picker = editor.shadowRoot?.querySelector<FvDateTimePicker>('[data-control="range-start"]');
+        if (!picker) {
+            throw new Error('Matrix date picker was not rendered.');
+        }
+        picker.open = true;
+    }
+    await waitForUpdatesAsync();
+};
 
 export const valueDropdownThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${disableStorybookZoomTransform}
