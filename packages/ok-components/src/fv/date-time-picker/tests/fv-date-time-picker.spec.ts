@@ -1404,12 +1404,12 @@ describe('FvDateTimePicker', () => {
         element.open = true;
         await waitForUpdatesAsync();
         const year = element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.year')!;
-        year.open = true;
+        year.open();
         year.dispatchEvent(new KeyboardEvent('keydown', {
             key: 'Escape', bubbles: true, composed: true, cancelable: true
         }));
         await waitForUpdatesAsync();
-        expect(year.open).toBeFalse();
+        expect(year.isOpen).toBeFalse();
         expect(element.open).toBeTrue();
     });
 
