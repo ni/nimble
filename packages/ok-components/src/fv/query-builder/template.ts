@@ -265,7 +265,8 @@ export const template = html<FvQueryBuilder>`
                             appearance="block"
                             appearance-variant="accent"
                             label="${x => x.primaryActionLabel}"
-                            ?disabled="${x => x.primaryActionDisabled}"
+                            ?disabled="${x => x.isEditorDisabled}"
+                            ?primary-disabled="${x => x.primaryActionDisabled}"
                             @trigger="${x => x.handlePrimaryAction()}"
                         >
                             <${menuTag}

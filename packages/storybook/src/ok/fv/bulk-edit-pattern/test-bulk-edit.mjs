@@ -35,9 +35,11 @@ try {
         }, { fieldId, values });
         const editor = queryBuilder.locator('ok-fv-query-editor');
         await editor.locator('[data-rule-id]').click();
-        const selector = editor.locator('ok-fv-chip-selector');
+        const selector = editor.locator('ok-fv-multi-select');
         await selector.waitFor({ state: 'visible' });
-        assert.deepEqual(await selector.evaluate(element => element.selectedOptionValues), values);
+        assert.deepEqual(await selector.evaluate(element => element.selectedValues.map(value => (
+            element.options.find(option => option.value === value)?.label
+        ))), values);
         assert.equal(await editor.evaluate(element => element.valid), true);
         await queryBuilder.getByRole('button', { name: 'Apply', exact: true }).click();
         await page.locator('.table-footer').getByText(`${count} records`, { exact: true }).waitFor();
@@ -152,17 +154,13 @@ try {
         await assertQueryInViewport();
         const footer = await builder.evaluate(el => {
             const query = el.shadowRoot.querySelector('.query-popover').getBoundingClientRect();
-            const actions = ['cancel-query', 'done-manager', 'apply-query'].map(action => el.shadowRoot
-                .querySelector(`[data-action="${action}"]`).getBoundingClientRect().toJSON());
-            const secondary = el.shadowRoot.querySelector('.footer-secondary-actions').getBoundingClientRect();
-            return { width: query.width, left: query.left, right: query.right, actions, secondaryTop: secondary.top };
+            const actions = ['[data-action="cancel-query"]', '.query-action-split-button'].map(selector => el.shadowRoot
+                .querySelector(selector).getBoundingClientRect().toJSON());
+            return { width: query.width, left: query.left, right: query.right, actions };
         });
         assert.ok(footer.width <= 600);
         assert.equal(new Set(footer.actions.map(action => action.top)).size, 1);
         assert.ok(footer.actions.every(action => action.left >= footer.left && action.right <= footer.right));
-        if (viewport.width >= 445) {
-            assert.equal(footer.actions[0].top, footer.secondaryTop);
-        }
     }
     await builder.evaluate(el => {
         el.style.position = 'fixed';
@@ -265,6 +263,7 @@ try {
     await builder.getByRole('button', { name: 'Apply', exact: true }).click();
     await page.locator('.table-footer').getByText('60 records', { exact: true }).waitFor();
     await summary('1 unsaved change in 2 rows (1 hidden)');
+    await filterBar.getByRole('button', { name: 'Edit filters: 60 records', exact: true }).click();
     await setQuery({ kind: 'predicate', fieldId: 'status', operatorId: 'is', value: 'Maintenance' });
     await builder.getByRole('button', { name: 'Cancel', exact: true }).click();
     await page.locator('.table-footer').getByText('60 records', { exact: true }).waitFor();
@@ -272,7 +271,7 @@ try {
     await page.getByRole('textbox', { name: 'Search assets' }).fill('Precision DMM');
     await page.locator('.table-footer').getByText('20 records', { exact: true }).waitFor();
     await page.getByRole('textbox', { name: 'Search assets' }).fill('');
-    await builder.getByRole('button', { name: 'Configure query', exact: true }).click();
+    await filterBar.getByRole('button', { name: 'Edit filters: 60 records', exact: true }).click();
     await setQuery({
         kind: 'group',
         combinator: 'and',
@@ -291,42 +290,51 @@ try {
     await builder.getByRole('button', { name: 'Apply', exact: true }).click();
     await page.locator('.table-footer').getByText('20 records', { exact: true }).waitFor();
     await summary('1 unsaved change in 2 rows (1 hidden)');
-    await builder.getByRole('button', { name: 'Clear all', exact: true }).click();
-    await builder.getByRole('button', { name: 'Apply', exact: true }).click();
+    await filterBar.getByRole('button', { name: 'Clear filters', exact: true }).click();
     await page.locator('.table-footer').getByText('120 records', { exact: true }).waitFor();
-    await builder.getByRole('button', { name: 'Done', exact: true }).click();
     assert.equal(await location().inputValue(), 'Shared lab');
 
     const openQueryMenu = async () => {
-        await builder.getByRole('button', { name: /^More actions for/ }).click();
+        await builder.locator('.queries-menu-button .split-button-toggle').click();
     };
     await openQueryMenu();
     await builder.getByRole('menuitem', { name: 'Available assets', exact: true }).click();
     await page.locator('.table-footer').getByText('60 records', { exact: true }).waitFor();
     await summary('1 unsaved change in 2 rows (1 hidden)');
+    await filterBar.getByRole('button', { name: 'Clear filters', exact: true }).click();
+    await page.locator('.table-footer').getByText('120 records', { exact: true }).waitFor();
+    await filterBar.getByRole('button', { name: 'Edit filters: 120 records', exact: true }).click();
+    assert.equal(await builder.locator('ok-fv-query-editor').evaluate(editor => editor.ruleCount), 0);
+    await builder.getByRole('button', { name: 'Apply', exact: true }).click();
+    await page.locator('.table-footer').getByText('120 records', { exact: true }).waitFor();
     await openQueryMenu();
     await builder.getByRole('menuitem', { name: 'Battery Lab assets', exact: true }).click();
     await page.locator('.table-footer').getByText('30 records', { exact: true }).waitFor();
     await openQueryMenu();
-    await builder.getByRole('menuitem', { name: 'Create saved query', exact: true }).click();
+    await builder.getByRole('menuitem', { name: 'Save as new…', exact: true }).click();
     const queryName = builder.getByRole('textbox', { name: 'Name', exact: true });
     await queryName.fill('Lab copy');
     await builder.getByRole('button', { name: 'Save', exact: true }).click();
     await builder.getByRole('button', { name: 'Lab copy', exact: true }).waitFor();
     await page.locator('.table-footer').getByText('30 records', { exact: true }).waitFor();
+    await openQueryMenu();
+    await builder.getByRole('menuitem', { name: 'Edit saved query', exact: true }).click();
     await queryName.fill('Renamed lab query');
-    await builder.getByRole('button', { name: 'Save changes', exact: true }).click();
+    await builder.locator('.query-action-split-button .split-button-primary').click();
     await builder.getByRole('button', { name: 'Renamed lab query', exact: true }).waitFor();
-    await builder.getByRole('button', { name: 'Delete', exact: true }).click();
-    await builder.getByRole('button', { name: 'Delete query', exact: true }).click();
-    await builder.getByRole('button', { name: 'Configure query', exact: true }).waitFor();
+    await openQueryMenu();
+    await builder.getByRole('menuitem', { name: 'Edit saved query', exact: true }).click();
+    await builder.locator('.query-action-split-button .split-button-toggle').click();
+    await builder.getByRole('menuitem', { name: 'Delete', exact: true }).click();
+    await builder.locator('.query-action-split-button .split-button-toggle').click();
+    await builder.getByRole('menuitem', { name: 'Delete query', exact: true }).click();
+    await builder.getByRole('button', { name: 'Query', exact: true }).waitFor();
     await openQueryMenu();
     assert.equal(await builder.getByRole('menuitem', { name: 'Renamed lab query', exact: true }).count(), 0);
-    await builder.getByRole('menuitem', { name: 'Current query', exact: true }).click();
-    await builder.getByRole('button', { name: 'Configure query', exact: true }).click();
+    await builder.getByRole('menuitem', { name: 'Working query', exact: true }).click();
+    await builder.getByRole('button', { name: 'Query', exact: true }).click();
     await builder.getByRole('button', { name: 'Apply', exact: true }).click();
     await page.locator('.table-footer').getByText('120 records', { exact: true }).waitFor();
-    await builder.getByRole('button', { name: 'Done', exact: true }).click();
     assert.equal(await location().inputValue(), 'Shared lab');
 
     await page.getByRole('textbox', { name: 'Search assets' }).fill('Precision DMM');
@@ -337,6 +345,7 @@ try {
     await page.getByRole('heading', { name: 'Edit — 2 rows' }).waitFor();
     assert.equal(await location().inputValue(), 'Shared lab');
     assert.equal(await row(1).getAttribute('aria-selected'), 'true');
+    await row(7).locator('nimble-checkbox[aria-checked="false"]').waitFor();
     assert.equal(await row(7).getAttribute('aria-selected'), 'false');
 
     await page.getByRole('textbox', { name: 'Search assets' }).fill('no-matching-assets');
@@ -413,7 +422,7 @@ try {
     await page.getByRole('heading', { name: 'Edit — 22 rows' }).waitFor();
     await page.getByRole('checkbox', { name: 'Select all rows', exact: true }).click();
     await page.getByRole('heading', { name: 'Edit — 2 rows' }).waitFor();
-    await builder.getByRole('button', { name: 'Configure query', exact: true }).waitFor();
+    await builder.getByRole('button', { name: 'Query', exact: true }).waitFor();
 
     await page.setViewportSize({ width: 900, height: 650 });
     const geometry = await page.locator('.bulk-edit-example').evaluate(el => {
@@ -480,7 +489,7 @@ try {
     await page.waitForFunction(() => window.__STORYBOOK_PREVIEW__?.currentRender?.phase === 'finished');
     const dragBuilder = page.locator('ok-fv-query-builder');
     await dragBuilder.waitFor();
-    await dragBuilder.locator('.split-button-primary').click();
+    await dragBuilder.locator('.queries-menu-button .split-button-primary').click();
     await dragBuilder.locator('.popover-header').waitFor({ state: 'visible' });
     const dragHeader = await dragBuilder.locator('.popover-header').boundingBox();
     assert.ok(dragHeader);

@@ -694,6 +694,27 @@ describe('FvQueryBuilder', () => {
         expect(element.shadowRoot?.querySelector('.footer-secondary-actions')).toBeNull();
     });
 
+    it('closes the action menu before the query popover on Escape', async () => {
+        ({ element, disconnect } = await setup(false));
+        const loaded = new Promise<void>(resolve => {
+            element.queryPopoverRegion!.addEventListener('loaded', () => resolve(), { once: true });
+        });
+        element.openQuickEditor();
+        await loaded;
+        await waitForUpdatesAsync();
+        await openActionMenu();
+        const splitButton = getRequiredElement<FvSplitButton>('.query-action-split-button');
+        const toggle = splitButton.shadowRoot!.querySelector<HTMLButtonElement>('.split-button-toggle')!;
+        toggle.focus();
+        toggle.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Escape', bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        expect(splitButton.open).toBeFalse();
+        expect(element.isManagerOpen).toBeTrue();
+        expect(splitButton.shadowRoot?.activeElement).toBe(toggle);
+    });
+
     it('keeps the action menu visible beyond the query popover edges', async () => {
         ({ element, disconnect } = await setup(false));
         element.saveHandler = async request => {
@@ -1250,10 +1271,10 @@ describe('FvQueryBuilder', () => {
 
         const saveButton = getRequiredElement<FvSplitButton>('.query-action-split-button');
         const deleteButton = getRequiredElement<HTMLElement>('[data-action="request-delete"]');
-        expect(saveButton.disabled).toBeTrue();
-        expect(saveButton.hasAttribute('primary-disabled')).toBeFalse();
+        expect(saveButton.disabled).toBeFalse();
+        expect(saveButton.hasAttribute('primary-disabled')).toBeTrue();
         expect(saveButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary')?.disabled).toBeTrue();
-        expect(saveButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle')?.disabled).toBeTrue();
+        expect(saveButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle')?.disabled).toBeFalse();
         expect(deleteButton.hasAttribute('disabled')).toBeFalse();
         const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
         name.value = 'Failed production';

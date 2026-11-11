@@ -55,7 +55,7 @@ export class AssetInventory {
     @observable public declare state: BulkEditState<Asset, Field>;
     @observable public declare search: string;
     @observable public declare appliedQuery: QueryDocument;
-    @observable public savedQueries: readonly QueryBuilderSavedQuery[] = [
+    public savedQueries: readonly QueryBuilderSavedQuery[] = [
         {
             id: 'available-assets',
             name: 'Available assets',
@@ -248,6 +248,7 @@ export class AssetInventory {
     }
 
     public clearQuery(): void {
+        this.queryBuilder.clear();
         this.appliedQuery = { version: 1, root: null };
         this.queryBuilder.query = this.appliedQuery;
         this.refresh();

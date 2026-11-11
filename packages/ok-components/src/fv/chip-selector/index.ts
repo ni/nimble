@@ -290,7 +290,7 @@ export class FvChipSelector extends FoundationElement {
         if (option) {
             return option.label;
         }
-        if (key.startsWith('typed:')) {
+        if (Array.isArray(this.optionItems) && key.startsWith('typed:')) {
             try {
                 return JSON.stringify(JSON.parse(decodeURIComponent(key.slice('typed:'.length))));
             } catch {

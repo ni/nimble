@@ -76,6 +76,7 @@ export class FvSplitButton extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.openChanged();
+        this.addEventListener('keydown', this.menuKeydownHandler);
         document.addEventListener('click', this.documentClickHandler);
         document.addEventListener('keydown', this.keydownHandler);
     }
@@ -85,6 +86,7 @@ export class FvSplitButton extends FoundationElement {
         if (this.region?.isConnected && this.region.matches(':popover-open')) {
             this.region.hidePopover();
         }
+        this.removeEventListener('keydown', this.menuKeydownHandler);
         document.removeEventListener('click', this.documentClickHandler);
         document.removeEventListener('keydown', this.keydownHandler);
         super.disconnectedCallback();
@@ -151,6 +153,15 @@ export class FvSplitButton extends FoundationElement {
     private readonly keydownHandler = (event: KeyboardEvent): void => {
         if (event.key === 'Escape') {
             this.setOpen(false);
+        }
+    };
+
+    private readonly menuKeydownHandler = (event: KeyboardEvent): void => {
+        if (this.open && event.key === 'Escape' && !event.defaultPrevented) {
+            this.setOpen(false);
+            this.toggleButton?.focus();
+            event.preventDefault();
+            event.stopPropagation();
         }
     };
 

@@ -187,16 +187,8 @@ try {
     const logicPreview = editor.locator('.logic-chip-preview');
     await logicPreview.waitFor({ state: 'visible' });
     await input.press('ArrowLeft');
-    await conditionPreview.waitFor({ state: 'visible' });
-    assert.deepEqual(await editor.evaluate(element => {
-        const queryInput = element.shadowRoot.querySelector('.query-input');
-        const preview = element.shadowRoot.querySelector('.condition-chip-preview');
-        return {
-            adjacent: queryInput.parentElement.nextElementSibling === preview,
-            sameRow: queryInput.closest('.formatted-row') === preview.closest('.formatted-row'),
-            previewCount: element.shadowRoot.querySelectorAll('.condition-chip-preview, .logic-chip-preview').length
-        };
-    }), { adjacent: true, sameRow: true, previewCount: 1 });
+    await logicPreview.waitFor({ state: 'detached' });
+    assert.equal(await editor.locator('.condition-chip-preview, .logic-chip-preview').count(), 0);
     await input.press('ArrowRight');
     await logicPreview.waitFor({ state: 'visible' });
     assert.equal(await editor.locator('.condition-chip-preview, .logic-chip-preview').count(), 1);
@@ -218,7 +210,7 @@ try {
     await page.goto(`${baseUrl}/iframe.html?id=ok-fv-query-builder--configurable&viewMode=story`);
     const builder = page.locator('ok-fv-query-builder');
     await builder.waitFor();
-    await builder.locator('.split-button-primary').click();
+    await builder.locator('.queries-menu-button .split-button-primary').click();
     await page.waitForFunction(() => {
         const element = document.querySelector('ok-fv-query-builder');
         return element.queryPopoverRegion?.classList.contains('loaded');

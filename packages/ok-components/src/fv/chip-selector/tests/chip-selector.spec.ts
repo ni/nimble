@@ -672,6 +672,16 @@ describe('FvChipSelector', () => {
         expect(input.getAttribute('aria-activedescendant')).toBeNull();
     });
 
+    it('does not decode typed prefixes in string mode', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.options = 'typed:1,typed:true';
+        element.selectedValues = 'typed:1';
+        await connect();
+        await waitForUpdatesAsync();
+        expect(getRequiredElement<HTMLElement>('.chip-selector-field').textContent).toContain('typed:1');
+        expect(element.visibleOptionList.map(value => element.formatValue(value))).toEqual(['typed:true']);
+    });
+
     it('preserves typed values, duplicate labels, commas, and disabled options', async () => {
         ({ element, connect, disconnect } = await setup());
         element.optionItems = [
