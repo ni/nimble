@@ -1,5 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/html-vite';
-import { html, ViewTemplate } from '@ni/fast-element';
+import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
+import { iconLinkTag } from '@ni/nimble-components/dist/esm/icons/link';
+import { iconArrowExpanderRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { fvSplitButtonAnchorTag } from '@ni/ok-components/dist/esm/fv/split-button-anchor';
 import {
@@ -63,6 +65,47 @@ export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
         ${component('', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.default, true)}
         ${component('', FvSplitButtonAnchorAppearance.block, FvSplitButtonAnchorAppearanceVariant.default, true)}
         ${component('', FvSplitButtonAnchorAppearance.ghost, FvSplitButtonAnchorAppearanceVariant.default, true)}
+    </div>
+`);
+
+const iconStates = Object.values(FvSplitButtonAnchorAppearance).flatMap(appearance => Object.values(FvSplitButtonAnchorAppearanceVariant).flatMap(appearanceVariant => [
+    {
+        appearance, appearanceVariant, start: true, end: false, disabled: false, href: '#', dir: 'ltr'
+    },
+    {
+        appearance, appearanceVariant, start: false, end: true, disabled: false, href: '#', dir: 'ltr'
+    },
+    {
+        appearance, appearanceVariant, start: true, end: true, disabled: true, href: '#', dir: 'ltr'
+    },
+    {
+        appearance, appearanceVariant, start: true, end: true, disabled: false, href: '', dir: 'rtl'
+    }
+]));
+
+export const iconSlotsThemeMatrix: StoryFn = createMatrixThemeStory(html`
+    <div style="display: grid; grid-template-columns: repeat(4, max-content); gap: 16px; padding: 16px;">
+        ${repeat(
+            () => iconStates,
+            html<typeof iconStates[number]>`
+                <${fvSplitButtonAnchorTag}
+                    label="Open results"
+                    appearance="${x => x.appearance}"
+                    appearance-variant="${x => x.appearanceVariant}"
+                    ?disabled="${x => x.disabled}"
+                    href="${x => x.href}"
+                    dir="${x => x.dir}"
+                >
+                    ${when(x => x.start, html`
+                        <${iconLinkTag} slot="start"></${iconLinkTag}>
+                    `)}
+                    ${when(x => x.end, html`
+                        <${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>
+                    `)}
+                    ${baseMenu}
+                </${fvSplitButtonAnchorTag}>
+            `
+        )}
     </div>
 `);
 
