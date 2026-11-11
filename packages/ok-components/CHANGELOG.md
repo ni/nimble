@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 03 Nov 2026 21:20:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 10 Nov 2026 22:50:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.16.0
+
+Tue, 10 Nov 2026 22:50:35 GMT
+
+### Minor changes
+
+- Add the FV multi-select dropdown with checkbox options, optional local search and clearing, and native multi-value form submission ([ni/nimble@b9229cb](https://github.com/ni/nimble/commit/b9229cb2992459116271d9af630a1fef74eb6dec))
 
 ## 1.15.0
 
