@@ -11,6 +11,7 @@ import {
 } from '@tanstack/virtual-core';
 import type { Table } from '..';
 import type { TableNode, TableRecord } from '../types';
+import type { TanStackTableFeatures } from './tanstack-table-features';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -41,14 +42,14 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     private readonly table: Table<TData>;
-    private readonly tanStackTable: TanStackTable<TableNode<TData>>;
+    private readonly tanStackTable: TanStackTable<TanStackTableFeatures, TableNode<TData>>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
     private _pageSize = 0;
 
     public constructor(
         table: Table<TData>,
-        tanStackTable: TanStackTable<TableNode<TData>>
+        tanStackTable: TanStackTable<TanStackTableFeatures, TableNode<TData>>
     ) {
         this.table = table;
         this.tanStackTable = tanStackTable;

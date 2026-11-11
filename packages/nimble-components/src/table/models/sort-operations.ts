@@ -1,17 +1,19 @@
 import type {
-    SortingFnOption as TanStackSortingFnOption,
-    Row as TanStackRow
+    SortFn as TanStackSortFn,
+    Row as TanStackRow,
+    RowData
 } from '@tanstack/table-core';
 import { TableColumnSortOperation } from '../../table-column/base/types';
 import type { TableFieldValue } from '../types';
+import type { TanStackTableFeatures } from './tanstack-table-features';
 
 /**
  * Returns the sorting function for TanStack to use based on the specified
  * TableColumnSortOperation
  */
-export function getTanStackSortingFunction<TData>(
+export function getTanStackSortingFunction<TData extends RowData>(
     sortOperation: TableColumnSortOperation
-): TanStackSortingFnOption<TData> {
+): TanStackSortFn<TanStackTableFeatures, TData> {
     switch (sortOperation) {
         case TableColumnSortOperation.basic:
             return basicSortFunction;
@@ -27,13 +29,13 @@ export function getTanStackSortingFunction<TData>(
  * TanStack for a given column. The function sorts `undefined` followed by `null`
  * before all defined strings.
  */
-function localeAwareCaseSensitiveSortFunction<TData>(
-    rowA: TanStackRow<TData>,
-    rowB: TanStackRow<TData>,
+function localeAwareCaseSensitiveSortFunction<TData extends RowData>(
+    rowA: TanStackRow<TanStackTableFeatures, TData>,
+    rowB: TanStackRow<TanStackTableFeatures, TData>,
     columnId: string
 ): number {
-    const valueA = rowA.getValue<string | null | undefined>(columnId);
-    const valueB = rowB.getValue<string | null | undefined>(columnId);
+    const valueA = getSortValue<string | null | undefined, TData>(rowA, columnId);
+    const valueB = getSortValue<string | null | undefined, TData>(rowB, columnId);
 
     if (typeof valueA === 'string' && typeof valueB === 'string') {
         return valueA.localeCompare(valueB);
@@ -51,13 +53,13 @@ function localeAwareCaseSensitiveSortFunction<TData>(
  * A function to perform a basic sort of two rows from TanStack for a given column.
  * The function sorts `undefined` followed by `null` before all other values.
  */
-function basicSortFunction<TData>(
-    rowA: TanStackRow<TData>,
-    rowB: TanStackRow<TData>,
+function basicSortFunction<TData extends RowData>(
+    rowA: TanStackRow<TanStackTableFeatures, TData>,
+    rowB: TanStackRow<TanStackTableFeatures, TData>,
     columnId: string
 ): number {
-    const valueA = rowA.getValue<TableFieldValue>(columnId);
-    const valueB = rowB.getValue<TableFieldValue>(columnId);
+    const valueA = getSortValue<TableFieldValue, TData>(rowA, columnId);
+    const valueB = getSortValue<TableFieldValue, TData>(rowB, columnId);
 
     if (Object.is(valueA, valueB)) {
         return 0;
@@ -86,4 +88,19 @@ function basicSortFunction<TData>(
         return Object.is(valueA, -0) ? -1 : 1;
     }
     return valueA > valueB ? 1 : -1;
+}
+
+function getSortValue<TValue, TData extends RowData>(
+    row: TanStackRow<TanStackTableFeatures, TData>,
+    columnId: string
+): TValue {
+    // v8 exposed the first descendant's value for later grouped columns.
+    // v9 only exposes grouped values at or above the current grouping depth.
+    if (row.getIsGrouped() && row.table.atoms.grouping.get().indexOf(columnId) > row.depth) {
+        const firstChild = row.subRows[0];
+        if (firstChild) {
+            return getSortValue<TValue, TData>(firstChild, columnId);
+        }
+    }
+    return row.getValue<TValue>(columnId);
 }
