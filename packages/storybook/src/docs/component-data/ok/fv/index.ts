@@ -49,6 +49,17 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Fv Date Time Picker',
+        componentHref: './?path=/docs/ok-fv-date-time-picker--docs',
+        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=9200-35922',
+        designLabel: 'Figma',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Edit Commit Bar',
         componentHref: './?path=/docs/ok-fv-edit-commit-bar--docs',
         library: 'ok',

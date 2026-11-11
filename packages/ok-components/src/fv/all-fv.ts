@@ -3,6 +3,7 @@ import './card';
 import './bulk-edit-field';
 import './chip-selector';
 import './context-help';
+import './date-time-picker';
 import './edit-commit-bar';
 import './filter-bar';
 import './master-detail-list-item';
