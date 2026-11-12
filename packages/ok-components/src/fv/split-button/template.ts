@@ -10,7 +10,7 @@ export const template = html<FvSplitButton>`
         <button
             class="split-button-primary"
             type="button"
-            ?disabled="${x => x.disabled || x.primaryDisabled}"
+            ?disabled="${x => x.disabled}"
             @click="${x => {
                 x.handlePrimaryClick();
                 return true;

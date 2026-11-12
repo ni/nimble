@@ -64,4 +64,28 @@ describe('FvExpandableChip', () => {
 
         expect(clickSpy).toHaveBeenCalledTimes(1);
     });
+
+    it('renders a Nimble remove button that emits remove without activating the chip', async () => {
+        ({ element, disconnect } = await setup());
+        element.removable = true;
+        await waitForUpdatesAsync();
+        const clickSpy = jasmine.createSpy('click');
+        const removeSpy = jasmine.createSpy('remove');
+        element.addEventListener('click', clickSpy);
+        element.addEventListener('remove', removeSpy);
+
+        const removeButton = element.shadowRoot?.querySelector<HTMLElement>('nimble-button.remove-button');
+        expect(removeButton?.getAttribute('appearance')).toBe('ghost');
+        expect(removeButton?.hasAttribute('content-hidden')).toBeTrue();
+        expect(removeButton?.querySelector('nimble-icon-times')).not.toBeNull();
+        expect(removeButton?.textContent?.trim()).toBe('Remove');
+        removeButton?.click();
+
+        expect(removeSpy).toHaveBeenCalledTimes(1);
+        expect(clickSpy).not.toHaveBeenCalled();
+
+        element.disabled = true;
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot?.querySelector('.remove-button')).toBeNull();
+    });
 });

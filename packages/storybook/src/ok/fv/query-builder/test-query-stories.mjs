@@ -132,6 +132,31 @@ try {
     assert.equal(await conditionEditor.evaluate(element => element.activeRuleId), null);
     console.log('ok-fv-query-editor--configurable condition background clicks retain editor: passed');
 
+    await conditionEditor.evaluate(element => {
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'duration', operatorId: 'greater-than', value: 500 }
+        };
+    });
+    const chip = conditionEditor.locator('.condition-chip').first();
+    await chip.click();
+    const originalSummary = await chip.textContent();
+    const originalBounds = await chip.boundingBox();
+    const numberInput = conditionEditor.locator('[data-control="scalar-number"] input');
+    await numberInput.fill('999999');
+    assert.equal(await chip.textContent(), originalSummary);
+    assert.deepEqual(await chip.boundingBox(), originalBounds);
+    await numberInput.press('Escape');
+    await page.waitForFunction(() => document.querySelector('ok-fv-query-editor').shadowRoot
+        .querySelector('.condition-chip').textContent.includes('999999'));
+    await chip.hover();
+    const removeButton = chip.getByRole('button', { name: 'Remove', exact: true });
+    await removeButton.click();
+    await chip.waitFor({ state: 'detached' });
+    assert.equal(await conditionEditor.evaluate(element => element.ruleCount), 0);
+    assert.equal(await conditionEditor.evaluate(element => element.activeRuleId), null);
+    console.log('ok-fv-query-editor--configurable frozen summary and chip removal: passed');
+
     await page.goto(`${baseUrl}/iframe.html?id=ok-fv-query-editor--configurable&viewMode=story`);
     const editor = page.locator('ok-fv-query-editor');
     await editor.waitFor();
@@ -234,6 +259,66 @@ try {
         `configurable story popover extends below the viewport: ${JSON.stringify(placement)}`
     );
     console.log('ok-fv-query-builder--configurable short-document placement: passed');
+
+    const popover = builder.locator('.query-popover');
+    const editorField = builder.locator('ok-fv-query-editor .editor-field');
+    const initialSize = await popover.boundingBox();
+    const initialEditorSize = await editorField.boundingBox();
+    assert.ok(initialSize);
+    assert.ok(initialEditorSize);
+    await page.mouse.move(initialSize.x + initialSize.width - 5, initialSize.y + initialSize.height - 5);
+    await page.mouse.down();
+    await page.mouse.move(initialSize.x + initialSize.width + 91, initialSize.y + initialSize.height + 75, { steps: 10 });
+    await page.mouse.up();
+    await page.waitForFunction(({ width, height }) => {
+        const rect = document.querySelector('ok-fv-query-builder').shadowRoot.querySelector('.query-popover').getBoundingClientRect();
+        return Math.abs(rect.width - width) < 1 && Math.abs(rect.height - height) < 1;
+    }, { width: initialSize.width + 96, height: initialSize.height + 80 });
+    const expandedEditor = await editorField.boundingBox();
+    assert.ok(expandedEditor);
+    assert.ok(expandedEditor.height > initialEditorSize.height + 30);
+    await popover.focus();
+    await popover.press('Shift+ArrowLeft');
+    const editorBeforeShrink = await editorField.boundingBox();
+    await popover.press('Shift+ArrowUp');
+    const resized = await popover.boundingBox();
+    assert.ok(resized);
+    assert.equal(resized.width, initialSize.width + 84);
+    assert.equal(resized.height, initialSize.height + 68);
+    assert.equal((await editorField.boundingBox()).height, editorBeforeShrink.height - 12);
+    const queryInput = builder.locator('ok-fv-query-editor .query-input');
+    await queryInput.press('Shift+ArrowRight');
+    assert.equal((await popover.boundingBox()).width, resized.width);
+    await builder.locator('ok-fv-query-editor').evaluate(editor => {
+        editor.layout = 'formatted';
+    });
+    await builder.locator('ok-fv-query-editor .editor-field[data-layout="formatted"]').waitFor();
+    const formattedHeight = (await editorField.boundingBox()).height;
+    await popover.focus();
+    await popover.press('Shift+ArrowDown');
+    assert.equal((await editorField.boundingBox()).height, formattedHeight + 12);
+    await popover.press('Shift+ArrowUp');
+    assert.equal((await editorField.boundingBox()).height, formattedHeight);
+    await page.setViewportSize({ width: 375, height: 500 });
+    await page.waitForFunction(() => {
+        const rect = document.querySelector('ok-fv-query-builder').shadowRoot.querySelector('.query-popover').getBoundingClientRect();
+        return rect.left >= 0 && rect.right <= 375 && rect.top >= 0 && rect.bottom <= 500;
+    });
+    await popover.focus();
+    for (let i = 0; i < 40; i++) {
+        await popover.press('Shift+ArrowLeft');
+        await popover.press('Shift+ArrowUp');
+    }
+    const minimumSize = await popover.boundingBox();
+    assert.equal(minimumSize.width, 320);
+    assert.equal(minimumSize.height, 200);
+    await builder.getByRole('button', { name: 'Cancel', exact: true }).click();
+    await builder.locator('.queries-menu-button .split-button-primary').click();
+    await popover.waitFor({ state: 'visible' });
+    assert.equal((await popover.boundingBox()).width, minimumSize.width);
+    assert.equal((await popover.boundingBox()).height, minimumSize.height);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    console.log('ok-fv-query-builder--configurable pointer and keyboard resizing: passed');
 
     await page.evaluate(() => {
         const fixture = document.createElement('div');

@@ -7,6 +7,7 @@ import {
     borderRgbPartialColor,
     borderWidth,
     iconColor,
+    iconSize,
     smallPadding,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -19,6 +20,7 @@ export const styles = css`
         ${display('inline-flex')}
 
         :host {
+            position: relative;
             max-width: 100%;
             color: var(--ok-fv-expandable-chip-color, ${bodyFontColor});
             font: ${bodyFont};
@@ -51,6 +53,28 @@ export const styles = css`
         .expand-icon {
             flex: 0 0 auto;
             ${iconColor.cssCustomProperty}: currentColor;
+        }
+
+        .remove-button {
+            position: absolute;
+            inset-inline-start: calc(${borderWidth} + ${smallPadding});
+            top: 50%;
+            width: ${iconSize};
+            height: ${iconSize};
+            transform: translateY(-50%);
+        }
+
+        :host([removable]:not([disabled])) .expandable-chip {
+            padding-inline: calc(${iconSize} + 2 * ${smallPadding}) ${smallPadding};
+        }
+
+        :host([removable]:not([disabled])) :is(.expand-icon, .remove-button) {
+            visibility: hidden;
+        }
+
+        :host([removable]:not([disabled]):hover) :is(.expand-icon, .remove-button),
+        :host([removable]:not([disabled]):focus-within) :is(.expand-icon, .remove-button) {
+            visibility: visible;
         }
     }
 

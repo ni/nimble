@@ -207,7 +207,9 @@ try {
     const queryInput = builder.locator('ok-fv-query-editor').getByRole('combobox', { name: 'Query conditions', exact: true });
     await page.setViewportSize({ width: 445, height: 600 });
     await builder.evaluate(element => {
-        element.shadowRoot.querySelector('.query-popover').style.maxHeight = '140px';
+        const style = element.shadowRoot.querySelector('.query-popover').style;
+        style.minHeight = '0';
+        style.maxHeight = '140px';
     });
     await queryInput.fill('AND');
     await builder.getByRole('option', { name: 'AND Logical operator', exact: true }).waitFor();
@@ -237,7 +239,9 @@ try {
     assert.equal(await builder.getByRole('listbox').count(), 0);
     await setQuery(available);
     await builder.evaluate(element => {
-        element.shadowRoot.querySelector('.query-popover').style.removeProperty('max-height');
+        const style = element.shadowRoot.querySelector('.query-popover').style;
+        style.removeProperty('min-height');
+        style.removeProperty('max-height');
     });
     await queryInput.fill('AND');
     await builder.getByRole('option', { name: 'AND Logical operator', exact: true }).waitFor();

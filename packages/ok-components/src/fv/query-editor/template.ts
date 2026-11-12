@@ -214,6 +214,8 @@ const partTemplate = html<QueryEditorPartView, FvQueryEditor>`
                 :controlsElement="${x => x.owner.editorPanelElement}"
                 ?expanded="${x => x.owner.activeRuleId === x.rule?.id}"
                 ?disabled="${x => x.owner.disabled}"
+                removable
+                @remove="${x => x.owner.handleConditionRemove(x.rule?.id ?? '')}"
             ><span class="condition-summary">${x => x.fieldLabel} <strong class="condition-operator">${x => x.operatorLabel}</strong>${when(x => x.valueLabel.length > 0, conditionValueTemplate)}</span></${fvExpandableChipTag}>
         `
     )}

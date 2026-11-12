@@ -76,9 +76,15 @@ export const styles = css`
             display: flex;
             flex-direction: column;
             width: min(600px, calc(100vw - 32px));
+            min-width: min(320px, calc(100vw - 16px));
+            max-width: calc(100vw - 16px);
+            min-height: min(200px, 80vh, var(--query-popover-available-height, 760px));
             max-height: min(80vh, 760px, var(--query-popover-available-height, 760px));
             box-sizing: border-box;
             overflow: auto;
+            resize: both;
+            /* Keep the sticky footer clear of the native resize grip. */
+            padding-block-end: 12px;
             /* Offset with relative insets: transforms would clip fixed-position condition popovers. */
             position: relative;
             left: var(--query-popover-drag-x, 0px);
@@ -109,6 +115,7 @@ export const styles = css`
 
         .popover-content {
             display: flex;
+            flex: 1 0 auto;
             flex-direction: column;
             gap: ${standardPadding};
             min-width: 0;
@@ -175,7 +182,7 @@ export const styles = css`
         }
 
         .query-conditions {
-            display: block;
+            flex: 1 0 auto;
             min-width: 0;
         }
 

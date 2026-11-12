@@ -362,17 +362,6 @@ export class FvQueryBuilder extends FoundationElement {
         return this.saveIsPrimaryAction ? this.labels.save : this.labels.apply;
     }
 
-    @volatile
-    public get primaryActionDisabled(): boolean {
-        if (this.isEditorDisabled) {
-            return true;
-        }
-        if (!this.saveIsPrimaryAction) {
-            return !this.valid;
-        }
-        return this.isCreatingSavedQuery ? !this.canSave : !this.canSaveChanges;
-    }
-
     public get selectedQueryIsDirty(): boolean {
         if (this.selectedUnsavedDraftId !== null) {
             return true;
@@ -802,8 +791,23 @@ export class FvQueryBuilder extends FoundationElement {
 
     /** @internal */
     public handlePrimaryAction(): void {
+        if (this.isEditorDisabled) {
+            return;
+        }
         if (this.saveIsPrimaryAction) {
-            void this.saveAndApply();
+            if (!this.savedQueryName.trim()) {
+                this.operationError = this.labels.nameRequired;
+                this.queryNameInput?.focus();
+            } else if (!this.validate()) {
+                this.operationError = this.issues[0]?.message ?? this.labels.errors.invalidValue;
+                this.queryEditor?.focus();
+            } else if (!this.isCreatingSavedQuery && !this.selectedQueryIsDirty) {
+                this.applyQuery(true);
+            } else if (!this.saveHandler) {
+                this.operationError = this.labels.saveUnavailable;
+            } else {
+                void this.saveAndApply();
+            }
         } else {
             this.applyQuery(true);
         }
@@ -878,6 +882,7 @@ export class FvQueryBuilder extends FoundationElement {
     /** @internal */
     public handleEditorChange(event: Event): void {
         event.stopPropagation();
+        this.operationError = '';
         this.setInputIssues([]);
         const detail = (event as CustomEvent<QueryEditorEventDetail>).detail;
         const editorDraft = this.queryEditor?.draft;
@@ -927,7 +932,13 @@ export class FvQueryBuilder extends FoundationElement {
             && target.classList.contains('query-popover')
             && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)
         ) {
-            this.movePopover(event.key);
+            if (event.shiftKey) {
+                const dimension = ['ArrowLeft', 'ArrowRight'].includes(event.key) ? 'width' : 'height';
+                const step = ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -this.popoverMoveStep : this.popoverMoveStep;
+                target.style[dimension] = `${target.getBoundingClientRect()[dimension] + step}px`;
+            } else {
+                this.movePopover(event.key);
+            }
             event.preventDefault();
             return true;
         }
@@ -1483,7 +1494,11 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     private applyQuery(closePopover = false): void {
-        if (this.isEditorDisabled || !this.validate()) {
+        if (this.isEditorDisabled) {
+            return;
+        }
+        if (!this.validate()) {
+            this.operationError = this.issues[0]?.message ?? this.labels.errors.invalidValue;
             this.queryEditor?.focus();
             return;
         }

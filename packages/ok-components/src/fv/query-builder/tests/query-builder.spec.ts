@@ -1272,8 +1272,7 @@ describe('FvQueryBuilder', () => {
         const saveButton = getRequiredElement<FvSplitButton>('.query-action-split-button');
         const deleteButton = getRequiredElement<HTMLElement>('[data-action="request-delete"]');
         expect(saveButton.disabled).toBeFalse();
-        expect(saveButton.hasAttribute('primary-disabled')).toBeTrue();
-        expect(saveButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary')?.disabled).toBeTrue();
+        expect(saveButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary')?.disabled).toBeFalse();
         expect(saveButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle')?.disabled).toBeFalse();
         expect(deleteButton.hasAttribute('disabled')).toBeFalse();
         const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
@@ -1299,6 +1298,63 @@ describe('FvQueryBuilder', () => {
         await openSavedMenu();
         expect(getRequiredElement<HTMLElement>('[data-action="select-saved-query"][data-saved-query-id="saved-a"]')
             .textContent).toContain('Failed production');
+    });
+
+    it('applies an unchanged saved query without persisting it and keeps Delete available', async () => {
+        ({ element, disconnect } = await setup());
+        const save = jasmine.createSpy('save');
+        element.saveHandler = save;
+        element.deleteHandler = async () => {};
+        await selectSavedQuery('saved-a');
+        const button = getRequiredElement<FvSplitButton>('.query-action-split-button');
+        expect(button.disabled).toBeFalse();
+        await openActionMenu();
+        expect(getRequiredElement<HTMLElement>('[data-action="request-delete"]').hasAttribute('disabled')).toBeFalse();
+        const apply = jasmine.createSpy('query-apply');
+        element.addEventListener('query-apply', apply);
+        await activatePrimaryAction();
+        expect(save).not.toHaveBeenCalled();
+        expect(apply).toHaveBeenCalledTimes(1);
+        expect(element.isManagerOpen).toBeFalse();
+    });
+
+    it('reports invalid saves while keeping the action menu available', async () => {
+        ({ element, disconnect } = await setup());
+        element.saveHandler = jasmine.createSpy('save');
+        await selectSavedQuery('saved-a');
+        const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
+        name.value = '';
+        name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await activatePrimaryAction();
+        expect(element.operationError).toBe(element.labels.nameRequired);
+        expect(element.isManagerOpen).toBeTrue();
+        await openActionMenu();
+        expect(getRequiredElement<FvSplitButton>('.query-action-split-button').open).toBeTrue();
+        expect(element.saveHandler).not.toHaveBeenCalled();
+    });
+
+    it('reports an invalid query or unavailable save without closing the editor', async () => {
+        ({ element, disconnect } = await setup());
+        await selectSavedQuery('saved-a');
+        const name = getRequiredElement<HTMLElement & { value: string }>('[data-control="saved-query-name"]');
+        name.value = 'Changed';
+        name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        await activatePrimaryAction();
+        expect(element.operationError).toBe(element.labels.saveUnavailable);
+        expect(element.isManagerOpen).toBeTrue();
+
+        element.saveHandler = jasmine.createSpy('save');
+        const input = element.queryEditor!.shadowRoot!.querySelector<HTMLElement & { value: string }>('.query-input')!;
+        input.value = 'incomplete';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.valid).toBeFalse();
+        await activatePrimaryAction();
+        expect(element.operationError).toBe(element.issues[0]!.message);
+        expect(element.saveHandler).not.toHaveBeenCalled();
+        expect(element.isManagerOpen).toBeTrue();
     });
 
     it('saves a dirty saved query with the primary action and applies it', async () => {
@@ -1701,6 +1757,8 @@ describe('FvQueryBuilder', () => {
         await activatePrimaryAction();
         expect(element.isOperationPending).withContext(`Save state for ${element.savedQueryName}`).toBeTrue();
         await waitForUpdatesAsync();
+        expect(actionSplitButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary')?.disabled).toBeTrue();
+        expect(actionSplitButton.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle')?.disabled).toBeTrue();
         expect(getRequiredElement<FvSplitButton>('[data-control="saved-query-menu-button"]').disabled).toBeTrue();
         const invokeSelection = (element as unknown as { selectSavedQuery: (id: string | null) => void }).selectSavedQuery;
         invokeSelection.call(element, 'saved-b');

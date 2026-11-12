@@ -1913,6 +1913,40 @@ describe('FvQueryEditor', () => {
         expect(element.shadowRoot?.activeElement?.tagName.toLowerCase()).toBe('ok-fv-expandable-chip');
     });
 
+    it('keeps an open condition summary until its popover closes', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        const getChip = (): HTMLElement => getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]');
+        getChip().click();
+        await waitForUpdatesAsync();
+        const input = getRequiredElement<ValueControl>('[data-control="scalar-number"]');
+        input.value = '999999';
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+
+        expect(JSON.stringify(element.draft.tokens[0])).toContain('"value":999999');
+        expect(getChip().textContent).toContain('Duration Greater than 500');
+        expect(getChip().getAttribute('accessible-label')).toContain('Duration Greater than 500');
+
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, composed: true, cancelable: true }));
+        await waitForUpdatesAsync();
+
+        expect(getChip().textContent).toContain('Duration Greater than 999999');
+    });
+
+    it('removes a condition from its chip remove button without opening it', async () => {
+        ({ element, disconnect } = await setup(query(
+            rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
+        )));
+        const chip = getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]');
+        chip.shadowRoot?.querySelector<HTMLElement>('.remove-button')?.click();
+        await waitForUpdatesAsync();
+
+        expect(element.ruleCount).toBe(0);
+        expect(element.activeRuleId).toBeNull();
+    });
+
     it('shows a localizable close hint in place of the editor error when the condition is valid', async () => {
         ({ element, disconnect } = await setup(query(
             rule('duration-rule', 'duration', 'greater-than', { kind: 'scalar', value: 500 })
@@ -2558,7 +2592,8 @@ describe('FvQueryEditor', () => {
         await Promise.resolve();
         await waitForUpdatesAsync();
         expect(getRequiredElement<ValueControl>('[data-control="scalar-select"]').value).toBe('dynamic:%22production%22');
-        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('Production');
+        expect(getRequiredElement<ValueControl>('[data-control="scalar-select"]').textContent).toContain('Production');
+        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('"production"');
 
         const select = getRequiredElement<ValueControl>('[data-control="scalar-select"]');
         select.value = 'dynamic:%22staging%22';
@@ -2637,8 +2672,9 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
         await Promise.resolve();
         await waitForUpdatesAsync();
-        expect(getRequiredElement<ValueControl>('[data-control="scalar-select"]').value).toBe('dynamic:null');
-        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('No value');
+        const select = getRequiredElement<ValueControl>('[data-control="scalar-select"]');
+        expect(select.value).toBe('dynamic:null');
+        expect(select.textContent).toContain('No value');
     });
 
     it('validates dynamic list options individually regardless of the list minimum', async () => {
@@ -2665,7 +2701,6 @@ describe('FvQueryEditor', () => {
         await Promise.resolve();
         await waitForUpdatesAsync();
         expect(element.optionState.status).toBe('ready');
-        expect(getRequiredElement<HTMLElement>('[data-rule-id]').textContent).toContain('Alpha');
 
         element.optionResolver = {
             resolve: async () => await Promise.resolve({ options: [{ value: 'x', label: 'Invalid' }] })

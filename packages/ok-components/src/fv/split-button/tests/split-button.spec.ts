@@ -147,26 +147,6 @@ describe('FvSplitButton', () => {
         expect(buttons.every(button => button.disabled)).toBeTrue();
     });
 
-    it('can disable the primary action without disabling the menu toggle', async () => {
-        ({ element, connect, disconnect } = await setup());
-        const triggerSpy = jasmine.createSpy('trigger');
-        element.primaryDisabled = true;
-        element.addEventListener('trigger', triggerSpy);
-        await connect();
-        await waitForUpdatesAsync();
-
-        const primary = element.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-primary');
-        const toggle = element.shadowRoot?.querySelector<HTMLButtonElement>('.split-button-toggle');
-        expect(primary?.disabled).toBeTrue();
-        expect(toggle?.disabled).toBeFalse();
-        primary?.click();
-        toggle?.click();
-        await waitForUpdatesAsync();
-
-        expect(triggerSpy).not.toHaveBeenCalled();
-        expect(element.open).toBeTrue();
-    });
-
     it('does not open or emit toggle when disabled', async () => {
         ({ element, connect, disconnect } = await setup());
         const toggleSpy = jasmine.createSpy('toggle');

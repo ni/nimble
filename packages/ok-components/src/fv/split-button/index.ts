@@ -26,9 +26,6 @@ export class FvSplitButton extends FoundationElement {
     @attr({ mode: 'boolean' })
     public disabled = false;
 
-    @attr({ attribute: 'primary-disabled', mode: 'boolean' })
-    public primaryDisabled = false;
-
     @attr({ mode: 'boolean' })
     public open = false;
 
@@ -94,7 +91,7 @@ export class FvSplitButton extends FoundationElement {
 
     /** @internal */
     public handlePrimaryClick(): void {
-        if (this.disabled || this.primaryDisabled) {
+        if (this.disabled) {
             return;
         }
 

@@ -29,7 +29,8 @@ export const styles = css`
         ${display('block')}
 
         :host {
-            display: block;
+            display: flex;
+            flex-direction: column;
             max-width: 100%;
             color: ${bodyFontColor};
             font: ${bodyFont};
@@ -38,6 +39,7 @@ export const styles = css`
         .query-editor {
             position: relative;
             display: flex;
+            flex: 1 0 auto;
             flex-direction: column;
             gap: ${smallPadding};
             min-width: 0;
@@ -65,7 +67,9 @@ export const styles = css`
         .editor-field {
             position: relative;
             display: flex;
+            flex: 1 0 auto;
             flex-wrap: wrap;
+            align-content: flex-start;
             align-items: center;
             gap: ${smallPadding};
             width: 100%;

@@ -259,6 +259,12 @@ export const styles = css`
             background-color: ${applicationBackgroundColor};
         }
 
+        :host([appearance='block'][appearance-variant='accent']) .split-button-primary:is(:enabled, [href]):active,
+        :host([appearance='block'][appearance-variant='accent']) .split-button-toggle:enabled:active,
+        :host([appearance='block'][appearance-variant='accent'][open]:not([disabled])) .split-button-toggle {
+            color: ${buttonLabelFontColor};
+        }
+
         :host([appearance='outline'][appearance-variant='accent']) .split-button-primary:active,
         :host([appearance='outline'][appearance-variant='accent']) .split-button-toggle:active,
         :host([appearance='outline'][appearance-variant='accent'][open]) .split-button-toggle {

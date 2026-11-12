@@ -147,6 +147,7 @@ export interface QueryBuilderLabels {
     readonly cancelDelete: string;
     readonly createSavedQuery: string;
     readonly saveFailed: string;
+    readonly saveUnavailable: string;
     readonly deleteFailed: string;
     readonly savedQuerySaved: string;
     readonly savedQueryDeleted: string;
@@ -325,12 +326,13 @@ export const defaultQueryBuilderLabels: QueryBuilderLabels = {
     cancelDelete: 'Cancel',
     createSavedQuery: 'Create saved query',
     saveFailed: 'Could not save this query. Try again.',
+    saveUnavailable: 'Saving queries is unavailable.',
     deleteFailed: 'Could not delete this query. Try again.',
     savedQuerySaved: 'Saved query saved.',
     savedQueryDeleted: 'Saved query deleted.',
     nameRequired: 'Enter a name.',
     deleteConfirmation: 'Delete this saved query? This cannot be undone.',
-    movePopoverHint: 'Use the arrow keys to move the query editor.',
+    movePopoverHint: 'Use the arrow keys to move the query editor, or Shift and arrow keys to resize it.',
     closeSavedMenu: 'Close saved queries',
     selectSavedQuery: 'Select saved query',
     field: 'Field',

@@ -435,6 +435,8 @@ export class FvQueryEditor extends FoundationElement {
     /** @internal */
     public readonly editorId = uniqueId('ok-fv-query-editor');
     private activeEditorTrigger: HTMLElement | null = null;
+    // Keeps the open chip from resizing and moving its popover while edits update the query.
+    private activeRuleSummary: QueryEditorRuleSummary | null = null;
     private shouldFocusFirstEditorField = false;
     private fields: readonly QueryBuilderField[] = [];
     private internallyAssignedQuery?: QueryDocument;
@@ -510,7 +512,9 @@ export class FvQueryEditor extends FoundationElement {
             }
             if (token.kind === 'condition') {
                 const state = this.getRuleState(token.rule);
-                const summary = this.formatRuleSummary(token.rule);
+                const summary = token.rule.id === this.activeRuleId && this.activeRuleSummary
+                    ? this.activeRuleSummary
+                    : this.formatRuleSummary(token.rule);
                 result.push({
                     owner: this,
                     kind: token.kind,
@@ -1542,6 +1546,13 @@ export class FvQueryEditor extends FoundationElement {
         if (chip && (event.key === 'Backspace' || event.key === 'Delete')) {
             event.preventDefault();
             this.removeCondition(chip.dataset.ruleId ?? '');
+        }
+    }
+
+    /** @internal */
+    public handleConditionRemove(ruleId: string): void {
+        if (!this.disabled) {
+            this.removeCondition(ruleId);
         }
     }
 
@@ -3139,6 +3150,10 @@ export class FvQueryEditor extends FoundationElement {
         }
         this.activeEditorTrigger = trigger;
         this.editorPanelArrowOffset = null;
+        if (this.activeRuleId !== ruleId) {
+            const token = this.editorTokens.find(candidate => candidate.kind === 'condition' && candidate.rule.id === ruleId);
+            this.activeRuleSummary = token?.kind === 'condition' ? this.formatRuleSummary(token.rule) : null;
+        }
         this.activeRuleId = ruleId;
     }
 
