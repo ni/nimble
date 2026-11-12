@@ -151,7 +151,24 @@ try {
         .querySelector('.condition-chip').textContent.includes('999999'));
     await chip.hover();
     const removeButton = chip.getByRole('button', { name: 'Remove', exact: true });
-    await removeButton.click();
+    const removeBounds = await removeButton.boundingBox();
+    assert.ok(removeBounds);
+    assert.equal(removeBounds.width, 16);
+    assert.equal(removeBounds.height, 16);
+    const cornersHitRemove = await removeButton.evaluate(button => {
+        const rect = button.getBoundingClientRect();
+        const root = button.getRootNode();
+        return [-11.5, 11.5].every(x => [-11.5, 11.5].every(y => root.elementFromPoint(
+            rect.left + rect.width / 2 + x,
+            rect.top + rect.height / 2 + y
+        ) === button));
+    });
+    assert.ok(cornersHitRemove, 'All corners of the 24px target must activate Remove');
+    const iconBounds = await chip.locator('.remove-button nimble-icon-times').boundingBox();
+    assert.ok(iconBounds);
+    assert.equal(iconBounds.width, 16);
+    assert.equal(iconBounds.height, 16);
+    await page.mouse.click(removeBounds.x - 3.5, removeBounds.y - 3.5);
     await chip.waitFor({ state: 'detached' });
     assert.equal(await conditionEditor.evaluate(element => element.ruleCount), 0);
     assert.equal(await conditionEditor.evaluate(element => element.activeRuleId), null);

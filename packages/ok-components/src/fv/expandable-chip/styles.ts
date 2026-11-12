@@ -64,6 +64,17 @@ export const styles = css`
             transform: translateY(-50%);
         }
 
+        /* Extend the pointer target without enlarging the visible Nimble button. */
+        .remove-button::part(control)::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         :host([removable]:not([disabled])) .expandable-chip {
             padding-inline: calc(${iconSize} + 2 * ${smallPadding}) ${smallPadding};
         }
