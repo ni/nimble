@@ -1,6 +1,7 @@
 import { html, ref, repeat, when } from '@ni/fast-element';
 import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { dialogTag } from '@ni/nimble-components/dist/esm/dialog';
 import { iconBookMagnifyingGlassTag } from '@ni/nimble-components/dist/esm/icons/book-magnifying-glass';
 import { iconSparklesTag } from '@ni/nimble-components/dist/esm/icons/sparkles';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
@@ -228,7 +229,7 @@ export const template = html<FvQueryBuilder>`
                         `)}
                     </div>
 
-                    ${when(x => x.operationError && x.operationError !== x.labels.nameRequired, html<FvQueryBuilder>`
+                    ${when(x => !x.confirmingDelete && x.operationError && x.operationError !== x.labels.nameRequired, html<FvQueryBuilder>`
                         <span class="operation-error" id="${x => `${x.queryDialogId}-error`}" role="alert">
                             ${x => x.operationError}
                         </span>
@@ -274,34 +275,21 @@ export const template = html<FvQueryBuilder>`
                                 id="${x => x.queryActionMenuId}"
                                 aria-label="${x => x.labels.queryActions}"
                             >
-                                ${when(x => x.confirmingDelete, html<FvQueryBuilder>`
-                                    <${menuItemTag} disabled>${x => x.labels.deleteConfirmation}</${menuItemTag}>
-                                    <${menuItemTag}
-                                        role="menuitem"
-                                        data-action="cancel-delete"
-                                        ?disabled="${x => x.isOperationPending}"
-                                    >${x => x.labels.cancelDelete}</${menuItemTag}>
-                                    <${menuItemTag}
-                                        role="menuitem"
-                                        data-action="confirm-delete"
-                                        ?disabled="${x => x.isEditorDisabled || !x.deleteHandler}"
-                                    >${x => x.labels.confirmDelete}</${menuItemTag}>
-                                `)}
-                                ${when(x => !x.confirmingDelete && x.isQuickEdit, html<FvQueryBuilder>`
+                                ${when(x => x.isQuickEdit, html<FvQueryBuilder>`
                                     <${menuItemTag}
                                         role="menuitem"
                                         data-action="save-as-new"
                                         ?disabled="${x => x.isEditorDisabled || !x.savedQueryCreationEnabled || !x.saveHandler}"
                                     >${x => x.labels.saveAsNew}</${menuItemTag}>
                                 `)}
-                                ${when(x => !x.confirmingDelete && x.isCreatingSavedQuery, html<FvQueryBuilder>`
+                                ${when(x => x.isCreatingSavedQuery, html<FvQueryBuilder>`
                                     <${menuItemTag}
                                         role="menuitem"
                                         data-action="apply-query"
                                         ?disabled="${x => x.isEditorDisabled || !x.valid}"
                                     >${x => x.labels.apply}</${menuItemTag}>
                                 `)}
-                                ${when(x => !x.confirmingDelete && !x.isQuickEdit && !x.isCreatingSavedQuery, html<FvQueryBuilder>`
+                                ${when(x => !x.isQuickEdit && !x.isCreatingSavedQuery, html<FvQueryBuilder>`
                                     <${menuItemTag}
                                         role="menuitem"
                                         data-action="apply-query"
@@ -332,6 +320,21 @@ export const template = html<FvQueryBuilder>`
                         >${x => x.labels.cancel}</${buttonTag}>
                     </div>
                 </footer>
+                <${dialogTag} ${ref('deleteDialog')} ?prevent-dismiss="${x => x.isOperationPending}">
+                    <span slot="title">${x => x.labels.confirmDelete}</span>
+                    <span>${x => x.labels.deleteConfirmation}</span>
+                    ${when(x => x.confirmingDelete && x.operationError, html<FvQueryBuilder>`
+                        <span class="operation-error" role="alert">${x => x.operationError}</span>
+                    `)}
+                    <${buttonTag} slot="footer" appearance="ghost" data-action="cancel-delete"
+                        ?disabled="${x => x.isOperationPending}" autofocus>
+                        ${x => x.labels.cancelDelete}
+                    </${buttonTag}>
+                    <${buttonTag} slot="footer" appearance="block" data-action="confirm-delete"
+                        ?disabled="${x => x.isEditorDisabled || !x.deleteHandler}">
+                        ${x => x.labels.confirmDelete}
+                    </${buttonTag}>
+                </${dialogTag}>
             </section>
         </${anchoredRegionTag}>
 

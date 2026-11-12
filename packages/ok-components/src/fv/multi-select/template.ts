@@ -132,13 +132,13 @@ export const template = html<FvMultiSelect>`
                     aria-activedescendant="${x => (!x.filterable ? x.activeOptionId : null)}"
                     tabindex="${x => (x.filterable ? '-1' : '0')}"
                 >
-                    ${repeat(x => x.visibleOptions, html<FvMultiSelectOption, FvMultiSelect>`
+                    ${repeat(x => x.visibleOptions, html<FvMultiSelectOption & { selected: boolean }, FvMultiSelect>`
                         <div
                             id="${(_, c) => `${c.parent.listboxId}-${c.index}`}"
                             class="option ${(_, c) => (c.parent.activeIndex === c.index ? 'active' : '')}"
                             part="option"
                             role="option"
-                            aria-selected="${(x, c) => c.parent.selectedValues.includes(x.value)}"
+                            aria-selected="${x => x.selected}"
                             aria-disabled="${x => !!x.disabled}"
                             @mousedown="${() => false}"
                             @click="${(x, c) => {
@@ -153,7 +153,7 @@ export const template = html<FvMultiSelect>`
                                 inert
                                 aria-hidden="true"
                                 tabindex="-1"
-                                :checked="${(x, c) => c.parent.selectedValues.includes(x.value)}"
+                                :checked="${x => x.selected}"
                                 ?disabled="${x => !!x.disabled}"
                                 @change="${(_, c) => {
                                     c.event.stopPropagation();

@@ -1660,6 +1660,24 @@ describe('FvQueryEditor', () => {
         expect(element.shadowRoot?.querySelector('[data-rule-id="duplicate-rule"]')).toBeNull();
     });
 
+    it('marks duplicate draft conditions invalid without affecting distinct conditions', async () => {
+        ({ element, disconnect } = await setup());
+        const condition = {
+            id: 'duplicate',
+            fieldId: 'duration',
+            operatorId: 'greater-than' as const,
+            operand: { kind: 'scalar' as const, value: 5 },
+            revision: 0
+        };
+        element.editorTokens = [
+            { kind: 'condition', groupId: 'root', rule: condition, value: 5 },
+            { kind: 'condition', groupId: 'root', rule: condition, value: 5 },
+            { kind: 'condition', groupId: 'root', rule: { ...condition, id: 'unique' }, value: 5 }
+        ];
+        expect(element.parts.filter(part => part.kind === 'condition').map(part => part.state))
+            .toEqual(['invalid', 'invalid', 'complete']);
+    });
+
     it('shows error styling only when invalid condition callouts are closed', async () => {
         ({ element, disconnect } = await setup(query(
             rule('missing-value-rule', 'status', 'is', { kind: 'none' }),

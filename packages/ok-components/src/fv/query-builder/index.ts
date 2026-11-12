@@ -3,6 +3,7 @@ import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { uniqueId } from '@ni/fast-web-utilities';
 import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
 import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
+import type { Dialog } from '@ni/nimble-components/dist/esm/dialog';
 import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 import type { FvSplitButton } from '../split-button';
 import type { FvQueryEditor, QueryEditorEventDetail } from '../query-editor';
@@ -293,6 +294,9 @@ export class FvQueryBuilder extends FoundationElement {
     public savedQueryMenuButton?: FvSplitButton;
 
     @observable
+    public deleteDialog?: Dialog;
+
+    @observable
     public aiPromptTrigger?: HTMLElement;
 
     @observable
@@ -450,6 +454,7 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     public override disconnectedCallback(): void {
+        this.confirmingDelete = false;
         document.removeEventListener('pointerdown', this.documentPointerDownHandler, true);
         document.removeEventListener('focusin', this.documentFocusInHandler, true);
         document.removeEventListener('scroll', this.queryViewportChangeHandler, true);
@@ -652,6 +657,26 @@ export class FvQueryBuilder extends FoundationElement {
     }
 
     /** @internal */
+    public confirmingDeleteChanged(): void {
+        if (!this.confirmingDelete) {
+            if (this.deleteDialog?.open) {
+                this.deleteDialog.close();
+            }
+            return;
+        }
+        const dialog = this.deleteDialog;
+        if (dialog?.isConnected && !dialog.open) {
+            const closed = dialog.show();
+            this.shadowRoot?.querySelector<HTMLElement>('[data-action="cancel-delete"]')?.focus();
+            void closed.then(() => {
+                if (!dialog.open && this.confirmingDelete) {
+                    this.cancelDeleteConfirmation();
+                }
+            });
+        }
+    }
+
+    /** @internal */
     public isSavedMenuOpenChanged(): void {
         this.updateBuilderAriaRelationships();
         if (this.isSavedMenuOpen) {
@@ -742,10 +767,12 @@ export class FvQueryBuilder extends FoundationElement {
                 }
                 break;
             case 'cancel-delete':
-                this.confirmingDelete = false;
+                if (this.confirmingDelete) {
+                    this.cancelDeleteConfirmation();
+                }
                 break;
             case 'confirm-delete':
-                if (this.savedQueryDeletionEnabled) {
+                if (this.savedQueryDeletionEnabled && this.confirmingDelete && this.deleteDialog?.open) {
                     void this.deleteSelectedQuery();
                 }
                 break;
@@ -956,9 +983,12 @@ export class FvQueryBuilder extends FoundationElement {
         }
         if (event.key === 'Escape') {
             if (this.confirmingDelete) {
-                this.confirmingDelete = false;
-                event.preventDefault();
-            } else if (this.isAiPromptOpen) {
+                if (this.isOperationPending) {
+                    event.preventDefault();
+                }
+                return true;
+            }
+            if (this.isAiPromptOpen) {
                 this.closeAiPrompt(true);
                 event.preventDefault();
             } else if (this.isCreatingSavedQuery) {
@@ -1643,6 +1673,15 @@ export class FvQueryBuilder extends FoundationElement {
         if (this.queryEditor) {
             this.queryEditor.activeRuleId = null;
         }
+    }
+
+    private cancelDeleteConfirmation(): void {
+        this.confirmingDelete = false;
+        requestAnimationFrame(() => {
+            if (this.isConnected && this.isManagerOpen && !this.confirmingDelete && !this.isEditorDisabled) {
+                this.shadowRoot?.querySelector<FvSplitButton>('.query-action-split-button')?.toggleButton?.focus();
+            }
+        });
     }
 
     private findAction(event: Event): HTMLElement | undefined {

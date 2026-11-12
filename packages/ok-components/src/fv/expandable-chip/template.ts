@@ -15,7 +15,6 @@ export const template = html<FvExpandableChip>`
         aria-label="${x => x.accessibleLabel || null}"
         aria-haspopup="dialog"
         aria-expanded="${x => String(x.expanded)}"
-        aria-controls="${x => x.controls || null}"
     >
         <span class="label"><slot></slot></span>
         <${iconArrowExpanderDownTag} class="expand-icon" aria-hidden="true"></${iconArrowExpanderDownTag}>

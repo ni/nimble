@@ -69,11 +69,21 @@ export class FvExpandableChip extends FoundationElement {
     private syncControlsRelationship(): void {
         const button = this.buttonElement as (HTMLButtonElement & { ariaControlsElements?: Element[] }) | undefined;
         if (button) {
-            const root = this.getRootNode() as Document | ShadowRoot;
+            const root = this.getRootNode();
             const controlledElement = this.controlsElement
-                ?? (this.controls ? root.getElementById(this.controls) : null);
-            if (controlledElement) {
+                ?? (this.controls && (root instanceof Document || root instanceof ShadowRoot)
+                    ? root.getElementById(this.controls) : null);
+            if (controlledElement && 'ariaControlsElements' in button) {
                 button.ariaControlsElements = [controlledElement];
+            } else {
+                if ('ariaControlsElements' in button) {
+                    button.ariaControlsElements = [];
+                }
+                if (this.controls) {
+                    button.setAttribute('aria-controls', this.controls);
+                } else {
+                    button.removeAttribute('aria-controls');
+                }
             }
         }
     }

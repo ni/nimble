@@ -1,6 +1,7 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { ChatInputPageObject } from '@ni/spright-components/dist/esm/chat/input/testing/chat-input.pageobject';
+import type { Dialog } from '@ni/nimble-components/dist/esm/dialog';
 import type { ChatInput } from '@ni/spright-components/dist/esm/chat/input';
 import type { FvSplitButton } from '../../split-button';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
@@ -979,7 +980,7 @@ describe('FvQueryBuilder', () => {
 
         expect(element.confirmingDelete).toBeFalse();
         expect(element.shadowRoot?.querySelector('[data-action="request-delete"]')).toBeNull();
-        expect(element.shadowRoot?.querySelector('[data-action="confirm-delete"]')).toBeNull();
+        expect(getRequiredElement<Dialog>('nimble-dialog').open).toBeFalse();
     });
 
     it('updates menu selection and dirty indicators when saved queries load after connection', async () => {
@@ -1609,14 +1610,55 @@ describe('FvQueryBuilder', () => {
         await openSavedMenu();
         await activateSavedMenuItem('[data-action="edit-saved-queries"]');
         await activateActionMenuItem('[data-action="request-delete"]');
-        await activateActionMenuItem('[data-action="cancel-delete"]');
+        const actionMenu = getRequiredElement<FvSplitButton>('.query-action-split-button');
+        const dialog = getRequiredElement<Dialog>('nimble-dialog');
+        expect(actionMenu.open).toBeFalse();
+        expect(dialog.open).toBeTrue();
+        expect(dialog.dialogElement.matches(':modal')).toBeTrue();
+        expect(dialog.textContent).toContain(element.labels.deleteConfirmation);
+        expect(element.shadowRoot?.activeElement).toBe(getRequiredElement('[data-action="cancel-delete"]'));
+        await activateSavedMenuItem('[data-action="cancel-delete"]');
         expect(element.savedQueries).toHaveSize(2);
+        expect(dialog.open).toBeFalse();
+        await new Promise<void>(resolve => {
+            requestAnimationFrame(() => resolve());
+        });
+        expect(actionMenu.shadowRoot?.activeElement).toBe(actionMenu.toggleButton);
 
         await activateActionMenuItem('[data-action="request-delete"]');
-        await activateActionMenuItem('[data-action="confirm-delete"]');
+        await activateSavedMenuItem('[data-action="confirm-delete"]');
         expect(element.savedQueries.map(record => record.id)).toEqual(['saved-b']);
         expect(element.selectedSavedQueryId).toBeNull();
         expect(element.queryEditor?.query).toEqual(currentDocument);
+    });
+
+    it('clears delete confirmation when the dialog is dismissed', async () => {
+        ({ element, disconnect } = await setup());
+        element.deleteHandler = async () => {};
+        await selectSavedQuery('saved-a');
+        await activateActionMenuItem('[data-action="request-delete"]');
+        const dialog = getRequiredElement<Dialog>('nimble-dialog');
+        dialog.dialogElement.dispatchEvent(new Event('cancel', { cancelable: true }));
+        dialog.dialogElement.close();
+        await waitForUpdatesAsync();
+        expect(element.confirmingDelete).toBeFalse();
+        expect(element.isManagerOpen).toBeTrue();
+        expect(element.savedQueries).toHaveSize(2);
+        await new Promise<void>(resolve => {
+            requestAnimationFrame(() => resolve());
+        });
+        const actionMenu = getRequiredElement<FvSplitButton>('.query-action-split-button');
+        expect(actionMenu.shadowRoot?.activeElement).toBe(actionMenu.toggleButton);
+    });
+
+    it('does not delete through the closed confirmation dialog', async () => {
+        ({ element, disconnect } = await setup());
+        const deleteHandler = jasmine.createSpy('deleteHandler').and.resolveTo();
+        element.deleteHandler = deleteHandler;
+        await selectSavedQuery('saved-a');
+        await activateSavedMenuItem('[data-action="confirm-delete"]');
+        expect(deleteHandler).not.toHaveBeenCalled();
+        expect(element.savedQueries).toHaveSize(2);
     });
 
     it('cancels creation without changing the source selection or draft', async () => {
@@ -1785,8 +1827,14 @@ describe('FvQueryBuilder', () => {
         };
         await waitForUpdatesAsync();
         await activateActionMenuItem('[data-action="request-delete"]');
-        await activateActionMenuItem('[data-action="confirm-delete"]');
+        await activateSavedMenuItem('[data-action="confirm-delete"]');
         expect(element.isOperationPending).toBeTrue();
+        const dialog = getRequiredElement<Dialog>('nimble-dialog');
+        expect(dialog.open).toBeTrue();
+        expect(dialog.preventDismiss).toBeTrue();
+        const cancel = new Event('cancel', { cancelable: true });
+        dialog.dialogElement.dispatchEvent(cancel);
+        expect(cancel.defaultPrevented).toBeTrue();
 
         const invokeSelection = (element as unknown as { selectSavedQuery: (id: string | null) => void }).selectSavedQuery;
         invokeSelection.call(element, 'saved-b');
@@ -1902,12 +1950,12 @@ describe('FvQueryBuilder', () => {
         };
         await selectSavedQuery('saved-a');
         await activateActionMenuItem('[data-action="request-delete"]');
-        await activateActionMenuItem('[data-action="confirm-delete"]');
+        await activateSavedMenuItem('[data-action="confirm-delete"]');
 
         expect(element.selectedSavedQueryId).toBe('saved-a');
         expect(element.shadowRoot?.querySelector('[data-control="saved-query-name"]')).toBeNull();
-        expect(getRequiredElement<HTMLElement>('.operation-error[role="alert"]').textContent).toContain(element.labels.deleteFailed);
-        await activateActionMenuItem('[data-action="confirm-delete"]');
+        expect(getRequiredElement<HTMLElement>('nimble-dialog .operation-error[role="alert"]').textContent).toContain(element.labels.deleteFailed);
+        await activateSavedMenuItem('[data-action="confirm-delete"]');
         expect(attempts).toBe(2);
         expect(element.savedQueries.map(record => record.id)).toEqual(['saved-b']);
     });

@@ -487,6 +487,19 @@ export class FvQueryEditor extends FoundationElement {
     @volatile
     public get parts(): readonly QueryEditorPartView[] {
         const result: QueryEditorPartView[] = [];
+        const ruleCounts = new Map<string, number>();
+        const ruleValues = new Map<string, Set<JsonValue | undefined>>();
+        for (const token of this.editorTokens) {
+            if (token.kind === 'condition') {
+                ruleCounts.set(token.rule.id, (ruleCounts.get(token.rule.id) ?? 0) + 1);
+                let values = ruleValues.get(token.rule.id);
+                if (!values) {
+                    values = new Set();
+                    ruleValues.set(token.rule.id, values);
+                }
+                values.add(token.value);
+            }
+        }
         for (let position = 0; position <= this.editorTokens.length; position += 1) {
             result.push({
                 owner: this,
@@ -511,10 +524,10 @@ export class FvQueryEditor extends FoundationElement {
                 continue;
             }
             if (token.kind === 'condition') {
-                const state = this.getRuleState(token.rule);
+                const state = this.getRuleState(token, (ruleCounts.get(token.rule.id) ?? 0) > 1);
                 const summary = token.rule.id === this.activeRuleId && this.activeRuleSummary
                     ? this.activeRuleSummary
-                    : this.formatRuleSummary(token.rule);
+                    : this.formatRuleSummary(token.rule, ruleValues.get(token.rule.id));
                 result.push({
                     owner: this,
                     kind: token.kind,
@@ -3019,26 +3032,22 @@ export class FvQueryEditor extends FoundationElement {
         }
     }
 
-    private getRuleState(rule: QueryBuilderRule): 'complete' | 'incomplete' | 'invalid' {
-        if (this.hasDuplicateRuleId(rule.id)) {
+    private getRuleState(token: Extract<QueryEditorToken, { kind: 'condition' }>, duplicate: boolean): 'complete' | 'incomplete' | 'invalid' {
+        const rule = token.rule;
+        if (duplicate) {
             return 'invalid';
         }
         if (this.definition) {
-            const token = this.editorTokens.find(
-                candidate => candidate.kind === 'condition' && candidate.rule.id === rule.id
-            );
-            if (token?.kind === 'condition') {
-                const result = validateQuery({
-                    version: 1,
-                    root: this.createPredicate(token)
-                }, this.definition);
-                if (result.valid) {
-                    return 'complete';
-                }
-                return result.issues.some(issue => issue.code === 'incomplete-expression')
-                    ? 'incomplete'
-                    : 'invalid';
+            const result = validateQuery({
+                version: 1,
+                root: this.createPredicate(token)
+            }, this.definition);
+            if (result.valid) {
+                return 'complete';
             }
+            return result.issues.some(issue => issue.code === 'incomplete-expression')
+                ? 'incomplete'
+                : 'invalid';
         }
         const field = this.fields.find(candidate => candidate.id === rule.fieldId);
         if (!field) {
@@ -3053,7 +3062,7 @@ export class FvQueryEditor extends FoundationElement {
             : 'invalid';
     }
 
-    private formatRuleSummary(rule: QueryBuilderRule): QueryEditorRuleSummary {
+    private formatRuleSummary(rule: QueryBuilderRule, ruleValues?: ReadonlySet<JsonValue | undefined>): QueryEditorRuleSummary {
         const field = this.fields.find(candidate => candidate.id === rule.fieldId);
         const fieldLabel = field?.label ?? rule.fieldId;
         const operatorLabel = this.operatorSymbol(rule.operatorId);
@@ -3077,8 +3086,8 @@ export class FvQueryEditor extends FoundationElement {
         } else if (operand.kind === 'key-value') {
             valueLabel = `${operand.key || this.labels.unset.toLocaleLowerCase()}: ${operand.value || this.labels.unset.toLocaleLowerCase()}`;
         } else if ((operand.value === null || operand.value === '')
-            && !(this.definition && this.editorTokens.some(token => token.kind === 'condition'
-                && token.rule.id === rule.id && token.value === operand.value)
+            && !(this.definition && (ruleValues ? ruleValues.has(operand.value) : this.editorTokens.some(token => token.kind === 'condition'
+                && token.rule.id === rule.id && token.value === operand.value))
                 && (this.getOptionSource(rule.fieldId, rule.operatorId)
                     || staticOptions(this.getEffectiveSchema(rule.fieldId, rule.operatorId) ?? true)))) {
             valueLabel = this.labels.unset.toLocaleLowerCase();

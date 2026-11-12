@@ -69,6 +69,24 @@ describe('FvMultiSelect', () => {
         expect(document.createElement(fvMultiSelectTag)).toBeInstanceOf(FvMultiSelect);
     });
 
+    it('updates selected labels and options while preserving order, duplicates and missing values', async () => {
+        element.options = [
+            { value: 'a', label: 'First' },
+            { value: 'a', label: 'Second' },
+            { value: 'b', label: 'Other' }
+        ];
+        element.selectedValues = ['b', 'missing', 'a', 'a'];
+        await waitForUpdatesAsync();
+        expect(element.displayValue).toBe('Other, missing, First, First');
+        expect(element.shadowRoot?.querySelectorAll('[role="option"][aria-selected="true"]').length).toBe(3);
+
+        element.options = [{ value: 'b', label: 'Updated' }, { value: 'a', label: 'New' }];
+        element.selectedValues = ['a'];
+        await waitForUpdatesAsync();
+        expect(element.displayValue).toBe('New');
+        expect(element.shadowRoot?.querySelectorAll('[role="option"][aria-selected="true"]').length).toBe(1);
+    });
+
     it('delegates host focus to the trigger without opening the popup', async () => {
         element.clearable = true;
         element.selectedValues = ['active'];

@@ -52,6 +52,37 @@ describe('FvExpandableChip', () => {
             (HTMLButtonElement & { ariaControlsElements?: Element[] }) | undefined;
 
         expect(button?.ariaControlsElements).toEqual([dialog]);
+        element.controls = 'another-id';
+        await waitForUpdatesAsync();
+        expect(button?.ariaControlsElements).toEqual([dialog]);
+        element.controls = 'status-editor';
+        await waitForUpdatesAsync();
+        element.controlsElement = undefined;
+        await waitForUpdatesAsync();
+        expect(button?.ariaControlsElements).toEqual([dialog]);
+        element.controlsElement = dialog;
+        dialog.id = 'different-editor';
+        element.controlsElement = undefined;
+        await waitForUpdatesAsync();
+        expect(button?.ariaControlsElements ?? []).not.toContain(dialog);
+        expect(button?.getAttribute('aria-controls')).toBe('status-editor');
+        dialog.remove();
+    });
+
+    it('can change controls while detached and resolve them after reconnecting', async () => {
+        ({ element, disconnect } = await setup());
+        const dialog = document.createElement('section');
+        dialog.id = 'detached-chip-dialog';
+        document.body.append(dialog);
+        const parent = element.parentElement!;
+        element.remove();
+        expect(() => {
+            element.controls = dialog.id;
+        }).not.toThrow();
+        parent.append(element);
+        await waitForUpdatesAsync();
+        const button = element.shadowRoot!.querySelector('button')!;
+        expect(button.ariaControlsElements).toEqual([dialog]);
         dialog.remove();
     });
 

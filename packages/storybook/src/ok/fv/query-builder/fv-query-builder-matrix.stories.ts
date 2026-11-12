@@ -14,7 +14,8 @@ import {
     createMatrixThemeStory,
     sharedMatrixParameters
 } from '../../../utilities/matrix';
-import { disableStorybookZoomTransform } from '../../../utilities/storybook';
+import { createFixedThemeStory, disableStorybookZoomTransform } from '../../../utilities/storybook';
+import { backgroundStates } from '../../../utilities/states';
 import { queryBuilderDefinition, queryBuilderPresets } from './fixtures';
 
 const metadata: Meta = {
@@ -151,7 +152,6 @@ const prepareBuilders: NonNullable<StoryFn['play']> = async ({ canvasElement }) 
         builder.isSavedMenuOpen = state.view === 'menu';
         builder.isAiPromptOpen = state.prompt ?? false;
         builder.aiQueryPreview = state.preview ? queryBuilderPresets.saved : null;
-        builder.confirmingDelete = state.confirmation ?? false;
         builder.isOperationPending = state.pending ?? false;
         builder.operationError = state.error ? builder.labels.saveFailed : '';
     }));
@@ -171,10 +171,26 @@ const prepareBuilders: NonNullable<StoryFn['play']> = async ({ canvasElement }) 
 export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${disableStorybookZoomTransform}
     <div style="display: grid; grid-template-columns: repeat(2, 660px);">
-        ${createMatrix(component, [states])}
+        ${createMatrix(component, [states.filter(state => !state.confirmation)])}
     </div>
 `);
 statesThemeMatrix.play = prepareBuilders;
+
+const confirmationState = states.find(state => state.confirmation)!;
+const prepareConfirmation: NonNullable<StoryFn['play']> = async context => {
+    context.canvasElement.querySelector('section')?.removeAttribute('inert');
+    await prepareBuilders(context);
+    const builder = context.canvasElement.querySelector<FvQueryBuilder>(fvQueryBuilderTag)!;
+    builder.confirmingDelete = true;
+    await waitForUpdatesAsync();
+};
+
+export const deleteConfirmationLightTheme: StoryFn = createFixedThemeStory(component(confirmationState), backgroundStates[0]);
+deleteConfirmationLightTheme.play = prepareConfirmation;
+export const deleteConfirmationColorTheme: StoryFn = createFixedThemeStory(component(confirmationState), backgroundStates[1]);
+deleteConfirmationColorTheme.play = prepareConfirmation;
+export const deleteConfirmationDarkTheme: StoryFn = createFixedThemeStory(component(confirmationState), backgroundStates[2]);
+deleteConfirmationDarkTheme.play = prepareConfirmation;
 
 export const featuresThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${disableStorybookZoomTransform}
