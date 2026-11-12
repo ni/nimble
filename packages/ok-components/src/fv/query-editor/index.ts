@@ -3249,17 +3249,17 @@ export class FvQueryEditor extends FoundationElement {
     }
 
     private updateEditorPanelAvailableWidth(anchor: HTMLElement | null): boolean {
-        const container = this.shadowRoot?.querySelector<HTMLElement>('.editor-panel-container');
-        if (!anchor?.isConnected || !container?.isConnected) {
+        const region = this.editorRegion;
+        if (!anchor?.isConnected || !region?.isConnected) {
             return false;
         }
         const documentWidth = document.documentElement.clientWidth;
         const viewportWidth = documentWidth > 0 ? documentWidth : window.innerWidth;
         const availableWidth = `${Math.max(0, viewportWidth - anchor.getBoundingClientRect().left - 16)}px`;
-        if (container.style.getPropertyValue('--editor-panel-available-width') === availableWidth) {
+        if (region.style.getPropertyValue('--editor-panel-available-width') === availableWidth) {
             return false;
         }
-        container.style.setProperty('--editor-panel-available-width', availableWidth);
+        region.style.setProperty('--editor-panel-available-width', availableWidth);
         return true;
     }
 

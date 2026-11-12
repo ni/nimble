@@ -3420,6 +3420,8 @@ describe('FvQueryEditor', () => {
         element.style.width = '480px';
 
         const chip = getRequiredElement<HTMLElement>('[data-rule-id="duration-rule"]');
+        const chipOffset = chip.getBoundingClientRect().left - element.getBoundingClientRect().left;
+        element.style.left = `${viewportWidth - 200 - chipOffset}px`;
         const trigger = chip.shadowRoot?.querySelector<HTMLButtonElement>('button');
         if (!trigger) {
             throw new Error('Expected the duration condition chip to expose its edit button');
