@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 13 Nov 2026 22:34:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 13 Nov 2026 23:59:00 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.18.1
+
+Fri, 13 Nov 2026 23:59:00 GMT
+
+### Patches
+
+- Align FV multi-select popup option styling with Nimble menus ([ni/nimble@d71f39c](https://github.com/ni/nimble/commit/d71f39c19d043141adac6f8e852c2dd102d2b35c))
 
 ## 1.18.0
 
