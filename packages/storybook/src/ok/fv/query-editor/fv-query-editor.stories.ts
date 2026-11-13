@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
-import { html } from '@ni/fast-element';
+import { html, ref } from '@ni/fast-element';
 import {
     fvQueryEditorTag,
+    type FvQueryEditor,
     type QueryBuilderDefinition,
     type QueryDocument,
     type QueryEditorLayout
@@ -16,6 +17,7 @@ import { queryBuilderDefinition } from '../query-builder/fixtures';
 import { queryEditorPresets } from './fixtures';
 
 interface StoryArgs {
+    editor?: FvQueryEditor;
     label: string;
     disabled: boolean;
     defaultField: string;
@@ -25,25 +27,47 @@ interface StoryArgs {
     query?: QueryDocument;
 }
 
+const template = html<StoryArgs>`
+    ${okWarning({
+        componentName: 'fv query editor',
+        statusLink: './?path=/docs/component-status--docs#ok-components'
+    })}
+    ${disableStorybookZoomTransform}
+    <div style="max-width: 1000px; padding: 16px; min-height: 640px; box-sizing: border-box;">
+        <${fvQueryEditorTag}
+            label="${x => x.label}"
+            :disabled="${x => x.disabled}"
+            default-field="${x => x.defaultField}"
+            layout="${x => x.layout}"
+            :definition="${x => x.definition}"
+            ${ref('editor')}
+        ></${fvQueryEditorTag}>
+    </div>
+`;
+
 const metadata: Meta<StoryArgs> = {
     title: 'Ok/Fv Query Editor',
-    render: createUserSelectedThemeStory(html<StoryArgs>`
-        ${okWarning({
-            componentName: 'fv query editor',
-            statusLink: './?path=/docs/component-status--docs#ok-components'
-        })}
-        ${disableStorybookZoomTransform}
-        <div style="max-width: 1000px; padding: 16px; min-height: 640px; box-sizing: border-box;">
-            <${fvQueryEditorTag}
-                label="${x => x.label}"
-                :disabled="${x => x.disabled}"
-                default-field="${x => x.defaultField}"
-                layout="${x => x.layout}"
-                :definition="${x => x.definition}"
-                :query="${x => structuredClone(x.query ?? queryEditorPresets[x.preset])}"
-            ></${fvQueryEditorTag}>
-        </div>
-    `),
+    render: (args, context) => {
+        const source = { ...args };
+        const result = createUserSelectedThemeStory(template)(source, context);
+        const editor = source.editor;
+        if (!editor) {
+            throw new Error('Story template did not create the query editor.');
+        }
+        const validationPreset = !args.query && args.preset === 'validation';
+        editor.query = structuredClone(validationPreset ? queryEditorPresets.basic : (args.query ?? queryEditorPresets[args.preset]));
+        if (validationPreset) {
+            editor.draft = {
+                ...editor.draft,
+                tokens: editor.draft.tokens.map(token => (
+                    token.kind === 'condition' && token.fieldId === 'duration'
+                        ? { ...token, value: null }
+                        : token
+                ))
+            };
+        }
+        return result;
+    },
     argTypes: {
         label: {
             description: 'Accessible name for the query editor.',
@@ -76,7 +100,8 @@ const metadata: Meta<StoryArgs> = {
             control: 'select',
             options: Object.keys(queryEditorPresets),
             table: { category: 'Demo' }
-        }
+        },
+        editor: { control: false, table: { disable: true } }
     },
     args: {
         label: 'Query conditions',

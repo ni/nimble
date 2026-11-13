@@ -330,8 +330,7 @@ try {
     await builder.getByRole('menuitem', { name: 'Edit saved query', exact: true }).click();
     await builder.locator('.query-action-split-button .split-button-toggle').click();
     await builder.getByRole('menuitem', { name: 'Delete', exact: true }).click();
-    await builder.locator('.query-action-split-button .split-button-toggle').click();
-    await builder.getByRole('menuitem', { name: 'Delete query', exact: true }).click();
+    await builder.locator('nimble-dialog').getByRole('button', { name: 'Delete query', exact: true }).click();
     await builder.getByRole('button', { name: 'Query', exact: true }).waitFor();
     await openQueryMenu();
     assert.equal(await builder.getByRole('menuitem', { name: 'Renamed lab query', exact: true }).count(), 0);

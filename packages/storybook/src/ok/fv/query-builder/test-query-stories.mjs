@@ -118,6 +118,36 @@ try {
         page.off('pageerror', onError);
     }
 
+    await page.goto(`${baseUrl}/iframe.html?id=ok-fv-query-editor--configurable&viewMode=story&args=preset:validation`);
+    const invalidEditor = page.locator('ok-fv-query-editor');
+    await invalidEditor.locator('[data-rule-id][data-state="invalid"]').waitFor();
+    assert.equal(await invalidEditor.evaluate(element => element.ruleCount), 3);
+    assert.equal(await invalidEditor.evaluate(element => element.valid), false);
+    const updateEditorArgs = updatedArgs => page.evaluate(args => {
+        window.__STORYBOOK_ADDONS_CHANNEL__.emit('updateStoryArgs', {
+            storyId: 'ok-fv-query-editor--configurable',
+            updatedArgs: args
+        });
+    }, updatedArgs);
+    await updateEditorArgs({ preset: 'basic' });
+    await page.waitForFunction(() => {
+        const editor = document.querySelector('ok-fv-query-editor');
+        return editor?.valid && editor.ruleCount === 3;
+    });
+    await updateEditorArgs({ preset: 'validation' });
+    await invalidEditor.locator('[data-rule-id][data-state="invalid"]').waitFor();
+    await updateEditorArgs({ query: { version: 1, root: null } });
+    await page.waitForFunction(() => {
+        const editor = document.querySelector('ok-fv-query-editor');
+        return editor?.valid && editor.ruleCount === 0;
+    });
+    await updateEditorArgs({ query: null });
+    await invalidEditor.locator('[data-rule-id][data-state="invalid"]').waitFor();
+    await invalidEditor.locator('[data-rule-id][data-state="invalid"]').click();
+    await invalidEditor.locator('[data-control="scalar-number"] input').fill('500');
+    assert.equal(await invalidEditor.evaluate(element => element.valid), true);
+    console.log('ok-fv-query-editor--configurable validation preset remains editable: passed');
+
     await page.goto(`${baseUrl}/iframe.html?id=ok-fv-query-editor--configurable&viewMode=story`);
     const conditionEditor = page.locator('ok-fv-query-editor');
     await conditionEditor.locator('.condition-chip').first().click();

@@ -66,9 +66,9 @@ including zero, false, empty strings, and explicit null when allowed.
 position, input text, stable local token IDs, and optional raw input buffers.
 It preserves incomplete or invalid work and is not an executable query. Raw
 buffers take precedence over previously parsed values when validating.
-Programmatic query and draft assignments are authoritative snapshots; a
-malformed assignment is rejected with issues instead of silently clearing the
-editor. A shape-valid but semantically invalid query can remain inspectable.
+Programmatic query and draft assignments are authoritative snapshots. An
+invalid query assignment is rejected with issues instead of silently clearing
+the editor; an invalid but well-formed draft remains inspectable.
 
 ### Validation and events
 
