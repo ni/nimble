@@ -2,6 +2,44 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Fri, 13 Nov 2026 22:34:49 GMT",
+      "version": "1.18.0",
+      "tag": "@ni/ok-components_v1.18.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "963d4555aa68f3efef31e203cfc76a250b47de0e",
+            "comment": "Add the ok-fv-text-field component with configurable Maskito input masking."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 13 Nov 2026 22:11:54 GMT",
+      "version": "1.17.0",
+      "tag": "@ni/ok-components_v1.17.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "fe6939f1f5f3cfb18dd0dba0106184ce70bd5f55",
+            "comment": "Add the FV date/time picker with date-only mode, native form constraints, localized masked entry, and a calendar popup"
+          }
+        ],
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "3047cc7834b3b89462c84af30224fb7c733819c4",
+            "comment": "Fix FV multi-select popup closing when a delayed focusout fires after it reopens"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 Nov 2026 22:50:35 GMT",
       "version": "1.16.0",
       "tag": "@ni/ok-components_v1.16.0",
