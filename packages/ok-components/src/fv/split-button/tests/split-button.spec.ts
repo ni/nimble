@@ -120,6 +120,83 @@ describe('FvSplitButton', () => {
         expect(document.activeElement).toBe(items[0]!);
     });
 
+    it('restores focus after selecting a menu item without overriding the action destination', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
+            <${fvSplitButtonTag} label="Apply">
+                <${menuTag} slot="menu">
+                    <${menuItemTag}>First</${menuItemTag}>
+                </${menuTag}>
+            </${fvSplitButtonTag}>
+        `));
+        await connect();
+        const toggle = element.shadowRoot!.querySelector<HTMLButtonElement>('.split-button-toggle')!;
+        const menu = element.querySelector<HTMLElement>(menuTag)!;
+        const item = menu.querySelector<HTMLElement>(menuItemTag)!;
+        const destination = document.createElement('button');
+        element.parentElement!.append(destination);
+
+        toggle.click();
+        await waitForUpdatesAsync();
+        if (!element.region!.initialLayoutComplete) {
+            await waitForEvent(element.region!, 'loaded');
+        }
+        expect(document.activeElement).toBe(item);
+        item.click();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeFalse();
+        expect(element.shadowRoot?.activeElement).toBe(toggle);
+
+        toggle.click();
+        await waitForUpdatesAsync();
+        if (!element.region!.initialLayoutComplete) {
+            await waitForEvent(element.region!, 'loaded');
+        }
+        menu.addEventListener('change', () => destination.focus(), { once: true });
+        item.click();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeFalse();
+        expect(document.activeElement).toBe(destination);
+
+        toggle.click();
+        await waitForUpdatesAsync();
+        if (!element.region!.initialLayoutComplete) {
+            await waitForEvent(element.region!, 'loaded');
+        }
+        destination.focus();
+        item.click();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeFalse();
+        expect(document.activeElement).toBe(destination);
+    });
+
+    it('restores focus after selection when the split button is inside a shadow root', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
+            <${fvSplitButtonTag} label="Apply">
+                <${menuTag} slot="menu">
+                    <${menuItemTag}>First</${menuItemTag}>
+                </${menuTag}>
+            </${fvSplitButtonTag}>
+        `));
+        await connect();
+        const host = document.createElement('div');
+        element.parentElement!.append(host);
+        const root = host.attachShadow({ mode: 'open' });
+        root.append(element);
+        const toggle = element.shadowRoot!.querySelector<HTMLButtonElement>('.split-button-toggle')!;
+        const item = element.querySelector<HTMLElement>(menuItemTag)!;
+
+        toggle.click();
+        await waitForUpdatesAsync();
+        if (!element.region!.initialLayoutComplete) {
+            await waitForEvent(element.region!, 'loaded');
+        }
+        expect(root.activeElement).toBe(item);
+        item.click();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeFalse();
+        expect(element.shadowRoot?.activeElement).toBe(toggle);
+    });
+
     it('reopens the menu in the top layer without growing it', async () => {
         ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
             <${fvSplitButtonTag} label="Apply">

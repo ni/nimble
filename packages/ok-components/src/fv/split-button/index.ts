@@ -132,6 +132,11 @@ export class FvSplitButton extends FoundationElement {
     /** @internal */
     public handleMenuChange(): void {
         this.setOpen(false);
+        const menu = this.querySelector<HTMLElement>('[slot="menu"]');
+        const root = menu?.getRootNode();
+        if ((root instanceof Document || root instanceof ShadowRoot) && menu?.contains(root.activeElement)) {
+            this.toggleButton?.focus();
+        }
     }
 
     /** @internal */
