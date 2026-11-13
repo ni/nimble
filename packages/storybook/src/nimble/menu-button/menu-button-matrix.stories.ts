@@ -3,6 +3,7 @@ import { html, ViewTemplate, when } from '@ni/fast-element';
 import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
 import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
 import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import {
     appearanceStates,
     type AppearanceState,
@@ -37,6 +38,14 @@ const metadata: Meta = {
     title: 'Tests/Menu Button',
     parameters: {
         ...sharedMatrixParameters()
+    },
+    play: async ({ canvasElement }) => {
+        const openMenuButtons = canvasElement.querySelectorAll(`${menuButtonTag}.test-open`);
+        for (const menuButton of openMenuButtons) {
+            menuButton.shadowRoot!.querySelector('[part="button"]')!
+                .shadowRoot!.querySelector('[part="control"]')!.setAttribute('aria-pressed', 'true');
+        }
+        await waitForUpdatesAsync();
     }
 };
 
@@ -52,9 +61,9 @@ const component = (
     <${menuButtonTag}
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
-        ?open="${() => open}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
+        class="${() => (open ? 'test-open' : '')}"
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${() => `${openName} ${appearanceVariantName} ${appearanceName} Menu Button ${disabledName}`}

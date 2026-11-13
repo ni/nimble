@@ -469,7 +469,7 @@ export class KeyboardNavigationManager<
         if (this.focusType === TableFocusType.cell) {
             if (ctrlKey) {
                 const cell = rowElements?.cells[this.columnIndex];
-                if (cell?.actionMenuButton && !cell.actionMenuButton.open) {
+                if (cell?.actionMenuButton && !cell.actionMenuButton.isOpen) {
                     cell.actionMenuButton.toggleButton!.control.click();
                     return true;
                 }

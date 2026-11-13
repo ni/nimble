@@ -270,20 +270,20 @@ describe('FvToolbar', () => {
             key: 'ArrowDown', bubbles: true, composed: true, cancelable: true
         }));
         await settle();
-        expect(element.overflowButton.open).toBeTrue();
+        expect(element.overflowButton.isOpen).toBeTrue();
         const firstItem = element.overflowMenu.firstElementChild!;
         firstItem.dispatchEvent(new KeyboardEvent('keydown', {
             key: 'Enter', bubbles: true, composed: true, cancelable: true
         }));
         await settle();
         expect(action).toHaveBeenCalledTimes(1);
-        expect(element.overflowButton.open).toBeFalse();
+        expect(element.overflowButton.isOpen).toBeFalse();
         expect(element.shadowRoot!.activeElement).toBe(element.overflowButton);
     });
 
     it('keeps focus in an unchanged open menu when a layout is requested', async () => {
         await resize(100);
-        element.overflowButton.open = true;
+        element.overflowButton.open();
         await settle();
         const firstItem = element.overflowMenu.firstElementChild!;
         expect(element.shadowRoot!.activeElement).toBe(firstItem);
@@ -291,13 +291,13 @@ describe('FvToolbar', () => {
         element.setAttribute('class', 'updated');
         await settle();
         expect(hiddenSpy).not.toHaveBeenCalledWith(true);
-        expect(element.overflowButton.open).toBeTrue();
+        expect(element.overflowButton.isOpen).toBeTrue();
         expect(element.shadowRoot!.activeElement).toBe(firstItem);
     });
 
     async function expectFocusAfterActionChange(change: 'remove' | 'unmanage'): Promise<void> {
         await resize(100);
-        element.overflowButton.open = true;
+        element.overflowButton.open();
         await settle();
         expect(element.shadowRoot!.activeElement).toBe(element.overflowMenu.firstElementChild);
         if (change === 'remove') {
@@ -307,7 +307,7 @@ describe('FvToolbar', () => {
         }
         await settle();
         expect(element.hasOverflow).toBeTrue();
-        expect(element.overflowButton.open).toBeFalse();
+        expect(element.overflowButton.isOpen).toBeFalse();
         expect(element.shadowRoot!.activeElement).toBe(element.overflowButton);
     }
 
@@ -321,13 +321,13 @@ describe('FvToolbar', () => {
 
     it('closes the menu with Escape and retains focus on its trigger', async () => {
         await resize(100);
-        element.overflowButton.open = true;
+        element.overflowButton.open();
         await settle();
         element.overflowMenu.firstElementChild!.dispatchEvent(new KeyboardEvent('keydown', {
             key: 'Escape', bubbles: true, composed: true, cancelable: true
         }));
         await settle();
-        expect(element.overflowButton.open).toBeFalse();
+        expect(element.overflowButton.isOpen).toBeFalse();
         expect(element.shadowRoot!.activeElement).toBe(element.overflowButton);
     });
 

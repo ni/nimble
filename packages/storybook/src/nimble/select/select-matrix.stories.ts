@@ -425,12 +425,21 @@ export const hidden: StoryFn = createStory(
     )
 );
 
-export const blankListOption: StoryFn = createStory(
-    html`<${selectTag} open style="width: 250px;">
+export const blankListOption: StoryFn = createFixedThemeStory(
+    html`<${selectTag} style="width: 250px;">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
-    </${selectTag}>`
+    </${selectTag}>`,
+    lightThemeWhiteBackground
 );
+blankListOption.play = async ({ canvasElement }) => {
+    const select = canvasElement.querySelector(selectTag)!;
+    const toggled = new Promise<void>(resolve => {
+        select.addEventListener('toggle', () => resolve(), { once: true });
+    });
+    select.click();
+    await toggled;
+};
 
 const playFunction = async (): Promise<void> => {
     await Promise.all(
@@ -445,7 +454,7 @@ const playFunction = async (): Promise<void> => {
 };
 
 export const navigateToDifferentOption: StoryFn = createStory(
-    html`<${selectTag} open style="width: 250px;">
+    html`<${selectTag} style="width: 250px;">
         <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
         <${listOptionTag}>Option 2</${listOptionTag}>
     </${selectTag}>`
@@ -456,7 +465,7 @@ navigateToDifferentOption.play = playFunction;
 export const navigateToDifferentOptionWithGroups: StoryFn = createStory(
     html`
     <div style="height: 250px;">
-        <${selectTag} open style="width: 250px;">
+        <${selectTag} style="width: 250px;">
             <${listOptionGroupTag} label="Group 1">
                 <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
                 <${listOptionTag}>Option 2</${listOptionTag}>

@@ -26,7 +26,7 @@ const component = ([
 ]: PositionState): ViewTemplate => html`
     <div style=${() => (position === 'below' ? 'height: 150px' : null)}>
         <div style="overflow: auto; border: 2px solid red; ${() => positionStyle}">
-            <${selectTag} open position="${() => position}" style="width: 250px;">
+            <${selectTag} position="${() => position}" style="width: 250px;">
                 <${listOptionTag} value="1">Option 1</${listOptionTag}>
                 <${listOptionTag} value="2">Option 2</${listOptionTag}>
                 <${listOptionTag} value="3">Option 3</${listOptionTag}>
@@ -35,9 +35,21 @@ const component = ([
     </div>
 `;
 
-export const openBelow$NotConfinedByDiv: StoryFn = createStory(
-    component(positionStates[0])
+const openStory = (story: StoryFn): StoryFn => {
+    story.play = async ({ canvasElement }) => {
+        const select = canvasElement.querySelector(selectTag)!;
+        const toggled = new Promise<void>(resolve => {
+            select.addEventListener('toggle', () => resolve(), { once: true });
+        });
+        select.click();
+        await toggled;
+    };
+    return story;
+};
+
+export const openBelow$NotConfinedByDiv: StoryFn = openStory(
+    createStory(component(positionStates[0]))
 );
-export const openAbove$NotConfinedByDiv: StoryFn = createStory(
-    component(positionStates[1])
+export const openAbove$NotConfinedByDiv: StoryFn = openStory(
+    createStory(component(positionStates[1]))
 );

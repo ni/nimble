@@ -49,6 +49,13 @@ function registerEvents(Blazor) {
             return {};
         }
     });
+    // Used by NimbleCombobox.razor
+    Blazor.registerCustomEventType('nimblecomboboxtoggle', {
+        browserEventName: 'toggle',
+        createEventArgs: _event => {
+            return {};
+        }
+    });
     // Used by NimbleTabs.razor
     // Necessary because the tab control uses a 'change' event but not a value/currentValue property,
     // and we do want to be notified of activeid changes (via the change event) for 2-way binding support.
@@ -230,6 +237,33 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
         },
         close: function (drawerReference) {
             drawerReference.close();
+        }
+    },
+    Combobox: {
+        open: function (comboboxReference) {
+            comboboxReference.open();
+        },
+        close: function (comboboxReference) {
+            comboboxReference.close();
+        }
+    },
+    MenuButton: {
+        open: function (menuButtonReference) {
+            menuButtonReference.open();
+        },
+        close: function (menuButtonReference) {
+            menuButtonReference.close();
+        },
+        isOpen: function (menuButtonReference) {
+            return menuButtonReference.isOpen;
+        }
+    },
+    Select: {
+        isOpen: function (selectReference) {
+            return selectReference.isOpen;
+        },
+        close: function (selectReference) {
+            selectReference.close();
         }
     },
     Table: {

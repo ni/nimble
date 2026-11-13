@@ -231,11 +231,11 @@ export class FvToolbar extends Toolbar {
             const nextMenuItems = overflowItems.map(item => item.menuItem);
             if (nextMenuItems.length !== previousMenuItems.length
                 || nextMenuItems.some((item, index) => previousMenuItems[index] !== item)) {
-                this.overflowButton.open = false;
+                this.overflowButton.close();
                 this.overflowMenu.replaceChildren(...nextMenuItems);
             }
             if (!this.hasOverflow) {
-                this.overflowButton.open = false;
+                this.overflowButton.close();
             }
             this.overflowButton.hidden = !this.hasOverflow;
             this.overflowButton.classList.remove('unreserved');
@@ -244,7 +244,7 @@ export class FvToolbar extends Toolbar {
                 this.overflowButton.focus();
             } else if (menuHadFocus) {
                 if (this.hasOverflow) {
-                    if (this.overflowButton.open && menuFocus instanceof HTMLElement && menuFocus.isConnected) {
+                    if (this.overflowButton.isOpen && menuFocus instanceof HTMLElement && menuFocus.isConnected) {
                         menuFocus.focus();
                     } else {
                         this.overflowButton.focus();

@@ -82,15 +82,22 @@ describe('Nimble combobox', () => {
             expect(nativeElement.errorVisible).toBeTrue();
         });
 
-        it('has expected defaults for open', () => {
-            expect(directive.open).toBeFalse();
-            expect(nativeElement.open).toBeFalse();
+        it('can use the directive to open and close', () => {
+            spyOn(nativeElement, 'open');
+            spyOn(nativeElement, 'close');
+
+            directive.open();
+            directive.close();
+
+            expect(nativeElement.open).toHaveBeenCalled();
+            expect(nativeElement.close).toHaveBeenCalled();
         });
 
-        it('can use the directive to set open', () => {
-            directive.open = true;
-            expect(directive.open).toBeTrue();
-            expect(nativeElement.open).toBeTrue();
+        it('isOpen reflects state', async () => {
+            expect(directive.isOpen).toBeFalse();
+            directive.open();
+            await waitForUpdatesAsync();
+            expect(directive.isOpen).toBeTrue();
         });
 
         it('has expected defaults for requiredVisible', () => {
@@ -137,7 +144,6 @@ describe('Nimble combobox', () => {
                     placeholder="Enter value:"
                     error-text="error text"
                     error-visible
-                    open
                     required-visible
                     appearance-readonly
                     full-bleed
@@ -196,11 +202,6 @@ describe('Nimble combobox', () => {
             expect(nativeElement.errorVisible).toBeTrue();
         });
 
-        it('will use template string values for open', () => {
-            expect(directive.open).toBeTrue();
-            expect(nativeElement.open).toBeTrue();
-        });
-
         it('will use template string values for requiredVisible', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
@@ -227,7 +228,6 @@ describe('Nimble combobox', () => {
                     [placeholder]="placeholder"
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
-                    [open]="open"
                     [required-visible]="requiredVisible"
                     [appearance-readonly]="appearanceReadOnly"
                     [full-bleed]="fullBleed"
@@ -245,7 +245,6 @@ describe('Nimble combobox', () => {
             public errorText = 'initial value';
             public placeholder = 'Enter value:';
             public errorVisible = false;
-            public open = false;
             public requiredVisible = false;
             public appearanceReadOnly = false;
             public fullBleed = false;
@@ -334,17 +333,6 @@ describe('Nimble combobox', () => {
             expect(nativeElement.errorVisible).toBeTrue();
         });
 
-        it('can be configured with property binding for open', () => {
-            expect(directive.open).toBeFalse();
-            expect(nativeElement.open).toBeFalse();
-
-            fixture.componentInstance.open = true;
-            fixture.detectChanges();
-
-            expect(directive.open).toBeTrue();
-            expect(nativeElement.open).toBeTrue();
-        });
-
         it('can be configured with property binding for requiredVisible', () => {
             expect(directive.requiredVisible).toBeFalse();
             expect(nativeElement.requiredVisible).toBeFalse();
@@ -389,7 +377,6 @@ describe('Nimble combobox', () => {
                     [attr.placeholder]="placeholder"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
-                    [attr.open]="open"
                     [attr.required-visible]="requiredVisible"
                     [attr.appearance-readonly]="appearanceReadOnly"
                     [attr.full-bleed]="fullBleed"
@@ -407,7 +394,6 @@ describe('Nimble combobox', () => {
             public placeholder = 'Enter value:';
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
-            public open: BooleanValueOrAttribute = null;
             public requiredVisible: BooleanValueOrAttribute = null;
             public appearanceReadOnly: BooleanValueOrAttribute = null;
             public fullBleed: BooleanValueOrAttribute = null;
@@ -494,17 +480,6 @@ describe('Nimble combobox', () => {
 
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
-        });
-
-        it('can be configured with attribute binding for open', () => {
-            expect(directive.open).toBeFalse();
-            expect(nativeElement.open).toBeFalse();
-
-            fixture.componentInstance.open = '';
-            fixture.detectChanges();
-
-            expect(directive.open).toBeTrue();
-            expect(nativeElement.open).toBeTrue();
         });
 
         it('can be configured with attribute binding for requiredVisible', () => {
