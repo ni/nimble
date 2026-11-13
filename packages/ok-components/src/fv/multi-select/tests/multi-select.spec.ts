@@ -22,7 +22,10 @@ describe('FvMultiSelect', () => {
         const loaded = element.region.initialLayoutComplete
             ? Promise.resolve()
             : waitForEvent(element.region, 'loaded');
-        query<HTMLButtonElement>('.control').click();
+        const control = query<HTMLButtonElement>('.control');
+        // HTMLElement.click() does not perform the focus step of a pointer click.
+        control.focus();
+        control.click();
         await loaded;
         await waitForUpdatesAsync();
         expect(element.shadowRoot?.activeElement).toBe(

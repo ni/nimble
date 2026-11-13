@@ -2547,15 +2547,19 @@ describe('FvQueryEditor', () => {
         expect(list.textContent).toContain('Production');
         expect(list.textContent).not.toContain('dynamic:');
         expect(input.getAttribute('role')).toBe('combobox');
-        expect(input.getAttribute('aria-expanded')).toBe('true');
+        // Headless WebKit can leave the document unfocused even after input.focus().
+        expect(input.getAttribute('aria-expanded')).toBe(document.hasFocus() ? 'true' : 'false');
         expect(input.ariaControlsElements).toEqual([list]);
         expect(field.ariaControlsElements).toEqual([list]);
 
-        expect(input.matches(':focus')).toBeTrue();
+        expect(field.shadowRoot.activeElement).toBe(input);
+        expect(input.matches(':focus')).toBe(document.hasFocus());
         input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true, cancelable: true }));
         input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true, cancelable: true }));
         await waitForUpdatesAsync();
-        expect(input.ariaActiveDescendantElement).toBe(list.querySelector('[aria-selected="true"]'));
+        expect(input.ariaActiveDescendantElement).toBe(
+            document.hasFocus() ? list.querySelector('[aria-selected="true"]') : null
+        );
         input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, composed: true, cancelable: true }));
         await waitForUpdatesAsync();
         expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
