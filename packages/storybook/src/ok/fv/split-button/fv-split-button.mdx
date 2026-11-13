@@ -17,6 +17,8 @@ The primary action displays `label`, which also names the secondary menu toggle.
 
 The `menu` slot supports a single slotted `nimble-menu`. Its anchored region uses a manual popover so the menu renders in the top layer instead of being clipped by ancestor overflow. Menu closing behavior is wired to that menu's `change` event.
 
+Opening the menu moves focus to its first item. The toggle also opens the menu with Down Arrow; Escape closes it and returns focus to the toggle.
+
 Set `menu-horizontal-default-position` to `start` or `end` to control which side of the toggle the menu opens on. It defaults to `end`.
 
 <Canvas of={splitButtonStories.fvSplitButton} />

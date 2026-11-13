@@ -106,6 +106,8 @@ export class FvChipSelector extends FoundationElement {
 
     private menuButtonElement: (HTMLElement & { checked?: boolean }) | null = null;
 
+    private readonly optionsByKey = new Map<string, FvChipSelectorOption>();
+
     /** @internal */
     public disabledChanged(): void {
         if (this.disabled) {
@@ -162,6 +164,21 @@ export class FvChipSelector extends FoundationElement {
 
     /** @internal */
     public optionsChanged(): void {}
+
+    /** @internal */
+    public optionItemsChanged(): void {
+        this.optionsByKey.clear();
+        if (Array.isArray(this.optionItems)) {
+            for (const option of this.optionItems as readonly unknown[]) {
+                if (this.isOption(option)) {
+                    const key = this.typedOptionKey(option.value);
+                    if (!this.optionsByKey.has(key)) {
+                        this.optionsByKey.set(key, option);
+                    }
+                }
+            }
+        }
+    }
 
     /** @internal */
     public allowCustomValuesChanged(): void {}
@@ -582,10 +599,7 @@ export class FvChipSelector extends FoundationElement {
         if (!Array.isArray(this.optionItems)) {
             return undefined;
         }
-        const options = this.optionItems as readonly unknown[];
-        return options
-            .filter((option): option is FvChipSelectorOption => this.isOption(option))
-            .find(option => this.typedOptionKey(option.value) === key);
+        return this.optionsByKey.get(key);
     }
 
     private isOptionValue(value: unknown): value is FvChipSelectorValue {

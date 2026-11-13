@@ -1,5 +1,6 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { ChatInputPageObject } from '@ni/spright-components/dist/esm/chat/input/testing/chat-input.pageobject';
 import type { Dialog } from '@ni/nimble-components/dist/esm/dialog';
 import type { ChatInput } from '@ni/spright-components/dist/esm/chat/input';
@@ -732,6 +733,13 @@ describe('FvQueryBuilder', () => {
         name.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         await waitForUpdatesAsync();
         await openActionMenu();
+        const actionRegion = getRequiredElement<FvSplitButton>('.query-action-split-button').region;
+        if (!actionRegion) {
+            throw new Error('Expected the action menu region.');
+        }
+        if (!actionRegion.initialLayoutComplete) {
+            await waitForEvent(actionRegion, 'loaded');
+        }
         await new Promise<void>(resolve => {
             window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve()));
         });
@@ -753,6 +761,14 @@ describe('FvQueryBuilder', () => {
             `Popover: ${JSON.stringify(popoverBounds.toJSON())}; region: ${JSON.stringify(regionBounds.toJSON())};`
                 + ` menu: ${JSON.stringify(menuBounds.toJSON())}; toggle: ${JSON.stringify(toggle.getBoundingClientRect().toJSON())}`
         ).toBeGreaterThan(0);
+        const isMenuElement = (hit: Element | null): boolean => {
+            let current = hit;
+            while (current && current !== menu) {
+                const root = current.getRootNode();
+                current = current.parentElement ?? (root instanceof ShadowRoot ? root.host : null);
+            }
+            return current === menu;
+        };
         const isMenuHitAt = (x: number, y: number): boolean => {
             let hit: Element | null = document.elementFromPoint(x, y);
             while (hit?.shadowRoot) {
@@ -762,8 +778,15 @@ describe('FvQueryBuilder', () => {
                 }
                 hit = shadowHit;
             }
-            return menu.contains(hit) || hit === menu || hit?.getRootNode() === menu.shadowRoot;
+            return isMenuElement(hit);
         };
+        const menuItemContent = menu.querySelector<HTMLElement>('[data-action="request-delete"]')
+            ?.shadowRoot?.querySelector('[part="content"]');
+        if (!menuItemContent) {
+            throw new Error('Expected the action menu item content.');
+        }
+        expect(isMenuElement(menuItemContent)).withContext('Menu item shadow content belongs to the menu.').toBeTrue();
+        expect(isMenuElement(popover)).toBeFalse();
         const testVerticalX = menuBounds.left + menuBounds.width / 2;
         const testVerticalY = popoverBounds.bottom + menuBottomBeyondPopover / 2;
         expect(isMenuHitAt(testVerticalX, testVerticalY))
@@ -2013,9 +2036,13 @@ describe('FvQueryBuilder', () => {
             key: 'ArrowDown', bubbles: true, composed: true, cancelable: true
         }));
         await waitForUpdatesAsync();
-        await new Promise<void>(resolve => {
-            window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve()));
-        });
+        const region = element.savedQueryMenuButton?.region;
+        if (!region) {
+            throw new Error('Expected the saved-query menu region.');
+        }
+        if (!region.initialLayoutComplete) {
+            await waitForEvent(region, 'loaded');
+        }
 
         expect(element.isSavedMenuOpen).toBeTrue();
         const menuItem = getRequiredElement<HTMLElement>('[data-action="select-current-query"]');

@@ -721,6 +721,26 @@ describe('FvChipSelector', () => {
         expect(element.selectedOptionValues).toEqual([1]);
     });
 
+    it('filters and renders typed options without repeated option scans', async () => {
+        ({ element, connect, disconnect } = await setup());
+        const keySpy = spyOn(element, 'typedOptionKey').and.callThrough();
+        element.optionItems = Array.from({ length: 100 }, (_, index) => ({
+            value: index, label: `Option ${index}`
+        }));
+        await connect();
+        element.filterText = 'option';
+        element.open = true;
+        await waitForUpdatesAsync();
+
+        expect(element.shadowRoot?.querySelectorAll('.chip-selector-option').length).toBe(100);
+        expect(keySpy.calls.count()).toBeLessThan(1000);
+        element.optionItems = [{ value: 1, label: 'Updated' }, { value: 1, label: 'Duplicate' }];
+        element.filterText = '';
+        await waitForUpdatesAsync();
+        expect(element.formatValue(element.typedOptionKey(1))).toBe('Updated');
+        expect(element.visibleOptionList.length).toBe(2);
+    });
+
     it('keeps an empty string option typed and displays its label', async () => {
         ({ element, connect, disconnect } = await fixture<FvChipSelector>(html`
             <${fvChipSelectorTag} label="Status"></${fvChipSelectorTag}>

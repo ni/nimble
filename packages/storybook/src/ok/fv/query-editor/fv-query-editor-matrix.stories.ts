@@ -37,6 +37,7 @@ const component = (
     <section inert style="display: inline-block; vertical-align: top; width: 660px; min-height: ${() => (open ? 640 : 180)}px; padding: 16px; box-sizing: border-box;">
         <h3 style="color: var(${bodyFontColor.cssCustomProperty});">${() => `${name}, ${layout}${disabled ? ', disabled' : ''}`}</h3>
         <${fvQueryEditorTag}
+            data-state="${() => name}"
             label="Query conditions"
             :definition="${() => queryBuilderDefinition}"
             :query="${() => structuredClone(query)}"
@@ -49,7 +50,11 @@ const component = (
 export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${disableStorybookZoomTransform}
     ${createMatrix(
-        ([name, query]: [string, QueryDocument], layout: QueryEditorLayout) => component(name, query, layout),
+        ([name, query]: [string, QueryDocument], layout: QueryEditorLayout) => component(
+            name,
+            name === 'validation' ? queryEditorPresets.basic : query,
+            layout
+        ),
         [Object.entries(queryEditorPresets), ['inline', 'formatted']]
     )}
     ${createMatrix(
@@ -57,6 +62,25 @@ export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
         [['inline', 'formatted']]
     )}
 `);
+statesThemeMatrix.play = async ({ canvasElement }) => {
+    await waitForUpdatesAsync();
+    for (const editor of canvasElement.querySelectorAll<FvQueryEditor>(`${fvQueryEditorTag}[data-state="validation"]`)) {
+        editor.draft = {
+            ...editor.draft,
+            tokens: editor.draft.tokens.map(token => (
+                token.kind === 'condition' && token.fieldId === 'duration'
+                    ? { ...token, value: null }
+                    : token
+            ))
+        };
+    }
+    await waitForUpdatesAsync();
+    for (const editor of canvasElement.querySelectorAll<FvQueryEditor>(`${fvQueryEditorTag}[data-state="validation"]`)) {
+        if (!editor.shadowRoot?.querySelector('[data-rule-id][data-state="invalid"]')) {
+            throw new Error('Matrix invalid condition was not rendered.');
+        }
+    }
+};
 
 export const operandsThemeMatrix: StoryFn = createMatrixThemeStory(html`
     ${disableStorybookZoomTransform}

@@ -55,6 +55,9 @@ export class FvSplitButton extends FoundationElement {
 
     /** @internal */
     public openChanged(): void {
+        if (!this.open) {
+            this.region?.removeEventListener('loaded', this.focusMenuWhenReady);
+        }
         // FAST reinserts the cached conditional view after the open-state observers run.
         DOM.queueUpdate(() => DOM.queueUpdate(() => {
             const region = this.region;
@@ -108,6 +111,22 @@ export class FvSplitButton extends FoundationElement {
         }
 
         this.setOpen(!this.open);
+        if (this.open) {
+            this.focusMenu();
+        }
+    }
+
+    /** @internal */
+    public handleToggleKeydown(event: KeyboardEvent): boolean {
+        if (event.key === 'ArrowDown' && !this.disabled) {
+            if (!this.open) {
+                this.setOpen(true);
+            }
+            this.focusMenu();
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        return true;
     }
 
     /** @internal */
@@ -165,6 +184,28 @@ export class FvSplitButton extends FoundationElement {
     private readonly menuChangeHandler = (): void => {
         this.handleMenuChange();
     };
+
+    private readonly focusMenuWhenReady = (): void => {
+        if (this.open && this.region?.isConnected && this.region.matches(':popover-open')) {
+            this.querySelector<HTMLElement>('[slot="menu"]')?.focus();
+        }
+    };
+
+    private focusMenu(): void {
+        DOM.queueUpdate(() => {
+            DOM.queueUpdate(() => {
+                const region = this.region;
+                if (!this.open || !region?.isConnected) {
+                    return;
+                }
+                if (region.initialLayoutComplete) {
+                    this.focusMenuWhenReady();
+                } else {
+                    region.addEventListener('loaded', this.focusMenuWhenReady, { once: true });
+                }
+            });
+        });
+    }
 
     private setOpen(nextOpen: boolean): void {
         if (this.open === nextOpen) {

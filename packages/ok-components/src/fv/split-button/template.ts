@@ -28,6 +28,7 @@ export const template = html<FvSplitButton>`
             aria-label="${x => `More actions for ${x.label}`}"
             aria-expanded="${x => x.open}"
             aria-haspopup="menu"
+            @keydown="${(x, c) => x.handleToggleKeydown(c.event as KeyboardEvent)}"
             @click="${x => {
                 x.handleToggleClick();
                 return true;

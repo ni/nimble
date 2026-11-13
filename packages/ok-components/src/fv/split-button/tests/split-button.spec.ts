@@ -2,6 +2,7 @@ import { html } from '@ni/fast-element';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { FvSplitButton, fvSplitButtonTag } from '..';
 
@@ -76,6 +77,49 @@ describe('FvSplitButton', () => {
         expect(region?.matches(':popover-open')).toBeFalse();
     });
 
+    it('moves focus into the menu when opened and supports keyboard navigation', async () => {
+        ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
+            <${fvSplitButtonTag} label="Apply">
+                <${menuTag} slot="menu">
+                    <${menuItemTag}>First</${menuItemTag}>
+                    <${menuItemTag}>Second</${menuItemTag}>
+                </${menuTag}>
+            </${fvSplitButtonTag}>
+        `));
+        await connect();
+        const toggle = element.shadowRoot!.querySelector<HTMLButtonElement>('.split-button-toggle')!;
+        const items = element.querySelectorAll<HTMLElement>(menuItemTag);
+
+        toggle.focus();
+        toggle.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'ArrowDown', bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        if (!element.region!.initialLayoutComplete) {
+            await waitForEvent(element.region!, 'loaded');
+        }
+        expect(element.open).toBeTrue();
+        expect(document.activeElement).toBe(items[0]!);
+
+        items[0]!.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'ArrowDown', bubbles: true, composed: true, cancelable: true
+        }));
+        expect(document.activeElement).toBe(items[1]!);
+        items[1]!.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Escape', bubbles: true, composed: true, cancelable: true
+        }));
+        await waitForUpdatesAsync();
+        expect(element.open).toBeFalse();
+        expect(element.shadowRoot?.activeElement).toBe(toggle);
+
+        toggle.click();
+        await waitForUpdatesAsync();
+        if (!element.region!.initialLayoutComplete) {
+            await waitForEvent(element.region!, 'loaded');
+        }
+        expect(document.activeElement).toBe(items[0]!);
+    });
+
     it('reopens the menu in the top layer without growing it', async () => {
         ({ element, connect, disconnect } = await fixture<FvSplitButton>(html`
             <${fvSplitButtonTag} label="Apply">
@@ -95,6 +139,13 @@ describe('FvSplitButton', () => {
         for (let cycle = 0; cycle < 4; cycle += 1) {
             toggle.click();
             await waitForUpdatesAsync();
+            const region = element.region;
+            if (!region) {
+                throw new Error('Expected the menu region.');
+            }
+            if (!region.initialLayoutComplete) {
+                await waitForEvent(region, 'loaded');
+            }
             await new Promise<void>(resolve => {
                 requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
             });

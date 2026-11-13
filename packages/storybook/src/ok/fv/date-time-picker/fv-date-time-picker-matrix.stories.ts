@@ -76,8 +76,11 @@ const popupScenarios: PopupScenario[] = [
     { name: 'Constraints', min: '2024-11-10T09:00', max: '2024-11-20T17:00', step: '900' }
 ];
 
-export const popupThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(
-    (scenario: PopupScenario) => html`
+// Keep the columns stable when the capture viewport temporarily narrows.
+export const popupThemeMatrix: StoryFn = createMatrixThemeStory(html`
+    <div style="width: 880px;">
+        ${createMatrix(
+            (scenario: PopupScenario) => html`
         <div inert data-locale="${() => scenario.locale ?? 'en-US'}"
             class="${() => scenario.interaction ?? ''}" style="display: inline-block; vertical-align: top; padding: 16px; width: 400px; height: 540px;">
             <${fvDateTimePickerTag} style="width: 320px;"
@@ -88,8 +91,10 @@ export const popupThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(
             </${fvDateTimePickerTag}>
         </div>
     `,
-    [popupScenarios]
-));
+            [popupScenarios]
+        )}
+    </div>
+`);
 
 popupThemeMatrix.play = async ({ canvasElement }) => {
     await waitForUpdatesAsync();
@@ -102,10 +107,12 @@ popupThemeMatrix.play = async ({ canvasElement }) => {
     await waitForUpdatesAsync();
     await Promise.all(Array.from(pickers, async picker => {
         const region = picker.region!;
-        // Cells reserve popup space; Chrome's cropped captures briefly use a 1px viewport.
-        region.horizontalPositioningMode = 'uncontrolled';
+        // Avoid viewport-dependent flipping when Chrome crops the capture.
+        region.horizontalDefaultPosition = 'right';
+        region.horizontalViewportLock = false;
+        region.horizontalPositioningMode = 'locktodefault';
         await waitForUpdatesAsync();
-        if (!region.classList.contains('loaded')) {
+        if (!region.initialLayoutComplete) {
             await new Promise<void>(resolve => {
                 region.addEventListener('loaded', () => resolve(), { once: true });
             });

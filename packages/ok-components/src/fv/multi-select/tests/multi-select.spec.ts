@@ -69,6 +69,17 @@ describe('FvMultiSelect', () => {
         expect(document.createElement(fvMultiSelectTag)).toBeInstanceOf(FvMultiSelect);
     });
 
+    it('exposes and updates the invalid state on its focusable controls', async () => {
+        element.setAttribute('aria-invalid', 'true');
+        await waitForUpdatesAsync();
+        expect(query('.control').getAttribute('aria-invalid')).toBe('true');
+        expect(query('.filter-input').getAttribute('aria-invalid')).toBe('true');
+        expect(query('.listbox').getAttribute('aria-invalid')).toBe('true');
+        element.removeAttribute('aria-invalid');
+        await waitForUpdatesAsync();
+        expect(query('.control').hasAttribute('aria-invalid')).toBeFalse();
+    });
+
     it('updates selected labels and options while preserving order, duplicates and missing values', async () => {
         element.options = [
             { value: 'a', label: 'First' },

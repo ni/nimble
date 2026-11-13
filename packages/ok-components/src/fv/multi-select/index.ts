@@ -28,6 +28,9 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     @attr
     public placeholder = '';
 
+    @attr({ attribute: 'aria-invalid' })
+    public override ariaInvalid = '';
+
     @attr({ mode: 'boolean' })
     public filterable = false;
 

@@ -679,9 +679,6 @@ export class FvQueryBuilder extends FoundationElement {
     /** @internal */
     public isSavedMenuOpenChanged(): void {
         this.updateBuilderAriaRelationships();
-        if (this.isSavedMenuOpen) {
-            DOM.queueUpdate(() => this.focusFirstSavedMenuItem());
-        }
     }
 
     /** @internal */
@@ -966,18 +963,6 @@ export class FvQueryBuilder extends FoundationElement {
             } else {
                 this.movePopover(event.key);
             }
-            event.preventDefault();
-            return true;
-        }
-        const menuToggle = this.savedQueryMenuButton?.shadowRoot?.querySelector('.split-button-toggle');
-        if (
-            !this.isSavedMenuOpen
-            && event.key === 'ArrowDown'
-            && menuToggle
-            && path.includes(menuToggle)
-            && !this.isEditorDisabled
-        ) {
-            this.savedQueryMenuButton!.handleToggleClick();
             event.preventDefault();
             return true;
         }
@@ -1295,22 +1280,6 @@ export class FvQueryBuilder extends FoundationElement {
                     valid
                 }
             }));
-        });
-    }
-
-    private focusFirstSavedMenuItem(): void {
-        if (!this.isSavedMenuOpen) {
-            return;
-        }
-        window.requestAnimationFrame(() => {
-            window.requestAnimationFrame(() => {
-                if (!this.isSavedMenuOpen) {
-                    return;
-                }
-                this.shadowRoot
-                    ?.querySelector<HTMLElement>('.saved-query-menu .saved-query-option')
-                    ?.focus();
-            });
         });
     }
 

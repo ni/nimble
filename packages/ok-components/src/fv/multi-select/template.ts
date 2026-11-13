@@ -45,6 +45,7 @@ export const template = html<FvMultiSelect>`
                 aria-haspopup="listbox"
                 aria-expanded="${x => x.open}"
                 aria-controls="${x => x.listboxId}"
+                aria-invalid="${x => x.ariaInvalid || null}"
                 @keydown="${(x, c) => x.handleControlKeydown(c.event as KeyboardEvent)}"
             >
                 <span class="selected-value ${x => (x.selectedValues.length === 0 ? 'placeholder' : '')}"
@@ -107,6 +108,7 @@ export const template = html<FvMultiSelect>`
                             aria-expanded="${x => x.open}"
                             aria-controls="${x => x.listboxId}"
                             aria-activedescendant="${x => x.activeOptionId}"
+                            aria-invalid="${x => x.ariaInvalid || null}"
                             aria-label="${x => filterSearchLabel.getValueFor(x)}"
                             placeholder="${x => filterSearchLabel.getValueFor(x)}"
                             :value="${x => x.filter}"
@@ -129,6 +131,7 @@ export const template = html<FvMultiSelect>`
                     aria-label="${x => x.label || x.placeholder || null}"
                     aria-multiselectable="true"
                     aria-required="${x => x.required}"
+                    aria-invalid="${x => x.ariaInvalid || null}"
                     aria-activedescendant="${x => (!x.filterable ? x.activeOptionId : null)}"
                     tabindex="${x => (x.filterable ? '-1' : '0')}"
                 >
