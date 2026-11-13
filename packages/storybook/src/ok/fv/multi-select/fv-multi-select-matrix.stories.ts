@@ -19,10 +19,11 @@ const metadata: Meta = {
 export default metadata;
 
 const appearances = Object.values(DropdownAppearance);
-const states = ['empty', 'selected', 'clearable', 'disabled', 'open', 'keyboard', 'keyboard-no-search', 'no-results', 'no-search'] as const;
+const states = ['empty', 'selected', 'clearable', 'disabled', 'open', 'hover', 'keyboard', 'keyboard-no-search', 'filtered', 'no-results', 'no-search'] as const;
 
 const component = (appearance: DropdownAppearance, state: (typeof states)[number]): ViewTemplate => html`
-    <div inert style="display: inline-block; vertical-align: top; width: 340px; height: 360px; padding: 16px;">
+    <div inert class="${() => (state === 'hover' ? 'pseudo-hover-all' : '')}"
+        style="display: inline-block; vertical-align: top; width: 340px; height: 360px; padding: 16px;">
         <${fvMultiSelectTag}
             label="${() => `${appearance}: ${state}`}"
             placeholder="Select statuses"
@@ -59,7 +60,7 @@ themeMatrix.play = async ({ canvasElement }): Promise<void> => {
     const elements = canvasElement.querySelectorAll<FvMultiSelect>(fvMultiSelectTag);
     const loaded: Promise<void>[] = [];
     for (const element of elements) {
-        if (['open', 'keyboard', 'keyboard-no-search', 'no-results', 'no-search'].includes(element.dataset.state ?? '')) {
+        if (['open', 'hover', 'keyboard', 'keyboard-no-search', 'filtered', 'no-results', 'no-search'].includes(element.dataset.state ?? '')) {
             if (!element.region.initialLayoutComplete) {
                 loaded.push(waitForEvent(element.region, 'loaded'));
             }
@@ -71,6 +72,9 @@ themeMatrix.play = async ({ canvasElement }): Promise<void> => {
     for (const element of elements) {
         if (element.dataset.state === 'no-results') {
             element.filter = 'missing';
+        }
+        if (element.dataset.state === 'filtered') {
+            element.filter = 'ready';
         }
         if (element.dataset.state === 'keyboard' || element.dataset.state === 'keyboard-no-search') {
             element.keyboardNavigation = true;
