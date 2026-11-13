@@ -3,7 +3,7 @@ import { html, type ViewTemplate } from '@ni/fast-element';
 import { type FvMultiSelect, fvMultiSelectTag } from '@ni/ok-components/dist/esm/fv/multi-select';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
+import { waitAnimationFrame, waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import {
     cartesianProduct,
     createMatrix,
@@ -81,4 +81,47 @@ themeMatrix.play = async ({ canvasElement }): Promise<void> => {
         }
     }
     await waitForUpdatesAsync();
+};
+
+export const scrollingThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(
+    (position: 'top' | 'bottom', edge: 'top' | 'bottom') => html`
+        <div inert style="display: inline-block; vertical-align: top; width: 340px; height: 640px; padding: 16px;">
+            <${fvMultiSelectTag}
+                style="${() => (position === 'top' ? 'margin-top: 300px;' : '')}"
+                label="${() => `${position}: ${edge}`}"
+                filterable
+                data-position="${() => position}"
+                data-edge="${() => edge}"
+                :options="${() => Array.from({ length: 30 }, (_, index) => ({
+                    value: `${index}`, label: `Option ${index + 1}`
+                }))}"
+            ></${fvMultiSelectTag}>
+        </div>
+    `,
+    [['top', 'bottom'] as const, ['top', 'bottom'] as const]
+));
+
+scrollingThemeMatrix.play = async ({ canvasElement }): Promise<void> => {
+    const elements = canvasElement.querySelectorAll<FvMultiSelect>(fvMultiSelectTag);
+    await Promise.all(Array.from(elements, async element => {
+        element.region.verticalDefaultPosition = element.dataset.position === 'top' ? 'top' : 'bottom';
+        element.region.verticalPositioningMode = 'locktodefault';
+        const loaded = waitForEvent(element.region, 'loaded');
+        element.open = true;
+        await loaded;
+        element.style.setProperty('--ok-fv-multi-select-available-height', '600px');
+        await waitForUpdatesAsync();
+        for (let index = 0; index < 15; index++) {
+            element.filterInput!.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        }
+        await waitForUpdatesAsync();
+        await waitAnimationFrame();
+        if (element.dataset.edge === 'top') {
+            for (let index = 0; index < 8; index++) {
+                element.filterInput!.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+            }
+        }
+        await waitForUpdatesAsync();
+        await waitAnimationFrame();
+    }));
 };
