@@ -1,6 +1,4 @@
 import { configureActions } from 'storybook/actions';
-import { SyntaxHighlighter } from 'storybook/internal/components';
-import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
 import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
 import './preview.css';
 import {
@@ -8,8 +6,6 @@ import {
     defaultBackgroundState
 } from '../src/utilities/states';
 import { theme } from './theme';
-
-SyntaxHighlighter.registerLanguage('cs', csharp);
 
 const parameters = {
     backgrounds: {
@@ -24,12 +20,14 @@ const parameters = {
     options: {
         storySort: {
             method: 'alphabetical',
+            includeNames: true,
             // Items within arrays show the sort order for children of the category above
             // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
             order: [
                 'Getting Started',
                 'Using Storybook',
                 'Components',
+                ['*', ['Usage', 'Design']],
                 // Intentionally no docs for 'Components'
                 'Incubating',
                 ['Docs'],
