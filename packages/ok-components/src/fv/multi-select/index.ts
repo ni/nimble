@@ -28,6 +28,9 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     @attr
     public placeholder = '';
 
+    @attr({ attribute: 'aria-invalid' })
+    public override ariaInvalid = '';
+
     @attr({ mode: 'boolean' })
     public filterable = false;
 
@@ -89,16 +92,29 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     private initialSelectedValues?: string[];
 
     /** @internal */
-    public get visibleOptions(): FvMultiSelectOption[] {
+    public get visibleOptions(): (FvMultiSelectOption & { selected: boolean })[] {
         const filter = diacriticInsensitiveStringNormalizer(this.filter);
+        const selected = new Set(this.selectedValues);
         return this.options.filter(option => !this.filterable
-            || diacriticInsensitiveStringNormalizer(option.label).includes(filter));
+            || diacriticInsensitiveStringNormalizer(option.label).includes(filter))
+            .map(option => ({
+                value: option.value,
+                label: option.label,
+                disabled: option.disabled,
+                selected: selected.has(option.value)
+            }));
     }
 
     /** @internal */
     public get displayValue(): string {
+        const labels = new Map<string, string>();
+        for (const option of this.options) {
+            if (!labels.has(option.value)) {
+                labels.set(option.value, option.label);
+            }
+        }
         return this.selectedValues
-            .map(value => this.options.find(option => option.value === value)?.label ?? value)
+            .map(value => labels.get(value) ?? value)
             .join(', ');
     }
 

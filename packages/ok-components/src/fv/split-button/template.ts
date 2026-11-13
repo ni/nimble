@@ -17,7 +17,7 @@ export const template = html<FvSplitButton>`
             }}"
         >
             <slot name="start"></slot>
-            <span>${x => x.label}</span>
+            <span part="label">${x => x.label}</span>
             <slot name="end"></slot>
         </button>
         <button
@@ -28,6 +28,7 @@ export const template = html<FvSplitButton>`
             aria-label="${x => `More actions for ${x.label}`}"
             aria-expanded="${x => x.open}"
             aria-haspopup="menu"
+            @keydown="${(x, c) => x.handleToggleKeydown(c.event as KeyboardEvent)}"
             @click="${x => {
                 x.handleToggleClick();
                 return true;
@@ -40,11 +41,12 @@ export const template = html<FvSplitButton>`
         x => x.open,
         html<FvSplitButton>`
             <${anchoredRegionTag}
+                popover="manual"
                 fixed-placement
                 auto-update-mode="auto"
                 horizontal-inset
                 horizontal-positioning-mode="dynamic"
-                horizontal-default-position="end"
+                horizontal-default-position="${x => x.menuHorizontalDefaultPosition}"
                 vertical-positioning-mode="locktodefault"
                 vertical-default-position="bottom"
                 ${ref('region')}

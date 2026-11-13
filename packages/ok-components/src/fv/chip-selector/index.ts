@@ -1,4 +1,4 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, DOM, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { uniqueId } from '@ni/fast-web-utilities';
 import type { AnchoredRegion } from '@ni/nimble-components/dist/esm/anchored-region';
@@ -6,6 +6,14 @@ import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { diacriticInsensitiveStringNormalizer } from '@ni/nimble-components/dist/esm/utilities/models/string-normalizers';
 import { styles } from './styles';
 import { template } from './template';
+
+export type FvChipSelectorValue = string | number | boolean | null;
+
+export interface FvChipSelectorOption {
+    readonly value: FvChipSelectorValue;
+    readonly label: string;
+    readonly disabled?: boolean;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,17 +34,44 @@ export class FvChipSelector extends FoundationElement {
     @attr
     public label = '';
 
+    @attr({ attribute: 'aria-describedby' })
+    public ariaDescribedby = '';
+
+    @observable
+    public ariaDescribedbyElements?: readonly Element[];
+
+    @attr({ attribute: 'aria-errormessage' })
+    public ariaErrormessage = '';
+
+    @observable
+    public ariaErrormessageElements?: readonly Element[];
+
+    @attr({ attribute: 'aria-invalid' })
+    public override ariaInvalid = '';
+
     @attr({ attribute: 'selected-values' })
     public selectedValues = '';
 
     @attr
     public options = '';
 
+    /** Typed, property-only options for consumers that cannot round-trip comma-separated strings. */
+    @observable
+    public optionItems?: readonly FvChipSelectorOption[];
+
+    /** Typed, property-only selection used with optionItems. */
+    @observable
+    public selectedOptionValues?: readonly FvChipSelectorValue[];
+
     @attr
     public placeholder = 'Select values';
 
     @attr({ attribute: 'allow-custom-values', mode: 'boolean' })
     public allowCustomValues = false;
+
+    /** Whether to filter options by their labels locally. Disable for server-filtered options. */
+    @observable
+    public filterLocally = true;
 
     /** @internal */
     @observable
@@ -71,6 +106,8 @@ export class FvChipSelector extends FoundationElement {
 
     private menuButtonElement: (HTMLElement & { checked?: boolean }) | null = null;
 
+    private readonly optionsByKey = new Map<string, FvChipSelectorOption>();
+
     /** @internal */
     public disabledChanged(): void {
         if (this.disabled) {
@@ -85,6 +122,7 @@ export class FvChipSelector extends FoundationElement {
         if (!this.open) {
             this.activeOptionIndex = -1;
         }
+        DOM.queueUpdate(() => this.syncInputAriaReferences());
     }
 
     /** @internal */
@@ -95,10 +133,52 @@ export class FvChipSelector extends FoundationElement {
     /** @internal */
     public filterTextChanged(): void {
         this.activeOptionIndex = -1;
+        if (this.isConnected) {
+            this.dispatchEvent(new CustomEvent('filter-change', {
+                bubbles: true,
+                composed: true,
+                detail: { filterText: this.filterText }
+            }));
+        }
+    }
+
+    /** @internal */
+    public ariaDescribedbyChanged(): void {
+        DOM.queueUpdate(() => this.syncInputAriaReferences());
+    }
+
+    /** @internal */
+    public ariaDescribedbyElementsChanged(): void {
+        DOM.queueUpdate(() => this.syncInputAriaReferences());
+    }
+
+    /** @internal */
+    public ariaErrormessageChanged(): void {
+        DOM.queueUpdate(() => this.syncInputAriaReferences());
+    }
+
+    /** @internal */
+    public ariaErrormessageElementsChanged(): void {
+        DOM.queueUpdate(() => this.syncInputAriaReferences());
     }
 
     /** @internal */
     public optionsChanged(): void {}
+
+    /** @internal */
+    public optionItemsChanged(): void {
+        this.optionsByKey.clear();
+        if (Array.isArray(this.optionItems)) {
+            for (const option of this.optionItems as readonly unknown[]) {
+                if (this.isOption(option)) {
+                    const key = this.typedOptionKey(option.value);
+                    if (!this.optionsByKey.has(key)) {
+                        this.optionsByKey.set(key, option);
+                    }
+                }
+            }
+        }
+    }
 
     /** @internal */
     public allowCustomValuesChanged(): void {}
@@ -110,6 +190,7 @@ export class FvChipSelector extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         document.addEventListener('click', this.documentClickHandler);
+        DOM.queueUpdate(() => this.syncInputAriaReferences());
     }
 
     /** @internal */
@@ -121,6 +202,7 @@ export class FvChipSelector extends FoundationElement {
     /** @internal */
     public captureInputRef(input: HTMLInputElement | null): void {
         this.inputElement = input;
+        this.syncInputAriaReferences();
     }
 
     /** @internal */
@@ -151,8 +233,13 @@ export class FvChipSelector extends FoundationElement {
 
     /** @internal */
     public get selectedValueList(): string[] {
+        if (Array.isArray(this.optionItems)) {
+            return (Array.isArray(this.selectedOptionValues) ? this.selectedOptionValues : [])
+                .filter(value => this.isOptionValue(value))
+                .map(value => this.typedOptionKey(value));
+        }
         return Array.from(new Set(
-            this.selectedValues
+            (typeof this.selectedValues === 'string' ? this.selectedValues : '')
                 .split(',')
                 .map(value => value.trim())
                 .filter(value => value.length > 0)
@@ -161,8 +248,13 @@ export class FvChipSelector extends FoundationElement {
 
     /** @internal */
     public get optionList(): string[] {
+        if (Array.isArray(this.optionItems)) {
+            return this.optionItems
+                .filter((option): option is FvChipSelectorOption => this.isOption(option))
+                .map(option => this.typedOptionKey(option.value));
+        }
         return Array.from(new Set(
-            this.options
+            (typeof this.options === 'string' ? this.options : '')
                 .split(',')
                 .map(option => option.trim())
                 .filter(option => option.length > 0)
@@ -172,23 +264,28 @@ export class FvChipSelector extends FoundationElement {
     /** @internal */
     public get visibleOptionList(): string[] {
         const selectedValues = new Set(this.selectedValueList);
-        const normalizedFilter = diacriticInsensitiveStringNormalizer(this.filterText.trim());
+        const normalizedFilter = diacriticInsensitiveStringNormalizer(
+            (typeof this.filterText === 'string' ? this.filterText : '').trim()
+        );
 
         return this.optionList.filter(option => {
             if (selectedValues.has(option)) {
                 return false;
             }
+            if (this.getOption(option)?.disabled) {
+                return false;
+            }
 
-            return normalizedFilter.length === 0
-                || diacriticInsensitiveStringNormalizer(option).includes(normalizedFilter);
+            return !this.filterLocally || normalizedFilter.length === 0
+                || diacriticInsensitiveStringNormalizer(this.formatValue(option)).includes(normalizedFilter);
         });
     }
 
     /** @internal */
     public get customValueCandidate(): string {
-        const trimmedFilterText = this.filterText.trim();
+        const trimmedFilterText = (typeof this.filterText === 'string' ? this.filterText : '').trim();
 
-        if (!this.allowCustomValues || trimmedFilterText.length === 0 || trimmedFilterText.includes(',')) {
+        if (Array.isArray(this.optionItems) || !this.allowCustomValues || trimmedFilterText.length === 0 || trimmedFilterText.includes(',')) {
             return '';
         }
 
@@ -202,6 +299,32 @@ export class FvChipSelector extends FoundationElement {
     /** @internal */
     public get createOptionLabel(): string {
         return `Add '${this.customValueCandidate}'`;
+    }
+
+    /** @internal */
+    public formatValue(key: string): string {
+        const option = this.getOption(key);
+        if (option) {
+            return option.label;
+        }
+        if (Array.isArray(this.optionItems) && key.startsWith('typed:')) {
+            try {
+                return JSON.stringify(JSON.parse(decodeURIComponent(key.slice('typed:'.length))));
+            } catch {
+                return key;
+            }
+        }
+        return key;
+    }
+
+    /** @internal */
+    public typedOptionKey(value: FvChipSelectorValue): string {
+        return `typed:${encodeURIComponent(JSON.stringify(value))}`;
+    }
+
+    /** @internal */
+    public getOptionDisabled(key: string): boolean {
+        return this.getOption(key)?.disabled ?? false;
     }
 
     /** @internal */
@@ -364,6 +487,45 @@ export class FvChipSelector extends FoundationElement {
         }
     }
 
+    private syncInputAriaReferences(): void {
+        const input = (
+            this.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input') ?? this.inputElement
+        ) as (HTMLInputElement & {
+            ariaControlsElements?: Element[],
+            ariaDescribedByElements?: Element[],
+            ariaErrorMessageElements?: Element[]
+        }) | null;
+        if (!input) {
+            return;
+        }
+        const list = this.shadowRoot?.getElementById(this.menuId);
+        const descriptionId = this.ariaDescribedby;
+        const errorMessageId = this.ariaErrormessage;
+        const inputDescriptions = this.validElements([
+            ...(this.ariaDescribedbyElements ?? []),
+            ...this.resolveAriaIds(descriptionId)
+        ], input.getRootNode());
+        const inputErrors = this.validElements([
+            ...(this.ariaErrormessageElements ?? []),
+            ...this.resolveAriaIds(errorMessageId)
+        ], input.getRootNode());
+        const hostDescriptions = this.validElements(this.ariaDescribedbyElements, this.getRootNode());
+        const hostErrors = this.validElements(this.ariaErrormessageElements, this.getRootNode());
+        if (!descriptionId && hostDescriptions.length > 0) {
+            this.ariaDescribedByElements = hostDescriptions;
+        } else if (!descriptionId && (this.ariaDescribedByElements?.length ?? 0) > 0) {
+            this.ariaDescribedByElements = [];
+        }
+        if (!errorMessageId && hostErrors.length > 0) {
+            this.ariaErrorMessageElements = hostErrors;
+        } else if (!errorMessageId && (this.ariaErrorMessageElements?.length ?? 0) > 0) {
+            this.ariaErrorMessageElements = [];
+        }
+        input.ariaControlsElements = list ? [list] : [];
+        input.ariaDescribedByElements = inputDescriptions;
+        input.ariaErrorMessageElements = inputErrors;
+    }
+
     private commitActiveOption(): void {
         const allOptions = [
             ...this.visibleOptionList,
@@ -377,6 +539,9 @@ export class FvChipSelector extends FoundationElement {
 
     private addValue(value: string): void {
         if (this.disabled) {
+            return;
+        }
+        if (this.getOption(value)?.disabled) {
             return;
         }
 
@@ -403,12 +568,72 @@ export class FvChipSelector extends FoundationElement {
     }
 
     private commitSelection(nextValues: string[]): void {
-        this.selectedValues = nextValues.join(',');
+        const previousValues = new Map(
+            (Array.isArray(this.selectedOptionValues) ? this.selectedOptionValues : [])
+                .filter(value => this.isOptionValue(value))
+                .map(value => [this.typedOptionKey(value), value])
+        );
+        const selectedOptionValues = !Array.isArray(this.optionItems)
+            ? undefined
+            : nextValues.map(value => {
+                const option = this.getOption(value);
+                return option ? option.value : previousValues.get(value);
+            })
+                .filter((value): value is FvChipSelectorValue => value !== undefined);
+        if (selectedOptionValues !== undefined) {
+            this.selectedOptionValues = selectedOptionValues;
+        } else {
+            this.selectedValues = nextValues.join(',');
+        }
         this.dispatchEvent(new CustomEvent('change', {
             bubbles: true,
             composed: true,
-            detail: { selectedValues: nextValues }
+            detail: {
+                selectedValues: nextValues,
+                ...(selectedOptionValues !== undefined ? { selectedOptionValues } : {})
+            }
         }));
+    }
+
+    private getOption(key: string): FvChipSelectorOption | undefined {
+        if (!Array.isArray(this.optionItems)) {
+            return undefined;
+        }
+        return this.optionsByKey.get(key);
+    }
+
+    private isOptionValue(value: unknown): value is FvChipSelectorValue {
+        return value === null || typeof value === 'string' || typeof value === 'boolean'
+            || (typeof value === 'number' && Number.isFinite(value));
+    }
+
+    private isOption(value: unknown): value is FvChipSelectorOption {
+        return typeof value === 'object' && value !== null
+            && this.isOptionValue((value as FvChipSelectorOption).value)
+            && typeof (value as FvChipSelectorOption).label === 'string'
+            && ((value as FvChipSelectorOption).disabled === undefined
+                || typeof (value as FvChipSelectorOption).disabled === 'boolean');
+    }
+
+    private validElements(values: readonly Element[] | undefined, root: Node): Element[] {
+        const roots = new Set<Node>();
+        let current = root;
+        roots.add(current);
+        while (current instanceof ShadowRoot) {
+            current = current.host.getRootNode();
+            roots.add(current);
+        }
+        return [...new Set(values?.filter(value => roots.has(value.getRootNode())) ?? [])];
+    }
+
+    private resolveAriaIds(ids: string): Element[] {
+        const root = this.getRootNode();
+        if (!(root instanceof Document || root instanceof ShadowRoot)) {
+            return [];
+        }
+        return ids.trim().split(/\s+/)
+            .map(id => root.getElementById(id))
+            .filter((element): element is HTMLElement => element !== null);
     }
 
     private setOpen(nextOpen: boolean): void {

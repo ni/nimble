@@ -146,6 +146,8 @@ export class FvDateTimePicker extends mixinErrorPattern(
     private timeSegmentListeners?: AbortController;
     private readonly timeSegmentState: InputEditState = { pending: false };
 
+    private readonly scrollRoots: (Document | ShadowRoot)[] = [];
+
     private readonly localeSubscriber = { handleChange: (): void => this.refreshLocale() };
 
     private readonly stateSubscriber = {
@@ -162,11 +164,24 @@ export class FvDateTimePicker extends mixinErrorPattern(
         this.refreshLocale();
         this.updateConstraints();
         this.ownerDocument.addEventListener('pointerdown', this.outsidePointerHandler);
+        let root = this.getRootNode();
+        while (root instanceof ShadowRoot || root instanceof Document) {
+            root.addEventListener('scroll', this.updatePopupPosition, true);
+            this.scrollRoots.push(root);
+            if (root instanceof Document) {
+                break;
+            }
+            root = root.host.getRootNode();
+        }
+        this.ownerDocument.defaultView?.addEventListener('resize', this.updatePopupPosition);
         lang.subscribe(this.localeSubscriber, this);
         direction.subscribe(this.localeSubscriber, this);
         Observable.getNotifier(this).subscribe(this.stateSubscriber, 'disabled');
         Observable.getNotifier(this).subscribe(this.stateSubscriber, 'readOnly');
         this.entryErrorChanged();
+        if (this.open) {
+            this.openChanged();
+        }
         if (this.autofocus) {
             DOM.queueUpdate(() => this.control.focus());
         }
@@ -174,6 +189,9 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     /** @internal */
     public override disconnectedCallback(): void {
+        if (this.region?.isConnected && this.region.matches(':popover-open')) {
+            this.region.hidePopover();
+        }
         this.timeSegmentListeners?.abort();
         this.timeMask?.destroy();
         this.mask?.destroy();
@@ -182,6 +200,11 @@ export class FvDateTimePicker extends mixinErrorPattern(
         lang.unsubscribe(this.localeSubscriber, this);
         direction.unsubscribe(this.localeSubscriber, this);
         this.ownerDocument.removeEventListener('pointerdown', this.outsidePointerHandler);
+        for (const root of this.scrollRoots) {
+            root.removeEventListener('scroll', this.updatePopupPosition, true);
+        }
+        this.scrollRoots.length = 0;
+        this.ownerDocument.defaultView?.removeEventListener('resize', this.updatePopupPosition);
         Observable.getNotifier(this).unsubscribe(this.stateSubscriber, 'disabled');
         Observable.getNotifier(this).unsubscribe(this.stateSubscriber, 'readOnly');
         super.disconnectedCallback();
@@ -189,6 +212,17 @@ export class FvDateTimePicker extends mixinErrorPattern(
 
     /** @internal */
     public openChanged(): void {
+        DOM.queueUpdate(() => DOM.queueUpdate(() => {
+            const region = this.region;
+            if (!region?.isConnected) {
+                return;
+            }
+            if (this.open && !region.matches(':popover-open')) {
+                region.showPopover();
+            } else if (!this.open && region.matches(':popover-open')) {
+                region.hidePopover();
+            }
+        }));
         if (!this.open) {
             if (this.timeField && this.timeSegmentState !== undefined) {
                 // Flush native change before the synthetic fallback to avoid duplicate commits.
@@ -983,6 +1017,12 @@ export class FvDateTimePicker extends mixinErrorPattern(
         });
         return true;
     }
+
+    private readonly updatePopupPosition = (): void => {
+        if (this.open && this.region?.isConnected) {
+            this.region.update();
+        }
+    };
 
     private readonly outsidePointerHandler = (event: Event): void => {
         if (!event.composedPath().includes(this)) {

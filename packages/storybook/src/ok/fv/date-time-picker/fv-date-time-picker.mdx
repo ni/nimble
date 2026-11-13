@@ -158,7 +158,7 @@ Appearances are `underline` (default), `outline`, `block`, and `frameless`.
 Use `full-bleed` with frameless fields and `appearance-readonly` with disabled fields
 as with Nimble text fields.
 
-The popup scrolls with the field rather than staying locked to the viewport.
+The popup uses the top layer to avoid clipping in scrollable containers and follows the field as it scrolls.
 It has 24px padding. Month and year selectors have a medium gap; navigation
 arrows align to the opposite edge. The month selector fits the widest localized
 month name, so changing months does not move the year selector.
