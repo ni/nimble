@@ -2533,6 +2533,7 @@ describe('FvQueryEditor', () => {
         await waitForUpdatesAsync();
         await Promise.resolve();
         await waitForUpdatesAsync();
+        await waitForFieldFocus(element.shadowRoot!, getRequiredElement<HTMLElement>('[data-control="field"]'));
 
         const field = getRequiredElement<HTMLElement & { shadowRoot: ShadowRoot, ariaControlsElements?: Element[] }>(
             '[data-control="scalar-text"]'
@@ -2546,12 +2547,15 @@ describe('FvQueryEditor', () => {
         expect(list.textContent).toContain('Production');
         expect(list.textContent).not.toContain('dynamic:');
         expect(input.getAttribute('role')).toBe('combobox');
-        expect(input.getAttribute('aria-controls')).toBe(list.id);
+        expect(input.getAttribute('aria-expanded')).toBe('true');
+        expect(input.ariaControlsElements).toEqual([list]);
         expect(field.ariaControlsElements).toEqual([list]);
 
+        expect(input.matches(':focus')).toBeTrue();
         input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true, cancelable: true }));
         input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true, cancelable: true }));
         await waitForUpdatesAsync();
+        expect(input.ariaActiveDescendantElement).toBe(list.querySelector('[aria-selected="true"]'));
         input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, composed: true, cancelable: true }));
         await waitForUpdatesAsync();
         expect(JSON.stringify(element.query.root)).toBe(JSON.stringify({
@@ -2560,6 +2564,7 @@ describe('FvQueryEditor', () => {
             operatorId: 'is',
             value: 'production-test'
         }));
+        expect(input.ariaActiveDescendantElement).toBeNull();
     });
 
     it('restores dynamic scalar values and labels for select and combobox editors', async () => {

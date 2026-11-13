@@ -2427,14 +2427,14 @@ export class FvQueryEditor extends FoundationElement {
             if (list) {
                 (host as TextField & { ariaControlsElements?: Element[] }).ariaControlsElements = [list];
                 input.ariaControlsElements = [list];
+            } else {
+                (host as TextField & { ariaControlsElements?: Element[] }).ariaControlsElements = [];
+                input.ariaControlsElements = [];
             }
             input.setAttribute('aria-expanded', String(isOpen));
-            input.setAttribute('aria-controls', this.dynamicOptionListId);
             if (activeOption) {
                 input.ariaActiveDescendantElement = activeOption;
-                input.setAttribute('aria-activedescendant', `${this.dynamicOptionListId}-option-${this.activeOptionIndex}`);
             } else {
-                input.removeAttribute('aria-activedescendant');
                 input.ariaActiveDescendantElement = null;
                 (host as TextField & { ariaActiveDescendantElement?: Element | null })
                     .ariaActiveDescendantElement = null;
