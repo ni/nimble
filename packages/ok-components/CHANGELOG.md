@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 13 Nov 2026 22:11:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 13 Nov 2026 22:34:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.18.0
+
+Fri, 13 Nov 2026 22:34:49 GMT
+
+### Minor changes
+
+- Add the ok-fv-text-field component with configurable Maskito input masking. ([ni/nimble@963d455](https://github.com/ni/nimble/commit/963d4555aa68f3efef31e203cfc76a250b47de0e))
 
 ## 1.17.0
 
