@@ -419,6 +419,7 @@ describe('FvMultiSelect', () => {
         await open();
         document.body.click();
         expect(element.open).toBeFalse();
+        await waitForUpdatesAsync();
         await open();
         query('input').dispatchEvent(new FocusEvent('focusout', {
             bubbles: true, composed: true, relatedTarget: document.body
