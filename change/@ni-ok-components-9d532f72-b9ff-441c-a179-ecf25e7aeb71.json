@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add the FV date/time picker with date-only mode, native form constraints, localized masked entry, and a calendar popup",
-  "packageName": "@ni/ok-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
