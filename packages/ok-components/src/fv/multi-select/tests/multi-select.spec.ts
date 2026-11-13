@@ -427,6 +427,23 @@ describe('FvMultiSelect', () => {
         expect(element.open).toBeFalse();
     });
 
+    it('stays open after a null-target focusout while focus remains inside', async () => {
+        await open();
+        query('input').dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        expect(element.open).toBeTrue();
+        await waitAnimationFrame();
+        expect(element.open).toBeTrue();
+    });
+
+    it('closes after the next frame on a null-target focusout when focus is outside', async () => {
+        await open();
+        query<HTMLInputElement>('input').blur();
+        query('input').dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        expect(element.open).toBeTrue();
+        await waitAnimationFrame();
+        expect(element.open).toBeFalse();
+    });
+
     it('reopens at the updated anchor position without a first-frame jump', async () => {
         element.region.verticalPositioningMode = 'locktodefault';
         await open();
