@@ -13,6 +13,15 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Fv Bulk Edit Field',
+        componentHref: './?path=/docs/ok-fv-bulk-edit-field--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Card',
         componentHref: './?path=/docs/ok-fv-card--docs',
         library: 'ok',
@@ -40,6 +49,26 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Fv Date Time Picker',
+        componentHref: './?path=/docs/ok-fv-date-time-picker--docs',
+        designHref: 'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=9200-35922',
+        designLabel: 'Figma',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
+        componentName: 'Fv Edit Commit Bar',
+        componentHref: './?path=/docs/ok-fv-edit-commit-bar--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Master Detail List',
         componentHref: './?path=/docs/ok-fv-master-detail-list--docs',
         library: 'ok',
@@ -55,6 +84,15 @@ export const componentDataOkFv = [
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Fv Multi Select',
+        componentHref: './?path=/docs/ok-fv-multi-select--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Fv Search Input',
@@ -86,6 +124,15 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Fv Split Layout',
+        componentHref: './?path=/docs/ok-fv-split-layout--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Splitter',
         componentHref: './?path=/docs/ok-fv-splitter--docs',
         library: 'ok',
@@ -110,5 +157,14 @@ export const componentDataOkFv = [
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.doesNotExist,
         reactStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Fv Text Field',
+        componentHref: './?path=/docs/ok-fv-text-field--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
     }
 ] as const;

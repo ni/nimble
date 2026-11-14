@@ -1,8 +1,52 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 7.1.3
+
+Mon, 02 Nov 2026 22:26:58 GMT
+
+### Patches
+
+- Sync package version ([ni/nimble@b87a311](https://github.com/ni/nimble/commit/b87a311a5b9cdb6c8a875cd37fa74f4480781b7f))
+- Bump @ni/nimble-components to v35.17.3
+
+## 7.1.1
+
+Sat, 31 Oct 2026 00:18:04 GMT
+
+### Patches
+
+- npm dependency updates ([ni/nimble@4d89363](https://github.com/ni/nimble/commit/4d89363de301e097eca18cb7de75ff7be10af0a7))
+- Bump @ni/nimble-components to v35.17.1
+- Bump @ni/jasmine-parameterized to v1.0.15
+
+## 7.1.0
+
+Mon, 26 Oct 2026 21:00:16 GMT
+
+### Minor changes
+
+- Add slot for welcome message subtitle content ([ni/nimble@4faf19f](https://github.com/ni/nimble/commit/4faf19f743bbd0ce68e0354213eb251e78ae1162))
+
+## 7.0.0
+
+Mon, 19 Oct 2026 21:08:34 GMT
+
+### Major changes
+
+- Move user-facing strings from attributes to label provider for chat components ([ni/nimble@58fba61](https://github.com/ni/nimble/commit/58fba61aa97053d740b3b5c6660f6fa563cc7ed1))
+
+## 6.24.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v35.17.0
+- Bump @ni/nimble-tokens to v8.22.0
 
 ## 6.23.3
 

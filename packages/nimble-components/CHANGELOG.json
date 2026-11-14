@@ -2,6 +2,84 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 02 Nov 2026 22:26:58 GMT",
+      "version": "35.17.3",
+      "tag": "@ni/nimble-components_v35.17.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b87a311a5b9cdb6c8a875cd37fa74f4480781b7f",
+            "comment": "Sync package version"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b2da313168a8fd6aa59cc2c7a564f48ddbbe1af9",
+            "comment": "Page object updates for event handlers"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 31 Oct 2026 00:18:04 GMT",
+      "version": "35.17.1",
+      "tag": "@ni/nimble-components_v35.17.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4d89363de301e097eca18cb7de75ff7be10af0a7",
+            "comment": "npm dependency updates"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/unit-format to v1.0.10",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.15",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 19 Oct 2026 22:07:28 GMT",
+      "version": "35.17.0",
+      "tag": "@ni/nimble-components_v35.17.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5d35cbbd4e7a0e37b67d81ecda9aba95303391c4",
+            "comment": "Fix rich text editor keyboard shortcut tests on Safari"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Oct 2026 23:51:52 GMT",
+      "version": "35.17.0",
+      "tag": "@ni/nimble-components_v35.17.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.22.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Oct 2026 16:45:55 GMT",
       "version": "35.16.0",
       "tag": "@ni/nimble-components_v35.16.0",

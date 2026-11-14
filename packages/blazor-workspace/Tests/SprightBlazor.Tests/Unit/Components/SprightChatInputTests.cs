@@ -44,22 +44,6 @@ public class SprightChatInputTests : BunitTestBase
     }
 
     [Fact]
-    public void SprightChatInputSendButtonLabel_AttributeIsSet()
-    {
-        var chatInput = RenderWithPropertySet(x => x.SendButtonLabel, "Send now");
-
-        chatInput.AssertHasAttribute("send-button-label");
-    }
-
-    [Fact]
-    public void SprightChatInputStopButtonLabel_AttributeIsSet()
-    {
-        var chatInput = RenderWithPropertySet(x => x.StopButtonLabel, "Cancel");
-
-        chatInput.AssertHasAttribute("stop-button-label");
-    }
-
-    [Fact]
     public void SprightChatInputSendDisabled_AttributeIsSet()
     {
         var chatInput = RenderWithPropertySet(x => x.SendDisabled, true);

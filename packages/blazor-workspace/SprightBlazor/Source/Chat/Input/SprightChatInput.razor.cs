@@ -8,18 +8,6 @@ public partial class SprightChatInput : ComponentBase
     public string? Placeholder { get; set; }
 
     /// <summary>
-    /// Gets or sets the label for the send button
-    /// </summary>
-    [Parameter]
-    public string? SendButtonLabel { get; set; }
-
-    /// <summary>
-    /// Gets or sets the label for the stop/cancel button
-    /// </summary>
-    [Parameter]
-    public string? StopButtonLabel { get; set; }
-
-    /// <summary>
     /// Gets or sets whether the send button is explicitly disabled. In addition the component will automatically disable the send button when the input is empty; that state is not reflected in this attribute.
     /// </summary>
     [Parameter]

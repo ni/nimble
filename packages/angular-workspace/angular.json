@@ -33,6 +33,9 @@
             "main": "nimble-angular/test.ts",
             "tsConfig": "nimble-angular/tsconfig.spec.json",
             "karmaConfig": "nimble-angular/karma.conf.cjs",
+            "styles": [
+              "nimble-angular/test.scss"
+            ],
             "polyfills": [
               "zone.js",
               "zone.js/testing",
@@ -81,6 +84,9 @@
             "main": "ok-angular/test.ts",
             "tsConfig": "ok-angular/tsconfig.spec.json",
             "karmaConfig": "ok-angular/karma.conf.cjs",
+            "styles": [
+              "ok-angular/test.scss"
+            ],
             "polyfills": [
               "zone.js",
               "zone.js/testing",
@@ -129,6 +135,9 @@
             "main": "spright-angular/test.ts",
             "tsConfig": "spright-angular/tsconfig.spec.json",
             "karmaConfig": "spright-angular/karma.conf.cjs",
+            "styles": [
+              "spright-angular/test.scss"
+            ],
             "polyfills": [
               "zone.js",
               "zone.js/testing",

@@ -6,7 +6,6 @@ import type { FvSplitButton } from '.';
 export const template = html<FvSplitButton>`
     <div
         class="split-button-container"
-        ${ref('splitButtonContainer')}
     >
         <button
             class="split-button-primary"
@@ -17,10 +16,13 @@ export const template = html<FvSplitButton>`
                 return true;
             }}"
         >
-            ${x => x.label}
+            <slot name="start"></slot>
+            <span>${x => x.label}</span>
+            <slot name="end"></slot>
         </button>
         <button
             class="split-button-toggle"
+            ${ref('toggleButton')}
             type="button"
             ?disabled="${x => x.disabled}"
             aria-label="${x => `More actions for ${x.label}`}"
@@ -42,9 +44,9 @@ export const template = html<FvSplitButton>`
                 auto-update-mode="auto"
                 horizontal-inset
                 horizontal-positioning-mode="dynamic"
+                horizontal-default-position="end"
                 vertical-positioning-mode="locktodefault"
                 vertical-default-position="bottom"
-                horizontal-scaling="anchor"
                 ${ref('region')}
             >
                 <span part="menu">

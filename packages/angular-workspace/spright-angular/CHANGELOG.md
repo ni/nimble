@@ -1,8 +1,50 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Thu, 15 Oct 2026 16:45:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 11.0.3
+
+Mon, 02 Nov 2026 22:26:58 GMT
+
+### Patches
+
+- Sync package version ([ni/nimble@b87a311](https://github.com/ni/nimble/commit/b87a311a5b9cdb6c8a875cd37fa74f4480781b7f))
+- Bump @ni/spright-components to v7.1.3
+
+## 11.0.2
+
+Sat, 31 Oct 2026 00:18:04 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v7.1.1
+
+## 11.0.1
+
+Mon, 26 Oct 2026 21:00:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v7.1.0
+
+## 11.0.0
+
+Mon, 19 Oct 2026 21:08:34 GMT
+
+### Major changes
+
+- Move user-facing strings from attributes to label provider for chat components ([ni/nimble@58fba61](https://github.com/ni/nimble/commit/58fba61aa97053d740b3b5c6660f6fa563cc7ed1))
+- Bump @ni/spright-components to v7.0.0
+
+## 10.2.0
+
+Fri, 16 Oct 2026 23:51:52 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v6.24.0
 
 ## 10.1.3
 
