@@ -31,9 +31,12 @@ export const styles = css`
             width: 100%;
             height: 100%;
             min-width: 0;
+            container-type: inline-size;
         }
 
         .tooltip {
+            ${/* Matches TanStack's default card limit; percentages would resolve against the shrink-to-fit tooltip root. */ ''}
+            max-width: min(24rem, 80cqi);
             padding: ${smallPadding} ${mediumPadding} calc(${smallPadding} * 1.5);
             border: ${borderWidth} solid ${popupBorderColor};
             background: ${tooltipBackgroundColor};
