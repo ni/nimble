@@ -2,7 +2,7 @@
     "compilerOptions": {
         "declaration": true,
         "esModuleInterop": true,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "outDir": "dist/esm",
         "strict": true,
         "experimentalDecorators": true,

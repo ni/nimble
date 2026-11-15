@@ -1,0 +1,121 @@
+import { Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as chartStories from './fv-chart.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+
+<Meta of={chartStories} />
+<Title of={chartStories} />
+
+Use `ok-fv-chart` to draw TanStack SVG charts with Nimble fonts, trace colors,
+gridlines, and tooltips. You configure marks, scales, and interactions through
+TanStack's API.
+
+<Canvas of={chartStories.line} />
+
+## API
+
+<ComponentApisLink />
+
+Set the JavaScript `options` property to a TanStack `ChartHostOptions` object.
+Include a `definition` and a meaningful, localized `ariaLabel`. The component
+passes other host options, including dimensions, `ariaDescription`, `onSelect`,
+`onFocusChange`, `onFocusGroupChange`, and `onRender`, to TanStack unchanged.
+
+To update the chart, assign a new options object. Replace the definition too
+when the data changes: the component does not observe changes inside an existing
+object. Set `options` to `undefined` to clear the chart.
+
+```ts
+import '@ni/ok-components/dist/esm/fv/chart';
+import { barY, defineChart } from '@tanstack/charts';
+import { scaleBand } from '@tanstack/charts/scales/band';
+import { scaleLinear } from '@tanstack/charts/scales/linear';
+
+const chart = document.querySelector('ok-fv-chart');
+chart.options = {
+    ariaLabel: 'Measurements by station',
+    height: 320,
+    definition: defineChart({
+        marks: [barY(rows, { x: 'station', y: 'value' })],
+        scales: {
+            x: { scale: scaleBand },
+            y: { scale: scaleLinear, grid: true }
+        }
+    })
+};
+```
+
+For typed callbacks, import `FvChart<Row, XValue, YValue>` from the component entry.
+You can use a static definition or a responsive builder. A builder receives
+Nimble theme values in `context.defaultTheme`; values you set in `spec.theme`
+override them. Mounted charts update when their Nimble tokens or inherited theme
+change.
+
+## Styling and sizing
+
+Wrap charts in a `nimble-theme-provider`. The chart uses `graph-trace-1-color`
+through `graph-trace-8-color` for its palette and `application-background-color`
+for its surface, which is white in the light theme.
+
+Axis tick labels use Nimble's subtitle font size, and axis titles use the body
+font size. Both use regular weight. Tick stubs are hidden by default. Gridlines
+use `graph-gridline-color` without fading its opacity further. Your axis, tick,
+grid, and theme settings override these defaults.
+
+The palette repeats after eight series. Use labels, marker shapes, or line styles
+to help readers distinguish series without relying on color.
+
+The chart fills its container's width unless you set `options.width`. Set
+`options.height` or `options.aspectRatio` to control its height. If you size it
+with CSS instead, give the component a definite height. Otherwise, TanStack uses
+its default height of 320 pixels. Use the `chart` shadow part to style the container.
+
+### Tooltips
+
+Import `tooltip` from `@tanstack/charts/tooltip` and set `tooltip` on the
+definition to enable it. Tooltips use Nimble's caption font, text and background
+colors, popup border, spacing, and shadow. Swatches and active rows have square
+corners. The active row uses Nimble's hover fill rather than heavier text.
+
+You can override the `--ts-chart-tooltip-*` custom properties on the component.
+If you use TanStack's optional portal extension, the tooltip leaves the shadow
+tree. Set those properties in the portal's scope too; the component's internal
+layout and swatch styles do not apply there.
+
+## Examples
+
+<Canvas of={chartStories.bar} />
+
+### Responsive layout
+
+Resize the example to see its responsive builder hide the legend and axis title
+below 400 pixels. It keeps both data series visible.
+
+<Canvas of={chartStories.responsive} />
+
+### All plot types
+
+The gallery has 57 runnable examples of Cartesian and polar marks, with both
+orientations where available. It also includes compositions such as
+stacked charts, histograms, box plots, violins, ridgelines, regression, waterfall,
+heatmaps, pie/donut, radar, treemap, sunburst, trees, force networks, Sankey flows,
+contours, hexbin, Voronoi, and geographic shapes.
+
+<Canvas of={chartStories.allPlotTypes} />
+
+Each tile names the TanStack API it uses. Try the Storybook theme selector to
+view the gallery in light, dark, and color themes. The examples use fixed local
+data and make no external data requests. Guides, transforms, and composition
+helpers appear within plots rather than as separate plot types.
+
+## Accessibility
+
+The chart uses TanStack's keyboard and pointer navigation. Supply localized
+labels, axis names, and value formatters. If the chart conveys information
+that readers cannot find elsewhere, include an `ariaDescription` and an
+equivalent data table or text summary. Do not rely on trace color alone.
+Charts do not animate unless you enable animation.
+
+## Resources
+
+- [TanStack chart definitions](https://tanstack.com/charts/latest/docs/reference/chart-definitions)
+- [TanStack DOM host options](https://tanstack.com/charts/latest/docs/reference/dom-host)

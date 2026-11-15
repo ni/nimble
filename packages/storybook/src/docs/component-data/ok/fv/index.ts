@@ -31,6 +31,15 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Fv Chart',
+        componentHref: './?path=/docs/ok-fv-chart--docs',
+        library: 'ok',
+        componentStatus: ComponentFrameworkStatus.incubating,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
+        reactStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Fv Chip Selector',
         componentHref: './?path=/docs/ok-fv-chip-selector--docs',
         library: 'ok',
