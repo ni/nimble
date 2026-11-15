@@ -76,10 +76,9 @@ definition to enable it. Tooltips use Nimble's caption font, text and background
 colors, popup border, spacing, and shadow. Swatches and active rows have square
 corners. The active row uses Nimble's hover fill rather than heavier text.
 
-You can override the `--ts-chart-tooltip-*` custom properties on the component.
-If you use TanStack's optional portal extension, the tooltip leaves the shadow
-tree. Set those properties in the portal's scope too; the component's internal
-layout and swatch styles do not apply there.
+The component renders the tooltip content itself with Nimble styles. If you use
+TanStack's optional portal extension, the tooltip leaves the shadow tree and
+those styles do not apply there, so style the portaled tooltip yourself.
 
 ## Examples
 
