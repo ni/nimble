@@ -1,5 +1,6 @@
 import './accordion-item';
 import './card';
+import './chart';
 import './bulk-edit-field';
 import './chip-selector';
 import './context-help';
