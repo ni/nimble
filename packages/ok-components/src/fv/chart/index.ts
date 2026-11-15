@@ -1,6 +1,6 @@
 import { DOM, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import type { ChartHost, ChartHostOptions, ChartTheme, ChartValue, StaticChartDefinition } from '@tanstack/charts';
+import type { ChartHost, ChartHostOptions, ChartTheme, ChartTooltipBodyTarget, ChartValue, StaticChartDefinition } from '@tanstack/charts';
 import { mountChart } from '@tanstack/charts/dom';
 import {
     applicationBackgroundColor,
@@ -50,6 +50,56 @@ const themeTokens = [
     subtitleFontColor,
     subtitleFontSize
 ];
+
+const createSwatch = (document: Document, color: string): HTMLSpanElement => {
+    const swatch = document.createElement('span');
+    swatch.className = 'tooltip-swatch';
+    swatch.style.background = color;
+    return swatch;
+};
+
+// TanStack's default tooltip body uses inline styles, so render our own classed markup instead.
+const renderTooltipBody = (target: ChartTooltipBodyTarget | null): void => {
+    if (!target) {
+        return;
+    }
+    const { element, content } = target;
+    element.classList.add('tooltip');
+    if (typeof content === 'string') {
+        element.textContent = content;
+        return;
+    }
+    const document = element.ownerDocument;
+    const children: HTMLElement[] = [];
+    if (content.title) {
+        const title = document.createElement('div');
+        title.className = 'tooltip-title';
+        if (content.color) {
+            title.append(createSwatch(document, content.color));
+        }
+        title.append(content.title);
+        children.push(title);
+    }
+    if (content.rows.length > 0) {
+        const rows = document.createElement('div');
+        rows.className = 'tooltip-rows';
+        rows.setAttribute('aria-hidden', 'true');
+        for (const row of content.rows) {
+            const line = document.createElement('div');
+            line.className = 'tooltip-row';
+            line.toggleAttribute('data-active', row.active === true);
+            const label = document.createElement('span');
+            label.textContent = row.label;
+            const value = document.createElement('span');
+            value.className = 'tooltip-value';
+            value.textContent = row.value;
+            line.append(row.color ? createSwatch(document, row.color) : document.createElement('span'), label, value);
+            rows.append(line);
+        }
+        children.push(rows);
+    }
+    element.replaceChildren(...children);
+};
 
 /**
  * A TanStack SVG chart with Nimble typography, guides, and trace colors.
@@ -172,7 +222,10 @@ export class FvChart<
                 : { ...definition, ...styleSpec(definition) };
             this.sourceDefinition = definition;
         }
-        const options = { ...this.options, definition: this.themedDefinition };
+        // mountChart forwards onTooltipBodyChange to its renderer host, but ChartHostOptions omits it from the type.
+        const options: ChartHostOptions<TDatum, TXValue, TYValue> & {
+            onTooltipBodyChange: typeof renderTooltipBody
+        } = { ...this.options, definition: this.themedDefinition, onTooltipBodyChange: renderTooltipBody };
         if (this.chartHost) {
             this.chartHost.update(options);
         } else {

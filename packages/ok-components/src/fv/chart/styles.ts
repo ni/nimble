@@ -25,17 +25,6 @@ export const styles = css`
             min-width: 0;
             font: ${bodyFont};
             color: ${bodyFontColor};
-            --ts-chart-tooltip-background: ${tooltipBackgroundColor};
-            --ts-chart-tooltip-color: ${tooltipCaptionFontColor};
-            --ts-chart-tooltip-font: ${tooltipCaptionFont};
-            --ts-chart-tooltip-border: ${borderWidth} solid ${popupBorderColor};
-            --ts-chart-tooltip-border-radius: 0;
-            --ts-chart-tooltip-padding: ${smallPadding} ${mediumPadding} calc(${smallPadding} * 1.5);
-            --ts-chart-tooltip-shadow: ${elevation2BoxShadow};
-            --ts-chart-tooltip-active-row-font-weight: ${tooltipCaptionFontWeight};
-            --ts-chart-tooltip-active-row-background: ${fillHoverColor};
-            --ts-chart-tooltip-active-row-border-radius: 0;
-            --ts-chart-tooltip-active-row-shadow: none;
         }
 
         [part='chart'] {
@@ -44,22 +33,47 @@ export const styles = css`
             min-width: 0;
         }
 
-        ${/* TanStack sets these details inline without custom properties. */ ''}
-        .ts-chart-tooltip__title {
-            font-weight: ${tooltipCaptionFontWeight} !important;
-            gap: ${smallPadding} !important;
-            margin-bottom: ${smallPadding} !important;
+        .tooltip {
+            padding: ${smallPadding} ${mediumPadding} calc(${smallPadding} * 1.5);
+            border: ${borderWidth} solid ${popupBorderColor};
+            background: ${tooltipBackgroundColor};
+            color: ${tooltipCaptionFontColor};
+            font: ${tooltipCaptionFont};
+            box-shadow: ${elevation2BoxShadow};
         }
 
-        .ts-chart-tooltip__row {
-            column-gap: ${mediumPadding} !important;
+        .tooltip-title {
+            display: flex;
+            align-items: center;
+            gap: ${smallPadding};
+            font-weight: ${tooltipCaptionFontWeight};
         }
 
-        .ts-chart-tooltip__swatch {
-            width: ${mediumPadding} !important;
-            height: ${mediumPadding} !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
+        .tooltip-title:not(:last-child) {
+            margin-bottom: ${smallPadding};
+        }
+
+        .tooltip-row {
+            display: grid;
+            grid-template-columns: ${mediumPadding} minmax(0, 1fr) auto;
+            align-items: center;
+            column-gap: ${mediumPadding};
+        }
+
+        .tooltip-row[data-active] {
+            background: ${fillHoverColor};
+        }
+
+        .tooltip-value {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .tooltip-swatch {
+            display: block;
+            width: ${mediumPadding};
+            height: ${mediumPadding};
         }
     }
 `;

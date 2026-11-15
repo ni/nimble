@@ -1,5 +1,6 @@
 import { defineChart, dot, type ChartBuildContext, type ChartHostOptions, type ChartRenderContext, type StaticChartDefinition } from '@tanstack/charts';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
+import { tooltip } from '@tanstack/charts/tooltip';
 import { graphTrace1Color } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { FvChart, fvChartTag } from '..';
@@ -132,6 +133,21 @@ describe('FvChart', () => {
             })
         }));
         expect('theme' in definition).toBeFalse();
+    });
+
+    it('renders tooltip rows with component classes instead of inline styles', async () => {
+        element.options = { ...options, definition: { ...createDefinition(), tooltip } };
+        await connect();
+        await waitForUpdatesAsync();
+        const svg = element.shadowRoot!.querySelector('svg')!;
+        svg.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+        await waitForUpdatesAsync();
+
+        const row = element.shadowRoot!.querySelector('.tooltip-row');
+        expect(row).not.toBeNull();
+        expect(row!.querySelector('.tooltip-value')?.textContent).toBeTruthy();
+        expect(element.shadowRoot!.querySelector('.ts-chart-tooltip__row')).toBeNull();
+        expect(element.shadowRoot!.querySelectorAll('.ts-chart-tooltip__body [style]:not(.tooltip-swatch)').length).toBe(0);
     });
 
     it('reacts to token changes, tears down on disconnect, and remounts on reconnect', async () => {
