@@ -1070,16 +1070,46 @@ describe('FvDateTimePicker', () => {
         { name: 'midnight', display: '12:00 AM', value: '00:00' },
         { name: 'noon', display: '12:00 PM', value: '12:00' },
         { name: 'morning', display: '01:05 AM', value: '01:05' },
-        { name: 'evening', display: '11:59 PM', value: '23:59' }
+        { name: 'evening', display: '11:59 PM', value: '23:59' },
+        { name: 'lowercase AM', display: '01:05 am', value: '01:05' },
+        { name: 'lowercase PM', display: '11:59 pm', value: '23:59' }
     ], (spec, name, { display, value }) => {
         spec(`converts ${name} entry to the 24-hour form value`, async () => {
             element.control.value = `11/13/2024 ${display}`;
             element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
             await waitForUpdatesAsync();
             expect(element.value).toBe(`2024-11-13T${value}`);
-            expect(element.control.value.replace(/\s/g, ' ')).toBe(`11/13/2024 ${display}`);
+            expect(element.control.value.replace(/\s/g, ' ')).toBe(`11/13/2024 ${display.toUpperCase()}`);
             expect(element.checkValidity()).toBeTrue();
         });
+    });
+
+    it('accepts typing lowercase pm one character at a time', async () => {
+        element.control.value = '11/13/2024 11:59';
+        element.control.setSelectionRange(16, 16);
+        for (const character of ['p', 'm']) {
+            element.control.dispatchEvent(new InputEvent('beforeinput', {
+                inputType: 'insertText', data: character, bubbles: true, cancelable: true, composed: true
+            }));
+            element.control.dispatchEvent(new InputEvent('input', {
+                inputType: 'insertText', data: character, bubbles: true, composed: true
+            }));
+        }
+        await waitForUpdatesAsync();
+        expect(element.control.value.replace(/\s/g, ' ').toUpperCase()).toBe('11/13/2024 11:59 PM');
+        expect(element.value).toBe('2024-11-13T23:59');
+        expect(element.checkValidity()).toBeTrue();
+    });
+
+    it('accepts lowercase PM in the popup time field', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        const control = element.timeField!.control;
+        control.value = '11:59 pm';
+        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('2024-11-13T23:59');
+        expect(element.validity.badInput).toBeFalse();
     });
 
     it('preserves an incomplete day period while typing and recovers on programmatic updates', async () => {
