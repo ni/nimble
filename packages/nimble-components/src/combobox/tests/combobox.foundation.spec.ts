@@ -8,6 +8,7 @@ import { keyArrowDown, keyArrowUp, keyEnter } from '@ni/fast-web-utilities';
 import { Combobox } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
+import { waitForEvent } from '../../utilities/testing/component';
 import { template } from '../template';
 import { listOptionTag } from '../../list-option';
 
@@ -163,18 +164,6 @@ describe('Combobox', () => {
         await disconnect();
     });
 
-    it('should display the listbox when the `open` property is true before connecting', async () => {
-        const { element, connect, disconnect } = await setup();
-
-        element.open = true;
-
-        await connect();
-
-        expect(element.hasAttribute('open')).toBeTrue();
-
-        await disconnect();
-    });
-
     it("should NOT emit a 'change' event when the user presses Enter without changing value", async () => {
         const { element, connect, disconnect } = await setup();
 
@@ -280,7 +269,7 @@ describe('Combobox', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -310,7 +299,7 @@ describe('Combobox', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -470,8 +459,10 @@ describe('Combobox', () => {
             element.control.getAttribute('aria-activedescendant')
         ).toBeNull();
 
-        element.open = true;
+        const togglePromise = waitForEvent(element, 'toggle');
+        element.open();
 
+        await togglePromise;
         await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-activedescendant')).toEqual(
@@ -509,38 +500,6 @@ describe('Combobox', () => {
         expect(element.control.getAttribute('aria-activedescendant')).toEqual(
             ''
         );
-
-        await disconnect();
-    });
-
-    it("should set the control's `aria-controls` attribute to the ID of the internal listbox element while open", async () => {
-        const { connect, disconnect, element } = await setup();
-
-        await connect();
-
-        expect(element.control).toBeDefined();
-
-        expect(element.listbox).toBeDefined();
-
-        const listboxId = element.listbox.id;
-
-        expect(element.control.getAttribute('aria-controls')).toBeDefined();
-
-        expect(element.control.getAttribute('aria-controls')).toEqual('');
-
-        element.open = true;
-
-        await waitForUpdatesAsync();
-
-        expect(element.control.getAttribute('aria-controls')).toEqual(
-            listboxId
-        );
-
-        element.open = false;
-
-        await waitForUpdatesAsync();
-
-        expect(element.control.getAttribute('aria-controls')).toEqual('');
 
         await disconnect();
     });
@@ -611,7 +570,7 @@ describe('Combobox', () => {
         element.control.dispatchEvent(
             new InputEvent('input', { inputType: 'deleteContentBackward' })
         ); // filter dropdown
-        element.open = false;
+        element.close();
 
         const keyDownEvent = new KeyboardEvent('keydown', {
             key: keyArrowDown
@@ -619,7 +578,7 @@ describe('Combobox', () => {
         element.dispatchEvent(keyDownEvent); // open dropdown
 
         await waitForUpdatesAsync();
-        expect(element.hasAttribute('open')).toBeTrue();
+        expect(element.isOpen).toBeTrue();
 
         element.dispatchEvent(keyDownEvent); // select "two"
         element.dispatchEvent(keyDownEvent); // select "three"

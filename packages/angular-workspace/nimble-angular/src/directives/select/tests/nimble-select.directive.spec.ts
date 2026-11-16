@@ -49,6 +49,19 @@ describe('Nimble select', () => {
             expect(nativeElement.disabled).toBeFalse();
         });
 
+        it('exposes whether the dropdown is open', () => {
+            expect(directive.isOpen).toBeFalse();
+            expect(nativeElement.isOpen).toBeFalse();
+        });
+
+        it('can use the directive to close the dropdown', () => {
+            spyOn(nativeElement, 'close');
+
+            directive.close();
+
+            expect(nativeElement.close).toHaveBeenCalled();
+        });
+
         it('has expected defaults for appearance', () => {
             expect(directive.appearance).toBe(DropdownAppearance.underline);
             expect(nativeElement.appearance).toBe(DropdownAppearance.underline);

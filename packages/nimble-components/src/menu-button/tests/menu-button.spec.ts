@@ -7,13 +7,9 @@ import { menuTag, type Menu } from '../../menu';
 import { menuItemTag, type MenuItem } from '../../menu-item';
 import { MenuButton, menuButtonTag } from '..';
 import { type MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
-import {
-    processUpdates,
-    waitForUpdatesAsync
-} from '../../testing/async-helpers';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { waitForEvent } from '../../utilities/testing/component';
 import { MenuButtonPageObject } from '../testing/menu-button.pageobject';
-import { anchoredRegionTag } from '../../anchored-region';
 
 type MenuButtonToggleEventHandler = (
     evt: CustomEvent<MenuButtonToggleEventDetail>
@@ -40,6 +36,8 @@ async function slottedSetup(): Promise<Fixture<TestSlottedElement>> {
 }
 
 describe('MenuButton', () => {
+    const menuGap = 4;
+
     let parent: HTMLElement;
     let menu: Menu;
     let menuItem1: MenuItem;
@@ -122,8 +120,8 @@ describe('MenuButton', () => {
         });
 
         it('should set aria-expanded to true on the toggle button when the menu is open', async () => {
-            element.open = true;
             await connect();
+            await pageObject.openMenu();
             expect(element.toggleButton!.getAttribute('aria-expanded')).toEqual(
                 'true'
             );
@@ -136,16 +134,9 @@ describe('MenuButton', () => {
             );
         });
 
-        it('should mark the toggle button as checked when the menu is opened before connect', async () => {
-            element.open = true;
-            await connect();
-            expect(element.toggleButton!.checked).toBeTrue();
-        });
-
         it('should mark the toggle button as checked when the menu is opened after connect', async () => {
             await connect();
-            element.open = true;
-            processUpdates();
+            await pageObject.openMenu();
             expect(element.toggleButton!.checked).toBeTrue();
         });
 
@@ -154,85 +145,251 @@ describe('MenuButton', () => {
             expect(element.toggleButton!.checked).toBeFalse();
         });
 
-        it("should default 'open' to false", async () => {
+        it("should default 'isOpen' to false", async () => {
             await connect();
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
         });
 
         it('should not open menu when the toggle button is clicked if the element is disabled', async () => {
             element.disabled = true;
             await connect();
             pageObject.clickMenuButton();
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
         });
 
         it('should close menu when toggle button is clicked while the menu is open', async () => {
-            element.open = true;
             await connect();
+            await pageObject.openMenu();
             pageObject.clickMenuButton();
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
         });
 
         it('should not interact with form', async () => {
             element.setAttribute('name', 'test');
-            element.open = true;
             const form = document.createElement('form');
             form.appendChild(element);
             parent.appendChild(form);
 
             await connect();
+            await pageObject.openMenu();
 
             const formData = new FormData(form);
             expect(formData.has('test')).toBeFalse();
         });
 
-        it('anchored-region should not exist in DOM when the menu is closed', async () => {
+        it('should keep the menu slot in a closed popover', async () => {
             await connect();
-            expect(
-                element.shadowRoot?.querySelector(anchoredRegionTag)
-            ).toBeNull();
+            expect(element.popoverElement!.popover).toBe('auto');
+            expect(element.popoverElement!.matches(':popover-open')).toBeFalse();
+            expect(element.slottedMenus).toEqual([menu]);
+            expect(menu.getBoundingClientRect().height).toBe(0);
         });
 
-        it('anchored-region should exist in DOM when the menu is open', async () => {
-            element.open = true;
+        it('should open the popover imperatively', async () => {
             await connect();
-            expect(
-                element.shadowRoot?.querySelector(anchoredRegionTag)
-            ).not.toBeNull();
+            element.open();
+            await waitForUpdatesAsync();
+            expect(element.isOpen).toBeTrue();
+            expect(element.popoverElement!.matches(':popover-open')).toBeTrue();
+            expect(element.hasAttribute('open')).toBeFalse();
         });
 
-        it("anchored-region should be configured correctly when the menu button position is configured to 'above'", async () => {
-            element.open = true;
+        it('should synchronize state and emit events when the popover is dismissed natively', async () => {
+            await connect();
+            await pageObject.openMenu();
+            const beforeToggleSpy = jasmine.createSpy<MenuButtonToggleEventHandler>();
+            const toggleSpy = jasmine.createSpy<MenuButtonToggleEventHandler>();
+            const beforeTogglePromise = waitForEvent(element, 'beforetoggle', beforeToggleSpy);
+            const togglePromise = waitForEvent(element, 'toggle', toggleSpy);
+
+            element.popoverElement!.hidePopover();
+            await Promise.all([beforeTogglePromise, togglePromise]);
+            await waitForUpdatesAsync();
+
+            expect(element.isOpen).toBeFalse();
+            expect(element.hasAttribute('open')).toBeFalse();
+            expect(element.toggleButton!.checked).toBeFalse();
+            expect(element.toggleButton!.getAttribute('aria-expanded')).toBe('false');
+            const expectedDetails = { oldState: true, newState: false };
+            expect(beforeToggleSpy).toHaveBeenCalledTimes(1);
+            expect(beforeToggleSpy.calls.first().args[0].detail).toEqual(expectedDetails);
+            expect(toggleSpy).toHaveBeenCalledTimes(1);
+            expect(toggleSpy.calls.first().args[0].detail).toEqual(expectedDetails);
+        });
+
+        it('should not open the popover when the removed open attribute is set', async () => {
+            await connect();
+            element.setAttribute('open', '');
+            await waitForUpdatesAsync();
+            expect(element.isOpen).toBeFalse();
+            element.removeAttribute('open');
+            expect(element.popoverElement!.matches(':popover-open')).toBeFalse();
+        });
+
+        it('should stay closed when native light-dismiss precedes a toggle button click', async () => {
+            await connect();
+            await pageObject.openMenu();
+
+            element.popoverElement!.hidePopover();
+            element.toggleButton!.control.click();
+            await waitForUpdatesAsync();
+
+            expect(element.isOpen).toBeFalse();
+            expect(element.toggleButton!.checked).toBeFalse();
+            expect(element.popoverElement!.matches(':popover-open')).toBeFalse();
+        });
+
+        it('should remain closed after reconnecting until opened again', async () => {
+            await connect();
+            await pageObject.openMenu();
+            await disconnect();
+            expect(element.isOpen).toBeFalse();
+            await connect();
+            await waitForUpdatesAsync();
+            expect(element.isOpen).toBeFalse();
+            await pageObject.openMenu();
+            expect(element.isOpen).toBeTrue();
+            expect(element.popoverElement!.matches(':popover-open')).toBeTrue();
+            await waitForUpdatesAsync();
+            menuItem1.click();
+            expect(element.isOpen).toBeFalse();
+        });
+
+        const positioningConfigurations = [
+            { name: 'auto below', position: MenuButtonPosition.auto, top: 100, above: false },
+            { name: 'auto above near viewport bottom', position: MenuButtonPosition.auto, top: window.innerHeight - 40, above: true },
+            { name: 'forced above', position: MenuButtonPosition.above, top: 200, above: true },
+            { name: 'forced above near viewport top', position: MenuButtonPosition.above, top: 0, above: true },
+            { name: 'forced below near viewport bottom', position: MenuButtonPosition.below, top: window.innerHeight - 40, above: false }
+        ] as const;
+        parameterizeSuite(positioningConfigurations, (suite, name, value) => {
+            suite(name, () => {
+                it('should position the menu relative to the toggle button', async () => {
+                    parent.style.top = `${value.top}px`;
+                    parent.style.left = '100px';
+                    parent.style.position = 'fixed';
+                    element.position = value.position;
+                    await connect();
+                    await pageObject.openMenu();
+                    const buttonBounds = element.toggleButton!.getBoundingClientRect();
+                    const popupBounds = element.popoverElement!.getBoundingClientRect();
+                    expect(popupBounds.height).toBeGreaterThan(0);
+                    expect(popupBounds.left).toBeCloseTo(buttonBounds.left, 0);
+                    if (value.above) {
+                        expect(popupBounds.bottom).toBeCloseTo(buttonBounds.top - menuGap, 0);
+                    } else {
+                        expect(popupBounds.top).toBeCloseTo(buttonBounds.bottom + menuGap, 0);
+                    }
+                });
+            });
+        });
+
+        it('should flip horizontally to keep the menu within the viewport', async () => {
+            parent.style.left = 'auto';
+            parent.style.right = '0';
+            await connect();
+            await pageObject.openMenu();
+            const buttonBounds = element.toggleButton!.getBoundingClientRect();
+            const popupBounds = element.popoverElement!.getBoundingClientRect();
+            expect(popupBounds.right).toBeCloseTo(buttonBounds.right, 0);
+            expect(popupBounds.left).toBeGreaterThanOrEqual(0);
+        });
+
+        it('should close the popover imperatively before the opening toggle event', async () => {
+            await connect();
+            element.open();
+            element.close();
+            await waitForUpdatesAsync();
+            expect(element.popoverElement!.matches(':popover-open')).toBeFalse();
+            expect(element.toggleButton!.checked).toBeFalse();
+        });
+
+        it('should cancel a pending click-driven opening when closed imperatively', async () => {
+            await connect();
+            pageObject.clickMenuButton();
+            element.close();
+            await waitForUpdatesAsync();
+            expect(element.isOpen).toBeFalse();
+            expect(element.toggleButton!.checked).toBeFalse();
+        });
+
+        it('should emit beforetoggle once for repeated open calls', async () => {
+            await connect();
+            const spy = jasmine.createSpy();
+            element.addEventListener('beforetoggle', spy);
+            const togglePromise = waitForEvent(element, 'toggle');
+            element.open();
+            element.open();
+            await togglePromise;
+            element.open();
+            expect(spy).toHaveBeenCalledTimes(1);
+            expect(element.isOpen).toBeTrue();
+        });
+
+        it('should not emit toggle events when closing an already closed menu', async () => {
+            await connect();
+            const spy = jasmine.createSpy();
+            element.addEventListener('beforetoggle', spy);
+            element.addEventListener('toggle', spy);
+            element.close();
+            await waitForUpdatesAsync();
+            expect(spy).not.toHaveBeenCalled();
+            expect(element.isOpen).toBeFalse();
+        });
+
+        it('should cancel a queued opening when disconnected', async () => {
+            await connect();
+            element.open();
+            await disconnect();
+            await connect();
+            await waitForUpdatesAsync();
+            expect(element.isOpen).toBeFalse();
+            expect(element.toggleButton!.checked).toBeFalse();
+
+            await pageObject.openMenu();
+            expect(element.isOpen).toBeTrue();
+            expect(document.activeElement).toBe(menuItem1);
+        });
+
+        it('should report the native popover state rather than a pending opening', async () => {
+            await connect();
+            const togglePromise = waitForEvent(element, 'toggle');
+            element.open();
+            expect(element.isOpen).toBeFalse();
+            await togglePromise;
+            expect(element.isOpen).toBeTrue();
+            element.close();
+            expect(element.isOpen).toBeFalse();
+        });
+
+        it('should reopen imperatively before the closing checked-state update', async () => {
+            await connect();
+            await pageObject.openMenu();
+            const closed = waitForEvent(element, 'toggle');
+            menuItem1.click();
+            element.open();
+            await closed;
+            await waitForEvent(element, 'toggle');
+            expect(element.isOpen).toBeTrue();
+            expect(element.toggleButton!.checked).toBeTrue();
+        });
+
+        it('should update positioning while the popover is open', async () => {
+            parent.style.top = '200px';
+            await connect();
+            await pageObject.openMenu();
             element.position = MenuButtonPosition.above;
-            await connect();
-            expect(element.region!.verticalPositioningMode).toBe(
-                'locktodefault'
-            );
-            expect(element.region!.verticalDefaultPosition).toBe('top');
-        });
-
-        it("anchored-region should be configured correctly when the menu button position is configured to 'below'", async () => {
-            element.open = true;
-            element.position = MenuButtonPosition.below;
-            await connect();
-            expect(element.region!.verticalPositioningMode).toBe(
-                'locktodefault'
-            );
-            expect(element.region!.verticalDefaultPosition).toBe('bottom');
-        });
-
-        it("anchored-region should be configured correctly when the menu button position is configured to 'auto'", async () => {
-            element.open = true;
-            element.position = MenuButtonPosition.auto;
-            await connect();
-            expect(element.region!.verticalPositioningMode).toBe('dynamic');
+            await waitForUpdatesAsync();
+            const buttonBounds = element.toggleButton!.getBoundingClientRect();
+            const popupBounds = element.popoverElement!.getBoundingClientRect();
+            expect(popupBounds.bottom).toBeCloseTo(buttonBounds.top - menuGap, 0);
         });
 
         it("should fire 'toggle' event when the menu is opened", async () => {
             await connect();
             const spy = jasmine.createSpy<MenuButtonToggleEventHandler>();
             const toggleListener = waitForEvent(element, 'toggle', spy);
-            element.open = true;
+            element.open();
             await toggleListener;
             expect(spy).toHaveBeenCalledTimes(1);
             const expectedDetails: MenuButtonToggleEventDetail = {
@@ -243,12 +400,23 @@ describe('MenuButton', () => {
             expect(event.detail).toEqual(expectedDetails);
         });
 
-        it("should fire 'toggle' event when the menu is closed", async () => {
-            element.open = true;
+        it('should report the closed native state during the closing toggle event', async () => {
             await connect();
+            await pageObject.openMenu();
+            const togglePromise = waitForEvent(element, 'toggle', () => {
+                expect(element.isOpen).toBeFalse();
+                expect(element.toggleButton!.checked).toBeFalse();
+            });
+            element.close();
+            await togglePromise;
+        });
+
+        it("should fire 'toggle' event when the menu is closed", async () => {
+            await connect();
+            await pageObject.openMenu();
             const spy = jasmine.createSpy<MenuButtonToggleEventHandler>();
             const toggleListener = waitForEvent(element, 'toggle', spy);
-            element.open = false;
+            element.close();
             await toggleListener;
             expect(spy).toHaveBeenCalledTimes(1);
             const expectedDetails: MenuButtonToggleEventDetail = {
@@ -269,7 +437,7 @@ describe('MenuButton', () => {
             );
             const togglePromise = waitForEvent(element, 'toggle', spy);
 
-            expect(element.open).toEqual(false);
+            expect(element.isOpen).toEqual(false);
             expect(spy).not.toHaveBeenCalled();
 
             pageObject.clickMenuButton();
@@ -289,8 +457,8 @@ describe('MenuButton', () => {
         });
 
         it("should fire 'beforetoggle' event before the menu is closed", async () => {
-            element.open = true;
             await connect();
+            await pageObject.openMenu();
             const spy = jasmine.createSpy<MenuButtonToggleEventHandler>();
             const beforeTogglePromise = waitForEvent(
                 element,
@@ -299,7 +467,7 @@ describe('MenuButton', () => {
             );
             const togglePromise = waitForEvent(element, 'toggle', spy);
 
-            expect(element.open).toEqual(true);
+            expect(element.isOpen).toEqual(true);
             expect(spy).not.toHaveBeenCalled();
 
             pageObject.clickMenuButton();
@@ -354,40 +522,40 @@ describe('MenuButton', () => {
             it('should open the menu and focus first menu item when the toggle button is clicked', async () => {
                 const toggleListener = waitForEvent(menuButton, 'toggle');
                 pageObject.clickMenuButton();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(document.activeElement).toEqual(menuItem1);
             });
 
             it("should open the menu and focus first menu item when 'Enter' is pressed while the toggle button is focused", async () => {
                 const toggleListener = waitForEvent(menuButton, 'toggle');
                 pageObject.pressEnterKey();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(document.activeElement).toEqual(menuItem1);
             });
 
             it("should open the menu and focus first menu item when 'Space' is pressed while the toggle button is focused", async () => {
                 const toggleListener = waitForEvent(menuButton, 'toggle');
                 pageObject.pressSpaceKey();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(document.activeElement).toEqual(menuItem1);
             });
 
             it('should open the menu and focus first menu item when the down arrow is pressed while the toggle button is focused', async () => {
                 const toggleListener = waitForEvent(menuButton, 'toggle');
                 pageObject.pressArrowDownKey();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(document.activeElement).toEqual(menuItem1);
             });
 
             it('should open the menu and focus last menu item when the up arrow is pressed while the toggle button is focused', async () => {
                 const toggleListener = waitForEvent(menuButton, 'toggle');
                 pageObject.pressArrowUpKey();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(document.activeElement).toEqual(menuItem3);
             });
 
@@ -395,7 +563,7 @@ describe('MenuButton', () => {
                 await pageObject.openMenu();
 
                 pageObject.closeMenuWithEscape();
-                expect(menuButton.open).toBeFalse();
+                expect(menuButton.isOpen).toBeFalse();
             });
 
             it("should focus the button when the menu is closed by pressing 'Escape'", async () => {
@@ -409,7 +577,7 @@ describe('MenuButton', () => {
                 await pageObject.openMenu();
 
                 menuItem1.click();
-                expect(menuButton.open).toBeFalse();
+                expect(menuButton.isOpen).toBeFalse();
             });
 
             it('should focus the button when the menu is closed by selecting a menu item by clicking it', async () => {
@@ -426,7 +594,7 @@ describe('MenuButton', () => {
                     key: keyEnter
                 });
                 menuItem1.dispatchEvent(event);
-                expect(menuButton.open).toBeFalse();
+                expect(menuButton.isOpen).toBeFalse();
             });
 
             it("should focus the button when the menu is closed by selecting a menu item using 'Enter'", async () => {
@@ -458,7 +626,7 @@ describe('MenuButton', () => {
 
                 menuItem1.disabled = true;
                 menuItem1.click();
-                expect(menuButton.open).toBeTrue();
+                expect(menuButton.isOpen).toBeTrue();
             });
 
             it('should close the menu when the element loses focus', async () => {
@@ -467,11 +635,11 @@ describe('MenuButton', () => {
 
                 // Start with the focus on the menu button so that it can lose focus later
                 menuButton.focus();
-                menuButton.open = true;
+                menuButton.open();
                 await waitForUpdatesAsync();
                 focusableElement.focus();
                 await waitForUpdatesAsync();
-                expect(menuButton.open).toBeFalse();
+                expect(menuButton.isOpen).toBeFalse();
             });
         });
     });
@@ -500,8 +668,8 @@ describe('MenuButton', () => {
                 const spy = jasmine.createSpy<MenuButtonToggleEventHandler>();
                 const toggleListener = waitForEvent(menuButton, 'toggle', spy);
                 pageObject.clickMenuButton();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(spy).toHaveBeenCalledTimes(1);
                 const expectedDetails: MenuButtonToggleEventDetail = {
                     newState: true,
@@ -515,8 +683,8 @@ describe('MenuButton', () => {
                 const spy = jasmine.createSpy<MenuButtonToggleEventHandler>();
                 const toggleListener = waitForEvent(menuButton, 'toggle', spy);
                 pageObject.pressEnterKey();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(spy).toHaveBeenCalledTimes(1);
                 const expectedDetails: MenuButtonToggleEventDetail = {
                     newState: true,
@@ -530,8 +698,8 @@ describe('MenuButton', () => {
                 const spy = jasmine.createSpy<MenuButtonToggleEventHandler>();
                 const toggleListener = waitForEvent(menuButton, 'toggle', spy);
                 pageObject.pressSpaceKey();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(spy).toHaveBeenCalledTimes(1);
                 const expectedDetails: MenuButtonToggleEventDetail = {
                     newState: true,
@@ -545,8 +713,8 @@ describe('MenuButton', () => {
                 const spy = jasmine.createSpy<MenuButtonToggleEventHandler>();
                 const toggleListener = waitForEvent(menuButton, 'toggle', spy);
                 pageObject.pressArrowDownKey();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(spy).toHaveBeenCalledTimes(1);
                 const expectedDetails: MenuButtonToggleEventDetail = {
                     newState: true,
@@ -560,8 +728,8 @@ describe('MenuButton', () => {
                 const spy = jasmine.createSpy<MenuButtonToggleEventHandler>();
                 const toggleListener = waitForEvent(menuButton, 'toggle', spy);
                 pageObject.pressArrowUpKey();
-                expect(menuButton.open).toBeTrue();
                 await toggleListener;
+                expect(menuButton.isOpen).toBeTrue();
                 expect(spy).toHaveBeenCalledTimes(1);
                 const expectedDetails: MenuButtonToggleEventDetail = {
                     newState: true,
@@ -575,7 +743,7 @@ describe('MenuButton', () => {
                 await pageObject.openMenu();
 
                 pageObject.closeMenuWithEscape();
-                expect(menuButton.open).toBeFalse();
+                expect(menuButton.isOpen).toBeFalse();
             });
 
             it("should focus the button when moving to the closed state by pressing 'Escape'", async () => {

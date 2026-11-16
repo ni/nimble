@@ -2,7 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { bodyFont, bodyFontColor, standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
+import { Combobox, comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
@@ -249,11 +249,19 @@ export const hidden: StoryFn = createStory(
 );
 
 export const blankListOption: StoryFn = createStory(
-    html`<${comboboxTag} open style="width: 250px;">
+    html`<${comboboxTag} style="width: 250px;">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
     </${comboboxTag}>`
 );
+blankListOption.play = async ({ canvasElement }) => {
+    const combobox = canvasElement.querySelector<Combobox>(comboboxTag)!;
+    const toggled = new Promise<void>(resolve => {
+        combobox.addEventListener('toggle', () => resolve(), { once: true });
+    });
+    combobox.open();
+    await toggled;
+};
 
 const fieldSizingWidthStates = [
     ['Default', ''],

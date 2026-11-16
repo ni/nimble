@@ -29,7 +29,7 @@ import {
 interface ComboboxArgs {
     label: string;
     disabled: boolean;
-    dropDownPosition: DropdownPosition;
+    dropDownPosition: DropdownPosition | undefined;
     autocomplete: ComboboxAutocomplete;
     optionsType: ExampleOptionsType;
     errorVisible: boolean;
@@ -40,6 +40,9 @@ interface ComboboxArgs {
     placeholder: string;
     change: undefined;
     input: undefined;
+    open: undefined;
+    close: undefined;
+    toggle: undefined;
     appearanceReadOnly: boolean;
     fullBleed: boolean;
 }
@@ -96,7 +99,7 @@ const metadata: Meta<ComboboxArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['change', 'input']
+            handles: ['change', 'input', 'toggle']
         },
         toolbar: {
             zoom: { hidden: true }
@@ -216,12 +219,27 @@ const metadata: Meta<ComboboxArgs> = {
                 'Emitted when the user types in the combobox. Use this event if you need to update the list of options based on the text input.',
             table: { category: apiCategory.events },
             control: false
+        },
+        open: {
+            control: false,
+            description: 'Opens the dropdown menu of options.',
+            table: { category: apiCategory.methods }
+        },
+        close: {
+            control: false,
+            description: 'Closes the dropdown menu of options.',
+            table: { category: apiCategory.methods }
+        },
+        toggle: {
+            description: 'Emitted after the dropdown menu opens or closes.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {
         label: 'Combobox',
         disabled: false,
-        dropDownPosition: 'below',
+        dropDownPosition: undefined,
         autocomplete: ComboboxAutocomplete.both,
         errorVisible: false,
         errorText: 'Value is invalid',

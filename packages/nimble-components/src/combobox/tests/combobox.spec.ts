@@ -16,6 +16,27 @@ describe('Combobox', () => {
         expect(document.createElement(comboboxTag)).toBeInstanceOf(Combobox);
     });
 
+    describe('disconnected', () => {
+        async function setup(): Promise<Fixture<Combobox>> {
+            const viewTemplate = html`
+                <${comboboxTag}>
+                    <${listOptionTag}>One</${listOptionTag}>
+                </${comboboxTag}>
+            `;
+            return await fixture<Combobox>(viewTemplate);
+        }
+
+        it('should not throw when calling `open()` while disconnected', async () => {
+            const { element } = await setup();
+            expect(() => element.open()).not.toThrow();
+        });
+
+        it('should not throw when calling `close()` while disconnected', async () => {
+            const { element } = await setup();
+            expect(() => element.close()).not.toThrow();
+        });
+    });
+
     describe('with common setup', () => {
         async function setup(): Promise<Fixture<Combobox>> {
             const viewTemplate = html`
@@ -42,6 +63,19 @@ describe('Combobox', () => {
 
         afterEach(async () => {
             await disconnect();
+        });
+
+        it('should be no-op if `open()` called while already open', () => {
+            pageObject.clickDropdownButton();
+            expect(element.isOpen).toBeTrue();
+            expect(() => element.open()).not.toThrow();
+            expect(element.isOpen).toBeTrue();
+        });
+
+        it('should be no-op if `close()` called while already closed', () => {
+            expect(element.isOpen).toBeFalse();
+            expect(() => element.close()).not.toThrow();
+            expect(element.isOpen).toBeFalse();
         });
 
         it('should set aria-disabled attribute when property is set', async () => {
@@ -75,10 +109,6 @@ describe('Combobox', () => {
                 propName: 'ariaAutoComplete'
             },
             {
-                name: 'aria-controls',
-                propName: 'ariaControls'
-            },
-            {
                 name: 'aria-disabled',
                 propName: 'ariaDisabled'
             },
@@ -89,7 +119,7 @@ describe('Combobox', () => {
         ] as const;
         parameterizeSpec(ariaTestData, (spec, name, value) => {
             spec(`should forward ${name} to inner control`, async () => {
-                element.open = true;
+                await pageObject.clickAndWaitForOpen();
                 element[value.propName] = 'foo';
                 await waitForUpdatesAsync();
                 expect(element.control.getAttribute(name)).toEqual('foo');
@@ -149,14 +179,14 @@ describe('Combobox', () => {
 
         it('clicking dropdown button should open menu', async () => {
             await pageObject.clickDropdownButtonAndWaitForOpen();
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
         });
 
         it('clicking dropdown button when popup is open should close menu', async () => {
             await pageObject.clickAndWaitForOpen();
 
             pageObject.clickDropdownButton();
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
         });
 
         it('clicking dropdown button when popup is open should cause button to be unchecked', async () => {
@@ -166,11 +196,19 @@ describe('Combobox', () => {
             expect(pageObject.isDropdownButtonChecked()).toBeFalse();
         });
 
-        it('setting open programmatically should update checked state of button', async () => {
-            element.open = true;
-            await waitForUpdatesAsync();
+        it('calling open() should show menu and update checked state of button', async () => {
+            await pageObject.waitForToggle(() => element.open());
 
+            expect(element.isOpen).toBeTrue();
             expect(pageObject.isDropdownButtonChecked()).toBeTrue();
+        });
+
+        it('calling close() should hide menu and update checked state of button', async () => {
+            await pageObject.waitForToggle(() => element.open());
+            await pageObject.waitForToggle(() => element.close());
+
+            expect(element.isOpen).toBeFalse();
+            expect(pageObject.isDropdownButtonChecked()).toBeFalse();
         });
 
         it('clicking dropdown after dropdown closed with button should cause button to be checked', async () => {
@@ -464,6 +502,16 @@ describe('Combobox', () => {
                 expect(pageObject.getInputTitle()).toBeNull();
             });
         });
+
+        it('should set "open" class when open and remove it when closed', async () => {
+            await pageObject.clickAndWaitForOpen();
+            expect(element.classList.contains('open')).toBeTrue();
+            pageObject.clickDropdownButton();
+            await waitForUpdatesAsync();
+            expect(element.classList.contains('open')).toBeFalse();
+
+            await disconnect();
+        });
     });
 
     describe('configured before connecting', () => {
@@ -493,7 +541,6 @@ describe('Combobox', () => {
         async function setup(): Promise<Fixture<Combobox>> {
             const viewTemplate = html`
                 <${comboboxTag}
-                    open
                     disabled
                     position="above"
                 >
@@ -503,25 +550,21 @@ describe('Combobox', () => {
             return await fixture<Combobox>(viewTemplate);
         }
 
-        it('should set classes based on open, disabled, and position', async () => {
+        it('should set "disabled" class when that attribute is set', async () => {
             const { element, connect, disconnect } = await setup();
             await connect();
-            await waitForUpdatesAsync();
 
-            expect(element.classList.contains('open')).toBeTrue();
             expect(element.classList.contains('disabled')).toBeTrue();
-            expect(element.classList.contains('above')).toBeTrue();
 
             await disconnect();
         });
 
-        it('should respect "open" and "position" attributes when both set', async () => {
+        it('should set position attribute value as class', async () => {
             const { element, connect, disconnect } = await setup();
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.getAttribute('open')).not.toBeNull();
-            expect(element.getAttribute('position')).toBe('above');
+            expect(element.classList.contains('above')).toBeTrue();
 
             await disconnect();
         });

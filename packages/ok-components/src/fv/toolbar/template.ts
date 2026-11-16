@@ -26,7 +26,7 @@ export const template: FoundationElementTemplate<ViewTemplate<FvToolbar>, Toolba
                 appearance="ghost"
                 content-hidden
                 @keydown="${(x, c) => {
-                    if (x.overflowButton.open) {
+                    if (x.overflowButton.isOpen) {
                         c.event.stopPropagation();
                     }
                     return true;

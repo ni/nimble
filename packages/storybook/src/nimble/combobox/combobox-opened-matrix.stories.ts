@@ -30,8 +30,8 @@ const component = ({
     position,
     manyOptions
 }: ComboboxMatrixStoryOptions): ViewTemplate => html`
-    <${comboboxTag} open
-        position="${() => position}" 
+    <${comboboxTag}
+        position="${() => position}"
         autocomplete="${ComboboxAutocomplete.both}"
         style="width: 250px; ${() => (position === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 360 : 120}px;`)}"
     >
@@ -49,6 +49,26 @@ const component = ({
     </${comboboxTag}>
 `;
 
+const openCombobox = async (canvasElement: HTMLElement): Promise<void> => {
+    const combobox = canvasElement.querySelector<Combobox>(comboboxTag)!;
+    const toggled = new Promise<void>(resolve => {
+        combobox.addEventListener('toggle', () => resolve(), { once: true });
+    });
+    combobox.open();
+    await toggled;
+};
+
+const openStory = (
+    story: StoryFn,
+    afterOpen?: (canvasElement: HTMLElement) => void
+): StoryFn => {
+    story.play = async ({ canvasElement }) => {
+        await openCombobox(canvasElement);
+        afterOpen?.(canvasElement);
+    };
+    return story;
+};
+
 const [
     lightThemeWhiteBackground,
     colorThemeDarkGreenBackground,
@@ -60,65 +80,73 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const lightTheme$OpenBelow: StoryFn = createFixedThemeStory(
+export const lightTheme$OpenBelow: StoryFn = openStory(createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     lightThemeWhiteBackground
-);
+));
 
-export const lightTheme$OpenAbove: StoryFn = createFixedThemeStory(
+export const lightTheme$OpenAbove: StoryFn = openStory(createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     lightThemeWhiteBackground
-);
+));
 
-export const colorTheme$OpenBelow: StoryFn = createFixedThemeStory(
+export const colorTheme$OpenBelow: StoryFn = openStory(createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     colorThemeDarkGreenBackground
-);
+));
 
-export const colorTheme$OpenAbove: StoryFn = createFixedThemeStory(
+export const colorTheme$OpenAbove: StoryFn = openStory(createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     colorThemeDarkGreenBackground
-);
+));
 
-export const darkTheme$OpenBelow: StoryFn = createFixedThemeStory(
+export const darkTheme$OpenBelow: StoryFn = openStory(createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     darkThemeBlackBackground
-);
+));
 
-export const darkTheme$OpenAbove: StoryFn = createFixedThemeStory(
+export const darkTheme$OpenAbove: StoryFn = openStory(createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     darkThemeBlackBackground
-);
+));
 
-const noMatchesPlayFunction = (): void => {
-    const combobox = document.querySelector<Combobox>(comboboxTag)!;
+const setNoMatches = (canvasElement: HTMLElement): void => {
+    const combobox = canvasElement.querySelector<Combobox>(comboboxTag)!;
     combobox.value = 'abc';
 };
 
-export const openBelow$NoMatch: StoryFn = createFixedThemeStory(
-    component({ position: DropdownPosition.below }),
-    lightThemeWhiteBackground
-);
-openBelow$NoMatch.play = noMatchesPlayFunction;
-
-export const openAbove$NoMatch: StoryFn = createFixedThemeStory(
-    component({ position: DropdownPosition.above }),
-    darkThemeBlackBackground
-);
-openAbove$NoMatch.play = noMatchesPlayFunction;
-
-export const openBelow$ManyOptions: StoryFn = createFixedThemeStory(
-    component({
-        position: DropdownPosition.below,
-        manyOptions: true
-    }),
-    lightThemeWhiteBackground
+export const openBelow$NoMatch: StoryFn = openStory(
+    createFixedThemeStory(
+        component({ position: DropdownPosition.below }),
+        lightThemeWhiteBackground
+    ),
+    setNoMatches
 );
 
-export const openAbove$ManyOptions: StoryFn = createFixedThemeStory(
-    component({
-        position: DropdownPosition.above,
-        manyOptions: true
-    }),
-    lightThemeWhiteBackground
+export const openAbove$NoMatch: StoryFn = openStory(
+    createFixedThemeStory(
+        component({ position: DropdownPosition.above }),
+        darkThemeBlackBackground
+    ),
+    setNoMatches
+);
+
+export const openBelow$ManyOptions: StoryFn = openStory(
+    createFixedThemeStory(
+        component({
+            position: DropdownPosition.below,
+            manyOptions: true
+        }),
+        lightThemeWhiteBackground
+    )
+);
+
+export const openAbove$ManyOptions: StoryFn = openStory(
+    createFixedThemeStory(
+        component({
+            position: DropdownPosition.above,
+            manyOptions: true
+        }),
+        lightThemeWhiteBackground
+    )
 );

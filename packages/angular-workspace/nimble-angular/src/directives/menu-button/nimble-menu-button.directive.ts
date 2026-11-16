@@ -47,13 +47,17 @@ export class NimbleMenuButtonDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
     }
 
-    public get open(): boolean {
-        return this.elementRef.nativeElement.open;
-    }
-
-    @Input() public set open(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'open', toBooleanProperty(value));
+    public get isOpen(): boolean {
+        return this.elementRef.nativeElement.isOpen;
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<MenuButton>) {}
+
+    public open(): void {
+        this.elementRef.nativeElement.open();
+    }
+
+    public close(): void {
+        this.elementRef.nativeElement.close();
+    }
 }

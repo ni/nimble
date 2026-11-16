@@ -1,9 +1,16 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
 
 public partial class NimbleMenuButton : ComponentBase
 {
+    private ElementReference _menuButtonElement;
+
+    internal static string OpenMenuButtonMethodName = "NimbleBlazor.MenuButton.open";
+    internal static string CloseMenuButtonMethodName = "NimbleBlazor.MenuButton.close";
+    internal static string IsMenuButtonOpenMethodName = "NimbleBlazor.MenuButton.isOpen";
+
     /// <summary>
     /// Gets or sets the appearance of the menu button.
     /// </summary>
@@ -15,12 +22,6 @@ public partial class NimbleMenuButton : ComponentBase
     /// </summary>
     [Parameter]
     public ButtonAppearanceVariant? AppearanceVariant { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether or not the menu is open.
-    /// </summary>
-    [Parameter]
-    public bool? Open { get; set; }
 
     /// <summary>
     /// Gets or sets the position of the menu relative to the button.
@@ -53,13 +54,13 @@ public partial class NimbleMenuButton : ComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that's invoked when 'open' changes
+    /// Gets or sets a callback that's invoked when the menu open state changes.
     /// </summary>
     [Parameter]
     public EventCallback<MenuButtonToggleEventArgs> Toggle { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that's invoked before the 'open' state of the menu button changes
+    /// Gets or sets a callback that's invoked before the menu open state changes.
     /// </summary>
     [Parameter]
     public EventCallback<MenuButtonToggleEventArgs> BeforeToggle { get; set; }
@@ -67,13 +68,15 @@ public partial class NimbleMenuButton : ComponentBase
     [Parameter]
     public EventCallback<EventArgs> Blur { get; set; }
 
+    [Inject]
+    private IJSRuntime? JSRuntime { get; set; }
+
     /// <summary>
-    /// Called when 'open' changes on the web component.
+    /// Called when the menu button's open state changes.
     /// </summary>
     /// <param name="eventArgs">The state of the menu button</param>
     protected async void HandleToggle(MenuButtonToggleEventArgs eventArgs)
     {
-        Open = eventArgs.NewState;
         await Toggle.InvokeAsync(eventArgs);
     }
 
@@ -89,6 +92,30 @@ public partial class NimbleMenuButton : ComponentBase
     protected async void HandleBlur(EventArgs e)
     {
         await Blur.InvokeAsync(e);
+    }
+
+    /// <summary>
+    /// Opens the menu.
+    /// </summary>
+    public Task OpenAsync()
+    {
+        return JSRuntime!.InvokeVoidAsync(OpenMenuButtonMethodName, _menuButtonElement).AsTask();
+    }
+
+    /// <summary>
+    /// Closes the menu.
+    /// </summary>
+    public Task CloseAsync()
+    {
+        return JSRuntime!.InvokeVoidAsync(CloseMenuButtonMethodName, _menuButtonElement).AsTask();
+    }
+
+    /// <summary>
+    /// Gets whether the menu is open.
+    /// </summary>
+    public ValueTask<bool> IsOpenAsync()
+    {
+        return JSRuntime!.InvokeAsync<bool>(IsMenuButtonOpenMethodName, _menuButtonElement);
     }
 
     /// <summary>

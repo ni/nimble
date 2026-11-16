@@ -270,23 +270,15 @@ describe('Select', () => {
 
         await connect();
 
+        expect(element.getAttribute('aria-expanded')).toEqual('false');
+
+        const opened = waitForToggleEvent(element);
         element.click();
 
+        await opened;
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-expanded')).toEqual('true');
-
-        await disconnect();
-    });
-
-    it('should display the listbox when the `open` property is true before connecting', async () => {
-        const { element, connect, disconnect } = await setup();
-
-        element.open = true;
-
-        await connect();
-
-        expect(element.hasAttribute('open')).toBeTrue();
 
         await disconnect();
     });
@@ -299,7 +291,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -331,7 +323,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -359,7 +351,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -389,7 +381,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -419,7 +411,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -451,7 +443,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -479,7 +471,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: 'Home'
@@ -509,7 +501,7 @@ describe('Select', () => {
 
             element.click();
 
-            expect(element.open).toBeTrue();
+            expect(element.isOpen).toBeTrue();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -541,7 +533,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('one');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -571,7 +563,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('two');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -601,7 +593,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('three');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -627,7 +619,7 @@ describe('Select', () => {
 
             await connect();
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyEnd
@@ -657,10 +649,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('two');
 
-            element.click();
-            element.click();
-
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const arrowDownEvent = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -716,7 +705,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('one');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -746,7 +735,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('two');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
@@ -776,7 +765,7 @@ describe('Select', () => {
 
             expect(element.value).toEqual('three');
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: keyHome
@@ -802,7 +791,7 @@ describe('Select', () => {
 
             await connect();
 
-            expect(element.open).toBeFalse();
+            expect(element.isOpen).toBeFalse();
 
             const event = new KeyboardEvent('keydown', {
                 key: 'End'
@@ -934,32 +923,6 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('should set the `aria-controls` attribute to the ID of the internal listbox element while open', async () => {
-        const { connect, disconnect, element } = await setup();
-
-        await connect();
-
-        expect(element.listbox).toBeDefined();
-
-        const listboxId = element.listbox.id;
-
-        expect(element.getAttribute('aria-controls')).toEqual('');
-
-        element.open = true;
-
-        await waitForUpdatesAsync();
-
-        expect(element.getAttribute('aria-controls')).toEqual(listboxId);
-
-        element.open = false;
-
-        await waitForUpdatesAsync();
-
-        expect(element.getAttribute('aria-controls')).toEqual('');
-
-        await disconnect();
-    });
-
     describe("should update the `displayValue` when the selected option's content changes", () => {
         it('via innerHTML', async () => {
             const { connect, disconnect, element, option1 } = await setup();
@@ -1003,4 +966,10 @@ describe('Select', () => {
             await disconnect();
         });
     });
+
+    async function waitForToggleEvent(element: Select): Promise<void> {
+        await new Promise<void>(resolve => {
+            element.popoverElement!.addEventListener('toggle', () => resolve(), { once: true });
+        });
+    }
 });

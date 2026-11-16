@@ -14,6 +14,14 @@ const metadata: Meta = {
     title: 'Tests/Select',
     parameters: {
         ...sharedMatrixParameters()
+    },
+    play: async ({ canvasElement }) => {
+        const select = canvasElement.querySelector(selectTag)!;
+        const toggled = new Promise<void>(resolve => {
+            select.addEventListener('toggle', () => resolve(), { once: true });
+        });
+        select.click();
+        await toggled;
     }
 };
 
@@ -53,7 +61,7 @@ interface SelectMatrixStoryOptions {
 const component = ({
     positionState, filterMode, loadingVisible, placeholder, grouped, optionsOutsideGroup, slottedLabel, manyOptions
 }: SelectMatrixStoryOptions): ViewTemplate => html`
-    <${selectTag} open 
+    <${selectTag}
         position="${() => positionState}"
         style="width: 250px;
             ${() => (positionState === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 430 : 180}px;`)}
@@ -221,9 +229,16 @@ export const darkTheme$OpenAbove$StandardFilter: StoryFn = createFixedThemeStory
     darkThemeBlackBackground
 );
 
-const noMatchesFilterPlayFunction = (): void => {
-    const select = document.querySelector(selectTag);
-    select!.filter = 'abc';
+const noMatchesFilterPlayFunction = async ({
+    canvasElement
+}: { canvasElement: HTMLElement }): Promise<void> => {
+    const select = canvasElement.querySelector(selectTag)!;
+    const toggled = new Promise<void>(resolve => {
+        select.addEventListener('toggle', () => resolve(), { once: true });
+    });
+    select.click();
+    await toggled;
+    select.filter = 'abc';
 };
 
 export const darkTheme$OpenAbove$NoMatch: StoryFn = createFixedThemeStory(

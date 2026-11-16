@@ -68,12 +68,8 @@ export class NimbleComboboxDirective {
         return this.elementRef.nativeElement.value;
     }
 
-    public get open(): boolean {
-        return this.elementRef.nativeElement.open;
-    }
-
-    @Input() public set open(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'open', toBooleanProperty(value));
+    public get isOpen(): boolean {
+        return this.elementRef.nativeElement.isOpen;
     }
 
     public get requiredVisible(): boolean {
@@ -101,4 +97,12 @@ export class NimbleComboboxDirective {
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Combobox>) {}
+
+    public open(): void {
+        this.elementRef.nativeElement.open();
+    }
+
+    public close(): void {
+        this.elementRef.nativeElement.close();
+    }
 }

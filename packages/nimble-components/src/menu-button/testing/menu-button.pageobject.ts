@@ -7,6 +7,7 @@ import {
 } from '@ni/fast-web-utilities';
 import type { MenuButton } from '..';
 import { waitForEvent } from '../../utilities/testing/component';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 /**
  * Page object for `nimble-menu-button` component to provide consistent ways
@@ -22,7 +23,7 @@ export class MenuButtonPageObject {
      * @returns Whether or not the menu is open.
      */
     public isOpen(): boolean {
-        return this.menuButtonElement.open;
+        return this.menuButtonElement.isOpen;
     }
 
     /**
@@ -40,6 +41,7 @@ export class MenuButtonPageObject {
         );
         this.clickMenuButton();
         await toggleEventPromise;
+        await waitForUpdatesAsync();
     }
 
     /**
@@ -54,7 +56,7 @@ export class MenuButtonPageObject {
         const event = new KeyboardEvent('keydown', {
             key: keyEscape
         });
-        this.menuButtonElement.region!.dispatchEvent(event);
+        this.menuButtonElement.popoverElement!.dispatchEvent(event);
     }
 
     /**

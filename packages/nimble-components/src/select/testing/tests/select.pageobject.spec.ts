@@ -5,6 +5,7 @@ import { selectTag, type Select } from '../..';
 import { listOptionTag } from '../../../list-option';
 import { FilterMode } from '../../types';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
+import { waitForEvent } from '../../../utilities/testing/component';
 
 async function setup(): Promise<Fixture<Select>> {
     const viewTemplate = html`
@@ -26,6 +27,12 @@ async function setupWithLabel(): Promise<Fixture<Select>> {
         </${selectTag}>
     `;
     return await fixture<Select>(viewTemplate);
+}
+
+async function clickSelectAndWaitForToggle(element: Select): Promise<void> {
+    const toggled = waitForEvent(element.popoverElement!, 'toggle');
+    element.click();
+    await toggled;
 }
 
 describe('Select Page Object', () => {
@@ -58,8 +65,11 @@ describe('Select Page Object', () => {
 
         element.filterMode = FilterMode.manual;
         await waitForUpdatesAsync();
+        await clickSelectAndWaitForToggle(element);
+        const closed = waitForEvent(element.popoverElement!, 'toggle');
         pageObject.clickOptionWithDisplayText('Two');
-        pageObject.clickSelect();
+        await closed;
+        await clickSelectAndWaitForToggle(element);
         pageObject.setFilter('one'); // fake trigger of manual filtering
         element.options[1]?.remove();
         pageObject.clickOption(1);
@@ -76,8 +86,11 @@ describe('Select Page Object', () => {
 
         element.filterMode = FilterMode.standard;
         await waitForUpdatesAsync();
+        await clickSelectAndWaitForToggle(element);
+        const closed = waitForEvent(element.popoverElement!, 'toggle');
         pageObject.clickOptionWithDisplayText('Two');
-        pageObject.clickSelect();
+        await closed;
+        await clickSelectAndWaitForToggle(element);
         pageObject.setFilter('one');
         pageObject.clickOption(1);
 

@@ -264,7 +264,7 @@ describe('TableColumnMenuButton', () => {
         });
 
         it('when opening a menu button by clicking', async () => {
-            menuButton.clickMenuButton();
+            await menuButton.openMenu();
             expect(menuButton.isOpen()).toBeTrue();
             await waitForUpdatesAsync();
             const selection = await table.getSelectedRecordIds();
@@ -273,15 +273,15 @@ describe('TableColumnMenuButton', () => {
 
         it('when opening a menu button by pressing Enter', async () => {
             menuButton.pressEnterKey();
-            expect(menuButton.isOpen()).toBeTrue();
             await waitForUpdatesAsync();
+            expect(menuButton.isOpen()).toBeTrue();
             const selection = await table.getSelectedRecordIds();
             expect(selection.length).toBe(0);
         });
 
         it('when closing a menu button by clicking', async () => {
             // Open the menu button
-            menuButton.clickMenuButton();
+            await menuButton.openMenu();
             expect(menuButton.isOpen()).toBeTrue();
 
             // Close the menu button
@@ -611,7 +611,9 @@ describe('TableColumnMenuButton', () => {
                     elementReferences.firstMenuItem
                 );
 
+                const closed = waitForEvent(elementReferences.column1, 'menu-button-column-toggle');
                 column1MenuButton.closeMenuWithEscape();
+                await closed;
                 expect(column1MenuButton.isOpen()).toBeFalse();
                 expect(column2MenuButton.isOpen()).toBeFalse();
                 expect(document.activeElement).not.toBe(

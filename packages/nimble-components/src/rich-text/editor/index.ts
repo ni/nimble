@@ -432,7 +432,7 @@ export class RichTextEditor extends mixinErrorPattern(RichText) {
      * @internal
      */
     public focusoutHandler(): void {
-        if (!this.mentionListbox?.open) {
+        if (!this.mentionListbox?.isOpen) {
             return;
         }
         this.mentionListbox?.close();

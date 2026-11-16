@@ -68,6 +68,11 @@ export const styles = css`
         display: contents;
     }
 
+    [popover] {
+        position-area: var(--ni-private-preferred-position-area);
+        position-try-fallbacks: var(--ni-private-position-fallbacks);
+    }
+
     .listbox {
         overflow-x: clip;
     }
