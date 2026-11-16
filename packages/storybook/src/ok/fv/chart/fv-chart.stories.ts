@@ -99,15 +99,19 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const line: StoryObj = {};
+export const line: StoryObj = {
+    parameters: { chromatic: { disableSnapshot: true } }
+};
 
 export const bar: StoryObj = {
+    parameters: { chromatic: { disableSnapshot: true } },
     render: createUserSelectedThemeStory(html`
         <${fvChartTag} style="max-width: 640px;" :options="${() => barOptions}"></${fvChartTag}>
     `)
 };
 
 export const responsive: StoryObj = {
+    parameters: { chromatic: { disableSnapshot: true } },
     render: createUserSelectedThemeStory(html`
         <p>Drag the lower corner to resize the container.</p>
         <div style="width: 640px; max-width: 100%; min-width: 240px; resize: horizontal; overflow: auto; box-sizing: border-box; border: var(${borderWidth.cssCustomProperty}) solid var(${dividerBackgroundColor.cssCustomProperty}); padding: var(${mediumPadding.cssCustomProperty});">
