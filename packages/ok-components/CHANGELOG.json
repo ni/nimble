@@ -2,6 +2,21 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Fri, 13 Nov 2026 23:59:00 GMT",
+      "version": "1.18.1",
+      "tag": "@ni/ok-components_v1.18.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "d71f39c19d043141adac6f8e852c2dd102d2b35c",
+            "comment": "Align FV multi-select popup option styling with Nimble menus"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 13 Nov 2026 22:34:49 GMT",
       "version": "1.18.0",
       "tag": "@ni/ok-components_v1.18.0",
