@@ -64,13 +64,13 @@ _The key elements of the component's public API surface:_
     - `removable` - set to show the remove button
     - `appearance` - supports `outline` and `block` appearances
     - `disabled` - styles the chip in the typical Nimble manner, including any user-slotted content (text and icon), and additionally hides the remove button.
-    - `selectable` - makes the chip act as a toggle button with `role="button"` and `aria-pressed`.
+    - `selectable` - shows an internal toggle button with `role="button"` and `aria-pressed`.
     - `selected` - indicates the current selection state when `selectable` is set. When `true`, the chip displays with selected background styling.
 - _Methods_
     - _None_
 - _Events_
     - `remove` - fired when the chip remove button is pressed, or when Escape key is pressed on a removable chip.
-    - `selected-change` - fired when the user toggles the chip's selected state via click or keyboard (Space/Enter). Only emitted when `selectable` is set.
+    - `selected-change` - fired when the user toggles the chip's selected state via click or keyboard (Space/Enter). Only emitted when `selectable` is set; `detail` is `{ selected: boolean }`.
 - _Slots_
     - `start` - icon placed to the left of the chip text
     - (default) - for the primary label text
@@ -149,16 +149,15 @@ _Consider the accessibility of the component, including:_
 
 - _Keyboard Navigation and Focus_
     - When the chip is selectable and removable:
-        - The chip itself is focusable and receives keyboard events
-        - Space/Enter toggles the selected state
+        - The internal toggle button is focusable and toggles the selected state with Space/Enter
         - Escape removes the chip (emits `remove` event)
-        - The remove button is **not** focusable (`tabindex="-1"`) to comply with [WCAG 4.1.2](https://dequeuniversity.com/rules/axe/4.11/nested-interactive), which prohibits nested interactive controls
+        - The remove button is a sibling of the toggle button and remains focusable
     - When the chip is removable but not selectable:
         - The remove button is focusable and can be activated with Space or Enter
 - _Form Input_
     - N/A
 - _Use with Assistive Technology_
-    - When selectable, the chip has `role="button"` and `aria-pressed` to indicate its toggle state
+    - When selectable, the internal toggle button has `role="button"` and `aria-pressed` to indicate its toggle state
     - a `chip`'s accessible name comes from the element's contents by default
     - the remove button will have its content set to provide a label provider token for "Remove".
         - title will not be set, which aligns with decisions for the filterable select clear button and the banner

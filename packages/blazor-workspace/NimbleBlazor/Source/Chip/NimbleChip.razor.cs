@@ -45,10 +45,11 @@ public partial class NimbleChip : ComponentBase
     /// <summary>
     /// Called when the chip selected state changes.
     /// </summary>
-    protected async void HandleSelectedChange()
+    /// <param name="eventArgs">The selected state from the chip event.</param>
+    protected async Task HandleSelectedChangeAsync(ChipSelectedChangeEventArgs eventArgs)
     {
-        Selected = !Selected.GetValueOrDefault();
-        await SelectedChanged.InvokeAsync(Selected.Value);
+        Selected = eventArgs.Selected;
+        await SelectedChanged.InvokeAsync(eventArgs.Selected);
     }
 
     [Parameter(CaptureUnmatchedValues = true)]

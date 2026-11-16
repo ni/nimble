@@ -1,7 +1,6 @@
 import { css } from '@ni/fast-element';
 import {
     actionRgbPartialColor,
-    applicationBackgroundColor,
     bodyDisabledFontColor,
     bodyFont,
     bodyFontColor,
@@ -17,8 +16,8 @@ import {
     smallPadding
 } from '../theme-provider/design-tokens';
 import { display } from '../utilities/style/display';
-import { focusVisible } from '../utilities/style/focus';
 import { appearanceBehavior } from '../utilities/style/appearance';
+import { focusVisible } from '../utilities/style/focus';
 import { ChipAppearance } from './types';
 
 export const styles = css`
@@ -28,6 +27,7 @@ export const styles = css`
 
     @layer base {
         :host {
+            position: relative;
             height: ${controlHeight};
             width: fit-content;
             max-width: 300px;
@@ -47,6 +47,7 @@ export const styles = css`
 
         :host([selectable]) {
             cursor: pointer;
+            padding: 0;
         }
 
         :host([selectable]:not([selected]):not([appearance='block'])) {
@@ -56,6 +57,29 @@ export const styles = css`
         :host([selectable][selected]) {
             background-color: ${fillSelectedColor};
             border-color: rgba(${actionRgbPartialColor}, 0.3);
+        }
+
+        .toggle-button {
+            height: 100%;
+            min-width: 0;
+            max-width: 100%;
+            color: inherit;
+            font: inherit;
+        }
+
+        .toggle-button::part(control) {
+            /* Anchor the focus overlay to the chip, not the inner control. */
+            position: static;
+            padding: 0 ${mediumPadding};
+            border-color: transparent;
+            border-radius: 2px;
+            box-shadow: none;
+            background-image: none;
+            background-color: transparent;
+        }
+
+        .toggle-button::part(control)::before {
+            outline: none;
         }
 
         slot[name='start']::slotted(*) {
@@ -68,6 +92,7 @@ export const styles = css`
         }
 
         .content {
+            min-width: 0;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -94,14 +119,23 @@ export const styles = css`
     }
 
     @layer focusVisible {
-        :host([selectable]${focusVisible}:not([disabled])) {
-            border-color: ${borderHoverColor};
-            outline: calc(${borderWidth} * 2) solid ${borderHoverColor};
-            outline-offset: calc(-2 * ${borderWidth});
-            box-shadow:
-                0 0 0 calc(${borderWidth} * 2) ${applicationBackgroundColor}
-                    inset,
-                0 0 0 calc(${borderWidth} * 3) ${borderHoverColor} inset;
+        :host(:not([disabled]))
+            .toggle-button::part(control)${focusVisible}::before {
+            inset: calc(${borderWidth} * 2);
+            width: auto;
+            height: auto;
+            border: ${borderWidth} solid ${borderHoverColor};
+            border-radius: 0;
+        }
+
+        :host(:not([disabled]))
+            .toggle-button::part(control)${focusVisible}::after {
+            content: '';
+            position: absolute;
+            inset: calc(-1 * ${borderWidth});
+            border: calc(${borderWidth} * 2) solid ${borderHoverColor};
+            border-radius: 4px;
+            pointer-events: none;
         }
     }
 
@@ -111,11 +145,24 @@ export const styles = css`
                     [remove-button-active]
                 )
         ) {
-            background-color: rgba(${fillSelectedRgbPartialColor}, 0.3);
+            background-color: transparent;
             border-color: ${borderHoverColor};
             outline: ${borderWidth} solid ${borderHoverColor};
             outline-offset: calc(-1 * ${borderWidth});
-            box-shadow: 0 0 0 ${borderWidth} ${applicationBackgroundColor} inset;
+            box-shadow: none;
+        }
+
+        :host(
+            [selectable]:active:not([disabled]):not(
+                    [remove-button-active]
+                )
+        )::before {
+            content: '';
+            position: absolute;
+            inset: ${borderWidth};
+            border-radius: 2px;
+            background-color: rgba(${fillSelectedRgbPartialColor}, 0.3);
+            pointer-events: none;
         }
     }
 

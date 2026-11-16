@@ -1,5 +1,6 @@
 import type { Chip } from '..';
 import type { Button } from '../../button';
+import type { ToggleButton } from '../../toggle-button';
 
 /**
  * Page object for the `nimble-chip` component to provide consistent ways
@@ -11,6 +12,26 @@ export class ChipPageObject {
     public isRemoveButtonVisible(): boolean {
         const removeButton = this.getRemoveButton();
         return !!removeButton;
+    }
+
+    public clickToggleButton(): void {
+        const toggleButton = this.getToggleButton();
+        if (toggleButton) {
+            toggleButton.control.click();
+        } else {
+            throw new Error('Toggle button not found');
+        }
+    }
+
+    public pressToggleButtonKey(key: string): void {
+        const toggleButton = this.getToggleButton();
+        if (toggleButton) {
+            toggleButton.control.dispatchEvent(
+                new KeyboardEvent('keypress', { key })
+            );
+        } else {
+            throw new Error('Toggle button not found');
+        }
     }
 
     public getRemoveButtonTextContent(): string {
@@ -27,12 +48,22 @@ export class ChipPageObject {
         }
     }
 
-    public getRemoveButtonTabIndex(): string | null {
+    public getRemoveButtonTabIndex(): number | null {
         const removeButton = this.getRemoveButton();
         if (removeButton) {
-            return removeButton.getAttribute('tabindex');
+            return removeButton.shadowRoot?.querySelector<HTMLButtonElement>(
+                '.control'
+            )?.tabIndex ?? null;
         }
         throw new Error('Remove button not found');
+    }
+
+    public getToggleButtonTabIndex(): string | null {
+        const toggleButton = this.getToggleButton();
+        if (toggleButton) {
+            return toggleButton.control.getAttribute('tabindex');
+        }
+        throw new Error('Toggle button not found');
     }
 
     public mousedownRemoveButton(): void {
@@ -50,6 +81,14 @@ export class ChipPageObject {
         return (
             this.chipElement.shadowRoot?.querySelector<Button>(
                 '.remove-button'
+            ) ?? null
+        );
+    }
+
+    private getToggleButton(): ToggleButton | null {
+        return (
+            this.chipElement.shadowRoot?.querySelector<ToggleButton>(
+                '.toggle-button'
             ) ?? null
         );
     }

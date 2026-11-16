@@ -1,5 +1,5 @@
 import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
-import { keyEnter, keyEscape, keySpace } from '@ni/fast-web-utilities';
+import { keyEscape } from '@ni/fast-web-utilities';
 import {
     applyMixins,
     DesignSystem,
@@ -14,6 +14,7 @@ import { template } from './template';
 import { ChipAppearance } from './types';
 import { slotTextContent } from '../utilities/models/slot-text-content';
 import { itemRemoveLabel } from '../label-provider/core/label-tokens';
+import type { ToggleButton } from '../toggle-button';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -80,15 +81,22 @@ export class Chip extends FoundationElement {
     public removeButtonTabIndex: string | null = null;
 
     /** @internal */
+    @observable
+    public toggleButtonTabIndex: number | null = null;
+
+    /** @internal */
     public contentSlot!: HTMLSlotElement;
 
-    private managingTabIndex = false;
-    private suppressTabIndexChanged = false;
     private mouseUpHandler: EventListener | null = null;
+    private normalizingHostTabIndex = false;
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.updateManagedTabIndex();
+        if (this.selectable && this.hasAttribute('tabindex') && !this.normalizingHostTabIndex) {
+            this.toggleButtonTabIndex = this.tabIndex;
+            this.normalizeHostTabIndex();
+        }
+        this.updateRemoveButtonTabIndex();
     }
 
     public override disconnectedCallback(): void {
@@ -100,57 +108,11 @@ export class Chip extends FoundationElement {
     }
 
     /** @internal */
-    public clickHandler(e: MouseEvent): boolean {
-        if (this.disabled) {
-            return false;
-        }
-
-        if (this.selectable) {
-            e.stopPropagation();
-            this.selected = !this.selected;
-            this.$emit('selected-change');
-            return false;
-        }
-        return true;
-    }
-
-    /** @internal */
-    public keyupHandler(e: KeyboardEvent): boolean {
-        if (this.disabled) {
-            return false;
-        }
-        switch (e.key) {
-            case keySpace:
-                if (this.selectable) {
-                    e.stopPropagation();
-                    this.selected = !this.selected;
-                    this.$emit('selected-change');
-                }
-                return true;
-            default:
-                return true;
-        }
-    }
-
-    /** @internal */
     public keydownHandler(e: KeyboardEvent): boolean {
         if (this.disabled) {
             return false;
         }
         switch (e.key) {
-            case keySpace:
-                if (this.selectable) {
-                    return false;
-                }
-                return true;
-            case keyEnter:
-                if (this.selectable) {
-                    e.stopPropagation();
-                    this.selected = !this.selected;
-                    this.$emit('selected-change');
-                    return false;
-                }
-                return true;
             case keyEscape:
                 if (this.removable) {
                     e.stopPropagation();
@@ -161,6 +123,18 @@ export class Chip extends FoundationElement {
             default:
                 return true;
         }
+    }
+
+    /** @internal */
+    public toggleButtonClickHandler(event: MouseEvent): void {
+        event.stopPropagation();
+    }
+
+    /** @internal */
+    public toggleButtonChangeHandler(event: Event): void {
+        event.stopPropagation();
+        this.selected = (event.currentTarget as ToggleButton).checked;
+        this.$emit('selected-change', { selected: this.selected });
     }
 
     /** @internal */
@@ -206,64 +180,48 @@ export class Chip extends FoundationElement {
     }
 
     protected tabIndexChanged(): void {
-        if (this.suppressTabIndexChanged) {
-            this.suppressTabIndexChanged = false;
-            return;
-        }
-
-        this.managingTabIndex = false;
-        this.updateManagedTabIndex();
-    }
-
-    protected selectableChanged(_oldValue: boolean, _newValue: boolean): void {
-        this.updateManagedTabIndex();
-    }
-
-    protected disabledChanged(_oldValue: boolean, _newValue: boolean): void {
-        this.updateManagedTabIndex();
-    }
-
-    private updateManagedTabIndex(): void {
-        if (!this.$fastController?.isConnected) {
-            return;
-        }
-
-        const shouldManage = this.selectable && !this.disabled;
-
-        if (shouldManage) {
+        if (this.selectable) {
             if (!this.hasAttribute('tabindex')) {
-                this.setManagedTabIndex(0);
+                this.toggleButtonTabIndex = null;
+                this.normalizingHostTabIndex = false;
+            } else if (!(this.normalizingHostTabIndex && this.tabIndex === -1)) {
+                this.toggleButtonTabIndex = this.tabIndex;
+                this.normalizeHostTabIndex();
             }
         } else {
-            this.removeManagedTabIndex();
+            this.updateRemoveButtonTabIndex();
         }
+    }
 
+    protected selectableChanged(_oldValue: boolean, newValue: boolean): void {
+        if (newValue) {
+            if (this.hasAttribute('tabindex')) {
+                this.toggleButtonTabIndex = this.tabIndex;
+                this.normalizeHostTabIndex();
+            } else {
+                this.toggleButtonTabIndex = null;
+                this.normalizingHostTabIndex = false;
+            }
+        } else if (typeof this.toggleButtonTabIndex === 'number') {
+            const tabIndex = this.toggleButtonTabIndex;
+            this.toggleButtonTabIndex = null;
+            this.normalizingHostTabIndex = false;
+            this.setAttribute('tabindex', `${tabIndex}`);
+        } else {
+            this.normalizingHostTabIndex = false;
+        }
         this.updateRemoveButtonTabIndex();
     }
 
-    private setManagedTabIndex(value: number): void {
-        this.managingTabIndex = true;
-        this.suppressTabIndexChanged = true;
-        this.setAttribute('tabindex', `${value}`);
-    }
-
-    private removeManagedTabIndex(): void {
-        if (!this.managingTabIndex) {
-            return;
+    private normalizeHostTabIndex(): void {
+        this.normalizingHostTabIndex = true;
+        if (this.tabIndex !== -1) {
+            this.setAttribute('tabindex', '-1');
         }
-
-        this.managingTabIndex = false;
-        this.suppressTabIndexChanged = true;
-        this.removeAttribute('tabindex');
     }
 
     private updateRemoveButtonTabIndex(): void {
-        if (this.selectable) {
-            this.removeButtonTabIndex = '-1';
-            return;
-        }
-
-        this.removeButtonTabIndex = this.hasAttribute('tabindex')
+        this.removeButtonTabIndex = !this.selectable && this.hasAttribute('tabindex')
             ? `${this.tabIndex}`
             : null;
     }

@@ -131,7 +131,7 @@ const metadata: Meta<ChipArgs> = {
         },
         selectedChange: {
             name: 'selected-change',
-            description: 'Emitted when the user toggles a selectable chip.',
+            description: 'Emitted when the user toggles a selectable chip. The event detail contains the new state: `{ selected: boolean }`.',
             table: { category: apiCategory.events },
             control: false
         }

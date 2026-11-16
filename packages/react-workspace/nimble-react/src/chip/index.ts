@@ -15,6 +15,6 @@ export interface ChipRemoveEvent extends CustomEvent {
     target: Chip;
 }
 
-export interface ChipSelectedChangeEvent extends CustomEvent {
+export interface ChipSelectedChangeEvent extends CustomEvent<{ selected: boolean }> {
     target: Chip;
 }
