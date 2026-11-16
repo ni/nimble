@@ -63,6 +63,8 @@ export const barOptions = {
 export const responsiveOptions = {
     ...lineOptions,
     definition: {
+        focus: lineOptions.definition.focus,
+        tooltip: lineOptions.definition.tooltip,
         chart: ({ width }: ChartBuildContext): StaticChartDefinition<typeof rows[number], string, number, 'dom'> => ({
             ...lineOptions.definition,
             color: width < 400 ? undefined : lineOptions.definition.color,
@@ -107,7 +109,8 @@ export const bar: StoryObj = {
 
 export const responsive: StoryObj = {
     render: createUserSelectedThemeStory(html`
-        <div style="width: 640px; max-width: 100%; min-width: 240px; resize: horizontal; overflow: auto;">
+        <p>Drag the lower corner to resize the container.</p>
+        <div style="width: 640px; max-width: 100%; min-width: 240px; resize: horizontal; overflow: auto; box-sizing: border-box; border: var(${borderWidth.cssCustomProperty}) solid var(${dividerBackgroundColor.cssCustomProperty}); padding: var(${mediumPadding.cssCustomProperty});">
             <${fvChartTag} :options="${() => responsiveOptions}"></${fvChartTag}>
         </div>
     `)
