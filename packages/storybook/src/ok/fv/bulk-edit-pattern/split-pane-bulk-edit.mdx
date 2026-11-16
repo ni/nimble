@@ -103,9 +103,11 @@ search. Filtering preserves selected
 rows and pending bulk edits, including rows hidden by the filter. Apply an empty
 query to remove the query filter. The saved-query menu starts with Available
 assets and Battery Lab assets. Selecting a query applies it immediately when its
-draft is valid. Create, update, and delete saved queries using
-in-memory handlers; reloading the story restores the initial queries. Saving a
-query does not apply it to the table. Nigel assistance is disabled.
+draft is valid. Create, update, and delete saved queries using in-memory
+handlers; reloading the story restores the initial queries. The primary Save
+action persists the query and applies it to the table after a successful save.
+Update saved query persists changes without applying them. Nigel assistance is
+disabled.
 
 <Canvas of={bulkEditPatternStories.splitPaneBulkEdit} />
 
