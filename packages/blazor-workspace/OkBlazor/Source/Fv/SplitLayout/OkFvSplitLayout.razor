@@ -1,12 +1,13 @@
+@using System.Globalization
 @namespace OkBlazor
 <ok-fv-split-layout
     data-ok-fv-event-source="@_eventSource"
-    position="@Position"
-    min="@Min"
-    max="@Max"
-    min-secondary-pixels="@MinSecondaryPixels"
+    position="@Position?.ToString(CultureInfo.InvariantCulture)"
+    min="@Min?.ToString(CultureInfo.InvariantCulture)"
+    max="@Max?.ToString(CultureInfo.InvariantCulture)"
+    min-secondary-pixels="@MinSecondaryPixels?.ToString(CultureInfo.InvariantCulture)"
     collapsed="@Collapsed"
-    step="@Step"
+    step="@Step?.ToString(CultureInfo.InvariantCulture)"
     primary-pane-id="@PrimaryPaneId"
     secondary-pane-id="@SecondaryPaneId"
     @onokfvpositioninput="HandleInputAsync"

@@ -1,6 +1,6 @@
 import { Component, provideZoneChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { OkFvTextFieldModule } from '../../text-field/ok-fv-text-field.module';
 import { OkFvDateTimePickerModule } from '../../date-time-picker/ok-fv-date-time-picker.module';
 import { OkFvMultiSelectModule } from '../ok-fv-multi-select.module';
@@ -8,14 +8,14 @@ import { OkFvMultiSelectModule } from '../ok-fv-multi-select.module';
 @Component({
     template: `
         <ok-fv-text-field [formControl]="text"></ok-fv-text-field>
-        <ok-fv-date-time-picker type="date" [(ngModel)]="date"></ok-fv-date-time-picker>
+        <ok-fv-date-time-picker type="date" [formControl]="date"></ok-fv-date-time-picker>
         <ok-fv-multi-select [formControl]="selection"></ok-fv-multi-select>
     `,
     standalone: false
 })
 class TestHostComponent {
     public text = new FormControl('initial');
-    public date = '2025-01-02';
+    public date = new FormControl('2025-01-02');
     public selection = new FormControl<string[]>(['a']);
 }
 
@@ -23,7 +23,7 @@ describe('FV Angular form controls', () => {
     it('synchronizes values, touched state and disabled state', async () => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [FormsModule, ReactiveFormsModule, OkFvTextFieldModule, OkFvDateTimePickerModule, OkFvMultiSelectModule],
+            imports: [ReactiveFormsModule, OkFvTextFieldModule, OkFvDateTimePickerModule, OkFvMultiSelectModule],
             providers: [provideZoneChangeDetection()]
         });
         const fixture = TestBed.createComponent(TestHostComponent);
@@ -39,14 +39,20 @@ describe('FV Angular form controls', () => {
         expect(date.value).toBe('2025-01-02');
         expect(multi.selectedValues).toEqual(['a']);
 
+        const textValueChanges = jasmine.createSpy('textValueChanges');
+        fixture.componentInstance.text.valueChanges.subscribe(textValueChanges);
+        const dateValueChanges = jasmine.createSpy('dateValueChanges');
+        fixture.componentInstance.date.valueChanges.subscribe(dateValueChanges);
         text.value = 'changed';
         text.dispatchEvent(new Event('input'));
+        expect(textValueChanges).toHaveBeenCalledOnceWith('changed');
         date.value = '2025-01-03';
         date.dispatchEvent(new Event('input'));
+        expect(dateValueChanges).toHaveBeenCalledOnceWith('2025-01-03');
         multi.toggleOption({ value: 'b', label: 'B' });
         multi.dispatchEvent(new Event('blur'));
         expect(fixture.componentInstance.text.value).toBe('changed');
-        expect(fixture.componentInstance.date).toBe('2025-01-03');
+        expect(fixture.componentInstance.date.value).toBe('2025-01-03');
         expect(fixture.componentInstance.selection.value).toEqual(['a', 'b']);
         expect(fixture.componentInstance.selection.touched).toBeTrue();
 

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using BlazorWorkspace.Testing.Unit;
 using Bunit;
@@ -9,6 +10,66 @@ namespace OkBlazor.Tests.Unit.Components;
 
 public class OkFvBindingsTests : BunitTestBase
 {
+    [Fact]
+    public void NumericAttributes_UseInvariantCulture()
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
+            var handle = Render<OkFvSplitter>(p => p
+                .Add(x => x.Position, 60.5)
+                .Add(x => x.Min, 10.25)
+                .Add(x => x.Max, 90.75)
+                .Add(x => x.Step, 0.5));
+            var layout = Render<OkFvSplitLayout>(p => p
+                .Add(x => x.Position, 60.5)
+                .Add(x => x.Min, 10.25)
+                .Add(x => x.Max, 90.75)
+                .Add(x => x.MinSecondaryPixels, 20.5)
+                .Add(x => x.Step, 0.5));
+
+            var handleElement = handle.Find("ok-fv-splitter");
+            Assert.Equal("60.5", handleElement.GetAttribute("position"));
+            Assert.Equal("10.25", handleElement.GetAttribute("min"));
+            Assert.Equal("90.75", handleElement.GetAttribute("max"));
+            Assert.Equal("0.5", handleElement.GetAttribute("step"));
+
+            var layoutElement = layout.Find("ok-fv-split-layout");
+            Assert.Equal("60.5", layoutElement.GetAttribute("position"));
+            Assert.Equal("10.25", layoutElement.GetAttribute("min"));
+            Assert.Equal("90.75", layoutElement.GetAttribute("max"));
+            Assert.Equal("20.5", layoutElement.GetAttribute("min-secondary-pixels"));
+            Assert.Equal("0.5", layoutElement.GetAttribute("step"));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
+    }
+
+    [Fact]
+    public void TextFieldAndDateTimePicker_ApplyParentValueUpdatesAfterInput()
+    {
+        var textField = Render<OkFvTextField>(p => p
+            .Add(x => x.Value, "initial")
+            .Add(x => x.OnChange, _ => { }));
+        textField.Find("ok-fv-text-field").TriggerEvent("onchange", new ChangeEventArgs { Value = "edited" });
+        textField.Render(p => p
+            .Add(x => x.Value, "parent update")
+            .Add(x => x.OnChange, _ => { }));
+        Assert.Equal("parent update", textField.Find("ok-fv-text-field").GetAttribute("current-value"));
+
+        var dateTimePicker = Render<OkFvDateTimePicker>(p => p
+            .Add(x => x.Value, "2025-01-01")
+            .Add(x => x.OnInput, _ => { }));
+        dateTimePicker.Find("ok-fv-date-time-picker").TriggerEvent("oninput", new ChangeEventArgs { Value = "2025-01-02" });
+        dateTimePicker.Render(p => p
+            .Add(x => x.Value, "2025-01-03")
+            .Add(x => x.OnInput, _ => { }));
+        Assert.Equal("2025-01-03", dateTimePicker.Find("ok-fv-date-time-picker").GetAttribute("current-value"));
+    }
+
     [Fact]
     public async Task TextField_ForwardsAndClearsMaskOptions()
     {
