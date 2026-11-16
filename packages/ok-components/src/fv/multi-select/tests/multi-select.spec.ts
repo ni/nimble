@@ -415,8 +415,7 @@ describe('FvMultiSelect', () => {
         expect(element.open).toBeFalse();
     });
 
-    // Intermittent Chrome timeout: https://github.com/ni/nimble/actions/runs/43908077703/job/133442231661
-    it('closes on outside click and focus leaving the component #SkipChrome', async () => {
+    it('closes on outside click and focus leaving the component', async () => {
         await open();
         document.body.click();
         expect(element.open).toBeFalse();
@@ -426,6 +425,17 @@ describe('FvMultiSelect', () => {
             bubbles: true, composed: true, relatedTarget: document.body
         }));
         expect(element.open).toBeFalse();
+    });
+
+    it('keeps focus inside when reopening before the popup can receive focus', async () => {
+        await open();
+        spyOn(element, 'focusPopup').and.stub();
+        element.open = false;
+        element.open = true;
+        query<HTMLInputElement>('input').blur();
+        await waitAnimationFrame();
+        expect(element.open).toBeTrue();
+        expect(element.shadowRoot?.activeElement).toBe(query('.control'));
     });
 
     it('stays open after a null-target focusout while focus remains inside', async () => {
