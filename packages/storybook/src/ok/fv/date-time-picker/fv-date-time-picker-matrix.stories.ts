@@ -3,6 +3,7 @@ import { html } from '@ni/fast-element';
 import { type FvDateTimePicker, fvDateTimePickerTag } from '@ni/ok-components/dist/esm/fv/date-time-picker';
 import { FvDateTimePickerAppearance } from '@ni/ok-components/dist/esm/fv/date-time-picker/types';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { lang } from '@ni/nimble-components/dist/esm/theme-provider';
 import { createMatrix, createMatrixInteractions, createMatrixThemeStory, sharedMatrixParameters } from '../../../utilities/matrix';
 
@@ -86,7 +87,7 @@ export const popupThemeMatrix: StoryFn = createMatrixThemeStory(html`
             <${fvDateTimePickerTag} style="width: 320px;"
                 type="${() => scenario.type ?? 'datetime-local'}"
                 value="${() => (scenario.type === 'date' ? '2024-11-13' : '2024-11-13T14:30')}"
-                min="${() => scenario.min ?? ''}" max="${() => scenario.max ?? ''}" step="${() => scenario.step ?? ''}" open>
+                min="${() => scenario.min ?? ''}" max="${() => scenario.max ?? ''}" step="${() => scenario.step ?? ''}">
                 ${() => scenario.name}
             </${fvDateTimePickerTag}>
         </div>
@@ -98,26 +99,26 @@ export const popupThemeMatrix: StoryFn = createMatrixThemeStory(html`
 
 popupThemeMatrix.play = async ({ canvasElement }) => {
     await waitForUpdatesAsync();
+    await document.fonts.ready;
     const pickers = canvasElement.querySelectorAll<FvDateTimePicker>(fvDateTimePickerTag);
     for (const picker of pickers) {
-        lang.setValueFor(picker, picker.parentElement!.dataset.locale!);
         picker.open = false;
+    }
+    await waitForUpdatesAsync();
+    for (const picker of pickers) {
+        lang.setValueFor(picker, picker.parentElement!.dataset.locale!);
+        // Keep the visual reference date stable instead of changing snapshots daily.
+        picker.isToday = date => picker.dateKey(date) === '2024-11-14';
         picker.open = true;
     }
     await waitForUpdatesAsync();
     await Promise.all(Array.from(pickers, async picker => {
         const region = picker.region!;
+        const loaded = waitForEvent(region, 'loaded');
         // Avoid viewport-dependent flipping when Chrome crops the capture.
         region.horizontalDefaultPosition = 'right';
         region.horizontalViewportLock = false;
         region.horizontalPositioningMode = 'locktodefault';
-        await waitForUpdatesAsync();
-        if (!region.initialLayoutComplete) {
-            await new Promise<void>(resolve => {
-                region.addEventListener('loaded', () => resolve(), { once: true });
-            });
-        }
-        // Keep the visual reference date stable instead of changing snapshots daily.
-        picker.shadowRoot!.querySelector('[data-date="2024-11-14"]')!.setAttribute('aria-current', 'date');
+        await loaded;
     }));
 };
