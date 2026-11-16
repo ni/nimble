@@ -236,6 +236,16 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
 
+### Evaluating new dependencies
+
+When adding new production dependencies, evaluate whether the dependency has sufficient quality and value to justify the cost of maintenance, security risk, and footprint. Consider the following factors in evaluating new dependencies.
+
+- Quality: repo activity, test coverage, popularity, responsiveness to security vulnerabilities
+- Nimble fit: Use of ESModules, TypeScript, and web platform features
+- Cost: Disk footprint, size of transitive dependency tree
+- License: Must be redistributable and open source
+
+
 ### Security scanning
 
 **Contributors within NI/Emerson**: See the [security scanning reference](https://dev.azure.com/ni/DevCentral/_wiki/wikis/Stratus/160265/Security-scanning-reference) for information on security scanning tools, workflows, and best practices.
