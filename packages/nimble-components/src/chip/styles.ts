@@ -50,6 +50,10 @@ export const styles = css`
             padding: 0;
         }
 
+        :host([selectable][removable]:not([disabled])) {
+            padding-right: ${mediumPadding};
+        }
+
         :host([selectable]:not([selected]):not([appearance='block'])) {
             border-color: rgba(${borderRgbPartialColor}, 0.3);
         }

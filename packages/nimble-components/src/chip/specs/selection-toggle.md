@@ -45,7 +45,7 @@ The chip uses a `selectable` boolean attribute to control whether it exposes tog
     - If `selectable` is not set: No explicit role (generic container).
     - If `selectable` is set: The internal toggle button has `role="button"` with `aria-pressed="true"` or `aria-pressed="false"`.
 - **Tabindex Management:**
-    - When `selectable` is set: The internal toggle button defaults to `tabindex="0"`. A user-supplied host `tabindex` is forwarded to the toggle button.
+    - When `selectable` is set: The internal toggle button defaults to `tabindex="0"`. A user-supplied host `tabindex` is forwarded to both the toggle and remove buttons.
     - When `selectable` is not set: The chip does not manage `tabindex`. User-supplied values are forwarded to the remove button if `removable`.
 - **Attribute Reflection:**
     - The `selectable` attribute directly reflects whether the chip is interactive.
@@ -86,7 +86,7 @@ Visual states follow the [Figma design specification](https://www.figma.com/desi
 
 - **CSS Cascade Layers:** Styles are organized using `@layer base, hover, focusVisible, active, disabled, top` to ensure proper precedence of interactive states.
 - **Tabindex Management:**
-    - The chip forwards user-supplied tabindex to the internal toggle button and keeps the host out of the tab order.
+    - The chip delegates focus to its internal controls and forwards user-supplied tabindex to both buttons without rewriting the host attribute.
     - Forwarded values are preserved when the chip reconnects or changes selectability.
 - **Remove Button Active State:**
     - The `remove-button-active` attribute is set during remove button mousedown to prevent chip active styling from appearing.

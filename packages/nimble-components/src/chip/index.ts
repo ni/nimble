@@ -77,30 +77,13 @@ export class Chip extends FoundationElement {
     }
 
     /** @internal */
-    @observable
-    public removeButtonTabIndex: string | null = null;
-
-    /** @internal */
-    @observable
-    public toggleButtonTabIndex: number | null = null;
-
-    /** @internal */
     public contentSlot!: HTMLSlotElement;
 
     private mouseUpHandler: EventListener | null = null;
-    private normalizingHostTabIndex = false;
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        if (this.selectable && this.hasAttribute('tabindex') && !this.normalizingHostTabIndex) {
-            this.toggleButtonTabIndex = this.tabIndex;
-            this.normalizeHostTabIndex();
-        }
-        this.updateRemoveButtonTabIndex();
-    }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
+        this.removeButtonActive = false;
         if (this.mouseUpHandler) {
             document.removeEventListener('mouseup', this.mouseUpHandler);
             this.mouseUpHandler = null;
@@ -178,60 +161,16 @@ export class Chip extends FoundationElement {
     public handleRemoveKeyup(event: KeyboardEvent): void {
         event.stopPropagation();
     }
-
-    protected tabIndexChanged(): void {
-        if (this.selectable) {
-            if (!this.hasAttribute('tabindex')) {
-                this.toggleButtonTabIndex = null;
-                this.normalizingHostTabIndex = false;
-            } else if (!(this.normalizingHostTabIndex && this.tabIndex === -1)) {
-                this.toggleButtonTabIndex = this.tabIndex;
-                this.normalizeHostTabIndex();
-            }
-        } else {
-            this.updateRemoveButtonTabIndex();
-        }
-    }
-
-    protected selectableChanged(_oldValue: boolean, newValue: boolean): void {
-        if (newValue) {
-            if (this.hasAttribute('tabindex')) {
-                this.toggleButtonTabIndex = this.tabIndex;
-                this.normalizeHostTabIndex();
-            } else {
-                this.toggleButtonTabIndex = null;
-                this.normalizingHostTabIndex = false;
-            }
-        } else if (typeof this.toggleButtonTabIndex === 'number') {
-            const tabIndex = this.toggleButtonTabIndex;
-            this.toggleButtonTabIndex = null;
-            this.normalizingHostTabIndex = false;
-            this.setAttribute('tabindex', `${tabIndex}`);
-        } else {
-            this.normalizingHostTabIndex = false;
-        }
-        this.updateRemoveButtonTabIndex();
-    }
-
-    private normalizeHostTabIndex(): void {
-        this.normalizingHostTabIndex = true;
-        if (this.tabIndex !== -1) {
-            this.setAttribute('tabindex', '-1');
-        }
-    }
-
-    private updateRemoveButtonTabIndex(): void {
-        this.removeButtonTabIndex = !this.selectable && this.hasAttribute('tabindex')
-            ? `${this.tabIndex}`
-            : null;
-    }
 }
 applyMixins(Chip, StartEnd);
 
 const nimbleChip = Chip.compose<ChipOptions>({
     baseName: 'chip',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleChip());

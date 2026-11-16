@@ -24,7 +24,7 @@ ChipOptions
                 appearance="${ButtonAppearance.ghost}"
                 ?checked="${x => x.selected}"
                 ?disabled="${x => x.disabled}"
-                tabindex="${x => x.toggleButtonTabIndex ?? 0}"
+                tabindex="${x => x.tabIndex ?? 0}"
                 @click="${(x, c) => x.toggleButtonClickHandler(c.event as MouseEvent)}"
                 @change="${(x, c) => x.toggleButtonChangeHandler(c.event)}"
             >
@@ -65,7 +65,7 @@ ChipOptions
                 class="remove-button"
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
-                tabindex="${x => x.removeButtonTabIndex ?? 0}"
+                tabindex="${x => x.tabIndex ?? 0}"
                 @mousedown="${(x, c) => x.handleRemoveMousedown(c.event as MouseEvent)}"
                 @click="${(x, c) => x.handleRemoveClick(c.event as MouseEvent)}"
                 @keyup="${(x, c) => x.handleRemoveKeyup(c.event as KeyboardEvent)}"

@@ -234,6 +234,46 @@ describe('Chip', () => {
         expect(new ChipPageObject(element).getToggleButtonTabIndex()).toBe('0');
     });
 
+    [false, true].forEach(useProperty => {
+        it(`forwards tabindex ${useProperty ? 'property' : 'attribute'} updates without changing the host value`, async () => {
+            element.selectable = true;
+            element.removable = true;
+            await waitForUpdatesAsync();
+            const pageObject = new ChipPageObject(element);
+
+            async function setAndAssertTabIndex(tabIndex: number): Promise<void> {
+                if (useProperty) {
+                    element.tabIndex = tabIndex;
+                } else {
+                    element.setAttribute('tabindex', `${tabIndex}`);
+                }
+                await waitForUpdatesAsync();
+
+                expect(element.getAttribute('tabindex')).toBe(`${tabIndex}`);
+                expect(pageObject.getToggleButtonTabIndex()).toBe(`${tabIndex}`);
+                expect(pageObject.getRemoveButtonTabIndex()).toBe(tabIndex);
+            }
+
+            await setAndAssertTabIndex(0);
+            await setAndAssertTabIndex(-1);
+            await setAndAssertTabIndex(2);
+        });
+    });
+
+    [false, true].forEach(selectable => {
+        it(`delegates focus to the ${selectable ? 'toggle' : 'remove'} button`, async () => {
+            element.selectable = selectable;
+            element.removable = true;
+            await waitForUpdatesAsync();
+
+            element.focus();
+
+            expect(element.shadowRoot!.activeElement).toBe(
+                element.shadowRoot!.querySelector(selectable ? '.toggle-button' : '.remove-button')
+            );
+        });
+    });
+
     it('does not toggle selection when remove button is clicked', async () => {
         element.selectable = true;
         element.removable = true;
@@ -323,18 +363,19 @@ describe('Chip', () => {
             expect(element.hasAttribute('remove-button-active')).toBeFalse();
         });
 
-        it('cleans up mouseup listener when disconnected during mousedown', async () => {
+        it('clears the pressed state when reconnected after mousedown', async () => {
             const pageObject = new ChipPageObject(element);
 
             pageObject.mousedownRemoveButton();
             await waitForUpdatesAsync();
             expect(element.hasAttribute('remove-button-active')).toBeTrue();
 
-            // Disconnect while mouse is still down
             await disconnect();
+            document.dispatchEvent(new MouseEvent('mouseup'));
+            await connect();
+            await waitForUpdatesAsync();
 
-            // Verify no errors when mouseup fires after disconnect
-            expect(() => document.dispatchEvent(new MouseEvent('mouseup'))).not.toThrow();
+            expect(element.hasAttribute('remove-button-active')).toBeFalse();
         });
 
         it('does not show chip active state styling when remove button is mousedown', async () => {
