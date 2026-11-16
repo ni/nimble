@@ -10,7 +10,13 @@ export { fvDateTimePickerTag, FvDateTimePickerAppearance, FvDateTimePickerType }
 export { type FvDateTimePicker };
 export const OkFvDateTimePicker = wrap(FvDateTimePicker, {
     events: {
-        onInput: 'input' as EventName,
-        onChange: 'change' as EventName
+        onInput: 'input' as EventName<FvDateTimePickerInputEvent>,
+        onChange: 'change' as EventName<FvDateTimePickerChangeEvent>
     }
 });
+export interface FvDateTimePickerInputEvent extends Event {
+    target: FvDateTimePicker;
+}
+export interface FvDateTimePickerChangeEvent extends Event {
+    target: FvDateTimePicker;
+}

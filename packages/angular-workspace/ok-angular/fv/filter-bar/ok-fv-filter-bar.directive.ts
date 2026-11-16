@@ -3,13 +3,14 @@ import type { FvFilterBar } from '@ni/ok-components/dist/esm/fv/filter-bar';
 import { fvFilterBarTag } from '@ni/ok-components/dist/esm/fv/filter-bar';
 import type {
     FvFilterBarDefinition,
+    FvFilterBarEventDetail,
     FvFilterBarQueryDocument
 } from '@ni/ok-components/dist/esm/fv/filter-bar/types';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { FvFilterBar };
 export { fvFilterBarTag };
-export type { FvFilterBarDefinition, FvFilterBarQueryDocument };
+export type { FvFilterBarDefinition, FvFilterBarEventDetail, FvFilterBarQueryDocument };
 
 /** Angular bindings for the FV filter bar. */
 @Directive({
@@ -37,8 +38,8 @@ export class OkFvFilterBarDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'definition', value);
     }
 
-    @Output() public editFilterEvent = new EventEmitter<Event>();
-    @Output() public clearFilterEvent = new EventEmitter<Event>();
+    @Output() public editFilterEvent = new EventEmitter<CustomEvent<FvFilterBarEventDetail>>();
+    @Output() public clearFilterEvent = new EventEmitter<CustomEvent<FvFilterBarEventDetail>>();
 
     public constructor(
         private readonly elementRef: ElementRef<FvFilterBar>,
@@ -47,14 +48,14 @@ export class OkFvFilterBarDirective {
 
     @HostListener('edit-filter', ['$event'])
     public onEditFilter(event: Event): void {
-        if (event.target === this.elementRef.nativeElement) {
+        if (event instanceof CustomEvent && event.target === this.elementRef.nativeElement) {
             this.editFilterEvent.emit(event);
         }
     }
 
     @HostListener('clear-filter', ['$event'])
     public onClearFilter(event: Event): void {
-        if (event.target === this.elementRef.nativeElement) {
+        if (event instanceof CustomEvent && event.target === this.elementRef.nativeElement) {
             this.clearFilterEvent.emit(event);
         }
     }

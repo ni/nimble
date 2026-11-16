@@ -3,6 +3,7 @@ using System.Text.Json;
 using BlazorWorkspace.Testing.Unit;
 using Bunit;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using Xunit;
 
@@ -10,6 +11,49 @@ namespace OkBlazor.Tests.Unit.Components;
 
 public class OkFvBindingsTests : BunitTestBase
 {
+    [Fact]
+    public void TextAndDateInputs_UpdateBindingsAndInvokeCallbacks()
+    {
+        var model = new FormValues();
+        var editContext = new EditContext(model);
+        var changeCalls = 0;
+        var inputCalls = 0;
+        var pickerChangeCalls = 0;
+        var wrapper = Render<CascadingValue<EditContext>>(p => p
+            .Add(x => x.Value, editContext)
+            .AddChildContent<OkFvTextField>(field => field
+                .Add(x => x.Value, model.Text)
+                .Add(x => x.ValueChanged, value => model.Text = value)
+                .Add(x => x.ValueExpression, () => model.Text)
+                .Add(x => x.OnChange, _ => changeCalls++))
+            .AddChildContent<OkFvDateTimePicker>(picker => picker
+                .Add(x => x.Value, model.Date)
+                .Add(x => x.ValueChanged, value => model.Date = value)
+                .Add(x => x.ValueExpression, () => model.Date)
+                .Add(x => x.OnInput, _ => inputCalls++)
+                .Add(x => x.OnChange, _ => pickerChangeCalls++)));
+
+        wrapper.Find("ok-fv-text-field").TriggerEvent("onchange", new ChangeEventArgs { Value = "edited" });
+        wrapper.Find("ok-fv-date-time-picker").TriggerEvent("oninput", new ChangeEventArgs { Value = "2025-01-02" });
+        Assert.Equal("2025-01-02", model.Date);
+        wrapper.Find("ok-fv-date-time-picker").TriggerEvent("onchange", new ChangeEventArgs { Value = "2025-01-03" });
+        wrapper.Find("ok-fv-date-time-picker").TriggerEvent("onchange", new ChangeEventArgs { Value = "2025-01-03" });
+
+        Assert.Equal("edited", model.Text);
+        Assert.Equal("2025-01-03", model.Date);
+        Assert.True(editContext.IsModified(FieldIdentifier.Create(() => model.Text)));
+        Assert.True(editContext.IsModified(FieldIdentifier.Create(() => model.Date)));
+        Assert.Equal(1, changeCalls);
+        Assert.Equal(1, inputCalls);
+        Assert.Equal(2, pickerChangeCalls);
+    }
+
+    private sealed class FormValues
+    {
+        public string? Text { get; set; }
+        public string? Date { get; set; }
+    }
+
     [Fact]
     public void NumericAttributes_UseInvariantCulture()
     {

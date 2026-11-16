@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using NimbleBlazor;
 
 namespace OkBlazor;
 
-public partial class OkFvTextField : ComponentBase
+public partial class OkFvTextField : NimbleInputBase<string?>
 {
     private ElementReference _element;
     private bool _maskOptionsChanged;
@@ -33,9 +34,6 @@ public partial class OkFvTextField : ComponentBase
     public string? Type { get; set; }
 
     [Parameter]
-    public string? Value { get; set; }
-
-    [Parameter]
     public string? Placeholder { get; set; }
 
     [Parameter]
@@ -50,9 +48,12 @@ public partial class OkFvTextField : ComponentBase
     [Parameter]
     public EventCallback<ChangeEventArgs> OnChange { get; set; }
 
+    private async Task HandleChangeAsync(ChangeEventArgs args)
+    {
+        CurrentValueAsString = args.Value?.ToString();
+        await OnChange.InvokeAsync(args);
+    }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

@@ -1,13 +1,14 @@
 @namespace OkBlazor
+@inherits NimbleBlazor.NimbleInputBase<string?>
 <ok-fv-text-field
     @ref="_element"
     type="@Type"
-    current-value="@Value"
+    current-value="@CurrentValueAsString"
     placeholder="@Placeholder"
     disabled="@Disabled"
     readonly="@ReadOnly"
     required="@Required"
-    @onchange="OnChange"
+    @onchange="HandleChangeAsync"
     @attributes="AdditionalAttributes">
     @ChildContent
 </ok-fv-text-field>

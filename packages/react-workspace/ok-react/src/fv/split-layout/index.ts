@@ -7,7 +7,13 @@ export { fvSplitLayoutTag };
 export { type FvSplitLayout };
 export const OkFvSplitLayout = wrap(FvSplitLayout, {
     events: {
-        onInput: 'input' as EventName,
-        onChange: 'change' as EventName
+        onInput: 'input' as EventName<FvSplitLayoutInputEvent>,
+        onChange: 'change' as EventName<FvSplitLayoutChangeEvent>
     }
 });
+export interface FvSplitLayoutInputEvent extends Event {
+    target: FvSplitLayout;
+}
+export interface FvSplitLayoutChangeEvent extends Event {
+    target: FvSplitLayout;
+}

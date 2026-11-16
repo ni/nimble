@@ -107,7 +107,10 @@
         }
       },
       "okblazor": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "NimbleBlazor": "[1.0.0, )"
+        }
       },
       "sprightblazor": {
         "type": "Project"
