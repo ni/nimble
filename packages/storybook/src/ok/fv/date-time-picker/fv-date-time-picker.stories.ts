@@ -4,7 +4,7 @@ import { html } from '@ni/fast-element';
 import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import { fvDateTimePickerTag } from '@ni/ok-components/dist/esm/fv/date-time-picker';
 import { FvDateTimePickerAppearance, FvDateTimePickerType } from '@ni/ok-components/dist/esm/fv/date-time-picker/types';
-import { apiCategory, createUserSelectedThemeStory, okWarning } from '../../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disableStorybookZoomTransform, okWarning } from '../../../utilities/storybook';
 
 interface DateTimePickerArgs {
     appearance: FvDateTimePickerAppearance;
@@ -28,11 +28,12 @@ const metadata: Meta<DateTimePickerArgs> = {
         actions: { handles: ['input', 'change'] }
     },
     render: createUserSelectedThemeStory(html<DateTimePickerArgs>`
+        ${disableStorybookZoomTransform}
         ${okWarning({
             componentName: 'Fv Date Time Picker',
             statusLink: './?path=/docs/component-status--docs#ok-components'
         })}
-        <${themeProviderTag} lang="${x => x.locale}" style="display: block; padding: 16px; min-height: 460px;">
+        <${themeProviderTag} lang="${x => x.locale}" style="display: block; padding: 16px;">
             <${fvDateTimePickerTag}
                 style="width: 320px;"
                 appearance="${x => x.appearance}"

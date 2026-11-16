@@ -115,10 +115,10 @@ describe('FvDateTimePicker', () => {
         });
     });
 
-    it('uses document placement without viewport locks while allowing automatic popup direction', async () => {
+    it('uses fixed placement without viewport locks while allowing automatic popup direction', async () => {
         element.open = true;
         await waitForUpdatesAsync();
-        expect(pageObject.isPickerFixedPlacement()).toBeFalse();
+        expect(pageObject.isPickerFixedPlacement()).toBeTrue();
         expect(pageObject.isPickerViewportLocked()).toBeFalse();
         expect(pageObject.getPickerVerticalPositioningMode()).toBe('dynamic');
     });
