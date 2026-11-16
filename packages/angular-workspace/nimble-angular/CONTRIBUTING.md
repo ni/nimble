@@ -45,6 +45,13 @@ The Angular directives need code coverage via unit tests.
 * When testing asynchronous behavior, prefer using `fakeAsync`. See [Testing Asynchronous Behavior in Components](https://ni.visualstudio.com/DevCentral/_wiki/wikis/AppCentral.wiki/15402/Testing-Asynchronous-Behavior-in-Components).
   * When using the `fakeAsync` utility, use the `processUpdates()` utility to immediately process the Nimble components' internal update queue. The `processUpdates()` should be called after each `fakeAsync` test.
 
+### Page objects
+
+Nimble components distribute page objects (see the [`nimble-components` contributing guide](/packages/nimble-components/CONTRIBUTING.md#page-objects)). The Angular package should make them available to Angular clients by re-exporting them from a `testing` entry point, so Angular tests can use `@ni/nimble-angular/<component>/testing` without depending on `@ni/nimble-components` internals. Export the page object from a secondary entry point so that test-only code isn't included in the component's production entry point.
+
+If Angular needs additional behavior, extend the `nimble-components` page object. For example, the Angular `TablePageObject` extends the nimble-components one to wait for `data$` updates to be applied. Add unit tests for that behavior in `testing/tests`.
+
+
 ## Updating Angular
 
 When updating the version of Angular used by the package:
