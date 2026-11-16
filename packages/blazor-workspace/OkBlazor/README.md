@@ -20,6 +20,10 @@ Any project using OkBlazor components will typically also be using NimbleBlazor 
     </body>
     ```  
 
+## FV component bindings
+
+`OkFvMultiSelect` accepts `Options` and supports `@bind-SelectedValues`. `OkFvFilterBar` accepts JSON-serializable `Query` and `Definition` objects; its edit and clear callbacks include the query as JSON. `OkFvEditCommitBar` accepts a `FvCommitMessage` and exposes save, revert, and dismiss callbacks. Object-valued properties are applied after interactive rendering.
+
 ## Contributing
 
 Follow the instructions in [CONTRIBUTING.md](/packages/blazor-workspace/OkBlazor/CONTRIBUTING.md) to modify this library.

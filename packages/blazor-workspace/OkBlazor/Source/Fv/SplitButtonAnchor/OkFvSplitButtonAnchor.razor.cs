@@ -5,6 +5,12 @@ namespace OkBlazor;
 public partial class OkFvSplitButtonAnchor : ComponentBase
 {
     [Parameter]
+    public EventCallback<EventArgs> Trigger { get; set; }
+
+    [Parameter]
+    public EventCallback<FvToggleEventArgs> Toggle { get; set; }
+
+    [Parameter]
     public string? Label { get; set; }
 
     [Parameter]

@@ -5,6 +5,12 @@ namespace OkBlazor;
 public partial class OkFvBulkEditField : ComponentBase
 {
     [Parameter]
+    public EventCallback<EventArgs> Reset { get; set; }
+
+    [Parameter]
+    public EventCallback<EventArgs> Clear { get; set; }
+
+    [Parameter]
     public string? Label { get; set; }
 
     [Parameter]

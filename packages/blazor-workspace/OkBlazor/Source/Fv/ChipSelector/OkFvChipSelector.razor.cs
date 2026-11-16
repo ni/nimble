@@ -5,6 +5,9 @@ namespace OkBlazor;
 public partial class OkFvChipSelector : ComponentBase
 {
     [Parameter]
+    public EventCallback<FvMultiSelectEventArgs> SelectionChanged { get; set; }
+
+    [Parameter]
     public bool? Disabled { get; set; }
 
     [Parameter]

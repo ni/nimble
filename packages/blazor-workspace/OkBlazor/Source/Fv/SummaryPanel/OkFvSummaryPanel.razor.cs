@@ -5,6 +5,9 @@ namespace OkBlazor;
 public partial class OkFvSummaryPanel : ComponentBase
 {
     [Parameter]
+    public EventCallback<EventArgs> EditItems { get; set; }
+
+    [Parameter]
     public bool? ShowEditItemsButton { get; set; }
 
     [Parameter]

@@ -1,5 +1,6 @@
 @namespace OkBlazor
 <ok-fv-multi-select
+    @ref="_element"
     appearance="@Appearance"
     label="@Label"
     placeholder="@Placeholder"
@@ -7,6 +8,7 @@
     clearable="@Clearable"
     open="@Open"
     disabled="@Disabled"
+    @onokfvmultiselectinput="HandleSelectionChangedAsync"
     @attributes="AdditionalAttributes">
     @ChildContent
 </ok-fv-multi-select>
