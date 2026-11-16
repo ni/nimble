@@ -13,8 +13,6 @@ import {
     controlLabelFontColor,
     elevation2BoxShadow,
     fillHoverColor,
-    fillHoverSelectedColor,
-    fillSelectedColor,
     iconColor,
     mediumPadding,
     placeholderFontColor,
@@ -172,6 +170,10 @@ export const styles = css`
         box-shadow: ${elevation2BoxShadow};
     }
 
+    .anchored-region.top .popup {
+        flex-direction: column-reverse;
+    }
+
     .filter-field {
         flex-shrink: 0;
         display: flex;
@@ -179,6 +181,10 @@ export const styles = css`
         height: ${controlHeight};
         background: transparent;
         box-shadow: 0 2px rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    .anchored-region.top .filter-field {
+        box-shadow: 0 -2px rgba(${borderRgbPartialColor}, 0.1);
     }
 
     .filter-icon {
@@ -206,8 +212,23 @@ export const styles = css`
     .listbox {
         min-height: 0;
         max-height: 240px;
+        box-sizing: border-box;
+        padding: ${smallPadding};
+        padding-top: calc(${smallPadding} + 2px);
+        scroll-padding: calc(${smallPadding} + 2px) ${smallPadding} ${smallPadding};
         overflow-y: auto;
         outline: none;
+    }
+
+    .anchored-region.top .filter-field + .listbox:has(.option) {
+        padding-top: ${smallPadding};
+        padding-bottom: calc(${smallPadding} + 2px);
+        scroll-padding-top: ${smallPadding};
+        scroll-padding-bottom: calc(${smallPadding} + 2px);
+    }
+
+    .popup:has(.empty) .listbox {
+        padding: 0;
     }
 
     .option {
@@ -215,7 +236,7 @@ export const styles = css`
         align-items: center;
         gap: ${smallPadding};
         min-height: ${controlHeight};
-        padding: 0 ${standardPadding};
+        padding: 0 ${mediumPadding};
         cursor: pointer;
     }
 
@@ -235,11 +256,8 @@ export const styles = css`
     }
 
     .keyboard-navigation .option.active {
-        background: ${fillSelectedColor};
-    }
-
-    .keyboard-navigation .option.active:hover {
-        background: ${fillHoverSelectedColor};
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: -2px;
     }
 
     :host(:is([disabled], :disabled)) .control-field,
@@ -255,13 +273,19 @@ export const styles = css`
 
     .empty {
         flex-shrink: 0;
-        padding: ${standardPadding};
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        height: ${controlHeight};
+        padding: ${smallPadding} ${mediumPadding};
     }
 `.withBehaviors(
     themeBehavior(
         Theme.color,
         css`
-            .filter-field {
+            .filter-field,
+            .listbox,
+            .empty {
                 background: rgba(255, 255, 255, 0.15);
             }
         `

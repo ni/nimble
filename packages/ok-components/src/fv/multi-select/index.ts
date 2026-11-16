@@ -321,8 +321,13 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     /** @internal */
     public handleFocusout(event: FocusEvent): void {
         const next = event.relatedTarget;
-        if (!(next instanceof Node)
-            || (!this.contains(next) && !this.shadowRoot?.contains(next))) {
+        if (!(next instanceof Node)) {
+            requestAnimationFrame(() => {
+                if (document.activeElement !== this && !this.shadowRoot?.activeElement) {
+                    this.open = false;
+                }
+            });
+        } else if (!this.contains(next) && !this.shadowRoot?.contains(next)) {
             this.open = false;
         }
     }
