@@ -180,9 +180,18 @@ export class FvChart<
                 background: applicationBackgroundColor.getValueFor(this),
                 palette: paletteTokens.map(token => token.getValueFor(this))
             };
-            const fontSize = parseFloat(bodyFontSize.getValueFor(this));
-            const tickFontSize = parseFloat(subtitleFontSize.getValueFor(this));
-            const fontWeight = Number(bodyFontWeight.getValueFor(this));
+            // TanStack needs numeric values; resolve CSS units and keywords in the chart's font context.
+            const fontProbe = this.ownerDocument.createElement('span');
+            fontProbe.style.position = 'absolute';
+            fontProbe.style.visibility = 'hidden';
+            fontProbe.style.fontSize = bodyFontSize.getValueFor(this);
+            fontProbe.style.fontWeight = bodyFontWeight.getValueFor(this);
+            this.chartContainer.append(fontProbe);
+            const fontSize = parseFloat(getComputedStyle(fontProbe).fontSize);
+            const fontWeight = Number(getComputedStyle(fontProbe).fontWeight);
+            fontProbe.style.fontSize = subtitleFontSize.getValueFor(this);
+            const tickFontSize = parseFloat(getComputedStyle(fontProbe).fontSize);
+            fontProbe.remove();
             const styleSpec = (spec: Pick<StaticChartDefinition, 'scales' | 'theme'>): Pick<StaticChartDefinition, 'scales' | 'theme'> => ({
                 theme: { ...theme, ...spec.theme },
                 scales: Object.fromEntries(Object.entries(spec.scales).map(([id, scale]) => {

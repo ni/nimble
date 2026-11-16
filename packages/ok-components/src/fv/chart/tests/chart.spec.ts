@@ -1,7 +1,7 @@
 import { defineChart, dot, type ChartBuildContext, type ChartHostOptions, type ChartRenderContext, type StaticChartDefinition } from '@tanstack/charts';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { tooltip } from '@tanstack/charts/tooltip';
-import { graphTrace1Color } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bodyFontSize, bodyFontWeight, graphTrace1Color, subtitleFontSize } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { FvChart, fvChartTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
@@ -44,6 +44,9 @@ describe('FvChart', () => {
     afterEach(async () => {
         await disconnect();
         graphTrace1Color.deleteValueFor(element);
+        bodyFontSize.deleteValueFor(element);
+        bodyFontWeight.deleteValueFor(element);
+        subtitleFontSize.deleteValueFor(element);
     });
 
     it('can construct without chart options', async () => {
@@ -115,6 +118,53 @@ describe('FvChart', () => {
         expect(definition.scales.x).toBe(x);
         expect(definition.scales.y).toBe(y);
         expect(definition.scales.unused).toBeNull();
+    });
+
+    it('resolves relative font sizes and keyword weights for axis text', async () => {
+        bodyFontSize.setValueFor(element, '1.5rem');
+        subtitleFontSize.setValueFor(element, '1rem');
+        bodyFontWeight.setValueFor(element, 'normal');
+        const definition = createDefinition();
+        element.options = {
+            ...options,
+            definition: {
+                ...definition,
+                scales: {
+                    ...definition.scales,
+                    y: { scale: scaleLinear, grid: true, axis: { label: 'Voltage' } }
+                }
+            }
+        };
+        await connect();
+        await waitForUpdatesAsync();
+
+        const rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const svg = element.shadowRoot!.querySelector('svg')!;
+        const tick = svg.querySelector('[data-ts-key^="y-tick-label:"]')!;
+        const label = svg.querySelector('[data-ts-key="y-label"]')!;
+        expect(Number(tick.getAttribute('font-size'))).toBe(rootSize);
+        expect(Number(label.getAttribute('font-size'))).toBe(rootSize * 1.5);
+        expect(Number(tick.getAttribute('font-weight'))).toBe(400);
+        expect(Number(label.getAttribute('font-weight'))).toBe(400);
+
+        bodyFontSize.setValueFor(element, '1.5em');
+        subtitleFontSize.setValueFor(element, '0.75em');
+        bodyFontWeight.setValueFor(element, 'bold');
+        await waitForUpdatesAsync();
+        const inheritedSize = parseFloat(getComputedStyle(element).fontSize);
+        const updatedTick = svg.querySelector('[data-ts-key^="y-tick-label:"]')!;
+        const updatedLabel = svg.querySelector('[data-ts-key="y-label"]')!;
+        expect(Number(updatedTick.getAttribute('font-size'))).toBe(inheritedSize * 0.75);
+        expect(Number(updatedLabel.getAttribute('font-size'))).toBe(inheritedSize * 1.5);
+        expect(Number(updatedTick.getAttribute('font-weight'))).toBe(700);
+        expect(Number(updatedLabel.getAttribute('font-weight'))).toBe(700);
+
+        element.style.setProperty('--test-chart-weight', '500');
+        bodyFontSize.setValueFor(element, 'calc(1rem + 2px)');
+        bodyFontWeight.setValueFor(element, 'var(--test-chart-weight)');
+        await waitForUpdatesAsync();
+        expect(Number(svg.querySelector('[data-ts-key="y-label"]')!.getAttribute('font-size'))).toBe(rootSize + 2);
+        expect(Number(svg.querySelector('[data-ts-key="y-label"]')!.getAttribute('font-weight'))).toBe(500);
     });
 
     it('passes Nimble defaults and resolved dimensions to responsive definitions without mutating them', async () => {
