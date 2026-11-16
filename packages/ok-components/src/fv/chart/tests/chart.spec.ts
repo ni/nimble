@@ -200,6 +200,16 @@ describe('FvChart', () => {
         expect(element.shadowRoot!.querySelectorAll('.ts-chart-tooltip__body [style]:not(.tooltip-swatch)').length).toBe(0);
     });
 
+    it('tears down a chart when onRender disconnects the component during mount', async () => {
+        onRender.and.callFake(() => element.remove());
+        element.options = options;
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(onRender).toHaveBeenCalledTimes(1);
+        expect(element.shadowRoot?.querySelector('svg')).toBeNull();
+    });
+
     it('reacts to token changes, tears down on disconnect, and remounts on reconnect', async () => {
         element.options = options;
         await connect();

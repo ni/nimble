@@ -238,7 +238,12 @@ export class FvChart<
         if (this.chartHost) {
             this.chartHost.update(options);
         } else {
-            this.chartHost = mountChart(this.chartContainer, options);
+            const chartHost = mountChart(this.chartContainer, options);
+            if (this.$fastController.isConnected) {
+                this.chartHost = chartHost;
+            } else {
+                chartHost.destroy();
+            }
         }
     }
 }
