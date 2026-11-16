@@ -1,10 +1,11 @@
 @namespace OkBlazor
 <ok-fv-summary-panel
+    data-ok-fv-event-source="@_eventSource"
     show-edit-items-button="@ShowEditItemsButton"
     legacy-style="@LegacyStyle"
     size="@Size"
     edit-items-button-label="@EditItemsButtonLabel"
-    @onokfvedititems="EditItems"
+    @onokfvedititems="HandleEditItemsAsync"
     @attributes="AdditionalAttributes">
     @ChildContent
 </ok-fv-summary-panel>

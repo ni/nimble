@@ -1,5 +1,6 @@
 @namespace OkBlazor
 <ok-fv-edit-commit-bar
+    data-ok-fv-event-source="@_eventSource"
     @ref="_element"
     heading="@Heading"
     change-count="@ChangeCount"
@@ -9,9 +10,9 @@
     revert-disabled="@RevertDisabled"
     actions-hidden="@ActionsHidden"
     hide-empty-summary="@HideEmptySummary"
-    @onokfvsave="Save"
-    @onokfvrevert="Revert"
-    @onokfvdismissmessage="DismissMessage"
+    @onokfvsave="HandleSaveAsync"
+    @onokfvrevert="HandleRevertAsync"
+    @onokfvdismissmessage="HandleDismissMessageAsync"
     @attributes="AdditionalAttributes">
     @ChildContent
 </ok-fv-edit-commit-bar>

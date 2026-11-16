@@ -4,8 +4,13 @@ namespace OkBlazor;
 
 public partial class OkFvChipSelector : ComponentBase
 {
+    private readonly string _eventSource = Guid.NewGuid().ToString();
+
     [Parameter]
     public EventCallback<FvMultiSelectEventArgs> SelectionChanged { get; set; }
+
+    private Task HandleSelectionChangedAsync(FvMultiSelectEventArgs args) =>
+        args.Source == _eventSource ? SelectionChanged.InvokeAsync(args) : Task.CompletedTask;
 
     [Parameter]
     public bool? Disabled { get; set; }

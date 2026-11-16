@@ -4,11 +4,19 @@ namespace OkBlazor;
 
 public partial class OkFvBulkEditField : ComponentBase
 {
+    private readonly string _eventSource = Guid.NewGuid().ToString();
+
     [Parameter]
     public EventCallback<EventArgs> Reset { get; set; }
 
     [Parameter]
     public EventCallback<EventArgs> Clear { get; set; }
+
+    private Task HandleResetAsync(FvEventArgs args) =>
+        args.Source == _eventSource ? Reset.InvokeAsync(args) : Task.CompletedTask;
+
+    private Task HandleClearAsync(FvEventArgs args) =>
+        args.Source == _eventSource ? Clear.InvokeAsync(args) : Task.CompletedTask;
 
     [Parameter]
     public string? Label { get; set; }

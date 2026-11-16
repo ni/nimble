@@ -6,6 +6,7 @@ namespace OkBlazor;
 public partial class OkFvMultiSelect : ComponentBase
 {
     private ElementReference _element;
+    private readonly string _eventSource = Guid.NewGuid().ToString();
     private bool _optionsChanged;
     private bool _selectedValuesChanged;
 
@@ -29,7 +30,7 @@ public partial class OkFvMultiSelect : ComponentBase
     }
 
     private Task HandleSelectionChangedAsync(FvMultiSelectEventArgs args) =>
-        args.IsMultiSelect ? SelectedValuesChanged.InvokeAsync(args.SelectedValues) : Task.CompletedTask;
+        args.Source == _eventSource ? SelectedValuesChanged.InvokeAsync(args.SelectedValues) : Task.CompletedTask;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

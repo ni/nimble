@@ -6,6 +6,7 @@ namespace OkBlazor;
 public partial class OkFvEditCommitBar : ComponentBase
 {
     private ElementReference _element;
+    private readonly string _eventSource = Guid.NewGuid().ToString();
     private bool _messageChanged;
 
     [Inject]
@@ -22,6 +23,15 @@ public partial class OkFvEditCommitBar : ComponentBase
 
     [Parameter]
     public EventCallback<EventArgs> DismissMessage { get; set; }
+
+    private Task HandleSaveAsync(FvEventArgs args) =>
+        args.Source == _eventSource ? Save.InvokeAsync(args) : Task.CompletedTask;
+
+    private Task HandleRevertAsync(FvEventArgs args) =>
+        args.Source == _eventSource ? Revert.InvokeAsync(args) : Task.CompletedTask;
+
+    private Task HandleDismissMessageAsync(FvEventArgs args) =>
+        args.Source == _eventSource ? DismissMessage.InvokeAsync(args) : Task.CompletedTask;
 
     public override Task SetParametersAsync(ParameterView parameters)
     {

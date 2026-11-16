@@ -26,8 +26,10 @@ function registerEvents(Blazor) {
     Blazor.registerCustomEventType('okfvmultiselectinput', {
         browserEventName: 'input',
         createEventArgs: event => ({
-            selectedValues: event.target.selectedValues,
-            isMultiSelect: event.target.localName === 'ok-fv-multi-select'
+            selectedValues: Array.isArray(event.target?.selectedValues)
+                && event.target.selectedValues.every(value => typeof value === 'string') ? event.target.selectedValues : undefined,
+            isMultiSelect: event.target?.localName === 'ok-fv-multi-select',
+            source: event.target?.getAttribute?.('data-ok-fv-event-source')
         })
     });
     for (const [name, browserEventName] of [
@@ -36,7 +38,10 @@ function registerEvents(Blazor) {
     ]) {
         Blazor.registerCustomEventType(name, {
             browserEventName,
-            createEventArgs: event => ({ query: event.detail?.query })
+            createEventArgs: event => ({
+                query: event.detail?.query,
+                source: event.target?.getAttribute?.('data-ok-fv-event-source')
+            })
         });
     }
     for (const [name, browserEventName] of [
@@ -48,19 +53,32 @@ function registerEvents(Blazor) {
         ['okfvedititems', 'edit-items'],
         ['okfvtrigger', 'trigger']
     ]) {
-        Blazor.registerCustomEventType(name, { browserEventName, createEventArgs: () => ({}) });
+        Blazor.registerCustomEventType(name, {
+            browserEventName,
+            createEventArgs: event => ({ source: event.target?.getAttribute?.('data-ok-fv-event-source') })
+        });
     }
     Blazor.registerCustomEventType('okfvtoggle', {
         browserEventName: 'toggle',
-        createEventArgs: event => ({ open: event.detail?.open })
+        createEventArgs: event => ({
+            open: typeof event.detail?.open === 'boolean' ? event.detail.open : undefined,
+            source: event.target?.getAttribute?.('data-ok-fv-event-source')
+        })
     });
     Blazor.registerCustomEventType('okfvchipchange', {
         browserEventName: 'change',
-        createEventArgs: event => ({ selectedValues: event.detail?.selectedValues })
+        createEventArgs: event => ({
+            selectedValues: Array.isArray(event.detail?.selectedValues)
+                && event.detail.selectedValues.every(value => typeof value === 'string') ? event.detail.selectedValues : undefined,
+            source: event.target?.getAttribute?.('data-ok-fv-event-source')
+        })
     });
     Blazor.registerCustomEventType('okfvlistchange', {
         browserEventName: 'change',
-        createEventArgs: event => ({ value: event.detail?.value })
+        createEventArgs: event => ({
+            value: typeof event.detail?.value === 'string' ? event.detail.value : null,
+            source: event.target?.getAttribute?.('data-ok-fv-event-source')
+        })
     });
     for (const [name, browserEventName] of [
         ['okfvpositioninput', 'input'],
@@ -68,7 +86,11 @@ function registerEvents(Blazor) {
     ]) {
         Blazor.registerCustomEventType(name, {
             browserEventName,
-            createEventArgs: event => ({ position: event.target.position, source: event.target.localName })
+            createEventArgs: event => ({
+                position: typeof event.target?.position === 'number' && Number.isFinite(event.target.position)
+                    ? event.target.position : undefined,
+                source: event.target?.getAttribute?.('data-ok-fv-event-source')
+            })
         });
     }
 
@@ -128,7 +150,7 @@ if (window.OkBlazor) {
 window.OkBlazor = window.OkBlazor ?? {
     isReady: () => isReady,
     setProperty: (element, name, value) => {
-        element[name] = value;
+        element[name] = (name === 'message' || name === 'maskOptions') && value === null ? undefined : value;
     },
     TsIconDynamic: {
         registerIconDynamic: function (tagName, url) {

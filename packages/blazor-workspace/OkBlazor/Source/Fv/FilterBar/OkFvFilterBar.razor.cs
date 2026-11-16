@@ -6,6 +6,7 @@ namespace OkBlazor;
 public partial class OkFvFilterBar : ComponentBase
 {
     private ElementReference _element;
+    private readonly string _eventSource = Guid.NewGuid().ToString();
     private bool _queryChanged;
     private bool _definitionChanged;
 
@@ -23,6 +24,12 @@ public partial class OkFvFilterBar : ComponentBase
 
     [Parameter]
     public EventCallback<FvFilterBarEventArgs> ClearFilter { get; set; }
+
+    private Task HandleEditFilterAsync(FvFilterBarEventArgs args) =>
+        args.Source == _eventSource ? EditFilter.InvokeAsync(args) : Task.CompletedTask;
+
+    private Task HandleClearFilterAsync(FvFilterBarEventArgs args) =>
+        args.Source == _eventSource ? ClearFilter.InvokeAsync(args) : Task.CompletedTask;
 
     public override Task SetParametersAsync(ParameterView parameters)
     {

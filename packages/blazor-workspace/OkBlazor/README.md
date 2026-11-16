@@ -22,7 +22,9 @@ Any project using OkBlazor components will typically also be using NimbleBlazor 
 
 ## FV component bindings
 
-`OkFvMultiSelect` accepts `Options` and supports `@bind-SelectedValues`. `OkFvFilterBar` accepts JSON-serializable `Query` and `Definition` objects; its edit and clear callbacks include the query as JSON. `OkFvEditCommitBar` accepts a `FvCommitMessage` and exposes save, revert, and dismiss callbacks. Object-valued properties are applied after interactive rendering.
+`OkFvMultiSelect` accepts `Options` and supports `@bind-SelectedValues`. `OkFvFilterBar` accepts JSON-serializable `Query` and `Definition` objects; its edit and clear callbacks include the query as JSON. `OkFvEditCommitBar` accepts a `FvCommitMessage` and exposes save, revert, and dismiss callbacks; set `Message` to `null` to remove it. Object-valued properties are applied after interactive rendering.
+
+`OkFvTextField.MaskOptions` accepts an `IJSObjectReference` to a [Maskito options object](https://maskito.dev/core-concepts/mask-expression/), preserving JavaScript regular expressions and functions. For example, define `window.createDigitMask = () => ({ mask: [/\d/, '-', /\d/] });` in JavaScript, then obtain the reference with `await JS.InvokeAsync<IJSObjectReference>("createDigitMask")` after interactive rendering and pass it to `MaskOptions`. Set `MaskOptions` to `null` to remove the mask; dispose the reference when it is no longer needed.
 
 ## Contributing
 

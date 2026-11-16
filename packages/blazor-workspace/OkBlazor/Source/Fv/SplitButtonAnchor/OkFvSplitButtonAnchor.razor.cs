@@ -4,11 +4,19 @@ namespace OkBlazor;
 
 public partial class OkFvSplitButtonAnchor : ComponentBase
 {
+    private readonly string _eventSource = Guid.NewGuid().ToString();
+
     [Parameter]
     public EventCallback<EventArgs> Trigger { get; set; }
 
     [Parameter]
     public EventCallback<FvToggleEventArgs> Toggle { get; set; }
+
+    private Task HandleTriggerAsync(FvEventArgs args) =>
+        args.Source == _eventSource ? Trigger.InvokeAsync(args) : Task.CompletedTask;
+
+    private Task HandleToggleAsync(FvToggleEventArgs args) =>
+        args.Source == _eventSource ? Toggle.InvokeAsync(args) : Task.CompletedTask;
 
     [Parameter]
     public string? Label { get; set; }

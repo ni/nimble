@@ -5,6 +5,8 @@ namespace OkBlazor;
 [SuppressMessage("Naming", "NI1704", Justification = "Matches the FV component name.")]
 public partial class OkFvSplitter : ComponentBase
 {
+    private readonly string _eventSource = Guid.NewGuid().ToString();
+
     [Parameter]
     public string? AriaLabel { get; set; }
 
@@ -33,10 +35,10 @@ public partial class OkFvSplitter : ComponentBase
     public EventCallback<FvPositionEventArgs> OnChange { get; set; }
 
     private Task HandleInputAsync(FvPositionEventArgs args) =>
-        args.Source == "ok-fv-splitter" ? OnInput.InvokeAsync(args) : Task.CompletedTask;
+        args.Source == _eventSource ? OnInput.InvokeAsync(args) : Task.CompletedTask;
 
     private Task HandleChangeAsync(FvPositionEventArgs args) =>
-        args.Source == "ok-fv-splitter" ? OnChange.InvokeAsync(args) : Task.CompletedTask;
+        args.Source == _eventSource ? OnChange.InvokeAsync(args) : Task.CompletedTask;
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }

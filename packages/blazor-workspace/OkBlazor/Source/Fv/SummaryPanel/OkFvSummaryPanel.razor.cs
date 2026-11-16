@@ -4,8 +4,13 @@ namespace OkBlazor;
 
 public partial class OkFvSummaryPanel : ComponentBase
 {
+    private readonly string _eventSource = Guid.NewGuid().ToString();
+
     [Parameter]
     public EventCallback<EventArgs> EditItems { get; set; }
+
+    private Task HandleEditItemsAsync(FvEventArgs args) =>
+        args.Source == _eventSource ? EditItems.InvokeAsync(args) : Task.CompletedTask;
 
     [Parameter]
     public bool? ShowEditItemsButton { get; set; }

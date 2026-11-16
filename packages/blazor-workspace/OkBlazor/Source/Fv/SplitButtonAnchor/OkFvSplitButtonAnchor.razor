@@ -1,5 +1,6 @@
 @namespace OkBlazor
 <ok-fv-split-button-anchor
+    data-ok-fv-event-source="@_eventSource"
     label="@Label"
     href="@Href"
     target="@Target"
@@ -9,8 +10,8 @@
     open="@Open"
     appearance="@Appearance"
     appearance-variant="@AppearanceVariant"
-    @onokfvtrigger="Trigger"
-    @onokfvtoggle="Toggle"
+    @onokfvtrigger="HandleTriggerAsync"
+    @onokfvtoggle="HandleToggleAsync"
     @attributes="AdditionalAttributes">
     @ChildContent
 </ok-fv-split-button-anchor>

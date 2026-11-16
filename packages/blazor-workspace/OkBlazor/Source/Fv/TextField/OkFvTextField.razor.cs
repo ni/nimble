@@ -1,9 +1,34 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace OkBlazor;
 
 public partial class OkFvTextField : ComponentBase
 {
+    private ElementReference _element;
+    private bool _maskOptionsChanged;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = null!;
+
+    [Parameter]
+    public IJSObjectReference? MaskOptions { get; set; }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        _maskOptionsChanged |= parameters.TryGetValue<IJSObjectReference?>(nameof(MaskOptions), out _);
+        return base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_maskOptionsChanged)
+        {
+            _maskOptionsChanged = false;
+            await JSRuntime.InvokeVoidAsync("OkBlazor.setProperty", _element, "maskOptions", MaskOptions);
+        }
+    }
+
     [Parameter]
     public string? Type { get; set; }
 
