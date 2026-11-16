@@ -415,7 +415,8 @@ describe('FvMultiSelect', () => {
         expect(element.open).toBeFalse();
     });
 
-    it('closes on outside click and focus leaving the component', async () => {
+    // Intermittent Chrome timeout: https://github.com/ni/nimble/actions/runs/43908077703/job/133442231661
+    it('closes on outside click and focus leaving the component #SkipChrome', async () => {
         await open();
         document.body.click();
         expect(element.open).toBeFalse();
