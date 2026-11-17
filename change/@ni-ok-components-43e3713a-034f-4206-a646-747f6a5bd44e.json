@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix FV multi-select closing unexpectedly when reopened before popup focus",
-  "packageName": "@ni/ok-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
