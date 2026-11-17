@@ -100,6 +100,7 @@ export const styles = css`
     nimble-anchored-region:popover-open {
         inset: auto;
         margin: 0;
+        padding-inline: 0;
         border: 0;
         background: transparent;
         color: inherit;
