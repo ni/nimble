@@ -167,8 +167,13 @@ export function parseDisplay(text: string, type: FvDateTimePickerType, locale: s
         return '';
     }
     if (type !== 'date') {
-        const time = text.slice(length + 1);
-        const milliseconds = maskitoParseTime(time, timeFormat(locale, mode));
+        // maskitoParseTime matches the day period case-sensitively, so compare in lower case.
+        const timeParams = timeFormat(locale, mode);
+        const [am, pm] = timeParams.dayPeriod;
+        const milliseconds = maskitoParseTime(text.slice(length + 1).toLocaleLowerCase(locale), {
+            ...timeParams,
+            dayPeriod: [am.toLocaleLowerCase(locale), pm.toLocaleLowerCase(locale)]
+        });
         if (!Number.isFinite(milliseconds)) {
             return '';
         }
