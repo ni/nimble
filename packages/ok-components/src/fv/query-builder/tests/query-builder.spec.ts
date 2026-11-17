@@ -867,6 +867,16 @@ describe('FvQueryBuilder', () => {
         expect(requestFired).toBeFalse();
     });
 
+    it('updates the Nigel prompt textarea accessible label when labels change', async () => {
+        ({ element, disconnect } = await setup());
+        const prompt = getRequiredElement<ChatInput>('[data-control="ai-prompt"]');
+        const textarea = prompt.shadowRoot?.querySelector('textarea');
+        expect(textarea?.getAttribute('aria-label')).toBe(element.labels.aiPromptDescription);
+        element.labels = { ...element.labels, aiPromptDescription: 'Localized prompt' };
+        await waitForUpdatesAsync();
+        expect(textarea?.getAttribute('aria-label')).toBe('Localized prompt');
+    });
+
     it('keeps saved-query creation available while existing-query editing is disabled', async () => {
         ({ element, disconnect } = await setup());
         expect(element.allowSavedQueryEditing).toBeTrue();

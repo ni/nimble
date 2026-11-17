@@ -64,6 +64,64 @@ try {
     }
 
     await openStory('ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit');
+    await row(1).click();
+    await location().fill('Shared lab');
+    await page.getByRole('tab', { name: 'Properties', exact: true }).click();
+    await page.getByRole('textbox', { name: /^Model/ }).fill('Custom model');
+    await page.getByRole('button', { name: 'Save', exact: true }).click();
+    await page.locator('nimble-banner').filter({ hasText: 'Saved changes to 1 row.' }).waitFor();
+    for (const [fieldId, value] of [['location', 'Shared lab'], ['model', 'Custom model']]) {
+        for (const [operatorId, count] of [['is', 1], ['is-not', 119], ['is-one-of', 1]]) {
+            const queryBuilder = page.locator('ok-fv-query-builder');
+            await queryBuilder.evaluate((builder, { fieldId: field, operatorId: operator, value: selected }) => {
+                builder.query = {
+                    version: 1,
+                    root: { kind: 'predicate', fieldId: field, operatorId: operator, value: operator === 'is-one-of' ? [selected] : selected }
+                };
+                builder.openQuickEditor();
+            }, { fieldId, operatorId, value });
+            const editor = queryBuilder.locator('ok-fv-query-editor');
+            await editor.locator('[data-rule-id]').click();
+            const selector = editor.locator(operatorId === 'is-one-of'
+                ? '[data-control="collection-multi-select"]'
+                : '[data-control="scalar-select"]');
+            await selector.waitFor({ state: 'visible' });
+            if (operatorId === 'is-one-of') {
+                assert.ok(await selector.evaluate((element, selected) => element.options.some(
+                    option => option.label === selected && element.selectedValues.includes(option.value)
+                ), value));
+            } else {
+                assert.ok(await selector.locator('nimble-list-option').filter({ hasText: value }).count());
+            }
+            assert.equal(await editor.evaluate(element => element.valid), true);
+            await queryBuilder.getByRole('button', { name: 'Apply', exact: true }).click();
+            await page.locator('.table-footer').getByText(`${count} records`, { exact: true }).waitFor();
+        }
+    }
+    await page.getByRole('tab', { name: 'General', exact: true }).click();
+    await page.getByRole('button', { name: 'Clear Location', exact: true }).click();
+    await page.getByRole('button', { name: 'Save', exact: true }).click();
+    await page.locator('nimble-banner').filter({ hasText: 'Saved changes to 1 row.' }).waitFor();
+    const emptyQueryBuilder = page.locator('ok-fv-query-builder');
+    await emptyQueryBuilder.evaluate(builder => {
+        builder.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'location', operatorId: 'is-one-of', value: [''] }
+        };
+        builder.openQuickEditor();
+    });
+    const emptyEditor = emptyQueryBuilder.locator('ok-fv-query-editor');
+    await emptyEditor.locator('[data-rule-id]').click();
+    const emptySelector = emptyEditor.locator('[data-control="collection-multi-select"]');
+    await emptySelector.waitFor({ state: 'visible' });
+    assert.ok(await emptySelector.evaluate(element => element.options.some(
+        option => option.label === '(Empty)' && element.selectedValues.includes(option.value)
+    ) && element.options.some(option => option.label === 'Shared lab')));
+    assert.equal(await emptyEditor.evaluate(element => element.valid), true);
+    await emptyQueryBuilder.getByRole('button', { name: 'Apply', exact: true }).click();
+    await page.locator('.table-footer').getByText('1 records', { exact: true }).waitFor();
+
+    await openStory('ok-patterns-split-pane-bulk-edit--split-pane-bulk-edit');
     await row(1).waitFor();
     await page.getByRole('heading', { name: 'Edit', exact: true }).waitFor();
     assert.equal(await page.locator('.view-fields').count(), 0);
@@ -380,6 +438,8 @@ try {
     await page.locator('nimble-banner').filter({ hasText: 'Save failed. No records were changed' }).waitFor();
     assert.equal(await location().inputValue(), 'Shared lab');
     await summary('1 unsaved change in 2 rows');
+    assert.equal(await builder.evaluate(el => el.definition.fields.find(field => field.id === 'location')
+        .valueSchema.oneOf.some(option => option.const === 'Shared lab')), false);
     await page.getByRole('button', { name: 'Save', exact: true }).click();
     await page.locator('nimble-banner').filter({ hasText: 'Saved changes to 2 rows.' }).waitFor();
     await summary('No pending changes');

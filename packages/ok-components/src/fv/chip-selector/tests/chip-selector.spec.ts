@@ -208,6 +208,23 @@ describe('FvChipSelector', () => {
         expect(element.shadowRoot?.querySelector('.label')?.textContent?.trim()).toBe('Status');
     });
 
+    it('connects the combobox to the listbox whenever it opens', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        const input = getRequiredElement<HTMLInputElement>('.chip-selector-input');
+        const expectConnectedListbox = async (): Promise<void> => {
+            element.open = true;
+            await waitForUpdatesAsync();
+            const list = getRequiredElement<HTMLElement>('[role="listbox"]');
+            expect(input.getAttribute('aria-controls')).toBe(list.id);
+            expect(input.ariaControlsElements).toEqual([list]);
+        };
+        await expectConnectedListbox();
+        element.open = false;
+        await waitForUpdatesAsync();
+        await expectConnectedListbox();
+    });
+
     it('exposes one combobox and a connected listbox with resolved ARIA references', async () => {
         ({ element, connect, disconnect } = await setup());
         const description = document.createElement('span');

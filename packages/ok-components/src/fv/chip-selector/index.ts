@@ -491,14 +491,12 @@ export class FvChipSelector extends FoundationElement {
         const input = (
             this.shadowRoot?.querySelector<HTMLInputElement>('.chip-selector-input') ?? this.inputElement
         ) as (HTMLInputElement & {
-            ariaControlsElements?: Element[],
             ariaDescribedByElements?: Element[],
             ariaErrorMessageElements?: Element[]
         }) | null;
         if (!input) {
             return;
         }
-        const list = this.shadowRoot?.getElementById(this.menuId);
         const descriptionId = this.ariaDescribedby;
         const errorMessageId = this.ariaErrormessage;
         const inputDescriptions = this.validElements([
@@ -521,7 +519,6 @@ export class FvChipSelector extends FoundationElement {
         } else if (!errorMessageId && (this.ariaErrorMessageElements?.length ?? 0) > 0) {
             this.ariaErrorMessageElements = [];
         }
-        input.ariaControlsElements = list ? [list] : [];
         input.ariaDescribedByElements = inputDescriptions;
         input.ariaErrorMessageElements = inputErrors;
     }

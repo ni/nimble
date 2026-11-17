@@ -85,34 +85,9 @@ export class AssetInventory {
     public dialog!: Dialog<boolean>;
     public readonly fields: readonly FieldDefinition[] = fields;
     public readonly sections = ['General', 'Properties'];
-    public readonly queryDefinition: QueryBuilderDefinition = {
-        version: 1,
-        fields: this.fields.map((field): QueryBuilderDefinition['fields'][number] => {
-            const options = field.options
-                ?? (field.key === 'location' ? locations : undefined)
-                ?? (field.key === 'model' ? models : undefined);
-            return {
-                id: field.key,
-                path: `/${field.key}`,
-                label: field.label,
-                valueSchema: options
-                    ? { oneOf: options.map(value => ({ const: value, title: value })) }
-                    : { type: 'string' },
-                operatorIds: [
-                    'is', 'is-not',
-                    ...(!field.options ? ['contains'] : []),
-                    ...(options ? ['is-one-of'] : [])
-                ],
-                ...(options ? { editor: { kind: 'select' } } : {})
-            };
-        }),
-        operators: [
-            { id: 'is', label: 'Is', operand: { kind: 'field-value' } },
-            { id: 'is-not', label: 'Is not', operand: { kind: 'field-value' } },
-            { id: 'contains', label: 'Contains', operand: { kind: 'schema', schema: { type: 'string' } }, editor: { kind: 'text' } },
-            { id: 'is-one-of', label: 'Is one of', operand: { kind: 'field-value-list' } }
-        ]
-    };
+    @observable public declare queryDefinition: QueryBuilderDefinition;
+
+    private readonly freeTextFilterOptions = { location: [...locations], model: [...models] };
 
     private initialized = false;
     private confirming = false;
@@ -123,6 +98,7 @@ export class AssetInventory {
 
     public constructor() {
         this.records = createAssets();
+        this.queryDefinition = this.createQueryDefinition();
         this.state = this.createState();
         this.search = '';
         this.appliedQuery = { version: 1, root: null };
@@ -310,6 +286,17 @@ export class AssetInventory {
             const selected = new Set(commit.selectedIds);
             this.records = this.records.map(record => (selected.has(record.id) ? { ...record, ...commit.changes } : record));
             this.state.commitSucceeded(this.records);
+            let optionsChanged = false;
+            for (const field of ['location', 'model'] as const) {
+                const value = commit.changes[field];
+                if (typeof value === 'string' && !this.freeTextFilterOptions[field].includes(value)) {
+                    this.freeTextFilterOptions[field].push(value);
+                    optionsChanged = true;
+                }
+            }
+            if (optionsChanged) {
+                this.queryDefinition = this.createQueryDefinition();
+            }
             Observable.notify(this, 'state');
             this.message = {
                 severity: 'information',
@@ -369,6 +356,37 @@ export class AssetInventory {
         this.message = undefined;
         Observable.notify(this, 'state');
         this.refresh();
+    }
+
+    private createQueryDefinition(): QueryBuilderDefinition {
+        return {
+            version: 1,
+            fields: this.fields.map((field): QueryBuilderDefinition['fields'][number] => {
+                const options = field.options
+                    ?? (field.key === 'location' ? this.freeTextFilterOptions.location : undefined)
+                    ?? (field.key === 'model' ? this.freeTextFilterOptions.model : undefined);
+                return {
+                    id: field.key,
+                    path: `/${field.key}`,
+                    label: field.label,
+                    valueSchema: options
+                        ? { oneOf: options.map(value => ({ const: value, title: value || '(Empty)' })) }
+                        : { type: 'string' },
+                    operatorIds: [
+                        'is', 'is-not',
+                        ...(!field.options ? ['contains'] : []),
+                        ...(options ? ['is-one-of'] : [])
+                    ],
+                    ...(options ? { editor: { kind: 'select' } } : {})
+                };
+            }),
+            operators: [
+                { id: 'is', label: 'Is', operand: { kind: 'field-value' } },
+                { id: 'is-not', label: 'Is not', operand: { kind: 'field-value' } },
+                { id: 'contains', label: 'Contains', operand: { kind: 'schema', schema: { type: 'string' } }, editor: { kind: 'text' } },
+                { id: 'is-one-of', label: 'Is one of', operand: { kind: 'field-value-list' } }
+            ]
+        };
     }
 
     private createState(): BulkEditState<Asset, Field> {

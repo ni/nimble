@@ -135,7 +135,7 @@ export const styles = css`
             display: flex;
             flex-direction: column;
             gap: 4px;
-            min-width: 160px;
+            min-width: 0;
             margin-block-start: 8px;
         }
 

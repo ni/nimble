@@ -61,8 +61,6 @@ export const template = html<FvChipSelector>`
                     aria-invalid="${x => x.ariaInvalid}"
                     aria-haspopup="listbox"
                     role="combobox"
-                    aria-expanded="${x => x.open}"
-                    aria-controls="${x => x.menuId}"
                     ?disabled="${x => x.disabled}"
                     ${ref('captureInputRef')}
                     @focus="${x => {
