@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 13 Nov 2026 23:59:00 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 17 Nov 2026 00:03:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.18.2
+
+Tue, 17 Nov 2026 00:03:35 GMT
+
+### Patches
+
+- Fix FV multi-select closing unexpectedly when reopened before popup focus ([ni/nimble@af369c3](https://github.com/ni/nimble/commit/af369c3f561877561ae80962f22e40a7da68f1ad))
 
 ## 1.18.1
 
