@@ -103,7 +103,7 @@ export const template = html<FvDateTimePicker>`
         </div>
         ${when(x => !x.open, entryErrorTemplate)}
         ${when(x => x.open, html<FvDateTimePicker>`
-            <${anchoredRegionTag} ${ref('region')} auto-update-mode="auto"
+            <${anchoredRegionTag} ${ref('region')} popover="manual" fixed-placement auto-update-mode="auto"
                 @loaded="${x => x.focusDay(true)}"
                 vertical-default-position="bottom" vertical-positioning-mode="dynamic"
                 horizontal-inset

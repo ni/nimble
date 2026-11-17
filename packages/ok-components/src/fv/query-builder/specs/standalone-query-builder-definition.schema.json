@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Standalone Query Builder Definition",
+  "type": "object",
+  "required": ["version", "fields", "operators"],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/field"
+      }
+    },
+    "operators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/operator"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]*$"
+    },
+    "field": {
+      "type": "object",
+      "required": ["id", "path", "label", "valueSchema", "operatorIds"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valueSchema": {
+          "$ref": "https://json-schema.org/draft/2020-12/schema"
+        },
+        "operatorIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "editor": {
+          "$ref": "#/$defs/editor"
+        }
+      },
+      "additionalProperties": false
+    },
+    "operator": {
+      "type": "object",
+      "required": ["id", "label", "operand"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operand": {
+          "$ref": "#/$defs/operand"
+        },
+        "editor": {
+          "$ref": "#/$defs/editor"
+        }
+      },
+      "additionalProperties": false
+    },
+    "operand": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": {
+              "const": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": {
+              "const": "field-value"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": {
+              "const": "field-value-list"
+            },
+            "minItems": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "endpointSchema"],
+          "properties": {
+            "kind": {
+              "const": "range"
+            },
+            "endpointSchema": {
+              "$ref": "https://json-schema.org/draft/2020-12/schema"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "schema"],
+          "properties": {
+            "kind": {
+              "const": "schema"
+            },
+            "schema": {
+              "$ref": "https://json-schema.org/draft/2020-12/schema"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "editor": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": {
+              "const": "auto"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": {
+              "enum": [
+                "text",
+                "number",
+                "boolean",
+                "date",
+                "datetime",
+                "range",
+                "key-value"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "$ref": "#/$defs/optionsEditor"
+        }
+      ]
+    },
+    "optionsEditor": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "enum": ["select", "combobox"]
+        },
+        "optionsSource": {
+          "$ref": "#/$defs/optionsSource"
+        }
+      },
+      "additionalProperties": false
+    },
+    "optionsSource": {
+      "type": "object",
+      "required": ["sourceId"],
+      "properties": {
+        "sourceId": {
+          "$ref": "#/$defs/id"
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "searchable": {
+          "type": "boolean"
+        },
+        "pageSize": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

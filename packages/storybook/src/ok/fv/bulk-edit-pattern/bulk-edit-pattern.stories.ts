@@ -29,8 +29,10 @@ import { fvBulkEditFieldTag } from '@ni/ok-components/dist/esm/fv/bulk-edit-fiel
 import { fvEditCommitBarTag } from '@ni/ok-components/dist/esm/fv/edit-commit-bar';
 import { fvSplitLayoutTag } from '@ni/ok-components/dist/esm/fv/split-layout';
 import { fvSearchInputTag } from '@ni/ok-components/dist/esm/fv/search-input';
+import { fvQueryBuilderTag, type QueryDocument } from '@ni/ok-components/dist/esm/fv/query-builder';
+import { fvFilterBarTag } from '@ni/ok-components/dist/esm/fv/filter-bar';
 import { bodyFont, bodyFontColor, applicationBackgroundColor, dividerBackgroundColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { createUserSelectedThemeStory, disableStorybookZoomTransform } from '../../../utilities/storybook';
 import { AssetInventory, type FieldDefinition } from './asset-inventory';
 
 const fieldTemplate = html<FieldDefinition, AssetInventory>`
@@ -79,6 +81,7 @@ const fieldTemplate = html<FieldDefinition, AssetInventory>`
 `;
 
 const template = html<AssetInventory>`
+    ${disableStorybookZoomTransform}
     <style>
         .bulk-edit-example {
             display: flex; flex-direction: column; width: 100%; height: calc(100vh - 32px);
@@ -95,7 +98,6 @@ const template = html<AssetInventory>`
         .bulk-edit-example .table-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px; border-block: 1px solid var(${dividerBackgroundColor.cssCustomProperty}); }
         .bulk-edit-example .table-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; margin-inline-start: auto; max-width: 100%; }
         .bulk-edit-example .table-actions ${fvSearchInputTag} { flex: 1 1 176px; min-width: 80px; }
-        .bulk-edit-example .status-filter::part(label) { display: none; }
         .bulk-edit-example .table-body { display: flex; flex: 1; min-height: 0; position: relative; }
         .bulk-edit-example ${tableTag} { flex: 1; min-height: 0; width: 100%; height: auto; }
         .bulk-edit-example .table-footer { display: flex; flex-wrap: wrap; justify-content: space-between; padding: 8px 16px; border-block-start: 1px solid var(${dividerBackgroundColor.cssCustomProperty}); }
@@ -146,13 +148,16 @@ const template = html<AssetInventory>`
                 <div class="table-tools" role="toolbar" aria-label="Asset table tools">
                     <div class="table-actions">
                         <${fvSearchInputTag} appearance="underline" aria-label="Search assets" placeholder="Search items..." :value="${x => x.search}" @input="${(x, c) => x.filter(c.event)}"></${fvSearchInputTag}>
-                        <${selectTag} class="status-filter" :value="${x => x.statusFilter}" @change="${(x, c) => x.filter(c.event, true)}">
-                            Filter by status
-                            <${listOptionTag} value="">All statuses</${listOptionTag}>
-                            <${listOptionTag} value="Available">Available</${listOptionTag}>
-                            <${listOptionTag} value="In use">In use</${listOptionTag}>
-                            <${listOptionTag} value="Maintenance">Maintenance</${listOptionTag}>
-                        </${selectTag}>
+                        <${fvQueryBuilderTag}
+                            ${ref('queryBuilder')}
+                            label="Filter assets"
+                            :definition="${x => x.queryDefinition}"
+                            :savedQueries="${x => x.savedQueries}"
+                            :saveHandler="${x => x.saveQuery}"
+                            :deleteHandler="${x => x.deleteQuery}"
+                            :showNigelPrompt="${() => false}"
+                            @query-apply="${(x, c) => x.applyQuery(c.event as CustomEvent<{ readonly query: QueryDocument }>)}"
+                        ></${fvQueryBuilderTag}>
                         <${buttonTag}
                             appearance="ghost"
                             content-hidden
@@ -170,6 +175,13 @@ const template = html<AssetInventory>`
                         </${buttonTag}>
                     </div>
                 </div>
+                <${fvFilterBarTag}
+                    label="${x => `${x.visibleRecords.length} records`}"
+                    :query="${x => x.appliedQuery}"
+                    :definition="${x => x.queryDefinition}"
+                    @edit-filter="${x => x.queryBuilder.openQuickEditor()}"
+                    @clear-filter="${x => x.clearQuery()}"
+                ></${fvFilterBarTag}>
                 <div class="table-body">
                     <${tableTag} ${ref('table')} id-field-name="id" selection-mode="multiple"
                         aria-label="Asset inventory" @selection-change="${(x, c) => x.onSelection(c.event as CustomEvent<TableRowSelectionEventDetail>)}"

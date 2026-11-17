@@ -11,6 +11,6 @@ interface MultiSelect extends FormAssociated {}
  * @internal
  */
 export class FormAssociatedMultiSelect extends FormAssociated(MultiSelect) {
-    public proxy = Object.assign(document.createElement('select'), { multiple: true });
+    public proxy: HTMLSelectElement = Object.assign(document.createElement('select'), { multiple: true });
 }
 /* eslint-enable max-classes-per-file */

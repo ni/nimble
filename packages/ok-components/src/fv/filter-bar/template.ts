@@ -4,16 +4,15 @@ import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import type { FvFilterBar } from '.';
 import type { FvFilterBarToken } from './types';
 
-const queryTokenTemplate = html<FvFilterBarToken>`${when(
+const queryTokenTemplate = html<FvFilterBarToken>`<span class="${x => ({
+        predicate: 'query-expression',
+        logic: 'logical-operator',
+        group: 'compound-expression-container'
+    })[x.kind]}">${when(
         x => x.kind === 'predicate',
-        html<FvFilterBarToken>`<span class="query-expression"><b>${x => (x.kind === 'predicate' ? x.field : '')}</b> ${x => (x.kind === 'predicate' ? x.operator : '')}<b>${x => (x.kind === 'predicate' ? x.value : '')}</b></span>`
-    )}${when(
-        x => x.kind === 'logic',
-        html<FvFilterBarToken>`<span class="logical-operator">${x => (x.kind === 'logic' ? x.text : '')}</span>`
-    )}${when(
-        x => x.kind === 'group',
-        html<FvFilterBarToken>`<span class="compound-expression-container">${x => (x.kind === 'group' ? x.text : '')}</span>`
-    )}`;
+        html<FvFilterBarToken>`<b>${x => (x.kind === 'predicate' ? x.field : '')}</b> ${x => (x.kind === 'predicate' ? x.operator : '')}<b>${x => (x.kind === 'predicate' ? x.value : '')}</b>`,
+        html<FvFilterBarToken>`${x => (x.kind === 'predicate' ? '' : x.text)}`
+    )}</span>`;
 
 export const template = html<FvFilterBar>`
     <div class="filter-bar" role="group" aria-label="${x => x.label}">

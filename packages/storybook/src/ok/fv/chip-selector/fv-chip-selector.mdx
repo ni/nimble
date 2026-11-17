@@ -13,4 +13,6 @@ A labeled chip picker with removable selections, inline text entry, filtered dro
 
 <Controls of={chipSelectorStories.fvChipSelector} />
 
+The selector filters option labels locally by default. For server-filtered options, set the `filterLocally` property to `false` and listen for `filter-change`. Its `detail.filterText` contains the current search text, including an empty string when the filter is cleared after selection or with Escape. Replace `optionItems` with the results for that search.
+
 <ComponentApisLink />

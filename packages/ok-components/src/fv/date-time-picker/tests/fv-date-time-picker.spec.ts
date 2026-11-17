@@ -104,6 +104,38 @@ describe('FvDateTimePicker', () => {
         expect(element.shadowRoot!.querySelector('[data-date="2024-11-13"]')?.getAttribute('tabindex')).toBe('0');
     });
 
+    it('opens and closes the calendar in the top layer', async () => {
+        element.trigger.click();
+        await waitForPickerLoaded();
+        const region = element.region!;
+        expect(region.matches(':popover-open')).toBeTrue();
+        element.open = false;
+        await waitForUpdatesAsync();
+        expect(region.matches(':popover-open')).toBeFalse();
+        element.open = true;
+        await waitForPickerLoaded();
+        expect(element.region!.matches(':popover-open')).toBeTrue();
+    });
+
+    it('updates the calendar when a containing shadow-root scroller moves', async () => {
+        const host = document.createElement('div');
+        const root = host.attachShadow({ mode: 'open' });
+        const scroller = document.createElement('div');
+        element.parentElement!.appendChild(host);
+        root.appendChild(scroller);
+        scroller.appendChild(element);
+        element.trigger.click();
+        await waitForPickerLoaded();
+        const update = spyOn(element.region!, 'update').and.callThrough();
+        scroller.dispatchEvent(new Event('scroll'));
+        expect(update).toHaveBeenCalled();
+        element.open = false;
+        await waitForUpdatesAsync();
+        update.calls.reset();
+        scroller.dispatchEvent(new Event('scroll'));
+        expect(update).not.toHaveBeenCalled();
+    });
+
     it('moves focus into the calendar when Alt+Down opens it from the input', async () => {
         element.control.focus();
         element.control.dispatchEvent(new KeyboardEvent('keydown', {
@@ -126,10 +158,10 @@ describe('FvDateTimePicker', () => {
         });
     });
 
-    it('uses document placement without viewport locks while allowing automatic popup direction', async () => {
+    it('uses fixed placement without viewport locks while allowing automatic popup direction', async () => {
         element.open = true;
         await waitForUpdatesAsync();
-        expect(element.region!.fixedPlacement).toBeFalse();
+        expect(element.region!.fixedPlacement).toBeTrue();
         expect(element.region!.horizontalViewportLock).toBeFalse();
         expect(element.region!.verticalViewportLock).toBeFalse();
         expect(element.region!.verticalPositioningMode).toBe('dynamic');

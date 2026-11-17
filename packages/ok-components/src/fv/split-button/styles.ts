@@ -96,6 +96,16 @@ export const styles = css`
             pointer-events: none;
         }
 
+        nimble-anchored-region:popover-open {
+            inset: auto;
+            margin: 0;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            color: inherit;
+            overflow: visible;
+        }
+
         .split-button-primary,
         .split-button-toggle {
             appearance: none;
@@ -249,6 +259,12 @@ export const styles = css`
             background-color: ${applicationBackgroundColor};
         }
 
+        :host([appearance='block'][appearance-variant='accent']) .split-button-primary:is(:enabled, [href]):active,
+        :host([appearance='block'][appearance-variant='accent']) .split-button-toggle:enabled:active,
+        :host([appearance='block'][appearance-variant='accent'][open]:not([disabled])) .split-button-toggle {
+            color: ${buttonLabelFontColor};
+        }
+
         :host([appearance='outline'][appearance-variant='accent']) .split-button-primary:active,
         :host([appearance='outline'][appearance-variant='accent']) .split-button-toggle:active,
         :host([appearance='outline'][appearance-variant='accent'][open]) .split-button-toggle {
@@ -286,6 +302,12 @@ export const styles = css`
         :host([disabled]) .split-button-toggle > * {
             opacity: 0.3;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+        }
+
+        .split-button-primary:disabled {
+            color: ${buttonLabelDisabledFontColor};
+            cursor: default;
+            box-shadow: none;
         }
 
         :host([disabled][appearance='ghost']) .split-button-primary,
