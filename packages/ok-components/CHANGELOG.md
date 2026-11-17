@@ -1,8 +1,52 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 10 Nov 2026 22:50:35 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 17 Nov 2026 15:49:59 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.18.3
+
+Tue, 17 Nov 2026 15:49:59 GMT
+
+### Patches
+
+- Date time picker adopts Nimble patterns for page objects, docs, popups ([ni/nimble@8787452](https://github.com/ni/nimble/commit/8787452796e537e05ce581d51864d404850f854f))
+
+## 1.18.2
+
+Tue, 17 Nov 2026 00:03:35 GMT
+
+### Patches
+
+- Fix FV multi-select closing unexpectedly when reopened before popup focus ([ni/nimble@af369c3](https://github.com/ni/nimble/commit/af369c3f561877561ae80962f22e40a7da68f1ad))
+
+## 1.18.1
+
+Fri, 13 Nov 2026 23:59:00 GMT
+
+### Patches
+
+- Align FV multi-select popup option styling with Nimble menus ([ni/nimble@d71f39c](https://github.com/ni/nimble/commit/d71f39c19d043141adac6f8e852c2dd102d2b35c))
+
+## 1.18.0
+
+Fri, 13 Nov 2026 22:34:49 GMT
+
+### Minor changes
+
+- Add the ok-fv-text-field component with configurable Maskito input masking. ([ni/nimble@963d455](https://github.com/ni/nimble/commit/963d4555aa68f3efef31e203cfc76a250b47de0e))
+
+## 1.17.0
+
+Fri, 13 Nov 2026 22:11:54 GMT
+
+### Minor changes
+
+- Add the FV date/time picker with date-only mode, native form constraints, localized masked entry, and a calendar popup ([ni/nimble@fe6939f](https://github.com/ni/nimble/commit/fe6939f1f5f3cfb18dd0dba0106184ce70bd5f55))
+
+### Patches
+
+- Fix FV multi-select popup closing when a delayed focusout fires after it reopens ([ni/nimble@3047cc7](https://github.com/ni/nimble/commit/3047cc7834b3b89462c84af30224fb7c733819c4))
 
 ## 1.16.0
 

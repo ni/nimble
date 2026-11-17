@@ -200,6 +200,8 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
         if (!this.$fastController.isConnected) {
             return;
         }
+        // Keep focus inside until the reopened popup can receive it.
+        this.control.focus();
         this.region.anchorElement = this.controlField;
         this.updatePopupLayout();
         this.resetActiveOption();
@@ -321,8 +323,13 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
     /** @internal */
     public handleFocusout(event: FocusEvent): void {
         const next = event.relatedTarget;
-        if (!(next instanceof Node)
-            || (!this.contains(next) && !this.shadowRoot?.contains(next))) {
+        if (!(next instanceof Node)) {
+            requestAnimationFrame(() => {
+                if (document.activeElement !== this && !this.shadowRoot?.activeElement) {
+                    this.open = false;
+                }
+            });
+        } else if (!this.contains(next) && !this.shadowRoot?.contains(next)) {
             this.open = false;
         }
     }

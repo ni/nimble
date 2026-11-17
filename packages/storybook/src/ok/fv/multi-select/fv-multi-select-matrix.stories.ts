@@ -3,7 +3,7 @@ import { html, type ViewTemplate } from '@ni/fast-element';
 import { type FvMultiSelect, fvMultiSelectTag } from '@ni/ok-components/dist/esm/fv/multi-select';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
+import { waitAnimationFrame, waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import {
     cartesianProduct,
     createMatrix,
@@ -19,10 +19,11 @@ const metadata: Meta = {
 export default metadata;
 
 const appearances = Object.values(DropdownAppearance);
-const states = ['empty', 'selected', 'clearable', 'disabled', 'open', 'keyboard', 'keyboard-no-search', 'no-results', 'no-search'] as const;
+const states = ['empty', 'selected', 'clearable', 'disabled', 'open', 'hover', 'keyboard', 'keyboard-no-search', 'filtered', 'no-results', 'no-search'] as const;
 
 const component = (appearance: DropdownAppearance, state: (typeof states)[number]): ViewTemplate => html`
-    <div inert style="display: inline-block; vertical-align: top; width: 340px; height: 360px; padding: 16px;">
+    <div inert class="${() => (state === 'hover' ? 'pseudo-hover-all' : '')}"
+        style="display: inline-block; vertical-align: top; width: 340px; height: 360px; padding: 16px;">
         <${fvMultiSelectTag}
             label="${() => `${appearance}: ${state}`}"
             placeholder="Select statuses"
@@ -59,7 +60,7 @@ themeMatrix.play = async ({ canvasElement }): Promise<void> => {
     const elements = canvasElement.querySelectorAll<FvMultiSelect>(fvMultiSelectTag);
     const loaded: Promise<void>[] = [];
     for (const element of elements) {
-        if (['open', 'keyboard', 'keyboard-no-search', 'no-results', 'no-search'].includes(element.dataset.state ?? '')) {
+        if (['open', 'hover', 'keyboard', 'keyboard-no-search', 'filtered', 'no-results', 'no-search'].includes(element.dataset.state ?? '')) {
             if (!element.region.initialLayoutComplete) {
                 loaded.push(waitForEvent(element.region, 'loaded'));
             }
@@ -72,9 +73,55 @@ themeMatrix.play = async ({ canvasElement }): Promise<void> => {
         if (element.dataset.state === 'no-results') {
             element.filter = 'missing';
         }
+        if (element.dataset.state === 'filtered') {
+            element.filter = 'ready';
+        }
         if (element.dataset.state === 'keyboard' || element.dataset.state === 'keyboard-no-search') {
             element.keyboardNavigation = true;
         }
     }
     await waitForUpdatesAsync();
+};
+
+export const scrollingThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(
+    (position: 'top' | 'bottom', edge: 'top' | 'bottom') => html`
+        <div inert style="display: inline-block; vertical-align: top; width: 340px; height: 640px; padding: 16px;">
+            <${fvMultiSelectTag}
+                style="${() => (position === 'top' ? 'margin-top: 300px;' : '')}"
+                label="${() => `${position}: ${edge}`}"
+                filterable
+                data-position="${() => position}"
+                data-edge="${() => edge}"
+                :options="${() => Array.from({ length: 30 }, (_, index) => ({
+                    value: `${index}`, label: `Option ${index + 1}`
+                }))}"
+            ></${fvMultiSelectTag}>
+        </div>
+    `,
+    [['top', 'bottom'] as const, ['top', 'bottom'] as const]
+));
+
+scrollingThemeMatrix.play = async ({ canvasElement }): Promise<void> => {
+    const elements = canvasElement.querySelectorAll<FvMultiSelect>(fvMultiSelectTag);
+    await Promise.all(Array.from(elements, async element => {
+        element.region.verticalDefaultPosition = element.dataset.position === 'top' ? 'top' : 'bottom';
+        element.region.verticalPositioningMode = 'locktodefault';
+        const loaded = waitForEvent(element.region, 'loaded');
+        element.open = true;
+        await loaded;
+        element.style.setProperty('--ok-fv-multi-select-available-height', '600px');
+        await waitForUpdatesAsync();
+        for (let index = 0; index < 15; index++) {
+            element.filterInput!.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        }
+        await waitForUpdatesAsync();
+        await waitAnimationFrame();
+        if (element.dataset.edge === 'top') {
+            for (let index = 0; index < 8; index++) {
+                element.filterInput!.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+            }
+        }
+        await waitForUpdatesAsync();
+        await waitAnimationFrame();
+    }));
 };

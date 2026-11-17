@@ -419,10 +419,39 @@ describe('FvMultiSelect', () => {
         await open();
         document.body.click();
         expect(element.open).toBeFalse();
+        await waitForUpdatesAsync();
         await open();
         query('input').dispatchEvent(new FocusEvent('focusout', {
             bubbles: true, composed: true, relatedTarget: document.body
         }));
+        expect(element.open).toBeFalse();
+    });
+
+    it('keeps focus inside when reopening before the popup can receive focus', async () => {
+        await open();
+        spyOn(element, 'focusPopup').and.stub();
+        element.open = false;
+        element.open = true;
+        query<HTMLInputElement>('input').blur();
+        await waitAnimationFrame();
+        expect(element.open).toBeTrue();
+        expect(element.shadowRoot?.activeElement).toBe(query('.control'));
+    });
+
+    it('stays open after a null-target focusout while focus remains inside', async () => {
+        await open();
+        query('input').dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        expect(element.open).toBeTrue();
+        await waitAnimationFrame();
+        expect(element.open).toBeTrue();
+    });
+
+    it('closes after the next frame on a null-target focusout when focus is outside', async () => {
+        await open();
+        query<HTMLInputElement>('input').blur();
+        query('input').dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        expect(element.open).toBeTrue();
+        await waitAnimationFrame();
         expect(element.open).toBeFalse();
     });
 
