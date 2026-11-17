@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Date time picker adopts Nimble patterns for page objects, docs, popups",
-  "packageName": "@ni/ok-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

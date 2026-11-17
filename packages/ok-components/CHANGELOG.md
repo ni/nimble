@@ -1,8 +1,16 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 17 Nov 2026 00:03:35 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 17 Nov 2026 15:49:59 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.18.3
+
+Tue, 17 Nov 2026 15:49:59 GMT
+
+### Patches
+
+- Date time picker adopts Nimble patterns for page objects, docs, popups ([ni/nimble@8787452](https://github.com/ni/nimble/commit/8787452796e537e05ce581d51864d404850f854f))
 
 ## 1.18.2
 
