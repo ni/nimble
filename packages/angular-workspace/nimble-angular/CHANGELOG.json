@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 18 Nov 2026 21:10:52 GMT",
+      "version": "34.3.3",
+      "tag": "@ni/nimble-angular_v34.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "04e90a1588a7b78d12a6d8c2a911c80c024e5179",
+            "comment": "Document page object best practices"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Nov 2026 22:26:58 GMT",
       "version": "34.3.3",
       "tag": "@ni/nimble-angular_v34.3.3",
