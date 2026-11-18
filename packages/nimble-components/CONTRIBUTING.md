@@ -514,6 +514,24 @@ Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/sr
 
 The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/tests/fixture.spec.ts).
 
+#### Page objects
+
+Every component should distribute a page object class to abstract component implementation details away from test implementations. Page objects are consumed by both that component's unit tests and client unit tests that interact with the component.
+
+A page object's public API should describe what a user sees and does, not how the component is built, so that tests don't change when the component's implementation does.
+
+- Construct each page object with an instance of the corresponding Nimble component.
+- Expose getters and methods that return:
+   - primitive types (or promises of them) to access data
+   - void (or `Promise<void>`) if they perform an action
+   - other page objects to provide access to parts of composite components
+   - **Don't** return elements or selectors
+- Name members for the element or action they represent, such as `clickClearButton()` or `isDropdownVisible()`, rather than exposing generic members that take a label or selector, such as `clickElement('.clear-button')`.
+- Tests should not use selectors or labels to find elements. Page objects should encapsulate these details of the component's structure.
+- Don't put assertions in page object methods; keep them in tests or utility helper functions.
+- Encapsulate component timing details in the page object so that tests don't need explicit async or wait code.
+- Encapsulate event dispatching. Expose user-level actions (typing, pasting, pressing a key, leaving a field) that fire every event a browser would, such as `input` and `change`, rather than methods like `fireChange()`.
+
 ### Disabling tests
 
 If a test is failing on a specific browser but passing on others, it is possible to temporarily mark it to be skipped for that browser by applying the tag `#SkipFirefox`, `#SkipWebkit`, or `#SkipChrome` to the test name:
