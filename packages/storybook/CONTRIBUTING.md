@@ -105,6 +105,18 @@ All other Markdown formatting is supported. See any
 [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more
 information.
 
+### Documenting the API
+
+The **API** section of a component's docs is generated from the `argTypes` of
+its stories. Follow these guidelines:
+
+- Document every public attribute, property, event, method, and slot of the component.
+- Every entry should have a `description`.
+- Every entry should have a table category to distinguish which type of API it is (attribute, slot, etc).
+- All attributes are backed by properties. To avoid redundancy, document these using the attribute category and spelling (e.g. `full-bleed`) rather than the property category and spelling (e.g. `fullBleed`). Only use the property category and spelling for public properties that don't have a corresponding attribute.
+- Reuse the shared description helpers (e.g. `disabledDescription`, `readonlyDescription`) where they exist so that common attributes are described consistently.
+
+
 ### Matrix story naming
 
 The names of stories within matrix tests should conform to the following
@@ -141,6 +153,14 @@ guidelines:
     - Do: `Light Theme$ Open$ No Filter`
     - Don't: `Light Theme White Background$ Open$ No Filter`,
       `Light Theme$ White Background$ Open$ No Filter`
+
+### Stories with popups
+
+Stories for components with popups should include `disableStorybookZoomTransform`
+from `src/utilities/storybook.ts` in their `render` template so the popup can
+extend beyond the story's canvas on the **Docs** page. This requires the popup's
+`nimble-anchored-region` to use `fixed-placement`. Don't enlarge the canvas to
+fit the popup.
 
 ### Testing
 
