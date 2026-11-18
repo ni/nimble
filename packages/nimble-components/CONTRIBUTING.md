@@ -521,7 +521,11 @@ Every component should distribute a page object class to abstract component impl
 A page object's public API should describe what a user sees and does, not how the component is built, so that tests don't change when the component's implementation does.
 
 - Construct each page object with an instance of the corresponding Nimble component.
-- Expose getters and methods that return primitive types (or promises of them), or void (or `Promise<void>`) if they perform an action. Don't return elements or selectors.
+- Expose getters and methods that return:
+   - primitive types (or promises of them) to access data
+   - void (or `Promise<void>`) if they perform an action
+   - other page objects to provide access to parts of composite components
+   - **Don't** return elements or selectors
 - Name members for the element or action they represent, such as `clickClearButton()` or `isDropdownVisible()`, rather than exposing generic members that take a label or selector, such as `clickElement('.clear-button')`.
 - Tests should not use selectors or labels to find elements. Page objects should encapsulate these details of the component's structure.
 - Don't put assertions in page object methods; keep them in tests or utility helper functions.
