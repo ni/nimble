@@ -113,8 +113,7 @@ its stories. Follow these guidelines:
 - Document every public attribute, property, event, method, and slot of the component.
 - Every entry should have a `description`.
 - Every entry should have a table category to distinguish which type of API it is (attribute, slot, etc).
-- For attributes, use the attribute spelling (e.g. `full-bleed`) as
-  the displayed name rather than the property spelling (`fullBleed`).
+- All attributes are backed by properties. To avoid redundancy, document these using the attribute category and spelling (e.g. `full-bleed`) rather than the property category and spelling (e.g. `fullBleed`). Only use the property category and spelling for public properties that don't have a corresponding attribute.
 - Reuse the shared description helpers (e.g. `disabledDescription`, `readonlyDescription`) where they exist so that common attributes are described consistently.
 
 
