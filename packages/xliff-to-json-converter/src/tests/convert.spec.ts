@@ -407,4 +407,34 @@ describe('xliff2Json', () => {
 
         expect(Object.keys(json.translations).length).toEqual(0);
     });
+
+    describe('targets with CDATA, comments, and inline elements', () => {
+        const convertTarget = async (target: string): Promise<string> => {
+            const xliff = await parseXliff(`
+              <?xml version="1.0" encoding="UTF-8"?>
+              <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+                <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="de-DE">
+                  <body>
+                    <trans-unit id="id1" datatype="html"><source>s</source><target>${target}</target></trans-unit>
+                  </body>
+                </file>
+              </xliff>
+            `);
+            return xliff2Json(xliff).translations.id1;
+        };
+
+        it('joins text split by CDATA', async () => {
+            expect(await convertTarget('a<![CDATA[<b>]]>c')).toBe('a<b>c');
+        });
+
+        it('joins text split by comments and processing instructions', async () => {
+            expect(await convertTarget('a<!-- note -->b')).toBe('ab');
+            expect(await convertTarget('a<?pi x?>b')).toBe('ab');
+        });
+
+        it('unwraps mrk and g elements and keeps placeholders', async () => {
+            expect(await convertTarget('<mrk mtype="seg" mid="1">Segment</mrk>')).toBe('Segment');
+            expect(await convertTarget('Hello <g id="1">world <x id="INTERPOLATION"/></g>')).toBe('Hello world {$INTERPOLATION}');
+        });
+    });
 });
