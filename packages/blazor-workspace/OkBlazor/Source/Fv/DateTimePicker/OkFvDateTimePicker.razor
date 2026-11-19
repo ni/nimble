@@ -1,5 +1,4 @@
 @namespace OkBlazor
-@inherits NimbleBlazor.NimbleInputBase<string?>
 <ok-fv-date-time-picker
     appearance="@Appearance"
     type="@Type"
@@ -13,7 +12,7 @@
     full-bleed="@FullBleed"
     appearance-readonly="@AppearanceReadOnly"
     open="@Open"
-    current-value="@CurrentValueAsString"
+    current-value="@Value"
     disabled="@Disabled"
     required="@Required"
     @oninput="HandleInputAsync"

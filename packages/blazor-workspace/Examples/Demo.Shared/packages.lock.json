@@ -277,8 +277,7 @@
       "okblazor": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[10.0.14, )",
-          "NimbleBlazor": "[1.0.0, )"
+          "Microsoft.AspNetCore.Components.Web": "[10.0.14, )"
         }
       },
       "sprightblazor": {

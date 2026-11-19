@@ -335,10 +335,7 @@
         }
       },
       "okblazor": {
-        "type": "Project",
-        "dependencies": {
-          "NimbleBlazor": "[1.0.0, )"
-        }
+        "type": "Project"
       }
     },
     "net8.0": {
@@ -647,10 +644,7 @@
         }
       },
       "okblazor": {
-        "type": "Project",
-        "dependencies": {
-          "NimbleBlazor": "[1.0.0, )"
-        }
+        "type": "Project"
       }
     }
   }
