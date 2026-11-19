@@ -6,8 +6,10 @@ import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { tooltip } from '@tanstack/charts/tooltip';
 import { createNimblePlotlyTemplate } from '@ni/ok-components/dist/esm/fv/plotly-template';
-import { createUserSelectedThemeStory } from '../utilities/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/storybook';
 import './tanstack-chart.css';
+
+const captionToPlotGap = 16;
 
 const rows = [
     { day: 'Mon', value: 42 },
@@ -18,8 +20,10 @@ const rows = [
 ];
 
 const renderChart = createUserSelectedThemeStory(html`
-    <figure>
-        <figcaption>Daily measurements</figcaption>
+    <figure style="font: var(--ni-nimble-body-font); color: var(--ni-nimble-body-font-color);">
+        <figcaption style="font: var(--ni-nimble-subtitle-font); color: var(--ni-nimble-subtitle-font-color);">
+            Daily measurements
+        </figcaption>
         <div data-chart></div>
         <p>Measurements rose from 42 on Monday to 65 on Friday, peaking at 73 on Thursday.</p>
     </figure>
@@ -27,7 +31,7 @@ const renderChart = createUserSelectedThemeStory(html`
 
 const roots = new WeakMap<AbortSignal, Element>();
 const metadata: Meta = {
-    title: 'Chart Theming/Examples',
+    title: 'Ok/Patterns/Chart Theming',
     render: (args, context) => {
         const next = renderChart(args, context);
         const root = roots.get(context.abortSignal);
@@ -55,6 +59,7 @@ export const tanStack: StoryObj = {
             ariaLabel: 'Daily measurements',
             height: 280,
             definition: defineChart({
+                margin: { top: captionToPlotGap },
                 marks: [lineY(rows, { x: 'day', y: 'value', color: () => 'Measured', points: true })],
                 scales: {
                     x: { scale: scaleBand },
@@ -77,6 +82,7 @@ export const plotly: StoryObj = {
         const chart = canvasElement.querySelector<HTMLElement>('[data-chart]')!;
         const provider = chart.closest('nimble-theme-provider')!;
         const render = async (): Promise<void> => {
+            const template = createNimblePlotlyTemplate(chart);
             await plotlyJs.react(chart, [{
                 type: 'scatter',
                 mode: 'lines+markers',
@@ -85,9 +91,15 @@ export const plotly: StoryObj = {
                 y: rows.map(row => row.value)
             }], {
                 height: 280,
+                margin: { t: captionToPlotGap, b: 24 },
+                modebar: {
+                    bgcolor: template.layout.paper_bgcolor,
+                    color: template.layout.font.color,
+                    activecolor: template.layout.colorway[0]
+                },
                 uirevision: 'measurements',
-                template: createNimblePlotlyTemplate(chart)
-            }, { displayModeBar: false, responsive: true });
+                template
+            }, { displayModeBar: true, responsive: true });
         };
         const initialRender = render();
         let rendered = initialRender.catch(() => { /* Storybook reports the rejection from play. */ });

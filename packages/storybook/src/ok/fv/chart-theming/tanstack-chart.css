@@ -14,3 +14,7 @@
     --ts-chart-tooltip-color: var(--ni-nimble-tooltip-caption-font-color);
     --ts-chart-tooltip-font: var(--ni-nimble-tooltip-caption-font);
 }
+
+.nimble-tanstack-chart svg text {
+    font: inherit;
+}
