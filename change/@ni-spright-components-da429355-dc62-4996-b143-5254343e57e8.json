@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix removeEventListeners with capture config",
+  "packageName": "@ni/spright-components",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
