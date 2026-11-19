@@ -1,6 +1,6 @@
 import { html, ref } from '@ni/fast-element';
-import type { FvChart } from '.';
+import type { FvChartPlotly } from '.';
 
-export const template = html<FvChart>`
+export const template = html<FvChartPlotly>`
     <div ${ref('chartContainer')} part="chart"></div>
 `;
