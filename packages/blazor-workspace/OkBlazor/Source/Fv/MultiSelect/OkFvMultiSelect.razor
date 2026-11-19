@@ -1,0 +1,15 @@
+@namespace OkBlazor
+<ok-fv-multi-select
+    data-ok-fv-event-source="@_eventSource"
+    @ref="_element"
+    appearance="@Appearance"
+    label="@Label"
+    placeholder="@Placeholder"
+    filterable="@Filterable"
+    clearable="@Clearable"
+    open="@Open"
+    disabled="@Disabled"
+    @onokfvmultiselectinput="HandleSelectionChangedAsync"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</ok-fv-multi-select>

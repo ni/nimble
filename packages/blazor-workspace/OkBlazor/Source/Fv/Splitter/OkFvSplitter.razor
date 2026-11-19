@@ -1,0 +1,15 @@
+@using System.Globalization
+@namespace OkBlazor
+<ok-fv-splitter
+    data-ok-fv-event-source="@_eventSource"
+    aria-label="@AriaLabel"
+    aria-labelledby="@AriaLabelledBy"
+    aria-controls="@AriaControls"
+    position="@Position?.ToString(CultureInfo.InvariantCulture)"
+    min="@Min?.ToString(CultureInfo.InvariantCulture)"
+    max="@Max?.ToString(CultureInfo.InvariantCulture)"
+    step="@Step?.ToString(CultureInfo.InvariantCulture)"
+    @onokfvpositioninput="HandleInputAsync"
+    @onokfvpositionchange="HandleChangeAsync"
+    @attributes="AdditionalAttributes">
+</ok-fv-splitter>

@@ -23,6 +23,77 @@ function registerEvents(Blazor) {
 
     hasRegisteredEvents = true;
 
+    Blazor.registerCustomEventType('okfvmultiselectinput', {
+        browserEventName: 'input',
+        createEventArgs: event => ({
+            selectedValues: Array.isArray(event.target?.selectedValues)
+                && event.target.selectedValues.every(value => typeof value === 'string') ? event.target.selectedValues : undefined,
+            isMultiSelect: event.target?.localName === 'ok-fv-multi-select',
+            source: event.target?.getAttribute?.('data-ok-fv-event-source')
+        })
+    });
+    for (const [name, browserEventName] of [
+        ['okfveditfilter', 'edit-filter'],
+        ['okfvclearfilter', 'clear-filter']
+    ]) {
+        Blazor.registerCustomEventType(name, {
+            browserEventName,
+            createEventArgs: event => ({
+                query: event.detail?.query,
+                source: event.target?.getAttribute?.('data-ok-fv-event-source')
+            })
+        });
+    }
+    for (const [name, browserEventName] of [
+        ['okfvsave', 'save'],
+        ['okfvrevert', 'revert'],
+        ['okfvdismissmessage', 'dismiss-message'],
+        ['okfvreset', 'reset'],
+        ['okfvclear', 'clear'],
+        ['okfvedititems', 'edit-items'],
+        ['okfvtrigger', 'trigger']
+    ]) {
+        Blazor.registerCustomEventType(name, {
+            browserEventName,
+            createEventArgs: event => ({ source: event.target?.getAttribute?.('data-ok-fv-event-source') })
+        });
+    }
+    Blazor.registerCustomEventType('okfvtoggle', {
+        browserEventName: 'toggle',
+        createEventArgs: event => ({
+            open: typeof event.detail?.open === 'boolean' ? event.detail.open : undefined,
+            source: event.target?.getAttribute?.('data-ok-fv-event-source')
+        })
+    });
+    Blazor.registerCustomEventType('okfvchipchange', {
+        browserEventName: 'change',
+        createEventArgs: event => ({
+            selectedValues: Array.isArray(event.detail?.selectedValues)
+                && event.detail.selectedValues.every(value => typeof value === 'string') ? event.detail.selectedValues : undefined,
+            source: event.target?.getAttribute?.('data-ok-fv-event-source')
+        })
+    });
+    Blazor.registerCustomEventType('okfvlistchange', {
+        browserEventName: 'change',
+        createEventArgs: event => ({
+            value: typeof event.detail?.value === 'string' ? event.detail.value : null,
+            source: event.target?.getAttribute?.('data-ok-fv-event-source')
+        })
+    });
+    for (const [name, browserEventName] of [
+        ['okfvpositioninput', 'input'],
+        ['okfvpositionchange', 'change']
+    ]) {
+        Blazor.registerCustomEventType(name, {
+            browserEventName,
+            createEventArgs: event => ({
+                position: typeof event.target?.position === 'number' && Number.isFinite(event.target.position)
+                    ? event.target.position : undefined,
+                source: event.target?.getAttribute?.('data-ok-fv-event-source')
+            })
+        });
+    }
+
     Blazor.registerCustomEventType('okbreakpointcolumntoggle', {
         browserEventName: 'breakpoint-column-toggle',
         createEventArgs: event => {
@@ -78,6 +149,9 @@ if (window.OkBlazor) {
 
 window.OkBlazor = window.OkBlazor ?? {
     isReady: () => isReady,
+    setProperty: (element, name, value) => {
+        element[name] = (name === 'message' || name === 'maskOptions') && value === null ? undefined : value;
+    },
     TsIconDynamic: {
         registerIconDynamic: function (tagName, url) {
             const registerIconDynamic = window.customElements.get('ok-ts-icon-dynamic').registerIconDynamic;

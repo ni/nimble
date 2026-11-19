@@ -9,7 +9,7 @@ export default defineConfig([
         extends: typescriptNimbleConfig,
         languageOptions: {
             parserOptions: {
-                project: './tsconfig.json',
+                project: ['./tsconfig.json', './tests/tsconfig.json'],
                 tsconfigRootDir: import.meta.dirname
             }
         },

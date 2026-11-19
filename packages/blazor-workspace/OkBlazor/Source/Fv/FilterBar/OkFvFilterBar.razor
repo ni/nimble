@@ -1,0 +1,12 @@
+@namespace OkBlazor
+<ok-fv-filter-bar
+    data-ok-fv-event-source="@_eventSource"
+    @ref="_element"
+    label="@Label"
+    disabled="@Disabled"
+    show-clear-button="@ShowClearButton"
+    @onokfveditfilter="HandleEditFilterAsync"
+    @onokfvclearfilter="HandleClearFilterAsync"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</ok-fv-filter-bar>

@@ -1,0 +1,13 @@
+@namespace OkBlazor
+<ok-fv-split-button
+    data-ok-fv-event-source="@_eventSource"
+    label="@Label"
+    disabled="@Disabled"
+    open="@Open"
+    appearance="@Appearance"
+    appearance-variant="@AppearanceVariant"
+    @onokfvtrigger="HandleTriggerAsync"
+    @onokfvtoggle="HandleToggleAsync"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</ok-fv-split-button>

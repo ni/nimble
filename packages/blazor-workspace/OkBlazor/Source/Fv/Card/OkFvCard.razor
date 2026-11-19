@@ -1,0 +1,32 @@
+@namespace OkBlazor
+<ok-fv-card
+    card-title="@Title"
+    subtitle="@Subtitle"
+    description="@Description"
+    appearance="@Appearance"
+    interaction-mode="@InteractionMode"
+    disabled="@Disabled"
+    initials="@Initials"
+    @attributes="AdditionalAttributes">
+    @if (Icon is not null)
+    {
+        <div slot="icon">@Icon</div>
+    }
+    @ChildContent
+    @if (Badges is not null)
+    {
+        <div slot="badges">@Badges</div>
+    }
+    @if (FooterStart is not null)
+    {
+        <div slot="footer-start">@FooterStart</div>
+    }
+    @if (FooterEnd is not null)
+    {
+        <div slot="footer-end">@FooterEnd</div>
+    }
+    @if (Actions is not null)
+    {
+        <div slot="actions">@Actions</div>
+    }
+</ok-fv-card>
