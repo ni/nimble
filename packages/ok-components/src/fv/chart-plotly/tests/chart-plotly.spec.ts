@@ -1,4 +1,5 @@
-import type { Data, Layout } from 'plotly.js-dist-min';
+import Plotly, { type Data, type Layout } from 'plotly.js-dist-min';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { bodyFontSize, bodyFontWeight, graphTrace1Color } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { FvChartPlotly, fvChartPlotlyTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
@@ -77,5 +78,56 @@ describe('FvChartPlotly', () => {
         element.data = undefined;
         await new Promise(requestAnimationFrame);
         expect(element.shadowRoot!.querySelector('.main-svg')).toBeNull();
+    });
+
+    it('reports a rejected render and can render again with new data', async () => {
+        const error = new Error('Render failed');
+        const react = spyOn(Plotly, 'react').and.rejectWith(error);
+        const reported = new Promise<CustomEvent<{ error: unknown }>>(resolve => {
+            element.addEventListener('chart-render-error', event => {
+                resolve(event as CustomEvent<{ error: unknown }>);
+            }, { once: true });
+        });
+        element.data = data;
+        await connect();
+        expect((await reported).detail.error).toBe(error);
+        expect(element.shadowRoot!.querySelector('.main-svg')).toBeNull();
+
+        react.and.callThrough();
+        const plotted = afterPlot();
+        element.data = [...data];
+        await plotted;
+        expect(element.shadowRoot!.querySelector('.main-svg')).not.toBeNull();
+    });
+
+    it('purges a pending plot before rendering again after reconnect', async () => {
+        const originalReact = Plotly.react;
+        let finishRender!: () => void;
+        const pending = new Promise<void>(resolve => {
+            finishRender = resolve;
+        });
+        const react = spyOn(Plotly, 'react').and.callFake(async (...args) => {
+            const plot = await originalReact(...args);
+            await pending;
+            return plot;
+        });
+        const purge = spyOn(Plotly, 'purge').and.callThrough();
+        element.data = data;
+        let plotted = afterPlot();
+        await connect();
+        await plotted;
+
+        await disconnect();
+        await connect();
+        await waitForUpdatesAsync();
+        expect(react).toHaveBeenCalledTimes(1);
+        expect(purge).not.toHaveBeenCalled();
+
+        plotted = afterPlot();
+        finishRender();
+        await plotted;
+        expect(purge).toHaveBeenCalledOnceWith(element.chartContainer);
+        expect(react).toHaveBeenCalledTimes(2);
+        expect(element.shadowRoot!.querySelector('.main-svg')).not.toBeNull();
     });
 });

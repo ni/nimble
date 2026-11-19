@@ -68,6 +68,7 @@ type PlotEmitter = HTMLDivElement & { emit?: (name: string, data?: unknown) => v
 
 /**
  * A Plotly.js chart with Nimble typography, guides, hover labels, and trace colors.
+ * @fires chart-render-error - The chart failed to render. The error is in `detail.error`.
  */
 export class FvChartPlotly extends FoundationElement {
     /** Plotly traces, as passed to `Plotly.react`. Replace the array to update the chart. */
@@ -89,6 +90,8 @@ export class FvChartPlotly extends FoundationElement {
     private plotted = false;
     private width = 0;
     private updateQueued = false;
+    private rendering = false;
+    private purgeAfterRender = false;
     private forwardingEmit?: PlotEmitter['emit'];
     private readonly plotlySheet = new CSSStyleSheet();
     private readonly resizeObserver = new ResizeObserver(entries => {
@@ -119,7 +122,11 @@ export class FvChartPlotly extends FoundationElement {
         super.disconnectedCallback();
         themeTokens.forEach(token => token.unsubscribe(this.tokenSubscriber, this));
         this.resizeObserver.disconnect();
-        this.purge();
+        if (this.rendering) {
+            this.purgeAfterRender = true;
+        } else {
+            this.purge();
+        }
         this.nimbleTemplate = undefined;
     }
 
@@ -144,9 +151,12 @@ export class FvChartPlotly extends FoundationElement {
         }
         this.updateQueued = true;
         DOM.queueUpdate(() => {
+            if (this.rendering) {
+                return;
+            }
             this.updateQueued = false;
             if (this.$fastController.isConnected) {
-                this.updateChart();
+                void this.updateChart();
             }
         });
     }
@@ -155,31 +165,48 @@ export class FvChartPlotly extends FoundationElement {
         if (this.plotted) {
             Plotly.purge(this.chartContainer);
             this.plotted = false;
+            this.forwardingEmit = undefined;
         }
     }
 
-    private updateChart(): void {
+    private async updateChart(): Promise<void> {
         if (!this.data) {
             this.purge();
             return;
         }
-        this.nimbleTemplate ??= this.createTemplate();
-        const rendered = Plotly.react(
-            this.chartContainer,
-            this.data,
-            { ...this.layout, template: (this.layout?.template as Template | undefined) ?? this.nimbleTemplate },
-            { displaylogo: false, ...this.config }
-        );
-        this.plotted = true;
-        this.width = this.chartContainer.clientWidth;
-        this.forwardEvents();
-        void rendered.then(() => {
-            if (this.$fastController.isConnected) {
+        this.rendering = true;
+        try {
+            this.nimbleTemplate ??= this.createTemplate();
+            this.plotted = true;
+            const rendered = Plotly.react(
+                this.chartContainer,
+                this.data,
+                { ...this.layout, template: (this.layout?.template as Template | undefined) ?? this.nimbleTemplate },
+                { displaylogo: false, ...this.config }
+            );
+            this.width = this.chartContainer.clientWidth;
+            this.forwardEvents();
+            await rendered;
+            if (!this.purgeAfterRender) {
                 this.adoptPlotlyStyles();
-            } else {
-                this.purge();
             }
-        });
+        } catch (error) {
+            this.purge();
+            if (!this.purgeAfterRender) {
+                this.$emit('chart-render-error', { error });
+            }
+        } finally {
+            // Plotly can still write to the container until react settles, even after disconnect.
+            if (this.purgeAfterRender) {
+                this.purge();
+                this.purgeAfterRender = false;
+            }
+            this.rendering = false;
+            if (this.updateQueued) {
+                this.updateQueued = false;
+                this.queueUpdate();
+            }
+        }
     }
 
     // Plotly creates its emitter synchronously in react(); re-dispatch its events (plotly_click, ...) from the host.
@@ -189,7 +216,9 @@ export class FvChartPlotly extends FoundationElement {
         if (emit && emit !== this.forwardingEmit) {
             this.forwardingEmit = (name, data): void => {
                 emit(name, data);
-                this.$emit(name, data);
+                if (!this.purgeAfterRender) {
+                    this.$emit(name, data);
+                }
             };
             plot.emit = this.forwardingEmit;
         }

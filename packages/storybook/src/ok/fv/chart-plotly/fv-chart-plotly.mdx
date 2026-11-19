@@ -21,8 +21,8 @@ same values as Plotly's [figure reference](https://plotly.com/javascript/referen
 and [configuration options](https://plotly.com/javascript/configuration-options/).
 The chart draws once `data` is set. Set `data` to `undefined` to clear it.
 
-`plotly.js-dist-min` is a peer dependency, so add it to your application's
-dependencies. The component is not part of the `all-fv` or all-components
+`plotly.js-dist-min` is an optional peer dependency. Add it to your application's
+dependencies if you use this component. The component is not part of the `all-fv` or all-components
 bundles because Plotly is large (about 4.6 MB minified) and needs a browser
 `window` when it loads. Import it directly:
 
@@ -42,10 +42,15 @@ does in other frameworks.
 
 ### Events
 
-The component re-dispatches Plotly's events from the host element with Plotly's
-names, such as `plotly_click`, `plotly_hover`, `plotly_selected`, and
+The component forwards notifications from Plotly's event emitter as DOM events
+on the host, such as `plotly_click`, `plotly_hover`, `plotly_selected`, and
 `plotly_relayout`. The event's `detail` is Plotly's event data. The events
-bubble and cross the shadow boundary.
+bubble and cross the shadow boundary. Cancelable Plotly hooks such as
+`plotly_legendclick` are not forwarded, and calling `preventDefault()` on a
+forwarded event does not change Plotly's behavior.
+
+If rendering fails, the chart clears and emits `chart-render-error` with the
+failure in `event.detail.error`. Assign new inputs to try again.
 
 ```ts
 chart.addEventListener('plotly_click', event => {

@@ -52,6 +52,11 @@
   "peerDependencies": {
     "plotly.js-dist-min": "^4.3.0"
   },
+  "peerDependenciesMeta": {
+    "plotly.js-dist-min": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",
     "@custom-elements-manifest/to-markdown": "^0.1.0",
