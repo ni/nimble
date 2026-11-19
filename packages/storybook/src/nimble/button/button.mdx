@@ -1,46 +1,109 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
-import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
-import ButtonStylingDocs from '../patterns/button/button-styling-docs.mdx';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
+import { NimbleButton } from '@ni/nimble-react/button';
+import { NimbleIconKey } from '@ni/nimble-react/icons/key';
+import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
+import { Tag, theme } from '../../utilities/story-layout';
 import * as buttonStories from './button.stories';
-import { Tag } from '../../utilities/story-layout';
 
-<Meta of={buttonStories} />
+<Meta of={buttonStories} name="Usage" />
 <Title of={buttonStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A button is a
-widget that enables users to trigger an action or event, such as submitting a
-form, opening a dialog, canceling an action, or performing a delete operation.
+## Overview
 
-Consider <Tag name={anchorButtonTag} /> if you want a button that triggers
-navigation to a URL.
+Use a button for an action ([W3C pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/)).
+Use <Tag name={anchorButtonTag} /> for navigation.
+
+## Action hierarchy
+
+Choose one prominent action and keep secondary actions low-emphasis.
+
+<NimbleThemeProvider theme={theme}>
+	<div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
+		<NimbleButton appearance="ghost">Cancel</NimbleButton>
+		<NimbleButton appearance="block">Save changes</NimbleButton>
+	</div>
+</NimbleThemeProvider>
+
+```html
+<nimble-button appearance="ghost">Cancel</nimble-button>
+<nimble-button appearance="block">Save changes</nimble-button>
+```
+
+## Choose an appearance
+
+`appearance` controls visual emphasis. The default is `outline`.
+
+<NimbleThemeProvider theme={theme}>
+	<div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
+		<NimbleButton appearance="ghost">Ghost</NimbleButton>
+		<NimbleButton appearance="outline">Outline</NimbleButton>
+		<NimbleButton appearance="block">Block</NimbleButton>
+	</div>
+</NimbleThemeProvider>
+
+| Need | Appearance | Guidance |
+| --- | --- | --- |
+| Low emphasis | `ghost` | Secondary actions |
+| Standard emphasis with a visible boundary | `outline` | Most actions; default |
+| Extra emphasis | `block` | One important action that should stand out, especially in a busy layout |
+
+Buttons are 32px tall.
+
+Choose `outline` or `block` based on how much the action needs to stand out,
+not simply because it is primary. Use one block button at most in a group; pair
+it with ghost buttons rather than mixing outline and block to create hierarchy.
+
+`appearance-variant` changes the color of outline and block buttons. Choose
+`accent` when brand color suits the action; choose `primary` when green could
+imply the wrong meaning, such as a destructive action. Variants do not affect
+ghost buttons, and accent is unavailable in the color theme.
+
+<NimbleThemeProvider theme={theme}>
+	<div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
+		<NimbleButton appearance="block" appearanceVariant="accent">Create</NimbleButton>
+		<NimbleButton appearance="block" appearanceVariant="primary">Delete</NimbleButton>
+	</div>
+</NimbleThemeProvider>
+
+## Add an icon when it helps
+
+Prefer a visible label. Use an icon-only button when space is limited and its
+action is recognizable. Keep text content for its accessible name and provide
+a tooltip with `title`.
+
+<NimbleThemeProvider theme={theme}>
+	<div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
+		<NimbleButton appearance="outline">
+			<NimbleIconKey slot="start" />
+			Refresh
+		</NimbleButton>
+		<NimbleButton appearance="ghost" contentHidden title="Refresh">
+			<NimbleIconKey slot="start" />
+			Refresh
+		</NimbleButton>
+	</div>
+</NimbleThemeProvider>
+
+```html
+<nimble-button appearance="outline">
+	<nimble-icon-key slot="start"></nimble-icon-key>
+	Refresh
+</nimble-button>
+
+<nimble-button appearance="ghost" content-hidden title="Refresh">
+	<nimble-icon-key slot="start"></nimble-icon-key>
+	Refresh
+</nimble-button>
+```
+
+`content-hidden` hides the text and end icon, leaving the start icon visible.
+Tab and Shift+Tab move focus; Enter and Space activate the button. Preserve
+these built-in keyboard behaviors.
+
+## Playground & API
 
 <Canvas of={buttonStories.button} />
-
-## API
-
 <Controls of={buttonStories.button} />
-
 <ComponentApisLink />
-
-## Styling
-
-<ButtonStylingDocs components={{ Button: buttonTag }} />
-
-### Sizing
-
-Nimble Buttons are currently always 32px tall. Designs exist for other sizes; if
-you need these in an application, please comment on
-[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
-
-{/* ## Usage */}
-
-{/* ## Examples */}
-
-## Accessibility
-
-<ContentHiddenDocs buttonElement="nimble-button" />
-
-{/* ## Resources */}
