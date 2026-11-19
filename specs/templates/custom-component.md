@@ -143,7 +143,7 @@
 
 *Will implementing the component require taking on any dependencies?*
 
-- *3rd party libraries*
+- *3rd party libraries. Consider [evaluation criteria](/CONTRIBUTING.md#evaluating-new-dependencies).*
 - *Upcoming standards we need to polyfill*
 - *Dependencies on other fast components or utilities*
 

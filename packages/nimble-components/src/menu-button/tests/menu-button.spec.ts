@@ -13,7 +13,7 @@ import {
 } from '../../testing/async-helpers';
 import { waitForEvent } from '../../utilities/testing/component';
 import { MenuButtonPageObject } from '../testing/menu-button.pageobject';
-import { anchoredRegionTag } from '../../anchored-region';
+import { anchoredRegionTag, type AnchoredRegion } from '../../anchored-region';
 
 type MenuButtonToggleEventHandler = (
     evt: CustomEvent<MenuButtonToggleEventDetail>
@@ -199,6 +199,44 @@ describe('MenuButton', () => {
             expect(
                 element.shadowRoot?.querySelector(anchoredRegionTag)
             ).not.toBeNull();
+        });
+
+        it('should stop listening for change events on a replaced anchored-region', async () => {
+            element.open = true;
+            await connect();
+            const staleRegion = element.region!;
+            // Override the readonly region type state to exercise regionChanged path
+            (element as { region?: AnchoredRegion }).region = document.createElement(anchoredRegionTag);
+
+            staleRegion.dispatchEvent(new Event(eventChange));
+
+            expect(element.open).toBeTrue();
+        });
+
+        it('should stop listening for change events on the anchored-region when disconnected', async () => {
+            element.open = true;
+            await connect();
+            const region = element.region!;
+            await disconnect();
+
+            region.dispatchEvent(new Event(eventChange));
+
+            expect(element.open).toBeTrue();
+        });
+
+        it('should close the menu on menu change after being reconnected', async () => {
+            element.open = true;
+            await connect();
+            element.open = false;
+            await waitForUpdatesAsync();
+            await disconnect();
+            await connect();
+            element.open = true;
+            await waitForUpdatesAsync();
+
+            menu.dispatchEvent(new Event(eventChange, { bubbles: true }));
+
+            expect(element.open).toBeFalse();
         });
 
         it("anchored-region should be configured correctly when the menu button position is configured to 'above'", async () => {
