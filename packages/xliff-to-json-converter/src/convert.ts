@@ -26,6 +26,14 @@ export function xliff2Json(xliff: XliffFile): JsonFile {
     return json;
 }
 
+// Inline elements that wrap other content; names come from the xliff library
+/* eslint-disable @typescript-eslint/naming-convention */
+type XliffPart = XliffTranslationString | XliffTranslationObject | {
+    readonly Marker?: { readonly contents: XliffPart | readonly XliffPart[] },
+    readonly GenericSpan?: { readonly contents: XliffPart | readonly XliffPart[] }
+};
+/* eslint-enable @typescript-eslint/naming-convention */
+
 function xliffTranslation2jsonString(xliff: XliffTranslationArray | XliffTranslationObject | XliffTranslationString | undefined): string {
     if (xliff === undefined) {
         // translating the empty string (empty source is technically allowed, makes no sense)
@@ -35,30 +43,41 @@ function xliffTranslation2jsonString(xliff: XliffTranslationArray | XliffTransla
         // translation is plain string without interpolation
         return xliff;
     }
-    if (!(xliff instanceof Array)) {
-        // translation just interpolation (makes no linguistical sense, but technically possible)
-        return makeParsedTranslation(['', ''], [xliff.Standalone.id]);
-    }
     // makeParsedTranslation expects messagePart0, placeholderName0,
     // messagePart1, placeholderName1, ..., messagePartN. May have to
     // add empty messagePart at front or back.
     const messageParts: string[] = [];
     const placeholderNames: string[] = [];
-    for (const part of xliff) {
-        if (typeof part === 'string') {
-            messageParts.push(part);
-        } else {
-            // part is placeholder object
-            if (messageParts.length === placeholderNames.length) {
-                messageParts.push('');
-            }
-            placeholderNames.push(part.Standalone.id);
-        }
-    }
+    appendParts(xliff, messageParts, placeholderNames);
     if (messageParts.length === placeholderNames.length) {
         messageParts.push('');
     }
     return makeParsedTranslation(messageParts, placeholderNames);
+}
+
+function appendParts(parts: XliffPart | readonly XliffPart[], messageParts: string[], placeholderNames: string[]): void {
+    if (parts instanceof Array) {
+        parts.forEach(part => appendParts(part, messageParts, placeholderNames));
+    } else if (typeof parts === 'string') {
+        if (messageParts.length > placeholderNames.length) {
+            // text split by CDATA, comments, or processing instructions
+            messageParts[messageParts.length - 1] += parts;
+        } else {
+            messageParts.push(parts);
+        }
+    } else if ('Standalone' in parts) {
+        // part is placeholder object
+        if (messageParts.length === placeholderNames.length) {
+            messageParts.push('');
+        }
+        placeholderNames.push(parts.Standalone.id);
+    } else {
+        // <mrk> and <g> only wrap content, so keep their contents
+        const wrapper = parts.Marker ?? parts.GenericSpan;
+        if (wrapper) {
+            appendParts(wrapper.contents, messageParts, placeholderNames);
+        }
+    }
 }
 
 /**
