@@ -1,18 +1,20 @@
-import type { Row as TanStackRow, SortingFn } from '@tanstack/table-core';
+import type { Row as TanStackRow } from '@tanstack/table-core';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { TableColumnSortOperation } from '../../../table-column/base/types';
 import { getTanStackSortingFunction } from '../sort-operations';
-import type { TableFieldValue } from '../../types';
+import type { TableFieldValue, TableRecord } from '../../types';
+import type { TanStackTableFeatures } from '../tanstack-table-features';
 
 describe('Sort Operations', () => {
     function createFakeRow(
         value: TableFieldValue
-    ): TanStackRow<TableFieldValue> {
-        const row = jasmine.createSpyObj<TanStackRow<TableFieldValue>>(
+    ): TanStackRow<TanStackTableFeatures, TableRecord> {
+        const row = jasmine.createSpyObj<TanStackRow<TanStackTableFeatures, TableRecord>>(
             'TanStackRow',
-            ['getValue']
+            ['getValue', 'getIsGrouped']
         );
         row.getValue.and.returnValue(value);
+        row.getIsGrouped.and.returnValue(false);
         return row;
     }
 
@@ -81,9 +83,9 @@ describe('Sort Operations', () => {
                         expectedSortResult = -1;
                     }
 
-                    const sortFunction = getTanStackSortingFunction(
+                    const sortFunction = getTanStackSortingFunction<TableRecord>(
                         value.sortOperation
-                    ) as SortingFn<TableFieldValue>;
+                    );
                     const rowA = createFakeRow(valueA);
                     const rowB = createFakeRow(valueB);
                     expect(sortFunction(rowA, rowB, '')).toBe(
