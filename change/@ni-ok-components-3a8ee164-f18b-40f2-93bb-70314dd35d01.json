@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add ok-fv-chart-plotly, a Plotly.js chart with Nimble token defaults",
+  "comment": "Add an OK FV helper that maps Nimble design tokens to a Plotly layout template",
   "packageName": "@ni/ok-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"

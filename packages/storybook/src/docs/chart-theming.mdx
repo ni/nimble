@@ -1,0 +1,38 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as examples from './chart-theming.stories';
+import tanStackCss from './tanstack-chart.css?raw';
+
+<Meta title="Chart Theming" />
+
+# Chart theming
+
+Keep your existing chart setup. Put the chart container inside a `nimble-theme-provider` and use the recipes below to match the surrounding UI. Use the Storybook theme picker to see both charts change.
+
+## TanStack Charts
+
+Add the `nimble-tanstack-chart` class to the element where you mount the chart. TanStack's default SVG theme reads the container's text color and palette variables, so these styles follow Nimble theme changes without rebuilding the chart.
+
+<Canvas of={examples.tanStack} story={{ autoplay: true }} sourceState="none" />
+
+<Source code={tanStackCss} language="css" />
+
+Use [TanStack's theme and axis options](https://tanstack.com/charts/latest/docs/guides/themes-and-styling) when you need separate gridline colors or explicit axis typography.
+
+## Plotly
+
+The OK FV helper reads the Nimble tokens for the connected chart container and returns a [Plotly layout template](https://plotly.com/javascript/reference/layout/#layout-template). Use it with the Plotly instance your app already imports.
+
+<Canvas of={examples.plotly} story={{ autoplay: true }} sourceState="none" />
+
+```js
+import { createNimblePlotlyTemplate } from '@ni/ok-components/dist/esm/fv/plotly-template';
+
+function renderChart(chart, data, layout = {}, config = {}) {
+    return Plotly.react(chart, data, {
+        ...layout,
+        template: layout.template ?? createNimblePlotlyTemplate(chart)
+    }, config);
+}
+```
+
+Call `renderChart` after mounting the chart container and again after your app switches themes. Plotly receives resolved values, so changing the CSS tokens alone won't redraw it. Explicit layout settings override the defaults; passing `layout.template` replaces the Nimble template.

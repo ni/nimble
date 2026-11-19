@@ -31,15 +31,6 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
-        componentName: 'Fv Chart Plotly',
-        componentHref: './?path=/docs/ok-fv-chart-plotly--docs',
-        library: 'ok',
-        componentStatus: ComponentFrameworkStatus.incubating,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist,
-        reactStatus: ComponentFrameworkStatus.doesNotExist
-    },
-    {
         componentName: 'Fv Chip Selector',
         componentHref: './?path=/docs/ok-fv-chip-selector--docs',
         library: 'ok',

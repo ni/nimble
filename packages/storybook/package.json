@@ -40,6 +40,7 @@
     "@storybook/builder-vite": "^10.3.6",
     "@storybook/cli": "^10.3.6",
     "@storybook/html-vite": "^10.3.6",
+    "@tanstack/charts": "^1.5.0",
     "@types/js-beautify": "^1.14.3",
     "js-beautify": "^2.0.3",
     "plotly.js-dist-min": "^4.3.0",
