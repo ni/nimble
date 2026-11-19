@@ -241,10 +241,14 @@ npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 When adding new production dependencies, evaluate whether the dependency has sufficient quality and value to justify the cost of maintenance, security risk, and footprint. Consider the following factors in evaluating new dependencies.
 
 - Quality: repo activity, test coverage, popularity, responsiveness to security vulnerabilities
-- Nimble fit: Use of ESModules, TypeScript, and web platform features
+- Nimble fit: 
+    - Use of ESModules and TypeScript
+    - Availability in supported browsers
+    - Compatible with Nimble's use of web platform features including [custom element shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM), [popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) (used by components like select and combobox), and [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer) (used by components like dialog and drawer)
+    - Can be styled to match the Nimble design language using Nimble tokens
+    - User-visible text can be customized and localized using Nimble label providers
 - Cost: Disk footprint, size of transitive dependency tree
-- License: Must be redistributable and open source
-
+- License: Must be a permissive open source license (MIT, Apache, BSD)
 
 ### Security scanning
 
