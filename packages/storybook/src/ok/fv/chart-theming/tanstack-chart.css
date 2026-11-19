@@ -1,0 +1,20 @@
+.nimble-tanstack-chart {
+    color: var(--ni-nimble-body-font-color);
+    background: var(--ni-nimble-application-background-color);
+    font: var(--ni-nimble-body-font);
+
+    --ts-chart-1: var(--ni-nimble-graph-trace-1-color);
+    --ts-chart-2: var(--ni-nimble-graph-trace-2-color);
+    --ts-chart-3: var(--ni-nimble-graph-trace-3-color);
+    --ts-chart-4: var(--ni-nimble-graph-trace-4-color);
+    --ts-chart-5: var(--ni-nimble-graph-trace-5-color);
+    --ts-chart-6: var(--ni-nimble-graph-trace-6-color);
+
+    --ts-chart-tooltip-background: var(--ni-nimble-tooltip-background-color);
+    --ts-chart-tooltip-color: var(--ni-nimble-tooltip-caption-font-color);
+    --ts-chart-tooltip-font: var(--ni-nimble-tooltip-caption-font);
+}
+
+.nimble-tanstack-chart svg text {
+    font: inherit;
+}
