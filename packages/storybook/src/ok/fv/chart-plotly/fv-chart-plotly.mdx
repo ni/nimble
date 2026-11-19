@@ -1,0 +1,113 @@
+import { Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as chartStories from './fv-chart-plotly.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+
+<Meta of={chartStories} />
+<Title of={chartStories} />
+
+Use `ok-fv-chart-plotly` to draw [Plotly.js](https://plotly.com/javascript/)
+charts with Nimble fonts, trace colors, gridlines, and hover labels. You
+configure traces, layout, and interactions through Plotly's API.
+
+<Canvas of={chartStories.line} />
+
+## API
+
+<ComponentApisLink />
+
+Set the JavaScript `data`, `layout`, and `config` properties. The component
+passes them to `Plotly.react(element, data, layout, config)`, so they take the
+same values as Plotly's [figure reference](https://plotly.com/javascript/reference/)
+and [configuration options](https://plotly.com/javascript/configuration-options/).
+The chart draws once `data` is set. Set `data` to `undefined` to clear it.
+
+`plotly.js-dist-min` is a peer dependency, so add it to your application's
+dependencies. The component is not part of the `all-fv` or all-components
+bundles because Plotly is large (about 4.6 MB minified) and needs a browser
+`window` when it loads. Import it directly:
+
+```ts
+import '@ni/ok-components/dist/esm/fv/chart-plotly';
+
+const chart = document.querySelector('ok-fv-chart-plotly');
+chart.data = [{ type: 'bar', x: ['A', 'B', 'C'], y: [42, 58, 51] }];
+chart.layout = { height: 320, yaxis: { title: { text: 'Value' } } };
+chart.config = { displayModeBar: false };
+```
+
+To update the chart, assign a new array or object. Plotly diffs nested values,
+but the component only notices when a property gets a new value. Plotly may
+write computed values, such as axis ranges, into the layout you pass, as it
+does in other frameworks.
+
+### Events
+
+The component re-dispatches Plotly's events from the host element with Plotly's
+names, such as `plotly_click`, `plotly_hover`, `plotly_selected`, and
+`plotly_relayout`. The event's `detail` is Plotly's event data. The events
+bubble and cross the shadow boundary.
+
+```ts
+chart.addEventListener('plotly_click', event => {
+    console.log(event.detail.points);
+});
+```
+
+## Styling and sizing
+
+Wrap charts in a `nimble-theme-provider`. The component supplies a Plotly
+`layout.template` built from Nimble tokens:
+
+- `colorway` uses `graph-trace-1-color` through `graph-trace-8-color`.
+- The paper and plot backgrounds use `application-background-color`, which is
+  white in the light theme.
+- Text uses the body font. Tick labels use the subtitle font size and color.
+- Gridlines, axis lines, and zero lines use `graph-gridline-color`, and tick
+  stubs are hidden.
+- Hover labels use the tooltip background, popup border, and caption font.
+- Sequential color scales run from the background to the first trace color.
+  Diverging scales run from the second trace color, through the background, to
+  the first trace color.
+
+Any value in your `layout` overrides the template. If you set `layout.template`,
+the component uses your template instead of its own. Charts update when their
+Nimble tokens or inherited theme change.
+
+The component sets `displaylogo: false`; your `config` overrides it. Plotly
+shows its mode bar on hover.
+
+The chart fills its container's width and redraws when that width changes,
+unless you set `layout.width` or `layout.autosize: false`. Set `layout.height`
+to control its height. Otherwise Plotly uses its default height of 450 pixels.
+Use the `chart` shadow part to style the container.
+
+Plotly copies its own styles, such as the mode bar's, into `document.head`. The
+component copies them into its shadow root.
+
+## Examples
+
+<Canvas of={chartStories.bar} />
+
+### All plot types
+
+The gallery shows one example of each Plotly trace type, using small local
+data. Geographic and tile-map traces (`choropleth`, `scattergeo`, `scattermap`,
+and related types) are left out because Plotly downloads their outlines and
+tiles from the network. If you use them, set `config.topojsonURL` and a map
+style that your application hosts or allows.
+
+<Canvas of={chartStories.allPlotTypes} />
+
+## Accessibility
+
+Plotly charts are not keyboard navigable, and screen readers can't read their
+data. Put the chart in a `figure` with a `figcaption` that names it, and include
+an equivalent data table or text summary near the chart.
+Supply localized axis titles, labels, and number formats. Do not rely on trace
+color alone; use marker symbols, line dashes, or labels as well.
+
+## Resources
+
+- [Plotly.js reference](https://plotly.com/javascript/reference/)
+- [Plotly.js configuration options](https://plotly.com/javascript/configuration-options/)
+- [Plotly.js events](https://plotly.com/javascript/plotlyjs-events/)

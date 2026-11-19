@@ -31,8 +31,8 @@ export const componentDataOkFv = [
         reactStatus: ComponentFrameworkStatus.ready
     },
     {
-        componentName: 'Fv Chart',
-        componentHref: './?path=/docs/ok-fv-chart--docs',
+        componentName: 'Fv Chart Plotly',
+        componentHref: './?path=/docs/ok-fv-chart-plotly--docs',
         library: 'ok',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
