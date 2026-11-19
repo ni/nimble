@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 19 Nov 2026 19:40:28 GMT",
+      "version": "35.17.4",
+      "tag": "@ni/nimble-components_v35.17.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "1588923+rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "13a3b5d975f5d2dc1c4b0244b7b91f540f6de632",
+            "comment": "Fix menu button not removing capture-phase anchored region change listener"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Nov 2026 21:10:52 GMT",
       "version": "35.17.3",
       "tag": "@ni/nimble-components_v35.17.3",

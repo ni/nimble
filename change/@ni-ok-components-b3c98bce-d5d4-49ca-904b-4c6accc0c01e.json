@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix split buttons not removing capture-phase anchored region change listener",
-  "packageName": "@ni/ok-components",
-  "email": "1588923+rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

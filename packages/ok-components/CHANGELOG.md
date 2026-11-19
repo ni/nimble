@@ -1,8 +1,18 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Tue, 17 Nov 2026 15:49:59 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 19 Nov 2026 19:40:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.18.4
+
+Thu, 19 Nov 2026 19:40:28 GMT
+
+### Patches
+
+- Fix split buttons not removing capture-phase anchored region change listener ([ni/nimble@13a3b5d](https://github.com/ni/nimble/commit/13a3b5d975f5d2dc1c4b0244b7b91f540f6de632))
+- Bump @ni/nimble-components to v35.17.4
+- Bump @ni/spright-components to v7.1.4
 
 ## 1.18.3
 
