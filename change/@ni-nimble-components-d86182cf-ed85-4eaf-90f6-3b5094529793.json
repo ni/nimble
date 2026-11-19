@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix menu button not removing capture-phase anchored region change listener",
+  "packageName": "@ni/nimble-components",
+  "email": "1588923+rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

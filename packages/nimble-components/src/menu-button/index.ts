@@ -73,12 +73,24 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
      */
     private focusLastItemWhenOpened = false;
 
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        if (this.region) {
+            this.region.addEventListener(
+                eventChange,
+                this.menuChangeHandler,
+                { capture: true }
+            );
+        }
+    }
+
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         if (this.region) {
             this.region.removeEventListener(
                 eventChange,
-                this.menuChangeHandler
+                this.menuChangeHandler,
+                { capture: true }
             );
         }
     }
@@ -97,7 +109,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         _next: AnchoredRegion | undefined
     ): void {
         if (prev) {
-            prev.removeEventListener(eventChange, this.menuChangeHandler);
+            prev.removeEventListener(eventChange, this.menuChangeHandler, {
+                capture: true
+            });
         }
 
         if (this.region) {

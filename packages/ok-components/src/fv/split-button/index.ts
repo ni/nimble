@@ -93,7 +93,7 @@ export class FvSplitButton extends FoundationElement {
     /** @internal */
     public regionChanged(prev: AnchoredRegion | undefined, _next: AnchoredRegion | undefined): void {
         if (prev) {
-            prev.removeEventListener('change', this.menuChangeHandler);
+            prev.removeEventListener('change', this.menuChangeHandler, { capture: true });
         }
         if (this.region) {
             this.region.anchorElement = this.toggleButton ?? this;

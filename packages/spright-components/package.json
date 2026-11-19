@@ -41,7 +41,7 @@
   "customElements": "dist/custom-elements.json",
   "dependencies": {
     "@ni/fast-element": "^10.2.0",
-    "@ni/fast-foundation": "^10.3.0",
+    "@ni/fast-foundation": "^10.3.1",
     "@ni/fast-web-utilities": "^10.1.0",
     "@ni/nimble-components": "^35.17.3",
     "@ni/nimble-tokens": "^8.22.0",
