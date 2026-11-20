@@ -2,6 +2,7 @@ import React, { type ReactNode } from 'react';
 import { NimbleIconCheck } from '@ni/nimble-react/icons/check';
 import { NimbleThemeProvider } from '@ni/nimble-react/theme-provider';
 import { NimbleIconExclamationMark } from '@ni/nimble-react/icons/exclamation-mark';
+import { Unstyled } from '@storybook/addon-docs/blocks';
 
 export const css = (strings: TemplateStringsArray, ...values: unknown[]): React.JSX.Element => <style>
     {`@scope {${String.raw({ raw: strings }, ...values)}}`}
@@ -12,6 +13,26 @@ interface ChildrenProp {
 }
 
 export const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+interface ExampleSectionProp {
+    children?: ReactNode;
+    style?: React.CSSProperties;
+}
+
+/**
+ * Theme-aware section to place Nimble components.
+ */
+export const ExampleSection = ({
+    children, style = {
+        maxWidth: '600px'
+    }
+}: ExampleSectionProp): React.JSX.Element => {
+    return <NimbleThemeProvider theme={theme}>
+        <Unstyled style={style}>
+            {children}
+        </Unstyled>
+    </NimbleThemeProvider>;
+};
 
 /**
  * Renders a frame to match visual design of existing Storybook Doc blocks.
