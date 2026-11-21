@@ -35,6 +35,24 @@ public class NimbleChipTests : BunitTestBase
         chip.AssertAttribute("appearance", expectedAttribute);
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task SelectedChange_UsesEventState(bool selected)
+    {
+        bool? callbackValue = null;
+        var chip = Render<NimbleChip>(parameters => parameters
+            .Add(x => x.Selected, selected)
+            .Add(x => x.SelectedChanged, value => callbackValue = value));
+
+        await chip.Find("nimble-chip").TriggerEventAsync(
+            "onnimblechipselectedchange",
+            new ChipSelectedChangeEventArgs { Selected = selected });
+
+        Assert.Equal(selected, callbackValue);
+        chip.AssertAttribute("selected", selected ? string.Empty : null);
+    }
+
     private IRenderedComponent<NimbleChip> RenderWithPropertySet<TProperty>(Expression<Func<NimbleChip, TProperty>> propertyGetter, TProperty propertyValue)
     {
         return Render<NimbleChip>(p => p.Add(propertyGetter, propertyValue));

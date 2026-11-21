@@ -5,6 +5,12 @@ namespace NimbleBlazor;
 public partial class NimbleChip : ComponentBase
 {
     [Parameter]
+    public bool? Selectable { get; set; }
+
+    [Parameter]
+    public bool? Selected { get; set; }
+
+    [Parameter]
     public bool? Removable { get; set; }
 
     [Parameter]
@@ -23,11 +29,27 @@ public partial class NimbleChip : ComponentBase
     public EventCallback ChipRemoved { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback that's invoked when the chip selected state changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
+
+    /// <summary>
     /// Called when the chip remove button is activated.
     /// </summary>
     protected async void HandleRemove()
     {
         await ChipRemoved.InvokeAsync();
+    }
+
+    /// <summary>
+    /// Called when the chip selected state changes.
+    /// </summary>
+    /// <param name="eventArgs">The selected state from the chip event.</param>
+    protected async Task HandleSelectedChangeAsync(ChipSelectedChangeEventArgs eventArgs)
+    {
+        Selected = eventArgs.Selected;
+        await SelectedChanged.InvokeAsync(eventArgs.Selected);
     }
 
     [Parameter(CaptureUnmatchedValues = true)]

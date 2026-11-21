@@ -3,6 +3,11 @@ import { Chip, chipTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { ChipPageObject } from '../testing/chip.pageobject';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import type { ToggleButton } from '../../toggle-button';
+
+interface ChipSelectedChangeEventDetail {
+    selected: boolean;
+}
 
 async function setup(): Promise<Fixture<Chip>> {
     return await fixture<Chip>(html`<${chipTag}></${chipTag}>`);
@@ -51,6 +56,239 @@ describe('Chip', () => {
         expect(pageObject.isRemoveButtonVisible()).toBeFalse();
     });
 
+    it('selected property defaults to false', () => {
+        expect(element.selected).toBeFalse();
+    });
+
+    it('selectable property defaults to false', () => {
+        expect(element.selectable).toBeFalse();
+    });
+
+    it('clicking the toggle button emits the new selected state', async () => {
+        element.selectable = true;
+        await waitForUpdatesAsync();
+        const changeEvent = jasmine.createSpy<EventListener>();
+        element.addEventListener('selected-change', changeEvent);
+        const pageObject = new ChipPageObject(element);
+
+        pageObject.clickToggleButton();
+        await waitForUpdatesAsync();
+
+        expect(element.selected).toBeTrue();
+        expect(changeEvent).toHaveBeenCalledTimes(1);
+        expect(
+            (changeEvent.calls.first().args[0] as CustomEvent<ChipSelectedChangeEventDetail>).detail
+        ).toEqual({ selected: true });
+
+        pageObject.clickToggleButton();
+        await waitForUpdatesAsync();
+
+        expect(element.selected).toBeFalse();
+        expect(changeEvent).toHaveBeenCalledTimes(2);
+        expect(
+            (changeEvent.calls.mostRecent().args[0] as CustomEvent<ChipSelectedChangeEventDetail>).detail
+        ).toEqual({ selected: false });
+    });
+
+    it('clicking chip does not toggle selected state when not selectable', async () => {
+        const changeEvent = jasmine.createSpy<EventListener>();
+        element.addEventListener('selected-change', changeEvent);
+
+        element.click();
+        await waitForUpdatesAsync();
+
+        expect(element.selected).toBeFalse();
+        expect(changeEvent).not.toHaveBeenCalled();
+    });
+
+    it('pressing Space toggles selected state and emits selected-change event when selectable', async () => {
+        element.selectable = true;
+        await waitForUpdatesAsync();
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('selected-change', changeEvent);
+
+        new ChipPageObject(element).pressToggleButtonKey(' ');
+        await waitForUpdatesAsync();
+
+        expect(element.selected).toBeTrue();
+        expect(changeEvent).toHaveBeenCalledTimes(1);
+    });
+
+    it('pressing Enter toggles selected state and emits selected-change event when selectable', async () => {
+        element.selectable = true;
+        await waitForUpdatesAsync();
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('selected-change', changeEvent);
+
+        new ChipPageObject(element).pressToggleButtonKey('Enter');
+        await waitForUpdatesAsync();
+
+        expect(element.selected).toBeTrue();
+        expect(changeEvent).toHaveBeenCalledTimes(1);
+    });
+
+    it('uses sibling buttons when selectable and removable', async () => {
+        element.selectable = true;
+        element.removable = true;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+        const toggleButton = element.shadowRoot!.querySelector<ToggleButton>(
+            '.toggle-button'
+        )!;
+        const removeButton = element.shadowRoot!.querySelector('.remove-button')!;
+
+        expect(element.hasAttribute('role')).toBeFalse();
+        expect(toggleButton.control.getAttribute('role')).toBe('button');
+        expect(toggleButton.control.getAttribute('aria-pressed')).toBe('false');
+        expect(removeButton.parentElement).toBe(toggleButton.parentElement);
+        expect(pageObject.getRemoveButtonTabIndex()).toBe(0);
+
+        element.selected = true;
+        await waitForUpdatesAsync();
+
+        expect(toggleButton.control.getAttribute('aria-pressed')).toBe('true');
+    });
+
+    it('does not apply button semantics when not selectable', async () => {
+        element.selected = true;
+        await waitForUpdatesAsync();
+
+        expect(element.hasAttribute('role')).toBeFalse();
+        expect(element.shadowRoot!.querySelector('.toggle-button')).toBeNull();
+    });
+
+    it('clicking when disabled does not toggle selected state', async () => {
+        element.selectable = true;
+        element.disabled = true;
+        await waitForUpdatesAsync();
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('selected-change', changeEvent);
+
+        new ChipPageObject(element).clickToggleButton();
+        await waitForUpdatesAsync();
+
+        expect(element.selected).toBeFalse();
+        expect(changeEvent).not.toHaveBeenCalled();
+    });
+
+    it('applies disabled semantics when selectable and disabled', async () => {
+        element.selectable = true;
+        element.disabled = true;
+        await waitForUpdatesAsync();
+
+        const toggleButton = element.shadowRoot!.querySelector<ToggleButton>(
+            '.toggle-button'
+        )!;
+        expect(toggleButton.control.getAttribute('aria-disabled')).toBe('true');
+    });
+
+    it('makes the inner toggle button focusable when selectable', async () => {
+        element.selectable = true;
+        await waitForUpdatesAsync();
+
+        expect(element.hasAttribute('tabindex')).toBeFalse();
+        expect(new ChipPageObject(element).getToggleButtonTabIndex()).toBe('0');
+    });
+
+    it('removes the inner toggle button from tab order when disabled', async () => {
+        element.selectable = true;
+        await waitForUpdatesAsync();
+
+        element.disabled = true;
+        await waitForUpdatesAsync();
+
+        expect(new ChipPageObject(element).getToggleButtonTabIndex()).toBeNull();
+    });
+
+    it('restores default focusability when host tabindex is removed', async () => {
+        element.selectable = true;
+        element.setAttribute('tabindex', '-1');
+        await waitForUpdatesAsync();
+
+        element.removeAttribute('tabindex');
+        await waitForUpdatesAsync();
+
+        expect(new ChipPageObject(element).getToggleButtonTabIndex()).toBe('0');
+    });
+
+    it('preserves user supplied tabindex value', async () => {
+        element.setAttribute('tabindex', '-1');
+        await waitForUpdatesAsync();
+
+        element.selectable = true;
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('tabindex')).toBe('-1');
+        expect(new ChipPageObject(element).getToggleButtonTabIndex()).toBe('-1');
+    });
+
+    it('preserves the toggle tabindex when reconnected', async () => {
+        element.setAttribute('tabindex', '0');
+        element.selectable = true;
+        await waitForUpdatesAsync();
+
+        await disconnect();
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(new ChipPageObject(element).getToggleButtonTabIndex()).toBe('0');
+    });
+
+    [false, true].forEach(useProperty => {
+        it(`forwards tabindex ${useProperty ? 'property' : 'attribute'} updates without changing the host value`, async () => {
+            element.selectable = true;
+            element.removable = true;
+            await waitForUpdatesAsync();
+            const pageObject = new ChipPageObject(element);
+
+            async function setAndAssertTabIndex(tabIndex: number): Promise<void> {
+                if (useProperty) {
+                    element.tabIndex = tabIndex;
+                } else {
+                    element.setAttribute('tabindex', `${tabIndex}`);
+                }
+                await waitForUpdatesAsync();
+
+                expect(element.getAttribute('tabindex')).toBe(`${tabIndex}`);
+                expect(pageObject.getToggleButtonTabIndex()).toBe(`${tabIndex}`);
+                expect(pageObject.getRemoveButtonTabIndex()).toBe(tabIndex);
+            }
+
+            await setAndAssertTabIndex(0);
+            await setAndAssertTabIndex(-1);
+            await setAndAssertTabIndex(2);
+        });
+    });
+
+    [false, true].forEach(selectable => {
+        it(`delegates focus to the ${selectable ? 'toggle' : 'remove'} button`, async () => {
+            element.selectable = selectable;
+            element.removable = true;
+            await waitForUpdatesAsync();
+
+            element.focus();
+
+            expect(element.shadowRoot!.activeElement).toBe(
+                element.shadowRoot!.querySelector(selectable ? '.toggle-button' : '.remove-button')
+            );
+        });
+    });
+
+    it('does not toggle selection when remove button is clicked', async () => {
+        element.selectable = true;
+        element.removable = true;
+        await waitForUpdatesAsync();
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('selected-change', changeEvent);
+        const pageObject = new ChipPageObject(element);
+
+        pageObject.clickRemoveButton();
+        await waitForUpdatesAsync();
+
+        expect(element.selected).toBeFalse();
+        expect(changeEvent).not.toHaveBeenCalled();
+    });
+
     it('remove button is not visible when disabled', async () => {
         element.disabled = true;
         await waitForUpdatesAsync();
@@ -58,14 +296,23 @@ describe('Chip', () => {
         expect(pageObject.isRemoveButtonVisible()).toBeFalse();
     });
 
-    it('should not set a tabindex on the internal button by default', async () => {
+    it('keeps the remove button keyboard focusable when chip is selectable', async () => {
+        element.removable = true;
+        element.selectable = true;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+        expect(pageObject.getRemoveButtonTabIndex()).toBe(0);
+    });
+
+    it('keeps the remove button keyboard focusable by default when chip is not selectable', async () => {
         element.removable = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.getRemoveButtonTabIndex()).toBeNull();
+
+        expect(pageObject.getRemoveButtonTabIndex()).toBe(0);
     });
 
-    it('should reflect `tabindex` value to the internal button', async () => {
+    it('should reflect `tabindex` value to the internal button when chip is not selectable', async () => {
         element.removable = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
@@ -73,10 +320,10 @@ describe('Chip', () => {
         element.setAttribute('tabindex', '-1');
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRemoveButtonTabIndex()).toBe('-1');
+        expect(pageObject.getRemoveButtonTabIndex()).toBe(-1);
     });
 
-    it('should clear `tabindex` attribute from the internal button when removed from host', async () => {
+    it('should clear `tabindex` attribute from the internal button when removed from host and chip is not selectable', async () => {
         element.removable = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
@@ -84,7 +331,139 @@ describe('Chip', () => {
         element.removeAttribute('tabindex');
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRemoveButtonTabIndex()).toBeNull();
+        expect(pageObject.getRemoveButtonTabIndex()).toBe(0);
+    });
+
+    describe('remove button mousedown state', () => {
+        beforeEach(async () => {
+            element.removable = true;
+            element.selectable = true;
+            await waitForUpdatesAsync();
+        });
+
+        it('sets remove-button-active attribute on mousedown', async () => {
+            const pageObject = new ChipPageObject(element);
+
+            pageObject.mousedownRemoveButton();
+            await waitForUpdatesAsync();
+
+            expect(element.hasAttribute('remove-button-active')).toBeTrue();
+        });
+
+        it('clears remove-button-active attribute on mouseup', async () => {
+            const pageObject = new ChipPageObject(element);
+
+            pageObject.mousedownRemoveButton();
+            await waitForUpdatesAsync();
+            expect(element.hasAttribute('remove-button-active')).toBeTrue();
+
+            document.dispatchEvent(new MouseEvent('mouseup'));
+            await waitForUpdatesAsync();
+
+            expect(element.hasAttribute('remove-button-active')).toBeFalse();
+        });
+
+        it('clears the pressed state when reconnected after mousedown', async () => {
+            const pageObject = new ChipPageObject(element);
+
+            pageObject.mousedownRemoveButton();
+            await waitForUpdatesAsync();
+            expect(element.hasAttribute('remove-button-active')).toBeTrue();
+
+            await disconnect();
+            document.dispatchEvent(new MouseEvent('mouseup'));
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(element.hasAttribute('remove-button-active')).toBeFalse();
+        });
+
+        it('does not show chip active state styling when remove button is mousedown', async () => {
+            const pageObject = new ChipPageObject(element);
+
+            pageObject.mousedownRemoveButton();
+            await waitForUpdatesAsync();
+
+            // Verify the remove-button-active attribute is set, which prevents active styling
+            expect(element.hasAttribute('remove-button-active')).toBeTrue();
+        });
+
+        it('handles multiple mousedown events without leaking listeners', async () => {
+            const pageObject = new ChipPageObject(element);
+
+            // First mousedown
+            pageObject.mousedownRemoveButton();
+            await waitForUpdatesAsync();
+            document.dispatchEvent(new MouseEvent('mouseup'));
+            await waitForUpdatesAsync();
+
+            // Second mousedown
+            pageObject.mousedownRemoveButton();
+            await waitForUpdatesAsync();
+            expect(element.hasAttribute('remove-button-active')).toBeTrue();
+
+            document.dispatchEvent(new MouseEvent('mouseup'));
+            await waitForUpdatesAsync();
+            expect(element.hasAttribute('remove-button-active')).toBeFalse();
+        });
+    });
+
+    describe('escape key removes chip', () => {
+        it('emits remove event when Escape is pressed on selectable removable chip', async () => {
+            element.removable = true;
+            element.selectable = true;
+            await waitForUpdatesAsync();
+
+            const removeEvent = jasmine.createSpy();
+            element.addEventListener('remove', removeEvent);
+
+            const event = new KeyboardEvent('keydown', { key: 'Escape' });
+            element.dispatchEvent(event);
+
+            expect(removeEvent).toHaveBeenCalledTimes(1);
+        });
+
+        it('emits remove event when Escape is pressed on non-selectable removable chip', async () => {
+            element.removable = true;
+            await waitForUpdatesAsync();
+
+            const removeEvent = jasmine.createSpy();
+            element.addEventListener('remove', removeEvent);
+
+            const event = new KeyboardEvent('keydown', { key: 'Escape' });
+            element.dispatchEvent(event);
+
+            expect(removeEvent).toHaveBeenCalledTimes(1);
+        });
+
+        it('does not emit remove event when Escape is pressed on non-removable chip', async () => {
+            element.removable = false;
+            element.selectable = true;
+            await waitForUpdatesAsync();
+
+            const removeEvent = jasmine.createSpy();
+            element.addEventListener('remove', removeEvent);
+
+            const event = new KeyboardEvent('keydown', { key: 'Escape' });
+            element.dispatchEvent(event);
+
+            expect(removeEvent).not.toHaveBeenCalled();
+        });
+
+        it('does not emit remove event when Escape is pressed on disabled chip', async () => {
+            element.removable = true;
+            element.selectable = true;
+            element.disabled = true;
+            await waitForUpdatesAsync();
+
+            const removeEvent = jasmine.createSpy();
+            element.addEventListener('remove', removeEvent);
+
+            const event = new KeyboardEvent('keydown', { key: 'Escape' });
+            element.dispatchEvent(event);
+
+            expect(removeEvent).not.toHaveBeenCalled();
+        });
     });
 
     describe('title overflow', () => {

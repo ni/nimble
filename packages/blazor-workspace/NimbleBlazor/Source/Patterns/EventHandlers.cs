@@ -13,6 +13,11 @@ public class CheckboxChangeEventArgs : EventArgs
     public bool Checked { get; set; }
 }
 
+public class ChipSelectedChangeEventArgs : EventArgs
+{
+    public bool Selected { get; set; }
+}
+
 public class MenuButtonToggleEventArgs : EventArgs
 {
     public bool NewState { get; set; }
@@ -83,6 +88,7 @@ public class WaferMapHoverDieChangedEventArgs : EventArgs
 [EventHandler("onnimbletabsactiveidchange", typeof(TabsChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblecheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblechipremove", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onnimblechipselectedchange", typeof(ChipSelectedChangeEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblemenubuttontoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblemenubuttonbeforetoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblebannertoggle", typeof(BannerToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]

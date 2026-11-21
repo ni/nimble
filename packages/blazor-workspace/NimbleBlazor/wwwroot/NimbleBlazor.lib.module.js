@@ -49,6 +49,14 @@ function registerEvents(Blazor) {
             return {};
         }
     });
+    Blazor.registerCustomEventType('nimblechipselectedchange', {
+        browserEventName: 'selected-change',
+        createEventArgs: event => {
+            return {
+                selected: event.detail.selected
+            };
+        }
+    });
     // Used by NimbleTabs.razor
     // Necessary because the tab control uses a 'change' event but not a value/currentValue property,
     // and we do want to be notified of activeid changes (via the change event) for 2-way binding support.
