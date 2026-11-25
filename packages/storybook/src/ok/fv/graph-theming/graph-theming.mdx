@@ -1,0 +1,43 @@
+import { Canvas, Meta, Source, Title } from '@storybook/addon-docs/blocks';
+import * as examples from './graph-theming.stories';
+import tanStackCss from './tanstack-graph.css?raw';
+
+<Meta of={examples} name="Guide" />
+<Title of={examples} />
+
+Keep your existing graph setup. Put the graph container inside a `nimble-theme-provider` and use the recipes below to match the surrounding UI. Use the Storybook theme picker to see the graphs change.
+
+## TanStack Charts
+
+Add the `nimble-tanstack-chart` class to the element where you mount the graph, and copy this CSS into your application. It maps the palette and tooltip tokens without overriding TanStack's SVG label sizing. The styles follow Nimble theme changes without rebuilding the graph.
+
+<Canvas of={examples.tanStack} story={{ autoplay: true }} sourceState="none" />
+
+<Canvas of={examples.tanStackBar} story={{ autoplay: true }} sourceState="none" />
+
+<Source code={tanStackCss} language="css" />
+
+Use [TanStack's theme and axis options](https://tanstack.com/charts/latest/docs/guides/themes-and-styling) when you need separate gridline colors or custom axis label spacing.
+
+## Plotly
+
+The OK FV helper reads Nimble tokens from a graph container attached to a browser document and returns a fresh [Plotly layout template](https://plotly.com/javascript/reference/layout/#layout-template). It sets common defaults for typography, colors, Cartesian axes, and hover labels. Set any trace- or subplot-specific styles in your figure. Use the helper with the Plotly instance your app already imports.
+
+The examples keep the native toolbar visible and hide the Share button and Plotly logo.
+
+<Canvas of={examples.plotly} story={{ autoplay: true }} sourceState="none" />
+
+<Canvas of={examples.plotlyScatter} story={{ autoplay: true }} sourceState="none" />
+
+```js
+import { createNimblePlotlyTemplate } from '@ni/ok-components/dist/esm/fv/plotly-template';
+
+function renderChart(chart, data, layout = {}, config = {}) {
+    return Plotly.react(chart, data, {
+        ...layout,
+        template: layout.template ?? createNimblePlotlyTemplate(chart)
+    }, config);
+}
+```
+
+Call `renderChart` after mounting the graph container and again after your app switches themes. The helper doesn't observe theme changes. Plotly receives resolved values, so changing the CSS tokens alone won't redraw it. Explicit layout settings override the defaults; passing `layout.template` replaces the Nimble template.
