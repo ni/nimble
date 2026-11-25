@@ -9,16 +9,17 @@ import {
     TableRowSelectionState,
     type TableRowState
 } from '../../types';
+import type { TanStackTableFeatures } from '../tanstack-table-features';
 
 /**
  * Abstract base class for handling behavior associated with interactive row selection of the table.
  */
 export abstract class SelectionManagerBase<TData extends TableRecord> {
-    protected tanStackTable: TanStackTable<TableNode<TData>>;
+    protected tanStackTable: TanStackTable<TanStackTableFeatures, TableNode<TData>>;
     protected actionMenusPreserveSelection: boolean;
 
     public constructor(
-        tanStackTable: TanStackTable<TableNode<TData>>,
+        tanStackTable: TanStackTable<TanStackTableFeatures, TableNode<TData>>,
         actionMenusPreserveSelection: boolean
     ) {
         this.tanStackTable = tanStackTable;
@@ -70,7 +71,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
             throw new Error('function not intended to select grouped rows');
         }
 
-        const currentSelection = this.tanStackTable.getState().rowSelection;
+        const currentSelection = this.tanStackTable.atoms.rowSelection.get();
         const selectedRecordIds: string[] = [];
         Object.entries(currentSelection).forEach(([recordId, isSelected]) => {
             if (isSelected) {
@@ -96,7 +97,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
         const groupRow = this.tanStackTable.getRow(rowId);
         const leafRowIds = this.getAllLeafRowIds(groupRow.id);
 
-        const selectionState = this.tanStackTable.getState().rowSelection;
+        const selectionState = { ...this.tanStackTable.atoms.rowSelection.get() };
         for (const id of leafRowIds) {
             delete selectionState[id];
         }
@@ -118,15 +119,15 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
             .map(leafRow => leafRow.id);
     }
 
-    protected getAllOrderedRows(): TanStackRow<TableNode<TData>>[] {
+    protected getAllOrderedRows(): TanStackRow<TanStackTableFeatures, TableNode<TData>>[] {
         const topLevelRows = this.tanStackTable.getPreExpandedRowModel().rows;
         return this.getOrderedRows(topLevelRows);
     }
 
     private getOrderedRows(
-        topLevelRows: TanStackRow<TableNode<TData>>[]
-    ): TanStackRow<TableNode<TData>>[] {
-        const allRows: TanStackRow<TableNode<TData>>[] = [];
+        topLevelRows: TanStackRow<TanStackTableFeatures, TableNode<TData>>[]
+    ): TanStackRow<TanStackTableFeatures, TableNode<TData>>[] {
+        const allRows: TanStackRow<TanStackTableFeatures, TableNode<TData>>[] = [];
         for (const row of topLevelRows) {
             allRows.push(row);
             if (row.subRows?.length > 0) {

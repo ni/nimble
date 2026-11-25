@@ -5,18 +5,19 @@ import type { SelectionManagerBase } from './selection-managers/selection-manage
 import { DisabledSelectionManager } from './selection-managers/disabled-selection-manager';
 import { MultiSelectionManager } from './selection-managers/multi-selection-manager';
 import { SingleSelectionManager } from './selection-managers/single-selection-manager';
+import type { TanStackTableFeatures } from './tanstack-table-features';
 
 /**
  * Manages the behavior associated with interactive row selection for the table, including
  * handling when the selection mode of the table is changed.
  */
 export class InteractiveSelectionManager<TData extends TableRecord> {
-    private readonly tanStackTable: TanStackTable<TableNode<TData>>;
+    private readonly tanStackTable: TanStackTable<TanStackTableFeatures, TableNode<TData>>;
     private selectionManager: SelectionManagerBase<TData>;
     private actionMenusPreserveSelection: boolean;
 
     public constructor(
-        tanStackTable: TanStackTable<TableNode<TData>>,
+        tanStackTable: TanStackTable<TanStackTableFeatures, TableNode<TData>>,
         selectionMode: TableRowSelectionMode,
         actionMenusPreserveSelection: boolean
     ) {
@@ -94,10 +95,7 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     }
 
     public getCurrentSelectedRecordIds(): string[] {
-        const tanStackSelectionState = this.tanStackTable.options.state.rowSelection;
-        if (!tanStackSelectionState) {
-            return [];
-        }
+        const tanStackSelectionState = this.tanStackTable.atoms.rowSelection.get();
 
         const selectedRecordIds: string[] = [];
         Object.entries(tanStackSelectionState).forEach(

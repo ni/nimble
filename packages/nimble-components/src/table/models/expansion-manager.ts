@@ -9,6 +9,7 @@ import {
     type TableRecordHierarchyOptions,
     TableRecordDelayedHierarchyState
 } from '../types';
+import type { TanStackTableFeatures } from './tanstack-table-features';
 
 /**
  * Manages the expanded/collapsed state of rows in the table.
@@ -28,10 +29,10 @@ export class ExpansionManager<TData extends TableRecord> {
     private parentRowsWithChildren = new Set<string>();
 
     public constructor(
-        private readonly tanStackTable: TanStackTable<TableNode<TData>>
+        private readonly tanStackTable: TanStackTable<TanStackTableFeatures, TableNode<TData>>
     ) {}
 
-    public isRowExpanded(row: TanStackRow<TableNode<TData>>): boolean {
+    public isRowExpanded(row: TanStackRow<TanStackTableFeatures, TableNode<TData>>): boolean {
         if (!this.isRowExpandable(row)) {
             return false;
         }
@@ -40,7 +41,7 @@ export class ExpansionManager<TData extends TableRecord> {
         return expansionState ?? this.getDefaultExpansionState(row);
     }
 
-    public toggleRowExpansion(row: TanStackRow<TableNode<TData>>): void {
+    public toggleRowExpansion(row: TanStackRow<TanStackTableFeatures, TableNode<TData>>): void {
         if (!this.isRowExpandable(row)) {
             return;
         }
@@ -71,7 +72,7 @@ export class ExpansionManager<TData extends TableRecord> {
         this.hierarchyOptions.clear();
     }
 
-    public processDataUpdate(rows: TanStackRow<TableNode<TData>>[]): void {
+    public processDataUpdate(rows: TanStackRow<TanStackTableFeatures, TableNode<TData>>[]): void {
         if (
             this.explicitExpansionStates.size === 0
             && this.hierarchyOptions.size === 0
@@ -142,7 +143,7 @@ export class ExpansionManager<TData extends TableRecord> {
         this.hierarchyOptions = updatedHierarchyOptions;
     }
 
-    public isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
+    public isRowExpandable(row: TanStackRow<TanStackTableFeatures, TableNode<TData>>): boolean {
         return row.subRows.length > 0 || this.canLoadDelayedChildren(row.id);
     }
 
@@ -171,7 +172,7 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     private getDefaultExpansionState(
-        row: TanStackRow<TableNode<TData>>
+        row: TanStackRow<TanStackTableFeatures, TableNode<TData>>
     ): boolean {
         // Rows with children (group rows and parent rows with populated children)
         // default to expanded. Other rows (parent rows with lazy-loaded children)
