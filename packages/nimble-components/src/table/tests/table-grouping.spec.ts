@@ -631,6 +631,36 @@ describe('Table grouping', () => {
                 'hello'
             ]);
         });
+
+        it('adding a new hidden column unrelated to grouping does not change expanded state of existing groups', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'foo' },
+                { id: '2', stringData1: 'abc' },
+                { id: '3', stringData1: 'foo' },
+                { id: '4', stringData1: 'abc' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 0;
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            pageObject.toggleGroupRowExpandedState(0); // collapse first group
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
+                false,
+                true
+            ]);
+
+            await addNewColumn('column-3', 'stringData3');
+
+            expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
+                false,
+                true
+            ]);
+        });
     });
 
     describe('grouping with sorting:', () => {
