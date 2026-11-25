@@ -52,14 +52,24 @@ interface NimblePlotlyTemplate {
     };
 }
 
-/** Creates a snapshot of the Nimble theme for a connected chart container. */
+/**
+ * Creates a fresh snapshot of common Plotly layout defaults for a connected chart container.
+ * Call again when the Nimble theme changes.
+ * @throws If the container is not connected to a document with a window.
+ */
 export function createNimblePlotlyTemplate(element: HTMLElement): NimblePlotlyTemplate {
-    const probe = element.ownerDocument.createElement('span');
+    const document = element.ownerDocument;
+    const view = document.defaultView;
+    if (!element.isConnected || !view) {
+        throw new Error('The Plotly chart container must be connected to a document with a window.');
+    }
+
+    const probe = document.createElement('span');
     probe.hidden = true;
     element.append(probe);
     const resolveFont = (font: string, color: string): PlotlyFont => {
         probe.style.font = font;
-        const computed = getComputedStyle(probe);
+        const computed = view.getComputedStyle(probe);
         return {
             family: computed.fontFamily,
             size: parseFloat(computed.fontSize),
@@ -81,7 +91,7 @@ export function createNimblePlotlyTemplate(element: HTMLElement): NimblePlotlyTe
                 plot_bgcolor: background,
                 colorway: palette.map(token => token.getValueFor(element)),
                 xaxis: axis,
-                yaxis: { ...axis },
+                yaxis: { ...axis, tickfont: { ...tickfont } },
                 hoverlabel: {
                     bgcolor: tooltipBackgroundColor.getValueFor(element),
                     bordercolor: popupBorderColor.getValueFor(element),
