@@ -216,6 +216,8 @@ export class FvMultiSelect extends FormAssociatedMultiSelect {
         if (!this.$fastController.isConnected) {
             return;
         }
+        // Keep focus inside until the reopened popup can receive it.
+        this.control.focus();
         this.region.anchorElement = this.controlField;
         this.updatePopupLayout();
         this.resetActiveOption();

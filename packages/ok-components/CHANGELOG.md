@@ -1,8 +1,34 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Fri, 13 Nov 2026 23:59:00 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 19 Nov 2026 19:40:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.18.4
+
+Thu, 19 Nov 2026 19:40:28 GMT
+
+### Patches
+
+- Fix split buttons not removing capture-phase anchored region change listener ([ni/nimble@13a3b5d](https://github.com/ni/nimble/commit/13a3b5d975f5d2dc1c4b0244b7b91f540f6de632))
+- Bump @ni/nimble-components to v35.17.4
+- Bump @ni/spright-components to v7.1.4
+
+## 1.18.3
+
+Tue, 17 Nov 2026 15:49:59 GMT
+
+### Patches
+
+- Date time picker adopts Nimble patterns for page objects, docs, popups ([ni/nimble@8787452](https://github.com/ni/nimble/commit/8787452796e537e05ce581d51864d404850f854f))
+
+## 1.18.2
+
+Tue, 17 Nov 2026 00:03:35 GMT
+
+### Patches
+
+- Fix FV multi-select closing unexpectedly when reopened before popup focus ([ni/nimble@af369c3](https://github.com/ni/nimble/commit/af369c3f561877561ae80962f22e40a7da68f1ad))
 
 ## 1.18.1
 

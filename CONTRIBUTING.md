@@ -6,7 +6,7 @@ To submit changes to Nimble, the first step is to build the monorepo which requi
 
 - Sync down a copy of the nimble repository
     - Note: For one-off small contributions you can consider using a fork-pull workflow. However [fork-pull workflows are not yet supported](https://github.com/ni/nimble/issues/634) for substantial development. For substantial development you should be added as a Contributor to the repository. See the [`README.md` Community section](/README.md#community) to get in touch if you need Contributor permissions. 
-- Install Node.js version 24+ (run `node --version`) which can be downloaded from <https://nodejs.org/en/download/>
+- Install Node.js version 26+ (run `node --version`) which can be downloaded from <https://nodejs.org/en/download/>
 - Install .NET SDK (see required version in [`globals.json`](/packages/blazor-workspace/global.json)) which can be downloaded from <https://dotnet.microsoft.com/en-us/download>
    - Run `dotnet --info` to verify the required version of the SDK is installed. An sdk that matches the major version is required, but can have a greater minor / patch version.
 - If running on an IT-managed system, set env var `NODE_USE_SYSTEM_CA=1`
@@ -235,6 +235,20 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
+
+### Evaluating new dependencies
+
+When adding new production dependencies, evaluate whether the dependency has sufficient quality and value to justify the cost of maintenance, security risk, and footprint. Consider the following factors in evaluating new dependencies.
+
+- Quality: repo activity, test coverage, popularity, responsiveness to security vulnerabilities
+- Nimble fit: 
+    - Use of ESModules and TypeScript
+    - Availability in supported browsers
+    - Compatible with Nimble's use of web platform features including [custom element shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM), [popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) (used by components like select and combobox), and [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer) (used by components like dialog and drawer)
+    - Can be styled to match the Nimble design language using Nimble tokens
+    - User-visible text can be customized and localized using Nimble label providers
+- Cost: Disk footprint, size of transitive dependency tree
+- License: Must be a permissive open source license (MIT, Apache, BSD)
 
 ### Security scanning
 

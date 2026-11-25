@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 19 Nov 2026 19:40:28 GMT",
+      "version": "22.2.3",
+      "tag": "@ni/nimble-blazor_v22.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v35.17.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Nov 2026 22:26:58 GMT",
       "version": "22.2.2",
       "tag": "@ni/nimble-blazor_v22.2.2",

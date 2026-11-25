@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 02 Nov 2026 22:26:58 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 19 Nov 2026 19:40:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 35.17.4
+
+Thu, 19 Nov 2026 19:40:28 GMT
+
+### Patches
+
+- Fix menu button not removing capture-phase anchored region change listener ([ni/nimble@13a3b5d](https://github.com/ni/nimble/commit/13a3b5d975f5d2dc1c4b0244b7b91f540f6de632))
 
 ## 35.17.3
 

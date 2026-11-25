@@ -1,4 +1,5 @@
 import { html } from '@ni/fast-element';
+import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
@@ -316,6 +317,20 @@ describe('FvSplitButton', () => {
         await waitForUpdatesAsync();
 
         expect(element.open).toBeFalse();
+    });
+
+    it('stops listening for change events on a replaced anchored-region', async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+
+        element.open = true;
+        await waitForUpdatesAsync();
+        const staleRegion = element.region!;
+        element.region = document.createElement(anchoredRegionTag);
+
+        staleRegion.dispatchEvent(new Event('change'));
+
+        expect(element.open).toBeTrue();
     });
 
     it('emits trigger when the primary button is clicked', async () => {

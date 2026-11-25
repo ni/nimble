@@ -1,24 +1,31 @@
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { selectTag } from '@ni/nimble-components/dist/esm/select';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Direction, direction, lang, themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import { fixture } from '../../../utilities/tests/fixture';
 import { FvDateTimePicker, fvDateTimePickerTag } from '..';
 import { FvDateTimePickerAppearance } from '../types';
 import { fvDateTimePickerLabelProviderTag } from '../label-provider';
-import { today as calendarToday } from '../models/date-time';
+import { dateKey, today as calendarToday } from '../models/date-time';
+import { FvDateTimePickerPageObject } from '../testing/fv-date-time-picker.pageobject';
 
 describe('FvDateTimePicker', () => {
     let element: FvDateTimePicker;
+    let pageObject: FvDateTimePickerPageObject;
     let disconnect: () => Promise<void>;
+
+    const todayKey = (): string => dateKey(calendarToday());
+    // The component's own formatting is the expected display text for tests that
+    // would otherwise need to hard-code every locale and precision combination.
+    const displayText = (): string => element.displayValue.replace(/\s/g, ' ');
+    const timeDisplayText = (): string => element.timeDisplay.replace(/\s/g, ' ');
 
     beforeEach(async () => {
         const view = await fixture<FvDateTimePicker>(html`
             <${fvDateTimePickerTag} name="scheduled" value="2024-11-13T14:25">Scheduled time</${fvDateTimePickerTag}>
         `);
         element = view.element;
+        pageObject = new FvDateTimePickerPageObject(element);
         lang.setValueFor(element, 'en-US');
         disconnect = view.disconnect;
         await view.connect();
@@ -31,20 +38,10 @@ describe('FvDateTimePicker', () => {
         await disconnect();
     });
 
-    async function waitForPickerLoaded(): Promise<void> {
-        await waitForUpdatesAsync();
-        if (!element.region!.classList.contains('loaded')) {
-            await new Promise<void>(resolve => {
-                element.region!.addEventListener('loaded', () => resolve(), { once: true });
-            });
-        }
-        await waitForUpdatesAsync();
-    }
-
     it('constructs a labeled, form-associated field', () => {
         expect(element).toBeInstanceOf(FvDateTimePicker);
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:25 PM');
-        expect(element.control.labels?.[0]?.getAttribute('for')).toBe('control');
+        expect(pageObject.getInputText()).toBe('11/13/2024 02:25 PM');
+        expect(pageObject.isInputLabelled()).toBeTrue();
         expect(element.checkValidity()).toBeTrue();
     });
 
@@ -55,24 +52,22 @@ describe('FvDateTimePicker', () => {
         element.parentElement!.appendChild(help);
         element.ariaDescribedby = help.id;
         await waitForUpdatesAsync();
-        expect(element.control.ariaDescribedByElements).toEqual([help]);
-        element.control.value = '11/';
-        element.control.dispatchEvent(new Event('input', { bubbles: true }));
-        element.control.dispatchEvent(new Event('change', { bubbles: true }));
-        await waitForUpdatesAsync();
-        expect(element.entryError).not.toBe('');
-        const error = element.shadowRoot!.querySelector('#entry-error')!;
-        expect(element.control.ariaDescribedByElements).toEqual([help, error]);
+        expect(pageObject.getInputDescribedByIds()).toEqual(['schedule-help']);
+        await pageObject.typeInputText('11/', { commit: true });
+        expect(pageObject.getEntryErrorText()).not.toBe('');
+        expect(pageObject.getInputDescribedByIds()).toEqual(['schedule-help', 'entry-error']);
+        expect(pageObject.isInputDescribedByPickerEntryError()).toBeFalse();
         element.open = true;
-        await waitForPickerLoaded();
-        const popupError = element.shadowRoot!.querySelector('#entry-error')!;
-        expect(element.control.ariaDescribedByElements).toEqual([help, popupError]);
+        await pageObject.waitForPickerLoaded();
+        expect(pageObject.getInputDescribedByIds()).toEqual(['schedule-help', 'entry-error']);
+        expect(pageObject.isInputDescribedByPickerEntryError()).toBeTrue();
         element.ariaDescribedby = '';
         await waitForUpdatesAsync();
-        expect(element.control.ariaDescribedByElements).toEqual([popupError]);
+        expect(pageObject.getInputDescribedByIds()).toEqual(['entry-error']);
+        expect(pageObject.isInputDescribedByPickerEntryError()).toBeTrue();
     });
 
-    it('does not implicitly submit the form when pressing Enter on the calendar trigger', async () => {
+    it('does not implicitly submit the form when pressing Enter on the calendar button', async () => {
         const form = document.createElement('form');
         element.parentElement!.appendChild(form);
         form.appendChild(element);
@@ -85,35 +80,31 @@ describe('FvDateTimePicker', () => {
             click();
         });
         await waitForUpdatesAsync();
-        element.trigger.dispatchEvent(new KeyboardEvent('keypress', {
-            key: 'Enter', bubbles: true, composed: true, cancelable: true
-        }));
+        await pageObject.pressEnterOnCalendarButton();
         expect(click).not.toHaveBeenCalled();
     });
 
     it('opens the selected month with a six-week grid and selected day', async () => {
-        element.trigger.click();
-        await waitForUpdatesAsync();
+        await pageObject.clickCalendarButton();
         expect(element.open).toBeTrue();
-        expect(element.visibleDate.getUTCMonth()).toBe(10);
-        expect(element.shadowRoot!.querySelector(selectTag)!.value).toBe('10');
-        expect(element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.year')!.value).toBe('2024');
-        expect(element.shadowRoot!.querySelectorAll(`.calendar-header ${buttonTag}`).length).toBe(2);
-        expect(element.shadowRoot!.querySelectorAll('[role="gridcell"]').length).toBe(42);
-        expect(element.shadowRoot!.querySelector('[aria-selected="true"] button')?.textContent?.trim()).toBe('13');
-        expect(element.shadowRoot!.querySelector('[data-date="2024-11-13"]')?.getAttribute('tabindex')).toBe('0');
+        expect(pageObject.getDisplayedMonth()).toBe(10);
+        expect(pageObject.getDisplayedYear()).toBe(2024);
+        expect(pageObject.getPickerButtonCount()).toBe(2);
+        expect(pageObject.getGridCellCount()).toBe(42);
+        expect(pageObject.getSelectedDay()).toBe('2024-11-13');
+        expect(pageObject.getGridTabStopDay()).toBe('2024-11-13');
     });
 
     it('opens and closes the calendar in the top layer', async () => {
         element.trigger.click();
-        await waitForPickerLoaded();
+        await pageObject.waitForPickerLoaded();
         const region = element.region!;
         expect(region.matches(':popover-open')).toBeTrue();
         element.open = false;
         await waitForUpdatesAsync();
         expect(region.matches(':popover-open')).toBeFalse();
         element.open = true;
-        await waitForPickerLoaded();
+        await pageObject.waitForPickerLoaded();
         expect(element.region!.matches(':popover-open')).toBeTrue();
     });
 
@@ -125,7 +116,7 @@ describe('FvDateTimePicker', () => {
         root.appendChild(scroller);
         scroller.appendChild(element);
         element.trigger.click();
-        await waitForPickerLoaded();
+        await pageObject.waitForPickerLoaded();
         const update = spyOn(element.region!, 'update').and.callThrough();
         scroller.dispatchEvent(new Event('scroll'));
         expect(update).toHaveBeenCalled();
@@ -137,12 +128,10 @@ describe('FvDateTimePicker', () => {
     });
 
     it('moves focus into the calendar when Alt+Down opens it from the input', async () => {
-        element.control.focus();
-        element.control.dispatchEvent(new KeyboardEvent('keydown', {
-            key: 'ArrowDown', altKey: true, bubbles: true, composed: true, cancelable: true
-        }));
-        await waitForPickerLoaded();
-        expect(element.shadowRoot!.activeElement?.getAttribute('data-date')).toBe('2024-11-13');
+        pageObject.focusInput();
+        await pageObject.pressInputKey('ArrowDown', { altKey: true });
+        await pageObject.waitForPickerLoaded();
+        expect(pageObject.getActiveDay()).toBe('2024-11-13');
     });
 
     parameterizeSpec([
@@ -153,18 +142,17 @@ describe('FvDateTimePicker', () => {
             element.type = type;
             element.open = true;
             await waitForUpdatesAsync();
-            expect(element.shadowRoot!.querySelectorAll(`.picker ${buttonTag}`).length).toBe(2);
-            expect(element.shadowRoot!.querySelector('.time-row') !== null).toBe(type === 'datetime-local');
+            expect(pageObject.getPickerButtonCount()).toBe(2);
+            expect(pageObject.hasTimeRow()).toBe(type === 'datetime-local');
         });
     });
 
     it('uses fixed placement without viewport locks while allowing automatic popup direction', async () => {
         element.open = true;
         await waitForUpdatesAsync();
-        expect(element.region!.fixedPlacement).toBeTrue();
-        expect(element.region!.horizontalViewportLock).toBeFalse();
-        expect(element.region!.verticalViewportLock).toBeFalse();
-        expect(element.region!.verticalPositioningMode).toBe('dynamic');
+        expect(pageObject.isPickerFixedPlacement()).toBeTrue();
+        expect(pageObject.isPickerViewportLocked()).toBeFalse();
+        expect(pageObject.getPickerVerticalPositioningMode()).toBe('dynamic');
     });
 
     it('commits date selection, preserving time and emitting one event pair', async () => {
@@ -174,10 +162,9 @@ describe('FvDateTimePicker', () => {
         element.addEventListener('change', change);
         element.open = true;
         await waitForUpdatesAsync();
-        element.shadowRoot!.querySelector<HTMLButtonElement>('[data-date="2024-11-21"]')!.click();
-        await waitForUpdatesAsync();
+        await pageObject.clickDay('2024-11-21');
         expect(element.value).toBe('2024-11-21T14:25');
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/21/2024 02:25 PM');
+        expect(pageObject.getInputText()).toBe('11/21/2024 02:25 PM');
         expect(input).toHaveBeenCalledTimes(1);
         expect(change).toHaveBeenCalledTimes(1);
     });
@@ -188,101 +175,86 @@ describe('FvDateTimePicker', () => {
     ], (spec, name, { value, text }) => {
         spec(`synchronizes the open calendar with the ${name} without stealing focus`, async () => {
             element.open = true;
-            await waitForUpdatesAsync();
-            element.control.focus();
-            element.control.value = text;
-            element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-            await waitForUpdatesAsync();
+            await pageObject.waitForPickerLoaded();
+            pageObject.focusInput();
+            await pageObject.typeInputText(text);
             expect(element.value).toBe(value);
-            expect(element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.month')!.value)
-                .toBe(String(Number(value.slice(5, 7)) - 1));
-            expect(element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.year')!.value).toBe(value.slice(0, 4));
-            expect(element.shadowRoot!.querySelector('[aria-selected="true"] button')?.getAttribute('data-date')).toBe(value.slice(0, 10));
-            expect(element.focusedDate).toBe(value.slice(0, 10));
-            expect(element.shadowRoot!.activeElement).toBe(element.control);
+            expect(pageObject.getDisplayedMonth()).toBe(Number(value.slice(5, 7)) - 1);
+            expect(pageObject.getDisplayedYear()).toBe(Number(value.slice(0, 4)));
+            expect(pageObject.getSelectedDay()).toBe(value.slice(0, 10));
+            expect(pageObject.getGridTabStopDay()).toBe(value.slice(0, 10));
+            expect(pageObject.isInputFocused()).toBeTrue();
         });
     });
 
     it('synchronizes segment adjustment and ISO paste with the open calendar', async () => {
         element.value = '2024-12-31T14:25';
         element.open = true;
-        await waitForUpdatesAsync();
-        element.control.focus();
-        element.control.setSelectionRange(0, 2);
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
-        expect(element.visibleDate.getUTCFullYear()).toBe(2025);
-        expect(element.visibleDate.getUTCMonth()).toBe(0);
-        expect(element.focusedDate).toBe('2025-01-31');
-        expect(element.control.selectionStart).toBe(0);
-        expect(element.control.selectionEnd).toBe(2);
-        element.control.select();
-        const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
-        Object.defineProperty(paste, 'clipboardData', { value: { getData: () => '2023-02-28T14:25' } });
-        element.control.dispatchEvent(paste);
-        await waitForUpdatesAsync();
-        expect(element.visibleDate.getUTCFullYear()).toBe(2023);
-        expect(element.visibleDate.getUTCMonth()).toBe(1);
-        expect(element.focusedDate).toBe('2023-02-28');
-        expect(element.shadowRoot!.activeElement).toBe(element.control);
+        await pageObject.waitForPickerLoaded();
+        pageObject.focusInput();
+        pageObject.setInputSelection(0, 2);
+        await pageObject.pressInputKey('ArrowUp');
+        expect(pageObject.getDisplayedYear()).toBe(2025);
+        expect(pageObject.getDisplayedMonth()).toBe(0);
+        expect(pageObject.getGridTabStopDay()).toBe('2025-01-31');
+        expect(pageObject.getInputSelectionStart()).toBe(0);
+        expect(pageObject.getInputSelectionEnd()).toBe(2);
+        pageObject.selectAllInputText();
+        await pageObject.pasteIntoInput('2023-02-28T14:25');
+        expect(pageObject.getDisplayedYear()).toBe(2023);
+        expect(pageObject.getDisplayedMonth()).toBe(1);
+        expect(pageObject.getGridTabStopDay()).toBe('2023-02-28');
+        expect(pageObject.isInputFocused()).toBeTrue();
     });
 
     it('preserves calendar browsing on time-only edits and incomplete date drafts', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
-        element.moveMonth(2);
-        await waitForUpdatesAsync();
-        const browsed = element.visibleDate.getTime();
-        element.control.value = '11/13/2024 03:25 PM';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
-        expect(element.visibleDate.getTime()).toBe(browsed);
-        element.control.value = '02/30/2025 03:25 PM';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
-        expect(element.visibleDate.getTime()).toBe(browsed);
+        await pageObject.waitForPickerLoaded();
+        await pageObject.clickNextMonth();
+        await pageObject.clickNextMonth();
+        const browsedMonth = pageObject.getDisplayedMonth();
+        const browsedYear = pageObject.getDisplayedYear();
+        await pageObject.typeInputText('11/13/2024 03:25 PM');
+        expect(pageObject.getDisplayedMonth()).toBe(browsedMonth);
+        expect(pageObject.getDisplayedYear()).toBe(browsedYear);
+        await pageObject.typeInputText('02/30/2025 03:25 PM');
+        expect(pageObject.getDisplayedMonth()).toBe(browsedMonth);
+        expect(pageObject.getDisplayedYear()).toBe(browsedYear);
     });
 
     it('marks today independently of selection', async () => {
         const today = calendarToday();
-        element.value = `${element.dateKey(today)}T14:25`;
+        element.value = `${todayKey()}T14:25`;
         element.open = true;
         await waitForUpdatesAsync();
-        const current = element.shadowRoot!.querySelector<HTMLButtonElement>('[aria-current="date"]')!;
-        expect(current.dataset.date).toBe(element.dateKey(today));
-        expect(current.closest('[role="gridcell"]')!.getAttribute('aria-selected')).toBe('true');
+        expect(pageObject.getTodayDay()).toBe(todayKey());
+        expect(pageObject.isTodaySelected()).toBeTrue();
         const next = new Date(today);
         next.setUTCDate(today.getUTCDate() === 1 ? 2 : today.getUTCDate() - 1);
-        element.selectDay(next);
-        await waitForUpdatesAsync();
-        expect(element.shadowRoot!.querySelector('[aria-selected="true"] button')!.getAttribute('data-date')).toBe(element.dateKey(next));
-        expect(element.shadowRoot!.querySelector('[aria-current="date"]')!.getAttribute('data-date')).toBe(element.dateKey(today));
+        await pageObject.clickDay(dateKey(next));
+        expect(pageObject.getSelectedDay()).toBe(dateKey(next));
+        expect(pageObject.getTodayDay()).toBe(todayKey());
     });
 
     it('selects an adjacent-month day and updates the displayed month', async () => {
         element.open = true;
         await waitForUpdatesAsync();
-        const day = element.shadowRoot!.querySelector<HTMLButtonElement>('[data-date="2024-10-31"]')!;
-        expect(day.hasAttribute('data-outside-month')).toBeTrue();
-        expect(day.disabled).toBeFalse();
-        day.click();
-        await waitForUpdatesAsync();
+        expect(pageObject.isDayOutsideMonth('2024-10-31')).toBeTrue();
+        expect(pageObject.isDayDisabled('2024-10-31')).toBeFalse();
+        await pageObject.clickDay('2024-10-31');
         expect(element.value).toBe('2024-10-31T14:25');
-        expect(element.visibleDate.getUTCMonth()).toBe(9);
-        expect(element.shadowRoot!.querySelector('[aria-selected="true"] button')!.hasAttribute('data-outside-month')).toBeFalse();
+        expect(pageObject.getDisplayedMonth()).toBe(9);
+        expect(pageObject.isDayOutsideMonth(pageObject.getSelectedDay()!)).toBeFalse();
     });
 
     it('commits time changes without leaking the inner change event', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
+        await pageObject.waitForPickerLoaded();
         const input = jasmine.createSpy('input');
         const change = jasmine.createSpy('change');
         element.addEventListener('input', input);
         element.addEventListener('change', change);
-        const time = element.timeField!;
-        time.value = '09:07 AM';
-        time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        time.dispatchEvent(new Event('change', { bubbles: true }));
+        await pageObject.typeTimeText('09:07 AM', { commit: true });
         expect(element.value).toBe('2024-11-13T09:07');
         expect(input).toHaveBeenCalledTimes(1);
         expect(change).toHaveBeenCalledTimes(1);
@@ -317,24 +289,19 @@ describe('FvDateTimePicker', () => {
         spec(`highlights and adjusts the popover ${name} without leaking events`, async () => {
             element.value = value;
             element.open = true;
-            await waitForUpdatesAsync();
-            const control = element.timeField!.control;
-            control.setSelectionRange(start, start);
-            control.click();
-            expect(control.selectionStart).toBe(start);
-            expect(control.selectionEnd).toBe(end);
+            await pageObject.waitForPickerLoaded();
+            await pageObject.clickTimeAtPosition(start);
+            expect(pageObject.getTimeSelectionStart()).toBe(start);
+            expect(pageObject.getTimeSelectionEnd()).toBe(end);
             const input = jasmine.createSpy('input');
             const change = jasmine.createSpy('change');
             element.addEventListener('input', input);
             element.addEventListener('change', change);
-            expect(control.dispatchEvent(new KeyboardEvent('keydown', {
-                key, bubbles: true, composed: true, cancelable: true
-            }))).toBeFalse();
-            await waitForUpdatesAsync();
+            expect(await pageObject.pressTimeKey(key)).toBeFalse();
             expect(element.value).toBe(expected);
-            expect(control.value).toBe(element.timeDisplay);
-            expect(control.selectionStart).toBe(start);
-            expect(control.selectionEnd).toBe(end);
+            expect(pageObject.getTimeText()).toBe(timeDisplayText());
+            expect(pageObject.getTimeSelectionStart()).toBe(start);
+            expect(pageObject.getTimeSelectionEnd()).toBe(end);
             expect(element.open).toBeTrue();
             expect(input).toHaveBeenCalledTimes(1);
             expect(change).toHaveBeenCalledTimes(1);
@@ -343,32 +310,20 @@ describe('FvDateTimePicker', () => {
 
     it('replaces and deletes popover segments without shifting other time fields', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
-        const control = element.timeField!.control;
-        control.setSelectionRange(3, 5);
-        for (const digit of '07') {
-            control.dispatchEvent(new InputEvent('beforeinput', {
-                inputType: 'insertText', data: digit, bubbles: true, cancelable: true, composed: true
-            }));
-        }
-        await waitForUpdatesAsync();
+        await pageObject.waitForPickerLoaded();
+        pageObject.setTimeSelection(3, 5);
+        await pageObject.insertTimeText('0');
+        await pageObject.insertTimeText('7');
         expect(element.value).toBe('2024-11-13T14:07');
-        expect(control.value.replace(/\s/g, ' ')).toBe('02:07 PM');
-        control.setSelectionRange(1, 1);
-        control.dispatchEvent(new InputEvent('beforeinput', {
-            inputType: 'deleteContentForward', bubbles: true, cancelable: true, composed: true
-        }));
-        await waitForUpdatesAsync();
-        expect(control.value.replace(/\s/g, ' ')).toBe('00:07 PM');
+        expect(pageObject.getTimeText()).toBe('02:07 PM');
+        pageObject.setTimeSelection(1, 1);
+        await pageObject.deleteTime('deleteContentForward');
+        expect(pageObject.getTimeText()).toBe('00:07 PM');
         expect(element.value).toBe('');
         expect(element.validity.badInput).toBeTrue();
-        control.setSelectionRange(0, 0);
-        control.click();
-        control.dispatchEvent(new InputEvent('beforeinput', {
-            inputType: 'insertText', data: '11', bubbles: true, cancelable: true, composed: true
-        }));
-        control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
+        await pageObject.clickTimeAtPosition(0);
+        await pageObject.insertTimeText('11');
+        await pageObject.pressTimeKey('Enter');
         expect(element.value).toBe('2024-11-13T23:07');
         expect(element.checkValidity()).toBeTrue();
     });
@@ -380,28 +335,19 @@ describe('FvDateTimePicker', () => {
     ], (spec, name) => {
         spec(`commits pending Time segment edits once on ${name}`, async () => {
             element.open = true;
-            await waitForUpdatesAsync();
-            const control = element.timeField!.control;
-            control.focus();
+            await pageObject.waitForPickerLoaded();
+            pageObject.focusTimeInput();
             const input = jasmine.createSpy('input');
             const change = jasmine.createSpy('change');
             element.addEventListener('input', input);
             element.addEventListener('change', change);
-            control.setSelectionRange(3, 5);
-            control.dispatchEvent(new InputEvent('beforeinput', {
-                inputType: 'insertText', data: '07', bubbles: true, cancelable: true, composed: true
-            }));
-            if (name.startsWith('native')) {
-                control.dispatchEvent(new Event('change', { bubbles: true }));
-            }
+            pageObject.setTimeSelection(3, 5);
+            await pageObject.insertTimeText('07', { commit: name.startsWith('native') });
             if (name === 'Escape') {
-                control.dispatchEvent(new KeyboardEvent('keydown', {
-                    key: 'Escape', bubbles: true, composed: true, cancelable: true
-                }));
+                await pageObject.pressTimeKey('Escape');
             } else {
-                document.body.dispatchEvent(new Event('pointerdown', { bubbles: true, composed: true }));
+                await pageObject.pointerDownOutsidePicker();
             }
-            await waitForUpdatesAsync();
             expect(element.open).toBeFalse();
             expect(element.value).toBe('2024-11-13T14:07');
             expect(input).toHaveBeenCalledTimes(1);
@@ -411,104 +357,82 @@ describe('FvDateTimePicker', () => {
 
     it('increases both masks precision after a committed Time edit when constraints change', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
-        const control = element.timeField!.control;
-        control.setSelectionRange(3, 5);
-        control.dispatchEvent(new InputEvent('beforeinput', {
-            inputType: 'insertText', data: '07', bubbles: true, cancelable: true, composed: true
-        }));
-        control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+        await pageObject.waitForPickerLoaded();
+        pageObject.setTimeSelection(3, 5);
+        await pageObject.insertTimeText('07');
+        await pageObject.pressTimeKey('Enter');
         element.step = '0.001';
         await waitForUpdatesAsync();
-        expect(element.timeMode).toBe('HH:MM:SS.MSS');
-        expect(control.value.replace(/\s/g, ' ')).toBe('02:07:00.000 PM');
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:07:00.000 PM');
-        control.value = '02:07:01.123 PM';
-        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(pageObject.getTimeText()).toBe('02:07:00.000 PM');
+        expect(pageObject.getInputText()).toBe('11/13/2024 02:07:00.000 PM');
+        await pageObject.typeTimeText('02:07:01.123 PM');
         expect(element.value).toBe('2024-11-13T14:07:01.123');
     });
 
     it('preserves invalid Time drafts when constraints increase precision', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
-        const control = element.timeField!.control;
-        control.value = '02:';
-        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await pageObject.waitForPickerLoaded();
+        await pageObject.typeTimeText('02:');
         element.step = '0.001';
         await waitForUpdatesAsync();
-        expect(element.timeMode).toBe('HH:MM:SS.MSS');
-        expect(control.value).toBe('02:');
+        expect(pageObject.getTimeText()).toBe('02:');
         expect(element.value).toBe('');
         expect(element.validity.badInput).toBeTrue();
     });
 
     it('preserves invalid main drafts when constraints increase precision', async () => {
-        element.control.value = '11/13/2024 02:';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await pageObject.typeInputText('11/13/2024 02:');
         element.step = '0.001';
         await waitForUpdatesAsync();
-        expect(element.timeMode).toBe('HH:MM:SS.MSS');
-        expect(element.control.value).toBe('11/13/2024 02:');
+        expect(pageObject.getInputText()).toBe('11/13/2024 02:');
         expect(element.value).toBe('');
         expect(element.validity.badInput).toBeTrue();
     });
 
     it('associates the Time error with its actual input across shadow roots', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
-        const control = element.timeField!.control;
-        control.value = '02:';
-        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        control.dispatchEvent(new Event('change', { bubbles: true }));
-        await waitForUpdatesAsync();
-        const error = element.shadowRoot!.querySelector('#entry-error')!;
-        expect(error.textContent).toContain('Enter a valid time.');
-        expect(control.ariaDescribedByElements).toEqual([error]);
-        control.value = '02:25 PM';
-        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        control.dispatchEvent(new Event('change', { bubbles: true }));
-        await waitForUpdatesAsync();
-        expect(control.ariaDescribedByElements ?? []).toEqual([]);
+        await pageObject.waitForPickerLoaded();
+        await pageObject.typeTimeText('02:', { commit: true });
+        expect(pageObject.getEntryErrorText()).toContain('Enter a valid time.');
+        expect(pageObject.getTimeDescribedByIds()).toEqual(['entry-error']);
+        await pageObject.typeTimeText('02:25 PM', { commit: true });
+        expect(pageObject.getTimeDescribedByIds()).toEqual([]);
     });
 
     it('keeps main and popover edit state independent and reconnects listeners after reopening', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
-        const control = element.timeField!.control;
-        control.setSelectionRange(3, 5);
-        control.dispatchEvent(new InputEvent('beforeinput', {
-            inputType: 'insertText', data: '1', bubbles: true, cancelable: true, composed: true
-        }));
+        await pageObject.waitForPickerLoaded();
+        pageObject.setTimeSelection(3, 5);
+        await pageObject.insertTimeText('1');
         element.open = false;
         await waitForUpdatesAsync();
         element.open = true;
-        await waitForUpdatesAsync();
-        const reopened = element.timeField!.control;
+        await pageObject.waitForPickerLoaded();
         const input = jasmine.createSpy('input');
         element.addEventListener('input', input);
-        reopened.setSelectionRange(0, 2);
-        reopened.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
+        pageObject.setTimeSelection(0, 2);
+        await pageObject.pressTimeKey('ArrowUp');
         expect(element.value).toBe('2024-11-13T15:01');
         expect(input).toHaveBeenCalledTimes(1);
-        expect(reopened.selectionStart).toBe(0);
-        expect(reopened.selectionEnd).toBe(2);
+        expect(pageObject.getTimeSelectionStart()).toBe(0);
+        expect(pageObject.getTimeSelectionEnd()).toBe(2);
     });
 
-    it('focuses the trigger before reopening so Safari does not dismiss the time field', async () => {
-        element.control.focus();
-        expect(element.handleTriggerMousedown(new MouseEvent('mousedown', { button: 0 }))).toBeFalse();
-        element.trigger.click();
-        await waitForUpdatesAsync();
+    it('focuses the calendar button before reopening so Safari does not dismiss the time field', async () => {
+        pageObject.focusInput();
+        expect(await pageObject.mouseDownCalendarButton(0)).toBeFalse();
+        expect(pageObject.isCalendarButtonFocused()).toBeTrue();
+        await pageObject.clickCalendarButton();
+        await pageObject.waitForPickerLoaded();
         expect(element.open).toBeTrue();
-        element.closePicker();
-        await waitForUpdatesAsync();
-        expect(element.handleTriggerMousedown(new MouseEvent('mousedown', { button: 2 }))).toBeTrue();
-        element.handleTriggerMousedown(new MouseEvent('mousedown', { button: 0 }));
-        element.trigger.click();
-        await waitForUpdatesAsync();
+        await pageObject.pressInputKey('Escape');
+        expect(element.open).toBeFalse();
+        expect(await pageObject.mouseDownCalendarButton(2)).toBeTrue();
+        await pageObject.mouseDownCalendarButton(0);
+        await pageObject.clickCalendarButton();
+        await pageObject.waitForPickerLoaded();
         expect(element.open).toBeTrue();
-        expect(element.timeField!.isConnected).toBeTrue();
+        expect(pageObject.hasTimeField()).toBeTrue();
     });
 
     parameterizeSpec([
@@ -522,23 +446,18 @@ describe('FvDateTimePicker', () => {
             element.max = element.value;
             element.step = '900';
             element.open = true;
-            await waitForUpdatesAsync();
-            const control = element.timeField!.control;
-            control.setSelectionRange(0, 0);
-            control.click();
-            control.dispatchEvent(new KeyboardEvent('keydown', {
-                key: rtl ? 'ArrowLeft' : 'ArrowRight', bubbles: true, cancelable: true
-            }));
-            expect(control.selectionStart).toBe(3);
-            expect(control.selectionEnd).toBe(5);
-            control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-            await waitForUpdatesAsync();
+            await pageObject.waitForPickerLoaded();
+            await pageObject.clickTimeAtPosition(0);
+            await pageObject.pressTimeKey(rtl ? 'ArrowLeft' : 'ArrowRight');
+            expect(pageObject.getTimeSelectionStart()).toBe(3);
+            expect(pageObject.getTimeSelectionEnd()).toBe(5);
+            await pageObject.pressTimeKey('ArrowUp');
             expect(element.value).toBe('2024-11-13T14:26');
             expect(element.validity.rangeOverflow).toBeTrue();
             expect(element.validity.stepMismatch).toBeTrue();
-            control.select();
-            expect(element.handleInputKeydown(new KeyboardEvent('keydown', { key: 'ArrowUp' }), control)).toBeTrue();
-            expect(element.handleInputKeydown(new KeyboardEvent('keydown', { key: 'Tab' }), control)).toBeTrue();
+            pageObject.selectAllTimeText();
+            expect(await pageObject.pressTimeKey('ArrowUp')).toBeTrue();
+            expect(await pageObject.pressTimeKey('Tab')).toBeTrue();
         });
     });
 
@@ -547,9 +466,7 @@ describe('FvDateTimePicker', () => {
         element.parentElement!.appendChild(form);
         form.appendChild(element);
         await waitForUpdatesAsync();
-        element.control.value = '02/29/2024 11:59 PM';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
+        await pageObject.typeInputText('02/29/2024 11:59 PM');
         expect(element.value).toBe('2024-02-29T23:59');
         expect(element.checkValidity()).toBeTrue();
         expect(new FormData(form).get('scheduled')).toBe(element.value);
@@ -561,18 +478,9 @@ describe('FvDateTimePicker', () => {
     it('masks pasted date/time text and synchronizes the resulting value', async () => {
         element.value = '';
         await waitForUpdatesAsync();
-        element.control.setSelectionRange(0, 0);
-        const paste = new ClipboardEvent('paste', {
-            bubbles: true,
-            cancelable: true,
-            composed: true
-        });
-        Object.defineProperty(paste, 'clipboardData', {
-            value: { getData: () => '02/29/2024 11:59 PM' }
-        });
-        expect(element.control.dispatchEvent(paste)).toBeFalse();
-        await waitForUpdatesAsync();
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('02/29/2024 11:59 PM');
+        pageObject.setInputSelection(0, 0);
+        expect(await pageObject.pasteIntoInput('02/29/2024 11:59 PM')).toBeFalse();
+        expect(pageObject.getInputText()).toBe('02/29/2024 11:59 PM');
         expect(element.value).toBe('2024-02-29T23:59');
         expect(element.checkValidity()).toBeTrue();
     });
@@ -592,10 +500,9 @@ describe('FvDateTimePicker', () => {
         spec(`highlights the ${name} segment on click`, async () => {
             lang.setValueFor(element, locale);
             await waitForUpdatesAsync();
-            element.control.setSelectionRange(position, position);
-            element.control.click();
-            expect(element.control.selectionStart).toBe(start);
-            expect(element.control.selectionEnd).toBe(end);
+            await pageObject.clickInputAtPosition(position);
+            expect(pageObject.getInputSelectionStart()).toBe(start);
+            expect(pageObject.getInputSelectionEnd()).toBe(end);
         });
     });
 
@@ -618,62 +525,53 @@ describe('FvDateTimePicker', () => {
         spec(`adjusts ${name} and retains the selected segment`, async () => {
             element.value = value;
             await waitForUpdatesAsync();
-            element.control.setSelectionRange(position, position);
-            element.control.click();
-            const start = element.control.selectionStart;
-            const end = element.control.selectionEnd;
+            await pageObject.clickInputAtPosition(position);
+            const start = pageObject.getInputSelectionStart();
+            const end = pageObject.getInputSelectionEnd();
             const input = jasmine.createSpy('input');
             const change = jasmine.createSpy('change');
             element.addEventListener('input', input);
             element.addEventListener('change', change);
-            expect(element.control.dispatchEvent(new KeyboardEvent('keydown', {
-                key, bubbles: true, composed: true, cancelable: true
-            }))).toBeFalse();
-            await waitForUpdatesAsync();
+            expect(await pageObject.pressInputKey(key)).toBeFalse();
             expect(element.value).toBe(expected);
-            expect(element.control.value).toBe(element.displayValue);
-            expect(element.control.selectionStart).toBe(start);
-            expect(element.control.selectionEnd).toBe(end);
+            expect(pageObject.getInputText()).toBe(displayText());
+            expect(pageObject.getInputSelectionStart()).toBe(start);
+            expect(pageObject.getInputSelectionEnd()).toBe(end);
             expect(input).toHaveBeenCalledTimes(1);
             expect(change).toHaveBeenCalledTimes(1);
         });
     });
 
     it('navigates segments without trapping Left/Right at a selection boundary', async () => {
-        element.control.setSelectionRange(1, 1);
-        element.control.click();
+        await pageObject.clickInputAtPosition(1);
         for (const [key, start, end] of [
             ['ArrowRight', 3, 5], ['ArrowRight', 6, 10], ['ArrowLeft', 3, 5], ['End', 17, 19], ['Home', 0, 2]
         ] as const) {
-            element.control.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
-            element.control.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true }));
-            expect(element.control.selectionStart).toBe(start);
-            expect(element.control.selectionEnd).toBe(end);
+            // eslint-disable-next-line no-await-in-loop
+            await pageObject.pressInputKey(key);
+            expect(pageObject.getInputSelectionStart()).toBe(start);
+            expect(pageObject.getInputSelectionEnd()).toBe(end);
         }
-        await waitForUpdatesAsync();
     });
 
     it('handles End from a separator and adjusts at the end of the text', async () => {
-        element.control.setSelectionRange(10, 10);
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true, cancelable: true }));
-        expect(element.control.selectionStart).toBe(17);
-        expect(element.control.selectionEnd).toBe(19);
-        element.control.setSelectionRange(19, 19);
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
+        pageObject.setInputSelection(10, 10);
+        await pageObject.pressInputKey('End');
+        expect(pageObject.getInputSelectionStart()).toBe(17);
+        expect(pageObject.getInputSelectionEnd()).toBe(19);
+        pageObject.setInputSelection(19, 19);
+        await pageObject.pressInputKey('ArrowDown');
         expect(element.value).toBe('2024-11-13T02:25');
-        expect(element.control.selectionStart).toBe(17);
-        expect(element.control.selectionEnd).toBe(19);
+        expect(pageObject.getInputSelectionStart()).toBe(17);
+        expect(pageObject.getInputSelectionEnd()).toBe(19);
     });
 
     it('does not restore an old selection after adjusting and immediately navigating', async () => {
-        element.control.setSelectionRange(3, 5);
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
+        pageObject.setInputSelection(3, 5);
+        await pageObject.pressInputKeysInSameTick(['ArrowUp', 'ArrowRight']);
         expect(element.value).toBe('2024-11-14T14:25');
-        expect(element.control.selectionStart).toBe(6);
-        expect(element.control.selectionEnd).toBe(10);
+        expect(pageObject.getInputSelectionStart()).toBe(6);
+        expect(pageObject.getInputSelectionEnd()).toBe(10);
     });
 
     parameterizeSpec([
@@ -688,19 +586,12 @@ describe('FvDateTimePicker', () => {
             const change = jasmine.createSpy('change');
             element.addEventListener('input', input);
             element.addEventListener('change', change);
-            element.control.setSelectionRange(start, end);
-            for (const digit of digits) {
-                element.control.dispatchEvent(new KeyboardEvent('keydown', { key: digit, bubbles: true }));
-                expect(element.control.dispatchEvent(new InputEvent('beforeinput', {
-                    inputType: 'insertText', data: digit, bubbles: true, cancelable: true, composed: true
-                }))).toBeFalse();
-            }
-            await waitForUpdatesAsync();
+            pageObject.setInputSelection(start, end);
+            expect(await pageObject.typeInputDigits(digits)).toBeFalse();
             expect(element.value).toBe(expected);
             expect(input).toHaveBeenCalledTimes(digits.length);
             expect(change).not.toHaveBeenCalled();
-            element.control.dispatchEvent(new FocusEvent('blur'));
-            await waitForUpdatesAsync();
+            await pageObject.blurInput();
             expect(element.value).toBe(expected);
             expect(change).toHaveBeenCalledTimes(1);
         });
@@ -713,13 +604,10 @@ describe('FvDateTimePicker', () => {
         await waitForUpdatesAsync();
         const change = jasmine.createSpy('change');
         element.addEventListener('change', change);
-        element.control.setSelectionRange(3, 5);
-        element.control.dispatchEvent(new InputEvent('beforeinput', {
-            inputType: 'insertText', data: '2', bubbles: true, cancelable: true
-        }));
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
-        element.control.dispatchEvent(new FocusEvent('blur'));
-        await waitForUpdatesAsync();
+        pageObject.setInputSelection(3, 5);
+        await pageObject.insertInputText('2');
+        await pageObject.pressInputKey('Enter');
+        await pageObject.blurInput();
         expect(element.value).toBe('2024-11-02T14:25');
         expect(new FormData(form).get('scheduled')).toBe(element.value);
         expect(change).toHaveBeenCalledTimes(1);
@@ -752,14 +640,11 @@ describe('FvDateTimePicker', () => {
         }
     ], (spec, name, { start, end, inputType, expected, caret }) => {
         spec(`keeps other segments in place when deleting ${name}`, async () => {
-            element.control.setSelectionRange(start, end);
-            expect(element.control.dispatchEvent(new InputEvent('beforeinput', {
-                inputType, bubbles: true, cancelable: true, composed: true
-            }))).toBeFalse();
-            await waitForUpdatesAsync();
-            expect(element.control.value.replace(/\s/g, ' ')).toBe(expected);
-            expect(element.control.selectionStart).toBe(caret);
-            expect(element.control.selectionEnd).toBe(caret);
+            pageObject.setInputSelection(start, end);
+            expect(await pageObject.deleteInput(inputType)).toBeFalse();
+            expect(pageObject.getInputText()).toBe(expected);
+            expect(pageObject.getInputSelectionStart()).toBe(caret);
+            expect(pageObject.getInputSelectionEnd()).toBe(caret);
         });
     });
 
@@ -768,47 +653,36 @@ describe('FvDateTimePicker', () => {
         const change = jasmine.createSpy('change');
         element.addEventListener('input', input);
         element.addEventListener('change', change);
-        element.control.setSelectionRange(3, 5);
-        element.control.dispatchEvent(new InputEvent('beforeinput', {
-            inputType: 'deleteContentBackward', bubbles: true, cancelable: true
-        }));
-        element.control.setSelectionRange(7, 7);
-        element.control.dispatchEvent(new InputEvent('beforeinput', {
-            inputType: 'deleteContentForward', bubbles: true, cancelable: true
-        }));
-        element.control.dispatchEvent(new FocusEvent('blur'));
-        await waitForUpdatesAsync();
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/00/2024 02:25 PM');
+        pageObject.setInputSelection(3, 5);
+        await pageObject.deleteInput('deleteContentBackward');
+        pageObject.setInputSelection(7, 7);
+        await pageObject.deleteInput('deleteContentForward');
+        await pageObject.blurInput();
+        expect(pageObject.getInputText()).toBe('11/00/2024 02:25 PM');
         expect(element.value).toBe('');
         expect(element.validity.badInput).toBeTrue();
-        expect(element.entryError).not.toBe('');
+        expect(pageObject.getEntryErrorText()).not.toBe('');
         expect(input).toHaveBeenCalledTimes(1);
         expect(change).toHaveBeenCalledTimes(1);
-        element.control.setSelectionRange(3, 3);
-        element.control.click();
-        element.control.dispatchEvent(new InputEvent('beforeinput', {
-            inputType: 'insertText', data: '21', bubbles: true, cancelable: true
-        }));
-        element.control.dispatchEvent(new FocusEvent('blur'));
-        await waitForUpdatesAsync();
+        await pageObject.clickInputAtPosition(3);
+        await pageObject.insertInputText('21');
+        await pageObject.blurInput();
         expect(element.value).toBe('2024-11-21T14:25');
         expect(element.checkValidity()).toBeTrue();
-        expect(element.entryError).toBe('');
+        expect(pageObject.getEntryErrorText()).toBe('');
     });
 
     it('leaves clearing all text and deletion during initial entry to the native mask', async () => {
-        element.control.select();
-        expect(element.handleSegmentInput(new InputEvent('beforeinput', {
-            inputType: 'deleteContentBackward'
-        }))).toBeTrue();
+        pageObject.selectAllInputText();
+        await pageObject.deleteInput('deleteContentBackward');
+        expect(pageObject.getInputText()).toBe('11/13/2024 02:25 PM');
         element.value = '';
         await waitForUpdatesAsync();
-        element.control.value = '11/1';
-        element.handleTextInput();
-        element.control.setSelectionRange(4, 4);
-        expect(element.handleSegmentInput(new InputEvent('beforeinput', {
-            inputType: 'deleteContentBackward'
-        }))).toBeTrue();
+        await pageObject.typeInputCharacters('111');
+        expect(pageObject.getInputText()).toBe('11/1');
+        pageObject.setInputSelection(4, 4);
+        await pageObject.deleteInput('deleteContentBackward');
+        expect(pageObject.getInputText()).toBe('11/1');
     });
 
     parameterizeSpec([
@@ -830,43 +704,37 @@ describe('FvDateTimePicker', () => {
             element.type = type;
             element.value = value;
             await waitForUpdatesAsync();
-            const length = element.control.value.length;
-            element.control.setSelectionRange(position, position);
-            element.control.dispatchEvent(new InputEvent('beforeinput', {
-                inputType: 'deleteContentForward', bubbles: true, cancelable: true
-            }));
-            await waitForUpdatesAsync();
+            const length = pageObject.getInputText().length;
+            pageObject.setInputSelection(position, position);
+            await pageObject.deleteInput('deleteContentForward');
             expect(element.value).toBe(expected);
-            expect(element.control.value.length).toBe(length);
+            expect(pageObject.getInputText().length).toBe(length);
         });
     });
 
-    it('does not handle canceled input or truncate text longer than the selected segment', () => {
-        element.control.setSelectionRange(3, 5);
-        const canceled = new InputEvent('beforeinput', { inputType: 'insertText', data: '2', cancelable: true });
-        canceled.preventDefault();
-        expect(element.handleSegmentInput(canceled)).toBeTrue();
-        expect(element.handleSegmentInput(new InputEvent('beforeinput', {
-            inputType: 'insertText', data: '2025', cancelable: true
-        }))).toBeTrue();
+    it('does not handle canceled input or truncate text longer than the selected segment', async () => {
+        pageObject.setInputSelection(3, 5);
+        const cancel = (event: Event): void => event.preventDefault();
+        element.addEventListener('beforeinput', cancel, { capture: true });
+        await pageObject.insertInputText('2');
+        element.removeEventListener('beforeinput', cancel, { capture: true });
+        expect(await pageObject.insertInputText('2025')).toBeTrue();
         expect(element.value).toBe('2024-11-13T14:25');
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:25 PM');
+        expect(pageObject.getInputText()).toBe('11/13/2024 02:25 PM');
     });
 
-    it('preserves drag selections, Select All, modifier shortcuts, and Tab', () => {
-        element.control.setSelectionRange(1, 8);
-        element.control.click();
-        expect(element.control.selectionStart).toBe(1);
-        expect(element.control.selectionEnd).toBe(8);
-        element.control.select();
-        element.control.dispatchEvent(new KeyboardEvent('keyup', { key: 'a', ctrlKey: true }));
-        expect(element.control.selectionStart).toBe(0);
-        expect(element.control.selectionEnd).toBe(element.control.value.length);
-        for (const options of [{ key: 'ArrowUp' }, { key: 'ArrowRight', shiftKey: true }, { key: 'Tab' }]) {
-            expect(element.control.dispatchEvent(new KeyboardEvent('keydown', {
-                ...options, bubbles: true, cancelable: true
-            }))).toBeTrue();
-        }
+    it('preserves drag selections, Select All, modifier shortcuts, and Tab', async () => {
+        pageObject.setInputSelection(1, 8);
+        await pageObject.clickInput();
+        expect(pageObject.getInputSelectionStart()).toBe(1);
+        expect(pageObject.getInputSelectionEnd()).toBe(8);
+        pageObject.selectAllInputText();
+        await pageObject.pressInputKey('a', { ctrlKey: true });
+        expect(pageObject.getInputSelectionStart()).toBe(0);
+        expect(pageObject.getInputSelectionEnd()).toBe(pageObject.getInputText().length);
+        expect(await pageObject.pressInputKey('ArrowUp')).toBeTrue();
+        expect(await pageObject.pressInputKey('ArrowRight', { shiftKey: true })).toBeTrue();
+        expect(await pageObject.pressInputKey('Tab')).toBeTrue();
         expect(element.value).toBe('2024-11-13T14:25');
     });
 
@@ -876,17 +744,13 @@ describe('FvDateTimePicker', () => {
         { name: 'impossible', text: '02/30/2024 02:25 PM' }
     ], (spec, name, { text }) => {
         spec(`does not guess a value when adjusting ${name} input`, async () => {
-            element.control.value = text;
-            element.handleTextInput();
-            await waitForUpdatesAsync();
-            element.control.setSelectionRange(0, 0);
-            element.control.click();
-            element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-            await waitForUpdatesAsync();
+            await pageObject.typeInputText(text);
+            await pageObject.clickInputAtPosition(0);
+            await pageObject.pressInputKey('ArrowUp');
             expect(element.value).toBe('');
-            expect(element.control.value).toBe(text);
-            expect(element.control.selectionStart).toBe(0);
-            expect(element.control.selectionEnd).toBe(0);
+            expect(pageObject.getInputText()).toBe(text);
+            expect(pageObject.getInputSelectionStart()).toBe(0);
+            expect(pageObject.getInputSelectionEnd()).toBe(0);
         });
     });
 
@@ -896,17 +760,15 @@ describe('FvDateTimePicker', () => {
         element.type = 'date';
         element.value = '2024-01-31';
         await waitForUpdatesAsync();
-        element.control.setSelectionRange(4, 4);
-        element.control.click();
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
+        await pageObject.clickInputAtPosition(4);
+        await pageObject.pressInputKey('ArrowUp');
         expect(element.value).toBe('2024-02-29');
-        expect(element.control.value).toBe('29.02.2024');
-        expect(element.control.selectionStart).toBe(3);
-        expect(element.control.selectionEnd).toBe(5);
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true, cancelable: true }));
-        expect(element.control.selectionStart).toBe(6);
-        expect(element.control.selectionEnd).toBe(10);
+        expect(pageObject.getInputText()).toBe('29.02.2024');
+        expect(pageObject.getInputSelectionStart()).toBe(3);
+        expect(pageObject.getInputSelectionEnd()).toBe(5);
+        await pageObject.pressInputKey('ArrowLeft');
+        expect(pageObject.getInputSelectionStart()).toBe(6);
+        expect(pageObject.getInputSelectionEnd()).toBe(10);
     });
 
     parameterizeSpec([
@@ -918,9 +780,8 @@ describe('FvDateTimePicker', () => {
             await waitForUpdatesAsync();
             const input = jasmine.createSpy('input');
             element.addEventListener('input', input);
-            element.control.setSelectionRange(6, 10);
-            element.control.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
-            await waitForUpdatesAsync();
+            pageObject.setInputSelection(6, 10);
+            await pageObject.pressInputKey(key);
             expect(element.value).toBe(value);
             expect(input).not.toHaveBeenCalled();
         });
@@ -931,15 +792,12 @@ describe('FvDateTimePicker', () => {
         element.max = element.value;
         element.step = '900';
         await waitForUpdatesAsync();
-        element.control.setSelectionRange(14, 16);
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
+        pageObject.setInputSelection(14, 16);
+        await pageObject.pressInputKey('ArrowUp');
         expect(element.value).toBe('2024-11-13T14:26');
         expect(element.validity.rangeOverflow).toBeTrue();
         expect(element.validity.stepMismatch).toBeTrue();
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
+        await pageObject.pressInputKeysInSameTick(['ArrowDown', 'ArrowDown']);
         expect(element.value).toBe('2024-11-13T14:24');
         expect(element.validity.rangeUnderflow).toBeTrue();
     });
@@ -952,13 +810,11 @@ describe('FvDateTimePicker', () => {
             element.disabled = disabled;
             element.readOnly = readOnly;
             await waitForUpdatesAsync();
-            element.control.setSelectionRange(1, 1);
-            element.control.click();
-            element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-            await waitForUpdatesAsync();
+            await pageObject.clickInputAtPosition(1);
+            await pageObject.pressInputKey('ArrowUp');
             expect(element.value).toBe('2024-11-13T14:25');
-            expect(element.control.selectionStart).toBe(1);
-            expect(element.control.selectionEnd).toBe(1);
+            expect(pageObject.getInputSelectionStart()).toBe(1);
+            expect(pageObject.getInputSelectionEnd()).toBe(1);
         });
     });
 
@@ -986,18 +842,14 @@ describe('FvDateTimePicker', () => {
             const change = jasmine.createSpy('change');
             element.addEventListener('input', input);
             element.addEventListener('change', change);
-            element.control.select();
-            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
-            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
-            expect(element.control.dispatchEvent(paste)).toBeFalse();
-            await waitForUpdatesAsync();
+            pageObject.selectAllInputText();
+            expect(await pageObject.pasteIntoInput(text)).toBeFalse();
             expect(element.value).toBe(value);
-            expect(element.control.value).toBe(element.displayValue);
+            expect(pageObject.getInputText()).toBe(displayText());
             expect(element.validity.badInput).toBeFalse();
             expect(input).toHaveBeenCalledTimes(1);
             expect(change).not.toHaveBeenCalled();
-            element.control.dispatchEvent(new Event('change', { bubbles: true }));
-            await waitForUpdatesAsync();
+            await pageObject.leaveInput();
             expect(element.value).toBe(value);
             expect(input).toHaveBeenCalledTimes(1);
             expect(change).toHaveBeenCalledTimes(1);
@@ -1019,12 +871,9 @@ describe('FvDateTimePicker', () => {
             const instant = new Date(text);
             const local = new Date(instant.getTime() - instant.getTimezoneOffset() * 60000).toISOString().slice(0, -1);
             const expected = dateOnly ? local.slice(0, 10) : local.replace(/\.?0+$/, '').replace(/:00$/, '');
-            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
-            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
-            expect(element.control.dispatchEvent(paste)).toBeFalse();
-            await waitForUpdatesAsync();
+            expect(await pageObject.pasteIntoInput(text)).toBeFalse();
             expect(element.value).toBe(expected);
-            expect(element.control.value).toBe(element.displayValue);
+            expect(pageObject.getInputText()).toBe(displayText());
             expect(element.validity.badInput).toBeFalse();
         });
     });
@@ -1040,24 +889,17 @@ describe('FvDateTimePicker', () => {
         { name: 'trailing text', text: '2024-02-29T12:00 extra' }
     ], (spec, name, { text }) => {
         spec(`preserves invalid ISO ${name} for correction`, async () => {
-            element.control.select();
-            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
-            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
-            expect(element.control.dispatchEvent(paste)).toBeFalse();
-            element.control.dispatchEvent(new Event('change', { bubbles: true }));
-            await waitForUpdatesAsync();
-            expect(element.control.value).toBe(text);
+            pageObject.selectAllInputText();
+            expect(await pageObject.pasteIntoInput(text, { commit: true })).toBeFalse();
+            expect(pageObject.getInputText()).toBe(text);
             expect(element.value).toBe('');
             expect(element.validity.badInput).toBeTrue();
-            expect(element.entryError).not.toBe('');
-            element.control.select();
-            const correction = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
-            Object.defineProperty(correction, 'clipboardData', { value: { getData: () => '02/29/2024 11:59 PM' } });
-            expect(element.control.dispatchEvent(correction)).toBeFalse();
-            await waitForUpdatesAsync();
+            expect(pageObject.getEntryErrorText()).not.toBe('');
+            pageObject.selectAllInputText();
+            expect(await pageObject.pasteIntoInput('02/29/2024 11:59 PM')).toBeFalse();
             expect(element.value).toBe('2024-02-29T23:59');
             expect(element.checkValidity()).toBeTrue();
-            expect(element.entryError).toBe('');
+            expect(pageObject.getEntryErrorText()).toBe('');
         });
     });
 
@@ -1068,11 +910,8 @@ describe('FvDateTimePicker', () => {
         element.min = '2024-03-01T00:00';
         element.step = '900';
         await waitForUpdatesAsync();
-        element.control.select();
-        const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
-        Object.defineProperty(paste, 'clipboardData', { value: { getData: () => '2024-02-29T23:59' } });
-        expect(element.control.dispatchEvent(paste)).toBeFalse();
-        await waitForUpdatesAsync();
+        pageObject.selectAllInputText();
+        expect(await pageObject.pasteIntoInput('2024-02-29T23:59')).toBeFalse();
         expect(element.value).toBe('2024-02-29T23:59');
         expect(new FormData(form).get('scheduled')).toBe(element.value);
         expect(element.validity.rangeUnderflow).toBeTrue();
@@ -1087,13 +926,10 @@ describe('FvDateTimePicker', () => {
         spec(`completes pasted ${name}`, async () => {
             element.value = '';
             await waitForUpdatesAsync();
-            element.control.setSelectionRange(0, 0);
-            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
-            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
-            expect(element.control.dispatchEvent(paste)).toBeFalse();
-            await waitForUpdatesAsync();
+            pageObject.setInputSelection(0, 0);
+            expect(await pageObject.pasteIntoInput(text)).toBeFalse();
             expect(element.value).toBe(value);
-            expect(element.control.value).toBe(element.displayValue);
+            expect(pageObject.getInputText()).toBe(displayText());
             expect(element.checkValidity()).toBeTrue();
         });
     });
@@ -1102,29 +938,44 @@ describe('FvDateTimePicker', () => {
         { name: 'midnight', display: '12:00 AM', value: '00:00' },
         { name: 'noon', display: '12:00 PM', value: '12:00' },
         { name: 'morning', display: '01:05 AM', value: '01:05' },
-        { name: 'evening', display: '11:59 PM', value: '23:59' }
+        { name: 'evening', display: '11:59 PM', value: '23:59' },
+        { name: 'lowercase AM', display: '01:05 am', value: '01:05' },
+        { name: 'lowercase PM', display: '11:59 pm', value: '23:59' }
     ], (spec, name, { display, value }) => {
         spec(`converts ${name} entry to the 24-hour form value`, async () => {
-            element.control.value = `11/13/2024 ${display}`;
-            element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-            await waitForUpdatesAsync();
+            await pageObject.typeInputText(`11/13/2024 ${display}`);
             expect(element.value).toBe(`2024-11-13T${value}`);
-            expect(element.control.value.replace(/\s/g, ' ')).toBe(`11/13/2024 ${display}`);
+            expect(pageObject.getInputText()).toBe(`11/13/2024 ${display.toUpperCase()}`);
             expect(element.checkValidity()).toBeTrue();
         });
     });
 
+    it('accepts typing lowercase pm one character at a time', async () => {
+        await pageObject.typeInputText('11/13/2024 11:59');
+        pageObject.setInputSelection(16, 16);
+        await pageObject.typeInputCharacters('pm');
+        expect(pageObject.getInputText().toUpperCase()).toBe('11/13/2024 11:59 PM');
+        expect(element.value).toBe('2024-11-13T23:59');
+        expect(element.checkValidity()).toBeTrue();
+    });
+
+    it('accepts lowercase PM in the popup time field', async () => {
+        element.open = true;
+        await pageObject.waitForPickerLoaded();
+        await pageObject.typeTimeText('11:59 pm');
+        expect(element.value).toBe('2024-11-13T23:59');
+        expect(element.validity.badInput).toBeFalse();
+    });
+
     it('preserves an incomplete day period while typing and recovers on programmatic updates', async () => {
-        element.control.value = '11/13/2024 02:25';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:25');
+        await pageObject.typeInputText('11/13/2024 02:25');
+        expect(pageObject.getInputText()).toBe('11/13/2024 02:25');
         expect(element.value).toBe('');
         expect(element.validity.badInput).toBeTrue();
         expect(element.checkValidity()).toBeFalse();
         element.value = '2024-11-13T14:25';
         await waitForUpdatesAsync();
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:25 PM');
+        expect(pageObject.getInputText()).toBe('11/13/2024 02:25 PM');
         expect(element.checkValidity()).toBeTrue();
     });
 
@@ -1138,17 +989,15 @@ describe('FvDateTimePicker', () => {
         spec(`completes ${name} on commit`, async () => {
             lang.setValueFor(element, locale);
             await waitForUpdatesAsync();
-            element.control.value = text;
-            element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            await pageObject.typeInputText(text);
             const input = jasmine.createSpy('input');
             const change = jasmine.createSpy('change');
             element.addEventListener('input', input);
             element.addEventListener('change', change);
             const previous = element.value;
-            element.control.dispatchEvent(new Event('change', { bubbles: true }));
-            await waitForUpdatesAsync();
+            await pageObject.leaveInput();
             expect(element.value).toBe(value);
-            expect(element.control.value.replace(/\s/g, ' ')).toBe(display);
+            expect(pageObject.getInputText()).toBe(display);
             expect(element.checkValidity()).toBeTrue();
             expect(input).toHaveBeenCalledTimes(previous === value ? 0 : 1);
             expect(change).toHaveBeenCalledTimes(1);
@@ -1157,70 +1006,52 @@ describe('FvDateTimePicker', () => {
 
     it('completes omitted AM/PM in the popup without losing the selected date', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
-        const time = element.timeField!;
-        time.value = '09:07';
-        time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await pageObject.waitForPickerLoaded();
+        await pageObject.typeTimeText('09:07');
         expect(element.validity.badInput).toBeTrue();
-        time.dispatchEvent(new Event('change', { bubbles: true }));
-        await waitForUpdatesAsync();
+        await pageObject.leaveTimeInput();
         expect(element.value).toBe('2024-11-13T09:07');
-        expect(time.value.replace(/\s/g, ' ')).toBe('09:07 AM');
-        expect(time.checkValidity()).toBeTrue();
+        expect(pageObject.getTimeText()).toBe('09:07 AM');
+        expect(pageObject.isTimeValid()).toBeTrue();
         expect(element.checkValidity()).toBeTrue();
     });
 
     it('shows invalid popup time feedback and clears the main draft when corrected in the popup', async () => {
-        element.control.value = '11/';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await pageObject.typeInputText('11/');
         element.open = true;
-        await waitForUpdatesAsync();
-        const time = element.timeField!;
+        await pageObject.waitForPickerLoaded();
         for (const text of ['09:', '', ' ']) {
-            time.value = text;
-            time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-            time.dispatchEvent(new Event('change', { bubbles: true }));
+            // eslint-disable-next-line no-await-in-loop
+            await pageObject.typeTimeText(text, { commit: true });
             expect(element.value).withContext(text).toBe('');
             expect(element.validity.badInput).withContext(text).toBeTrue();
-            expect(element.entryError).withContext(text).toBe('Enter a valid time.');
+            expect(pageObject.getEntryErrorText()).withContext(text).toBe('Enter a valid time.');
         }
-        await waitForUpdatesAsync();
-        expect(element.shadowRoot!.querySelector('.picker #entry-error')!.textContent).toContain('Enter a valid time.');
-        expect(time.getAttribute('aria-invalid')).toBe('true');
-        time.value = '09:07';
-        time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        time.dispatchEvent(new Event('change', { bubbles: true }));
-        await waitForUpdatesAsync();
-        expect(element.value).toBe(`${element.dateKey(calendarToday())}T09:07`);
-        expect(element.control.value).toBe(element.displayValue);
+        expect(pageObject.getTimeAriaInvalid()).toBe('true');
+        await pageObject.typeTimeText('09:07', { commit: true });
+        expect(pageObject.getInputText()).toBe(displayText());
         expect(element.checkValidity()).toBeTrue();
-        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent.trim()).toBe('');
+        expect(pageObject.getEntryErrorText()).toBe('');
     });
 
     it('shows accessible feedback for invalid committed drafts and clears it after correction or reset', async () => {
         const form = document.createElement('form');
         element.parentElement!.appendChild(form);
         form.appendChild(element);
-        element.control.value = '02/30/2024 02:25';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        element.control.dispatchEvent(new Event('change', { bubbles: true }));
-        await waitForUpdatesAsync();
-        expect(element.control.value).toBe('02/30/2024 02:25');
+        await pageObject.typeInputText('02/30/2024 02:25', { commit: true });
+        expect(pageObject.getInputText()).toBe('02/30/2024 02:25');
         expect(element.value).toBe('');
         expect(element.checkValidity()).toBeFalse();
-        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent).toContain(element.validationMessage);
-        expect(element.control.getAttribute('aria-invalid')).toBe('true');
-        expect(element.control.ariaDescribedByElements).toContain(element.shadowRoot!.querySelector('#entry-error'));
-        element.control.value = '02/29/2024 02:25 PM';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
-        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent.trim()).toBe('');
-        expect(element.control.getAttribute('aria-invalid')).not.toBe('true');
-        element.control.value = '11/';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(pageObject.getEntryErrorText()).toContain(element.validationMessage);
+        expect(pageObject.getInputAriaInvalid()).toBe('true');
+        expect(pageObject.getInputDescribedByIds()).toContain('entry-error');
+        await pageObject.typeInputText('02/29/2024 02:25 PM');
+        expect(pageObject.getEntryErrorText()).toBe('');
+        expect(pageObject.getInputAriaInvalid()).not.toBe('true');
+        await pageObject.typeInputText('11/');
         form.reset();
         await waitForUpdatesAsync();
-        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent.trim()).toBe('');
+        expect(pageObject.getEntryErrorText()).toBe('');
         expect(element.checkValidity()).toBeTrue();
     });
 
@@ -1228,22 +1059,19 @@ describe('FvDateTimePicker', () => {
         element.min = '2024-11-13T09:00';
         element.errorText = 'Application error';
         element.errorVisible = true;
-        element.control.value = '11/13/2024 02:25';
-        element.control.dispatchEvent(new Event('change', { bubbles: true }));
-        await waitForUpdatesAsync();
+        await pageObject.typeInputText('11/13/2024 02:25', { commit: true });
         expect(element.value).toBe('2024-11-13T02:25');
         expect(element.validity.rangeUnderflow).toBeTrue();
         expect(element.errorText).toBe('Application error');
         expect(element.errorVisible).toBeTrue();
         element.errorVisible = false;
         await waitForUpdatesAsync();
-        expect(element.shadowRoot!.querySelector('#entry-error')!.textContent).toContain(element.validationMessage);
+        expect(pageObject.getEntryErrorText()).toContain(element.validationMessage);
     });
 
     it('sanitizes invalid programmatic values and validates required like native controls', () => {
         for (const value of ['2023-02-29T10:00', '2024-11-31T10:00', '2024-11', '2024-11-13T24:00', '0000-01-01T10:00']) {
             element.value = value;
-            expect(element.parsedValue).withContext(value).toBeNull();
             expect(element.value).withContext(value).toBe('');
             expect(element.checkValidity()).withContext(value).toBeTrue();
         }
@@ -1258,7 +1086,7 @@ describe('FvDateTimePicker', () => {
     it('validates four-digit years without the Date constructor century offset', () => {
         for (const value of ['0001-01-01T10:00', '0099-02-28T10:00', '9999-12-31T23:59']) {
             element.value = value;
-            expect(element.parsedValue).withContext(value).not.toBeNull();
+            expect(element.value).withContext(value).toBe(value);
             expect(element.checkValidity()).withContext(value).toBeTrue();
         }
     });
@@ -1270,42 +1098,32 @@ describe('FvDateTimePicker', () => {
         const change = jasmine.createSpy('change');
         element.addEventListener('input', input);
         element.addEventListener('change', change);
-        const month = element.shadowRoot!.querySelector(selectTag)!;
-        month.value = '0';
-        month.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        month.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-        expect(element.visibleDate.getUTCMonth()).toBe(0);
+        await pageObject.selectMonth(0);
+        expect(pageObject.getDisplayedMonth()).toBe(0);
         expect(element.value).toBe('2024-11-13T14:25');
         expect(input).not.toHaveBeenCalled();
         expect(change).not.toHaveBeenCalled();
     });
 
-    it('navigates months across year boundaries without changing the value', () => {
-        element.visibleDate = new Date(Date.UTC(2024, 11, 1));
-        element.moveMonth(1);
-        expect(element.visibleDate.getUTCFullYear()).toBe(2025);
-        expect(element.visibleDate.getUTCMonth()).toBe(0);
+    it('navigates months across year boundaries without changing the value', async () => {
+        element.open = true;
+        await waitForUpdatesAsync();
+        await pageObject.selectMonth(11);
+        expect(pageObject.getDisplayedMonth()).toBe(11);
+        await pageObject.clickNextMonth();
+        expect(pageObject.getDisplayedYear()).toBe(2025);
+        expect(pageObject.getDisplayedMonth()).toBe(0);
         expect(element.value).toBe('2024-11-13T14:25');
     });
 
     it('preserves picker focus between Safari mouse-down and month-button click', async () => {
         element.open = true;
         await waitForUpdatesAsync();
-        element.shadowRoot!.querySelector<HTMLButtonElement>('[data-date="2024-11-13"]')!.focus();
-        const next = element.shadowRoot!.querySelector<HTMLElement>(`${buttonTag}[aria-label="Next month"]`)!;
-        const button = next.shadowRoot!.querySelector('button')!;
-        const allowDefault = button.dispatchEvent(new MouseEvent('mousedown', {
-            button: 0, bubbles: true, composed: true, cancelable: true
-        }));
-        expect(allowDefault).toBeFalse();
-        if (allowDefault) {
-            element.shadowRoot!.querySelector<HTMLButtonElement>('[data-date="2024-11-13"]')!.blur();
-        }
-        await waitForUpdatesAsync();
+        pageObject.focusDay('2024-11-13');
+        expect(await pageObject.mouseDownNextMonthButton()).toBeFalse();
         expect(element.open).toBeTrue();
-        button.click();
-        await waitForUpdatesAsync();
-        expect(element.visibleDate.getUTCMonth()).toBe(11);
+        await pageObject.clickNextMonth();
+        expect(pageObject.getDisplayedMonth()).toBe(11);
         expect(element.open).toBeTrue();
     });
 
@@ -1314,47 +1132,42 @@ describe('FvDateTimePicker', () => {
         await waitForUpdatesAsync();
         const change = jasmine.createSpy('change');
         element.addEventListener('change', change);
-        const year = element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.year')!;
-        year.value = '2028';
-        year.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
-        expect(element.visibleDate.getUTCFullYear()).toBe(2028);
-        const next = element.shadowRoot!.querySelector<HTMLElement>(`${buttonTag}[aria-label="Next month"]`)!;
-        next.click();
-        await waitForUpdatesAsync();
-        expect(element.visibleDate.getUTCMonth()).toBe(11);
+        await pageObject.selectYear(2028);
+        expect(pageObject.getDisplayedYear()).toBe(2028);
+        await pageObject.clickNextMonth();
+        expect(pageObject.getDisplayedMonth()).toBe(11);
         expect(element.open).toBeTrue();
-        expect(element.shadowRoot!.querySelector(selectTag)!.value).toBe('11');
         expect(element.value).toBe('2024-11-13T14:25');
         expect(change).not.toHaveBeenCalled();
     });
 
     it('offers nearby years and includes displayed years outside the dropdown range', async () => {
         const currentYear = new Date().getUTCFullYear();
-        expect(element.years).toContain(currentYear - 100);
-        expect(element.years).toContain(currentYear + 100);
-        element.value = '0099-02-28T10:00';
         element.open = true;
         await waitForUpdatesAsync();
-        const year = element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.year')!;
-        expect(year.value).toBe('99');
-        expect(element.years[0]).toBe(99);
-        element.visibleDate = new Date('9999-12-01T10:00Z');
+        expect(pageObject.getYearOptions()).toContain(currentYear - 100);
+        expect(pageObject.getYearOptions()).toContain(currentYear + 100);
+        element.value = '0099-02-28T10:00';
         await waitForUpdatesAsync();
-        expect(year.value).toBe('9999');
-        expect(element.years).toContain(9999);
+        expect(pageObject.getDisplayedYear()).toBe(99);
+        expect(pageObject.getYearOptions()[0]).toBe(99);
+        element.value = '9999-12-01T10:00';
+        await waitForUpdatesAsync();
+        expect(pageObject.getDisplayedYear()).toBe(9999);
+        expect(pageObject.getYearOptions()).toContain(9999);
     });
 
     it('navigates the grid across months and clamps page navigation to month end', async () => {
+        element.value = '2024-12-31T14:25';
         element.open = true;
+        await pageObject.waitForPickerLoaded();
+        expect(await pageObject.pressKeyOnDay('2024-12-31', 'ArrowRight')).toBeFalse();
+        expect(pageObject.getGridTabStopDay()).toBe('2025-01-01');
+        element.value = '2024-01-31T14:25';
         await waitForUpdatesAsync();
-        expect(element.handleDayKeydown(new KeyboardEvent('keydown', { key: 'ArrowRight' }), new Date(Date.UTC(2024, 11, 31)))).toBeFalse();
-        await waitForUpdatesAsync();
-        expect(element.focusedDate).toBe('2025-01-01');
-        element.handleDayKeydown(new KeyboardEvent('keydown', { key: 'PageDown' }), new Date(Date.UTC(2024, 0, 31)));
-        await waitForUpdatesAsync();
-        expect(element.focusedDate).toBe('2024-02-29');
-        expect(element.value).toBe('2024-11-13T14:25');
+        await pageObject.pressKeyOnDay('2024-01-31', 'PageDown');
+        expect(pageObject.getGridTabStopDay()).toBe('2024-02-29');
+        expect(element.value).toBe('2024-01-31T14:25');
     });
 
     it('keeps unavailable days focusable for directional navigation but prevents selection', async () => {
@@ -1364,25 +1177,17 @@ describe('FvDateTimePicker', () => {
         element.max = '2024-11-20';
         element.step = '2';
         element.open = true;
-        await waitForPickerLoaded();
-        const key = (date: string, value: string): void => {
-            element.shadowRoot!.querySelector<HTMLButtonElement>(`[data-date="${date}"]`)!
-                .dispatchEvent(new KeyboardEvent('keydown', { key: value, bubbles: true, cancelable: true }));
-        };
-        key('2024-11-12', 'ArrowRight');
-        await waitForUpdatesAsync();
-        const unavailable = element.shadowRoot!.querySelector<HTMLButtonElement>('[data-date="2024-11-13"]')!;
-        expect(element.focusedDate).toBe('2024-11-13');
-        expect(element.shadowRoot!.activeElement).toBe(unavailable);
-        expect(unavailable.getAttribute('aria-disabled')).toBe('true');
-        unavailable.click();
+        await pageObject.waitForPickerLoaded();
+        await pageObject.pressKeyOnDay('2024-11-12', 'ArrowRight');
+        expect(pageObject.getGridTabStopDay()).toBe('2024-11-13');
+        expect(pageObject.getActiveDay()).toBe('2024-11-13');
+        expect(pageObject.isDayDisabled('2024-11-13')).toBeTrue();
+        await pageObject.clickDay('2024-11-13');
         expect(element.value).toBe('2024-11-12');
-        key('2024-11-13', 'ArrowRight');
-        await waitForUpdatesAsync();
-        expect(element.focusedDate).toBe('2024-11-14');
-        key('2024-11-14', 'ArrowLeft');
-        await waitForUpdatesAsync();
-        expect(element.focusedDate).toBe('2024-11-13');
+        await pageObject.pressKeyOnDay('2024-11-13', 'ArrowRight');
+        expect(pageObject.getGridTabStopDay()).toBe('2024-11-14');
+        await pageObject.pressKeyOnDay('2024-11-14', 'ArrowLeft');
+        expect(pageObject.getGridTabStopDay()).toBe('2024-11-13');
     });
 
     it('keeps an enabled grid tab stop when returning to a constrained month without moving header focus', async () => {
@@ -1392,63 +1197,52 @@ describe('FvDateTimePicker', () => {
         element.max = '2024-11-20';
         element.step = '2';
         element.open = true;
-        await waitForPickerLoaded();
-        const month = element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.month')!;
-        month.focus();
-        element.moveMonth(1);
-        await waitForUpdatesAsync();
-        element.moveMonth(-1);
-        await waitForUpdatesAsync();
-        const day = element.shadowRoot!.querySelector<HTMLButtonElement>('.day[tabindex="0"]')!;
-        expect(element.isDayDisabled(new Date(`${day.dataset.date}T00:00Z`))).toBeFalse();
-        expect(day.dataset.date?.startsWith('2024-11-')).toBeTrue();
-        expect(element.shadowRoot!.activeElement).toBe(month);
+        await pageObject.waitForPickerLoaded();
+        pageObject.focusMonthSelect();
+        await pageObject.clickNextMonth();
+        await pageObject.clickPreviousMonth();
+        const tabStopDay = pageObject.getGridTabStopDay()!;
+        expect(pageObject.isDayDisabled(tabStopDay)).toBeFalse();
+        expect(tabStopDay.startsWith('2024-11-')).toBeTrue();
+        expect(pageObject.isMonthSelectFocused()).toBeTrue();
     });
 
     it('shows accessible constraint errors immediately after segment adjustment', async () => {
         element.max = element.value;
         await waitForUpdatesAsync();
-        element.control.setSelectionRange(14, 16);
-        element.control.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
-        await waitForUpdatesAsync();
+        pageObject.setInputSelection(14, 16);
+        await pageObject.pressInputKey('ArrowUp');
         expect(element.validity.rangeOverflow).toBeTrue();
-        expect(element.entryError).not.toBe('');
-        expect(element.control.getAttribute('aria-invalid')).toBe('true');
-        expect(element.control.ariaDescribedByElements).toContain(element.shadowRoot!.querySelector('#entry-error'));
+        expect(pageObject.getEntryErrorText()).not.toBe('');
+        expect(pageObject.getInputAriaInvalid()).toBe('true');
+        expect(pageObject.getInputDescribedByIds()).toContain('entry-error');
     });
 
     it('supports Alt+Down and Escape, restoring field focus', async () => {
-        element.control.setSelectionRange(element.value.length, element.value.length);
-        element.control.dispatchEvent(new KeyboardEvent('keydown', {
-            key: 'ArrowDown', altKey: true, bubbles: true, composed: true
-        }));
-        await waitForUpdatesAsync();
+        pageObject.setInputSelection(element.value.length, element.value.length);
+        await pageObject.pressInputKey('ArrowDown', { altKey: true });
+        await pageObject.waitForPickerLoaded();
         expect(element.open).toBeTrue();
         expect(element.value).toBe('2024-11-13T14:25');
-        expect(element.focusedDate).toBe('2024-11-13');
-        element.handleKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
-        await waitForUpdatesAsync();
+        expect(pageObject.getGridTabStopDay()).toBe('2024-11-13');
+        await pageObject.pressInputKey('Escape');
         expect(element.open).toBeFalse();
-        expect(element.shadowRoot!.activeElement).toBe(element.control);
+        expect(pageObject.isInputFocused()).toBeTrue();
     });
 
     it('lets an open year select consume Escape before dismissing the picker', async () => {
         element.open = true;
         await waitForUpdatesAsync();
-        const year = element.shadowRoot!.querySelector<HTMLElementTagNameMap['nimble-select']>('.year')!;
-        year.open = true;
-        year.dispatchEvent(new KeyboardEvent('keydown', {
-            key: 'Escape', bubbles: true, composed: true, cancelable: true
-        }));
-        await waitForUpdatesAsync();
-        expect(year.open).toBeFalse();
+        await pageObject.openYearSelect();
+        await pageObject.pressEscapeInYearSelect();
+        expect(pageObject.isYearSelectOpen()).toBeFalse();
         expect(element.open).toBeTrue();
     });
 
     it('closes on an outside pointer interaction', async () => {
         element.open = true;
         await waitForUpdatesAsync();
-        document.body.dispatchEvent(new Event('pointerdown', { bubbles: true, composed: true }));
+        await pageObject.pointerDownOutsidePicker();
         expect(element.open).toBeFalse();
     });
 
@@ -1460,10 +1254,11 @@ describe('FvDateTimePicker', () => {
             await waitForUpdatesAsync();
             expect(element.open).toBeFalse();
             if (property === 'readOnly') {
-                expect(element.shadowRoot!.querySelector('.calendar-trigger')).toBeNull();
+                expect(pageObject.isCalendarButtonVisible()).toBeFalse();
             } else {
-                expect(element.trigger.disabled).toBeTrue();
+                expect(pageObject.isCalendarButtonDisabled()).toBeTrue();
             }
+            // No calendar day is reachable while closed, so guard the internal selection entry point directly.
             element.selectDay(new Date(Date.UTC(2024, 0, 1)));
             expect(element.value).toBe('2024-11-13T14:25');
             element.open = true;
@@ -1475,8 +1270,7 @@ describe('FvDateTimePicker', () => {
             element.parentElement!.appendChild(form);
             form.appendChild(element);
             element.required = true;
-            element.control.value = '11/';
-            element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            await pageObject.typeInputText('11/');
             expect(element.checkValidity()).toBeFalse();
             element[property] = true;
             await waitForUpdatesAsync();
@@ -1496,22 +1290,22 @@ describe('FvDateTimePicker', () => {
             <${fvDateTimePickerTag} readonly value="2024-11-13T14:25">Scheduled time</${fvDateTimePickerTag}>
         `);
         element = view.element;
+        pageObject = new FvDateTimePickerPageObject(element);
         disconnect = view.disconnect;
         await view.connect();
         await waitForUpdatesAsync();
-        expect(element.shadowRoot!.querySelector('.calendar-trigger')).toBeNull();
-        expect(element.control.readOnly).toBeTrue();
+        expect(pageObject.isCalendarButtonVisible()).toBeFalse();
+        expect(pageObject.isInputReadOnly()).toBeTrue();
         element.readOnly = false;
         await waitForUpdatesAsync();
-        expect(element.shadowRoot!.querySelector('.calendar-trigger')).toBe(element.trigger);
-        expect(element.trigger.disabled).toBeFalse();
-        element.trigger.click();
-        await waitForUpdatesAsync();
+        expect(pageObject.isCalendarButtonVisible()).toBeTrue();
+        expect(pageObject.isCalendarButtonDisabled()).toBeFalse();
+        await pageObject.clickCalendarButton();
         expect(element.open).toBeTrue();
         element.readOnly = true;
         await waitForUpdatesAsync();
         expect(element.open).toBeFalse();
-        expect(element.shadowRoot!.querySelector('.calendar-trigger')).toBeNull();
+        expect(pageObject.isCalendarButtonVisible()).toBeFalse();
     });
 
     it('uses the standard field appearances and underline default', () => {
@@ -1530,20 +1324,18 @@ describe('FvDateTimePicker', () => {
         form.appendChild(element);
         element.open = true;
         await waitForUpdatesAsync();
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024');
-        expect(element.shadowRoot!.querySelector('#time')).toBeNull();
-        expect(element.trigger.ariaLabel).toBe('Choose date');
-        element.shadowRoot!.querySelector<HTMLButtonElement>('[data-date="2024-11-21"]')!.click();
-        await waitForUpdatesAsync();
+        expect(pageObject.getInputText()).toBe('11/13/2024');
+        expect(pageObject.hasTimeField()).toBeFalse();
+        expect(pageObject.getCalendarButtonLabel()).toBe('Choose date');
+        await pageObject.clickDay('2024-11-21');
         expect(element.value).toBe('2024-11-21');
         expect(new FormData(form).get('scheduled')).toBe('2024-11-21');
-        element.control.value = '02/29/2024';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await pageObject.typeInputText('02/29/2024');
         expect(element.value).toBe('2024-02-29');
         form.reset();
         await waitForUpdatesAsync();
         expect(element.value).toBe('2024-11-13');
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024');
+        expect(pageObject.getInputText()).toBe('11/13/2024');
     });
 
     it('clears incompatible values on mode changes without inventing time or emitting events', async () => {
@@ -1614,8 +1406,8 @@ describe('FvDateTimePicker', () => {
             expect(element.validity.rangeOverflow).toBe(native.validity.rangeOverflow);
             expect(element.validity.stepMismatch).toBe(native.validity.stepMismatch);
             expect(element.checkValidity()).toBe(native.checkValidity());
-            const display = element.control.value;
-            element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+            const display = pageObject.getInputText();
+            await pageObject.typeInputText(display);
             expect(element.value).withContext(display).toBe(native.value);
         });
     });
@@ -1642,11 +1434,12 @@ describe('FvDateTimePicker', () => {
         element.open = true;
         await waitForUpdatesAsync();
         for (const date of ['2024-11-09', '2024-11-11', '2024-11-21']) {
-            expect(element.shadowRoot!.querySelector(`[data-date="${date}"]`)!.getAttribute('aria-disabled')).withContext(date).toBe('true');
-            element.selectDay(new Date(`${date}T00:00Z`));
+            expect(pageObject.isDayDisabled(date)).withContext(date).toBeTrue();
+            // eslint-disable-next-line no-await-in-loop
+            await pageObject.clickDay(date);
             expect(element.value).toBe('2024-11-12');
         }
-        element.shadowRoot!.querySelector<HTMLButtonElement>('[data-date="2024-11-14"]')!.click();
+        await pageObject.clickDay('2024-11-14');
         expect(element.value).toBe('2024-11-14');
     });
 
@@ -1655,18 +1448,14 @@ describe('FvDateTimePicker', () => {
         element.parentElement!.appendChild(form);
         form.appendChild(element);
         element.open = true;
-        await waitForUpdatesAsync();
-        const time = element.timeField!;
-        time.value = '09:';
-        time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
+        await pageObject.waitForPickerLoaded();
+        await pageObject.typeTimeText('09:');
         expect(element.value).toBe('');
         expect(element.validity.badInput).toBeTrue();
         expect(element.checkValidity()).toBeFalse();
         expect(new FormData(form).get('scheduled')).toBe('');
-        expect(time.checkValidity()).toBeFalse();
-        time.value = '09:07 AM';
-        time.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(pageObject.isTimeValid()).toBeFalse();
+        await pageObject.typeTimeText('09:07 AM');
         expect(element.value).toBe('2024-11-13T09:07');
         expect(element.checkValidity()).toBeTrue();
     });
@@ -1678,35 +1467,27 @@ describe('FvDateTimePicker', () => {
         element.parentElement!.appendChild(form);
         form.appendChild(element);
         await waitForUpdatesAsync();
-        element.control.value = '11/';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await pageObject.typeInputText('11/');
         expect(element.validity.badInput).toBeTrue();
         form.reset();
         await waitForUpdatesAsync();
         expect(element.value).toBe('');
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('');
+        expect(pageObject.getInputText()).toBe('');
         expect(element.checkValidity()).toBeTrue();
     });
 
     it('preserves programmatic updates when dismissing a Time field with a pending native change', async () => {
         element.open = true;
-        await waitForUpdatesAsync();
-        const field = element.timeField!;
-        const control = field.control;
-        control.value = '09:07 AM';
-        control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await pageObject.waitForPickerLoaded();
+        await pageObject.typeTimeText('09:07 AM');
         expect(element.value).toBe('2024-11-13T09:07');
         element.value = '2025-01-01T10:00';
-        expect(field.value.replace(/\s/g, ' ')).toBe('10:00 AM');
-        expect(control.value.replace(/\s/g, ' ')).toBe('10:00 AM');
+        expect(pageObject.getTimeText()).toBe('10:00 AM');
         // Native change runs synchronously during blur, before queued bindings settle.
-        spyOn(control, 'blur').and.callFake(() => {
-            control.dispatchEvent(new Event('change', { bubbles: true }));
-        });
-        element.closePicker();
-        await waitForUpdatesAsync();
+        pageObject.simulateTimeChangeOnBlur();
+        await pageObject.pressInputKey('Escape');
         expect(element.value).toBe('2025-01-01T10:00');
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('01/01/2025 10:00 AM');
+        expect(pageObject.getInputText()).toBe('01/01/2025 10:00 AM');
     });
 
     parameterizeSpec([
@@ -1718,19 +1499,18 @@ describe('FvDateTimePicker', () => {
         spec(`commits ${name} without a native change event`, async () => {
             const change = jasmine.createSpy('change');
             element.addEventListener('change', change);
-            element.control.select();
-            const paste = new ClipboardEvent('paste', { bubbles: true, cancelable: true, composed: true });
-            Object.defineProperty(paste, 'clipboardData', { value: { getData: () => text } });
-            element.control.dispatchEvent(paste);
+            pageObject.selectAllInputText();
+            await pageObject.pasteIntoInput(text);
             expect(change).not.toHaveBeenCalled();
-            element.control.dispatchEvent(enter
-                ? new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
-                : new FocusEvent('blur'));
-            await waitForUpdatesAsync();
+            if (enter) {
+                await pageObject.pressInputKey('Enter');
+            } else {
+                await pageObject.blurInput();
+            }
             expect(change).toHaveBeenCalledTimes(1);
             if (text.includes('02-30')) {
                 expect(element.value).toBe('');
-                expect(element.entryError).not.toBe('');
+                expect(pageObject.getEntryErrorText()).not.toBe('');
             } else {
                 expect(element.value).toBe(text);
             }
@@ -1741,78 +1521,64 @@ describe('FvDateTimePicker', () => {
         { name: 'main', popup: false },
         { name: 'Time', popup: true }
     ], (spec, name, { popup }) => {
+        const entry = {
+            type: async (text: string, commit = false): Promise<void> => (popup ? await pageObject.typeTimeText(text, { commit }) : await pageObject.typeInputText(text, { commit })),
+            press: async (key: string): Promise<boolean> => (popup ? await pageObject.pressTimeKey(key) : await pageObject.pressInputKey(key)),
+            leave: async (): Promise<void> => (popup ? await pageObject.leaveTimeInput() : await pageObject.leaveInput())
+        };
+
         spec(`commits ordinary ${name} typing on Enter once, including a later native change`, async () => {
             element.value = '';
             element.open = popup;
-            await waitForUpdatesAsync();
-            const control = popup ? element.timeField!.control : element.control;
+            await pageObject.waitForPickerLoaded();
             const change = jasmine.createSpy('change');
             element.addEventListener('change', change);
-            control.value = popup ? '02:25' : '11/13/2024 02:25';
-            control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-            control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
-            await waitForUpdatesAsync();
-            expect(element.value).toBe(`${popup ? element.dateKey(calendarToday()) : '2024-11-13'}T02:25`);
+            await entry.type(popup ? '02:25' : '11/13/2024 02:25');
+            await entry.press('Enter');
+            expect(element.value).toBe(`${popup ? todayKey() : '2024-11-13'}T02:25`);
             expect(element.checkValidity()).toBeTrue();
             expect(change).toHaveBeenCalledTimes(1);
-            control.dispatchEvent(new Event('change', { bubbles: true }));
-            control.dispatchEvent(new FocusEvent('blur'));
-            await waitForUpdatesAsync();
+            await entry.leave();
             expect(change).toHaveBeenCalledTimes(1);
         });
 
         spec(`keeps successive ${name} edits independent across native and Enter commits`, async () => {
             element.open = popup;
-            await waitForUpdatesAsync();
-            const control = popup ? element.timeField!.control : element.control;
+            await pageObject.waitForPickerLoaded();
             const change = jasmine.createSpy('change');
             element.addEventListener('change', change);
-            control.value = popup ? '09:07 AM' : '11/13/2024 09:07 AM';
-            control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-            control.dispatchEvent(new Event('change', { bubbles: true }));
-            await waitForUpdatesAsync();
+            await entry.type(popup ? '09:07 AM' : '11/13/2024 09:07 AM', true);
             expect(element.value).toBe('2024-11-13T09:07');
             expect(element.checkValidity()).toBeTrue();
             expect(change).toHaveBeenCalledTimes(1);
-            control.dispatchEvent(new Event('change', { bubbles: true }));
-            control.dispatchEvent(new FocusEvent('blur'));
-            await waitForUpdatesAsync();
+            await entry.leave();
             expect(change).toHaveBeenCalledTimes(1);
 
-            control.value = popup ? '10:08 AM' : '11/13/2024 10:08 AM';
-            control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-            control.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
-            await waitForUpdatesAsync();
+            await entry.type(popup ? '10:08 AM' : '11/13/2024 10:08 AM');
+            await entry.press('Enter');
             expect(element.value).toBe('2024-11-13T10:08');
             expect(element.checkValidity()).toBeTrue();
             expect(change).toHaveBeenCalledTimes(2);
-            control.dispatchEvent(new Event('change', { bubbles: true }));
-            control.dispatchEvent(new FocusEvent('blur'));
-            await waitForUpdatesAsync();
+            await entry.leave();
             expect(change).toHaveBeenCalledTimes(2);
         });
     });
 
-    it('does not let a pending native change overwrite a programmatic update', () => {
-        element.control.value = '11/';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    it('does not let a pending native change overwrite a programmatic update', async () => {
+        await pageObject.typeInputText('11/');
         element.step = '0.001';
         element.value = '2024-11-13T14:25:37.123';
-        element.control.dispatchEvent(new Event('change', { bubbles: true }));
-        expect(element.value).toBe('2024-11-13T14:25:37.123');
+        await pageObject.leaveInput();
         expect(element.checkValidity()).toBeTrue();
     });
 
     it('preserves seconds precision while editing a value that needs it', async () => {
         element.value = '2024-11-13T14:25:37';
         await waitForUpdatesAsync();
-        element.control.value = '11/13/2024 02:25:3';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        await waitForUpdatesAsync();
+        await pageObject.typeInputText('11/13/2024 02:25:3');
         expect(element.value).toBe('');
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('11/13/2024 02:25:3');
-        element.control.value = '11/13/2024 02:25:38 PM';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(pageObject.getInputText()).toBe('11/13/2024 02:25:3');
+        await pageObject.typeInputText('11/13/2024 02:25:38 PM');
         expect(element.value).toBe('2024-11-13T14:25:38');
         expect(element.validity.badInput).toBeFalse();
     });
@@ -1822,7 +1588,7 @@ describe('FvDateTimePicker', () => {
         await waitForUpdatesAsync();
         expect(element.value).toBe('2024-03-10T02:30');
         expect(element.checkValidity()).toBeTrue();
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        await pageObject.typeInputText(pageObject.getInputText());
         expect(element.value).toBe('2024-03-10T02:30');
     });
 
@@ -1830,29 +1596,26 @@ describe('FvDateTimePicker', () => {
         lang.setValueFor(element, 'de-DE');
         element.open = true;
         await waitForUpdatesAsync();
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('13.11.2024 14:25');
-        expect(element.timeField!.value).toBe('14:25');
-        expect(element.months[2]).toBe('März');
-        expect(element.weekdays[0]!.name).toBe(element.firstDayOfWeek === 1 ? 'Montag' : 'Sonntag');
-        element.control.value = '29.02.2024 23:59';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(pageObject.getInputText()).toBe('13.11.2024 14:25');
+        expect(pageObject.getTimeText()).toBe('14:25');
+        expect(pageObject.getMonthNames()[2]).toBe('März');
+        expect(['Montag', 'Sonntag']).toContain(pageObject.getWeekdayNames()[0]!);
+        await pageObject.typeInputText('29.02.2024 23:59');
         expect(element.value).toBe('2024-02-29T23:59');
         lang.setValueFor(element, 'en-US');
         await waitForUpdatesAsync();
-        expect(element.control.value.replace(/\s/g, ' ')).toBe('02/29/2024 11:59 PM');
+        expect(pageObject.getInputText()).toBe('02/29/2024 11:59 PM');
     });
 
     it('uses locale week starts for Home/End and mirrors horizontal arrows in RTL', async () => {
         lang.setValueFor(element, 'de-DE');
         element.open = true;
-        await waitForUpdatesAsync();
-        element.handleDayKeydown(new KeyboardEvent('keydown', { key: 'Home' }), new Date('2024-11-13T00:00Z'));
-        await waitForUpdatesAsync();
-        expect(element.focusedDate).toBe(element.firstDayOfWeek === 1 ? '2024-11-11' : '2024-11-10');
+        await pageObject.waitForPickerLoaded();
+        await pageObject.pressKeyOnDay('2024-11-13', 'Home');
+        expect(pageObject.getGridTabStopDay()).toBe(pageObject.getWeekdayNames()[0] === 'Montag' ? '2024-11-11' : '2024-11-10');
         direction.setValueFor(element, Direction.rtl);
-        element.handleDayKeydown(new KeyboardEvent('keydown', { key: 'ArrowLeft' }), new Date('2024-11-13T00:00Z'));
-        await waitForUpdatesAsync();
-        expect(element.focusedDate).toBe('2024-11-14');
+        await pageObject.pressKeyOnDay('2024-11-13', 'ArrowLeft');
+        expect(pageObject.getGridTabStopDay()).toBe('2024-11-14');
     });
 
     it('forwards supported entry attributes and all global ARIA properties', async () => {
@@ -1864,13 +1627,13 @@ describe('FvDateTimePicker', () => {
         element.ariaControls = 'related';
         element.ariaKeyshortcuts = 'Alt+ArrowDown';
         await waitForUpdatesAsync();
-        expect(element.control.placeholder).toBe('Choose a scheduled date');
-        expect(element.control.getAttribute('autocomplete')).toBe('bday');
-        expect(element.control.getAttribute('aria-label')).toBe('Appointment');
-        expect(element.control.getAttribute('aria-details')).toBe('details');
-        expect(element.control.getAttribute('aria-errormessage')).toBe('error');
-        expect(element.control.getAttribute('aria-controls')).toBe('related');
-        expect(element.control.getAttribute('aria-keyshortcuts')).toBe('Alt+ArrowDown');
+        expect(pageObject.getInputPlaceholder()).toBe('Choose a scheduled date');
+        expect(pageObject.getInputAutocomplete()).toBe('bday');
+        expect(pageObject.getInputAriaLabel()).toBe('Appointment');
+        expect(pageObject.getInputAriaDetails()).toBe('details');
+        expect(pageObject.getInputAriaErrormessage()).toBe('error');
+        expect(pageObject.getInputAriaControls()).toBe('related');
+        expect(pageObject.getInputAriaKeyshortcuts()).toBe('Alt+ArrowDown');
     });
 
     it('supports the Nimble label-provider localization pattern', async () => {
@@ -1884,10 +1647,9 @@ describe('FvDateTimePicker', () => {
         themeProvider.appendChild(element);
         element.open = true;
         await waitForUpdatesAsync();
-        expect(element.trigger.ariaLabel).toBe('Datum und Uhrzeit auswählen');
-        expect(element.timeField!.textContent).toContain('Uhrzeit');
-        element.control.value = '11/';
-        element.control.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        expect(pageObject.getCalendarButtonLabel()).toBe('Datum und Uhrzeit auswählen');
+        expect(pageObject.getTimeLabelText()).toContain('Uhrzeit');
+        await pageObject.typeInputText('11/');
         expect(element.validationMessage).toBe('Datum und Uhrzeit eingeben.');
     });
 });
