@@ -1,0 +1,50 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as dashboardCardStories from './fv-dashboard-card.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+
+<Meta of={dashboardCardStories} />
+<Title of={dashboardCardStories} />
+
+The Fv dashboard card provides a consistent layout for resource state, key metrics,
+supporting context, and footer content.
+
+Use the optional `icon`, `context`, `title`, `subtitle`, `status`, `actions`, `supporting`, and `footer` slots to
+build cards around your data. The default slot is the primary content area. Empty
+optional regions are removed from the layout.
+Wrap slot content in elements, including text in the default slot, so the card
+can detect and display it.
+
+<Canvas of={dashboardCardStories.dashboardCard} />
+
+Use the controls to configure one card. The text controls populate their named
+slots; clear a field to remove its content. Select controls choose example content
+for the icon, status, actions, and default slot. Choose `hero` under `layout` to
+explore the hero layout.
+
+<Controls of={dashboardCardStories.dashboardCard} />
+
+The story uses slotted content for the progress bar, tinted chips, and inset panel.
+The component owns the surface, typography, spacing, icon alignment, and action wrapping.
+
+| Attribute | Values | Default |
+| --- | --- | --- |
+| `layout` | `standard`, `hero` | `standard` |
+| `corners` | `rounded`, `square` | `rounded` |
+| `severity` | `none`, `critical`, `warning`, `information`, `success` | `none` |
+
+Severity controls the status border and icon color independently of layout.
+Use text as well as color to communicate status. Put status indicators in `status`
+and interactive controls directly in `actions`; no layout wrapper is needed.
+Headings retain the semantic level supplied by the consumer.
+
+## Examples
+
+These examples combine standard and hero cards with status chips, progress, and
+inset content. The example buttons illustrate placement; applications supply
+their own actions.
+
+<Canvas of={dashboardCardStories.examples} />
+
+## API
+
+<ComponentApisLink />
