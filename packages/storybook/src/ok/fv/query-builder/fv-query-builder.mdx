@@ -142,6 +142,8 @@ The builder does not execute queries. An empty query document is valid and means
 
 **Ask Nigel** is a ghost button in the query editor heading, 8px above the editor outline. Clicking it shows a Spright chat input below the button. Sending a prompt emits `query-ai-request` with the trimmed prompt text and a copy of the current draft. The host application can then set `aiQueryPreview` to a generated query document for review in the same popover. The builder does not call an AI service or save generated queries.
 
+The prompt placeholder combines the localized description and example so that the input has an accessible name.
+
 ## Visual hierarchy
 
 The **Queries** split button uses ghost appearance. The action split button uses accent-filled appearance, with its primary action and menu alternatives kept beside the **Cancel** button. In the saved-query view, the **Name** field and **Ask Nigel** button share a row, and the chat input uses Spright styling. Delete opens a modal confirmation dialog.

@@ -16,9 +16,6 @@ declare global {
  * A Spright component for composing and sending a chat message
  */
 export class ChatInput extends mixinErrorPattern(FoundationElement) {
-    @attr({ attribute: 'aria-label' })
-    public override ariaLabel: string | null = null;
-
     @attr
     public placeholder?: string;
 

@@ -220,8 +220,7 @@ export const template = html<FvQueryBuilder>`
                                 <${chatInputTag}
                                     class="ai-prompt-input"
                                     data-control="ai-prompt"
-                                    aria-label="${x => x.labels.aiPromptDescription}"
-                                    placeholder="${x => x.labels.aiPromptPlaceholder}"
+                                    placeholder="${x => `${x.labels.aiPromptDescription}: ${x.labels.aiPromptPlaceholder}`}"
                                     ?inert="${x => x.isEditorDisabled}"
                                     @send="${(x, c) => x.handleAiPromptSend(c.event)}"
                                 ></${chatInputTag}>

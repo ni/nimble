@@ -18,7 +18,6 @@ export const template = html<ChatInput>`
     <textarea
         ${ref('textArea')}
         placeholder="${x => x.placeholder}"
-        aria-label="${x => x.ariaLabel}"
         rows="1"
         tabindex="${x => x.tabIndex}"
         maxlength="${x => x.maxLength}"

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Forward chat input accessible labels to the textarea.",
-  "packageName": "@ni/spright-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

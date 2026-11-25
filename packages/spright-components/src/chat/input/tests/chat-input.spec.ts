@@ -54,19 +54,6 @@ describe('ChatInput', () => {
         expect(page.isTextAreaFocused()).toBeTrue();
     });
 
-    it('forwards the accessible label to the textarea and updates it', async () => {
-        element.setAttribute('aria-label', 'Initial prompt');
-        await connect();
-        const textarea = element.shadowRoot?.querySelector('textarea');
-        expect(textarea?.getAttribute('aria-label')).toBe('Initial prompt');
-        element.setAttribute('aria-label', 'Localized prompt');
-        processUpdates();
-        expect(textarea?.getAttribute('aria-label')).toBe('Localized prompt');
-        element.removeAttribute('aria-label');
-        processUpdates();
-        expect(textarea?.hasAttribute('aria-label')).toBeFalse();
-    });
-
     it('to processing state enables stop button', async () => {
         await connect();
         element.processing = true;
