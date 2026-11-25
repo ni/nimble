@@ -22,7 +22,10 @@ describe('FvMultiSelect', () => {
         const loaded = element.region.initialLayoutComplete
             ? Promise.resolve()
             : waitForEvent(element.region, 'loaded');
-        query<HTMLButtonElement>('.control').click();
+        const control = query<HTMLButtonElement>('.control');
+        // HTMLElement.click() does not perform the focus step of a pointer click.
+        control.focus();
+        control.click();
         await loaded;
         await waitForUpdatesAsync();
         expect(element.shadowRoot?.activeElement).toBe(
@@ -67,6 +70,35 @@ describe('FvMultiSelect', () => {
 
     it('registers the custom element', () => {
         expect(document.createElement(fvMultiSelectTag)).toBeInstanceOf(FvMultiSelect);
+    });
+
+    it('exposes and updates the invalid state on its focusable controls', async () => {
+        element.setAttribute('aria-invalid', 'true');
+        await waitForUpdatesAsync();
+        expect(query('.control').getAttribute('aria-invalid')).toBe('true');
+        expect(query('.filter-input').getAttribute('aria-invalid')).toBe('true');
+        expect(query('.listbox').getAttribute('aria-invalid')).toBe('true');
+        element.removeAttribute('aria-invalid');
+        await waitForUpdatesAsync();
+        expect(query('.control').hasAttribute('aria-invalid')).toBeFalse();
+    });
+
+    it('updates selected labels and options while preserving order, duplicates and missing values', async () => {
+        element.options = [
+            { value: 'a', label: 'First' },
+            { value: 'a', label: 'Second' },
+            { value: 'b', label: 'Other' }
+        ];
+        element.selectedValues = ['b', 'missing', 'a', 'a'];
+        await waitForUpdatesAsync();
+        expect(element.displayValue).toBe('Other, missing, First, First');
+        expect(element.shadowRoot?.querySelectorAll('[role="option"][aria-selected="true"]').length).toBe(3);
+
+        element.options = [{ value: 'b', label: 'Updated' }, { value: 'a', label: 'New' }];
+        element.selectedValues = ['a'];
+        await waitForUpdatesAsync();
+        expect(element.displayValue).toBe('New');
+        expect(element.shadowRoot?.querySelectorAll('[role="option"][aria-selected="true"]').length).toBe(1);
     });
 
     it('delegates host focus to the trigger without opening the popup', async () => {

@@ -47,6 +47,7 @@
     "@ni/fast-web-utilities": "^10.1.0",
     "@ni/nimble-components": "^35.17.4",
     "@ni/spright-components": "^7.1.4",
+    "json-schema-library": "^11.6.16",
     "tslib": "^2.2.0"
   },
   "devDependencies": {

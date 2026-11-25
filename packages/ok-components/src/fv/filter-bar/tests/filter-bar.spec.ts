@@ -82,6 +82,40 @@ describe('FvFilterBar', () => {
         expect(element.shadowRoot?.querySelector('.filter-bar-clear')).toBeNull();
     });
 
+    it('removes all previous tokens when a nested query is replaced by one condition', async () => {
+        ({ element, connect, disconnect } = await setup());
+        element.query = {
+            version: 1,
+            root: {
+                kind: 'group',
+                combinator: 'and',
+                children: [
+                    { kind: 'predicate', fieldId: 'Status', operatorId: 'Is', value: 'Available' },
+                    {
+                        kind: 'group',
+                        combinator: 'or',
+                        children: [
+                            { kind: 'predicate', fieldId: 'Workspace', operatorId: 'Is not', value: 'Default' },
+                            { kind: 'predicate', fieldId: 'Name', operatorId: 'Is', value: 'as' }
+                        ]
+                    }
+                ]
+            }
+        };
+        await connect();
+
+        element.query = {
+            version: 1,
+            root: { kind: 'predicate', fieldId: 'Name', operatorId: 'Is', value: 'asd' }
+        };
+        await waitForUpdatesAsync();
+
+        expect(element.expression).toBe('Name Is asd');
+        expect(element.shadowRoot?.querySelector('.filter-bar-expression')?.textContent).toBe('Name Is asd');
+        expect(element.shadowRoot?.querySelectorAll('.query-expression').length).toBe(1);
+        expect(element.shadowRoot?.querySelectorAll('.logical-operator, .compound-expression-container').length).toBe(0);
+    });
+
     it('updates the hover title when a definition arrives after an initially empty query', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();

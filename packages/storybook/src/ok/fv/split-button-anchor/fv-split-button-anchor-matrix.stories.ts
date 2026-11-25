@@ -65,6 +65,7 @@ export const statesThemeMatrix: StoryFn = createMatrixThemeStory(html`
         ${component('', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.default, true)}
         ${component('', FvSplitButtonAnchorAppearance.block, FvSplitButtonAnchorAppearanceVariant.default, true)}
         ${component('', FvSplitButtonAnchorAppearance.ghost, FvSplitButtonAnchorAppearanceVariant.default, true)}
+        ${component('accent block', FvSplitButtonAnchorAppearance.block, FvSplitButtonAnchorAppearanceVariant.accent, true)}
     </div>
 `);
 
@@ -138,7 +139,9 @@ export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
                 ['ghost', FvSplitButtonAnchorAppearance.ghost, FvSplitButtonAnchorAppearanceVariant.default],
                 ['accent outline', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.accent]
             ],
-            hoverActive: [],
+            hoverActive: [
+                ['accent block', FvSplitButtonAnchorAppearance.block, FvSplitButtonAnchorAppearanceVariant.accent]
+            ],
             active: [],
             focus: [
                 ['outline', FvSplitButtonAnchorAppearance.outline, FvSplitButtonAnchorAppearanceVariant.default],

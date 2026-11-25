@@ -55,6 +55,10 @@ describe('FvToolbar', () => {
     }
 
     async function expectConfigurationError(change: () => void, message: RegExp): Promise<void> {
+        // Flush any existing layout frame before intercepting the next one.
+        await new Promise<void>(resolve => {
+            requestAnimationFrame(() => resolve());
+        });
         const callbacks: FrameRequestCallback[] = [];
         const frameSpy = spyOn(window, 'requestAnimationFrame').and.callFake(callback => {
             callbacks.push(callback);
@@ -97,6 +101,8 @@ describe('FvToolbar', () => {
     });
 
     it('rejects a comment-only action without an accessible label', async () => {
+        element.style.width = '999px';
+        await Promise.resolve();
         await expectConfigurationError(() => {
             buttons[0]!.setAttribute('data-responsive', 'label overflow');
             buttons[0]!.replaceChildren(document.createComment('internal note'));

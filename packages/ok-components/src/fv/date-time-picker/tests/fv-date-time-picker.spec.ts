@@ -95,6 +95,38 @@ describe('FvDateTimePicker', () => {
         expect(pageObject.getGridTabStopDay()).toBe('2024-11-13');
     });
 
+    it('opens and closes the calendar in the top layer', async () => {
+        element.trigger.click();
+        await pageObject.waitForPickerLoaded();
+        const region = element.region!;
+        expect(region.matches(':popover-open')).toBeTrue();
+        element.open = false;
+        await waitForUpdatesAsync();
+        expect(region.matches(':popover-open')).toBeFalse();
+        element.open = true;
+        await pageObject.waitForPickerLoaded();
+        expect(element.region!.matches(':popover-open')).toBeTrue();
+    });
+
+    it('updates the calendar when a containing shadow-root scroller moves', async () => {
+        const host = document.createElement('div');
+        const root = host.attachShadow({ mode: 'open' });
+        const scroller = document.createElement('div');
+        element.parentElement!.appendChild(host);
+        root.appendChild(scroller);
+        scroller.appendChild(element);
+        element.trigger.click();
+        await pageObject.waitForPickerLoaded();
+        const update = spyOn(element.region!, 'update').and.callThrough();
+        scroller.dispatchEvent(new Event('scroll'));
+        expect(update).toHaveBeenCalled();
+        element.open = false;
+        await waitForUpdatesAsync();
+        update.calls.reset();
+        scroller.dispatchEvent(new Event('scroll'));
+        expect(update).not.toHaveBeenCalled();
+    });
+
     it('moves focus into the calendar when Alt+Down opens it from the input', async () => {
         pageObject.focusInput();
         await pageObject.pressInputKey('ArrowDown', { altKey: true });
